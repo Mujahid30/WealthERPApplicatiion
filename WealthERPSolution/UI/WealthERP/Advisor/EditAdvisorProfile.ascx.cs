@@ -36,9 +36,11 @@ namespace WealthERP.Advisor
         System.Drawing.Bitmap final_image = null;
         System.Drawing.Graphics graphic = null;
         MemoryStream ms = null;
+        DataSet getAllLoggedinIPs = new DataSet();
 
         string path;
         string UploadImagePath;
+        DataSet dsGetAllAdviserIPFromIPPool = new DataSet();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,6 +61,7 @@ namespace WealthERP.Advisor
                     advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                     rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                 }
+
                 //RegularExpressionValidator3.Controls.Add(
                 if (!IsPostBack)
                 {
@@ -159,7 +162,15 @@ namespace WealthERP.Advisor
 
                     if (advisorVo.Designation != null)
                         textDesignation.Text = advisorVo.Designation.ToString();
+
+                    if (advisorVo.IsIPEnable == 1)
+                        chkIsIPEnable.Checked = true;
+                    else
+                        chkIsIPEnable.Checked = false;
+
+                    
                 }
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -396,6 +407,11 @@ namespace WealthERP.Advisor
             int fisd = 0;
             int fstd = 0;
             int fphone = 0;
+            bool RecordStatus = false;
+            AdviserIPVo adviserIPVo = new AdviserIPVo();
+            string IPAddress = string.Empty;
+            int createdById = 0;
+            
             try
             {
                 if (Validation())
@@ -512,7 +528,7 @@ namespace WealthERP.Advisor
                     advisorVo.OrganizationName = txtOrganizationName.Text.Trim().ToString();
                     if (txtISD1.Text.Trim() == "")
                     {
-                        advisorVo.Phone1Isd = 0;
+                        advisorVo.Phone1Isd = 0; 
                         newRmVo.OfficePhoneDirectIsd = 0;
                     }
                     else
@@ -589,16 +605,49 @@ namespace WealthERP.Advisor
                         advisorVo.State = null;
                     Session["advisorVo"] = (AdvisorVo)advisorVo;
 
-                    //userVo.Email = txtEmail.Text.Trim().ToString();
-                    //userVo.FirstName = txtFirstName.Text.Trim().ToString();
-                    //userVo.LastName = txtLastName.Text.Trim().ToString();
-                    //userVo.MiddleName = txtMiddleName.Text.Trim().ToString();
-                    //userVo.UserId = advisorVo.UserId;
+                    if (chkIsIPEnable.Checked == true)
+                        advisorVo.IsIPEnable = 1;
+                    else
+                        advisorVo.IsIPEnable = 0;
+
+
+                    
+                    
+                    
 
                     // Updating Adviser , User and RM
                     advisorBo.UpdateAdvisorUser(advisorVo);
                     //userBo.UpdateUser(userVo);
                     //advisorStaffBo.UpdateStaff(newRmVo);
+
+                    if (advisorVo.IsIPEnable == 1)
+                    {
+                        int i = 0;
+                        IPAddress = HttpContext.Current.Request.UserHostAddress.ToString();
+                        dsGetAllAdviserIPFromIPPool = advisorBo.GetAdviserIPPoolsInformation(advisorVo.advisorId);
+                        if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
+                        {
+                            foreach (DataRow dr in dsGetAllAdviserIPFromIPPool.Tables[0].Rows)
+                            {
+                                if (IPAddress == dr["AIPP_IP"].ToString())
+                                {
+                                    i = 1;
+                                }
+                            }
+                            //DataRow[] drGetAdviserIP = dsGetAllAdviserIPFromIPPool.Tables[0].Select("AIPP_IP=" + IPAddress);
+
+                        }
+                        if (i != 1)
+                        {
+                            if (IPAddress != "")
+                                adviserIPVo.AdviserIPs = IPAddress;
+                            adviserIPVo.AdviserIPComments = "Adviser's Default IP";
+                            adviserIPVo.advisorId = advisorVo.advisorId;
+                            createdById = userVo.UserId;
+
+                            RecordStatus = advisorBo.CreateAdviserIPPools(adviserIPVo, createdById);
+                        }
+                    }
 
 
                     //rbtnYes.Enabled = false;

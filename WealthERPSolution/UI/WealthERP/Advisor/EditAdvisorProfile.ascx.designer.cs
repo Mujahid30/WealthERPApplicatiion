@@ -644,6 +644,24 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.RadioButton rbtnAssModelTypeNo;
         
         /// <summary>
+        /// lblisIPEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblisIPEnable;
+        
+        /// <summary>
+        /// chkIsIPEnable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsIPEnable;
+        
+        /// <summary>
         /// AdviserLogoHdr control.
         /// </summary>
         /// <remarks>
