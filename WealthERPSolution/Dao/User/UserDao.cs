@@ -936,8 +936,8 @@ namespace DaoUser
         /// <param name="userId"></param>
         /// <param name="roleId"></param>
         /// <returns></returns>
-        public void GetUserTheme(int userTypeId, string userType,out string theme)
-        {            
+        public void GetUserTheme(int userTypeId, string userType, out string theme)
+        {
             Database db;
             DbCommand getUserThemeCmd;
             try
@@ -965,14 +965,178 @@ namespace DaoUser
                 functionInfo.Add("Method", "UserDao.cs:GetUserTheme()");
                 object[] objects = new object[2];
                 objects[0] = userTypeId;
-                objects[1] = userType;               
+                objects[1] = userType;
                 functionInfo = exBase.AddObject(functionInfo, objects);
                 exBase.AdditionalInformation = functionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-          
+        }
+
+        public bool CheckIPAvailabilityInIPPool(int adviserID,string userCurrentIPAddress)
+        {
+            bool bResult;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_CheckIPAvailabilityInIPPool");
+                db.AddInParameter(chkAvailabilityCmd, "@A_AdviserID", DbType.Int32, adviserID);
+                db.AddInParameter(chkAvailabilityCmd, "@UserCurrentIP", DbType.String, userCurrentIPAddress);
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+                if (rowCount > 0)
+                {
+                    bResult = true;
+                }
+                else
+                {
+                    bResult = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:CheckIPAvailabilityInIPPool(int adviserID,string userCurrentIPAddress)");
+
+
+                object[] objects = new object[3];
+                objects[0] = adviserID;
+                objects[1] = userCurrentIPAddress;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
 
         }
+
+        /// <summary>
+        /// Login details validation for a user..
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="adviserID"></param>
+        /// <param name="userLoginId"></param>
+        /// <param name="userCurrentIPAddress"></param>
+        /// <param name="isIPEnable"></param>
+        /// <returns></returns>
+
+        public Hashtable UserValidationForIPnonIPUsers(int adviserID, string userLoginId, string userPassword, string userCurrentIPAddress, bool isIPEnable)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            string userDBPassWord = string.Empty;
+            string actualPassWord = string.Empty;
+            Hashtable hashUserAuthenticationDetails = new Hashtable();
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkAvailabilityCmd = db.GetStoredProcCommand("SP_ValidateUserLoginDetails");
+                db.AddInParameter(chkAvailabilityCmd, "@A_AdviserID", DbType.Int32, adviserID);
+                db.AddInParameter(chkAvailabilityCmd, "@User_LoginId", DbType.String, userLoginId);
+                db.AddInParameter(chkAvailabilityCmd, "@User_IPAddress", DbType.String, userCurrentIPAddress);
+                
+                if(isIPEnable == false)
+                    db.AddInParameter(chkAvailabilityCmd, "@IPEnableFlag", DbType.Int32, 0);
+                else
+                    db.AddInParameter(chkAvailabilityCmd, "@IPEnableFlag", DbType.Int32, 1);
+
+                ds = db.ExecuteDataSet(chkAvailabilityCmd);
+                //Object userPassword = db.ExecuteScalar(chkAvailabilityCmd);
+                rowCount = ds.Tables[0].Rows.Count;
+
+                if (ds.Tables[0].Rows.Count != 0)
+                {
+                    userDBPassWord = ds.Tables[0].Rows[0]["U_Password"].ToString().Trim();
+                    if ((userDBPassWord != "") && (userDBPassWord != string.Empty))
+                    {
+                        try
+                        {
+                            actualPassWord = Encryption.Decrypt(userDBPassWord.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
+                }
+                if (isIPEnable == true)
+                {
+                    if (actualPassWord != string.Empty && actualPassWord.Trim() == userPassword.Trim())
+                    {
+                        hashUserAuthenticationDetails.Add("PWD", true);
+                    }
+                    else
+                    {
+                        hashUserAuthenticationDetails.Add("PWD", false);
+                    }
+                    if (ds.Tables[0].Rows.Count != 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["AIPP_IP"].ToString() != "")
+                        {
+                            hashUserAuthenticationDetails.Add("IPAuthentication", true);
+                        }
+                        else
+                        {
+                            hashUserAuthenticationDetails.Add("IPAuthentication", false);
+                        }
+                    }
+                }
+                else
+                {
+                    if (actualPassWord != string.Empty && actualPassWord.Trim() == userPassword.Trim())
+                    {
+                        hashUserAuthenticationDetails.Add("PWD", true);
+                    }
+                    else
+                    {
+                        hashUserAuthenticationDetails.Add("PWD", false);
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserDao.cs:UserValidationForIPnonIPUsers(int adviserID, string userLoginId, string userCurrentIPAddress, bool isIPEnable)");
+
+                object[] objects = new object[6];
+                objects[0] = adviserID;
+                objects[1] = userLoginId;
+                objects[2] = userCurrentIPAddress;
+                objects[1] = isIPEnable;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return hashUserAuthenticationDetails;
+
+        }
+            
+
     }
 }
