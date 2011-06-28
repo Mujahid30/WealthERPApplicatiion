@@ -1127,6 +1127,227 @@ namespace BoAdvisorProfiling
 
             }
         }
-      
+        /// <summary>
+        /// To Create AdviserIPsPool Information for Adviser 
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="adviserIPvo"></param>
+        /// <param name="createdBy"></param>
+        /// <returns>adviserIPPoolstatus</returns>
+        
+        public bool CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)
+        {
+
+            bool bStatus = false;
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                bStatus = adviserDao.CreateAdviserIPPools(adviserIPvo, createdBy);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)");
+                object[] objects = new object[3];
+                objects[0] = adviserIPvo;
+                objects[1] = createdBy;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bStatus;
+
+        }
+
+        /// <summary>
+        /// To Get all AdviserIPPool Informations
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <returns></returns>
+        
+        public DataSet GetAdviserIPPoolsInformation(int AdviserId)
+        {
+            DataSet dsGetAdviserIP = new DataSet();
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                dsGetAdviserIP = adviserDao.GetAdviserIPPoolsInformation(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerFamilyBo.cs:GetAdviserIPPoolsInformation()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetAdviserIP;
+        }
+
+        /// <summary>
+        /// To Delete last IP Pool from Adviser IP Pool 
+        /// Vinayak Patil
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
+
+        public bool DeleteAdviserIPPool(int adviserIPPoolId, string Flag)
+        {
+            bool bResult = false;
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, Flag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteAdviserIPPools(adviserIPPoolId, Flag)");
+
+                object[] objects = new object[1];
+                objects[0] = adviserIPPoolId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        /// <summary>
+        /// To Delete IP Pool from Adviser IP Pool 
+        /// Vinayak Patil 
+        /// </summary>
+        /// <param name="adviserIPPoolId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
+
+        public bool DeleteAdviserIPPools(int adviserIPPoolId, string Flag)
+        {
+            bool bResult = false;
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, Flag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteChildCustomer(int adviserIPPoolId, string Flag)");
+
+                object[] objects = new object[1];
+                objects[0] = adviserIPPoolId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public DataSet GetAdvisersAlreadyLoggedIPs(int AdviserId)
+        {
+            DataSet dsAdviserAlreadyLoggedIps = new DataSet();
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                dsAdviserAlreadyLoggedIps = adviserDao.GetAdvisersAlreadyLoggedIPs(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserIPPoolsInformation()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAdviserAlreadyLoggedIps;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="adviserIPvo"></param>
+        /// <param name="createdBy"></param>
+        /// <returns></returns>
+        public bool UpdateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy,string Flag)
+        {
+            bool bResult = false;
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                bResult = adviserDao.UpdateAdviserIPPools(adviserIPvo, createdBy, Flag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)");
+                object[] objects = new object[3];
+                objects[0] = adviserIPvo;
+                objects[1] = createdBy;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+
     }
 }
