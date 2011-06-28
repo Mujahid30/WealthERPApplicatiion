@@ -107,7 +107,12 @@ namespace WealthERP.General
             DataSet dspotentialHomePage;
             string potentialHomePage = "";
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
-            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo(); 
+            GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
+            bool isIPExists = false;
+            Hashtable hashUserAuthenticationDetails = new Hashtable();
+            bool isIPAuthenticatedFailed = false;
+            string currentUserIP = string.Empty;
+
             if (!CheckSuperAdmin())
             {
                 if (txtLoginId.Text == "" || txtPassword.Text == "")
@@ -118,16 +123,46 @@ namespace WealthERP.General
                 }
                 else
                 {
+                    userVo = userBo.GetUser(txtLoginId.Text);
+                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
+                    currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
 
-                    if (userBo.ValidateUser(txtLoginId.Text, txtPassword.Text))  // Validating the User Using the Username and Password
+                    if ((advisorVo != null) && (userVo.UserType != "Customer"))
+                    {
+                        if (advisorVo.IsIPEnable == 1)
+                        {
+                            hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, true);
+                            if ((hashUserAuthenticationDetails["PWD"].ToString() == "True") && (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True"))
+                                isIPExists = true;
+                            else
+                                isIPExists = false;
+                        }
+                        else
+                        {
+                            hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
+                            if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
+                                isIPExists = true;
+                            else
+                                isIPExists = false;
+                        }
+                    }
+                    else if (userVo.UserType == "Customer")
+                    {
+                        hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(0, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
+                        if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
+                            isIPExists = true;
+                        else
+                            isIPExists = false;
+                    }
+
+                    if (isIPExists == true)  // Validating the User Using the Username and Password
                     {
 
                         Session["id"] = "";
                         lblIllegal.Visible = true;
-                        //ScriptManager scriptManager = ScriptManager.GetCurrent(Page);
-                        
 
-                        userVo = userBo.GetUser(txtLoginId.Text);
+                        
                         Session["UserVo"] = userVo;
 
                         AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
@@ -146,47 +181,14 @@ namespace WealthERP.General
                             }
                         }
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
-                        //if (userVo.theme != null)
-                        //{
-                        //    Session["Theme"] = userVo.theme.ToString();
-                        //    Session["refreshTheme"] = true;
-                        //}
-                        //else
-                        //{
-                        //    Session["Theme"] = "Maroon";
-                        //    Session["refreshTheme"] = true;
-                        //}
-
+                        
                         if (userVo.IsTempPassword == 0)
                         {
                             string UserName = userVo.FirstName + " " + userVo.LastName;
 
-
-
-                            //if (userVo.UserType == "Branch Man")
-                            //{
-                            //    roleList = userBo.GetUserRoles(userVo.UserId);
-                            //    count = roleList.Count;
-
-                            //    Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
-                            //    rmVo = (RMVo)Session["rmVo"];
-                            //    sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
-                            //    branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
-                            //    Session[SessionContents.LogoPath] = sourcePath;
-                            //    Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                            //    advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
-                            //    Session["advisorBranchVo"] = advisorBranchVo;
-                            //    if (count == 2)
-                            //    {
-                            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-                            //    }
-                            //    if (count == 1)
-                            //    {
-                            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-                            //    }
-                            //}
                             if (userVo.UserType == "Advisor")
                             {
+                                bool breakLoopIfIPFailed = false;
                                 Session[SessionContents.CurrentUserRole] = "Admin";
                                 Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
                                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
@@ -203,6 +205,13 @@ namespace WealthERP.General
 
                                 roleList = userBo.GetUserRoles(userVo.UserId);
                                 count = roleList.Count;
+                                //Check For IP Authentication enable for Advisor 
+                                if (advisorVo.IsIPEnable == 1)
+                                {
+                                    breakLoopIfIPFailed = CheckIPAuthentication(roleList, advisorVo);
+                                    if (breakLoopIfIPFailed == false)
+                                        return;
+                                }
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
 
                                 if (count == 3)
@@ -224,8 +233,6 @@ namespace WealthERP.General
                                         Session["Customer"] = "Customer";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                     }
-                                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
-                                    //login user role Type
                                     Session["S_CurrentUserRole"] = "Admin";
                                 }
                                 if (count == 2)
@@ -252,9 +259,6 @@ namespace WealthERP.General
                                             Session["Customer"] = "Customer";
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('BMCustomer','login');", true);
                                         }
-
-
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMRMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
                                     }
                                     else if (roleList.Contains("RM") && roleList.Contains("Admin"))
                                     {
@@ -276,8 +280,7 @@ namespace WealthERP.General
                                         Session["S_CurrentUserRole"] = "Admin";
                                         branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                         Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('IFAAdminMainDashboard','login');", true);
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                                     
                                     }
                                     else if (roleList.Contains("BM") && roleList.Contains("Admin"))
                                     {
@@ -302,24 +305,6 @@ namespace WealthERP.General
                                         Session["S_CurrentUserRole"] = "Admin";
                                     }
                                 }
-
-                                //for (int i = 0; i < 2; i++)
-                                //{
-                                //    if (roleList[i] == "RM")
-                                //    {
-
-                                //        rmVo = (RMVo)Session["rmVo"];
-                                //        
-                                //    }
-                                //    if (roleList[i] == "BM")
-                                //    {
-                                //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorBMDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
-                                //    }
-
-                                //}
-
-
-
 
                                 if (count == 1)
                                 {
@@ -348,9 +333,6 @@ namespace WealthERP.General
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('RMCustomer','login');", true);
                                         }
 
-
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('RMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-
                                     }
                                     else if (roleList.Contains("BM"))
                                     {
@@ -375,8 +357,6 @@ namespace WealthERP.General
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('BMCustomer','login');", true);
                                         }
 
-                                        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
-
                                     }
                                     else
                                     {
@@ -395,7 +375,7 @@ namespace WealthERP.General
                                         //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
                                     }
                                 }
-                                
+
                                 GetLatestValuationDate();
                             }
                             //else if (userVo.UserType == "RM")
@@ -481,12 +461,72 @@ namespace WealthERP.General
                     else
                     {
                         lblIllegal.Visible = true;
-                        lblIllegal.Text = "Username and Password does not match";
                         AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
-                    }
 
+                        if (advisorVo != null)
+                        {
+                            if ((advisorVo.IsIPEnable == 0) && (hashUserAuthenticationDetails["PWD"].ToString() == "False"))
+                            {
+                                lblIllegal.Text = "Username and Password does not match";
+                            }
+                            else
+                            {
+                                if ((hashUserAuthenticationDetails.Count == 2) && ((hashUserAuthenticationDetails["PWD"].ToString() == "False") && (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")))
+                                {
+                                    lblIllegal.Text = "Username and Password does not match";
+                                }
+                                else if ((hashUserAuthenticationDetails.Count == 2) && ((hashUserAuthenticationDetails["IPAuthentication"].ToString() == "False") && (hashUserAuthenticationDetails["PWD"].ToString() == "True")))
+                                {
+                                    lblIllegal.Text = "IP Authentication is failed..!!";
+                                }
+                                else
+                                {
+                                    lblIllegal.Text = "IP Authentication is failed..!!";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            lblIllegal.Visible = true;
+                            AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
+                            lblIllegal.Text = "Username and Password does not match";
+                        }
+                    }
                 }
             }
+        }
+
+        private bool CheckIPAuthentication(List<string> roleList, AdvisorVo advisorVo)
+        {
+            UserBo userBo = new UserBo();
+            string currentUserIP = string.Empty;
+            bool bCheckIPAvailability = false;
+            currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim().ToString();
+            bCheckIPAvailability = userBo.CheckIPAvailabilityInIPPool(advisorVo.advisorId, currentUserIP);
+            if (roleList.Count > 1)
+            {
+                if (bCheckIPAvailability == false) 
+                {
+                    lblIllegal.Visible = true;
+                    lblIllegal.Text = "IP Authentication failed..!!";
+                    AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
+                   
+                }
+            }
+            else if (roleList.Count==1)
+            {
+                if (!roleList.Contains("Customer"))
+                {
+                    if (bCheckIPAvailability == false)
+                    {
+                        lblIllegal.Visible = true;
+                        lblIllegal.Text = "IP Authentication failed..!!";
+                        AddLoginTrack(txtLoginId.Text, txtPassword.Text, false, 0);
+                    } 
+                }
+ 
+            }
+            return bCheckIPAvailability;
         }
 
         private bool CheckSuperAdmin()
@@ -501,6 +541,7 @@ namespace WealthERP.General
                 AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
                 Session[SessionContents.LogoPath] = "";
                 Session[SessionContents.BranchLogoPath] = "";
+                Session["UserId"] = userVo.UserId;
 
 
                 if (userVo != null && userVo.UserType == "SuperAdmin")
@@ -919,6 +960,7 @@ namespace WealthERP.General
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ChangeTempPassword','none');", true);
             }
         }
+
         private void GetLatestValuationDate()
         {
             DateTime EQValuationDate = new DateTime();
@@ -966,6 +1008,7 @@ namespace WealthERP.General
             }
 
         }
+
         protected void setControl()
         {
             AdvisorHomeLinks HomeLinks = (AdvisorHomeLinks)this.Page.LoadControl("Advisor//AdvisorHomeLinks.ascx");
@@ -985,6 +1028,7 @@ namespace WealthERP.General
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ForgotPassword','none','none');", true);
         }
+
         /// <summary>
         /// Save the Login Track information.
         /// </summary>
