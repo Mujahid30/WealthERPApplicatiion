@@ -48,6 +48,7 @@ namespace VoUser
         private Int16 s_IsActive;
         private string s_LOBAssetGroup;
         private Int16 s_IsDependent;
+        private Int16 s_IsIPEnable;
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
 
       
@@ -236,6 +237,12 @@ namespace VoUser
             set { s_IsDependent = value; }
         }
 
+        public Int16 IsIPEnable
+        {
+            get { return s_IsIPEnable; }
+            set { s_IsIPEnable = value; }
+        }
+
         public string LOBAssetGroup
         {
             get { return s_LOBAssetGroup; }
@@ -276,4 +283,43 @@ namespace VoUser
 
 
     }
+
+    public class AdviserIPVo
+    {
+        #region Fields
+        private int m_advisorId;
+        private int m_adviserPoolId;
+        private string m_adviserIPs;
+        private string m_AdviserIPComments;
+
+        #endregion Fields
+
+
+
+        #region Properties
+        public int advisorId
+        {
+            get { return m_advisorId; }
+            set { m_advisorId = value; }
+        }
+        public int advisorIPPoolId
+        {
+            get { return m_adviserPoolId; }
+            set { m_adviserPoolId = value; }
+        }
+
+        public string AdviserIPs
+        {
+            get { return m_adviserIPs; }
+            set { m_adviserIPs = value; }
+        }
+
+        public string AdviserIPComments
+        {
+            get { return m_AdviserIPComments; }
+            set { m_AdviserIPComments = value; }
+        }
+        #endregion Properties
+    }
+
 }
