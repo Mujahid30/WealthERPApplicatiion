@@ -24,6 +24,7 @@ using iTextSharp.text.html.simpleparser;
 using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using BoCommon;
+using VoCustomerProfiling;
 
 
 
@@ -36,6 +37,8 @@ namespace WealthERP.Advisor
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         UserVo userVo = new UserVo();
+        DataSet dsCustomerPortfolioList = new DataSet();
+        int customerPortfolioID = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,7 +47,6 @@ namespace WealthERP.Advisor
                 ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
                 mypager.EnableViewState = true;
                 base.OnInit(e);
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -69,9 +71,7 @@ namespace WealthERP.Advisor
             try
             {
                 GetPageCount();
-
                 this.BindCustomer(mypager.CurrentPage);
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -93,6 +93,7 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+           
             CheckBox rdbGVRow = new CheckBox();
             rdbGVRow = GetGvRadioButton();
             rdbGVRow.Attributes.Add("onClick", "javascript:CheckOtherIsCheckedByGVID(value);");
@@ -100,8 +101,11 @@ namespace WealthERP.Advisor
             if (!IsPostBack)
             {
                 this.BindCustomer(1);
-
             }
+
+            trFolioStatus.Visible = false;
+            txtPickCustomer_autoCompleteExtender.ContextKey = adviserVo.advisorId.ToString();
+            txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
         }
         private CheckBox GetGvRadioButton()
@@ -137,7 +141,6 @@ namespace WealthERP.Advisor
         }
         protected void BindGrid(int CurrentPage)
         {
-
             if (hdnCurrentPage.Value.ToString() != "")
             {
                 mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
@@ -145,30 +148,28 @@ namespace WealthERP.Advisor
             }
 
             int Count = 0;
-
-
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-
-
         }
+
         private void BindCustomer(int CurrentPage)
         {
-
-            int count;
-            DataSet dsCustomerFolio;
+            int count=0;
+            DataSet dsCustomerFolio=new DataSet();
             AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
             DataTable dtCustomerFolio = new DataTable();
             try
             {
-
                 if (hdnCurrentPage.Value.ToString() != "")
                 {
                     mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
                     hdnCurrentPage.Value = "";
                 }
+                
+                    dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(adviserVo.advisorId, mypager.CurrentPage, hdnNameFilter.Value.ToString(), out count);
 
-
-                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(adviserVo.advisorId, mypager.CurrentPage, hdnNameFilter.Value.ToString(), out count);
+                if (hdnFolioFilter.Value != "")
+                    dsCustomerFolio = adviserBranchBo.FilterFolioNumber(adviserVo.advisorId, mypager.CurrentPage, hdnFolioFilter.Value.ToString(), out count);
+                
                 lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
                 dtCustomerFolio.Columns.Add("CustomerId");
@@ -182,16 +183,13 @@ namespace WealthERP.Advisor
                 if (dsCustomerFolio.Tables[0].Rows.Count == 0)
                 {
                     //hdnRecordCount.Value = "0";
-
                     ErrorMessage.Visible = true;
                     trPager.Visible = false;
                     lblTotalRows.Visible = false;
                     lblCurrentPage.Visible = false;
-
                 }
                 else
                 {
-
                     //trPager.Visible = true;
                     //lblTotalRows.Visible = true;
                     //lblCurrentPage.Visible = true;
@@ -214,9 +212,7 @@ namespace WealthERP.Advisor
                         drCustomerFolio["portfilionumber"] = dtCustomer.Rows[i]["portfilionumber"];
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
-
                     }
-
                     gvCustomerFolioMerge.DataSource = dtCustomerFolio;
                     gvCustomerFolioMerge.DataBind();
 
@@ -229,7 +225,6 @@ namespace WealthERP.Advisor
                     //        txtBranch.Text = hdnBranchFilter.Value.ToString();
                     //    }
                     //}    
-
                     this.GetPageCount();
                 }
             }
@@ -305,13 +300,11 @@ namespace WealthERP.Advisor
         protected void btnCustomerSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
-
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
                 this.BindCustomer(mypager.CurrentPage);
             }
-
         }
 
         private TextBox GetCustNameTextBox()
@@ -326,8 +319,32 @@ namespace WealthERP.Advisor
             }
             else
                 txt = null;
-
             return txt;
+        }
+
+        protected void btnFolioNumberSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txtFolioNo = GetFolioNumberTextBox();
+            if (txtFolioNo != null)
+            {
+                hdnFolioFilter.Value = txtFolioNo.Text.Trim();
+                this.BindCustomer(mypager.CurrentPage);
+            }
+        }
+
+        private TextBox GetFolioNumberTextBox()
+        {
+            TextBox txtFolio = new TextBox();
+            if (gvCustomerFolioMerge.HeaderRow != null)
+            {
+                if ((TextBox)gvCustomerFolioMerge.HeaderRow.FindControl("txtFolioSearch") != null)
+                {
+                    txtFolio = (TextBox)gvCustomerFolioMerge.HeaderRow.FindControl("txtFolioSearch");
+                }
+            }
+            else
+                txtFolio = null;
+            return txtFolio;
         }
 
         protected void lnkCustomerName_Click(object sender, EventArgs e)
@@ -340,7 +357,6 @@ namespace WealthERP.Advisor
             trPager.Visible = false;
             lblTotalRows.Visible = false;
             lblCurrentPage.Visible = false;
-
         }
 
 
@@ -351,7 +367,6 @@ namespace WealthERP.Advisor
             rdbGVRow = GetGvRadioButton();
             ddlAdvisorBranchList.Items.Clear();
 
-
             foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
             {
                 int rowIndex = dr.RowIndex;
@@ -361,16 +376,12 @@ namespace WealthERP.Advisor
                 int amcCode = int.Parse(dKey.Values["AMCCode"].ToString());
                 string fnumber = dKey.Values["Count"].ToString();
 
+
                 if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
                 {
                     bindFolioDropDown(customerId, amcCode, fnumber);
-
                 }
-
-
-
             }
-
         }
 
 
@@ -383,25 +394,19 @@ namespace WealthERP.Advisor
             folioDs = adviserBranchBo.GetCustomerFolioMergeList(customerId, amcCode, fnumber);
             if (folioDs.Tables[0].Rows.Count == 0)
             {
-
                 lblerror.Visible = true;
-
             }
             ddlAdvisorBranchList.DataSource = folioDs;
             ddlAdvisorBranchList.DataValueField = folioDs.Tables[0].Columns["CMFA_FolioNum"].ToString();
             ddlAdvisorBranchList.DataBind();
-
         }
+
+
 
         protected void gvCustomerFolioMerge_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = gvCustomerFolioMerge.SelectedRow;
-
-
-
-
         }
-
 
         private void GetLatestValuationDate()
         {
@@ -419,14 +424,12 @@ namespace WealthERP.Advisor
                 portfolioBo = new PortfolioBo();
                 if (userVo.UserType == "Advisor")
                 {
-
                     advisorVo = (AdvisorVo)Session["advisorVo"];
                     adviserId = advisorVo.advisorId;
                 }
                 else if (userVo.UserType == "RM")
                 {
                     adviserId = int.Parse(Session["adviserId"].ToString());
-
                 }
 
                 if (portfolioBo.GetLatestValuationDate(adviserId, "EQ") != null)
@@ -459,13 +462,10 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
 
         protected void hypFolioNo_Click(object sender, EventArgs e)
         {
-
-
             GridViewRow gvFoliomerge = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
             int rowIndex = gvFoliomerge.RowIndex;
 
@@ -483,7 +483,6 @@ namespace WealthERP.Advisor
             GetLatestValuationDate();
 
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
-
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -503,14 +502,123 @@ namespace WealthERP.Advisor
                 {
                     AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
                     string ffromfolio = ddlAdvisorBranchList.SelectedValue.ToString();
-                    bool folioDs = adviserBranchBo.CustomerFolioMerged(ffromfolio, fnumber, customerId);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','none');", true);
+                    bool folioDs = adviserBranchBo.CustomerFolioMerged(ffromfolio, fnumber, customerId);                    
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','none');", true);
+                    if (folioDs == true)                    
+                        trFolioStatus.Visible = true;
                 }
+            }            
+        }
 
+        protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
+        {
+            if (hdnCustomerId.Value.ToString() == "")
+            {
             }
+            else
+            bindDropdownPortfolio(int.Parse(hdnCustomerId.Value.ToString()));
+        }
+
+        private void bindDropdownPortfolio(int customerId)
+        {
+            PortfolioBo portfolioBo = new PortfolioBo();
+            try
+                {
+                    if (hdnCustomerId.Value != null)
+                    {
+                        dsCustomerPortfolioList = portfolioBo.GetCustomerPortfolio(customerId);
+                        ddlPortfolio.DataSource = dsCustomerPortfolioList;
+                        ddlPortfolio.DataValueField = dsCustomerPortfolioList.Tables[0].Columns["CP_PortfolioId"].ToString();
+                        ddlPortfolio.DataTextField = dsCustomerPortfolioList.Tables[0].Columns["CP_PortfolioName"].ToString();
+                        ddlPortfolio.DataBind();
+                    }
+                }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        // To Move the folio from one customer to another customer's portfolio.
+
+        protected void btnSubmitPortfolio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CheckBox rdbGVRow = new CheckBox();
+                rdbGVRow = GetGvRadioButton();
+                int fromPortfolioId;
+                string folioNumber;
+                int amcCode;
+                customerPortfolioID = Convert.ToInt32(ddlPortfolio.SelectedValue);
+                DataSet dsPortFolioUpdate = new DataSet();
+
+                foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
+                {
+                    int rowIndex = dr.RowIndex;
+                    DataKey dKey = gvCustomerFolioMerge.DataKeys[rowIndex];
+
+                    if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
+                    {
+                        AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
+                        amcCode = int.Parse(dKey.Values["AMCCode"].ToString());
+                        folioNumber = dKey.Values["Count"].ToString();
+                        fromPortfolioId = Convert.ToInt32(dKey.Values["portfilionumber"].ToString());
+                        dsPortFolioUpdate = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID);
+                        break;
+                    }
+                }
+                trFolioStatus.Visible = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
 
+
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            if (rdbMerge.Checked)
+            {
+                trMergeToAnotherAMC.Visible = true;
+                trPickCustomer.Visible = false;
+                trPickPortfolio.Visible = false;
+                trBtnSubmit.Visible = false;
+            }
+            else if(rdbMoveFolioToCustomer.Checked)
+            {
+                trMergeToAnotherAMC.Visible = false;
+                trPickCustomer.Visible = true;
+                trPickPortfolio.Visible = true;
+                trBtnSubmit.Visible = true;
+            }
+            else if(rdbMoveFolioToPortfolio.Checked)
+            {
+                trMergeToAnotherAMC.Visible = false;
+                trPickCustomer.Visible = false;
+                trPickPortfolio.Visible = true;
+                trBtnSubmit.Visible = true;
+                lblerror.Visible = false;
+
+                int customerId = 0;
+
+                foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
+                {
+                    int rowIndex = dr.RowIndex;
+                    DataKey dKey = gvCustomerFolioMerge.DataKeys[rowIndex];
+                    if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
+                    {
+                        customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                        bindDropdownPortfolio(customerId);
+                        return;
+                    }
+                }
+            }
         }
     }
-
 }
+
+            

@@ -1,18 +1,50 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFolioMerge.ascx.cs" Inherits="WealthERP.Advisor.CustomerFolioMerge" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
+<asp:ScriptManager ID="scptMgr" runat="server" EnablePartialRendering="true">
+ <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+
+
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        return false;
+    };
+</script>
+
+
+
 <script type="text/javascript">
 
-
+    function CheckFolioSelected() {
+         var Count = 0;        
+        Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
+        var items = Parent.getElementsByTagName('input');
+        for (i = 0; i < items.length; i++) {
+            if (items[i].checked) {
+                Count++
+            }
+        }
+        if (Count == 0) {
+            alert("Please select a folio");
+            return false;
+        }
+    }
 
     function CheckOtherIsCheckedByGVID(spanChk) {
-
+    
         var IsChecked = spanChk.checked;
         var CurrentRdbID = spanChk.id;
         var Chk = spanChk;
@@ -20,23 +52,14 @@
         Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
         var items = Parent.getElementsByTagName('input');
         for (i = 0; i < items.length; i++) {
-
             if (items[i].id != CurrentRdbID && items[i].type == "checkbox") {
-
-                if (items[i].checked) {
+                    if (items[i].checked) {
                     items[i].checked = false;
                     alert("Please select one customer at a time.");
                 }
-
             }
-
         }
-
-
-    } 
-
-              
-
+    }          
 </script>
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
@@ -54,7 +77,7 @@
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Customer Folio Merge"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Customer Folio"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -130,8 +153,8 @@
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                         <HeaderTemplate>
-                            <asp:Label ID="lblcount" runat="server" Text="Folios"></asp:Label>
-                            
+                            <asp:Label ID="lblcount" runat="server" Text="Folios"></asp:Label><br />
+                            <asp:TextBox ID="txtFolioSearch" Width="50%" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_AdvisorCustomerAccounts_btnFolioNumberSearch');" />
                         </HeaderTemplate>
                         <ItemTemplate>
                          <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click" Text='<%# Eval("Count").ToString() %>'>
@@ -158,70 +181,193 @@
         </td>
     </tr>
 </table>
-<td>
-<tr>
-</tr>
-</td>
-<td>
-<tr>
-</tr>
-</td>
 
+<table width="100%">
  <tr style="width:100%">
     <td colspan="3">
-    <table width="100%">
-    <tr id="trPager" runat="server" width="100%" >
-        <td align="right">
-            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>
-       
-    </tr>
-    </table>
+        <table width="100%">
+            <tr id="trPager" runat="server" width="100%" >
+                <td align="right">
+                    <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+                </td>
+               
+            </tr>
+        </table>
     </td>
-    </tr>
-    
-   
-    <tr id="trReassignBranch" runat="server">
+ </tr>
+  
+ <tr id="trReassignBranch" runat="server">
         <td class="SubmitCell" align="left">
        &nbsp
        &nbsp
        &nbsp
-            <asp:Label ID="Label2" Text="Merge To" CssClass="FieldName" runat="server"></asp:Label> 
-        </td>
+            </td>
       
         
         <td>
         &nbsp
         &nbsp
-            <asp:DropDownList ID="ddlAdvisorBranchList" Width="10.4%" runat="server" CssClass="cmbField" 
-                 >
-            </asp:DropDownList>
             <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
             
         </td>
         <td>
         &nbsp
         &nbsp
+        </td>
+    </tr>
+    </table>
+
+  <table width="100%">
+    <tr id="trFolioStatus" runat="server">
+        <td align="center">
+            <div id="msgFolioStatus" runat="server" class="success-msg" align="center">
+                Folio Moved Successfully
+            </div>
+        </td>
+    </tr>
+  </table>
+
+
+  <table>
+    <tr>
+        <td style="width:150px">
+            &nbsp;</td>
+        <td>    
+        <asp:RadioButton ID="rdbMerge" runat="server" Checked="true" Text="Merge" GroupName="FolioMove" Class="FieldName" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <asp:RadioButton ID="rdbMoveFolioToCustomer" runat="server" GroupName="FolioMove" Class="FieldName"
+            Text="Move Folio to another Customer" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <asp:RadioButton ID="rdbMoveFolioToPortfolio" runat="server" GroupName="FolioMove" Class="FieldName"
+            Text="Move Folio to another Portfolio"/>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClientClick="return CheckFolioSelected();"
+            onclick="btnGo_Click" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+  </table>
+
+  <table>
+    <tr id="trMergeToAnotherAMC" runat="server" visible="false">
+        <td style="width:150px"></td>
+        <td>
+            <asp:Label ID="Label2" Text="Merge To:" CssClass="FieldName" runat="server"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>
+        <td></td>
+        <td>
+            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" OnClick="btnEdit_Click" Text="Merge" />
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
         <asp:Label ID="lblerror" Text="No Folios to merge" CssClass="rfvPCG" Visible="false" runat="server"></asp:Label> 
         </td>
     </tr>
+    <%--<tr>
+    <td style="width:108px" align="left" visible="false">
+    </td>
+    <td>
+         <asp:Button ID="btnmerge" CssClass="PCGMediumButton" runat="server" OnClick="btnEdit_Click" Text="Merge" />
+    </td>
+    <td style="width:15px" align="left">
+    </td>
+    <td>
+         <asp:Button ID="btnMoveFolioToCustomer" CssClass="PCGLongButton" runat="server" Text="Move Folio to another customer" 
+           OnClientClick="return btnMoveFolioCustomer()" />
+    </td>
+    <td style="width:15px" align="left">
+    </td>
+    <td>
+         <asp:Button ID="btnMoveFolioToPortfolio" CssClass="PCGLongButton"
+                runat="server" Text="Move Folio to another Portfolio" 
+             OnClientClick="btnMoveFolioPortfolio()"
+             onclick="btnMoveFolioToPortfolio_Click"/>
+    </td>
+    </tr>--%>
+    <tr id="trPickCustomer" runat="server" visible="false">
+        <td></td>
+        <td>
+        <asp:Label ID="lblPickCustomer" Text="Pick a Customer:" CssClass="FieldName" runat="server"></asp:Label>
+        </td>
+        <td>
+        <%--<asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" OnValueChanged="txtPickCustomer_ValueChanged" ></asp:TextBox>--%>
 
-   <p>
-   &nbsp
-   &nbsp
-   &nbsp
-   &nbsp
-    &nbsp
-   &nbsp
-   &nbsp
-   &nbsp
-    &nbsp
-     &nbsp  
-  <asp:Button ID="btnmerge" CssClass="PCGMediumButton" Width="10%" runat="server" OnClick="btnEdit_Click" Text="Merge" />
-</p>
-     
+              <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" 
+              AutoComplete="Off"  AutoPostBack="True" 
+              ontextchanged="txtPickCustomer_TextChanged" ></asp:TextBox>
+              <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer" WatermarkText="Enter Few Characters of Customer"
+              runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
+              <ajaxToolkit:AutoCompleteExtender ID="txtPickCustomer_autoCompleteExtender" runat="server"
+              TargetControlID="txtPickCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+              MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+              CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+              CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+              UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
+              
+              <span id="Span1" class="spnRequiredField">*</span>
+            </td>   
+        <td>
+                <asp:RequiredFieldValidator ID="rfvPockCustomer" ControlToValidate="txtPickCustomer" ErrorMessage="Please pick a customer"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+                </asp:RequiredFieldValidator>
+            </td>
+    </tr>
+
+    <tr id="trPickPortfolio" runat="server" visible="false">
+        <td style="width:150px"></td>
+        <td>
+        <asp:Label ID="lblPickPortfolio" Text="Pick a Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
+            </asp:DropDownList>                
+            <span id="Span2" class="spnRequiredField">*
+            </span>                
+        </td>
+        <td>
+         <asp:RequiredFieldValidator ID="rfvddlPortfolio" ControlToValidate="ddlPortfolio" ErrorMessage="Please pick a portfolio"
+        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+        </asp:RequiredFieldValidator>
+        </td>                
+    </tr>
+   
+    <tr id="trBtnSubmit" runat="server" visible="false">
+        <td></td>
+        <td>
+            <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit"
+            Text="Submit" onclick="btnSubmitPortfolio_Click"/>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="txtPickCustomer_TextChanged" />     
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:Button ID="btnCustomerSearch" runat="server" Text="" onclick="btnCustomerSearch_Click" BorderStyle="None" BackColor="Transparent"/> 
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnBranchFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
+<asp:Button ID="btnFolioNumberSearch" runat="server" Text="" OnClick="btnFolioNumberSearch_Click" BorderStyle="None" BackColor="Transparent" />
