@@ -7,6 +7,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoUser;
 using VoUser;
 using System.Data;
+using System.Collections;
 
 namespace BoUser
 {
@@ -603,6 +604,84 @@ namespace BoUser
 
         }
 
+        public bool CheckIPAvailabilityInIPPool(int adviserID, string userCurrentIPAddress)
+        {
+            bool bResult = false;
+            UserDao userDao = new UserDao();
+            try
+            {
+                bResult = userDao.CheckIPAvailabilityInIPPool(adviserID, userCurrentIPAddress);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "UserBo.cs:CheckIPAvailabilityInIPPool(int adviserID, string userCurrentIPAddress)");
+
+
+                object[] objects = new object[3];
+                objects[0] = adviserID;
+                objects[1] = userCurrentIPAddress;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+        }
+        
+        /// <summary>
+        /// Login details validation for a user..
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="adviserID"></param>
+        /// <param name="userLoginId"></param>
+        /// <param name="userCurrentIPAddress"></param>
+        /// <param name="isIPEnable"></param>
+        /// <returns></returns>
+
+        public Hashtable UserValidationForIPnonIPUsers(int adviserID, string userLoginId, string userPassword, string userCurrentIPAddress, bool isIPEnable)
+        {
+            Hashtable hashUserAuthenticationDetails = new Hashtable();
+            UserDao userDao = new UserDao();
+            try
+            {
+                hashUserAuthenticationDetails = userDao.UserValidationForIPnonIPUsers(adviserID, userLoginId, userPassword, userCurrentIPAddress, isIPEnable);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UserBo.cs:UserValidationForIPnonIPUsers(int adviserID, string userLoginId, string userCurrentIPAddress, bool isIPEnable)");
+
+
+                object[] objects = new object[6];
+                objects[0] = adviserID;
+                objects[1] = userLoginId;
+                objects[2] = userCurrentIPAddress;
+                objects[1] = isIPEnable;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return hashUserAuthenticationDetails;
+        }
     }
 }
