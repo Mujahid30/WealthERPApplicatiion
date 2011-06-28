@@ -1394,6 +1394,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
                     if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
+
+                    advisorVo.IsIPEnable = Convert.ToInt16(dr["A_isIPEnable"].ToString());
                 }
 
 
@@ -1470,6 +1472,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@XABT_BusinessTypeCode", DbType.String, advisorVo.BusinessCode);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Designation", DbType.String, advisorVo.Designation);
+                db.AddInParameter(updateAdvisorUserCmd, "@A_IsIPEnable", DbType.Int32, advisorVo.IsIPEnable);
+                
                 if (db.ExecuteNonQuery(updateAdvisorUserCmd) != 0)
                     bResult = true;
             }
@@ -1850,7 +1854,253 @@ namespace DaoAdvisorProfiling
             return domain;
 
         }
+        /// <summary>
+        /// To Create AdviserIPsPool Information for Adviser 
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="adviserIPvo"></param>
+        /// <param name="createdBy"></param>
+        /// <returns>adviserIPPoolstatus</returns>
         
+        public bool CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)
+        {
+            bool bStatus = false;
+            Database db;
+            DbCommand createAdviserIPPools;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createAdviserIPPools = db.GetStoredProcCommand("SP_AddAdviserIPPool");
+                db.AddInParameter(createAdviserIPPools, "@A_AdviserId", DbType.Int32, adviserIPvo.advisorId);
+                db.AddInParameter(createAdviserIPPools, "@AIPP_IP", DbType.String, adviserIPvo.AdviserIPs);
+                db.AddInParameter(createAdviserIPPools, "@AIPP_Comments", DbType.String, adviserIPvo.AdviserIPComments);
+                db.AddInParameter(createAdviserIPPools, "@AIPP_CreatedBy", DbType.String, createdBy);
+                db.AddInParameter(createAdviserIPPools, "@AIPP_ModifiedBy", DbType.Int32, createdBy);
+                db.AddOutParameter(createAdviserIPPools, "@AIPP_poolId", DbType.Int32, 10);
+
+                if (db.ExecuteNonQuery(createAdviserIPPools) != 0)
+                    bStatus = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceDao.cs:CreateCustomerGIPortfolio()");
+
+
+                object[] objects = new object[2];
+                objects[0] = createdBy;
+                objects[1] = adviserIPvo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bStatus;
+        }
+
+        /// <summary>
+        /// To Get all AdviserIPPool Informations
+        /// Added by Vinayak Patil
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <returns></returns>
+        
+        public DataSet GetAdviserIPPoolsInformation(int AdviserId)
+        {
+            AdviserIPVo adviserIPPoolsVo = new AdviserIPVo();
+            Database db;
+            DbCommand getAdviserIPPoolsInformationCmd;
+            DataSet getAdviserIPPoolsInformationDs;
+            
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserIPPoolsInformationCmd = db.GetStoredProcCommand("SP_GetAdviserIPPoolInformation");
+                db.AddInParameter(getAdviserIPPoolsInformationCmd, "@A_AdviserID", DbType.Int32, AdviserId);
+                getAdviserIPPoolsInformationDs = db.ExecuteDataSet(getAdviserIPPoolsInformationCmd);
+
+                if (getAdviserIPPoolsInformationDs.Tables[0].Rows.Count > 0)
+                {
+
+                    foreach (DataRow dr in getAdviserIPPoolsInformationDs.Tables[0].Rows)
+                    {
+                        adviserIPPoolsVo = new AdviserIPVo();
+                        adviserIPPoolsVo.advisorId = AdviserId;
+                        adviserIPPoolsVo.advisorIPPoolId = Int32.Parse(dr["AIPP_poolId"].ToString());
+                        adviserIPPoolsVo.AdviserIPs = dr["AIPP_IP"].ToString();
+                        adviserIPPoolsVo.AdviserIPComments = dr["AIPP_Comments"].ToString();
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerFamilyDao.cs:GetAdviserIPPoolsInformation()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getAdviserIPPoolsInformationDs;
+        }
+
+
+        /// <summary>
+        /// To Delete last IP Pool from Adviser IP Pool 
+        /// Vinayak Patil
+        /// </summary>
+        /// <param name="adviserIPPoolId"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
+
+        public bool DeleteAdviserIPPools(int adviserIPPoolId, string Flag)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteCustomerBankCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteCustomerBankCmd = db.GetStoredProcCommand("SP_UpdateAdviserIPPools");
+                db.AddInParameter(deleteCustomerBankCmd, "@AIPP_poolId", DbType.Int32, adviserIPPoolId);
+                db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
+                if (db.ExecuteNonQuery(deleteCustomerBankCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteAdviserIPPools(int adviserIPPoolId, string Flag)");
+
+                object[] objects = new object[2];
+                objects[0] = adviserIPPoolId;
+                //objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public DataSet GetAdvisersAlreadyLoggedIPs(int AdviserId)
+        {
+            AdviserIPVo adviserIPPoolsVo = new AdviserIPVo();
+            Database db;
+            DbCommand getAdviserIPPoolsInformationCmd;
+            DataSet getAdviserIPPoolsInformationDs;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserIPPoolsInformationCmd = db.GetStoredProcCommand("SP_GetAdviserLoggedIPs");
+                db.AddInParameter(getAdviserIPPoolsInformationCmd, "@AdvisorId", DbType.Int32, AdviserId);
+                getAdviserIPPoolsInformationDs = db.ExecuteDataSet(getAdviserIPPoolsInformationCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerFamilyDao.cs:GetAdviserIPPoolsInformation()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getAdviserIPPoolsInformationDs;
+        }
+
+        /// <summary>
+        /// Updating the AdviserIPPool Informations..
+        /// Added by Vinayak Patil..
+        /// </summary>
+        /// <param name="adviserIPvo"></param>
+        /// <param name="createdBy"></param>
+        /// <param name="Flag"></param>
+        /// <returns></returns>
+        
+        public bool UpdateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy, string Flag)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateAdviserIPPools;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAdviserIPPools = db.GetStoredProcCommand("SP_UpdateAdviserIPPools");
+                db.AddInParameter(updateAdviserIPPools, "@AIPP_poolId", DbType.Int32, adviserIPvo.advisorIPPoolId);
+                db.AddInParameter(updateAdviserIPPools, "@AIPP_IP", DbType.String, adviserIPvo.AdviserIPs);
+                db.AddInParameter(updateAdviserIPPools, "@AIPP_Comments", DbType.String, adviserIPvo.AdviserIPComments);
+                db.AddInParameter(updateAdviserIPPools, "@AIPP_ModifiedBy", DbType.Int32, createdBy);
+                db.AddInParameter(updateAdviserIPPools, "@Flag", DbType.String, Flag);
+
+                if (db.ExecuteNonQuery(updateAdviserIPPools) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceDao.cs:CreateCustomerGIPortfolio()");
+
+
+                object[] objects = new object[2];
+                objects[0] = createdBy;
+                objects[1] = adviserIPvo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }
 
