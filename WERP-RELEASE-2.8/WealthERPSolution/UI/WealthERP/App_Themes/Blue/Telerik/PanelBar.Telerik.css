@@ -1,0 +1,325 @@
+.RadPanelBar_Telerik
+{
+	background-color: #A8BFCF !important;
+	background-image: none;
+}
+
+.RadPanelBar_Telerik .rpRootGroup
+{
+	border-color: #a7bac5 #a7bac5 #8cabc0;
+}
+
+.RadPanelBar_Telerik a.rpLink,
+.RadPanelBar_Telerik .rpTemplate
+{
+	color: #039;
+	font: normal 12px/24px "Segoe UI", Arial, sans-serif;
+}
+
+.RadPanelBar_Telerik a.rpLink
+{
+	background-image: url('PanelBar/rgCommandRow.gif') !important;
+}
+
+.RadPanelBar_Telerik .rpOut
+{
+   background-image: url('PanelBar/rgCommandRow.gif');
+	border-color: #A6D9F4;
+}
+
+.RadPanelBar_Telerik a.rpLink
+{
+	background-image: url('PanelBar/rgCommandRow.gif');
+	border-color:  #E8F5FC;
+}
+
+.RadPanelBar_Telerik a.rpLink:hover
+{
+	background-color: #DF9999 !important;
+	border-color:  #E8F5FC;
+}
+
+.RadPanelBar_Telerik a.rpExpanded
+{
+	border-color: #3C7FB1;
+}
+
+.RadPanelBar_Telerik a.rpFocused,
+.RadPanelBar_Telerik a.rpLink:hover
+{
+	color: #0060ef;
+	background-color: #A8BFCF !important;
+}
+
+.RadPanelBar_Telerik a.rpSelected,
+
+
+/* <disabled items> */
+.RadPanelBar_Telerik a.rpDisabled,
+.RadPanelBar_Telerik a.rpDisabled:hover
+{
+	color: #bbb;
+	background-color: #A8BFCF !important;
+}
+
+.RadPanelBar_Telerik a.rpDisabled:hover .rpOut
+{
+	
+}
+/* </disabled items> */
+
+/* <subitems> */
+.RadPanelBar_Telerik .rpGroup
+{
+	background-image: url('PanelBar/rgCommandRow.gif');
+}
+
+.RadPanelBar_Telerik .rpGroup a.rpLink,
+.RadPanelBar_Telerik .rpGroup .rpTemplate
+{
+	color: #000;
+	background-color: transparent;
+	background-image: none;
+}
+
+.RadPanelBar_Telerik .rpGroup a.rpLink:hover
+{
+	color: #000;
+}
+
+.RadPanelBar_Telerik .rpGroup a.rpLink,
+.RadPanelBar_Telerik .rpGroup .rpOut
+{
+	background-color: transparent;
+	background-image: none;
+	background-repeat: no-repeat;
+}
+
+
+/* <subitems (disabled)> */
+.RadPanelBar_Telerik .rpGroup a.rpDisabled,
+.RadPanelBar_Telerik .rpGroup a.rpDisabled:hover,
+.RadPanelBar_Telerik .rpGroup a.rpDisabled:hover .rpOut
+{
+	background-image: none;
+}
+
+.RadPanelBar_Telerik .rpGroup a.rpDisabled,
+.RadPanelBar_Telerik .rpGroup a.rpDisabled:hover
+{
+	color: #bbb;
+	text-decoration: none;
+	background-color: #fff;
+}
+/* </subitems (disabled)> */
+
+/* <subitems> */
+
+/* <background positioning> */
+.RadPanelBar_Telerik a.rpFocused,
+.RadPanelBar_Telerik a.rpLink:hover,
+.RadPanelBar_Telerik a.rpExpanded:hover
+{
+	background-position: 0 -200px;
+}
+
+.RadPanelBar_Telerik a.rpLink,
+.RadPanelBar_Telerik a.rpExpanded,
+.RadPanelBar_Telerik .rpItem a.rpLinkExpandHovered
+{
+	background-position: 0 0;
+}
+
+.RadPanelBar_Telerik a.rpSelected,
+.RadPanelBar_Telerik a.rpSelected:hover
+{
+	background-position: 0 -400px;
+}
+
+.RadPanelBar_Telerik .rpFirst a.rpLink,
+.RadPanelBar_Telerik .rpFirst a.rpExpanded
+{
+	background-position: 0 -1px;
+}
+
+.RadPanelBar_Telerik .rpFirst a.rpFocused,
+.RadPanelBar_Telerik .rpFirst a.rpLink:hover
+{
+	background-position: 0 -201px;
+}
+
+.RadPanelBar_Telerik .rpFirst a.rpSelected,
+.RadPanelBar_Telerik .rpFirst a.rpSelected:hover
+{
+	background-position: 0 -401px;
+}
+
+/* <root items (disabled)> */
+.RadPanelBar_Telerik a.rpDisabled:hover
+{
+	cursor: default;
+}
+
+.RadPanelBar_Telerik a.rpDisabled,
+.RadPanelBar_Telerik a.rpDisabled:hover,
+.RadPanelBar_Telerik a.rpDisabled:hover .rpOut
+{
+	background-position: 0 0;
+}
+/* </root items (disabled)> */
+
+/*      <expand arrows> */
+/* <expand arrows> */
+.RadPanelBar_Telerik a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Telerik a.rpExpanded .rpExpandHandle
+{
+	background-color: transparent;
+	background-image: url('PanelBar/Expandable.png');
+	background-repeat: no-repeat;
+}
+
+.RadPanelBar_Telerik_rtl .rpGroup .rpText
+{
+	padding: 0 10px;
+}
+
+.RadPanelBar_Telerik a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Telerik a.rpExpandable:hover .rpNavigation .rpExpandHandle { background-position: 0 -5px; }
+.RadPanelBar_Telerik a.rpExpandable:hover .rpExpandHandle,
+.RadPanelBar_Telerik a.rpExpandable:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -5px; }
+.RadPanelBar_Telerik a.rpExpanded .rpExpandHandle,
+.RadPanelBar_Telerik a.rpExpanded:hover .rpNavigation .rpExpandHandle { background-position: 0 -181px; }
+.RadPanelBar_Telerik a.rpExpanded:hover .rpExpandHandle,
+.RadPanelBar_Telerik a.rpExpanded:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -181px; }
+
+/*      </expand arrows> */
+
+.RadPanelBar_Telerik .rpGroup a.rpLink,
+.RadPanelBar_Telerik .rpGroup a.rpLink .rpOut { background-position: 0 200px;  }
+
+.RadPanelBar_Telerik .rpGroup a.rpLink:hover,
+.RadPanelBar_Telerik .rpGroup a.rpFocused { background-position: 100% -22px; }
+.RadPanelBar_Telerik .rpGroup a.rpLink:hover .rpOut,
+.RadPanelBar_Telerik .rpGroup a.rpFocused .rpOut { background-position: 0 0; }
+
+/*      <subitems (selected)> */
+.RadPanelBar_Telerik .rpGroup a.rpSelected,
+.RadPanelBar_Telerik .rpGroup a.rpSelected:hover { background-position: 100% -222px; background-color: transparent; }
+.RadPanelBar_Telerik .rpGroup a.rpSelected .rpOut,
+.RadPanelBar_Telerik .rpGroup a.rpSelected:hover .rpOut { background-position: 0 -200px; }
+/*      </subitems (selected)> */
+
+/*      <subitems (expand arrows)> */
+.RadPanelBar_Telerik .rpGroup a.rpExpandable .rpExpandHandle,
+.RadPanelBar_Telerik .rpGroup a.rpExpandable:hover .rpNavigation .rpExpandHandle { background-position: 0 -343px; }
+.RadPanelBar_Telerik .rpGroup a.rpExpandable:hover .rpExpandHandle,
+.RadPanelBar_Telerik .rpGroup a.rpExpandable:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -343px; }
+.RadPanelBar_Telerik .rpGroup a.rpExpanded .rpExpandHandle,
+.RadPanelBar_Telerik .rpGroup a.rpExpanded:hover .rpNavigation .rpExpandHandle { background-position: 0 -482px; }
+.RadPanelBar_Telerik .rpGroup a.rpExpanded:hover .rpExpandHandle,
+.RadPanelBar_Telerik .rpGroup a.rpExpanded:hover .rpNavigation .rpExpandHandleHovered { background-position: 100% -482px; }
+/*      </subitems (expand arrows)> */
+/* </background positioning> */
+
+
+ div.RadPanelBar_Telerik .rpRootGroup .rpLink {
+
+	background-image: none;
+    
+	color: rgb(255, 255, 255);
+
+}
+
+ div.RadPanelBar_Telerik .rpRootGroup .rpLink:hover {
+
+
+	background-image: none;
+	color: White;
+
+	font-weight: bold;
+
+}
+
+ div.RadPanelBar_Telerik .rpRootGroup .rpExpandable {
+
+	background-image: none;
+
+   background-image: url('PanelBar/rgCommandRow.gif') !important;
+
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
+
+    background-image: none !important;
+	color: rgb(255, 255, 255);
+
+}
+
+ div.RadPanelBar_Telerik .rpRootGroup .rpDisabled {
+
+	background-image: none;
+
+	background-color: rgb(160, 159, 159);
+
+}
+
+ div.RadPanelBar_Telerik .rpRootGroup .rpDisabled:hover {
+
+	background-image: none;
+
+	background-color: rgb(160, 159, 159);
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink {
+
+	background-color: #A8BFCF;
+	color: rgb(0, 0, 0);
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
+
+	background-color: #A8BFCF;
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpSelected {
+
+	background-image: none !important;
+	color: White;
+	font-weight: bold;
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpExpanded {
+
+	background-image: none !important;
+	
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink .rpOut {
+
+
+    background-image: none !important;
+	background-color: #A8BFCF;
+
+}
+
+ div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink .rpText {
+
+	background-color: #A8BFCF;
+	background-image: none !important;
+
+}
+
+div.RadPanelBar_Telerik .rpItem .rpGroup .rpExpanded .rpText {
+
+    background-image: none !important;
+   
+}
+
+
+
