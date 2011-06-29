@@ -1057,7 +1057,7 @@ namespace DaoUser
                     db.AddInParameter(chkAvailabilityCmd, "@IPEnableFlag", DbType.Int32, 1);
 
                 ds = db.ExecuteDataSet(chkAvailabilityCmd);
-                //Object userPassword = db.ExecuteScalar(chkAvailabilityCmd);
+                
                 rowCount = ds.Tables[0].Rows.Count;
 
                 if (ds.Tables[0].Rows.Count != 0)
@@ -1086,16 +1086,13 @@ namespace DaoUser
                     {
                         hashUserAuthenticationDetails.Add("PWD", false);
                     }
-                    if (ds.Tables[0].Rows.Count != 0)
+                    if (ds.Tables[1].Rows.Count != 0)
                     {
-                        if (ds.Tables[0].Rows[0]["AIPP_IP"].ToString() != "")
-                        {
-                            hashUserAuthenticationDetails.Add("IPAuthentication", true);
-                        }
-                        else
-                        {
-                            hashUserAuthenticationDetails.Add("IPAuthentication", false);
-                        }
+                        hashUserAuthenticationDetails.Add("IPAuthentication", true);
+                    }
+                    else
+                    {
+                        hashUserAuthenticationDetails.Add("IPAuthentication", false);
                     }
                 }
                 else
