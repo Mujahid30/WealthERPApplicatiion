@@ -655,7 +655,7 @@ namespace WealthERP.CustomerPortfolio
                             userVo = (UserVo)Session["userVo"];
 
                             newGoldVo.AssetCategoryCode = goldVo.AssetCategoryCode.ToString().Trim();
-                            newGoldVo.AssetGroupCode = goldVo.AssetGroupCode.ToString().Trim();
+                            newGoldVo.AssetGroupCode = "GD";
                             if (txtCurrentPrice.Text.Trim() != string.Empty)
                                 newGoldVo.CurrentPrice = float.Parse(txtCurrentPrice.Text);
                             if (txtCurrentValue.Text.Trim() != string.Empty)
