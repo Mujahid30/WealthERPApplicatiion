@@ -89,5 +89,34 @@ namespace BoWerpAdmin
             }
             return adviserVoList;
         }
+
+        public List<AdvisorVo> GetIFFListForUserManagement(int CurrentPage, out int Count, string SortExpression, string IffNameFilter)
+        {
+
+            List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
+            AdviserMaintenanceDao adviserMaintenanceDao = new AdviserMaintenanceDao();
+            try
+            {
+                adviserVoList = adviserMaintenanceDao.GetIFFListForUserManagement(CurrentPage, out Count, SortExpression, IffNameFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetIFFListForUserManagement()");
+                object[] objects = new object[1];
+                objects[0] = adviserVoList;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return adviserVoList;
+        }
     }
 }
