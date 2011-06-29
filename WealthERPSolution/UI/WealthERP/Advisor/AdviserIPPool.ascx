@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserIPPool.ascx.cs" Inherits="WealthERP.Advisor.AdviserIPPool" %>
-
-
-    
+   
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
@@ -12,7 +10,7 @@
     function modalPopUpOKButton() {
 
         if (confirm("Do you want to proceed..??? ")) {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnGetIPbtn").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnGetIPbtn").click();
             __doPostBack('hdnGetIPbtn', 'click');
         }
     }
@@ -21,39 +19,39 @@
 <script type="text/javascript">
     function showmessage() {
         if (confirm("By removing all IP's you will loose IP login Security.!! \n\n Are You sure you want to remove ??")) {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenassociation").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
             return true;
         }
         else {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenassociation").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
             return false;
         }
     }
 
     function DeleteAdviserIPs() {
         if (confirm("IP removed successfully..!")) {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenReloadPage").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return true;
         }
         else {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenReloadPage").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
 
     function DeleteAdviserLastIP() {
         if (confirm("No More IP Security for your account..!! \n You have removed all the IPs..!")) {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenReloadPage").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return true;
         }
         else {
-            document.getElementById("ctrl_AdviserStaffSMTP_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserStaffSMTP_hiddenReloadPage").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
@@ -94,6 +92,8 @@
     </tr>
 </table>
 <hr />
+<asp:UpdatePanel ID="updatePnl" runat="server">
+<ContentTemplate>
 <telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
     Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
     Width="100%" >
@@ -130,8 +130,7 @@
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
 </telerik:RadInputManager>
-<asp:UpdatePanel ID="updatePnlIPPool" runat="server">
-<ContentTemplate>
+
     <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
@@ -202,6 +201,8 @@
     </tr>
 </table>
 </asp:Panel>
+</ContentTemplate>
+</asp:UpdatePanel>
     <table width="100%">
     <tr>
         <td align="center" >
@@ -244,8 +245,7 @@
         </td>
     </tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel> 
+
 
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" style="background-color: Transparent; background: None; border: none; visibility: hidden;"   />
 <asp:HiddenField ID="hdnIsActive" runat="server" />

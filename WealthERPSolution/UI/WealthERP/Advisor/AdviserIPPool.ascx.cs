@@ -434,12 +434,12 @@ namespace WealthERP.Advisor
             if (e.Item.Value == "View")
             {
                 Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserIPPool','login');", true);
             }
             else if (e.Item.Value == "Edit")
             {
                 Session[SessionContents.FPS_AddProspectListActionStatus] = "Edit";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserIPPool','login');", true);
             }
         }
 
@@ -460,7 +460,7 @@ namespace WealthERP.Advisor
 
                 if (advisorBo.DeleteAdviserIPPool(adviserIPId, "Delete"))
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserStaffSMTP','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
 
                 }
             }
@@ -505,7 +505,7 @@ namespace WealthERP.Advisor
             string val = Convert.ToString(hdnMsgValue.Value);
             if (val == "1")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserStaffSMTP','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
             }
         }
 
