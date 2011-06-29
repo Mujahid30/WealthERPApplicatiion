@@ -108,10 +108,10 @@ namespace WealthERP.General
             string potentialHomePage = "";
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
-            bool isIPExists = false;
             Hashtable hashUserAuthenticationDetails = new Hashtable();
-            bool isIPAuthenticatedFailed = false;
             string currentUserIP = string.Empty;
+            bool isIPAuthenticated = false;
+            bool isPassWordMathed = false;
 
             if (!CheckSuperAdmin())
             {
@@ -133,32 +133,32 @@ namespace WealthERP.General
                         if (advisorVo.IsIPEnable == 1)
                         {
                             hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, true);
-                            if ((hashUserAuthenticationDetails["PWD"].ToString() == "True") && (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True"))
-                                isIPExists = true;
-                            else
-                                isIPExists = false;
+
+                            if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
+                                isPassWordMathed = true;
+                            if (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")
+                                isIPAuthenticated = true;
                         }
                         else
                         {
                             hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
+
                             if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
-                                isIPExists = true;
-                            else
-                                isIPExists = false;
+                                isPassWordMathed = true;
+                            if (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")
+                                isIPAuthenticated = true;
                         }
                     }
                     else if (userVo.UserType == "Customer")
                     {
                         hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(0, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
+                       
                         if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
-                            isIPExists = true;
-                        else
-                            isIPExists = false;
+                            isPassWordMathed = true;
                     }
 
-                    if (isIPExists == true)  // Validating the User Using the Username and Password
+                    if (isPassWordMathed && isIPAuthenticated)  // Validating the User Using the Username and Password
                     {
-
                         Session["id"] = "";
                         lblIllegal.Visible = true;
 
@@ -465,25 +465,15 @@ namespace WealthERP.General
 
                         if (advisorVo != null)
                         {
-                            if ((advisorVo.IsIPEnable == 0) && (hashUserAuthenticationDetails["PWD"].ToString() == "False"))
+                            if (((advisorVo.IsIPEnable == 0) && (!isPassWordMathed)) || ((advisorVo.IsIPEnable == 1) && ((!isPassWordMathed))))
                             {
                                 lblIllegal.Text = "Username and Password does not match";
                             }
-                            else
+                            else if((advisorVo.IsIPEnable == 1) && (!isIPAuthenticated))
                             {
-                                if ((hashUserAuthenticationDetails.Count == 2) && ((hashUserAuthenticationDetails["PWD"].ToString() == "False") && (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")))
-                                {
-                                    lblIllegal.Text = "Username and Password does not match";
-                                }
-                                else if ((hashUserAuthenticationDetails.Count == 2) && ((hashUserAuthenticationDetails["IPAuthentication"].ToString() == "False") && (hashUserAuthenticationDetails["PWD"].ToString() == "True")))
-                                {
-                                    lblIllegal.Text = "IP Authentication is failed..!!";
-                                }
-                                else
-                                {
-                                    lblIllegal.Text = "IP Authentication is failed..!!";
-                                }
+                                lblIllegal.Text = "IP Authentication is failed..!!";
                             }
+                            
                         }
                         else
                         {
