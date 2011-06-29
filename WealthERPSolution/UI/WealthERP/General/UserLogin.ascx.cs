@@ -156,7 +156,7 @@ namespace WealthERP.General
                             isPassWordMathed = true;
                     }
 
-                    if (isPassWordMathed && isIPAuthenticated)  // Validating the User Using the Username and Password
+                    if ((isPassWordMathed && isIPAuthenticated) || (isPassWordMathed && advisorVo.IsIPEnable == 0))  // Validating the User Using the Username and Password
                     {
                         Session["id"] = "";
                         lblIllegal.Visible = true;
