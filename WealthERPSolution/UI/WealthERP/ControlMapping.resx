@@ -1169,4 +1169,8 @@
     <value>Advisor//AdviserIPPool.ascx</value>
     <comment>Advisor//AdviserIPPool.ascx</comment>
   </data>
+  <data name="IFFUserManagement" xml:space="preserve">
+    <value>SuperAdmin//IFFUserManagement.ascx</value>
+    <comment>SuperAdmin//IFFUserManagement.ascx</comment>
+  </data>
 </root>

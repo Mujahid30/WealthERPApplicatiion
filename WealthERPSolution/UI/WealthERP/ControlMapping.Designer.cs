@@ -1285,6 +1285,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//IFFUserManagement.ascx.
+        /// </summary>
+        internal static string IFFUserManagement {
+            get {
+                return ResourceManager.GetString("IFFUserManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {

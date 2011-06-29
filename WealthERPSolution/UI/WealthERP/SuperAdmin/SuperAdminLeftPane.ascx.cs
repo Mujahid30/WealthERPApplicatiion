@@ -51,6 +51,10 @@ namespace WealthERP.SuperAdmin
                     Session.Remove("IDs");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
                 }
+                else if (e.Item.Value == "IFFUserManagement")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFUserManagement','login')", true);
+                }
                 else if (e.Item.Value == "MessageBroadcast")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SuperAdminMessageBroadcast','login')", true);

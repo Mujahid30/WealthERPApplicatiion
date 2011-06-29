@@ -12,6 +12,10 @@
                 <telerik:RadPanelItem Text="Add" Value="IFFAdd">
                 </telerik:RadPanelItem>
             </Items>
+             <Items>
+                <telerik:RadPanelItem Text="User Management" Value="IFFUserManagement">
+                </telerik:RadPanelItem>
+            </Items>
         </telerik:RadPanelItem>
         <telerik:RadPanelItem Text="MessageBroadcast" Value="MessageBroadcast">
         </telerik:RadPanelItem>
