@@ -145,8 +145,7 @@ namespace WealthERP.General
 
                             if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
                                 isPassWordMathed = true;
-                            if (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")
-                                isIPAuthenticated = true;
+                            
                         }
                     }
                     else if (userVo.UserType == "Customer")
