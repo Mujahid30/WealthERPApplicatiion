@@ -334,6 +334,7 @@ namespace BoFPSuperlite
                 if (dr["IncomeCategory"].ToString() == "Salary")
                 {
                     salaryIncome =decimal.Parse(dr["IncomeAmount"].ToString());
+                    
                 }
  
             }
@@ -472,30 +473,32 @@ namespace BoFPSuperlite
             //*************************************1st Record Processing for Rebalancing*****************************************
             
 
-            equityGapFromAgreedAllocation = equityAgreedPercent - equityCurrentPercent;
-            debtGapFromAgreedAllocation = debtAgreedPercent - debtCurrentPercent;
-            cashGapFromAgreedAllocation = cashAgreedPercent - cashCurrentPercent;
-            alternateGapFromAgreedAllocation = alternateAgreedPercent - alternateCurrentPercent;
+            equityGapFromAgreedAllocation =equityAgreedPercent - equityCurrentPercent;
+            debtGapFromAgreedAllocation =debtAgreedPercent - debtCurrentPercent;
+            cashGapFromAgreedAllocation =cashAgreedPercent - cashCurrentPercent;
+            alternateGapFromAgreedAllocation =alternateAgreedPercent - alternateCurrentPercent;
 
-
+            //"Closing Balance" means Current Investment Amount in Paticular asset Class for the current Year
+            //"Amount" means aggred Future saving from surplus(Income-Expense) for the Current Year(Money flowing in from future savings)
+            //"Amount To Be Rebalanced" means percentage Gap From Aggred allocation of "Closing Balance" + "Amount"  
             equityAmountToBeRebalanced = equityGapFromAgreedAllocation / 100 * equityClosingBalance + equityAmount;
             debtAmountToBeRebalanced = debtGapFromAgreedAllocation / 100 * debtClosingBalance + debtAmount;
             cashAmountToBeRebalanced = cashGapFromAgreedAllocation / 100 * cashClosingBalance + cashAmount;
             alternateAmountToBeRebalanced = alternateGapFromAgreedAllocation / 100 * alternateClosingBalance + alternateAmount;
 
-            equityAmountAvailableAfterRebalancingAndWithdrawls = equityClosingBalance - equityGoalFundedAmount + equityAmountToBeRebalanced;
-            debtAmountAvailableAfterRebalancingAndWithdrawls = debtClosingBalance - debtGoalFundedAmount + debtAmountToBeRebalanced;
-            cashAmountAvailableAfterRebalancingAndWithdrawls = cashClosingBalance - cashGoalFundedAmount + cashAmountToBeRebalanced;
-            alternateAmountAvailableAfterRebalancingAndWithdrawls = alternateClosingBalance - alternateGoalFundedAmount + alternateAmountToBeRebalanced;
+            equityAmountAvailableAfterRebalancingAndWithdrawls = equityClosingBalance - equityGoalFundedAmount - equityAmountToBeRebalanced;
+            debtAmountAvailableAfterRebalancingAndWithdrawls = debtClosingBalance - debtGoalFundedAmount - debtAmountToBeRebalanced;
+            cashAmountAvailableAfterRebalancingAndWithdrawls = cashClosingBalance - cashGoalFundedAmount - cashAmountToBeRebalanced;
+            alternateAmountAvailableAfterRebalancingAndWithdrawls = alternateClosingBalance - alternateGoalFundedAmount - alternateAmountToBeRebalanced;
 
             if (equityAmountAvailableAfterRebalancingAndWithdrawls != 0)
-            equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(equityGrowthRate.ToString()), 1, 0, -double.Parse(equityAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+            equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(equityGrowthRate.ToString())/100, 1, 0, -double.Parse(equityAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
             if (debtAmountAvailableAfterRebalancingAndWithdrawls != 0)
-            debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(debtGrowthRate.ToString()), 1, 0, -double.Parse(debtAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+            debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(debtGrowthRate.ToString())/100, 1, 0, -double.Parse(debtAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
             if (cashAmountAvailableAfterRebalancingAndWithdrawls != 0)
-            cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(cashGrowthRate.ToString()), 1, 0, -double.Parse(cashAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+            cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(cashGrowthRate.ToString())/100, 1, 0, -double.Parse(cashAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
             if (alternateAmountAvailableAfterRebalancingAndWithdrawls != 0)
-            alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(alternateGrowthRate.ToString()), 1, 0, -double.Parse(alternateAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+            alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(alternateGrowthRate.ToString())/100, 1, 0, -double.Parse(alternateAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
 
             equityBalanceAmount = equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns + equityAmountFV;
             debtBalanceAmount = debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns + debtAmountFV;
@@ -509,67 +512,74 @@ namespace BoFPSuperlite
 
             drEquityRebalancingEngine["Year"] = tempYear;
             drEquityRebalancingEngine["AssetClass"] = "Equity";
-            drEquityRebalancingEngine["PreviousYearClosingBalance"] = equityClosingBalance;
+            drEquityRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(equityClosingBalance,0);
             drEquityRebalancingEngine["AgrredPercent"] = equityAgreedPercent;
             drEquityRebalancingEngine["CurrentAssetAllocationPercent"] = equityCurrentPercent;
             drEquityRebalancingEngine["GapFrpmAgrredPercent"] = equityGapFromAgreedAllocation;
-            drEquityRebalancingEngine["AmountBeforeReturns"] = equityAmount;
+            drEquityRebalancingEngine["AmountBeforeReturns"] =Math.Round(equityAmount,0);
             drEquityRebalancingEngine["ReturnRate"] = equityGrowthRate;
-            drEquityRebalancingEngine["AmountAfterReturns"] = equityAmountFV;
-            drEquityRebalancingEngine["GoalMoneyWithdrawn"] = equityGoalFundedAmount;
-            drEquityRebalancingEngine["MoneyToBeRebalanced"] = equityAmountToBeRebalanced;
-            drEquityRebalancingEngine["MoneyAvailableAfterRW"] = equityAmountAvailableAfterRebalancingAndWithdrawls;
-            drEquityRebalancingEngine["MoneyAvailableAfterRWReturn"] = equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-            drEquityRebalancingEngine["BalanceMoney"] = equityBalanceAmount;
+            drEquityRebalancingEngine["AmountAfterReturns"] =Math.Round(equityAmountFV,0);
+            drEquityRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(equityGoalFundedAmount,0);
+            drEquityRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(equityAmountToBeRebalanced,0);
+            drEquityRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(equityAmountAvailableAfterRebalancingAndWithdrawls,0);
+            drEquityRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+            drEquityRebalancingEngine["BalanceMoney"] =Math.Round(equityBalanceAmount,0);
             dtRebalancingEngine.Rows.Add(drEquityRebalancingEngine);
 
             drDebtRebalancingEngine["Year"] = tempYear;
             drDebtRebalancingEngine["AssetClass"] = "Debt";
-            drDebtRebalancingEngine["PreviousYearClosingBalance"] = debtClosingBalance;
+            drDebtRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(debtClosingBalance,0);
             drDebtRebalancingEngine["AgrredPercent"] = debtAgreedPercent;
             drDebtRebalancingEngine["CurrentAssetAllocationPercent"] = debtCurrentPercent;
             drDebtRebalancingEngine["GapFrpmAgrredPercent"] = debtGapFromAgreedAllocation;
-            drDebtRebalancingEngine["AmountBeforeReturns"] = debtAmount;
+            drDebtRebalancingEngine["AmountBeforeReturns"] =Math.Round(debtAmount,0);
             drDebtRebalancingEngine["ReturnRate"] = debtGrowthRate;
-            drDebtRebalancingEngine["AmountAfterReturns"] = debtAmountFV;
-            drDebtRebalancingEngine["GoalMoneyWithdrawn"] = debtGoalFundedAmount;
-            drDebtRebalancingEngine["MoneyToBeRebalanced"] = debtAmountToBeRebalanced;
-            drDebtRebalancingEngine["MoneyAvailableAfterRW"] = debtAmountAvailableAfterRebalancingAndWithdrawls;
-            drDebtRebalancingEngine["MoneyAvailableAfterRWReturn"] = debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-            drDebtRebalancingEngine["BalanceMoney"] = debtBalanceAmount;
+            drDebtRebalancingEngine["AmountAfterReturns"] = Math.Round(debtAmountFV,0);
+            drDebtRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(debtGoalFundedAmount,0);
+            drDebtRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(debtAmountToBeRebalanced,0);
+            drDebtRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(debtAmountAvailableAfterRebalancingAndWithdrawls,0);
+            drDebtRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+            drDebtRebalancingEngine["BalanceMoney"] =Math.Round(debtBalanceAmount,0);
             dtRebalancingEngine.Rows.Add(drDebtRebalancingEngine);
 
             drCashRebalancingEngine["Year"] = tempYear;
             drCashRebalancingEngine["AssetClass"] = "Cash";
-            drCashRebalancingEngine["PreviousYearClosingBalance"] = cashClosingBalance;
+            drCashRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(cashClosingBalance,0);
             drCashRebalancingEngine["AgrredPercent"] = cashAgreedPercent;
             drCashRebalancingEngine["CurrentAssetAllocationPercent"] = cashCurrentPercent;
             drCashRebalancingEngine["GapFrpmAgrredPercent"] = cashGapFromAgreedAllocation;
-            drCashRebalancingEngine["AmountBeforeReturns"] = cashAmount;
+            drCashRebalancingEngine["AmountBeforeReturns"] =Math.Round(cashAmount,0);
             drCashRebalancingEngine["ReturnRate"] = cashGrowthRate;
-            drCashRebalancingEngine["AmountAfterReturns"] = cashAmountFV;
-            drCashRebalancingEngine["GoalMoneyWithdrawn"] = cashGoalFundedAmount;
-            drCashRebalancingEngine["MoneyToBeRebalanced"] = cashAmountToBeRebalanced;
-            drCashRebalancingEngine["MoneyAvailableAfterRW"] = cashAmountAvailableAfterRebalancingAndWithdrawls;
-            drCashRebalancingEngine["MoneyAvailableAfterRWReturn"] = cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-            drCashRebalancingEngine["BalanceMoney"] = cashBalanceAmount;
+            drCashRebalancingEngine["AmountAfterReturns"] =Math.Round(cashAmountFV,0);
+            drCashRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(cashGoalFundedAmount,0);
+            drCashRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(cashAmountToBeRebalanced,0);
+            drCashRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(cashAmountAvailableAfterRebalancingAndWithdrawls,0);
+            drCashRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+            drCashRebalancingEngine["BalanceMoney"] =Math.Round(cashBalanceAmount,0);
             dtRebalancingEngine.Rows.Add(drCashRebalancingEngine);
 
             drAlternateRebalancingEngine["Year"] = tempYear;
             drAlternateRebalancingEngine["AssetClass"] = "Alternate";
-            drAlternateRebalancingEngine["PreviousYearClosingBalance"] = alternateClosingBalance;
+            drAlternateRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(alternateClosingBalance,0);
             drAlternateRebalancingEngine["AgrredPercent"] = alternateAgreedPercent;
             drAlternateRebalancingEngine["CurrentAssetAllocationPercent"] = alternateCurrentPercent;
             drAlternateRebalancingEngine["GapFrpmAgrredPercent"] = alternateGapFromAgreedAllocation;
-            drAlternateRebalancingEngine["AmountBeforeReturns"] = alternateAmount;
+            drAlternateRebalancingEngine["AmountBeforeReturns"] =Math.Round(alternateAmount,0);
             drAlternateRebalancingEngine["ReturnRate"] = alternateGrowthRate;
-            drAlternateRebalancingEngine["AmountAfterReturns"] = alternateAmountFV;
-            drAlternateRebalancingEngine["GoalMoneyWithdrawn"] = alternateGoalFundedAmount;
-            drAlternateRebalancingEngine["MoneyToBeRebalanced"] = alternateAmountToBeRebalanced;
-            drAlternateRebalancingEngine["MoneyAvailableAfterRW"] = alternateAmountAvailableAfterRebalancingAndWithdrawls;
-            drAlternateRebalancingEngine["MoneyAvailableAfterRWReturn"] = alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-            drAlternateRebalancingEngine["BalanceMoney"] = alternateBalanceAmount;
+            drAlternateRebalancingEngine["AmountAfterReturns"] =Math.Round(alternateAmountFV,0);
+            drAlternateRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(alternateGoalFundedAmount,0);
+            drAlternateRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(alternateAmountToBeRebalanced,0);
+            drAlternateRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(alternateAmountAvailableAfterRebalancingAndWithdrawls,0);
+            drAlternateRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+            drAlternateRebalancingEngine["BalanceMoney"] =Math.Round(alternateBalanceAmount,0);
             dtRebalancingEngine.Rows.Add(drAlternateRebalancingEngine);
+
+            //***********************************
+            equityClosingBalance =Math.Round(equityBalanceAmount,0);
+            debtClosingBalance =Math.Round(debtBalanceAmount,0);
+            cashClosingBalance =Math.Round(cashBalanceAmount,0);
+            alternateClosingBalance =Math.Round(alternateBalanceAmount,0);
+            //***********************************
 
             tempYear++;
 
@@ -640,6 +650,33 @@ namespace BoFPSuperlite
                     }
                     
                 }
+
+                //**********************************************************************************************************
+                //**********************************************************************************************************
+
+                drGoalFundingAssetWise = dtCustomerGoalFunding.Select("CG_GoalYear=" + tempYear.ToString());
+
+                foreach (DataRow dr in drGoalFundingAssetWise)
+                {
+                    if (Convert.ToString(dr["WAC_AssetClassificationCode"]) == "1")
+                    {
+                        equityGoalFundedAmount = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassificationCode"]) == "2")
+                    {
+                        debtGoalFundedAmount = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassificationCode"]) == "3")
+                    {
+                        cashGoalFundedAmount = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                    else if (Convert.ToString(dr["WAC_AssetClassificationCode"]) == "4")
+                    {
+                        alternateGoalFundedAmount = decimal.Parse(Convert.ToString(dr["Amount"]));
+                    }
+                }
+
+                //**********************************************************************************************************************
                 if (tempYear == retYear)
                     totalIncome = totalIncome - salaryIncome;
                 else
@@ -734,9 +771,9 @@ namespace BoFPSuperlite
                 //***************************************Second Record onwards Record Processing for Rebalancing*************************
 
 
-                equityGapFromAgreedAllocation = equityAgreedPercent - equityCurrentPercent;
-                debtGapFromAgreedAllocation = debtAgreedPercent - debtCurrentPercent;
-                cashGapFromAgreedAllocation = cashAgreedPercent - cashCurrentPercent;
+                equityGapFromAgreedAllocation= equityAgreedPercent - equityCurrentPercent;
+                debtGapFromAgreedAllocation =debtAgreedPercent - debtCurrentPercent;
+                cashGapFromAgreedAllocation =cashAgreedPercent - cashCurrentPercent;
                 alternateGapFromAgreedAllocation = alternateAgreedPercent - alternateCurrentPercent;
 
 
@@ -745,19 +782,19 @@ namespace BoFPSuperlite
                 cashAmountToBeRebalanced = cashGapFromAgreedAllocation / 100 * cashClosingBalance + cashAmount;
                 alternateAmountToBeRebalanced = alternateGapFromAgreedAllocation / 100 * alternateClosingBalance + alternateAmount;
 
-                equityAmountAvailableAfterRebalancingAndWithdrawls = equityClosingBalance - equityGoalFundedAmount + equityAmountToBeRebalanced;
-                debtAmountAvailableAfterRebalancingAndWithdrawls = debtClosingBalance - debtGoalFundedAmount + debtAmountToBeRebalanced;
-                cashAmountAvailableAfterRebalancingAndWithdrawls = cashClosingBalance - cashGoalFundedAmount + cashAmountToBeRebalanced;
-                alternateAmountAvailableAfterRebalancingAndWithdrawls = alternateClosingBalance - alternateGoalFundedAmount + alternateAmountToBeRebalanced;
+                equityAmountAvailableAfterRebalancingAndWithdrawls = equityClosingBalance - equityGoalFundedAmount - equityAmountToBeRebalanced;
+                debtAmountAvailableAfterRebalancingAndWithdrawls = debtClosingBalance - debtGoalFundedAmount - debtAmountToBeRebalanced;
+                cashAmountAvailableAfterRebalancingAndWithdrawls = cashClosingBalance - cashGoalFundedAmount - cashAmountToBeRebalanced;
+                alternateAmountAvailableAfterRebalancingAndWithdrawls = alternateClosingBalance - alternateGoalFundedAmount - alternateAmountToBeRebalanced;
 
                 if (equityAmountAvailableAfterRebalancingAndWithdrawls != 0)
-                    equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(equityGrowthRate.ToString()), 1, 0, -double.Parse(equityAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+                    equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(equityGrowthRate.ToString())/100, 1, 0, -double.Parse(equityAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
                 if (debtAmountAvailableAfterRebalancingAndWithdrawls != 0)
-                    debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(debtGrowthRate.ToString()), 1, 0, -double.Parse(debtAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+                    debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(debtGrowthRate.ToString())/100, 1, 0, -double.Parse(debtAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
                 if (cashAmountAvailableAfterRebalancingAndWithdrawls != 0)
-                    cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(cashGrowthRate.ToString()), 1, 0, -double.Parse(cashAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+                    cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(cashGrowthRate.ToString())/100, 1, 0, -double.Parse(cashAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
                 if (alternateAmountAvailableAfterRebalancingAndWithdrawls != 0)
-                    alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(alternateGrowthRate.ToString()), 1, 0, -double.Parse(alternateAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
+                    alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns = decimal.Parse(FutureValue(double.Parse(alternateGrowthRate.ToString())/100, 1, 0, -double.Parse(alternateAmountAvailableAfterRebalancingAndWithdrawls.ToString()), 0).ToString());
 
                 equityBalanceAmount = equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns + equityAmountFV;
                 debtBalanceAmount = debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns + debtAmountFV;
@@ -771,68 +808,74 @@ namespace BoFPSuperlite
 
                 drEquityRebalancingEngine["Year"] = tempYear;
                 drEquityRebalancingEngine["AssetClass"] = "Equity";
-                drEquityRebalancingEngine["PreviousYearClosingBalance"] = equityClosingBalance;
+                drEquityRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(equityClosingBalance,0);
                 drEquityRebalancingEngine["AgrredPercent"] = equityAgreedPercent;
                 drEquityRebalancingEngine["CurrentAssetAllocationPercent"] = equityCurrentPercent;
                 drEquityRebalancingEngine["GapFrpmAgrredPercent"] = equityGapFromAgreedAllocation;
-                drEquityRebalancingEngine["AmountBeforeReturns"] = equityAmount;
+                drEquityRebalancingEngine["AmountBeforeReturns"] =Math.Round(equityAmount,0);
                 drEquityRebalancingEngine["ReturnRate"] = equityGrowthRate;
-                drEquityRebalancingEngine["AmountAfterReturns"] = equityAmountFV;
-                drEquityRebalancingEngine["GoalMoneyWithdrawn"] = equityGoalFundedAmount;
-                drEquityRebalancingEngine["MoneyToBeRebalanced"] = equityAmountToBeRebalanced;
-                drEquityRebalancingEngine["MoneyAvailableAfterRW"] = equityAmountAvailableAfterRebalancingAndWithdrawls;
-                drEquityRebalancingEngine["MoneyAvailableAfterRWReturn"] = equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-                drEquityRebalancingEngine["BalanceMoney"] = equityBalanceAmount;
+                drEquityRebalancingEngine["AmountAfterReturns"] =Math.Round(equityAmountFV,0);
+                drEquityRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(equityGoalFundedAmount,0);
+                drEquityRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(equityAmountToBeRebalanced,0);
+                drEquityRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(equityAmountAvailableAfterRebalancingAndWithdrawls,0);
+                drEquityRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(equityAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+                drEquityRebalancingEngine["BalanceMoney"] =Math.Round(equityBalanceAmount,0);
                 dtRebalancingEngine.Rows.Add(drEquityRebalancingEngine);
 
                 drDebtRebalancingEngine["Year"] = tempYear;
                 drDebtRebalancingEngine["AssetClass"] = "Debt";
-                drDebtRebalancingEngine["PreviousYearClosingBalance"] = debtClosingBalance;
+                drDebtRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(debtClosingBalance,0);
                 drDebtRebalancingEngine["AgrredPercent"] = debtAgreedPercent;
                 drDebtRebalancingEngine["CurrentAssetAllocationPercent"] = debtCurrentPercent;
                 drDebtRebalancingEngine["GapFrpmAgrredPercent"] = debtGapFromAgreedAllocation;
-                drDebtRebalancingEngine["AmountBeforeReturns"] = debtAmount;
+                drDebtRebalancingEngine["AmountBeforeReturns"] =Math.Round(debtAmount,0);
                 drDebtRebalancingEngine["ReturnRate"] = debtGrowthRate;
-                drDebtRebalancingEngine["AmountAfterReturns"] = debtAmountFV;
-                drDebtRebalancingEngine["GoalMoneyWithdrawn"] = debtGoalFundedAmount;
-                drDebtRebalancingEngine["MoneyToBeRebalanced"] = debtAmountToBeRebalanced;
-                drDebtRebalancingEngine["MoneyAvailableAfterRW"] = debtAmountAvailableAfterRebalancingAndWithdrawls;
-                drDebtRebalancingEngine["MoneyAvailableAfterRWReturn"] = debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-                drDebtRebalancingEngine["BalanceMoney"] = debtBalanceAmount;
+                drDebtRebalancingEngine["AmountAfterReturns"] =Math.Round(debtAmountFV,0);
+                drDebtRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(debtGoalFundedAmount,0);
+                drDebtRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(debtAmountToBeRebalanced,0);
+                drDebtRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(debtAmountAvailableAfterRebalancingAndWithdrawls,0);
+                drDebtRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(debtAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+                drDebtRebalancingEngine["BalanceMoney"] =Math.Round(debtBalanceAmount,0);
                 dtRebalancingEngine.Rows.Add(drDebtRebalancingEngine);
 
                 drCashRebalancingEngine["Year"] = tempYear;
                 drCashRebalancingEngine["AssetClass"] = "Cash";
-                drCashRebalancingEngine["PreviousYearClosingBalance"] = cashClosingBalance;
+                drCashRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(cashClosingBalance,0);
                 drCashRebalancingEngine["AgrredPercent"] = cashAgreedPercent;
                 drCashRebalancingEngine["CurrentAssetAllocationPercent"] = cashCurrentPercent;
                 drCashRebalancingEngine["GapFrpmAgrredPercent"] = cashGapFromAgreedAllocation;
-                drCashRebalancingEngine["AmountBeforeReturns"] = cashAmount;
+                drCashRebalancingEngine["AmountBeforeReturns"] =Math.Round(cashAmount,0);
                 drCashRebalancingEngine["ReturnRate"] = cashGrowthRate;
-                drCashRebalancingEngine["AmountAfterReturns"] = cashAmountFV;
-                drCashRebalancingEngine["GoalMoneyWithdrawn"] = cashGoalFundedAmount;
-                drCashRebalancingEngine["MoneyToBeRebalanced"] = cashAmountToBeRebalanced;
-                drCashRebalancingEngine["MoneyAvailableAfterRW"] = cashAmountAvailableAfterRebalancingAndWithdrawls;
-                drCashRebalancingEngine["MoneyAvailableAfterRWReturn"] = cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-                drCashRebalancingEngine["BalanceMoney"] = cashBalanceAmount;
+                drCashRebalancingEngine["AmountAfterReturns"] =Math.Round(cashAmountFV,0);
+                drCashRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(cashGoalFundedAmount,0);
+                drCashRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(cashAmountToBeRebalanced,0);
+                drCashRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(cashAmountAvailableAfterRebalancingAndWithdrawls,0);
+                drCashRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(cashAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+                drCashRebalancingEngine["BalanceMoney"] =Math.Round(cashBalanceAmount,0);
                 dtRebalancingEngine.Rows.Add(drCashRebalancingEngine);
 
                 drAlternateRebalancingEngine["Year"] = tempYear;
                 drAlternateRebalancingEngine["AssetClass"] = "Alternate";
-                drAlternateRebalancingEngine["PreviousYearClosingBalance"] = alternateClosingBalance;
+                drAlternateRebalancingEngine["PreviousYearClosingBalance"] =Math.Round(alternateClosingBalance,0);
                 drAlternateRebalancingEngine["AgrredPercent"] = alternateAgreedPercent;
                 drAlternateRebalancingEngine["CurrentAssetAllocationPercent"] = alternateCurrentPercent;
                 drAlternateRebalancingEngine["GapFrpmAgrredPercent"] = alternateGapFromAgreedAllocation;
-                drAlternateRebalancingEngine["AmountBeforeReturns"] = alternateAmount;
+                drAlternateRebalancingEngine["AmountBeforeReturns"] =Math.Round(alternateAmount,0);
                 drAlternateRebalancingEngine["ReturnRate"] = alternateGrowthRate;
-                drAlternateRebalancingEngine["AmountAfterReturns"] = alternateAmountFV;
-                drAlternateRebalancingEngine["GoalMoneyWithdrawn"] = alternateGoalFundedAmount;
-                drAlternateRebalancingEngine["MoneyToBeRebalanced"] = alternateAmountToBeRebalanced;
-                drAlternateRebalancingEngine["MoneyAvailableAfterRW"] = alternateAmountAvailableAfterRebalancingAndWithdrawls;
-                drAlternateRebalancingEngine["MoneyAvailableAfterRWReturn"] = alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns;
-                drAlternateRebalancingEngine["BalanceMoney"] = alternateBalanceAmount;
+                drAlternateRebalancingEngine["AmountAfterReturns"] =Math.Round(alternateAmountFV,0);
+                drAlternateRebalancingEngine["GoalMoneyWithdrawn"] =Math.Round(alternateGoalFundedAmount,0);
+                drAlternateRebalancingEngine["MoneyToBeRebalanced"] =Math.Round(alternateAmountToBeRebalanced,0);
+                drAlternateRebalancingEngine["MoneyAvailableAfterRW"] =Math.Round(alternateAmountAvailableAfterRebalancingAndWithdrawls,0);
+                drAlternateRebalancingEngine["MoneyAvailableAfterRWReturn"] =Math.Round(alternateAmountAvailableAfterRebalancingAndWithdrawlsWithReturns,0);
+                drAlternateRebalancingEngine["BalanceMoney"] =Math.Round(alternateBalanceAmount,0);
                 dtRebalancingEngine.Rows.Add(drAlternateRebalancingEngine);
-           
+
+                //***********************************
+                equityClosingBalance =Math.Round(equityBalanceAmount,0);
+                debtClosingBalance =Math.Round(debtBalanceAmount,0);
+                cashClosingBalance =Math.Round(cashBalanceAmount,0);
+                alternateClosingBalance =Math.Round(alternateBalanceAmount,0);
+                //***********************************
 
                 tempYear++;
             }
