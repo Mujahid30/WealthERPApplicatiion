@@ -38,6 +38,7 @@ namespace WealthERP.Advisor
                 }
 
                 txtCurrentPassword.Text = "";
+                hdnuname.Value = userVo.LoginId;
             }
 
             catch (BaseApplicationException Ex)
@@ -63,32 +64,39 @@ namespace WealthERP.Advisor
         {
             try
             {
-              
 
-                if (txtCurrentPassword.Text == Encryption.Decrypt(userVo.Password.ToString()))
+                if (txtNewPassword.Text != userVo.LoginId)
                 {
-                    if (txtNewPassword.Text == txtConfirmPassword.Text)
+                    if (txtCurrentPassword.Text == Encryption.Decrypt(userVo.Password.ToString()))
                     {
-                        userVo.Password = txtConfirmPassword.Text.ToString();
-                        userBo.ChangePassword(userVo.UserId,Encryption.Encrypt(userVo.Password),tempPass);
-                        
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Your Password Changed Successfully..!');", true);
-                        if(Session["ChangeTempPass"]!=null && Session["ChangeTempPass"].ToString()=="Y")
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('Userlogin','none');", true);
-                            
-                       // else
+                        if (txtNewPassword.Text == txtConfirmPassword.Text)
+                        {
+                            userVo.Password = txtConfirmPassword.Text.ToString();
+                            userBo.ChangePassword(userVo.UserId, Encryption.Encrypt(userVo.Password), tempPass);
+
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Your Password Changed Successfully..!');", true);
+                            if (Session["ChangeTempPass"] != null && Session["ChangeTempPass"].ToString() == "Y")
+                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('Userlogin','none');", true);
+
+                            // else
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('EditUserDetails','none');", true);
 
+                        }
+                        else
+                        {
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Check the password');", true);
+                        }
                     }
                     else
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Check the password');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Current password is not correct..!');", true);
                     }
                 }
                 else
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Current password is not correct..!');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Password can not be same to User Name !');", true);
                 }
+
             }
 
             catch (BaseApplicationException Ex)
