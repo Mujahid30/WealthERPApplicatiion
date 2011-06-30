@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPGoalSetup.ascx.cs" Inherits="WealthERP.FP.CustomerFPGoalSetup" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -16,13 +17,21 @@
         document.getElementById("<%= PnlNonRetirement.ClientID %>").style.display = 'none';
         document.getElementById("<%= PnlRetirement.ClientID %>").style.display = 'block';
         }
+
+    }
+
+    function ShowHideControls() {
+        var ddlGoalType = document.getElementById("<%=ddlGoalType.ClientID %>").value;
+        if ((ddlGoalType == 'ED') || (ddlGoalType == 'MR'))
+            document.getElementById("<%= trPickChild.ClientID %>").style.display = 'block';
+    }
     
+    function ShowTrFrequency() {
+        var ddlOccurrence = document.getElementById("<%=ddlOccurrence.ClientID %>").value;
+        if (ddlOccurrence == 'Recurring') 
+              document.getElementById("<%= trFrequency.ClientID %>").style.display = 'block';
     }
 </script>
-
-
-
-
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Setup"></asp:Label>
 <hr />
@@ -78,7 +87,7 @@
                         <asp:Label ID="lblGoalbjective" runat="server" CssClass="FieldName" Text="Goal Objective :"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlGoalType" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlGoalType" runat="server" CssClass="cmbField" onchange="ShowHideControls()">
                               
                         </asp:DropDownList>
                         <span id="spanGoalType" class="spnRequiredField" runat="server">*</span> 
@@ -90,11 +99,9 @@
                              errormessage="RequiredFieldValidator" controltovalidate="ddlGoalType" 
                              display="Dynamic" initialvalue="0" setfocusonerror="True" EnableClientScript="True">
                         </asp:Requiredfieldvalidator>--%>
-
-                                            
                     </td>
                 </tr>
-                <tr id="trPickChild" runat="server">
+                <tr id="trPickChild" runat="server" style="display:none">
                     <td id="Td4" class="leftField" runat="server">
                         <asp:Label ID="lblPickChild" runat="server" CssClass="FieldName" Text="Select a child for Goal planning :"></asp:Label>
                     </td>
@@ -116,10 +123,17 @@
                         <asp:Label ID="lblGoalDate" runat="server" CssClass="FieldName" Text="Goal Entry Date :"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtGoalDate" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <ajaxToolkit:CalendarExtender ID="txtGoalDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
+                        <asp:TextBox ID="txtGoalDate" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>                        
+                        <cc1:CalendarExtender ID="txtGoalDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
+                        TargetControlID="txtGoalDate">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="txtGoalDate_TextBoxWatermarkExtender" runat="server"
+                            TargetControlID="txtGoalDate" WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+                        
+                        <%--<ajaxToolkit:CalendarExtender ID="txtGoalDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                             OnClientDateSelectionChanged="checkDate" TargetControlID="txtGoalDate" Enabled="True">
-                        </ajaxToolkit:CalendarExtender>
+                        </ajaxToolkit:CalendarExtender>--%>
                         <span id="SpanGoalDateReq" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtGoalDate"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please select a Date"></asp:RequiredFieldValidator>
@@ -151,7 +165,7 @@
                         <asp:Label ID="lblOccurrence" runat="server" CssClass="FieldName" Text="Occurrence :"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlOccurrence" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlOccurrence" runat="server" CssClass="cmbField" onchange="ShowTrFrequency()">
                         <asp:ListItem Text="Select" Value="Select">                                              
                         </asp:ListItem>
                         <asp:ListItem Text="One Time" Value="Once">                                              
@@ -183,9 +197,9 @@
                 </tr>  --%>          
                 
                 
-                <tr>
+                <tr id="trFrequency" runat="server" style="display:none">
                     <td class="leftField">
-                        <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency :"></asp:Label>
+                        <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency :" ></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField">

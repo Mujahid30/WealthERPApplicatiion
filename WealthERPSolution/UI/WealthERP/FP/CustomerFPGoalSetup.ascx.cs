@@ -38,8 +38,7 @@ namespace WealthERP.FP
                 BindGoalObjectiveDropDown(dsAllDropDownDetails.Tables["GoalObjective"]);
                 BindPickChildDropDown(dsAllDropDownDetails.Tables["ChildDetails"]);
                 BindFrequencyDropDown(dsAllDropDownDetails.Tables["GoalFrequency"]);                
-                BindGoalYearDropDown();
-
+                BindGoalYearDropDown();            
             }
         }
         
