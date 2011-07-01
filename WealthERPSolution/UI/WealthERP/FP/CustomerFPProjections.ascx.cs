@@ -8,6 +8,7 @@ using System.Data;
 using VoUser;
 using BoFPSuperlite;
 using BoCustomerProfiling;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.FP
@@ -29,6 +30,12 @@ namespace WealthERP.FP
             rbtnFSRangeYear.Attributes.Add("onClick", "javascript:ShowHideGaolTypeFS(value);");
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            ddlFromYear.SelectedIndex = 0;
+            ddlToYear.SelectedIndex = 0;
+            ddlRangeYearFSFROM.SelectedIndex = 0;
+            ddlRangeYearFSTO.SelectedIndex = 0;
+
+            msgRecordStatus.Visible = false;
             if (!Page.IsPostBack)
             {
                 Session["PickAssetClassDPSelected"] = null;
@@ -36,8 +43,8 @@ namespace WealthERP.FP
                 BindYearDropDowns();
                 BindDropdownsRebalancing();
 
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolType();", true);
-                ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolTypeFS();", true);
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolType();", true);
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "pageloadscript", @"ShowHideGaolTypeFS();", true);
 
             }
             BindCustomerProjectedAssumption();
@@ -46,6 +53,19 @@ namespace WealthERP.FP
             if (Session["PickAssetClassDPSelected"] != null)
             {
                 CallRebalancing();
+            }
+            if (ViewState["ActionEditViewMode"] == null)
+            {
+                ViewState["ActionEditViewMode"] = "View";
+            }
+
+            if (ViewState["ActionEditViewMode"].ToString() == "View")
+            {
+                SetEditViewMode(true);
+            }
+            else if (ViewState["ActionEditViewMode"].ToString() == "Edit")
+            {
+                SetEditViewMode(false);
             }
 
         }
@@ -87,9 +107,69 @@ namespace WealthERP.FP
             ddlRebalancing.DataTextField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassification"].ToString();
             ddlRebalancing.DataValueField = dtBindDropdownsRebalancing.Columns["WAC_AssetClassificationCode"].ToString();
             ddlRebalancing.DataBind();
-            ddlRebalancing.Items.Insert(0, new ListItem("-Select-", "-Select-"));
+            ddlRebalancing.Items.Insert(0,new ListItem("-Select-", "-Select-"));
 
         }
+        protected void ddlPickYearFS_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindFPFutureSavingGrid();
+        
+        }
+
+
+        protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
+        {
+            if (e.Item.Value == "Edit")
+            {
+                ViewState["ActionEditViewMode"] = "Edit";
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAssumptionsPreferencesSetup','login');", true);
+                SetEditViewMode(false);
+            }
+        }
+        public void SetEditViewMode(bool Bool)
+        {
+            if (Bool)
+            {
+                rdbYearWise.Enabled = false;
+                rdbYearRangeWise.Enabled = false;
+                rbtnFSRangeYear.Enabled = false;
+                rbtnFSPickYear.Enabled = false;
+                txtAlternate.Enabled = false;
+                txtAlternateFS.Enabled = false;
+                txtCash.Enabled = false;
+                txtCashFS.Enabled = false;
+                txtDebt.Enabled = false;
+                txtDebtFS.Enabled = false;
+                txtEquityFS.Enabled = false;
+                txtEquity.Enabled = false;
+                btnEdit.Enabled = true;
+                btnSubmitAggredAllocation.Enabled = false;
+                btnSubmitFpFs.Enabled = false;
+
+            }
+            else
+            {
+                rdbYearWise.Enabled = true;
+                rdbYearRangeWise.Enabled = true;
+                rbtnFSRangeYear.Enabled = true;
+                rbtnFSPickYear.Enabled = true;
+                txtAlternate.Enabled = true;
+                txtAlternateFS.Enabled = true;
+                txtCash.Enabled = true;
+                txtCashFS.Enabled = true;
+                txtDebt.Enabled = true;
+                txtDebtFS.Enabled = true;
+                txtEquityFS.Enabled = true;
+                txtEquity.Enabled = true;
+                btnEdit.Enabled = false;
+                btnSubmitAggredAllocation.Enabled = true;
+                btnSubmitFpFs.Enabled = true;
+            }
+
+
+
+        }
+
         private void BindFPFutureSavingGrid()
         {
             DataSet dsFPFutureSavingGrid = new DataSet();
@@ -98,15 +178,69 @@ namespace WealthERP.FP
             dtFPFutureSavingGrid = CreateFutureSavingProjection(dsFPFutureSavingGrid.Tables[0]);
             gdvwFutureSavings.DataSource = dtFPFutureSavingGrid;
             gdvwFutureSavings.DataBind();
+            SetDefaultFutureSaving(dtFPFutureSavingGrid);
 
         }
+        public void SetDefaultFutureSaving(DataTable dtSetDefaultFutureSaving)
+        {
+            DataRow[] drSetDefaultFutureSaving;
+            int year = int.Parse(ddlPickYearFS.SelectedItem.ToString());
+            drSetDefaultFutureSaving = dtSetDefaultFutureSaving.Select("Year=" + year.ToString());
+            txtEquityFS.Text = Math.Round(decimal.Parse(drSetDefaultFutureSaving[0]["Equity_Allocation_per"].ToString()),2).ToString();
+            txtDebtFS.Text = Math.Round(decimal.Parse(drSetDefaultFutureSaving[0]["Debt_Allocation_per"].ToString()),2).ToString();
+            txtCashFS.Text = Math.Round(decimal.Parse(drSetDefaultFutureSaving[0]["Cash_Allocation_per"].ToString()),2).ToString();
+            txtAlternateFS.Text = Math.Round(decimal.Parse(drSetDefaultFutureSaving[0]["Alternate_Allocation_per"].ToString()),2).ToString();
 
+        }
+        protected void ddlPickYear_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindCustomerProjectedAssumption();
+        }
       protected void ddlRebalancing_OnSelectIndexChanged(object sender, EventArgs e)
       {
           Session["PickAssetClassDPSelected"] = ddlRebalancing.SelectedItem.ToString();
           if(ddlRebalancing.SelectedItem.ToString() != "-Select-")
             CallRebalancing();
       }
+      public void SetYearWiseDetailsInAllAssetAllocation(DataTable dtassetAllocation)
+      {
+          DataRow[] drSetDefaultAssetAllocation;
+          int year = int.Parse(ddlPickYear.SelectedItem.ToString());
+          drSetDefaultAssetAllocation = dtassetAllocation.Select("Year=" + year.ToString());
+          txtEquity.Text = Math.Round(decimal.Parse(drSetDefaultAssetAllocation[0]["Agr_Equity"].ToString()),2).ToString();
+          txtDebt.Text = Math.Round(decimal.Parse(drSetDefaultAssetAllocation[0]["Agr_Debt"].ToString()),2).ToString();
+          txtCash.Text =Math.Round(decimal.Parse(drSetDefaultAssetAllocation[0]["Agr_Cash"].ToString()),2).ToString();
+          if (drSetDefaultAssetAllocation[0]["Agr_Alternate"].ToString() == "")
+          {
+              
+          }
+          else
+              txtAlternate.Text = Math.Round(decimal.Parse(drSetDefaultAssetAllocation[0]["Agr_Alternate"].ToString()), 2).ToString();
+
+      }
+      //protected void gvAssetAllocation_OnRowCreated(object sender, gri e)
+      //{
+      //    if (e.Row.RowType == DataControlRowType.Header)
+      //    {
+      //        //Build custom header.
+      //        GridView oGridView = (GridView)sender;
+      //        GridViewRow oGridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
+      //        TableCell oTableCell = new TableCell();
+
+      //        //Add Department
+      //        oTableCell.Text = "Recommended Allocation";
+      //        oTableCell.ColumnSpan = 4;
+      //        oGridViewRow.Cells.Add(oTableCell);
+
+      //        //Add Employee
+      //        oTableCell = new TableCell();
+      //        oTableCell.Text = "Agreed Allocation";
+      //        oTableCell.ColumnSpan = 4;
+      //        oGridViewRow.Cells.Add(oTableCell);
+
+      //        oGridView.Controls[0].Controls.AddAt(0, oGridViewRow);
+      //    }
+      //}
 
       protected void CallRebalancing()
       {
@@ -240,14 +374,6 @@ namespace WealthERP.FP
             }
 
 
-
-
-
-
-
-
-
-
             return dtRebalancingGrid;
 
         }
@@ -256,9 +382,29 @@ namespace WealthERP.FP
             DataSet dsCustomerProjectedAssetAllocation;
             DataTable dtCustomerProjectedAssetAllocation;
             dsCustomerProjectedAssetAllocation = customerFPAnalyticsBo.GetCustomerProjectedAssetAllocation(customerVo.CustomerId);
+            DataRow[] drCheckForAlternate;
+            int year = int.Parse(dsCustomerProjectedAssetAllocation.Tables[0].Rows[0][5].ToString());
+            drCheckForAlternate = dsCustomerProjectedAssetAllocation.Tables[0].Select("CAA_Year=" + year.ToString());
+            if (drCheckForAlternate.Count() == 3)
+            {
+                txtAlternate.Visible = false;
+                txtAlternateFS.Visible = false;
+                txtAlternateRV.Visible = false;
+                gdvwFutureSavings.Columns[13].Visible = false;
+                gdvwFutureSavings.Columns[14].Visible = false;
+                gdvwFutureSavings.Columns[15].Visible = false;
+                gvAssetAllocation.Columns[7].Visible=false;
+                gvAssetAllocation.Columns[8].Visible = false;
+                lblAlternate.Visible = false;
+                lblAlternateFS.Visible = false;
+             
+               
+            }
+            hdnAlternate.Value = drCheckForAlternate.Count().ToString();
             dtCustomerProjectedAssetAllocation = CreateAssetAllocationTable(dsCustomerProjectedAssetAllocation.Tables[0]);
             gvAssetAllocation.DataSource = dtCustomerProjectedAssetAllocation;
             gvAssetAllocation.DataBind();
+            SetYearWiseDetailsInAllAssetAllocation(dtCustomerProjectedAssetAllocation);
 
         }
         protected DataTable CreateFutureSavingProjection(DataTable dtFutureSaving)
@@ -471,9 +617,15 @@ namespace WealthERP.FP
                     break;
                 }
             }
-            customerFPAnalyticsBo.UpdateFPProjectionAssetAllocation(customerVo.CustomerId, tempYear, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);
+            int rangeFromYear = int.Parse(ddlFromYear.SelectedItem.Text.ToString());
+            int rangeToYear = int.Parse(ddlToYear.SelectedItem.Text.ToString());
+            if (rangeFromYear == rangeToYear)
+            customerFPAnalyticsBo.UpdateFPProjectionAssetAllocation(customerVo.CustomerId,0,0, tempYear, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);
+            else
+                customerFPAnalyticsBo.UpdateFPProjectionAssetAllocation(customerVo.CustomerId,rangeFromYear, rangeToYear,0, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);      
             BindCustomerProjectedAssumption();
-
+            msgRecordStatus.Visible = true;
+            SetEditViewMode(true);
 
         }
 
@@ -497,8 +649,15 @@ namespace WealthERP.FP
                 alternateFutureAllocation = int.Parse(txtAlternateFS.Text.ToString());
 
             int tempYear = int.Parse(ddlPickYearFS.SelectedValue.ToString());
-            customerFPAnalyticsBo.UpdateFutureSavingProjection(customerVo.CustomerId, adviserVo.advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear);
+            int rangeFromYearFutureSaving=int.Parse(ddlRangeYearFSFROM.SelectedItem.ToString());
+            int rangeToYearFutureSaving = int.Parse(ddlRangeYearFSTO.SelectedItem.ToString());
+            if(rbtnFSPickYear.Checked==true)
+                customerFPAnalyticsBo.UpdateFutureSavingProjection(customerVo.CustomerId, adviserVo.advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear,0,0);
+           if(rbtnFSRangeYear.Checked==true)
+               customerFPAnalyticsBo.UpdateFutureSavingProjection(customerVo.CustomerId, adviserVo.advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, 0, rangeFromYearFutureSaving, rangeToYearFutureSaving);
             BindFPFutureSavingGrid();
+            msgRecordStatus.Visible = true;
+            SetEditViewMode(true);
         }
 
         //protected void gvAssetAllocation_PreRender(object sender, EventArgs e)

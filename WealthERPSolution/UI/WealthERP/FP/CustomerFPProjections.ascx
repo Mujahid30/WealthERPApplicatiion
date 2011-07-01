@@ -9,25 +9,68 @@
     <script src="Scripts/webtoolkit.scrollabletable.js" type="text/javascript"></script> 
 
 
+<script language="javascript" type="text/javascript">
+    function requiredFiled(){
+      var equityAgreed= document.getElementById("<%=txtEquity.ClientID %>").value;
+      var debtAgreed = document.getElementById("<%=txtDebt.ClientID %>").value;
+      var CashAgreed = document.getElementById("<%=txtCash.ClientID %>").value;
+       var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
+      if(equityAgreed=="")
+      {
+      alert("Please Fill Allocation");
+      return false;
+      }
+        if(debtAgreed=="")
+      {
+      alert("Please Fill Allocation");
+      return false;
+      }
+        if(CashAgreed=="")
+      {
+      alert("Please Fill Allocation");
+      return false;
+      }
+      if(count>3)
+      {
+      var alternateAgreed = document.getElementById("<%=txtAlternate.ClientID %>").value;
+        if(alternateAgreed=="")
+      {
+      alert("Please Fill Alternate Allocation");
+      return false;
+      }
+      }
+      
+        
+        
+    }
+ </script>
 <script type="text/javascript">
 
     function ShowHideGaolType() {
-       
-        
+      
         document.getElementById("<%= trRangeYear.ClientID %>").style.display = 'none';
         if (document.getElementById("<%= rdbYearWise.ClientID %>").checked == true) {
-          
+         
             document.getElementById("<%= trPickYear.ClientID %>").style.display = 'block';
-          
+
             document.getElementById("<%= trRangeYear.ClientID %>").visible = false;
+
+
+            document.getElementById("<%= ddlFromYear.ClientID %>").selectedIndex = 0;
+            document.getElementById("<%= ddlToYear.ClientID %>").selectedIndex = 0;
+            document.getElementById("<%= cvlblRangeTo.ClientID %>").style.visibility = 'hidden';
         }
         else if (document.getElementById("<%= rdbYearRangeWise.ClientID %>").checked == true) {
             document.getElementById("<%= trPickYear.ClientID %>").style.display = 'none';
             document.getElementById("<%= trRangeYear.ClientID %>").style.display = 'block';
+            document.getElementById("<%=txtEquity.ClientID %>").value = "";
+            document.getElementById("<%=txtDebt.ClientID %>").value = "";
+            document.getElementById("<%=txtCash.ClientID %>").value = "";
+            document.getElementById("<%=txtAlternate.ClientID %>").value = "";
         }
 
     }
-  
+    
 
 </script>
 <script type="text/javascript">
@@ -40,10 +83,17 @@
             document.getElementById("<%= trPickYearFS.ClientID %>").style.display = 'block';
 
             document.getElementById("<%= trRangeYearFSFROM.ClientID %>").visible = false;
+            document.getElementById("<%= ddlRangeYearFSFROM.ClientID %>").selectedIndex = 0;
+            document.getElementById("<%= ddlRangeYearFSTO.ClientID %>").selectedIndex = 0;
+            document.getElementById("<%= cvRangeYearFS.ClientID %>").style.visibility = 'hidden';
         }
         else if (document.getElementById("<%= rbtnFSRangeYear.ClientID %>").checked == true) {
         document.getElementById("<%= trPickYearFS.ClientID %>").style.display = 'none';
-            document.getElementById("<%= trRangeYearFSFROM.ClientID %>").style.display = 'block';
+        document.getElementById("<%= trRangeYearFSFROM.ClientID %>").style.display = 'block';
+        document.getElementById("<%=txtEquityFS.ClientID %>").value = "";
+        document.getElementById("<%=txtDebtFS.ClientID %>").value = "";
+        document.getElementById("<%=txtCashFS.ClientID %>").value = "";
+        document.getElementById("<%=txtAlternateFS.ClientID %>").value = "";
         }
     }
 
@@ -58,6 +108,7 @@
 <script language="javascript" type="text/javascript">
 
     function JSValidateToAssetClass() {
+        var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
         var sum = 0;
         var sum1 = 0;
         var sum2 = 0;
@@ -82,14 +133,15 @@
          sum3 = 0;
      }
      else
-         sum3 = sum3 + parseFloat(cash); 
-     var alternate = document.getElementById('<%=txtAlternate.ClientID %>').value;
-     if (alternate == "") {
-         sum4 = 0;
+         sum3 = sum3 + parseFloat(cash);
+     if (count != 3) {
+         var alternate = document.getElementById('<%=txtAlternate.ClientID %>').value;
+         if (alternate == "") {
+             sum4 = 0;
+         }
+         else
+             sum4 = sum4 + parseFloat(alternate);
      }
-     else
-         sum4 = sum4 + parseFloat(alternate);
-    
      sum = sum1 + sum2 + sum3 + sum4;
      
         if (sum > 100) // you can also write args.Value
@@ -108,6 +160,7 @@
 </script>
 <script language="javascript" type="text/javascript">
     function JSValidateToAssetClassFS() {
+        var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
         var sum = 0;
         var sum1 = 0;
         var sum2 = 0;
@@ -133,13 +186,14 @@
         }
         else
             sum3 = sum3 + parseFloat(cash);
-        var alternate = document.getElementById('<%=txtAlternateFS.ClientID %>').value;
-        if (alternate == "") {
-            sum4 = 0;
+        if (count != 3) {
+            var alternate = document.getElementById('<%=txtAlternateFS.ClientID %>').value;
+            if (alternate == "") {
+                sum4 = 0;
+            }
+            else
+                sum4 = sum4 + parseFloat(alternate);
         }
-        else
-            sum4 = sum4 + parseFloat(alternate);
-
         sum = sum1 + sum2 + sum3 + sum4;
 
         if (sum > 100) // you can also write args.Value
@@ -186,7 +240,24 @@
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="FP Projection"></asp:Label>
 <br />
-</br>
+<telerik:RadToolBar ID="aplToolBar" runat="server" Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
+    Width="100%"  OnButtonClick="aplToolBar_ButtonClick">
+    <Items>
+        <telerik:RadToolBarButton ID="btnEdit" runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
+            ImagePosition="Left" ToolTip="Edit">            
+        </telerik:RadToolBarButton>
+        
+    </Items>
+</telerik:RadToolBar>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record saved Successfully
+            </div>
+        </td>
+    </tr>
+</table>
 
 <telerik:RadTabStrip ID="RadTabStripFPProjection" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerFPProjection" SelectedIndex="0" EnableViewState="true">
@@ -214,24 +285,29 @@
         </td><td><asp:RadioButton ID="rdbYearRangeWise" runat="server" GroupName="year" Text="Edit value for a range of years" Class="FieldName" onClick="return ShowHideGaolType()"/>
         </td>        
         </tr></table>
+        
         <table>
         
-        <tr id="trPickYear" runat="server">
+        <tr id="trPickYear" runat="server" style="display:block">
         <td align="right">
         <asp:Label ID="lblTerm" runat="server" Text="Pick a year : " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-        <asp:DropDownList ID="ddlPickYear" runat="server" CssClass="cmbField">
+        <asp:DropDownList ID="ddlPickYear" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlPickYear_OnSelectedIndexChanged" onchange="ShowHideGaolType()"> 
         </asp:DropDownList>
         </td>
-        </tr>  
+        </tr> 
+        </table>
+       
+         
+        <table> 
         
-        <tr id="trRangeYear" runat="server">
+        <tr id="trRangeYear" runat="server"  style="display:none">
         <td align="right">
         <asp:Label ID="Label1" runat="server" Text="From year : " CssClass="FieldName"></asp:Label>
         </td>
         <td align="left">
-        <asp:DropDownList ID="ddlFromYear" runat="server" CssClass="cmbField">
+        <asp:DropDownList ID="ddlFromYear" runat="server" CssClass="cmbField"> 
         </asp:DropDownList>
         </td>
         <td></td>
@@ -244,13 +320,14 @@
         </td><td><asp:CompareValidator ID="cvlblRangeTo" runat="server" ValidationGroup="btnSubmit" ControlToCompare="ddlFromYear" ControlToValidate="ddlToYear" Operator="GreaterThanEqual" ErrorMessage="To Year can not be leas then From Year" CssClass="cvPCG"></asp:CompareValidator></td>
         </tr>
         </table>
+       
         <table>
-        
         <tr>
         <td colspan="4">
         <asp:Label ID="Label3" runat="server" Text="Agreed allocation :" CssClass="FieldName"  Font-Bold="true"></asp:Label>
         </td>
         </tr> 
+        
         
         <tr><td ></td><td ></td><td ></td><td ></td><td ></td>
           <td align="right">
@@ -259,7 +336,7 @@
           <td align="left">
            <asp:TextBox ID="txtEquity" runat="server" onchange="JSValidateToAssetClass()" Style="direction: rtl" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="txtEquityRV" ValidationGroup="btnSubmit" Type="Integer" CssClass="cvPCG" ControlToValidate="txtEquity" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="txtEquityRV" ValidationGroup="btnSubmit" Type="Double" CssClass="cvPCG" ControlToValidate="txtEquity" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
           </td>
           <td align="right">
@@ -268,7 +345,7 @@
            <td align="left">
            <asp:TextBox ID="txtDebt" runat="server" onchange="JSValidateToAssetClass()" Style="direction: rtl" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="txtDebtRV" ValidationGroup="btnSubmit" Type="Integer" CssClass="cvPCG" ControlToValidate="txtDebt" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="txtDebtRV" ValidationGroup="btnSubmit" Type="Double" CssClass="cvPCG" ControlToValidate="txtDebt" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
            </td>
         </tr>
@@ -280,7 +357,7 @@
           <td align="left">
            <asp:TextBox ID="txtCash" runat="server" onchange="JSValidateToAssetClass()" Style="direction: rtl" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="txtCashRV" ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Integer" ControlToValidate="txtCash" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="txtCashRV" ValidationGroup="btnSubmit" CssClass="cvPCG" Type="Double" ControlToValidate="txtCash" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
           </td>
           <td align="right">
@@ -289,14 +366,17 @@
            <td align="left">
            <asp:TextBox ID="txtAlternate" runat="server" Style="direction: rtl" onchange="JSValidateToAssetClass()" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="txtAlternateRV" CssClass="cvPCG" Type="Integer" ValidationGroup="btnSubmit" ControlToValidate="txtAlternate" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="txtAlternateRV" CssClass="cvPCG" Type="Double" ValidationGroup="btnSubmit" ControlToValidate="txtAlternate" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
            </td>
         </tr>
-       
+       </table>
+        
+      
+       <table>
          <tr id="trBtnSubmit" runat="server">
-          <td align="left" colspan="3">
-           <asp:Button ID="btnSubmitAggredAllocation" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitAggredAllocation_OnClick"  ValidationGroup="btnSubmit"/>
+          <td align="left">
+           <asp:Button ID="btnSubmitAggredAllocation" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitAggredAllocation_OnClick" OnClientClick="return requiredFiled()" ValidationGroup="btnSubmit"/>
           </td>          
         </tr>
                
@@ -307,25 +387,32 @@
 <telerik:RadGrid ID="gvAssetAllocation" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="True" AllowPaging="True" HeaderStyle-Wrap="true" HeaderStyle-VerticalAlign="Top" 
         ShowStatusBar="True" ShowFooter="true" Width="100%"
-        Skin="Telerik" EnableEmbeddedSkins="false"
+        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" 
         
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
            
             <Columns>
-             <telerik:GridBoundColumn DataField="Year" HeaderText="Year" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="100px" SortExpression="Year"
+             <telerik:GridBoundColumn DataField="Year" HeaderText="Year"  HeaderStyle-Width="100px" SortExpression="Year"
                     UniqueName="Year">
                      <ItemStyle HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
                
-                  <telerik:GridTemplateColumn UniqueName="Equity" AllowFiltering="true" HeaderStyle-Width="100px" DataField="Equity" HeaderText="Equity" >
+                  <telerik:GridTemplateColumn UniqueName="EquityRecommended" HeaderStyle-Width="80px" AllowFiltering="false"  DataField="Equity" HeaderText="Rec. Equity" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblRecEquity" runat="server" CssClass="CmbField" Text='<%# Eval("Rec_Equity").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
+                <telerik:GridTemplateColumn UniqueName="Equity" HeaderStyle-Width="80px" AllowFiltering="false" DataField="Equity" HeaderText="Agreed Equity" >
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                    <ItemTemplate>
+                        <asp:Label ID="lblAgrEquity" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Equity").ToString() %>'></asp:Label>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
                 
-                <telerik:GridTemplateColumn UniqueName="Debt" AllowFiltering="true" HeaderStyle-Width="110px" DataField="Debt" HeaderText="Debt" >
+                
+                <telerik:GridTemplateColumn UniqueName="DebtRecommended" HeaderStyle-Width="80px" AllowFiltering="false"  DataField="Debt" HeaderText="Rec. Debt" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblRecDebt" runat="server" CssClass="CmbField" Text='<%# Eval("Rec_Debt").ToString() %>'></asp:Label>
@@ -333,15 +420,29 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                <telerik:GridTemplateColumn UniqueName="Cash" AllowFiltering="true" HeaderStyle-Width="100px" DataField="Cash" HeaderText="Cash" >
+                  <telerik:GridTemplateColumn UniqueName="Debt" HeaderStyle-Width="80px" AllowFiltering="false" DataField="Debt" HeaderText="Agreed Debt" >
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                    <ItemTemplate>
+                        <asp:Label ID="lblAgrDebt" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Debt").ToString() %>'></asp:Label>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
+                
+                
+                <telerik:GridTemplateColumn UniqueName="CashRecommended" HeaderStyle-Width="80px" AllowFiltering="false"  DataField="Cash" HeaderText="Rec. Cash" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblRecCash" runat="server" CssClass="CmbField" Text='<%# Eval("Rec_Cash").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
+                  <telerik:GridTemplateColumn UniqueName="Cash" HeaderStyle-Width="80px" AllowFiltering="false" DataField="Cash" HeaderText="Agreed Cash" >
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                    <ItemTemplate>
+                        <asp:Label ID="lblAgrCash" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Cash").ToString() %>'></asp:Label>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
                 
-                <telerik:GridTemplateColumn UniqueName="Alternate" AllowFiltering="true" HeaderStyle-Width="100px" DataField="Alternate" HeaderText="Alternate" >
+                <telerik:GridTemplateColumn UniqueName="AlternateRecommended" HeaderStyle-Width="80px" AllowFiltering="false" DataField="Alternate" HeaderText="Rec. Alternate" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblRecAlternate" runat="server" CssClass="CmbField" Text='<%# Eval("Rec_Alternate").ToString() %>'></asp:Label>
@@ -349,28 +450,7 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                <telerik:GridTemplateColumn UniqueName="Equity" AllowFiltering="true" DataField="Equity" HeaderText="Equity" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblAgrEquity" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Equity").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                  <telerik:GridTemplateColumn UniqueName="Debt" AllowFiltering="true" DataField="Debt" HeaderText="Debt" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblAgrDebt" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Debt").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                  <telerik:GridTemplateColumn UniqueName="Cash" AllowFiltering="true" DataField="Cash" HeaderText="Cash" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblAgrCash" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Cash").ToString() %>'></asp:Label>
-                    </ItemTemplate>
-                </telerik:GridTemplateColumn>
-                
-                             <telerik:GridTemplateColumn UniqueName="Alternate" AllowFiltering="true" DataField="Alternate" HeaderText="Alternate" >
+                <telerik:GridTemplateColumn UniqueName="Alternate" AllowFiltering="false" DataField="Alternate" HeaderText="Agreed Alternate" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAgrAlternate" runat="server" CssClass="CmbField" Text='<%# Eval("Agr_Alternate").ToString() %>'></asp:Label>
@@ -388,6 +468,10 @@
         </ClientSettings>
     </telerik:RadGrid>
     </telerik:RadAjaxPanel>
+            <telerik:RadGrid ID="RadGrid1" runat="server">
+            </telerik:RadGrid>
+            <telerik:RadGrid ID="RadGrid2" runat="server">
+            </telerik:RadGrid>
         </asp:Panel>
  </telerik:RadPageView>
  
@@ -402,17 +486,17 @@
         </tr></table>
         <table>
         
-        <tr id="trPickYearFS" runat="server">
+        <tr id="trPickYearFS" runat="server" style="display:block">
         <td align="right">
         <asp:Label ID="lblChooseYearFS" runat="server" Text="Pick a year : " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-        <asp:DropDownList ID="ddlPickYearFS" runat="server" CssClass="cmbField">
+        <asp:DropDownList ID="ddlPickYearFS" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlPickYearFS_OnSelectedIndexChanged" onchange="ShowHideGaolTypeFS()">
         </asp:DropDownList>
         </td>
         </tr>  
         
-        <tr id="trRangeYearFSFROM" runat="server">
+        <tr id="trRangeYearFSFROM" runat="server" style="display:none">
         <td align="right">
         <asp:Label ID="lblRangeYearFSFROM" runat="server" Text="From year : " CssClass="FieldName"></asp:Label>
         </td>
@@ -445,7 +529,7 @@
           <td align="left">
            <asp:TextBox ID="txtEquityFS" runat="server" onchange="JSValidateToAssetClassFS()" Style="direction: rtl" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="rvEquityFS" ValidationGroup="btnSubmitFS" Type="Integer" CssClass="cvPCG" ControlToValidate="txtEquityFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="rvEquityFS" ValidationGroup="btnSubmitFS" Type="Double" CssClass="cvPCG" ControlToValidate="txtEquityFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
           </td>
           <td align="right">
@@ -454,7 +538,7 @@
            <td align="left">
            <asp:TextBox ID="txtDebtFS" runat="server" Style="direction: rtl" onchange="JSValidateToAssetClassFS()" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="rvDebtFS" ValidationGroup="btnSubmitFS" Type="Integer" CssClass="cvPCG" ControlToValidate="txtDebtFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="rvDebtFS" ValidationGroup="btnSubmitFS" Type="Double" CssClass="cvPCG" ControlToValidate="txtDebtFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
            </td>
         </tr>
@@ -466,7 +550,7 @@
           <td align="left">
            <asp:TextBox ID="txtCashFS" runat="server" Style="direction: rtl" onchange="JSValidateToAssetClassFS()" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="rvCashFS" ValidationGroup="btnSubmitFS" CssClass="cvPCG" Type="Integer" ControlToValidate="txtCashFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="rvCashFS" ValidationGroup="btnSubmitFS" CssClass="cvPCG" Type="Double" ControlToValidate="txtCashFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
           </td>
           <td align="right">
@@ -475,7 +559,7 @@
            <td align="left">
            <asp:TextBox ID="txtAlternateFS" runat="server" Style="direction: rtl" onchange="JSValidateToAssetClassFS()" CssClass="txtField"></asp:TextBox>
            <br />
-           <asp:RangeValidator ID="rvAlternateFS" CssClass="cvPCG" Type="Integer" ValidationGroup="btnSubmitFS" ControlToValidate="txtAlternateFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
+           <asp:RangeValidator ID="rvAlternateFS" CssClass="cvPCG" Type="Double" ValidationGroup="btnSubmitFS" ControlToValidate="txtAlternateFS" MinimumValue="0" MaximumValue="100" runat="server" ErrorMessage="Should not be greater than 100" Display="Dynamic">
            </asp:RangeValidator>
            </td>
         </tr>
@@ -494,19 +578,19 @@
 <telerik:RadGrid ID="gdvwFutureSavings" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="True" AllowPaging="True" HeaderStyle-Wrap="false" HeaderStyle-VerticalAlign="Top" 
         ShowStatusBar="True" ShowFooter="true" Width="100%"
-        Skin="Telerik" EnableEmbeddedSkins="false"
+        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" 
         
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
            
             <Columns>
-             <telerik:GridBoundColumn DataField="Year" HeaderText="Year" HeaderStyle-HorizontalAlign="Center"  HeaderStyle-Width="50px" SortExpression="Year"
+             <telerik:GridBoundColumn DataField="Year" HeaderText="Year" SortExpression="Year"
                     UniqueName="Year">
                      <ItemStyle HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
                 
                   
-                  <telerik:GridTemplateColumn UniqueName="IncomeGrowthRate" HeaderStyle-Wrap="true" AllowFiltering="true" DataField="IncomeGrowthRate" HeaderText="Income Growth Rate" >
+                  <telerik:GridTemplateColumn UniqueName="IncomeGrowthRate" HeaderStyle-Wrap="true" AllowFiltering="false" DataField="IncomeGrowthRate" HeaderText="Income Growth Rate" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblIncomeGrowthRate" runat="server" CssClass="CmbField" Text='<%# Eval("IncomeGrowthRate").ToString() %>'></asp:Label>
@@ -514,35 +598,35 @@
                 </telerik:GridTemplateColumn>
                 
                   
-                  <telerik:GridTemplateColumn UniqueName="ExpenseGrowthRate" HeaderStyle-Wrap="true" AllowFiltering="true" DataField="ExpenseGrowthRate" HeaderText="Expense Growth Rate" >
+                  <telerik:GridTemplateColumn UniqueName="ExpenseGrowthRate" HeaderStyle-Wrap="true" AllowFiltering="false" DataField="ExpenseGrowthRate" HeaderText="Expense Growth Rate" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblExpenseGrowthRate" runat="server" CssClass="CmbField" Text='<%# Eval("ExpenseGrowthRate").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                
-                  <telerik:GridTemplateColumn UniqueName="Avialable_Surplus" HeaderStyle-Wrap="true" AllowFiltering="true" DataField="Avialable_Surplus" HeaderText="Avialable Surplus   (Post Tax)" >
+                  <telerik:GridTemplateColumn UniqueName="Avialable_Surplus" HeaderStyle-Wrap="true" AllowFiltering="false" DataField="Avialable_Surplus" HeaderText="Avialable Surplus   (Post Tax)" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAvialable_Surplus" runat="server" CssClass="CmbField" Text='<%# Eval("Avialable_Surplus").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                      <telerik:GridTemplateColumn UniqueName="Equity_Allocation_per" AllowFiltering="true" DataField="Equity_Allocation_per" HeaderText="Equity Allocation(%)" >
+                      <telerik:GridTemplateColumn UniqueName="Equity_Allocation_per" AllowFiltering="false" DataField="Equity_Allocation_per" HeaderText="Equity Allocation(%)" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblEquity_Allocation_per" runat="server" CssClass="CmbField" Text='<%# Eval("Equity_Allocation_per").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                <telerik:GridTemplateColumn UniqueName="Equity_Allocation" AllowFiltering="true" DataField="Equity_Allocation" HeaderText="Equity Allocation" >
+                <telerik:GridTemplateColumn UniqueName="Equity_Allocation" AllowFiltering="false" DataField="Equity_Allocation" HeaderText="Equity Allocation" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblEquity_Allocation" runat="server" CssClass="CmbField" Text='<%# Eval("Equity_Allocation").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                <telerik:GridTemplateColumn UniqueName="Equity_FutureValue" AllowFiltering="true" DataField="Equity_FutureValue" HeaderText="Equity Growth" >
+                <telerik:GridTemplateColumn UniqueName="Equity_FutureValue" AllowFiltering="false" DataField="Equity_FutureValue" HeaderText="Equity Growth" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblEquity_FutureValue" runat="server" CssClass="CmbField" Text='<%# Eval("Equity_FutureValue").ToString() %>'></asp:Label>
@@ -550,7 +634,7 @@
                 </telerik:GridTemplateColumn>
                 
                 
-          <telerik:GridTemplateColumn UniqueName="Debt_Allocation_per" AllowFiltering="true" DataField="Debt_Allocation_per" HeaderText="Debt Allocation(%)" >
+          <telerik:GridTemplateColumn UniqueName="Debt_Allocation_per" AllowFiltering="false" DataField="Debt_Allocation_per" HeaderText="Debt Allocation(%)" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblDebt_Allocation_per" runat="server" CssClass="CmbField" Text='<%# Eval("Debt_Allocation_per").ToString() %>'></asp:Label>
@@ -558,14 +642,14 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                <telerik:GridTemplateColumn UniqueName="Debt_Allocation" AllowFiltering="true" DataField="Debt_Allocation" HeaderText="Debt Allocation" >
+                <telerik:GridTemplateColumn UniqueName="Debt_Allocation" AllowFiltering="false" DataField="Debt_Allocation" HeaderText="Debt Allocation" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblDebt_Allocation" runat="server" CssClass="CmbField" Text='<%# Eval("Debt_Allocation").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                  <telerik:GridTemplateColumn UniqueName="Debt_FutureValue" AllowFiltering="true" DataField="Debt_FutureValue" HeaderText="Debt Growth" >
+                  <telerik:GridTemplateColumn UniqueName="Debt_FutureValue" AllowFiltering="false" DataField="Debt_FutureValue" HeaderText="Debt Growth" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblDebt_FutureValue" runat="server" CssClass="CmbField" Text='<%# Eval("Debt_FutureValue").ToString() %>'></asp:Label>
@@ -573,28 +657,28 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                 <telerik:GridTemplateColumn UniqueName="Cash_Allocation_per" AllowFiltering="true" DataField="Cash_Allocation_per" HeaderText="Cash Allocation(%)" >
+                 <telerik:GridTemplateColumn UniqueName="Cash_Allocation_per" AllowFiltering="false" DataField="Cash_Allocation_per" HeaderText="Cash Allocation(%)" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblCash_Allocation_per" runat="server" CssClass="CmbField" Text='<%# Eval("Cash_Allocation_per").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                  <telerik:GridTemplateColumn UniqueName="Cash_Allocation" AllowFiltering="true" DataField="Cash_Allocation" HeaderText="Cash Allocation" >
+                  <telerik:GridTemplateColumn UniqueName="Cash_Allocation" AllowFiltering="false" DataField="Cash_Allocation" HeaderText="Cash Allocation" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblCash_Allocation" runat="server" CssClass="CmbField" Text='<%# Eval("Cash_Allocation").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                  <telerik:GridTemplateColumn UniqueName="Cash_FutureValue" AllowFiltering="true" DataField="Cash_FutureValue" HeaderText="Cash Growth" >
+                  <telerik:GridTemplateColumn UniqueName="Cash_FutureValue" AllowFiltering="false" DataField="Cash_FutureValue" HeaderText="Cash Growth" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblCash_FutureValue" runat="server" CssClass="CmbField" Text='<%# Eval("Cash_FutureValue").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                     <telerik:GridTemplateColumn UniqueName="Alternate_Allocation_per" AllowFiltering="true" DataField="Alternate_Allocation_per" HeaderText="Alternate Allocation(%)" >
+                     <telerik:GridTemplateColumn UniqueName="Alternate_Allocation_per" AllowFiltering="false" DataField="Alternate_Allocation_per" HeaderText="Alternate Allocation(%)" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAlternate_Allocation_per" runat="server" CssClass="CmbField" Text='<%# Eval("Alternate_Allocation_per").ToString() %>'></asp:Label>
@@ -602,14 +686,14 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                             <telerik:GridTemplateColumn UniqueName="Alternate_Allocation" AllowFiltering="true" DataField="Alternate_Allocation" HeaderText="Alternate Allocation" >
+                             <telerik:GridTemplateColumn UniqueName="Alternate_Allocation" AllowFiltering="false" DataField="Alternate_Allocation" HeaderText="Alternate Allocation" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAlternate_Allocation" runat="server" CssClass="CmbField" Text='<%# Eval("Alternate_Allocation").ToString() %>'></asp:Label>
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 
-                  <telerik:GridTemplateColumn UniqueName="Alternate_FutureValue" AllowFiltering="true" DataField="Alternate_FutureValue" HeaderText="Alternate Growth" >
+                  <telerik:GridTemplateColumn UniqueName="Alternate_FutureValue" AllowFiltering="false" DataField="Alternate_FutureValue" HeaderText="Alternate Growth" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAlternate_FutureValue" runat="server" CssClass="CmbField" Text='<%# Eval("Alternate_FutureValue").ToString() %>'></asp:Label>
@@ -617,7 +701,7 @@
                 </telerik:GridTemplateColumn>
                 
                 
-                    <telerik:GridTemplateColumn UniqueName="Amount_Returns" HeaderStyle-Wrap="true" AllowFiltering="true" DataField="Amount_Returns" HeaderText="Amount After Returns From Savings" >
+                    <telerik:GridTemplateColumn UniqueName="Amount_Returns" HeaderStyle-Wrap="true" AllowFiltering="false" DataField="Amount_Returns" HeaderText="Amount After Returns From Savings" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblAmount_Returns" runat="server" CssClass="CmbField" Text='<%# Eval("Amount_Returns").ToString() %>'></asp:Label>
@@ -651,7 +735,7 @@
             </td>
             </tr>
       
-        </table>
+        </table><br />
         <telerik:RadAjaxPanel ID="RadAjaxPanel3" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="rdRebalancing" runat="server" GridLines="None" AutoGenerateColumns="False"
@@ -668,7 +752,7 @@
                      <ItemStyle HorizontalAlign="Right" />
                 </telerik:GridBoundColumn>
                
-                  <telerik:GridTemplateColumn UniqueName="Money_Available" HeaderStyle-Wrap="true"  AllowFiltering="true" DataField="Money_Available" HeaderText="Money Available" >
+                  <telerik:GridTemplateColumn UniqueName="Money_Available" HeaderStyle-Wrap="true"  AllowFiltering="true" HeaderStyle-Width="120px" DataField="Money_Available" HeaderText="Money Available" >
                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
                     <ItemTemplate>
                         <asp:Label ID="lblMoney_Available" runat="server" CssClass="CmbField" Text='<%# Eval("Money_Available").ToString() %>'></asp:Label>
@@ -756,8 +840,14 @@
         </asp:Panel>
  </telerik:RadPageView>
 </telerik:RadMultiPage>
-
-<script language="javascript" type="text/javascript">
-    document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
-    document.getElementById('<%=trRangeYearFSFROM.ClientID %>').style.display = 'none'; 
- </script>
+<asp:HiddenField ID="hdnAlternate" runat="server" />
+<asp:HiddenField ID="hdnDDLFromAssetAllocation" runat="server" Value="0" />
+<asp:HiddenField ID="hdnDDLToAssetAllocation" runat="server" Value="0" />
+<asp:HiddenField ID="hdnDDLFromFutureSaving" runat="server" Value="0" />
+<asp:HiddenField ID="hdnDDLToFutureSaving" runat="server" Value="0" />
+<%--<script language="javascript" type="text/javascript">
+  
+        document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
+        document.getElementById('<%=trRangeYearFSFROM.ClientID %>').style.display = 'none';
+    
+ </script>--%>
