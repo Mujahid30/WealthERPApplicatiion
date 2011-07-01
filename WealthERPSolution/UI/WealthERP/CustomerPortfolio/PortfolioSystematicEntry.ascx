@@ -433,5 +433,6 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnddlPeriodSelection" runat="server"/>
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>
