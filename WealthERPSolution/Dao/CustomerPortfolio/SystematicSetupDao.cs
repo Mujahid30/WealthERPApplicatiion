@@ -48,6 +48,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_ModifiedBy",DbType.Int32,userId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_Tenure",DbType.Int32, systematicSetupVo.Period);
 
+                db.AddInParameter(createSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+
                 if (systematicSetupVo.SipChequeDate!=DateTime.MinValue)
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);               
                 if(systematicSetupVo.SipChequeNo!=0)
@@ -114,6 +116,9 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XF_FrequencyCode", DbType.String, systematicSetupVo.FrequencyCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XPM_PaymentModeCode", DbType.String, systematicSetupVo.PaymentModeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
+
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+
                 if (systematicSetupVo.SipChequeDate != DateTime.MinValue)
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);
                 else
@@ -226,6 +231,7 @@ namespace DaoCustomerPortfolio
                         //    systematicSetupVo.PaymentMode = null;
                         if(dr["CMFSS_Tenure"].ToString() != "")
                             systematicSetupVo.Period = int.Parse(dr["CMFSS_Tenure"].ToString());
+                        systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
 
                         systematicSetupList.Add(systematicSetupVo);
                     }
@@ -313,6 +319,7 @@ namespace DaoCustomerPortfolio
 
                     if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
                         systematicSetupVo.PaymentModeCode = dr["XPM_PaymentModeCode"].ToString();
+                    systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
                     
                     
                     //systematicSetupVo.IsManual = int.Parse(dr["CMFSS_IsManual"].ToString());
