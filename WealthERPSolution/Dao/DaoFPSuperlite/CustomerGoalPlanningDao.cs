@@ -326,6 +326,32 @@ namespace DaoFPSuperlite
             return customerGoalListDS;
 
         }
+        public void CreateCustomerGoalFunding(int goalId, decimal equityAllocatedAmount, decimal debtAllocatedAmount, decimal cashAllocatedAmount, decimal alternateAllocatedAmount, int isloanFunded, decimal loanAmount, DateTime loanStartDate)
+        {
+            Database db;
+            DbCommand CreateCustomerGoalFundingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateCustomerGoalFundingCmd = db.GetStoredProcCommand("SP_GetCustomerGoalFunding");
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@goalId", DbType.Int32, goalId);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@equityAllocatedAmount", DbType.Decimal, equityAllocatedAmount);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@debtAllocatedAmount", DbType.Decimal, debtAllocatedAmount);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@cashAllocatedAmount", DbType.Decimal, cashAllocatedAmount);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@alternateAllocatedAmount", DbType.Decimal, alternateAllocatedAmount);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@isloanFunded", DbType.Int16, isloanFunded);
+                db.AddInParameter(CreateCustomerGoalFundingCmd, "@loanAmount", DbType.Decimal, loanAmount);
+                if (loanStartDate != DateTime.MinValue)
+                    db.AddInParameter(CreateCustomerGoalFundingCmd, "@loanStartDate", DbType.DateTime, loanStartDate);
+                else
+                    db.AddInParameter(CreateCustomerGoalFundingCmd, "@loanStartDate", DbType.DateTime, DBNull.Value);
+                db.ExecuteNonQuery(CreateCustomerGoalFundingCmd);
 
-    }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+     }
 }
