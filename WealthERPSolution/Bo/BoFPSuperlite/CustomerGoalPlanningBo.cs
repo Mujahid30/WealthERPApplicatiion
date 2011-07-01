@@ -340,5 +340,23 @@ namespace BoFPSuperlite
 
         }
 
+
+
+        public void CreateCustomerGoalFunding(int goalId,decimal equityAllocatedAmount,decimal debtAllocatedAmount,decimal cashAllocatedAmount,decimal alternateAllocatedAmount,int isloanFunded,decimal loanAmount,DateTime loanStartDate)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+
+
+            try
+            {
+                customerGoalPlanningDao.CreateCustomerGoalFunding(goalId, equityAllocatedAmount, debtAllocatedAmount, cashAllocatedAmount, alternateAllocatedAmount, isloanFunded, loanAmount, loanStartDate);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
     }
 }
