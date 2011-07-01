@@ -215,7 +215,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (CheckMFFolioNoAssociationWithTransactions == true)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Folio can not be deleted as some Transactions are Associsated with this Folio Number.');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Folio can not be deleted as some Transactions are Associated with this Folio Number.');", true);
                     }
                     else if (CheckMFFolioNoAssociationWithTransactions == false)
                     {
