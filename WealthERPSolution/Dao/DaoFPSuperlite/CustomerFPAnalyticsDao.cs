@@ -127,7 +127,7 @@ namespace DaoFPSuperlite
         }
 
 
-        public void UpdateFPProjectionAssetAllocation(int customerId, int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
+        public void UpdateFPProjectionAssetAllocation(int customerId,int rangeFromYear,int rangeToYear,int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
         {
             Database db;
             DbCommand updateAssetAllocationCmd;
@@ -138,6 +138,8 @@ namespace DaoFPSuperlite
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateAssetAllocationCmd = db.GetStoredProcCommand("SP_UpdateFPProjectionAssetAllocation");
                 db.AddInParameter(updateAssetAllocationCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(updateAssetAllocationCmd, "@rangeFromYear", DbType.Int32, rangeFromYear);
+                db.AddInParameter(updateAssetAllocationCmd, "@rangeToYear", DbType.Int32, rangeToYear);
                 db.AddInParameter(updateAssetAllocationCmd, "@year", DbType.Int32, tempYear);
                 db.AddInParameter(updateAssetAllocationCmd, "@euiityAgreed", DbType.Decimal, equityAgreedAssetAllocation);
                 db.AddInParameter(updateAssetAllocationCmd, "@debtAgreed", DbType.Decimal, debtAgreedAssetAllocation);
@@ -156,7 +158,7 @@ namespace DaoFPSuperlite
         }
 
 
-        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear)
+        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear,int rangeFromYear,int rangeToYear)
         {
             Database db;
             DbCommand updateFutureSavingCmd;
@@ -168,6 +170,8 @@ namespace DaoFPSuperlite
                 updateFutureSavingCmd = db.GetStoredProcCommand("SP_UpdateFutureSavingProjection");
                 db.AddInParameter(updateFutureSavingCmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(updateFutureSavingCmd, "@adviserId", DbType.Int32, advisorId);
+                db.AddInParameter(updateFutureSavingCmd, "@rangeFromYear", DbType.Int32, rangeFromYear);
+                db.AddInParameter(updateFutureSavingCmd, "@rangeToYear", DbType.Int32, rangeToYear);
                 db.AddInParameter(updateFutureSavingCmd, "@year", DbType.Int32, tempYear);
                 db.AddInParameter(updateFutureSavingCmd, "@equityPercent", DbType.Decimal, equityFutureAllocation);
                 db.AddInParameter(updateFutureSavingCmd, "@debtPercent", DbType.Decimal, debtFutureAllocation);
