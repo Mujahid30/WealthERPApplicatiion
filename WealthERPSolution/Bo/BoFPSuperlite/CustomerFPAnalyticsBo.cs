@@ -909,7 +909,7 @@ namespace BoFPSuperlite
             result = System.Numeric.Financial.Pmt(rate, nper, pv, fv, 0);
             return result;
         }
-        public void UpdateFPProjectionAssetAllocation(int customerId, int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
+        public void UpdateFPProjectionAssetAllocation(int customerId,int rangeFromYear,int rangeToYear,int tempYear, decimal equityAgreedAssetAllocation, decimal debtAgreedAssetAllocation, decimal cashAgreedAssetAllocation, decimal alternateAgreedAssetAllocation)
 
         {
             CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
@@ -917,7 +917,7 @@ namespace BoFPSuperlite
 
             try
             {
-                customerFPAnalyticsDao.UpdateFPProjectionAssetAllocation(customerId,tempYear,equityAgreedAssetAllocation,debtAgreedAssetAllocation,cashAgreedAssetAllocation,alternateAgreedAssetAllocation);
+                customerFPAnalyticsDao.UpdateFPProjectionAssetAllocation(customerId, rangeFromYear, rangeToYear,tempYear, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);
 
             }
             catch (BaseApplicationException Ex)
@@ -928,14 +928,14 @@ namespace BoFPSuperlite
         }
 
 
-        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear)
+        public void UpdateFutureSavingProjection(int customerId, int advisorId, decimal equityFutureAllocation, decimal debtFutureAllocation, decimal cashFutureAllocation, decimal alternateFutureAllocation, int tempYear,int RangeFromYear,int RangeToYear)
      {
          CustomerFPAnalyticsDao customerFPAnalyticsDao = new CustomerFPAnalyticsDao();
 
 
          try
          {
-             customerFPAnalyticsDao.UpdateFutureSavingProjection(customerId, advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear);
+             customerFPAnalyticsDao.UpdateFutureSavingProjection(customerId, advisorId, equityFutureAllocation, debtFutureAllocation, cashFutureAllocation, alternateFutureAllocation, tempYear,RangeFromYear,RangeToYear);
 
          }
            catch (BaseApplicationException Ex)
