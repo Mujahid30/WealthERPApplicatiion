@@ -163,7 +163,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (CheckTradeAccAssociationWithTransactions == true)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associsated with this Trade Account Number.');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Trade Account can not be deleted as some Transactions are Associated with this Trade Account Number.');", true);
                     }
                     else if(CheckTradeAccAssociationWithTransactions == false)
                     {
