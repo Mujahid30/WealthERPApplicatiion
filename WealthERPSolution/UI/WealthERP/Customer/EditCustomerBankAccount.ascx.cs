@@ -139,10 +139,10 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
-                if (customerBankAccountVo.BranchAdrPinCode !=0)
+                if (customerBankAccountVo.BranchAdrPinCode != 0)
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 else
-                    customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                    customerBankAccountVo.BranchAdrPinCode =0;
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
                 if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
                     customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
@@ -153,7 +153,7 @@ namespace WealthERP.Customer
                 if (customerBankAccountVo.MICR!=0)
                     customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
                 else
-                    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+                    customerBankAccountVo.MICR = 0;
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);

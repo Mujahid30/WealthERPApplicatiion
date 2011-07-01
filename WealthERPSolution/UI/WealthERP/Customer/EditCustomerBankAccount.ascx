@@ -31,6 +31,25 @@
     {
         width: 69px;
     }
+    .style14
+    {
+        width: 162px;
+        height: 22px;
+    }
+    .style15
+    {
+        width: 170px;
+        height: 22px;
+    }
+    .style16
+    {
+        width: 143px;
+        height: 22px;
+    }
+    .style17
+    {
+        height: 22px;
+    }
 </style>
 <table cssclass="TableBackground" style="width:100%;">
       <tr>
@@ -40,16 +59,16 @@
             </td>
         </tr>
 </table>
-<table cssclass="TableBackground">
+<table cssclass="TableBackground" width="100%">
 
  
     <tr>
-        <td class="style1" align="right">
-            <asp:Label ID="Label27" runat="server" CssClass="FieldName" Text="Account Type: "></asp:Label>
+        <td class="style14" align="right" valign="top">
+            <asp:Label ID="lblAccountType" runat="server" CssClass="FieldName" Text="Account Type: "></asp:Label>
         </td>
-        <td class="style8" align="left">
+        <td class="style15" align="left" style="width:30%;">
             <asp:DropDownList ID="ddlAccountType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="-Select-" Value="-Select-" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Savings" Value="SV" ></asp:ListItem>
                 <asp:ListItem Text="C.C." Value="CC" ></asp:ListItem>
                 <asp:ListItem Text="Current" Value="CR" ></asp:ListItem>
@@ -60,35 +79,45 @@
                 <asp:ListItem Text="Other" Value="OT" ></asp:ListItem>
                 <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
             </asp:DropDownList>
+             <span id="Span1" class="spnRequiredField">*</span>
+                     <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAccountType" Display="Dynamic"
+                ValidationGroup="btnSubmit" ErrorMessage="<br />Please select a Account Type" Operator="NotEqual"
+                ValueToCompare="Select" CssClass="cvPCG"></asp:CompareValidator>
         </td>
-        <td class="style3" align="left">
-            &nbsp;
+        <td class="style16" align="left">
+
         </td>
-        <td>
+        <td class="style17">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td class="style1" align="right">
+        <td class="style1" align="right" valign="top">
             <asp:Label ID="Label28" runat="server" CssClass="FieldName" Text="Account Number: "></asp:Label>
         </td>
-        <td class="style8" align="left">
+        <td class="style8" align="left" style="width:30%;">
             <asp:TextBox ID="txtAccountNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span2" class="spnRequiredField">*</span>
+             <asp:RequiredFieldValidator ID="rfvAccountNumber" ControlToValidate="txtAccountNumber"
+                ValidationGroup="btnSubmit" ErrorMessage="<br />Please Enter a Account Number" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
         </td>
+        
         <td class="style3" align="left">
-            &nbsp;
+            
         </td>
         <td>
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td class="style1" align="right">
+        <td class="style1" align="right" valign="top">
             <asp:Label ID="Label29" runat="server" Text="Mode of Operation: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style8" align="left">
+        <td class="style8" align="left" style="width:40%;">
             <asp:DropDownList ID="ddlModeOfOperation" CssClass="cmbField" runat="server">
-                <asp:ListItem Text="-Select-" Value="-Select-" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Anyone or Survivor" Value="AS" ></asp:ListItem>
                <asp:ListItem Text="As Per Board Resolution" Value="BR" ></asp:ListItem>
                 <asp:ListItem Text="Either or Survivor" Value="ES" ></asp:ListItem>
@@ -99,24 +128,31 @@
                 <asp:ListItem Text="Singly" Value="SI" ></asp:ListItem>
                 <asp:ListItem Text="Self Only" Value="SO" ></asp:ListItem>
                 <asp:ListItem Text="To be categorized" Value="TBC" ></asp:ListItem>
-            </asp:DropDownList>
+            </asp:DropDownList><span id="Span3" class="spnRequiredField">&nbsp;*</span>
+              <asp:CompareValidator ID="CVddlModeOfOperation" runat="server" ControlToValidate="ddlModeOfOperation"
+                ValidationGroup="btnSubmit" Display="Dynamic" ErrorMessage="<br />Please select a mode of holding" Operator="NotEqual"
+                ValueToCompare="Select" CssClass="cvPCG"></asp:CompareValidator>
         </td>
         <td class="style3">
-            &nbsp;
+        
         </td>
         <td>
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td class="style1" align="right">
+        <td class="style1" align="right" valign="top"> 
             <asp:Label ID="Label30" runat="server" Text="Bank Name: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style8" align="left">
+        <td class="style8" align="left" valign="top" style="width:40%;">
             <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+            </asp:RequiredFieldValidator>
         </td>
         <td class="style3">
-            &nbsp;
+           
         </td>
         <td>
             &nbsp;
@@ -126,11 +162,15 @@
         <td class="style1" align="right">
             <asp:Label ID="Label31" runat="server" Text="Branch Name: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style8" align="left">
+        <td class="style8" align="left" valign="top" style="width:30%;">
             <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span5" class="spnRequiredField">*</span>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBranchName" Display="Dynamic" ErrorMessage="<br />Please enter a Bank Name"
+                 runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
+            </asp:RequiredFieldValidator>
         </td>
         <td class="style3">
-            &nbsp;
+         
         </td>
         <td>
             &nbsp;
