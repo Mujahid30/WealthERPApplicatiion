@@ -7,9 +7,10 @@
 <td>
 <asp:Panel ID="tbl" runat="server" class="Landscape" Width="68%" ScrollBars="Horizontal">
 
-<asp:GridView ID="gvrGoalPlanning" runat="server" AllowSorting="True" AutoGenerateColumns="False" HorizontalAlign="Center"
+<asp:GridView ID="gvrGoalPlanning" runat="server" AllowSorting="True" 
+        AutoGenerateColumns="False" HorizontalAlign="Center"
                 CellPadding="4" EnableViewState="True" AllowPaging="True" ShowFooter="true"
-                CssClass="GridViewStyle">
+                CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCategory">
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -20,7 +21,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlSelect" CssClass="cmbField" AutoPostBack="false" runat="server" Width="70px">
+                            <asp:DropDownList ID="ddlAction" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange" AutoPostBack="true" runat="server" Width="70px">
                             <asp:ListItem>Select</asp:ListItem>
                             <asp:ListItem>View</asp:ListItem>
                             <asp:ListItem>Edit</asp:ListItem>
@@ -75,14 +76,7 @@
                          <asp:Label ID="lblGoalPriority" runat="server" CssClass="cmbField" Text='<%#Eval("GoalPriority")%>'>
                          </asp:Label> 
                         </ItemTemplate>
-                    </asp:TemplateField>
-                    
-                    <asp:TemplateField HeaderText="Funded(Y/N)">
-                        <ItemTemplate>
-                         <asp:Label ID="lblGoalFunded" runat="server" CssClass="cmbField" Text='<%#Eval("GoalFunded")%>'>
-                         </asp:Label> 
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>  
                     
                     <asp:TemplateField HeaderText="Eq Funding(Rs.)">
                         <ItemTemplate>
@@ -127,10 +121,18 @@
                     </asp:TemplateField>
                     
                     <asp:TemplateField HeaderText="Indicator">
-                        <ItemTemplate>
-                            <asp:Image ID="GoalFundIndicator" runat="server" />
+                        <ItemTemplate>                         
+                            <asp:Image ID="GoalFundIndicator" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>
-                    </asp:TemplateField>                   
+                    </asp:TemplateField> 
+                    
+                   <asp:TemplateField HeaderText="FundedType">
+                        <ItemTemplate>
+                         <asp:Label ID="lblGoalFundedType" runat="server" CssClass="cmbField" Text='<%#Eval("GoalFundedType")%>'>
+                         </asp:Label> 
+                        </ItemTemplate>
+                    </asp:TemplateField>  
+                                
                 </Columns>
             </asp:GridView>
  
