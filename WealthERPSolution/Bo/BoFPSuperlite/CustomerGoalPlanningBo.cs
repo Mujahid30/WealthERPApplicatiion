@@ -449,7 +449,20 @@ namespace BoFPSuperlite
 
             }
         }
-       
+
+        public void DeleteCustomerGoalFunding(int goalId, int customerId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            try
+            {
+                customerGoalPlanningDao.DeleteCustomerGoalFunding(goalId, customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
     }
 }
