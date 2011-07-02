@@ -129,23 +129,30 @@
  <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="pnlPreferences" runat="server">
             <table width="50%">
-            <tr><td></td><td></td></tr>
-            <tr><td></td><td></td></tr>
+            <tr>
+            <td><br /></td>
+            </tr>
                 <tr>
+                <td></td>
    <td>
 <asp:RadioButton ID="rbtnSelfOnly" runat="server" CssClass="cmbField" Text="Plan for self only" GroupName="gpPlan" Checked="true"/>
         
  </td>
- <td >
- <asp:RadioButton ID="rbtnSpouse" runat="server" CssClass="cmbField" Text="Plan with Spouse" GroupName="gpPlan"/>
 
- </td>
                     </tr>
-                    <tr><td></td><td></td></tr><tr><td></td><td></td></tr>
                     <tr>
+                    <td></td><td>
+                        <asp:RadioButton ID="rbtnSpouse" runat="server" CssClass="cmbField" 
+                            GroupName="gpPlan" Text="Plan with Spouse" />
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                    <td style="width:95px"></td>
                     <td>
                         <asp:Button ID="btnPlanPreference" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnPlanPreference_OnClick" />
                     </td>
+                    
                     </tr>
                     </table>
                     </asp:Panel>
@@ -153,7 +160,12 @@
                     <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlAssumption" runat="server">
             <table>
-            <tr>
+                <tr>
+            <td></td>
+            <td></td>
+            </tr>
+                <tr>
+            
                 <td>
                     <asp:Label ID="lblPickAssumtion" runat="server" CssClass="FieldName" 
                         Text="Pick a assumption"></asp:Label>
@@ -169,16 +181,21 @@
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
                 </td>
                 
-                </tr></table>  <table>
-        <tr id="trRbtnYear" runat="server">
+                </tr>
+             </table>
+        <table>
+            <tr id="trRbtnYear" runat="server">
+        
         <td >
         <asp:RadioButton ID="rdbYearWise" runat="server" Checked="true" GroupName="year" Text="Edit value for a year" Class="FieldName" onClick="return ShowHideGaolType()"/>
         </td><td><asp:RadioButton ID="rdbYearRangeWise" runat="server" GroupName="year" Text="Edit value for a range of years" Class="FieldName" onClick="return ShowHideGaolType()"/>
         </td>        
-        </tr></table>
+        </tr>
+        </table>
         <table>
         
         <tr id="trPickYear" runat="server">
+        
         <td align="right">
         <asp:Label ID="lblTerm" runat="server" Text="Pick a year : " CssClass="FieldName"></asp:Label>
         </td>
@@ -189,6 +206,7 @@
         </tr>  
         
         <tr id="trRangeYear" runat="server">
+        
         <td align="right">
         <asp:Label ID="Label1" runat="server" Text="From year : " CssClass="FieldName"></asp:Label>
         </td>
@@ -206,9 +224,9 @@
         </td><td><asp:CompareValidator ID="cvlblRangeTo" runat="server" ValidationGroup="vgbtnSubmit" ControlToCompare="ddlFromYear" ControlToValidate="ddlToYear" Operator="GreaterThanEqual" ErrorMessage="To Year can not be leas then From Year" CssClass="cvPCG"></asp:CompareValidator></td>
         </tr>
         </table>
-                
-               <table>
-              <tr><td align="right" valign="middle">
+        <table>
+        <tr>        
+              <td align="right" valign="middle">
                     <asp:Label ID="lblAssumptionValue" runat="server" CssClass="FieldName" 
                         Text="Enter Assumption value:"></asp:Label>
                 </td>
@@ -225,20 +243,22 @@
                                           Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
                                           
                 </td></tr>
-              </table><table>
+              </table>
+        <table>
 <tr>
-
-
-
-
+    
     <td>
         <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" ValidationGroup="vgbtnSubmit"  
             OnClick="btnSubmit_OnClick" Text="Submit" />
     </td>
 </tr>
+<tr>
 
+<td></td>
+</tr>
 
 <tr>
+
 <td>
  <asp:Label ID="lblStaticAssumption" runat="server" Text="Static Assumptions:" 
         CssClass="FieldName"></asp:Label>
@@ -246,24 +266,33 @@
 </td>
 </tr>
 <tr ID="trLifeExpectancy" runat="server">
+
 <td align="right">
-    <asp:Label ID="lblLifeExpectancy" runat="server" CssClass="cmbField" 
+    <asp:Label ID="lblLifeExpectancy" runat="server" CssClass="FieldName" 
         Text="Life Expectancy:"></asp:Label>
 </td>
 <td align="left">
     <asp:TextBox ID="txtLifeExpectancy" runat="server" Enabled="false" CssClass="cmbField"></asp:TextBox>
 </td>
 
-</tr><tr ID="trRetirementAge" runat="server">
+</tr>
+<tr ID="trRetirementAge" runat="server">
+
                     <td align="right">
-                        <asp:Label ID="lblRetirementAge" runat="server" CssClass="cmbField" 
+                        <asp:Label ID="lblRetirementAge" runat="server" CssClass="FieldName" 
                             Text="Retirement Age:"></asp:Label>
                     </td>
                     <td align="left">
                         <asp:TextBox ID="txtRetirementAge" runat="server" Enabled="false" CssClass="cmbField"></asp:TextBox>
                     </td>
                 </tr>
-<tr><td>
+                <tr>
+                
+                <td></td>
+                </tr>
+<tr>
+
+<td>
     <asp:Label ID="lblProjectedAssumptions" runat="server" CssClass="FieldName" Text="Projected Assumptions:" ></asp:Label>
 </td></tr></table>
  
@@ -373,32 +402,46 @@
                     
    <telerik:RadPageView ID="RadPageView2" runat="server">
    <asp:Panel ID="pnlCalculation" runat="server">
-   <table width="100%">
+   <table width="50%">
    <tr>
-       <td>
-           <asp:Label ID="lblRetirementGoalAnalysis" runat="server" CssClass="FieldName" 
-               Text="Retirement Goal Analysis"></asp:Label>
+       <td style="width:35px">
        </td>
-       </tr>
-   <tr>
        <td>
+       <br />
+           <asp:Label ID="lblRetirementGoalAnalysis0" runat="server" CssClass="FieldName" 
+               Text="Retirement Goal Analysis:"></asp:Label>
+       </td>
+   </tr>
+       </table>
+       <table width="50%">
+   <tr>
+       <td style="width:95px"></td>
+       
+       <td align="left">
            <asp:RadioButton ID="rbtnNoCorpus" runat="server" Checked="true" 
                CssClass="cmbField" GroupName="gpRetirement" 
                Text="No Corpus to be left behind" />
-       </td>
+       </td><td></td>
        </tr>
    <tr>
-   <td>
+   <td style="width:95px"></td>
+   <td align="left">
        <asp:RadioButton ID="rbtnCorpus" runat="server" CssClass="cmbField" 
            GroupName="gpRetirement" Text="Corpus to be left behind" />
-   </td>
+       </td><td>
+           &nbsp;</td>
    </tr>
    <tr>
+   <td style="width:35px"></td>
+   <td></td><td></td>
+   </tr>
+   <tr>
+   <td style="width:35px"></td>
    <td>
        <asp:Button ID="btnCalculationBasis" runat="server" CssClass="PCGButton" 
            OnClick="btnCalculationBasis_OnClick " Text="Submit" />
-
    </td>
+   <td></td>
    </tr>
            </table>
                </asp:Panel>
