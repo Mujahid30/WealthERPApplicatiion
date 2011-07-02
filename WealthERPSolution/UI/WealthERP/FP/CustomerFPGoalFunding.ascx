@@ -417,11 +417,6 @@
     <td>
         <asp:DropDownList ID="ddlPickGoal" CssClass="cmbField" runat="server" 
             onselectedindexchanged="ddlPickGoal_SelectedIndexChanged" AutoPostBack="true">
-            <asp:ListItem>Select</asp:ListItem>
-            <asp:ListItem>Goal1</asp:ListItem>
-            <asp:ListItem>Goal2</asp:ListItem>
-            <asp:ListItem>Goal3</asp:ListItem>
-            <asp:ListItem></asp:ListItem>
         </asp:DropDownList>
     </td>
 </tr>

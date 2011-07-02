@@ -24,18 +24,42 @@ namespace WealthERP.FP
         CustomerFPAnalyticsBo customerFPAnalyticsBo = new CustomerFPAnalyticsBo();
         CustomerVo customerVo;
         DataSet dsRebalancing;
+        int fundGoalId=0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             msgRecordStatus.Visible = false;
             if (Session["customerVo"]!=null)
             customerVo = (CustomerVo)Session["customerVo"];
+           
             if (!Page.IsPostBack)
             {
-                BindGoalListDropDown(customerVo.CustomerId);
+
+                
                 dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
-                GetThDetailsOfGoalFunding(Convert.ToInt32(ddlPickGoal.SelectedValue));
-                SetDefaultGaolDetails(customerVo.CustomerId, Convert.ToInt32(ddlPickGoal.SelectedValue));
+
+                if (Request.QueryString["GoalId"] != null)
+                {
+                    fundGoalId = int.Parse(Request.QueryString["GoalId"].ToString());
+                    BindGoalListDropDown(customerVo.CustomerId, fundGoalId);
+                    GetThDetailsOfGoalFunding(fundGoalId);
+                    SetDefaultGaolDetails(customerVo.CustomerId, fundGoalId);
+                }
+                else
+                {
+                    BindGoalListDropDown(customerVo.CustomerId, fundGoalId);
+                    if (ddlPickGoal.SelectedValue.ToString() != "")
+                    {
+                        GetThDetailsOfGoalFunding(Convert.ToInt32(ddlPickGoal.SelectedValue));
+                        SetDefaultGaolDetails(customerVo.CustomerId, Convert.ToInt32(ddlPickGoal.SelectedValue));
+
+                    }
+                    else
+                    {
+                        btnEdit.Enabled = false;
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Set Up Goal First');", true);
+                    }
+                }
             }
             if (ViewState["ActionGoalFundPage"] == null)
             {
@@ -57,14 +81,25 @@ namespace WealthERP.FP
 
         }
 
-        protected void BindGoalListDropDown(int customerId)
+        protected void BindGoalListDropDown(int customerId,int goalId)
         {
-            DataSet dsGoalList = goalPlanningBo.GetCustomerGoalList(customerId);           
-            ddlPickGoal.DataSource = dsGoalList.Tables[0];
-            ddlPickGoal.DataTextField = dsGoalList.Tables[0].Columns["XG_GoalName"].ToString();
-            ddlPickGoal.DataValueField = dsGoalList.Tables[0].Columns["CG_GoalId"].ToString();
-            ddlPickGoal.DataBind();
-            int count = dsGoalList.Tables[1].Rows.Count;
+            DataSet dsGoalList = goalPlanningBo.GetCustomerGoalList(customerId);
+            if (goalId == 0)
+            {
+                ddlPickGoal.DataSource = dsGoalList.Tables[0];
+                ddlPickGoal.DataTextField = dsGoalList.Tables[0].Columns["XG_GoalName"].ToString();
+                ddlPickGoal.DataValueField = dsGoalList.Tables[0].Columns["CG_GoalId"].ToString();
+                ddlPickGoal.DataBind();
+            }
+            else
+            {
+                ddlPickGoal.DataSource = dsGoalList.Tables[0];
+                ddlPickGoal.DataTextField = dsGoalList.Tables[0].Columns["XG_GoalName"].ToString();
+                ddlPickGoal.DataValueField = dsGoalList.Tables[0].Columns["CG_GoalId"].ToString();
+                ddlPickGoal.DataBind();
+                ddlPickGoal.SelectedValue = goalId.ToString();
+            }
+                int count = dsGoalList.Tables[1].Rows.Count;
             if (count == 3)
             {
                 trAlternate.Visible = false;
@@ -203,7 +238,8 @@ namespace WealthERP.FP
                 txtAlternateAllPer.Enabled = true;
                 chkGoalFundByLoan.Enabled = true;
                 btnSubmit.Enabled = true;
-                btnEdit.Enabled = false;
+               
+                
             }
             else
             {
@@ -229,7 +265,7 @@ namespace WealthERP.FP
                 txtAlternateAllPer.Enabled = false;
                 chkGoalFundByLoan.Enabled = false;
                 btnSubmit.Enabled = false;
-                btnEdit.Enabled = true;
+               
             }
         }
         public void GetThDetailsOfGoalFunding(int gaolId)
