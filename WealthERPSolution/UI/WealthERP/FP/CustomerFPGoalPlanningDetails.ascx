@@ -1,8 +1,42 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPGoalPlanningDetails.ascx.cs" Inherits="WealthERP.FP.CustomerFPGoalPlanningDetails" %>
+
+<script language="javascript" type="text/javascript">
+    function showmessage() {
+      
+            var bool = window.confirm('Are you sure you want to delete this profile?');
+
+            if (bool) {
+                document.getElementById("ctrl_CustomerFPGoalPlanningDetails_hdnMsgValue").value = 1;
+                document.getElementById("ctrl_CustomerFPGoalPlanningDetails_hiddenassociation").click();
+                return false;
+            }
+            else {
+                document.getElementById("ctrl_CustomerFPGoalPlanningDetails_hdnMsgValue").value = 0;
+                document.getElementById("ctrl_CustomerFPGoalPlanningDetails_hiddenassociation").click();
+                return true;
+       
+        } 
+    }
+</script>
+
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Planning"></asp:Label>
 <hr />
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Goal has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
 
 <table class="TableBackground" style="width: 100%">
+ <tr id="trMessage" runat="server" >
+        <td>
+            <asp:Label ID="lblMessage" runat="server" Text="No Records Found..." CssClass="Error"></asp:Label>
+        </td>
+    </tr>
 <tr>
 <td>
 <asp:Panel ID="tbl" runat="server" class="Landscape" Width="68%" ScrollBars="Horizontal">
@@ -21,11 +55,12 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange" AutoPostBack="true" runat="server" Width="70px">
+                            <asp:DropDownList ID="ddlAction" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"  AutoPostBack="true" runat="server" Width="70px">
                             <asp:ListItem>Select</asp:ListItem>
                             <asp:ListItem>View</asp:ListItem>
                             <asp:ListItem>Edit</asp:ListItem>
                             <asp:ListItem>Fund</asp:ListItem>
+                            <asp:ListItem>Delete</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                      </asp:TemplateField>
@@ -141,3 +176,7 @@
 </tr>
 
 </table>
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdndeleteId" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />

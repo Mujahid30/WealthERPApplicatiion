@@ -25,14 +25,21 @@ namespace WealthERP.FP
         CustomerVo customerVo = new CustomerVo();
         RMVo rmVo = new RMVo();
         DataSet customerGoalDetailsDS;
+       
         protected void Page_Load(object sender, EventArgs e)
         {
+            msgRecordStatus.Visible = false;
+            lblMessage.Visible = false;
              customerVo=(CustomerVo)Session["customerVo"];
             if (!Page.IsPostBack)
             {
                 customerGoalDetailsDS = goalPlanningBo.GetCustomerGoalDetails(customerVo.CustomerId);
-                BindCustomerGoalDetailGrid(customerGoalDetailsDS);
+                if (customerGoalDetailsDS.Tables[0].Rows.Count > 0)
+                    BindCustomerGoalDetailGrid(customerGoalDetailsDS);
+                else
+                    lblMessage.Visible = true;
             }
+           
         }
 
         public void BindCustomerGoalDetailGrid(DataSet customerGoalDetailsDS)
@@ -145,13 +152,33 @@ namespace WealthERP.FP
             gvGoal = (GridViewRow)ddlAction.NamingContainer;
             selectedRow = gvGoal.RowIndex; 
             goalId = gvrGoalPlanning.DataKeys[selectedRow].Values["GoalId"].ToString();
+            hdndeleteId.Value = goalId;
             goalCatagory = gvrGoalPlanning.DataKeys[selectedRow].Values["GoalCategory"].ToString();
-            goalAction = ddlAction.SelectedValue.ToString();            
+            goalAction = ddlAction.SelectedValue.ToString();
 
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerFPGoalSetup','?GoalId=" + goalId + "&GoalCategory=" + goalCatagory + "&GoalAction=" + goalAction + "');", true);
-           
-
+            if (ddlAction.SelectedValue == "View" || ddlAction.SelectedValue == "Edit")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerFPGoalSetup','?GoalId=" + goalId + "&GoalCategory=" + goalCatagory + "&GoalAction=" + goalAction + "');", true);
+            }
+            else if (ddlAction.SelectedValue == "Fund")
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFunding','?GoalId=" + goalId + "');", true);
+            }
+            else if (ddlAction.SelectedValue == "Delete")
+            {
+               Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+            }
+            
         }
-        
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                goalPlanningBo.DeleteCustomerGoalFunding(int.Parse(hdndeleteId.Value), customerVo.CustomerId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPGoalPlanningDetails','login');", true);
+                msgRecordStatus.Visible = true; 
+            }
+        }
     }
 }
