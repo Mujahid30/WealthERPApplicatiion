@@ -38,7 +38,7 @@ namespace VoFPSuperlite
       
         private int CA_AssociationId;
         private int CA_CustomerId;
-        private int CA_AssociateCustomerId;
+       
         private string CA_RelationshipCode;
 
         private string G_GoalName;
@@ -46,6 +46,28 @@ namespace VoFPSuperlite
         private int G_GoalId;
         private bool G_IsOnetimeOccurence;
         private double G_CorpusLeftBehind;
+        private bool G_CorpusToBeLeftBehind;
+        private string G_FPCalculationBasis;
+        private int G_CustomerAge;
+
+        public int CustomerAge
+        {
+            get { return G_CustomerAge; }
+            set { G_CustomerAge = value; }
+        }
+
+        public string FPCalculationBasis
+        {
+            get { return G_FPCalculationBasis; }
+            set { G_FPCalculationBasis = value; }
+        }
+
+        public bool CorpusToBeLeftBehind
+        {
+            get { return G_CorpusToBeLeftBehind; }
+            set { G_CorpusToBeLeftBehind = value; }
+        }
+       
 
         public double CorpusLeftBehind
         {
