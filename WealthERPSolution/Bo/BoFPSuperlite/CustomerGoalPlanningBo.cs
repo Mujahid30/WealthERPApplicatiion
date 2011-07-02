@@ -410,10 +410,46 @@ namespace BoFPSuperlite
 
         }
 
+        public void CreateCustomerGoalFunding(int goalId, decimal equityAllocatedAmount, decimal debtAllocatedAmount, decimal cashAllocatedAmount, decimal alternateAllocatedAmount, int isloanFunded, decimal loanAmount, DateTime loanStartDate)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+
+            try
+            {
+                customerGoalPlanningDao.CreateCustomerGoalFunding(goalId, equityAllocatedAmount, debtAllocatedAmount, cashAllocatedAmount, alternateAllocatedAmount, isloanFunded, loanAmount, loanStartDate);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningBo:CreateCustomerGoalFunding()");
+
+
+                object[] objects = new object[8];
+                objects[0] = goalId;
+                objects[1] = equityAllocatedAmount;
+                objects[2] = debtAllocatedAmount;
+                objects[3] = cashAllocatedAmount;
+                objects[4] = alternateAllocatedAmount;
+                objects[5] = isloanFunded;
+                objects[6] = loanAmount;
+                objects[7] = loanStartDate;
+               
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
        
-
-
-
 
     }
 }
