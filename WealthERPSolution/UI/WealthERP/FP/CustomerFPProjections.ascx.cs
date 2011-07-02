@@ -619,9 +619,9 @@ namespace WealthERP.FP
             }
             int rangeFromYear = int.Parse(ddlFromYear.SelectedItem.Text.ToString());
             int rangeToYear = int.Parse(ddlToYear.SelectedItem.Text.ToString());
-            if (rangeFromYear == rangeToYear)
+            if (rdbYearWise.Checked==true)
             customerFPAnalyticsBo.UpdateFPProjectionAssetAllocation(customerVo.CustomerId,0,0, tempYear, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);
-            else
+            if(rdbYearRangeWise.Checked==true)
                 customerFPAnalyticsBo.UpdateFPProjectionAssetAllocation(customerVo.CustomerId,rangeFromYear, rangeToYear,0, equityAgreedAssetAllocation, debtAgreedAssetAllocation, cashAgreedAssetAllocation, alternateAgreedAssetAllocation);      
             BindCustomerProjectedAssumption();
             msgRecordStatus.Visible = true;

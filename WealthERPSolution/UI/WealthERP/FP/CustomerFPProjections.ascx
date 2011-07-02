@@ -10,39 +10,103 @@
 
 
 <script language="javascript" type="text/javascript">
-    function requiredFiled(){
+    function requiredFiled() {
+        var equityAgreedSum = 0;
+        var debtAgreedSum = 0;
+        var cashAgreedSum = 0;
+        var alternateAgreedSum = 0;
+        var totalSum = 0;
       var equityAgreed= document.getElementById("<%=txtEquity.ClientID %>").value;
       var debtAgreed = document.getElementById("<%=txtDebt.ClientID %>").value;
       var CashAgreed = document.getElementById("<%=txtCash.ClientID %>").value;
        var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
-      if(equityAgreed=="")
-      {
+    
+       if (equityAgreed == "") {
+           alert("Please Fill Allocation");
+           return false;
+       }
+       else
+           equityAgreedSum = equityAgreed;
+
+  if (debtAgreed == "") {
       alert("Please Fill Allocation");
       return false;
-      }
-        if(debtAgreed=="")
-      {
+  }
+  else
+      debtAgreedSum = debtAgreed;
+  if (CashAgreed == "") {
       alert("Please Fill Allocation");
       return false;
-      }
-        if(CashAgreed=="")
-      {
-      alert("Please Fill Allocation");
-      return false;
-      }
+  }
+  else
+      cashAgreedSum = CashAgreed;
       if(count>3)
       {
       var alternateAgreed = document.getElementById("<%=txtAlternate.ClientID %>").value;
-        if(alternateAgreed=="")
-      {
-      alert("Please Fill Alternate Allocation");
-      return false;
+      if (alternateAgreed == "") {
+          alert("Please Fill Alternate Allocation");
+          return false;
       }
+      else
+          alternateAgreedSum = alternateAgreed;
       }
+ 
+     
+      totalSum = parseFloat(equityAgreedSum) + parseFloat(debtAgreedSum) + parseFloat(cashAgreedSum) + parseFloat(alternateAgreedSum);
       
-        
-        
+      if (totalSum < 100)
+          alert("Total sum should be equal to 100");
+      return false;
     }
+ </script>
+ <script language="javascript" type="text/javascript">
+     function requiredFiledFS() {
+         var equityFutureSavingSum = 0;
+         var debtFutureSavingSum = 0;
+         var cashFutureSavingSum = 0;
+         var alternateFutureSavingSum = 0;
+         var totalSum = 0;
+         var equityFutureSaving = document.getElementById("<%=txtEquityFS.ClientID %>").value;
+         var debtFutureSaving = document.getElementById("<%=txtDebtFS.ClientID %>").value;
+         var CashFutureSaving = document.getElementById("<%=txtCashFS.ClientID %>").value;
+         var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
+
+         if (equityFutureSaving == "") {
+             alert("Please Fill Allocation");
+             return false;
+         }
+         else
+             equityFutureSavingSum = equityFutureSaving;
+
+         if (debtFutureSaving == "") {
+             alert("Please Fill Allocation");
+             return false;
+         }
+         else
+             debtFutureSavingSum = debtFutureSaving;
+         if (CashFutureSaving == "") {
+             alert("Please Fill Allocation");
+             return false;
+         }
+         else
+             cashFutureSavingSum = CashFutureSaving;
+         if (count > 3) {
+             var alternateFutureSaving = document.getElementById("<%=txtAlternateFS.ClientID %>").value;
+             if (alternateFutureSaving == "") {
+                 alert("Please Fill Alternate Allocation");
+                 return false;
+             }
+             else
+                 alternateFutureSavingSum = alternateFutureSaving;
+         }
+
+
+         totalSum = parseFloat(equityFutureSavingSum) + parseFloat(debtFutureSavingSum) + parseFloat(cashFutureSavingSum) + parseFloat(alternateFutureSavingSum);
+
+         if (totalSum < 100)
+             alert("Total sum should be equal to 100");
+         return false;
+     }
  </script>
 <script type="text/javascript">
 
@@ -566,7 +630,7 @@
        
          <tr id="tr3" runat="server">
           <td align="left" colspan="3">
-           <asp:Button ID="btnSubmitFpFs" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitFpFs_OnClick" ValidationGroup="btnSubmitFS"/>
+           <asp:Button ID="btnSubmitFpFs" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitFpFs_OnClick" OnClientClick="return requiredFiledFS()" ValidationGroup="btnSubmitFS"/>
           </td>          
         </tr>
                
