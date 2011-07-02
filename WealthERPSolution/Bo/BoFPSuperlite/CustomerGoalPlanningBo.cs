@@ -77,7 +77,7 @@ namespace BoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, int UserId, int Flag)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, int UserId, bool updateGoal)
         {
             try
             {
@@ -86,16 +86,17 @@ namespace BoFPSuperlite
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
                 customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear);
-                if (goalPlanningVo.Goalcode!="RT")
-                customerGoalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
-                else
-                customerGoalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
-                if (Flag == 0)
-                    customerGoalPlanningDao.CreateCustomerGoalPlanning(customerGoalPlanningVo, UserId);
-                //else
-                //    // when the flag value 1 at this time userId IS GoalId
-                //    customerGoalSetupDao.UpdateCustomerGoalProfile(CreateGoalProfileVo, UserId);
+                if (goalPlanningVo.Goalcode == "RT" && updateGoal==false)
+                    customerGoalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                else if(goalPlanningVo.Goalcode == "RT" && updateGoal==true)
+                     customerGoalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+
+                if(updateGoal)
+                    customerGoalPlanningDao.UpdateCustomerGoalProfile(customerGoalPlanningVo);
+                else                   
+                    customerGoalPlanningDao.CreateCustomerGoalPlanning(customerGoalPlanningVo);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -184,8 +185,8 @@ namespace BoFPSuperlite
 
         public CustomerGoalPlanningVo CalculateGoalProfileRT(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo)
         {
-           
-            double yearsLeftForRetirement = customerAssumptionVo.RetirementAge - customerAssumptionVo.CustomerAge;
+
+            double yearsLeftForRetirement = customerAssumptionVo.RetirementAge - goalPlanningVo.CustomerAge;
             double amountAfterFirstMonthRetirement;
             double spouseLifeAfterCustomerRet;
             double adjustedInfluation;
@@ -195,7 +196,7 @@ namespace BoFPSuperlite
             try
             {
                 amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -goalPlanningVo.CostOfGoalToday, 1);
-                spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (customerAssumptionVo.CustomerAge - customerAssumptionVo.RetirementAge);
+                spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (goalPlanningVo.CustomerAge - customerAssumptionVo.RetirementAge);
                 adjustedInfluation = ((1 + customerAssumptionVo.PostRetirementReturn / 100) / (1 + customerAssumptionVo.InflationPercent / 100) - 1) * 100;
                 if (customerAssumptionVo.CorpusToBeLeftBehind != 0)
                 {
@@ -341,22 +342,78 @@ namespace BoFPSuperlite
         }
 
 
-
-        public void CreateCustomerGoalFunding(int goalId,decimal equityAllocatedAmount,decimal debtAllocatedAmount,decimal cashAllocatedAmount,decimal alternateAllocatedAmount,int isloanFunded,decimal loanAmount,DateTime loanStartDate)
+        public CustomerGoalPlanningVo GetGoalDetails(int goalId)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
-
-
+            CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
+            
             try
             {
-                customerGoalPlanningDao.CreateCustomerGoalFunding(goalId, equityAllocatedAmount, debtAllocatedAmount, cashAllocatedAmount, alternateAllocatedAmount, isloanFunded, loanAmount, loanStartDate);
-
+                goalPlanningVo = customerGoalPlanningDao.GetGoalDetails(goalId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningBo:GetCustomerGoalList()");
+
+                object[] objects = new object[1];
+                objects[0] = goalId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return goalPlanningVo;
 
         }
+
+        public DataTable GetCustomerFPCalculationBasis(int customerId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataTable dtFPCalculationBasis;
+            
+            try
+            {
+                dtFPCalculationBasis = customerGoalPlanningDao.GetCustomerFPCalculationBasis(customerId);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalPlanningBo:GetCustomerFPCalculationBasis()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtFPCalculationBasis;
+
+        }
+
+       
+
+
+
+
     }
 }
