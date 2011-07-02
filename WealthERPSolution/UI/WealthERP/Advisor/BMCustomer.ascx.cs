@@ -1745,9 +1745,16 @@ namespace WealthERP.Advisor
                     hdnRMFilter.Value = "";
                 }
 
-                if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
+                if (Session["Customer"] != null)
                 {
-                    this.BindGrid(mypager.CurrentPage, 0);
+                    if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
+                    {
+                        this.BindGrid(mypager.CurrentPage, 0);
+                    }
+                    else
+                    {
+                        this.BindCustomer(mypager.CurrentPage);
+                    }
                 }
                 else
                 {
