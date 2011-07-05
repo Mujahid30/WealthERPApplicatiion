@@ -4071,6 +4071,8 @@
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\StandardMFTransactionUploads\StandardMFTransactionUploads.sln" />
+    <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.sln" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj.user" />
     <Content Include="Uploads\CAMSProfileFolioInputRejects.ascx" />
@@ -4900,6 +4902,18 @@
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioXMLtoInput.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadsCommonProfileChecksInProfileStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadStdProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadStdProfileFirstStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadStdProfileInputDataToFirstStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.database" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\UploadsCommonProfileChecksInProfileStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\UploadStdProfileDataFromFileToInput.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\UploadStdProfileFirstStagingToCommonStaging.dtsx" />
+    <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\UploadStdProfileInputDataToFirstStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsCommonProfileChecksInProfileStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\bin\UploadStdProfileDataFromFileToInput.dtsx" />
