@@ -36,7 +36,7 @@
             }
         }
         if (isPorfolioSelected == false) {
-            alert("Please select atleast one portfolio")
+            alert("Please select  one Customer")
             return false;
         }
         //Date validation.
