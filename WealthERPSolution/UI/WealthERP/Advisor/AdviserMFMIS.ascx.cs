@@ -339,7 +339,11 @@ namespace WealthERP.Advisor
             /* For BM Branch wise MIS */
             if (userType == "adviser")
             {
-                dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, dtFrom, dtTo);
+                dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, convertedFromDate, convertedToDate);
+                if (dsMfMIS.Tables[0].Rows.Count > 0)
+                {
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
             }
             else if (userType == "bm")
             {
