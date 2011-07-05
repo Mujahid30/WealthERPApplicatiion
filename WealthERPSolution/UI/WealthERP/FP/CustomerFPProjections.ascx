@@ -53,10 +53,11 @@
  
      
       totalSum = parseFloat(equityAgreedSum) + parseFloat(debtAgreedSum) + parseFloat(cashAgreedSum) + parseFloat(alternateAgreedSum);
-      
-      if (totalSum < 100)
+
+      if (totalSum < 100) {
           alert("Total sum should be equal to 100");
-      return false;
+          return false;
+      }
     }
  </script>
  <script language="javascript" type="text/javascript">
@@ -103,9 +104,10 @@
 
          totalSum = parseFloat(equityFutureSavingSum) + parseFloat(debtFutureSavingSum) + parseFloat(cashFutureSavingSum) + parseFloat(alternateFutureSavingSum);
 
-         if (totalSum < 100)
+         if (totalSum < 100) {
              alert("Total sum should be equal to 100");
-         return false;
+             return false;
+         } 
      }
  </script>
 <script type="text/javascript">
@@ -435,9 +437,7 @@
            </td>
         </tr>
        </table>
-        
-      
-       <table>
+        <table>
          <tr id="trBtnSubmit" runat="server">
           <td align="left">
            <asp:Button ID="btnSubmitAggredAllocation" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitAggredAllocation_OnClick" OnClientClick="return requiredFiled()" ValidationGroup="btnSubmit"/>
@@ -445,7 +445,9 @@
         </tr>
                
         
-        </table>
+        </table>  
+      
+     
         <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="gvAssetAllocation" runat="server" GridLines="None" AutoGenerateColumns="False"
