@@ -155,9 +155,8 @@
             <asp:Label ID="lblGender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
         </td>
         <td class="rightField" width="75%">
-            <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
-            <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
-                GroupName="rbtnGender" />
+            <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" Checked="True" />
+            <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female" GroupName="rbtnGender" />
         </td>
     </tr>
     
