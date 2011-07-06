@@ -552,5 +552,43 @@ namespace DaoFPSuperlite
                 throw Ex;
             }
         }
+
+        public bool CheckCustomerAssumptionExists(int CustomerID)
+        {
+            Database db;
+            DbCommand checkCustomerAssumptionCmd;
+            CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                checkCustomerAssumptionCmd = db.GetStoredProcCommand("SP_CheckCustomerAssumptionExists");
+                db.AddInParameter(checkCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
+                db.ExecuteNonQuery(checkCustomerAssumptionCmd);
+
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerGoalSetupDao:GetAllCustomerAssumption()");
+
+
+                object[] objects = new object[1];
+                objects[0] = CustomerID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return true;
+        }
     }
 }

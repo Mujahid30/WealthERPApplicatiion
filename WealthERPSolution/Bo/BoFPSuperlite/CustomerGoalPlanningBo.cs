@@ -81,21 +81,21 @@ namespace BoFPSuperlite
         {
             try
             {
-                CustomerGoalPlanningVo customerGoalPlanningVo = new CustomerGoalPlanningVo();
+             
                
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
                 customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear);
 
                 if (goalPlanningVo.Goalcode == "RT" && updateGoal==false)
-                    customerGoalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                    goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
                 else if(goalPlanningVo.Goalcode == "RT" && updateGoal==true)
-                     customerGoalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                    goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
                 if(updateGoal)
-                    customerGoalPlanningDao.UpdateCustomerGoalProfile(customerGoalPlanningVo);
-                else                   
-                    customerGoalPlanningDao.CreateCustomerGoalPlanning(customerGoalPlanningVo);
+                    customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                else
+                    customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo);
 
             }
             catch (BaseApplicationException Ex)
