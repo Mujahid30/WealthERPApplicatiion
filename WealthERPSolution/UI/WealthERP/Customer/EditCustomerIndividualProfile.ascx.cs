@@ -93,6 +93,15 @@ namespace WealthERP.Customer
                     {
                         rbtnNonIndividual.Checked = true;
                     }
+                    if (customerVo.Gender.ToUpper().ToString() == "M")
+                    {
+                        rbtnMale.Checked = true;
+                    }
+                    else
+                    {
+                        rbtnFemale.Checked = true;
+                    }
+
                     ddlAdviserBranchList.SelectedValue = customerVo.BranchId.ToString();
                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                     if (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName != null && (customerRMVo.FirstName + " " + customerRMVo.MiddleName + " " + customerRMVo.LastName).ToString() != "")
@@ -380,6 +389,15 @@ namespace WealthERP.Customer
                     }
                     else
                         customerVo.Type = "NIND";
+
+                    if(rbtnMale.Checked)
+                    {
+                        customerVo.Gender = "M";
+                    }
+                    else
+                        customerVo.Gender = "F";
+                    
+
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
 
                     if (customerVo.SubType == "MNR")

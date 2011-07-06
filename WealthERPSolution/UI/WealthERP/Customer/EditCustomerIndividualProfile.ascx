@@ -127,7 +127,14 @@
         </td>
     </tr>
     <tr>
-        
+        <td class="leftField">
+            <asp:Label ID="lblGender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
+            <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
+                GroupName="rbtnGender" />
+            </td>
     </tr>
     
     <tr>
