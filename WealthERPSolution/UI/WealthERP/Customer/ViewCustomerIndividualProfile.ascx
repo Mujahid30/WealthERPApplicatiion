@@ -139,6 +139,15 @@
    
     <tr>
         <td class="leftField">
+            <asp:Label ID="labelGender" runat="server" Text="Gender:" CssClass="FieldName"></asp:Label>
+            </td>
+        <td class="rightField" width="75%">
+            <asp:Label ID="lblGender" runat="server" Text="Label" CssClass="Field"></asp:Label>
+            </td>
+    </tr>
+   
+    <tr>
+        <td class="leftField">
             <asp:Label ID="Label8" runat="server" Text="PAN Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" width="75%">
@@ -148,7 +157,7 @@
             &nbsp;
             <asp:Checkbox ID="chkdummypan" runat="server" CssClass="Field" 
                 AutoPostBack="true"  Enabled = "false"/>
-                <asp:Label ID="Label6" runat="server"  Text="Dummy PAN" CssClass="Field" Style="vertical-align:top Important;"></asp:Label>
+                <asp:Label ID="Label6" runat="server"  Text="Dummy PAN" CssClass="Field" Style="vertical-align:top;"></asp:Label>
                
         </td>
     </tr>

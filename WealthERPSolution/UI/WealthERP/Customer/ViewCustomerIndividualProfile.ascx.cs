@@ -72,6 +72,16 @@ namespace WealthERP.Customer
                 lblGuardianName.Text = customerVo.ContactFirstName + " " + customerVo.ContactMiddleName + " " + customerVo.ContactLastName;
                 lblName.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
                 lblCustCode.Text = customerVo.CustCode;
+                //lblGender.Text = customerVo.Gender;
+                if(customerVo.Gender.ToUpper().ToString()=="M")
+                {
+                    lblGender.Text = "Male";
+                }
+                else
+                {
+                    lblGender.Text = "Female";
+                }
+
                 lblPanNum.Text = customerVo.PANNum;
                 lblCorrLine1.Text = customerVo.Adr1Line1;
                 lblCorrLine2.Text = customerVo.Adr1Line2;
