@@ -87,8 +87,8 @@ namespace BoFPSuperlite
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
                 customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear);
 
-                if (goalPlanningVo.Goalcode == "RT" && updateGoal==false)
-                    goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                if (goalPlanningVo.Goalcode != "RT" && updateGoal==false)
+                    goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
                 else if(goalPlanningVo.Goalcode == "RT" && updateGoal==true)
                     goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
