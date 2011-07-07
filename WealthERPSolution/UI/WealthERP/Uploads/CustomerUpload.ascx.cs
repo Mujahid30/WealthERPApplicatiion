@@ -3364,12 +3364,20 @@ namespace WealthERP.Uploads
 
                         //Get XML after mapping, checking for columns
                         dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
-                        int count = dsXML.Tables[0].Rows.Count;
-                        txtExternalTotalRecords.Text = dsXML.Tables[0].Rows.Count.ToString();
-                       
+                        if (dsXML.Tables.Count > 0)
+                        {
+                            int count = dsXML.Tables[0].Rows.Count;
+                            txtExternalTotalRecords.Text = dsXML.Tables[0].Rows.Count.ToString();
 
-                        //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeStdFolio);
+
+                            //Get filetypeid from XML
+                            filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeStandard, Contants.UploadFileTypeStdFolio);
+                        }
+                        else
+                        {
+                            XmlCreated = false;
+                            ValidationProgress = "Failure";
+                        }
                     }
                     else
                     {
