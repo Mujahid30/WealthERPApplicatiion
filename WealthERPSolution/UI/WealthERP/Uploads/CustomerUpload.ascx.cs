@@ -2575,6 +2575,10 @@ namespace WealthERP.Uploads
                 lnkbtnpup.Visible = true;
 
             }
+            else if (ddlUploadType.SelectedValue == "MFF" && ddlListCompany.SelectedValue == "WP")
+            {
+                lnkbtnpup.Visible = true;
+            }
             else
             {
                 //lnkbtnpup.Style.Add("display", "none");
