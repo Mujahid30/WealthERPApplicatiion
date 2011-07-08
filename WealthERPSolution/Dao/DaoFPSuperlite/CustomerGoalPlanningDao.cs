@@ -105,7 +105,10 @@ namespace DaoFPSuperlite
                 db.AddInParameter(createCustomerGoalProfileCmd, "@GoalCode", DbType.String, GoalPlanningVo.Goalcode);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CostToday", DbType.Double, GoalPlanningVo.CostOfGoalToday);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@GoalYear", DbType.Int32, GoalPlanningVo.GoalYear);
-                db.AddInParameter(createCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalPlanningVo.GoalDate);
+                if (GoalPlanningVo.GoalDate != DateTime.MinValue)
+                    db.AddInParameter(createCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalPlanningVo.GoalDate);
+                else
+                    GoalPlanningVo.GoalDate = DateTime.Now;
                 db.AddInParameter(createCustomerGoalProfileCmd, "@FutureValueOfCostToday", DbType.Double, GoalPlanningVo.FutureValueOfCostToday);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@MonthlySavingsRequired", DbType.Double, GoalPlanningVo.MonthlySavingsReq);
                 if (GoalPlanningVo.AssociateId != 0)
@@ -117,7 +120,7 @@ namespace DaoFPSuperlite
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ExpectedROI", DbType.Double, GoalPlanningVo.ExpectedROI);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@IsActive", DbType.Int16, GoalPlanningVo.IsActice);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@InflationPer", DbType.Double, GoalPlanningVo.InflationPercent);
-                if (GoalPlanningVo.CustomerApprovedOn != DateTime.Parse("01/01/0001 00:00:00"))
+                if (GoalPlanningVo.CustomerApprovedOn != DateTime.MinValue)
                 {
                     db.AddInParameter(createCustomerGoalProfileCmd, "@CustomerApprovedOn", DbType.DateTime, GoalPlanningVo.CustomerApprovedOn);
                 }
@@ -187,7 +190,10 @@ namespace DaoFPSuperlite
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@CostToday", DbType.Double, GoalPlanningVo.CostOfGoalToday);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@FutureValueOfCostToday", DbType.Double, GoalPlanningVo.FutureValueOfCostToday);
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalYear", DbType.Int32, GoalPlanningVo.GoalYear);
-                db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalPlanningVo.GoalDate);
+                if (GoalPlanningVo.GoalDate != DateTime.MinValue)
+                    db.AddInParameter(updateCustomerGoalProfileCmd, "@GoalProfileDate", DbType.DateTime, GoalPlanningVo.GoalDate);
+                else
+                    GoalPlanningVo.GoalDate = DateTime.Now;
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@MonthlySavingsRequired", DbType.Double, GoalPlanningVo.MonthlySavingsReq);
                 if (GoalPlanningVo.AssociateId != 0)
                 {
@@ -241,7 +247,7 @@ namespace DaoFPSuperlite
 
         }
 
-        public CustomerAssumptionVo GetAllCustomerAssumption(int CustomerID,int goalYear)
+        public CustomerAssumptionVo GetAllCustomerAssumption(int CustomerID,int goalYear,out bool isHavingAssumption)
         {
             Database db;
             DbCommand allCustomerAssumptionCmd;
@@ -254,6 +260,12 @@ namespace DaoFPSuperlite
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
                 db.AddInParameter(allCustomerAssumptionCmd, "@Year", DbType.Int32, goalYear);
                 allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
+
+                if ((allCustomerAssumptionDs.Tables[0].Rows.Count) > 0 && (allCustomerAssumptionDs.Tables[0].Rows.Count) > 0)
+                    isHavingAssumption = true;
+                else
+                    isHavingAssumption = false;
+
                 DataTable dtCustomerStaticAssumption = allCustomerAssumptionDs.Tables[0];
                 DataTable dtCustomerProjectedAssumption = allCustomerAssumptionDs.Tables[1];
                 foreach (DataRow dr in dtCustomerStaticAssumption.Rows)
