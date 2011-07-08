@@ -2464,6 +2464,7 @@
     <DatePeriod PeriodType="Previous half year" PeriodCode="12" Deleted="False"/>
     <DatePeriod PeriodType="Previous fiscal year" PeriodCode="13" Deleted="False"/>
     <DatePeriod PeriodType="Previous Calendar year" PeriodCode="14" Deleted="False"/>
+    <DatePeriod PeriodType="Since Inception" PeriodCode="15" Deleted="False"/>
     <!--<DatePeriod PeriodType="Since Investment" PeriodCode="15" />-->
   </WERPDatePeriod>
 
