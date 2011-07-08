@@ -139,8 +139,8 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
-                if (customerBankAccountVo.BranchAdrPinCode != 0)
-                customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+                if (txtBankAdrPinCode.Text.ToString() != "")
+                   customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 else
                     customerBankAccountVo.BranchAdrPinCode =0;
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
@@ -150,7 +150,7 @@ namespace WealthERP.Customer
                 //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
                 customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedItem.Value.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
-                if (customerBankAccountVo.MICR!=0)
+                if (txtMicr.Text.ToString() != "" )
                     customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
                 else
                     customerBankAccountVo.MICR = 0;
