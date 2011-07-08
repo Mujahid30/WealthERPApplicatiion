@@ -25,6 +25,7 @@ namespace WealthERP.FP
         CustomerVo customerVo = new CustomerVo();
         RMVo rmVo = new RMVo();
         DataSet customerGoalDetailsDS;
+
        
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +35,9 @@ namespace WealthERP.FP
             if (!Page.IsPostBack)
             {
                 customerGoalDetailsDS = goalPlanningBo.GetCustomerGoalDetails(customerVo.CustomerId);
+                
+               
+
                 if (customerGoalDetailsDS.Tables[0].Rows.Count > 0)
                     BindCustomerGoalDetailGrid(customerGoalDetailsDS);
                 else
@@ -51,6 +55,8 @@ namespace WealthERP.FP
             decimal totalFundAmount = 0;
             decimal gapAmountAfterFund = 0;
             decimal goalAmountRequired = 0;
+            decimal goalFundPercentage = 0;
+            decimal goalAmountInGoalYear=0;
 
             DataTable dtCustomerGoalDetails = new DataTable();
             dtCustomerGoalDetails.Columns.Add("GoalId");
@@ -72,6 +78,7 @@ namespace WealthERP.FP
 
             dtCustomerGoalDetails.Columns.Add("TotalFundedAmount");
             dtCustomerGoalDetails.Columns.Add("GoalFundedGap");
+            dtCustomerGoalDetails.Columns.Add("GoalFundPercentage");
             dtCustomerGoalDetails.Columns.Add("GoalFundedType");
             
 
@@ -89,14 +96,15 @@ namespace WealthERP.FP
 
                 drCustomerGoalDetails["GoalType"] = dr["XG_GoalName"].ToString();
                 drCustomerGoalDetails["ChildName"] = dr["ChildName"].ToString();
-                drCustomerGoalDetails["CostToday"] =Math.Round(double.Parse(dr["CG_CostToday"].ToString()),2);
+                drCustomerGoalDetails["CostToday"] =Math.Round(double.Parse(dr["CG_CostToday"].ToString()),0);
                 drCustomerGoalDetails["GaolYear"] = dr["CG_GoalYear"].ToString();
-                drCustomerGoalDetails["GoalAmountInGoalYear"] = Math.Round(double.Parse(dr["CG_FVofCostToday"].ToString()), 2);
+                goalAmountInGoalYear = Math.Round(Decimal.Parse(dr["CG_FVofCostToday"].ToString()), 0);
+                drCustomerGoalDetails["GoalAmountInGoalYear"] = String.Format("{0:n2}", goalAmountInGoalYear.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drCustomerGoalDetails["GoalPriority"] = dr["CG_Priority"].ToString();
                
                 drGoalFundDetails = customerGoalDetailsDS.Tables[1].Select("CG_GoalId=" + dr["CG_GoalId"].ToString());
 
-                drCustomerGoalDetails["CorpusLeftBehind"] = 50000;
+                drCustomerGoalDetails["CorpusLeftBehind"] = String.Format("{0:n2}", 50000.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                 if (drGoalFundDetails.Count() > 0)
                 {
@@ -108,17 +116,18 @@ namespace WealthERP.FP
                     else
                         alternateFundAmount = 0;
                     totalFundAmount = equityFundAmount + debtFundAmount + cashFundAmount + alternateFundAmount;
+                    goalFundPercentage = Math.Round(((totalFundAmount / goalAmountInGoalYear) * 100), 0);
 
                 }
-
-                drCustomerGoalDetails["EquityFundedAmount"] = equityFundAmount;
-                drCustomerGoalDetails["DebtFundedAmount"] = debtFundAmount;
-                drCustomerGoalDetails["CashFundedAmount"] = cashFundAmount;
-                drCustomerGoalDetails["AlternateFundedAmount"] = alternateFundAmount;
-                drCustomerGoalDetails["TotalFundedAmount"] = totalFundAmount;
+                drCustomerGoalDetails["GoalFundPercentage"] = goalFundPercentage;
+                drCustomerGoalDetails["EquityFundedAmount"] = String.Format("{0:n2}", equityFundAmount.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerGoalDetails["DebtFundedAmount"] = String.Format("{0:n2}", debtFundAmount.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerGoalDetails["CashFundedAmount"] = String.Format("{0:n2}", cashFundAmount.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerGoalDetails["AlternateFundedAmount"] = String.Format("{0:n2}", alternateFundAmount.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerGoalDetails["TotalFundedAmount"] = String.Format("{0:n2}", totalFundAmount.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 goalAmountRequired = decimal.Parse(dr["CG_FVofCostToday"].ToString());
                 gapAmountAfterFund=goalAmountRequired-totalFundAmount;
-                drCustomerGoalDetails["GoalFundedGap"] = gapAmountAfterFund;
+                drCustomerGoalDetails["GoalFundedGap"] = String.Format("{0:n2}", gapAmountAfterFund.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 if (totalFundAmount >= goalAmountRequired)
                 {
                     drCustomerGoalDetails["GoalFundedType"] = "FULL";
@@ -132,10 +141,36 @@ namespace WealthERP.FP
                 gapAmountAfterFund = 0;
  
             }
-
+          
             gvrGoalPlanning.DataSource = dtCustomerGoalDetails;
             gvrGoalPlanning.DataBind();
  
+        }
+        protected void gvrGoalPlanning_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Image imgPartiallyFunded = e.Row.FindControl("imgPartiallyFunded") as Image;
+                Image imgFullyFunded = e.Row.FindControl("imgFullyFunded") as Image;
+                Image imgNotFunded = e.Row.FindControl("imgNotFunded") as Image;
+                Label lblgoalFundPercentage = e.Row.FindControl("lblGoalFundPercentage") as Label;
+                int goalFundPercentage = 0;
+                goalFundPercentage = int.Parse(lblgoalFundPercentage.Text.ToString());
+
+                if (goalFundPercentage < 25)
+                {
+                    imgNotFunded.ImageUrl = "~/Images/cross.jpg";
+                }
+                else if (goalFundPercentage >= 25 || goalFundPercentage <= 99)
+                {
+                    imgPartiallyFunded.ImageUrl = "~/Images/check.jpg";
+                }
+                else if (goalFundPercentage > 99)
+                {
+                    imgFullyFunded.ImageUrl = "~/Images/help.jpg";
+                }
+            }
+
         }
 
 
