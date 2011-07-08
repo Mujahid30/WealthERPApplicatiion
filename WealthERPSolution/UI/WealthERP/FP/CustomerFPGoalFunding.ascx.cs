@@ -276,19 +276,34 @@ namespace WealthERP.FP
             DataRow[] drAssetDetails;
             customerVo = (CustomerVo)Session["customerVo"];
             DataSet dsGoalList = goalPlanningBo.GetCustomerGoalList(customerVo.CustomerId);
-            dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
             drGoal = dsGoalList.Tables[0].Select("CG_GoalId=" + gaolId.ToString());
-            drAssetDetails = dsRebalancing.Tables[1].Select("Year=" + drGoal[0][2].ToString());
             string dynamicLabel = drGoal[0]["CG_GoalYear"].ToString();
-            lblGoalYear.Text = dynamicLabel+":";
-            txtGoalAmountReq.Text = Math.Round(decimal.Parse(drGoal[0]["CG_CostToday"].ToString()),0).ToString();
-            txtEquityAvlCorps.Text = drAssetDetails[0]["PreviousYearClosingBalance"].ToString();
-            txtDebtAvlCorps.Text = drAssetDetails[1]["PreviousYearClosingBalance"].ToString();
-            txtCashAvlCorps.Text = drAssetDetails[2]["PreviousYearClosingBalance"].ToString();
-            txtAlternateAvlCorps.Text = drAssetDetails[3]["PreviousYearClosingBalance"].ToString();
- 
- 
- 
+            lblGoalYear.Text = dynamicLabel + ":";
+            txtGoalAmountReq.Text = Math.Round(decimal.Parse(drGoal[0]["CG_CostToday"].ToString()), 0).ToString();
+            dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
+            if (dsRebalancing.Tables.Count > 0)
+            {
+                
+                drAssetDetails = dsRebalancing.Tables[1].Select("Year=" + drGoal[0][2].ToString());
+                if (drAssetDetails.Count() > 0)
+                {
+                    txtEquityAvlCorps.Text = drAssetDetails[0]["PreviousYearClosingBalance"].ToString();
+                    txtDebtAvlCorps.Text = drAssetDetails[1]["PreviousYearClosingBalance"].ToString();
+                    txtCashAvlCorps.Text = drAssetDetails[2]["PreviousYearClosingBalance"].ToString();
+                    txtAlternateAvlCorps.Text = drAssetDetails[3]["PreviousYearClosingBalance"].ToString();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have any avialable corps');", true);
+                    btnEdit.Enabled = false;
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have future saving');", true);
+                btnEdit.Enabled = false; 
+            }
+
         }
         protected void btnSubmit_OnClick(object sender, EventArgs e)
         {
