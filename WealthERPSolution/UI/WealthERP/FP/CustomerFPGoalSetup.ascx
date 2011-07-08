@@ -65,8 +65,9 @@
     </tr>
     
  </table> 
-<table width="30%" cellspacing="0" cellpadding="0">
+<table width="50%" cellspacing="0" cellpadding="0">
 <tr>
+    <td style="width:20%;"></td>
     <td style="width:20%">
      <asp:RadioButton ID="rtbNonRT" Text="Non Retirement" runat="server" Class="FieldName" Checked="true" GroupName="GaolType" onClick="return ShowHideGaolType()"/>
      </td>
@@ -84,14 +85,16 @@
 
 <asp:Panel ID="PnlNonRetirement" runat="server">
 
-<table>
+<table width="50%">
            
             
               <tr>
-                    <td class="leftField">
+                    <td style="width:10%;">
+                    </td>
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblGoalbjective" runat="server" CssClass="FieldName" Text="Goal Objective :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                                       
                          <asp:DropDownList ID="ddlGoalType" runat="server" CssClass="cmbField" 
                              onselectedindexchanged="ddlGoalType_SelectedIndexChanged" AutoPostBack="true">                              
@@ -102,7 +105,7 @@
                         <%--<asp:RequiredFieldValidator id="RequiredFieldValidator3" ValidationGroup="btnSave" ControlToValidate="ddlGoalType" ErrorMessage="Expiration Date." Display="Dynamic" InitialValue="Select" Width="100%" runat="server">
                         </asp:Requiredfieldvalidator>--%>
                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlGoalType" ValueToCompare="Select"
-	                      ErrorMessage="Goal Objective Required" Operator="NotEqual" CssClass="rfvPCG" ValidationGroup="btnSave" ></asp:CompareValidator> 
+	                      ErrorMessage="<br />Goal Objective Required" Operator="NotEqual" CssClass="rfvPCG" ValidationGroup="btnSave" display="Dynamic"> </asp:CompareValidator> 
                         <%--<asp:Requiredfieldvalidator id="RequiredFieldValidator1" runat="server" 
                              errormessage="RequiredFieldValidator" controltovalidate="ddlGoalType" 
                              display="Dynamic" initialvalue="0" setfocusonerror="True" EnableClientScript="True">
@@ -110,10 +113,11 @@
                     </td>
                 </tr>
               <tr id="trPickChild" runat="server" >
-                    <td id="Td4" class="leftField" runat="server">
+                    <td style="width:10%;"></td>
+                    <td id="Td4" class="leftField" runat="server" valign="top" style="width:20%;">
                         <asp:Label ID="lblPickChild" runat="server" CssClass="FieldName" Text="Select a child for Goal planning :"></asp:Label>
                     </td>
-                    <td id="Td5" class="rightField" runat="server">
+                    <td id="Td5" class="rightField" runat="server" style="width:20%;">
                         <asp:DropDownList ID="ddlPickChild" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
@@ -123,14 +127,15 @@
              
              
                  <tr id="trGoalDesc" runat="server">
-                    <td id="Td2" class="leftField" runat="server">
+                     <td style="width:10%;"></td>
+                    <td id="Td2" class="leftField" runat="server" valign="top" style="width:20%;">
                         <asp:Label ID="lblGoalDescription" runat="server" CssClass="FieldName" Text="Goal Description :"></asp:Label>
                     </td>
-                    <td id="Td3" class="rightField" runat="server">
+                    <td id="Td3" class="rightField" runat="server" style="width:20%;">
                         <asp:TextBox ID="txtGoalDescription" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
-                 <tr>
+                 <%--<tr>
                     <td class="leftField">
                         <asp:Label ID="lblGoalDate" runat="server" CssClass="FieldName" Text="Goal Entry Date :"></asp:Label>
                     </td>
@@ -143,19 +148,18 @@
                             TargetControlID="txtGoalDate" WatermarkText="dd/mm/yyyy">
                         </cc1:TextBoxWatermarkExtender>
                         
-                        <%--<ajaxToolkit:CalendarExtender ID="txtGoalDate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
-                            OnClientDateSelectionChanged="checkDate" TargetControlID="txtGoalDate" Enabled="True">
-                        </ajaxToolkit:CalendarExtender>--%>
+                      
                         <span id="SpanGoalDateReq" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtGoalDate"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please select a Date"></asp:RequiredFieldValidator>
                     </td>
-                </tr>
+                </tr>--%>
               <tr>
-                    <td class="leftField">
+                     <td style="width:10%;"></td>  
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblPriority" runat="server" CssClass="FieldName" Text="Priority :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                         <asp:DropDownList ID="ddlPriority" runat="server" CssClass="cmbField">
                         <asp:ListItem Text="Select" Value="Select">                                              
                         </asp:ListItem>
@@ -168,15 +172,16 @@
                         </asp:DropDownList>
                         <span id="span1" class="spnRequiredField" runat="server">*</span>
                         <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPriority" ValueToCompare="Select"
-	                      ErrorMessage="Goal Objective Required" Operator="NotEqual" CssClass="rfvPCG" ValidationGroup="btnSave" ></asp:CompareValidator>                     
+	                      ErrorMessage="<br />Goal Objective Required" Display="Dynamic" Operator="NotEqual" CssClass="rfvPCG" ValidationGroup="btnSave" ></asp:CompareValidator>                     
                     </td>
                 </tr>
                 
                 <tr>
-                    <td class="leftField">
+                    <td style="width:10%;"></td>
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblOccurrence" runat="server" CssClass="FieldName" Text="Occurrence :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                         <asp:DropDownList ID="ddlOccurrence" runat="server" CssClass="cmbField" 
                             onchange="ShowTrFrequency()" 
                             onselectedindexchanged="ddlOccurrence_SelectedIndexChanged" AutoPostBack="true">
@@ -189,7 +194,7 @@
                         </asp:DropDownList>
                         <span id="span2" class="spnRequiredField" runat="server">*</span>
                         <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlOccurrence" ValueToCompare="Select"
-	                      ErrorMessage="Goal Occurrence Required" Operator="NotEqual" ValidationGroup="btnSave" CssClass="rfvPCG" ></asp:CompareValidator>                    
+	                      ErrorMessage="<br />Goal Occurrence Required" Display="Dynamic" Operator="NotEqual" ValidationGroup="btnSave" CssClass="rfvPCG" ></asp:CompareValidator>                    
                     </td>
                 </tr>
                 
@@ -212,10 +217,11 @@
                 
                 
                 <tr id="trFrequency" runat="server">
-                    <td class="leftField">
+                     <td style="width:10%;"></td>
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency :" ></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                         <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField">
                         <asp:ListItem Text="Select" Value="0">                                              
                         </asp:ListItem>
@@ -226,47 +232,51 @@
                 </tr>
                 
                 <tr>
-                    <td class="leftField">
+                    <td style="width:10%;"></td>
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblGoalYear" runat="server" CssClass="FieldName" Text="Goal Year :"></asp:Label>
                     </td>
-                        <td class="rightField">
+                        <td class="rightField" style="width:20%;">
                         <asp:DropDownList ID="ddlGoalYear" runat="server" CssClass="cmbField" CausesValidation="True">                                                    
                             
                         </asp:DropDownList>
                         <span id="SpanGoalYearReq" class="spnRequiredField" runat="server">*</span>
                         
                          <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlGoalYear" ValueToCompare="Select"
-	                      ErrorMessage="Goal Year Required" Operator="NotEqual" ValidationGroup="btnSave" CssClass="rfvPCG" ></asp:CompareValidator> 
+	                      ErrorMessage="<br />Goal Year Required" Display="Dynamic" Operator="NotEqual" ValidationGroup="btnSave" CssClass="rfvPCG" ></asp:CompareValidator> 
 	                                         
                        
                     </td>
                 </tr>                
                
                 <tr>
-                    <td class="leftField">
+                     <td style="width:10%;"></td>
+                    <td class="leftField" valign="top" style="width:20%;">
                         <asp:Label ID="lblGoalCostToday" runat="server" CssClass="FieldName" Text="Goal Cost Today :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                         <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="SpanGoalCostTodayReq" class="spnRequiredField" runat="server">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" 
+                        ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="<br />Goal cost Today Required" Display="Dynamic"></asp:RequiredFieldValidator>
                         
                        <ajaxToolkit:FilteredTextBoxExtender ID="txtGoalCostToday_E" runat="server" Enabled="True" TargetControlID="txtGoalCostToday"
                                             FilterType="Custom, Numbers" ValidChars=".">
                        </ajaxToolkit:FilteredTextBoxExtender>
                         
                         <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic" CssClass="rfvPCG"  
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 15 digit"
-                             ValidationGroup="btnSave" MinimumValue="0" MaximumValue="999999999999999" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="<br />Value  should not be more than 15 digit"
+                             ValidationGroup="btnSave" MinimumValue="0" MaximumValue="999999999999999" diplay="dynamic"
                             ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
                          
                     </td>
                 </tr>
                 <tr>
-                    <td class="leftField">
+                    <td style="width:10%;"></td>
+                    <td class="leftField" style="width:20%;">
                         <asp:Label ID="lblComment" runat="server" CssClass="FieldName" Text="Comments :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" style="width:20%;">
                         <asp:TextBox ID="txtComment" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             TextMode="MultiLine" ></asp:TextBox>
                     </td>
@@ -275,6 +285,10 @@
                 <td>
                 &nbsp;&nbsp;
                 </td>
+                <td>
+                &nbsp;&nbsp;
+                </td>
+              
                 <td>
                  <asp:Button ID="btnNonRTSave" runat="server" CssClass="PCGMediumButton" Text="Save" ValidationGroup="btnSave" onclick="btnNonRTSave_Click"  />
                   <asp:Button ID="btnNonRTUpdate" runat="server" CssClass="PCGMediumButton" 
@@ -286,13 +300,16 @@
 </asp:Panel>
 
 <asp:Panel ID="PnlRetirement" runat="server">
-<table>
+<table width="50%">
     <tr>
-    <td colspan="2">
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2" align="justify">
      <asp:Label ID="lblRTGoalBasis" runat="server" CssClass="FieldName" Text="You have chosen to do retirement planning with "></asp:Label>
     </td>
+    <td></td>
     </tr>
-    <tr>
+    <tr>             
+                    <td></td>   
                     <td class="leftField">
                         <asp:Label ID="lbl" runat="server" CssClass="FieldName" Text="Goal Cost today (monthly) :"></asp:Label>
                     </td>
@@ -302,6 +319,7 @@
                     </td>
 </tr>
     <tr id="trRTGoalCorpsToBeLeftBehind" runat="server">
+                     <td></td> 
                      <td class="leftField">
                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Corpus to be left behind :"></asp:Label>
                     </td>
@@ -311,6 +329,7 @@
                     </td>
  </tr>
     <tr>
+                <td></td>  
                 <td>
                 &nbsp;&nbsp;
                 </td>

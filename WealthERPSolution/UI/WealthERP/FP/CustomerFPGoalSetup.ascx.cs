@@ -116,10 +116,11 @@ namespace WealthERP.FP
         protected void btnNonRTSave_Click(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            bool result = false;
             goalPlanningVo.CustomerId = customerVo.CustomerId;
             goalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
             goalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-            goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+            //goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
             goalPlanningVo.Priority = ddlPriority.SelectedValue.ToString();
             if (ddlOccurrence.SelectedValue.ToString() == "Once")
             {
@@ -144,7 +145,9 @@ namespace WealthERP.FP
             }
             goalPlanningVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
 
-            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId,false);
+            result = goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
+            if (!result)
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp The Assuption For This Customer');", true);
             
 
         }
@@ -166,7 +169,7 @@ namespace WealthERP.FP
             {
                 ddlGoalType.SelectedValue = goalPlanningVo.Goalcode;
                 txtGoalDescription.Text = goalPlanningVo.GoalDescription;
-                txtGoalDate.Text = goalPlanningVo.GoalProfileDate.ToShortDateString();
+                //txtGoalDate.Text = goalPlanningVo.GoalProfileDate.ToShortDateString();
                 ddlPriority.SelectedValue = goalPlanningVo.Priority;
                 if (goalPlanningVo.IsOnetimeOccurence == true)
                     ddlOccurrence.SelectedValue = "Once";
@@ -215,7 +218,7 @@ namespace WealthERP.FP
             {
                 ddlGoalType.Enabled = false;
                 txtGoalDescription.Enabled = false;
-                txtGoalDate.Enabled = false;
+                //txtGoalDate.Enabled = false;
                 ddlPriority.Enabled = false;
                 ddlOccurrence.Enabled = false;
                 ddlFrequency.Enabled = false;
@@ -236,7 +239,7 @@ namespace WealthERP.FP
             {
                 ddlGoalType.Enabled = false;
                 txtGoalDescription.Enabled = true;
-                txtGoalDate.ReadOnly = true;
+                //txtGoalDate.ReadOnly = true;
                 ddlPriority.Enabled = true;
                 ddlOccurrence.Enabled = true;
                 ddlFrequency.Enabled = true;
@@ -270,7 +273,7 @@ namespace WealthERP.FP
             {
                 goalPlanningVo.GoalId = int.Parse(ViewState["GoalId"].ToString());
                 goalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-                goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+                //goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
                 goalPlanningVo.Priority = ddlPriority.SelectedValue.ToString();
                 if (ddlOccurrence.SelectedValue.ToString() == "Once")
                 {
