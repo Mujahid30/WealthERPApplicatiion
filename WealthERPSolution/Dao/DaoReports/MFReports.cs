@@ -681,5 +681,57 @@ namespace DaoReports
             return dsMFTransactionType;
         }
 
+        /// <summary>
+        /// Calculate FromDate for Since Inception Option for Period Selection
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <param name="fromDate"></param>
+        /// <returns></returns>
+        public DateTime GetCalculateFromDate(string portfolioIDs, string subreportype,out DateTime fromDate)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCalculateFromDate;
+            DataSet dsCalculateFromDate;
+            DataTable dtCalculateFromDate = new DataTable();
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCalculateFromDate = db.GetStoredProcCommand("SP_GetFromDateForSinceInceptionPeriodDropdown");
+                db.AddInParameter(cmdCalculateFromDate, "@portfolioId", DbType.String, portfolioIDs);
+                db.AddInParameter(cmdCalculateFromDate, "@reportType", DbType.String, subreportype);
+                db.AddOutParameter(cmdCalculateFromDate, "@fromDate", DbType.DateTime, 50);
+
+                dsCalculateFromDate = db.ExecuteDataSet(cmdCalculateFromDate);
+
+                Object objFromDate = db.GetParameterValue(cmdCalculateFromDate, "@fromDate");
+                if (objFromDate != DBNull.Value)
+                    fromDate = DateTime.Parse(db.GetParameterValue(cmdCalculateFromDate, "@fromDate").ToString());
+                else
+                    fromDate = DateTime.Now;               
+          
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:GetCalculateFromDate()");
+                object[] objects = new object[2];
+                objects[0] = portfolioIDs;
+                objects[1] = subreportype;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return fromDate;
+        }
+        
+
     }
 }
