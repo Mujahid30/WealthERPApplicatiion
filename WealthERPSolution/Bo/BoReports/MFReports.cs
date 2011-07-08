@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-
+using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
 using DaoReports;
@@ -351,5 +350,41 @@ namespace BoReports
             return mfReports.GetMFTransactionType();
         }
 
+        /// <summary>
+        /// Calculate FromDate for Since Inception Option for Period Selection
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <returns></returns>
+        public DateTime GetCalculateFromDate(string portfolioIDs, string subreportype)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            DateTime fromDate = DateTime.MinValue;
+            
+           
+            try
+            {
+                fromDate = mfReports.GetCalculateFromDate(portfolioIDs, subreportype, out fromDate);
+             
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:GetCalculateFromDate()");
+                object[] objects = new object[2];
+                objects[0] = portfolioIDs;
+                objects[1] = subreportype;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return fromDate;
+        }
     }
 }
