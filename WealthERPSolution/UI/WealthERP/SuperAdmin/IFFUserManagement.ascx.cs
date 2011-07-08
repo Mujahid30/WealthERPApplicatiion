@@ -35,7 +35,9 @@ namespace WealthERP.SuperAdmin
             {
                 mypager.CurrentPage = 1;
                 if (!IsPostBack)
+                {
                     this.BindGrid();
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -116,13 +118,14 @@ namespace WealthERP.SuperAdmin
                     gvIFFUsers.Visible = true;
                     gvIFFUsers.DataSource = dtIFFList;
                     gvIFFUsers.DataBind();
+                    tblErrorMassage.Visible = false;
                     ErrorMessage.Visible = false;
                 }
                 else
                 {
-                    gvIFFUsers.DataSource = null;
-                    gvIFFUsers.Visible = false;
+                    tblErrorMassage.Visible = true;
                     ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records found..";
                 }
             }
             catch (BaseApplicationException Ex)
@@ -174,7 +177,7 @@ namespace WealthERP.SuperAdmin
 
                             userVo = userBo.GetUserDetails(userId);
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                            email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+                            email.GetAdviserRegistrationMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
                             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                             email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);

@@ -22,7 +22,7 @@
             }
 
             if (checked != 1) {
-                alert('Please select RM to send Password');
+                alert('Please Select Adviser to Send Password');
                 return false;
             }
             else {
@@ -91,15 +91,21 @@
     </tr>
 </table>
 
- <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+ <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server">
     <tr>
         <td align="center">
             <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
             </div>
+        </td>
+   </tr>
+ </table>
+ <table id="tblErrorMassage" width="100%" cellpadding="0" cellspacing="0" runat="server">
+    <tr>
+        <td align="center">
             <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
             </div>
         </td>
-   </tr>
+    </tr>
  </table>
  
  <table style="width: 100%;">
@@ -157,11 +163,11 @@
                             <asp:Label ID="lblIFFNameHeader" runat="server" Text='<%# Eval("IFFName").ToString() %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
+                        <ItemStyle Wrap="False" HorizontalAlign="Left"></ItemStyle>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="LoginId" HeaderText="Login Id" />
-                    <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
-                    <asp:ButtonField CommandName="resetPassword" Text="Reset Password" />
+                    <asp:BoundField DataField="LoginId" ItemStyle-HorizontalAlign="Left" HeaderText="Login Id" />
+                    <asp:BoundField DataField="EmailId" ItemStyle-HorizontalAlign="Left" HeaderText="Email Id" />
+                    <asp:ButtonField CommandName="resetPassword" ItemStyle-HorizontalAlign="Left" Text="Reset Password" />
                 </Columns>
             </asp:GridView>
 
