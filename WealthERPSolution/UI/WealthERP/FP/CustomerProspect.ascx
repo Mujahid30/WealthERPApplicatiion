@@ -309,30 +309,38 @@
 <script type="text/javascript">
     function CallFunOnCalculation() {
 
-        var TaxableIncome = document.getElementById("<%= txtTaxableIncome.ClientID %>").value;
-        var SlabAsPerProfile = document.getElementById("<%= txtSlabAsPerProfile.ClientID %>").value;
-        var TaxtoBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value;
-        var IncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>").value;
-        //var IncomePostTax = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
-        var InComeTotal = document.getElementById("<%= txtIncomeTotal.ClientID %>").value;
+        var txtSlabProfile = document.getElementById("<%= txtSlabProfile.ClientID %>").value;
+        if (txtSlabProfile == '') {
+            alert('Please set the Tax Slab for this customer..!!');
+         
+            return false;
+        }
+        else {
+            var Disposible = document.getElementById("<%= txtDisposable.ClientID %>").value;
+            
+            var TaxableIncome = document.getElementById("<%= txtTaxableIncome.ClientID %>").value;
+            var SlabAsPerProfile = document.getElementById("<%= txtSlabAsPerProfile.ClientID %>").value;
+            var TaxtoBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value;
+            var IncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>").value;
+            document.getElementById("<%= txtIncomePreTax.ClientID %>").value = Disposible;
+            document.getElementById("<%= txtIncomePostTax.ClientID %>").value = Disposible;
 
-        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = "0";
-
-        document.getElementById("<%= txtIncomePreTax.ClientID %>").value  = parseInt(InComeTotal);
+            return true;
+        }
 
                
     }
 </script>
 <script type="text/javascript">
 
-    function CancelButtonFun() {
+//    function CancelButtonFun() {
 
-        var InComeTotal = document.getElementById("<%= txtIncomeTotal.ClientID %>").value;
+//        var InComeTotal = document.getElementById("<%= txtIncomeTotal.ClientID %>").value;
 
-        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = 0;
-        document.getElementById("<%= txtDisposable.ClientID %>").value = InComeTotal;
+//        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = 0;
+//        document.getElementById("<%= txtDisposable.ClientID %>").value = InComeTotal;
 
-    }
+//    }
     function SubmitButtonFun() {
         document.getElementById("<%= txtDisposable.ClientID %>").value = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
     }
@@ -1398,10 +1406,12 @@
                             <td>
                             </td>
                             <td align="left">
-                                    <asp:Button ID="btnSlabCalculate" runat="server" OnClientClick="CallFunOnCalculation()" Text="Calculate" CssClass="PCGButton" />
+                                    <asp:Button ID="btnSlabCalculate" runat="server" 
+                                        OnClientClick="return CallFunOnCalculation()" Text="Calculate" CssClass="PCGButton" 
+                                        onclick="btnSlabCalculate_Click" />
                                     
                                     <cc1:ModalPopupExtender ID="mdlPopupSlabCalculate" runat="server" PopupControlID="CalculatePopUp"
-                                    TargetControlID="btnSlabCalculate" OkControlID="btnCalculationSubmit" CancelControlID="btnCancel" BackgroundCssClass="modalBackground" Enabled="true" Drag="true">
+                                    TargetControlID="hdnModalPopupId" OkControlID="btnCalculationSubmit" CancelControlID="btnCancel" BackgroundCssClass="modalBackground" Enabled="true" Drag="true">
                                     </cc1:ModalPopupExtender>
                                     
                                 </td>
@@ -1455,7 +1465,7 @@
                                                     CssClass="PCGButton" OnClientClick="SubmitButtonFun()" onclick="btnCalculationSubmit_Click" />
                                             </td>
                                             <td>
-                                                <asp:Button ID="btnCancel" OnClientClick="CancelButtonFun()" runat="server" Text="Cancel" CssClass="PCGButton" />
+                                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -1566,35 +1576,16 @@
                                 <td align="left">
                                     <asp:TextBox ID="txtMFSIPMIS" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl" onchange="Total()></asp:TextBox>
                                 </td>
-                                <td align="right">
-                                    <asp:Label ID="lblReccuringDeposit" runat="server" Text="Recurring Deposit :" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                <td align="right"><asp:Label ID="lblReccuringDeposit" runat="server" Text="Recurring Deposit :" CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtReccuringDeposit" runat="server" ReadOnly="true" Enabled="false" Style="direction: rtl" onchange="Total()></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right">
-                                    <asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                <td align="right"><asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false"
-                                        EnableViewState="true"></asp:TextBox>
-                                </td>
-                                <td align="right">
-                                    <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </asp:Panel>
-    </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView5" runat="server">
+                                        EnableViewState="true"></asp:TextBox></td><td align="right">
+                                    <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr></table></td></tr></table></asp:Panel></telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
         <asp:Panel ID="pnlLiabilities" runat="server">
             <table width="100%">
                 <tr>
@@ -1604,118 +1595,49 @@
                                 <td>
                                 </td>
                                 <td align="center">
-                                    <asp:Label ID="lblWERPLiabilities" runat="server" Text="System Loan Outstanding" CssClass="FieldName"></asp:Label>
-                                </td>                                
-                                <td align="center">
-                                    <asp:Label ID="lblLoanOutstandingAdjustment" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblLoanOutstanding" runat="server" Text="Total Liabilities" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblEMI" runat="server" Text="EMI (Annual)" CssClass="FieldName"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
+                                    <asp:Label ID="lblWERPLiabilities" runat="server" Text="System Loan Outstanding" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblLoanOutstandingAdjustment" runat="server" Text="Adjustment" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblLoanOutstanding" runat="server" Text="Total Liabilities" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblEMI" runat="server" Text="EMI (Annual)" CssClass="FieldName"></asp:Label></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblHomeLoan" runat="server" Text="Home Loan : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPHomeLoan" runat="server" Style="direction: rtl" Enabled="false" ></asp:TextBox>
-                                </td>
-                                 <td align="left">
+                                    <asp:Label ID="lblHomeLoan" runat="server" Text="Home Loan : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPHomeLoan" runat="server" Style="direction: rtl" Enabled="false" ></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtHomeLoanA" runat="server" Style="direction: rtl"
-                                    onchange="SubTotal('txtWERPHomeLoan','txtHomeLoanA','NULL','txtHomeLoanLO')" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtHomeLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>                                
-                                <td align="left">
-                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPHomeLoan','txtHomeLoanA','NULL','txtHomeLoanLO')" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtHomeLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtHomeLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblAutoLoan" runat="server" Text="Auto Loan : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPAutoLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblAutoLoan" runat="server" Text="Auto Loan : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPAutoLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAutoLoanA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPAutoLoan','txtAutoLoanA','NULL','txtAutoLoanLO')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtAutoLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>                               
-                                <td align="left">
-                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPAutoLoan','txtAutoLoanA','NULL','txtAutoLoanLO')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtAutoLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtAutoLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblPersonalLoan" runat="server" Text="Personal Loan : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPPersonalLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td> 
-                                <td align="left">
+                                    <asp:Label ID="lblPersonalLoan" runat="server" Text="Personal Loan : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPPersonalLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtPersonalLoanA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPPersonalLoan','txtPersonalLoanA','NULL','txtPersonalLoanLO')"></asp:TextBox>
-                                </td> 
-                                <td align="left">
-                                    <asp:TextBox ID="txtPersonalLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>                               
-                                <td align="left">
-                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPPersonalLoan','txtPersonalLoanA','NULL','txtPersonalLoanLO')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtPersonalLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtPersonalLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblEducationLoan" runat="server" Text="Education Loan : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPEducationLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td> 
-                                 <td align="left">
+                                    <asp:Label ID="lblEducationLoan" runat="server" Text="Education Loan : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPEducationLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtEducationLoanA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPEducationLoan','txtEducationLoanA','NULL','txtEducationLoanLO')"></asp:TextBox>
-                                </td> 
-                                <td align="left">
-                                    <asp:TextBox ID="txtEducationLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>                                
-                                <td align="left">
-                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPEducationLoan','txtEducationLoanA','NULL','txtEducationLoanLO')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtEducationLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtEducationLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblOtherLoan" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPOtherLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblOtherLoan" runat="server" Text="Others : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPOtherLoan" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtOtherLoanA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPOtherLoan','txtOtherLoanA','NULL','txtOtherLoanLO')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOtherLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                               
-                                <td align="left">
-                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPOtherLoan','txtOtherLoanA','NULL','txtOtherLoanLO')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOtherLoanLO" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOtherLoanEMI" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtTotalLO" runat="server" Style="direction: rtl" Enabled="false"
-                                        EnableViewState="true"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        EnableViewState="true"></asp:TextBox></td><td align="left">
                                     <%--<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>--%>
                                 </td>
                                 <td align="left">
@@ -1751,159 +1673,63 @@
                                 <td align="right">
                                 </td>
                                 <td align="center">
-                                    <asp:Label ID="lblWERPSumAssuredLI" runat="server" Text="System Sum Assured" CssClass="FieldName" Enabled="false"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblSumAssuredLI" runat="server" Text=" Adjusted Sum Assured" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblTotalSumAssuredLI" runat="server" Text="Total Sum Assured" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblPremiumLI" runat="server" Text="Premium (Annual)" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblSurrenderMarketValue" runat="server" Text="Surrender/Market Value" CssClass="FieldName"></asp:Label>
-                                </td>
-                            </tr>
-                            <tr>
+                                    <asp:Label ID="lblWERPSumAssuredLI" runat="server" Text="System Sum Assured" CssClass="FieldName" Enabled="false"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblSumAssuredLI" runat="server" Text=" Adjusted Sum Assured" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblTotalSumAssuredLI" runat="server" Text="Total Sum Assured" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblPremiumLI" runat="server" Text="Premium (Annual)" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblSurrenderMarketValue" runat="server" Text="Surrender/Market Value" CssClass="FieldName"></asp:Label></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblTerm" runat="server" Text="Term : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPTermSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblTerm" runat="server" Text="Term : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPTermSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedTermSA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPTermSA','txtAdjustedTermSA','NULL','txtTotalTermSA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalTermSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTermSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPTermSA','txtAdjustedTermSA','NULL','txtTotalTermSA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalTermSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTermP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTermSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblEndowment" runat="server" Text="Endowment : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPEndowmentSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblEndowment" runat="server" Text="Endowment : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPEndowmentSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedEndowmentSA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPEndowmentSA','txtAdjustedEndowmentSA','NULL','txtTotalEndowmentSA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalEndowmentSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtEndowmentSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPEndowmentSA','txtAdjustedEndowmentSA','NULL','txtTotalEndowmentSA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalEndowmentSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtEndowmentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtEndowmentSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblWholeLife" runat="server" Text="Whole Life : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPWholeLifeSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblWholeLife" runat="server" Text="Whole Life : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPWholeLifeSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedWholeLifeSA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPWholeLifeSA','txtAdjustedWholeLifeSA','NULL','txtTotalWholeLifeSA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalWholeLifeSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWholeLifeSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                                
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPWholeLifeSA','txtAdjustedWholeLifeSA','NULL','txtTotalWholeLifeSA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalWholeLifeSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtWholeLifeP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtWholeLifeSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblMoneyBack" runat="server" Text="Money Back : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPMoneyBackSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblMoneyBack" runat="server" Text="Money Back : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPMoneyBackSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedMoneyBackSA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPMoneyBackSA','txtAdjustedMoneyBackSA','NULL','txtTotalMoneyBackSA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalMoneyBackSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtMoneyBackSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPMoneyBackSA','txtAdjustedMoneyBackSA','NULL','txtTotalMoneyBackSA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalMoneyBackSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtMoneyBackP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtMoneyBackSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblULIP" runat="server" Text="ULIP : " CssClass="FieldName" ></asp:Label>
-                                </td>
-                                 <td align="left">
-                                    <asp:TextBox ID="txtWERPULIPSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblULIP" runat="server" Text="ULIP : " CssClass="FieldName" ></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPULIPSA" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedULIPSA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPULIPSA','txtAdjustedULIPSA','NULL','txtTotalULIPSA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalULIPSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtULIPSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                                
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPULIPSA','txtAdjustedULIPSA','NULL','txtTotalULIPSA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalULIPSA" runat="server" Style="direction: rtl" onchange="Total()" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtULIPP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtULIPSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblOthersLI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPOthersLISA" runat="server" Style="direction: rtl"  Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblOthersLI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPOthersLISA" runat="server" Style="direction: rtl"  Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtAdjustedOthersLISA" runat="server" Style="direction: rtl" 
-                                    onchange="SubTotal('txtWERPOthersLISA','txtAdjustedOthersLISA','NULL','txtTotalOthersLISA')"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtTotalOthersLISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOtherSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox>
-                                </td>
-                                
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPOthersLISA','txtAdjustedOthersLISA','NULL','txtTotalOthersLISA')"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtTotalOthersLISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOthersLIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOtherSurrMktVal" runat="server" Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblTotalLI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblTotalLI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtTotalLISA" runat="server" Style="direction: rtl" Enabled="false"
-                                        EnableViewState="true"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        EnableViewState="true"></asp:TextBox></td><td align="left">
                                 </td>
                                 <td align="left">
                                 </td>
@@ -1924,112 +1750,50 @@
                                 <td align="right">
                                 </td>
                                  <td align="center">
-                                    <asp:Label ID="lblWERPSumAssuredGI" runat="server" Text="System Sum Assured" CssClass="FieldName"></asp:Label>
-                                </td>
-                                  <td align="center">
-                                    <asp:Label ID="lblAdjustedSumAssuredGI" runat="server" Text="Adjusted Sum Assured" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblTotalSumAssuredGI" runat="server" Text="Total Sum Assured" CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="center">
-                                    <asp:Label ID="lblPremiumGI" runat="server" Text="Premium (Annual)" CssClass="FieldName"></asp:Label>
-                                </td>
-                               
-                            </tr>
-                            <tr>
+                                    <asp:Label ID="lblWERPSumAssuredGI" runat="server" Text="System Sum Assured" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblAdjustedSumAssuredGI" runat="server" Text="Adjusted Sum Assured" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblTotalSumAssuredGI" runat="server" Text="Total Sum Assured" CssClass="FieldName"></asp:Label></td><td align="center">
+                                    <asp:Label ID="lblPremiumGI" runat="server" Text="Premium (Annual)" CssClass="FieldName"></asp:Label></td></tr><tr>
                                 <td align="right">
                                     <asp:Label ID="lblHealthInsuranceCover" runat="server" Text="Health Insurance Cover : "
-                                        CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                        CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtWERPHealthInsuranceCover" runat="server" Style="direction: rtl"
-                                        Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtHealthInsuranceCoverA" runat="server" Style="direction: rtl" 
                                     onchange="SubTotal('txtWERPHealthInsuranceCover','txtHealthInsuranceCoverA','NULL','txtHealthInsuranceCoverSA')"
-                                        ></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        ></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtHealthInsuranceCoverSA" runat="server" Style="direction: rtl"
-                                        onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                
-                            </tr>
-                            <tr>
+                                        onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtHealthInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
                                     <asp:Label ID="lblPropertyInsuranceCover" runat="server" Text="Property Insurance Cover : "
-                                        CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                        CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtWERPPropertyInsuranceCover" runat="server" Style="direction: rtl"
-                                        Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtPropertyInsuranceCoverA" runat="server" Style="direction: rtl"
                                     onchange="SubTotal('txtWERPPropertyInsuranceCover','txtPropertyInsuranceCoverA','NULL','txtPropertyInsuranceCoverSA')"
-                                        ></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        ></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtPropertyInsuranceCoverSA" runat="server" Style="direction: rtl"
-                                        onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                               
-                            </tr>
-                            <tr>
+                                        onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtPropertyInsuranceCoverP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblPersonalAccident" runat="server" Text="Personal Accident : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtWERPPersonalAccident" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblPersonalAccident" runat="server" Text="Personal Accident : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPPersonalAccident" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtPersonalAccidentA" runat="server" Style="direction: rtl"
-                                    onchange="SubTotal('txtWERPPersonalAccident','txtPersonalAccidentA','NULL','txtPersonalAccidentSA')" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPersonalAccidentSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPPersonalAccident','txtPersonalAccidentA','NULL','txtPersonalAccidentSA')" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtPersonalAccidentSA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtPersonalAccidentP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblOthersGI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                  <td align="left">
-                                    <asp:TextBox ID="txtWERPOthersGI" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox>
-                                </td>
-                                  <td align="left">
+                                    <asp:Label ID="lblOthersGI" runat="server" Text="Others : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtWERPOthersGI" runat="server" Style="direction: rtl" Enabled="false"></asp:TextBox></td><td align="left">
                                     <asp:TextBox ID="txtOthersGIA" runat="server" Style="direction: rtl"
-                                    onchange="SubTotal('txtWERPOthersGI','txtOthersGIA','NULL','txtOthersGISA')" ></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOthersGISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                                <td align="left">
-                                    <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
-                               
-                            </tr>
-                            <tr>
+                                    onchange="SubTotal('txtWERPOthersGI','txtOthersGIA','NULL','txtOthersGISA')" ></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOthersGISA" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><td align="left">
+                                    <asp:TextBox ID="txtOthersGIP" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
                                 <td align="right">
-                                    <asp:Label ID="lblTotalGI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
-                                </td>
-                                <td align="left">
+                                    <asp:Label ID="lblTotalGI" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtTotalGISA" runat="server" Style="direction: rtl" Enabled="false"
-                                        EnableViewState="true"></asp:TextBox>
-                                </td>
-                                <td align="left">
+                                        EnableViewState="true"></asp:TextBox></td><td align="left">
                                 </td>
                                 <td align="left">
                                 </td>
@@ -2051,3 +1815,4 @@
 <asp:HiddenField ID="totalLiabilities" runat="server" />
 <asp:HiddenField ID="hdnIsActive" runat="server" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" />
+<asp:HiddenField ID="hdnModalPopupId" runat="server" />

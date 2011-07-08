@@ -2662,5 +2662,11 @@ namespace WealthERP.FP
         {
             lblFinalResults.Text = "Disposable income (post tax) is"+ txtIncomePostTax.Text + "";
         }
+
+        protected void btnSlabCalculate_Click(object sender, EventArgs e)
+        {
+            mdlPopupSlabCalculate.TargetControlID = "btnSlabCalculate";
+            mdlPopupSlabCalculate.Show();
+        }
     }
 }
