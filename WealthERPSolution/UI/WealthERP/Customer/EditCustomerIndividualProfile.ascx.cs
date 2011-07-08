@@ -97,7 +97,7 @@ namespace WealthERP.Customer
                     {
                         rbtnMale.Checked = true;
                     }
-                    else
+                    else if (customerVo.Gender.ToUpper().ToString() == "F")
                     {
                         rbtnFemale.Checked = true;
                     }
@@ -755,11 +755,11 @@ namespace WealthERP.Customer
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
            
-            if (customerVo.Gender != "")
+            if ((customerVo.Gender != "") || ((rbtnMale.Checked != false ) || (rbtnFemale.Checked != false)))
             {
-                if (customerVo.Gender == "M")
+                if ((customerVo.Gender == "M") || (rbtnMale.Checked == true))
                     hdnGender.Value = "Male";
-                else
+                else if ((customerVo.Gender == "F") || (rbtnFemale.Checked == true))
                     hdnGender.Value = "Female";
             }
             if (txtDob.Text != "")
@@ -767,7 +767,7 @@ namespace WealthERP.Customer
                 CalculateAge(DateTime.Parse(txtDob.Text));
             }
 
-            if (((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (txtDob.Text == ""))
+            if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (txtDob.Text == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
             }
@@ -780,7 +780,10 @@ namespace WealthERP.Customer
                 if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
                 {
                     if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                    {
                         txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+                        
+                    }
                 }
                 else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
                 {
