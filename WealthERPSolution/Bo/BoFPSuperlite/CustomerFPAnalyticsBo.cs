@@ -395,13 +395,13 @@ namespace BoFPSuperlite
             drCustomerAssetAllocation = dtCustomerAssetAllocation.Select("CAA_year=" + tempYear.ToString());
             foreach (DataRow dr in drGrowthRateYearWise)
             {
-                if (dr["WA_AssumptionId"].ToString() == "IR")
+                if (dr["WA_AssumptionId"].ToString() == "EG")
                 {
-                    incomeGrowthRate = decimal.Parse(dr["CPA_Value"].ToString());
+                    expenseGrowthRate = decimal.Parse(dr["CPA_Value"].ToString());
                 }
                 else if (dr["WA_AssumptionId"].ToString() == "IG")
                 {
-                    expenseGrowthRate = decimal.Parse(dr["CPA_Value"].ToString());
+                    incomeGrowthRate = decimal.Parse(dr["CPA_Value"].ToString());
                 }
                 else if (Convert.ToString(dr["WA_AssumptionId"]).Trim() == "ER")
                 {
