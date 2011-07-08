@@ -3117,6 +3117,9 @@ namespace WealthERP.Reports
         /// </summary>
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
+            string portfolioIds = "";
+            string subReportType = "";
+            DateTime CalculateFromDate = DateTime.MinValue;
             if (Request.Form["ctrl_MFReports$hidDateType"] == "DATE_RANGE" || Request.Form["ctrl_EquityReports$hidDateType"] == "DATE_RANGE")
             {
 
@@ -3125,20 +3128,128 @@ namespace WealthERP.Reports
             }
             else if (Request.Form["ctrl_MFReports$hidDateType"] == "PERIOD" || Request.Form["ctrl_EquityReports$hidDateType"] == "PERIOD")
             {
+                if (Request.Form[ctrlPrefix + "ddlPeriod"] == "15") //Calculate FromDate for Since Inception Option for Period Selection
+                {
+                    
+                    portfolioIds = GetPortfolios();
+                    subReportType = GetReportSubtype();
+                    CalculateFromDate = GetCalculateFromDate(portfolioIds, subReportType);
+                    fromDate = CalculateFromDate;
+                    toDate = DateTime.Now;
 
-                dtBo.CalculateFromToDatesUsingPeriod(Request.Form[ctrlPrefix + "ddlPeriod"], out dtFrom, out dtTo);
-                fromDate = dtFrom;
-                toDate = dtTo;
+                }
+                else// Calculate ToDate And FromDate For Period Selection
+                {
+                    dtBo.CalculateFromToDatesUsingPeriod(Request.Form[ctrlPrefix + "ddlPeriod"], out dtFrom, out dtTo);
+                    fromDate = dtFrom;
+                    toDate = dtTo;
+                }
 
             }
             else //if (Request.Form[ctrlPrefix + "hidDateType"] == "AS_ON")
             {
+                
+
                 fromDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtAsOnDate"]);
                 toDate = Convert.ToDateTime(Request.Form[ctrlPrefix + "txtAsOnDate"]);
 
             }
         }
+        /// <summary>
+        /// Calculate FromDate for Since Inception Option for Period Selection
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <returns></returns>
+        private DateTime GetCalculateFromDate(string portfolioIDs, string subreportype)
+        {
+            MFReportsBo mfReports = new MFReportsBo();
+            DataTable dtCalculateFromDate = new DataTable();
+            DateTime fromDate = DateTime.MinValue; ;
 
+            try
+            {
+                fromDate = mfReports.GetCalculateFromDate(portfolioIDs, subreportype);
+          
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw(Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "Display.aspx.cs:GetCalculateFromDate()");
+                object[] objects = new object[2];
+                objects[0] = portfolioIDs;
+                objects[1] = subreportype;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return fromDate;
+
+        }
+
+     
+        /// <summary>
+        /// To Get The Report SubTypes
+        /// </summary>
+        /// <returns></returns>
+        private string GetReportSubtype()
+        {
+            string subReortType = String.Empty;
+            string subType = "";
+            if (CurrentReportType == ReportType.EquityReports)
+            {
+                
+               equityReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
+                switch (equityReport.SubType)
+                {
+                    case "EQUITY_SECTOR_WISE":
+                        subType = "5";
+                        break;
+                    case "EQUITY_TRANSACTION_WISE":
+                        subType = "6";
+                        break;
+                    case "EQUITY_HOLDING_WISE":
+                        subType = "7";
+                        break;
+                }
+                return subType;
+            }
+            else if (CurrentReportType == ReportType.MFReports)
+            {
+                mfReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
+                switch (mfReport.SubType)
+                {
+                    case "TRANSACTION_REPORT":
+                        subType = "0";
+                        break;
+                    case "DIVIDEND_STATEMENT":
+                        subType = "1";
+                        break;
+                    case "DIVIDEND_SUMMARY":
+                        subType = "2";
+                        break;
+                    case "CAPITAL_GAIN_DETAILS":
+                        subType = "3";
+                        break;
+                    case "CAPITAL_GAIN_SUMMARY":
+                        subType = "4";
+                        break;
+
+                }
+                return subType;
+            }
+
+            subReortType = subType;
+            return subReortType;
+
+        }
+        
         #endregion
 
 
@@ -3234,6 +3345,7 @@ namespace WealthERP.Reports
                     chkCopy.Checked = false;
             }
         }
+
 
         /// <summary>
         /// Get the email body of the report.
