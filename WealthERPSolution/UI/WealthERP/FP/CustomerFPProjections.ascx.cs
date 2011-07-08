@@ -307,16 +307,16 @@ namespace WealthERP.FP
                     {
                         drRebalancingProjection["Year"] = drEuity["Year"].ToString();
 
-                        drRebalancingProjection["Money_Available"] = drEuity["PreviousYearClosingBalance"].ToString();
+                        drRebalancingProjection["Money_Available"] = String.Format("{0:n2}", decimal.Parse(drEuity["PreviousYearClosingBalance"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drRebalancingProjection["Existing_Asset_Allocation"] = drEuity["CurrentAssetAllocationPercent"].ToString();
                         drRebalancingProjection["Gap_from_Agreed_Allocation"] = drEuity["GapFrpmAgrredPercent"].ToString();
-                        drRebalancingProjection["Money_Rebalanced"] = drEuity["MoneyToBeRebalanced"].ToString();
-                        drRebalancingProjection["Money_withdrawn"] = drEuity["GoalMoneyWithdrawn"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing"] = drEuity["MoneyAvailableAfterRW"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing_returns"] = drEuity["MoneyAvailableAfterRWReturn"].ToString();
-                        drRebalancingProjection["Money_flowing"] = drEuity["AmountBeforeReturns"].ToString();
-                        drRebalancingProjection["Money_flowing_returns"] = drEuity["AmountAfterReturns"].ToString();
-                        drRebalancingProjection["Balance_Money"] = drEuity["BalanceMoney"].ToString();
+                        drRebalancingProjection["Money_Rebalanced"] = String.Format("{0:n2}", decimal.Parse(drEuity["MoneyToBeRebalanced"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_withdrawn"] = String.Format("{0:n2}", decimal.Parse(drEuity["GoalMoneyWithdrawn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing"] = String.Format("{0:n2}", decimal.Parse(drEuity["MoneyAvailableAfterRW"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing_returns"] = String.Format("{0:n2}", decimal.Parse(drEuity["MoneyAvailableAfterRWReturn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing"] = String.Format("{0:n2}", decimal.Parse(drEuity["AmountBeforeReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing_returns"] = String.Format("{0:n2}", decimal.Parse(drEuity["AmountAfterReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Balance_Money"] = String.Format("{0:n2}", decimal.Parse(drEuity["BalanceMoney"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtRebalancingGrid.Rows.Add(drRebalancingProjection);
                     }
@@ -326,23 +326,23 @@ namespace WealthERP.FP
 
             if (assetClass == "Debt")
             {
-                foreach (DataRow drEuity in dtRebalancing.Rows)
+                foreach (DataRow drDebt in dtRebalancing.Rows)
                 {
                     drRebalancingProjection = dtRebalancingGrid.NewRow();
-                    if (drEuity["AssetClass"].ToString() == "Debt")
+                    if (drDebt["AssetClass"].ToString() == "Debt")
                     {
-                        drRebalancingProjection["Year"] = drEuity["Year"].ToString();
+                        drRebalancingProjection["Year"] = drDebt["Year"].ToString();
+                        drRebalancingProjection["Money_Available"] = String.Format("{0:n2}", decimal.Parse(drDebt["PreviousYearClosingBalance"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Existing_Asset_Allocation"] = drDebt["CurrentAssetAllocationPercent"].ToString();
+                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drDebt["GapFrpmAgrredPercent"].ToString();
+                        drRebalancingProjection["Money_Rebalanced"] = String.Format("{0:n2}", decimal.Parse(drDebt["MoneyToBeRebalanced"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_withdrawn"] = String.Format("{0:n2}", decimal.Parse(drDebt["GoalMoneyWithdrawn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing"] = String.Format("{0:n2}", decimal.Parse(drDebt["MoneyAvailableAfterRW"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing_returns"] = String.Format("{0:n2}", decimal.Parse(drDebt["MoneyAvailableAfterRWReturn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing"] = String.Format("{0:n2}", decimal.Parse(drDebt["AmountBeforeReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing_returns"] = String.Format("{0:n2}", decimal.Parse(drDebt["AmountAfterReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Balance_Money"] = String.Format("{0:n2}", decimal.Parse(drDebt["BalanceMoney"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
-                        drRebalancingProjection["Money_Available"] = drEuity["PreviousYearClosingBalance"].ToString();
-                        drRebalancingProjection["Existing_Asset_Allocation"] = drEuity["CurrentAssetAllocationPercent"].ToString();
-                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drEuity["GapFrpmAgrredPercent"].ToString();
-                        drRebalancingProjection["Money_Rebalanced"] = drEuity["MoneyToBeRebalanced"].ToString();
-                        drRebalancingProjection["Money_withdrawn"] = drEuity["GoalMoneyWithdrawn"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing"] = drEuity["MoneyAvailableAfterRW"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing_returns"] = drEuity["MoneyAvailableAfterRWReturn"].ToString();
-                        drRebalancingProjection["Money_flowing"] = drEuity["AmountBeforeReturns"].ToString();
-                        drRebalancingProjection["Money_flowing_returns"] = drEuity["AmountAfterReturns"].ToString();
-                        drRebalancingProjection["Balance_Money"] = drEuity["BalanceMoney"].ToString();
 
                         dtRebalancingGrid.Rows.Add(drRebalancingProjection);
                     }
@@ -352,23 +352,22 @@ namespace WealthERP.FP
 
             if (assetClass == "Cash")
             {
-                foreach (DataRow drEuity in dtRebalancing.Rows)
+                foreach (DataRow drCash in dtRebalancing.Rows)
                 {
                     drRebalancingProjection = dtRebalancingGrid.NewRow();
-                    if (drEuity["AssetClass"].ToString() == "Cash")
+                    if (drCash["AssetClass"].ToString() == "Cash")
                     {
-                        drRebalancingProjection["Year"] = drEuity["Year"].ToString();
-
-                        drRebalancingProjection["Money_Available"] = drEuity["PreviousYearClosingBalance"].ToString();
-                        drRebalancingProjection["Existing_Asset_Allocation"] = drEuity["CurrentAssetAllocationPercent"].ToString();
-                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drEuity["GapFrpmAgrredPercent"].ToString();
-                        drRebalancingProjection["Money_Rebalanced"] = drEuity["MoneyToBeRebalanced"].ToString();
-                        drRebalancingProjection["Money_withdrawn"] = drEuity["GoalMoneyWithdrawn"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing"] = drEuity["MoneyAvailableAfterRW"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing_returns"] = drEuity["MoneyAvailableAfterRWReturn"].ToString();
-                        drRebalancingProjection["Money_flowing"] = drEuity["AmountBeforeReturns"].ToString();
-                        drRebalancingProjection["Money_flowing_returns"] = drEuity["AmountAfterReturns"].ToString();
-                        drRebalancingProjection["Balance_Money"] = drEuity["BalanceMoney"].ToString();
+                        drRebalancingProjection["Year"] = drCash["Year"].ToString();
+                        drRebalancingProjection["Money_Available"] = String.Format("{0:n2}", decimal.Parse(drCash["PreviousYearClosingBalance"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Existing_Asset_Allocation"] = drCash["CurrentAssetAllocationPercent"].ToString();
+                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drCash["GapFrpmAgrredPercent"].ToString();
+                        drRebalancingProjection["Money_Rebalanced"] = String.Format("{0:n2}", decimal.Parse(drCash["MoneyToBeRebalanced"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_withdrawn"] = String.Format("{0:n2}", decimal.Parse(drCash["GoalMoneyWithdrawn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing"] = String.Format("{0:n2}", decimal.Parse(drCash["MoneyAvailableAfterRW"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing_returns"] = String.Format("{0:n2}", decimal.Parse(drCash["MoneyAvailableAfterRWReturn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing"] = String.Format("{0:n2}", decimal.Parse(drCash["AmountBeforeReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing_returns"] = String.Format("{0:n2}", decimal.Parse(drCash["AmountAfterReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Balance_Money"] = String.Format("{0:n2}", decimal.Parse(drCash["BalanceMoney"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtRebalancingGrid.Rows.Add(drRebalancingProjection);
                     }
@@ -378,23 +377,22 @@ namespace WealthERP.FP
 
             if (assetClass == "Alternate")
             {
-                foreach (DataRow drEuity in dtRebalancing.Rows)
+                foreach (DataRow drAlternate in dtRebalancing.Rows)
                 {
                     drRebalancingProjection = dtRebalancingGrid.NewRow();
-                    if (drEuity["AssetClass"].ToString() == "Alternate")
+                    if (drAlternate["AssetClass"].ToString() == "Alternate")
                     {
-                        drRebalancingProjection["Year"] = drEuity["Year"].ToString();
-
-                        drRebalancingProjection["Money_Available"] = drEuity["PreviousYearClosingBalance"].ToString();
-                        drRebalancingProjection["Existing_Asset_Allocation"] = drEuity["CurrentAssetAllocationPercent"].ToString();
-                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drEuity["GapFrpmAgrredPercent"].ToString();
-                        drRebalancingProjection["Money_Rebalanced"] = drEuity["MoneyToBeRebalanced"].ToString();
-                        drRebalancingProjection["Money_withdrawn"] = drEuity["GoalMoneyWithdrawn"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing"] = drEuity["MoneyAvailableAfterRW"].ToString();
-                        drRebalancingProjection["Money_After_rebalancing_returns"] = drEuity["MoneyAvailableAfterRWReturn"].ToString();
-                        drRebalancingProjection["Money_flowing"] = drEuity["AmountBeforeReturns"].ToString();
-                        drRebalancingProjection["Money_flowing_returns"] = drEuity["AmountAfterReturns"].ToString();
-                        drRebalancingProjection["Balance_Money"] = drEuity["BalanceMoney"].ToString();
+                        drRebalancingProjection["Year"] = drAlternate["Year"].ToString();
+                        drRebalancingProjection["Money_Available"] = String.Format("{0:n2}", decimal.Parse(drAlternate["PreviousYearClosingBalance"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Existing_Asset_Allocation"] = drAlternate["CurrentAssetAllocationPercent"].ToString();
+                        drRebalancingProjection["Gap_from_Agreed_Allocation"] = drAlternate["GapFrpmAgrredPercent"].ToString();
+                        drRebalancingProjection["Money_Rebalanced"] = String.Format("{0:n2}", decimal.Parse(drAlternate["MoneyToBeRebalanced"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_withdrawn"] = String.Format("{0:n2}", decimal.Parse(drAlternate["GoalMoneyWithdrawn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing"] = String.Format("{0:n2}", decimal.Parse(drAlternate["MoneyAvailableAfterRW"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_After_rebalancing_returns"] = String.Format("{0:n2}", decimal.Parse(drAlternate["MoneyAvailableAfterRWReturn"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing"] = String.Format("{0:n2}", decimal.Parse(drAlternate["AmountBeforeReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Money_flowing_returns"] = String.Format("{0:n2}", decimal.Parse(drAlternate["AmountAfterReturns"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drRebalancingProjection["Balance_Money"] = String.Format("{0:n2}", decimal.Parse(drAlternate["BalanceMoney"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtRebalancingGrid.Rows.Add(drRebalancingProjection);
                     }
@@ -487,21 +485,21 @@ namespace WealthERP.FP
                 //    foreach (DataRow dr in drFutureSavingProjectionYearWise)
                 //    {
                 drFutureSavingProjection["Year"] = drFutureSaving["Year"].ToString();
-                drFutureSavingProjection["IncomeGrowthRate"] = drFutureSaving["IncomeGrowth"].ToString();
-                drFutureSavingProjection["ExpenseGrowthRate"] = drFutureSaving["ExpenseGrowth"].ToString();
-                drFutureSavingProjection["Avialable_Surplus"] = drFutureSaving["AvailableSurplus"].ToString();
+                drFutureSavingProjection["IncomeGrowthRate"] = String.Format("{0:n2}",decimal.Parse(drFutureSaving["IncomeGrowth"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["ExpenseGrowthRate"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["ExpenseGrowth"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["Avialable_Surplus"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["AvailableSurplus"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drFutureSavingProjection["Equity_Allocation_per"] = drFutureSaving["FutureSavingEquityPercent"].ToString();
-                drFutureSavingProjection["Equity_Allocation"] = drFutureSaving["EquityAmount"].ToString();
-                drFutureSavingProjection["Equity_FutureValue"] = drFutureSaving["EquityFutureValue"].ToString();
+                drFutureSavingProjection["Equity_Allocation"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["EquityAmount"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["Equity_FutureValue"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["EquityFutureValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drFutureSavingProjection["Debt_Allocation_per"] = drFutureSaving["FutureSavingDebtPercent"].ToString();
-                drFutureSavingProjection["Debt_Allocation"] = drFutureSaving["DebtAmount"].ToString();
-                drFutureSavingProjection["Debt_FutureValue"] = drFutureSaving["DebtFutureValue"].ToString();
+                drFutureSavingProjection["Debt_Allocation"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["DebtAmount"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["Debt_FutureValue"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["DebtFutureValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drFutureSavingProjection["Cash_Allocation_per"] = drFutureSaving["FutureSavingCashPercent"].ToString();
-                drFutureSavingProjection["Cash_Allocation"] = drFutureSaving["CashAmount"].ToString();
-                drFutureSavingProjection["Cash_FutureValue"] = drFutureSaving["CashFutureValue"].ToString();
+                drFutureSavingProjection["Cash_Allocation"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["CashAmount"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["Cash_FutureValue"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["CashFutureValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drFutureSavingProjection["Alternate_Allocation_per"] = drFutureSaving["FutureSavingAlternatePercent"].ToString();
-                drFutureSavingProjection["Alternate_Allocation"] = drFutureSaving["alternateAmount"].ToString();
-                drFutureSavingProjection["Alternate_FutureValue"] = drFutureSaving["AlternateFutureValue"].ToString();
+                drFutureSavingProjection["Alternate_Allocation"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["alternateAmount"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drFutureSavingProjection["Alternate_FutureValue"] = String.Format("{0:n2}", decimal.Parse(drFutureSaving["AlternateFutureValue"].ToString()).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                 drFutureSavingProjection["Amount_Returns"] = drFutureSaving["TotalAssetFutureValues"].ToString();
                 dtFutureSavingProjection.Rows.Add(drFutureSavingProjection);
@@ -544,26 +542,26 @@ namespace WealthERP.FP
                             case 1:
                                 {
                                     drCustomerProjectedAssetAllocation["Rec_Equity"] = dr["CAA_RecommendedPercentage"].ToString();
-                                    drCustomerProjectedAssetAllocation["Agr_Equity"] = decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()) + decimal.Parse((dr["CAA_AgreedAdjustment"].ToString()));
+                                    drCustomerProjectedAssetAllocation["Agr_Equity"] = Math.Round(decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()),0) +Math.Round(decimal.Parse(dr["CAA_AgreedAdjustment"].ToString()),0);
                                     break;
                                 }
                             case 2:
                                 {
                                     drCustomerProjectedAssetAllocation["Rec_Debt"] = dr["CAA_RecommendedPercentage"].ToString();
-                                    drCustomerProjectedAssetAllocation["Agr_Debt"] = decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()) + decimal.Parse(dr["CAA_AgreedAdjustment"].ToString());
+                                    drCustomerProjectedAssetAllocation["Agr_Debt"] = Math.Round(decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()),0) +Math.Round(decimal.Parse(dr["CAA_AgreedAdjustment"].ToString()),0);
                                     break;
 
                                 }
                             case 3:
                                 {
                                     drCustomerProjectedAssetAllocation["Rec_Cash"] = dr["CAA_RecommendedPercentage"].ToString();
-                                    drCustomerProjectedAssetAllocation["Agr_Cash"] = decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()) + decimal.Parse((dr["CAA_AgreedAdjustment"].ToString()));
+                                    drCustomerProjectedAssetAllocation["Agr_Cash"] =Math.Round( decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()),0) + Math.Round(decimal.Parse(dr["CAA_AgreedAdjustment"].ToString()),0);
                                     break;
                                 }
                             case 4:
                                 {
                                     drCustomerProjectedAssetAllocation["Rec_Alternate"] = dr["CAA_RecommendedPercentage"].ToString();
-                                    drCustomerProjectedAssetAllocation["Agr_Alternate"] = decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()) + decimal.Parse((dr["CAA_AgreedAdjustment"].ToString()));
+                                    drCustomerProjectedAssetAllocation["Agr_Alternate"] =Math.Round( decimal.Parse(dr["CAA_RecommendedPercentage"].ToString()),0) + decimal.Parse((dr["CAA_AgreedAdjustment"].ToString()),0);
                                     break;
                                 }
 
