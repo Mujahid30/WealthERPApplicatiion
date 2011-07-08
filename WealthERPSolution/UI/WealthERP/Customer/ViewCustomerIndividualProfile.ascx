@@ -57,6 +57,15 @@
 
 
 
+<style type="text/css">
+    .style1
+    {
+        height: 23px;
+    }
+</style>
+
+
+
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td class="HeaderCell" colspan="2">
@@ -170,10 +179,15 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" colspan="2">
-            &nbsp;
-        </td>
-    </tr>
+                        <td class="leftField">
+                            <asp:Label ID="lblSlab" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
+                        </td>
+                        <td class="rightField" width="25%">
+                        
+                          <asp:Label ID="txtSlab" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                        </td>
+                        
+                    </tr>
     <tr>
         <td class="style1" colspan="2">
             <hr />
@@ -571,16 +585,7 @@
         </td>
     
                         </tr>
-                        <tr>
-                        <td class="leftField">
-                            <asp:Label ID="lblSlab" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
-                        </td>
-                        <td class="rightField" width="25%">
                         
-                          <asp:Label ID="txtSlab" runat="server" Text="Label" CssClass="Field"></asp:Label>
-                        </td>
-                        
-                    </tr>
                         
                     </table>
                 </div>
