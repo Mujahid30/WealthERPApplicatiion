@@ -77,25 +77,31 @@ namespace BoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, int UserId, bool updateGoal)
+        public bool CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, int UserId, bool updateGoal)
         {
+            bool isHavingAssumption = false; 
             try
             {
-             
-               
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
-                customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear);
+                customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear, out isHavingAssumption);
+                if (isHavingAssumption)
+                {
 
-                if (goalPlanningVo.Goalcode != "RT" && updateGoal==false)
-                    goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
-                else if(goalPlanningVo.Goalcode == "RT" && updateGoal==true)
-                    goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
+                    if (goalPlanningVo.Goalcode != "RT" && updateGoal == false)
+                        goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
+                    else if (goalPlanningVo.Goalcode == "RT" && updateGoal == true)
+                        goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
-                if(updateGoal)
-                    customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                    if (updateGoal)
+                        customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                    else
+                        customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo);
+                }
                 else
-                    customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo);
+                {
+                    isHavingAssumption = false;
+                }
 
             }
             catch (BaseApplicationException Ex)
@@ -116,7 +122,7 @@ namespace BoFPSuperlite
                 throw exBase;
 
             }
-
+            return isHavingAssumption;
 
         }
 
