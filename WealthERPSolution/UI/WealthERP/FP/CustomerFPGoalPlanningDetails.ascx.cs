@@ -22,6 +22,7 @@ namespace WealthERP.FP
     {
         CustomerGoalPlanningBo goalPlanningBo = new CustomerGoalPlanningBo();
         CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
+        CustomerFPAnalyticsBo customerFPAnalyticsBo = new CustomerFPAnalyticsBo();
         CustomerVo customerVo = new CustomerVo();
         RMVo rmVo = new RMVo();
         DataSet customerGoalDetailsDS;
@@ -57,7 +58,16 @@ namespace WealthERP.FP
             decimal goalAmountRequired = 0;
             decimal goalFundPercentage = 0;
             decimal goalAmountInGoalYear=0;
-
+            decimal goalCostToday = 0;
+            int goalId = 0;
+            decimal equityFunded = 0;
+            decimal debtFunded = 0;
+            decimal cashFunded = 0;
+            decimal alternateFunded = 0;
+            decimal equityTotalAvl = 0;
+            decimal debtTotalAvl = 0;
+            decimal cashTotalAvl = 0;
+            decimal alternateTotalAvl = 0;
             DataTable dtCustomerGoalDetails = new DataTable();
             dtCustomerGoalDetails.Columns.Add("GoalId");
             dtCustomerGoalDetails.Columns.Add("GoalCategory");
@@ -80,13 +90,110 @@ namespace WealthERP.FP
             dtCustomerGoalDetails.Columns.Add("GoalFundedGap");
             dtCustomerGoalDetails.Columns.Add("GoalFundPercentage");
             dtCustomerGoalDetails.Columns.Add("GoalFundedType");
+            dtCustomerGoalDetails.Columns.Add("IsEquityDeficient");
+            dtCustomerGoalDetails.Columns.Add("IsDebtDeficient");
+            dtCustomerGoalDetails.Columns.Add("IsCashDeficient");
+            dtCustomerGoalDetails.Columns.Add("IsAlternateDeficient");
             
 
             DataRow drCustomerGoalDetails;
             DataRow[] drGoalFundDetails;
+            int tempYear = 0;
+            DataRow[] goalYearWise;
+            DataRow[] goalIdWise;
+            DataSet dsRebalancing = new DataSet();
+            DataRow[] drAssetDetails;
+            dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
+
             foreach (DataRow dr in customerGoalDetailsDS.Tables[0].Rows)
             {
                 drCustomerGoalDetails = dtCustomerGoalDetails.NewRow();
+                if (tempYear != int.Parse(dr["CG_GoalYear"].ToString()))
+                {
+                    tempYear = int.Parse(dr["CG_GoalYear"].ToString());
+                    //drFinalAssumption["Year"] = tempYear.ToString();
+                    goalYearWise = customerGoalDetailsDS.Tables[0].Select("CG_GoalYear=" + tempYear.ToString());
+                    foreach (DataRow drgoalYearWise in goalYearWise)
+                    {
+                        goalId = int.Parse(drgoalYearWise["CG_GoalId"].ToString());
+                        goalIdWise = customerGoalDetailsDS.Tables[1].Select("CG_GoalId=" + goalId.ToString());
+                        if (goalIdWise.Count() > 0)
+                        {
+                            foreach (DataRow drgoalIdWise in goalIdWise)
+                            {
+                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 1)
+                                {
+                                    equityFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                }
+                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 2)
+                                {
+                                    debtFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                }
+                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 3)
+                                {
+                                    cashFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                }
+                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 4)
+                                {
+                                    alternateFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                }
+
+                            }
+
+                        }
+                        else
+                        {
+                            equityFunded = 0;
+                            debtFunded = 0;
+                            cashFunded = 0;
+                            alternateFunded = 0;
+                        }
+
+
+                        drAssetDetails = dsRebalancing.Tables[1].Select("Year=" + tempYear.ToString());
+                        if (drAssetDetails.Count() > 0)
+                        {
+                            equityTotalAvl = decimal.Parse(drAssetDetails[0]["PreviousYearClosingBalance"].ToString());
+                            debtTotalAvl = decimal.Parse(drAssetDetails[1]["PreviousYearClosingBalance"].ToString());
+                            cashTotalAvl = decimal.Parse(drAssetDetails[2]["PreviousYearClosingBalance"].ToString());
+                            alternateTotalAvl = decimal.Parse(drAssetDetails[3]["PreviousYearClosingBalance"].ToString());
+                        }
+                       
+                    }
+
+                    
+                }
+
+
+                if (equityFunded > equityTotalAvl)
+                {
+                    drCustomerGoalDetails["IsEquityDeficient"] = 0;
+                }
+                else
+                    drCustomerGoalDetails["IsEquityDeficient"] = 1;
+                if (debtFunded > debtTotalAvl)
+                {
+                    drCustomerGoalDetails["IsDebtDeficient"] = 0;
+
+                }
+                else
+                    drCustomerGoalDetails["IsDebtDeficient"] = 1;
+                if (cashFunded > cashTotalAvl)
+                {
+                    drCustomerGoalDetails["IsCashDeficient"] = 0;
+                }
+                else
+                    drCustomerGoalDetails["IsCashDeficient"] = 1;
+                if (alternateTotalAvl < alternateFunded)
+                {
+                    drCustomerGoalDetails["IsAlternateDeficient"] = 0;
+                }
+                else
+                    drCustomerGoalDetails["IsAlternateDeficient"] = 1;
+
+
+
+
                 drCustomerGoalDetails["GoalId"] = dr["CG_GoalId"].ToString();
 
                 if (dr["XG_GoalCode"].ToString() == "RT")
@@ -96,7 +203,8 @@ namespace WealthERP.FP
 
                 drCustomerGoalDetails["GoalType"] = dr["XG_GoalName"].ToString();
                 drCustomerGoalDetails["ChildName"] = dr["ChildName"].ToString();
-                drCustomerGoalDetails["CostToday"] =Math.Round(double.Parse(dr["CG_CostToday"].ToString()),0);
+                goalCostToday =Math.Round(decimal.Parse(dr["CG_CostToday"].ToString()),0);
+                drCustomerGoalDetails["CostToday"] = String.Format("{0:n2}", goalCostToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 drCustomerGoalDetails["GaolYear"] = dr["CG_GoalYear"].ToString();
                 goalAmountInGoalYear = Math.Round(Decimal.Parse(dr["CG_FVofCostToday"].ToString()), 0);
                 drCustomerGoalDetails["GoalAmountInGoalYear"] = String.Format("{0:n2}", goalAmountInGoalYear.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -163,11 +271,11 @@ namespace WealthERP.FP
                 }
                 else if (goalFundPercentage >= 25 || goalFundPercentage <= 99)
                 {
-                    imgPartiallyFunded.ImageUrl = "~/Images/check.jpg";
+                    imgNotFunded.ImageUrl = "~/Images/check.jpg";
                 }
                 else if (goalFundPercentage > 99)
                 {
-                    imgFullyFunded.ImageUrl = "~/Images/help.jpg";
+                    imgNotFunded.ImageUrl = "~/Images/help.jpg";
                 }
             }
 

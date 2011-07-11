@@ -42,7 +42,7 @@
 <asp:Panel ID="tbl" runat="server" class="Landscape" Width="68%" ScrollBars="Horizontal">
 
 <asp:GridView ID="gvrGoalPlanning" runat="server" AllowSorting="True" 
-        AutoGenerateColumns="False" HorizontalAlign="Right"
+        AutoGenerateColumns="False" HorizontalAlign="Center"
                 CellPadding="4" EnableViewState="True" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCategory" 
         OnRowDataBound="gvrGoalPlanning_RowDataBound">
@@ -164,14 +164,9 @@
                     
                     <asp:TemplateField HeaderText="Indicator" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>                         
-                            <asp:Image ID="imgPartiallyFunded" ImageAlign="Middle" runat="server" />
-                        </ItemTemplate>
-                          <ItemTemplate>                         
-                            <asp:Image ID="imgFullyFunded" ImageAlign="Middle" runat="server" />
-                        </ItemTemplate>
-                          <ItemTemplate>                         
                             <asp:Image ID="imgNotFunded" ImageAlign="Middle" runat="server" />
                         </ItemTemplate>
+                       
                     </asp:TemplateField> 
                     
                    <asp:TemplateField HeaderText="FundedType" ItemStyle-HorizontalAlign="Left">
@@ -180,7 +175,30 @@
                          </asp:Label> 
                         </ItemTemplate>
                     </asp:TemplateField>  
-                                
+                          <asp:TemplateField HeaderText="IsEquityDeficient" Visible="false" ItemStyle-HorizontalAlign="Left">
+                        <ItemTemplate>
+                         <asp:Label ID="lblIsEquityDeficient" runat="server" CssClass="cmbField" Text='<%#Eval("IsEquityDeficient")%>'>
+                         </asp:Label> 
+                        </ItemTemplate>
+                    </asp:TemplateField>  
+                           <asp:TemplateField HeaderText="IsDebtDeficient" Visible="false" ItemStyle-HorizontalAlign="Left">
+                        <ItemTemplate>
+                         <asp:Label ID="lblIsDebtDeficient" runat="server" CssClass="cmbField" Text='<%#Eval("IsDebtDeficient")%>'>
+                         </asp:Label> 
+                        </ItemTemplate>
+                    </asp:TemplateField>  
+                           <asp:TemplateField HeaderText="IsCashDeficient" Visible="false" ItemStyle-HorizontalAlign="Left">
+                        <ItemTemplate>
+                         <asp:Label ID="lblIsCashDeficient" runat="server" CssClass="cmbField" Text='<%#Eval("IsCashDeficient")%>'>
+                         </asp:Label> 
+                        </ItemTemplate>
+                    </asp:TemplateField>  
+                           <asp:TemplateField HeaderText="IsAlternateDeficient" Visible="false" ItemStyle-HorizontalAlign="Left">
+                        <ItemTemplate>
+                         <asp:Label ID="lblIsAlternateDeficient" runat="server" CssClass="cmbField" Text='<%#Eval("IsAlternateDeficient")%>'>
+                         </asp:Label> 
+                        </ItemTemplate>
+                    </asp:TemplateField>               
                 </Columns>
             </asp:GridView>
  
