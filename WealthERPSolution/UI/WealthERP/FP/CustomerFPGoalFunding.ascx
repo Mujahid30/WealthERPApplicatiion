@@ -27,8 +27,8 @@
 <script type="text/javascript">
     function Validations() {
         if (document.getElementById("<%=chkGoalFundByLoan.ClientID %>").checked == true) {
-            var loanYear = document.getElementById('<%=txtStartLoanYr.ClientID %>').value
-            var loanAmount = document.getElementById('<%=txtLoanAmountFunding.ClientID %>').value
+            var loanYear = document.getElementById('<%=txtStartLoanYr.ClientID %>').value;
+            var loanAmount = document.getElementById('<%=txtLoanAmountFunding.ClientID %>').value;
             if (loanYear == "") {
                 alert("Please Enter Loan Year");
                 return false;
@@ -46,6 +46,13 @@
                 return false;
             }
         }
+        var total = document.getElementById('<%=Label1.ClientID %>').innerHTML;
+
+        var GoalAmount = document.getElementById('<%=txtGoalAmountReq.ClientID %>').value;
+        if (parseFloat(total) > parseFloat(GoalAmount) ){
+            alert("Total allocation amount can't be more than tha goal amount"); 
+            return false;
+        } 
     }
 </script>
 
@@ -63,14 +70,15 @@
         equityAvlAmount=document.getElementById("<%=txtEquityAvlCorps.ClientID %>").value;
         var equityAmountAllAmount = 0;
         equityAmountAllAmount = document.getElementById("<%=txtEquityAllAmt.ClientID %>").value;
-
-        if (parseFloat(equityAmountAllAmount) > parseFloat(equityAvlAmount)) {
-//            alert(equityAmountAllAmount);
-//            alert(equityAvlAmount);
-            alert("Can't be greater value");
-            document.getElementById("<%=txtEquityAllPer.ClientID %>").value = "";
-            document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = "";
-            document.getElementById("<%=txtEquityAllAmt.ClientID %>").value = "";
+        if (parseFloat(equityAmountAllAmount) != 0) {
+            if (parseFloat(equityAmountAllAmount) > parseFloat(equityAvlAmount)) {
+                //            alert(equityAmountAllAmount);
+                //            alert(equityAvlAmount);
+                alert("Can't be greater value");
+                document.getElementById("<%=txtEquityAllPer.ClientID %>").value = "";
+                document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = "";
+                document.getElementById("<%=txtEquityAllAmt.ClientID %>").value = "";
+            } 
         }
         else {
 
@@ -147,22 +155,23 @@
         var count = document.getElementById("<%=hdnAlternate.ClientID %>").value;
         var debtAmountAllAmount = 0;
          debtAmountAllAmount = document.getElementById("<%=txtDebtAllAmt.ClientID %>").value;
-        
-         if (parseFloat(debtAmountAllAmount) > parseFloat(debtAvlAmount)) {
-//            alert(debtAmountAllAmount);
-//            alert(debtAvlAmount);
-            alert("Can't be greater value");
-            document.getElementById("<%=txtDebtAllPer.ClientID %>").value = "";
-            document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = "";
-            document.getElementById("<%=txtDebtAllAmt.ClientID %>").value="";
-        }
-        else {
+         if (parseFloat(debtAmountAllAmount) != 0) {
+             if (parseFloat(debtAmountAllAmount) > parseFloat(debtAvlAmount)) {
+                 //            alert(debtAmountAllAmount);
+                 //            alert(debtAvlAmount);
+                 alert("Can't be greater value");
+                 document.getElementById("<%=txtDebtAllPer.ClientID %>").value = "";
+                 document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = "";
+                 document.getElementById("<%=txtDebtAllAmt.ClientID %>").value = "";
+             } 
+         }
+         else {
 
-            var debtAllPercent = debtAmountAllAmount * 100 / debtAvlAmount;
-            var debtRemaingCorps = debtAvlAmount - debtAmountAllAmount;
-            document.getElementById("<%=txtDebtAllPer.ClientID %>").value = roundNumberDebt(debtAllPercent, 2);
-            document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = debtRemaingCorps;
-        }
+             var debtAllPercent = debtAmountAllAmount * 100 / debtAvlAmount;
+             var debtRemaingCorps = debtAvlAmount - debtAmountAllAmount;
+             document.getElementById("<%=txtDebtAllPer.ClientID %>").value = roundNumberDebt(debtAllPercent, 2);
+             document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = debtRemaingCorps;
+         }
         var equity = document.getElementById('<%=txtEquityAllAmt.ClientID %>').value;
    
         var debt = document.getElementById('<%=txtDebtAllAmt.ClientID %>').value;
@@ -228,14 +237,15 @@
         cashAvlAmount = document.getElementById("<%=txtCashAvlCorps.ClientID %>").value;
         var cashAmountAllAmount = 0;
         cashAmountAllAmount = document.getElementById("<%=txtCashAllAmt.ClientID %>").value;
-
-        if (parseFloat(cashAmountAllAmount) > parseFloat(cashAvlAmount)) {
-//            alert(cashAmountAllAmount);
-//            alert(cashAvlAmount);
-            alert("Can't be greater value");
-            document.getElementById("<%=txtCashAllPer.ClientID %>").value ="";
-            document.getElementById("<%=txtCashRemainCorpus.ClientID %>").value = "";
-            document.getElementById("<%=txtCashAllAmt.ClientID %>").value = "";
+        if (parseFloat(cashAmountAllAmount) != 0) {
+            if (parseFloat(cashAmountAllAmount) > parseFloat(cashAvlAmount)) {
+                //            alert(cashAmountAllAmount);
+                //            alert(cashAvlAmount);
+                alert("Can't be greater value");
+                document.getElementById("<%=txtCashAllPer.ClientID %>").value = "";
+                document.getElementById("<%=txtCashRemainCorpus.ClientID %>").value = "";
+                document.getElementById("<%=txtCashAllAmt.ClientID %>").value = "";
+            } 
         }
         else {
 
@@ -314,14 +324,15 @@
         AlternateAvlAmount = document.getElementById("<%=txtAlternateAvlCorps.ClientID %>").value;
         var AlternateAmountAllAmount = 0;
         AlternateAmountAllAmount = document.getElementById("<%=txtAlternateAllAmt.ClientID %>").value;
-
-        if (parseFloat(AlternateAmountAllAmount) > parseFloat(AlternateAvlAmount)) {
-//            alert(AlternateAmountAllAmount);
-//            alert(AlternateAvlAmount);
-            alert("Can't be greater value");
-            document.getElementById("<%=txtAlternateAllPer.ClientID %>").value = "";
-            document.getElementById("<%=txtAlternateRemainCorpus.ClientID %>").value = "";
-            document.getElementById("<%=txtAlternateAllAmt.ClientID %>").value = "";
+        if (parseFloat(AlternateAmountAllAmount) != 0) {
+            if (parseFloat(AlternateAmountAllAmount) > parseFloat(AlternateAvlAmount)) {
+                //            alert(AlternateAmountAllAmount);
+                //            alert(AlternateAvlAmount);
+                alert("Can't be greater value");
+                document.getElementById("<%=txtAlternateAllPer.ClientID %>").value = "";
+                document.getElementById("<%=txtAlternateRemainCorpus.ClientID %>").value = "";
+                document.getElementById("<%=txtAlternateAllAmt.ClientID %>").value = "";
+            } 
         }
         else {
 
