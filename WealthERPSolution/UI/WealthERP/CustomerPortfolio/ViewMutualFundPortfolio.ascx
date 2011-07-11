@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewMutualFundPortfolio.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewMutualFundPortfolio" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
@@ -22,6 +23,18 @@
         document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
     }
     };
+</script>
+
+<script type="text/javascript">
+
+    function checkDateSelection() {
+        
+        var txtDate = document.getElementById('<%= txtPickDate.ClientID %>').value;
+        if (txtDate == 'dd/mm/yyyy') {
+            alert('Please pick the date..!!');
+        }
+    }
+
 </script>
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
@@ -88,7 +101,28 @@
             <asp:Label ID="lblMFDate" runat="server" CssClass="FieldName" Text="Valuation Date"></asp:Label>
         </td>
     </tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblPickDate" runat="server" Text="Pick date :" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtPickDate"  runat="server" CssClass="cmbField" ></asp:TextBox>
+            <cc1:CalendarExtender ID="txtPickDate_CalendarExtender" runat="server" TargetControlID="txtPickDate"
+                            Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="txtPickDate_TextBoxWatermarkExtender" runat="server"
+                            TargetControlID="txtPickDate" WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="btnGo" runat="server" onfocus="checkDateSelection()" Text="Go" CssClass="PCGButton" 
+                onclick="btnGo_Click" />
+        </td>
+    </tr>
 </table>
+
   <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
 <table style="width: 100%;">
     <tr>
@@ -565,6 +599,17 @@
         </td>
     </tr>
     </table>
+    
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="warning-msg" align="center" visible="false">
+                Valuation is not done for selected date...!
+            </div>
+       </td>
+   </tr>
+</table>
+
 <asp:Button ID="btnPortfolioSearch" runat="server" Text="" OnClick="btnPortfolioSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnPortfolioRealizedSearch" runat="server" Text="" OnClick="btnPortfolioRealizedSearch_Click"

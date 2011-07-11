@@ -66,10 +66,11 @@ namespace WealthERP.CustomerPortfolio
         static int portfolioId;
         RMVo rmVo = new RMVo();
         public double totalUnRealizedValue = 0;
-        decimal temp = 0;        
+        decimal temp = 0;
+        DataSet dsCheckAndGetValuationDateForThePickedDate = new DataSet();
       
         protected void Page_Load(object sender, EventArgs e)
-        {
+         {
             try
             {
                 SessionBo.CheckSession();
@@ -80,6 +81,7 @@ namespace WealthERP.CustomerPortfolio
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
                 lblMFDate.Text ="Valuation as on  " +  DateTime.Parse(genDict["MFDate"].ToString()).ToLongDateString();
+                //txtPickDate.Text = Convert.ToString(DateTime.Today.ToShortDateString());
                 
                 if (Session["folioNum"] != null)
                 {
@@ -203,17 +205,22 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
-                tradeDate = DateTime.Parse(genDict["MFDate"].ToString());
+
+                if(tradeDate == DateTime.MinValue)
+                    tradeDate = DateTime.Parse(genDict["MFDate"].ToString());
+                
                 if (tradeDate == DateTime.MinValue)
                 {
                     count = 0;
                 }
                 else
                 {
+                    
                     if (hdnSelectedCategory.Value == "All")
                         categorySearch = "";
                     else
                         categorySearch = hdnSelectedCategory.Value;
+
                     mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerVo.CustomerId, portfolioId, tradeDate, hdnSchemeFilter.Value.Trim(), hdnFolioFilter.Value.Trim(),categorySearch);
                     //BindCategoryDropDown(mfPortfolioList);
                     Session["mfPortfolioList"] = mfPortfolioList;
@@ -2740,6 +2747,49 @@ namespace WealthERP.CustomerPortfolio
         protected void GoBackAllLink_Click(object sender, EventArgs e)
         {
             LoadMFPortfolio();
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            AdvisorVo adviserVo = (AdvisorVo)Session["advisorVo"];
+            bool bCheckValuationForDate = false;
+            tradeDate = DateTime.Parse(txtPickDate.Text);
+            bCheckValuationForDate = customerPortfolioBo.CheckValuationDoneOrNotForThePickedDate(adviserVo.advisorId, "MF", tradeDate);
+
+            if (bCheckValuationForDate == true)
+            {
+                msgRecordStatus.Visible = false;
+                ddlMFClassificationCode.Visible = true;
+                LoadMFPortfolio();
+            }
+            else
+            {
+                msgRecordStatus.Visible = true;
+
+                lblMessageAll.Visible = true;
+                lblMessageNotional.Visible = true;
+                lblMessageRealized.Visible = true;
+                gvMFPortfolio.DataSource = null;
+                gvMFPortfolio.DataBind();
+
+                chrtMFClassification.DataSource = null;
+                chrtMFClassification.DataBind();
+                chrtMFClassification.Visible = false;
+                ddlMFClassificationCode.Visible = false;
+
+
+
+                gvMFPortfolioRealized.DataSource = null;
+                gvMFPortfolioRealized.DataBind();
+                gvMFPortfolioNotional.DataSource = null;
+                gvMFPortfolioNotional.DataBind();
+
+                btnUpdateNP.Visible = false;
+                hdnFolioFilter.Value = "";
+                hdnSchemeFilter.Value = "";
+                hdnSelectedCategory.Value = "All";
+                btnPortfolioSearch.Focus();
+            }
         }
         
     }

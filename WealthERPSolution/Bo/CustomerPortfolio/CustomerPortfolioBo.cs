@@ -3128,6 +3128,35 @@ namespace BoCustomerPortfolio
             }
             return bResult;
         }
+
+        public bool CheckValuationDoneOrNotForThePickedDate(int adviserId, string assetGroupCode, DateTime transactionDate)
+        {
+            bool bCheckValuationForDate = false;
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            try
+            {
+                bCheckValuationForDate = customerPortfolioDao.CheckValuationDoneOrNotForThePickedDate(adviserId, assetGroupCode, transactionDate);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:CheckValuationDoneOrNotForThePickedDate()");
+
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = transactionDate;
+                objects[2] = assetGroupCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bCheckValuationForDate;
+        }
        
     }
 }

@@ -595,6 +595,8 @@ namespace DaoCustomerPortfolio
             }
             return mfPortfolioVoList;
         }
+
+        
         public List<DividendTaggingPortfolioVo> GetCustomerMFPortfolioDivTagging(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter, string categoryFilter)
         {
             List<DividendTaggingPortfolioVo> mfDivTaggingPortfolioVoList = null;
@@ -1735,6 +1737,50 @@ namespace DaoCustomerPortfolio
 
 
         }
+
+
+        public bool CheckValuationDoneOrNotForThePickedDate(int adviserId, string assetGroupCode, DateTime transactionDate)
+        {
+            bool bCheckValuationForDate = false;
+            DataSet dsValuatedDate = new DataSet();
+            Database db;
+            DbCommand getValuatedDateCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getValuatedDateCmd = db.GetStoredProcCommand("SP_CheckValuationDoneOrNotForTheDate");
+
+                db.AddInParameter(getValuatedDateCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getValuatedDateCmd, "@AssetGroup", DbType.String, assetGroupCode);
+                db.AddInParameter(getValuatedDateCmd, "@CMFT_TransactionDate", DbType.DateTime, transactionDate.ToString());
+
+                dsValuatedDate = db.ExecuteDataSet(getValuatedDateCmd);
+                if (dsValuatedDate.Tables[0].Rows[0]["Valuation Date"].ToString() != "")
+                    bCheckValuationForDate = true;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:CheckValuationDoneOrNotForThePickedDate()");
+
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = transactionDate;
+                objects[2] = assetGroupCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bCheckValuationForDate;
+        }
+
+
+
 
 
         #endregion
