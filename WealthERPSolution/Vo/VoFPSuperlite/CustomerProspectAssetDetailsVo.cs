@@ -14,6 +14,8 @@ namespace VoFPSuperlite
         private double FP_Value;
         private double FP_SurrMktVal;
         private double? FP_Premium;
+        private double FP_AdjustedPremium;
+        private double FP_TotalPremiumValue;
         private DateTime? FP_MaturityDate;
 
 
@@ -48,10 +50,21 @@ namespace VoFPSuperlite
             get { return FP_Premium; }
             set { FP_Premium = value; }
         }
+        public double AdjustedPremium
+        {
+            get { return FP_AdjustedPremium; }
+            set { FP_AdjustedPremium = value; }
+        }
         public double AdjustedValue
         {
             get { return FP_AdjustedValue; }
             set { FP_AdjustedValue = value; }
+        }
+
+        public double TotalPremiumValue
+        {
+            get { return FP_TotalPremiumValue; }
+            set { FP_TotalPremiumValue = value; }
         }
 
         public double SurrMktVal
@@ -59,5 +72,7 @@ namespace VoFPSuperlite
             get { return FP_SurrMktVal; }
             set { FP_SurrMktVal = value; }
         }
+
+        
     }
 }

@@ -11,6 +11,8 @@ namespace VoFPSuperlite
         private string FP_AssetGroupCode;
         private double FP_AdjustedValue;       
         private double FP_Value;
+        private double FP_AdjustedPremiumValue;
+        private double FP_TotalPremiumValue;
                
 
         public int AssetGroupId
@@ -33,6 +35,18 @@ namespace VoFPSuperlite
         {
             get { return FP_AdjustedValue; }
             set { FP_AdjustedValue = value; }
+        }
+
+        public double AdjustedPremiumValue
+        {
+            get { return FP_AdjustedPremiumValue; }
+            set { FP_AdjustedPremiumValue = value; }
+        }
+
+        public double TotalPremiumValue
+        {
+            get { return FP_TotalPremiumValue; }
+            set { FP_TotalPremiumValue = value; }
         }
     }
 }
