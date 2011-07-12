@@ -2977,7 +2977,8 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-        public DataTable BindDropDownassumption()
+
+        public DataTable BindDropDownassumption(string flag)
         {
 
             Database db;
@@ -2990,7 +2991,7 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //To retreive data from the table 
                 cmdBindDropDownassumption = db.GetStoredProcCommand("SP_GetAssumptionList");
-
+                db.AddInParameter(cmdBindDropDownassumption, "@flag", DbType.String, flag);
                 dsBindDropDownassumption = db.ExecuteDataSet(cmdBindDropDownassumption);
                 dtBindDropDownassumption = dsBindDropDownassumption.Tables[0];
 
