@@ -41,7 +41,7 @@ namespace WealthERP.Customer
             gvProjectedAssumption.Visible = true;
             msgRecordStatus.Visible = false;
             hfAge.Value = customerVo.Dob.Year.ToString();
-        
+            trStaticGrid.Visible = false;
             
             expiryAge = customerBo.ExpiryAgeOfAdviser(adviserVo.advisorId, customerVo.CustomerId);
 
@@ -55,10 +55,10 @@ namespace WealthERP.Customer
 
             if (!IsPostBack)
             {
-              
+               
                 if (customerVo.Dob != DateTime.MinValue)
                 {
-                   
+                    
                     DateTime now = DateTime.Today;
                     int todayAgeInYear = now.Year;
                     DateTime dob = customerVo.Dob;
@@ -74,7 +74,7 @@ namespace WealthERP.Customer
                     {
                         BindYearDropDowns();
                         SetDefaultVisibilty();
-                        BindDropDownassumption();
+                        BindDropDownassumption("P");                        
                     }
                 }
                 else
@@ -130,10 +130,10 @@ namespace WealthERP.Customer
 
 
         //}
-        public void BindDropDownassumption()
+        public void BindDropDownassumption(string flag)
         {
             DataTable dtBindDropDownassumption = new DataTable();
-            dtBindDropDownassumption = customerBo.BindDropDownassumption();
+            dtBindDropDownassumption = customerBo.BindDropDownassumption(flag);
             ddlPickAssumtion.DataSource = dtBindDropDownassumption;
             ddlPickAssumtion.DataTextField = dtBindDropDownassumption.Columns["WA_AssumptionName"].ToString();
             ddlPickAssumtion.DataValueField = dtBindDropDownassumption.Columns["WA_AssumptionId"].ToString();
@@ -144,10 +144,10 @@ namespace WealthERP.Customer
         protected void ddlPickAssumtion_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             msgRecordStatus.Visible = false;
-            rdbYearWise.Checked = true;
-            rdbYearRangeWise.Checked = false;
-            trRangeYear.Visible = true;
-            trPickYear.Visible = true;
+            //rdbYearWise.Checked = true;
+            //rdbYearRangeWise.Checked = false;
+            trRangeYear.Visible = false;
+            trPickYear.Visible = false;
             //tdLblYear.Visible = true;
             //tdtxtYear.Visible = true;
             //tdlblRangeYear.Visible = false;
@@ -166,7 +166,7 @@ namespace WealthERP.Customer
             }
             if (ddlPickAssumtion.SelectedIndex != 0)
                 txtAssumptionValue.Enabled = true;
-            BindYearDropDowns();
+                BindYearDropDowns();
             
 
             
@@ -214,8 +214,10 @@ namespace WealthERP.Customer
             }
             else
             {
-                if (rdbYearWise.Checked)
+                if (ddlPickPeriod.SelectedValue == "SY")
                 {
+                    trPickYear.Visible = true;
+                    trRangeYear.Visible = false;
                     int yearSelected = 0;
                     yearSelected = int.Parse(ddlPickYear.SelectedItem.Text.ToString());
                     userId = userVo.UserId;
@@ -224,8 +226,10 @@ namespace WealthERP.Customer
                     customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(),yearSelected,0,0);
 
                 }
-                else
+                else if (ddlPickPeriod.SelectedValue == "RY")
                 {
+                    trRangeYear.Visible = true;
+                    trPickYear.Visible = false;
                     int rangeFromYear = 0;
                     int rangeToYear = 0;
                     userId = userVo.UserId;
@@ -233,9 +237,9 @@ namespace WealthERP.Customer
                     rangeFromYear = int.Parse(ddlFromYear.SelectedItem.Text.ToString());
                     rangeToYear = int.Parse(ddlToYear.SelectedItem.Text.ToString());
                     assumptionValue = decimal.Parse(txtAssumptionValue.Text.ToString());
-                    customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(),0,rangeFromYear,rangeToYear);
-                
-                }
+                    customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(), 0, rangeFromYear, rangeToYear);
+
+                }                
                 txtAssumptionValue.Text = "";
                 msgRecordStatus.Visible = true;
                 //rbtnyear.Checked = true;
@@ -288,9 +292,12 @@ namespace WealthERP.Customer
             
             gvProjectedAssumption.DataSource = dtProjectedAssumption;
             gvProjectedAssumption.DataBind();
-         
-                txtLifeExpectancy.Text = dsBindAllCustomerAssumptions.Tables[0].Rows[0]["CSA_Value"].ToString();
-                txtRetirementAge.Text = dsBindAllCustomerAssumptions.Tables[0].Rows[1]["CSA_Value"].ToString();
+
+            txtLifeExpectancy.Text =  (Math.Round(decimal.Parse(dsBindAllCustomerAssumptions.Tables[0].Rows[0]["CSA_Value"].ToString()),0)).ToString();
+                //Math.Round(double.Parse(dr["CG_CostToday"].ToString()), 2);
+
+            txtRetirementAge.Text = (Math.Round(decimal.Parse(dsBindAllCustomerAssumptions.Tables[0].Rows[0]["CSA_Value"].ToString()), 0)).ToString();
+                    //dsBindAllCustomerAssumptions.Tables[0].Rows[1]["CSA_Value"].ToString();
         
           }
 
@@ -323,24 +330,9 @@ namespace WealthERP.Customer
       
         protected void btnPlanPreference_OnClick(object sender, EventArgs e)
         {
-            
             UpdatePlanPreferences();
-           
+            msgRecordStatus.Visible = true;
         }
-
-        private bool IsSpouseExist()
-        {
-            bool result=false;
-             result=customerBo.CheckSpouseRelationship(customerVo.CustomerId);
-             if (!result)
-             {
-                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('There is no SpouseAssociation!!');", true);
-                 result = false;
-             }
-             return result;
-        }
-
-   
 
         protected void btnCalculationBasis_OnClick(object sender, EventArgs e)
         {
@@ -437,14 +429,14 @@ namespace WealthERP.Customer
             {
                 rbtnCorpus.Enabled = true;
                 rbtnNoCorpus.Enabled = true;
-                rdbYearRangeWise.Enabled = true;
+                //rdbYearRangeWise.Enabled = true;
                 rbtnSelfOnly.Enabled = true;
                 rbtnSpouse.Enabled = true;
-                rdbYearWise.Enabled = true;
+                ddlPickPeriod.Enabled = true;                
                 btnCalculationBasis.Enabled = true;
                 btnPlanPreference.Enabled = true;
                 btnSubmit.Enabled = true;
-                //txtAssumptionValue.Enabled = true;
+                txtAssumptionValue.Enabled = true;
                 ddlPickAssumtion.Enabled = true;
                 ddlPickYear.Enabled = true;
                 ddlFromYear.Enabled = true;
@@ -455,10 +447,10 @@ namespace WealthERP.Customer
             {
                 rbtnCorpus.Enabled = false;
                 rbtnNoCorpus.Enabled = false;
-                rdbYearRangeWise.Enabled = false;
+                //rdbYearRangeWise.Enabled = false;
                 rbtnSelfOnly.Enabled = false;
                 rbtnSpouse.Enabled = false;
-                rdbYearWise.Enabled = false;
+                ddlPickPeriod.Enabled = false;
                 btnCalculationBasis.Enabled = false;
                 btnPlanPreference.Enabled = false;
                 btnSubmit.Enabled = false;
@@ -558,15 +550,7 @@ namespace WealthERP.Customer
             if (rbtnSelfOnly.Checked)
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 3, 2);
             if (rbtnSpouse.Checked)
-            {
-                bool result = false;
-                result = IsSpouseExist();
-                if (result)
-                {
-                    customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
-                    msgRecordStatus.Visible = true;
-                }
-            }
+                customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
             
         }
         public void UpdateCalculationBasis()
@@ -576,6 +560,42 @@ namespace WealthERP.Customer
             if (rbtnCorpus.Checked)
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 2, 1);
 
+        }
+
+        protected void lnkBtnYearly_Click(object sender, EventArgs e)
+        {
+            string flag = "P";            
+            trStaticGrid.Visible = false;
+            trGridAssumption.Visible = true;
+            trRbtnYear.Visible = true;
+            trPickYear.Visible = true;
+            BindDropDownassumption(flag);            
+        }
+
+        protected void lnkBtnStatic_Click(object sender, EventArgs e)
+        {
+            string flag = "S";
+            trRbtnYear.Visible = false;
+            trPickYear.Visible = false;
+            BindDropDownassumption(flag);
+            trGridAssumption.Visible = false;
+            trStaticGrid.Visible = true;
+
+        }
+
+        protected void ddlPickPeriod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPickPeriod.SelectedValue == "SY")
+            {
+                trPickYear.Visible = true;
+                trRangeYear.Visible = false;
+            }
+            else if (ddlPickPeriod.SelectedValue == "RY")
+            {
+                trPickYear.Visible = false;
+                trRangeYear.Visible = true;
+ 
+            }
         }
         //protected void txtAssumptionValue_OnTextChanged(object sender, EventArgs e)
         //{

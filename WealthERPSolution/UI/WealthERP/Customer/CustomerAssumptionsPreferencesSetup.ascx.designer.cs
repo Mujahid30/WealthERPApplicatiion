@@ -149,6 +149,42 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Panel pnlAssumption;
         
         /// <summary>
+        /// lnkBtnYearly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnYearly;
+        
+        /// <summary>
+        /// lnkBtnStatic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnStatic;
+        
+        /// <summary>
+        /// lblHeader1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeader1;
+        
+        /// <summary>
+        /// updatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanel1;
+        
+        /// <summary>
         /// lblPickAssumtion control.
         /// </summary>
         /// <remarks>
@@ -185,22 +221,22 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRbtnYear;
         
         /// <summary>
-        /// rdbYearWise control.
+        /// lblPickPeriod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdbYearWise;
+        protected global::System.Web.UI.WebControls.Label lblPickPeriod;
         
         /// <summary>
-        /// rdbYearRangeWise control.
+        /// ddlPickPeriod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdbYearRangeWise;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPickPeriod;
         
         /// <summary>
         /// trPickYear control.
@@ -329,13 +365,31 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
-        /// lblStaticAssumption control.
+        /// RadAjaxPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStaticAssumption;
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
+        
+        /// <summary>
+        /// lblProjectedAssumptions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectedAssumptions;
+        
+        /// <summary>
+        /// trStaticGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStaticGrid;
         
         /// <summary>
         /// trLifeExpectancy control.
@@ -392,22 +446,13 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.TextBox txtRetirementAge;
         
         /// <summary>
-        /// lblProjectedAssumptions control.
+        /// trGridAssumption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProjectedAssumptions;
-        
-        /// <summary>
-        /// RadAjaxPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGridAssumption;
         
         /// <summary>
         /// gvProjectedAssumption control.
