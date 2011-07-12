@@ -408,6 +408,10 @@
             ImagePosition="Left" ToolTip="Edit">            
         </telerik:RadToolBarButton>
         
+         <telerik:RadToolBarButton ID="btnView" runat="server" Text="View" Value="View" ImageUrl="~/Images/Telerik/EditButton.gif"
+            ImagePosition="Left" ToolTip="VIew">            
+        </telerik:RadToolBarButton>
+        
     </Items>
 </telerik:RadToolBar>
 <table width="100%">
@@ -419,7 +423,7 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" style="width: 100%">
+<table class="TableBackground">
 <tr>
     <td></td>
     <td></td>
@@ -448,7 +452,7 @@
     </td>
     <td>
          
-        <asp:TextBox ID="txtGoalAmountReq" CssClass="txtField"   Width="95%" runat="server" 
+        <asp:TextBox ID="txtGoalAmountReq" CssClass="txtField"  runat="server" 
              Style="direction: rtl" ReadOnly="True"></asp:TextBox>
         </td>
 </tr>
@@ -458,7 +462,7 @@
     </td>
     <td>
          
-        <asp:TextBox ID="txtAmountFunded" CssClass="txtField"   Width="95%" runat="server" 
+        <asp:TextBox ID="txtAmountFunded" CssClass="txtField" runat="server" 
              Style="direction: rtl" ReadOnly="True"></asp:TextBox>
         </td>
 </tr>
@@ -469,7 +473,7 @@
     </td>
     <td>
          
-        <asp:TextBox ID="txtAmountRemaining" CssClass="txtField"   Width="95%" runat="server" 
+        <asp:TextBox ID="txtAmountRemaining" CssClass="txtField" runat="server" 
              Style="direction: rtl" ReadOnly="True"></asp:TextBox>
         </td>
 </tr>
@@ -480,7 +484,7 @@
         <asp:Label ID="lblGap" runat="server" CssClass="FieldName" Text="Gap After Allocation:"></asp:Label>
     </td>
     <td>
-        <asp:TextBox ID="txtGapAfterAllocation" CssClass="txtField" ReadOnly="true"   Width="95%" runat="server"  Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtGapAfterAllocation" CssClass="txtField" ReadOnly="true" runat="server"  Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -505,104 +509,104 @@
 <td></td></tr>
 <tr>
     <td></td>
-    <td align="center">
+    <td align="center" runat="server">
     <asp:Label ID="lblAvailableCorpus" runat="server" CssClass="FieldName" Text="Available Funds in "></asp:Label>
     </td>
-    <td align="center">
+    <td align="center" runat="server">
         <asp:Label ID="lblAllocatedAmount" runat="server" CssClass="FieldName" Text="Funds marked for Goal"></asp:Label>
     </td>
-    <td align="center">
+    <td align="center" runat="server">
         <asp:Label ID="lblAllocation" runat="server" CssClass="FieldName" Text="Allocation(%)"></asp:Label>
     </td>
-    <td >
-        <asp:Label ID="lblAfterAllocation" runat="server" CssClass="FieldName" Text="Remaining funds after allocation"></asp:Label>
+    <td align="center" runat="server" >
+        <asp:Label ID="lblAfterAllocation" runat="server" CssClass="FieldName" Text="Funds left after allocation"></asp:Label>
     </td>
 </tr>
 <tr>
-    <td class="leftField"  >
+    <td align="right" runat="server">
         <asp:Label ID="lblEquity" runat="server" CssClass="FieldName" Text="Equity:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="txtEquityAvlCorps" CssClass="txtField"  Width="95%" runat="server" Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAvlCorps" CssClass="txtField" runat="server" Style="direction: rtl" ReadOnly="True"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtEquityAllAmt" CssClass="txtField" OnBlur="return EquityValidation()"  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAllAmt" CssClass="txtField" OnBlur="return EquityValidation()"  runat="server" Style="direction: rtl"></asp:TextBox>
         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG" ControlToValidate="txtEquityAllAmt"
                                   Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
     </td>
      <td>
-        <asp:TextBox ID="txtEquityAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityAllPer" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtEquityRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityRemainCorpus" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
-    <td class="leftField"  >
+    <td align="right" runat="server">
         <asp:Label ID="lblDebt" runat="server" CssClass="FieldName" Text="Debt:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="txtDebtAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAvlCorps" CssClass="txtField" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtDebtAllAmt" CssClass="txtField" OnBlur="return DebtValidation()"  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAllAmt" CssClass="txtField" OnBlur="return DebtValidation()" runat="server" Style="direction: rtl"></asp:TextBox>
    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG" ControlToValidate="txtDebtAllAmt"
                                   Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
    
     </td>
      <td>
-        <asp:TextBox ID="txtDebtAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtAllPer" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtDebtRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtRemainCorpus" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
-    <td class="leftField"  >
+    <td align="right" runat="server">
         <asp:Label ID="lblCash" runat="server" CssClass="FieldName" Text="Cash:"></asp:Label>
     </td>
      <td>
-        <asp:TextBox ID="txtCashAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAvlCorps" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtCashAllAmt" CssClass="txtField" OnBlur="return CashValidation()"  Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAllAmt" CssClass="txtField" OnBlur="return CashValidation()"  runat="server" Style="direction: rtl"></asp:TextBox>
     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG" ControlToValidate="txtCashAllAmt"
                                   Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
    
     </td>
      <td>
-        <asp:TextBox ID="txtCashAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashAllPer" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtCashRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashRemainCorpus" CssClass="txtField" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr id="trAlternate" runat="server" >
-    <td class="leftField">
+    <td align="right" runat="server">
         <asp:Label ID="lblAlternate" runat="server" CssClass="FieldName" Text="Alternate:"></asp:Label>
     </td>
     <td>
-        <asp:TextBox ID="txtAlternateAvlCorps" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAvlCorps" CssClass="txtField"  runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtAlternateAllAmt" CssClass="txtField"  OnBlur="return AlternateValidation()" Width="95%" runat="server" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAllAmt" CssClass="txtField"  OnBlur="return AlternateValidation()" runat="server" Style="direction: rtl"></asp:TextBox>
    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG" ControlToValidate="txtAlternateAllAmt"
                                   Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
    
     </td>
      <td>
-        <asp:TextBox ID="txtAlternateAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateAllPer" CssClass="txtField" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtAlternateRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateRemainCorpus" CssClass="txtField" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
-    <td align="right"><asp:Label ID="lblTotalSum" runat="server" CssClass="FieldName" Text="Total:"></asp:Label></td>
-    <td align="right" >
+    <td align="right" runat="server"><asp:Label ID="lblTotalSum" runat="server" CssClass="FieldName" Text="Total:"></asp:Label></td>
+    <td align="right" runat="server">
         <asp:Label ID="lblTotal" runat="server" CssClass="FieldName"></asp:Label>
     </td>
-    <td align="right">
+    <td align="right" runat="server">
     <%-- <asp:TextBox ID="TextBox1" CssClass="txtField" Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>--%>
      <asp:Label ID="Label1" runat="server" CssClass="FieldName"></asp:Label>
     </td>
@@ -615,17 +619,8 @@
     <td>&nbsp;</td>
 </tr>
 
-<tr>
-    <td class="leftField">
-        &nbsp;</td>
-    <td>
-        &nbsp;</td>    
-</tr>
 
-<tr>
-    <td></td>
-    <td></td>
-</tr>
+
 <tr>
     <td align="right"><asp:Label ID="lblCheckGoalFundByLoan" runat="server" CssClass="FieldName" Text="Goal to be Funded by Loan:"></asp:Label>
        </td>
@@ -645,7 +640,7 @@
         <asp:Label ID="lblLoanAmount" runat="server" CssClass="FieldName" Text="Loan Amount to be Taken<br/>for goal Funding:"></asp:Label>
     </td>
     <td>
-        <asp:TextBox ID="txtLoanAmountFunding" runat="server" CssClass="txtField"  Width="95%" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtLoanAmountFunding" runat="server" CssClass="txtField"  Style="direction: rtl"></asp:TextBox>
          <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="cvPCG" ControlToValidate="txtLoanAmountFunding"
                                   Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
    

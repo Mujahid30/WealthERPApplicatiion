@@ -34,7 +34,7 @@ namespace WealthERP.FP
            
             if (!Page.IsPostBack)
             {
-
+                btnView.Visible = false;
                 
                 dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
 
@@ -221,11 +221,21 @@ namespace WealthERP.FP
         {
             if (e.Item.Value == "Edit")
             {
+                btnEdit.Visible = false;
+                btnView.Visible = true;
                 ViewState["ActionGoalFundPage"] = "Edit";
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAssumptionsPreferencesSetup','login');", true);
                 SetEditViewMode(true);
             }
+            if (e.Item.Value == "View")
+            {
+                btnEdit.Visible = true;
+                btnView.Visible = false;
+                ViewState["ActionGoalFundPage"] = "View";
+                SetEditViewMode(false);
+            }
         }
+        
         public void SetEditViewMode(bool Bool)
         {
 
@@ -361,6 +371,8 @@ namespace WealthERP.FP
             goalPlanningBo.CreateCustomerGoalFunding(goalId, equityAllocatedAmount, debtAllocatedAmount, cashAllocatedAmount, alternateAllocatedAmount, isloanFunded, loanAmount, loanStartDate);
             msgRecordStatus.Visible = true;
             SetEditViewMode(false);
+            btnView.Visible = false;
+            btnEdit.Visible = true;
         }
     }
 }
