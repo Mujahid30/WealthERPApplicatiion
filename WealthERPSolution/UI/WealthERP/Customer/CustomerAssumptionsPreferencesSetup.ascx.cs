@@ -323,9 +323,24 @@ namespace WealthERP.Customer
       
         protected void btnPlanPreference_OnClick(object sender, EventArgs e)
         {
+            
             UpdatePlanPreferences();
-            msgRecordStatus.Visible = true;
+           
         }
+
+        private bool IsSpouseExist()
+        {
+            bool result=false;
+             result=customerBo.CheckSpouseRelationship(customerVo.CustomerId);
+             if (!result)
+             {
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('There is no SpouseAssociation!!');", true);
+                 result = false;
+             }
+             return result;
+        }
+
+   
 
         protected void btnCalculationBasis_OnClick(object sender, EventArgs e)
         {
@@ -543,7 +558,15 @@ namespace WealthERP.Customer
             if (rbtnSelfOnly.Checked)
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 3, 2);
             if (rbtnSpouse.Checked)
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
+            {
+                bool result = false;
+                result = IsSpouseExist();
+                if (result)
+                {
+                    customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
+                    msgRecordStatus.Visible = true;
+                }
+            }
             
         }
         public void UpdateCalculationBasis()
