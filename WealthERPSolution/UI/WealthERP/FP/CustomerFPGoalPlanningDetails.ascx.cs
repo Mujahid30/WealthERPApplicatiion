@@ -99,8 +99,8 @@ namespace WealthERP.FP
             DataRow drCustomerGoalDetails;
             DataRow[] drGoalFundDetails;
             int tempYear = 0;
-            DataRow[] goalYearWise;
-            DataRow[] goalIdWise;
+            DataRow[] drgoalYearWise;
+            DataRow[] drgoalIdWise;
             DataSet dsRebalancing = new DataSet();
             DataRow[] drAssetDetails;
             dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
@@ -112,30 +112,30 @@ namespace WealthERP.FP
                 {
                     tempYear = int.Parse(dr["CG_GoalYear"].ToString());
                     //drFinalAssumption["Year"] = tempYear.ToString();
-                    goalYearWise = customerGoalDetailsDS.Tables[0].Select("CG_GoalYear=" + tempYear.ToString());
-                    foreach (DataRow drgoalYearWise in goalYearWise)
+                    drgoalYearWise = customerGoalDetailsDS.Tables[0].Select("CG_GoalYear=" + tempYear.ToString());
+                    foreach (DataRow drgoalYear in drgoalYearWise)
                     {
-                        goalId = int.Parse(drgoalYearWise["CG_GoalId"].ToString());
-                        goalIdWise = customerGoalDetailsDS.Tables[1].Select("CG_GoalId=" + goalId.ToString());
-                        if (goalIdWise.Count() > 0)
+                        goalId = int.Parse(drgoalYear["CG_GoalId"].ToString());
+                        drgoalIdWise = customerGoalDetailsDS.Tables[1].Select("CG_GoalId=" + goalId.ToString());
+                        if (drgoalIdWise.Count() > 0)
                         {
-                            foreach (DataRow drgoalIdWise in goalIdWise)
+                            foreach (DataRow drgoalId in drgoalIdWise)
                             {
-                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 1)
+                                if (int.Parse(drgoalId["WAC_AssetClassificationCode"].ToString()) == 1)
                                 {
-                                    equityFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                    equityFunded += decimal.Parse(drgoalId["CGF_AllocatedAmount"].ToString());
                                 }
-                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 2)
+                                if (int.Parse(drgoalId["WAC_AssetClassificationCode"].ToString()) == 2)
                                 {
-                                    debtFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                    debtFunded += decimal.Parse(drgoalId["CGF_AllocatedAmount"].ToString());
                                 }
-                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 3)
+                                if (int.Parse(drgoalId["WAC_AssetClassificationCode"].ToString()) == 3)
                                 {
-                                    cashFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                    cashFunded += decimal.Parse(drgoalId["CGF_AllocatedAmount"].ToString());
                                 }
-                                if (int.Parse(drgoalIdWise["WAC_AssetClassificationCode"].ToString()) == 4)
+                                if (int.Parse(drgoalId["WAC_AssetClassificationCode"].ToString()) == 4)
                                 {
-                                    alternateFunded += decimal.Parse(drgoalIdWise["CGF_AllocatedAmount"].ToString());
+                                    alternateFunded += decimal.Parse(drgoalId["CGF_AllocatedAmount"].ToString());
                                 }
 
                             }
@@ -167,29 +167,29 @@ namespace WealthERP.FP
 
                 if (equityFunded > equityTotalAvl)
                 {
-                    drCustomerGoalDetails["IsEquityDeficient"] = 0;
+                    drCustomerGoalDetails["IsEquityDeficient"] = 1;
                 }
                 else
-                    drCustomerGoalDetails["IsEquityDeficient"] = 1;
+                    drCustomerGoalDetails["IsEquityDeficient"] = 0;
                 if (debtFunded > debtTotalAvl)
                 {
-                    drCustomerGoalDetails["IsDebtDeficient"] = 0;
+                    drCustomerGoalDetails["IsDebtDeficient"] = 1;
 
                 }
                 else
-                    drCustomerGoalDetails["IsDebtDeficient"] = 1;
+                    drCustomerGoalDetails["IsDebtDeficient"] = 0;
                 if (cashFunded > cashTotalAvl)
                 {
-                    drCustomerGoalDetails["IsCashDeficient"] = 0;
+                    drCustomerGoalDetails["IsCashDeficient"] = 1;
                 }
                 else
-                    drCustomerGoalDetails["IsCashDeficient"] = 1;
+                    drCustomerGoalDetails["IsCashDeficient"] = 0;
                 if (alternateTotalAvl < alternateFunded)
                 {
-                    drCustomerGoalDetails["IsAlternateDeficient"] = 0;
+                    drCustomerGoalDetails["IsAlternateDeficient"] = 1;
                 }
                 else
-                    drCustomerGoalDetails["IsAlternateDeficient"] = 1;
+                    drCustomerGoalDetails["IsAlternateDeficient"] = 0;
 
 
 
@@ -252,18 +252,39 @@ namespace WealthERP.FP
           
             gvrGoalPlanning.DataSource = dtCustomerGoalDetails;
             gvrGoalPlanning.DataBind();
+            int customerId = customerVo.CustomerId;
+            DataSet dsGoalList = goalPlanningBo.GetCustomerGoalList(customerId);
+             int count = dsGoalList.Tables[1].Rows.Count;
+             if (count == 3)
+             {
+                 gvrGoalPlanning.Columns[11].Visible = false;
+             }
+             else
+                 gvrGoalPlanning.Columns[11].Visible = true;
  
         }
         protected void gvrGoalPlanning_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                Image imgPartiallyFunded = e.Row.FindControl("imgPartiallyFunded") as Image;
-                Image imgFullyFunded = e.Row.FindControl("imgFullyFunded") as Image;
                 Image imgNotFunded = e.Row.FindControl("imgNotFunded") as Image;
                 Label lblgoalFundPercentage = e.Row.FindControl("lblGoalFundPercentage") as Label;
+                Label lblIsEquityDeficient = e.Row.FindControl("lblIsEquityDeficient") as Label;
+                Label lblIsDebtDeficient = e.Row.FindControl("lblIsDebtDeficient") as Label;
+                Label lblIsCashDeficient = e.Row.FindControl("lblIsCashDeficient") as Label;
+                Label lblIsAlternateDeficient = e.Row.FindControl("lblIsAlternateDeficient") as Label;
+ 
+
+                int isEquityDeficient = 0;
+                int isDebtDeficient = 0;
+                int isCashDeficient = 0;
+                int isAlternateDeficient = 0;
                 int goalFundPercentage = 0;
                 goalFundPercentage = int.Parse(lblgoalFundPercentage.Text.ToString());
+                isEquityDeficient = int.Parse(lblIsEquityDeficient.Text.ToString());
+                isDebtDeficient = int.Parse(lblIsDebtDeficient.Text.ToString());
+                isCashDeficient = int.Parse(lblIsCashDeficient.Text.ToString());
+                isAlternateDeficient = int.Parse(lblIsAlternateDeficient.Text.ToString());
 
                 if (goalFundPercentage < 25)
                 {
@@ -276,6 +297,23 @@ namespace WealthERP.FP
                 else if (goalFundPercentage > 99)
                 {
                     imgNotFunded.ImageUrl = "~/Images/help.jpg";
+                }
+
+                if (isEquityDeficient == 1)
+                {
+                    e.Row.Cells[8].BackColor = System.Drawing.Color.Red;
+                }
+                if (isDebtDeficient == 1)
+                {
+                    e.Row.Cells[9].BackColor = System.Drawing.Color.Red;
+                }
+                if (isCashDeficient == 1)
+                {
+                    e.Row.Cells[10].BackColor = System.Drawing.Color.Red;
+                }
+                if (isAlternateDeficient == 1)
+                {
+                    e.Row.Cells[11].BackColor = System.Drawing.Color.Red;
                 }
             }
 
@@ -298,7 +336,6 @@ namespace WealthERP.FP
             hdndeleteId.Value = goalId;
             goalCatagory = gvrGoalPlanning.DataKeys[selectedRow].Values["GoalCategory"].ToString();
             goalAction = ddlAction.SelectedValue.ToString();
-
             if (ddlAction.SelectedValue == "View" || ddlAction.SelectedValue == "Edit")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerFPGoalSetup','?GoalId=" + goalId + "&GoalCategory=" + goalCatagory + "&GoalAction=" + goalAction + "');", true);
