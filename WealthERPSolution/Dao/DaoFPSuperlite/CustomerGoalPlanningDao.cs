@@ -258,13 +258,16 @@ namespace DaoFPSuperlite
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 allCustomerAssumptionCmd = db.GetStoredProcCommand("SP_GetCustomerAssumptionForGoalSetup");
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
-                db.AddInParameter(allCustomerAssumptionCmd, "@Year", DbType.Int32, goalYear);
+                db.AddInParameter(allCustomerAssumptionCmd, "@GoalYear", DbType.Int32, goalYear);
+                db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
                 allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
+
+                customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
 
                 if ((allCustomerAssumptionDs.Tables[0].Rows.Count) > 0 && (allCustomerAssumptionDs.Tables[0].Rows.Count) > 0)
                     isHavingAssumption = true;
                 else
-                    isHavingAssumption = false;
+                    isHavingAssumption = false;               
 
                 DataTable dtCustomerStaticAssumption = allCustomerAssumptionDs.Tables[0];
                 DataTable dtCustomerProjectedAssumption = allCustomerAssumptionDs.Tables[1];
