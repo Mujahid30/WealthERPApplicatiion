@@ -3476,6 +3476,46 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+        public bool CheckSpouseRelationship(int customerId)
+        {
+            bool result = false;
+            Database db;
+            DbCommand checkSpouseRelationshipCmd;
+            DataSet dsCheckSpouseRelationship;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                checkSpouseRelationshipCmd = db.GetStoredProcCommand("SP_CheckSpouseRelationShip");
+                db.AddInParameter(checkSpouseRelationshipCmd, "@customerId", DbType.Int32, customerId);
+                dsCheckSpouseRelationship = db.ExecuteDataSet(checkSpouseRelationshipCmd);
+                if (dsCheckSpouseRelationship.Tables[0].Rows.Count != 0)
+                    result = true;
+                else
+                    result = false;
+
+                   
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:CheckSpouseRelationship()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+
+        }
 
     }
 }
