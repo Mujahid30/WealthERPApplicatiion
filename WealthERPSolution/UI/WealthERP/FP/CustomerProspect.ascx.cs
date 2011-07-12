@@ -848,17 +848,17 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 1;
                 if (txtHomeLoanA.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = double.Parse(txtHomeLoanA.Text);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtHomeLoanA.Text),0);
                 }
                 if (txtHomeLoanLO.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtHomeLoanLO.Text);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtHomeLoanLO.Text),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtHomeLoanEMI.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtHomeLoanEMI.Text);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtHomeLoanEMI.Text),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -869,17 +869,17 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 2;
                 if (txtAutoLoanA.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = double.Parse(txtAutoLoanA.Text);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtAutoLoanA.Text),0);
                 }
                 if (txtAutoLoanLO.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtAutoLoanLO.Text);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtAutoLoanLO.Text),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtAutoLoanEMI.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtAutoLoanEMI.Text);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtAutoLoanEMI.Text),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -890,17 +890,17 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 5;
                 if (txtEducationLoanA.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = double.Parse(txtEducationLoanA.Text);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtEducationLoanA.Text),0);
                 }
                 if (txtEducationLoanLO.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtEducationLoanLO.Text);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtEducationLoanLO.Text),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtEducationLoanEMI.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtEducationLoanEMI.Text);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtEducationLoanEMI.Text),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -911,16 +911,16 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 6;
                 if (txtPersonalLoanA.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = double.Parse(txtPersonalLoanA.Text);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtPersonalLoanA.Text),0);
                 }
                 if (txtPersonalLoanLO.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtPersonalLoanLO.Text);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtPersonalLoanLO.Text),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
                 if (txtPersonalLoanEMI.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtPersonalLoanEMI.Text);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtPersonalLoanEMI.Text),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -930,16 +930,16 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 9;
                 if (txtOtherLoanA.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = double.Parse(txtOtherLoanA.Text);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtOtherLoanA.Text),0);
                 }
                 if (txtOtherLoanLO.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = double.Parse(txtOtherLoanLO.Text);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtOtherLoanLO.Text),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
                 if (txtOtherLoanEMI.Text != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = double.Parse(txtOtherLoanEMI.Text);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtOtherLoanEMI.Text),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -981,8 +981,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "DE";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtDirectEquityA.Text);
-                    assetgroupdetails.Value = double.Parse(txtDirectEquity.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtDirectEquityA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtDirectEquity.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -992,8 +992,8 @@ namespace WealthERP.FP
                     assetdetailsvo = new CustomerProspectAssetDetailsVo();
                     assetdetailsvo.AssetGroupCode = "MF";
                     assetdetailsvo.AssetInstrumentCategoryCode = "MFEQ";
-                    assetdetailsvo.AdjustedValue = double.Parse(txtMFEquityA.Text);
-                    assetdetailsvo.Value = double.Parse(txtMFEquity.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFEquityA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtMFEquity.Text),0);
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
@@ -1003,8 +1003,8 @@ namespace WealthERP.FP
                     assetdetailsvo = new CustomerProspectAssetDetailsVo();
                     assetdetailsvo.AssetGroupCode = "MF";
                     assetdetailsvo.AssetInstrumentCategoryCode = "MFDT";
-                    assetdetailsvo.AdjustedValue = double.Parse(txtMFDebtA.Text);
-                    assetdetailsvo.Value = double.Parse(txtMFDebt.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFDebtA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtMFDebt.Text),0);
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
@@ -1015,8 +1015,8 @@ namespace WealthERP.FP
                     assetdetailssubvo.AssetGroupCode = "MF";
                     assetdetailssubvo.AssetInstrumentCategoryCode = "MFHY";
                     assetdetailssubvo.AssetInstrumentSubCategoryCode = "MFHYEQ";
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtMFHybridEquityA.Text);
-                    assetdetailssubvo.Value = double.Parse(txtMFHybridEquity.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridEquity.Text),0);
                     assetdetailssubvolist.Add(assetdetailssubvo);
                     totalasset += assetdetailssubvo.Value;
                 }
@@ -1027,8 +1027,8 @@ namespace WealthERP.FP
                     assetdetailssubvo.AssetGroupCode = "MF";
                     assetdetailssubvo.AssetInstrumentCategoryCode = "MFHY";
                     assetdetailssubvo.AssetInstrumentSubCategoryCode = "MFHYDT";
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtMFHybridDebtA.Text);
-                    assetdetailssubvo.Value = double.Parse(txtMFHybridDebt.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridDebt.Text),0);
                     assetdetailssubvolist.Add(assetdetailssubvo);
                     totalasset += assetdetailssubvo.Value;
                 }
@@ -1037,8 +1037,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "FI";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtFixedIncomeA.Text);
-                    assetgroupdetails.Value = double.Parse(txtFixedIncome.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtFixedIncomeA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtFixedIncome.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1047,8 +1047,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "GS";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtGovtSavingsA.Text);
-                    assetgroupdetails.Value = double.Parse(txtGovtSavings.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGovtSavingsA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtGovtSavings.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1057,8 +1057,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PG";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtPensionGratuitiesA.Text);
-                    assetgroupdetails.Value = double.Parse(txtPensionGratuities.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPensionGratuitiesA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtPensionGratuities.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1067,8 +1067,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PR";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtPropertyA.Text);
-                    assetgroupdetails.Value = double.Parse(txtProperty.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPropertyA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtProperty.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1077,8 +1077,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "GD";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtGoldA.Text);
-                    assetgroupdetails.Value = double.Parse(txtGold.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGoldA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtGold.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1087,8 +1087,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CL";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtCollectiblesA.Text);
-                    assetgroupdetails.Value = double.Parse(txtCollectibles.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCollectiblesA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtCollectibles.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1097,8 +1097,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PE";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtPrivateEquityA.Text);
-                    assetgroupdetails.Value = double.Parse(txtPrivateEquity.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPrivateEquityA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtPrivateEquity.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1107,8 +1107,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PM";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtPMSA.Text);
-                    assetgroupdetails.Value = double.Parse(txtPMS.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPMSA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtPMS.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1117,8 +1117,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CS";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtCashAndSavingsA.Text);
-                    assetgroupdetails.Value = double.Parse(txtCashAndSavings.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCashAndSavingsA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtCashAndSavings.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1127,8 +1127,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "SP";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtStructuredProductA.Text);
-                    assetgroupdetails.Value = double.Parse(txtStructuredProduct.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtStructuredProductA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtStructuredProduct.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1137,8 +1137,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CM";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtCommoditiesA.Text);
-                    assetgroupdetails.Value = double.Parse(txtCommodities.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCommoditiesA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtCommodities.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1147,8 +1147,8 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "OT";
-                    assetgroupdetails.AdjustedValue = double.Parse(txtInvestmentsOthersA.Text);
-                    assetgroupdetails.Value = double.Parse(txtInvestmentsOthers.Text);
+                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtInvestmentsOthersA.Text),0);
+                    assetgroupdetails.Value = Math.Round(double.Parse(txtInvestmentsOthers.Text),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1159,47 +1159,47 @@ namespace WealthERP.FP
                 assetgroupdetails.Value = 0.0;
                 if (txtMFEquityA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtMFEquityA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFEquityA.Text),0);
                     //assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
                 }
 
                 if (txtMFDebtA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtMFDebtA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFDebtA.Text),0);
                     //assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
                 }
 
                 if (txtMFHybridEquityA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
                     //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
                 }
 
                 if (txtMFHybridDebtA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
                     //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
                 }
                 //MF Total
                 if (txtMFEquity.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtMFEquity.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFEquity.Text),0);
                 }
 
                 if (txtMFDebt.Text != string.Empty)
                 {
 
-                    assetgroupdetails.Value += double.Parse(txtMFDebt.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFDebt.Text),0);
                 }
 
                 if (txtMFHybridEquity.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridEquity.Text),0);
                 }
 
                 if (txtMFHybridDebt.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridDebt.Text),0);
                 }
 
                 assetgroupdetailslist.Add(assetgroupdetails);
@@ -1209,22 +1209,22 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "MFHY";
                 if (txtMFHybridEquityA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridEquityA.Text);
+                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
                 }
 
                 if (txtMFHybridDebtA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue += double.Parse(txtMFHybridDebtA.Text);
+                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
                 }
                 //MF-Hybrid Total Value
                 if (txtMFHybridEquity.Text != string.Empty)
                 {
-                    assetdetailsvo.Value += double.Parse(txtMFHybridEquity.Text);
+                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridEquity.Text),0);
                 }
 
                 if (txtMFHybridDebt.Text != string.Empty)
                 {
-                    assetdetailsvo.Value += double.Parse(txtMFHybridDebt.Text);
+                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridDebt.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
                 //==========================================================================================================================
@@ -1238,20 +1238,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INTP";
                 if (txtAdjustedTermSA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedTermSA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedTermSA.Text),0);
                 }
                 if (txtTotalTermSA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalTermSA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalTermSA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtTermP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtTermP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtTermP.Text),0);
                 }
                 if (txtTermSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtTermSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtTermSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1263,20 +1263,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INEP";
                 if (txtAdjustedEndowmentSA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedEndowmentSA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedEndowmentSA.Text),0);
                 }
                 if (txtTotalEndowmentSA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalEndowmentSA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalEndowmentSA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtEndowmentP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtEndowmentP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtEndowmentP.Text),0);
                 }
                 if (txtEndowmentSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtEndowmentSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtEndowmentSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1288,20 +1288,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INWP";
                 if (txtAdjustedWholeLifeSA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedWholeLifeSA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text),0);
                 }
                 if (txtTotalWholeLifeSA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalWholeLifeSA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalWholeLifeSA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtWholeLifeP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtWholeLifeP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtWholeLifeP.Text),0);
                 }
                 if (txtWholeLifeSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtWholeLifeSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtWholeLifeSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1313,20 +1313,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INMP";
                 if (txtAdjustedMoneyBackSA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedMoneyBackSA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text),0);
                 }
                 if (txtTotalMoneyBackSA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalMoneyBackSA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalMoneyBackSA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtMoneyBackP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtMoneyBackP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtMoneyBackP.Text),0);
                 }
                 if (txtMoneyBackSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtMoneyBackSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtMoneyBackSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1338,20 +1338,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INUP";
                 if (txtAdjustedULIPSA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedULIPSA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedULIPSA.Text),0);
                 }
                 if (txtTotalULIPSA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalULIPSA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalULIPSA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtULIPP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtULIPP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtULIPP.Text),0);
                 }
                 if (txtULIPSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtULIPSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtULIPSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1363,20 +1363,20 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "INOT";
                 if (txtAdjustedOthersLISA.Text != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = double.Parse(txtAdjustedOthersLISA.Text);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedOthersLISA.Text),0);
                 }
                 if (txtTotalOthersLISA.Text != string.Empty)
                 {
-                    assetdetailsvo.Value = double.Parse(txtTotalOthersLISA.Text);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalOthersLISA.Text),0);
                     totalli += assetdetailsvo.Value;
                 }
                 if (txtOthersLIP.Text != string.Empty)
                 {
-                    assetdetailsvo.Premium = double.Parse(txtOthersLIP.Text);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtOthersLIP.Text),0);
                 }
                 if (txtOtherSurrMktVal.Text != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = double.Parse(txtOtherSurrMktVal.Text);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
                 if (txtTermP.Text == "")
@@ -1405,54 +1405,54 @@ namespace WealthERP.FP
                 //Group Adjusted Value
                 if (txtAdjustedTermSA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedTermSA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedTermSA.Text),0);
                 }
                 if (txtAdjustedEndowmentSA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedEndowmentSA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedEndowmentSA.Text),0);
                 }
                 if (txtAdjustedWholeLifeSA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedWholeLifeSA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text),0);
                 }
                 if (txtAdjustedMoneyBackSA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedMoneyBackSA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text),0);
                 }
                 if (txtAdjustedULIPSA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedULIPSA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedULIPSA.Text),0);
                 }
                 if (txtAdjustedOthersLISA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtAdjustedOthersLISA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedOthersLISA.Text),0);
                 }
 
                 //Group Total Value
 
                 if (txtTotalTermSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalTermSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalTermSA.Text),0);
                 }
                 if (txtTotalEndowmentSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalEndowmentSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalEndowmentSA.Text),0);
                 }
                 if (txtTotalWholeLifeSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalWholeLifeSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalWholeLifeSA.Text),0);
                 }
                 if (txtTotalMoneyBackSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalMoneyBackSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalMoneyBackSA.Text),0);
                 }
                 if (txtTotalULIPSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalULIPSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalULIPSA.Text),0);
                 }
                 if (txtTotalOthersLISA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtTotalOthersLISA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalOthersLISA.Text),0);
                 }
                 assetgroupdetailslist.Add(assetgroupdetails);
                 //==========================================================================================================================
@@ -1467,16 +1467,16 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
                 if (txtHealthInsuranceCoverA.Text != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtHealthInsuranceCoverA.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtHealthInsuranceCoverA.Text),0);
                 }
                 if (txtHealthInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtHealthInsuranceCoverSA.Text);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text),0);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtHealthInsuranceCoverP.Text != string.Empty)
                 {
-                    assetdetailssubvo.Premium = double.Parse(txtHealthInsuranceCoverP.Text);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtHealthInsuranceCoverP.Text),0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
@@ -1489,16 +1489,16 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHO";
                 if (txtPropertyInsuranceCoverA.Text != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtPropertyInsuranceCoverA.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text),0);
                 }
                 if (txtPropertyInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtPropertyInsuranceCoverSA.Text);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text),0);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtPropertyInsuranceCoverP.Text != string.Empty)
                 {
-                    assetdetailssubvo.Premium = double.Parse(txtPropertyInsuranceCoverP.Text);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPropertyInsuranceCoverP.Text),0);
                 }
 
                 assetdetailssubvolist.Add(assetdetailssubvo);
@@ -1512,16 +1512,16 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIPA";
                 if (txtPersonalAccidentA.Text != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtPersonalAccidentA.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPersonalAccidentA.Text),0);
                 }
                 if (txtPersonalAccidentSA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtPersonalAccidentSA.Text);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPersonalAccidentSA.Text),0);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtPersonalAccidentP.Text != string.Empty)
                 {
-                    assetdetailssubvo.Premium = double.Parse(txtPersonalAccidentP.Text);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPersonalAccidentP.Text),0);
                 }
 
                 assetdetailssubvolist.Add(assetdetailssubvo);
@@ -1535,16 +1535,16 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIOT";
                 if (txtOthersGIA.Text != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = double.Parse(txtOthersGIA.Text);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtOthersGIA.Text),0);
                 }
                 if (txtOthersGISA.Text != string.Empty)
                 {
-                    assetdetailssubvo.Value = double.Parse(txtOthersGISA.Text);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtOthersGISA.Text),0);
                     totalgi += assetdetailssubvo.Value;
                 }
                 if (txtOthersGIP.Text != string.Empty)
                 {
-                    assetdetailssubvo.Premium = double.Parse(txtOthersGIP.Text);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtOthersGIP.Text),0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
                 if (txtHealthInsuranceCoverP.Text == "")
@@ -1573,36 +1573,36 @@ namespace WealthERP.FP
                 //Total Sum Assured For LI
                 if (txtHealthInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtHealthInsuranceCoverSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text),0);
                 }
                 if (txtPropertyInsuranceCoverSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtPropertyInsuranceCoverSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text),0);
                 }
                 if (txtPersonalAccidentSA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtPersonalAccidentSA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtPersonalAccidentSA.Text),0);
                 }
                 if (txtOthersGISA.Text != string.Empty)
                 {
-                    assetgroupdetails.Value += double.Parse(txtOthersGISA.Text);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtOthersGISA.Text),0);
                 }
                 //Adjusted Sum Assured for GI
                 if (txtHealthInsuranceCoverA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtHealthInsuranceCoverA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtHealthInsuranceCoverA.Text),0);
                 }
                 if (txtPropertyInsuranceCoverA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtPropertyInsuranceCoverA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text),0);
                 }
                 if (txtPersonalAccidentA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtPersonalAccidentA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPersonalAccidentA.Text),0);
                 }
                 if (txtOthersGIA.Text != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += double.Parse(txtOthersGIA.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtOthersGIA.Text),0);
                 }
                 assetgroupdetailslist.Add(assetgroupdetails);
                 // General Insurance second Level
@@ -1628,7 +1628,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 1;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtConveyance.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtConveyance.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1637,7 +1637,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 2;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtFood.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtFood.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1646,7 +1646,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 3;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtRent.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtRent.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1655,7 +1655,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 4;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtUtilites.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtUtilites.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1664,7 +1664,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 5;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtHealthPersonalCare.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtHealthPersonalCare.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1673,7 +1673,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 6;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtPersonalWear.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtPersonalWear.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1682,7 +1682,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 7;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtEntertainmentHolidays.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtEntertainmentHolidays.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1691,7 +1691,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 8;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtDomesticHelp.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtDomesticHelp.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1709,7 +1709,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 10;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtOthersExpense.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtOthersExpense.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1727,7 +1727,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 12;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtMFSIPMIS.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtMFSIPMIS.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1736,7 +1736,7 @@ namespace WealthERP.FP
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 13;
-                    expensedetailsvo.ExpenseValue = double.Parse(txtReccuringDeposit.Text);
+                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtReccuringDeposit.Text),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -2111,7 +2111,7 @@ namespace WealthERP.FP
                     }
                     if (cped.ExpenseCategoryCode == 11)
                     {
-                        txtExpenseEMI.Text = cped.ExpenseValue.ToString();
+                        txtExpenseEMI.Text = Math.Round(decimal.Parse(cped.ExpenseValue.ToString()),0).ToString();
                         totalexpense += cped.ExpenseValue;
                     }
                     if (cped.ExpenseCategoryCode == 12)
@@ -2400,12 +2400,16 @@ namespace WealthERP.FP
             //txtLifeInsurance.Text = totalli.ToString();
             //txtGeneralInsurance.Text = totalgi.ToString();
 
-            txtAssetTotal.Text = totalasset.ToString();
+            //txtAssetTotal.Text = totalasset.ToString();
+            txtAssetTotal.Text =String.Format("{0:n2}", totalasset.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
             txtIncomeTotal.Text = totalincome.ToString();
 
             txtIncomePostTax.Text = totalincome.ToString();
-            txtExpenseTotal.Text = totalexpense.ToString();
-            txtTotalLO.Text = totalliabilities.ToString();
+            //txtExpenseTotal.Text = totalexpense.ToString();
+            txtExpenseTotal.Text = String.Format("{0:n2}", totalexpense.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+            //txtTotalLO.Text = totalliabilities.ToString();
+            txtTotalLO.Text = String.Format("{0:n2}", totalliabilities.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
             txtTotalLISA.Text = totalli.ToString();
             txtTotalGISA.Text = totalgi.ToString();
 
@@ -2436,10 +2440,10 @@ namespace WealthERP.FP
 
                     if (drFourth["XLT_LoanTypeCode"].ToString() == "5")
                     {
-                        
+
                         txtWERPEducationLoan.Text = drFourth["CFPLD_WERPLoanOutstanding"].ToString();
-                        txtEducationLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();                        
-                        
+                        txtEducationLoanLO.Text = drFourth["CFPLD_TotalLoanOutstanding"].ToString();
+
                     }
                     if (drFourth["XLT_LoanTypeCode"].ToString() == "6")
                     {
@@ -2462,200 +2466,199 @@ namespace WealthERP.FP
                 {
                     if (drFirst["PAG_AssetGroupCode"].ToString() == "DE")
                     {
-                        txtWERPDirectEquityM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPDirectEquityUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtDirectEquity.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
+                        txtWERPDirectEquityM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPDirectEquityUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtDirectEquity.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
 
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "FI")
-                    {
-                        txtWERPFixedIncomeM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPFixedIncomeUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtFixedIncome.Text = drFirst["CFPAGD_TotalValue"].ToString();
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "FI")
+                        {
+                            txtWERPFixedIncomeM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPFixedIncomeUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtFixedIncome.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "GS")
+                        {
+                            txtWERPGovtSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPGovtSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtGovtSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PG")
+                        {
+                            txtWERPPensionGratuitiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPPensionGratuitiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtPensionGratuities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PR")
+                        {
+                            txtWERPPropertyM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPPropertyUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtProperty.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "GD")
+                        {
+                            txtWERPGoldM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPGoldUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtGold.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
 
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "GS")
-                    {
-                        txtWERPGovtSavingsM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPGovtSavingsUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtGovtSavings.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PG")
-                    {
-                        txtWERPPensionGratuitiesM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPPensionGratuitiesUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtPensionGratuities.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PR")
-                    {
-                        txtWERPPropertyM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPPropertyUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtProperty.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "GD")
-                    {
-                        txtWERPGoldM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPGoldUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtGold.Text = drFirst["CFPAGD_TotalValue"].ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CL")
+                        {
+                            txtWERPCollectiblesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPCollectiblesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtCollectibles.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CS")
+                        {
+                            txtWERPCashAndSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPCashAndSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtCashAndSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
 
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CL")
-                    {
-                        txtWERPCollectiblesM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPCollectiblesUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtCollectibles.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CS")
-                    {
-                        txtWERPCashAndSavingsM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPCashAndSavingsUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtCashAndSavings.Text = drFirst["CFPAGD_TotalValue"].ToString();
-
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "SP")
-                    {
-                        txtWERPStructuredProductM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPStructuredProductUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtStructuredProduct.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CM")
-                    {
-                        txtWERPCommoditiesM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPCommoditiesUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtCommodities.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PE")
-                    {
-                        txtWERPPrivateEquityM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPPrivateEquityUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtPrivateEquity.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PM")
-                    {
-                        txtWERPPMSM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPPMSUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtPMS.Text = drFirst["CFPAGD_TotalValue"].ToString();
-                    }
-                    if (drFirst["PAG_AssetGroupCode"].ToString() == "OT")
-                    {
-                        txtWERPInvestmentsOthersM.Text = drFirst["CFPAGD_WERPManagedValue"].ToString();
-                        txtWERPInvestmentsOthersUM.Text = drFirst["CFPAGD_WERPUnManagedValue"].ToString();
-                        txtInvestmentsOthers.Text = drFirst["CFPAGD_TotalValue"].ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "SP")
+                        {
+                            txtWERPStructuredProductM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPStructuredProductUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtStructuredProduct.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CM")
+                        {
+                            txtWERPCommoditiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPCommoditiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtCommodities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PE")
+                        {
+                            txtWERPPrivateEquityM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPPrivateEquityUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtPrivateEquity.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PM")
+                        {
+                            txtWERPPMSM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPPMSUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtPMS.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drFirst["PAG_AssetGroupCode"].ToString() == "OT")
+                        {
+                            txtWERPInvestmentsOthersM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPInvestmentsOthersUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtInvestmentsOthers.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                        }
                     }
                 }
-            }
-            
 
-            // Second Level Category
-            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[1].Rows.Count > 0)
-            {
-                foreach (DataRow drSecond in dsGetWERPDetails.Tables[1].Rows)
+
+                // Second Level Category
+                if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[1].Rows.Count > 0)
                 {
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+                    foreach (DataRow drSecond in dsGetWERPDetails.Tables[1].Rows)
                     {
-                        txtWERPMFEquityM.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtWERPMFEquityUM.Text = drSecond["CFPAID_WERPUnManagedValue"].ToString();
-                        txtMFEquity.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
-                    {
-                        txtWERPMFDebtM.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtWERPMFDebtUM.Text = drSecond["CFPAID_WERPUnManagedValue"].ToString();
-                        txtMFDebt.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INTP")
-                    {
-                        txtWERPTermSA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalTermSA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INEP")
-                    {
-                        txtWERPEndowmentSA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalEndowmentSA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INWP")
-                    {
-                        txtWERPWholeLifeSA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalWholeLifeSA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INMP")
-                    {
-                        txtWERPMoneyBackSA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalMoneyBackSA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INUP")
-                    {
-                        txtWERPULIPSA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalULIPSA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
-                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INOT")
-                    {
-                        txtWERPOthersLISA.Text = drSecond["CFPAID_WERPManagedValue"].ToString();
-                        txtTotalOthersLISA.Text = drSecond["CFPAID_TotalValue"].ToString();
-                    }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+                        {
+                            txtWERPMFEquityM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPMFEquityUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtMFEquity.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                        {
+                            txtWERPMFDebtM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtWERPMFDebtUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
+                            txtMFDebt.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INTP")
+                        {
+                            txtWERPTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INEP")
+                        {
+                            txtWERPEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INWP")
+                        {
+                            txtWERPWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INMP")
+                        {
+                            txtWERPMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INUP")
+                        {
+                            txtWERPULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
+                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INOT")
+                        {
+                            txtWERPOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                            txtTotalOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                        }
 
+                    }
                 }
-            }
 
-            // Third Level Category
-            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[2].Rows.Count > 0)
-            {
-                foreach (DataRow drThird in dsGetWERPDetails.Tables[2].Rows)
+                // Third Level Category
+                if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[2].Rows.Count > 0)
                 {
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYEQ")
+                    foreach (DataRow drThird in dsGetWERPDetails.Tables[2].Rows)
                     {
-                        txtWERPMFHybridEquityM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtWERPMFHybridEquityUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
-                        txtMFHybridEquity.Text = drThird["CFPASID_TotalValue"].ToString();
-                    }
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYDT")
-                    {
-                        txtWERPMFHybridDebtM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtWERPMFHybridDebtUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
-                        txtMFHybridDebt.Text = drThird["CFPASID_TotalValue"].ToString();
-                    }
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYEQ")
+                        {
+                            txtWERPMFHybridEquityM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtWERPMFHybridEquityUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
+                            txtMFHybridEquity.Text = drThird["CFPASID_TotalValue"].ToString();
+                        }
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYDT")
+                        {
+                            txtWERPMFHybridDebtM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtWERPMFHybridDebtUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
+                            txtMFHybridDebt.Text = drThird["CFPASID_TotalValue"].ToString();
+                        }
 
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHM")
-                    {
-                        txtWERPHealthInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtHealthInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHM")
+                        {
+                            txtWERPHealthInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtHealthInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
+
+                        }
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
+                        {
+                            txtWERPPropertyInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtPropertyInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                        }
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIPA")
+                        {
+                            txtWERPPersonalAccident.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtPersonalAccidentSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                        }
+                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
+                        {
+                            txtWERPOthersGI.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                            txtOthersGISA.Text = drThird["CFPASID_TotalValue"].ToString();
+                        }
 
                     }
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
-                    {
-                        txtWERPPropertyInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtPropertyInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
-                    }
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIPA")
-                    {
-                        txtWERPPersonalAccident.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtPersonalAccidentSA.Text = drThird["CFPASID_TotalValue"].ToString();
-                    }
-                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
-                    {
-                        txtWERPOthersGI.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                        txtOthersGISA.Text = drThird["CFPASID_TotalValue"].ToString();
-                    }
-
                 }
-            }
-            if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
-            {
-                txtSlabProfile.Text = dsGetWERPDetails.Tables[6].Rows[0]["C_TaxSlab"].ToString();
-                txtSlabAsPerProfile.Text = txtSlabProfile.Text;
-            }
+                if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
+                {
+                    txtSlabProfile.Text = dsGetWERPDetails.Tables[6].Rows[0]["C_TaxSlab"].ToString();
+                    txtSlabAsPerProfile.Text = txtSlabProfile.Text;
+                }
 
-            if (dsGetWERPDetails.Tables[7].Rows.Count > 0)
-            {
-                txtMFSIPMIS.Text = dsGetWERPDetails.Tables[7].Rows[0]["CFPED_Value"].ToString();
-            }
+                if (dsGetWERPDetails.Tables[7].Rows.Count > 0)
+                {
+                    txtMFSIPMIS.Text = dsGetWERPDetails.Tables[7].Rows[0]["CFPED_Value"].ToString();
+                }
 
-            if (dsGetWERPDetails.Tables[8].Rows.Count > 0)
-            {
-                txtReccuringDeposit.Text = dsGetWERPDetails.Tables[8].Rows[0]["CFPED_Value"].ToString();
-            }
-            
+                if (dsGetWERPDetails.Tables[8].Rows.Count > 0)
+                {
+                    txtReccuringDeposit.Text = dsGetWERPDetails.Tables[8].Rows[0]["CFPED_Value"].ToString();
+                }
 
+
+            }
         }
 
         protected void btnCalculationSubmit_Click(object sender, EventArgs e)
