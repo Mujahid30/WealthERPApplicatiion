@@ -44,6 +44,7 @@ namespace WealthERP.FP
                     BindGoalListDropDown(customerVo.CustomerId, fundGoalId);
                     GetThDetailsOfGoalFunding(fundGoalId);
                     SetDefaultGaolDetails(customerVo.CustomerId, fundGoalId);
+                    trSelectGoal.Visible = false;
                 }
                 else
                 {
@@ -82,7 +83,7 @@ namespace WealthERP.FP
         }
 
         protected void BindGoalListDropDown(int customerId,int goalId)
-        {
+       {
             DataSet dsGoalList = goalPlanningBo.GetCustomerGoalList(customerId);
             if (goalId == 0)
             {
@@ -90,6 +91,7 @@ namespace WealthERP.FP
                 ddlPickGoal.DataTextField = dsGoalList.Tables[0].Columns["XG_GoalName"].ToString();
                 ddlPickGoal.DataValueField = dsGoalList.Tables[0].Columns["CG_GoalId"].ToString();
                 ddlPickGoal.DataBind();
+                trGoalName.Visible = false;
             }
             else
             {
@@ -98,6 +100,10 @@ namespace WealthERP.FP
                 ddlPickGoal.DataValueField = dsGoalList.Tables[0].Columns["CG_GoalId"].ToString();
                 ddlPickGoal.DataBind();
                 ddlPickGoal.SelectedValue = goalId.ToString();
+                trGoalName.Visible = true;
+                string goalName = ddlPickGoal.SelectedItem.ToString();
+                lblGoalName.Text = goalName;
+                
             }
                 int count = dsGoalList.Tables[1].Rows.Count;
             if (count == 3)
@@ -161,6 +167,15 @@ namespace WealthERP.FP
                        Label1.Text = Math.Round(decimal.Parse(totalAmount.ToString()), 0).ToString();
                    }
                    txtGapAfterAllocation.Text = (decimal.Parse(txtGoalAmountReq.Text) - totalAmount).ToString();
+                   txtAmountFunded.Text = totalAmount.ToString();
+                   if (txtAlternateRemainCorpus.Text != "")
+                   {
+                       txtAmountRemaining.Text = (int.Parse(txtEquityRemainCorpus.Text) + int.Parse(txtDebtRemainCorpus.Text) + int.Parse(txtCashRemainCorpus.Text) + int.Parse(txtAlternateRemainCorpus.Text)).ToString();
+                   }
+                   else
+                   {
+                       txtAmountRemaining.Text = (int.Parse(txtEquityRemainCorpus.Text) + int.Parse(txtDebtRemainCorpus.Text) + int.Parse(txtCashRemainCorpus.Text)).ToString();
+                   }
                }
             
         }
@@ -238,6 +253,8 @@ namespace WealthERP.FP
                 txtAlternateAllPer.Enabled = true;
                 chkGoalFundByLoan.Enabled = true;
                 btnSubmit.Enabled = true;
+                txtAmountFunded.Enabled = true;
+                txtAmountRemaining.Enabled = true;
                
                 
             }
@@ -265,6 +282,8 @@ namespace WealthERP.FP
                 txtAlternateAllPer.Enabled = false;
                 chkGoalFundByLoan.Enabled = false;
                 btnSubmit.Enabled = false;
+                txtAmountFunded.Enabled = false;
+                txtAmountRemaining.Enabled = false;
                
             }
         }
@@ -279,6 +298,7 @@ namespace WealthERP.FP
             drGoal = dsGoalList.Tables[0].Select("CG_GoalId=" + gaolId.ToString());
             string dynamicLabel = drGoal[0]["CG_GoalYear"].ToString();
             lblGoalYear.Text = dynamicLabel + ":";
+            lblAvailableCorpus.Text = lblAvailableCorpus.Text + dynamicLabel;
             txtGoalAmountReq.Text = Math.Round(decimal.Parse(drGoal[0]["CG_CostToday"].ToString()), 0).ToString();
             dsRebalancing = customerFPAnalyticsBo.FutureSurplusEngine(customerVo.CustomerId);
             if (dsRebalancing.Tables.Count > 0)

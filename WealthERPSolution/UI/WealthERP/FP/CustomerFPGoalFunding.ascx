@@ -78,14 +78,15 @@
                 document.getElementById("<%=txtEquityAllPer.ClientID %>").value = "";
                 document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = "";
                 document.getElementById("<%=txtEquityAllAmt.ClientID %>").value = "";
-            } 
-        }
-        else {
+            }
 
-            var equityAllPercent = equityAmountAllAmount * 100 / equityAvlAmount;
-            var equityRemaingCorps = equityAvlAmount - equityAmountAllAmount;
-            document.getElementById("<%=txtEquityAllPer.ClientID %>").value = roundNumberEquity(equityAllPercent, 2);
-            document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = equityRemaingCorps;
+            else {
+
+                var equityAllPercent = equityAmountAllAmount * 100 / equityAvlAmount;
+                var equityRemaingCorps = equityAvlAmount - equityAmountAllAmount;
+                document.getElementById("<%=txtEquityAllPer.ClientID %>").value = roundNumberEquity(equityAllPercent, 2);
+                document.getElementById("<%=txtEquityRemainCorpus.ClientID %>").value = equityRemaingCorps;
+            } 
         }
         var equity = document.getElementById('<%=txtEquityAllAmt.ClientID %>').value;
 
@@ -163,14 +164,15 @@
                  document.getElementById("<%=txtDebtAllPer.ClientID %>").value = "";
                  document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = "";
                  document.getElementById("<%=txtDebtAllAmt.ClientID %>").value = "";
-             } 
-         }
-         else {
+             }
 
-             var debtAllPercent = debtAmountAllAmount * 100 / debtAvlAmount;
-             var debtRemaingCorps = debtAvlAmount - debtAmountAllAmount;
-             document.getElementById("<%=txtDebtAllPer.ClientID %>").value = roundNumberDebt(debtAllPercent, 2);
-             document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = debtRemaingCorps;
+             else {
+
+                 var debtAllPercent = debtAmountAllAmount * 100 / debtAvlAmount;
+                 var debtRemaingCorps = debtAvlAmount - debtAmountAllAmount;
+                 document.getElementById("<%=txtDebtAllPer.ClientID %>").value = roundNumberDebt(debtAllPercent, 2);
+                 document.getElementById("<%=txtDebtRemainCorpus.ClientID %>").value = debtRemaingCorps;
+             } 
          }
         var equity = document.getElementById('<%=txtEquityAllAmt.ClientID %>').value;
    
@@ -245,14 +247,15 @@
                 document.getElementById("<%=txtCashAllPer.ClientID %>").value = "";
                 document.getElementById("<%=txtCashRemainCorpus.ClientID %>").value = "";
                 document.getElementById("<%=txtCashAllAmt.ClientID %>").value = "";
-            } 
-        }
-        else {
+            }
 
-            var cashAllPercent = cashAmountAllAmount * 100 / cashAvlAmount;
-            var cashRemaingCorps = cashAvlAmount - cashAmountAllAmount;
-            document.getElementById("<%=txtCashAllPer.ClientID %>").value = roundNumberCash(cashAllPercent, 2);
-            document.getElementById("<%=txtCashRemainCorpus.ClientID %>").value = cashRemaingCorps;
+            else {
+
+                var cashAllPercent = cashAmountAllAmount * 100 / cashAvlAmount;
+                var cashRemaingCorps = cashAvlAmount - cashAmountAllAmount;
+                document.getElementById("<%=txtCashAllPer.ClientID %>").value = roundNumberCash(cashAllPercent, 2);
+                document.getElementById("<%=txtCashRemainCorpus.ClientID %>").value = cashRemaingCorps;
+            } 
         }
         var equity = document.getElementById('<%=txtEquityAllAmt.ClientID %>').value;
    
@@ -332,16 +335,16 @@
                 document.getElementById("<%=txtAlternateAllPer.ClientID %>").value = "";
                 document.getElementById("<%=txtAlternateRemainCorpus.ClientID %>").value = "";
                 document.getElementById("<%=txtAlternateAllAmt.ClientID %>").value = "";
-            } 
-        }
-        else {
+            }
 
-            var AlternateAllPercent = AlternateAmountAllAmount * 100 / AlternateAvlAmount;
-            var AlternateRemaingCorps = AlternateAvlAmount - AlternateAmountAllAmount;
-            document.getElementById("<%=txtAlternateAllPer.ClientID %>").value = roundNumberAlternate(AlternateAllPercent, 2);
-            document.getElementById("<%=txtAlternateRemainCorpus.ClientID %>").value = AlternateRemaingCorps;
-        }
+            else {
 
+                var AlternateAllPercent = AlternateAmountAllAmount * 100 / AlternateAvlAmount;
+                var AlternateRemaingCorps = AlternateAvlAmount - AlternateAmountAllAmount;
+                document.getElementById("<%=txtAlternateAllPer.ClientID %>").value = roundNumberAlternate(AlternateAllPercent, 2);
+                document.getElementById("<%=txtAlternateRemainCorpus.ClientID %>").value = AlternateRemaingCorps;
+            }
+        }
         var equity = document.getElementById('<%=txtEquityAllAmt.ClientID %>').value;
    
         var debt = document.getElementById('<%=txtDebtAllAmt.ClientID %>').value;
@@ -420,10 +423,17 @@
 <tr>
     <td></td>
     <td></td>
-</tr>
-<tr>
+</tr><tr runat="server" id="trGoalName">
     <td class="leftField">
-        <asp:Label ID="lblPickGoal" runat="server" CssClass="FieldName" Text="Pick a Goal:"></asp:Label>
+        <asp:Label ID="lblGoal" runat="server" CssClass="FieldName" Text="Goal:"></asp:Label>
+    </td> 
+    <td>
+        <asp:Label ID="lblGoalName" runat="server" CssClass="FieldName"></asp:Label>
+    </td>
+</tr>
+<tr runat="server" id="trSelectGoal">
+    <td class="leftField">
+        <asp:Label ID="lblPickGoal" runat="server" CssClass="FieldName" Text="Goal:"></asp:Label>
     </td> 
     <td>
         <asp:DropDownList ID="ddlPickGoal" CssClass="cmbField" runat="server" 
@@ -433,7 +443,7 @@
 </tr>
 <tr>
     <td class="leftField">
-    <asp:Label ID="lblGoalAmount" runat="server" CssClass="FieldName" Text="Goal Amount requirement in"></asp:Label>
+    <asp:Label ID="lblGoalAmount" runat="server" CssClass="FieldName" Text="Amount needed in"></asp:Label>
          <asp:Label ID="lblGoalYear" runat="server" CssClass="FieldName"></asp:Label>
     </td>
     <td>
@@ -443,26 +453,69 @@
         </td>
 </tr>
 <tr>
-<td></td>
-<td></td>
+    <td class="leftField">
+    <asp:Label ID="lblAmountFunded" runat="server" CssClass="FieldName" Text="Amount Funded:"></asp:Label>
+    </td>
+    <td>
+         
+        <asp:TextBox ID="txtAmountFunded" CssClass="txtField"   Width="95%" runat="server" 
+             Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+        </td>
+</tr>
+<tr>
+    <td class="leftField">
+    <asp:Label ID="lblAmountRemaining" runat="server" CssClass="FieldName" Text="Amount remaining:"></asp:Label>
+        
+    </td>
+    <td>
+         
+        <asp:TextBox ID="txtAmountRemaining" CssClass="txtField"   Width="95%" runat="server" 
+             Style="direction: rtl" ReadOnly="True"></asp:TextBox>
+        </td>
+</tr>
+
+
+<tr>
+    <td class="leftField">
+        <asp:Label ID="lblGap" runat="server" CssClass="FieldName" Text="Gap After Allocation:"></asp:Label>
+    </td>
+    <td>
+        <asp:TextBox ID="txtGapAfterAllocation" CssClass="txtField" ReadOnly="true"   Width="95%" runat="server"  Style="direction: rtl"></asp:TextBox>
+    </td>
 </tr>
 <tr>
 <td></td>
 <td></td>
 </tr>
+<tr>
+    <td class="leftField">
+    <asp:Label ID="lblMoney" runat="server" CssClass="FieldName" Text="You Have Enough Money:"></asp:Label>
+    </td>
+    <td>
+        <asp:Label ID="lblYesNo" runat="server" CssClass="FieldName"></asp:Label>
+        </td></br>
+</tr>
+<tr><td></td>
+<td></td></tr>
+<tr><td></td>
+<td></td></tr>
+<tr><td></td>
+<td></td></tr>
+<tr><td></td>
+<td></td></tr>
 <tr>
     <td></td>
     <td align="center">
-    <asp:Label ID="lblAvailableCorpus" runat="server" CssClass="FieldName" Text="Available Corpus in<br/>Starting of Goal Year"></asp:Label>
+    <asp:Label ID="lblAvailableCorpus" runat="server" CssClass="FieldName" Text="Available Funds in "></asp:Label>
     </td>
     <td align="center">
-        <asp:Label ID="lblAllocatedAmount" runat="server" CssClass="FieldName" Text="Allocated Amount"></asp:Label>
+        <asp:Label ID="lblAllocatedAmount" runat="server" CssClass="FieldName" Text="Funds marked for Goal"></asp:Label>
     </td>
     <td align="center">
-        <asp:Label ID="lblAllocation" runat="server" CssClass="FieldName" Text="% Allocation"></asp:Label>
+        <asp:Label ID="lblAllocation" runat="server" CssClass="FieldName" Text="Allocation(%)"></asp:Label>
     </td>
-    <td align="center">
-        <asp:Label ID="lblAfterAllocation" runat="server" CssClass="FieldName" Text="Remaining Corpus<br/>After Allocation"></asp:Label>
+    <td >
+        <asp:Label ID="lblAfterAllocation" runat="server" CssClass="FieldName" Text="Remaining funds after allocation"></asp:Label>
     </td>
 </tr>
 <tr>
@@ -481,7 +534,7 @@
         <asp:TextBox ID="txtEquityAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtEquityRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtEquityRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -501,7 +554,7 @@
         <asp:TextBox ID="txtDebtAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtDebtRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtDebtRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -521,7 +574,7 @@
         <asp:TextBox ID="txtCashAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtCashRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtCashRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr id="trAlternate" runat="server" >
@@ -541,7 +594,7 @@
         <asp:TextBox ID="txtAlternateAllPer" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
      <td>
-        <asp:TextBox ID="txtAlternateRemainCorpus" CssClass="txtField"   Width="95%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
+        <asp:TextBox ID="txtAlternateRemainCorpus" CssClass="txtField"   Width="80%" runat="server" ReadOnly="True" Style="direction: rtl"></asp:TextBox>
     </td>
 </tr>
 <tr>
@@ -561,28 +614,14 @@
     <td></td>
     <td>&nbsp;</td>
 </tr>
-<tr>
-    <td class="leftField">
-        <asp:Label ID="lblGap" runat="server" CssClass="FieldName" Text="Gap After Allocation:"></asp:Label>
-    </td>
-    <td>
-        <asp:TextBox ID="txtGapAfterAllocation" CssClass="txtField" ReadOnly="true"   Width="95%" runat="server"  Style="direction: rtl"></asp:TextBox>
-    </td>
-</tr>
+
 <tr>
     <td class="leftField">
         &nbsp;</td>
     <td>
         &nbsp;</td>    
 </tr>
-<tr>
-    <td class="leftField">
-    <asp:Label ID="lblMoney" runat="server" CssClass="FieldName" Text="You Have Enough Money:"></asp:Label>
-    </td>
-    <td>
-        <asp:Label ID="lblYesNo" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-</tr>
+
 <tr>
     <td></td>
     <td></td>
@@ -603,7 +642,7 @@
 </tr>
 <tr>
     <td class="leftField">
-        <asp:Label ID="lblLoanAmount" runat="server" CssClass="FieldName" Text="Loan Amount to be Taken for goal Funding:"></asp:Label>
+        <asp:Label ID="lblLoanAmount" runat="server" CssClass="FieldName" Text="Loan Amount to be Taken<br/>for goal Funding:"></asp:Label>
     </td>
     <td>
         <asp:TextBox ID="txtLoanAmountFunding" runat="server" CssClass="txtField"  Width="95%" Style="direction: rtl"></asp:TextBox>
