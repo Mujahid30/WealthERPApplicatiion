@@ -1453,16 +1453,16 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        
 
-        public DataTable BindDropDownassumption()
+
+        public DataTable BindDropDownassumption(string flag)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtBindDropDownassumption = new DataTable();
             try
             {
-                dtBindDropDownassumption = customerDao.BindDropDownassumption();
+                dtBindDropDownassumption = customerDao.BindDropDownassumption(flag);
             }
             catch (BaseApplicationException Ex)
             {
