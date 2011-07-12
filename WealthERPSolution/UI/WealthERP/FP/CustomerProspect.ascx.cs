@@ -212,6 +212,7 @@ namespace WealthERP.FP
                 txtPMS.Attributes.Add("readonly", "readonly");
                 txtInvestmentsOthers.Attributes.Add("readonly", "readonly");
                 txtTotalTermSA.Attributes.Add("readonly", "readonly");
+                txtTotalEndowmentSA.Attributes.Add("readonly", "readonly");
                 txtTotalWholeLifeSA.Attributes.Add("readonly", "readonly");
                 txtTotalMoneyBackSA.Attributes.Add("readonly", "readonly");
                 txtTotalULIPSA.Attributes.Add("readonly", "readonly");
@@ -225,6 +226,12 @@ namespace WealthERP.FP
                 txtEducationLoanLO.Attributes.Add("readonly", "readonly");
                 txtOthersGISA.Attributes.Add("readonly", "readonly");
 
+                txtTotalTermPremium.Attributes.Add("readonly", "readonly");
+                txtTotalEndowmentPremium.Attributes.Add("readonly", "readonly");
+                txtTotalWholeLifePremium.Attributes.Add("readonly", "readonly");
+                txtTotalMoneyBackPremium.Attributes.Add("readonly", "readonly");
+                txtTotalULIPPremium.Attributes.Add("readonly", "readonly");
+                txtTotalOthersPremium.Attributes.Add("readonly", "readonly");
             }
             catch (Exception ex)
             {
@@ -1249,6 +1256,14 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtTermP.Text),0);
                 }
+                if (txtAdjustedPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedPremium.Text); 
+                }
+                if (txtTotalTermPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalTermPremium.Text); 
+                }
                 if (txtTermSurrMktVal.Text != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtTermSurrMktVal.Text),0);
@@ -1273,6 +1288,14 @@ namespace WealthERP.FP
                 if (txtEndowmentP.Text != string.Empty)
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtEndowmentP.Text),0);
+                }
+                if (txtAdjustedEndowmentPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedEndowmentPremium.Text);
+                }
+                if (txtTotalEndowmentPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalEndowmentPremium.Text);
                 }
                 if (txtEndowmentSurrMktVal.Text != string.Empty)
                 {
@@ -1299,6 +1322,15 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtWholeLifeP.Text),0);
                 }
+                if (txtAdjustedWholeLifePremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedWholeLifePremium.Text);
+                }
+                if (txtTotalWholeLifePremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalWholeLifePremium.Text);
+                }
+                
                 if (txtWholeLifeSurrMktVal.Text != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtWholeLifeSurrMktVal.Text),0);
@@ -1324,6 +1356,15 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtMoneyBackP.Text),0);
                 }
+                if (txtAdjustedMoneyBackPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedMoneyBackPremium.Text);
+                }
+                if (txtTotalMoneyBackPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalMoneyBackPremium.Text);
+                }
+                
                 if (txtMoneyBackSurrMktVal.Text != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtMoneyBackSurrMktVal.Text),0);
@@ -1349,6 +1390,15 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtULIPP.Text),0);
                 }
+                if (txtAdjustedULIPPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedULIPPremium.Text);
+                }
+                if (txtTotalULIPPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalULIPPremium.Text);
+                }
+                
                 if (txtULIPSurrMktVal.Text != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtULIPSurrMktVal.Text),0);
@@ -1374,6 +1424,15 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.Premium = Math.Round(double.Parse(txtOthersLIP.Text),0);
                 }
+                if (txtAdjustedOthersLIPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedOthersLIPremium.Text);
+                }
+                if (txtTotalOthersPremium.Text != string.Empty)
+                {
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalOthersPremium.Text);
+                }
+                
                 if (txtOtherSurrMktVal.Text != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text),0);
@@ -1428,6 +1487,33 @@ namespace WealthERP.FP
                     assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedOthersLISA.Text),0);
                 }
 
+                //Adjusted Premium Total Value
+
+                if (txtAdjustedPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedPremium.Text);
+                }
+                if (txtAdjustedEndowmentPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedEndowmentPremium.Text);
+                }
+                if (txtAdjustedWholeLifePremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedWholeLifePremium.Text);
+                }
+                if (txtAdjustedMoneyBackPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedMoneyBackPremium.Text);
+                }
+                if (txtAdjustedULIPPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedULIPPremium.Text);
+                }
+                if (txtAdjustedOthersLIPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedOthersLIPremium.Text);
+                }
+
                 //Group Total Value
 
                 if (txtTotalTermSA.Text != string.Empty)
@@ -1454,6 +1540,39 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.Value += Math.Round(double.Parse(txtTotalOthersLISA.Text),0);
                 }
+
+                // Premium Total Value..
+
+                if (txtTotalTermPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalTermPremium.Text);
+                }
+
+                if (txtTotalEndowmentPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalEndowmentPremium.Text);
+                }
+
+                if (txtTotalWholeLifePremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalWholeLifePremium.Text);
+                }
+
+                if (txtTotalMoneyBackPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalMoneyBackPremium.Text);
+                }
+
+                if (txtTotalULIPPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalULIPPremium.Text);
+                }
+
+                if (txtTotalOthersPremium.Text != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalOthersPremium.Text);
+                }
+
                 assetgroupdetailslist.Add(assetgroupdetails);
                 //==========================================================================================================================
 
@@ -2286,6 +2405,8 @@ namespace WealthERP.FP
                         txtAdjustedTermSA.Text = cpad.AdjustedValue.ToString();
                         txtTermSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtTermP.Text = cpad.Premium.ToString();
+                        txtAdjustedPremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalTermPremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INEP")
@@ -2294,6 +2415,8 @@ namespace WealthERP.FP
                         txtAdjustedEndowmentSA.Text = cpad.AdjustedValue.ToString();
                         txtEndowmentSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtEndowmentP.Text = cpad.Premium.ToString();
+                        txtAdjustedEndowmentPremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalEndowmentPremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INWP")
@@ -2302,6 +2425,8 @@ namespace WealthERP.FP
                         txtAdjustedWholeLifeSA.Text = cpad.AdjustedValue.ToString();
                         txtWholeLifeSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtWholeLifeP.Text = cpad.Premium.ToString();
+                        txtAdjustedWholeLifePremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalWholeLifePremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INMP")
@@ -2310,6 +2435,8 @@ namespace WealthERP.FP
                         txtAdjustedMoneyBackSA.Text = cpad.AdjustedValue.ToString();
                         txtMoneyBackSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtMoneyBackP.Text = cpad.Premium.ToString();
+                        txtAdjustedMoneyBackPremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalMoneyBackPremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INUP")
@@ -2318,6 +2445,8 @@ namespace WealthERP.FP
                         txtAdjustedULIPSA.Text = cpad.AdjustedValue.ToString();
                         txtULIPSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtULIPP.Text = cpad.Premium.ToString();
+                        txtAdjustedULIPPremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalULIPPremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                     if (cpad.AssetGroupCode == "IN" && cpad.AssetInstrumentCategoryCode == "INOT")
@@ -2326,6 +2455,8 @@ namespace WealthERP.FP
                         txtAdjustedOthersLISA.Text = cpad.AdjustedValue.ToString();
                         txtOtherSurrMktVal.Text = cpad.SurrMktVal.ToString();
                         txtOthersLIP.Text = cpad.Premium.ToString();
+                        txtAdjustedOthersLIPremium.Text = cpad.AdjustedPremium.ToString();
+                        txtTotalOthersPremium.Text = cpad.TotalPremiumValue.ToString();
                         totalli += cpad.Value;
                     }
                 }
@@ -2638,7 +2769,6 @@ namespace WealthERP.FP
                             txtWERPOthersGI.Text = drThird["CFPASID_WERPManagedValue"].ToString();
                             txtOthersGISA.Text = drThird["CFPASID_TotalValue"].ToString();
                         }
-
                     }
                 }
                 if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
@@ -2666,10 +2796,17 @@ namespace WealthERP.FP
             lblFinalResults.Text = "Disposable income (post tax) is"+ txtIncomePostTax.Text + "";
         }
 
-        protected void btnSlabCalculate_Click(object sender, EventArgs e)
+        //protected void btnSlabCalculate_Click(object sender, EventArgs e)
+        //{
+            
+        //}
+
+        protected void btnSlabGettingCalculator_Click(object sender, EventArgs e)
         {
-            mdlPopupSlabCalculate.TargetControlID = "btnSlabCalculate";
+            mdlPopupSlabCalculate.TargetControlID = "btnSlabGettingCalculator";
             mdlPopupSlabCalculate.Show();
         }
+
+        
     }
 }
