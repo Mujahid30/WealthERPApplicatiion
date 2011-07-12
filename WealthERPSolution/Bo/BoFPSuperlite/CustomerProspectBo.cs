@@ -538,6 +538,14 @@ namespace BoFPSuperlite
                     {
                         customerprospectassetdetailsvo.Premium = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_Premium"].ToString());
                     }
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedPremium"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedPremium"].ToString() != "")
+                    {
+                        customerprospectassetdetailsvo.AdjustedPremium = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedPremium"].ToString());
+                    }
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalPremiumValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalPremiumValue"].ToString() != "")
+                    {
+                        customerprospectassetdetailsvo.TotalPremiumValue = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalPremiumValue"].ToString());
+                    }
                     if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"].ToString() != "")
                     {
                         customerprospectassetdetailsvo.SurrMktVal = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"].ToString());
@@ -644,6 +652,10 @@ namespace BoFPSuperlite
                         if (dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"] != null && dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"].ToString() != "")
                         {
                             customerprospectassetgroupdetails.Value = double.Parse(dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_TotalValue"].ToString());
+                        }
+                        if (dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_PremiumTotalValue"] != null && dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_PremiumTotalValue"].ToString() != "")
+                        {
+                            customerprospectassetgroupdetails.TotalPremiumValue = double.Parse(dtCustomerAssetGroupDetails.Rows[i]["CFPAGD_PremiumTotalValue"].ToString());
                         }
                         customerprospectassetgroupdetailslist.Add(customerprospectassetgroupdetails);
                     }

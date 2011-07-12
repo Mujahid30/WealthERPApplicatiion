@@ -751,6 +751,10 @@ namespace DaoFPSuperlite
 
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_Premium", DbType.Decimal, customerProspectAssetDetailsVo.Premium);
 
+                db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedPremium", DbType.Decimal, customerProspectAssetDetailsVo.AdjustedPremium);
+
+                db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_TotalPremiumValue", DbType.Decimal, customerProspectAssetDetailsVo.TotalPremiumValue);
+
 
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddCustomerFPAssetInstrumentDetails) != 0)
@@ -854,6 +858,9 @@ namespace DaoFPSuperlite
 
                 db.AddInParameter(cmdUpdateCustomerFPAssetInstrumentDetails, "@CFPAID_Premium", DbType.Decimal, customerProspectAssetDetailsVo.Premium);
 
+                db.AddInParameter(cmdUpdateCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedPremium", DbType.Decimal, customerProspectAssetDetailsVo.AdjustedPremium);
+
+                db.AddInParameter(cmdUpdateCustomerFPAssetInstrumentDetails, "@CFPAID_TotalPremiumValue", DbType.Decimal, customerProspectAssetDetailsVo.TotalPremiumValue);
 
                 db.AddInParameter(cmdUpdateCustomerFPAssetInstrumentDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdUpdateCustomerFPAssetInstrumentDetails) != 0)
@@ -942,6 +949,11 @@ namespace DaoFPSuperlite
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_Value", DbType.Decimal, customerProspectAssetGroupDetails.Value);
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_Value", DbType.Decimal, 0.0);
+
+                if (customerProspectAssetGroupDetails.TotalPremiumValue != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_TotalPremiumValue", DbType.Decimal, customerProspectAssetGroupDetails.TotalPremiumValue);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@CFPAGD_TotalPremiumValue", DbType.Decimal, 0.0);
 
                 db.AddInParameter(cmdAddCustomerFPAssetGroupDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddCustomerFPAssetGroupDetails) != 0)
