@@ -673,16 +673,16 @@ namespace WealthERP.FP
             decimal alternateFutureAllocation = 0;
 
             if (txtEquityFS.Text.ToString() != "")
-                equityFutureAllocation = int.Parse(txtEquityFS.Text.ToString());
+                equityFutureAllocation = decimal.Parse(txtEquityFS.Text.ToString());
 
             if (txtDebtFS.Text.ToString() != "")
-                debtFutureAllocation = int.Parse(txtDebtFS.Text.ToString());
+                debtFutureAllocation = decimal.Parse(txtDebtFS.Text.ToString());
 
             if (txtCashFS.Text.ToString() != "")
-                cashFutureAllocation = int.Parse(txtCashFS.Text.ToString());
+                cashFutureAllocation = decimal.Parse(txtCashFS.Text.ToString());
 
             if (txtAlternateFS.Text.ToString() != "")
-                alternateFutureAllocation = int.Parse(txtAlternateFS.Text.ToString());
+                alternateFutureAllocation = decimal.Parse(txtAlternateFS.Text.ToString());
 
             int tempYear = int.Parse(ddlPickYearFS.SelectedValue.ToString());
             int rangeFromYearFutureSaving=int.Parse(ddlRangeYearFSFROM.SelectedItem.ToString());
