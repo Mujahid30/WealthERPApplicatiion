@@ -60,6 +60,9 @@ namespace WealthERP.Customer
         {
             DataRow drAssets;
             DataRow drValues;
+            double totalAssetValue = 0.0;
+            double totalLiabilitiesValue = 0.0;
+            double totalNetworhValue = 0.0;
             dsFPAssetsAndLiabilitesDetails = customerprospectbo.GetFPDashBoardAsstesBreakUp(CustomerId);
 
             if ((dsFPAssetsAndLiabilitesDetails.Tables[0].Rows.Count > 0) && (!string.IsNullOrEmpty(dsFPAssetsAndLiabilitesDetails.ToString())))
@@ -68,7 +71,7 @@ namespace WealthERP.Customer
                 ErrorMessage.Visible = false;
                 lblBranchAUM.Visible = true;
                 branchAumDT.Columns.Add("Asset");
-                branchAumDT.Columns.Add("CurrentValue");
+                branchAumDT.Columns.Add("CurrentValue",typeof(decimal));
                 DataTable dtBranchDetails = dsFPAssetsAndLiabilitesDetails.Tables[0];
                 drValues = dsFPAssetsAndLiabilitesDetails.Tables[0].Rows[0];
 
@@ -77,14 +80,14 @@ namespace WealthERP.Customer
                     drAssets = branchAumDT.NewRow();
                     drAssets["Asset"] = dtBranchDetails.Rows[i]["AssetType"];
                     drAssets["CurrentValue"] = dtBranchDetails.Rows[i]["Value"];
-                    branchAumDT.Rows.Add(drAssets);
-
+                   
                     if (GridViewCultureFlag == true)
                     {
                         double tempCurrValue = 0;
                         double.TryParse(dtBranchDetails.Rows[i]["Value"].ToString(), out tempCurrValue);
-                        tempCurrValue = Math.Round(tempCurrValue, 2);
-                        drAssets["CurrentValue"] = tempCurrValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        tempCurrValue = Math.Round(tempCurrValue, 0);
+                        //drAssets["CurrentValue"] = tempCurrValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drAssets["CurrentValue"]= String.Format("{0:n2}", tempCurrValue.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     }
                     else
                     {
@@ -95,6 +98,9 @@ namespace WealthERP.Customer
                         drAssets["CurrentValue"] = tempCurrValue;
 
                     }
+
+                     branchAumDT.Rows.Add(drAssets);
+
                 }
                 gvFPDashBoard.DataSource = branchAumDT;
 
@@ -105,23 +111,43 @@ namespace WealthERP.Customer
                 TotalNetworth.Visible = true;
 
                 if (dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString() != "")
-                    TotalValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString();
+                {
+                    //TotalValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString();
+                    totalAssetValue = Math.Round(double.Parse(dsFPAssetsAndLiabilitesDetails.Tables[2].Rows[0]["TotalSUM"].ToString()), 0);
+                    if (totalAssetValue != 0.0)
+                        TotalValue.Text = String.Format("{0:n2}", totalAssetValue.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    else
+                        TotalValue.Text = "0";    
+                }
                 else
-                    TotalValue.Text = "0.0";
+                {
+                    TotalValue.Text = "0";
+                }
 
                 if (dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString() != "")
-                    TotalLiabilitiesValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString();
+                {
+                    //TotalLiabilitiesValue.Text = dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString();
+                    totalLiabilitiesValue = Math.Round(double.Parse(dsFPAssetsAndLiabilitesDetails.Tables[1].Rows[0]["Liabilities"].ToString()), 0);
+                    if (totalLiabilitiesValue != 0.0)
+                        TotalLiabilitiesValue.Text = String.Format("{0:n2}", totalLiabilitiesValue.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    else
+                        TotalLiabilitiesValue.Text = "0";
+                }
                 else
-                    TotalLiabilitiesValue.Text = "0.0";
+                {
+                    TotalLiabilitiesValue.Text = "0";
+                }
 
-                NetworthValue.Text = (decimal.Parse(TotalValue.Text) - decimal.Parse(TotalLiabilitiesValue.Text)).ToString();
+                totalNetworhValue = totalAssetValue - totalLiabilitiesValue;
+                //totalNetworhValue = (Math.Round(double.Parse(TotalValue.Text)) - Math.Round(double.Parse(TotalLiabilitiesValue.Text)));
+                NetworthValue.Text = String.Format("{0:n2}", totalNetworhValue.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
 
                 if (GridViewCultureFlag == true)
                 {
                     double tempTotalValue = 0;
                     double.TryParse(drValues[dsFPAssetsAndLiabilitesDetails.Tables[0].Columns.Count - 1].ToString(), out tempTotalValue);
-                    tempTotalValue = Math.Round(tempTotalValue, 2);
+                    tempTotalValue = Math.Round(tempTotalValue, 0);
                 }
             }
             else

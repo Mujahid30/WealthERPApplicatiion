@@ -35,12 +35,13 @@
         <tr>
             <td style="vertical-align: top">
                 <telerik:RadGrid ID="gvFPDashBoard" Width="450px" AllowFilteringByColumn="false"
-                   Skin="Telerik" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
+                   Skin="Telerik" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server" ShowFooter="true">
                  <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                     <Columns>
                     <telerik:GridBoundColumn DataField="Asset" HeaderText="Asset">
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" DataField="CurrentValue" HeaderText="Current Value (Rs.)">
+                     <telerik:GridBoundColumn  Aggregate="Sum"  ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" DataField="CurrentValue" HeaderText="Current Value (Rs.)"
+                      FooterText="Total:  " FooterStyle-HorizontalAlign="Right" >
                     </telerik:GridBoundColumn>
                     </Columns>
                  </MasterTableView>
@@ -94,6 +95,12 @@
                     </asp:Chart>
      
                 </td>
+            </tr>
+            <tr>
+            <td></td><td></td>
+            </tr>
+            <tr>
+            <td></td><td></td>
             </tr>
             </table>
             <table style="width: 100%;">
