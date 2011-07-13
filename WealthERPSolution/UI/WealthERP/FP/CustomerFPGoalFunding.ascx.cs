@@ -141,11 +141,12 @@ namespace WealthERP.FP
                    txtDebtRemainCorpus.Text = Math.Round(decimal.Parse(debtAssetValues["CORPS"].ToString()), 0).ToString();
 
                    txtCashAllAmt.Text = Math.Round(decimal.Parse(drSetDefaultGoal[2]["CGF_AllocatedAmount"].ToString()), 0).ToString();
-
-                   Dictionary<string, decimal> cashAssetValues = calculateRemainingFields(decimal.Parse(txtCashAllAmt.Text), decimal.Parse(txtCashAvlCorps.Text));
-                   txtCashAllPer.Text = Math.Round(decimal.Parse(cashAssetValues["PERCENT"].ToString()), 2).ToString();
-                   txtCashRemainCorpus.Text = Math.Round(decimal.Parse(cashAssetValues["CORPS"].ToString()), 0).ToString();
-
+                   if (decimal.Parse(txtCashAvlCorps.Text) != 0)
+                   {
+                       Dictionary<string, decimal> cashAssetValues = calculateRemainingFields(decimal.Parse(txtCashAllAmt.Text), decimal.Parse(txtCashAvlCorps.Text));
+                       txtCashAllPer.Text = Math.Round(decimal.Parse(cashAssetValues["PERCENT"].ToString()), 2).ToString();
+                       txtCashRemainCorpus.Text = Math.Round(decimal.Parse(cashAssetValues["CORPS"].ToString()), 0).ToString();
+                   }
                    txtStartLoanYr.Text = drSetDefaultGoal[0]["CGF_LoanStartDate"].ToString();
                    txtLoanAmountFunding.Text = drSetDefaultGoal[0]["CGF_LoanAmount"].ToString();
                    if (count != 3)
@@ -168,6 +169,10 @@ namespace WealthERP.FP
                    }
                    txtGapAfterAllocation.Text = (decimal.Parse(txtGoalAmountReq.Text) - totalAmount).ToString();
                    txtAmountFunded.Text = totalAmount.ToString();
+                   if (txtCashRemainCorpus.Text == "")
+                   {
+                       txtCashRemainCorpus.Text = "0";
+                   }
                    if (txtAlternateRemainCorpus.Text != "")
                    {
                        txtAmountRemaining.Text = (int.Parse(txtEquityRemainCorpus.Text) + int.Parse(txtDebtRemainCorpus.Text) + int.Parse(txtCashRemainCorpus.Text) + int.Parse(txtAlternateRemainCorpus.Text)).ToString();
@@ -184,11 +189,14 @@ namespace WealthERP.FP
             //decimal[] assetValues = new decimal[] { };
             Dictionary<string, decimal> assetValues =new  Dictionary<string, decimal>();
             decimal assetPercent;
-            decimal remaingCorps;            
-            assetPercent = AllAmount * 100 / AvlAmount;           
-            remaingCorps = AvlAmount - AllAmount;
-            assetValues.Add("PERCENT", assetPercent);
-            assetValues.Add("CORPS", remaingCorps);
+            decimal remaingCorps;
+            if (AvlAmount != 0)
+            {
+                assetPercent = AllAmount * 100 / AvlAmount;
+                remaingCorps = AvlAmount - AllAmount;
+                assetValues.Add("PERCENT", assetPercent);
+                assetValues.Add("CORPS", remaingCorps);
+            }
             return assetValues;
             
         } 
@@ -208,8 +216,10 @@ namespace WealthERP.FP
             txtDebtRemainCorpus.Text = "";
             txtDebtAllPer.Text = "";
             txtCashAllPer.Text = "";
-           
-           
+
+            txtAmountFunded.Text = "";
+            txtAmountRemaining.Text = "";
+            
             txtAlternateAllPer.Text = "";
             Label1.Text = "";
             txtCashRemainCorpus.Text = "";
