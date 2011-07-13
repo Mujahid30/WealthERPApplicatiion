@@ -103,7 +103,7 @@
             <asp:Label ID="Label2" runat="server" Text="New Password :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" align="left">
-            <asp:TextBox ID="txtNewPassword" runat="server" ValidationGroup="PassWordRegularExpression" TextMode="Password" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtNewPassword" MaxLength="8" runat="server" ValidationGroup="PassWordRegularExpression" TextMode="Password" CssClass="txtField"></asp:TextBox>
             
             <cc1:PasswordStrength runat="server" ID="PasswordStrength1"
             TargetControlID="txtNewPassword" DisplayPosition="RightSide" MinimumSymbolCharacters="1" MinimumUpperCaseCharacters="1" PreferredPasswordLength="8"
@@ -115,7 +115,7 @@
             <br />
             <asp:RegularExpressionValidator Font-Size="11px" style="display: list-item" ID="passWordRegularExrp" runat="server" ControlToValidate="txtNewPassword" 
             ErrorMessage="Wrong password.!!" Display="Dynamic" ValidationGroup="PassWordGroup"
-            ValidationExpression="^.*(?=.{8,})(?=.*\d)(?=.*[a-z,A-Z]).*$"></asp:RegularExpressionValidator>
+            ValidationExpression="^.*(?=.{6,})(?=.*\d)(?=.*[a-z,A-Z]).*$"></asp:RegularExpressionValidator>
             
             
             <asp:RequiredFieldValidator ID="rqdNewPassWord" runat="server" Display="Dynamic"  Font-Size="11px"

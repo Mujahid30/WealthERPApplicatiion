@@ -581,6 +581,10 @@ namespace DaoFPSuperlite
                 db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_MaturityDate", DbType.DateTime, customerProspectAssetSubDetailsVo.MaturityDate);
                 db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_Premium", DbType.Decimal, customerProspectAssetSubDetailsVo.Premium);
 
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_AdjustedPremium", DbType.Decimal, customerProspectAssetSubDetailsVo.AdjustedPremium);
+
+                db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@CFPASID_TotalPremiumValue", DbType.Decimal, customerProspectAssetSubDetailsVo.TotalPremiumValue);
+
                 db.AddInParameter(cmdAddCustomerFPAssetSubInstrumentDetails, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddCustomerFPAssetSubInstrumentDetails) != 0)
                     bAssetSubResult = true;

@@ -1597,6 +1597,14 @@ namespace WealthERP.FP
                 {
                     assetdetailssubvo.Premium = Math.Round(double.Parse(txtHealthInsuranceCoverP.Text),0);
                 }
+                if (txtAdjustedHealthPremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedHealthPremium.Text), 0);
+                }
+                if (txtToalHealthInsurancePremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtToalHealthInsurancePremium.Text), 0);
+                }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
 
@@ -1619,7 +1627,14 @@ namespace WealthERP.FP
                 {
                     assetdetailssubvo.Premium = Math.Round(double.Parse(txtPropertyInsuranceCoverP.Text),0);
                 }
-
+                if (txtAdjustedPropertyInsurancePremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedPropertyInsurancePremium.Text), 0);
+                }
+                if (txtTotalPropertyInsurancePremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPropertyInsurancePremium.Text), 0);
+                }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
 
@@ -1642,7 +1657,14 @@ namespace WealthERP.FP
                 {
                     assetdetailssubvo.Premium = Math.Round(double.Parse(txtPersonalAccidentP.Text),0);
                 }
-
+                if (txtPersonalAccidentPremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtPersonalAccidentPremium.Text), 0);
+                }
+                if (txtTotalPersonalAccidentPremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPersonalAccidentPremium.Text), 0);
+                }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
 
@@ -1664,6 +1686,14 @@ namespace WealthERP.FP
                 if (txtOthersGIP.Text != string.Empty)
                 {
                     assetdetailssubvo.Premium = Math.Round(double.Parse(txtOthersGIP.Text),0);
+                }
+                if (txtAdjustedOtherGIPremium.Text != string.Empty)
+                {
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedOtherGIPremium.Text), 0);
+                }
+                if (txtTotalPremiumOthers.Text != string.Empty)
+                {
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPremiumOthers.Text), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
                 if (txtHealthInsuranceCoverP.Text == "")
@@ -2471,7 +2501,8 @@ namespace WealthERP.FP
                         txtHealthInsuranceCoverA.Text = cpasd.AdjustedValue.ToString();
                         txtHealthInsuranceCoverSA.Text = cpasd.Value.ToString();
                         txtHealthInsuranceCoverP.Text = cpasd.Premium.ToString();
-
+                        txtAdjustedHealthPremium.Text = cpasd.AdjustedPremium.ToString();
+                        txtToalHealthInsurancePremium.Text = cpasd.TotalPremiumValue.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2480,6 +2511,8 @@ namespace WealthERP.FP
                         txtPropertyInsuranceCoverA.Text = cpasd.AdjustedValue.ToString();
                         txtPropertyInsuranceCoverSA.Text = cpasd.Value.ToString();
                         txtPropertyInsuranceCoverP.Text = cpasd.Premium.ToString();
+                        txtAdjustedPropertyInsurancePremium.Text = cpasd.AdjustedPremium.ToString();
+                        txtTotalPropertyInsurancePremium.Text = cpasd.TotalPremiumValue.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2488,6 +2521,8 @@ namespace WealthERP.FP
                         txtPersonalAccidentA.Text = cpasd.AdjustedValue.ToString();
                         txtPersonalAccidentSA.Text = cpasd.Value.ToString();
                         txtPersonalAccidentP.Text = cpasd.Premium.ToString();
+                        txtPersonalAccidentPremium.Text = cpasd.AdjustedPremium.ToString();
+                        txtTotalPersonalAccidentPremium.Text = cpasd.TotalPremiumValue.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2496,6 +2531,8 @@ namespace WealthERP.FP
                         txtOthersGIA.Text = cpasd.AdjustedValue.ToString();
                         txtOthersGISA.Text = cpasd.Value.ToString();
                         txtOthersGIP.Text = cpasd.Premium.ToString();
+                        txtAdjustedOtherGIPremium.Text = cpasd.AdjustedPremium.ToString();
+                        txtTotalPremiumOthers.Text = cpasd.TotalPremiumValue.ToString();
                         totalgi += cpasd.Value;
 
                     }
@@ -2750,24 +2787,24 @@ namespace WealthERP.FP
 
                         if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHM")
                         {
-                            txtWERPHealthInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtHealthInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                            txtWERPHealthInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
+                            txtHealthInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
 
                         }
                         if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
                         {
-                            txtWERPPropertyInsuranceCover.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtPropertyInsuranceCoverSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                            txtWERPPropertyInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
+                            txtPropertyInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
                         }
                         if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIPA")
                         {
-                            txtWERPPersonalAccident.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtPersonalAccidentSA.Text = drThird["CFPASID_TotalValue"].ToString();
+                            txtWERPPersonalAccident.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
+                            txtPersonalAccidentSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
                         }
                         if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
                         {
-                            txtWERPOthersGI.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtOthersGISA.Text = drThird["CFPASID_TotalValue"].ToString();
+                            txtWERPOthersGI.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
+                            txtOthersGISA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
                         }
                     }
                 }

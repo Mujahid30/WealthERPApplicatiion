@@ -2507,6 +2507,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel pnlGeneralInsurance;
         
         /// <summary>
+        /// lblGIPortFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGIPortFolio;
+        
+        /// <summary>
+        /// lblGIAdjustments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGIAdjustments;
+        
+        /// <summary>
+        /// lblGITotalValues control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGITotalValues;
+        
+        /// <summary>
         /// lblWERPSumAssuredGI control.
         /// </summary>
         /// <remarks>
@@ -2514,6 +2541,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblWERPSumAssuredGI;
+        
+        /// <summary>
+        /// lblPremiumGI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPremiumGI;
         
         /// <summary>
         /// lblAdjustedSumAssuredGI control.
@@ -2525,6 +2561,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblAdjustedSumAssuredGI;
         
         /// <summary>
+        /// lblAdjustedSysPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdjustedSysPremium;
+        
+        /// <summary>
         /// lblTotalSumAssuredGI control.
         /// </summary>
         /// <remarks>
@@ -2534,13 +2579,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblTotalSumAssuredGI;
         
         /// <summary>
-        /// lblPremiumGI control.
+        /// lblTotalPremiumValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPremiumGI;
+        protected global::System.Web.UI.WebControls.Label lblTotalPremiumValue;
         
         /// <summary>
         /// lblHealthInsuranceCover control.
@@ -2561,6 +2606,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtWERPHealthInsuranceCover;
         
         /// <summary>
+        /// txtHealthInsuranceCoverP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHealthInsuranceCoverP;
+        
+        /// <summary>
         /// txtHealthInsuranceCoverA control.
         /// </summary>
         /// <remarks>
@@ -2568,6 +2622,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHealthInsuranceCoverA;
+        
+        /// <summary>
+        /// txtAdjustedHealthPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedHealthPremium;
         
         /// <summary>
         /// txtHealthInsuranceCoverSA control.
@@ -2579,13 +2642,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtHealthInsuranceCoverSA;
         
         /// <summary>
-        /// txtHealthInsuranceCoverP control.
+        /// txtToalHealthInsurancePremium control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHealthInsuranceCoverP;
+        protected global::System.Web.UI.WebControls.TextBox txtToalHealthInsurancePremium;
         
         /// <summary>
         /// lblPropertyInsuranceCover control.
@@ -2606,6 +2669,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtWERPPropertyInsuranceCover;
         
         /// <summary>
+        /// txtPropertyInsuranceCoverP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPropertyInsuranceCoverP;
+        
+        /// <summary>
         /// txtPropertyInsuranceCoverA control.
         /// </summary>
         /// <remarks>
@@ -2613,6 +2685,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPropertyInsuranceCoverA;
+        
+        /// <summary>
+        /// txtAdjustedPropertyInsurancePremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedPropertyInsurancePremium;
         
         /// <summary>
         /// txtPropertyInsuranceCoverSA control.
@@ -2624,13 +2705,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtPropertyInsuranceCoverSA;
         
         /// <summary>
-        /// txtPropertyInsuranceCoverP control.
+        /// txtTotalPropertyInsurancePremium control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPropertyInsuranceCoverP;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalPropertyInsurancePremium;
         
         /// <summary>
         /// lblPersonalAccident control.
@@ -2651,6 +2732,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtWERPPersonalAccident;
         
         /// <summary>
+        /// txtPersonalAccidentP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPersonalAccidentP;
+        
+        /// <summary>
         /// txtPersonalAccidentA control.
         /// </summary>
         /// <remarks>
@@ -2658,6 +2748,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPersonalAccidentA;
+        
+        /// <summary>
+        /// txtPersonalAccidentPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPersonalAccidentPremium;
         
         /// <summary>
         /// txtPersonalAccidentSA control.
@@ -2669,13 +2768,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtPersonalAccidentSA;
         
         /// <summary>
-        /// txtPersonalAccidentP control.
+        /// txtTotalPersonalAccidentPremium control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPersonalAccidentP;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalPersonalAccidentPremium;
         
         /// <summary>
         /// lblOthersGI control.
@@ -2696,6 +2795,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtWERPOthersGI;
         
         /// <summary>
+        /// txtOthersGIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOthersGIP;
+        
+        /// <summary>
         /// txtOthersGIA control.
         /// </summary>
         /// <remarks>
@@ -2703,6 +2811,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOthersGIA;
+        
+        /// <summary>
+        /// txtAdjustedOtherGIPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedOtherGIPremium;
         
         /// <summary>
         /// txtOthersGISA control.
@@ -2714,13 +2831,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtOthersGISA;
         
         /// <summary>
-        /// txtOthersGIP control.
+        /// txtTotalPremiumOthers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOthersGIP;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalPremiumOthers;
         
         /// <summary>
         /// lblTotalGI control.

@@ -433,6 +433,14 @@ namespace BoFPSuperlite
                         {
                             customerprospectassetsubdetailsvo.Premium = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_Premium"].ToString());
                         }
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedPremium"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedPremium"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.AdjustedPremium = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_AdjustedPremium"].ToString());
+                        }
+                        if (dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalPremiumValue"] != null && dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalPremiumValue"].ToString() != "")
+                        {
+                            customerprospectassetsubdetailsvo.TotalPremiumValue = double.Parse(dtCustomerAssetSubInstrumentDetails.Rows[i]["CFPASID_TotalPremiumValue"].ToString());
+                        }
                         customerprospectassetsubdetailsvolist.Add(customerprospectassetsubdetailsvo);
                     }
                 }
