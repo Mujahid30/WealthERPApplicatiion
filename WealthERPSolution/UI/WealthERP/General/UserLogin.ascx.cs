@@ -124,36 +124,38 @@ namespace WealthERP.General
                 else
                 {
                     userVo = userBo.GetUser(txtLoginId.Text);
-                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
-                    advisorVo = (AdvisorVo)Session["advisorVo"];
-                    currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
-
-                    if ((advisorVo != null) && (userVo.UserType != "Customer"))
+                    if (userVo != null)
                     {
-                        if (advisorVo.IsIPEnable == 1)
+                        Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+                        advisorVo = (AdvisorVo)Session["advisorVo"];
+                        currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
+                        if ((advisorVo != null) && (userVo.UserType != "Customer"))
                         {
-                            hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, true);
+                            if (advisorVo.IsIPEnable == 1)
+                            {
+                                hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, true);
+
+                                if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
+                                    isPassWordMathed = true;
+                                if (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")
+                                    isIPAuthenticated = true;
+                            }
+                            else
+                            {
+                                hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
+
+                                if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
+                                    isPassWordMathed = true;
+
+                            }
+                        }
+                        else if (userVo.UserType == "Customer")
+                        {
+                            hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(0, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
 
                             if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
                                 isPassWordMathed = true;
-                            if (hashUserAuthenticationDetails["IPAuthentication"].ToString() == "True")
-                                isIPAuthenticated = true;
                         }
-                        else
-                        {
-                            hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(advisorVo.advisorId, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
-
-                            if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
-                                isPassWordMathed = true;
-                            
-                        }
-                    }
-                    else if (userVo.UserType == "Customer")
-                    {
-                        hashUserAuthenticationDetails = userBo.UserValidationForIPnonIPUsers(0, txtLoginId.Text, txtPassword.Text, currentUserIP, false);
-                       
-                        if (hashUserAuthenticationDetails["PWD"].ToString() == "True")
-                            isPassWordMathed = true;
                     }
 
                     if ((isPassWordMathed && isIPAuthenticated) || (isPassWordMathed && advisorVo.IsIPEnable == 0))  // Validating the User Using the Username and Password
