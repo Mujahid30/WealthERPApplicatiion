@@ -39,7 +39,7 @@
     </tr>
 <tr>
 <td>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="68%" ScrollBars="Horizontal">
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="72%" ScrollBars="Horizontal">
 
 <asp:GridView ID="gvrGoalPlanning" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" HorizontalAlign="Center"
@@ -100,7 +100,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField HeaderText="Corpus to be<br/>Left Behind" ItemStyle-HorizontalAlign="right">
+                    <asp:TemplateField HeaderText="Corpus to be<br/>Left Behind" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
                          <asp:Label ID="lblCorpusLeftBehind" runat="server" CssClass="cmbField" Text='<%#Eval("CorpusLeftBehind")%>'>
                          </asp:Label> 
@@ -169,7 +169,7 @@
                        
                     </asp:TemplateField> 
                     
-                   <asp:TemplateField HeaderText="FundedType" ItemStyle-HorizontalAlign="Left">
+                   <asp:TemplateField HeaderText="FundedType" ItemStyle-HorizontalAlign="Left" Visible="false">
                         <ItemTemplate>
                          <asp:Label ID="lblGoalFundedType" runat="server" CssClass="cmbField" Text='<%#Eval("GoalFundedType")%>'>
                          </asp:Label> 

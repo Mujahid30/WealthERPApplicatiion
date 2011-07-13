@@ -211,9 +211,27 @@ namespace WealthERP.FP
                 drCustomerGoalDetails["GoalPriority"] = dr["CG_Priority"].ToString();
                
                 drGoalFundDetails = customerGoalDetailsDS.Tables[1].Select("CG_GoalId=" + dr["CG_GoalId"].ToString());
+                if (dr["XG_GoalCode"].ToString() == "RT")
+                {
+                    if (dr["CG_CorpusLeftBehind"].ToString() == "")
+                    {
+                        drCustomerGoalDetails["CorpusLeftBehind"] = 0;
+                    }
+                    else if(dr["CG_CorpusLeftBehind"].ToString() == "0.0000")
+                    {
+                        drCustomerGoalDetails["CorpusLeftBehind"] = 0;
+                    }
+                    else
+                    {
+                        decimal corpusLeft = Math.Round(decimal.Parse(dr["CG_CorpusLeftBehind"].ToString()),0);
 
-                drCustomerGoalDetails["CorpusLeftBehind"] = String.Format("{0:n2}", 50000.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-
+                        drCustomerGoalDetails["CorpusLeftBehind"] = String.Format("{0:n2}",corpusLeft.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                }
+                else
+                {
+                    drCustomerGoalDetails["CorpusLeftBehind"] = "-";
+                }
                 if (drGoalFundDetails.Count() > 0)
                 {
                     equityFundAmount = decimal.Parse((drGoalFundDetails[0]["CGF_AllocatedAmount"].ToString()));
