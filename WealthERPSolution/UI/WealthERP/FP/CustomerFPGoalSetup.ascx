@@ -8,17 +8,6 @@
 
 <script type="text/javascript">
 
-    function ShowHideGaolType() {        
-        if (document.getElementById("<%= rtbNonRT.ClientID %>").checked == true) {            
-            document.getElementById("<%= PnlNonRetirement.ClientID %>").style.display = 'block';
-            document.getElementById("<%= PnlRetirement.ClientID %>").style.display = 'none';
-        }
-        else if (document.getElementById("<%= rtbRT.ClientID %>").checked == true) {
-        document.getElementById("<%= PnlNonRetirement.ClientID %>").style.display = 'none';
-        document.getElementById("<%= PnlRetirement.ClientID %>").style.display = 'block';
-        }
-
-    }
 
 //    function ShowHideControls() {
 //        var ddlGoalType = document.getElementById("<%=ddlGoalType.ClientID %>").value;
@@ -55,6 +44,7 @@
 </table>
 <hr />
 
+
 <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td align="center" colspan="2">
@@ -65,9 +55,10 @@
     </tr>
     
  </table> 
-<table width="50%" cellspacing="0" cellpadding="0">
-<tr>
-    <td style="width:20%;"></td>
+<%--<table width="50%" cellspacing="0" cellpadding="0">
+ <tr>
+    <td style="width:20%;">
+    </td>
     <td style="width:20%">
      <asp:RadioButton ID="rtbNonRT" Text="Non Retirement" runat="server" Class="FieldName" Checked="true" GroupName="GaolType" onClick="return ShowHideGaolType()"/>
      </td>
@@ -81,14 +72,11 @@
  </td>
  </tr>
 </table>
+--%>
 
-
-<asp:Panel ID="PnlNonRetirement" runat="server">
-
+<asp:Panel ID="PnlGoalTypes" runat="server">
 <table width="50%">
-           
-            
-              <tr>
+ <tr>
                     <td style="width:10%;">
                     </td>
                     <td class="leftField" valign="top" style="width:20%;">
@@ -112,6 +100,14 @@
                         </asp:Requiredfieldvalidator>--%>
                     </td>
                 </tr>
+</table>
+</asp:Panel>
+
+<asp:Panel ID="PnlNonRetirement" runat="server">
+
+<table width="50%">          
+            
+             
               <tr id="trPickChild" runat="server" >
                     <td style="width:10%;"></td>
                     <td id="Td4" class="leftField" runat="server" valign="top" style="width:20%;">
@@ -131,7 +127,7 @@
                     <td id="Td2" class="leftField" runat="server" valign="top" style="width:20%;">
                         <asp:Label ID="lblGoalDescription" runat="server" CssClass="FieldName" Text="Goal Description :"></asp:Label>
                     </td>
-                    <td id="Td3" class="rightField" runat="server" style="width:20%;">
+                    <td id="Td3" class="rightField" TextMode="MultiLine" runat="server" style="width:20%;">
                         <asp:TextBox ID="txtGoalDescription" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
@@ -297,18 +293,14 @@
                 </tr>
                 
 </table>
+
 </asp:Panel>
 
 <asp:Panel ID="PnlRetirement" runat="server">
+
 <table width="50%">
-    <tr>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td colspan="2" align="justify">
-     <asp:Label ID="lblRTGoalBasis" runat="server" CssClass="FieldName" Text="You have chosen to do retirement planning with "></asp:Label>
-    </td>
-    <td></td>
-    </tr>
-    <tr>             
+    
+            <tr>             
                     <td></td>   
                     <td class="leftField">
                         <asp:Label ID="lbl" runat="server" CssClass="FieldName" Text="Goal Cost today (monthly) :"></asp:Label>
@@ -316,9 +308,14 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtRTGoalCostToday" runat="server" AutoCompleteType="Disabled" CssClass="txtField">
                         </asp:TextBox>
+                        <span id="Span3" class="spnRequiredField" runat="server">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRTGoalCostToday" 
+                        ValidationGroup="btnRTSave" CssClass="rfvPCG" ErrorMessage="<br />Goal cost Today(monthly) Required" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
                     </td>
 </tr>
-    <tr id="trRTGoalCorpsToBeLeftBehind" runat="server">
+
+            <tr id="trRTGoalCorpsToBeLeftBehind" runat="server">
                      <td></td> 
                      <td class="leftField">
                         <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Corpus to be left behind :"></asp:Label>
@@ -328,19 +325,31 @@
                         </asp:TextBox>
                     </td>
  </tr>
-    <tr>
+ 
+            <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td colspan="2" align="justify">
+     <asp:Label ID="lblRTGoalBasis" runat="server" CssClass="FieldName" Text="You have chosen to do retirement planning with "></asp:Label>
+    </td>
+    <td></td>
+    </tr>
+ 
+ 
+            <tr>
                 <td></td>  
                 <td>
                 &nbsp;&nbsp;
                 </td>
                 <td>
                  <asp:Button ID="btnRTSave" runat="server" CssClass="PCGButton" Text="Save" 
-                        ValidationGroup="btnRTSave" onclick="btnRTSave_Click"  />
+                         ValidationGroup="btnRTSave" onclick="btnRTSave_Click"  />
                  <asp:Button ID="btnRTUpdate" runat="server" CssClass="PCGButton" Text="Update" ValidationGroup="btnRTSave"  />
                 </td>
                 </tr>
 </table>
+
 </asp:Panel>
+
 
 
 

@@ -327,6 +327,14 @@ namespace VoFPSuperlite
             get { return A_CorpusToBeLeftBehind; }
             set { A_CorpusToBeLeftBehind = value; }
         }
+
+        private int A_RTGoalYear;
+
+        public int RTGoalYear
+        {
+            get { return A_RTGoalYear; }
+            set { A_RTGoalYear = value; }
+        }
     }
 
 

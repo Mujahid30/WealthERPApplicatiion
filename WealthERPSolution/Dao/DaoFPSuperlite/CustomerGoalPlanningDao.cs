@@ -260,11 +260,26 @@ namespace DaoFPSuperlite
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
                 db.AddInParameter(allCustomerAssumptionCmd, "@GoalYear", DbType.Int32, goalYear);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
+                db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseAge", DbType.Int32, 1000);
+                db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseEOL", DbType.Int32, 1000);
+
                 allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
 
-                customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
+                Object objRTGoalYear = db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
+                if (objRTGoalYear != DBNull.Value)
+                    customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
 
-                if ((allCustomerAssumptionDs.Tables[0].Rows.Count) > 0 && (allCustomerAssumptionDs.Tables[0].Rows.Count) > 0)
+                Object objSpouseAge = db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseAge");
+                if (objSpouseAge != DBNull.Value)
+                    customerAssumptionVo.SpouseAge = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseAge");
+
+                Object objSpouseEOL = db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseEOL");
+                if (objSpouseEOL != DBNull.Value)
+                    customerAssumptionVo.SpouseEOL = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseEOL");
+
+                //customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
+
+                if ((allCustomerAssumptionDs.Tables[0].Rows.Count) > 0 && (allCustomerAssumptionDs.Tables[1].Rows.Count) > 0)
                     isHavingAssumption = true;
                 else
                     isHavingAssumption = false;               
@@ -431,15 +446,24 @@ namespace DaoFPSuperlite
                 if (dtGoalDetails.Rows.Count > 0)
                 {
                     GoalPlanningVo.Goalcode = dtGoalDetails.Rows[0]["XG_GoalCode"].ToString();
+                    if (!string.IsNullOrEmpty(dtGoalDetails.Rows[0]["CG_CostToday"].ToString().Trim()))
                     GoalPlanningVo.CostOfGoalToday =double.Parse(dtGoalDetails.Rows[0]["CG_CostToday"].ToString());
+                    if (!string.IsNullOrEmpty(dtGoalDetails.Rows[0]["CG_GoalYear"].ToString().Trim()))
                     GoalPlanningVo.GoalYear = int.Parse(dtGoalDetails.Rows[0]["CG_GoalYear"].ToString());
+                    if (dtGoalDetails.Rows[0]["CG_GoalProfileDate"]!=null && dtGoalDetails.Rows[0]["CG_GoalProfileDate"].ToString().Trim()!="")
                     GoalPlanningVo.GoalProfileDate =DateTime.Parse(dtGoalDetails.Rows[0]["CG_GoalProfileDate"].ToString());
                     GoalPlanningVo.MonthlySavingsReq =double.Parse(dtGoalDetails.Rows[0]["CG_MonthlySavingsRequired"].ToString());
-                    if(!string.IsNullOrEmpty(dtGoalDetails.Rows[0]["CA_AssociateId"].ToString()))
+                    if(!string.IsNullOrEmpty(dtGoalDetails.Rows[0]["CA_AssociateId"].ToString().Trim()))
                     GoalPlanningVo.AssociateId =int.Parse(dtGoalDetails.Rows[0]["CA_AssociateId"].ToString());
+                    if (dtGoalDetails.Rows[0]["CG_ExpectedROI"] != null && dtGoalDetails.Rows[0]["CG_ExpectedROI"].ToString().Trim() != "")
                     GoalPlanningVo.ExpectedROI =double.Parse(dtGoalDetails.Rows[0]["CG_ExpectedROI"].ToString());
+                    if (dtGoalDetails.Rows[0]["CG_Comments"] != null && dtGoalDetails.Rows[0]["CG_Comments"].ToString().Trim() != "")
                     GoalPlanningVo.Comments = dtGoalDetails.Rows[0]["CG_Comments"].ToString();
+                    if (dtGoalDetails.Rows[0]["CG_GoalDescription"] != null && dtGoalDetails.Rows[0]["CG_GoalDescription"].ToString().Trim() != "")
                     GoalPlanningVo.GoalDescription = dtGoalDetails.Rows[0]["CG_GoalDescription"].ToString();
+                    if (dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"] != null && dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"].ToString().Trim() != "")
+                    GoalPlanningVo.CorpusLeftBehind =double.Parse(dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"].ToString());
+
                     if (int.Parse(dtGoalDetails.Rows[0]["CG_IsOnetimeOccurence"].ToString()) == 1)
                     {
                         GoalPlanningVo.IsOnetimeOccurence = true;

@@ -90,7 +90,7 @@ namespace BoFPSuperlite
 
                     if (goalPlanningVo.Goalcode != "RT" && updateGoal == false)
                         goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
-                    else if (goalPlanningVo.Goalcode == "RT" && updateGoal == true)
+                    else if (goalPlanningVo.Goalcode == "RT" && updateGoal == false)
                         goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
                     if (updateGoal)
@@ -202,19 +202,29 @@ namespace BoFPSuperlite
             try
             {
                 amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -goalPlanningVo.CostOfGoalToday, 1);
-                spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (goalPlanningVo.CustomerAge - customerAssumptionVo.RetirementAge);
+                spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (goalPlanningVo.CustomerAge - customerAssumptionVo.SpouseAge);
                 adjustedInfluation = ((1 + customerAssumptionVo.PostRetirementReturn / 100) / (1 + customerAssumptionVo.InflationPercent / 100) - 1) * 100;
-                if (customerAssumptionVo.CorpusToBeLeftBehind != 0)
+                if (goalPlanningVo.CorpusLeftBehind == 0)
                 {
-                    corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, 0, 1);
+                    if (spouseLifeAfterCustomerRet > 0)
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, 0, 1);
+                    else
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, 0, 1);
                 }
                 else
                 {
-                    corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, -customerAssumptionVo.CorpusToBeLeftBehind, 1);
+                    if (spouseLifeAfterCustomerRet>0)
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
+                    else
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, -goalPlanningVo.CorpusLeftBehind, 1);
+
                 }
                 amountToBeSavedPerMonth = PMT(customerAssumptionVo.ReturnOnNewInvestment / 1200, yearsLeftForRetirement * 12, 0, -corpusReqAtTimeOfRetirement, 1);
-                goalPlanningVo.MonthlySavingsReq = amountToBeSavedPerMonth;
-                goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
+                goalPlanningVo.FutureValueOfCostToday = Math.Round(amountAfterFirstMonthRetirement);
+                goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth,2);
+                //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
+                goalPlanningVo.GoalYear = customerAssumptionVo.RTGoalYear;
+                goalPlanningVo.InflationPercent = customerAssumptionVo.InflationPercent;
 
             }
             catch (BaseApplicationException Ex)

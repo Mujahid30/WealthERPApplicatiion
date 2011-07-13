@@ -29,8 +29,8 @@ namespace WealthERP.FP
         int goalId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            rtbNonRT.Attributes.Add("onClick", "javascript:ShowHideGaolType(value);");
-            rtbRT.Attributes.Add("onClick", "javascript:ShowHideGaolType(value);");
+            //rtbNonRT.Attributes.Add("onClick", "javascript:ShowHideGaolType(value);");
+            //rtbRT.Attributes.Add("onClick", "javascript:ShowHideGaolType(value);");
 
             rmVo = (RMVo)Session[SessionContents.RmVo];
             customerVo=(CustomerVo)Session["customerVo"];
@@ -46,7 +46,7 @@ namespace WealthERP.FP
                     goalAction = Request.QueryString["goalAction"];
 
                 dtFPCalculationBasis = goalPlanningBo.GetCustomerFPCalculationBasis(customerVo.CustomerId);
-                RTGoalPageLoadSetup(dtFPCalculationBasis);
+               
                 dsAllDropDownDetails = goalPlanningBo.GetAllGoalDropDownDetails(customerVo.CustomerId);
                 BindGoalObjectiveDropDown(dsAllDropDownDetails.Tables["GoalObjective"]);
                 BindPickChildDropDown(dsAllDropDownDetails.Tables["ChildDetails"]);
@@ -61,9 +61,10 @@ namespace WealthERP.FP
                if(goalId!=0 && !string.IsNullOrEmpty(goalCategory) && !string.IsNullOrEmpty(goalAction))
                {
                    GoalViewEditByGoalId(goalId, goalAction, goalCategory);
-                   rtbNonRT.Enabled = false;
-                   rtbRT.Enabled = false;
+                   //rtbNonRT.Enabled = false;
+                   //rtbRT.Enabled = false;
                }
+               RTGoalPageLoadSetup(dtFPCalculationBasis);
             }
         }
         
@@ -158,8 +159,8 @@ namespace WealthERP.FP
             ViewState["GoalId"] = goalId;
             if(goalCategory=="NonRT")
             {
-                rtbNonRT.Checked = true;
-                rtbRT.Checked = false;
+                //rtbNonRT.Checked = true;
+                //rtbRT.Checked = false;
                 btnNonRTSave.Visible = false;
                 btnRTUpdate.Visible = false;
                 btnNonRTUpdate.Visible = true;
@@ -198,16 +199,37 @@ namespace WealthERP.FP
             }
             else if (goalCategory == "RT")
             {
-                rtbRT.Checked = true;
-                rtbNonRT.Checked = false;
+                if (goalPlanningVo != null)
+                {
+                   
+                    ddlGoalType.SelectedValue = goalPlanningVo.Goalcode;
+                    txtRTGoalCostToday.Text = goalPlanningVo.CostOfGoalToday.ToString();
+                    txtRTCorpusToBeLeftBehind.Text = goalPlanningVo.CorpusLeftBehind.ToString();
+
+                    if (goalAction == "Edit")
+                    {
+                        SetControlReadOnly(false);
+                    }
+                    else if (goalAction == "View")
+                    {
+                        SetControlReadOnly(true);
+
+                    }
+
+                    PnlNonRetirement.Visible = false;
+                    PnlRetirement.Visible = true;
+
+                }
+                //rtbRT.Checked = true;
+                //rtbNonRT.Checked = false;
                 btnRTSave.Visible = false;
                 btnRTUpdate.Visible = true;
                 btnNonRTUpdate.Visible = false;
  
             }
 
-            rtbRT.Enabled = false;
-            rtbNonRT.Enabled = false;
+            //rtbRT.Enabled = false;
+            //rtbNonRT.Enabled = false;
 
  
         }
@@ -232,7 +254,8 @@ namespace WealthERP.FP
                 btnNonRTUpdate.Enabled = false;
 
                 aplToolBar.Enabled = true;
-                
+                txtRTCorpusToBeLeftBehind.Enabled = false;
+                txtRTGoalCostToday.Enabled = false;
 
             }
             else
@@ -253,6 +276,10 @@ namespace WealthERP.FP
                 btnNonRTUpdate.Enabled = true;
 
                 aplToolBar.Enabled = false;
+                txtRTCorpusToBeLeftBehind.Enabled = true;
+                txtRTGoalCostToday.Enabled = true;
+
+
  
             }
  
@@ -309,13 +336,25 @@ namespace WealthERP.FP
             
         protected void ddlGoalType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+            if (ddlGoalType.SelectedValue == "RT")
             {
-                trPickChild.Visible = true;
+                PnlRetirement.Visible = true;
+                PnlNonRetirement.Visible = false;                
+
             }
             else
             {
-                trPickChild.Visible = false;
+
+                PnlNonRetirement.Visible = true;
+                PnlRetirement.Visible = false;
+                if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+                {
+                    trPickChild.Visible = true;
+                }
+                else
+                {
+                    trPickChild.Visible = false;
+                }
             }
 
         }
@@ -386,14 +425,22 @@ namespace WealthERP.FP
                 goalPlanningVo.CustomerAge = (DateTime.Now.Year - customerVo.Dob.Year);
             }
             goalPlanningVo.Goalcode = "RT";
+            if (!string.IsNullOrEmpty(txtRTGoalCostToday.Text))
             goalPlanningVo.CostOfGoalToday = double.Parse(txtRTGoalCostToday.Text);
             goalPlanningVo.GoalDate =DateTime.Parse(DateTime.Now.ToShortDateString());
-            if (!string.IsNullOrEmpty(hidRTGoalCorpsLeftBehind.Value.ToString()))
+            if (hidRTGoalCorpsLeftBehind.Value.ToString()=="1")
             {
                 goalPlanningVo.CorpusToBeLeftBehind = true;
+                if (!string.IsNullOrEmpty(txtRTCorpusToBeLeftBehind.Text))
                 goalPlanningVo.CorpusLeftBehind =int.Parse(txtRTCorpusToBeLeftBehind.Text);
                 
             }
+
+            goalPlanningVo.Priority = "High";
+            goalPlanningVo.IsOnetimeOccurence = true;
+            goalPlanningVo.CreatedBy = rmVo.RMId;
+
+
             goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
 
         }
