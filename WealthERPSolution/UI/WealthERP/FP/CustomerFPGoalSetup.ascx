@@ -21,6 +21,43 @@
 //              document.getElementById("<%= trFrequency.ClientID %>").style.display = 'block';
 //    }
 </script>
+<script language="javascript" type="text/javascript">
+    function showmessageNRT() {
+
+        var bool = window.confirm('Are you sure you want to update Goal Setup,Funding will get delete..!!');
+
+        if (bool) {
+            document.getElementById("ctrl_CustomerFPGoalSetup_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_CustomerFPGoalSetup_hiddenNRTUpdate").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_CustomerFPGoalSetup_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_CustomerFPGoalSetup_hiddenNRTUpdate").click();
+            return true;
+
+        }
+    }
+</script>
+<script language="javascript" type="text/javascript">
+    function showmessageRT() {
+
+        var bool = window.confirm('Are you sure you want to update Goal Setup,Funding will get delete..!!');
+
+        if (bool) {
+            document.getElementById("ctrl_CustomerFPGoalSetup_hdnMsgValueRT").value = 1;
+            document.getElementById("ctrl_CustomerFPGoalSetup_hiddenRTUpdate").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_CustomerFPGoalSetup_hdnMsgValueRT").value = 0;
+            document.getElementById("ctrl_CustomerFPGoalSetup_hiddenRTUpdate").click();
+            return true;
+
+        }
+    }
+</script>
+
 
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Setup"></asp:Label>
 <hr />
@@ -43,7 +80,16 @@
 </tr>
 </table>
 <hr />
-
+<table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="center" colspan="2">
+            <div id="msgUpdateStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record Updated Successfully
+            </div>
+        </td>
+    </tr>
+    
+ </table>
 
 <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
@@ -179,8 +225,8 @@
                     </td>
                     <td class="rightField" style="width:20%;">
                         <asp:DropDownList ID="ddlOccurrence" runat="server" CssClass="cmbField" 
-                            onchange="ShowTrFrequency()" 
-                            onselectedindexchanged="ddlOccurrence_SelectedIndexChanged" AutoPostBack="true">
+                            
+                            OnSelectedIndexChanged="ddlOccurrence_SelectedIndexChanged" AutoPostBack="True">
                         <asp:ListItem Text="Select" Value="Select">                                              
                         </asp:ListItem>
                         <asp:ListItem Text="One Time" Value="Once">                                              
@@ -343,7 +389,7 @@
                 <td>
                  <asp:Button ID="btnRTSave" runat="server" CssClass="PCGButton" Text="Save" 
                          ValidationGroup="btnRTSave" onclick="btnRTSave_Click"  />
-                 <asp:Button ID="btnRTUpdate" runat="server" CssClass="PCGButton" Text="Update" ValidationGroup="btnRTSave"  />
+                 <asp:Button ID="btnRTUpdate" runat="server" CssClass="PCGButton" onclick="btnRTUpdate_Click"  Text="Update" ValidationGroup="btnRTSave"  />
                 </td>
                 </tr>
 </table>
@@ -355,6 +401,15 @@
 
 <asp:HiddenField ID="hidRTGoalCorpsLeftBehind" runat="server" />
 <asp:HiddenField ID="hidFPCalculationBasis" runat="server" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+
+<asp:Button ID="hiddenNRTUpdate" runat="server" OnClick="hiddenNRTUpdate_Click"
+    BorderStyle="None" BackColor="Transparent" />
+    
+    <asp:HiddenField ID="hdnMsgValueRT" runat="server" />
+
+<asp:Button ID="hiddenRTUpdate" runat="server" OnClick="hiddenRTUpdate_Click"
+    BorderStyle="None" BackColor="Transparent" />
 
 <script type="text/javascript">
     document.getElementById("<%= PnlNonRetirement.ClientID %>").style.display = 'block';

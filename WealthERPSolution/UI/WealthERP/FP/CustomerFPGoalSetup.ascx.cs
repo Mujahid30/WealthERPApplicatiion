@@ -35,7 +35,8 @@ namespace WealthERP.FP
             rmVo = (RMVo)Session[SessionContents.RmVo];
             customerVo=(CustomerVo)Session["customerVo"];
             DataTable dtFPCalculationBasis;
-            
+            msgRecordStatus.Visible = false;
+            msgUpdateStatus.Visible = false;
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["GoalId"] != null)
@@ -148,9 +149,11 @@ namespace WealthERP.FP
 
             result = goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
             if (!result)
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp The Assuption For This Customer');", true);
-            
-
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp The Assuption For This Customer');", true);
+            }
+            else
+                msgRecordStatus.Visible = true;
         }
 
         protected void GoalViewEditByGoalId(int goalId, string goalAction,string goalCategory)
@@ -293,44 +296,54 @@ namespace WealthERP.FP
 
             }
         }
-
+        protected void hiddenNRTUpdate_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                UpdateNRTGoalSetUp();
+                msgUpdateStatus.Visible = true;
+            }
+            else
+            {
+                msgUpdateStatus.Visible = false;
+                msgRecordStatus.Visible = false;
+            }
+        }
         protected void btnNonRTUpdate_Click(object sender, EventArgs e)
         {
-            try
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessageNRT();", true);
+        }
+
+
+        protected void UpdateNRTGoalSetUp()
+        {
+            goalPlanningVo.GoalId = int.Parse(ViewState["GoalId"].ToString());
+            goalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
+            //goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+            goalPlanningVo.Priority = ddlPriority.SelectedValue.ToString();
+            if (ddlOccurrence.SelectedValue.ToString() == "Once")
             {
-                goalPlanningVo.GoalId = int.Parse(ViewState["GoalId"].ToString());
-                goalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-                //goalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
-                goalPlanningVo.Priority = ddlPriority.SelectedValue.ToString();
-                if (ddlOccurrence.SelectedValue.ToString() == "Once")
-                {
-                    goalPlanningVo.IsOnetimeOccurence = true;
-                }
-                else if (ddlOccurrence.SelectedValue.ToString() == "Recurring")
-                {
-                    goalPlanningVo.Frequency = ddlFrequency.SelectedValue.ToString();
-                }
-                goalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
-                goalPlanningVo.GoalDescription = txtGoalDescription.Text.ToString();
+                goalPlanningVo.IsOnetimeOccurence = true;
+            }
+            else if (ddlOccurrence.SelectedValue.ToString() == "Recurring")
+            {
+                goalPlanningVo.Frequency = ddlFrequency.SelectedValue.ToString();
+            }
+            goalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
+            goalPlanningVo.GoalDescription = txtGoalDescription.Text.ToString();
 
-                if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
-                {
-                    if (ddlPickChild.SelectedIndex != 0)
-                        goalPlanningVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
-                }
-                if (txtComment.Text != "")
-                {
-                    goalPlanningVo.Comments = txtComment.Text.ToString();
-
-                }
-                goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
+            if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
+            {
+                if (ddlPickChild.SelectedIndex != 0)
+                    goalPlanningVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+            }
+            if (txtComment.Text != "")
+            {
+                goalPlanningVo.Comments = txtComment.Text.ToString();
 
             }
-            catch (Exception ee)
-            {
- 
-            }
-
+            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
 
         }
             
@@ -442,8 +455,56 @@ namespace WealthERP.FP
 
 
             goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
+            msgRecordStatus.Visible = true;
+        }
+        protected void btnRTUpdate_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessageRT();", true);
+        }
+        protected void hiddenRTUpdate_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValueRT.Value);
+            if (val == "1")
+            {
+                UpdateRTGoalSetUp();
+                msgUpdateStatus.Visible = true;
+            }
+            else
+            {
+                msgUpdateStatus.Visible = false;
+                msgRecordStatus.Visible = false;
+            }
+        }
+
+        protected void UpdateRTGoalSetUp()
+        {
+            SessionBo.CheckSession();
+            goalPlanningVo.CustomerId = customerVo.CustomerId;            
+            goalPlanningVo.GoalId = int.Parse(ViewState["GoalId"].ToString());
+            if (customerVo.Dob != DateTime.MinValue)
+            {
+                goalPlanningVo.CustomerAge = (DateTime.Now.Year - customerVo.Dob.Year);
+            }
+            goalPlanningVo.Goalcode = "RT";
+            if (!string.IsNullOrEmpty(txtRTGoalCostToday.Text))
+                goalPlanningVo.CostOfGoalToday = double.Parse(txtRTGoalCostToday.Text);
+            goalPlanningVo.GoalDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            if (hidRTGoalCorpsLeftBehind.Value.ToString() == "1")
+            {
+                goalPlanningVo.CorpusToBeLeftBehind = true;
+                if (!string.IsNullOrEmpty(txtRTCorpusToBeLeftBehind.Text))
+                    goalPlanningVo.CorpusLeftBehind = int.Parse(txtRTCorpusToBeLeftBehind.Text);
+
+            }
+
+            goalPlanningVo.Priority = "High";
+            goalPlanningVo.IsOnetimeOccurence = true;
+            goalPlanningVo.CreatedBy = rmVo.RMId;
+
+
+            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
+          
 
         }
-        
     }
 }
