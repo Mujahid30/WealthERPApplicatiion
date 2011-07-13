@@ -3476,7 +3476,7 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
-        public bool CheckSpouseRelationship(int customerId)
+        public void CheckSpouseRelationship(int customerId,out bool spouseRelationExist,out bool spouseDobExist, out bool spouseAssumptionExist)
         {
             bool result = false;
             Database db;
@@ -3487,12 +3487,46 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 checkSpouseRelationshipCmd = db.GetStoredProcCommand("SP_CheckSpouseRelationShip");
                 db.AddInParameter(checkSpouseRelationshipCmd, "@customerId", DbType.Int32, customerId);
+                db.AddOutParameter(checkSpouseRelationshipCmd, "@isSpouseRelationExist", DbType.Int32, 50);
+                db.AddOutParameter(checkSpouseRelationshipCmd, "@isSpouseDobExist ", DbType.Int32, 50);
+                db.AddOutParameter(checkSpouseRelationshipCmd, "@isSpouseAssemptionExist", DbType.Int32, 50);
                 dsCheckSpouseRelationship = db.ExecuteDataSet(checkSpouseRelationshipCmd);
-                if (dsCheckSpouseRelationship.Tables[0].Rows.Count != 0)
-                    result = true;
-                else
-                    result = false;
 
+                Object objspCustomerId = db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseRelationExist");
+                Object objspDOB = db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseDobExist ");
+                Object objcount = db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseAssemptionExist");
+                if (objspCustomerId != DBNull.Value)
+                {
+                    if (int.Parse(db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseRelationExist").ToString()) == 1)
+                        spouseRelationExist = true;
+                    else
+                        spouseRelationExist = false;
+                }
+                else
+                    spouseRelationExist = false;
+
+
+                if (objspCustomerId != DBNull.Value)
+                {
+                    if (int.Parse(db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseRelationExist").ToString()) == 1)
+                        spouseDobExist = true;
+                    else
+                        spouseDobExist = false;
+
+                }
+                else
+                    spouseDobExist = false;
+
+
+                if (objspCustomerId != DBNull.Value)
+                {
+                    if (int.Parse(db.GetParameterValue(checkSpouseRelationshipCmd, "@isSpouseRelationExist").ToString()) > 0)
+                        spouseAssumptionExist = true;
+                    else
+                        spouseAssumptionExist = false;
+                }
+                else
+                    spouseAssumptionExist = false;
                    
             }
 
@@ -3512,9 +3546,8 @@ namespace DaoCustomerProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
-            return result;
-
+           
+         
         }
 
     }
