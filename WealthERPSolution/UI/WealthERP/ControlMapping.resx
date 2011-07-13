@@ -1101,9 +1101,9 @@
     <value>General//Calculators.ascx</value>
     <comment>General//Calculators.ascx</comment>
   </data>
-  <data name="AddAdviserSubscription" xml:space="preserve">
-    <value>SuperAdmin//AddAdviserSubscription.ascx</value>
-    <comment>SuperAdmin//AddAdviserSubscription.ascx</comment>
+  <data name="Subscription" xml:space="preserve">
+    <value>SuperAdmin//Subscription.ascx</value>
+    <comment>SuperAdmin//Subscription.ascx</comment>
   </data>
   <data name="SuperAdminLeftPane" xml:space="preserve">
     <value>SuperAdmin//SuperAdminLeftPane.ascx</value>

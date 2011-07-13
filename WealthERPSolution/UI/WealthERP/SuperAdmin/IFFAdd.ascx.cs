@@ -891,18 +891,18 @@ namespace WealthERP.SuperAdmin
         }
         /* Add/Edit Subscription Option not included in this release so hiding this button for this release */
 
-        //protected void btnSubscription_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
+        protected void btnSubscription_Click(object sender, EventArgs e)
+        {
+            try
+            {
 
-        //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "mainframe", "loadcontrol('Subscription','none');", true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "asdasd", "loadcontrol('Subscription','none');", true);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         /* End */
 
