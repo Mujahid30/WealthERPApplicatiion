@@ -1783,13 +1783,27 @@ namespace BoCustomerProfiling
             }
             return bResult;
         }
-        public bool CheckSpouseRelationship(int customerId)
+        public void CheckSpouseRelationship(int customerId, out bool spRelationExist,out bool spDobExist,out bool spAssumptionExist)
         {
-            bool result = false;
+            bool spouseRelationExist = false;
+            bool spouseDobExist = false;
+            bool spouseAssumptionExist = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                result = customerDao.CheckSpouseRelationship(customerId);
+               customerDao.CheckSpouseRelationship(customerId, out spouseRelationExist, out spouseDobExist, out spouseAssumptionExist);
+               if (!spouseRelationExist)
+                   spRelationExist = false;
+               else
+                   spRelationExist = true;
+               if (!spouseDobExist)
+                   spDobExist = false;
+               else
+                   spDobExist = true;
+               if (!spouseAssumptionExist)
+                   spAssumptionExist = false;
+               else
+                   spAssumptionExist = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1807,7 +1821,7 @@ namespace BoCustomerProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return result;
+            
 
         }
 
