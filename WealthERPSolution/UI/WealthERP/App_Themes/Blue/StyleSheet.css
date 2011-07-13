@@ -865,4 +865,36 @@ p.tip
     
 }
 
+/* For expand Collapse header*/
+.Collapse_list
+{
+    margin: 0px;
+    padding: 0px;
+    width: 383px;
+}
+
+.Collapse_header
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    background: url(Images/testSCBbackground.gif) repeat-x;
+    margin:1px;
+    
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size:x-small;
+    color: #FFFFFF;
+    vertical-align: middle;
+    text-align: left;
+    height:15px;
+    
+}
+
+.Collapse_body 
+{
+    padding: 5px 10px 15px;
+    
+}
+
 /* End */
