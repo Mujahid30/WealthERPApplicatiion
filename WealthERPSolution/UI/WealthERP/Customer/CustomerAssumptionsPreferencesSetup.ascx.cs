@@ -331,19 +331,36 @@ namespace WealthERP.Customer
         protected void btnPlanPreference_OnClick(object sender, EventArgs e)
         {
             UpdatePlanPreferences();
-            msgRecordStatus.Visible = true;
+            //msgRecordStatus.Visible = true;
         }
 
-        private bool IsSpouseExist()
+        private void IsSpouseExist()
         {
-            bool result = false;
-            result = customerBo.CheckSpouseRelationship(customerVo.CustomerId);
-            if (!result)
+            
+            bool spouseRelationExist = false;
+            bool spouseDobExist = false;
+            bool spouseAssumptionExist = false;
+            customerBo.CheckSpouseRelationship(customerVo.CustomerId, out spouseRelationExist, out spouseDobExist, out spouseAssumptionExist);
+            if (!spouseRelationExist)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('There is no SpouseAssociation!!');", true);
-                result = false;
             }
-            return result;
+            else if(!spouseDobExist)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Spouse does not have Date of Birth!!');", true);
+            }
+            else if (!spouseAssumptionExist)
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Spouse does not have Assuption!!');", true);
+            else
+            {
+                customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
+                msgRecordStatus.Visible = true;
+            }
+           
+          
+             
+           
         }
 
         protected void btnCalculationBasis_OnClick(object sender, EventArgs e)
@@ -568,13 +585,8 @@ namespace WealthERP.Customer
             }
             if (rbtnSpouse.Checked)
             {
-                bool result = false;
-                result = IsSpouseExist();
-                if (result)
-                {
-                    customerBo.InsertPlanPreferences(customerVo.CustomerId, 4, 2);
-                    msgRecordStatus.Visible = true;
-                }
+
+                IsSpouseExist();
             }
 
         }
