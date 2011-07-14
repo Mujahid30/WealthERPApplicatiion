@@ -130,16 +130,30 @@ namespace WealthERP.FP
                if (drSetDefaultGoal.Count() > 0)
                {
                    txtEquityAllAmt.Text = Math.Round(decimal.Parse(drSetDefaultGoal[0]["CGF_AllocatedAmount"].ToString()), 0).ToString();
-                   Dictionary<string, decimal> equityAssetValues = calculateRemainingFields(decimal.Parse(txtEquityAllAmt.Text), decimal.Parse(txtEquityAvlCorps.Text));
-                   txtEquityAllPer.Text = Math.Round(decimal.Parse(equityAssetValues["PERCENT"].ToString()), 2).ToString();
-                   txtEquityRemainCorpus.Text = Math.Round(decimal.Parse(equityAssetValues["CORPS"].ToString()), 0).ToString();
 
+                   if (int.Parse(txtEquityAllAmt.Text) != 0)
+                   {
+                       Dictionary<string, decimal> equityAssetValues = calculateRemainingFields(decimal.Parse(txtEquityAllAmt.Text), decimal.Parse(txtEquityAvlCorps.Text));
+                       txtEquityAllPer.Text = Math.Round(decimal.Parse(equityAssetValues["PERCENT"].ToString()), 2).ToString();
+                       txtEquityRemainCorpus.Text = Math.Round(decimal.Parse(equityAssetValues["CORPS"].ToString()), 0).ToString();
+                   }
+                   else
+                   {
+                       txtEquityRemainCorpus.Text = "0";
+                       txtEquityAllPer.Text = "0";
+                   }
                    txtDebtAllAmt.Text = Math.Round(decimal.Parse(drSetDefaultGoal[1]["CGF_AllocatedAmount"].ToString()), 0).ToString();
-
-                   Dictionary<string, decimal> debtAssetValues = calculateRemainingFields(decimal.Parse(txtDebtAllAmt.Text), decimal.Parse(txtDebtAvlCorps.Text));
-                   txtDebtAllPer.Text = Math.Round(decimal.Parse(debtAssetValues["PERCENT"].ToString()), 2).ToString();
-                   txtDebtRemainCorpus.Text = Math.Round(decimal.Parse(debtAssetValues["CORPS"].ToString()), 0).ToString();
-
+                   if (int.Parse(txtDebtAllAmt.Text) != 0)
+                   {
+                       Dictionary<string, decimal> debtAssetValues = calculateRemainingFields(decimal.Parse(txtDebtAllAmt.Text), decimal.Parse(txtDebtAvlCorps.Text));
+                       txtDebtAllPer.Text = Math.Round(decimal.Parse(debtAssetValues["PERCENT"].ToString()), 2).ToString();
+                       txtDebtRemainCorpus.Text = Math.Round(decimal.Parse(debtAssetValues["CORPS"].ToString()), 0).ToString();
+                   }
+                   else
+                   {
+                       txtDebtRemainCorpus.Text = "0";
+                       txtDebtAllPer.Text = "0";
+                   }
                    txtCashAllAmt.Text = Math.Round(decimal.Parse(drSetDefaultGoal[2]["CGF_AllocatedAmount"].ToString()), 0).ToString();
                    if (decimal.Parse(txtCashAvlCorps.Text) != 0)
                    {
@@ -147,14 +161,27 @@ namespace WealthERP.FP
                        txtCashAllPer.Text = Math.Round(decimal.Parse(cashAssetValues["PERCENT"].ToString()), 2).ToString();
                        txtCashRemainCorpus.Text = Math.Round(decimal.Parse(cashAssetValues["CORPS"].ToString()), 0).ToString();
                    }
+                   else
+                   {
+                       txtCashAllPer.Text = "0";
+                       txtCashRemainCorpus.Text = "0";
+                   }
                    txtStartLoanYr.Text = drSetDefaultGoal[0]["CGF_LoanStartDate"].ToString();
                    txtLoanAmountFunding.Text = drSetDefaultGoal[0]["CGF_LoanAmount"].ToString();
                    if (count != 3)
                    {
                        txtAlternateAllAmt.Text = Math.Round(decimal.Parse(drSetDefaultGoal[3]["CGF_AllocatedAmount"].ToString()), 0).ToString();
-                       Dictionary<string, decimal> alternateAssetValues = calculateRemainingFields(decimal.Parse(txtAlternateAllAmt.Text), decimal.Parse(txtAlternateAvlCorps.Text));
-                       txtAlternateAllPer.Text = Math.Round(decimal.Parse(alternateAssetValues["PERCENT"].ToString()), 2).ToString();
-                       txtAlternateRemainCorpus.Text = Math.Round(decimal.Parse(alternateAssetValues["CORPS"].ToString()), 0).ToString();
+                       if (int.Parse(txtAlternateAllAmt.Text) != 0)
+                       {
+                           Dictionary<string, decimal> alternateAssetValues = calculateRemainingFields(decimal.Parse(txtAlternateAllAmt.Text), decimal.Parse(txtAlternateAvlCorps.Text));
+                           txtAlternateAllPer.Text = Math.Round(decimal.Parse(alternateAssetValues["PERCENT"].ToString()), 2).ToString();
+                           txtAlternateRemainCorpus.Text = Math.Round(decimal.Parse(alternateAssetValues["CORPS"].ToString()), 0).ToString();
+                       }
+                       else
+                       {
+                           txtAlternateAllPer.Text = "0";
+                           txtAlternateRemainCorpus.Text = "0";
+                       }
                    }
                    decimal totalAmount;
                    if (txtAlternateAllAmt.Text != "")
