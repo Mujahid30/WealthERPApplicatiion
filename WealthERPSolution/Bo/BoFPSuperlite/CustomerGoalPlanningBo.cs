@@ -84,13 +84,13 @@ namespace BoFPSuperlite
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
-                customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(goalPlanningVo.CustomerId, goalPlanningVo.GoalYear, out isHavingAssumption);
+                customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
                 if (isHavingAssumption)
                 {
 
-                    if (goalPlanningVo.Goalcode != "RT" && updateGoal == false)
+                    if (goalPlanningVo.Goalcode != "RT")
                         goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
-                    else if (goalPlanningVo.Goalcode == "RT" && updateGoal == false)
+                    else if (goalPlanningVo.Goalcode == "RT")
                         goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
                     if (updateGoal)
