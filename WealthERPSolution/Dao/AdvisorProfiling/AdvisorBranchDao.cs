@@ -2205,6 +2205,55 @@ namespace DaoAdvisorProfiling
 
 
      }
+
+     /// <summary>
+     /// Moving a folio to another Portfolio.
+     /// </summary>
+     /// <param name="customerID"></param>
+     /// <param name="folioNum"></param>
+     /// <param name="toPortfolioID"></param>
+     /// <param name="accountId"></param>
+     /// <returns></returns>
+
+     public DataSet FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
+     {
+         Database FolioMoveToPortfolioDb;
+         DbCommand FolioMoveToPortfolioCmd;
+         DataSet FolioMoveToPortfolioDs = new DataSet();
+
+         try
+         {
+             FolioMoveToPortfolioDb = DatabaseFactory.CreateDatabase("wealtherp");
+             FolioMoveToPortfolioCmd = FolioMoveToPortfolioDb.GetStoredProcCommand("SP_FolioMoveToPortfolio");
+             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@customerID", DbType.Int32, customerID);
+             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@folioNum", DbType.String, folioNum);
+             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@toPortfolioID", DbType.Int32, toPortfolioID);
+             FolioMoveToPortfolioDb.AddInParameter(FolioMoveToPortfolioCmd, "@accountId", DbType.Int32, accountId);
+             FolioMoveToPortfolioDs = FolioMoveToPortfolioDb.ExecuteDataSet(FolioMoveToPortfolioCmd);
+         }
+         catch (BaseApplicationException Ex)
+         {
+             throw Ex;
+         }
+         catch (Exception Ex)
+         {
+             BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+             NameValueCollection FunctionInfo = new NameValueCollection();
+             FunctionInfo.Add("Method", "AdvisorBranchBo.cs:FolioMoveToPortfolio()");
+
+             object[] objects = new object[4];
+             objects[0] = customerID;
+             objects[1] = folioNum;
+             objects[2] = toPortfolioID;
+             objects[3] = accountId;
+
+             FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+             exBase.AdditionalInformation = FunctionInfo;
+             ExceptionManager.Publish(exBase);
+             throw exBase;
+         }
+         return FolioMoveToPortfolioDs;
+     } 
     
      /// <summary>
      /// Moving a folio from one customer to another customer's Portfolio 
