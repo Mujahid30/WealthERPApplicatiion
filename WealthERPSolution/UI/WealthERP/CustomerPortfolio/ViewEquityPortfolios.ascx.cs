@@ -42,6 +42,7 @@ namespace WealthERP.CustomerPortfolio
         private double realised_spec = 0;
         private double unrealised_all = 0;
         private double unrealisedPNL = 0;
+        private double costofpurchase = 0;
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         private decimal currentValue = 0;
         static int portfolioId;
@@ -252,7 +253,11 @@ namespace WealthERP.CustomerPortfolio
                         drEqPortfolio[1] = eqPortfolioVo.EQCompanyName.ToString();
                         drEqPortfolio[2] = eqPortfolioVo.Quantity.ToString("f0");
                         drEqPortfolio[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
+                        {
+                            costofpurchase = costofpurchase + eqPortfolioVo.CostOfPurchase;
+                            drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        }
                         drEqPortfolio[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drEqPortfolio[6] = double.Parse(eqPortfolioVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         if (eqPortfolioVo.UnRealizedPNL.ToString() != string.Empty)
@@ -260,12 +265,15 @@ namespace WealthERP.CustomerPortfolio
                             unrealised_all = unrealised_all + eqPortfolioVo.UnRealizedPNL;
                             drEqPortfolio[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
+                   
+                       
                         if (eqPortfolioVo.RealizedPNL.ToString() != string.Empty)
                         {
                             realised_all = realised_all + eqPortfolioVo.RealizedPNL;
                             drEqPortfolio[8] = double.Parse(eqPortfolioVo.RealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
                         drEqPortfolio[9] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                       
                         dtEqPortfolio.Rows.Add(drEqPortfolio);
 
                         if (eqPortfolioVo.DeliverySalesQuantity != 0)
@@ -311,8 +319,11 @@ namespace WealthERP.CustomerPortfolio
                             drEqPortfolioUnrealized[1] = eqPortfolioVo.EQCompanyName.ToString();
                             drEqPortfolioUnrealized[2] = eqPortfolioVo.Quantity.ToString("f0");
                             drEqPortfolioUnrealized[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drEqPortfolioUnrealized[4] = double
-                                .Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
+                            {
+                                costofpurchase = costofpurchase + eqPortfolioVo.CostOfPurchase;
+                                drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            }
                             drEqPortfolioUnrealized[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             drEqPortfolioUnrealized[6] = double.Parse(eqPortfolioVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             if (eqPortfolioVo.UnRealizedPNL.ToString() != string.Empty)
@@ -321,6 +332,7 @@ namespace WealthERP.CustomerPortfolio
                                 drEqPortfolioUnrealized[7] = double.Parse(eqPortfolioVo.UnRealizedPNL.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             }
                             drEqPortfolioUnrealized[8] = double.Parse(eqPortfolioVo.XIRR.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                   
                             dtEqPortfolioUnrealized.Rows.Add(drEqPortfolioUnrealized);
                         }
                     }
@@ -1057,6 +1069,8 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
+                e.Row.Cells[5].Text = costofpurchase.ToString("f4");
+                e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = currentPrice_All.ToString("f4");
                 e.Row.Cells[7].Attributes.Add("align", "Right");
                 e.Row.Cells[8].Text = unrealised_all.ToString("f4");
@@ -1096,6 +1110,8 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
+                e.Row.Cells[5].Text = costofpurchase.ToString("f4");
+                e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = String.Format("{0:n2}", decimal.Parse(currentPrice_UnRe.ToString("f2")));
                 currentValue = decimal.Parse(currentPrice_UnRe.ToString("f2"));
                 e.Row.Cells[7].Attributes.Add("align", "Right");
