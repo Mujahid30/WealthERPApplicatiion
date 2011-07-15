@@ -1496,6 +1496,51 @@ namespace BoAdvisorProfiling
 
         }
 
+
+
+        /// <summary>
+        /// Moving a folio to another Portfolio.
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <param name="folioNum"></param>
+        /// <param name="toPortfolioID"></param>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+
+        public DataSet FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet dsFolioMoveToPortfolio = new DataSet();
+
+            try
+            {
+                dsFolioMoveToPortfolio = advisorBranchDao.FolioMoveToPortfolio(customerID, folioNum, toPortfolioID, accountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch(Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:FolioMoveToPortfolio(int customerID, string folioNum, int toPortfolioID, int accountId)");
+
+                object[] objects = new object[4];
+                objects[0] = customerID;
+                objects[1] = folioNum;
+                objects[2] = toPortfolioID;
+                objects[3] = accountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFolioMoveToPortfolio;
+        }     
+
+
         /// <summary>
         /// Moving a folio from one customer to another customer's Portfolio
         /// </summary>
