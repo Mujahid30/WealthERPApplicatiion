@@ -16,11 +16,19 @@
 }
 
 </style>
+
+<script type="text/javascript" language="javascript">
+    function GetCustomerId(source, eventArgs) {
+        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        return false;
+    }
+</script>
+
 <script type="text/javascript">
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
-    };
+    }
 
     function CheckSelection() {
 
@@ -67,35 +75,37 @@
 
 </script>
 
+<table class="TableBackground" style="width: 100%">
 
+<tr>
+    <td class="HeaderCell">
+        <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="MF Folio View"></asp:Label>
+        <hr />
+    </td>
+</tr>
+</table>
 
 <table class="TableBackground" style="width: 100%">
-    <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="MF Folio View"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
-        <td>
+    <tr>        
+        <td style="width:150px" align="right">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+            </td>
+        <td style="width:280px">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-    </tr>
-    <tr>
-        <td align="center">
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
+        <td style="width:150px"></td>
+    </tr>   
+</table>
+<table class="TableBackground" style="width: 100%">
+   
+     <tr>
+        <td align="right">
+            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    
-     <tr>
-                    <td align="right">
-                        <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-                        <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-                    </td>
-                </tr>
     
     <tr>
         <td>
@@ -137,20 +147,94 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnTransferFolio" runat="server" Text="Transfer Folio" CssClass="PCGMediumButton"
-                OnClick="btnTransferFolio_Click" />
+            <div id="DivPager" runat="server" style="display: none">
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <%--<asp:Button ID="btnTransferFolio" runat="server" Text="Transfer Folio" CssClass="PCGMediumButton"
+                OnClick="btnTransferFolio_Click" />--%>
+        </td>
+    </tr>
+    <tr>
+    <td>
+        <%--<asp:Button ID="btnMoveFolio" runat="server" Text="Move Folio to Another Portfolio" CssClass="PCGLongButton"
+        OnClick="btnMoveFolio_Click"/>--%>
+    </td>
+    </tr>
+</table>
+
+<table class="TableBackground" width="100%">
+    <tr id="trErrorMsg" runat="server">
+        <td align="center">
+            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
         </td>
     </tr>
 </table>
-<div id="DivPager" runat="server" style="display: none">
-    <table style="width: 100%">
-        <tr>
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
+<table class="TableBackground" visible="false" style="width: 100%">
+     <tr id="trSelectAction" runat="server">        
+        <td style="width:150px" align="right">
+            <asp:Label ID="lblSelectAction" runat="server" CssClass="FieldName" Text="Select Action:"></asp:Label>
             </td>
-        </tr>
-    </table>
-</div>
+        <td style="width:280px">
+            <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbLongField" 
+                AutoPostBack="true" onselectedindexchanged="ddlAction_SelectedIndexChanged1">
+                <asp:ListItem Value="0">Select Action</asp:ListItem>
+                <asp:ListItem Value="TF">Transfer Folio</asp:ListItem>
+                <asp:ListItem Value="MFtoAP">Move Folio to another Portfolio</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td style="width:150px">  
+        </td>
+    </tr>
+</table>
+
+<table border="0" id="tblMoveFolio" runat="server" visible="false" width="100%"
+    style="border: solid 2px #8BA0BD">
+   <tr id="trPickPortfolio" runat="server">        
+        <td align="right" style="width:150px">
+            <asp:Label ID="lblPickPortfolio" Text="Pick a Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
+        </td>
+        <td style="width:280px">
+            <asp:DropDownList ID="ddlPickPortfolio" runat="server" CssClass="cmbField">
+            </asp:DropDownList>                
+            <span id="Span2" class="spnRequiredField">*
+            <asp:RequiredFieldValidator ID="rfvddlPickPortfolio" ControlToValidate="ddlPickPortfolio" ErrorMessage="Please pick a portfolio"
+        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmitMoveFolio">
+        </asp:RequiredFieldValidator>
+            </span>                
+        </td>
+        <td style="width:150px">
+            &nbsp;</td>                
+    </tr> 
+    <tr>
+        
+        <td align="right">
+        
+            <asp:Button ID="btnSubmitMoveFolio" runat="server" Text="Submit" 
+                OnClientClick="return CheckSelection()" CssClass="PCGButton" 
+                onclick="btnSubmitMoveFolio_Click" />
+        
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <div runat="server" id="div2">
+            <asp:Label ID="Label4" runat="server" Text="" CssClass="SuccessMsg"></asp:Label>
+        </div>
+        
+        </td>
+    </tr>
+</table>
+
 <table border="0" id="tblTransferFolio" runat="server" visible="false" width="100%"
     style="border: solid 2px #8BA0BD">
     <tr>
@@ -159,15 +243,16 @@
                 Transfer folio</h3>
         </td>
     </tr>
-    <tr>
-        <td style="width: 20%">
+    <tr>       
+        <td style="width:150px" align="right">
             <asp:Label ID="Label2" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td style="width:280px">
             <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
-            <asp:TextBox ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="true"></asp:TextBox><ajaxToolkit:TextBoxWatermarkExtender ID="txtCustomer_TextBoxWatermarkExtender"
-                    runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name">
+            <asp:TextBox ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="true">
+            </asp:TextBox>
+            <ajaxToolkit:TextBoxWatermarkExtender ID="txtCustomer_TextBoxWatermarkExtender"
+                runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name">
                 </ajaxToolkit:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
                 TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -175,49 +260,66 @@
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetCustomerId" />
-            <span id="Span1" class="spnRequiredField">*<br />
-            </span>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter few characters of customer name.</span>
+            <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCustomer"
                 ErrorMessage="Please Enter Customer Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 ValidationGroup="btnSubmit">
-            </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                few characters of customer name.</span>
+            </asp:RequiredFieldValidator>
+            
         </td>
+        <td  style="width:150px">
+            
+            </td>
     </tr>
-    <tr id="trReassignBranch" runat="server">
-        <td class="SubmitCell" align="left" style="width: 20%">
-      
+    <tr id="trReassignBranch" runat="server">        
+        <td align="right" style="width:150px">      
             <asp:Label ID="Label3" Text="Transfer To:" CssClass="FieldName" runat="server"></asp:Label> 
         </td>
-      
-        
-        <td>
-        
-            <asp:DropDownList ID="ddlAdvisorBranchList" Width="17.5%" runat="server" CssClass="cmbField" 
+        <td style="width:280px">
+            <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbField" 
                  AutoPostBack="true">
             </asp:DropDownList>
             <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
-            
         </td>
+        <td style="width:150px"></td>
         
     </tr>
     <tr id="trCustomerDetails" runat="server" visible="false">
-        <td>
-            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN :"></asp:Label>
-            <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
-                BorderStyle="None"></asp:TextBox>
+        <td style="width:150px" align="right">
+            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN :"></asp:Label>            
         </td>
-        <td>
-            <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address:"></asp:Label>
-            <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
-                BorderStyle="None"></asp:TextBox>
+        <td style="width:280px">
+            <table>
+            <tr>
+                <td>
+                    <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
+                    BorderStyle="None"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address:"></asp:Label> 
+                </td>
+                <td>
+                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
+                    BorderStyle="None"></asp:TextBox>
+                </td>
+            </tr>
+            </table>
+        </td>        
+        <td style="width:150px" align="right">                       
+        </td>
+        <td  style="width:150px" align="left">            
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
+    <tr>       
+        <td align="right">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
                 OnClientClick="return CheckSelection()" CssClass="PCGButton" />
         </td>
+        <td>
+        </td>
+        <td></td>
     </tr>
     <tr>
         <td colspan="2">
@@ -225,6 +327,15 @@
             <asp:Label ID="lblTransferMsg" runat="server" Text="" CssClass="SuccessMsg"></asp:Label>
         </div>
         
+        </td>
+    </tr>
+</table>
+<table class="TableBackgrounds" width="100%">
+    <tr id="trFolioStatus" runat="server">
+        <td align="center">
+            <div id="msgFolioStatus" runat="server" class="success-msg" align="center">
+                Folio Moved Successfully
+            </div>
         </td>
     </tr>
 </table>
@@ -240,7 +351,7 @@
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
-
+<asp:HiddenField ID="hdnCustomerId" runat="server"/> 
 <asp:HiddenField ID="hdnStatusValue" runat="server" />
 <asp:Button ID="btnFolioAssociation" runat="server" BorderStyle="None" 
     BackColor="Transparent" onclick="btnFolioAssociation_Click" 

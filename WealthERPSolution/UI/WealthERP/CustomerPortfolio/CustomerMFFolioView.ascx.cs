@@ -13,6 +13,7 @@ using VoCustomerPortfolio;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCustomerProfiling;
+using BoAdvisorProfiling;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -20,12 +21,14 @@ namespace WealthERP.CustomerPortfolio
     {
         static int portfolioId;
         RMVo rmVo = new RMVo();
+        DataSet dsCustomerPortfolioList = new DataSet();
         CustomerVo customerVo = new CustomerVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         List<CustomerAccountsVo> FolioList = new List<CustomerAccountsVo>();
         CustomerTransactionBo CustomerTransactionBo = new CustomerTransactionBo();
         CustomerAccountsVo FolioVo = new CustomerAccountsVo();
         int FolioId = 0;
+       
         protected override void OnInit(EventArgs e)
         {
             ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
@@ -74,7 +77,9 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 BindPortfolioDropDown();
                 this.BindFolioGridView();
-            }
+                trFolioStatus.Visible = false;
+            }            
+            
         }
 
         private void BindFolioGridView()
@@ -89,17 +94,20 @@ namespace WealthERP.CustomerPortfolio
                 // lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 if (FolioList == null)
                 {
-                    lblMessage.Visible = true;
+                    trSelectAction.Visible = false;
+                    trErrorMsg.Visible = true;
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     DivPager.Visible = false;
                     gvMFFolio.DataSource = null;
-                    gvMFFolio.DataBind();
-                    btnTransferFolio.Visible = false;
+                    gvMFFolio.DataBind();                    
+                    //btnTransferFolio.Visible = false;
+                    //btnMoveFolio.Visible = false;
                 }
                 else
                 {
-                    lblMessage.Visible = false;
+                    trSelectAction.Visible = true;
+                    trErrorMsg.Visible = false;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
                     DivPager.Visible = true;
@@ -239,14 +247,23 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void btnTransferFolio_Click(object sender, EventArgs e)
-        {
-            tblTransferFolio.Visible = true;
-            btnTransferFolio.Visible = false;
-            rmVo = (RMVo)Session[SessionContents.RmVo];
-            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+        //protected void btnTransferFolio_Click(object sender, EventArgs e)
+        //{
+        //    tblTransferFolio.Visible = true;
+        //    //btnTransferFolio.Visible = false;
+        //    rmVo = (RMVo)Session[SessionContents.RmVo];
+        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
+        //}
+
+        protected void btnMoveFolio_Click(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            tblMoveFolio.Visible = true;
+            bindDropdownPickPortfolio(int.Parse(customerVo.CustomerId.ToString()));
+            
         }
+
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
             CustomerBo customerBo = new CustomerBo();
@@ -292,14 +309,18 @@ namespace WealthERP.CustomerPortfolio
                 if (portfolioVo.PortfolioId < 1)
                 {
                     lblMessage.Text = "No default Portfolio found for the selected customer.";
-                    lblMessage.Visible = true;
+                    trErrorMsg.Visible = true;
+                    tblTransferFolio.Visible = false;
+                    tblMoveFolio.Visible = false;
                     return;
                 }
             }
             else
             {
                 lblMessage.Text = "Please select a customer.";
-                lblMessage.Visible = true;
+                trErrorMsg.Visible = true;
+                tblTransferFolio.Visible = false;
+                tblMoveFolio.Visible = false;
                 return;
             }
 
@@ -342,6 +363,101 @@ namespace WealthERP.CustomerPortfolio
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
             }
 
+        }
+
+        private void bindDropdownPickPortfolio(int customerId)
+        {
+            PortfolioBo portfolioBo = new PortfolioBo();
+            try
+            {
+                if (txtCustomerId.Value != null)
+                {
+                    dsCustomerPortfolioList = portfolioBo.GetCustomerPortfolio(customerId);
+                    ddlPickPortfolio.DataSource = dsCustomerPortfolioList;
+                    ddlPickPortfolio.DataValueField = dsCustomerPortfolioList.Tables[0].Columns["CP_PortfolioId"].ToString();
+                    ddlPickPortfolio.DataTextField = dsCustomerPortfolioList.Tables[0].Columns["CP_PortfolioName"].ToString();
+                    ddlPickPortfolio.DataBind();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        private CheckBox GetchkBox()
+        {
+            CheckBox chkBoxRow = new CheckBox();
+            if (gvMFFolio.TemplateControl != null)
+            {
+                if ((CheckBox)gvMFFolio.TemplateControl.FindControl("chkBox") != null)
+                {
+                    chkBoxRow = (CheckBox)gvMFFolio.TemplateControl.FindControl("chkBox");
+                }
+            }
+            else
+                chkBoxRow = null;
+
+            return chkBoxRow;
+        }
+
+        protected void btnSubmitMoveFolio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["customerVo"];
+                CustomerPortfolioVo portfolioVo = new CustomerPortfolioVo();
+                CheckBox chkBox = new CheckBox();
+                chkBox = GetchkBox();
+                int accountID;              
+                int customerId = customerVo.CustomerId;
+                int TofolioId = Convert.ToInt32(ddlPickPortfolio.SelectedValue);
+                DataSet dsPortFolioUpdate = new DataSet();
+                
+                foreach (GridViewRow dr in gvMFFolio.Rows)
+                {
+                    int rowIndex = dr.RowIndex;
+                    DataKey dKey = gvMFFolio.DataKeys[rowIndex];
+
+                    if (((CheckBox)dr.FindControl("chkBox")).Checked == true)
+                    {
+                        AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
+
+                        accountID = Convert.ToInt32(dKey.Values["FolioId"].ToString());
+                        string folioNo = dr.Cells[2].Text;
+                        dsPortFolioUpdate = adviserBranchBo.FolioMoveToPortfolio(customerId, folioNo, TofolioId, accountID);
+                    }                   
+                }
+                this.BindFolioGridView();                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        protected void ddlAction_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            if (ddlAction.SelectedValue == "MFtoAP")
+            {
+                customerVo = (CustomerVo)Session["customerVo"];
+                tblMoveFolio.Visible = true;
+                tblTransferFolio.Visible = false;
+                bindDropdownPickPortfolio(int.Parse(customerVo.CustomerId.ToString()));                
+            }
+            else if(ddlAction.SelectedValue == "TF")
+            {
+                tblTransferFolio.Visible = true;
+                tblMoveFolio.Visible = false;
+                //btnTransferFolio.Visible = false;
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();   
+            }
+            else if (ddlAction.SelectedValue == "0")
+            {
+                tblTransferFolio.Visible = false;
+                tblMoveFolio.Visible = false;
+            }
         }
     }
 }
