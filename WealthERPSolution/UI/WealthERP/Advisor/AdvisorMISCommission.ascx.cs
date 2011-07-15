@@ -119,6 +119,7 @@ namespace WealthERP.Advisor
             ddlPeriod.DataValueField = "PeriodCode";
             ddlPeriod.DataBind();
             ddlPeriod.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select a Period", "Select a Period"));
+            ddlPeriod.Items.RemoveAt(15);
         }
         public void BindCommissionMISGrig()
         {
