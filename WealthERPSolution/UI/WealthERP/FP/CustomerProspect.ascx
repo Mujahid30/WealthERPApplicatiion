@@ -1544,6 +1544,14 @@
                                     </asp:Panel>
                                 </td>
                             </tr>
+                            <tr>
+                            <td colspan="6">
+                            <asp:Label ID="lblIncomeNote2" runat="server" Text="Notes: 1.If you have entered the pretax income then you can calculate the disposal <br />
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;income using Disposal income Calculator.
+                             <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Taxslab can be edited from the profile" Font-Size="Small" CssClass="cmbField">
+                            </asp:Label>
+                            </td>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -1583,12 +1591,19 @@
                                 <td align="left">
                                     <asp:TextBox ID="txtRent" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
-                               <td align="right">
+                                <td align="right">
+                               <asp:Label ID="lblInsurance" runat="server" Text="Insurance Premium : " CssClass="FieldName"></asp:Label>
+                               </td>
+                               <td align="left">
+                                    <asp:TextBox ID="txtInsurance" ReadOnly="true" Enabled="false" runat="server" 
+                                        Style="direction: rtl" ></asp:TextBox>
+                                </td>
+                             <%--  <td align="right">
                                     <asp:Label ID="lblDomesticHelp" runat="server" Text="Domestic Help : " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtDomesticHelp" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
-                                </td>
+                                </td>--%>
                             </tr>
                             <tr>
                                 <td align="right">
@@ -1624,13 +1639,22 @@
                                         onchange="Total()"></asp:TextBox></td><td align="right">
                                     <asp:Label ID="lblOthersExpense" runat="server" Text="Others : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtOthersExpense" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td></tr><tr>
-                               <td align="right"><asp:Label ID="lblInsurance" runat="server" Text="Insurance Premium : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <td align="right">
+                                    <asp:Label ID="lblDomesticHelp" runat="server" Text="Domestic Help : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                    <asp:TextBox ID="txtDomesticHelp" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox></td><%--  <td align="right">
+                               <asp:Label ID="lblInsurance" runat="server" Text="Insurance Premium : " CssClass="FieldName"></asp:Label>
+                               </td>
+                               <td align="left">
                                     <asp:TextBox ID="txtInsurance" ReadOnly="true" Enabled="false" runat="server" 
-                                        Style="direction: rtl" ></asp:TextBox></td><td align="right">
+                                        Style="direction: rtl" ></asp:TextBox>
+                                </td>--%>
+                               <td align="right">
                                 <asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"></asp:TextBox></td></tr><tr>
                                     <td colspan="4">
-                                    <asp:Label ID="LabelMainNote" runat="server" Text="Note: <br />1.SIP is coming from MF screen.<br />2.Loan EMI is coming from Liabilities.<br />3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel></telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
+                                    <asp:Label ID="LabelMainNote" runat="server" Text="Note: 1.SIP is coming from MF screen.<br />
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Loan EMI is coming from Liabilities.<br />
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel></telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
         <asp:Panel ID="pnlLiabilities" runat="server">
             <table width="100%">
                 <tr>

@@ -1346,6 +1346,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblFinalResults;
         
         /// <summary>
+        /// lblIncomeNote2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIncomeNote2;
+        
+        /// <summary>
         /// RadPageView4 control.
         /// </summary>
         /// <remarks>
@@ -1427,22 +1436,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtRent;
         
         /// <summary>
-        /// lblDomesticHelp control.
+        /// lblInsurance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDomesticHelp;
+        protected global::System.Web.UI.WebControls.Label lblInsurance;
         
         /// <summary>
-        /// txtDomesticHelp control.
+        /// txtInsurance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDomesticHelp;
+        protected global::System.Web.UI.WebControls.TextBox txtInsurance;
         
         /// <summary>
         /// lblUtilites control.
@@ -1589,22 +1598,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtOthersExpense;
         
         /// <summary>
-        /// lblInsurance control.
+        /// lblDomesticHelp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInsurance;
+        protected global::System.Web.UI.WebControls.Label lblDomesticHelp;
         
         /// <summary>
-        /// txtInsurance control.
+        /// txtDomesticHelp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInsurance;
+        protected global::System.Web.UI.WebControls.TextBox txtDomesticHelp;
         
         /// <summary>
         /// lblExpenseTotal control.
