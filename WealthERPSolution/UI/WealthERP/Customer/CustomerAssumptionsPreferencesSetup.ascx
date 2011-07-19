@@ -9,8 +9,7 @@
 <style type="text/css">
 
 p { padding: 5px 0; }
-
-
+  
 </style>
 
 
@@ -20,6 +19,13 @@ p { padding: 5px 0; }
         document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
     }
 
+</script>
+
+<script type="text/javascript">
+    function clientSideFunctionsForSubmit() {
+        alert('Hi');
+        document.getElementById('<%=ViewParagraph.ClientID%>').click();
+    }
 </script>
 
 <script type="text/javascript">
@@ -94,11 +100,36 @@ p { padding: 5px 0; }
 
 <script type="text/javascript">
     $(document).ready(function() {
-    //hide the all of the element with class Collapse_body
-    $(".Collapse_body").hide();
-    //toggle the componenet with class Collapse_body
+        //hide the all of the element with class Collapse_body
+        $(".Collapse_body").hide();
+        //toggle the componenet with class Collapse_body
         $(".Collapse_header").click(function() {
-        $(this).next(".Collapse_body").slideToggle(600);
+            if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 0) {
+                document["EditCollapseImage"].src = "../Images/down arrow.png";
+                document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 1;
+            }
+
+            else if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 1) {
+                document["EditCollapseImage"].src = "../Images/right arrow.png";
+                document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 0;
+            }
+
+            $(this).next(".Collapse_body").slideToggle(600);
+        });
+
+        $(".Collapse_headerView").click(function() {
+
+            if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 0) {
+                document["ViewCollapseImage"].src = "../Images/down arrow.png";
+                document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 1;
+            }
+
+            else if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 1) {
+                document["ViewCollapseImage"].src = "../Images/right arrow.png";
+                document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 0;
+            }
+
+            $(this).next(".Collapse_body").slideToggle(600);
         });
     });
 </script>
@@ -131,7 +162,7 @@ p { padding: 5px 0; }
     <tr valign="top">
         <td align="center">
             <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
-                Record saved Successfully
+            Record saved Successfully
             </div>
         </td>
     </tr>
@@ -199,11 +230,14 @@ p { padding: 5px 0; }
         <table width="768px">
             <tr>
                 <td style="width:10%" align="center">
-                    <asp:LinkButton ID="lnkBtnYearly" runat="server" CssClass="FieldName" onclick="lnkBtnYearly_Click" Text="Yearly"></asp:LinkButton>                             
+                    <asp:RadioButton ID="rbtnYearly" runat="server" GroupName="AssumptionRadioButtonGrp" AutoPostBack="true" 
+                        CssClass="txtField" Text="Yearly" 
+                        oncheckedchanged="rbtnYearly_CheckedChanged" />
                 </td> 
                 <td style="width:10%" align="center">
-                    <asp:LinkButton ID="lnkBtnStatic" runat="server" CssClass="FieldName" onclick="lnkBtnStatic_Click" Text="Static"></asp:LinkButton>
-                    
+                    <asp:RadioButton ID="rbtnStatic" runat="server" GroupName="AssumptionRadioButtonGrp" AutoPostBack="true" 
+                        CssClass="txtField" Text="Static" 
+                        oncheckedchanged="rbtnStatic_CheckedChanged" />
                 </td>
                 <td style="width:80%"></td>
             </tr>
@@ -211,10 +245,12 @@ p { padding: 5px 0; }
         
         <div class="Collapse_list" style="width:100%">
         <p class="Collapse_header">
-        <asp:Label ID="lblHeader1" runat="server" CssClass="Collapse_header" Text="Edit" ></asp:Label>
+            <img src="../Images/right arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage' border='0' />
+            
+            <asp:Label ID="lblHeader1" style="vertical-align: top" runat="server"  Text="Edit" ></asp:Label>
         </p>
         <div class="Collapse_body" style="width:100%">
-        
+       
         <asp:UpdatePanel ID="updatePanel1" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
                 <table width="100%" cellpadding="0">           
@@ -317,7 +353,7 @@ p { padding: 5px 0; }
                     <td align="right" style="width:20%">
                         </td>
                         <td align="left" style="width:15%">
-                            <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" 
+                            <asp:Button ID="btnSubmit" runat="server" OnClientClick="clientSideFunctionsForSubmit()" CssClass="PCGButton" 
                             OnClick="btnSubmit_OnClick" Text="Submit" ValidationGroup="vgbtnSubmit" />
                         </td>
                         <td style="width:10%"></td>
@@ -352,8 +388,9 @@ p { padding: 5px 0; }
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
     
-            <p class="Collapse_header" style="width:100%">
-        <asp:Label ID="lblProjectedAssumptions" runat="server" CssClass="Collapse_header" Text="View" ></asp:Label>
+            <p class="Collapse_headerView" id="ViewParagraph" runat="server" style="width:100%">
+            <img src="../Images/right arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='ViewCollapseImage' border='0' />
+        <asp:Label ID="lblProjectedAssumptions" runat="server" style="vertical-align: top" Text="View" ></asp:Label>
        </p>
             <div class="Collapse_body" style="width:100%">
             
@@ -552,7 +589,7 @@ p { padding: 5px 0; }
    <tr>
    <td style="width:35px"></td>
    <td>
-       <asp:Button ID="btnCalculationBasis" runat="server" CssClass="PCGButton" 
+       <asp:Button ID="btnCalculationBasis" OnClientClick="clientSideFunctionsForSubmit()" runat="server" CssClass="PCGButton" 
            OnClick="btnCalculationBasis_OnClick " Text="Submit" />
    </td>
    <td></td>
@@ -565,4 +602,7 @@ p { padding: 5px 0; }
 <script language="javascript" type="text/javascript">
     document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
     
-</script>                 
+</script>             
+
+<asp:HiddenField ID="hdnChangeTabValueEdit" Value="0" runat="server" />    
+<asp:HiddenField ID="hdnChangeTabValueView" Value="0" runat="server" />    

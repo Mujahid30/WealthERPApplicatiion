@@ -55,7 +55,7 @@ namespace WealthERP.Customer
 
             if (!IsPostBack)
             {
-               
+                rbtnYearly.Checked = true;
                 if (customerVo.Dob != DateTime.MinValue)
                 {
                     
@@ -86,7 +86,10 @@ namespace WealthERP.Customer
 
                 }
              }
-            BindAllCustomerAssumptions();
+            if (!IsPostBack)
+            {
+                BindAllCustomerAssumptions();
+            }
             SetDefaultPlanRetirementValueForCustomer();
 
 
@@ -224,6 +227,7 @@ namespace WealthERP.Customer
                     customerId = customerVo.CustomerId;
                     assumptionValue = decimal.Parse(txtAssumptionValue.Text.ToString());
                     customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(),yearSelected,0,0);
+                    
 
                 }
                 else if (ddlPickPeriod.SelectedValue == "RY")
@@ -238,7 +242,6 @@ namespace WealthERP.Customer
                     rangeToYear = int.Parse(ddlToYear.SelectedItem.Text.ToString());
                     assumptionValue = decimal.Parse(txtAssumptionValue.Text.ToString());
                     customerBo.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, ddlPickAssumtion.SelectedValue.ToString().Trim(), 0, rangeFromYear, rangeToYear);
-
                 }                
                 txtAssumptionValue.Text = "";
                 msgRecordStatus.Visible = true;
@@ -599,17 +602,41 @@ namespace WealthERP.Customer
 
         }
 
-        protected void lnkBtnYearly_Click(object sender, EventArgs e)
+        // Commented for adding RadioButtons for Yearly and Static LinkButtons..
+        // commented by Vinayak Patil..
+
+        //protected void lnkBtnYearly_Click(object sender, EventArgs e)
+        //{
+        //    string flag = "P";            
+        //    trStaticGrid.Visible = false;
+        //    trGridAssumption.Visible = true;
+        //    trRbtnYear.Visible = true;
+        //    trPickYear.Visible = true;
+        //    BindDropDownassumption(flag);            
+        //}
+
+        //protected void lnkBtnStatic_Click(object sender, EventArgs e)
+        //{
+        //    string flag = "S";
+        //    trRbtnYear.Visible = false;
+        //    trPickYear.Visible = false;
+        //    BindDropDownassumption(flag);
+        //    trGridAssumption.Visible = false;
+        //    trStaticGrid.Visible = true;
+
+        //}
+
+        protected void rbtnYearly_CheckedChanged(object sender, EventArgs e)
         {
-            string flag = "P";            
+            string flag = "P";
             trStaticGrid.Visible = false;
             trGridAssumption.Visible = true;
             trRbtnYear.Visible = true;
             trPickYear.Visible = true;
-            BindDropDownassumption(flag);            
+            BindDropDownassumption(flag);
         }
 
-        protected void lnkBtnStatic_Click(object sender, EventArgs e)
+        protected void rbtnStatic_CheckedChanged(object sender, EventArgs e)
         {
             string flag = "S";
             trRbtnYear.Visible = false;
@@ -617,7 +644,6 @@ namespace WealthERP.Customer
             BindDropDownassumption(flag);
             trGridAssumption.Visible = false;
             trStaticGrid.Visible = true;
-
         }
 
         protected void ddlPickPeriod_SelectedIndexChanged(object sender, EventArgs e)
@@ -634,6 +660,8 @@ namespace WealthERP.Customer
  
             }
         }
+
+        
         //protected void txtAssumptionValue_OnTextChanged(object sender, EventArgs e)
         //{
         //    if (ddlPickAssumtion.SelectedValue == "LE")
