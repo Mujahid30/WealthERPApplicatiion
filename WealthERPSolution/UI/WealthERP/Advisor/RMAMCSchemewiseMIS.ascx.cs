@@ -713,7 +713,9 @@ namespace WealthERP.Advisor
         
         private void ExportGridView(string Filetype)
         {
-            LatestValuationdate = Convert.ToDateTime(ValuationDate.Value.ToString());
+            LatestValuationdate = Convert.ToDateTime(ViewState["Valuationdate"].ToString());
+            //LatestValuationdate = Convert.ToDateTime(ValuationDate.Value.ToString());
+
             HtmlForm frm = new HtmlForm();
             frm.Controls.Clear();
             frm.Attributes["runat"] = "server";
