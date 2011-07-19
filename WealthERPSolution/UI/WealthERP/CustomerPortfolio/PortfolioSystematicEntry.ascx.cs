@@ -99,7 +99,18 @@ namespace WealthERP.CustomerPortfolio
                 Hashtable hashRetainPreviousState = new Hashtable();
                 hashRetainPreviousState = (Hashtable)Session["SystematicHT"];
 
-                ddlSystematicType.SelectedItem.Value = hashRetainPreviousState["SystematicType"].ToString();
+                ddlSystematicType.SelectedValue = hashRetainPreviousState["SystematicType"].ToString();
+                if (ddlSystematicType.SelectedValue=="SIP")
+                {
+                    trSipChequeDate.Visible = true;
+                    trSipChequeNo.Visible = true;
+                    trPaymentMode.Visible = true;
+
+                }
+                else if (ddlSystematicType.SelectedValue == "STP")
+                {
+                    trPaymentMode.Visible = true;
+                }
                 txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
                 txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
                 //ddlFolioNumber.SelectedValue = hashRetainPreviousState["FolioNumber"].ToString();
@@ -353,7 +364,9 @@ namespace WealthERP.CustomerPortfolio
                     txtPeriod.Text = "";
                     SipChequeDate_CalendarExtender.Enabled=true;
                     SipChequeDate_TextBoxWatermarkExtender.Enabled=true;
+                    txtSipChequeDate.Text = "";
                     txtSipChecqueNo.Text = "";
+                    txtRegistrationDate.Text = "";
                     ddlPeriodSelection.SelectedIndex = -1;
                     RegistrationDate_CalendarExtender.Enabled = true;
                     RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
@@ -378,7 +391,9 @@ namespace WealthERP.CustomerPortfolio
                     //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                     txtPeriod.Text = systematicSetupVo.Period.ToString();
                     txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                    txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
                     ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
+                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
                     RegistrationDate_CalendarExtender.Enabled = true;
                     RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
                     ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode.ToString();
@@ -409,28 +424,21 @@ namespace WealthERP.CustomerPortfolio
                 //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                 //txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
                 systematicSetupId = systematicSetupVo.SystematicSetupId;
-                if (txtSipChequeDate.Text != "")
+                if (systematicSetupVo.SipChequeDate.ToShortDateString() != "")
                     txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
                 else
                     txtSipChequeDate.Text = "";
-                txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                if (systematicSetupVo.SipChequeNo.ToString() != "")
+                    txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                else
+                    txtSipChecqueNo.Text = "0";
 
-                //if (systematicSetupVo.PeriodSelection == "Days")
-                //    ddlPeriodSelection.SelectedValue = "DA";
-                //if (systematicSetupVo.PeriodSelection == "Months")
-                //    ddlPeriodSelection.SelectedValue= "MN";
-                //if (systematicSetupVo.PeriodSelection == "Years")
-                //    ddlPeriodSelection.SelectedValue= "YR";
+   
                 ddlPeriodSelection.SelectedItem.Text = systematicSetupVo.PeriodSelection;
-                //if (systematicSetupVo.PeriodSelection == "DA")
-                //    ddlPeriodSelection.SelectedItem.Value = "DA";
-                //else if (systematicSetupVo.PeriodSelection == "MN")
-                //    ddlPeriodSelection.SelectedItem.Value = "MN";
-                //else if (systematicSetupVo.PeriodSelection == "YR")
-                //    ddlPeriodSelection.SelectedItem.Value = "YR";
 
-                if (txtRegistrationDate.Text != "")
-                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToString();
+
+                if (systematicSetupVo.RegistrationDate.ToString() != "")
+                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
                 else
                     txtRegistrationDate.Text = "";
 
@@ -672,7 +680,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.SystematicTypeCode == "SWP")
                 {
-                    trSwitchScheme.Visible = true;
+                    trSwitchScheme.Visible = false;
                     lblScheme.Text = "Choose Invested Scheme";
                     trSipChequeDate.Visible = false;
                     trSipChequeNo.Visible = false;
@@ -819,7 +827,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (chkDate4.Checked)
                 {
-                    systematicSetupVo.SystematicDate = 5;
+                    systematicSetupVo.SystematicDate = 4;
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                 }
                 if (chkDate5.Checked)
@@ -1105,7 +1113,7 @@ namespace WealthERP.CustomerPortfolio
         private void SaveCurrentPageState()
         {
             Hashtable hashSaveCurrentPageStatus = new Hashtable();
-            hashSaveCurrentPageStatus.Add("SystematicType", ddlSystematicType.SelectedItem.Value);
+            hashSaveCurrentPageStatus.Add("SystematicType", ddlSystematicType.SelectedValue);
             hashSaveCurrentPageStatus.Add("SearchScheme", txtSearchScheme.Text);
             hashSaveCurrentPageStatus.Add("SchemeCode", txtSchemeCode.Value);
             hashSaveCurrentPageStatus.Add("SwicthSchemeSearch", txtSwicthSchemeSearch.Text);

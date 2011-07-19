@@ -4,13 +4,87 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <link href="../CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
 <link href="../CSS/StyleSheet.css" rel="stylesheet" type="text/css" />
+
+<script src="/Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
 <%--Javascript Calendar Controls - Required Files--%>
+<script type="text/javascript">
+    //    $(document).ready(function() {
+    //        $('.loadme').click(function() {
+    //            $(".loadmediv").colorbox({ width: "240px",overlayClose:false, inline: true, open: true, href: "#LoadImage" });
+    //        });
+    //    });
 
+
+//   
+//    var chkArray = panel.getElementsByTagName("input");
+//    var checked = 0;
+//    for (var i = 0; i < chkArray.length; i++) {
+//        if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
+//            checked = 1;
+//            break;
+//        }
+//    }
+
+    $(document).ready(function() {
+        $('.loadme').click(function() {
+            var panel1 = document.getElementById('<%= trSystematicDateChk1.ClientID %>');
+            var chkArray1 = panel1.getElementsByTagName("input");
+            var checked1 = 0;
+
+            //********************
+            var panel2 = document.getElementById('<%= trSystematicDateChk2.ClientID %>');
+            var chkArray2 = panel2.getElementsByTagName("input");
+            var checked2 = 0;
+
+            //*******************
+
+            var panel3 = document.getElementById('<%= trSystematicDateChk3.ClientID %>');
+            var chkArray3 = panel3.getElementsByTagName("input");
+            var checked3 = 0;
+
+            for (var i = 0; i < chkArray1.length; i++) {
+                if (chkArray1[i].type == "checkbox" && chkArray1[i].checked == true) {
+                    checked1 = 1;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < chkArray2.length; i++) {
+                if (chkArray2[i].type == "checkbox" && chkArray2[i].checked == true) {
+                    checked2 = 1;
+                    break;
+                }
+            }
+
+            for (var i = 0; i < chkArray3.length; i++) {
+                if (chkArray3[i].type == "checkbox" && chkArray3[i].checked == true) {
+                    checked3 = 1;
+                    break;
+                }
+            }
+
+            if (checked1 == 0 && checked2 == 0 && checked3 == 0) {
+                alert('Please choose Atleast one Systematic Date');
+                return false;
+            }
+            else {
+                $(".loadmediv").colorbox({ width: "260px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
+            }
+        });
+
+    });
+
+
+    
+</script>
 <script type="text/javascript" src="../Scripts/Calender/calendar.js"></script>
 
 <script type="text/javascript" src="../Scripts/Calender/lang/calendar-en.js"></script>
@@ -151,7 +225,7 @@
                 ValueToCompare="Select a Folio" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td>
-         <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" 
+         <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" CausesValidation=false
                 onclick="btnAddFolio_Click" style="height: 26px" 
                 />
         </td>
@@ -173,11 +247,12 @@
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter Start Date" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-        </td>
-        <td>
-            <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+             <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td>
+           
         </td>
     </tr>
     <tr id="trSipChequeDate" runat="server" visible="false">
@@ -193,6 +268,10 @@
             <cc1:TextBoxWatermarkExtender ID="SipChequeDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtSipChequeDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
+            
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
             <%--<span id="Span8" class="spnRequiredField">*</span>--%>
            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSipChequeDate"
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter SIP Cheque Date" Display="Dynamic"
@@ -201,9 +280,6 @@
         </td>
         <td>
 
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
         <tr id="trSipChequeNo" runat="server" visible="false">
@@ -280,6 +356,8 @@
         <td>
         </td>
     </tr>
+    
+    
     <tr id="trSystematicDate" runat="server">
         <td class="leftField">
             <asp:Label ID="lblSystematicDateText" runat="server" Text="Date of Systematic Trx:"
@@ -287,11 +365,12 @@
         </td>
         <td>
             <asp:TextBox ID="txtSystematicDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:CompareValidator ID="cvSystematicDate" runat="server" ErrorMessage="<br />Please Enter Systematic Date between 1 to 31"
+                ValidationGroup="MFSubmit" ControlToValidate="txtSystematicDate" class="rfvPCG" operator="LessThan" type="Integer"
+                ValueToCompare="32" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
-            <asp:CompareValidator ID="cvSystematicDate" runat="server" ErrorMessage="Please Enter Systematic Date Below 31"
-                ValidationGroup="MFSubmit" ControlToValidate="ddlFrequency" class="rfvPCG" Operator="GreaterThan"
-                ValueToCompare="31" Display="Dynamic"></asp:CompareValidator>
+            
         </td>
     </tr>
     <tr>
@@ -369,6 +448,12 @@
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
                 TargetControlID="txtEndDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEndDate" ErrorMessage="<br />Please select a End Date"
+                Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cvEndDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtEndDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
          <%--   <span id="Span8" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtStartDate"
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter Start Date" Display="Dynamic"
@@ -386,7 +471,7 @@
     </tr>
         <tr>
         <td class="leftField" width="25%">
-            <asp:Label ID="lblRegistrationDate" runat="server" Text="Registeration Date in R&T system: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblRegistrationDate" runat="server" Text="RegistrationDate in R&T system: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
         <asp:TextBox ID="txtRegistrationDate" runat="server" CssClass="txtField"></asp:TextBox>
@@ -396,14 +481,15 @@
             <cc1:TextBoxWatermarkExtender ID="RegistrationDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtRegistrationDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
+             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
        <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRegistrationDate" ErrorMessage="Please select a Registration Date"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+           
         </td>
     </tr>
      <tr id="trPaymentMode" visible="false" runat="server">
@@ -424,7 +510,7 @@
         <td class="leftField" width="25%">
         </td>
         <td>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="loadme PCGButton" OnClick="btnSubmit_Click"
                 onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioPropertyEntry_btnSubmit');"
                 ValidationGroup="MFSubmit" />
