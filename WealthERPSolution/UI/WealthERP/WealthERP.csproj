@@ -3956,6 +3956,8 @@
     <Content Include="Images\arrow_double_up_7.gif" />
     <Content Include="Images\blue-sample.gif" />
     <Content Include="Images\collapse.png" />
+    <Content Include="Images\collapseDown arrow.png" />
+    <Content Include="Images\collapseRight arrow.png" />
     <Content Include="Images\Expense.png" />
     <Content Include="Images\Export_Excel.png" />
     <Content Include="Images\Export_Pdf.gif" />
