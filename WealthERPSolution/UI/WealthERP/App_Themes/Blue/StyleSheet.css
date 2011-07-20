@@ -897,4 +897,22 @@ p.tip
     
 }
 
+.Collapse_headerView
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    background: url(Images/testSCBbackground.gif) repeat-x;
+    margin:1px;
+    
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size:x-small;
+    color: #FFFFFF;
+    vertical-align: middle;
+    text-align: left;
+    height:15px;
+}
+
+
 /* End */
