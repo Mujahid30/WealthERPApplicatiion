@@ -211,6 +211,11 @@ namespace WealthERP.Customer
                     ChartBranchAssets.ChartAreas[0].AxisX.Title = "Assets";
                     ChartBranchAssets.Series[0].XValueMember = "Asset";
                     ChartBranchAssets.DataManipulator.Sort(PointSortOrder.Descending, "Y", seriesBranchAssets);
+
+                    ChartBranchAssets.Palette = ChartColorPalette.None;
+                    ChartBranchAssets.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
+
                     ChartBranchAssets.Legends.Add(Branchlegend);
                     ChartBranchAssets.Legends["BranchAssetsLegends"].Title = "Assets";
                     ChartBranchAssets.Legends["BranchAssetsLegends"].TitleAlignment = StringAlignment.Center;
@@ -339,6 +344,10 @@ namespace WealthERP.Customer
                     Legend ShowCurrentAssetAlllegend = null;
                     ShowCurrentAssetAlllegend = new Legend("ShowCurrentAssetAlllegendLegends");
                     ShowCurrentAssetAlllegend.Enabled = true;
+
+                    ChartCurrentAsset.Palette = ChartColorPalette.None;
+                    ChartCurrentAsset.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
 
                     Series seriesAssets = new Series("CurrentAsset");
                     seriesAssets.ChartType = SeriesChartType.Pie;
@@ -479,6 +488,11 @@ namespace WealthERP.Customer
                         Legend ShowRecomondedAssetAlllegend = null;
                         ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
                         ShowRecomondedAssetAlllegend.Enabled = true;
+
+                        ChartRecomonedAsset.Palette = ChartColorPalette.None;
+                        ChartRecomonedAsset.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
+                        
                         Series seriesAssets = new Series("RecomondedAsset");
                         seriesAssets.ChartType = SeriesChartType.Pie;
                         ChartRecomonedAsset.Visible = true;
