@@ -794,6 +794,10 @@ namespace WealthERP.FP
                     ChartIncome.Series[0].XValueType = ChartValueType.String;
                     ChartIncome.Series[0].YValueMembers = "IncomeAmount";
 
+                    ChartIncome.Palette = ChartColorPalette.None;
+                    ChartIncome.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
                     ChartIncome.Legends.Add(legend);
                     ChartIncome.Legends["ChartIncomeLegend"].Title = "Income Performance";
                     ChartIncome.Legends["ChartIncomeLegend"].TitleAlignment = StringAlignment.Center;
@@ -891,6 +895,10 @@ namespace WealthERP.FP
                     ChartExpense.Series[0].XValueMember = "ExpenseCategory";
                     ChartExpense.Series[0].XValueType = ChartValueType.String;
                     ChartExpense.Series[0].YValueMembers = "ExpenseAmount";
+
+                    ChartExpense.Palette = ChartColorPalette.None;
+                    ChartExpense.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     ChartExpense.Legends.Add(legend);
                     ChartExpense.Legends["ChartExpenseLegend"].Title = "Expense Performance";
@@ -993,6 +1001,10 @@ namespace WealthERP.FP
                     ChartAsset.Series[0].XValueMember = "AssetGroupName";
                     ChartAsset.Series[0].XValueType = ChartValueType.String;
                     ChartAsset.Series[0].YValueMembers = "AssetValues";
+
+                    ChartAsset.Palette = ChartColorPalette.None;
+                    ChartAsset.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     ChartAsset.Legends.Add(legend);
                     ChartAsset.Legends["ChartAssetLegend"].Title = "Asset Performance";
@@ -1097,6 +1109,10 @@ namespace WealthERP.FP
                     ChartLiabilities.Series[0].XValueType = ChartValueType.String;
                     ChartLiabilities.Series[0].YValueMembers = "LoanValues";
 
+                    ChartLiabilities.Palette = ChartColorPalette.None;
+                    ChartLiabilities.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
                     ChartLiabilities.Legends.Add(legend);
                     ChartLiabilities.Legends["ChartLiabilitiesLegend"].Title = "Liabilities Performance";
                     ChartLiabilities.Legends["ChartLiabilitiesLegend"].TitleAlignment = StringAlignment.Center;
@@ -1198,6 +1214,11 @@ namespace WealthERP.FP
                     ChartCashFlow.Series[0].XValueMember = "CashCategory";
                     ChartCashFlow.Series[0].XValueType = ChartValueType.String;
                     ChartCashFlow.Series[0].YValueMembers = "Amount";
+
+                    //ChartCashFlow.Palette = ChartColorPalette.None;
+                    //ChartCashFlow.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                    //                                                 Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, 
+                    //                                                 Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     ChartArea chartArea1 = ChartCashFlow.ChartAreas[0];
 

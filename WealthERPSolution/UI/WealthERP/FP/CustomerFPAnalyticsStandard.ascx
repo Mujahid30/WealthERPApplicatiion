@@ -180,7 +180,7 @@ SelectedIndex="0">
                 <tr>
                     <td>
                             <asp:Chart ID="ChartIncome" runat="server" BackColor="Transparent" 
-                                Height="250px" Palette="SemiTransparent" Width="450px">
+                                Height="250px" Width="450px">
                                 <Series>
                                     <asp:Series Name="Series"></asp:Series>
                                 </Series>
@@ -192,7 +192,7 @@ SelectedIndex="0">
                         </td>
                     <td>
                             <asp:Chart ID="ChartExpense" runat="server" BackColor="Transparent" 
-                            Height="250px" Palette="SemiTransparent" Width="450px">
+                            Height="250px" Width="450px">
                                 <Series>
                                 <asp:Series Name="Series"></asp:Series>
                                 </Series>
@@ -280,7 +280,7 @@ SelectedIndex="0">
             <tr>
               <td>
               <br />
-                  <asp:Chart ID="ChartCashFlow" Palette="SemiTransparent" runat="server" BackColor="#F1EDED" 
+                  <asp:Chart ID="ChartCashFlow" runat="server" BackColor="#F1EDED" 
                    Height="300px" Width="450px">
                     <Series>
                     <asp:Series Name="Series" XValueMember="Cash Category" YValueMembers="Amount"></asp:Series>
@@ -323,7 +323,7 @@ SelectedIndex="0">
                 <tr>
                     <td>
                                 <asp:Chart ID="ChartAsset" runat="server" BackColor="Transparent" 
-                                    Height="250px" Palette="SemiTransparent" Width="450px">
+                                    Height="250px" Width="450px">
                                 <Series>
                                     <asp:Series Name="Series"></asp:Series>
                                 </Series>
@@ -334,7 +334,7 @@ SelectedIndex="0">
                     </td>
                     <td>
                            <asp:Chart ID="ChartLiabilities" runat="server" BackColor="Transparent" 
-                            Height="250px" Palette="SemiTransparent" Width="450px">
+                            Height="250px" Width="450px">
                                 <Series>
                                 <asp:Series Name="Series"></asp:Series>
                                 </Series>
