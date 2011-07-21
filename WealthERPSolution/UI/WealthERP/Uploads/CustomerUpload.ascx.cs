@@ -4055,6 +4055,12 @@ namespace WealthERP.Uploads
                     i++;
                 }
                 ds.Tables[0].Rows.Remove(dr);
+
+                for (int j = 0; j < noRowsSkip-1; j++)
+                {
+                    dr = ds.Tables[0].Rows[j];
+                    ds.Tables[0].Rows.Remove(dr);
+                }
             }
             catch (Exception ex)
             {
