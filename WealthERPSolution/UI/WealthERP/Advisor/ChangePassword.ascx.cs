@@ -82,10 +82,10 @@ namespace WealthERP.Advisor
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('EditUserDetails','none');", true);
 
                         }
-                        else
-                        {
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Check the password');", true);
-                        }
+                        //else
+                        //{
+                        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Check the password');", true);
+                        //}
                     }
                     else
                     {

@@ -30,7 +30,7 @@
 
     .barIndicator_poor 
     {
-        background-color: Red;
+        background-color: #FF3333;
     }
 
     .barIndicator_weak 
@@ -40,17 +40,17 @@
 
     .barIndicator_good 
     {
-        background-color: Green;
+        background-color: #00CCCC;
     }
 
     .barIndicator_strong 
     {
-        background-color: Blue;
+        background-color: #33FF00;
     }
 
     .barIndicator_excellent 
     {
-        background-color: Lime;   
+        background-color: #9933CC;   
     }
 
     .textbox
@@ -99,7 +99,7 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" >
+        <td class="leftField" valign="top" >
             <asp:Label ID="Label2" runat="server" Text="New Password :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" align="left">
@@ -111,15 +111,11 @@
             StrengthIndicatorType="Text" HelpHandlePosition="BelowLeft" BarBorderCssClass="barIndicatorBorder" TextCssClass="TextCSS"
             StrengthStyles="barIndicator_poor; barIndicator_weak; barIndicator_good; barIndicator_strong; barIndicator_excellent">
             </cc1:PasswordStrength>
-            
-            <br />
-            <asp:RegularExpressionValidator Font-Size="11px" style="display: list-item" ID="passWordRegularExrp" runat="server" ControlToValidate="txtNewPassword" 
-            ErrorMessage="Wrong password.!!" Display="Dynamic" ValidationGroup="PassWordGroup"
+           <asp:RegularExpressionValidator Font-Size="11px" style="display: list-item" ID="passWordRegularExrp" runat="server" ControlToValidate="txtNewPassword" 
+            ErrorMessage="<br />Wrong password.!!" Display="Dynamic" ValidationGroup="PassWordGroup"
             ValidationExpression="^.*(?=.{6,})(?=.*\d)(?=.*[a-z,A-Z]).*$"></asp:RegularExpressionValidator>
-            
-            
             <asp:RequiredFieldValidator ID="rqdNewPassWord" runat="server" Display="Dynamic"  Font-Size="11px"
-            ControlToValidate="txtNewPassword" ErrorMessage="Please enter a password" ValidationGroup="PassWordGroup"></asp:RequiredFieldValidator>
+            ControlToValidate="txtNewPassword" ErrorMessage="<br />Please enter a password" ValidationGroup="PassWordGroup"></asp:RequiredFieldValidator>
          
            
         </td>
@@ -128,15 +124,15 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" >
-            <asp:Label ID="Label3" runat="server" Text="Confirm Password" CssClass="FieldName"></asp:Label>
+        <td class="leftField" valign="top">
+            <asp:Label ID="Label3" runat="server" Text="Confirm Password :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" >
-            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" CssClass="txtField"></asp:TextBox>
-            
-            <br />
+            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" MaxLength="8" CssClass="txtField"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rqdConfirmPass" runat="server" Display="Dynamic"  Font-Size="11px"
-            ControlToValidate="txtConfirmPassword" ErrorMessage="Please enter a password" ValidationGroup="PassWordGroup"></asp:RequiredFieldValidator>
+            ControlToValidate="txtConfirmPassword" ErrorMessage="<br />Please Re-enter Your  password" ValidationGroup="PassWordGroup"></asp:RequiredFieldValidator>
+            <asp:CompareValidator id="cmpConfPass" runat="server" ControlToCompare="txtNewPassword" Font-Size="11px" Display="Dynamic" ErrorMessage="<br />your passwords are not Matching"
+                ControlToValidate="txtConfirmPassword" Type="String" Operator="Equal" ValidationGroup="PassWordGroup" />
         </td>
         <td>
             
@@ -171,7 +167,7 @@
     </tr>
     <tr>
         <td>
-           <div id="passwordNote" style="font-size: 11px; color: Red;">
+           <div id="passwordNote" style="font-size: x-small; color: #16518A;"">
            <p>
              <span style="font-weight: bold">Note:</span><br />
              1: Password length - 6 to 8.<br />
