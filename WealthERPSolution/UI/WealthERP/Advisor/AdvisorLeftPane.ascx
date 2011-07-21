@@ -239,8 +239,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
-                                                NavigateUrl="~/FP/OfflineForm.aspx" Target="_blank">
+                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
