@@ -260,7 +260,7 @@ namespace BoReports
                         dr = dsCustomerMFReturns.Tables[2].NewRow();
                         dr["Instrument"] = dsCustomerMFReturns.Tables[3].Rows[0]["Instrument"].ToString();
                         dr["InsType"] = dsCustomerMFReturns.Tables[3].Rows[0]["InsType"].ToString();
-                        dr["Amount"] = dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString();
+                        dr["Amount"] = double.Parse(dsCustomerMFReturns.Tables[3].Rows[0]["Amount"].ToString());
                         dsCustomerMFReturns.Tables[2].Rows.Add(dr);
                        // dr = dsCustomerMFReturns.Tables[2].NewRow();
                         //dr["Instrument"] = dsCustomerMFReturns.Tables[4].Rows[0]["Instrument"].ToString();
