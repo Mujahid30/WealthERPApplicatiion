@@ -247,11 +247,11 @@ function ClosePopUp(){
         </td>
         <td>
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span5" class="spnRequiredField">*</span>
+          <%--  <span id="Span5" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtEmail"
+           <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtEmail"
                 ErrorMessage="Please enter an Email Id" Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
                 ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
                 ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
