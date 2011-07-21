@@ -20,14 +20,6 @@ p { padding: 5px 0; }
     }
 
 </script>
-
-<script type="text/javascript">
-    function clientSideFunctionsForSubmit() {
-        alert('Hi');
-        document.getElementById('<%=ViewParagraph.ClientID%>').click();
-    }
-</script>
-
 <script type="text/javascript">
     function tSpeedValue() 
     {
@@ -99,18 +91,24 @@ p { padding: 5px 0; }
 </script>
 
 <script type="text/javascript">
+    function clientSideFunctionsForSubmit() {        
+        document.getElementById('<%=ViewParagraph.ClientID%>').click();
+    }
+</script>
+
+<script type="text/javascript">
     $(document).ready(function() {
         //hide the all of the element with class Collapse_body
         $(".Collapse_body").hide();
         //toggle the componenet with class Collapse_body
         $(".Collapse_header").click(function() {
-            if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 0) {
-                document["EditCollapseImage"].src = "../Images/down arrow.png";
+        if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 0) {           
+                document["EditCollapseImage"].src = "../Images/collapseDown arrow.png";
                 document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 1;
             }
 
-            else if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 1) {
-                document["EditCollapseImage"].src = "../Images/right arrow.png";
+            else if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 1) {            
+                document["EditCollapseImage"].src = "../Images/collapseRight arrow.png";
                 document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 0;
             }
 
@@ -119,13 +117,13 @@ p { padding: 5px 0; }
 
         $(".Collapse_headerView").click(function() {
 
-            if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 0) {
-                document["ViewCollapseImage"].src = "../Images/down arrow.png";
+        if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 0) {            
+                document["ViewCollapseImage"].src = "../Images/collapseDown arrow.png";
                 document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 1;
             }
 
-            else if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 1) {
-                document["ViewCollapseImage"].src = "../Images/right arrow.png";
+            else if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 1) {           
+                document["ViewCollapseImage"].src = "../Images/collapseRight arrow.png";
                 document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 0;
             }
 
@@ -245,7 +243,7 @@ p { padding: 5px 0; }
         
         <div class="Collapse_list" style="width:100%">
         <p class="Collapse_header">
-            <img src="../Images/right arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage' border='0' />
+            <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage' border='0' />
             
             <asp:Label ID="lblHeader1" style="vertical-align: top" runat="server"  Text="Edit" ></asp:Label>
         </p>
@@ -389,7 +387,7 @@ p { padding: 5px 0; }
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
     
             <p class="Collapse_headerView" id="ViewParagraph" runat="server" style="width:100%">
-            <img src="../Images/right arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='ViewCollapseImage' border='0' />
+            <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='ViewCollapseImage' border='0' />
         <asp:Label ID="lblProjectedAssumptions" runat="server" style="vertical-align: top" Text="View" ></asp:Label>
        </p>
             <div class="Collapse_body" style="width:100%">
