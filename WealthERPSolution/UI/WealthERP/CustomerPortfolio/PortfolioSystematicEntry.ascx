@@ -249,7 +249,7 @@
             </asp:RequiredFieldValidator>
              <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td>
            
@@ -271,7 +271,7 @@
             
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtSipChequeDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
             <%--<span id="Span8" class="spnRequiredField">*</span>--%>
            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtSipChequeDate"
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter SIP Cheque Date" Display="Dynamic"
@@ -367,7 +367,7 @@
             <asp:TextBox ID="txtSystematicDate" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvSystematicDate" runat="server" ErrorMessage="<br />Please Enter Systematic Date between 1 to 31"
                 ValidationGroup="MFSubmit" ControlToValidate="txtSystematicDate" class="rfvPCG" operator="LessThan" type="Integer"
-                ValueToCompare="32" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="32" Display="Dynamic" ></asp:CompareValidator>
         </td>
         <td>
             
@@ -449,11 +449,11 @@
                 TargetControlID="txtEndDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEndDate" ErrorMessage="<br />Please select a End Date"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
+                Display="Dynamic" runat="server" CssClass="rfvPCG" >
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvEndDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtEndDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
          <%--   <span id="Span8" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtStartDate"
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter Start Date" Display="Dynamic"
@@ -482,7 +482,7 @@
                 TargetControlID="txtRegistrationDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
              <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck" CssClass="cvPCG" ValidationGroup="MFSubmit"
                 Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>

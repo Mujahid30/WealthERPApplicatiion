@@ -424,23 +424,23 @@ namespace WealthERP.CustomerPortfolio
                 //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                 //txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
                 systematicSetupId = systematicSetupVo.SystematicSetupId;
-                if (systematicSetupVo.SipChequeDate.ToShortDateString() != "")
+                if (systematicSetupVo.SipChequeDate.ToShortDateString() == "01/01/0001")
+                    txtSipChequeDate.Text = " ";
+                else
                     txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                if (systematicSetupVo.SipChequeNo.ToString() == "0")
+                    txtSipChecqueNo.Text = "";
                 else
-                    txtSipChequeDate.Text = "";
-                if (systematicSetupVo.SipChequeNo.ToString() != "")
                     txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
-                else
-                    txtSipChecqueNo.Text = "0";
 
    
                 ddlPeriodSelection.SelectedItem.Text = systematicSetupVo.PeriodSelection;
 
 
-                if (systematicSetupVo.RegistrationDate.ToString() != "")
-                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
+                if (systematicSetupVo.RegistrationDate.ToString() == "01/01/0001 00:00:00")
+                    txtRegistrationDate.Text = "" ;
                 else
-                    txtRegistrationDate.Text = "";
+                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
 
                 if (systematicSetupVo.PaymentModeCode == "PD")
                     ddlPaymentMode.SelectedValue = "PD";
@@ -603,6 +603,7 @@ namespace WealthERP.CustomerPortfolio
 
             else if (action == "edit")
             {
+                
                 ddlSystematicType.Enabled = true;
                 ddlFolioNumber.Enabled = true;
                 txtSearchScheme.Enabled = true;
