@@ -61,17 +61,54 @@
       }
     }
  </script>
- 
  <script type="text/javascript">
-     $(document).ready(function() {
-         //hide the all of the element with class Collapse_body
-         $(".Collapse_body").hide();
-         //toggle the componenet with class Collapse_body
-         $(".Collapse_header").click(function() {
-             $(this).next(".Collapse_body").slideToggle(600);
-         });
-     });
+     function clientSideFunctionsForSubmit() {        
+         document.getElementById('<%=ViewParagraph.ClientID%>').click();
+         document.getElementById('<%=ViewParagraph1.ClientID%>').click();
+     }
 </script>
+ 
+<script type="text/javascript">
+    $(document).ready(function() {
+        //hide the all of the element with class Collapse_body
+        $(".Collapse_body").hide();
+        //toggle the componenet with class Collapse_body
+        $(".Collapse_header").click(function() {
+            if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 0) {
+                document["EditCollapseImage"].src = "../Images/collapseDown arrow.png";
+                document["EditCollapseImage1"].src = "../Images/collapseDown arrow.png";
+                document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 1;
+            }
+
+            else if (document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value == 1) {
+            document["EditCollapseImage"].src = "../Images/collapseRight arrow.png";
+            document["EditCollapseImage1"].src = "../Images/collapseRight arrow.png";
+                document.getElementById("<%= hdnChangeTabValueEdit.ClientID %>").value = 0;
+            }
+
+            $(this).next(".Collapse_body").slideToggle(600);
+        });
+
+        $(".Collapse_headerView").click(function() {
+
+            if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 0) {
+                document["ViewCollapseImage"].src = "../Images/collapseDown arrow.png";
+                document["ViewCollapseImage1"].src = "../Images/collapseDown arrow.png";
+                document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 1;
+            }
+
+            else if (document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value == 1) {
+            document["ViewCollapseImage"].src = "../Images/collapseRight arrow.png";
+            document["ViewCollapseImage1"].src = "../Images/collapseRight arrow.png";
+                document.getElementById("<%= hdnChangeTabValueView.ClientID %>").value = 0;
+            }
+
+            $(this).next(".Collapse_body").slideToggle(600);
+        });
+    });
+</script>
+  
+
 
  <script language="javascript" type="text/javascript">
      function requiredFiledFS() {
@@ -357,6 +394,7 @@
     
     <div class="Collapse_list" style="width:100%">
         <p class="Collapse_header">
+        <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage' border='0' />
         <asp:Label ID="Label5" runat="server" CssClass="Collapse_header" Text="Edit" ></asp:Label>
         </p>
         <div class="Collapse_body" style="width:100%">
@@ -458,7 +496,7 @@
         <table>
          <tr id="trBtnSubmit" runat="server">
           <td align="left">
-           <asp:Button ID="btnSubmitAggredAllocation" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitAggredAllocation_OnClick" OnClientClick="return requiredFiled()" ValidationGroup="btnSubmit"/>
+           <asp:Button ID="btnSubmitAggredAllocation" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitAggredAllocation_OnClick" OnClientClick="requiredFiled(),clientSideFunctionsForSubmit()" ValidationGroup="btnSubmit"/>
           </td>          
         </tr>
                
@@ -470,8 +508,9 @@
         <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
     
-        <p class="Collapse_header" style="width:100%">
-        <asp:Label ID="Label6" runat="server" CssClass="Collapse_header" Text="View" ></asp:Label>
+        <p class="Collapse_headerView" id="ViewParagraph" runat="server" style="width:100%">
+            <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='ViewCollapseImage' border='0' />
+            <asp:Label ID="Label6" runat="server" CssClass="Collapse_header" Text="View" ></asp:Label>
        </p>
             <div class="Collapse_body" style="width:100%">
     
@@ -541,7 +580,7 @@
         </MasterTableView>
         <HeaderStyle Width="140px" VerticalAlign="Top" Wrap="false" />
         <ClientSettings>
-            <Scrolling AllowScroll="True" UseStaticHeaders="True" EnableVirtualScrollPaging="false" SaveScrollPosition="true" FrozenColumnsCount="1">
+            <Scrolling AllowScroll="True" UseStaticHeaders="True" EnableVirtualScrollPaging="false" SaveScrollPosition="true" FrozenColumnsCount="1">                
             </Scrolling>
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         </ClientSettings>
@@ -559,7 +598,8 @@
         <asp:Panel ID="Panel1" runat="server">
         <div class="Collapse_list" style="width:100%">
         <p class="Collapse_header">
-        <asp:Label ID="lblHeader1" runat="server" CssClass="Collapse_header" Text="Edit" ></asp:Label>
+         <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage1' border='0' />
+         <asp:Label ID="lblHeader1" runat="server" CssClass="Collapse_header" Text="Edit" ></asp:Label>
         </p>
         <div class="Collapse_body" style="width:100%">
         
@@ -606,7 +646,9 @@
         <asp:Label ID="lblAgreedFS" runat="server" Text="Agreed allocation :" CssClass="FieldName"  Font-Bold="true"></asp:Label>
         </td>
         </tr>        
-            <tr><td ></td><td ></td><td ></td><td ></td><td ></td>
+            <tr><td ></td>
+                <td ></td><td ></td>
+                <td ></td><td ></td>
           <td align="right">
            <asp:Label ID="lblEquityFS" runat="server" Text="Equity : " CssClass="FieldName"></asp:Label>
           </td>
@@ -626,7 +668,9 @@
            </asp:RangeValidator>
            </td>
         </tr>        
-            <tr><td></td><td ></td><td ></td><td ></td><td ></td>
+            <tr><td></td>
+                <td ></td><td ></td>
+                <td ></td><td ></td>
           <td align="right">
            <asp:Label ID="lblCashFS" runat="server" Text="Cash : " CssClass="FieldName"></asp:Label>
           </td>
@@ -648,7 +692,7 @@
         </tr>       
             <tr id="tr3" runat="server">
           <td align="left" colspan="3">
-           <asp:Button ID="btnSubmitFpFs" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitFpFs_OnClick" OnClientClick="return requiredFiledFS()" ValidationGroup="btnSubmitFS"/>
+           <asp:Button ID="btnSubmitFpFs" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmitFpFs_OnClick" OnClientClick="requiredFiledFS(),clientSideFunctionsForSubmit()" ValidationGroup="btnSubmitFS"/>
           </td>          
         </tr>       
           </table>
@@ -659,8 +703,9 @@
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
     
     
-    <p class="Collapse_header" style="width:100%">
-        <asp:Label ID="Label4" runat="server" CssClass="Collapse_header" Text="View" ></asp:Label>
+        <p class="Collapse_headerView" id="ViewParagraph1" runat="server" style="width:100%">
+            <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='ViewCollapseImage1' border='0' />
+            <asp:Label ID="Label4" runat="server" CssClass="Collapse_header" Text="View" ></asp:Label>
        </p>
             <div class="Collapse_body" style="width:100%">
     
@@ -917,3 +962,7 @@
         document.getElementById('<%=trRangeYearFSFROM.ClientID %>').style.display = 'none';
     
  </script>--%>
+ 
+ 
+<asp:HiddenField ID="hdnChangeTabValueEdit" Value="0" runat="server" />    
+<asp:HiddenField ID="hdnChangeTabValueView" Value="0" runat="server" />   
