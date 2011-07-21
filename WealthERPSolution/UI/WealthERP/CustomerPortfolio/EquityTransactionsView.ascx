@@ -169,10 +169,10 @@
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" CssClass="cmbField"/>
                             </ItemTemplate>
-                            <FooterTemplate>
+                        <%--    <FooterTemplate>
                                 <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
                                     runat="server" Text="Delete" />
-                            </FooterTemplate>
+                            </FooterTemplate>--%>
                         </asp:TemplateField>
                         <asp:ButtonField CommandName="Select" ShowHeader="True" Text="View Details" ItemStyle-Wrap="false" />
                         <asp:TemplateField ItemStyle-Wrap="false">

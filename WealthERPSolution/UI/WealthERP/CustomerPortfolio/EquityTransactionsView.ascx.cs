@@ -419,42 +419,42 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void btnDeleteSelected_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (GridViewRow dr in gvEquityTransactions.Rows)
-                {
-                    customerVo = (CustomerVo)Session["CustomerVo"];
-                    customerId = customerVo.CustomerId;
+        //protected void btnDeleteSelected_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        foreach (GridViewRow dr in gvEquityTransactions.Rows)
+        //        {
+        //            customerVo = (CustomerVo)Session["CustomerVo"];
+        //            customerId = customerVo.CustomerId;
 
-                    CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
-                    if (checkBox.Checked)
-                    {
-                        int TransactionID = Convert.ToInt32(gvEquityTransactions.DataKeys[dr.RowIndex].Value);
-                        customerTransactionBo.DeleteEQTransaction(TransactionID);
-                    }
-                }
-                BindGridView(customerId, Pager1.CurrentPage, 0,dtFrom,dtTo);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "EquityTransactionsView.ascx:btnDeleteSelected_Click()");
-                object[] objects = new object[2];
-                objects[0] = customerId;
-                objects[1] = customerVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //            CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
+        //            if (checkBox.Checked)
+        //            {
+        //                int TransactionID = Convert.ToInt32(gvEquityTransactions.DataKeys[dr.RowIndex].Value);
+        //                customerTransactionBo.DeleteEQTransaction(TransactionID);
+        //            }
+        //        }
+        //        BindGridView(customerId, Pager1.CurrentPage, 0,dtFrom,dtTo);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "EquityTransactionsView.ascx:btnDeleteSelected_Click()");
+        //        object[] objects = new object[2];
+        //        objects[0] = customerId;
+        //        objects[1] = customerVo;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         protected void gvEquityTransactions_RowCommand(object sender, GridViewCommandEventArgs e)
         {
