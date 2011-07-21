@@ -500,6 +500,7 @@ namespace WealthERP.Advisor
             RadPanelBar2.CollapseAllItems();
             RadPanelBar3.CollapseAllItems();
             Session[SessionContents.CurrentUserRole] = "Admin";
+            hdfSession.Value = "Admin";
             try
             {
                 if (e.Item.Value == "Admin Home")
@@ -726,6 +727,7 @@ namespace WealthERP.Advisor
             RadPanelBar1.CollapseAllItems();
             RadPanelBar3.CollapseAllItems();
             Session[SessionContents.CurrentUserRole] = "RM";
+            hdfSession.Value = "RM";
             try
             {
                 if (e.Item.Value == "RM Home")
@@ -881,6 +883,7 @@ namespace WealthERP.Advisor
             RadPanelBar1.CollapseAllItems();
             RadPanelBar2.CollapseAllItems();
             Session[SessionContents.CurrentUserRole] = "BM";
+            hdfSession.Value = "BM";
             try
             {
                 if (e.Item.Value == "BM Home")

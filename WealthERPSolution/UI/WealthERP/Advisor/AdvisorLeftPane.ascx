@@ -10,6 +10,9 @@
 
 <script id="pagescript" type="text/javascript" language="javascript">
     function callSearchControl(searchtype) {
+        var sessionValue = document.getElementById('ctrl_AdvisorLeftPane_hdfSession').value;
+        
+        
         if (searchtype == "RM") {
             var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindRM').value;
             loadsearchcontrol('ViewRM', 'RM', searchstring);
@@ -19,8 +22,14 @@
             loadsearchcontrol('ViewBranches', 'Branch', searchstring);
         }
         else if (searchtype == "AdviserCustomer") {
+        if (sessionValue == "RM") {
+            var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindAdviserCustomer').value;
+            loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
+        }
+        else {
             var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindAdviserCustomer').value;
             loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
+        }
         }
         else if (searchtype == "RMCustomer") {
             var searchstring = document.getElementById('ctrl_AdvisorLeftPane_txtFindRMCustomer').value;
@@ -401,8 +410,10 @@
             <tr>
                 <td>
                     &nbsp;
+                    <asp:HiddenField ID="hdfSession" runat="server" />
                 </td>
             </tr>
         </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+
