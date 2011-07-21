@@ -97,11 +97,14 @@ namespace WealthERP.FP
                 BindGridLifeInsurance(dsGetCustomerFPAnalyticsStandard.Tables["LifeInsurance"]);
                 BindGridHLVAnalysis(dsGetCustomerFPAnalyticsStandard.Tables["HLV"]);
                 BindGridInsuranceGapAnalysis(dsGetCustomerFPAnalyticsStandard.Tables["HLVBasedIncome"]);
-                tdErrorLifeInsurance.Visible = false;
+                trErrorLifeInsurance.Visible = false;
                 }
                 else
                 {
-                    tdErrorLifeInsurance.Visible=true;
+                    trErrorLifeInsurance.Visible = true;
+                    trRadGridLifeInsurance.Visible = false;
+                    trRadGridHLVAnalysis.Visible = false;
+                    trRadGridLIGapAnalysis.Visible = false;
                 }
                 
             }
@@ -867,6 +870,7 @@ namespace WealthERP.FP
                     ChartIncome.DataSource = null;
                     ChartIncome.Visible = false;
                     //tdIncomeError.Visible = true;
+                    //tdgvrIncome.Visible = false;
                 }
             }
 
@@ -957,7 +961,7 @@ namespace WealthERP.FP
                         drExpenseForGrid = dtExpenseForGrid.NewRow();
                         drExpenseForGrid["ExpenseCategory"] = dr["ExpenseCategory"];
                         drExpenseForGrid["ExpenseAmount"] = dr["ExpenseAmount"];
-                        drExpenseForGrid["Percentage"] = (Math.Round(double.Parse(dr["ExpenseAmount"].ToString()) / total * 100, 2));
+                        drExpenseForGrid["Percentage"] = (Math.Round(double.Parse(dr["sExpenseAmount"].ToString()) / total * 100, 2));
 
                         dtExpenseForGrid.Rows.Add(drExpenseForGrid);
                     }
@@ -973,6 +977,7 @@ namespace WealthERP.FP
                     ChartExpense.DataSource = null;
                     ChartExpense.Visible = false;
                     //tdExpenseError.Visible = true;
+                    //tdRedGridExpense.Visible = false;
                 }               
             }
             catch (BaseApplicationException Ex)
@@ -1079,6 +1084,7 @@ namespace WealthERP.FP
                     ChartAsset.DataSource = null;
                     ChartAsset.Visible = false;
                     tdAssetErrorMsg.Visible = true;
+                    tdRadGridAsset.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1189,6 +1195,7 @@ namespace WealthERP.FP
                     ChartLiabilities.DataSource = null;
                     ChartLiabilities.Visible = false;
                     tdErrorLiabilities.Visible = true;
+                    tdRadGridLiabilities.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1242,6 +1249,8 @@ namespace WealthERP.FP
                     ChartCashFlow.DataSource = null;
                     ChartCashFlow.Visible = false;
                     lblCashFlowError.Visible = true;
+                    //tdgvrIncome.Visible = false;
+                    //tdRedGridExpense.Visible = false;
                 }
             }
 
@@ -1472,13 +1481,17 @@ namespace WealthERP.FP
                     RadGridGEGapAnalysis.DataSource = dtGEGapAnalysis;
                     RadGridGEGapAnalysis.DataBind();
 
-                    tdGEInsuranceError.Visible = false;
+                    trGEInsuranceError.Visible = false;
                 }
                 else
                 {
-                    tdHealth.Visible = false;
-                    tdOther.Visible = false;
-                    tdGEInsuranceError.Visible = true;
+                    trHealth.Visible = false;
+                    trOther.Visible = false;                   
+                    trGEInsuranceError.Visible = true;
+                    trRadGridGEHealth.Visible = false;
+                    trRadGridLIGapAnalysis.Visible = false;
+                    trRadGridGEOther.Visible = false;
+                    trRadGridGEGapAnalysis.Visible = false;
                 }
             }
 

@@ -113,6 +113,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblIncomeChart;
         
         /// <summary>
+        /// lblExpenseChart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExpenseChart;
+        
+        /// <summary>
         /// ChartIncome control.
         /// </summary>
         /// <remarks>
@@ -131,6 +140,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.DataVisualization.Charting.Chart ChartExpense;
         
         /// <summary>
+        /// tdgvrIncome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdgvrIncome;
+        
+        /// <summary>
         /// gvrIncome control.
         /// </summary>
         /// <remarks>
@@ -138,6 +156,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvrIncome;
+        
+        /// <summary>
+        /// tdRedGridExpense control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRedGridExpense;
         
         /// <summary>
         /// RedGridExpense control.
@@ -275,6 +302,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblErrorLiabilities;
         
         /// <summary>
+        /// tdRadGridAsset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRadGridAsset;
+        
+        /// <summary>
         /// RadGridAsset control.
         /// </summary>
         /// <remarks>
@@ -282,6 +318,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGridAsset;
+        
+        /// <summary>
+        /// tdRadGridLiabilities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRadGridLiabilities;
         
         /// <summary>
         /// RadGridLiabilities control.
@@ -320,6 +365,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblLIDetails;
         
         /// <summary>
+        /// trRadGridLifeInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridLifeInsurance;
+        
+        /// <summary>
         /// RadGridLifeInsurance control.
         /// </summary>
         /// <remarks>
@@ -327,6 +381,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGridLifeInsurance;
+        
+        /// <summary>
+        /// trErrorLifeInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorLifeInsurance;
         
         /// <summary>
         /// tdErrorLifeInsurance control.
@@ -347,6 +410,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblErrorLifeInsurance;
         
         /// <summary>
+        /// trRadGridHLVAnalysis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridHLVAnalysis;
+        
+        /// <summary>
         /// RadGridHLVAnalysis control.
         /// </summary>
         /// <remarks>
@@ -354,6 +426,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGridHLVAnalysis;
+        
+        /// <summary>
+        /// trRadGridLIGapAnalysis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridLIGapAnalysis;
         
         /// <summary>
         /// RadGridLIGapAnalysis control.
@@ -392,13 +473,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblGeneralInsurance;
         
         /// <summary>
-        /// tdHealth control.
+        /// trHealth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdHealth;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trHealth;
         
         /// <summary>
         /// lblHealth control.
@@ -410,6 +491,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblHealth;
         
         /// <summary>
+        /// trRadGridGEHealth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridGEHealth;
+        
+        /// <summary>
         /// RadGridGEHealth control.
         /// </summary>
         /// <remarks>
@@ -419,13 +509,13 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadGrid RadGridGEHealth;
         
         /// <summary>
-        /// tdGEInsuranceError control.
+        /// trGEInsuranceError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdGEInsuranceError;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGEInsuranceError;
         
         /// <summary>
         /// lblGEInsuranceError control.
@@ -437,6 +527,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblGEInsuranceError;
         
         /// <summary>
+        /// trRadGridGEGapAnalysis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridGEGapAnalysis;
+        
+        /// <summary>
         /// RadGridGEGapAnalysis control.
         /// </summary>
         /// <remarks>
@@ -446,13 +545,13 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadGrid RadGridGEGapAnalysis;
         
         /// <summary>
-        /// tdOther control.
+        /// trOther control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdOther;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trOther;
         
         /// <summary>
         /// lblOther control.
@@ -462,6 +561,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOther;
+        
+        /// <summary>
+        /// trRadGridGEOther control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRadGridGEOther;
         
         /// <summary>
         /// RadGridGEOther control.
