@@ -56,23 +56,23 @@
                 <td>
                 <asp:Label ID="TotalAssets" runat="server" CssClass="HeaderTextSmall" Text="Total Assets : "></asp:Label>
                 </td>
-                <td>
+                <td align="right">
                 <asp:Label ID="TotalValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
                 </td>
                  </tr>
                  <tr>
                  <td>
-                <asp:Label ID="TotalLiabilities" runat="server" CssClass="HeaderTextSmall" Text="Liabilities : "></asp:Label>
+                <asp:Label ID="TotalLiabilities" runat="server" CssClass="HeaderTextSmall" Text="Liabilities &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: "></asp:Label>
                 </td>
-                <td>
+                <td align="right">
                 <asp:Label ID="TotalLiabilitiesValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
                 </td>
                 </tr>
                 <tr>
                 <td>
-                <asp:Label ID="TotalNetworth" runat="server" CssClass="HeaderTextSmall" Text="Networth : "></asp:Label>
+                <asp:Label ID="TotalNetworth" runat="server" CssClass="HeaderTextSmall" Text="Networth &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: "></asp:Label>
                 </td>
-                <td>
+                <td align="right">
                 <asp:Label ID="NetworthValue" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
                 </td>
                 </tr>
@@ -106,15 +106,12 @@
             <table style="width: 100%;">
             <tr>
                 <td align="left">
-           <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation"></asp:Label>
            <hr id="hr1" runat="server" />
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Current Asset Allocation"></asp:Label>
         </td>
         <td>
+       <hr />
         <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Recommended Asset Allocation"></asp:Label>
-        <br />
-        <asp:Label ID="lblAgeResult" runat="server" CssClass="FieldName"></asp:Label>
-                              
-        <hr />
         </td>
         </tr>
         
