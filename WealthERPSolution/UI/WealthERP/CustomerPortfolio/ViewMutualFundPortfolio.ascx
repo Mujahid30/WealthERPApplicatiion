@@ -95,30 +95,54 @@
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
+        <td style;></td>
+        <td>
+            <asp:Label ID="lblPickDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtPickDate"  runat="server" CssClass="cmbField" ></asp:TextBox>
+            <cc1:CalendarExtender ID="txtPickDate_CalendarExtender" runat="server" TargetControlID="txtPickDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="txtPickDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtPickDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+           
+              <asp:CompareValidator ID="cmpAsOnDate" runat="server" ControlToValidate="txtPickDate" CssClass="cvPCG" 
+              ErrorMessage="As on date cannot be greater than today's date" Operator="LessThanEqual" Type="Date">
+              </asp:CompareValidator>           
+
+        </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td colspan="2">
             <asp:Label ID="lblMFDate" runat="server" CssClass="FieldName" Text="Valuation Date"></asp:Label>
         </td>
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblPickDate" runat="server" Text="Pick date :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPickDate" runat="server" Text="As on :" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtPickDate"  runat="server" CssClass="cmbField" ></asp:TextBox>
             <cc1:CalendarExtender ID="txtPickDate_CalendarExtender" runat="server" TargetControlID="txtPickDate"
-                            Format="dd/MM/yyyy">
-                        </cc1:CalendarExtender>
-                        <cc1:TextBoxWatermarkExtender ID="txtPickDate_TextBoxWatermarkExtender" runat="server"
-                            TargetControlID="txtPickDate" WatermarkText="dd/mm/yyyy">
-                        </cc1:TextBoxWatermarkExtender>
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="txtPickDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtPickDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:Button ID="btnGo" runat="server" onfocus="checkDateSelection()" Text="Go" CssClass="PCGButton" 
                 onclick="btnGo_Click" />
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            
         </td>
     </tr>
 </table>
