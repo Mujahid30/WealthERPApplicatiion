@@ -961,7 +961,7 @@ namespace WealthERP.FP
                         drExpenseForGrid = dtExpenseForGrid.NewRow();
                         drExpenseForGrid["ExpenseCategory"] = dr["ExpenseCategory"];
                         drExpenseForGrid["ExpenseAmount"] = dr["ExpenseAmount"];
-                        drExpenseForGrid["Percentage"] = (Math.Round(double.Parse(dr["sExpenseAmount"].ToString()) / total * 100, 2));
+                        drExpenseForGrid["Percentage"] = (Math.Round(double.Parse(dr["ExpenseAmount"].ToString()) / total * 100, 2));
 
                         dtExpenseForGrid.Rows.Add(drExpenseForGrid);
                     }
