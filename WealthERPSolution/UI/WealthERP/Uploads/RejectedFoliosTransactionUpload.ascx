@@ -81,7 +81,7 @@ Inherits="WealthERP.Uploads.RejectedFoliosTransactionUpload" %>
                         
                         </asp:TemplateField>
                         <asp:BoundField DataField="InvestorName" HeaderText="INVESTOR NAME" />
-                        <%--<asp:BoundField DataField="PanNumber" HeaderText="PAN NUMBER" />--%>
+                        <asp:BoundField DataField="PanNumber" HeaderText="PAN NUMBER" />
                         <asp:BoundField DataField="FolioNumber" HeaderText = "FOLIO NUMBER" />
                     
                     
