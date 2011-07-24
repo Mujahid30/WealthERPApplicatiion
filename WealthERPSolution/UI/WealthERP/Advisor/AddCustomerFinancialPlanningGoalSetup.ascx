@@ -9,7 +9,12 @@
 
 <script type="text/javascript">
 
-//   
+    //
+    function SetROI() {
+        if (document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value > 0)
+            document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "8.5";
+
+    };
 
 
     function validate() {        
@@ -447,7 +452,8 @@
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <%--<tr>
+                
+                <tr>
                     <td class="leftField">
                         <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Current Investment for the purpose :"></asp:Label>
                     </td>
@@ -481,7 +487,8 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4"    Display="Dynamic" runat="server" ControlToValidate="txtAboveRateOfInterst"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
-                </tr>--%>
+                </tr>
+                
                 <tr>
                     <td class="leftField">
                       <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected Rate of Return on new investment(%) : "></asp:Label></nobr>
@@ -613,14 +620,20 @@
                                 <asp:TemplateField HeaderText="Select">
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="cmbField" />
-                                    </ItemTemplate>
+                                    </ItemTemplate>                                  
                                 </asp:TemplateField>
+                                  
                                 <asp:TemplateField HeaderText="Goal Type">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 
                                             OnClick="lnkGoalType_Click" Text='<%# Eval("GoalName") %>'>
                                         </asp:LinkButton>
                                     </ItemTemplate>
+                                      <FooterTemplate>
+                                        <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text=" Total  =  Rs.">
+                                        </asp:Label>
+                                    </FooterTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Name of Associate Customer">
                                     <ItemTemplate>
@@ -636,8 +649,20 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
-                                            ForeColor="White" Text=" Total  =  Rs.">
+                                        <asp:Label ID="lblCostTodayTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Investment Amount Allocated(Rs.)" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCurrentInvestment" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CurrentInvestment")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblCurrentInvestmentTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
@@ -648,7 +673,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblMonthlySavingTotal" runat="server" CssClass="Field" Font-Bold="true" 
                                             ForeColor="White" Text="">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -658,7 +683,12 @@
                                         <asp:Label ID="lblGaolAmount" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalAmount")%>'>
                                         </asp:Label>
-                                    </ItemTemplate>                                   
+                                    </ItemTemplate>  
+                                     <FooterTemplate>
+                                        <asp:Label ID="lblGoalAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>                                 
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Calculated On">
                                     <ItemTemplate>
@@ -697,13 +727,13 @@
                                          </asp:Label>
                                     </HeaderTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Approved by customer On">
+                               <%-- <asp:TemplateField HeaderText="Approved by customer On">
                                     <ItemTemplate>
                                         <asp:Label ID="lblAporoveOn" runat="server" CssClass="cmbField" 
                                             Text='<%# Eval("CustomerApprovedOn", "{0:M-dd-yyyy}")  %>'>
                                         </asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                             </Columns>
                             <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" 
                                 VerticalAlign="Top" />
@@ -835,6 +865,79 @@
                     </td>
                 </tr>
             </table>
+        </ContentTemplate>
+    </ajaxToolkit:TabPanel>
+    
+    <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Funding Gap" Style="width: 100%;
+        height: 100%">
+        <ContentTemplate>
+        <table class="TableBackground" width="65%">
+          <tr>
+                    <td class="HeaderCell">
+                        <asp:Label ID="lblFundGapHeader" runat="server" CssClass="HeaderTextBig" Text="Goal Funding Gap"></asp:Label>
+                        
+                    </td>
+          </tr>
+          
+          <tr><td><hr /></td></tr>
+          
+        <tr>
+        <td>
+        <asp:GridView ID="gvGoalFundingGap" runat="server" AllowSorting="True" OnRowDataBound="gvGoalFundingGap_RowDataBound"
+                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
+                            HorizontalAlign="Center" ShowFooter="True">
+                            <FooterStyle CssClass="FooterStyle" />
+                            <AlternatingRowStyle CssClass="AltRowStyle" />
+                            <Columns>
+                            <asp:TemplateField HeaderText="Sources" ItemStyle-HorizontalAlign="Left" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMoneySource" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("Source") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                             </asp:TemplateField>
+                             
+                             <asp:TemplateField HeaderText="Goal Funding" ItemStyle-HorizontalAlign="Left" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblInvestedAmount" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("GoalFunding") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                             </asp:TemplateField>
+                             
+                              <asp:TemplateField HeaderText="Gap" ItemStyle-HorizontalAlign="Left" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblGap" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("GoalGap") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                             </asp:TemplateField>
+                             
+                             <asp:TemplateField HeaderText="IsGap" ItemStyle-HorizontalAlign="Left" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsGap" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("IsGap") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                             </asp:TemplateField>
+                             
+                             <asp:TemplateField HeaderText="Indicator" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>                         
+                                <asp:Image ID="imgGoalFundIndicator" ImageAlign="Middle" runat="server" />
+                             </ItemTemplate>
+                       
+                       </asp:TemplateField> 
+                           </Columns>
+                           <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" 
+                                VerticalAlign="Top" />
+                            <HeaderStyle CssClass="HeaderStyle" />
+                            <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                            <RowStyle CssClass="RowStyle" />
+                            <SelectedRowStyle CssClass="SelectedRowStyle" />
+        </asp:GridView>
+        </td>
+        </tr>
+        </table>
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
 </ajaxToolkit:TabContainer>

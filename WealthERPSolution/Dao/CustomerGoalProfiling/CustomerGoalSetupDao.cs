@@ -323,7 +323,7 @@ namespace DaoCustomerGoalProfiling
             
         }
 
-        public List<GoalProfileSetupVo> GetCustomerGoalProfile(int CustomerId, int ActiveFlag)
+        public List<GoalProfileSetupVo> GetCustomerGoalProfile(int CustomerId, int ActiveFlag, out int investmentTotal, out int surplusTotal, out int investedAmountForAllGaol,out int monthlySavingRequired)
         {
             DataSet ds = null;
             Database db;
@@ -337,9 +337,37 @@ namespace DaoCustomerGoalProfiling
                 getCustomerGoalProfileCmd = db.GetStoredProcCommand("SP_GetCustomerGoalProfileDetails");
                 db.AddInParameter(getCustomerGoalProfileCmd, "@CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(getCustomerGoalProfileCmd, "@ActiveFlag", DbType.Int32, ActiveFlag);
+                db.AddOutParameter(getCustomerGoalProfileCmd, "@InvestmentTotal", DbType.Int32, 20);
+                db.AddOutParameter(getCustomerGoalProfileCmd, "@SurplusTotal", DbType.Int32, 20);
+                db.AddOutParameter(getCustomerGoalProfileCmd, "@InvestedAmountForAllGaol", DbType.Int32, 20);
+                db.AddOutParameter(getCustomerGoalProfileCmd, "@MonthlySavingTotal", DbType.Int32, 20);
 
                 ds = db.ExecuteDataSet(getCustomerGoalProfileCmd);
-               
+
+
+                Object objInvestmentTotal = db.GetParameterValue(getCustomerGoalProfileCmd, "@InvestmentTotal");
+                if (objInvestmentTotal != DBNull.Value)
+                    investmentTotal = (int)db.GetParameterValue(getCustomerGoalProfileCmd, "@InvestmentTotal");
+                else
+                    investmentTotal = 0;
+
+                Object objSurplusTotal = db.GetParameterValue(getCustomerGoalProfileCmd, "@SurplusTotal");
+                if (objSurplusTotal != DBNull.Value)
+                    surplusTotal = (int)db.GetParameterValue(getCustomerGoalProfileCmd, "@SurplusTotal");
+                else
+                    surplusTotal = 0;
+
+                Object objInvestedAmountTotal = db.GetParameterValue(getCustomerGoalProfileCmd, "@InvestedAmountForAllGaol");
+                if (objInvestedAmountTotal != DBNull.Value)
+                    investedAmountForAllGaol = (int)db.GetParameterValue(getCustomerGoalProfileCmd, "@InvestedAmountForAllGaol");
+                else
+                    investedAmountForAllGaol = 0;
+
+                Object objMonthlySavingTotal = db.GetParameterValue(getCustomerGoalProfileCmd, "@MonthlySavingTotal");
+                if (objMonthlySavingTotal != DBNull.Value)
+                    monthlySavingRequired = (int)db.GetParameterValue(getCustomerGoalProfileCmd, "@MonthlySavingTotal");
+                else
+                    monthlySavingRequired = 0;
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -361,6 +389,8 @@ namespace DaoCustomerGoalProfiling
 
                         GoalProfileVo.ChildName = dr["ChildName"].ToString();
                         GoalProfileVo.CostOfGoalToday = double.Parse(dr["CG_CostToday"].ToString());
+                        if (!string.IsNullOrEmpty(Convert.ToString(dr["CG_CurrentInvestment"])))
+                            GoalProfileVo.CurrInvestementForGoal = double.Parse(dr["CG_CurrentInvestment"].ToString());
                         GoalProfileVo.MonthlySavingsReq = double.Parse(dr["CG_MonthlySavingsRequired"].ToString());
                         if (!string.IsNullOrEmpty(dr["CG_FVofCostToday"].ToString()))
                         GoalProfileVo.FutureValueOfCostToday = double.Parse(dr["CG_FVofCostToday"].ToString());                        

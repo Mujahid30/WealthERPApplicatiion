@@ -376,14 +376,14 @@ namespace BoCustomerGoalProfiling
 
         }
 
-        public List<GoalProfileSetupVo> GetCustomerGoalProfile(int CustomerId, int ActiveFlag)
+        public List<GoalProfileSetupVo> GetCustomerGoalProfile(int CustomerId, int ActiveFlag,out int investmentTotal, out int surplusTotal, out int investedAmountForAllGaol,out int monthlySavingRequired)
         {
             List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
             CustomerGoalSetupDao customerGoalProfileDao = new CustomerGoalSetupDao();
             try
             {
 
-                GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, ActiveFlag);
+                GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, ActiveFlag, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
 
             }
             catch (BaseApplicationException Ex)
@@ -408,44 +408,44 @@ namespace BoCustomerGoalProfiling
         }
 
 
-        public double SumSavingReq(int CustomerId, int ActiveFlag)
-        {
-            double SumSave = 0;
-            List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
-            CustomerGoalSetupDao customerGoalProfileDao = new CustomerGoalSetupDao();
-            GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
-            GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, ActiveFlag);
+        //public double SumSavingReq(int CustomerId, int ActiveFlag)
+        //{
+        //    double SumSave = 0;
+        //    List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
+        //    CustomerGoalSetupDao customerGoalProfileDao = new CustomerGoalSetupDao();
+        //    GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
+        //    GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, ActiveFlag);
             
-            try
-            {
-                for (int i = 0; i < GoalProfileList.Count; i++)
-                {
+        //    try
+        //    {
+        //        for (int i = 0; i < GoalProfileList.Count; i++)
+        //        {
                     
-                   SumSave +=goalProfileSetupVo.MonthlySavingsReq;
+        //           SumSave +=goalProfileSetupVo.MonthlySavingsReq;
                      
-                }
+        //        }
  
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerGoalSetupBo.cs:SumSavingReq()");
-                object[] objects = new object[1];
-                objects[0] = CustomerId;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "CustomerGoalSetupBo.cs:SumSavingReq()");
+        //        object[] objects = new object[1];
+        //        objects[0] = CustomerId;
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
 
-            }
-            return SumSave;
-        }
+        //    }
+        //    return SumSave;
+        //}
 
         public DataSet GetCustomerRTDetails(int CustomerID)
         {
@@ -632,7 +632,13 @@ namespace BoCustomerGoalProfiling
                 string strOther = "";
                 string strTotal = "";
 
-                GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, 1);
+                int investmentTotal = 0;
+                int surplusTotal = 0;
+                int investedAmountForAllGaol = 0;
+                int monthlySavingRequired = 0;
+
+
+                GoalProfileList = customerGoalProfileDao.GetCustomerGoalProfile(CustomerId, 1,out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
                 if (GoalProfileList != null)
                 {
                     for (int i = 0; i < GoalProfileList.Count; i++)
