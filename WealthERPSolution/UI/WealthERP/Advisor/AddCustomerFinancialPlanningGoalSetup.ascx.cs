@@ -876,6 +876,7 @@ namespace WealthERP.Advisor
                     dtGoalProfile.Columns.Add("GoalName");
                     dtGoalProfile.Columns.Add("ChildName");
                     dtGoalProfile.Columns.Add("CostToday");
+                    dtGoalProfile.Columns.Add("CurrentInvestment");
                     dtGoalProfile.Columns.Add("SavingRequired");
                     dtGoalProfile.Columns.Add("GoalAmount");
                     dtGoalProfile.Columns.Add("GoalPrifileDate");
@@ -894,6 +895,7 @@ namespace WealthERP.Advisor
                     drGoalProfile["GoalName"] = string.Empty;
                     drGoalProfile["ChildName"] = string.Empty;
                     drGoalProfile["CostToday"] = string.Empty;
+                    drGoalProfile["CurrentInvestment"] = string.Empty;
                     drGoalProfile["SavingRequired"] = string.Empty;
                     drGoalProfile["GoalAmount"] = string.Empty;
                     drGoalProfile["GoalPrifileDate"] = string.Empty;
