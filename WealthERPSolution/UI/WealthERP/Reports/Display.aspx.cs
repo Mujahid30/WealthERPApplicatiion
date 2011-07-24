@@ -164,9 +164,9 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FinancialPlanningSectional;
                 ctrlPrefix = "ctrl_FPSectional$";
             }
-            if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null)
+            if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null || Request.Form["ctrl_OfflineForm$btnViewReport"] != null)
             {
-                btnSendMail.Visible = false;
+                btnSendMail.Visible = true;
                 CurrentReportType = ReportType.FPOfflineForm;
                 ctrlPrefix = "ctrl_OfflineForm$";
             }
@@ -3310,6 +3310,17 @@ namespace WealthERP.Reports
                     toDate = DateTime.Today;
                     cust = customerBo.GetCustomer(Convert.ToInt32(financialPlanning.CustomerId));
                 }
+                else if (CurrentReportType == ReportType.FPOfflineForm)
+                {
+                    cust = new CustomerVo();
+                    cust.Email = String.Empty;
+                    cust.Salutation = string.Empty;
+                    cust.FirstName = string.Empty;
+                    cust.LastName = string.Empty;
+                    subType = "FPOfflineForm";
+                }
+
+                if (!string.IsNullOrEmpty(txtCC.Text.Trim()))
                 Session["hidCC"] = txtCC.Text;
                 Session["hidTo"] = cust.Email;
                 if (Session["hidTo"] != null)
@@ -3364,6 +3375,8 @@ namespace WealthERP.Reports
                 subject = "Portfolio Report";
             else if (CurrentReportType == ReportType.FinancialPlanning)
                 subject = "Financial Planning Report";
+            else if (CurrentReportType == ReportType.FPOfflineForm)
+                subject = "FP Offline Form";
 
             strMail.Append("Dear " + customerName + ",<br/>");
             strMail.Append("<br/>Please find attached " + subject + ".");
@@ -3428,6 +3441,7 @@ namespace WealthERP.Reports
                             case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
                                 subject = "Eligible Capital Gain Summary - ";
                                 break;
+                           
                         }
                     }
                     break;
@@ -3436,6 +3450,9 @@ namespace WealthERP.Reports
                     break;
                 case ReportType.FinancialPlanning:
                     subject = "Financial Planning Report-";
+                    break;
+                case ReportType.FPOfflineForm:
+                    subject = "FP Offline Form";
                     break;
             }
 
@@ -3448,11 +3465,13 @@ namespace WealthERP.Reports
             //    subject = "Portfolio Report - ";
             //else if (CurrentReportType == ReportType.FinancialPlanning)
             //    subject = "Financial Planning Report";
-
-            if (start.CompareTo(end) == 0)
-                subject = subject + start.ToShortDateString();
-            else
-                subject = subject + start.ToShortDateString() + " To " + end.ToShortDateString();
+            if (reportType != "FPOfflineForm")
+            {
+                if (start.CompareTo(end) == 0)
+                    subject = subject + start.ToShortDateString();
+                else
+                    subject = subject + start.ToShortDateString() + " To " + end.ToShortDateString();
+            }
 
             return subject;
 
