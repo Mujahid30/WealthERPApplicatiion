@@ -870,26 +870,30 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPProjections','login')", true);
                 }
+                //else if (e.Item.Value == "Goal Planning")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalPlanningDetails','login')", true);
+                //}
+                //else if (e.Item.Value == "Goal Setup")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalSetup','login')", true);
+                //}
+                //else if (e.Item.Value == "Goal Funding")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalFunding','login')", true);
+                //}
                 else if (e.Item.Value == "Goal Planning")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalPlanningDetails','login')", true);
-                }
-                else if (e.Item.Value == "Goal Setup")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalSetup','login')", true);
-                }
-                else if (e.Item.Value == "Goal Funding")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalFunding','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
                 }
                 else if (e.Item.Value == "Standard")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPAnalyticsStandard','login')", true);
                 }
-                else if (e.Item.Value == "Dynamic")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPAnalyticsDynamic','login')", true);
-                }
+                //else if (e.Item.Value == "Dynamic")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPAnalyticsDynamic','login')", true);
+                //}
                 else if (e.Item.Value == "Goal Profiling")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddCustomerFinancialPlanningGoalSetup", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
