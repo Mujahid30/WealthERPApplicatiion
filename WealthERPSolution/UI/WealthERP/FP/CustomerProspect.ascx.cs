@@ -2714,119 +2714,118 @@ namespace WealthERP.FP
                         }
                     }
                 }
+            }
 
 
-                // Second Level Category
-                if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[1].Rows.Count > 0)
+            // Second Level Category
+            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[1].Rows.Count > 0)
+            {
+                foreach (DataRow drSecond in dsGetWERPDetails.Tables[1].Rows)
                 {
-                    foreach (DataRow drSecond in dsGetWERPDetails.Tables[1].Rows)
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
                     {
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
-                        {
-                            txtWERPMFEquityM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPMFEquityUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtMFEquity.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
-                        {
-                            txtWERPMFDebtM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPMFDebtUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtMFDebt.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INTP")
-                        {
-                            txtWERPTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INEP")
-                        {
-                            txtWERPEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INWP")
-                        {
-                            txtWERPWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INMP")
-                        {
-                            txtWERPMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INUP")
-                        {
-                            txtWERPULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INOT")
-                        {
-                            txtWERPOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
-                            txtTotalOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
-                        }
+                        txtWERPMFEquityM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPMFEquityUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtMFEquity.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "MF" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                    {
+                        txtWERPMFDebtM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPMFDebtUM.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtMFDebt.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INTP")
+                    {
+                        txtWERPTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalTermSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INEP")
+                    {
+                        txtWERPEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalEndowmentSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INWP")
+                    {
+                        txtWERPWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalWholeLifeSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INMP")
+                    {
+                        txtWERPMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalMoneyBackSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INUP")
+                    {
+                        txtWERPULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalULIPSA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drSecond["PAG_AssetGroupCode"].ToString() == "IN" && drSecond["PAIC_AssetInstrumentCategoryCode"].ToString() == "INOT")
+                    {
+                        txtWERPOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtTotalOthersLISA.Text = Math.Round(double.Parse(drSecond["CFPAID_TotalValue"].ToString()), 0).ToString();
+                    }
+
+                }
+            }
+
+            // Third Level Category
+            if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[2].Rows.Count > 0)
+            {
+                foreach (DataRow drThird in dsGetWERPDetails.Tables[2].Rows)
+                {
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYEQ")
+                    {
+                        txtWERPMFHybridEquityM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                        txtWERPMFHybridEquityUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
+                        txtMFHybridEquity.Text = drThird["CFPASID_TotalValue"].ToString();
+                    }
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYDT")
+                    {
+                        txtWERPMFHybridDebtM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
+                        txtWERPMFHybridDebtUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
+                        txtMFHybridDebt.Text = drThird["CFPASID_TotalValue"].ToString();
+                    }
+
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHM")
+                    {
+                        txtWERPHealthInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtHealthInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
 
                     }
-                }
-
-                // Third Level Category
-                if (dsGetWERPDetails != null && dsGetWERPDetails.Tables[2].Rows.Count > 0)
-                {
-                    foreach (DataRow drThird in dsGetWERPDetails.Tables[2].Rows)
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
                     {
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYEQ")
-                        {
-                            txtWERPMFHybridEquityM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtWERPMFHybridEquityUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
-                            txtMFHybridEquity.Text = drThird["CFPASID_TotalValue"].ToString();
-                        }
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "MF" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "MFHYDT")
-                        {
-                            txtWERPMFHybridDebtM.Text = drThird["CFPASID_WERPManagedValue"].ToString();
-                            txtWERPMFHybridDebtUM.Text = drThird["CFPASID_WERPUnManagedValue"].ToString();
-                            txtMFHybridDebt.Text = drThird["CFPASID_TotalValue"].ToString();
-                        }
-
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHM")
-                        {
-                            txtWERPHealthInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
-                            txtHealthInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
-
-                        }
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIHO")
-                        {
-                            txtWERPPropertyInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
-                            txtPropertyInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
-                        }
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIPA")
-                        {
-                            txtWERPPersonalAccident.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
-                            txtPersonalAccidentSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
-                        }
-                        if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
-                        {
-                            txtWERPOthersGI.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()),0).ToString();
-                            txtOthersGISA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()),0).ToString();
-                        }
+                        txtWERPPropertyInsuranceCover.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtPropertyInsuranceCoverSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIPA")
+                    {
+                        txtWERPPersonalAccident.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtPersonalAccidentSA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drThird["PAG_AssetGroupCode"].ToString() == "GI" && drThird["PAIC_AssetInstrumentCategoryCode"].ToString() == "GIRI" && drThird["PAISC_AssetInstrumentSubCategoryCode"].ToString() == "GIRIOT")
+                    {
+                        txtWERPOthersGI.Text = Math.Round(double.Parse(drThird["CFPASID_WERPManagedValue"].ToString()), 0).ToString();
+                        txtOthersGISA.Text = Math.Round(double.Parse(drThird["CFPASID_TotalValue"].ToString()), 0).ToString();
                     }
                 }
-                if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
-                {
-                    txtSlabProfile.Text = dsGetWERPDetails.Tables[6].Rows[0]["C_TaxSlab"].ToString();
-                    txtSlabAsPerProfile.Text = txtSlabProfile.Text;
-                }
+            }
+            if (dsGetWERPDetails.Tables[6].Rows.Count > 0)
+            {
+                txtSlabProfile.Text = dsGetWERPDetails.Tables[6].Rows[0]["C_TaxSlab"].ToString();
+                txtSlabAsPerProfile.Text = txtSlabProfile.Text;
+            }
 
-                if (dsGetWERPDetails.Tables[7].Rows.Count > 0)
-                {
-                    txtMFSIPMIS.Text = dsGetWERPDetails.Tables[7].Rows[0]["CFPED_Value"].ToString();
-                }
+            if (dsGetWERPDetails.Tables[7].Rows.Count > 0)
+            {
+                txtMFSIPMIS.Text = dsGetWERPDetails.Tables[7].Rows[0]["CFPED_Value"].ToString();
+            }
 
-                if (dsGetWERPDetails.Tables[8].Rows.Count > 0)
-                {
-                    txtReccuringDeposit.Text = dsGetWERPDetails.Tables[8].Rows[0]["CFPED_Value"].ToString();
-                }
-
-
+            if (dsGetWERPDetails.Tables[8].Rows.Count > 0)
+            {
+                txtReccuringDeposit.Text = dsGetWERPDetails.Tables[8].Rows[0]["CFPED_Value"].ToString();
             }
         }
+
 
         protected void btnCalculationSubmit_Click(object sender, EventArgs e)
         {

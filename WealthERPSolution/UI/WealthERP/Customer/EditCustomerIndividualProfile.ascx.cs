@@ -394,8 +394,10 @@ namespace WealthERP.Customer
                     {
                         customerVo.Gender = "M";
                     }
-                    else
+                    else if(rbtnFemale.Checked)
+                    {
                         customerVo.Gender = "F";
+                    }
                     
 
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();

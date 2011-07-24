@@ -77,7 +77,7 @@ namespace WealthERP.Customer
                 {
                     lblGender.Text = "Male";
                 }
-                else
+                else if(customerVo.Gender.ToUpper().ToString() == "F")
                 {
                     lblGender.Text = "Female";
                 }

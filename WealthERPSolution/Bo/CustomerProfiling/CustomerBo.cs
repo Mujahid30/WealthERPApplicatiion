@@ -1825,5 +1825,39 @@ namespace BoCustomerProfiling
 
         }
 
+        public DataTable GetRMBranchIndividualAndGroupCustomerNames(int branchId, int rmId, string prefixText,string customerType, int all)
+        {
+            CustomerDao customerDao = new CustomerDao();
+
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetRMBranchIndividualAndGroupCustomerNames(branchId, rmId, prefixText, customerType, all);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetBMIndividualCustomerNames()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
+
     }
 }

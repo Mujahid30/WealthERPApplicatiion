@@ -339,6 +339,18 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+        [WebMethod]
+        public string[] GetAllBranchRMCustomers(string contextKey, int rmId, string prefixText, string customerType, int all)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAllRMBranchCustomersName = new DataTable();
+            List<string> allRMBranchNames = new List<string>();
+
+            dtAllRMBranchCustomersName = customerBo.GetRMBranchIndividualAndGroupCustomerNames(int.Parse(contextKey), rmId, prefixText, customerType, all);
+            return allRMBranchNames.ToArray();
+        }
+
+
 
 
 

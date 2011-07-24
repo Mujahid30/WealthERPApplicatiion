@@ -300,17 +300,10 @@
     }
 
     function CallFunOnTxtIncomePreTax() {
-        var PreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>");
-        var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>");
-
-        if (parseInt(PreTax.value) > parseInt(TaxToBePaid.value)) {
-            
-            document.getElementById("<%= txtIncomePostTax.ClientID %>").value = PreTax - TaxToBePaid;
-            document.getElementById("<%= txtDisposable.ClientID %>").value = document.getElementById("<%= txtIncomePostTax.ClientID %>").value;
-        }
-        else if (parseInt(PreTax.value) < parseInt(TaxToBePaid.value)) {
-            alert('Disposable income (pre tax) should be greater then Tax to be paid');
-        }
+        document.getElementById("<%= txtIncomePreTax.ClientID %>").disabled = true;
+    }
+    function CallFunOnTxtIncomePostTax() {
+        document.getElementById("<%= txtIncomePostTax.ClientID %>").disabled = true;
     }
 </script>
 
@@ -335,8 +328,6 @@
 
             return true;
         }
-
-               
     }
 </script>
 <script type="text/javascript">
@@ -1486,7 +1477,7 @@
                                      <table>
                                          <tr>
                                             <td>
-                                                <asp:Label ID="lblTaxableIncome" runat="server" Text="Taxable Income" CssClass="FieldName"></asp:Label>
+                                                <asp:Label ID="lblTaxableIncome" runat="server" Text="Enter Taxable Income" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td align="left">
                                                 <asp:TextBox ID="txtTaxableIncome" runat="server" onchange="CallFuncOnTxtTaxableIncome()" Style="direction: rtl" ></asp:TextBox>
@@ -1514,7 +1505,7 @@
                                                 <asp:Label ID="lblIncomePreTax" runat="server" Text="Disposable income (pre tax)" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td align="left">
-                                                <asp:TextBox ID="txtIncomePreTax" runat="server" onchange="CallFunOnTxtIncomePreTax()" Style="direction: rtl" ></asp:TextBox>
+                                                <asp:TextBox ID="txtIncomePreTax" runat="server" onfocus="CallFunOnTxtIncomePreTax()" Style="direction: rtl" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1522,7 +1513,7 @@
                                                 <asp:Label ID="lblIncomePostTax" runat="server" Text="Disposable income (post tax)" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td align="left">
-                                                <asp:TextBox ID="txtIncomePostTax" runat="server" Style="direction: rtl" ></asp:TextBox>
+                                                <asp:TextBox ID="txtIncomePostTax" ReadOnly="true" onfocus="CallFunOnTxtIncomePostTax()" runat="server" Style="direction: rtl" ></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>

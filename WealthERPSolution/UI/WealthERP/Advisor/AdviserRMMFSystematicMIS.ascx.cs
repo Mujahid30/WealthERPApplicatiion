@@ -59,7 +59,16 @@ namespace WealthERP.Advisor
         string frequency = "";
         int systematicDate = 0;
         int monthCode = 0;
-        
+
+        int all;
+        string customerType = string.Empty;
+
+        private decimal totalSIPAmount = 0;
+        private decimal totalSWPAmount = 0;
+        private int totalNoOfSIP = 0;
+        private int totalNoOfFreshSIP = 0;
+        private int totalNoOfSWP = 0;
+        private int totalNoOfFreshSWP = 0;
 
        
         string path;    
@@ -95,7 +104,7 @@ namespace WealthERP.Advisor
             if (userType == "bm")
             {
                 BindBranchForBMDropDown();
-                BindRMforBranchDropdown(0, bmID, 1);
+                BindRMforBranchDropdown(0, bmID);
             }
 
             hdnRecordCount.Value = "1";
@@ -104,9 +113,9 @@ namespace WealthERP.Advisor
             if (!IsPostBack)
             {
                 ddlSelectCutomer.Visible = false;
+                lblSelectTypeOfCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
-                txtGroupHead.Visible = false;
-                trPager.Visible = false;
+                //trPager.Visible = false;
                 dsSystematicMIS = systematicSetupBo.GetAllDropdownBinding(strAmcCode);
                 BindDropDowns(path);
                 BindAMCDropDown(dsSystematicMIS.Tables[0]);
@@ -152,7 +161,7 @@ namespace WealthERP.Advisor
                     ddlAMC.DataTextField = dtAMC.Columns["PA_AMCName"].ToString();
                     ddlAMC.DataBind();
                 }
-                ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -186,7 +195,7 @@ namespace WealthERP.Advisor
                     ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                     ddlScheme.DataBind();
                 }
-                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "Select"));
 
             }
             catch(BaseApplicationException Ex)
@@ -336,13 +345,16 @@ namespace WealthERP.Advisor
         protected void rdoAllCustomer_CheckedChanged(object sender, EventArgs e)
         {
             ddlSelectCutomer.Visible = false;
+            lblSelectTypeOfCustomer.Visible = false;
             txtIndividualCustomer.Visible = false;
-            txtGroupHead.Visible = false;
         }
 
         protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
         {
             ddlSelectCutomer.Visible = true;
+            lblSelectTypeOfCustomer.Visible = true;
+            txtIndividualCustomer.Visible = true;
+            
             
         }
         /* Customer search for Group ang Individual*/
@@ -350,29 +362,30 @@ namespace WealthERP.Advisor
         {
             if (ddlSelectCutomer.SelectedItem.Value == "Group Head")
             {
-                txtIndividualCustomer.Visible = false;
-                txtGroupHead.Visible = true;
+                customerType = "GROUP";
                 if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
-                    txtGroupHead_AutoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtGroupHead_AutoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
-                    txtGroupHead_AutoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtGroupHead_AutoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
+                    txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
                 }
+
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
-                    txtGroupHead_AutoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtGroupHead_AutoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
+                    txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
                 }
             }
             else if (ddlSelectCutomer.SelectedItem.Value == "Individual")
             {
-                txtGroupHead.Visible = false;
                 txtIndividualCustomer.Visible = true;
+                customerType = "IND";
+
+                //rquiredFieldValidatorIndivudialCustomer.Visible = true;
                 if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
@@ -394,10 +407,8 @@ namespace WealthERP.Advisor
         }
         private void BindBranchForBMDropDown()
         {
-
             try
             {
-
                 DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
                 if (ds != null)
                 {
@@ -634,14 +645,28 @@ namespace WealthERP.Advisor
 
 
             if (txtFrom.Text != "")
+            {
                 hdnFromDate.Value = DateTime.Parse(txtFrom.Text).ToString();
+                ViewState["txtFromDate"] = DateTime.Parse(txtFrom.Text).ToString();
+            }
+            else if (ViewState["txtFromDate"].ToString() != null)
+            {
+                hdnFromDate.Value = DateTime.Parse(ViewState["txtFromDate"].ToString()).ToString();
+            }
             else
                 hdnFromDate.Value = DateTime.MinValue.ToString();
 
-           
+
 
             if (txtTo.Text != "")
+            {
                 hdnTodate.Value = DateTime.Parse(txtTo.Text).ToString();
+                ViewState["txtToDate"] = DateTime.Parse(txtTo.Text).ToString();
+            }
+            else if (ViewState["txtToDate"].ToString() != null)
+            {
+                hdnTodate.Value = DateTime.Parse(ViewState["txtToDate"].ToString()).ToString();
+            }
             else
                 hdnTodate.Value = DateTime.MinValue.ToString();
 
@@ -815,8 +840,8 @@ namespace WealthERP.Advisor
                     drSystematicDetails["AMCname"] = dr["AMCName"].ToString();
                     drSystematicDetails["SchemePlaneName"] = dr["SchemeName"].ToString();
                     drSystematicDetails["FolioNumber"] = dr["FolioNumber"].ToString();
-                    drSystematicDetails["StartDate"] = Convert.ToDateTime(dr["StartDate"].ToString()).ToString("dd-mm-yyyy");
-                    drSystematicDetails["EndDate"] = Convert.ToDateTime(dr["EndDate"].ToString()).ToString("dd-mm-yyyy");
+                    drSystematicDetails["StartDate"] = DateTime.Parse(dr["StartDate"].ToString()).ToShortDateString();
+                    drSystematicDetails["EndDate"] = DateTime.Parse(dr["EndDate"].ToString()).ToShortDateString();
                     drSystematicDetails["Frequency"] = dr["Frequency"].ToString();
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
@@ -832,7 +857,7 @@ namespace WealthERP.Advisor
                     gvSystematicMIS.Visible = true;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
-                    trPager.Visible = true;
+                    //trPager.Visible = true;
                  }
               
                 else
@@ -841,7 +866,7 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
-                    trPager.Visible = false;
+                    //trPager.Visible = false;
                 }
 
             }
@@ -864,18 +889,18 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-        private void BindRMforBranchDropdown(int branchId, int branchHeadId, int all)
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
         {
 
             try
             {
 
-                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(branchId, branchHeadId, all);
+                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
                 if (ds != null)
                 {
                     ddlRM.DataSource = ds.Tables[0]; ;
                     ddlRM.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
-                    ddlRM.DataTextField = ds.Tables[0].Columns["RM Name"].ToString();
+                    ddlRM.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
                     ddlRM.DataBind();
                 }
                 ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
@@ -905,15 +930,21 @@ namespace WealthERP.Advisor
         {
             if (ddlBranch.SelectedIndex == 0)
             {
-                BindRMforBranchDropdown(0, bmID, 1);
+                BindRMforBranchDropdown(0, bmID);
             }
             else
             {
-                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0, 0);
+                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
             }
         }
         private void BindreptCalenderSummaryView()
         {
+            totalSIPAmount = 0;
+            totalSWPAmount = 0;
+            totalNoOfSWP = 0;
+            totalNoOfSIP = 0;
+            totalNoOfFreshSIP = 0;
+            totalNoOfFreshSWP = 0;
             try
             {
                 DataTable dtCalenderSymmary = new DataTable();
@@ -940,11 +971,18 @@ namespace WealthERP.Advisor
                         String month = GetMonth(monthCode);
                         drCalenderSummary["FinalMonth"] = month;
                         drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                        totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
                         drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
+                        totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
+
                         if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                        {
                             drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
+                            totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
+                        }
                         else
                             drCalenderSummary["NoOfFreshSIP"] = 0;
+
                         drCalenderSummary["SWPAmount"] = 0;
                         drCalenderSummary["NoOfSWP"] = 0;
                         drCalenderSummary["NoOfFreshSWP"] = 0;
@@ -960,9 +998,15 @@ namespace WealthERP.Advisor
                         drCalenderSummary["NoOfSIP"] = 0;
                         drCalenderSummary["NoOfFreshSIP"] = 0;
                         drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                        totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
                         drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
+                        totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
+
                         if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                        {
                             drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
+                            totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
+                        }
                         else
                             drCalenderSummary["NoOfFreshSWP"] = 0; 
                         
@@ -984,7 +1028,7 @@ namespace WealthERP.Advisor
                     reptCalenderSummaryView.Visible = true;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
-                    trPager.Visible = true;
+                    //trPager.Visible = true;
                 }
 
                 else
@@ -993,7 +1037,7 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
-                    trPager.Visible = false;
+                    //trPager.Visible = false;
                 }
 
             }
@@ -1060,6 +1104,33 @@ namespace WealthERP.Advisor
 
             }
             return finalMonth;
+        }
+
+        protected void reptCalenderSummaryView_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                e.Item.Cells[3].Text = "Total :";
+
+                e.Item.Cells[5].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[5].Attributes.Add("align", "Right");
+
+                e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[6].Attributes.Add("align", "Right");
+
+                e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[7].Attributes.Add("align", "Right");
+
+                e.Item.Cells[8].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[8].Attributes.Add("align", "Right");
+
+                e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[9].Attributes.Add("align", "Right");
+
+                e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[10].Attributes.Add("align", "Right");
+
+            }
         }
 
  

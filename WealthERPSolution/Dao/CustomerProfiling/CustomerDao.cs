@@ -3550,5 +3550,68 @@ namespace DaoCustomerProfiling
          
         }
 
+        /// <summary>
+        /// To get all Individual and Group Customers for the Brach and RM Selection.
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="prefixText"></param>
+        /// <param name="all"></param>
+        /// <returns></returns>
+        /// 
+        public DataTable GetRMBranchIndividualAndGroupCustomerNames(int branchId, int rmId, string prefixText,string customerType, int all)
+        {
+
+            Database db;
+            DbCommand cmdGetAllBMRMParentCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAllBMRMParentCustomerNames = db.GetStoredProcCommand("SP_GetBranchRMIndividualAndGroupCustomers");
+                db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@AB_BranchId", DbType.Int32, branchId);
+                db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@prefixText", DbType.String, prefixText);
+
+                if (customerType == "IND")
+                    db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "", DbType.String, 0);
+                else if(customerType == "GROUP")
+                    db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "", DbType.String, 1);
+                
+                db.AddInParameter(cmdGetAllBMRMParentCustomerNames, "@all", DbType.Int32, all);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetAllBMRMParentCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetBMIndividualCustomerNames()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+
+
+        }
+
     }
 }

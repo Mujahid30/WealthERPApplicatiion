@@ -55,20 +55,22 @@
               Class="cmbField" GroupName="SelectCustomer" 
               oncheckedchanged="rdoPickCustomer_CheckedChanged" />
        </td>
-       
+       </tr>
+       <tr>
       <td>
-      <asp:DropDownList ID="ddlSelectCutomer" runat="server" CssClass="cmbField" AutoPostBack="true"
+      <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="cmbField" Text="Select customer type: "></asp:Label>
+      
+      <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" runat="server" CssClass="cmbField" AutoPostBack="true"
               onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged" >
       <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
       <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
       <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
       </asp:DropDownList>
       </td>
-      <td>&nbsp;
-      </td>
+      
       <td>
      <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">  </asp:TextBox>
-    <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer" WatermarkText="Enter Few Characters of Customer"
+    <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer" WatermarkText="Enter few chars of Customer"
      runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
              <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender" runat="server"
               TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -76,20 +78,14 @@
               CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
               CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
               UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
+              
+     <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic" ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer" runat="server" ValidationGroup="btnGo">
+     </asp:RequiredFieldValidator>
+              
+              
                                                                 
        </td>
-      <td>
-     <asp:TextBox ID="txtGroupHead" runat="server"  CssClass="txtField" style="vertical-align: middle" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
-     <cc1:TextBoxWatermarkExtender ID="txtGroupHead_WaterMark" TargetControlID="txtGroupHead" WatermarkText="Enter Few Characters"
-     runat="server" EnableViewState="true"></cc1:TextBoxWatermarkExtender>
-       <ajaxToolkit:AutoCompleteExtender ID="txtGroupHead_AutoCompleteExtender" runat="server"
-          TargetControlID="txtGroupHead" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-          MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-          CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-          CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-          UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""  Enabled="True"  />      
-     
-     </td>
+      
      </tr>
 <%--     <tr id="trGroupCustomer" runat="server">
      <td></td>
@@ -236,7 +232,7 @@
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
-                           Skin="Telerik" Width="100%">
+                           Skin="Telerik" Width="90%">
                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
                                Width="100%">
                                <Columns>
@@ -248,12 +244,12 @@
                                        HeaderText="Systematic Transaction Type" UniqueName="SystematicTransactionType">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC name" 
+                                   <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC" 
                                        UniqueName="AMCname">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="SchemePlaneName" 
-                                       HeaderText="Scheme Plane Name" UniqueName="SchemePlaneName">
+                                       HeaderText="Scheme" UniqueName="SchemePlaneName">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio Number" 
@@ -288,12 +284,12 @@
                        </telerik:RadGrid>
                    </td>
     </tr> 
-    <tr ID="trPager" runat="server">
+   <%-- <tr ID="trPager" runat="server">
         <td align="center" width="60%">
 
             <Pager:Pager ID="mypager" runat="server" />
         </td>
-    </tr>
+    </tr>--%>
 </table>
 
         </asp:Panel>
@@ -372,9 +368,10 @@
            <tr><td>
             <telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="false" AllowPaging="True" 
-        ShowStatusBar="True" ShowFooter="true" OnItemBound="reptCalenderSummaryView_ItemDataBound"
+        ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
-        AllowFilteringByColumn="false" AllowAutomaticInserts="false">
+        AllowFilteringByColumn="false" AllowAutomaticInserts="false" 
+                   onitemdatabound="reptCalenderSummaryView_ItemDataBound">
             <PagerStyle Mode="NumericPages"></PagerStyle>
             <MasterTableView Width="100%">
             <Columns>
@@ -386,30 +383,62 @@
                     UniqueName="FinalMonth" >
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn  DataField="SIPAmount"  HeaderText="SIP Amount" Aggregate="Sum"
-                    UniqueName="SIPAmount" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="NoOfSIP" HeaderText="No. of SIPs" Aggregate="Count"
-                    UniqueName="NoOfSIP" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn DataField="NoOfFreshSIP" HeaderText="No. of Fresh SIPs" Aggregate="Count"
-                    UniqueName="NoOfFreshSIP" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  DataField="SWPAmount"  HeaderText="SWP Amount" Aggregate="Sum"
-                    UniqueName="SWPAmount" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn  DataField="NoOfSWP"  HeaderText="No. of SWPs" Aggregate="Count"
-                    UniqueName="NoOfSWP" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  DataField="NoOfFreshSWP"  HeaderText="No. of fresh SWPs" Aggregate="Count"
-                    UniqueName="NoOfFreshSWP" >
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
-                 </telerik:GridBoundColumn>
+                
+                <telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblSIPAmount" Text='<%# Eval("SIPAmount")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblSIPAmountFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                
+                <telerik:GridTemplateColumn HeaderText="No. of SIPs" UniqueName="NoOfSIP">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblNoOfSIP" Text='<%# Eval("NoOfSIP")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblNoOfSIPFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                
+                <telerik:GridTemplateColumn HeaderText="No. of Fresh SIPs" UniqueName="NoOfFreshSIP">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblNoOfFreshSIP" Text='<%# Eval("NoOfFreshSIP")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblNoOfFreshSIPFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                
+                <telerik:GridTemplateColumn HeaderText="SWP Amount" UniqueName="NoOfFreshSIP">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblSWPAmount" Text='<%# Eval("SWPAmount")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblSWPAmountFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                                
+                <telerik:GridTemplateColumn HeaderText="No. of SWPs" UniqueName="NoOfSWP">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblNoOfSWP" Text='<%# Eval("NoOfSWP")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblNoOfSWPFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                               
+                 <telerik:GridTemplateColumn HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lblNoOfFreshSWP" Text='<%# Eval("NoOfFreshSWP")%>'></asp:Label>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label runat="server" ID="lblNoOfFreshSWPFooter" Text=""></asp:Label>
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                 
+                 
             </Columns>
             </MasterTableView>
             <ClientSettings>

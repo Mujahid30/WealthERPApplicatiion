@@ -151,7 +151,7 @@
             <asp:Label ID="labelGender" runat="server" Text="Gender:" CssClass="FieldName"></asp:Label>
             </td>
         <td class="rightField" width="75%">
-            <asp:Label ID="lblGender" runat="server" Text="Label" CssClass="Field"></asp:Label>
+            <asp:Label ID="lblGender" runat="server" Text="" CssClass="Field"></asp:Label>
             </td>
     </tr>
    
