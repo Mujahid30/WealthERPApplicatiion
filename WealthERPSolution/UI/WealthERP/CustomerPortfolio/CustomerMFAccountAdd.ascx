@@ -27,6 +27,20 @@
         color: #FF0033;
         font-size: x-small;
     }
+    .DisableClass
+    {
+        background: url(../App_Themes/Blue/Images/PCG_gradient_ButtonsDisable.jpg) no-repeat left top;
+        font-weight: bolder;
+        color: White;
+        font-size: x-small;
+        font-family: Verdana,Tahoma;
+        height: 22px;
+        width: 69px;
+        cursor: pointer;
+    }
+</style>
+<style type="text/css">
+    
 </style>
 
 <script type="text/javascript">
@@ -45,17 +59,17 @@
             url: "ControlHost.aspx/CheckTradeNoMFAvailability",
             data: "{ 'TradeAccNo': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "','BrokerCode': '" + $("#<%=ddlProductAmc.ClientID %>").val() + "','PortfolioId': '" + $("#<%=ddlPortfolio.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
-
-                alert("Please select AMC!");
+//                alert("Please select AMC!");
             },
             success: function(msg) {
 
-                if (msg.d) {
-                    
+            if (msg.d) {
+
                     $("#<%= hidValidCheck.ClientID %>").val("1");
                     $("#spnLoginStatus").html("");
                 }
                 else {
+                    
 
                     $("#<%= hidValidCheck.ClientID %>").val("0");
                     $("#spnLoginStatus").removeClass();
@@ -67,15 +81,22 @@
         });
     }
     function isValid() {
-        if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
-            Page_ClientValidate();
-            return Page_IsValid;
-        }
-        else {
-            Page_ClientValidate();
-            alert('Folio Number Already Exists');
+        
+        if ($("#<%= ddlProductAmc.ClientID %>").val() == "Select an AMC Code") {
+            alert("Please select the AMC First");
             return false;
         }
+        else if ($("#<%= txtFolioNumber.ClientID %>").val() == "") {
+            alert('Please fill the folio No');
+            return false;
+        }
+               
+        if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
+        return Page_IsValid;
+        }
+       
+      
+        
     }
 
 
@@ -153,8 +174,8 @@
                     <asp:Label ID="lblFolioNum" runat="server" CssClass="FieldName" Text="Folio Number :"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" 
-                       MaxLength="15" onchange="checkLoginId2()"></asp:TextBox>
+                    <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" Enabled="false"
+                       MaxLength="15" onblur="return checkLoginId2()"></asp:TextBox>
                     <span id="Span3" class="spnRequiredField">*</span><span id="spnLoginStatus"></span>
                     <asp:RequiredFieldValidator ID="rfvFolioNumber" ControlToValidate="txtFolioNumber"
                         ErrorMessage="Please enter a Folio Number" Display="Dynamic" runat="server" CssClass="rfvPCG">

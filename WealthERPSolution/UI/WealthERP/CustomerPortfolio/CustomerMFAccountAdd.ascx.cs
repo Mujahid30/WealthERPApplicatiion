@@ -440,7 +440,17 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btn_amccheck(object sender, EventArgs e)
         {
-            txtFolioNumber.Text = "";
+            if (ddlProductAmc.SelectedIndex == 0)
+            {
+                txtFolioNumber.Text = "";
+                txtFolioNumber.Enabled = false;
+            }
+            else
+            {
+                txtFolioNumber.Text = "";
+                txtFolioNumber.Enabled = true;
+ 
+            }
 
         }
 
@@ -535,6 +545,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            
             try
             {
                 customerAccountsVo.AccountNum = txtFolioNumber.Text;
@@ -551,6 +562,12 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountsVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.Text.Trim());
                 customerAccountsVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
                 accountId = customerAccountBo.CreateCustomerMFAccount(customerAccountsVo, userVo.UserId);
+                if (accountId == 1)
+                {
+                    txtFolioNumber.Text = string.Empty;
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Folio Number Already Exists');", true);
+                    return;
+                }
 
                 customerAccountsVo.AccountId = accountId;
                 customerAccountAssociationVo.AccountId = accountId;

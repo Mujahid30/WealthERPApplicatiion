@@ -347,10 +347,13 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_CreatedBy", DbType.String, userId);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_ModifiedBy", DbType.String, userId);
                 db.AddOutParameter(createCustomerMFAccountCmd, "@CMFA_AccountId", DbType.Int32, 5000);
+                db.AddOutParameter(createCustomerMFAccountCmd, "@IsFolioExist", DbType.Int32, 5000);
 
-                if (db.ExecuteNonQuery(createCustomerMFAccountCmd) != 0)
-
+                if (db.ExecuteNonQuery(createCustomerMFAccountCmd) > 0)
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "CMFA_AccountId").ToString());
+                else
+                    accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "IsFolioExist").ToString());
+
             }
             catch (BaseApplicationException Ex)
             {
