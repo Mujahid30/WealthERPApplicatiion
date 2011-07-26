@@ -34,6 +34,8 @@ namespace VoCustomerPortfolio
         private int m_period;
         private string m_PeriodSelection;
         private DateTime m_RegistrationDate;
+        private string m_Portfolio;
+        private int m_portfolioId;
        
 
         #endregion
@@ -186,6 +188,17 @@ namespace VoCustomerPortfolio
         {
             get {  return m_RegistrationDate;}
             set {   m_RegistrationDate=value;}
+        }
+
+        public string Portfolio
+        {
+            get { return m_Portfolio; }
+            set { m_Portfolio = value; }
+        }
+        public int PortfolioId
+        {
+            get { return m_portfolioId; }
+            set { m_portfolioId = value; }
         }
 
         #endregion
