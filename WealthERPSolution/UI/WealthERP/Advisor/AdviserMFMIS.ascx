@@ -105,7 +105,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" 
-                AutoPostBack="true" onselectedindexchanged="ddlRM_SelectedIndexChanged">
+                 onselectedindexchanged="ddlRM_SelectedIndexChanged">
             </asp:DropDownList>
             </span>
         </td>
