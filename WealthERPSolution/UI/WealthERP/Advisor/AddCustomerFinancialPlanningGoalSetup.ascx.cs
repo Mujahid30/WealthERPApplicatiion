@@ -1728,8 +1728,12 @@ namespace WealthERP.Advisor
                 {
                     goalProfileSetupVo.GoalDescription = txtGoalDescription.Text.ToString();
                 }
-                goalProfileSetupVo.CurrInvestementForGoal = 0;
-                goalProfileSetupVo.ROIEarned =0;
+                if (!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
+                {
+                    goalProfileSetupVo.CurrInvestementForGoal = int.Parse(txtCurrentInvestPurpose.Text.Trim());
+                }
+                if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
+                    goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
