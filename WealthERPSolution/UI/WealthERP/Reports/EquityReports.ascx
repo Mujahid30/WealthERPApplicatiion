@@ -36,7 +36,7 @@
             }
         }
         if (isPorfolioSelected == false) {
-            alert("Please select  one Customer")
+            alert("Please choose customer or portfolio")
             return false;
         }
         //Date validation.
@@ -312,7 +312,7 @@
                                         ErrorMessage="Please Enter Customer Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                         ValidationGroup="btnSubmit">
                                     </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of customer name.</span>
+                                        few characters of customer  name.</span>
                                 </td>
                             </tr>
                         </table>
