@@ -85,17 +85,16 @@
 </tr>
 </table>
 
-<table class="TableBackground" style="width: 100%">
+<table>
     <tr>        
-        <td style="width:150px" align="right">
+        <td align="right">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
             </td>
-        <td style="width:280px">
+        <td>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
-        </td>
-        <td style="width:150px"></td>
+        </td>        
     </tr>   
 </table>
 <table class="TableBackground" style="width: 100%">
