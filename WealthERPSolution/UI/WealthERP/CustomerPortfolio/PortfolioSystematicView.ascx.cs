@@ -22,6 +22,7 @@ namespace WealthERP.CustomerPortfolio
         SystematicSetupVo systematicSetupVo;
         CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
+        PortfolioBo portfolioBo = new PortfolioBo();
 
 
         int portfolioId;
@@ -136,6 +137,8 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["customerVo"];
                 portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
+                BindPortfolioDropDown(customerVo.CustomerId);
+                ddlportfolio.SelectedValue = portfolioId.ToString();
                 LoadSystematicSetupGrid(portfolioId);
             }
             catch (BaseApplicationException Ex)
@@ -174,7 +177,9 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupList != null)
                 {
-                    lblMsg.Visible = false;
+                    lblMsg.Visible = false;                   
+                    tblPager.Visible = true;
+                    trPager.Visible = true;
                     DataTable dtSystematicSetup = new DataTable();
                     //dtProperty.Columns.Add("SI.No");
                     dtSystematicSetup.Columns.Add("SystematicSetupId");
@@ -212,6 +217,8 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     lblMsg.Visible = true;
+                    tblPager.Visible = false;
+                    trPager.Visible = false;
                     gvrSystematicSchemes.DataSource = null;
                     gvrSystematicSchemes.DataBind();
                 }
@@ -344,6 +351,21 @@ namespace WealthERP.CustomerPortfolio
         protected void gvrSystematicSetup_DataBound(object sender, EventArgs e)
         {
 
+        }
+
+        private void BindPortfolioDropDown(int CustomerId)
+        {
+            DataSet ds = portfolioBo.GetCustomerPortfolio(CustomerId);
+            ddlportfolio.DataSource = ds;
+            ddlportfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
+            ddlportfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
+            ddlportfolio.DataBind();
+        }
+
+        protected void ddlportfolio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            portfolioId = int.Parse(ddlportfolio.SelectedValue);
+            LoadSystematicSetupGrid(portfolioId);
         }
 
 

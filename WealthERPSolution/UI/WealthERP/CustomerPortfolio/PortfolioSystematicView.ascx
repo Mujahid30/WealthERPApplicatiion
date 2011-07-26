@@ -6,28 +6,51 @@
 </table>
 
 <table style="width: 100%;">
-<tr>
-        <td class="HeaderCell">
+     <tr>
+     
+        <td class="HeaderCell" colspan="2">
             <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="View Systematic Schemes"></asp:Label>
             <hr />
         </td>
     </tr>
-<tr>
-        <td colspan="3">
+    <tr>
+    <td>
+    <table width="50%" cellpadding="0">
+    <tr>
+     <td class="leftField">
+      <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio:" CssClass="FieldName"></asp:Label>
+     </td>
+     <td>
+     <asp:DropDownList ID="ddlportfolio" runat="server" CssClass="cmbField" 
+             onselectedindexchanged="ddlportfolio_SelectedIndexChanged" AutoPostBack="true">
+            </asp:DropDownList>
+     </td>
+ </tr>
+    </table>
+    </td>
+    <td>
+    </td>
+    </tr>
+     
+     <tr>
+        <td colspan="2">
             <asp:Label ID="lblMsg" runat="server" CssClass="Error" Text="No Records Found"></asp:Label>
         </td>
     </tr>
-    <tr>
+     <tr id="trPager" runat="server">
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
     </table>
+ <table>
+ 
+ </table>
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="0">
+    <table width="100%" cellspacing="0" cellpadding="0">   
     <tr>
-        <td colspan="3">
+        <td colspan="2">
             <asp:GridView ID="gvrSystematicSchemes" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="SystematicSetupId" EnableViewState="false" AllowPaging="True"
                 OnSorting="gvrSystematicSetup_Sorting" CssClass="GridViewStyle" OnDataBound="gvrSystematicSetup_DataBound"
