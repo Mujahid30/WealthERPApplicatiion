@@ -1825,14 +1825,46 @@ namespace BoCustomerProfiling
 
         }
 
-        public DataTable GetRMBranchIndividualAndGroupCustomerNames(int branchId, int rmId, string prefixText,string customerType, int all)
+        public DataTable GetRMBranchIndividualCustomerNames(string contextKey, string prefixText)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetRMBranchIndividualAndGroupCustomerNames(branchId, rmId, prefixText, customerType, all);
+                dtCustomerNames = customerDao.GetRMBranchIndividualCustomerNames(contextKey, prefixText);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetBMIndividualCustomerNames()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
+        public DataTable GetRMBranchGroupCustomerNames(string contextKey, string prefixText)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetRMBranchGroupCustomerNames(contextKey,prefixText);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1859,5 +1891,68 @@ namespace BoCustomerProfiling
         }
 
 
+        public DataTable GetPerticularBranchsAllIndividualCustomers(string contextKey, string prefixText)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetPerticularBranchsAllIndividualCustomers(contextKey, prefixText);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetBMIndividualCustomerNames()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+
+        public DataTable GetPerticularBranchsAllGroupCustomers(string contextKey, string prefixText)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerNames = new DataTable();
+            try
+            {
+                dtCustomerNames = customerDao.GetPerticularBranchsAllGroupCustomers(contextKey, prefixText);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetPerticularBranchsAllGroupCustomers()");
+
+
+                object[] objects = new object[0];
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
     }
 }

@@ -282,6 +282,11 @@
 
 <script type="text/javascript">
 
+    function ClearTaxslabfields() {
+        document.getElementById("<%= txtTaxableIncome.ClientID %>").value = "";
+        document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value = "";
+    }
+    
     function CallFuncOnTxtTaxableIncome() {
     
     var TaxSlab = document.getElementById("<%=txtSlabAsPerProfile.ClientID%>");
@@ -1522,7 +1527,7 @@
                                                     CssClass="PCGButton" OnClientClick="SubmitButtonFun()" onclick="btnCalculationSubmit_Click" />
                                             </td>
                                             <td>
-                                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                                                <asp:Button ID="btnCancel" runat="server" OnClientClick="ClearTaxslabfields()" Text="Cancel" CssClass="PCGButton" />
                                             </td>
                                         </tr>
                                         <tr>

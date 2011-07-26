@@ -340,20 +340,68 @@ namespace WealthERP.CustomerPortfolio
         }
 
         [WebMethod]
-        public string[] GetAllBranchRMCustomers(string contextKey, int rmId, string prefixText, string customerType, int all)
+        public string[] GetAllBranchAndRMIndividualCustomers(string contextKey, string prefixText)
         {
             CustomerBo customerBo = new CustomerBo();
-            DataTable dtAllRMBranchCustomersName = new DataTable();
+            DataTable dtAllRMBranchIndividualCustomersName = new DataTable();
             List<string> allRMBranchNames = new List<string>();
 
-            dtAllRMBranchCustomersName = customerBo.GetRMBranchIndividualAndGroupCustomerNames(int.Parse(contextKey), rmId, prefixText, customerType, all);
+            dtAllRMBranchIndividualCustomersName = customerBo.GetRMBranchIndividualCustomerNames(contextKey, prefixText);
+            foreach (DataRow dr in dtAllRMBranchIndividualCustomersName.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                allRMBranchNames.Add(item);
+            }
             return allRMBranchNames.ToArray();
         }
 
+        [WebMethod]
+        public string[] GetAllBranchAndRMGroupCustomers(string contextKey, string prefixText)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAllRMBranchGroupCustomersName = new DataTable();
+            List<string> allRMBranchNames = new List<string>();
 
+            dtAllRMBranchGroupCustomersName = customerBo.GetRMBranchGroupCustomerNames(contextKey, prefixText);
+            foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                allRMBranchNames.Add(item);
+            }
+            return allRMBranchNames.ToArray();
+        }
 
+        [WebMethod]
+        public string[] GetPerticularBranchsAllIndividualCustomers(string contextKey, string prefixText)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAllRMBranchGroupCustomersName = new DataTable();
+            List<string> allRMBranchNames = new List<string>();
 
+            dtAllRMBranchGroupCustomersName = customerBo.GetPerticularBranchsAllIndividualCustomers(contextKey, prefixText);
+            foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                allRMBranchNames.Add(item);
+            }
+            return allRMBranchNames.ToArray();
+        }
 
+        [WebMethod]
+        public string[] GetPerticularBranchsAllGroupCustomers(string contextKey, string prefixText)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtAllRMBranchGroupCustomersName = new DataTable();
+            List<string> allRMBranchNames = new List<string>();
+
+            dtAllRMBranchGroupCustomersName = customerBo.GetPerticularBranchsAllGroupCustomers(contextKey, prefixText);
+            foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                allRMBranchNames.Add(item);
+            }
+            return allRMBranchNames.ToArray();
+        }
     }
 
 }

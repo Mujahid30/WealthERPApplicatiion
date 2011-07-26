@@ -31,14 +31,14 @@
     <td align="left" style="width: 25%">
     <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
   
-     <asp:DropDownList ID="ddlBranch" runat="server" style="vertical-align: middle" CssClass="cmbField"  AutoPostBack="true" 
-     onselectedindexchanged=ddlBranch_SelectedIndexChanged>
-       </asp:DropDownList>                  
+    <asp:DropDownList ID="ddlBranch" runat="server" style="vertical-align: middle" AutoPostBack="true"
+            CssClass="cmbField" onselectedindexchanged="ddlBranch_SelectedIndexChanged" >
+    </asp:DropDownList>                  
     </td>
     <td align="left" style="width: 25%">
     <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
     
-    <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" style="vertical-align: middle" AutoPostBack="false" >
+    <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" style="vertical-align: middle" >
      </asp:DropDownList>           
      </td>
     </tr>
@@ -60,8 +60,9 @@
       <td>
       <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="cmbField" Text="Select customer type: "></asp:Label>
       
-      <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" runat="server" CssClass="cmbField" AutoPostBack="true"
-              onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged" >
+      <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" 
+              runat="server" CssClass="cmbField" AutoPostBack="true" 
+              onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged">
       <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
       <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
       <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
@@ -232,7 +233,7 @@
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
-                           Skin="Telerik" Width="90%">
+                           Skin="Telerik" Width="100%">
                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
                                Width="100%">
                                <Columns>

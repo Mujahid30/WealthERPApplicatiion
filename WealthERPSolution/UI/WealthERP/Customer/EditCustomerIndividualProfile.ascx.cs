@@ -756,27 +756,34 @@ namespace WealthERP.Customer
 
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
-           
-            if ((customerVo.Gender != "") || ((rbtnMale.Checked != false ) || (rbtnFemale.Checked != false)))
+            if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (txtDob.Text == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            }
+            if ((customerVo.Gender != "") || ((rbtnMale.Checked != false) || (rbtnFemale.Checked != false)))
             {
                 if ((customerVo.Gender == "M") || (rbtnMale.Checked == true))
                     hdnGender.Value = "Male";
                 else if ((customerVo.Gender == "F") || (rbtnFemale.Checked == true))
                     hdnGender.Value = "Female";
-            }
+            }            
             if (txtDob.Text != "")
             {
                 CalculateAge(DateTime.Parse(txtDob.Text));
-            }
-
-            if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (txtDob.Text == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+                if ((years < 60) && (hdnGender.Value == ""))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender because customer is not senior citizen');", true);
+                }
+                else
+                {
+                    dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, hdnGender.Value);
+                }
             }
             else
             {
-                dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, hdnGender.Value);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select date of birth for the customer to get the tax slab');", true);
             }
+
             if (dsGetSlab.Tables.Count != 0)
             {
                 if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
@@ -784,7 +791,7 @@ namespace WealthERP.Customer
                     if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
                     {
                         txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
-                        
+
                     }
                 }
                 else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
@@ -796,6 +803,7 @@ namespace WealthERP.Customer
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
                 }
             }
+            
         }
         public int CalculateAge(DateTime birthDate)
         {
