@@ -966,13 +966,13 @@ namespace WealthERP.Advisor
                         drGoalProfile["GoalID"] = goalProfileSetupVo.GoalId.ToString();
                         drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
                         drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
-                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday.ToString();
+                        drGoalProfile["CostToday"] = String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         allGoalCostToday += goalProfileSetupVo.CostOfGoalToday;
-                        drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal.ToString();
+                        drGoalProfile["CurrentInvestment"] = String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         currentInvestmentTotal += goalProfileSetupVo.CurrInvestementForGoal;
-                        drGoalProfile["SavingRequired"] =Math.Round(double.Parse(goalProfileSetupVo.MonthlySavingsReq.ToString()),0).ToString();
+                        drGoalProfile["SavingRequired"] = Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         monthlySaveRequired += goalProfileSetupVo.MonthlySavingsReq;
-                        drGoalProfile["GoalAmount"] =Math.Round(double.Parse(goalProfileSetupVo.FutureValueOfCostToday.ToString()),0).ToString();
+                        drGoalProfile["GoalAmount"] = Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         allGoalCostInGoalYear += goalProfileSetupVo.FutureValueOfCostToday;
                         drGoalProfile["GoalPrifileDate"] = goalProfileSetupVo.GoalProfileDate.ToShortDateString();
                         drGoalProfile["GoalYear"] = goalProfileSetupVo.GoalYear.ToString();
@@ -996,16 +996,16 @@ namespace WealthERP.Advisor
                     gvGoalOutPut.DataBind();
 
                     Label lblAllGoalCostTotal = (Label)gvGoalOutPut.FooterRow.FindControl("lblCostTodayTotal");
-                    lblAllGoalCostTotal.Text = Math.Round(double.Parse(allGoalCostToday.ToString()), 0).ToString();
+                    lblAllGoalCostTotal.Text = Math.Round(double.Parse(allGoalCostToday.ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                     Label lblCurrentInvestmentTotal = (Label)gvGoalOutPut.FooterRow.FindControl("lblCurrentInvestmentTotal");
-                    lblCurrentInvestmentTotal.Text = Math.Round(double.Parse(currentInvestmentTotal.ToString()), 0).ToString();
+                    lblCurrentInvestmentTotal.Text = Math.Round(double.Parse(currentInvestmentTotal.ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                     Label lblMonthlyTotal = (Label)gvGoalOutPut.FooterRow.FindControl("lblMonthlySavingTotal");
-                    lblMonthlyTotal.Text = Math.Round(double.Parse(monthlySaveRequired.ToString()), 0).ToString();
+                    lblMonthlyTotal.Text = Math.Round(double.Parse(monthlySaveRequired.ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                     Label lblGoalCostInGoalYear = (Label)gvGoalOutPut.FooterRow.FindControl("lblGoalAmountTotal");
-                    lblGoalCostInGoalYear.Text = Math.Round(double.Parse(allGoalCostInGoalYear.ToString()), 0).ToString();
+                    lblGoalCostInGoalYear.Text = Math.Round(double.Parse(allGoalCostInGoalYear.ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
 
                     if (!String.IsNullOrEmpty(hidRTSaveReq.Value))
@@ -1071,9 +1071,9 @@ namespace WealthERP.Advisor
                     DataRow drGoalFundedGap;
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "ExistingInvestment " + investmentTotal.ToString();
-                    drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals " + investedAmountForAllGaol.ToString();
-                    drGoalFundedGap["GoalGap"] = existingInvestmentGap.ToString();
+                    drGoalFundedGap["Source"] = "ExistingInvestment = Rs. " + investmentTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = Rs. " + investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["GoalGap"] = "Rs. " + existingInvestmentGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     if (existingInvestmentGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
@@ -1082,9 +1082,9 @@ namespace WealthERP.Advisor
 
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "Available Surplus " + surplusTotal.ToString();
-                    drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month " + monthlySavingRequired.ToString();
-                    drGoalFundedGap["GoalGap"] = surplusGap.ToString();
+                    drGoalFundedGap["Source"] = "Available Surplus = Rs. " + surplusTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month = Rs. " + monthlySavingRequired.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["GoalGap"] = "Rs. " + surplusGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     if (surplusGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
@@ -1153,7 +1153,34 @@ namespace WealthERP.Advisor
             DataSet dsRTGoal = (DataSet)GoalSetupBo.GetCustomerRTDetails(int.Parse(Session["FP_UserID"].ToString()));
             if (dsRTGoal != null && dsRTGoal.Tables.Count > 0 && dsRTGoal.Tables[0].Rows.Count > 0)
             {
-                gvRetirement.DataSource = dsRTGoal.Tables[0];
+                DataTable dtRTGoal = new DataTable();
+                dtRTGoal.Columns.Add("CG_GoalId");
+                dtRTGoal.Columns.Add("XG_GoalName");
+                dtRTGoal.Columns.Add("CG_GoalYear");
+                dtRTGoal.Columns.Add("CG_FVofCostToday");
+                dtRTGoal.Columns.Add("CG_LumpsumInvestmentRequired");
+                dtRTGoal.Columns.Add("CG_YearlySavingsRequired");
+                dtRTGoal.Columns.Add("CG_MonthlySavingsRequired");
+                dtRTGoal.Columns.Add("CG_GoalProfileDate");
+                
+                DataRow drRTGoal;
+
+                foreach (DataRow dr in dsRTGoal.Tables[0].Rows)
+                {
+                    drRTGoal = dtRTGoal.NewRow();
+                    drRTGoal["CG_GoalId"] = dr["CG_GoalId"].ToString();
+                    drRTGoal["XG_GoalName"] = dr["XG_GoalName"].ToString();
+                    drRTGoal["CG_GoalYear"] = dr["CG_GoalYear"].ToString();
+                    drRTGoal["CG_FVofCostToday"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_FVofCostToday"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drRTGoal["CG_GoalProfileDate"] =  dr["CG_GoalProfileDate"].ToString();
+
+                    dtRTGoal.Rows.Add(drRTGoal);
+                }
+
+                gvRetirement.DataSource = dtRTGoal;
                 gvRetirement.DataBind();
                 //RTSaveReq = double.Parse(dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"].ToString());
                 if (dsRTGoal.Tables[0].Rows[0]["CG_MonthlySavingsRequired"] != null)
