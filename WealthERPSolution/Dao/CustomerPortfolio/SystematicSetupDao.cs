@@ -277,9 +277,17 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getSystematicSetupDetailsCmd = db.GetStoredProcCommand("SP_GetSystematicSetupDetails");
                 db.AddInParameter(getSystematicSetupDetailsCmd, "@CMFSS_SystematicSetupId", DbType.Int32, systematicSetupId);
-
-
+                db.AddOutParameter(getSystematicSetupDetailsCmd, "@PortfolioId", DbType.Int32, 9999999);
                 dsSystematicSetups = db.ExecuteDataSet(getSystematicSetupDetailsCmd);
+
+                Object objportfolioId = db.GetParameterValue(getSystematicSetupDetailsCmd, "@PortfolioId");
+                if (objportfolioId != DBNull.Value)
+                    systematicSetupVo.PortfolioId = int.Parse(db.GetParameterValue(getSystematicSetupDetailsCmd, "@PortfolioId").ToString());
+                else
+                    systematicSetupVo.PortfolioId = 0;
+
+
+                
                 if (dsSystematicSetups.Tables[0].Rows.Count > 0)
                 {
                     
@@ -320,6 +328,10 @@ namespace DaoCustomerPortfolio
                     if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString()))
                         systematicSetupVo.PaymentModeCode = dr["XPM_PaymentModeCode"].ToString();
                     systematicSetupVo.PeriodSelection = dr["CMFSS_TenureCycle"].ToString();
+
+                    
+
+
                     
                     
                     //systematicSetupVo.IsManual = int.Parse(dr["CMFSS_IsManual"].ToString());
