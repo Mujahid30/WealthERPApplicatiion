@@ -85,13 +85,13 @@
 </table>
 
 
-<table width="50%">
+<table width="70%">
 <tr>
 <td style="width:100px"></td>
-<td style="width:150px" align="right">
+<td style="width:120px" align="right">
     <asp:Label ID="lblAction" runat="server" Text="Select Action:" CssClass="FieldName"></asp:Label></td>
-<td style="width:200px">
-    <asp:DropDownList ID="ddlMovePortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
+<td style="width:300px">
+    <asp:DropDownList ID="ddlMovePortfolio" runat="server" CssClass="cmbLongField" AutoPostBack="true"
         onselectedindexchanged="ddlMovePortfolio_SelectedIndexChanged">
         <asp:ListItem Value="S">Select Action</asp:ListItem>
         <asp:ListItem Value="Merge">Merge</asp:ListItem>
@@ -111,11 +111,12 @@
             <asp:Label ID="lblMergeTo" Text="Merge To:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbLongField">
             </asp:DropDownList>
         </td>
         <td>
-            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" OnClick="btnEdit_Click" Text="Merge" />
+            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" ValidationGroup="vgBtn" OnClick="btnEdit_Click" Text="Merge" OnClientClick="return CheckFolioSelected();"/>
+          <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="vgBtn" ControlToValidate="ddlAdvisorBranchList" ValueToCompare="null" ErrorMessage="Field is required" Operator="NotEqual" ></asp:CompareValidator>--%>
         </td>
         <td>
             &nbsp;</td>
@@ -131,12 +132,12 @@
     <tr id="trPickCustomer" runat="server" visible="false">
         <td></td>
         <td align="right">
-        <asp:Label ID="lblPickCustomer" Text="Pick a Customer:" CssClass="FieldName" runat="server"></asp:Label>
+        <asp:Label ID="lblPickCustomer" Text="Move Folio to:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
         <%--<asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" OnValueChanged="txtPickCustomer_ValueChanged" ></asp:TextBox>--%>
 
-              <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" 
+              <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtLongAddField" 
               AutoComplete="Off"  AutoPostBack="True" 
               ontextchanged="txtPickCustomer_TextChanged" ></asp:TextBox>
               <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer" WatermarkText="Type the Customer Name"
@@ -165,7 +166,7 @@
         <asp:Label ID="lblPickPortfolio" Text="Pick a Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbLongField">
             </asp:DropDownList>                
             <span id="Span2" class="spnRequiredField">*
             </span>                
@@ -184,7 +185,7 @@
         <td>
             &nbsp;</td>
         <td>
-            <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit"
+            <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit" OnClientClick="return CheckFolioSelected();"
             Text="Submit" onclick="btnSubmitPortfolio_Click"/>
         </td>
     </tr>
@@ -376,7 +377,7 @@
 
   
 
-<asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="txtPickCustomer_TextChanged" />     
+<asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />     
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:Button ID="btnCustomerSearch" runat="server" Text="" onclick="btnCustomerSearch_Click" BorderStyle="None" BackColor="Transparent"/> 
 <asp:HiddenField ID="hdnRecordCount" runat="server" />

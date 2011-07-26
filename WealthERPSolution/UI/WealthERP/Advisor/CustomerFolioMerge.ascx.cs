@@ -371,6 +371,20 @@ namespace WealthERP.Advisor
             ddlAdvisorBranchList.Items.Clear();
             ReadCustomerGridDetails();
 
+            int customerId = 0;
+
+            foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
+            {
+                int rowIndex = dr.RowIndex;
+                DataKey dKey = gvCustomerFolioMerge.DataKeys[rowIndex];
+                if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
+                {
+                    customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                    bindDropdownPortfolio(customerId);
+                    return;
+                }
+            }
+
         }
         protected void ReadCustomerGridDetails()
         {
@@ -416,7 +430,8 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerFolioMerge_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridViewRow row = gvCustomerFolioMerge.SelectedRow;
+            
+
         }
 
         private void GetLatestValuationDate()
@@ -511,24 +526,37 @@ namespace WealthERP.Advisor
 
                 if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
                 {
+                    bool folioDs = false;
                     AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
                     string ffromfolio = ddlAdvisorBranchList.SelectedValue.ToString();
-                    bool folioDs = adviserBranchBo.CustomerFolioMerged(ffromfolio, fnumber, customerId);                    
+                    if (ffromfolio != "")
+                    {
+                        folioDs = adviserBranchBo.CustomerFolioMerged(ffromfolio, fnumber, customerId);                        
+                    }
+                    else
+                      ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No Folio To Merge');", true);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','none');", true);
                     if (folioDs == true)
                         trMergeFolioStatus.Visible = true;
                 }
             }
             this.BindCustomer(mypager.CurrentPage);
+            showHideControls(0);
         }
 
         protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
         {
-            if (hdnCustomerId.Value.ToString() == "")
+            if (string.IsNullOrEmpty(txtPickCustomer.Text.Trim()))
             {
+                hdnCustomerId.Value = "0";
             }
-            else
-            bindDropdownPortfolio(int.Parse(hdnCustomerId.Value.ToString()));
+            if (hdnCustomerId.Value.ToString() != "0")
+            {
+                bindDropdownPortfolio(int.Parse(hdnCustomerId.Value.ToString()));
+            }
+            
+
+            
         }
 
         private void bindDropdownPortfolio(int customerId)
@@ -557,31 +585,39 @@ namespace WealthERP.Advisor
         {
             try
             {
-                CheckBox rdbGVRow = new CheckBox();
-                rdbGVRow = GetGvRadioButton();
-                int fromPortfolioId;
-                string folioNumber;
-                int amcCode;
-                customerPortfolioID = Convert.ToInt32(ddlPortfolio.SelectedValue);
-                DataSet dsPortFolioUpdate = new DataSet();
-
-                foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
+                if (hdnCustomerId.Value == "0" && ddlMovePortfolio.SelectedIndex==2)
                 {
-                    int rowIndex = dr.RowIndex;
-                    DataKey dKey = gvCustomerFolioMerge.DataKeys[rowIndex];
-
-                    if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
-                    {
-                        AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
-                        amcCode = int.Parse(dKey.Values["AMCCode"].ToString());
-                        folioNumber = dKey.Values["Count"].ToString();
-                        fromPortfolioId = Convert.ToInt32(dKey.Values["portfilionumber"].ToString());
-                        dsPortFolioUpdate = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID);
-                        break;
-                    }
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Select a customer first!');", true);
                 }
-                trFolioStatus.Visible = true;
-                this.BindCustomer(mypager.CurrentPage);
+                else
+                {
+                    CheckBox rdbGVRow = new CheckBox();
+                    rdbGVRow = GetGvRadioButton();
+                    int fromPortfolioId;
+                    string folioNumber;
+                    int amcCode;
+                    customerPortfolioID = Convert.ToInt32(ddlPortfolio.SelectedValue);
+                    DataSet dsPortFolioUpdate = new DataSet();
+
+                    foreach (GridViewRow dr in gvCustomerFolioMerge.Rows)
+                    {
+                        int rowIndex = dr.RowIndex;
+                        DataKey dKey = gvCustomerFolioMerge.DataKeys[rowIndex];
+
+                        if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
+                        {
+                            AdvisorBranchBo adviserBranchBo = new AdvisorBranchBo();
+                            amcCode = int.Parse(dKey.Values["AMCCode"].ToString());
+                            folioNumber = dKey.Values["Count"].ToString();
+                            fromPortfolioId = Convert.ToInt32(dKey.Values["portfilionumber"].ToString());
+                            dsPortFolioUpdate = adviserBranchBo.CustomerFolioMoveToCustomer(amcCode, folioNumber, fromPortfolioId, customerPortfolioID);
+                            break;
+                        }
+                    }
+                    trFolioStatus.Visible = true;
+                    this.BindCustomer(mypager.CurrentPage);
+                    showHideControls(0);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -589,32 +625,68 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void ddlMovePortfolio_SelectedIndexChanged(object sender, EventArgs e)
+        protected void showHideControls(int flag)
         {
-
-            if (ddlMovePortfolio.SelectedValue == "Merge")
+            if (flag == 0)
             {
+                txtPickCustomer.Text = string.Empty;                
+                ddlAdvisorBranchList.DataSource = null;
+                ddlPortfolio.DataSource = null;
+
+                trMergeToAnotherAMC.Visible = false;
+                trPickCustomer.Visible = false;
+                trPickPortfolio.Visible = false;
+                trBtnSubmit.Visible = false;
+                lblerror.Visible = false;
+            }
+            else if (flag == 1)
+            {
+                txtPickCustomer.Text = string.Empty;
+                ddlPortfolio.DataSource = null;
+
                 trMergeToAnotherAMC.Visible = true;
                 trPickCustomer.Visible = false;
                 trPickPortfolio.Visible = false;
                 trBtnSubmit.Visible = false;
-                ReadCustomerGridDetails();
             }
-            else if (ddlMovePortfolio.SelectedValue == "MtoAC")
+            else if (flag == 2)
             {
+                ddlAdvisorBranchList.DataSource = null;
+
                 lblerror.Visible = false;
                 trMergeToAnotherAMC.Visible = false;
                 trPickCustomer.Visible = true;
                 trPickPortfolio.Visible = true;
                 trBtnSubmit.Visible = true;
             }
-            else if (ddlMovePortfolio.SelectedValue == "MtoAP")
+            else if (flag == 3)
             {
+                txtPickCustomer.Text = string.Empty;
+                ddlAdvisorBranchList.DataSource = null;
+
                 trMergeToAnotherAMC.Visible = false;
                 trPickCustomer.Visible = false;
                 trPickPortfolio.Visible = true;
                 trBtnSubmit.Visible = true;
                 lblerror.Visible = false;
+            }            
+        }
+
+        protected void ddlMovePortfolio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            hdnCustomerId.Value = "0";
+            if (ddlMovePortfolio.SelectedValue == "Merge")
+            {
+                showHideControls(1);
+                ReadCustomerGridDetails();
+            }
+            else if (ddlMovePortfolio.SelectedValue == "MtoAC")
+            {                
+                showHideControls(2);
+            }
+            else if (ddlMovePortfolio.SelectedValue == "MtoAP")
+            {
+                showHideControls(3);
 
                 int customerId = 0;
 
@@ -632,11 +704,7 @@ namespace WealthERP.Advisor
             }
             else if (ddlMovePortfolio.SelectedValue == "S")
             {
-                trMergeToAnotherAMC.Visible = false;
-                trPickCustomer.Visible = false;
-                trPickPortfolio.Visible = false;
-                trBtnSubmit.Visible = false;
-                lblerror.Visible = false;
+                showHideControls(0);
             }
         }
     }
