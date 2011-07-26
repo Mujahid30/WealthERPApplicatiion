@@ -185,6 +185,24 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
+        /// lblPortfolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPortfolio;
+        
+        /// <summary>
+        /// ddlportfolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlportfolio;
+        
+        /// <summary>
         /// lblMFAccount control.
         /// </summary>
         /// <remarks>
@@ -770,6 +788,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
+        /// cmvtxtAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmvtxtAmount;
+        
+        /// <summary>
         /// lblPeriod control.
         /// </summary>
         /// <remarks>
@@ -804,6 +831,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPeriod;
+        
+        /// <summary>
+        /// CompareValidator_txtPeriod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator_txtPeriod;
         
         /// <summary>
         /// lblEndDate control.

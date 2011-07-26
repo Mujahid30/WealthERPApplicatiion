@@ -158,7 +158,8 @@
         </td>
         <td>
             <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="true">
+                                    <asp:TextBox ID="txtSearchScheme" runat="server" 
+                CssClass="txtField" AutoComplete="Off" AutoPostBack="true" >
                                     </asp:TextBox>
                                     <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
@@ -212,6 +213,17 @@
                                        </td>
            
             </tr>
+     <tr>
+     <td class="leftField" width="25%">
+      <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio:" CssClass="FieldName"></asp:Label>
+     </td>
+     <td>
+     <asp:DropDownList ID="ddlportfolio" runat="server" CssClass="cmbField" 
+             onselectedindexchanged="ddlportfolio_SelectedIndexChanged" AutoPostBack="true">
+            </asp:DropDownList>
+     </td>
+     <td></td>
+     </tr>
     <tr>
         <td class="leftField" width="25%">
             <asp:Label ID="lblMFAccount" runat="server" Text="Folio:" CssClass="FieldName"></asp:Label>
@@ -399,6 +411,9 @@
              <asp:RequiredFieldValidator ID="RequiredFieldValidator5"  ControlToValidate="txtAmount" ErrorMessage="<br />Please Enter Amount"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
             </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cmvtxtAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="<br />Enter a numeric Value"
+             Display="Dynamic" Operator="DataTypeCheck" Type="Double" ValidationGroup="MFSubmit" CssClass="rfvPCG">
+            </asp:CompareValidator>
         </td>
         <td>
           <%--  <asp:RequiredFieldValidator ID="rfvAmount" ControlToValidate="txtAmount" ErrorMessage="Please Enter Amount"
@@ -427,10 +442,10 @@
              <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a Period"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
             </asp:RequiredFieldValidator>&nbsp;&nbsp;
-<%--             <asp:CompareValidator ID="CompareValidator_ddlPeriodSelection" runat="server"
-                ControlToValidate="ddlPeriodSelection" ErrorMessage="<br />Please select any Period Type from the Dropdown"
-                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
-            </asp:CompareValidator>--%>
+              <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server"
+                ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a numeric Value"
+                Operator="DataTypeCheck" Type="Integer" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+            </asp:CompareValidator>
         </td>
         <td>
 
