@@ -98,10 +98,12 @@ namespace WealthERP.CustomerPortfolio
                         btnSubmit.Visible = true;
                         btnUpdate.Visible = false;
                     }
+                    if (Request.QueryString["PortFolioId"] != null)
+                        portfolioId = int.Parse(Request.QueryString["PortFolioId"].ToString());
 
                     //pra..
                     BindPortfolioDropDown();
-
+                    ddlPortfolio.SelectedValue = portfolioId.ToString();
                 }
 
                 //BindPortfolioDropDown();
@@ -371,7 +373,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPortfolio.DataBind();
             //ddlPortfolio.Items.Insert(0, "Select the Portfolio");
 
-            ddlPortfolio.SelectedValue = portfolioId.ToString();
+            //ddlPortfolio.SelectedValue = portfolioId.ToString();
         }
 
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -602,10 +604,12 @@ namespace WealthERP.CustomerPortfolio
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFManualSingleTran','?prevPage=CustomerMFAccountAdd');", true);
                 }
-                else if (Request.QueryString["FromPage"] == "PortfolioSystematicEntry")
+                else if(Request.QueryString["PortFolioId"] != null)
                 {
-                    Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "&FromPage=" + "CustomerMFAccountAdd" + "&action=" + "edit", false);
+                    //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "&FromPage=" + "CustomerMFAccountAdd" + "&action=" + "edit", false);
                     //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "", false);
+                    //string action = "Edit";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry&Folionumber", "loadcontrol('PortfolioSystematicEntry','?FolioNumber=" + customerAccountsVo.AccountNum + "&action=" + "Edit" + "&FromPage=" + "CustomerMFAccountAdd" + "');", true);
                 }
                 else
                 {
