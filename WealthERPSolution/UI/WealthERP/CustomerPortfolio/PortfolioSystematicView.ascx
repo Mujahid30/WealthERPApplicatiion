@@ -15,7 +15,7 @@
     </tr>
     <tr>
     <td>
-    <table width="50%" cellpadding="0">
+    <table width="10%" cellpadding="0">
     <tr>
      <td class="leftField">
       <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio:" CssClass="FieldName"></asp:Label>
@@ -50,7 +50,7 @@
 <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">   
     <tr>
-        <td colspan="2">
+        <td>
             <asp:GridView ID="gvrSystematicSchemes" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="SystematicSetupId" EnableViewState="false" AllowPaging="True"
                 OnSorting="gvrSystematicSetup_Sorting" CssClass="GridViewStyle" OnDataBound="gvrSystematicSetup_DataBound"
