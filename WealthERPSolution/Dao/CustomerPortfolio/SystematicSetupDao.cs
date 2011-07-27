@@ -53,7 +53,7 @@ namespace DaoCustomerPortfolio
                 if (systematicSetupVo.SipChequeDate!=DateTime.MinValue)
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);               
                 if(systematicSetupVo.SipChequeNo!=0)
-                db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int32, systematicSetupVo.SipChequeNo);
+                db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, systematicSetupVo.SipChequeNo);
                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
                     db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
                 else
@@ -124,7 +124,7 @@ namespace DaoCustomerPortfolio
                 else
                     systematicSetupVo.SipChequeDate = DateTime.MinValue;
                 if (systematicSetupVo.SipChequeNo != 0)
-                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int32, systematicSetupVo.SipChequeNo);
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, systematicSetupVo.SipChequeNo);
                 else
                     systematicSetupVo.SipChequeNo = 0;
                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
@@ -216,7 +216,7 @@ namespace DaoCustomerPortfolio
                         else
                             systematicSetupVo.SipChequeDate = DateTime.MinValue;
                         if (!string.IsNullOrEmpty(dr["CMFSS_SIPFirstChequeNo"].ToString()))
-                            systematicSetupVo.SipChequeNo = int.Parse(dr["CMFSS_SIPFirstChequeNo"].ToString());
+                            systematicSetupVo.SipChequeNo = Int64.Parse(dr["CMFSS_SIPFirstChequeNo"].ToString());
                         else
                             systematicSetupVo.SipChequeNo = 0;
                         if(!string.IsNullOrEmpty(dr["CMFSS_RegistrationDate"].ToString()))
@@ -313,7 +313,7 @@ namespace DaoCustomerPortfolio
                     else
                         systematicSetupVo.SipChequeDate = DateTime.MinValue;
                     if (!string.IsNullOrEmpty(dr["CMFSS_SIPFirstChequeNo"].ToString()))
-                        systematicSetupVo.SipChequeNo = int.Parse(dr["CMFSS_SIPFirstChequeNo"].ToString());
+                        systematicSetupVo.SipChequeNo = Int64.Parse(dr["CMFSS_SIPFirstChequeNo"].ToString());
                     else
                         systematicSetupVo.SipChequeNo = 0;
                     if (!string.IsNullOrEmpty(dr["CMFSS_RegistrationDate"].ToString()))
