@@ -36,7 +36,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@XF_CompoundInterestFrequencyCode", DbType.String, fixedincomeVo.CompoundInterestFrequencyCode);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@XF_InterestPayableFrequencyCode", DbType.String, fixedincomeVo.InterestPayableFrequencyCode);
                 db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_Name", DbType.String, fixedincomeVo.Name);
-                if (fixedincomeVo.IssueDate != null)
+                if (fixedincomeVo.IssueDate != DateTime.MinValue)
                     db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, fixedincomeVo.IssueDate);
                 else
                     db.AddInParameter(createFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, DBNull.Value);
@@ -115,7 +115,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@XF_CompoundInterestFrequencyCode", DbType.String, fixedIncomeVo.CompoundInterestFrequencyCode);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@XF_InterestPayableFrequencyCode", DbType.String, fixedIncomeVo.InterestPayableFrequencyCode);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_Name", DbType.String, fixedIncomeVo.Name);
-                db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.Int32, fixedIncomeVo.IssueDate);
+                if (fixedIncomeVo.IssueDate != DateTime.MinValue)
+                db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, fixedIncomeVo.IssueDate);
+                else
+                    db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_IssueDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_PrincipalAmount", DbType.Decimal, fixedIncomeVo.PrinciaplAmount);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_InterestAmtPaidOut", DbType.Decimal, fixedIncomeVo.InterestAmtPaidOut);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_InterestAmtAcculumated", DbType.Decimal, fixedIncomeVo.InterestAmtAccumulated);
@@ -127,8 +130,14 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@XF_DepositFrquencycode", DbType.String, fixedIncomeVo.DepositFrequencyCode);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_DebentureNum", DbType.Int32, fixedIncomeVo.DebentureNum);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_PurchaseValue", DbType.Decimal, fixedIncomeVo.PurchaseValue);
+                if (fixedIncomeVo.PurchaseDate != DateTime.MinValue)
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_PurchaseDate", DbType.DateTime, fixedIncomeVo.PurchaseDate);
+                else
+                    db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_PurchaseDate", DbType.DateTime, DBNull.Value);
+                if (fixedIncomeVo.MaturityDate != DateTime.MinValue)
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_MaturityDate", DbType.DateTime, fixedIncomeVo.MaturityDate);
+                else
+                    db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_MaturityDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_MaturityValue", DbType.Decimal, fixedIncomeVo.MaturityValue);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_IsInterestAccumulated", DbType.Int16, fixedIncomeVo.IsInterestAccumulated);
                 db.AddInParameter(updateFixedIncomePortfolioCmd, "@CFINP_CurrentPrice", DbType.Decimal, fixedIncomeVo.CurrentPrice);
