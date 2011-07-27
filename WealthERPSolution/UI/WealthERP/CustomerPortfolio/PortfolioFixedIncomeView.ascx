@@ -21,7 +21,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
+            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found...!"></asp:Label>
         </td>
     </tr>
     <tr>
