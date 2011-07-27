@@ -791,6 +791,13 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Investment Amount Allocated(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblInvestmentCurrent" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CG_CurrentInvestment")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Lumpsum Investment Required(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblLumpsumInvReq" runat="server" CssClass="cmbField" 

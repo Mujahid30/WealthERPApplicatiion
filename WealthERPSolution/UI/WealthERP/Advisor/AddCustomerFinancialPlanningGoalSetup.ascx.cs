@@ -1158,6 +1158,7 @@ namespace WealthERP.Advisor
                 dtRTGoal.Columns.Add("XG_GoalName");
                 dtRTGoal.Columns.Add("CG_GoalYear");
                 dtRTGoal.Columns.Add("CG_FVofCostToday");
+                dtRTGoal.Columns.Add("CG_CurrentInvestment");
                 dtRTGoal.Columns.Add("CG_LumpsumInvestmentRequired");
                 dtRTGoal.Columns.Add("CG_YearlySavingsRequired");
                 dtRTGoal.Columns.Add("CG_MonthlySavingsRequired");
@@ -1172,6 +1173,7 @@ namespace WealthERP.Advisor
                     drRTGoal["XG_GoalName"] = dr["XG_GoalName"].ToString();
                     drRTGoal["CG_GoalYear"] = dr["CG_GoalYear"].ToString();
                     drRTGoal["CG_FVofCostToday"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_FVofCostToday"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
