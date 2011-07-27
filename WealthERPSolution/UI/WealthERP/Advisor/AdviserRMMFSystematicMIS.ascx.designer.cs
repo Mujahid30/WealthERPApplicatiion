@@ -131,6 +131,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectCutomer;
         
         /// <summary>
+        /// lblselectCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblselectCustomer;
+        
+        /// <summary>
         /// txtIndividualCustomer control.
         /// </summary>
         /// <remarks>
@@ -399,6 +408,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSystameticSetupView;
+        
+        /// <summary>
+        /// RadAjaxPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxPanel RadAjaxPanel1;
         
         /// <summary>
         /// gvSystematicMIS control.

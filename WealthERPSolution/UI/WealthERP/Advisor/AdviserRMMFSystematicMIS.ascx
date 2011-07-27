@@ -57,9 +57,13 @@
        </td>
        </tr>
        <tr>
+       <td>
+       <table>
+       <tr>
       <td>
       <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="cmbField" Text="Select customer type: "></asp:Label>
-      
+      </td>
+      <td>
       <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" 
               runat="server" CssClass="cmbField" AutoPostBack="true" 
               onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged">
@@ -68,7 +72,11 @@
       <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
       </asp:DropDownList>
       </td>
-      
+      </tr>
+      <tr>
+      <td>
+      <asp:Label ID="lblselectCustomer" runat="server" CssClass="cmbField" Text="Select Customer: "></asp:Label>
+      </td>
       <td>
      <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">  </asp:TextBox>
     <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer" WatermarkText="Enter few chars of Customer"
@@ -86,8 +94,11 @@
               
                                                                 
        </td>
-      
+       </tr>
+     </table> 
+     </td>
      </tr>
+     
 <%--     <tr id="trGroupCustomer" runat="server">
      <td></td>
      <td></td>
@@ -226,9 +237,8 @@
     runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlSystameticSetupView" runat="server">
-           <table width="100%" cellspacing="0" cellpadding="0">
-               <tr>
-                   <td>
+                   <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="90%" EnableHistory="True"
+                        HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
                        <telerik:RadGrid ID="gvSystematicMIS" runat="server" 
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
@@ -277,22 +287,13 @@
                                    </telerik:GridBoundColumn>
                                </Columns>
                            </MasterTableView>
-                           <ClientSettings>
-                               <Scrolling AllowScroll="True" FrozenColumnsCount="1" SaveScrollPosition="true" 
-                                   UseStaticHeaders="True" />
-                               <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                            <ClientSettings>
+                                <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
+                                </Scrolling>
+                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                            </ClientSettings>
-                       </telerik:RadGrid>
-                   </td>
-    </tr> 
-   <%-- <tr ID="trPager" runat="server">
-        <td align="center" width="60%">
-
-            <Pager:Pager ID="mypager" runat="server" />
-        </td>
-    </tr>--%>
-</table>
-
+                            </telerik:RadGrid>
+                    </telerik:RadAjaxPanel>
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView2" runat="server">

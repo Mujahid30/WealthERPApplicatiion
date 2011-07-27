@@ -100,6 +100,7 @@ namespace WealthERP.Advisor
             {
                 ddlSelectCutomer.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
+                lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
                 //trPager.Visible = false;
                 dsSystematicMIS = systematicSetupBo.GetAllDropdownBinding(strAmcCode);
@@ -109,7 +110,6 @@ namespace WealthERP.Advisor
                 CategoryDropdown(dsSystematicMIS.Tables[2]);
                 Session["ButtonGo"] = null;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
-                txtIndividualCustomer.Visible = false;
 
                 if (userType == "advisor")
                 {
@@ -351,6 +351,7 @@ namespace WealthERP.Advisor
             ddlSelectCutomer.Visible = false;
             lblSelectTypeOfCustomer.Visible = false;
             txtIndividualCustomer.Visible = false;
+            lblselectCustomer.Visible = false;
             rquiredFieldValidatorIndivudialCustomer.Visible = false;
         }
 
@@ -359,6 +360,7 @@ namespace WealthERP.Advisor
             ddlSelectCutomer.Visible = true;
             lblSelectTypeOfCustomer.Visible = true;
             txtIndividualCustomer.Visible = true;
+            lblselectCustomer.Visible = true;
             rquiredFieldValidatorIndivudialCustomer.Visible = true;
         }
         /* Customer search for Group ang Individual*/
@@ -574,9 +576,15 @@ namespace WealthERP.Advisor
                 }
             }
             if (ddlDateFilter.SelectedIndex == 0)
-                hdnstartdate.Value = ddlDateFilter.SelectedValue;
-            else
+            {
+                hdnstartdate.Value = "StartDate";
                 hdnendDate.Value = "";
+            }
+            else
+            {
+                hdnstartdate.Value = "";
+                hdnendDate.Value = "EndDate";
+            }
 
             if (ddlAMC.SelectedIndex != 0)
                 hdnamcCode.Value = ddlAMC.SelectedValue;
@@ -1063,19 +1071,19 @@ namespace WealthERP.Advisor
                 e.Item.Cells[5].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Item.Cells[5].Attributes.Add("align", "Right");
 
-                e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
                 e.Item.Cells[6].Attributes.Add("align", "Right");
 
-                e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
                 e.Item.Cells[7].Attributes.Add("align", "Right");
 
                 e.Item.Cells[8].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Item.Cells[8].Attributes.Add("align", "Right");
 
-                e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
                 e.Item.Cells[9].Attributes.Add("align", "Right");
 
-                e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
                 e.Item.Cells[10].Attributes.Add("align", "Right");
 
             }
