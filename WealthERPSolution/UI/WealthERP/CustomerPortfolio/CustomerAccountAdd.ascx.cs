@@ -925,55 +925,55 @@ namespace WealthERP.CustomerPortfolio
                         {
                             case "FICB":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FICD":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FIDB":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FIFD":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FIGS":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FIIB":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = true;
                                     break;
                                 }
                             case "FIRD":
                                 {
-                                    lblAccountNum.Text = "Account Identifier";
+                                    lblAccountNum.Text = "Account Identifier:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FISD":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = false;
                                     break;
                                 }
                             case "FITB":
                                 {
-                                    lblAccountNum.Text = "Certificate Number";
+                                    lblAccountNum.Text = "Certificate Number:";
                                     trAccountSource.Visible = true;
                                     break;
                                 }
