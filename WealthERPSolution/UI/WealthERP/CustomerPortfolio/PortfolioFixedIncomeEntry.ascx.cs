@@ -228,7 +228,7 @@ namespace WealthERP.CustomerPortfolio
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
                 {
                     trAccountSource.Visible = true;
-                    txtAccountWith.Visible = false;
+                    //txtAccountWith.Visible = false;
                 }
                 else
                 {
@@ -992,7 +992,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (blResult)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioFixedIncomeView','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortFolioFixedIncomeView", "loadcontrol('PortfolioFixedIncomeView','none');", true);
                 }
                 else
                 {
@@ -1500,6 +1500,7 @@ namespace WealthERP.CustomerPortfolio
                         newFixedIncomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
                     }
                     // newFixedIncomeVo.IssueDate = DateTime.Parse(ddlIssueDay.SelectedItem.Value.ToString() + "/" + ddlIssueMonth.SelectedItem.Value.ToString() + "/" + ddlIssueYear.SelectedItem.Text.ToString());
+                    if(txtIssueDate.Text!="")
                     newFixedIncomeVo.IssueDate = DateTime.Parse(txtIssueDate.Text);
                     //  newFixedIncomeVo.PurchaseDate = DateTime.Parse(ddlPurPurchaseDay.SelectedItem.Value.ToString() + "/" + ddlPurPurchaseMonth.SelectedItem.Value.ToString() + "/" + ddlPurPurchaseYear.SelectedItem.Text.ToString());
                     newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtPurchaseDate.Text);
@@ -1510,6 +1511,7 @@ namespace WealthERP.CustomerPortfolio
                     newFixedIncomeVo.DebentureNum = int.Parse(txtPurNoOfDebentures.Text.ToString());
                     newFixedIncomeVo.PurchaseValue = float.Parse(txtPurPurchaseCost.Text.ToString());
                     newFixedIncomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if(txtMaturityValue.Text!="")
                     newFixedIncomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
 
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
@@ -1528,15 +1530,25 @@ namespace WealthERP.CustomerPortfolio
                     //  newFixedIncomeVo.IssueDate = DateTime.Parse(ddlDDBIssueDay.SelectedItem.Value.ToString() + "/" + ddlDDBIssueMonth.SelectedItem.Value.ToString() + "/" + ddlDDBIssueYear.SelectedItem.Text.ToString());
                     // newFixedIncomeVo.MaturityDate = DateTime.Parse(ddlDDBMaturityDay.SelectedItem.Value.ToString() + "/" + ddlDDBMaturityMonth.SelectedItem.Value.ToString() + "/" + ddlDDBMaturityYear.SelectedItem.Text.ToString());
                     //newFixedIncomeVo.PurchaseDate = DateTime.Parse(ddlDDBPurchaseDay.SelectedItem.Value.ToString() + "/" + ddlDDBPurchaseMonth.SelectedItem.Value.ToString() + "/" + ddlDDBPurchaseYear.SelectedItem.Text.ToString());
+                    if (txtDDBMaturityDate.Text != "")
                     newFixedIncomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text);
+                    if (txtDDBPurchaseDate.Text != "")
                     newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text);
+                    if (txtDDBIssueDate.Text != "")
                     newFixedIncomeVo.IssueDate = DateTime.Parse(txtDDBIssueDate.Text);
+                    if (txtDDBFaceValueIssue.Text != "")
                     newFixedIncomeVo.FaceValue = float.Parse(txtDDBFaceValueIssue.Text.ToString());
+                    if (txtDDBFaceValueMat.Text != "")
                     newFixedIncomeVo.MaturityFaceValue = float.Parse(txtDDBFaceValueMat.Text.ToString());
+                    if (txtDDBPurchasePrice.Text != "")
                     newFixedIncomeVo.PurchasePrice = float.Parse(txtDDBPurchasePrice.Text.ToString());
+                    if (txtDDBPurchaseCost.Text != "")
                     newFixedIncomeVo.PurchaseValue = float.Parse(txtDDBPurchaseCost.Text.ToString());
+                    if (txtDDBNoofDebentures.Text != "")
                     newFixedIncomeVo.DebentureNum = int.Parse(txtDDBNoofDebentures.Text.ToString());
+                    if (txtCurrentValue.Text != "")
                     newFixedIncomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if(txtMaturityValue.Text!="")
                     newFixedIncomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
 
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);

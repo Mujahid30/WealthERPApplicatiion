@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Instrument Category:"></asp:Label>
+                    <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Asset Category:"></asp:Label>
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:Label ID="lblInstrumentCategory" runat="server" CssClass="Field"></asp:Label>
@@ -195,6 +195,9 @@
                     <asp:CompareValidator ID="cvMaturityDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtMaturityDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
+                        
+                        <asp:CompareValidator ID="cvMatDate" runat="server" ErrorMessage="Maturatiy Date Should be greater than Deposit date" Type="Date"
+                        ControlToValidate="txtMaturityDate" ControlToCompare="txtDepositDate" Operator="GreaterThan" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
             <tr id="trFaceValDebNum" runat="server">
@@ -208,9 +211,11 @@
                     <asp:RequiredFieldValidator ID="rfvFaceValue" ControlToValidate="txtFaceValue" ErrorMessage="Please enter the Face Value"
                         Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvFaceValue" runat="server" ErrorMessage="Please enter a numeric value"
+                   <%-- <asp:CompareValidator ID="cvFaceValue" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtFaceValue" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>--%>
+                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG" ControlToValidate="txtFaceValue"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblNoofDebentures" runat="server" CssClass="FieldName" Text="No. of Debentures:"></asp:Label>
@@ -223,9 +228,11 @@
                         ErrorMessage="Please enter the No Of Debentures" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvNoofDebentures" runat="server" ErrorMessage="Please enter a numeric value"
+                   <%-- <asp:CompareValidator ID="cvNoofDebentures" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtNoofDebentures" Operator="DataTypeCheck"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
+                  <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG" ControlToValidate="txtNoofDebentures"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trDeposit" runat="server">
@@ -240,9 +247,11 @@
                         ErrorMessage="Please enter the Deposit Amount" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDepositAmount" runat="server" ErrorMessage="Please enter a numeric value"
+                 <%--   <asp:CompareValidator ID="cvDepositAmount" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtDepositAmount" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>--%>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG" ControlToValidate="txtDepositAmount"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trDepositDetailsSpace" runat="server">
@@ -274,6 +283,9 @@
                     <asp:RequiredFieldValidator ID="rfvDDBIssueDate" ControlToValidate="txtDDBIssueDate"
                         ErrorMessage="Please enter an Issue Date" Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
+                     <asp:CompareValidator ID="cvtxtDDBIssueDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+                        Type="Date" ControlToValidate="txtDDBIssueDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                        Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblDDBPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date:"></asp:Label>
@@ -307,9 +319,11 @@
                     <asp:RequiredFieldValidator ID="rfvDDBPurchasePrice" runat="server" ControlToValidate="txtDDBPurchasePrice"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Purchase Price">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDDBPurchasePrice" runat="server" ControlToValidate="txtDDBPurchasePrice"
+                    <%--<asp:CompareValidator ID="cvDDBPurchasePrice" runat="server" ControlToValidate="txtDDBPurchasePrice"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG" ControlToValidate="txtDDBPurchasePrice"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblDDBMaturityDate" runat="server" CssClass="FieldName" Text="Maturity Date:"></asp:Label>
@@ -344,9 +358,12 @@
                     <asp:RequiredFieldValidator ID="rfvDDBFaceValueIssue" runat="server" ControlToValidate="txtDDBFaceValueIssue"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Issue Price">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDDBFaceValueIssue" runat="server" ControlToValidate="txtDDBFaceValueIssue"
+                  <%--  <asp:CompareValidator ID="cvDDBFaceValueIssue" runat="server" ControlToValidate="txtDDBFaceValueIssue"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="cvPCG" ControlToValidate="txtDDBFaceValueIssue"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblDDBFaceValueMaturity" runat="server" CssClass="FieldName" Text="Maturity Price:"></asp:Label>
@@ -358,9 +375,11 @@
                     <asp:RequiredFieldValidator ID="rfvDDBFaceValueMat" runat="server" ControlToValidate="txtDDBFaceValueMat"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Maturity Price">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDDBFaceValueMat" runat="server" ControlToValidate="txtDDBFaceValueMat"
+                 <%--   <asp:CompareValidator ID="cvDDBFaceValueMat" runat="server" ControlToValidate="txtDDBFaceValueMat"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" CssClass="cvPCG" ControlToValidate="txtDDBFaceValueMat"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trDDBNoofDebentures" runat="server">
@@ -374,9 +393,11 @@
                     <asp:RequiredFieldValidator ID="rfvDDBNoofDebentures" runat="server" ControlToValidate="txtDDBNoofDebentures"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the No Of Debentures">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDDBNoofDebentures" runat="server" ControlToValidate="txtDDBNoofDebentures"
+                 <%--   <asp:CompareValidator ID="cvDDBNoofDebentures" runat="server" ControlToValidate="txtDDBNoofDebentures"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" CssClass="cvPCG" ControlToValidate="txtDDBNoofDebentures"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblDDBPurchaseCost" runat="server" CssClass="FieldName" Text="Purchase Cost:"></asp:Label>
@@ -388,9 +409,11 @@
                     <asp:RequiredFieldValidator ID="rfvDDBPurchaseCost" runat="server" ControlToValidate="txtDDBPurchaseCost"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Purchase Cost">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDDBPurchaseCost" runat="server" ControlToValidate="txtDDBPurchaseCost"
+             <%--       <asp:CompareValidator ID="cvDDBPurchaseCost" runat="server" ControlToValidate="txtDDBPurchaseCost"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="cvPCG" ControlToValidate="txtDDBPurchaseCost"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trDDBSpace" runat="server">
@@ -416,14 +439,20 @@
                     <cc1:TextBoxWatermarkExtender ID="txtIssueDate_TextBoxWatermarkExtender" runat="server"
                         TargetControlID="txtIssueDate" WatermarkText="mm/dd/yy">
                     </cc1:TextBoxWatermarkExtender>--%>
+                     <cc1:CalendarExtender ID="txtIssueDate_CalendarExtender" runat="server" TargetControlID="txtIssueDate"
+                        Format="dd/MM/yyyy">
+                    </cc1:CalendarExtender>
+                    <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                        TargetControlID="txtIssueDate" WatermarkText="dd/mm/yyyy">
+                    </cc1:TextBoxWatermarkExtender>
                     <span id="Span22" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="rfvIssueDate" ControlToValidate="txtIssueDate" ErrorMessage="Please enter an Issue Date"
                         Display="Dynamic" runat="server" CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvIssueDate" runat="server" ErrorMessage="Issue Date has to be less than or equal to 31"
+                   <%-- <asp:CompareValidator ID="cvIssueDate" runat="server" ErrorMessage="Issue Date has to be less than or equal to 31"
                         Type="Integer" ControlToValidate="txtIssueDate" Operator="LessThanEqual" ValueToCompare="31"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date:"></asp:Label>
@@ -457,9 +486,12 @@
                     <asp:RequiredFieldValidator ID="rfvPurPurchasePrice" runat="server" ControlToValidate="txtPurPurchasePrice"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Purchase Price">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvPurPurchasePrice" runat="server" ControlToValidate="txtPurPurchasePrice"
+                 <%--   <asp:CompareValidator ID="cvPurPurchasePrice" runat="server" ControlToValidate="txtPurPurchasePrice"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG" ControlToValidate="txtPurPurchasePrice"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurMaturityDate" runat="server">
@@ -496,9 +528,12 @@
                     <asp:RequiredFieldValidator ID="rfvPurFaceValue" runat="server" ControlToValidate="txtPurFaceValue"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Face Value">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvPurFaceValue" runat="server" ControlToValidate="txtPurFaceValue"
+                   <%-- <asp:CompareValidator ID="cvPurFaceValue" runat="server" ControlToValidate="txtPurFaceValue"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" CssClass="cvPCG" ControlToValidate="txtPurFaceValue"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblPurNoofDebentures" runat="server" CssClass="FieldName" Text="No of Debentures:"></asp:Label>
@@ -510,9 +545,12 @@
                     <asp:RequiredFieldValidator ID="rfvPurNoOfDebentures" runat="server" ControlToValidate="txtPurNoOfDebentures"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the No Of Debentures">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvPurNoOfDebentures" runat="server" ControlToValidate="txtPurNoOfDebentures"
+                   <%-- <asp:CompareValidator ID="cvPurNoOfDebentures" runat="server" ControlToValidate="txtPurNoOfDebentures"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                        
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" CssClass="cvPCG" ControlToValidate="txtPurNoOfDebentures"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchCost" runat="server">
@@ -526,9 +564,11 @@
                     <asp:RequiredFieldValidator ID="rfvPurPurchaseCost" runat="server" ControlToValidate="txtPurPurchaseCost"
                         CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please enter the Purchase Cost">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvPurPurchaseCost" runat="server" ControlToValidate="txtPurPurchaseCost"
+                   <%-- <asp:CompareValidator ID="cvPurPurchaseCost" runat="server" ControlToValidate="txtPurPurchaseCost"
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
-                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>
+                        Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
+                          <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" CssClass="cvPCG" ControlToValidate="txtPurPurchaseCost"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trPurchaseSpace" runat="server">
@@ -555,9 +595,12 @@
                         ErrorMessage="Please enter the Deposit Amount" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvSubsequentDepositAmt" runat="server" ErrorMessage="Please enter a numeric value"
+                    <%--<asp:CompareValidator ID="cvSubsequentDepositAmt" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtSubsequentDepositAmt" Operator="DataTypeCheck"
-                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
+                        
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" CssClass="cvPCG" ControlToValidate="txtSubsequentDepositAmt"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblFrequencyOfDeposit" runat="server" CssClass="FieldName" Text="Frequency of Deposit:"></asp:Label>
@@ -618,12 +661,15 @@
                         ErrorMessage="Please enter the Interest Rate" Display="Dynamic" runat="server"
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvInterstRate" runat="server" ErrorMessage="Please enter a numeric value"
+                    <%--<asp:CompareValidator ID="cvInterstRate" runat="server" ErrorMessage="Please enter a numeric value"
                         Type="Double" ControlToValidate="txtInterstRate" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>
+                        Display="Dynamic"></asp:CompareValidator>--%>
+                        
+                          <asp:RegularExpressionValidator ID="RegularExpressionValidator14" runat="server" CssClass="cvPCG" ControlToValidate="txtInterstRate"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblInterestBasis" runat="server" CssClass="FieldName" Text="Interest Calc Basis:"></asp:Label>
+                    <asp:Label ID="lblInterestBasis" runat="server" CssClass="FieldName" Text="Interest Calc. Basis:"></asp:Label>
                 </td>
                 <td class="rightField">
                     <asp:DropDownList ID="ddlInterestBasis" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlInterestBasis_SelectedIndexChanged"
@@ -655,10 +701,13 @@
                         CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                 </td>
                 <td class="leftField">
-                    <asp:Label ID="lblInterestAmtCredited" runat="server" CssClass="FieldName" Text="Interest Amt Credited:"></asp:Label>
+                    <asp:Label ID="lblInterestAmtCredited" runat="server" CssClass="FieldName" Text="Interest Amt.Credited:"></asp:Label>
+                    
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtInterestAmtCredited" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator15" runat="server" CssClass="cvPCG" ControlToValidate="txtInterestAmtCredited"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr id="trInterestDetailsSpace" runat="server">
@@ -678,13 +727,17 @@
                     <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtCurrentValue" runat="server" CssClass="txtField"></asp:TextBox><br/>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator16" runat="server" CssClass="cvPCG" ControlToValidate="txtCurrentValue"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
                 </td>
                 <td class="rightField">
-                    <asp:TextBox ID="txtMaturityValue" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtMaturityValue" runat="server" CssClass="txtField"></asp:TextBox><br/>
+                     <asp:RegularExpressionValidator ID="RegularExpressionValidator17" runat="server" CssClass="cvPCG" ControlToValidate="txtMaturityValue"
+                     ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -698,7 +751,7 @@
                     <asp:Label ID="lblRemarks" runat="server" CssClass="FieldName" Text="Remarks:"></asp:Label>
                 </td>
                 <td class="rightField" rowspan="2" colspan="3">
-                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" Height="69px"></asp:TextBox>
+                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" Height="69px" TextMode="MultiLine"></asp:TextBox>
                 </td>
             </tr>
             <tr>
