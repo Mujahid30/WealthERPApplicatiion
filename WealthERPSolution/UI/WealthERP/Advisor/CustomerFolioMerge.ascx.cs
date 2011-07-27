@@ -369,6 +369,7 @@ namespace WealthERP.Advisor
             CheckBox rdbGVRow = new CheckBox();
             rdbGVRow = GetGvRadioButton();
             ddlAdvisorBranchList.Items.Clear();
+            ddlPortfolio.Items.Clear();
             ReadCustomerGridDetails();
 
             int customerId = 0;
@@ -404,7 +405,7 @@ namespace WealthERP.Advisor
                 {
                     bindFolioDropDown(gvrcustomerId, gvramcCode, gvrfnumber);
                 }
-            }
+            }            
         }
 
         protected void bindFolioDropDown(int customerId, int amcCode, string fnumber)
@@ -540,8 +541,9 @@ namespace WealthERP.Advisor
                         trMergeFolioStatus.Visible = true;
                 }
             }
-            this.BindCustomer(mypager.CurrentPage);
+            this.BindCustomer(mypager.CurrentPage);            
             showHideControls(0);
+            ddlMovePortfolio.SelectedIndex = 0;
         }
 
         protected void txtPickCustomer_TextChanged(object sender, EventArgs e)
@@ -617,6 +619,7 @@ namespace WealthERP.Advisor
                     trFolioStatus.Visible = true;
                     this.BindCustomer(mypager.CurrentPage);
                     showHideControls(0);
+                    ddlMovePortfolio.SelectedIndex = 0;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -629,9 +632,9 @@ namespace WealthERP.Advisor
         {
             if (flag == 0)
             {
-                txtPickCustomer.Text = string.Empty;                
-                ddlAdvisorBranchList.DataSource = null;
-                ddlPortfolio.DataSource = null;
+                txtPickCustomer.Text = string.Empty;
+                ddlAdvisorBranchList.Items.Clear();
+                ddlPortfolio.Items.Clear(); 
 
                 trMergeToAnotherAMC.Visible = false;
                 trPickCustomer.Visible = false;
@@ -642,7 +645,7 @@ namespace WealthERP.Advisor
             else if (flag == 1)
             {
                 txtPickCustomer.Text = string.Empty;
-                ddlPortfolio.DataSource = null;
+                ddlPortfolio.Items.Clear();
 
                 trMergeToAnotherAMC.Visible = true;
                 trPickCustomer.Visible = false;
@@ -651,7 +654,7 @@ namespace WealthERP.Advisor
             }
             else if (flag == 2)
             {
-                ddlAdvisorBranchList.DataSource = null;
+                ddlAdvisorBranchList.Items.Clear();
 
                 lblerror.Visible = false;
                 trMergeToAnotherAMC.Visible = false;
@@ -662,7 +665,7 @@ namespace WealthERP.Advisor
             else if (flag == 3)
             {
                 txtPickCustomer.Text = string.Empty;
-                ddlAdvisorBranchList.DataSource = null;
+                ddlAdvisorBranchList.Items.Clear();
 
                 trMergeToAnotherAMC.Visible = false;
                 trPickCustomer.Visible = false;
