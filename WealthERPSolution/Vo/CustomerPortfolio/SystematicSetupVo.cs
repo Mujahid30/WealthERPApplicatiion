@@ -30,7 +30,7 @@ namespace VoCustomerPortfolio
         private string m_PaymentModeCode;
         private string m_PaymentMode;
         private DateTime m_SipChequeDate;
-        private int m_SipChequeNo;
+        private Int64 m_SipChequeNo;
         private int m_period;
         private string m_PeriodSelection;
         private DateTime m_RegistrationDate;
@@ -168,7 +168,7 @@ namespace VoCustomerPortfolio
             get { return m_SipChequeDate; }
             set { m_SipChequeDate = value; }
         }
-        public int SipChequeNo
+        public Int64 SipChequeNo
         {
             get { return m_SipChequeNo; }
             set { m_SipChequeNo = value; }
