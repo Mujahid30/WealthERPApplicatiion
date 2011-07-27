@@ -863,14 +863,15 @@ namespace WealthERP.FP
 
                     gvrIncome.DataSource = dtIncomeForGrid;
                     gvrIncome.DataBind();
-                    //tdIncomeError.Visible = false;
+                    tdIncomeError.Visible = true;
+                    lblIncomeError.Visible = false;
                 }
                 else
                 {
                     ChartIncome.DataSource = null;
                     ChartIncome.Visible = false;
-                    //tdIncomeError.Visible = true;
-                    //tdgvrIncome.Visible = false;
+                    tdIncomeError.Visible = true;
+                    tdgvrIncome.Visible = false;
                 }
             }
 
@@ -970,14 +971,14 @@ namespace WealthERP.FP
                     RedGridExpense.DataBind();
                    
                    /* ***************EXPENSE GRID BINDING END**************** */
-                    //tdExpenseError.Visible = false;
+                    tdExpenseError.Visible = false;
                 }
                 else
                 {
                     ChartExpense.DataSource = null;
                     ChartExpense.Visible = false;
-                    //tdExpenseError.Visible = true;
-                    //tdRedGridExpense.Visible = false;
+                    tdExpenseError.Visible = true;
+                    tdRedGridExpense.Visible = false;
                 }               
             }
             catch (BaseApplicationException Ex)
@@ -1049,7 +1050,8 @@ namespace WealthERP.FP
                     ChartAsset.Series[0].ToolTip = "#VALX: #PERCENT";
                     ChartAsset.DataBind();
 
-                    tdAssetErrorMsg.Visible = false;
+                    tdAssetErrorMsg.Visible = true;
+                    lblAssetErrorMsg.Visible = false;
 
                     /* ***************ASSET CHART BINDING END**************** */
 
@@ -1491,6 +1493,7 @@ namespace WealthERP.FP
                     trRadGridGEHealth.Visible = false;
                     trRadGridLIGapAnalysis.Visible = false;
                     trRadGridGEOther.Visible = false;
+                    RadGridGEOther.Visible = false;
                     trRadGridGEGapAnalysis.Visible = false;
                 }
             }

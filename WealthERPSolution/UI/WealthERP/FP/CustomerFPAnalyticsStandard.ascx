@@ -56,7 +56,7 @@
 
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
 EnableEmbeddedSkins="False" MultiPageID="CustomerFPAnalyticsStandardId" 
-SelectedIndex="0">
+SelectedIndex="3">
        <Tabs>
           <telerik:RadTab runat="server" Text="Financial Health"
         Value="Financial Health" TabIndex="0">
@@ -68,7 +68,7 @@ SelectedIndex="0">
         Value="Networth" TabIndex="2">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Life Insurance"
-        Value="Life Insurance" TabIndex="3">
+        Value="Life Insurance" TabIndex="3" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="General Insurance"
         Value="Health Insurance" TabIndex="4" Selected="True">
@@ -81,7 +81,7 @@ SelectedIndex="0">
 
 
 <telerik:RadMultiPage ID="CustomerFPAnalyticsStandardId" runat="server" EnableViewState="true"
-SelectedIndex="0">
+SelectedIndex="3">
 
 <telerik:RadPageView ID="RadPageFinancialHealth" runat="server">
 <asp:Panel ID="pnlPageFinancialHealth" runat="server">
@@ -204,18 +204,18 @@ SelectedIndex="0">
                         </td>
                 </tr>
                 
-                <%--<tr id="tdIncomeExpenseError" runat="server">
-                    <td id="tdIncomeError" align="center" runat="server"> 
+                <tr id="tdIncomeExpenseError" runat="server">
+                    <td id="tdIncomeError" align="center" runat="server" style="width:50%"> 
                         <br />                                        
                         <asp:Label ID="lblIncomeError" runat="server" CssClass="failure-msg" 
                         Text="No records found for Income"></asp:Label>
                     </td>
-                    <td id="tdExpenseError" align="center" runat="server">
+                    <td id="tdExpenseError" align="center" runat="server" style="width:50%">
                         <br />                        
                         <asp:Label ID="lblExpenseError" runat="server" CssClass="failure-msg" 
                         Text="No records found for Expense"></asp:Label>
                     </td>
-                </tr>--%>           
+                </tr>        
                 <tr>                
                     <td id="tdgvrIncome" runat="server" valign="top">
                             <telerik:RadGrid ID="gvrIncome" Width="450px" AllowFilteringByColumn="false" CssClass="GridViewStyle"
@@ -345,13 +345,13 @@ SelectedIndex="0">
                             </asp:Chart>
                     </td>
                 </tr>
-                <tr id="trAssetLiabilitiesError" runat="server">
-                    <td align="center" id="tdAssetErrorMsg" runat="server">
+                <tr id="trAssetLiabilitiesError" runat="server" style="width:100%">
+                    <td align="center" id="tdAssetErrorMsg" runat="server" style="width:50%">
                         <br />                            
                             <asp:Label ID="lblAssetErrorMsg" runat="server" CssClass="failure-msg" 
                             Text="No records found for Asset"></asp:Label>
                     </td>
-                    <td id="tdErrorLiabilities" align="center" runat="server">
+                    <td id="tdErrorLiabilities" align="center" runat="server" style="width:50%">
                         <br />                         
                         <asp:Label ID="lblErrorLiabilities" runat="server" CssClass="failure-msg" 
                         Text="No records found for Liabilities"></asp:Label>
@@ -537,6 +537,14 @@ SelectedIndex="0">
                 <hr />
                 </td>
             </tr>
+            <%--<tr id="trHealthFailure" runat="server">
+                <td align="center">
+                     <br />
+                    <asp:Label ID="msgHealthFailure" runat="server" CssClass="failure-msg" 
+                     Text="No records found for Health Details">
+                    </asp:Label>
+                </td>
+            </tr>--%>
             <tr id="trHealth" runat="server">
                 <td>
                 <asp:Label ID="lblHealth" runat="server" Text="Health" CssClass="HeaderTextSmall"> </asp:Label>
@@ -580,7 +588,7 @@ SelectedIndex="0">
                 </td>
             </tr>
             <tr id="trRadGridGEGapAnalysis" runat="server">
-                <td align="center">
+                <td>
                     <telerik:RadGrid ID="RadGridGEGapAnalysis" Width="450px" AllowFilteringByColumn="false" CssClass="GridViewStyle"
                        Skin="Telerik" ShowFooter="true" EnableEmbeddedSkins="false" PagerStyle-EnableSEOPaging="true" runat="server">
                                                                                      
@@ -610,7 +618,7 @@ SelectedIndex="0">
                      <asp:Label ID="lblOther" runat="server" Text="Other" CssClass="HeaderTextSmall"> </asp:Label>
                  </td>
             </tr>
-            <tr id="trRadGridGEOther" runat="server" align="center">
+            <tr id="trRadGridGEOther" runat="server">
                 <td>
                     <telerik:RadGrid ID="RadGridGEOther" Width="450px" AllowFilteringByColumn="false" CssClass="GridViewStyle"
                        Skin="Telerik" ShowFooter="true" EnableEmbeddedSkins="false" ShowStatusBar="true" PagerStyle-EnableSEOPaging="true" runat="server">

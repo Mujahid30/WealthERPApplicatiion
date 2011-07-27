@@ -140,6 +140,51 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.DataVisualization.Charting.Chart ChartExpense;
         
         /// <summary>
+        /// tdIncomeExpenseError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow tdIncomeExpenseError;
+        
+        /// <summary>
+        /// tdIncomeError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdIncomeError;
+        
+        /// <summary>
+        /// lblIncomeError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIncomeError;
+        
+        /// <summary>
+        /// tdExpenseError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdExpenseError;
+        
+        /// <summary>
+        /// lblExpenseError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExpenseError;
+        
+        /// <summary>
         /// tdgvrIncome control.
         /// </summary>
         /// <remarks>
