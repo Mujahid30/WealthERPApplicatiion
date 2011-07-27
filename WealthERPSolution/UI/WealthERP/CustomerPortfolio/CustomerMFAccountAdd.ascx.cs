@@ -99,7 +99,10 @@ namespace WealthERP.CustomerPortfolio
                         btnUpdate.Visible = false;
                     }
                     if (Request.QueryString["PortFolioId"] != null)
+                    {
                         portfolioId = int.Parse(Request.QueryString["PortFolioId"].ToString());
+                        Session[SessionContents.PortfolioId] = portfolioId;
+                    }
 
                     //pra..
                     BindPortfolioDropDown();
@@ -609,7 +612,7 @@ namespace WealthERP.CustomerPortfolio
                     //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "&FromPage=" + "CustomerMFAccountAdd" + "&action=" + "edit", false);
                     //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "", false);
                     //string action = "Edit";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry&Folionumber", "loadcontrol('PortfolioSystematicEntry','?FolioNumber=" + customerAccountsVo.AccountNum + "&action=" + "Edit" + "&FromPage=" + "CustomerMFAccountAdd" + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry&Folionumber", "loadcontrol('PortfolioSystematicEntry','?FolioNumber=" + accountId + "&FromPage=" + "CustomerMFAccountAdd" + "');", true);
                 }
                 else
                 {
