@@ -68,34 +68,48 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 customerAccountsVo = (CustomerAccountsVo)Session[SessionContents.CustomerMFAccount];
 
-                if (Request.QueryString["FolioNumber"] != null)
+                if (Request.QueryString["FromPage"] == "CustomerMFAccountAdd" && Request.QueryString["FolioNumber"] != null)
+                {  
                     folioId = Request.QueryString["FolioNumber"];
-
-                if (systematicSetupVo != null)
-                {
+                    if (Session["Action"] != null)
+                    {
+                        Manage = Session["Action"].ToString();
+                        //Manage = "entry";
+                    }
                     if (Manage == "edit")
                     {
-                        SetControls("edit", systematicSetupVo, path);
-                    }
-                    else if (Manage == "view")
-                    {
-                        SetControls("view", systematicSetupVo, path);
+                        MaintainPageStateForControls();
+                        SetControlsForFolioAdd(Manage);
                     }
                     else if (Manage == "entry")
                     {
+                        SetControlsForFolioAdd(Manage);
+                        MaintainPageStateForControls();                       
+ 
+                    }
+                  
+                }
+                else 
+                { 
+                    if (systematicSetupVo != null)
+                    {
+                        if (Manage == "edit")
+                        {
+                            SetControls("edit", systematicSetupVo, path);
+                        }
+                        else if (Manage == "view")
+                        {
+                            SetControls("view", systematicSetupVo, path);
+                        }
+                        else if (Manage == "entry")
+                        {
+                            SetControls("entry", systematicSetupVo, path);
+                        }
+                    }
+                    else
+                    {
                         SetControls("entry", systematicSetupVo, path);
                     }
-                }
-                //else
-                //{
-                //    SetControls("entry", systematicSetupVo, path);
-                //}
-                
-
-
-                if (Request.QueryString["FromPage"] == "CustomerMFAccountAdd")
-                {
-                    MaintainPageStateForControls();
                 }
                 
             }
@@ -109,13 +123,13 @@ namespace WealthERP.CustomerPortfolio
             ddlportfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
             ddlportfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlportfolio.DataBind();
-            ddlportfolio.SelectedValue = portfolioId.ToString(); 
+            //ddlportfolio.SelectedValue = portfolioId.ToString(); 
         }
 
         private void MaintainPageStateForControls()
         {
             BindDropDowns(path);
-            BindPortfolioDropDown();
+            //BindPortfolioDropDown();
            
             if ((Session["SystematicHT"] != null) && (Session["SystematicHT"].ToString() != ""))
             {
@@ -128,27 +142,34 @@ namespace WealthERP.CustomerPortfolio
                     trSipChequeDate.Visible = true;
                     trSipChequeNo.Visible = true;
                     trPaymentMode.Visible = true;
+                    trSystematicDate.Visible = false;
 
                 }
                 else if (ddlSystematicType.SelectedValue == "STP")
                 {
                     trPaymentMode.Visible = true;
+                    trSystematicDate.Visible = false;
+                }
+                else if (ddlSystematicType.SelectedValue == "SWP")
+                {
+                    trSystematicDate.Visible = false;
                 }
                 txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
                 txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
-                ddlportfolio.SelectedValue = hashRetainPreviousState["Portfolio"].ToString();
+                
                 //ddlFolioNumber.SelectedValue = hashRetainPreviousState["FolioNumber"].ToString();
-                ddlFolioNumber.SelectedValue = customerAccountsVo.AccountNum;
+
+                txtSchemeCode.Value = hashRetainPreviousState["SchemeCode"].ToString();
+                
+                BindPortfolioDropDown();
+                ddlportfolio.SelectedValue = hashRetainPreviousState["Portfolio"].ToString();
+                schemePlanCode = int.Parse(hashRetainPreviousState["SchemeCode"].ToString());
+                BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue.ToString()));
+                ddlFolioNumber.SelectedValue =folioId;
+
                 txtStartDate.Text = hashRetainPreviousState["StartDate"].ToString();
                 txtSipChequeDate.Text = hashRetainPreviousState["SipChequeDate"].ToString();
                 txtSipChecqueNo.Text = hashRetainPreviousState["SipChecqueNo"].ToString();
-                txtSchemeCode.Value = hashRetainPreviousState["SchemeCode"].ToString();
-
-                
-                schemePlanCode=int.Parse(hashRetainPreviousState["SchemeCode"].ToString());
-
-                BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue.ToString()));
-                ddlportfolio.SelectedValue = folioId;
                 if (Session["MaintainCheckBoxes"] != null)
                 {
                     SetPreviousValuesForCheckboxes();
@@ -381,11 +402,8 @@ namespace WealthERP.CustomerPortfolio
             BindDropDowns(path);
             BindPortfolioDropDown();
             BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue));
-            ddlportfolio.SelectedValue = folioId;
-            //ddlFolioNumber.SelectedValue = customerAccountsVo.AccountNum;
-                
             EnableDisableControls(action);
-
+            Session["Action"] = action;
             if (action == "entry")
             {
                 //Code to check Entry
@@ -421,10 +439,10 @@ namespace WealthERP.CustomerPortfolio
 
                     txtSchemeCode.Value = systematicSetupVo.SchemePlanCode.ToString();
                     schemePlanCode = systematicSetupVo.SchemePlanCode;
-                    BindFolioDropDown(systematicSetupVo.PortfolioId);
+                    //BindFolioDropDown(systematicSetupVo.PortfolioId);
 
                     
-                    ddlFolioNumber.SelectedValue = systematicSetupVo.AccountId.ToString();
+                    //ddlFolioNumber.SelectedValue = systematicSetupVo.AccountId.ToString();
                     txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
                     txtSchemeCode.Value = systematicSetupVo.SchemePlanCode.ToString();
                     if (systematicSetupVo.SchemePlan != "")
@@ -479,8 +497,8 @@ namespace WealthERP.CustomerPortfolio
                 //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                 //txtPeriod.Text = (-12 * (systematicSetupVo.StartDate.Year - systematicSetupVo.EndDate.Year) + systematicSetupVo.StartDate.Month - systematicSetupVo.EndDate.Month).ToString();
                 systematicSetupId = systematicSetupVo.SystematicSetupId;
-                if (systematicSetupVo.SipChequeDate.ToShortDateString() == "01/01/0001")
-                    txtSipChequeDate.Text = " ";
+                if (systematicSetupVo.SipChequeDate== DateTime.MinValue)
+                    txtSipChequeDate.Text = "";
                 else
                     txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
                 if (systematicSetupVo.SipChequeNo.ToString() == "0")
@@ -492,7 +510,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlPeriodSelection.SelectedItem.Text = systematicSetupVo.PeriodSelection;
 
 
-                if (systematicSetupVo.RegistrationDate.ToString() == "01/01/0001 00:00:00")
+                if (systematicSetupVo.RegistrationDate == DateTime.MinValue)
                     txtRegistrationDate.Text = "" ;
                 else
                     txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
@@ -504,6 +522,39 @@ namespace WealthERP.CustomerPortfolio
     
             }
 
+        }
+
+        private void SetControlsForFolioAdd(string action)
+        {
+
+            EnableDisableControls(action);
+            if (action == "entry")
+            {
+                  //Code to check Entry
+
+                    txtStartDate_CalendarExtender.Enabled = true;
+                    txtStartDate_TextBoxWatermarkExtender.Enabled = true;
+                    ddlSystematicType.SelectedIndex = -1;
+                    ddlportfolio.SelectedIndex = 0;
+                    ddlFolioNumber.SelectedIndex = -1;
+                    txtStartDate.Text = "";
+                    txtSystematicDate.Text = "";
+                    ddlFrequency.SelectedIndex = -1;
+                    txtAmount.Text = "";
+                    txtPeriod.Text = "";
+                    SipChequeDate_CalendarExtender.Enabled = true;
+                    SipChequeDate_TextBoxWatermarkExtender.Enabled = true;
+                    txtSipChequeDate.Text = "";
+                    txtSipChecqueNo.Text = "";
+                    txtRegistrationDate.Text = "";
+                    ddlPeriodSelection.SelectedIndex = -1;
+                    RegistrationDate_CalendarExtender.Enabled = true;
+                    RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
+                    ddlPaymentMode.SelectedIndex = -1;
+              
+                
+            }
+                   
         }
 
         /// <summary>
@@ -826,27 +877,21 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
             systematicSetupVo.Period = int.Parse(txtPeriod.Text.ToString());
             systematicSetupVo.IsManual = 1;
-            if (txtSipChequeDate.Text.ToString() != "" )
+            if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()) )
                 systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
             else
                 systematicSetupVo.SipChequeDate = DateTime.MinValue;
-            if (txtSipChecqueNo.Text.ToString() != "")
+            if (!string.IsNullOrEmpty(txtSipChecqueNo.Text.ToString().Trim()))
                 systematicSetupVo.SipChequeNo = int.Parse(txtSipChecqueNo.Text.ToString());
             else
                 systematicSetupVo.SipChequeNo = 0;
 
-            if (txtRegistrationDate.Text.ToString()!= "")
+            if (!string.IsNullOrEmpty(txtRegistrationDate.Text.ToString().Trim()))
                  systematicSetupVo.RegistrationDate = DateTime.Parse(txtRegistrationDate.Text.ToString());
             else
                 systematicSetupVo.RegistrationDate = DateTime.MinValue;
             systematicSetupVo.PeriodSelection = hdnddlPeriodSelection.Value;
-            //systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedItem.Value.ToString();
-            //systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
-            //if (ddlPaymentMode.SelectedItem.Value.ToString() != "")
-            //    systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
-            //else
-            //    systematicSetupVo.PaymentMode = null;
-
+         
             systematicSetupVo.PaymentModeCode = hdnddlPaymentMode.Value;
             systematicSetupVo.SourceCode = "WP";
             if (systematicSetupVo.SystematicTypeCode == "STP" && txtSwicthSchemeSearch.Text!="")
@@ -857,9 +902,9 @@ namespace WealthERP.CustomerPortfolio
             }
             if (systematicSetupVo.SystematicTypeCode == "SIP")
             {
-                if(txtSipChequeDate.Text != "")
+                if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()))
                     systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
-                if(txtSipChecqueNo.Text != "")
+                if (!string.IsNullOrEmpty(txtSipChecqueNo.Text.ToString().Trim()))
                     systematicSetupVo.SipChequeNo = int.Parse(txtSipChecqueNo.Text.ToString());
                 if(ddlPaymentMode.SelectedItem.Value != "")
                     systematicSetupVo.PaymentMode = ddlPaymentMode.SelectedItem.Value.ToString();
@@ -1099,16 +1144,10 @@ namespace WealthERP.CustomerPortfolio
     /// </summary>
         private void BindFolioDropDown(int portfolioId)
         {
-            //if (txtSchemeCode.Value != "")
-            //    schemePlanCode = Convert.ToInt32(txtSchemeCode.Value);
-            //if (schemePlanCode != 0)
-            //    dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, schemePlanCode);
-            //else
-            //    dsCustomerMFAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, AssetGroupCode, 0);
-            //portfolioId = customerAccountsVo.PortfolioId; 
+          
             DataSet dsCustomerAccounts=new DataSet();
             DataTable dtCustomerAccounts;
-            
+           
             if (schemePlanCode != 0)
             {
                 portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
