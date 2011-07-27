@@ -300,7 +300,7 @@
         
         </td>
         <td>
-        <asp:TextBox ID="txtSipChecqueNo" runat="server" CssClass="txtField"></asp:TextBox>
+        <asp:TextBox ID="txtSipChecqueNo" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
          <asp:CompareValidator ID="cvBankPinCode" runat="server" ErrorMessage="<br/>Enter a numeric value"
                 CssClass="rfvPCG" Type="Integer" ControlToValidate="txtSipChecqueNo" ValidationGroup="btnSubmit" Operator="DataTypeCheck"
                 Display="Dynamic"></asp:CompareValidator>
