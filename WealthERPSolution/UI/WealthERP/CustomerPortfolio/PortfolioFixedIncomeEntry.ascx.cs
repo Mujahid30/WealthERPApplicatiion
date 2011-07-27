@@ -304,7 +304,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FISD" || customerAccountVo.AssetCategory.ToString().Trim() == "FIGS")
                 {   // FI securities Debentures and FI securities G-secs
 
-                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToString();
+                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToShortDateString();
                     txtIssueDate.Enabled = false;
                     txtPurchaseDate.Text = fixedincomeVo.PurchaseDate.ToShortDateString();
                     txtPurchaseDate.Enabled = false;
@@ -352,7 +352,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIDB")
                 {   // Deep Discount Bond
 
-                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToString();
+                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
                     txtDDBIssueDate.Enabled = false;
                     txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
                     txtDDBPurchaseDate.Enabled = false;
@@ -581,7 +581,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FISD" || customerAccountVo.AssetCategory.ToString().Trim() == "FIGS")
                 {   // FI securities Debentures and FI securities G-secs
 
-                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToString();
+                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToShortDateString();
                     txtIssueDate.Enabled = true;
                     txtPurchaseDate.Text = fixedincomeVo.PurchaseDate.ToShortDateString();
                     txtPurchaseDate.Enabled = true;
@@ -629,7 +629,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIDB")
                 {   // Deep Discount Bond
 
-                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToString();
+                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
                     txtDDBIssueDate.Enabled = true;
                     txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
                     txtDDBPurchaseDate.Enabled = true;
