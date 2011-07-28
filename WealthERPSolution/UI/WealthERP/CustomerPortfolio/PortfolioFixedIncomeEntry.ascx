@@ -490,7 +490,7 @@
                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please enter a numeric value"
                         Operator="DataTypeCheck" Type="Double"></asp:CompareValidator>--%>
                         
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG" ControlToValidate="txtPurPurchasePrice"
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" CssClass="cvPCG" ControlToValidate="txtPurPurchasePrice" Display="Dynamic"
                      ErrorMessage="Please enter a numeric value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                 </td>
             </tr>
@@ -615,28 +615,28 @@
                         CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
-            <tr id="trDepositDate" runat="server">
-                <td class="leftField">
-                    <asp:Label ID="lblSubsequentDepositDate" runat="server" CssClass="FieldName" Text="Date(If Applicable):"></asp:Label>
-                </td>
-                <td class="rightField" colspan="3">
-                    <asp:TextBox ID="txtDBScheduleDate" runat="server" CssClass="txtField"></asp:TextBox>
-                    <cc1:CalendarExtender ID="txtDBScheduleDate_CalendarExtender" runat="server" TargetControlID="txtDBScheduleDate"
-                        Format="dd/MM/yyyy">
-                    </cc1:CalendarExtender>
-                    <cc1:TextBoxWatermarkExtender ID="txtDBScheduleDate_TextBoxWatermarkExtender" runat="server"
-                        TargetControlID="txtDBScheduleDate" WatermarkText="dd/mm/yyyy">
-                    </cc1:TextBoxWatermarkExtender>
-                    <span id="Span8" class="spnRequiredField">*</span>
-                    <br />
-                    <asp:RequiredFieldValidator ID="rfvDBScheduleDate" ControlToValidate="txtDBScheduleDate"
-                        ErrorMessage="Please select a Date" Display="Dynamic" runat="server" CssClass="rfvPCG">
-                    </asp:RequiredFieldValidator>
-                    <asp:CompareValidator ID="cvDBScheduleDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
-                        Type="Date" ControlToValidate="txtDBScheduleDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                        Display="Dynamic"></asp:CompareValidator>
-                </td>
-            </tr>
+           <%--     <tr id="trDepositDate" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="lblSubsequentDepositDate" runat="server" CssClass="FieldName" Text="Date(If Applicable):"></asp:Label>
+                    </td>
+                    <td class="rightField" colspan="3">
+                        <asp:TextBox ID="txtDBScheduleDate" runat="server" CssClass="txtField"></asp:TextBox>
+                        <cc1:CalendarExtender ID="txtDBScheduleDate_CalendarExtender" runat="server" TargetControlID="txtDBScheduleDate"
+                            Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:TextBoxWatermarkExtender ID="txtDBScheduleDate_TextBoxWatermarkExtender" runat="server"
+                            TargetControlID="txtDBScheduleDate" WatermarkText="dd/mm/yyyy">
+                        </cc1:TextBoxWatermarkExtender>
+                        <span id="Span8" class="spnRequiredField">*</span>
+                        <br />
+                        <asp:RequiredFieldValidator ID="rfvDBScheduleDate" ControlToValidate="txtDBScheduleDate"
+                            ErrorMessage="Please select a Date" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                        <asp:CompareValidator ID="cvDBScheduleDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyy"
+                            Type="Date" ControlToValidate="txtDBScheduleDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                            Display="Dynamic"></asp:CompareValidator>
+                    </td>
+                </tr>--%>
             <tr id="trDepositScheduleSpace" runat="server">
                 <td colspan="4">
                     &nbsp;

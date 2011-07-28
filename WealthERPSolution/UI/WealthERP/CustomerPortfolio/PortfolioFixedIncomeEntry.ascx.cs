@@ -371,7 +371,41 @@ namespace WealthERP.CustomerPortfolio
                     txtDDBPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
                     txtDDBPurchaseCost.Enabled = false;
                 }
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIRD")
+                {
 
+                    txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDepositDate.Enabled = false;
+                    txtMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtMaturityDate.Enabled = false;
+
+                    txtNoofDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
+                    txtNoofDebentures.Enabled = false;
+                    txtDepositAmount.Text = fixedIncomeVo.PrinciaplAmount.ToString();
+                    txtDepositAmount.Enabled = false;
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = false;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = false;
+                    ddlFrequencyOfDeposit.SelectedValue = fixedIncomeVo.DepositFrequencyCode.ToString().Trim();
+                    ddlFrequencyOfDeposit.Enabled = false;
+                    txtSubsequentDepositAmt.Text = fixedIncomeVo.SubsequentDepositAmount.ToString();
+                    txtSubsequentDepositAmt.Enabled = false;
+                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
+                    txtDDBIssueDate.Enabled = false;
+                    txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDDBPurchaseDate.Enabled = false;
+                    txtDDBPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtDDBPurchasePrice.Enabled = false;
+                    txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                    txtInterestAmtCredited.Enabled = false;
+
+                  
+
+
+
+
+                }
                 // Valuation
                 txtCurrentValue.Text = fixedIncomeVo.CurrentValue.ToString().Trim();
                 txtMaturityValue.Text = fixedIncomeVo.MaturityValue.ToString().Trim();
@@ -499,7 +533,7 @@ namespace WealthERP.CustomerPortfolio
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD")
                 {
                     trAccountSource.Visible = true;
-                    txtAccountWith.Visible = false;
+                    //txtAccountWith.Visible = false;
                 }
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
                 {
@@ -574,7 +608,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                         txtInterestAmtCredited.Enabled = false;
-                        txtInterestAmtCredited.Visible = false;
+                        txtInterestAmtCredited.Visible = true;
 
                     }
                 }
@@ -648,7 +682,41 @@ namespace WealthERP.CustomerPortfolio
                     txtDDBPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
                     txtDDBPurchaseCost.Enabled = true;
                 }
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIRD")
+                {
 
+                    txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDepositDate.Enabled = true;
+                    txtMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtMaturityDate.Enabled = true;
+                  
+                    txtNoofDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
+                    txtNoofDebentures.Enabled = true;
+                    txtDepositAmount.Text = fixedIncomeVo.PrinciaplAmount.ToString();
+                    txtDepositAmount.Enabled = true;
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = true;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = true;
+                    ddlFrequencyOfDeposit.SelectedValue = fixedIncomeVo.DepositFrequencyCode.ToString().Trim();
+                    ddlFrequencyOfDeposit.Enabled = true;
+                    txtSubsequentDepositAmt.Text = fixedIncomeVo.SubsequentDepositAmount.ToString();
+                    txtSubsequentDepositAmt.Enabled = true;
+                    txtDDBIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
+                    txtDDBIssueDate.Enabled = true;
+                    txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDDBPurchaseDate.Enabled = true;
+                    txtDDBPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtDDBPurchasePrice.Enabled = true;
+                    txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                    txtInterestAmtCredited.Enabled = true;
+                     
+                    txtIssueDate.Enabled = true;
+
+                    
+                    
+
+                }
                 // Valuation
                 txtCurrentValue.Text = fixedIncomeVo.CurrentValue.ToString().Trim();
                 txtMaturityValue.Text = fixedIncomeVo.MaturityValue.ToString().Trim();
@@ -656,6 +724,7 @@ namespace WealthERP.CustomerPortfolio
                 txtCurrentValue.Enabled = true;
                 txtMaturityValue.Enabled = true;
                 txtRemarks.Enabled = true;
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -890,7 +959,7 @@ namespace WealthERP.CustomerPortfolio
                     fixedincomeVo.PrinciaplAmount = float.Parse(txtDepositAmount.Text.ToString());
                     fixedincomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
                     fixedincomeVo.InterestBasisCode = ddlInterestBasis.SelectedItem.Value.ToString();
-
+                  
                     if (fixedincomeVo.InterestBasisCode == "CI")
                     {
                         fixedincomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
@@ -1047,10 +1116,10 @@ namespace WealthERP.CustomerPortfolio
             trPurchaseSpace.Visible = false;
             trDepositSchedule.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+            //trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+            //trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
             trInterestDetails.Visible = false;
             trIntRateIntBasis.Visible = false;
@@ -1075,7 +1144,7 @@ namespace WealthERP.CustomerPortfolio
             txtPurPurchaseCost.Text = "";
             txtSubsequentDepositAmt.Text = "";
             ddlFrequencyOfDeposit.SelectedIndex = -1;
-            txtDBScheduleDate.Text = "";
+            //txtDBScheduleDate.Text = "";
             txtInterstRate.Text = "";
             ddlInterestBasis.SelectedIndex = -1;
             ddlPayableFrequencyCode.SelectedIndex = -1;
@@ -1109,7 +1178,7 @@ namespace WealthERP.CustomerPortfolio
 
             trDepositSchedule.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+            //trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
 
             trInterestDetails.Visible = true;
@@ -1146,11 +1215,11 @@ namespace WealthERP.CustomerPortfolio
 
             trDepositSchedule.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+           // trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
 
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+           // trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
 
             trInterestDetails.Visible = true;
@@ -1169,8 +1238,8 @@ namespace WealthERP.CustomerPortfolio
             trFaceValDebNum.Visible = false;
             trDeposit.Visible = true;
             trDepositDetailsSpace.Visible = true;
-            lblDepositDate.Text = "Initial Deposit Date";
-            lblDepositAmount.Text = "Initial Deposit Amount";
+            lblDepositDate.Text = "Initial Deposit Date:";
+            lblDepositAmount.Text = "Initial Deposit Amount:";
 
             trDDBDetails.Visible = false;
             trDDBIssuePurchaseDate.Visible = false;
@@ -1190,7 +1259,7 @@ namespace WealthERP.CustomerPortfolio
 
             trDepositSchedule.Visible = true;
             trDepositAmt.Visible = true;
-            trDepositDate.Visible = true;
+            //trDepositDate.Visible = true;
             trDepositScheduleSpace.Visible = true;
 
             trInterestDetails.Visible = true;
@@ -1230,7 +1299,7 @@ namespace WealthERP.CustomerPortfolio
 
             trDepositSchedule.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+            //trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
 
             trInterestDetails.Visible = true;
@@ -1268,7 +1337,7 @@ namespace WealthERP.CustomerPortfolio
 
             trDepositSchedule.Visible = false;
             trDepositAmt.Visible = false;
-            trDepositDate.Visible = false;
+            //trDepositDate.Visible = false;
             trDepositScheduleSpace.Visible = false;
 
             trInterestDetails.Visible = false;
@@ -1459,7 +1528,7 @@ namespace WealthERP.CustomerPortfolio
                     newFixedIncomeVo.DepositFrequencyCode = ddlFrequencyOfDeposit.SelectedItem.Value.ToString();
                     newFixedIncomeVo.SubsequentDepositAmount = float.Parse(txtSubsequentDepositAmt.Text.ToString());
                     //  newFixedIncomeVo.IssueDate = DateTime.Parse(ddlDepositDay.SelectedItem.Value.ToString() + "/" + ddlDepositMonth.SelectedItem.Value.ToString() + "/" + ddlDepositYear.SelectedItem.Text.ToString());
-                    newFixedIncomeVo.IssueDate = DateTime.Parse(txtDBScheduleDate.Text);
+                    newFixedIncomeVo.IssueDate = DateTime.Parse(txtDDBIssueDate.Text);
                     newFixedIncomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedItem.Value.ToString();
                     if (txtInterestAmtCredited.Text == "")
                     {
