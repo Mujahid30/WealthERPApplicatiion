@@ -457,14 +457,15 @@
             <asp:Button ID="btnAddLOB" runat="server" Text="Add Lob" CssClass="PCGMediumButton"
                 OnClick="btnAddLOB_Click" Width="112px" />
         </td>
+        <%-- Reset/Send Login ID Option not included in this release so hiding this button for this release --%>
         <td>
-            <asp:Button ID="btnSendLoginId" runat="server" Text="Send Login Id" CssClass="PCGMediumButton"
+            <asp:Button ID="btnSendLoginId" runat="server" Text="Send Login Id" Visible="false" CssClass="PCGMediumButton"
                 OnClick="btnSendLoginId_Click" />
         </td>
        <%-- Add/Edit Subscription Option not included in this release so hiding this button for this release --%>
        
        <td>
-            <asp:Button ID="btnSubscription" runat="server" Text="Add/Edit Subscription" CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
+            <asp:Button ID="btnSubscription" runat="server" Text="Add/Edit Subscription" Visible="false" CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
                 />
         </td>
     </tr>
