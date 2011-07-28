@@ -134,12 +134,15 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                SessionBo.CheckSession();
-                customerVo = (CustomerVo)Session["customerVo"];
-                portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
-                BindPortfolioDropDown(customerVo.CustomerId);
-                ddlportfolio.SelectedValue = portfolioId.ToString();
-                LoadSystematicSetupGrid(portfolioId);
+                if (!Page.IsPostBack)
+                {
+                    SessionBo.CheckSession();
+                    customerVo = (CustomerVo)Session["customerVo"];
+                    portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
+                    BindPortfolioDropDown(customerVo.CustomerId);
+                    ddlportfolio.SelectedValue = portfolioId.ToString();
+                    LoadSystematicSetupGrid(portfolioId);
+                }
             }
             catch (BaseApplicationException Ex)
             {

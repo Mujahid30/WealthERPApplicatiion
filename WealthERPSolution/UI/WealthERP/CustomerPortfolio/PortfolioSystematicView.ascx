@@ -52,7 +52,7 @@
     <tr>
         <td>
             <asp:GridView ID="gvrSystematicSchemes" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="SystematicSetupId" EnableViewState="false" AllowPaging="True"
+                CellPadding="4" DataKeyNames="SystematicSetupId" EnableViewState="true" AllowPaging="True"
                 OnSorting="gvrSystematicSetup_Sorting" CssClass="GridViewStyle" OnDataBound="gvrSystematicSetup_DataBound"
                 ShowFooter="True">
                 <RowStyle CssClass="RowStyle" />
