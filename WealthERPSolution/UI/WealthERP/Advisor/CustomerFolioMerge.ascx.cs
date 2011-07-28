@@ -368,7 +368,7 @@ namespace WealthERP.Advisor
         {
             CheckBox rdbGVRow = new CheckBox();
             rdbGVRow = GetGvRadioButton();
-            //txtPickCustomer.Text = string.Empty;
+            txtPickCustomer.Text = string.Empty;
             ddlAdvisorBranchList.Items.Clear();
             ddlPortfolio.Items.Clear();
             ReadCustomerGridDetails();
