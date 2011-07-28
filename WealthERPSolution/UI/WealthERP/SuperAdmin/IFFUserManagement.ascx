@@ -91,18 +91,18 @@
     </tr>
 </table>
 
- <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server">
+ <table id="tblMessage" width="100%" visible="false" cellspacing="0" cellpadding="0" runat="server">
     <tr>
         <td align="center">
-            <div class="success-msg" id="SuccessMsg" runat="server" visible="false" align="center">
+            <div class="success-msg" id="SuccessMsg" runat="server" align="center">
             </div>
         </td>
    </tr>
  </table>
- <table id="tblErrorMassage" width="100%" cellpadding="0" cellspacing="0" runat="server">
+ <table id="tblErrorMassage" width="100%" visible="false" cellpadding="0" cellspacing="0" runat="server">
     <tr>
         <td align="center">
-            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" align="center">
             </div>
         </td>
     </tr>
@@ -119,17 +119,7 @@
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
-    </tr>
-    
-    <tr>
-        <td>
-            &nbsp;</td>
-    </tr>
-    <tr>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
+    </tr>    
     <tr>
         <td align="center">
             <asp:GridView ID="gvIFFUsers" runat="server" CellPadding="4" CssClass="GridViewStyle"

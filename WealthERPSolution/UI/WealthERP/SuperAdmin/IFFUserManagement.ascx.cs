@@ -28,6 +28,33 @@ namespace WealthERP.SuperAdmin
 
         AdviserMaintenanceBo adviserMaintenanceBo = new AdviserMaintenanceBo();
 
+        protected override void OnInit(EventArgs e)
+        {            
+            try
+            {
+                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+                mypager.EnableViewState = true;
+                base.OnInit(e);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        {
+            try
+            {
+                GetPageCount();
+                this.BindGrid();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }            
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -69,6 +96,7 @@ namespace WealthERP.SuperAdmin
                     hdnCurrentPage.Value = "";
                 }
                 ShowIFFs();
+                GetPageCount();
             }
             catch (BaseApplicationException Ex)
             {
@@ -118,13 +146,14 @@ namespace WealthERP.SuperAdmin
                     gvIFFUsers.Visible = true;
                     gvIFFUsers.DataSource = dtIFFList;
                     gvIFFUsers.DataBind();
+                    hdnRecordCount.Value = count.ToString();
                     tblErrorMassage.Visible = false;
-                    ErrorMessage.Visible = false;
+                    //ErrorMessage.Visible = false;
                 }
                 else
                 {
                     tblErrorMassage.Visible = true;
-                    ErrorMessage.Visible = true;
+                    //ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records found..";
                 }
             }
@@ -216,22 +245,25 @@ namespace WealthERP.SuperAdmin
                             {
                                 statusMessage = "Credentials have been sent to selected Adviser";
                                 tblMessage.Visible = true;
-                                ErrorMessage.Visible = false;
+                                tblErrorMassage.Visible = false;
+                                //ErrorMessage.Visible = false;
                                 SuccessMsg.InnerText = statusMessage;
-                                SuccessMsg.Visible = true;
+                                //SuccessMsg.Visible = true;
                             }
                             else
                             {
                                 statusMessage = "An error occurred while sending mail to selected Adviser";
-                                tblMessage.Visible = true;
-                                ErrorMessage.Visible = true;
+                                tblMessage.Visible = false;
+                                tblErrorMassage.Visible = true;
+                                //ErrorMessage.Visible = true;
                                 ErrorMessage.InnerText = statusMessage;
-                                SuccessMsg.Visible = false;
+                                //SuccessMsg.Visible = false;
 
                             }
                         }
                     }
-                    ErrorMessage.Visible = false;
+                    tblErrorMassage.Visible = false;
+                    //ErrorMessage.Visible = false;
 
                 }
                 catch (BaseApplicationException Ex)
@@ -259,6 +291,8 @@ namespace WealthERP.SuperAdmin
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
                 this.ShowIFFs();
+                //tblErrorMassage.Visible = false;
+                tblMessage.Visible = false;
             }
         }
 
@@ -299,18 +333,65 @@ namespace WealthERP.SuperAdmin
                 if (isSuccess)
                 {
                     tblMessage.Visible = true;
-                    SuccessMsg.Visible = true;
-                    ErrorMessage.Visible = false;
+                    //SuccessMsg.Visible = true;
+                    tblErrorMassage.Visible = false;
+                    //ErrorMessage.Visible = false;
                     SuccessMsg.InnerText = "Password has been reset successfully...";
                 }
                 else
                 {
-                    tblMessage.Visible = true;
+                    //tblMessage.Visible = true;
                     SuccessMsg.Visible = false;
-                    ErrorMessage.Visible = true;
+                    tblErrorMassage.Visible = true;
+                    //ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "An error occurred while reseting password.";
 
                 }
+            }
+        }
+
+        private void GetPageCount()
+        {
+            string upperlimit = string.Empty;
+            string lowerlimit = string.Empty;
+            int rowCount = 0;
+            try
+            {
+                if (hdnRecordCount.Value != "")
+                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
+                if (rowCount > 0)
+                {
+
+                    int ratio = rowCount / 20;
+                    mypager.PageCount = rowCount % 20 == 0 ? ratio : ratio + 1;
+                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+                    lowerlimit = (((mypager.CurrentPage - 1) * 20) + 1).ToString();
+                    upperlimit = (mypager.CurrentPage * 20).ToString();
+                    if (mypager.CurrentPage == mypager.PageCount)
+                        upperlimit = hdnRecordCount.Value;
+                    string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                    lblCurrentPage.Text = PageRecords;
+
+                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedMFFolio.ascx.cs:GetPageCount()");
+                object[] objects = new object[3];
+                objects[0] = upperlimit;
+                objects[1] = rowCount;
+                objects[2] = lowerlimit;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
     }
