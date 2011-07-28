@@ -263,6 +263,7 @@ namespace DaoCustomerPortfolio
                     fixedIncomeVo.PurchaseValue = float.Parse(dr["CFINP_PurchaseValue"].ToString());
                     // fixedIncomeVo.Quantity=float.Parse(dr["CFINP_Quantity"].ToString());
                     fixedIncomeVo.Remark = dr["CFINP_Remark"].ToString();
+                    fixedIncomeVo.SubsequentDepositAmount =double.Parse(dr["CFINP_SubsequentDepositAmount"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
