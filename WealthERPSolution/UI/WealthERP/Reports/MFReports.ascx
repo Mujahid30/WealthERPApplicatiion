@@ -9,6 +9,25 @@
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
+
+    // Check Number of Customers are more than 50 or not.
+//    function CountCustomer() {
+//        var listBox = document.getElementById("<%= LBSelectCustomer.ClientID %>");
+//        //alert("hi");
+//        var Count = 0;
+//        Count = listBox.items.Count();
+//        alert(Count);
+//        if (Count > 50) {
+//            alert("Can not Select More than 50 Customers");
+//            return false;
+//        }
+//        else {
+//            return true;
+//        }
+
+//    }
+
+    // Check Number of Customers are more than 50 or not.
     function validate(type) {
        
         var panel = "";
@@ -18,15 +37,21 @@
         if (type == 'mail')
             getAllcustomerID(type);
 
-      
+
+
+        if (type == 'mail') {
+            var ListBox = document.getElementById("<%= LBSelectCustomer.ClientID %>");
+            if (ListBox.value == "") {
+                alert("Please Select Customers");
+                return false;
+            }
+//            else {
+
+//                CountCustomer();
+//            }
+        }
+          
          
-         if (type == 'mail') {
-             var ListBox = document.getElementById("<%= LBSelectCustomer.ClientID %>");
-             if (ListBox.value == "") {
-                 alert("Please Select Customers");
-                 return false;
-             }
-         }
         
          
          //Customer Check in View Report
@@ -568,7 +593,7 @@
             <table width="100%" cellpadding="0">
                 <tr>
                     <td>
-                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="0"
+                        <ajaxToolkit:TabContainer ID="tabViewAndEmailReports" runat="server" ActiveTabIndex="1"
                             Width="100%" Style="visibility: visible" 
                             OnClientActiveTabChanged="OnChanged">
                             <ajaxToolkit:TabPanel ID="tabpnlViewReports" runat="server" HeaderText="View Reports"
@@ -927,7 +952,7 @@
                                                             <div style="float: left; margin: 0.5em; width: 138px; font-size: 0.9em; text-align: center;">
                                                                 <p>
                                                                     <asp:Button ID="AddSelected" runat="server" CssClass="PCGButton" 
-                                                                        Font-Bold="True" OnClick="AddSelected_Click" Text="&gt;" />
+                                                                        Font-Bold="True" OnClick="AddSelected_Click"  Text="&gt;" />
                                                                 </p>
                                                                 <p>
                                                                     <asp:Button ID="RemoveSelected" runat="server" CssClass="PCGButton" 
@@ -935,7 +960,7 @@
                                                                 </p>
                                                                 <p>
                                                                     <asp:Button ID="SelectAll" runat="server" CssClass="PCGButton" Font-Bold="True" 
-                                                                        OnClick="SelectAll_Click" Text="&gt;&gt;" />
+                                                                        OnClick="SelectAll_Click"  Text="&gt;&gt;" />
                                                                 </p>
                                                                 <p>
                                                                     <asp:Button ID="RemoveAll" runat="server" CssClass="PCGButton" Font-Bold="True" 
@@ -954,6 +979,7 @@
                                                                         <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
                                                                     </Triggers>
                                                                     <ContentTemplate>
+                                                                        
                                                                         <demo:ListBox ID="LBSelectCustomer" runat="server" CssClass="DemoListBox" 
                                                                             HorizontalScrollEnabled="true" Rows="12" ScrollStateEnabled="true" 
                                                                             SelectionMode="Multiple">
@@ -1146,7 +1172,8 @@
                                                         <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" 
                                                             OnClientClick="return validate('mail')" 
                                                             
-                                                            Text="Email Report" ValidationGroup="btnEmail" />
+                                                            Text="Email Report" ValidationGroup="btnEmail" 
+                                                            onclick="btnEmailReport_Click" />
                                                         &nbsp;&nbsp;
                                                     </td>
                                                 </tr>
