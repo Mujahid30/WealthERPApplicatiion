@@ -42,7 +42,7 @@ namespace WealthERP.CustomerPortfolio
         private double realised_spec = 0;
         private double unrealised_all = 0;
         private double unrealisedPNL = 0;
-        private double costofpurchase = 0;
+        double costofpurchase = 0;
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         private decimal currentValue = 0;
         static int portfolioId;
@@ -322,7 +322,7 @@ namespace WealthERP.CustomerPortfolio
                             if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
                             {
                                 costofpurchase = costofpurchase + eqPortfolioVo.CostOfPurchase;
-                                drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                                drEqPortfolioUnrealized[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             }
                             drEqPortfolioUnrealized[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             drEqPortfolioUnrealized[6] = double.Parse(eqPortfolioVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
