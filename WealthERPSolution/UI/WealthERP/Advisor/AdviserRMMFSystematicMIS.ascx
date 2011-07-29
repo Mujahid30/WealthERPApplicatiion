@@ -60,8 +60,8 @@
        <td>
        <table>
        <tr>
-      <td>
-      <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="cmbField" Text="Select customer type: "></asp:Label>
+      <td align="right">
+      <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Select customer type: "></asp:Label>
       </td>
       <td>
       <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" 
@@ -74,8 +74,8 @@
       </td>
       </tr>
       <tr>
-      <td>
-      <asp:Label ID="lblselectCustomer" runat="server" CssClass="cmbField" Text="Select Customer: "></asp:Label>
+      <td align="right">
+      <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Select Customer: "></asp:Label>
       </td>
       <td>
      <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">  </asp:TextBox>
@@ -226,24 +226,24 @@
         <telerik:RadTab runat="server"  Text="Systematic Setup View" 
             Value="Systematic Setup View" TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Calender Detail View" 
-            Value="Calender Detail View" TabIndex="1" Selected="True">
+        <telerik:RadTab runat="server" Text="Calendar Detail View" 
+            Value="Calendar Detail View" TabIndex="1" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Calender Summary View" Value="Calender Summary View" TabIndex="2">
-        </telerik:RadTab>
+        <%--<telerik:RadTab runat="server" Text="Calendar Summary View" Value="Calendar Summary View" TabIndex="2">
+        </telerik:RadTab>--%>
        </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" 
     runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView1" runat="server">
-        <asp:Panel ID="pnlSystameticSetupView" runat="server">
+        <asp:Panel ID="pnlSystameticSetupView" runat="server">        
                    <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="90%" EnableHistory="True"
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
                        <telerik:RadGrid ID="gvSystematicMIS" runat="server" 
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
-                           Skin="Telerik" Width="95%">
+                           Skin="Telerik" Width="100%">
                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
                                Width="100%">
                                <Columns>
@@ -294,7 +294,7 @@
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                            </ClientSettings>
                             </telerik:RadGrid>
-                    </telerik:RadAjaxPanel>
+                    </telerik:RadAjaxPanel>                    
         </asp:Panel>
     </telerik:RadPageView>
     <telerik:RadPageView ID="RadPageView2" runat="server">
@@ -305,7 +305,7 @@
         <telerik:RadAjaxPanel ID="RadAjaxPanel2" runat="server" Width="90%" EnableHistory="True"
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">               
         <telerik:RadGrid ID="gvCalenderDetailView" runat="server" GridLines="None" AutoGenerateColumns="False"
-         AllowSorting="false" AllowPaging="True" 
+         AllowSorting="false" AllowPaging="True" PageSize="15"  ShowStatusBar="True"
          ShowFooter="true" OnItemBound="gvCalenderDetailView_ItemDataBound"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
         AllowFilteringByColumn="false" AllowAutomaticInserts="false" >
@@ -362,14 +362,14 @@
                </telerik:RadAjaxPanel>
             </td>
             </tr>             
-            </table>
+        </table>
         </asp:Panel>
     </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView3" runat="server">
+   <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="pnlCalenderSummaryView" runat="server">
             <table width="100%" > 
            <tr><td>
-            <telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
+            <%--<telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="false" AllowPaging="True" 
         ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
@@ -447,7 +447,7 @@
             <ClientSettings>
                 <Resizing AllowColumnResize="True"></Resizing>
             </ClientSettings>
-        </telerik:RadGrid>
+        </telerik:RadGrid>--%>
              </td></tr>           
             </table>
         </asp:Panel>
