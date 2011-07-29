@@ -390,12 +390,13 @@ namespace DaoReports
             {
 
                 String[] portfolioIds = reports.PortfolioIds.Split(',');
-                if (portfolioIds.Count() > 0)
+                if (portfolioIds.Count() > 1)
                 {
                     foreach (string strPortfoliioId in portfolioIds)
                     {
                         mfPortfolioVoList = new List<MFPortfolioVo>();
-                        Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
+                        Int32 portfoliioId = 0;
+                        portfoliioId = Convert.ToInt32(strPortfoliioId);
                         DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
                         DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
                         mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
@@ -591,7 +592,7 @@ namespace DaoReports
             {
 
              String[] portfolioIds = reports.PortfolioIds.Split(',');
-             if (portfolioIds.Count()>0)
+             if (portfolioIds.Count()>1)
               {
                 foreach (string strPortfoliioId in portfolioIds)
                 {
