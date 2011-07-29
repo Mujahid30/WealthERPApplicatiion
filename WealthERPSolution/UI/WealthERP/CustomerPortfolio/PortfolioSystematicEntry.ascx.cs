@@ -462,6 +462,10 @@ namespace WealthERP.CustomerPortfolio
                     RegistrationDate_CalendarExtender.Enabled = true;
                     RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
                     ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode.ToString();
+                    //if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
+                    //{
+                    //    txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
+                    //}
 
                 }
             }
@@ -469,15 +473,15 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 ddlSystematicType.SelectedValue = systematicSetupVo.SystematicTypeCode.Trim();
-                if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
-                {
-                    trSwitchScheme.Visible = true;
-                    if (systematicSetupVo.SchemePlanSwitch != "")
-                    {
-                        txtSwicthSchemeSearch.Text = systematicSetupVo.SchemePlanSwitch;
-                        //txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
-                    }
-                }
+                //if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
+                //{
+                //    trSwitchScheme.Visible = true;
+                //    if (systematicSetupVo.SchemePlanSwitch != "")
+                //    {
+                //        txtSwicthSchemeSearch.Text = systematicSetupVo.SchemePlanSwitch;
+                //        txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
+                //    }
+                //}
                 
                
                 txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
@@ -632,7 +636,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.SystematicTypeCode == "STP")
                 {
-                    trSwitchScheme.Visible = true;
+                    trSwitchScheme.Visible = false;
                     txtSwicthSchemeSearch.Enabled = false;
                     lblScheme.Text = "Choose Invested Scheme:";
                     ddlPaymentMode.Enabled = false;
@@ -784,7 +788,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.SystematicTypeCode == "STP")
                 {
-                    trSwitchScheme.Visible = true;
+                    trSwitchScheme.Visible = false;
                     lblScheme.Text = "Choose Invested Scheme:";
                     trSipChequeDate.Visible = false;
                     trSipChequeNo.Visible = false;
@@ -866,7 +870,11 @@ namespace WealthERP.CustomerPortfolio
             if (txtSchemeCode.Value.ToString() != "")
                 systematicSetupVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);
             else
-                systematicSetupVo.SystematicTypeCode = null;
+                systematicSetupVo.SchemePlanCode = 0;
+            if (!string.IsNullOrEmpty(txtSearchScheme.Text.ToString().Trim()))
+                systematicSetupVo.SchemePlan = txtSearchScheme.Text;
+            else
+                systematicSetupVo.SchemePlan = "";
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
             systematicSetupVo.Portfolio = ddlportfolio.SelectedItem.Value;
             systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
@@ -894,11 +902,15 @@ namespace WealthERP.CustomerPortfolio
          
             systematicSetupVo.PaymentModeCode = hdnddlPaymentMode.Value;
             systematicSetupVo.SourceCode = "WP";
-            if (systematicSetupVo.SystematicTypeCode == "STP" && txtSwicthSchemeSearch.Text!="")
+            if (systematicSetupVo.SystematicTypeCode == "STP")
             {
-                //systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
-                systematicSetupVo.SchemePlanSwitch = txtSwicthSchemeSearch.Text.ToString();
-                systematicSetupVo.PaymentMode = ddlPeriodSelection.SelectedItem.Value.ToString();
+                //if (!string.IsNullOrEmpty(txtSwicthSchemeSearch.Text.ToString().Trim()))
+                //{
+                //    systematicSetupVo.SchemePlanSwitch = txtSwicthSchemeSearch.Text.ToString();
+                //    systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
+                //}
+
+                systematicSetupVo.PaymentMode = hdnddlPaymentMode.Value;
             }
             if (systematicSetupVo.SystematicTypeCode == "SIP")
             {
@@ -1135,8 +1147,8 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
         {
-            txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
             schemePlanCode = int.Parse(txtSchemeCode.Value);
+            txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();            
             BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue));
         }
     /// <summary>
@@ -1173,7 +1185,7 @@ namespace WealthERP.CustomerPortfolio
             if (ddlSystematicType.SelectedValue == "STP")
             {
                 Session["SystematicType"] = "STP";
-                trSwitchScheme.Visible = true;
+                trSwitchScheme.Visible = false;
                 lblScheme.Text = "Choose Invested Scheme:";
                 trPaymentMode.Visible = true;
                 trSipChequeDate.Visible = false;
@@ -1393,6 +1405,14 @@ namespace WealthERP.CustomerPortfolio
             else
                 schemePlanCode = 0;
             BindFolioDropDown(portfolioId);
+        }
+
+        protected void txtStartDate_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtPeriod.Text.ToString().Trim()))
+            {
+                txtEndDate.Text = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtStartDate.Text.ToString())).ToShortDateString();
+            }
         }
 
       }

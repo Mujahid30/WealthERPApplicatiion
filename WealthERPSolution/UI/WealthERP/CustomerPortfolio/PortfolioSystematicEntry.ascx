@@ -247,7 +247,8 @@
             <asp:Label ID="lblStartDate" runat="server" Text="Start date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField" AutoPostBack="true"
+                ontextchanged="txtStartDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -486,7 +487,7 @@
     </tr>
         <tr>
         <td class="leftField" width="25%">
-            <asp:Label ID="lblRegistrationDate" runat="server" Text="RegistrationDate in R&T system: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblRegistrationDate" runat="server" Text="Registration Date in R&T system: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
         <asp:TextBox ID="txtRegistrationDate" runat="server" CssClass="txtField"></asp:TextBox>
