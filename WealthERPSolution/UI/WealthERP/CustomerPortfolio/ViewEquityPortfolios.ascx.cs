@@ -42,7 +42,8 @@ namespace WealthERP.CustomerPortfolio
         private double realised_spec = 0;
         private double unrealised_all = 0;
         private double unrealisedPNL = 0;
-        double costofpurchase = 0;
+        double costofpurchase_all = 0;
+        double costofpurchase_Unrealized = 0;
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         private decimal currentValue = 0;
         static int portfolioId;
@@ -255,7 +256,7 @@ namespace WealthERP.CustomerPortfolio
                         drEqPortfolio[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
                         {
-                            costofpurchase = costofpurchase + eqPortfolioVo.CostOfPurchase;
+                            costofpurchase_all = costofpurchase_all + eqPortfolioVo.CostOfPurchase;
                             drEqPortfolio[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
                         drEqPortfolio[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -321,7 +322,7 @@ namespace WealthERP.CustomerPortfolio
                             drEqPortfolioUnrealized[3] = double.Parse(eqPortfolioVo.AveragePrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             if (eqPortfolioVo.CostOfPurchase.ToString() != string.Empty)
                             {
-                                costofpurchase = costofpurchase + eqPortfolioVo.CostOfPurchase;
+                                costofpurchase_Unrealized = costofpurchase_Unrealized + eqPortfolioVo.CostOfPurchase;
                                 drEqPortfolioUnrealized[4] = double.Parse(eqPortfolioVo.CostOfPurchase.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             }
                             drEqPortfolioUnrealized[5] = double.Parse(eqPortfolioVo.MarketPrice.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -1069,7 +1070,7 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
-                e.Row.Cells[5].Text = costofpurchase.ToString("f4");
+                e.Row.Cells[5].Text = costofpurchase_all.ToString("f4");
                 e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = currentPrice_All.ToString("f4");
                 e.Row.Cells[7].Attributes.Add("align", "Right");
@@ -1110,7 +1111,7 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
-                e.Row.Cells[5].Text = costofpurchase.ToString("f4");
+                e.Row.Cells[5].Text = costofpurchase_Unrealized.ToString("f4");
                 e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = String.Format("{0:n2}", decimal.Parse(currentPrice_UnRe.ToString("f2")));
                 currentValue = decimal.Parse(currentPrice_UnRe.ToString("f2"));
