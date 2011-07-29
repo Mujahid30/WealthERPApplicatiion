@@ -358,6 +358,12 @@
         </td>
     </tr>
     <tr>
+        <td colspan="4">
+            <asp:Label ID="lblNoteIP" runat="server" CssClass="txtField" Text="Note: Please check if you have static IP. Feature is useful with static IP only.">
+            </asp:Label>
+        </td>
+    </tr>
+    <tr>
        
     </tr>
     <tr id="AdviserLogoHdr" runat="server">
@@ -368,7 +374,7 @@
     </tr>
     <tr >
     <td colspan="4">
-     <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="Note: For logo upload and change reflect only after relogin"></asp:Label>
+     <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="Note: For logo upload and change reflect only after relogin."></asp:Label>
     </td>
     </tr>
     <tr id="AdviserLogoRow" runat="server">
