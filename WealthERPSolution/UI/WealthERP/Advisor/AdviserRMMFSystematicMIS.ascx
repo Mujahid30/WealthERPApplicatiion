@@ -243,7 +243,7 @@
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
-                           Skin="Telerik" Width="100%">
+                           Skin="Telerik" Width="95%">
                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
                                Width="100%">
                                <Columns>
@@ -287,6 +287,7 @@
                                    </telerik:GridBoundColumn>
                                </Columns>
                            </MasterTableView>
+                           <HeaderStyle Width="200px" />
                             <ClientSettings>
                                 <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
                                 </Scrolling>
@@ -301,7 +302,8 @@
             <table width="100%"> 
             <tr>
             <td>
-               
+        <telerik:RadAjaxPanel ID="RadAjaxPanel2" runat="server" Width="90%" EnableHistory="True"
+                        HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">               
         <telerik:RadGrid ID="gvCalenderDetailView" runat="server" GridLines="None" AutoGenerateColumns="False"
          AllowSorting="false" AllowPaging="True" 
          ShowFooter="true" OnItemBound="gvCalenderDetailView_ItemDataBound"
@@ -354,11 +356,10 @@
         <ClientSettings>
             <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" >
             </Scrolling>
-            
             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         </ClientSettings>
     </telerik:RadGrid>
-               
+               </telerik:RadAjaxPanel>
             </td>
             </tr>             
             </table>
