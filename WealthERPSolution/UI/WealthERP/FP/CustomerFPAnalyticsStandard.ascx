@@ -209,11 +209,13 @@ SelectedIndex="3">
                         <br />                                        
                         <asp:Label ID="lblIncomeError" runat="server" CssClass="failure-msg" 
                         Text="No records found for Income"></asp:Label>
+                        <br /><br />
                     </td>
                     <td id="tdExpenseError" align="center" runat="server" style="width:50%">
                         <br />                        
                         <asp:Label ID="lblExpenseError" runat="server" CssClass="failure-msg" 
                         Text="No records found for Expense"></asp:Label>
+                        <br /><br />
                     </td>
                 </tr>        
                 <tr>                
@@ -230,10 +232,10 @@ SelectedIndex="3">
                                         FooterStyle-HorizontalAlign="Left" FooterText="Total">                              
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"  
-                                        HeaderStyle-HorizontalAlign="Right" DataField="IncomeAmount" HeaderText="Current Value (Rs.)" FooterText=" ">
+                                        HeaderStyle-HorizontalAlign="Right" DataField="IncomeAmount" HeaderText="Current Value (Rs.)" FooterText=" " DataFormatString="{0:F0}">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                        HeaderStyle-HorizontalAlign="Right" DataField="Percent" HeaderText="Pctg(%)" FooterText=" ">
+                                        HeaderStyle-HorizontalAlign="Right" DataField="Percent" HeaderText="Pctg(%)" FooterText=" " DataFormatString="{0:F0}">
                                         </telerik:GridBoundColumn>
                                     </Columns>               
                              </MasterTableView>                            
@@ -254,10 +256,10 @@ SelectedIndex="3">
                                 FooterStyle-HorizontalAlign="Left" FooterText="Total">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                HeaderStyle-HorizontalAlign="Right" DataField="ExpenseAmount" HeaderText="Current Value (Rs.)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="ExpenseAmount" HeaderText="Current Value (Rs.)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"  
-                                HeaderStyle-HorizontalAlign="Right" DataField="Percentage" HeaderText="Pctg(%)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="Percentage" HeaderText="Pctg(%)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 </Columns>                      
                              </MasterTableView>
@@ -372,10 +374,10 @@ SelectedIndex="3">
                                 FooterStyle-HorizontalAlign="Left" FooterText="Total">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                HeaderStyle-HorizontalAlign="Right" DataField="AssetValues" HeaderText="Current Value (Rs.)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="AssetValues" HeaderText="Current Value (Rs.)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                HeaderStyle-HorizontalAlign="Right" DataField="Pctg" HeaderText="Pctg(%)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="Pctg" HeaderText="Pctg(%)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 </Columns>                                
                              </MasterTableView>
@@ -399,10 +401,10 @@ SelectedIndex="3">
                                 FooterStyle-HorizontalAlign="Left" FooterText="Total">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                HeaderStyle-HorizontalAlign="Right" DataField="LoanValues" HeaderText="Outstanding Amount" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="LoanValues" HeaderText="Outstanding Amount" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" 
-                                HeaderStyle-HorizontalAlign="Right" DataField="Prcentage" HeaderText="Pctg(%)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="Prcentage" HeaderText="Pctg(%)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                                 </Columns>                                
                              </MasterTableView>
@@ -441,7 +443,7 @@ SelectedIndex="3">
                                 FooterStyle-HorizontalAlign="Left" FooterText="Total">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right" ItemStyle-Width="40%"
-                                HeaderStyle-HorizontalAlign="Right" DataField="InsuranceValues" HeaderText="Sum Assured(Rs.)" FooterText=" ">
+                                HeaderStyle-HorizontalAlign="Right" DataField="InsuranceValues" HeaderText="Sum Assured(Rs.)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>                                
                                 </Columns>                                
                              </MasterTableView>
@@ -478,7 +480,7 @@ SelectedIndex="3">
                                 <telerik:GridBoundColumn DataField="HLV_Type" HeaderText="Human Life Value Analysis" ItemStyle-Width="60%">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right"
-                                ItemStyle-Width="40%" DataField="HLV_Values" HeaderText="HLV Values(Rs.)">
+                                ItemStyle-Width="40%" DataField="HLV_Values" HeaderText="HLV Values(Rs.)" DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>                                
                                 </Columns>                                
                              </MasterTableView>
@@ -512,7 +514,7 @@ SelectedIndex="3">
                                 <telerik:GridBoundColumn DataField="HLVIncomeType" HeaderText="Life Insurance Gap Analysis" ItemStyle-Width="60%">                              
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" ItemStyle-Width="40%" 
-                                DataField="HLVIncomeValue" HeaderText="[Amount in Rs.]">
+                                DataField="HLVIncomeValue" HeaderText="[Amount in Rs.]" DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>                                
                                 </Columns>                                
                              </MasterTableView>
@@ -564,7 +566,7 @@ SelectedIndex="3">
                         <telerik:GridBoundColumn DataField="GEAssetCategory" HeaderText="Type" ItemStyle-Width="60%">                              
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" ItemStyle-Width="40%" HeaderStyle-HorizontalAlign="Right" 
-                        DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)">
+                        DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)" DataFormatString="{0:F0}">
                         </telerik:GridBoundColumn>                                                       
                         </Columns>                                
                      </MasterTableView>                            
@@ -601,7 +603,7 @@ SelectedIndex="3">
                         <telerik:GridBoundColumn DataField="GEAssetCategory" HeaderText="Type" ItemStyle-Width="60%">                              
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" ItemStyle-Width="40%"
-                         DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)">
+                         DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)" DataFormatString="{0:F0}">
                         </telerik:GridBoundColumn>                                
                         </Columns>                    
                         </MasterTableView>
@@ -630,7 +632,7 @@ SelectedIndex="3">
                                 </telerik:GridBoundColumn>
                                 
                                 <telerik:GridBoundColumn ItemStyle-HorizontalAlign="Right" Aggregate="Sum" FooterStyle-HorizontalAlign="Right"
-                                ItemStyle-Width="40%" HeaderStyle-HorizontalAlign="Right" DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)" FooterText=" ">
+                                ItemStyle-Width="40%" HeaderStyle-HorizontalAlign="Right" DataField="GEAssetValues" HeaderText="Sum Assured(Rs.)" FooterText=" " DataFormatString="{0:F0}">
                                 </telerik:GridBoundColumn>
                             </Columns>                                
                         </MasterTableView>
