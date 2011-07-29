@@ -1485,7 +1485,7 @@
                                                 <asp:Label ID="lblTaxableIncome" runat="server" Text="Enter Taxable Income" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td align="left">
-                                                <asp:TextBox ID="txtTaxableIncome" runat="server" onchange="CallFuncOnTxtTaxableIncome()" Style="direction: rtl" ></asp:TextBox>
+                                                <asp:TextBox ID="txtTaxableIncome" runat="server" onblur="MainCalculate()" onchange="CallFuncOnTxtTaxableIncome()" Style="direction: rtl" ></asp:TextBox>
                                                 
                                             </td>
                                         </tr>
