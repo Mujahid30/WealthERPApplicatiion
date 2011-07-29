@@ -225,7 +225,34 @@
             <td>
             </td>
         </tr>
-    </table>
+        <tr>
+            <td align="right" class="leftField">
+                <asp:Label ID="lblGender" runat="server" CssClass="FieldName" Text="Gender:"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:RadioButton ID="rbtnMale" runat="server" CssClass="txtField" Text="Male" GroupName="rbtnGender" />
+                <asp:RadioButton ID="rbtnFemale" runat="server" CssClass="txtField" Text="Female"
+                    GroupName="rbtnGender" />
+            </td>
+            
+            <td class="leftField">
+                <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab"
+                    runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
+                    Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                    
+                
+            </td>
+            <td >
+                <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" 
+                    CssClass="PCGMediumButton" onclick="btnGetSlab_Click"  />
+            </td>
+        </tr>
+        
+        </table>
 </div>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
@@ -366,3 +393,8 @@
 <asp:HiddenField ID="hdnIsProspect" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
+
+
+<asp:HiddenField ID="hdnGender" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />

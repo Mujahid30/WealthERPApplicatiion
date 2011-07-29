@@ -1975,7 +1975,7 @@ namespace DaoAdvisorProfiling
         /// <param name="Flag"></param>
         /// <returns></returns>
 
-        public bool DeleteAdviserIPPools(int adviserIPPoolId, string Flag)
+        public bool DeleteAdviserIPPools(int adviserIPPoolId, int adviserId, bool isSingleIP, string Flag)
         {
             bool bResult = false;
             Database db;
@@ -1986,7 +1986,13 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteCustomerBankCmd = db.GetStoredProcCommand("SP_UpdateAdviserIPPools");
                 db.AddInParameter(deleteCustomerBankCmd, "@AIPP_poolId", DbType.Int32, adviserIPPoolId);
+                db.AddInParameter(deleteCustomerBankCmd, "@A_AdviserID", DbType.Int32, adviserId);
                 db.AddInParameter(deleteCustomerBankCmd, "@Flag", DbType.String, Flag);
+                if(isSingleIP == true)
+                    db.AddInParameter(deleteCustomerBankCmd, "@isSingleIP", DbType.Int32, 1);
+                else
+                    db.AddInParameter(deleteCustomerBankCmd, "@isSingleIP", DbType.Int32, 0);
+
                 if (db.ExecuteNonQuery(deleteCustomerBankCmd) != 0)
                     bResult = true;
             }

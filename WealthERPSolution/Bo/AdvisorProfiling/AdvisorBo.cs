@@ -1213,13 +1213,13 @@ namespace BoAdvisorProfiling
         /// <param name="Flag"></param>
         /// <returns></returns>
 
-        public bool DeleteAdviserIPPool(int adviserIPPoolId, string Flag)
+        public bool DeleteAdviserIPPool(int adviserIPPoolId, int adviserId, bool isSingleIP, string Flag)
         {
             bool bResult = false;
             AdvisorDao adviserDao = new AdvisorDao();
             try
             {
-                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, Flag);
+                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, adviserId, isSingleIP, Flag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1251,13 +1251,13 @@ namespace BoAdvisorProfiling
         /// <param name="Flag"></param>
         /// <returns></returns>
 
-        public bool DeleteAdviserIPPools(int adviserIPPoolId, string Flag)
+        public bool DeleteAdviserIPPools(int adviserIPPoolId, int adviserId, bool isSingleIP, string Flag)
         {
             bool bResult = false;
             AdvisorDao adviserDao = new AdvisorDao();
             try
             {
-                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, Flag);
+                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, adviserId , isSingleIP, Flag);
             }
             catch (BaseApplicationException Ex)
             {

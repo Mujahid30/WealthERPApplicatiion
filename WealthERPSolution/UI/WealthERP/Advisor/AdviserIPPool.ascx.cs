@@ -145,7 +145,7 @@ namespace WealthERP.Advisor
                         if (rowCount != 1)
                         {
                             dt.Rows[e.Item.ItemIndex].Delete();
-                            DeleteAdviserIPFromGridView();
+                            DeleteAdviserIPFromGridView(false);
                         }
                         else
                         {
@@ -314,7 +314,6 @@ namespace WealthERP.Advisor
                             try
                             {
                                 dr[i] = editorText;
-
                             }
                             catch (Exception ex)
                             {
@@ -326,9 +325,16 @@ namespace WealthERP.Advisor
                         i++;
                     }
                 }
-                dt.Rows.Add(dr);
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
+                if (dr.ItemArray[2].ToString() != "")
+                {
+                    dt.Rows.Add(dr);
+                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    Rebind();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:ValidateIPTextBox();", true);
+                }
             }
             catch (Exception ex)
             {
@@ -446,10 +452,10 @@ namespace WealthERP.Advisor
         // To Delete the customers
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
-            DeleteAdviserIPFromGridView();
+            DeleteAdviserIPFromGridView(true);
         }
 
-        protected void DeleteAdviserIPFromGridView()
+        protected void DeleteAdviserIPFromGridView(bool isSingleIP)
         {
             int adviserIPId;
 
@@ -458,7 +464,7 @@ namespace WealthERP.Advisor
             if (val == "1")
             {
 
-                if (advisorBo.DeleteAdviserIPPool(adviserIPId, "Delete"))
+                if (advisorBo.DeleteAdviserIPPool(adviserIPId, advisorVo.advisorId, isSingleIP , "Delete"))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
 
@@ -466,7 +472,7 @@ namespace WealthERP.Advisor
             }
             else
             {
-                RecordStatus = advisorBo.DeleteAdviserIPPool(adviserIPId, "Delete");
+                RecordStatus = advisorBo.DeleteAdviserIPPool(adviserIPId, advisorVo.advisorId, false, "Delete");
 
                 if (RecordStatus == true)
                 {

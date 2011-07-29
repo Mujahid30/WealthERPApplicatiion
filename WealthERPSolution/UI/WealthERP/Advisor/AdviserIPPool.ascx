@@ -7,6 +7,10 @@
 
 <script type="text/javascript">
 
+    function ValidateIPTextBox() {
+        alert('Please fill the IP address..!!');
+    }
+
     function modalPopUpOKButton() {
 
         if (confirm("Do you want to proceed..??? ")) {
@@ -25,7 +29,7 @@
         }
         else {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
+            //document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
             return false;
         }
     }
@@ -110,7 +114,7 @@
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
         ErrorMessage="Is Required">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtIPName" />
+            <%--<telerik:TargetInput ControlID="txtIPName" />--%>
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:TextBoxSetting>
@@ -129,6 +133,16 @@
         </TargetControls>
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
+    
+    <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Numbers"
+        NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
+        MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
+        Type="Number" Culture="Hindi (India)"
+        GroupSeparator="" >
+            <TargetControls>
+                <telerik:TargetInput ControlID="txtIPName" />
+            </TargetControls>
+    </telerik:NumericTextBoxSetting>
 </telerik:RadInputManager>
 
     <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
@@ -139,8 +153,8 @@
     <tr>
         <td>
             <div style="float: left; width: 100%;" id="Div2" runat="server">
-                <asp:Label ID="lblIP" runat="server" CssClass="HeaderText" Text="Already entered  IPs"></asp:Label>
-                <hr />
+                <%--<asp:Label ID="lblIP" runat="server" CssClass="HeaderText" Text="Already entered  IPs"></asp:Label>--%>
+                <br />
                 <telerik:RadAjaxPanel ID="AdviserIPPoolPanel" runat="server" Width="100%" HorizontalAlign="Center"
                     LoadingPanelID="IPAddressDetailsLoading" EnablePageHeadUpdate="False">
                     <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
@@ -217,7 +231,7 @@
             </cc1:ModalPopupExtender>
         </td>
         <td>
-            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" class="Landscape" Height="250px" runat="server">
+            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" Visible="false" class="Landscape" Height="250px" runat="server">
                 <table>
                     <tr>
                         <td>

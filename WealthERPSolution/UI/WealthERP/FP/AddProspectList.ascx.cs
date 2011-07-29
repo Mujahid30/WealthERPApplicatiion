@@ -39,6 +39,10 @@ namespace WealthERP.FP
         PortfolioBo portfolioBo = new PortfolioBo();
         CustomerFamilyVo familyVo = new CustomerFamilyVo();
 
+        //For TaxSlab
+        int years = 0;
+        DataSet dsGetSlab = new DataSet();
+
         //For Edit 
         int totalRecordsCount;
         protected void Page_Init()
@@ -130,6 +134,18 @@ namespace WealthERP.FP
                         txtFirstName.Text = customerVo.FirstName;
                         txtMiddleName.Text = customerVo.MiddleName;
                         txtLastName.Text = customerVo.LastName;
+                        
+                        if (customerVo.Gender.ToUpper().ToString() == "M")
+                        {
+                            rbtnMale.Checked = true;
+                        }
+                        else if (customerVo.Gender.ToUpper().ToString() == "F")
+                        {
+                            rbtnFemale.Checked = true;
+                        }
+
+                        txtSlab.Text = customerVo.TaxSlab.ToString();
+
                         if (customerVo.Dob != DateTime.Parse("01/01/0001 00:00:00") && customerVo.Dob != null)
                         {
                             dpDOB.SelectedDate = customerVo.Dob;
@@ -166,6 +182,7 @@ namespace WealthERP.FP
                             btnSubmit.Visible = false;
                             btnSubmitAddDetails.Visible = false;
                             btnConvertToCustomer.Enabled = false;
+                            btnGetSlab.Enabled = false;
                             if (customerFamilyVoList != null)
                             {
                                 RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
@@ -194,6 +211,9 @@ namespace WealthERP.FP
                             txtState.Enabled = false;
                             txtCountry.Enabled = false;
                             dpProspectAddDate.Enabled = false;
+                            rbtnMale.Enabled = false;
+                            rbtnFemale.Enabled = false;
+                            txtSlab.Enabled = false;
                             headertitle.Text = "View Prospect";
 
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
@@ -214,7 +234,10 @@ namespace WealthERP.FP
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
                             tblChildCustomer.Visible = true;
                             headertitle.Text = "Edit Prospect";
-
+                            rbtnMale.Enabled = true;
+                            rbtnFemale.Enabled = true;
+                            btnGetSlab.Enabled = true;
+                            txtSlab.Enabled = true;
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                         }
                     }
@@ -837,6 +860,19 @@ namespace WealthERP.FP
                 userVo.MiddleName = txtMiddleName.Text.ToString();
                 userVo.LastName = txtLastName.Text.ToString();
                 customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+
+                if (txtSlab.Text != "")
+                    customerVo.TaxSlab = int.Parse(txtSlab.Text);
+
+                if (rbtnMale.Checked)
+                {
+                    customerVo.Gender = "M";
+                }
+                else if (rbtnFemale.Checked)
+                {
+                    customerVo.Gender = "F";
+                }
+
                 if (dpDOB.SelectedDate != null)
                 {
                     customerVo.Dob = dpDOB.SelectedDate.Value;
@@ -1010,6 +1046,16 @@ namespace WealthERP.FP
                     userVo.MiddleName = txtMiddleName.Text.ToString();
                     userVo.LastName = txtLastName.Text.ToString();
                     customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+
+                    if (rbtnMale.Checked)
+                    {
+                        customerVo.Gender = "M";
+                    }
+                    else if (rbtnFemale.Checked)
+                    {
+                        customerVo.Gender = "F";
+                    }
+
                     if (dpDOB.SelectedDate != null)
                     {
                         customerVo.Dob = dpDOB.SelectedDate.Value;
@@ -1474,6 +1520,74 @@ namespace WealthERP.FP
             Session["IsCustomerGrid"] = "HighlightCustomerNode";
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
+        }
+
+        protected void btnGetSlab_Click(object sender, EventArgs e)
+        {
+            int customerId = 0;
+            if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+            {
+                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+            }
+            if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (dpDOB.SelectedDate.ToString() == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            }
+            if ((customerVo.Gender != "") || ((rbtnMale.Checked != false) || (rbtnFemale.Checked != false)))
+            {
+                if ((customerVo.Gender == "M") || (rbtnMale.Checked == true))
+                    hdnGender.Value = "Male";
+                else if ((customerVo.Gender == "F") || (rbtnFemale.Checked == true))
+                    hdnGender.Value = "Female";
+            }
+            if (dpDOB.SelectedDate.ToString() != "")
+            {
+                CalculateAge(DateTime.Parse(dpDOB.SelectedDate.ToString()));
+                if ((years < 60) && (hdnGender.Value == ""))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender because customer is not senior citizen');", true);
+                }
+                else
+                {
+                    dsGetSlab = customerBo.GetCustomerTaxSlab(customerId, years, hdnGender.Value);
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select date of birth for the customer to get the tax slab');", true);
+            }
+
+            if (dsGetSlab.Tables.Count != 0)
+            {
+                if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
+                {
+                    if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                    {
+                        txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+
+                    }
+                }
+                else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+                }
+                else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+                }
+            }
+        }
+
+        public int CalculateAge(DateTime birthDate)
+        {
+            DateTime now = DateTime.Today;
+
+            years = now.Year - birthDate.Year;
+
+            if (now.Month < birthDate.Month || (now.Month == birthDate.Month && now.Day < birthDate.Day))
+                --years;
+
+            return years;
         }
 
     }
