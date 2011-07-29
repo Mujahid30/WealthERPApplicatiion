@@ -207,15 +207,16 @@ namespace WealthERP.SuperAdmin
                             userVo = userBo.GetUserDetails(userId);
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                             email.GetAdviserRegistrationMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
-                            email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
-                            email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
-                            email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+                            //email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
+                            //email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
+                            //email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
                             email.To.Add(userVo.Email);
 
                             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
                             //int rmId = Convert.ToInt32(ViewState["rmId"]);
 
                             AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(rmVo.RMId);
+                            adviserStaffSMTPVo.HostServer = "";
                             if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                             {
                                 emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
