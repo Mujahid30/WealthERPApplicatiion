@@ -1071,9 +1071,9 @@ namespace WealthERP.Advisor
                     DataRow drGoalFundedGap;
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "ExistingInvestment = Rs. " + investmentTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = Rs. " + investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drGoalFundedGap["GoalGap"] = "Rs. " + existingInvestmentGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["Source"] = "ExistingInvestment = Rs. " + ( investmentTotal==0? investmentTotal.ToString():investmentTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = Rs. " + (investedAmountForAllGaol==0?investedAmountForAllGaol.ToString():investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drGoalFundedGap["GoalGap"] = "Rs. " + (existingInvestmentGap==0? existingInvestmentGap.ToString():existingInvestmentGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     if (existingInvestmentGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
@@ -1082,9 +1082,9 @@ namespace WealthERP.Advisor
 
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "Available Surplus = Rs. " + surplusTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month = Rs. " + monthlySavingRequired.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drGoalFundedGap["GoalGap"] = "Rs. " + surplusGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drGoalFundedGap["Source"] = "Available Surplus = Rs. " + (surplusTotal==0?surplusTotal.ToString():surplusTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month = Rs. " + (monthlySavingRequired==0?monthlySavingRequired.ToString(): monthlySavingRequired.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drGoalFundedGap["GoalGap"] = "Rs. " +(surplusGap==0? surplusGap.ToString(): surplusGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     if (surplusGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
