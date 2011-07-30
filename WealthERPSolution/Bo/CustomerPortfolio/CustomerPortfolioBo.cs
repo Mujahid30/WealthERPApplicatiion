@@ -2466,7 +2466,14 @@ namespace BoCustomerPortfolio
                     mfPortfolioTransactionVoList[i].CostOfAcquisition = mfPortfolioTransactionVoList[i].BuyPrice * mfPortfolioTransactionVoList[i].BuyQuantity;
                     mfPortfolioTransactionVoList[i].RealizedSalesValue = mfPortfolioTransactionVoList[i].SellPrice * mfPortfolioTransactionVoList[i].SellQuantity;
                     mfPortfolioTransactionVoList[i].AgeOfInvestment = ((TimeSpan)mfPortfolioTransactionVoList[i].SellDate.Subtract(mfPortfolioTransactionVoList[i].BuyDate)).Days;
-                    mfPortfolioTransactionVoList[i].RealizedProfitLoss = mfPortfolioTransactionVoList[i].RealizedSalesValue - mfPortfolioTransactionVoList[i].CostOfAcquisition;
+                    if (mfPortfolioTransactionVoList[i].TransactionClassificationCode == "BCO")
+                    {
+                        mfPortfolioTransactionVoList[i].RealizedProfitLoss = 0;
+                    }
+                    else
+                    {
+                        mfPortfolioTransactionVoList[i].RealizedProfitLoss = mfPortfolioTransactionVoList[i].RealizedSalesValue - mfPortfolioTransactionVoList[i].CostOfAcquisition;
+                    }
                     mfPortfolioTransactionVoList[i].NotionalProfitLoss = 0;
                     if (mfPortfolioTransactionVoList[i].TransactionClassificationCode == "DVR")
                     {
