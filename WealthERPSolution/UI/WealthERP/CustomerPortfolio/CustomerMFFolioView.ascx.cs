@@ -276,6 +276,7 @@ namespace WealthERP.CustomerPortfolio
                 txtAddress.Text = dr["C_Adr1Line1"].ToString();
 
                 trCustomerDetails.Visible = true;
+                trCustomerAddress.Visible = true;
                 bindFolioDropDown(int.Parse(txtCustomerId.Value));
 
             }
@@ -288,7 +289,8 @@ namespace WealthERP.CustomerPortfolio
             DataSet folioDs;
             CustomerBo customerBo = new CustomerBo();
             folioDs = new DataSet();
-            folioDs = customerBo.GetCustomerPortfolioList(customerId);
+            folioDs = portfolioBo.GetCustomerPortfolio(customerId);
+            //folioDs = customerBo.GetCustomerPortfolioList(customerId);
             ddlAdvisorBranchList.DataSource = folioDs;
             ddlAdvisorBranchList.DataValueField = folioDs.Tables[0].Columns["CP_PortfolioName"].ToString();
             ddlAdvisorBranchList.DataBind();
@@ -346,6 +348,9 @@ namespace WealthERP.CustomerPortfolio
             //lblMessage.Visible = true;
             lblTransferMsg.Text = statusMsg;
             divMessage.Attributes.Add("class", "yellow-box");
+            if (trTransferMsg.Visible == false)
+                trTransferMsg.Visible = true;
+
             BindFolioGridView();
         }
 
@@ -437,26 +442,47 @@ namespace WealthERP.CustomerPortfolio
         }
 
         protected void ddlAction_SelectedIndexChanged1(object sender, EventArgs e)
-        {
+        {        
+            if(trTransferMsg.Visible==true)
+            {
+                trTransferMsg.Visible = false;
+            }
+
             if (ddlAction.SelectedValue == "MFtoAP")
             {
                 customerVo = (CustomerVo)Session["customerVo"];
                 tblMoveFolio.Visible = true;
                 tblTransferFolio.Visible = false;
-                bindDropdownPickPortfolio(int.Parse(customerVo.CustomerId.ToString()));                
+                bindDropdownPickPortfolio(int.Parse(customerVo.CustomerId.ToString()));
+                
+                txtCustomer.Text = string.Empty;
+                ddlAdvisorBranchList.Items.Clear();
+                txtPanParent.Text = string.Empty;
+                txtAddress.Text = string.Empty;
+               
+                //tblTransferFolio.InnerText = string.Empty;
+                //lblTransferMsg.Text = string.Empty;
+                
             }
             else if(ddlAction.SelectedValue == "TF")
             {
                 tblTransferFolio.Visible = true;
                 tblMoveFolio.Visible = false;
-                //btnTransferFolio.Visible = false;
+                
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();   
+                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();                
             }
             else if (ddlAction.SelectedValue == "0")
             {
                 tblTransferFolio.Visible = false;
                 tblMoveFolio.Visible = false;
+                txtCustomer.Text = string.Empty;
+                ddlAdvisorBranchList.Items.Clear();
+                txtPanParent.Text = string.Empty;
+                txtAddress.Text = string.Empty;
+               //tblTransferFolio.Rows.RemoveAt=;
+                //lblTransferMsg.Text = string.Empty;
+                
             }
         }
     }

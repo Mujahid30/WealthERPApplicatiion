@@ -178,7 +178,7 @@
         </td>
     </tr>
 </table>
-<table class="TableBackground" visible="false" style="width: 100%">
+<table style="width: 100%">
      <tr id="trSelectAction" runat="server">        
         <td style="width:150px" align="right">
             <asp:Label ID="lblSelectAction" runat="server" CssClass="FieldName" Text="Select Action:"></asp:Label>
@@ -196,8 +196,7 @@
     </tr>
 </table>
 
-<table border="0" id="tblMoveFolio" runat="server" visible="false" width="100%"
-    style="border: solid 2px #8BA0BD">
+<table border="0" id="tblMoveFolio" runat="server" visible="false" style="border: solid 2px #8BA0BD; width:100%">
    <tr id="trPickPortfolio" runat="server">        
         <td align="right" style="width:150px">
             <asp:Label ID="lblPickPortfolio" Text="Pick a Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
@@ -234,31 +233,23 @@
     </tr>
 </table>
 
-<table border="0" id="tblTransferFolio" runat="server" visible="false" width="100%"
-    style="border: solid 2px #8BA0BD">
-    <tr>
-        <td colspan="2">
-            <h3 class="HeaderTextBig">
-                Transfer folio</h3>
-        </td>
-    </tr>
+<table border="0" id="tblTransferFolio" runat="server" visible="false" style="border: solid 2px #8BA0BD; width:100%">
     <tr>       
         <td style="width:150px" align="right">
             <asp:Label ID="Label2" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
         </td>
         <td style="width:280px">
             <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
-            <asp:TextBox ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="true">
+            <asp:TextBox ID="txtCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="true" ontextchanged="txtCustomerId_ValueChanged">
             </asp:TextBox>
             <ajaxToolkit:TextBoxWatermarkExtender ID="txtCustomer_TextBoxWatermarkExtender"
-                runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name">
-                </ajaxToolkit:TextBoxWatermarkExtender>
+                runat="server" TargetControlID="txtCustomer" WatermarkText="Type the Customer Name" EnableViewState="false"/>               
             <ajaxToolkit:AutoCompleteExtender ID="txtCustomer_autoCompleteExtender" runat="server"
                 TargetControlID="txtCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="true" OnClientItemSelected="GetCustomerId" />
+                UseContextKey="true" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"/>
             <span id="Span1" class="spnRequiredField">*</span>
             <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter few characters of customer name.</span>
             <br />
@@ -268,9 +259,8 @@
             </asp:RequiredFieldValidator>
             
         </td>
-        <td  style="width:150px">
-            
-            </td>
+        <td  style="width:150px">           
+        </td>
     </tr>
     <tr id="trReassignBranch" runat="server">        
         <td align="right" style="width:150px">      
@@ -282,33 +272,28 @@
             </asp:DropDownList>
             <%--<span id="spanAdvisorBranch" class="spnRequiredField" runat="server">*</span>--%>
         </td>
-        <td style="width:150px"></td>
-        
+        <td style="width:150px"></td>        
     </tr>
     <tr id="trCustomerDetails" runat="server" visible="false">
         <td style="width:150px" align="right">
             <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="PAN :"></asp:Label>            
         </td>
         <td style="width:280px">
-            <table>
-            <tr>
-                <td>
-                    <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
-                    BorderStyle="None"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address:"></asp:Label> 
-                </td>
-                <td>
-                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
-                    BorderStyle="None"></asp:TextBox>
-                </td>
-            </tr>
-            </table>
-        </td>        
+                <asp:TextBox ID="txtPanParent" runat="server" CssClass="txtField" BackColor="Transparent"
+                BorderStyle="None"></asp:TextBox>
+        </td>          
         <td style="width:150px" align="right">                       
+        </td>        
+    </tr>
+    <tr id="trCustomerAddress" runat="server" visible="false">
+        <td style="width:150px" align="right">
+            <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Address:"></asp:Label> 
         </td>
-        <td  style="width:150px" align="left">            
+        <td style="width:280px">
+            <asp:TextBox ID="txtAddress" runat="server" CssClass="txtField" BackColor="Transparent"
+            BorderStyle="None"></asp:TextBox>
+        </td>
+        <td style="width:150px" align="right">                       
         </td>
     </tr>
     <tr>       
@@ -320,7 +305,7 @@
         </td>
         <td></td>
     </tr>
-    <tr>
+    <tr id="trTransferMsg" runat="server">
         <td colspan="2">
         <div runat="server" id="divMessage">
             <asp:Label ID="lblTransferMsg" runat="server" Text="" CssClass="SuccessMsg"></asp:Label>
