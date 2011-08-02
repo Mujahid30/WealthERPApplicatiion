@@ -473,15 +473,15 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 ddlSystematicType.SelectedValue = systematicSetupVo.SystematicTypeCode.Trim();
-                //if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
-                //{
-                //    trSwitchScheme.Visible = true;
-                //    if (systematicSetupVo.SchemePlanSwitch != "")
-                //    {
-                //        txtSwicthSchemeSearch.Text = systematicSetupVo.SchemePlanSwitch;
-                //        txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
-                //    }
-                //}
+                if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
+                {
+                    trSwitchScheme.Visible = true;
+                    if (systematicSetupVo.SchemePlanSwitch != "")
+                    {
+                        txtSwicthSchemeSearch.Text = systematicSetupVo.SchemePlanSwitch;
+                        txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
+                    }
+                }
                 
                
                 txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
@@ -636,7 +636,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.SystematicTypeCode == "STP")
                 {
-                    trSwitchScheme.Visible = false;
+                    trSwitchScheme.Visible = true;
                     txtSwicthSchemeSearch.Enabled = false;
                     lblScheme.Text = "Choose Invested Scheme:";
                     ddlPaymentMode.Enabled = false;
@@ -788,7 +788,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (systematicSetupVo.SystematicTypeCode == "STP")
                 {
-                    trSwitchScheme.Visible = false;
+                    trSwitchScheme.Visible = true;
                     lblScheme.Text = "Choose Invested Scheme:";
                     trSipChequeDate.Visible = false;
                     trSipChequeNo.Visible = false;
@@ -904,11 +904,11 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.SourceCode = "WP";
             if (systematicSetupVo.SystematicTypeCode == "STP")
             {
-                //if (!string.IsNullOrEmpty(txtSwicthSchemeSearch.Text.ToString().Trim()))
-                //{
-                //    systematicSetupVo.SchemePlanSwitch = txtSwicthSchemeSearch.Text.ToString();
-                //    systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
-                //}
+                if (!string.IsNullOrEmpty(txtSwicthSchemeSearch.Text.ToString().Trim()))
+                {
+                    systematicSetupVo.SchemePlanSwitch = txtSwicthSchemeSearch.Text.ToString();
+                    systematicSetupVo.SchemePlanCodeSwitch = int.Parse(txtSwitchSchemeCode.Value);
+                }
 
                 systematicSetupVo.PaymentMode = hdnddlPaymentMode.Value;
             }
@@ -1185,7 +1185,7 @@ namespace WealthERP.CustomerPortfolio
             if (ddlSystematicType.SelectedValue == "STP")
             {
                 Session["SystematicType"] = "STP";
-                trSwitchScheme.Visible = false;
+                trSwitchScheme.Visible = true;
                 lblScheme.Text = "Choose Invested Scheme:";
                 trPaymentMode.Visible = true;
                 trSipChequeDate.Visible = false;
