@@ -372,8 +372,12 @@ namespace WealthERP.SuperAdmin
                         upperlimit = hdnRecordCount.Value;
                     string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
                     lblCurrentPage.Text = PageRecords;
-
+                    lblTotalRows.Text = hdnRecordCount.Value.ToString();
                     hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+                }
+                if(hdnRecordCount.Value == "")
+                {
+                    trPagger.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
