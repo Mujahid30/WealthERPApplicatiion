@@ -154,7 +154,7 @@
                 few characters of customer name.</span>--%>
             </td>   
         <td>
-                <asp:RequiredFieldValidator ID="rfvPockCustomer" ControlToValidate="txtPickCustomer" ErrorMessage="Please pick a customer"
+                <asp:RequiredFieldValidator ID="rfvPickCustomer" ControlToValidate="txtPickCustomer" ErrorMessage="Please select a customer."
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
                 </asp:RequiredFieldValidator>
             </td>
