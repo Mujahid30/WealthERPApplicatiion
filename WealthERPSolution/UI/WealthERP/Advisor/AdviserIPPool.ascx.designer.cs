@@ -68,15 +68,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.UpdatePanel updatePnl;
         
         /// <summary>
-        /// aplToolBar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadToolBar aplToolBar;
-        
-        /// <summary>
         /// RadInputManager1 control.
         /// </summary>
         /// <remarks>
@@ -212,15 +203,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// hiddenassociation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button hiddenassociation;
-        
-        /// <summary>
         /// hdnIsActive control.
         /// </summary>
         /// <remarks>
@@ -257,15 +239,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.HiddenField hdnassociationcount;
         
         /// <summary>
-        /// hiddenReloadPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button hiddenReloadPage;
-        
-        /// <summary>
         /// hdnModalPopUpEvent control.
         /// </summary>
         /// <remarks>
@@ -291,5 +264,23 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hdnGetIPbtn;
+        
+        /// <summary>
+        /// hiddenReloadPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenReloadPage;
+        
+        /// <summary>
+        /// hiddenassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
     }
 }

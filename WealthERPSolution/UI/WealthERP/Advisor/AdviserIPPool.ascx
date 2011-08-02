@@ -33,7 +33,6 @@
             return false;
         }
     }
-
     function DeleteAdviserIPs() {
         if (confirm("IP removed successfully..!")) {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
@@ -46,7 +45,6 @@
             return false;
         }
     }
-
     function DeleteAdviserLastIP() {
         if (confirm("No More IP Security for your account..!! \n You have removed all the IPs..!")) {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
@@ -77,9 +75,7 @@
             return true;
         }
     }    
-
 </script>
-
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
@@ -98,18 +94,6 @@
 <hr />
 <asp:UpdatePanel ID="updatePnl" runat="server">
 <ContentTemplate>
-<telerik:RadToolBar ID="aplToolBar" runat="server" OnButtonClick="aplToolBar_ButtonClick"
-    Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
-    Width="100%" >
-    <Items>
-        <telerik:RadToolBarButton runat="server" Text="View" Value="View" ImageUrl="/Images/Telerik/BackButton.gif"
-            ImagePosition="Left" ToolTip="View">
-        </telerik:RadToolBarButton>
-        <telerik:RadToolBarButton runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
-            ImagePosition="Left" ToolTip="Edit">
-        </telerik:RadToolBarButton>
-    </Items>
-</telerik:RadToolBar>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
         ErrorMessage="Is Required">
@@ -145,7 +129,7 @@
     </telerik:NumericTextBoxSetting>
 </telerik:RadInputManager>
 
-    <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
+<telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
     EnableEmbeddedSkins="false">
 </telerik:RadAjaxLoadingPanel>
     <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
@@ -181,7 +165,13 @@
                                         <asp:Label runat="server" ID="lblIPName" Text='<%# Eval("AIPP_IP")%>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:TextBox runat="server" ID="txtIPName" onclick="showBtnGetIP()" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>'></asp:TextBox>
+                                       <%-- <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>'></asp:TextBox>--%>
+                                        <%--<telerik:RadMaskedTextBox ID="txtIPName" Width="200px" Mask="<0..255>.<0..255>.<0..255>.<0..255>" Text='<%# Bind("AIPP_IP")%>' runat="server"></telerik:RadMaskedTextBox>--%>
+                                        
+                                        <telerik:RadMaskedTextBox ID="txtIPName" Text='<%# Bind("AIPP_IP")%>' TextMode="SingleLine" onclick="showBtnGetIP()" runat="server" 
+                                         Width="200px" NumericRangeAlign="Left" Mask="###.###.###.###">
+                                        </telerik:RadMaskedTextBox>
+                                        
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
                                 
@@ -231,7 +221,7 @@
             </cc1:ModalPopupExtender>
         </td>
         <td>
-            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" Visible="false" class="Landscape" Height="250px" runat="server">
+            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" class="Landscape" Height="250px" runat="server">
                 <table>
                     <tr>
                         <td>
@@ -261,15 +251,21 @@
 </table>
 
 
-<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" style="background-color: Transparent; background: None; border: none; visibility: hidden;"   />
 <asp:HiddenField ID="hdnIsActive" runat="server" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
-<asp:Button ID="hiddenReloadPage" runat="server" BorderStyle="None" 
-    BackColor="Transparent" BorderColor="Transparent" 
-    onclick="hiddenReloadPage_Click" style="background-color: Transparent; background: None; border: none; visibility: hidden;" />
+
 <asp:HiddenField ID="hdnModalPopUpEvent" runat="server" />    
 
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true"/>   
+
+<div style="visibility: hidden">
 <asp:Button ID="hdnGetIPbtn" runat="server" style="background-color: Transparent; background: None; border: none; visibility: hidden;" OnClick="hdnGetIPbtn_Click"   />
+
+<asp:Button ID="hiddenReloadPage" runat="server" BorderStyle="None" 
+    BackColor="Transparent" BorderColor="Transparent" 
+    onclick="hiddenReloadPage_Click" style="background-color: Transparent; background: None; border: none; visibility: hidden;" />
+    
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" style="background-color: Transparent; background: None; border: none; visibility: hidden;"   />
+</div>
