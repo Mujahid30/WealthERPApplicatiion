@@ -2585,7 +2585,7 @@ namespace WealthERP.FP
 
 
         protected void ManagedUnmanagedDetails(int customerId, int Advisorid, int Switch)
-        {
+         {
             CustomerProspectBo customerprospectbo = new CustomerProspectBo();
             DataSet dsGetWERPDetails = customerprospectbo.GetUnmanagedManagedDetailsForFP(customerId, Advisorid, Switch);
 
@@ -2637,81 +2637,81 @@ namespace WealthERP.FP
                         txtWERPDirectEquityM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
                         txtWERPDirectEquityUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
                         txtDirectEquity.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
 
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "FI")
-                        {
-                            txtWERPFixedIncomeM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPFixedIncomeUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtFixedIncome.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "GS")
-                        {
-                            txtWERPGovtSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPGovtSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtGovtSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PG")
-                        {
-                            txtWERPPensionGratuitiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPPensionGratuitiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtPensionGratuities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PR")
-                        {
-                            txtWERPPropertyM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPPropertyUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtProperty.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "GD")
-                        {
-                            txtWERPGoldM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPGoldUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtGold.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "FI")
+                    {
+                        txtWERPFixedIncomeM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPFixedIncomeUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtFixedIncome.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "GS")
+                    {
+                        txtWERPGovtSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPGovtSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtGovtSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PG")
+                    {
+                        txtWERPPensionGratuitiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPPensionGratuitiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtPensionGratuities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PR")
+                    {
+                        txtWERPPropertyM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPPropertyUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtProperty.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "GD")
+                    {
+                        txtWERPGoldM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPGoldUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtGold.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
 
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CL")
-                        {
-                            txtWERPCollectiblesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPCollectiblesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtCollectibles.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CS")
-                        {
-                            txtWERPCashAndSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPCashAndSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtCashAndSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CL")
+                    {
+                        txtWERPCollectiblesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPCollectiblesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtCollectibles.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CS")
+                    {
+                        txtWERPCashAndSavingsM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPCashAndSavingsUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtCashAndSavings.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
 
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "SP")
-                        {
-                            txtWERPStructuredProductM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPStructuredProductUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtStructuredProduct.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "CM")
-                        {
-                            txtWERPCommoditiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPCommoditiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtCommodities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PE")
-                        {
-                            txtWERPPrivateEquityM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPPrivateEquityUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtPrivateEquity.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "PM")
-                        {
-                            txtWERPPMSM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPPMSUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtPMS.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
-                        if (drFirst["PAG_AssetGroupCode"].ToString() == "OT")
-                        {
-                            txtWERPInvestmentsOthersM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
-                            txtWERPInvestmentsOthersUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
-                            txtInvestmentsOthers.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
-                        }
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "SP")
+                    {
+                        txtWERPStructuredProductM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPStructuredProductUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtStructuredProduct.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "CM")
+                    {
+                        txtWERPCommoditiesM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPCommoditiesUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtCommodities.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PE")
+                    {
+                        txtWERPPrivateEquityM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPPrivateEquityUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtPrivateEquity.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "PM")
+                    {
+                        txtWERPPMSM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPPMSUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtPMS.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
+                    }
+                    if (drFirst["PAG_AssetGroupCode"].ToString() == "OT")
+                    {
+                        txtWERPInvestmentsOthersM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPManagedValue"].ToString()), 0).ToString();
+                        txtWERPInvestmentsOthersUM.Text = Math.Round(double.Parse(drFirst["CFPAGD_WERPUnManagedValue"].ToString()), 0).ToString();
+                        txtInvestmentsOthers.Text = Math.Round(double.Parse(drFirst["CFPAGD_TotalValue"].ToString()), 0).ToString();
                     }
                 }
             }
