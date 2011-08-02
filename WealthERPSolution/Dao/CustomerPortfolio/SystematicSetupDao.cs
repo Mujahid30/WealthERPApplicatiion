@@ -33,7 +33,7 @@ namespace DaoCustomerPortfolio
                 createSystematicSchemeSetupCmd = db.GetStoredProcCommand("SP_CreateSystematicSetup");
 
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCode",DbType.Int32,systematicSetupVo.SchemePlanCode);
-                //db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCodeSwitch",DbType.Int32,systematicSetupVo.SchemePlanCodeSwitch);
+                db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCodeSwitch",DbType.Int32,systematicSetupVo.SchemePlanCodeSwitch);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFA_AccountId",DbType.Int32,systematicSetupVo.AccountId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XSTT_SystematicTypeCode",DbType.String,systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_StartDate",DbType.DateTime,systematicSetupVo.StartDate);
@@ -104,7 +104,7 @@ namespace DaoCustomerPortfolio
                 updateSystematicSchemeSetupCmd = db.GetStoredProcCommand("SP_UpdateSystematicSetup");
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SystematicSetupId", DbType.Int32, systematicSetupVo.SystematicSetupId);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@PASP_SchemePlanCode", DbType.Int32, systematicSetupVo.SchemePlanCode);
-                //db.AddInParameter(updateSystematicSchemeSetupCmd, "@PASP_SchemePlanCodeSwitch", DbType.Int32, systematicSetupVo.SchemePlanCodeSwitch);
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@PASP_SchemePlanCodeSwitch", DbType.Int32, systematicSetupVo.SchemePlanCodeSwitch);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFA_AccountId", DbType.Int32, systematicSetupVo.AccountId);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@XSTT_SystematicTypeCode", DbType.String, systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_StartDate", DbType.DateTime, systematicSetupVo.StartDate);
@@ -196,7 +196,11 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.SystematicSetupId = int.Parse(dr["CMFSS_SystematicSetupId"].ToString());
                         systematicSetupVo.SchemePlan = dr["SchemeName"].ToString();
                         systematicSetupVo.SchemePlanCode = int.Parse(dr["SchemeCode"].ToString());
-                        //systematicSetupVo.SchemePlanSwitch = dr["SchemeNameSwitch"].ToString();
+                        systematicSetupVo.SchemePlanSwitch = dr["SchemeNameSwitch"].ToString();
+                        if (!string.IsNullOrEmpty(dr["SchemePlanSwitch"].ToString()))
+                            systematicSetupVo.SchemePlanCodeSwitch = int.Parse(dr["SchemePlanSwitch"].ToString());
+                        else
+                            systematicSetupVo.SchemePlanCodeSwitch = 0;
                         systematicSetupVo.Folio = dr["CMFA_FolioNum"].ToString();
                         systematicSetupVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
                         systematicSetupVo.SystematicType = dr["XSTT_SystematicType"].ToString();
