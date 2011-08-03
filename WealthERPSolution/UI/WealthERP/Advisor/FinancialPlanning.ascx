@@ -269,8 +269,93 @@
                         </table>
                         <table width="100%">
                         <tr>
+                            <td colspan="2">
+                                <asp:GridView ID="gvAssetAllocation" runat="server" AllowSorting="True" OnRowDataBound="gvAssetAllocation_RowDataBound"
+                                    AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" HorizontalAlign="Center">                                
+                                <AlternatingRowStyle CssClass="AltRowStyle" />
+                                <Columns>
+                                <asp:TemplateField HeaderText="Class" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblClass" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("Class") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <ItemStyle HorizontalAlign="Left" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Current(%)" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCurrentPctg" runat="server" CssClass="cmbField" 
+                                                Text='<%#Eval("CurrentPercentage") %>'>
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                                 
+                                  <asp:TemplateField HeaderText="Recommended(%)" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRecommendedPctg" runat="server" CssClass="cmbField" 
+                                                Text='<%#Eval("RecommendedPercentage") %>'>
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Indicator">
+                                    <ItemTemplate>                         
+                                        <asp:Image ID="imgActionIndicator" ImageAlign="Middle" runat="server" />
+                                    </ItemTemplate>                           
+                                     <ItemStyle HorizontalAlign="Center" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Action Needed(%)" >
+                                        <ItemTemplate>                                            
+                                            <asp:Label ID="lblActionPctg" runat="server" CssClass="cmbField" 
+                                                Text='<%#Eval("ActionNeeded") %>'>
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Current(Rs.)" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCurrentRs" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CurrentRs") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                     <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Recommended(Rs.)" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRecommendedRs" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("RecommendedRs") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                     <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                                 
+                                 <asp:TemplateField HeaderText="Action Needed(Rs.)" >
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblActionRs" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("ActionRs") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                     <ItemStyle HorizontalAlign="Right" />
+                                 </asp:TemplateField>
+                               </Columns>
+                               <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" VerticalAlign="Top" />
+                               <HeaderStyle CssClass="HeaderStyle" HorizontalAlign="Center" />                                
+                               <RowStyle CssClass="RowStyle" />
+                               <SelectedRowStyle CssClass="SelectedRowStyle" />
+                            </asp:GridView>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
-                                <asp:Label ID="lblAgeErrormsg" runat="server" CssClass="cmbField" Font-Bold="true" Visible="false" Text="No Age to display chart. Please Fill Date of Birth in profile!"></asp:Label>
+                                <asp:Label ID="lblAgeErrormsg" runat="server" CssClass="cmbField" 
+                                    Font-Bold="True" Visible="False" 
+                                    Text="No Age to display chart. Please Fill Date of Birth in profile!"></asp:Label>
                             </td>
                         </tr>
                             <tr>
@@ -317,10 +402,6 @@
                                 </td>
                             </tr>
                             <tr>
-                               <%-- <td>
-                                    <asp:Button ID="btnSave" runat="server" CssClass="PCGButton" OnClick="btnSave_Click"
-                                        OnClientClick="return optionvalidation()" Text="Save" Width="62px" />
-                                </td>--%>
                                 <td class="style1">
                                 </td>
                                 <td>

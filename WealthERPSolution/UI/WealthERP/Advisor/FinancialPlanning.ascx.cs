@@ -21,6 +21,7 @@ using BoFPSuperlite;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 
+
 namespace WealthERP.Advisor
 {
     public partial class FinancialPlanning : System.Web.UI.UserControl
@@ -220,6 +221,7 @@ namespace WealthERP.Advisor
             rmvo = (RMVo)Session["rmVo"];
             //tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             AssetFormClear();
+
             try
             {
                 if (Session[SessionContents.FPS_ProspectList_CustomerId] != null && Session[SessionContents.FPS_ProspectList_CustomerId].ToString() != "")
@@ -1009,6 +1011,7 @@ namespace WealthERP.Advisor
                             DateTime approvedbycustomeron = (DateTime)dsGetAssetAllocationDetails.Tables[0].Rows[0]["CAA_ClientApprovedOn"];
                             txtApprovedByCustomerOn.Text = approvedbycustomeron.ToShortDateString();
                             LoadAssetAllocation(riskCode);
+                            BindGridViewAssetAllocation();
                         }
                         else
                         {
@@ -1485,6 +1488,92 @@ namespace WealthERP.Advisor
                 if (trCustomerAssetText.Visible == false)
                     trCustomerAssetText.Visible = true;
                 lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+            }
+        }
+
+        public DataSet BindGridViewAssetAllocation()
+        {
+            DataSet dsAssetAllocation = new DataSet();
+
+            try
+            {
+                decimal assetTotal;
+                decimal currentRs;
+                decimal recommendedRs;
+                decimal actionNeeded;
+                decimal currentPercent;
+                decimal recommendedPercent;                
+
+                int adviserId = advisorVo.advisorId;
+                dsAssetAllocation = riskprofilebo.GetAssetAllocationTableData(adviserId, customerId);
+
+                DataTable dtAssetAllocation = new DataTable();
+                assetTotal = decimal.Parse(dsAssetAllocation.Tables[2].Rows[0]["AssetTotal"].ToString());
+                
+                dtAssetAllocation.Columns.Add("Class");
+                dtAssetAllocation.Columns.Add("CurrentPercentage");
+                dtAssetAllocation.Columns.Add("RecommendedPercentage");
+                dtAssetAllocation.Columns.Add("ActionNeeded");
+                dtAssetAllocation.Columns.Add("CurrentRs");
+                dtAssetAllocation.Columns.Add("RecommendedRs");
+                dtAssetAllocation.Columns.Add("ActionRs");
+
+                DataRow drAssetAllocation;
+                foreach (DataRow dr in dsAssetAllocation.Tables[13].Rows)
+                {  
+                    drAssetAllocation = dtAssetAllocation.NewRow();
+                    drAssetAllocation["Class"] = dr["Class"].ToString();
+                    drAssetAllocation["CurrentPercentage"] = dr["CurrentPercentage"].ToString();
+                    drAssetAllocation["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
+                    drAssetAllocation["ActionNeeded"] = dr["ActionNeeded"].ToString();
+
+                    currentPercent = decimal.Parse(dr["CurrentPercentage"].ToString());
+                    recommendedPercent = decimal.Parse(dr["RecommendedPercentage"].ToString());
+
+                    currentRs = (assetTotal * currentPercent)/100;
+                    recommendedRs = (assetTotal * recommendedPercent)/100;
+                    actionNeeded = (recommendedRs - currentRs)/100;
+
+                    drAssetAllocation["CurrentRs"] = currentRs.ToString();
+                    drAssetAllocation["RecommendedRs"] = recommendedRs.ToString();
+                    drAssetAllocation["ActionRs"] = actionNeeded.ToString();
+
+                    dtAssetAllocation.Rows.Add(drAssetAllocation);   
+                 
+                 
+                }
+                gvAssetAllocation.DataSource = dtAssetAllocation;
+                gvAssetAllocation.DataBind();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAssetAllocation;
+        }
+        protected void gvAssetAllocation_RowDataBound(object sender, GridViewRowEventArgs e)
+        {           
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                decimal currentPctg = 0;
+                decimal recommendedPctg = 0;
+
+                System.Web.UI.WebControls.Image imgActionIndicator = e.Row.FindControl("imgActionIndicator") as System.Web.UI.WebControls.Image;
+                Label lblRecommendedPctg = e.Row.FindControl("lblRecommendedPctg") as Label;
+                Label lblCurrentPctg = e.Row.FindControl("lblCurrentPctg") as Label;
+                currentPctg = decimal.Parse(lblCurrentPctg.Text);
+                recommendedPctg = decimal.Parse(lblRecommendedPctg.Text);
+
+                if (recommendedPctg > currentPctg)
+                {
+                    imgActionIndicator.ImageUrl = "~/Images/GreenUpArrow.png";
+                }
+                else if (recommendedPctg < currentPctg)
+                {
+                    imgActionIndicator.ImageUrl = "~/Images/RedDownArrow.png";
+
+                }
             }
         }
     }
