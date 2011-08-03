@@ -196,7 +196,10 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.SystematicSetupId = int.Parse(dr["CMFSS_SystematicSetupId"].ToString());
                         systematicSetupVo.SchemePlan = dr["SchemeName"].ToString();
                         systematicSetupVo.SchemePlanCode = int.Parse(dr["SchemeCode"].ToString());
-                        systematicSetupVo.SchemePlanSwitch = dr["SchemeNameSwitch"].ToString();
+                        if (!string.IsNullOrEmpty(dr["SchemeNameSwitch"].ToString()))
+                            systematicSetupVo.SchemePlanSwitch = dr["SchemeNameSwitch"].ToString();
+                        else
+                            systematicSetupVo.SchemePlanSwitch = "";
                         if (!string.IsNullOrEmpty(dr["SchemePlanSwitch"].ToString()))
                             systematicSetupVo.SchemePlanCodeSwitch = int.Parse(dr["SchemePlanSwitch"].ToString());
                         else
