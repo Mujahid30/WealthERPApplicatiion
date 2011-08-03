@@ -402,6 +402,8 @@ namespace WealthERP.Advisor
         protected void btnGo_Click(object sender, EventArgs e)
         {
             Session["ButtonGo"] = "buttonClicked";
+            ViewState["StartDate"] = null;
+            ViewState["EndDate"] = null;
            
             CallAllGridBindingFunctions();
         }
@@ -575,39 +577,92 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "7";
                 }
             }
+
+            // Check Start Date and EndDate Selection.. 
             if (ddlDateFilter.SelectedIndex == 0)
             {
-                hdnstartdate.Value = "StartDate";
                 hdnendDate.Value = "";
+                hdnstartdate.Value = "StartDate";
+                ViewState["StartDate"] = hdnstartdate.Value;
             }
-            else
+            else if (ViewState["StartDate"] != null)
+            {
+                hdnendDate.Value = "";
+                hdnstartdate.Value = "StartDate";
+            }
+
+            if (ddlDateFilter.SelectedIndex != 0)
+            {
+                hdnstartdate.Value = "";
+                hdnendDate.Value = "EndDate";
+                ViewState["EndDate"] = hdnendDate.Value;
+            }
+            else if (ViewState["EndDate"] != null)
             {
                 hdnstartdate.Value = "";
                 hdnendDate.Value = "EndDate";
             }
 
+
+
             if (ddlAMC.SelectedIndex != 0)
+            {
                 hdnamcCode.Value = ddlAMC.SelectedValue;
+                ViewState["AMCDropDown"] = hdnamcCode.Value;
+            }
+            else if (ViewState["AMCDropDown"] != null)
+            {
+                hdnamcCode.Value = ViewState["AMCDropDown"].ToString();
+            }
             else
+            {
                 hdnamcCode.Value = "";
+            }
+
 
 
             if (ddlScheme.SelectedIndex != 0)
+            {
                 hdnschemeCade.Value = ddlScheme.SelectedValue;
+                ViewState["SchemeDropDown"] = hdnschemeCade.Value;
+            }
+            else if (ViewState["SchemeDropDown"] != null)
+            {
+                hdnschemeCade.Value = ViewState["SchemeDropDown"].ToString();
+            }
             else
+            {
                 hdnschemeCade.Value = "";
+            }
 
 
             if (ddlCategory.SelectedIndex != 0)
+            {
                 hdnCategory.Value = ddlCategory.SelectedValue;
+                ViewState["CategoryDropDown"] = hdnCategory.Value;
+            }
+            else if (ViewState["CategoryDropDown"] != null)
+            {
+                hdnCategory.Value = ViewState["CategoryDropDown"].ToString();
+            }
             else
+            {
                 hdnCategory.Value = "";
-
+            }
 
             if (ddlSystematicType.SelectedIndex != 0)
+            {
                 hdnSystematicType.Value = ddlSystematicType.SelectedValue;
+                ViewState["SystematicTypeDropDown"] = hdnSystematicType.Value;
+            }
+            else if (ViewState["SystematicTypeDropDown"] != null)
+            {
+                hdnSystematicType.Value = ViewState["SystematicTypeDropDown"].ToString();
+            }
             else
+            {
                 hdnSystematicType.Value = "";
+            }
 
 
             if (txtFrom.Text != "")
