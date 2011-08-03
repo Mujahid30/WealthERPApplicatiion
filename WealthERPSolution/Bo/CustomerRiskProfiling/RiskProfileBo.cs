@@ -64,13 +64,13 @@ namespace BoCustomerRiskProfiling
         public DataSet GetAssetAllocationData(int CustomerId)
         {
             return riskprofiledao.GetAssetAllocationData(CustomerId);
-        }
-       
+        }       
 
         public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
             riskprofiledao.AddAssetAllocationDetails(riskprofileid, assetClassificationCode, recommendedPercentage, currentPercentage, clientapprovedon, rmvo);
-        }
+        }       
+
         public DataSet GetRiskClassForRisk(string riskclasscode)
         {
             return riskprofiledao.GetRiskClassForRisk(riskclasscode);
@@ -245,5 +245,42 @@ namespace BoCustomerRiskProfiling
          //{
          //   riskprofiledao.AddCustomerRiskProfileDetailsDirectlyBYDP(customerId, riskdate, riskclasscode, rmvo);
          //}
+
+
+        /// <summary>
+        /// To Get Customers Recomonded Asset Allocation Data to bind the Asset allocation Gridview in Finance Profile
+        /// </summary>
+        /// Created by Bhoopendra Prakash Sahoo on 02-08-2011
+        /// <param name="AdvisorId"></param>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAssetAllocationTableData(int AdvisorId, int CustomerId)
+        {
+            DataSet dsAssetAllocation = new DataSet();
+            try
+            {
+                dsAssetAllocation = riskprofiledao.GetAssetAllocationTableData(AdvisorId, CustomerId);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerProspectBo.cs:GetAssetAllocationTableData()");
+                object[] objects = new object[2];
+                objects[0] = AdvisorId;
+                objects[1] = CustomerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAssetAllocation;
+        }
     }
 }
