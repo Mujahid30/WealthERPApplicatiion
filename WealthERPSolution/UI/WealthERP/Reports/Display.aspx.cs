@@ -526,6 +526,8 @@ namespace WealthERP.Reports
 
         private void DisplayReport(FinancialPlanningVo fpSectional, int test)
         {
+
+            int financialAssetTotal = 0;
             double asset = 0;
             double liabilities = 0;
             double networth = 0;
@@ -558,7 +560,7 @@ namespace WealthERP.Reports
             else if (Session["customerVo"] != null)
                 customerVo = (CustomerVo)Session["customerVo"];
 
-            dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass, out totalAnnualIncome);
+            dsCustomerFPReportDetails = financialPlanningReportsBo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass, out totalAnnualIncome, out financialAssetTotal);
 
             DataTable dtCustomerFamilyDetails = dsCustomerFPReportDetails.Tables["CustomerFamilyDetails"];
             DataTable dtAssetToal = dsCustomerFPReportDetails.Tables["AssetToal"];
@@ -645,6 +647,8 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Liabilities", convertUSCurrencyFormat(Math.Round(double.Parse(liabilities.ToString()), 0)));
             crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 0)));
             crmain.SetParameterValue("AnnualIncomeTotal", totalAnnualIncome);
+            crmain.SetParameterValue("FinancialAssetTotal", Math.Round(double.Parse(financialAssetTotal.ToString()), 0).ToString());
+            
 
             if (!string.IsNullOrEmpty(riskClass.Trim()))
                 crmain.SetParameterValue("CustomerRiskClass", riskClass);
