@@ -365,8 +365,6 @@ namespace DaoCustomerRiskProfiling
             return dsGetAssetAllocationData;
         }
 
-
-
         //Adding Asset allocation Details in dbo.CustomerAssetAllocation
         public void AddAssetAllocationDetails(int riskprofileid, int assetClassificationCode, double recommendedPercentage, double currentPercentage, DateTime clientapprovedon, RMVo rmvo)
         {
@@ -402,9 +400,7 @@ namespace DaoCustomerRiskProfiling
                 ExceptionManager.Publish(baseEx);
                 throw baseEx;
             }
-
         }
-
 
         public DataSet GetCustomerRiskProfile(int customerid,int advisorId)
         {
@@ -621,6 +617,52 @@ namespace DaoCustomerRiskProfiling
             return dsAdviserRiskClasses;
         }
 
+        /// <summary>
+        /// To Get Customers Recomonded Asset Allocation Data to bind the Asset allocation Gridview in Finance Profile
+        /// </summary>
+        /// Created by Bhoopendra Prakash Sahoo on 02-08-2011
+        /// <param name="AdvisorId"></param>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
+
+        public DataSet GetAssetAllocationTableData(int AdvisorId, int CustomerId)
+        {
+            Database db;
+            DataSet dsAssetAllocation;
+            DbCommand cmdAssetAllocation;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAssetAllocation = db.GetStoredProcCommand("SP_RPT_GetFPReportDetails");
+                db.AddInParameter(cmdAssetAllocation, "@AdvisorId", DbType.Int32, AdvisorId);
+                db.AddInParameter(cmdAssetAllocation, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddOutParameter(cmdAssetAllocation, "@RiskClass", DbType.String, 50);
+                db.AddOutParameter(cmdAssetAllocation, "@InsuranceSUMAssured", DbType.Decimal, 20);
+                db.AddOutParameter(cmdAssetAllocation, "@AssetTotal", DbType.Decimal, 20);
+                db.AddOutParameter(cmdAssetAllocation, "@DynamicRiskClsaaAdvisor", DbType.Int32, 2);
+                db.AddOutParameter(cmdAssetAllocation, "@FinancialAssetToal", DbType.Int32, 2);
+                dsAssetAllocation = db.ExecuteDataSet(cmdAssetAllocation);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetAssetAllocationTableData()");
+                object[] objects = new object[2];
+                objects[0] = AdvisorId;
+                objects[1] = CustomerId;
+                FunctionInfo = baseEx.AddObject(FunctionInfo, objects);
+                baseEx.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(baseEx);
+                throw baseEx;
+            }
+            return dsAssetAllocation;
+        }
 
         ///// <summary>
         ///// Adding Customer Risk profile directly by DP
