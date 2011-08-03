@@ -48,6 +48,7 @@
               <xs:element name="YearlySavingsRequired" msprop:Generator_UserColumnName="YearlySavingsRequired" msprop:Generator_ColumnPropNameInRow="YearlySavingsRequired" msprop:Generator_ColumnVarNameInTable="columnYearlySavingsRequired" msprop:Generator_ColumnPropNameInTable="YearlySavingsRequiredColumn" type="xs:decimal" minOccurs="0" />
               <xs:element name="InflationPercentage" msprop:Generator_UserColumnName="InflationPercentage" msprop:Generator_ColumnPropNameInRow="InflationPercentage" msprop:Generator_ColumnVarNameInTable="columnInflationPercentage" msprop:Generator_ColumnPropNameInTable="InflationPercentageColumn" type="xs:decimal" minOccurs="0" />
               <xs:element name="ExpectedROI" msprop:Generator_UserColumnName="ExpectedROI" msprop:Generator_ColumnPropNameInRow="ExpectedROI" msprop:Generator_ColumnVarNameInTable="columnExpectedROI" msprop:Generator_ColumnPropNameInTable="ExpectedROIColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CG_CurrentInvestment" msprop:Generator_UserColumnName="CG_CurrentInvestment" msprop:Generator_ColumnVarNameInTable="columnCG_CurrentInvestment" msprop:Generator_ColumnPropNameInRow="CG_CurrentInvestment" msprop:Generator_ColumnPropNameInTable="CG_CurrentInvestmentColumn" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -67,6 +68,7 @@
               <xs:element name="GapValues" msprop:Generator_UserColumnName="GapValues" msprop:Generator_ColumnPropNameInRow="GapValues" msprop:Generator_ColumnVarNameInTable="columnGapValues" msprop:Generator_ColumnPropNameInTable="GapValuesColumn" type="xs:decimal" minOccurs="0" />
               <xs:element name="InflationPercentage" msprop:Generator_UserColumnName="InflationPercentage" msprop:Generator_ColumnPropNameInRow="InflationPercentage" msprop:Generator_ColumnVarNameInTable="columnInflationPercentage" msprop:Generator_ColumnPropNameInTable="InflationPercentageColumn" type="xs:string" minOccurs="0" />
               <xs:element name="ExpectedROI" msprop:Generator_UserColumnName="ExpectedROI" msprop:Generator_ColumnPropNameInRow="ExpectedROI" msprop:Generator_ColumnVarNameInTable="columnExpectedROI" msprop:Generator_ColumnPropNameInTable="ExpectedROIColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CG_CurrentInvestment" msprop:Generator_UserColumnName="CG_CurrentInvestment" msprop:Generator_ColumnPropNameInRow="CG_CurrentInvestment" msprop:Generator_ColumnVarNameInTable="columnCG_CurrentInvestment" msprop:Generator_ColumnPropNameInTable="CG_CurrentInvestmentColumn" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
