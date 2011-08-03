@@ -1548,8 +1548,8 @@
                             </tr>
                             <tr>
                             <td colspan="5">
-                            <asp:Label ID="lblIncomeNote2" runat="server" Text="Notes: 1.If you have entered the pretax income then you can calculate the disposal <br />
-                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;income using Disposal income Calculator.
+                            <asp:Label ID="lblIncomeNote2" runat="server" Text="Notes: 1.If you have entered the pretax income then you can calculate the disposable <br />
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;income using Disposable income Calculator.
                              <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Taxslab can be edited from the profile" Font-Size="Small" CssClass="cmbField">
                             </asp:Label>
                             </td>
