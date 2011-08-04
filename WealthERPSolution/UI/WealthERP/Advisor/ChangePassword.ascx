@@ -103,7 +103,7 @@
             <asp:Label ID="Label2" runat="server" Text="New Password :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" align="left">
-            <asp:TextBox ID="txtNewPassword" MaxLength="8" runat="server" ValidationGroup="PassWordRegularExpression" TextMode="Password" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtNewPassword" MaxLength="12" runat="server" ValidationGroup="PassWordRegularExpression" TextMode="Password" CssClass="txtField"></asp:TextBox>
             
             <cc1:PasswordStrength runat="server" ID="PasswordStrength1"
             TargetControlID="txtNewPassword" DisplayPosition="RightSide" MinimumSymbolCharacters="1" MinimumUpperCaseCharacters="1" PreferredPasswordLength="8"
