@@ -26,6 +26,7 @@ namespace WealthERP.FP
         double networth = 0;
         double totalAnnualIncome = 0;
         int dynamicRiskClass = 0;
+        int financialAssetTotal = 0;
         string riskClass = string.Empty;
         FinancialPlanningVo fpSectional;
         DataTable dtIncome;
@@ -71,7 +72,7 @@ namespace WealthERP.FP
             fpSectional.advisorId = advisorVo.advisorId;
             fpSectional.CustomerId = customerVo.CustomerId.ToString();
 
-            dsGetCustomerFPAnalyticsStandard = financialplanningreportsbo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass, out totalAnnualIncome);
+            dsGetCustomerFPAnalyticsStandard = financialplanningreportsbo.GetCustomerFPDetails(fpSectional, out asset, out liabilities, out networth, out riskClass, out dynamicRiskClass, out totalAnnualIncome, out financialAssetTotal);
             dtIncome = dsGetCustomerFPAnalyticsStandard.Tables["Income"];
             dtExpense = dsGetCustomerFPAnalyticsStandard.Tables["Expense"];
             dtCashFlow = dsGetCustomerFPAnalyticsStandard.Tables["CashFlow"];
