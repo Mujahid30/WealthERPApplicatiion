@@ -1532,15 +1532,13 @@ namespace WealthERP.Advisor
 
                     currentRs = (assetTotal * currentPercent)/100;
                     recommendedRs = (assetTotal * recommendedPercent)/100;
-                    actionNeeded = (recommendedRs - currentRs)/100;
+                    actionNeeded = (recommendedRs - currentRs);
 
-                    drAssetAllocation["CurrentRs"] = currentRs.ToString();
-                    drAssetAllocation["RecommendedRs"] = recommendedRs.ToString();
-                    drAssetAllocation["ActionRs"] = actionNeeded.ToString();
+                    drAssetAllocation["CurrentRs"] = currentRs.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drAssetAllocation["RecommendedRs"] = recommendedRs.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    drAssetAllocation["ActionRs"] = actionNeeded.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                    dtAssetAllocation.Rows.Add(drAssetAllocation);   
-                 
-                 
+                    dtAssetAllocation.Rows.Add(drAssetAllocation);
                 }
                 gvAssetAllocation.DataSource = dtAssetAllocation;
                 gvAssetAllocation.DataBind();
