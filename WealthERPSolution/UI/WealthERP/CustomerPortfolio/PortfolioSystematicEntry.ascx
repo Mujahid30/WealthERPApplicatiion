@@ -172,6 +172,9 @@
                                         UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
                                     <span id="Span1" class="spnRequiredField">*<br />
                                     </span>
+                                    <asp:RequiredFieldValidator ID="rfvtxtSearchScheme"  ControlToValidate="txtSearchScheme" ErrorMessage="<br />Please select a Scheme"
+                                      Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
+                                     </asp:RequiredFieldValidator>
                                     <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of Scheme Name.</span>--%>
         </td>
@@ -179,7 +182,7 @@
     </tr>
     <tr id="trSwitchScheme" visible="false" runat="server">
                 
-                <td class="leftField" id="tdSchemeToLabel" runat="server">
+                <td class="leftField" id="tdSchemeToLabel" runat="server" valign="top">
                     <asp:Label ID="lblSchemeTo" runat="server" Text="Scheme To :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" id="tdSchemeToValue" runat="server" colspan="3">
@@ -196,7 +199,9 @@
                                         UseContextKey="true" OnClientItemSelected="GetSwitchSchemeCode" />
                                     <span id="Span7" class="spnRequiredField">*<br />
                                     </span>
-                                    
+                                     <asp:RequiredFieldValidator ID="rfvtxtSwicthSchemeSearch"  ControlToValidate="txtSwicthSchemeSearch" ErrorMessage="<br />Please select a Scheme"
+                                      Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
+                                     </asp:RequiredFieldValidator>
                     
                 </td>
             </tr>
@@ -206,10 +211,7 @@
             <td>
             <span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of Scheme Name.</span><br />
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
-                                        ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                        ValidationGroup="MFSubmit">
-                                    </asp:RequiredFieldValidator>
+                               
                                        </td>
            
             </tr>
@@ -243,7 +245,7 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" width="25%">
+        <td class="leftField" width="25%" valign="top">
             <asp:Label ID="lblStartDate" runat="server" Text="Start date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -263,6 +265,7 @@
              <asp:CompareValidator ID="cvStartDate" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtStartDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+
         </td>
         <td>
            

@@ -54,6 +54,7 @@ namespace WealthERP.CustomerPortfolio
             if (Request.QueryString["action"] != null)
                 Manage = Request.QueryString["action"].ToString();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
             
             if (!IsPostBack)
             {
