@@ -1171,7 +1171,7 @@ namespace WealthERP.Uploads
                             // Update Process Progress Monitoring Text Boxes
                             //txtProcessID.Text = processlogVo.ProcessId.ToString();
 
-                            if (XmlCreated)
+                           if (XmlCreated)
                                 XMLProgress = "Done";
                             else
                                 XMLProgress = "Failure";
@@ -4056,9 +4056,9 @@ namespace WealthERP.Uploads
                 }
                 ds.Tables[0].Rows.Remove(dr);
 
-                for (int j = 0; j < noRowsSkip-1; j++)
+                for (int j = 0; j < noRowsSkip - 1; j++)
                 {
-                    dr = ds.Tables[0].Rows[j];
+                    dr = ds.Tables[0].Rows[0];
                     ds.Tables[0].Rows.Remove(dr);
                 }
             }
