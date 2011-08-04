@@ -212,7 +212,7 @@ namespace WealthERP.Customer
                     ChartBranchAssets.Series[0].XValueMember = "Asset";
                     ChartBranchAssets.DataManipulator.Sort(PointSortOrder.Descending, "Y", seriesBranchAssets);
 
-                    ChartBranchAssets.Palette = ChartColorPalette.None;
+                    ChartBranchAssets.Palette = ChartColorPalette.Pastel;
                     ChartBranchAssets.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
 
@@ -345,7 +345,7 @@ namespace WealthERP.Customer
                     ShowCurrentAssetAlllegend = new Legend("ShowCurrentAssetAlllegendLegends");
                     ShowCurrentAssetAlllegend.Enabled = true;
 
-                    ChartCurrentAsset.Palette = ChartColorPalette.None;
+                    ChartCurrentAsset.Palette = ChartColorPalette.Pastel;
                     ChartCurrentAsset.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
 
@@ -489,7 +489,7 @@ namespace WealthERP.Customer
                         ShowRecomondedAssetAlllegend = new Legend("ShowRecomondedAssetAlllegendLegends");
                         ShowRecomondedAssetAlllegend.Enabled = true;
 
-                        ChartRecomonedAsset.Palette = ChartColorPalette.None;
+                        ChartRecomonedAsset.Palette = ChartColorPalette.Pastel;
                         ChartRecomonedAsset.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
                         
