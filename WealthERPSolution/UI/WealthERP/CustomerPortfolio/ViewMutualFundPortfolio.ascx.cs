@@ -82,6 +82,7 @@ namespace WealthERP.CustomerPortfolio
                 genDict = (Dictionary<string, DateTime>)Session["ValuationDate"];
                 txtPickDate.Text = DateTime.Parse(genDict["MFDate"].ToString()).ToShortDateString();
                 cmpAsOnDate.ValueToCompare = DateTime.Today.ToShortDateString();
+                txtPickDate.Enabled = false;
                 //txtPickDate.Text = Convert.ToString(DateTime.Today.ToShortDateString());
                 
                 if (Session["folioNum"] != null)
@@ -2750,48 +2751,48 @@ namespace WealthERP.CustomerPortfolio
             LoadMFPortfolio();
         }
 
-        protected void btnGo_Click(object sender, EventArgs e)
-        {
-            AdvisorVo adviserVo = (AdvisorVo)Session["advisorVo"];
-            bool bCheckValuationForDate = false;
-            tradeDate = DateTime.Parse(txtPickDate.Text);
-            bCheckValuationForDate = customerPortfolioBo.CheckValuationDoneOrNotForThePickedDate(adviserVo.advisorId, "MF", tradeDate);
+        //protected void btnGo_Click(object sender, EventArgs e)
+        //{
+        //    AdvisorVo adviserVo = (AdvisorVo)Session["advisorVo"];
+        //    bool bCheckValuationForDate = false;
+        //    tradeDate = DateTime.Parse(txtPickDate.Text);
+        //    bCheckValuationForDate = customerPortfolioBo.CheckValuationDoneOrNotForThePickedDate(adviserVo.advisorId, "MF", tradeDate);
 
-            if (bCheckValuationForDate == true)
-            {
-                msgRecordStatus.Visible = false;
-                ddlMFClassificationCode.Visible = true;
-                LoadMFPortfolio();
-            }
-            else
-            {
-                msgRecordStatus.Visible = true;
+        //    if (bCheckValuationForDate == true)
+        //    {
+        //        msgRecordStatus.Visible = false;
+        //        ddlMFClassificationCode.Visible = true;
+        //        LoadMFPortfolio();
+        //    }
+        //    else
+        //    {
+        //        msgRecordStatus.Visible = true;
 
-                lblMessageAll.Visible = true;
-                lblMessageNotional.Visible = true;
-                lblMessageRealized.Visible = true;
-                gvMFPortfolio.DataSource = null;
-                gvMFPortfolio.DataBind();
+        //        lblMessageAll.Visible = true;
+        //        lblMessageNotional.Visible = true;
+        //        lblMessageRealized.Visible = true;
+        //        gvMFPortfolio.DataSource = null;
+        //        gvMFPortfolio.DataBind();
 
-                chrtMFClassification.DataSource = null;
-                chrtMFClassification.DataBind();
-                chrtMFClassification.Visible = false;
-                ddlMFClassificationCode.Visible = false;
+        //        chrtMFClassification.DataSource = null;
+        //        chrtMFClassification.DataBind();
+        //        chrtMFClassification.Visible = false;
+        //        ddlMFClassificationCode.Visible = false;
 
 
 
-                gvMFPortfolioRealized.DataSource = null;
-                gvMFPortfolioRealized.DataBind();
-                gvMFPortfolioNotional.DataSource = null;
-                gvMFPortfolioNotional.DataBind();
+        //        gvMFPortfolioRealized.DataSource = null;
+        //        gvMFPortfolioRealized.DataBind();
+        //        gvMFPortfolioNotional.DataSource = null;
+        //        gvMFPortfolioNotional.DataBind();
 
-                btnUpdateNP.Visible = false;
-                hdnFolioFilter.Value = "";
-                hdnSchemeFilter.Value = "";
-                hdnSelectedCategory.Value = "All";
-                btnPortfolioSearch.Focus();
-            }
-        }
+        //        btnUpdateNP.Visible = false;
+        //        hdnFolioFilter.Value = "";
+        //        hdnSchemeFilter.Value = "";
+        //        hdnSelectedCategory.Value = "All";
+        //        btnPortfolioSearch.Focus();
+        //    }
+        //}
         
     }
 }

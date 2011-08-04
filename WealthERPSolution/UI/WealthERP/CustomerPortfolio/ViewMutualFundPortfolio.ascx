@@ -25,7 +25,7 @@
     };
 </script>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
 
     function checkDateSelection() {
         
@@ -35,7 +35,7 @@
         }
     }
 
-</script>
+</script>--%>
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
@@ -88,19 +88,19 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td style;></td>
+        <td></td>
         <td>
             <asp:Label ID="lblPickDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtPickDate"  runat="server" CssClass="cmbField" ></asp:TextBox>
+            <asp:TextBox ID="txtPickDate" runat="server" CssClass="cmbField" ></asp:TextBox>
             <cc1:CalendarExtender ID="txtPickDate_CalendarExtender" runat="server" TargetControlID="txtPickDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -133,9 +133,9 @@
             </cc1:TextBoxWatermarkExtender>
         </td>
     </tr>--%>
-    <tr>
+   <%-- <tr>
         <td>
-            <asp:Button ID="btnGo" runat="server" onfocus="checkDateSelection()" Text="Go" CssClass="PCGButton" 
+            <asp:Button ID="btnGo" runat="server" onfocus="checkDateSelection()" Text="Go" CssClass="PCGButton" Visible="false" 
                 onclick="btnGo_Click" />
         </td>
         <td></td>
@@ -144,7 +144,7 @@
         <td>
             
         </td>
-    </tr>
+    </tr>--%>
 </table>
 
   <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
