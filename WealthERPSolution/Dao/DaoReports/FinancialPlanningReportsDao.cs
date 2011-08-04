@@ -234,7 +234,7 @@ namespace DaoReports
         /// <param name="report"></param>
         /// <remarks>Get All the details of Financial Planning of customers</remarks>
         /// <returns></returns>
-        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double assetTotal, out double liabilitiesTotal, out double netWorthTotal, out string riskClass, out double sumAssuredLI, out int dynamicAdvisorRiskClass)
+        public DataSet GetCustomerFPDetails(FinancialPlanningVo report, out double assetTotal, out double liabilitiesTotal, out double netWorthTotal, out string riskClass, out double sumAssuredLI, out int dynamicAdvisorRiskClass,out int financialAssetTotal)
         {
             Database db;
             DbCommand cmdCustomerFPReportDetails;
@@ -250,6 +250,7 @@ namespace DaoReports
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@RiskClass", DbType.String, 50);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@InsuranceSUMAssured", DbType.Decimal, 20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@AssetTotal", DbType.Decimal, 20);
+                db.AddOutParameter(cmdCustomerFPReportDetails, "@FinancialAssetToal", DbType.Int32, 20);
                 db.AddOutParameter(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor", DbType.Int16, 2);
 
                 dsCustomerFPReportDetails = db.ExecuteDataSet(cmdCustomerFPReportDetails);
@@ -271,6 +272,12 @@ namespace DaoReports
                     assetTotal = double.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@AssetTotal").ToString());
                 else
                     assetTotal = 0;
+
+                Object objFPAssetTotal = db.GetParameterValue(cmdCustomerFPReportDetails, "@FinancialAssetToal");
+                if (objFPAssetTotal != DBNull.Value)
+                    financialAssetTotal = int.Parse(db.GetParameterValue(cmdCustomerFPReportDetails, "@FinancialAssetToal").ToString());
+                else
+                    financialAssetTotal = 0;
 
                 Object objDynamicRiskClass = db.GetParameterValue(cmdCustomerFPReportDetails, "@DynamicRiskClsaaAdvisor");
                 if (objAssetTotal != DBNull.Value)
