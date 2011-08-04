@@ -653,7 +653,7 @@ namespace BoReports
                     {
                         if (string.IsNullOrEmpty(strRatioColor) && string.IsNullOrEmpty(strRatioRangeDescription))
                         {
-                            strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
+                            //strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
                             strRatioRangeDescription = drRatio["AFFRDR_RangeDescription"].ToString();
                         }
                     }
@@ -661,7 +661,7 @@ namespace BoReports
                     {
                         if (string.IsNullOrEmpty(strRatioColor) && string.IsNullOrEmpty(strRatioRangeDescription))
                         {
-                            strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
+                            //strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
                             strRatioRangeDescription = drRatio["AFFRDR_RangeDescription"].ToString();
                         }
 
@@ -670,12 +670,12 @@ namespace BoReports
                     {
                         if (string.IsNullOrEmpty(strRatioColor) && string.IsNullOrEmpty(strRatioRangeDescription))
                         {
-                            strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
+                            //strRatioColor = drRatio["AFFRDR_RangeColour"].ToString();
                             strRatioRangeDescription = drRatio["AFFRDR_RangeDescription"].ToString();
                         }
 
                     }
-
+                    strRatioColor += drRatio["AFFRDR_RangeColour"].ToString() + "~";
                     tempLower = 0;
                     tempUpper = 0;
 
