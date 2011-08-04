@@ -128,7 +128,7 @@
             <asp:Label ID="Label3" runat="server" Text="Confirm Password :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" >
-            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" MaxLength="8" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" MaxLength="12" CssClass="txtField"></asp:TextBox>
             <asp:RequiredFieldValidator ID="rqdConfirmPass" runat="server" Display="Dynamic"  Font-Size="11px"
             ControlToValidate="txtConfirmPassword" ErrorMessage="<br />Please Re-enter Your  password" ValidationGroup="PassWordGroup"></asp:RequiredFieldValidator>
             <asp:CompareValidator id="cmpConfPass" runat="server" ControlToCompare="txtNewPassword" Font-Size="11px" Display="Dynamic" ErrorMessage="<br />your passwords are not Matching"
