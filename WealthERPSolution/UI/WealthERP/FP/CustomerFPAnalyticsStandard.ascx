@@ -88,7 +88,7 @@ SelectedIndex="3">
 <table>
     <tr>
         <td>
-            <asp:Repeater ID="repFinancialHealth" runat="server">        
+            <asp:Repeater ID="repFinancialHealth" runat="server" OnItemDataBound="repFinancialHealth_RowDataBound">        
                 <HeaderTemplate></HeaderTemplate>
                 <ItemTemplate>
                     <table width="100%">
@@ -117,20 +117,21 @@ SelectedIndex="3">
                             </td>
                             <td style="width:70%">
                             
-                            <table border="medium">
+                            <table>
                                 <tr>
-                                    <td class="label" bgcolor="<%#DataBinder.Eval(Container.DataItem, "RatioColor")%>">
+                                    <td class="label" bgcolor="<%#DataBinder.Eval(Container.DataItem, "RatioColorOne")%>">
                                         <asp:Label ID= "lblRatoRange1" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "RatioRangeOne") %>'></asp:Label>
                                     </td>
-                                    <td class="label">
+                                    <td class="label" bgcolor="<%#DataBinder.Eval(Container.DataItem, "RatioColorTwo")%>">
                                         <asp:Label ID= "lblRatoRange2" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "RatioRangeTwo") %>'></asp:Label>
                                     </td>
-                                    <td class="label">
+                                    <td class="label" bgcolor="<%#DataBinder.Eval(Container.DataItem, "RatioColorThree")%>">
                                         <asp:Label ID= "lblRatoRange3" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "RatioRangeThree") %>'></asp:Label>
                                     </td>
-                                </tr>
+                                </tr>                                
                                 <tr>
                                     <td>
+                                        <asp:Label ID= "lblIndicator" runat="server" Visible="false" Text='<%#DataBinder.Eval(Container.DataItem, "Indicator") %>'></asp:Label>
                                         <asp:Image ID="imgRedStatus1" ImageAlign="Middle" ImageUrl="../Images/RatioDownArrow.png" runat="server" />
                                     </td>
                                     <td>

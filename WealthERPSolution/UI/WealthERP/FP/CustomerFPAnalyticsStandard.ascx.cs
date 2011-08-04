@@ -798,8 +798,8 @@ namespace WealthERP.FP
                     ChartIncome.Series[0].XValueType = ChartValueType.String;
                     ChartIncome.Series[0].YValueMembers = "IncomeAmount";
 
-                    ChartIncome.Palette = ChartColorPalette.None;
-                    ChartIncome.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                    ChartIncome.Palette = ChartColorPalette.Pastel;
+                    ChartIncome.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     ChartIncome.Legends.Add(legend);
@@ -902,7 +902,7 @@ namespace WealthERP.FP
                     ChartExpense.Series[0].XValueType = ChartValueType.String;
                     ChartExpense.Series[0].YValueMembers = "ExpenseAmount";
 
-                    ChartExpense.Palette = ChartColorPalette.None;
+                    ChartExpense.Palette = ChartColorPalette.Pastel;
                     ChartExpense.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
@@ -1009,7 +1009,7 @@ namespace WealthERP.FP
                     ChartAsset.Series[0].XValueType = ChartValueType.String;
                     ChartAsset.Series[0].YValueMembers = "AssetValues";
 
-                    ChartAsset.Palette = ChartColorPalette.None;
+                    ChartAsset.Palette = ChartColorPalette.Pastel;
                     ChartAsset.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
@@ -1118,7 +1118,7 @@ namespace WealthERP.FP
                     ChartLiabilities.Series[0].XValueType = ChartValueType.String;
                     ChartLiabilities.Series[0].YValueMembers = "LoanValues";
 
-                    ChartLiabilities.Palette = ChartColorPalette.None;
+                    ChartLiabilities.Palette = ChartColorPalette.Pastel;
                     ChartLiabilities.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
@@ -1225,7 +1225,7 @@ namespace WealthERP.FP
                     ChartCashFlow.Series[0].XValueType = ChartValueType.String;
                     ChartCashFlow.Series[0].YValueMembers = "Amount";
 
-                    //ChartCashFlow.Palette = ChartColorPalette.None;
+                    //ChartCashFlow.Palette = ChartColorPalette.Pastel;
                     //ChartCashFlow.PaletteCustomColors = new Color[]{ Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
                     //                                                 Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, 
                     //                                                 Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
@@ -1363,6 +1363,7 @@ namespace WealthERP.FP
 
         public void BindRepFinancialHealth(DataTable dtCustomerFPRatio)
         {
+
             try
             {
                 if (dtCustomerFPRatio.Rows.Count>0)
@@ -1372,23 +1373,43 @@ namespace WealthERP.FP
                     dtFinancialHealth.Columns.Add("RatioName");
                     dtFinancialHealth.Columns.Add("RatioPunchLine");
                     dtFinancialHealth.Columns.Add("RatioValue");
-                    dtFinancialHealth.Columns.Add("RatioColor");
+                    dtFinancialHealth.Columns.Add("RatioColorOne");
                     dtFinancialHealth.Columns.Add("RatioRangeOne");
                     dtFinancialHealth.Columns.Add("RatioRangeTwo");
+                    dtFinancialHealth.Columns.Add("RatioColorTwo");
                     dtFinancialHealth.Columns.Add("RatioRangeThree");
+                    dtFinancialHealth.Columns.Add("RatioColorThree");
                     dtFinancialHealth.Columns.Add("RatioDescription");
+                    dtFinancialHealth.Columns.Add("Indicator");
 
+                    string rangeone;
+                    string rangeTwo; 
+                    string rangeThree;
+                    decimal ratioValue;
+                    int indicator;
                     foreach (DataRow dr in dtCustomerFPRatio.Rows)
                     {
+                        
                         drFinancialHealth = dtFinancialHealth.NewRow();
+                        rangeone = dr["RatioRangeOne"].ToString();
+                        rangeTwo = dr["RatioRangeTwo"].ToString();
+                        rangeThree = dr["RatioRangeThree"].ToString();
+                        ratioValue=decimal.Parse(dr["RatioValue"].ToString());
+
+                        indicator=ColorforRepFinancialHealth(rangeone, rangeTwo, rangeThree, ratioValue);
+
                         drFinancialHealth["RatioName"] = dr["RatioName"];
                         drFinancialHealth["RatioPunchLine"] = dr["RatioPunchLine"];
                         drFinancialHealth["RatioValue"] = dr["RatioValue"];
-                        drFinancialHealth["RatioColor"] = dr["RatioColor"];
+                        string[] ratioAllColor = dr["RatioColor"].ToString().Split('~');
+                        drFinancialHealth["RatioColorOne"] =ratioAllColor[0];
                         drFinancialHealth["RatioRangeOne"] = dr["RatioRangeOne"];
                         drFinancialHealth["RatioRangeTwo"] = dr["RatioRangeTwo"];
+                        drFinancialHealth["RatioColorTwo"] = ratioAllColor[1];
                         drFinancialHealth["RatioRangeThree"] = dr["RatioRangeThree"];
-                        drFinancialHealth["RatioDescription"] = dr["RatioDescription"];                   
+                        drFinancialHealth["RatioColorThree"] = ratioAllColor[2];
+                        drFinancialHealth["RatioDescription"] = dr["RatioDescription"];
+                        drFinancialHealth["Indicator"] = indicator.ToString();
 
                         dtFinancialHealth.Rows.Add(drFinancialHealth);
                     }                 
@@ -1401,6 +1422,72 @@ namespace WealthERP.FP
             {
                 throw Ex;
             }
+        }
+
+        public int ColorforRepFinancialHealth(string rangeone, string rangeTwo, string rangeThree, decimal value)
+        {
+            int rangeoneUpper=0;
+            int rangeTwoLower=0;
+            int rangeTwoUpper=0;
+            int rangeThreeLower=0;
+
+            //string strData = rangeone;
+
+            rangeoneUpper =int.Parse(rangeone.Substring(2));
+            string[] ratioMiddleRange = rangeTwo.Split('-');
+            rangeTwoLower = int.Parse(ratioMiddleRange[0]);
+            rangeTwoUpper = int.Parse(ratioMiddleRange[1]);
+            rangeThreeLower = int.Parse(rangeThree.Substring(2));
+
+            if (value <= rangeoneUpper)
+            {
+                return 0;                
+            }
+
+            else if (rangeTwoLower <= value && rangeTwoUpper >= value)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }            
+        }
+
+        public void repFinancialHealth_RowDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                int indicatorValue;
+                System.Web.UI.WebControls.Image imgRedStatus1 = e.Item.FindControl("imgRedStatus1") as System.Web.UI.WebControls.Image;
+                System.Web.UI.WebControls.Image imgRedStatus2 = e.Item.FindControl("imgRedStatus2") as System.Web.UI.WebControls.Image;
+                System.Web.UI.WebControls.Image imgRedStatus3 = e.Item.FindControl("imgRedStatus3") as System.Web.UI.WebControls.Image;
+
+                Label lblindicator = e.Item.FindControl("lblIndicator") as Label;
+
+                indicatorValue = int.Parse(lblindicator.Text);
+
+                if (indicatorValue == 0)
+                {
+                    imgRedStatus1.Visible = true;
+                    imgRedStatus2.Visible = false;
+                    imgRedStatus3.Visible = false;               
+                }
+                else if (indicatorValue == 1)
+                {
+                    imgRedStatus1.Visible = false;
+                    imgRedStatus2.Visible = true;
+                    imgRedStatus3.Visible = false;                    
+                }
+                else if (indicatorValue == 2)
+                {
+                    imgRedStatus1.Visible = false;
+                    imgRedStatus2.Visible = false;
+                    imgRedStatus3.Visible = true;
+                }
+
+            }
+
         }
 
         public void BindGridGeneralInsurance(DataTable dtGeneralInsurance)
