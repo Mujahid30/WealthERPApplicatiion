@@ -122,7 +122,7 @@
     <tr>
         <td colspan="3" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
-                Note: Fields marked with a ' * ' are compulsory</label>
+                Note: Fields marked with ' * ' are mandatory</label>
         </td>
     </tr>
     <tr>
@@ -144,7 +144,7 @@
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvSystematicType" runat="server" ErrorMessage="<br />Select a Transaction Type"
                 ControlToValidate="ddlSystematicType" class="rfvPCG" Operator="NotEqual"
-                ValueToCompare="Select a Transaction Type" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                ValueToCompare="Select" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td>
             <%--<asp:CompareValidator ID="cvSystematicType" runat="server" ErrorMessage="Select a Transaction Type"
@@ -158,7 +158,7 @@
         </td>
         <td>
             <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" 
+                                    <asp:TextBox ID="txtSearchScheme" runat="server" style="width:500px;"
                 CssClass="txtField" AutoComplete="Off" AutoPostBack="true" >
                                     </asp:TextBox>
                                     <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
@@ -188,7 +188,9 @@
                 <td class="rightField" id="tdSchemeToValue" runat="server" colspan="3">
                  <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
                                     <asp:TextBox ID="txtSwicthSchemeSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                                        AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSwitchSchemeCode_TextBoxWatermarkExtender"
+                                        style="width:500px;" AutoPostBack="true">
+                                        </asp:TextBox>
+                                        <cc1:TextBoxWatermarkExtender ID="txtSwitchSchemeCode_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSwicthSchemeSearch" WatermarkText="Type the Scheme Name">
                                         </cc1:TextBoxWatermarkExtender>
                                     <ajaxToolkit:AutoCompleteExtender ID="txtSwitchSchemeCode_AutoCompleteExtender" runat="server"
@@ -233,15 +235,18 @@
         <td>
             <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" >
             </asp:DropDownList>
-            <span id="Span6" class="spnRequiredField">*</span>
+            <span id="Span6" class="spnRequiredField">* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" CausesValidation=false
+                onclick="btnAddFolio_Click" style="height: 26px" />
             <asp:CompareValidator ID="cvMFAccount" runat="server" ErrorMessage="<br />Select a Folio"
                 ControlToValidate="ddlFolioNumber" class="rfvPCG" Operator="NotEqual"
-                ValueToCompare="Select a Folio" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                ValueToCompare="Select" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                
         </td>
         <td>
-         <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" CausesValidation=false
+      <%--   <asp:Button ID="btnAddFolio" runat="server" Text="AddFolio" CssClass="PCGButton" CausesValidation=false
                 onclick="btnAddFolio_Click" style="height: 26px" 
-                />
+                />--%>
         </td>
     </tr>
     <tr>
@@ -391,7 +396,7 @@
     </tr>
     <tr>
         <td class="leftField" width="25%">
-            <asp:Label ID="lblFrequency" runat="server" Text="Frequency of Trx:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblFrequency" runat="server" Text="Frequency:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField">
@@ -399,7 +404,7 @@
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvFrequency" runat="server" ErrorMessage="<br />Select Frequency"
                 ValidationGroup="MFSubmit" ControlToValidate="ddlFrequency" class="rfvPCG" Operator="NotEqual"
-                ValueToCompare="Select Frequency" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td>
             
@@ -427,7 +432,7 @@
     </tr>
     <tr>
         <td class="leftField" width="25%">
-            <asp:Label ID="lblPeriod" runat="server" Text="Period of Systematic Trx:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPeriod" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" 
@@ -441,6 +446,7 @@
             <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
             <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
             </asp:DropDownList>
+            <asp:Label ID="lblUnits" runat="server" Text="&nbsp;&nbsp;(Units)" CssClass="FieldName"></asp:Label>
            <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
             <%--<asp:Label ID="lblMonths" runat="server" Text="in Months" CssClass="txtField"></asp:Label>--%>
              <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a Period"

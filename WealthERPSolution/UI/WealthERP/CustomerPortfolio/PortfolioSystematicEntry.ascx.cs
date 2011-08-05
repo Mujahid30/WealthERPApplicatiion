@@ -364,7 +364,7 @@ namespace WealthERP.CustomerPortfolio
             ddlSystematicType.DataTextField = "SystematicType";
             ddlSystematicType.DataValueField = "SystemationTypeCode";
             ddlSystematicType.DataBind();
-            ddlSystematicType.Items.Insert(0, "Select a Transaction Type");
+            ddlSystematicType.Items.Insert(0, "Select");
 
             // Bind the Frequency to dropdown
             dtFrequency = assetBo.GetFrequencyCode(path);
@@ -372,7 +372,7 @@ namespace WealthERP.CustomerPortfolio
             ddlFrequency.DataTextField = "Frequency";
             ddlFrequency.DataValueField = "FrequencyCode";
             ddlFrequency.DataBind();
-            ddlFrequency.Items.Insert(0, "Select Frequency");
+            ddlFrequency.Items.Insert(0, "Select");
 
             ////Bind the Customer Account Details to dropdown
 
@@ -705,7 +705,7 @@ namespace WealthERP.CustomerPortfolio
                 trSystematicDateChk2.Visible = true;
                 trSystematicDateChk3.Visible = true;
                 txtSipChequeDate.Enabled = true;
-                txtEndDate.Enabled = true;
+                txtEndDate.Enabled = false;
                 btnSubmit.Text = "Submit";
                 btnSubmit.Visible = true;
                 ddlPeriodSelection.Enabled = true;
@@ -763,7 +763,7 @@ namespace WealthERP.CustomerPortfolio
                 trSystematicDateChk2.Visible = false;
                 trSystematicDateChk3.Visible = false;
                            
-                txtEndDate.Enabled = true;
+                txtEndDate.Enabled = false;
                 txtRegistrationDate.Enabled = true;
                
                 
@@ -1178,7 +1178,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlFolioNumber.DataValueField = "CMFA_AccountId";
                 ddlFolioNumber.DataBind();
             }
-            ddlFolioNumber.Items.Insert(0, "Select a Folio");
+            ddlFolioNumber.Items.Insert(0, "Select");
         }
 
         protected void ddlSystematicType_SelectedIndexChanged(object sender, EventArgs e)
