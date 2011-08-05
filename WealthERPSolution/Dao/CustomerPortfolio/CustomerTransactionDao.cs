@@ -3186,9 +3186,10 @@ namespace DaoCustomerPortfolio
         public bool DeleteMFFolio(int FolioId)
         {
             bool bResult = false;
+            int count = 0;
             Database db;
             DbCommand DeleteTradeAccountCmd;
-
+            DataSet dsDeleteTradeAccount=new DataSet();
             try
             {
 
@@ -3196,9 +3197,20 @@ namespace DaoCustomerPortfolio
                 DeleteTradeAccountCmd = db.GetStoredProcCommand("SP_DeleteMFFolio");
 
                 db.AddInParameter(DeleteTradeAccountCmd, "@MFFolio_AccId", DbType.Int32, FolioId);
-                if (db.ExecuteNonQuery(DeleteTradeAccountCmd) != 0)
+                db.AddOutParameter(DeleteTradeAccountCmd, "@CountFlag", DbType.Int32, 50);
+                dsDeleteTradeAccount =  db.ExecuteDataSet(DeleteTradeAccountCmd);
 
+                Object objFromDate = db.GetParameterValue(DeleteTradeAccountCmd, "@CountFlag");
+                if (objFromDate != DBNull.Value)
+                    count = Int32.Parse(db.GetParameterValue(DeleteTradeAccountCmd, "@CountFlag").ToString());
+
+                if (count > 0)
+                    bResult = false;
+
+                else
                     bResult = true;
+          
+                    
 
             }
             catch (BaseApplicationException Ex)
