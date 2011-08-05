@@ -126,8 +126,16 @@ namespace WealthERP.General
                     userVo = userBo.GetUser(txtLoginId.Text);
                     if (userVo != null)
                     {
-                        Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
-                        advisorVo = (AdvisorVo)Session["advisorVo"];
+                        if (userVo.UserType != "Customer")
+                            advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                        else
+                        {
+                            customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+                            advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
+                        }
+
+                        Session["advisorVo"] = advisorVo;
+
                         currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
                         if ((advisorVo != null) && (userVo.UserType != "Customer"))
                         {
