@@ -630,6 +630,11 @@ namespace WealthERP.Advisor
                         cActualAsset.Series[0].ToolTip = "#VALX: #PERCENT";
                         cActualAsset.Series[0]["PieLabelStyle"] = "Disabled";
 
+                        cActualAsset.Palette = ChartColorPalette.Pastel;
+                        cActualAsset.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
+
                         cActualAsset.Legends.Add(ShowRecomondedAssetAlllegend);
                         cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].Title = "Assets";
                         cActualAsset.Legends["ShowRecomondedAssetAlllegendLegends"].TitleAlignment = StringAlignment.Center;
@@ -1011,7 +1016,7 @@ namespace WealthERP.Advisor
                             DateTime approvedbycustomeron = (DateTime)dsGetAssetAllocationDetails.Tables[0].Rows[0]["CAA_ClientApprovedOn"];
                             txtApprovedByCustomerOn.Text = approvedbycustomeron.ToShortDateString();
                             LoadAssetAllocation(riskCode);
-                            BindGridViewAssetAllocation();
+                            
                         }
                         else
                         {
@@ -1197,6 +1202,9 @@ namespace WealthERP.Advisor
                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 1);
             else
                 DScurrentAsset = riskprofilebo.GetCurrentAssetAllocation(customerId, 0);
+
+            BindGridViewAssetAllocation(DScurrentAsset);
+
             //ChartCurrentAsset.Visible = true;
             if (DScurrentAsset != null && DScurrentAsset.Tables[0].Rows.Count > 0)
             {
@@ -1269,6 +1277,11 @@ namespace WealthERP.Advisor
                     ChartCurrentAsset.Series[0].YValueMembers = "Percentage";
                     ChartCurrentAsset.Series[0].ToolTip = "#VALX: #PERCENT";
                     ChartCurrentAsset.Series[0]["PieLabelStyle"] = "Disabled";
+
+                    ChartCurrentAsset.Palette = ChartColorPalette.Pastel;
+                    ChartCurrentAsset.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
 
                     ChartCurrentAsset.Legends.Add(ShowCurrentAssetAlllegend);
                     ChartCurrentAsset.Legends["ShowCurrentAssetAlllegendLegends"].Title = "Assets";
@@ -1491,25 +1504,16 @@ namespace WealthERP.Advisor
             }
         }
 
-        public DataSet BindGridViewAssetAllocation()
+        public void BindGridViewAssetAllocation(DataSet dsAssetAllocationDetails)
         {
-            DataSet dsAssetAllocation = new DataSet();
-
+            DataTable dtCurrentAssetAllocation;
+            DataTable dtRecomAssetAllocation;            
+            
             try
             {
-                decimal assetTotal;
-                decimal currentRs;
-                decimal recommendedRs;
-                decimal actionNeeded;
-                decimal currentPercent;
-                decimal recommendedPercent;                
-
-                int adviserId = advisorVo.advisorId;
-                dsAssetAllocation = riskprofilebo.GetAssetAllocationTableData(adviserId, customerId);
+                decimal financialAssetTotal=0;
 
                 DataTable dtAssetAllocation = new DataTable();
-                assetTotal = decimal.Parse(dsAssetAllocation.Tables[2].Rows[0]["AssetTotal"].ToString());
-                
                 dtAssetAllocation.Columns.Add("Class");
                 dtAssetAllocation.Columns.Add("CurrentPercentage");
                 dtAssetAllocation.Columns.Add("RecommendedPercentage");
@@ -1518,27 +1522,38 @@ namespace WealthERP.Advisor
                 dtAssetAllocation.Columns.Add("RecommendedRs");
                 dtAssetAllocation.Columns.Add("ActionRs");
 
+                dtCurrentAssetAllocation = dsAssetAllocationDetails.Tables[0];
+                dtRecomAssetAllocation= dsAssetAllocationDetails.Tables[1];
+                if (dsAssetAllocationDetails.Tables.Count > 2)
+                    financialAssetTotal = decimal.Parse(dsAssetAllocationDetails.Tables[2].Rows[0]["Financial_Asset"].ToString());
+              
                 DataRow drAssetAllocation;
-                foreach (DataRow dr in dsAssetAllocation.Tables[13].Rows)
-                {  
+                foreach (DataRow dr in dtCurrentAssetAllocation.Rows)
+                {
                     drAssetAllocation = dtAssetAllocation.NewRow();
-                    drAssetAllocation["Class"] = dr["Class"].ToString();
-                    drAssetAllocation["CurrentPercentage"] = dr["CurrentPercentage"].ToString();
-                    drAssetAllocation["RecommendedPercentage"] = dr["RecommendedPercentage"].ToString();
-                    drAssetAllocation["ActionNeeded"] = dr["ActionNeeded"].ToString();
+                    drAssetAllocation["Class"] = dr["AssetType"].ToString();
+                    drAssetAllocation["CurrentPercentage"] = Math.Round(decimal.Parse(dr["Percentage"].ToString()),2);
 
-                    currentPercent = decimal.Parse(dr["CurrentPercentage"].ToString());
-                    recommendedPercent = decimal.Parse(dr["RecommendedPercentage"].ToString());
+                    DataRow[] drAssetType;                    
+                    drAssetType = dtRecomAssetAllocation.Select("AssetType='" + dr["AssetType"].ToString()+"'");
+                    if (drAssetType.Count() > 0)
+                    {
+                        drAssetAllocation["RecommendedPercentage"] = drAssetType[0][2].ToString();
+                        drAssetAllocation["RecommendedRs"] = Math.Round(((financialAssetTotal * decimal.Parse(drAssetType[0][2].ToString())) / 100),2).ToString();
+                        drAssetAllocation["ActionNeeded"] = Math.Round((Math.Round(decimal.Parse(drAssetType[0][2].ToString()),2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)),2).ToString();                       
+                        
+                    }
+                    else
+                    {
+                        drAssetAllocation["RecommendedPercentage"] = 0;
+                        drAssetAllocation["RecommendedRs"] = Math.Round(((financialAssetTotal * decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString())) / 100),2).ToString();
+                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();
+                    }
 
-                    currentRs = (assetTotal * currentPercent)/100;
-                    recommendedRs = (assetTotal * recommendedPercent)/100;
-                    actionNeeded = (recommendedRs - currentRs);
+                    drAssetAllocation["CurrentRs"] = Math.Round(((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString())) / 100),2).ToString();
+                    drAssetAllocation["ActionRs"] = (decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString();
 
-                    drAssetAllocation["CurrentRs"] = currentRs.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drAssetAllocation["RecommendedRs"] = recommendedRs.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                    drAssetAllocation["ActionRs"] = actionNeeded.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
-                    dtAssetAllocation.Rows.Add(drAssetAllocation);
+                    dtAssetAllocation.Rows.Add(drAssetAllocation);                    
                 }
                 gvAssetAllocation.DataSource = dtAssetAllocation;
                 gvAssetAllocation.DataBind();
@@ -1547,8 +1562,7 @@ namespace WealthERP.Advisor
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-            }
-            return dsAssetAllocation;
+            }            
         }
         protected void gvAssetAllocation_RowDataBound(object sender, GridViewRowEventArgs e)
         {           
