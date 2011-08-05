@@ -225,7 +225,10 @@ namespace WealthERP.FP
                             aplToolBar.Visible = true;
                             btnConvertToCustomer.Visible = true;
                             RadToolBarButton rtb = (RadToolBarButton)aplToolBar.Items.FindItemByValue("Edit");
-                            btnConvertToCustomer.Enabled = true;
+                            if ((Role != "") && (Role == "Admin"))
+                                btnConvertToCustomer.Enabled = true;
+                            else
+                                btnConvertToCustomer.Enabled = false;
                             rtb.Visible = false;
                             btnSubmit.Visible = true;
                             btnSubmitAddDetails.Visible = true;
