@@ -232,6 +232,11 @@ namespace WealthERP.FP
                 txtTotalMoneyBackPremium.Attributes.Add("readonly", "readonly");
                 txtTotalULIPPremium.Attributes.Add("readonly", "readonly");
                 txtTotalOthersPremium.Attributes.Add("readonly", "readonly");
+                
+                
+                txtToalHealthInsurancePremium.Attributes.Add("readonly", "readonly");
+
+                //txtToalHealthInsurancePremium.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -779,68 +784,68 @@ namespace WealthERP.FP
                 VoFPSuperlite.CustomerProspectIncomeDetailsVo incomedetailsvo;
                 List<CustomerProspectIncomeDetailsVo> incomedetailsvolist = new List<CustomerProspectIncomeDetailsVo>();
                 //Salary
-                if (txtSalary.Text != string.Empty)
+                if (txtSalary.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 1;
-                    incomedetailsvo.IncomeValue = double.Parse(txtSalary.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtSalary.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //Rental Property
-                if (txtRentalProperty.Text != string.Empty)
+                if (txtRentalProperty.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 2;
-                    incomedetailsvo.IncomeValue = double.Parse(txtRentalProperty.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtRentalProperty.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //Agriculture
-                if (txtAgriculturalIncome.Text != string.Empty)
+                if (txtAgriculturalIncome.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 3;
-                    incomedetailsvo.IncomeValue = double.Parse(txtAgriculturalIncome.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtAgriculturalIncome.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //Business & Profession
-                if (txtBusinessAndProfession.Text != string.Empty)
+                if (txtBusinessAndProfession.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 4;
-                    incomedetailsvo.IncomeValue = double.Parse(txtBusinessAndProfession.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtBusinessAndProfession.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //CapitalGain
-                if (txtCapitalGains.Text != string.Empty)
+                if (txtCapitalGains.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 5;
-                    incomedetailsvo.IncomeValue = double.Parse(txtCapitalGains.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtCapitalGains.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //IncomeOthers
-                if (txtOthersIncome.Text != string.Empty)
+                if (txtOthersIncome.Text.Trim() != string.Empty)
                 {
                     incomedetailsvo = new CustomerProspectIncomeDetailsVo();
                     incomedetailsvo.IncomeCategoryCode = 6;
-                    incomedetailsvo.IncomeValue = double.Parse(txtOthersIncome.Text);
+                    incomedetailsvo.IncomeValue = double.Parse(txtOthersIncome.Text.Trim());
                     incomedetailsvolist.Add(incomedetailsvo);
                     totalincome += incomedetailsvo.IncomeValue;
                 }
                 //Income Disposable (post tax)
-                if (txtDisposable.Text != string.Empty)
-                {
-                    incomedetailsvo = new CustomerProspectIncomeDetailsVo();
-                    incomedetailsvo.IncomeCategoryCode = 7;
-                    incomedetailsvo.IncomeValue = double.Parse(txtDisposable.Text);
-                    incomedetailsvolist.Add(incomedetailsvo);
-                    //totalincome += incomedetailsvo.IncomeValue;
-                }
+                //if (txtDisposable.Text != string.Empty)
+                //{
+                //    incomedetailsvo = new CustomerProspectIncomeDetailsVo();
+                //    incomedetailsvo.IncomeCategoryCode = 7;
+                //    incomedetailsvo.IncomeValue = double.Parse(txtDisposable.Text);
+                //    incomedetailsvolist.Add(incomedetailsvo);
+                //    //totalincome += incomedetailsvo.IncomeValue;
+                //}
 
                
 
@@ -853,19 +858,19 @@ namespace WealthERP.FP
 
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                 liabilitiesdetailsvo.LoanTypeCode = 1;
-                if (txtHomeLoanA.Text != string.Empty)
+                if (txtHomeLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtHomeLoanA.Text),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtHomeLoanA.Text.Trim()),0);
                 }
-                if (txtHomeLoanLO.Text != string.Empty)
+                if (txtHomeLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtHomeLoanLO.Text),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtHomeLoanLO.Text.Trim()),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
-                if (txtHomeLoanEMI.Text != string.Empty)
+                if (txtHomeLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtHomeLoanEMI.Text),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtHomeLoanEMI.Text.Trim()),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -874,19 +879,19 @@ namespace WealthERP.FP
 
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                 liabilitiesdetailsvo.LoanTypeCode = 2;
-                if (txtAutoLoanA.Text != string.Empty)
+                if (txtAutoLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtAutoLoanA.Text),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtAutoLoanA.Text.Trim()),0);
                 }
-                if (txtAutoLoanLO.Text != string.Empty)
+                if (txtAutoLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtAutoLoanLO.Text),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtAutoLoanLO.Text.Trim()),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
-                if (txtAutoLoanEMI.Text != string.Empty)
+                if (txtAutoLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtAutoLoanEMI.Text),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtAutoLoanEMI.Text.Trim()),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -895,19 +900,19 @@ namespace WealthERP.FP
 
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                 liabilitiesdetailsvo.LoanTypeCode = 5;
-                if (txtEducationLoanA.Text != string.Empty)
+                if (txtEducationLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtEducationLoanA.Text),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtEducationLoanA.Text.Trim()),0);
                 }
-                if (txtEducationLoanLO.Text != string.Empty)
+                if (txtEducationLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtEducationLoanLO.Text),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtEducationLoanLO.Text.Trim()),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
-                if (txtEducationLoanEMI.Text != string.Empty)
+                if (txtEducationLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtEducationLoanEMI.Text),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtEducationLoanEMI.Text.Trim()),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -916,18 +921,18 @@ namespace WealthERP.FP
 
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                 liabilitiesdetailsvo.LoanTypeCode = 6;
-                if (txtPersonalLoanA.Text != string.Empty)
+                if (txtPersonalLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtPersonalLoanA.Text),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtPersonalLoanA.Text.Trim()),0);
                 }
-                if (txtPersonalLoanLO.Text != string.Empty)
+                if (txtPersonalLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtPersonalLoanLO.Text),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtPersonalLoanLO.Text.Trim()),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
-                if (txtPersonalLoanEMI.Text != string.Empty)
+                if (txtPersonalLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtPersonalLoanEMI.Text),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtPersonalLoanEMI.Text.Trim()),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
@@ -935,36 +940,36 @@ namespace WealthERP.FP
                 //Other Loan
                 liabilitiesdetailsvo = new CustomerProspectLiabilitiesDetailsVo();
                 liabilitiesdetailsvo.LoanTypeCode = 9;
-                if (txtOtherLoanA.Text != string.Empty)
+                if (txtOtherLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtOtherLoanA.Text),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtOtherLoanA.Text.Trim()),0);
                 }
-                if (txtOtherLoanLO.Text != string.Empty)
+                if (txtOtherLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtOtherLoanLO.Text),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtOtherLoanLO.Text.Trim()),0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
-                if (txtOtherLoanEMI.Text != string.Empty)
+                if (txtOtherLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtOtherLoanEMI.Text),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtOtherLoanEMI.Text.Trim()),0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
                 //Calculating Total EMI
-                if (txtHomeLoanEMI.Text == "")
+                if (txtHomeLoanEMI.Text.Trim() == "")
                     txtHomeLoanEMI.Text = "0";
-                if (txtAutoLoanEMI.Text == "")
+                if (txtAutoLoanEMI.Text.Trim() == "")
                     txtAutoLoanEMI.Text = "0";
-                if (txtPersonalLoanEMI.Text == "")
+                if (txtPersonalLoanEMI.Text.Trim() == "")
                     txtPersonalLoanEMI.Text = "0";
-                if (txtEducationLoanEMI.Text == "")
+                if (txtEducationLoanEMI.Text.Trim() == "")
                     txtEducationLoanEMI.Text = "0";
-                if (txtOtherLoanEMI.Text == "")
+                if (txtOtherLoanEMI.Text.Trim() == "")
                     txtOtherLoanEMI.Text = "0";
 
-                if ((txtHomeLoanEMI.Text != "") || (txtAutoLoanEMI.Text != "") || (txtPersonalLoanEMI.Text != "") || (txtEducationLoanEMI.Text != "") || (txtOtherLoanEMI.Text != ""))
+                if ((txtHomeLoanEMI.Text.Trim() != "") || (txtAutoLoanEMI.Text.Trim() != "") || (txtPersonalLoanEMI.Text.Trim() != "") || (txtEducationLoanEMI.Text.Trim() != "") || (txtOtherLoanEMI.Text.Trim() != ""))
                 {
-                    totalEMIForExpense = (float.Parse(txtHomeLoanEMI.Text) + float.Parse(txtAutoLoanEMI.Text) + float.Parse(txtPersonalLoanEMI.Text) + float.Parse(txtEducationLoanEMI.Text) + float.Parse(txtOtherLoanEMI.Text));
+                    totalEMIForExpense = (float.Parse(txtHomeLoanEMI.Text.Trim()) + float.Parse(txtAutoLoanEMI.Text.Trim()) + float.Parse(txtPersonalLoanEMI.Text.Trim()) + float.Parse(txtEducationLoanEMI.Text.Trim()) + float.Parse(txtOtherLoanEMI.Text.Trim()));
                 }
 
                 if (totalEMIForExpense != 0)
@@ -984,12 +989,16 @@ namespace WealthERP.FP
                 List<CustomerProspectAssetGroupDetails> assetgroupdetailslist = new List<CustomerProspectAssetGroupDetails>();
 
                 //Direct Equtiy(Level1)
-                if (txtDirectEquityA.Text != string.Empty)
+                if (txtDirectEquityA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "DE";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtDirectEquityA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtDirectEquity.Text),0);
+                    if (txtDirectEquityA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtDirectEquityA.Text.Trim()),0);
+
+                    if(txtDirectEquity.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtDirectEquity.Text.Trim()),0);
+                    
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -999,163 +1008,198 @@ namespace WealthERP.FP
                     assetdetailsvo = new CustomerProspectAssetDetailsVo();
                     assetdetailsvo.AssetGroupCode = "MF";
                     assetdetailsvo.AssetInstrumentCategoryCode = "MFEQ";
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFEquityA.Text),0);
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtMFEquity.Text),0);
+                    
+                    if (txtMFEquityA.Text.Trim() != string.Empty)
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFEquityA.Text.Trim()),0);
+                    
+                    if(txtMFEquity.Text.Trim() != string.Empty)
+                        assetdetailsvo.Value = Math.Round(double.Parse(txtMFEquity.Text.Trim()),0);
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
                 //MF-Debt(Level1)
-                if (txtMFDebtA.Text != string.Empty)
+                if (txtMFDebtA.Text.Trim() != string.Empty)
                 {
                     assetdetailsvo = new CustomerProspectAssetDetailsVo();
                     assetdetailsvo.AssetGroupCode = "MF";
                     assetdetailsvo.AssetInstrumentCategoryCode = "MFDT";
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFDebtA.Text),0);
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtMFDebt.Text),0);
+                    if (txtMFDebtA.Text.Trim() != string.Empty)
+                        assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtMFDebtA.Text.Trim()),0);
+
+                    if(txtMFDebt.Text.Trim() != string.Empty)
+                        assetdetailsvo.Value = Math.Round(double.Parse(txtMFDebt.Text.Trim()),0);
                     assetdetailsvolist.Add(assetdetailsvo);
                     totalasset += assetdetailsvo.Value;
                 }
                 //MF Hybrid -Equity(Level2)
-                if (txtMFHybridEquityA.Text != string.Empty)
+                if (txtMFHybridEquityA.Text.Trim() != string.Empty)
                 {
                     assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
                     assetdetailssubvo.AssetGroupCode = "MF";
                     assetdetailssubvo.AssetInstrumentCategoryCode = "MFHY";
                     assetdetailssubvo.AssetInstrumentSubCategoryCode = "MFHYEQ";
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridEquity.Text),0);
+                    if (txtMFHybridEquityA.Text.Trim() != string.Empty)
+                        assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridEquityA.Text.Trim()),0);
+                    if(txtMFHybridEquity.Text.Trim() != string.Empty)
+                        assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridEquity.Text.Trim()),0);
                     assetdetailssubvolist.Add(assetdetailssubvo);
                     totalasset += assetdetailssubvo.Value;
                 }
                 //MF Hybrid -Debt(Level2)
-                if (txtMFHybridDebtA.Text != string.Empty)
+                if (txtMFHybridDebtA.Text.Trim() != string.Empty)
                 {
                     assetdetailssubvo = new CustomerProspectAssetSubDetailsVo();
                     assetdetailssubvo.AssetGroupCode = "MF";
                     assetdetailssubvo.AssetInstrumentCategoryCode = "MFHY";
                     assetdetailssubvo.AssetInstrumentSubCategoryCode = "MFHYDT";
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridDebt.Text),0);
+                    if (txtMFHybridDebtA.Text.Trim() != string.Empty)
+                        assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtMFHybridDebtA.Text.Trim()),0);
+                    if(txtMFHybridDebt.Text.Trim() != string.Empty)
+                        assetdetailssubvo.Value = Math.Round(double.Parse(txtMFHybridDebt.Text.Trim()),0);
                     assetdetailssubvolist.Add(assetdetailssubvo);
                     totalasset += assetdetailssubvo.Value;
                 }
                 //Fixed Income
-                if (txtFixedIncomeA.Text != string.Empty)
+                if (txtFixedIncomeA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "FI";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtFixedIncomeA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtFixedIncome.Text),0);
+                    if (txtFixedIncomeA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtFixedIncomeA.Text.Trim()),0);
+                    if (txtFixedIncome.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtFixedIncome.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Govt Savings
-                if (txtGovtSavingsA.Text != string.Empty)
+                if (txtGovtSavingsA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "GS";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGovtSavingsA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtGovtSavings.Text),0);
+                    if (txtGovtSavingsA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGovtSavingsA.Text.Trim()),0);
+                    if (txtGovtSavings.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtGovtSavings.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Pension & Gratuities
-                if (txtPensionGratuitiesA.Text != string.Empty)
+                if (txtPensionGratuitiesA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PG";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPensionGratuitiesA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtPensionGratuities.Text),0);
+                    if (txtPensionGratuitiesA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPensionGratuitiesA.Text.Trim()),0);
+                    if (txtPensionGratuities.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtPensionGratuities.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Property
-                if (txtPropertyA.Text != string.Empty)
+                if (txtPropertyA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PR";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPropertyA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtProperty.Text),0);
+                    if (txtPropertyA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPropertyA.Text.Trim()),0);
+                    if (txtProperty.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtProperty.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Gold
-                if (txtGoldA.Text != string.Empty)
+                if (txtGoldA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "GD";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGoldA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtGold.Text),0);
+                    if (txtGoldA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtGoldA.Text.Trim()),0);
+                    if (txtGold.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtGold.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Collectibles
-                if (txtCollectiblesA.Text != string.Empty)
+                if (txtCollectiblesA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CL";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCollectiblesA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtCollectibles.Text),0);
+                    if (txtCollectiblesA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCollectiblesA.Text.Trim()),0);
+                    if (txtCollectibles.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtCollectibles.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Private Equity
-                if (txtPrivateEquityA.Text != string.Empty)
+                if (txtPrivateEquityA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PE";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPrivateEquityA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtPrivateEquity.Text),0);
+                    if (txtPrivateEquityA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPrivateEquityA.Text.Trim()),0);
+                    if (txtPrivateEquity.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtPrivateEquity.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //PMS
-                if (txtPMSA.Text != string.Empty)
+                if (txtPMSA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "PM";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPMSA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtPMS.Text),0);
+                    if (txtPMSA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtPMSA.Text.Trim()),0);
+                    if (txtPMS.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtPMS.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Cash and Savings
-                if (txtCashAndSavingsA.Text != string.Empty)
+                if (txtCashAndSavingsA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CS";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCashAndSavingsA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtCashAndSavings.Text),0);
+                    if (txtCashAndSavingsA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCashAndSavingsA.Text.Trim()),0);
+                    if (txtCashAndSavings.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtCashAndSavings.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Structured Product
-                if (txtStructuredProductA.Text != string.Empty)
+                if (txtStructuredProductA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "SP";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtStructuredProductA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtStructuredProduct.Text),0);
+                    if (txtStructuredProductA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtStructuredProductA.Text.Trim()),0);
+                    if (txtStructuredProduct.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtStructuredProduct.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Commodities
-                if (txtCommoditiesA.Text != string.Empty)
+                if (txtCommoditiesA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "CM";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCommoditiesA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtCommodities.Text),0);
+                    if (txtCommoditiesA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtCommoditiesA.Text.Trim()),0);
+                    if (txtCommodities.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtCommodities.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
                 //Others
-                if (txtInvestmentsOthersA.Text != string.Empty)
+                if (txtInvestmentsOthersA.Text.Trim() != string.Empty)
                 {
                     assetgroupdetails = new CustomerProspectAssetGroupDetails();
                     assetgroupdetails.AssetGroupCode = "OT";
-                    assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtInvestmentsOthersA.Text),0);
-                    assetgroupdetails.Value = Math.Round(double.Parse(txtInvestmentsOthers.Text),0);
+                    if (txtInvestmentsOthersA.Text.Trim() != string.Empty)
+                        assetgroupdetails.AdjustedValue = Math.Round(double.Parse(txtInvestmentsOthersA.Text.Trim()),0);
+                    if (txtInvestmentsOthers.Text.Trim() != string.Empty)
+                        assetgroupdetails.Value = Math.Round(double.Parse(txtInvestmentsOthers.Text.Trim()),0);
                     assetgroupdetailslist.Add(assetgroupdetails);
                     totalasset += assetgroupdetails.Value;
                 }
@@ -1164,49 +1208,49 @@ namespace WealthERP.FP
                 assetgroupdetails = new CustomerProspectAssetGroupDetails();
                 assetgroupdetails.AssetGroupCode = "MF";
                 assetgroupdetails.Value = 0.0;
-                if (txtMFEquityA.Text != string.Empty)
+                if (txtMFEquityA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFEquityA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFEquityA.Text.Trim()),0);
                     //assetgroupdetails.Value += double.Parse(txtMFEquity.Text) ;
                 }
 
-                if (txtMFDebtA.Text != string.Empty)
+                if (txtMFDebtA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFDebtA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFDebtA.Text.Trim()),0);
                     //assetgroupdetails.Value +=  double.Parse(txtMFDebt.Text);
                 }
 
-                if (txtMFHybridEquityA.Text != string.Empty)
+                if (txtMFHybridEquityA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
-                    //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text.Trim()),0);
+                    //assetgroupdetails.Value += double.Parse(txtMFHybridEquity.Text.Trim());
                 }
 
-                if (txtMFHybridDebtA.Text != string.Empty)
+                if (txtMFHybridDebtA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
-                    //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text.Trim()),0);
+                    //assetgroupdetails.Value += double.Parse(txtMFHybridDebt.Text.Trim());
                 }
                 //MF Total
-                if (txtMFEquity.Text != string.Empty)
+                if (txtMFEquity.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFEquity.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFEquity.Text.Trim()),0);
                 }
 
-                if (txtMFDebt.Text != string.Empty)
+                if (txtMFDebt.Text.Trim() != string.Empty)
                 {
 
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFDebt.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFDebt.Text.Trim()),0);
                 }
 
-                if (txtMFHybridEquity.Text != string.Empty)
+                if (txtMFHybridEquity.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridEquity.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridEquity.Text.Trim()),0);
                 }
 
-                if (txtMFHybridDebt.Text != string.Empty)
+                if (txtMFHybridDebt.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridDebt.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtMFHybridDebt.Text.Trim()),0);
                 }
 
                 assetgroupdetailslist.Add(assetgroupdetails);
@@ -1214,24 +1258,24 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "MF";
                 assetdetailsvo.AssetInstrumentCategoryCode = "MFHY";
-                if (txtMFHybridEquityA.Text != string.Empty)
+                if (txtMFHybridEquityA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text),0);
+                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridEquityA.Text.Trim()),0);
                 }
 
-                if (txtMFHybridDebtA.Text != string.Empty)
+                if (txtMFHybridDebtA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text),0);
+                    assetdetailsvo.AdjustedValue += Math.Round(double.Parse(txtMFHybridDebtA.Text.Trim()),0);
                 }
                 //MF-Hybrid Total Value
-                if (txtMFHybridEquity.Text != string.Empty)
+                if (txtMFHybridEquity.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridEquity.Text),0);
+                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridEquity.Text.Trim()),0);
                 }
 
-                if (txtMFHybridDebt.Text != string.Empty)
+                if (txtMFHybridDebt.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridDebt.Text),0);
+                    assetdetailsvo.Value += Math.Round(double.Parse(txtMFHybridDebt.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
                 //==========================================================================================================================
@@ -1243,30 +1287,30 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INTP";
-                if (txtAdjustedTermSA.Text != string.Empty)
+                if (txtAdjustedTermSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedTermSA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedTermSA.Text.Trim()),0);
                 }
-                if (txtTotalTermSA.Text != string.Empty)
+                if (txtTotalTermSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalTermSA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalTermSA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtTermP.Text != string.Empty)
+                if (txtTermP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtTermP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtTermP.Text.Trim()),0);
                 }
-                if (txtAdjustedPremium.Text != string.Empty)
+                if (txtAdjustedPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedPremium.Text); 
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedPremium.Text.Trim()); 
                 }
-                if (txtTotalTermPremium.Text != string.Empty)
+                if (txtTotalTermPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalTermPremium.Text); 
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalTermPremium.Text.Trim()); 
                 }
-                if (txtTermSurrMktVal.Text != string.Empty)
+                if (txtTermSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtTermSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtTermSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1276,30 +1320,30 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INEP";
-                if (txtAdjustedEndowmentSA.Text != string.Empty)
+                if (txtAdjustedEndowmentSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedEndowmentSA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedEndowmentSA.Text.Trim()),0);
                 }
-                if (txtTotalEndowmentSA.Text != string.Empty)
+                if (txtTotalEndowmentSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalEndowmentSA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalEndowmentSA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtEndowmentP.Text != string.Empty)
+                if (txtEndowmentP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtEndowmentP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtEndowmentP.Text.Trim()),0);
                 }
-                if (txtAdjustedEndowmentPremium.Text != string.Empty)
+                if (txtAdjustedEndowmentPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedEndowmentPremium.Text);
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedEndowmentPremium.Text.Trim());
                 }
-                if (txtTotalEndowmentPremium.Text != string.Empty)
+                if (txtTotalEndowmentPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalEndowmentPremium.Text);
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalEndowmentPremium.Text.Trim());
                 }
-                if (txtEndowmentSurrMktVal.Text != string.Empty)
+                if (txtEndowmentSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtEndowmentSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtEndowmentSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1309,31 +1353,31 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INWP";
-                if (txtAdjustedWholeLifeSA.Text != string.Empty)
+                if (txtAdjustedWholeLifeSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text.Trim()),0);
                 }
-                if (txtTotalWholeLifeSA.Text != string.Empty)
+                if (txtTotalWholeLifeSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalWholeLifeSA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalWholeLifeSA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtWholeLifeP.Text != string.Empty)
+                if (txtWholeLifeP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtWholeLifeP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtWholeLifeP.Text.Trim()),0);
                 }
-                if (txtAdjustedWholeLifePremium.Text != string.Empty)
+                if (txtAdjustedWholeLifePremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedWholeLifePremium.Text);
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedWholeLifePremium.Text.Trim());
                 }
-                if (txtTotalWholeLifePremium.Text != string.Empty)
+                if (txtTotalWholeLifePremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalWholeLifePremium.Text);
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalWholeLifePremium.Text.Trim());
                 }
                 
-                if (txtWholeLifeSurrMktVal.Text != string.Empty)
+                if (txtWholeLifeSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtWholeLifeSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtWholeLifeSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1343,31 +1387,31 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INMP";
-                if (txtAdjustedMoneyBackSA.Text != string.Empty)
+                if (txtAdjustedMoneyBackSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text.Trim()),0);
                 }
-                if (txtTotalMoneyBackSA.Text != string.Empty)
+                if (txtTotalMoneyBackSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalMoneyBackSA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalMoneyBackSA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtMoneyBackP.Text != string.Empty)
+                if (txtMoneyBackP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtMoneyBackP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtMoneyBackP.Text.Trim()),0);
                 }
-                if (txtAdjustedMoneyBackPremium.Text != string.Empty)
+                if (txtAdjustedMoneyBackPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedMoneyBackPremium.Text);
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedMoneyBackPremium.Text.Trim());
                 }
-                if (txtTotalMoneyBackPremium.Text != string.Empty)
+                if (txtTotalMoneyBackPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalMoneyBackPremium.Text);
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalMoneyBackPremium.Text.Trim());
                 }
                 
-                if (txtMoneyBackSurrMktVal.Text != string.Empty)
+                if (txtMoneyBackSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtMoneyBackSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtMoneyBackSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1377,31 +1421,31 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INUP";
-                if (txtAdjustedULIPSA.Text != string.Empty)
+                if (txtAdjustedULIPSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedULIPSA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedULIPSA.Text.Trim()),0);
                 }
-                if (txtTotalULIPSA.Text != string.Empty)
+                if (txtTotalULIPSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalULIPSA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalULIPSA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtULIPP.Text != string.Empty)
+                if (txtULIPP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtULIPP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtULIPP.Text.Trim()),0);
                 }
-                if (txtAdjustedULIPPremium.Text != string.Empty)
+                if (txtAdjustedULIPPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedULIPPremium.Text);
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedULIPPremium.Text.Trim());
                 }
-                if (txtTotalULIPPremium.Text != string.Empty)
+                if (txtTotalULIPPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalULIPPremium.Text);
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalULIPPremium.Text.Trim());
                 }
                 
-                if (txtULIPSurrMktVal.Text != string.Empty)
+                if (txtULIPSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtULIPSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtULIPSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1411,49 +1455,49 @@ namespace WealthERP.FP
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
                 assetdetailsvo.AssetGroupCode = "IN";
                 assetdetailsvo.AssetInstrumentCategoryCode = "INOT";
-                if (txtAdjustedOthersLISA.Text != string.Empty)
+                if (txtAdjustedOthersLISA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedOthersLISA.Text),0);
+                    assetdetailsvo.AdjustedValue = Math.Round(double.Parse(txtAdjustedOthersLISA.Text.Trim()),0);
                 }
-                if (txtTotalOthersLISA.Text != string.Empty)
+                if (txtTotalOthersLISA.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalOthersLISA.Text),0);
+                    assetdetailsvo.Value = Math.Round(double.Parse(txtTotalOthersLISA.Text.Trim()),0);
                     totalli += assetdetailsvo.Value;
                 }
-                if (txtOthersLIP.Text != string.Empty)
+                if (txtOthersLIP.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.Premium = Math.Round(double.Parse(txtOthersLIP.Text),0);
+                    assetdetailsvo.Premium = Math.Round(double.Parse(txtOthersLIP.Text.Trim()),0);
                 }
-                if (txtAdjustedOthersLIPremium.Text != string.Empty)
+                if (txtAdjustedOthersLIPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedOthersLIPremium.Text);
+                    assetdetailsvo.AdjustedPremium = double.Parse(txtAdjustedOthersLIPremium.Text.Trim());
                 }
-                if (txtTotalOthersPremium.Text != string.Empty)
+                if (txtTotalOthersPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalOthersPremium.Text);
+                    assetdetailsvo.TotalPremiumValue = double.Parse(txtTotalOthersPremium.Text.Trim());
                 }
                 
-                if (txtOtherSurrMktVal.Text != string.Empty)
+                if (txtOtherSurrMktVal.Text.Trim() != string.Empty)
                 {
-                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text),0);
+                    assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                if (txtTermP.Text == "")
+                if (txtTermP.Text.Trim() == "")
                     txtTermP.Text = "0";
-                if (txtEndowmentP.Text == "")
+                if (txtEndowmentP.Text.Trim() == "")
                     txtEndowmentP.Text = "0";
-                if (txtWholeLifeP.Text == "")
+                if (txtWholeLifeP.Text.Trim() == "")
                     txtWholeLifeP.Text = "0";
-                if (txtMoneyBackP.Text == "")
+                if (txtMoneyBackP.Text.Trim() == "")
                     txtMoneyBackP.Text = "0";
-                if (txtULIPP.Text == "")
+                if (txtULIPP.Text.Trim() == "")
                     txtULIPP.Text = "0";
-                if (txtOthersLIP.Text == "")
+                if (txtOthersLIP.Text.Trim() == "")
                     txtOthersLIP.Text = "0";
                 
-                if ((txtTermP.Text != "") || (txtEndowmentP.Text != "") || (txtWholeLifeP.Text != "") || (txtMoneyBackP.Text != "") || (txtULIPP.Text != "") || (txtOthersLIP.Text != ""))
+                if ((txtTermP.Text.Trim() != "") || (txtEndowmentP.Text.Trim() != "") || (txtWholeLifeP.Text.Trim() != "") || (txtMoneyBackP.Text.Trim() != "") || (txtULIPP.Text.Trim() != "") || (txtOthersLIP.Text.Trim() != ""))
                 {
-                    totalLIPremium = float.Parse(txtTermP.Text) + float.Parse(txtEndowmentP.Text) + float.Parse(txtWholeLifeP.Text) + float.Parse(txtMoneyBackP.Text) + float.Parse(txtULIPP.Text) + float.Parse(txtOthersLIP.Text);
+                    totalLIPremium = float.Parse(txtTermP.Text.Trim()) + float.Parse(txtEndowmentP.Text.Trim()) + float.Parse(txtWholeLifeP.Text.Trim()) + float.Parse(txtMoneyBackP.Text.Trim()) + float.Parse(txtULIPP.Text.Trim()) + float.Parse(txtOthersLIP.Text.Trim());
                 }
 
 
@@ -1462,115 +1506,115 @@ namespace WealthERP.FP
                 assetgroupdetails.AssetGroupCode = "IN";
                 assetgroupdetails.Value = 0.0;
                 //Group Adjusted Value
-                if (txtAdjustedTermSA.Text != string.Empty)
+                if (txtAdjustedTermSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedTermSA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedTermSA.Text.Trim()),0);
                 }
-                if (txtAdjustedEndowmentSA.Text != string.Empty)
+                if (txtAdjustedEndowmentSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedEndowmentSA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedEndowmentSA.Text.Trim()),0);
                 }
-                if (txtAdjustedWholeLifeSA.Text != string.Empty)
+                if (txtAdjustedWholeLifeSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedWholeLifeSA.Text.Trim()),0);
                 }
-                if (txtAdjustedMoneyBackSA.Text != string.Empty)
+                if (txtAdjustedMoneyBackSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedMoneyBackSA.Text.Trim()),0);
                 }
-                if (txtAdjustedULIPSA.Text != string.Empty)
+                if (txtAdjustedULIPSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedULIPSA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedULIPSA.Text.Trim()),0);
                 }
-                if (txtAdjustedOthersLISA.Text != string.Empty)
+                if (txtAdjustedOthersLISA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedOthersLISA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtAdjustedOthersLISA.Text.Trim()),0);
                 }
 
                 //Adjusted Premium Total Value
 
-                if (txtAdjustedPremium.Text != string.Empty)
+                if (txtAdjustedPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedPremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedPremium.Text.Trim());
                 }
-                if (txtAdjustedEndowmentPremium.Text != string.Empty)
+                if (txtAdjustedEndowmentPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedEndowmentPremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedEndowmentPremium.Text.Trim());
                 }
-                if (txtAdjustedWholeLifePremium.Text != string.Empty)
+                if (txtAdjustedWholeLifePremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedWholeLifePremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedWholeLifePremium.Text.Trim());
                 }
-                if (txtAdjustedMoneyBackPremium.Text != string.Empty)
+                if (txtAdjustedMoneyBackPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedMoneyBackPremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedMoneyBackPremium.Text.Trim());
                 }
-                if (txtAdjustedULIPPremium.Text != string.Empty)
+                if (txtAdjustedULIPPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedULIPPremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedULIPPremium.Text.Trim());
                 }
-                if (txtAdjustedOthersLIPremium.Text != string.Empty)
+                if (txtAdjustedOthersLIPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedOthersLIPremium.Text);
+                    assetgroupdetails.AdjustedPremiumValue += double.Parse(txtAdjustedOthersLIPremium.Text.Trim());
                 }
 
                 //Group Total Value
 
-                if (txtTotalTermSA.Text != string.Empty)
+                if (txtTotalTermSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalTermSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalTermSA.Text.Trim()),0);
                 }
-                if (txtTotalEndowmentSA.Text != string.Empty)
+                if (txtTotalEndowmentSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalEndowmentSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalEndowmentSA.Text.Trim()),0);
                 }
-                if (txtTotalWholeLifeSA.Text != string.Empty)
+                if (txtTotalWholeLifeSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalWholeLifeSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalWholeLifeSA.Text.Trim()),0);
                 }
-                if (txtTotalMoneyBackSA.Text != string.Empty)
+                if (txtTotalMoneyBackSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalMoneyBackSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalMoneyBackSA.Text.Trim()),0);
                 }
-                if (txtTotalULIPSA.Text != string.Empty)
+                if (txtTotalULIPSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalULIPSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalULIPSA.Text.Trim()),0);
                 }
-                if (txtTotalOthersLISA.Text != string.Empty)
+                if (txtTotalOthersLISA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalOthersLISA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtTotalOthersLISA.Text.Trim()),0);
                 }
 
                 // Premium Total Value..
 
-                if (txtTotalTermPremium.Text != string.Empty)
+                if (txtTotalTermPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalTermPremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalTermPremium.Text.Trim());
                 }
 
-                if (txtTotalEndowmentPremium.Text != string.Empty)
+                if (txtTotalEndowmentPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalEndowmentPremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalEndowmentPremium.Text.Trim());
                 }
 
-                if (txtTotalWholeLifePremium.Text != string.Empty)
+                if (txtTotalWholeLifePremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalWholeLifePremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalWholeLifePremium.Text.Trim());
                 }
 
-                if (txtTotalMoneyBackPremium.Text != string.Empty)
+                if (txtTotalMoneyBackPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalMoneyBackPremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalMoneyBackPremium.Text.Trim());
                 }
 
-                if (txtTotalULIPPremium.Text != string.Empty)
+                if (txtTotalULIPPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalULIPPremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalULIPPremium.Text.Trim());
                 }
 
-                if (txtTotalOthersPremium.Text != string.Empty)
+                if (txtTotalOthersPremium.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalOthersPremium.Text);
+                    assetgroupdetails.TotalPremiumValue += double.Parse(txtTotalOthersPremium.Text.Trim());
                 }
 
                 assetgroupdetailslist.Add(assetgroupdetails);
@@ -1584,26 +1628,26 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetGroupCode = "GI";
                 assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHM";
-                if (txtHealthInsuranceCoverA.Text != string.Empty)
+                if (txtHealthInsuranceCoverA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtHealthInsuranceCoverA.Text),0);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtHealthInsuranceCoverA.Text.Trim()),0);
                 }
-                if (txtHealthInsuranceCoverSA.Text != string.Empty)
+                if (txtHealthInsuranceCoverSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text.Trim()),0);
                     totalgi += assetdetailssubvo.Value;
                 }
-                if (txtHealthInsuranceCoverP.Text != string.Empty)
+                if (txtHealthInsuranceCoverP.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtHealthInsuranceCoverP.Text),0);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtHealthInsuranceCoverP.Text.Trim()),0);
                 }
-                if (txtAdjustedHealthPremium.Text != string.Empty)
+                if (txtAdjustedHealthPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedHealthPremium.Text), 0);
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedHealthPremium.Text.Trim()), 0);
                 }
-                if (txtToalHealthInsurancePremium.Text != string.Empty)
+                if (txtToalHealthInsurancePremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtToalHealthInsurancePremium.Text), 0);
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtToalHealthInsurancePremium.Text.Trim()), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
@@ -1614,26 +1658,26 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetGroupCode = "GI";
                 assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIHO";
-                if (txtPropertyInsuranceCoverA.Text != string.Empty)
+                if (txtPropertyInsuranceCoverA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text),0);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text.Trim()),0);
                 }
-                if (txtPropertyInsuranceCoverSA.Text != string.Empty)
+                if (txtPropertyInsuranceCoverSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text.Trim()),0);
                     totalgi += assetdetailssubvo.Value;
                 }
-                if (txtPropertyInsuranceCoverP.Text != string.Empty)
+                if (txtPropertyInsuranceCoverP.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPropertyInsuranceCoverP.Text),0);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPropertyInsuranceCoverP.Text.Trim()),0);
                 }
-                if (txtAdjustedPropertyInsurancePremium.Text != string.Empty)
+                if (txtAdjustedPropertyInsurancePremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedPropertyInsurancePremium.Text), 0);
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedPropertyInsurancePremium.Text.Trim()), 0);
                 }
-                if (txtTotalPropertyInsurancePremium.Text != string.Empty)
+                if (txtTotalPropertyInsurancePremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPropertyInsurancePremium.Text), 0);
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPropertyInsurancePremium.Text.Trim()), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
@@ -1644,26 +1688,26 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetGroupCode = "GI";
                 assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIPA";
-                if (txtPersonalAccidentA.Text != string.Empty)
+                if (txtPersonalAccidentA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPersonalAccidentA.Text),0);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtPersonalAccidentA.Text.Trim()),0);
                 }
-                if (txtPersonalAccidentSA.Text != string.Empty)
+                if (txtPersonalAccidentSA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPersonalAccidentSA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtPersonalAccidentSA.Text.Trim()),0);
                     totalgi += assetdetailssubvo.Value;
                 }
-                if (txtPersonalAccidentP.Text != string.Empty)
+                if (txtPersonalAccidentP.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPersonalAccidentP.Text),0);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtPersonalAccidentP.Text.Trim()),0);
                 }
-                if (txtPersonalAccidentPremium.Text != string.Empty)
+                if (txtPersonalAccidentPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtPersonalAccidentPremium.Text), 0);
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtPersonalAccidentPremium.Text.Trim()), 0);
                 }
-                if (txtTotalPersonalAccidentPremium.Text != string.Empty)
+                if (txtTotalPersonalAccidentPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPersonalAccidentPremium.Text), 0);
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPersonalAccidentPremium.Text.Trim()), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
 
@@ -1674,39 +1718,39 @@ namespace WealthERP.FP
                 assetdetailssubvo.AssetGroupCode = "GI";
                 assetdetailssubvo.AssetInstrumentCategoryCode = "GIRI";
                 assetdetailssubvo.AssetInstrumentSubCategoryCode = "GIRIOT";
-                if (txtOthersGIA.Text != string.Empty)
+                if (txtOthersGIA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtOthersGIA.Text),0);
+                    assetdetailssubvo.AdjustedValue = Math.Round(double.Parse(txtOthersGIA.Text.Trim()),0);
                 }
-                if (txtOthersGISA.Text != string.Empty)
+                if (txtOthersGISA.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Value = Math.Round(double.Parse(txtOthersGISA.Text),0);
+                    assetdetailssubvo.Value = Math.Round(double.Parse(txtOthersGISA.Text.Trim()),0);
                     totalgi += assetdetailssubvo.Value;
                 }
-                if (txtOthersGIP.Text != string.Empty)
+                if (txtOthersGIP.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtOthersGIP.Text),0);
+                    assetdetailssubvo.Premium = Math.Round(double.Parse(txtOthersGIP.Text.Trim()),0);
                 }
-                if (txtAdjustedOtherGIPremium.Text != string.Empty)
+                if (txtAdjustedOtherGIPremium.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedOtherGIPremium.Text), 0);
+                    assetdetailssubvo.AdjustedPremium = Math.Round(double.Parse(txtAdjustedOtherGIPremium.Text.Trim()), 0);
                 }
-                if (txtTotalPremiumOthers.Text != string.Empty)
+                if (txtTotalPremiumOthers.Text.Trim() != string.Empty)
                 {
-                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPremiumOthers.Text), 0);
+                    assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPremiumOthers.Text.Trim()), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
-                if (txtHealthInsuranceCoverP.Text == "")
+                if (txtHealthInsuranceCoverP.Text.Trim() == "")
                     txtHealthInsuranceCoverP.Text = "0";
-                if (txtPropertyInsuranceCoverP.Text == "")
+                if (txtPropertyInsuranceCoverP.Text.Trim() == "")
                     txtPropertyInsuranceCoverP.Text = "0";
-                if (txtPersonalAccidentP.Text == "")
+                if (txtPersonalAccidentP.Text.Trim() == "")
                     txtPersonalAccidentP.Text = "0";
-                if (txtOthersGIP.Text == "")
+                if (txtOthersGIP.Text.Trim() == "")
                     txtOthersGIP.Text = "0";
-                if ((txtHealthInsuranceCoverP.Text != "") || (txtPropertyInsuranceCoverP.Text != "") || (txtPersonalAccidentP.Text != "") || (txtOthersGIP.Text != ""))
+                if ((txtHealthInsuranceCoverP.Text.Trim() != "") || (txtPropertyInsuranceCoverP.Text.Trim() != "") || (txtPersonalAccidentP.Text.Trim() != "") || (txtOthersGIP.Text.Trim() != ""))
                 {
-                    totalGIPremium = (float.Parse(txtHealthInsuranceCoverP.Text) + float.Parse(txtPropertyInsuranceCoverP.Text) + float.Parse(txtPersonalAccidentP.Text) + float.Parse(txtOthersGIP.Text));
+                    totalGIPremium = (float.Parse(txtHealthInsuranceCoverP.Text.Trim()) + float.Parse(txtPropertyInsuranceCoverP.Text.Trim()) + float.Parse(txtPersonalAccidentP.Text.Trim()) + float.Parse(txtOthersGIP.Text.Trim()));
                 }
 
                 if ((totalLIPremium != 0) || (totalGIPremium != 0))
@@ -1720,38 +1764,38 @@ namespace WealthERP.FP
                 assetgroupdetails.AssetGroupCode = "GI";
                 assetgroupdetails.AdjustedValue = 0.0;
                 //Total Sum Assured For LI
-                if (txtHealthInsuranceCoverSA.Text != string.Empty)
+                if (txtHealthInsuranceCoverSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtHealthInsuranceCoverSA.Text.Trim()),0);
                 }
-                if (txtPropertyInsuranceCoverSA.Text != string.Empty)
+                if (txtPropertyInsuranceCoverSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtPropertyInsuranceCoverSA.Text.Trim()),0);
                 }
-                if (txtPersonalAccidentSA.Text != string.Empty)
+                if (txtPersonalAccidentSA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtPersonalAccidentSA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtPersonalAccidentSA.Text.Trim()),0);
                 }
-                if (txtOthersGISA.Text != string.Empty)
+                if (txtOthersGISA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.Value += Math.Round(double.Parse(txtOthersGISA.Text),0);
+                    assetgroupdetails.Value += Math.Round(double.Parse(txtOthersGISA.Text.Trim()),0);
                 }
                 //Adjusted Sum Assured for GI
-                if (txtHealthInsuranceCoverA.Text != string.Empty)
+                if (txtHealthInsuranceCoverA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtHealthInsuranceCoverA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtHealthInsuranceCoverA.Text.Trim()),0);
                 }
-                if (txtPropertyInsuranceCoverA.Text != string.Empty)
+                if (txtPropertyInsuranceCoverA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPropertyInsuranceCoverA.Text.Trim()),0);
                 }
-                if (txtPersonalAccidentA.Text != string.Empty)
+                if (txtPersonalAccidentA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPersonalAccidentA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtPersonalAccidentA.Text.Trim()),0);
                 }
-                if (txtOthersGIA.Text != string.Empty)
+                if (txtOthersGIA.Text.Trim() != string.Empty)
                 {
-                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtOthersGIA.Text),0);
+                    assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtOthersGIA.Text.Trim()),0);
                 }
                 assetgroupdetailslist.Add(assetgroupdetails);
                 // General Insurance second Level
@@ -1773,74 +1817,82 @@ namespace WealthERP.FP
                 VoFPSuperlite.CustomerProspectExpenseDetailsVo expensedetailsvo;
                 List<CustomerProspectExpenseDetailsVo> expensedetailsvolist = new List<CustomerProspectExpenseDetailsVo>();
                 //Transportation = Nothing but Conveyance
-                if (txtConveyance.Text != string.Empty)
+                if (txtConveyance.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 1;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtConveyance.Text),0);
+                    if(txtConveyance.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtConveyance.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Food
-                if (txtFood.Text != string.Empty)
+                if (txtFood.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 2;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtFood.Text),0);
+                    if (txtFood.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtFood.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Rent
-                if (txtRent.Text != string.Empty)
+                if (txtRent.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 3;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtRent.Text),0);
+                    if (txtRent.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtRent.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Utilities
-                if (txtUtilites.Text != string.Empty)
+                if (txtUtilites.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 4;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtUtilites.Text),0);
+                    if (txtUtilites.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtUtilites.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Health & Personal Care
-                if (txtHealthPersonalCare.Text != string.Empty)
+                if (txtHealthPersonalCare.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 5;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtHealthPersonalCare.Text),0);
+                    if (txtHealthPersonalCare.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtHealthPersonalCare.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Personal Wear
-                if (txtPersonalWear.Text != string.Empty)
+                if (txtPersonalWear.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 6;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtPersonalWear.Text),0);
+                    if (txtPersonalWear.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtPersonalWear.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Entertainment & Holidays
-                if (txtEntertainmentHolidays.Text != string.Empty)
+                if (txtEntertainmentHolidays.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 7;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtEntertainmentHolidays.Text),0);
+                    if (txtEntertainmentHolidays.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtEntertainmentHolidays.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Domestic Help
-                if (txtDomesticHelp.Text != string.Empty)
+                if (txtDomesticHelp.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 8;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtDomesticHelp.Text),0);
+                    if (txtDomesticHelp.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtDomesticHelp.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1854,11 +1906,12 @@ namespace WealthERP.FP
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //Other Expenses
-                if (txtOthersExpense.Text != string.Empty)
+                if (txtOthersExpense.Text.Trim() != string.Empty)
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 10;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtOthersExpense.Text),0);
+                    if (txtOthersExpense.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtOthersExpense.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1872,20 +1925,22 @@ namespace WealthERP.FP
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //For MF SIP
-                if ((txtMFSIPMIS.Text != string.Empty))
+                if ((txtMFSIPMIS.Text.Trim() != string.Empty))
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 12;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtMFSIPMIS.Text),0);
+                    if (txtMFSIPMIS.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtMFSIPMIS.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
                 //For Reccuring Deposit
-                if ((txtReccuringDeposit.Text != string.Empty))
+                if ((txtReccuringDeposit.Text.Trim() != string.Empty))
                 {
                     expensedetailsvo = new CustomerProspectExpenseDetailsVo();
                     expensedetailsvo.ExpenseCategoryCode = 13;
-                    expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtReccuringDeposit.Text),0);
+                    if (txtReccuringDeposit.Text.Trim() != string.Empty)
+                        expensedetailsvo.ExpenseValue = Math.Round(double.Parse(txtReccuringDeposit.Text.Trim()),0);
                     expensedetailsvolist.Add(expensedetailsvo);
                     totalexpense += expensedetailsvo.ExpenseValue;
                 }
@@ -1904,8 +1959,12 @@ namespace WealthERP.FP
                 customerprospectvo.TotalAssets = totalasset;
                 customerprospectvo.TotalExpense = totalexpense;
                 customerprospectvo.TotalGeneralInsurance = totalgi;
-                if(txtDisposable.Text != "")
-                    customerprospectvo.TotalIncome = int.Parse(txtDisposable.Text);
+                //if(txtDisposable.Text.Trim() != "")
+                //    customerprospectvo.TotalIncome = int.Parse(txtDisposable.Text.Trim());
+
+                customerprospectvo.TotalIncome = totalincome;
+
+
                 customerprospectvo.TotalLiabilities = totalliabilities;
                 customerprospectvo.TotalLifeInsurance = totalli;
                 //==========================================================================================================================
@@ -2195,11 +2254,11 @@ namespace WealthERP.FP
                         txtOthersIncome.Text = cpid.IncomeValue.ToString();
                         totalincome += cpid.IncomeValue;
                     }
-                    if (cpid.IncomeCategoryCode == 7)
-                    {
-                        txtDisposable.Text = cpid.IncomeValue.ToString();
-                        //totalincome += cpid.IncomeValue;
-                    }
+                    //if (cpid.IncomeCategoryCode == 7)
+                    //{
+                    //    txtDisposable.Text = cpid.IncomeValue.ToString();
+                    //    //totalincome += cpid.IncomeValue;
+                    //}
 
                 }
             }
@@ -2837,11 +2896,14 @@ namespace WealthERP.FP
             
         //}
 
-        protected void btnSlabGettingCalculator_Click(object sender, EventArgs e)
-        {
-            mdlPopupSlabCalculate.TargetControlID = "btnSlabGettingCalculator";
-            mdlPopupSlabCalculate.Show();
-        }
+        // Commented for altering the TaxSlab Requirements..
+        // Commented by Vinayak Patil
+
+        //protected void btnSlabGettingCalculator_Click(object sender, EventArgs e)
+        //{
+        //    mdlPopupSlabCalculate.TargetControlID = "btnSlabGettingCalculator";
+        //    mdlPopupSlabCalculate.Show();
+        //}
 
         
     }

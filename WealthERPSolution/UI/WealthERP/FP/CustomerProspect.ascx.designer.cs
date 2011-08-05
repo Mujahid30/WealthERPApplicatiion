@@ -1130,24 +1130,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtCapitalGains;
         
         /// <summary>
-        /// lblDisposable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDisposable;
-        
-        /// <summary>
-        /// txtDisposable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDisposable;
-        
-        /// <summary>
         /// lblBusinessAndProfession control.
         /// </summary>
         /// <remarks>
@@ -1164,15 +1146,6 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBusinessAndProfession;
-        
-        /// <summary>
-        /// btnSlabGettingCalculator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnSlabGettingCalculator;
         
         /// <summary>
         /// lblAgriculturalIncome control.
