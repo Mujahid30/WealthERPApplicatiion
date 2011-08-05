@@ -97,12 +97,12 @@
         <asp:ListItem Text="Category Wise" Value="Category Wise"></asp:ListItem>
     </asp:DropDownList>
 </td>
-<td id="Td6" runat="server">
-   
-</td>
-<td id="Td7" runat="server">
-   
-</td>
+ <td class="style1">
+   <asp:RadioButton ID="rbtnPickDate" Class="cmbField" Checked="True" runat="server" Text="Pick a Date" GroupName="Date" onclick="DisplayDates('DATE_RANGE')" />
+  </td>
+  <td>
+  <asp:RadioButton ID="rbtnPickPeriod" Class="cmbField" runat="server" Text="Pick a Period" GroupName="Date" onclick="DisplayDates('PERIOD')"/>
+ </td>
 </tr>
 
 
@@ -114,7 +114,7 @@
 <tr>
 
      <td colspan="6">
-     
+     <%--
                         <table id="tblPickDate" border="0">
                             <tr>
                                 <td class="style1">
@@ -124,7 +124,7 @@
                                    <asp:RadioButton ID="rbtnPickPeriod" Class="cmbField" runat="server" Text="Pick a Period" GroupName="Date" onclick="DisplayDates('PERIOD')"/>
                                 </td>
                             </tr>
-                        </table>
+                        </table>--%>
                         
       
                         <table id="tblRange">
@@ -174,7 +174,7 @@
                             </tr>
                         </table>
                         
-                        <asp:Button ID="btnView" runat="server" CssClass="PCGMediumButton"  Text="View Commission" onclick="btnView_Click" OnClientClick="return validation()"/>
+                        <asp:Button ID="btnView" runat="server" CssClass="PCGButton"  Text="Go" onclick="btnView_Click" OnClientClick="return validation()"/>
 </td>
 
 
