@@ -73,21 +73,21 @@ namespace WealthERP.Customer
                 ddlAccountType.DataTextField = "BankAccountType";
                 ddlAccountType.DataValueField = "BankAccountTypeCode";
                 ddlAccountType.DataBind();
-                ddlAccountType.Items.Insert(0, new ListItem("Select an Account Type", "Select an Account Type"));
+                ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
 
                 dtModeofOperation = XMLBo.GetModeOfHolding(path);
                 ddlModeOfOperation.DataSource = dtModeofOperation;
                 ddlModeOfOperation.DataTextField = "ModeOfHolding";
                 ddlModeOfOperation.DataValueField = "ModeOfHoldingCode";
                 ddlModeOfOperation.DataBind();
-                ddlModeOfOperation.Items.Insert(0, new ListItem("Select a Mode of Holding", "Select a Mode of Holding"));
+                ddlModeOfOperation.Items.Insert(0, new ListItem("Select", "Select"));
 
                 dtStates = XMLBo.GetStates(path);
                 ddlBankAdrState.DataSource = dtStates;
                 ddlBankAdrState.DataTextField = "StateName";
                 ddlBankAdrState.DataValueField = "StateCode";
                 ddlBankAdrState.DataBind();
-                ddlBankAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+                ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
             }
 
             catch (BaseApplicationException Ex)
