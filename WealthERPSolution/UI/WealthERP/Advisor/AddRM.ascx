@@ -102,7 +102,7 @@
     <tr>
         <td colspan="4" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
-                Note: Fields marked with ' * ' are compulsory</label>
+                Note: Fields marked with ' * ' are mandatory</label>
         </td>
     </tr>
    
@@ -154,17 +154,19 @@
                 RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow">
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
-            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*</span>
+            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+             <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+           
            <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnSubmit" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
            
             
               
         </td>
-        <td class="style1">
+      <%--  <td class="style1">
         
           <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
            
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td class="leftField">
@@ -344,7 +346,8 @@
         </td>
         <td class="rightField" colspan="3">
             <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span2" class="spnRequiredField">*</span>
+            <span id="Span2" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail" ValidationGroup="btnSubmit"
                 ErrorMessage="Please enter an Email ID" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -448,11 +451,11 @@
             &nbsp;
         </td>
     </tr>
-     <tr>
+<%--     <tr>
         <td colspan="4">            
             <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
         </td>
-    </tr>
+    </tr>--%>
      <tr>
         <td colspan="4">
             &nbsp;
