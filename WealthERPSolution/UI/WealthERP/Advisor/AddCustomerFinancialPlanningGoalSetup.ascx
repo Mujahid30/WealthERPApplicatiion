@@ -594,7 +594,7 @@
             </table>
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
-    <ajaxToolkit:TabPanel ID="tpnlOutput" runat="server" HeaderText="Output" Style="width: 100%;
+    <ajaxToolkit:TabPanel ID="tpnlOutput" runat="server" HeaderText="Goals Overview" Style="width: 100%;
         height: 100%">
         <ContentTemplate>
             <table class="TableBackground" width="100%">
@@ -875,13 +875,13 @@
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
     
-    <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Funding Gap" Style="width: 100%;
+    <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Goal Funding Status" Style="width: 100%;
         height: 100%">
         <ContentTemplate>
         <table class="TableBackground" width="65%">
           <tr>
                     <td class="HeaderCell">
-                        <asp:Label ID="lblFundGapHeader" runat="server" CssClass="HeaderTextBig" Text="Goal Funding Gap"></asp:Label>
+                        <asp:Label ID="lblFundGapHeader" runat="server" CssClass="HeaderTextBig" Text="Goal Funding Status"></asp:Label>
                         
                     </td>
           </tr>
@@ -896,7 +896,7 @@
                             <FooterStyle CssClass="FooterStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" />
                             <Columns>
-                            <asp:TemplateField HeaderText="Sources" ItemStyle-HorizontalAlign="Left" >
+                            <asp:TemplateField HeaderText="Available Funds" ItemStyle-HorizontalAlign="Left" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblMoneySource" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("Source") %>'>
@@ -904,7 +904,7 @@
                                     </ItemTemplate>
                              </asp:TemplateField>
                              
-                             <asp:TemplateField HeaderText="Goal Funding" ItemStyle-HorizontalAlign="Left" >
+                             <asp:TemplateField HeaderText="Goal Requirement" ItemStyle-HorizontalAlign="Left" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblInvestedAmount" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalFunding") %>'>
@@ -942,6 +942,17 @@
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
         </asp:GridView>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        </td>
+        </tr>
+        
+        <tr>
+        
+        <td>
+          <asp:Label ID="lblNoteFunding" runat="server" CssClass="FieldName" Text="Note :- Data display is for indicating purpose only."></asp:Label>
         </td>
         </tr>
         </table>

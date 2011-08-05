@@ -40,6 +40,11 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         int AdvisorRMId = 0;
 
+        int investmentTotal = 0;
+        int surplusTotal = 0;
+        int investedAmountForAllGaol = 0;
+        int monthlySavingRequired = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
@@ -56,7 +61,7 @@ namespace WealthERP.Advisor
                 SessionBo.CheckSession();
                 if (ViewState["FilterValue"] != null)
                     ActiveFilter = ViewState["FilterValue"].ToString();
-
+                lblNoteFunding.Visible = false;
                 if (!IsPostBack)
                 {
                     InflationPercent = GoalSetupBo.GetInflationPercent();
@@ -117,6 +122,7 @@ namespace WealthERP.Advisor
                             TabContainer1.ActiveTabIndex = 0;
                             trRTParaGraph.Visible = false;
                             trOtherGoalParagraph.Visible = false;
+                            BindGoalGapTabGrid(true, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
 
                         }
                         else
@@ -129,6 +135,8 @@ namespace WealthERP.Advisor
                                 TabContainer1.ActiveTabIndex = 1;
                                 trRTParaGraph.Visible = true;
                                 trOtherGoalParagraph.Visible = true;
+
+                                BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
 
                             }
                             //this.BindGoalOutputGridView(1);
@@ -148,6 +156,7 @@ namespace WealthERP.Advisor
                                     trRTParaGraph.Visible = false;
                                     trOtherGoalParagraph.Visible = true;
 
+                                    BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
                                     //gvRetirement.Visible = true;
                                     //lblTotalText.Visible = true;
                                     //lblTotalText.Text = "Total Saving Required Per Month=RS." + hidRTSaveReq.Value;
@@ -164,6 +173,7 @@ namespace WealthERP.Advisor
                                         TabContainer1.ActiveTabIndex = 1;
                                         trRTParaGraph.Visible = true;
                                         trOtherGoalParagraph.Visible = false;
+                                        BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
                                     }
 
 
@@ -239,6 +249,7 @@ namespace WealthERP.Advisor
                 TabContainer1.ActiveTabIndex = 0;
                 trRTParaGraph.Visible = false;
                 trOtherGoalParagraph.Visible = false;
+                BindGoalGapTabGrid(true, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
 
             }
             else
@@ -251,6 +262,7 @@ namespace WealthERP.Advisor
                     TabContainer1.ActiveTabIndex = 1;
                     trRTParaGraph.Visible = true;
                     trOtherGoalParagraph.Visible = true;
+                    BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
                 }
                 //this.BindGoalOutputGridView(1);
                 else
@@ -268,6 +280,7 @@ namespace WealthERP.Advisor
                         trRTParaGraph.Visible = false;
                         trOtherGoalParagraph.Visible = true;
                         TabContainer1.ActiveTabIndex = 1;
+                        BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
 
                         //gvRetirement.Visible = true;
                         //lblTotalText.Visible = true;
@@ -285,6 +298,7 @@ namespace WealthERP.Advisor
                             trRTParaGraph.Visible = true;
                             trOtherGoalParagraph.Visible = false;
                             TabContainer1.ActiveTabIndex = 1;
+                            BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
 
                         }
 
@@ -842,10 +856,7 @@ namespace WealthERP.Advisor
         private int BindGoalOutputGridView(int ActiveFlag)
         {
 
-            int investmentTotal = 0;
-            int surplusTotal = 0;
-            int investedAmountForAllGaol = 0;
-            int monthlySavingRequired = 0;
+           
 
             try
             {
@@ -855,14 +866,14 @@ namespace WealthERP.Advisor
                 GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(int.Parse(Session["FP_UserID"].ToString()), ActiveFlag,out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
 
 
-                if (GoalProfileList == null)
-                {
-                    BindGoalGapTabGrid(true, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
-                }
-                else
-                {
-                    BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
-                }
+                //if (GoalProfileList == null)
+                //{
+                //    BindGoalGapTabGrid(true, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
+                //}
+                //else
+                //{
+                //    BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
+                //}
                 
 
 
@@ -966,13 +977,13 @@ namespace WealthERP.Advisor
                         drGoalProfile["GoalID"] = goalProfileSetupVo.GoalId.ToString();
                         drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
                         drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
-                        drGoalProfile["CostToday"] = String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
+                        drGoalProfile["CostToday"] =goalProfileSetupVo.CostOfGoalToday!=0 ? String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))):"0"; 
                         allGoalCostToday += goalProfileSetupVo.CostOfGoalToday;
-                        drGoalProfile["CurrentInvestment"] = String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal!=0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))):"0";
                         currentInvestmentTotal += goalProfileSetupVo.CurrInvestementForGoal;
-                        drGoalProfile["SavingRequired"] = Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drGoalProfile["SavingRequired"] =goalProfileSetupVo.MonthlySavingsReq!=0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")):"0";
                         monthlySaveRequired += goalProfileSetupVo.MonthlySavingsReq;
-                        drGoalProfile["GoalAmount"] = Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drGoalProfile["GoalAmount"] =goalProfileSetupVo.FutureValueOfCostToday !=0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")):"0";
                         allGoalCostInGoalYear += goalProfileSetupVo.FutureValueOfCostToday;
                         drGoalProfile["GoalPrifileDate"] = goalProfileSetupVo.GoalProfileDate.ToShortDateString();
                         drGoalProfile["GoalYear"] = goalProfileSetupVo.GoalYear.ToString();
@@ -1071,9 +1082,23 @@ namespace WealthERP.Advisor
                     DataRow drGoalFundedGap;
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "ExistingInvestment = Rs. " + ( investmentTotal==0? investmentTotal.ToString():investmentTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = Rs. " + (investedAmountForAllGaol==0?investedAmountForAllGaol.ToString():investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drGoalFundedGap["GoalGap"] = "Rs. " + (existingInvestmentGap==0? existingInvestmentGap.ToString():existingInvestmentGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drGoalFundedGap["Source"] = "ExistingInvestment = " + investmentTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (investedAmountForAllGaol != 0)
+                    {
+                        drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = " + investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    }
+                    else
+                    { 
+                        drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = 0" ;
+                    }
+                    if (existingInvestmentGap != 0)
+                    {
+                        drGoalFundedGap["GoalGap"] = existingInvestmentGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    }
+                    else
+                    {
+                        drGoalFundedGap["GoalGap"] = "0";
+                    }
                     if (existingInvestmentGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
@@ -1082,9 +1107,29 @@ namespace WealthERP.Advisor
 
 
                     drGoalFundedGap = dtGoalFundedGap.NewRow();
-                    drGoalFundedGap["Source"] = "Available Surplus = Rs. " + (surplusTotal==0?surplusTotal.ToString():surplusTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month = Rs. " + (monthlySavingRequired==0?monthlySavingRequired.ToString(): monthlySavingRequired.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drGoalFundedGap["GoalGap"] = "Rs. " +(surplusGap==0? surplusGap.ToString(): surplusGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (surplusTotal != 0)
+                    {
+                        drGoalFundedGap["Source"] = "Available Surplus (monthly) = " + surplusTotal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    }
+                    else
+                    {
+                        drGoalFundedGap["Source"] = "Available Surplus (monthly)= 0";
+                    }
+                    if (monthlySavingRequired != 0)
+                    {
+                        drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month =  " + monthlySavingRequired.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    }
+                    else
+                    {
+                        drGoalFundedGap["GoalFunding"] = "Amount to be saved Per month = 0";
+                    }
+                    if (surplusGap != 0)
+                    {
+                        drGoalFundedGap["GoalGap"] = surplusGap.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                    }
+                    else
+                        drGoalFundedGap["GoalGap"] = "0";
                     if (surplusGap < 0)
                         drGoalFundedGap["IsGap"] = 1;
                     else
@@ -1095,7 +1140,7 @@ namespace WealthERP.Advisor
 
                     gvGoalFundingGap.DataSource = dtGoalFundedGap;
                     gvGoalFundingGap.DataBind();
-
+                    lblNoteFunding.Visible = true;
                     gvGoalFundingGap.Columns[3].Visible = false;
                 }
             }
