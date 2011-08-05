@@ -390,7 +390,7 @@ namespace DaoReports
             {
 
                 String[] portfolioIds = reports.PortfolioIds.Split(',');
-                if (portfolioIds.Count() > 1)
+                if (portfolioIds.Count() >= 1)
                 {
                     foreach (string strPortfoliioId in portfolioIds)
                     {
@@ -592,7 +592,7 @@ namespace DaoReports
             {
 
              String[] portfolioIds = reports.PortfolioIds.Split(',');
-             if (portfolioIds.Count()>1)
+             if (portfolioIds.Count()>=1)
               {
                 foreach (string strPortfoliioId in portfolioIds)
                 {

@@ -33,7 +33,7 @@ namespace AmpsysJobDaemon
             DateTime tradeDate = new DateTime();
             int LogId = 0;
            // if (DateTime.Now.TimeOfDay.Hours < 1)
-                tradeDate = DateTime.Today.AddMonths(-1);
+            tradeDate = DateTime.Today;
            // else
               //  tradeDate = DateTime.Today;
 
@@ -41,8 +41,7 @@ namespace AmpsysJobDaemon
             DateTime EQValuationDate;
 
             adviserVoList = adviserMaintenanceBo.GetAdviserList();
-            while (tradeDate.Month <= DateTime.Now.Month && tradeDate.Year <= DateTime.Now.Year)
-            {
+           
                 for (int i = 0; i < adviserVoList.Count; i++)
                 {
                     dsMFValuationDate = customerPortfolioBo.GetAdviserValuationDate(adviserVoList[i].advisorId, "MF", tradeDate.Month, tradeDate.Year);
@@ -106,7 +105,7 @@ namespace AmpsysJobDaemon
                     foreach (DataRow drEQ in dsEQValuationDate.Tables[0].Rows)
                     {
                         EQValuationDate = DateTime.Parse(drEQ["WTD_Date"].ToString());
-                        if (EQValuationDate != DateTime.Today)
+                        if (EQValuationDate != DateTime.Today || DateTime.Today.Hour > 23)
                         {
                             if (drEQ["STAT"].ToString() == "Pending. Changes Found")
                             {
@@ -157,8 +156,7 @@ namespace AmpsysJobDaemon
                     }
 
                 }
-                tradeDate = tradeDate.AddMonths(1);
-            }
+           
             ErrorMsg = "";
             return JobStatus.SuccessFull;
         }

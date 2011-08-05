@@ -3380,16 +3380,35 @@ namespace WealthERP.Reports
             else if (CurrentReportType == ReportType.FinancialPlanning)
                 subject = "Financial Planning Report";
             else if (CurrentReportType == ReportType.FPOfflineForm)
-                subject = "FP Offline Form";
-
-            strMail.Append("Dear " + customerName + ",<br/>");
-            strMail.Append("<br/>Please find attached " + subject + ".");
-            if (!string.IsNullOrEmpty(advisorVo.Website))
             {
-                strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone + "<br/>Website: " + advisorVo.Website);
+                subject = "FP Offline Form";
+                
+            }
+
+            if (CurrentReportType == ReportType.FPOfflineForm)
+            {
+                strMail.Append("Dear " + customerName + ",<br/>");
+                strMail.Append("<br/>Please find attached " + subject + ".");
+                if (!string.IsNullOrEmpty(advisorVo.Website))
+                {
+                    strMail.Append("<br/><br/>Regards,<br/>" + RMDataFormatFormat(rmVo) + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneDirectStd +"-" + rmVo.OfficePhoneDirectNumber + "<br/>Website: " + advisorVo.Website);
+                }
+                else
+                    strMail.Append("<br/><br/>Regards,<br/>" + RMDataFormatFormat(rmVo) + "<br/>Mo: " + rmVo.Mobile + "<br/>Ph: +" + rmVo.OfficePhoneDirectStd + "-" + rmVo.OfficePhoneDirectNumber);
+
             }
             else
-                strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone);
+            {
+
+                strMail.Append("Dear " + customerName + ",<br/>");
+                strMail.Append("<br/>Please find attached " + subject + ".");
+                if (!string.IsNullOrEmpty(advisorVo.Website))
+                {
+                    strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone + "<br/>Website: " + advisorVo.Website);
+                }
+                else
+                    strMail.Append("<br/><br/>Regards,<br/>" + customerVo.RMName + "<br/>Mo: " + customerVo.RMMobile + "<br/>Ph: +" + customerVo.RMOfficePhone);
+            }
 
             return strMail.ToString();
 
@@ -3790,6 +3809,81 @@ namespace WealthERP.Reports
             else if (string.IsNullOrEmpty(customerVo.Salutation.Trim()) && string.IsNullOrEmpty(customerVo.FirstName.Trim()) && string.IsNullOrEmpty(customerVo.MiddleName.Trim()) && !string.IsNullOrEmpty(customerVo.LastName.Trim()))
             {
                 strFullCustomerName = customerVo.LastName.Trim();
+            }
+            else
+                strFullCustomerName = string.Empty;
+
+            return strFullCustomerName;
+        }
+
+        public string RMDataFormatFormat(RMVo rmVo)
+        {
+            string strFullCustomerName;
+            if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName =  rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.MiddleName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName =  rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim() + " " + rmVo.LastName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.MiddleName.Trim() + " " + rmVo.LastName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim();
+            }
+            else if (!string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.FirstName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.MiddleName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && !string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.MiddleName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName =  rmVo.LastName.Trim();
+            }
+            else if (string.IsNullOrEmpty(rmVo.FirstName.Trim()) && string.IsNullOrEmpty(rmVo.MiddleName.Trim()) && !string.IsNullOrEmpty(rmVo.LastName.Trim()))
+            {
+                strFullCustomerName = rmVo.LastName.Trim();
             }
             else
                 strFullCustomerName = string.Empty;
