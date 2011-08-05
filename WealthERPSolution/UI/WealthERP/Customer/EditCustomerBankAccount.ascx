@@ -145,7 +145,7 @@
             <asp:Label ID="Label30" runat="server" Text="Bank Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left" valign="top" style="width:40%;">
-            <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField" style="width:250px;"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvBankName" ControlToValidate="txtBankName" ErrorMessage="<br />Please enter a Bank Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
@@ -163,7 +163,7 @@
             <asp:Label ID="Label31" runat="server" Text="Branch Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left" valign="top" style="width:30%;">
-            <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField" style="width:250px;"></asp:TextBox>
             <span id="Span5" class="spnRequiredField">*</span>
              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBranchName" Display="Dynamic" ErrorMessage="<br />Please enter a Bank Name"
                  runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
@@ -219,7 +219,7 @@
             <asp:Label ID="Label19" runat="server" Text="Line1(House No/Building):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
-            <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBankAdrLine1" runat="server" CssClass="txtField" style="width:250px;"></asp:TextBox>
         </td>
         <td class="style3">
             &nbsp;</td>
@@ -237,7 +237,7 @@
             <asp:Label ID="Label20" runat="server" Text="Line2(Street):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
-            <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField" style="width:250px;"></asp:TextBox>
         </td>
         <td class="style3" align="left">
             &nbsp;</td>
@@ -255,7 +255,7 @@
             <asp:Label ID="Label21" runat="server" Text="Line3(Area):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style8" align="left">
-            <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField" style="width:250px;"></asp:TextBox>
         </td>
         <td class="style3">
             &nbsp;</td>

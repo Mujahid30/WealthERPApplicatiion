@@ -93,7 +93,7 @@ namespace WealthERP.Customer
                 ddlBankAdrState.DataTextField = "StateName";
                 ddlBankAdrState.DataValueField = "StateCode";
                 ddlBankAdrState.DataBind();
-                ddlBankAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+                ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
 
             }
             catch (BaseApplicationException Ex)
