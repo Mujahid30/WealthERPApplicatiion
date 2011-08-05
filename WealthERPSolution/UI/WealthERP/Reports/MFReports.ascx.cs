@@ -841,14 +841,9 @@ namespace WealthERP.Reports
 
         }
 
-        protected void btnEmailReport_Click(object sender, EventArgs e)
-        {
-
-            int count = 0;
-            count = LBSelectCustomer.Items.Count;
-            if (count > 50)
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert(' You can select  50 Customers at a time ');", true);
-        }
+        //protected void btnEmailReport_Click(object sender, EventArgs e)
+        //{
+        //}
 
     }
 }

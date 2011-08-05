@@ -10,23 +10,7 @@
 
 <script type="text/javascript" language="javascript">
 
-    // Check Number of Customers are more than 50 or not.
-//    function CountCustomer() {
-//        var listBox = document.getElementById("<%= LBSelectCustomer.ClientID %>");
-//        //alert("hi");
-//        var Count = 0;
-//        Count = listBox.items.Count();
-//        alert(Count);
-//        if (Count > 50) {
-//            alert("Can not Select More than 50 Customers");
-//            return false;
-//        }
-//        else {
-//            return true;
-//        }
-
-//    }
-
+  
     // Check Number of Customers are more than 50 or not.
     function validate(type) {
        
@@ -45,11 +29,7 @@
                 alert("Please Select Customers");
                 return false;
             }
-//            else {
-
-//                CountCustomer();
-//            }
-        }
+     }
           
          
         
@@ -71,7 +51,17 @@
                  }
              }
          }
+         
 
+         //No of customer restriction for Bulk Mail.
+         if (type == 'mail') {             
+             var selectedCustomer = document.getElementById("<%=LBSelectCustomer.ClientID%>");
+             var count=selectedCustomer.options.length;
+             if (count > 50) {
+                 alert("You can select only 50 Customers at a time");
+                 return false;
+             }            
+         }
          
 
         //Report selection check
@@ -91,6 +81,7 @@
                 return false;
             }
         }
+        
         
 
         //Customer name check
@@ -1172,8 +1163,7 @@
                                                         <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" 
                                                             OnClientClick="return validate('mail')" 
                                                             
-                                                            Text="Email Report" ValidationGroup="btnEmail" 
-                                                            onclick="btnEmailReport_Click" />
+                                                            Text="Email Report" ValidationGroup="btnEmail"  />
                                                         &nbsp;&nbsp;
                                                     </td>
                                                 </tr>
