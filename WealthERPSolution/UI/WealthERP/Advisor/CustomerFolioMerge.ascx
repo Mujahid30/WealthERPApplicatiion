@@ -89,14 +89,14 @@
 <tr>
 <td style="width:100px"></td>
 <td style="width:120px" align="right">
-    <asp:Label ID="lblAction" runat="server" Text="Select Action:" CssClass="FieldName"></asp:Label></td>
+    <asp:Label ID="lblAction" runat="server" Text="Action:" CssClass="FieldName"></asp:Label></td>
 <td style="width:300px">
     <asp:DropDownList ID="ddlMovePortfolio" runat="server" CssClass="cmbLongField" AutoPostBack="true"
         onselectedindexchanged="ddlMovePortfolio_SelectedIndexChanged">
-        <asp:ListItem Value="S">Select Action</asp:ListItem>
-        <asp:ListItem Value="Merge">Merge</asp:ListItem>
-        <asp:ListItem Value="MtoAC">Move Folio to another Customer</asp:ListItem>
-        <asp:ListItem Value="MtoAP">Move Folio to another Portfolio</asp:ListItem>
+        <asp:ListItem Value="S">Select</asp:ListItem>
+        <asp:ListItem Value="Merge">Folio merge</asp:ListItem>
+        <asp:ListItem Value="MtoAC">Folio transfer to another customer</asp:ListItem>
+        <asp:ListItem Value="MtoAP">Folio Transfer to another portfolio</asp:ListItem>
     </asp:DropDownList>
 </td>
 <td style="width:200px">
@@ -108,18 +108,17 @@
 <tr id="trMergeToAnotherAMC" runat="server" visible="false">
         <td style="width:100px"></td>
         <td align="right">
-            <asp:Label ID="lblMergeTo" Text="Merge To:" CssClass="FieldName" runat="server"></asp:Label>
+            <asp:Label ID="lblMergeTo" Text="Merge to folio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlAdvisorBranchList" runat="server" CssClass="cmbLongField">
+            <asp:ListItem Value="0">Select</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td>
-            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" ValidationGroup="vgBtn" OnClick="btnEdit_Click" Text="Merge" OnClientClick="return CheckFolioSelected();"/>
+            <asp:Button ID="btnmerge" CssClass="PCGButton" runat="server" ValidationGroup="vgBtn" OnClick="btnEdit_Click" Text="Submit" OnClientClick="return CheckFolioSelected();"/>
           <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="vgBtn" ControlToValidate="ddlAdvisorBranchList" ValueToCompare="null" ErrorMessage="Field is required" Operator="NotEqual" ></asp:CompareValidator>--%>
-        </td>
-        <td>
-            &nbsp;</td>
+        </td>        
     </tr>
     <tr>
         <td></td>
@@ -132,7 +131,7 @@
     <tr id="trPickCustomer" runat="server" visible="false">
         <td></td>
         <td align="right">
-        <asp:Label ID="lblPickCustomer" Text="Move Folio to:" CssClass="FieldName" runat="server"></asp:Label>
+        <asp:Label ID="lblPickCustomer" Text="Customer:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
         <%--<asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtField" OnValueChanged="txtPickCustomer_ValueChanged" ></asp:TextBox>--%>
@@ -140,7 +139,7 @@
               <asp:TextBox ID="txtPickCustomer" runat="server" CssClass="txtLongAddField" 
               AutoComplete="Off"  AutoPostBack="True" 
               ontextchanged="txtPickCustomer_TextChanged" ></asp:TextBox>
-              <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer" WatermarkText="Type the Customer Name"
+              <cc1:TextBoxWatermarkExtender ID="txtPickCustomer_water" TargetControlID="txtPickCustomer" WatermarkText="Enter few characters"
               runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
               <ajaxToolkit:AutoCompleteExtender ID="txtPickCustomer_autoCompleteExtender" runat="server"
               TargetControlID="txtPickCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
@@ -152,7 +151,7 @@
               <span id="Span1" class="spnRequiredField">*</span>
               <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                 few characters of customer name.</span>--%>
-            </td>   
+                </td>   
         <td>
                 <asp:RequiredFieldValidator ID="rfvPickCustomer" ControlToValidate="txtPickCustomer" ErrorMessage="Please select a customer."
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
@@ -163,31 +162,37 @@
     <tr id="trPickPortfolio" runat="server" visible="false">
         <td style="width:100px"></td>
         <td align="right">
-        <asp:Label ID="lblPickPortfolio" Text="Pick a Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
+        <asp:Label ID="lblPickPortfolio" Text="Portfolio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbLongField">
+                <asp:ListItem Value="0">Select </asp:ListItem>
             </asp:DropDownList>                
             <span id="Span2" class="spnRequiredField">*
             </span>                
         </td>
         <td>
+            <span id="Span4" class="spnRequiredField">
             <span id="Span3" class="spnRequiredField">
          <asp:RequiredFieldValidator ID="rfvddlPortfolio" ControlToValidate="ddlPortfolio" ErrorMessage="Please pick a portfolio"
         Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
         </asp:RequiredFieldValidator>
             </span>                
+            </span>                
         </td>                
     </tr>
    
-    <tr id="trBtnSubmit" runat="server" visible="false">
-        <td></td>
+    <tr id="trBtnSubmit" runat="server">
         <td>
-            &nbsp;</td>
+        </td>
+        <td>
+        </td>
         <td>
             <asp:Button ID="btnSubmitPortfolio" CssClass="PCGButton" runat="server" ValidationGroup="btnSubmit" OnClientClick="return CheckFolioSelected();"
             Text="Submit" onclick="btnSubmitPortfolio_Click"/>
         </td>
+        <td></td>
+        
     </tr>
 </table>
 
@@ -222,9 +227,15 @@
 
 <table width="100%">
  <td class="leftField" align="right">
+             
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
      </td>
+     <tr>
+        <td>
+            <asp:Label ID="Label1" class="Field" Text="Note: Select the folios below that needs to be transferred/merged." runat="server"></asp:Label>
+        </td>
+     </tr>
 
   <tr>
         <td colspan="3" allign="center" >

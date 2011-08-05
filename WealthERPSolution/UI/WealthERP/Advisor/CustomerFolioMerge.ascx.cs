@@ -368,9 +368,12 @@ namespace WealthERP.Advisor
         {
             CheckBox rdbGVRow = new CheckBox();
             rdbGVRow = GetGvRadioButton();
-            txtPickCustomer.Text = string.Empty;
             ddlAdvisorBranchList.Items.Clear();
-            ddlPortfolio.Items.Clear();
+            if (ddlMovePortfolio.SelectedValue != "MtoAC")
+            {
+                txtPickCustomer.Text = string.Empty;            
+                ddlPortfolio.Items.Clear();
+            }
             ReadCustomerGridDetails();
 
             int customerId = 0;
@@ -382,6 +385,19 @@ namespace WealthERP.Advisor
                 if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
                 {
                     customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                    if (ddlMovePortfolio.SelectedValue == "MtoAC")
+                    {
+                        if (string.IsNullOrEmpty(txtPickCustomer.Text.Trim()))
+                        {
+                            hdnCustomerId.Value = "0";
+                        }
+                        if (hdnCustomerId.Value.ToString() != "0")
+                        {
+                            bindDropdownPortfolio(int.Parse(hdnCustomerId.Value.ToString()));
+                        }
+            
+                    }
+                    else
                     bindDropdownPortfolio(customerId);
                     return;
                 }
@@ -405,6 +421,7 @@ namespace WealthERP.Advisor
                 if (((CheckBox)dr.FindControl("rdbGVRow")).Checked == true)
                 {
                     bindFolioDropDown(gvrcustomerId, gvramcCode, gvrfnumber);
+                    return;
                 }
             }            
         }
@@ -552,14 +569,12 @@ namespace WealthERP.Advisor
             if (string.IsNullOrEmpty(txtPickCustomer.Text.Trim()))
             {
                 hdnCustomerId.Value = "0";
+                ddlPortfolio.Items.Clear();
             }
             if (hdnCustomerId.Value.ToString() != "0")
             {
                 bindDropdownPortfolio(int.Parse(hdnCustomerId.Value.ToString()));
             }
-            
-
-            
         }
 
         private void bindDropdownPortfolio(int customerId)
@@ -687,6 +702,10 @@ namespace WealthERP.Advisor
             else if (ddlMovePortfolio.SelectedValue == "MtoAC")
             {                
                 showHideControls(2);
+                if (string.IsNullOrEmpty(txtPickCustomer.Text.Trim()))
+                {
+                    ddlPortfolio.Items.Clear();
+                }
             }
             else if (ddlMovePortfolio.SelectedValue == "MtoAP")
             {

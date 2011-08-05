@@ -140,13 +140,13 @@ namespace WealthERP.Advisor {
         protected global::AjaxControlToolkit.AutoCompleteExtender txtPickCustomer_autoCompleteExtender;
         
         /// <summary>
-        /// rfvPockCustomer control.
+        /// rfvPickCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPockCustomer;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPickCustomer;
         
         /// <summary>
         /// trPickPortfolio control.
@@ -273,6 +273,15 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// gvCustomerFolioMerge control.
