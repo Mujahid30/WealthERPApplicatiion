@@ -2058,9 +2058,9 @@
   </CustomerQualification>
 
   <SystematicTransaction>
-    <SystematicTransactionType SystemationTypeCode="SIP" SystematicType="Systematic InvestmentPlan" Deleted="False" />
-    <SystematicTransactionType SystemationTypeCode="SWP" SystematicType="Systematic Withdrawal Plan" Deleted="False" />
-    <SystematicTransactionType SystemationTypeCode="STP" SystematicType="Systematic Transfer Plan" Deleted="False" />
+    <SystematicTransactionType SystemationTypeCode="SIP" SystematicType="Systematic Investment Plan (SIP)" Deleted="False" />
+    <SystematicTransactionType SystemationTypeCode="SWP" SystematicType="Systematic Withdrawal Plan (SWP)" Deleted="False" />
+    <SystematicTransactionType SystemationTypeCode="STP" SystematicType="Systematic Transfer Plan (STP)" Deleted="False" />
   </SystematicTransaction>
 
   <CustomerProof>
