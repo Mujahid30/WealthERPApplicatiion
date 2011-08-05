@@ -236,6 +236,11 @@ namespace WealthERP.FP
                 
                 txtToalHealthInsurancePremium.Attributes.Add("readonly", "readonly");
 
+                txtToalHealthInsurancePremium.Attributes.Add("readonly", "readonly");
+                txtTotalPropertyInsurancePremium.Attributes.Add("readonly", "readonly");
+                txtTotalPersonalAccidentPremium.Attributes.Add("readonly", "readonly");
+                txtTotalPremiumOthers.Attributes.Add("readonly", "readonly");
+
                 //txtToalHealthInsurancePremium.Enabled = false;
             }
             catch (Exception ex)
