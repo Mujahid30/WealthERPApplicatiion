@@ -218,17 +218,17 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (ddlAction.SelectedValue.ToString() == "Delete")
                 {
-                    bool CheckMFFolioNoAssociationWithTransactions;
-                    CheckMFFolioNoAssociationWithTransactions = CustomerTransactionBo.CheckMFFOlioAssociatedWithTransactions(FolioId);
+                   // bool CheckMFFolioNoAssociationWithTransactions;
+                    //CheckMFFolioNoAssociationWithTransactions = CustomerTransactionBo.CheckMFFOlioAssociatedWithTransactions(FolioId);
 
-                    if (CheckMFFolioNoAssociationWithTransactions == true)
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Folio can not be deleted as some Transactions are Associated with this Folio Number.');", true);
-                    }
-                    else if (CheckMFFolioNoAssociationWithTransactions == false)
-                    {
+                    //if (CheckMFFolioNoAssociationWithTransactions == true)
+                    //{
+                      //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Folio can not be deleted as some Transactions are Associated with this Folio Number.');", true);
+                   // }
+                    //else if (CheckMFFolioNoAssociationWithTransactions == false)
+                    //{
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "ShowAlertToDelete();", true);
-                    }
+                   // }
 
                 }
             }
@@ -362,10 +362,16 @@ namespace WealthERP.CustomerPortfolio
 
             if (HiddenVal == "1")
             {
-                bool DeleteMFFolioId;
-                DeleteMFFolioId = CustomerTransactionBo.DeleteMFFolio(FolioId);
-
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
+                bool isDeleteMFFolioId;
+                isDeleteMFFolioId = CustomerTransactionBo.DeleteMFFolio(FolioId);
+                if (isDeleteMFFolioId)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerMFFolioView','none');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", @"alert('Folio can not be deleted as some Transactions are Associated with this Folio Number.');", true);
+                }
             }
 
         }
