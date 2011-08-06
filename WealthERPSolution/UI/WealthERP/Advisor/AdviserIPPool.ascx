@@ -118,7 +118,7 @@
         <Validation IsRequired="True"></Validation>
     </telerik:RegExpTextBoxSetting>
     
-    <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Numbers"
+  <%--  <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Numbers"
         NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
         MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
         Type="Number" Culture="Hindi (India)"
@@ -126,7 +126,7 @@
             <TargetControls>
                 <telerik:TargetInput ControlID="txtIPName" />
             </TargetControls>
-    </telerik:NumericTextBoxSetting>
+    </telerik:NumericTextBoxSetting>--%>
 </telerik:RadInputManager>
 
 <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
@@ -165,12 +165,18 @@
                                         <asp:Label runat="server" ID="lblIPName" Text='<%# Eval("AIPP_IP")%>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                       <%-- <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>'></asp:TextBox>--%>
+                                       <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>' onclick="showBtnGetIP()"></asp:TextBox>
+                                       
+                                        <asp:RegularExpressionValidator ID="RExpForValidIP" Display="Dynamic" runat="server" Text="Invalid IP Addres"
+                                          ValidationExpression="\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
+                                          ControlToValidate="txtIPName">
+                                        </asp:RegularExpressionValidator>
+                                       
                                         <%--<telerik:RadMaskedTextBox ID="txtIPName" Width="200px" Mask="<0..255>.<0..255>.<0..255>.<0..255>" Text='<%# Bind("AIPP_IP")%>' runat="server"></telerik:RadMaskedTextBox>--%>
                                         
-                                        <telerik:RadMaskedTextBox ID="txtIPName" Text='<%# Bind("AIPP_IP")%>' TextMode="SingleLine" onclick="showBtnGetIP()" runat="server" 
+                                      <%--  <telerik:RadMaskedTextBox ID="txtIPName" Text='<%# Bind("AIPP_IP")%>' TextMode="SingleLine" onclick="showBtnGetIP()" runat="server" 
                                          Width="200px" NumericRangeAlign="Left" Mask="###.###.###.###">
-                                        </telerik:RadMaskedTextBox>
+                                        </telerik:RadMaskedTextBox>--%>
                                         
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
