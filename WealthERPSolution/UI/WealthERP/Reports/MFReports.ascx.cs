@@ -257,10 +257,14 @@ namespace WealthERP.Reports
                         }
                         else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                         {
-
+                            tabpnlEmailReports.Visible = true;
                             dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
 
                         }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                        {
+                            tabpnlEmailReports.Visible = false;
+                        }                      
             
 
                         LBCustomer.DataSource = dtGroupCustomerList;
@@ -289,6 +293,7 @@ namespace WealthERP.Reports
                 {
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
+                        hidBMLogin.Value = "False";
                         txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                         txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                         txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
@@ -296,10 +301,20 @@ namespace WealthERP.Reports
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                     {
+                        hidBMLogin.Value = "False";
                         txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                         txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                         txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    {
+                        hidBMLogin.Value = "true";
+                        txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
                     }
                 }
