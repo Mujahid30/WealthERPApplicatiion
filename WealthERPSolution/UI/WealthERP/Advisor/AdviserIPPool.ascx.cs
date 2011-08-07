@@ -49,82 +49,90 @@ namespace WealthERP.Advisor
                 else
                 {
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    if (msgRecordStatus.Visible == true)
+                    msgRecordStatus.Visible = false;
                 }
-                getAllLoggedinIPs = advisorBo.GetAdvisersAlreadyLoggedIPs(advisorVo.advisorId);
+                //getAllLoggedinIPs = advisorBo.GetAdvisersAlreadyLoggedIPs(advisorVo.advisorId);
                 if (!IsPostBack)
                 {
-                    dsGetAllAdviserIPFromIPPool = advisorBo.GetAdviserIPPoolsInformation(advisorVo.advisorId);
-                    if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
-                        totalAdviserEnteredIPCount = dsGetAllAdviserIPFromIPPool.Tables[0].Rows.Count;
-
-
-
-                    if (getAllLoggedinIPs.Tables.Count != 0)
-                        totalRecordsCount = getAllLoggedinIPs.Tables[0].Rows.Count;
-
-                    if (totalAdviserEnteredIPCount != 0)
-                    {
-                        btnSubmit.Text = "Update";
-                    }
-                    else
-                    {
-                        btnSubmit.Text = "Submit";
-                    }
-
-                    // Getting already Entered IP addresses from the database and binding it to Grid..
-                    if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
-                    {
-                        if (dsGetAllAdviserIPFromIPPool.Tables[0].Rows.Count != 0)
-                        {
-                            dt.Rows.Clear();
-                            foreach (DataRow drAdviserIPPool in dsGetAllAdviserIPFromIPPool.Tables[0].Rows)
-                            {
-                                DataRow dr = dt.NewRow();
-
-                                if ((drAdviserIPPool["A_AdviserId"] != null) || (drAdviserIPPool["A_AdviserId"].ToString() != ""))
-                                    dr["A_AdviserId"] = drAdviserIPPool["A_AdviserId"];
-
-                                if ((drAdviserIPPool["AIPP_poolId"] != null) || (drAdviserIPPool["AIPP_poolId"].ToString() != ""))
-                                    dr["AIPP_poolId"] = drAdviserIPPool["AIPP_poolId"];
-
-                                if ((drAdviserIPPool["AIPP_IP"] != null) || (drAdviserIPPool["AIPP_IP"].ToString() != ""))
-                                    dr["AIPP_IP"] = drAdviserIPPool["AIPP_IP"];
-
-                                if ((drAdviserIPPool["AIPP_Comments"] != null) || (drAdviserIPPool["AIPP_Comments"].ToString() != ""))
-                                    dr["AIPP_Comments"] = drAdviserIPPool["AIPP_Comments"];
-
-                                dt.Rows.Add(dr);
-                            }
-                        }
-                    }
-
-                    // Session[SessionContents.FPS_AddProspect_DataTable] is a Session Used to store the datatable Which contains data to bind the IP Grid. 
-                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    BindIPGrid();
                 }
 
                 // Session[SessionContents.FPS_AddProspectListActionStatus] is a Session which is used for storing the current Mode(View/Edit) of the page.
-                if (Session[SessionContents.FPS_AddProspectListActionStatus] == "View")
-                {
-                    RadGrid1.Enabled = false;
-                    btnSubmit.Visible = false;
-                    btnGetIPsfromlog.Visible = false;
-                    AdviserIPPoolPanel.Enabled = false;
-                    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
-                }
-                else if (Session[SessionContents.FPS_AddProspectListActionStatus] == "Edit")
-                {
-                    RadGrid1.Enabled = true;
-                    btnSubmit.Visible = true;
-                    btnGetIPsfromlog.Visible = true;
-                    AdviserIPPoolPanel.Enabled = true;
-                    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
-                }
+                //if (Session[SessionContents.FPS_AddProspectListActionStatus] == "View")
+                //{
+                //    RadGrid1.Enabled = false;
+                //    btnSubmit.Visible = false;
+                //    btnGetIPsfromlog.Visible = false;
+                //    AdviserIPPoolPanel.Enabled = false;
+                //    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
+                //}
+                //else if (Session[SessionContents.FPS_AddProspectListActionStatus] == "Edit")
+                //{
+                //    RadGrid1.Enabled = true;
+                //    btnSubmit.Visible = true;
+                //    btnGetIPsfromlog.Visible = true;
+                //    AdviserIPPoolPanel.Enabled = true;
+                //    RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
+                //}
             }
             catch (Exception ex)
             {
                 throw ex;
 
             }
+        }
+
+        protected void BindIPGrid()
+        {
+            dsGetAllAdviserIPFromIPPool = advisorBo.GetAdviserIPPoolsInformation(advisorVo.advisorId);
+            if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
+                totalAdviserEnteredIPCount = dsGetAllAdviserIPFromIPPool.Tables[0].Rows.Count;
+
+
+
+            if (getAllLoggedinIPs.Tables.Count != 0)
+                totalRecordsCount = getAllLoggedinIPs.Tables[0].Rows.Count;
+
+            if (totalAdviserEnteredIPCount != 0)
+            {
+                btnSubmit.Text = "Update";
+            }
+            else
+            {
+                btnSubmit.Text = "Submit";
+            }
+
+            // Getting already Entered IP addresses from the database and binding it to Grid..
+            if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
+            {
+                if (dsGetAllAdviserIPFromIPPool.Tables[0].Rows.Count != 0)
+                {
+                    dt.Rows.Clear();
+                    foreach (DataRow drAdviserIPPool in dsGetAllAdviserIPFromIPPool.Tables[0].Rows)
+                    {
+                        DataRow dr = dt.NewRow();
+
+                        if ((drAdviserIPPool["A_AdviserId"] != null) || (drAdviserIPPool["A_AdviserId"].ToString() != ""))
+                            dr["A_AdviserId"] = drAdviserIPPool["A_AdviserId"];
+
+                        if ((drAdviserIPPool["AIPP_poolId"] != null) || (drAdviserIPPool["AIPP_poolId"].ToString() != ""))
+                            dr["AIPP_poolId"] = drAdviserIPPool["AIPP_poolId"];
+
+                        if ((drAdviserIPPool["AIPP_IP"] != null) || (drAdviserIPPool["AIPP_IP"].ToString() != ""))
+                            dr["AIPP_IP"] = drAdviserIPPool["AIPP_IP"];
+
+                        if ((drAdviserIPPool["AIPP_Comments"] != null) || (drAdviserIPPool["AIPP_Comments"].ToString() != ""))
+                            dr["AIPP_Comments"] = drAdviserIPPool["AIPP_Comments"];
+
+                        dt.Rows.Add(dr);
+                    }
+                }
+            }
+
+            // Session[SessionContents.FPS_AddProspect_DataTable] is a Session Used to store the datatable Which contains data to bind the IP Grid. 
+            Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+ 
         }
 
         protected void RadGrid1_DeleteCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
@@ -141,21 +149,20 @@ namespace WealthERP.Advisor
                     {
                         Session["AdviserIPPools"] = dt.Rows[e.Item.ItemIndex]["AIPP_poolId"].ToString();
                         int rowCount = dt.Rows.Count;
-
+                        Session["GridRowIndex"] = e.Item.ItemIndex;
                         if (rowCount != 1)
                         {
-                            dt.Rows[e.Item.ItemIndex].Delete();
-                            DeleteAdviserIPFromGridView(false);
+                            //dt.Rows[e.Item.ItemIndex].Delete();
+                            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Messageabc", "javascript:DeleteAdviserIPs();", true);
+                            //DeleteAdviserIPFromGridView(false);
                         }
                         else
                         {
                             ChildDeletionFunction();
                         }
                     }
-                    else
-                    {
-                        dt.Rows[e.Item.ItemIndex].Delete();
-                    }
+                    
+                    
                 }
                 catch (Exception ex)
                 {
@@ -163,7 +170,7 @@ namespace WealthERP.Advisor
                     e.Canceled = true;
 
                 }
-                Rebind();
+                //Rebind();
             }
             catch (Exception ex)
             {
@@ -249,7 +256,7 @@ namespace WealthERP.Advisor
 
                 }
                 Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
+                Rebind(false);
             }
             catch (Exception ex)
             {
@@ -329,7 +336,7 @@ namespace WealthERP.Advisor
                 {
                     dt.Rows.Add(dr);
                     Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                    Rebind();
+                    Rebind(false);
                 }
                 else
                 {
@@ -344,16 +351,29 @@ namespace WealthERP.Advisor
         }
         protected void RadGrid1_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            Rebind();
+            Rebind(false);
         }
 
         /// <summary>
         /// Used to bind Data to RadGrid
         /// </summary>
-        protected void Rebind()
+        protected void Rebind(bool isDeleted)
         {
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-            RadGrid1.DataSource = dt;
+            if (Session["GridRowIndex"] != null && isDeleted==true)
+            {
+                dt.Rows[int.Parse(Session["GridRowIndex"].ToString())].Delete();
+                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                RadGrid1.DataSource = dt;
+                RadGrid1.DataBind();
+                Session.Remove("GridRowIndex");
+            }
+            else
+            {
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                RadGrid1.DataSource = dt;
+              
+
+            }
         }
         protected void RadGrid1_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
@@ -408,8 +428,11 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
+                btnSubmit.Text = "Update";
 
             }
+
+            BindIPGrid();
         }
 
         private void CreateAdviserIPPools(DataRow drIPsForAdviser, int createdById)
@@ -461,12 +484,16 @@ namespace WealthERP.Advisor
 
             adviserIPId = int.Parse(Session["AdviserIPPools"].ToString());
             string val = Convert.ToString(hdnMsgValue.Value);
-            if (val == "1")
+            if (val == "2")
             {
-
-                if (advisorBo.DeleteAdviserIPPool(adviserIPId, advisorVo.advisorId, isSingleIP , "Delete"))
+                RecordStatus=advisorBo.DeleteAdviserIPPool(adviserIPId, advisorVo.advisorId, isSingleIP , "Delete");
+                if (RecordStatus)  
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
+                    userVo = (UserVo)Session["UserVo"];
+                    advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                    Session["advisorVo"] = advisorVo;
+                    btnSubmit.Text = "Submit";
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
 
                 }
             }
@@ -474,11 +501,17 @@ namespace WealthERP.Advisor
             {
                 RecordStatus = advisorBo.DeleteAdviserIPPool(adviserIPId, advisorVo.advisorId, false, "Delete");
 
-                if (RecordStatus == true)
-                {
-                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteAdviserIPs();", true);
-                }
+                //if (RecordStatus == true)
+                //{
+                //    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteAdviserIPs();", true);
+                //}
 
+            }
+            if (RecordStatus)
+            {
+                Rebind(RecordStatus);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('IP deleted sucessfully!');", true);
+               
             }
         }
 
@@ -509,9 +542,10 @@ namespace WealthERP.Advisor
         protected void hiddenReloadPage_Click(object sender, EventArgs e)
         {
             string val = Convert.ToString(hdnMsgValue.Value);
-            if (val == "1")
+            if (val == "1" || val == "2")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
+                DeleteAdviserIPFromGridView(false);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserIPPool','login');", true);
             }
         }
 
@@ -542,7 +576,7 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select one checkbox atleast..!!');", true);
             }
-            Rebind();
+            Rebind(false);
             RadGrid1.MasterTableView.ClearEditItems();
             RadGrid1.MasterTableView.Rebind();
 

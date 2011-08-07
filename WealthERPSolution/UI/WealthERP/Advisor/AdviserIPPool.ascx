@@ -23,7 +23,7 @@
 <script type="text/javascript">
     function showmessage() {
         if (confirm("By removing all IP's you will loose IP login Security.!! \n\n Are You sure you want to remove ??")) {
-            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 2;
             document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
             return true;
         }
@@ -34,14 +34,14 @@
         }
     }
     function DeleteAdviserIPs() {
-        if (confirm("IP removed successfully..!")) {
+        if (confirm("Do you want to remove the IP?")) {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 1;
             document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return true;
         }
         else {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
+//            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
@@ -53,7 +53,7 @@
         }
         else {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
+//            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
@@ -165,7 +165,7 @@
                                         <asp:Label runat="server" ID="lblIPName" Text='<%# Eval("AIPP_IP")%>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                       <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>' onclick="showBtnGetIP()"></asp:TextBox>
+                                       <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>' ></asp:TextBox>
                                        
                                         <asp:RegularExpressionValidator ID="RExpForValidIP" Display="Dynamic" runat="server" Text="Invalid IP Addres"
                                           ValidationExpression="\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
@@ -227,7 +227,7 @@
             </cc1:ModalPopupExtender>
         </td>
         <td>
-            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" class="Landscape" Height="250px" runat="server">
+            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" class="Landscape" Height="250px" runat="server" Visible="false">
                 <table>
                     <tr>
                         <td>
@@ -267,7 +267,7 @@
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true"/>   
 
 <div style="visibility: hidden">
-<asp:Button ID="hdnGetIPbtn" runat="server" style="background-color: Transparent; background: None; border: none; visibility: hidden;" OnClick="hdnGetIPbtn_Click"   />
+<asp:Button ID="hdnGetIPbtn" runat="server" style="background-color: Transparent; background: None; border: none; visibility: hidden;" OnClick="hdnGetIPbtn_Click"  Visible="false" />
 
 <asp:Button ID="hiddenReloadPage" runat="server" BorderStyle="None" 
     BackColor="Transparent" BorderColor="Transparent" 
