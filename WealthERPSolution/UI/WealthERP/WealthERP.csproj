@@ -3966,6 +3966,7 @@
     <Content Include="Images\FPReportHeader.JPG" />
     <Content Include="Images\Goal.png" />
     <Content Include="Images\greenStatus.png" />
+    <Content Include="Images\GreenUpArrow.png" />
     <Content Include="Images\h2_trigger_a.gif" />
     <Content Include="Images\help.png" />
     <Content Include="Images\helpImage.png" />
@@ -3992,6 +3993,7 @@
     <Content Include="Images\Questionnaire.png" />
     <Content Include="Images\RatioDownArrow.png" />
     <Content Include="Images\red-sample.gif" />
+    <Content Include="Images\RedDownArrow.png" />
     <Content Include="Images\redStatus.png" />
     <Content Include="Images\RiskProtection.png" />
     <Content Include="Images\SCBFPImage.jpg" />
