@@ -59,6 +59,7 @@ namespace WealthERP.Advisor
         string frequency = "";
         int systematicDate = 0;
         int monthCode = 0;
+        int isIndividualOrGroup = 0;
 
         int all;
         string customerType = string.Empty;
@@ -353,6 +354,9 @@ namespace WealthERP.Advisor
             txtIndividualCustomer.Visible = false;
             lblselectCustomer.Visible = false;
             rquiredFieldValidatorIndivudialCustomer.Visible = false;
+
+            ViewState["GroupHeadCustomers"] = null;
+            ViewState["IndividualCustomers"] = null;
         }
 
         protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
@@ -360,8 +364,12 @@ namespace WealthERP.Advisor
             ddlSelectCutomer.Visible = true;
             lblSelectTypeOfCustomer.Visible = true;
             txtIndividualCustomer.Visible = true;
+            txtIndividualCustomer.Text = string.Empty;
             lblselectCustomer.Visible = true;
             rquiredFieldValidatorIndivudialCustomer.Visible = true;
+            ViewState["GroupHeadCustomers"] = null;
+            ViewState["IndividualCustomers"] = null;
+            ddlSelectCutomer.SelectedIndex = 0;
         }
         /* Customer search for Group ang Individual*/
       
@@ -404,7 +412,13 @@ namespace WealthERP.Advisor
             Session["ButtonGo"] = "buttonClicked";
             ViewState["StartDate"] = null;
             ViewState["EndDate"] = null;
-           
+            ViewState["SystematicTypeDropDown"] = null;
+            ViewState["AMCDropDown"] = null;
+            ViewState["CategoryDropDown"] = null;
+            ViewState["SchemeDropDown"] = null;
+            ViewState["GroupHeadCustomers"] = null;
+            ViewState["IndividualCustomers"] = null;
+            
             CallAllGridBindingFunctions();
         }
         protected void CallAllGridBindingFunctions()
@@ -429,7 +443,7 @@ namespace WealthERP.Advisor
 
         private void GetDataFromDB()
         {
-            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
+            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
         }
 
         private void SetParameter()
@@ -601,6 +615,27 @@ namespace WealthERP.Advisor
             {
                 hdnstartdate.Value = "";
                 hdnendDate.Value = "EndDate";
+            }
+
+
+            if (hdnIndividualOrGroup.Value == "Group Head")
+            {
+                isIndividualOrGroup = 1;
+                ViewState["GroupHeadCustomers"] = isIndividualOrGroup.ToString();
+            }
+            else if (ViewState["GroupHeadCustomers"] != null)
+            {
+                isIndividualOrGroup = int.Parse(ViewState["GroupHeadCustomers"].ToString());
+            }
+
+            if (hdnIndividualOrGroup.Value == "Individual")
+            {
+                isIndividualOrGroup = 2;
+                ViewState["IndividualCustomers"] = isIndividualOrGroup.ToString();
+            }
+            else if (ViewState["IndividualCustomers"] != null)
+            {
+                isIndividualOrGroup = int.Parse(ViewState["IndividualCustomers"].ToString());
             }
 
 
@@ -1158,7 +1193,8 @@ namespace WealthERP.Advisor
 
         protected void ddlSelectCutomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            txtIndividualCustomer.Text = string.Empty;
+            hdnIndividualOrGroup.Value = ddlSelectCutomer.SelectedItem.Value;
             if (ddlSelectCutomer.SelectedItem.Value == "Group Head")
             {
                 customerType = "GROUP";

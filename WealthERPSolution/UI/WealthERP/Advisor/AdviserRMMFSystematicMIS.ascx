@@ -478,5 +478,5 @@
 <asp:HiddenField ID="hdnSystematicType" runat="server" />
 <asp:HiddenField ID="hdnTodate" runat="server" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />
-
+<asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 
