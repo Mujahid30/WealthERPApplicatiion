@@ -478,12 +478,11 @@ namespace DaoCustomerPortfolio
         /// <param name="dtFrom"></param>
         /// <param name="dtTo"></param>
         /// <returns></returns>
-        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup)
         {
             DataSet dsGetSystematicMIS = new DataSet();
             Database db;
             DbCommand getSystemaicMISCmd;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -515,17 +514,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getSystemaicMISCmd, "@dtTo", DbType.DateTime, dtTo);
                 else
                     dtTo = DateTime.MinValue;
-                //db.AddInParameter(getSystemaicMISCmd, "@currentPage", DbType.Int32, currentPage);
-                //db.AddOutParameter(getSystemaicMISCmd, "@Count", DbType.Int32, 0);
-                //db.AddOutParameter(getSystemaicMISCmd, "@SumTotal", DbType.Double, 0);
 
-               dsGetSystematicMIS = db.ExecuteDataSet(getSystemaicMISCmd);
+                if(isIndividualOrGroup != 0)
+                    db.AddInParameter(getSystemaicMISCmd, "@isIndividualOrGroup", DbType.Int16, isIndividualOrGroup);
 
-               //count = (int)db.GetParameterValue(getSystemaicMISCmd, "@Count");
-               //if (!string.IsNullOrEmpty(db.GetParameterValue(getSystemaicMISCmd, "@SumTotal").ToString()))
-               //    sumToatal = double.Parse(db.GetParameterValue(getSystemaicMISCmd, "@SumTotal").ToString());
-               //else
-               //    sumToatal = 0;
+                dsGetSystematicMIS = db.ExecuteDataSet(getSystemaicMISCmd);
 
             }
             catch (BaseApplicationException Ex)
