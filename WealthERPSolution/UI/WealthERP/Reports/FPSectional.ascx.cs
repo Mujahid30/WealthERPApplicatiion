@@ -182,6 +182,12 @@ namespace WealthERP.Reports
             string strParagraph="";
             int index=0;
 
+            txtParagraph1.Text = string.Empty;
+            txtParagraph2.Text = string.Empty;
+            txtParagraph3.Text = string.Empty;
+            txtParagraph4.Text = string.Empty;
+            txtParagraph5.Text = string.Empty;
+
             if (Session["customerVo"] != null)
                 customerVo = (CustomerVo)Session["customerVo"];
             strRMRecommendationHTML = customerBo.GetRMRecommendationForCustomer(customerVo.CustomerId);           
