@@ -1487,22 +1487,22 @@ namespace WealthERP.FP
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text.Trim()),0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
-                if (txtTermP.Text.Trim() == "")
-                    txtTermP.Text = "0";
-                if (txtEndowmentP.Text.Trim() == "")
-                    txtEndowmentP.Text = "0";
-                if (txtWholeLifeP.Text.Trim() == "")
-                    txtWholeLifeP.Text = "0";
-                if (txtMoneyBackP.Text.Trim() == "")
-                    txtMoneyBackP.Text = "0";
-                if (txtULIPP.Text.Trim() == "")
-                    txtULIPP.Text = "0";
-                if (txtOthersLIP.Text.Trim() == "")
-                    txtOthersLIP.Text = "0";
-                
-                if ((txtTermP.Text.Trim() != "") || (txtEndowmentP.Text.Trim() != "") || (txtWholeLifeP.Text.Trim() != "") || (txtMoneyBackP.Text.Trim() != "") || (txtULIPP.Text.Trim() != "") || (txtOthersLIP.Text.Trim() != ""))
+                if (txtTotalTermPremium.Text.Trim() == "")
+                    txtTotalTermPremium.Text = "0";
+                if (txtTotalEndowmentPremium.Text.Trim() == "")
+                    txtTotalEndowmentPremium.Text = "0";
+                if (txtTotalWholeLifePremium.Text.Trim() == "")
+                    txtTotalWholeLifePremium.Text = "0";
+                if (txtTotalMoneyBackPremium.Text.Trim() == "")
+                    txtTotalMoneyBackPremium.Text = "0";
+                if (txtTotalULIPPremium.Text.Trim() == "")
+                    txtTotalULIPPremium.Text = "0";
+                if (txtTotalOthersPremium.Text.Trim() == "")
+                    txtTotalOthersPremium.Text = "0";
+
+                if ((txtTotalTermPremium.Text.Trim() != "") || (txtTotalEndowmentPremium.Text.Trim() != "") || (txtTotalWholeLifePremium.Text.Trim() != "") || (txtTotalMoneyBackPremium.Text.Trim() != "") || (txtTotalULIPPremium.Text.Trim() != "") || (txtTotalOthersPremium.Text.Trim() != ""))
                 {
-                    totalLIPremium = float.Parse(txtTermP.Text.Trim()) + float.Parse(txtEndowmentP.Text.Trim()) + float.Parse(txtWholeLifeP.Text.Trim()) + float.Parse(txtMoneyBackP.Text.Trim()) + float.Parse(txtULIPP.Text.Trim()) + float.Parse(txtOthersLIP.Text.Trim());
+                    totalLIPremium = float.Parse(txtTotalTermPremium.Text.Trim()) + float.Parse(txtTotalEndowmentPremium.Text.Trim()) + float.Parse(txtTotalWholeLifePremium.Text.Trim()) + float.Parse(txtTotalMoneyBackPremium.Text.Trim()) + float.Parse(txtTotalULIPPremium.Text.Trim()) + float.Parse(txtTotalOthersPremium.Text.Trim());
                 }
 
 
@@ -1745,17 +1745,17 @@ namespace WealthERP.FP
                     assetdetailssubvo.TotalPremiumValue = Math.Round(double.Parse(txtTotalPremiumOthers.Text.Trim()), 0);
                 }
                 assetdetailssubvolist.Add(assetdetailssubvo);
-                if (txtHealthInsuranceCoverP.Text.Trim() == "")
-                    txtHealthInsuranceCoverP.Text = "0";
-                if (txtPropertyInsuranceCoverP.Text.Trim() == "")
-                    txtPropertyInsuranceCoverP.Text = "0";
-                if (txtPersonalAccidentP.Text.Trim() == "")
-                    txtPersonalAccidentP.Text = "0";
-                if (txtOthersGIP.Text.Trim() == "")
-                    txtOthersGIP.Text = "0";
-                if ((txtHealthInsuranceCoverP.Text.Trim() != "") || (txtPropertyInsuranceCoverP.Text.Trim() != "") || (txtPersonalAccidentP.Text.Trim() != "") || (txtOthersGIP.Text.Trim() != ""))
+                if (txtToalHealthInsurancePremium.Text.Trim() == "")
+                    txtToalHealthInsurancePremium.Text = "0";
+                if (txtTotalPropertyInsurancePremium.Text.Trim() == "")
+                    txtTotalPropertyInsurancePremium.Text = "0";
+                if (txtTotalPersonalAccidentPremium.Text.Trim() == "")
+                    txtTotalPersonalAccidentPremium.Text = "0";
+                if (txtTotalPremiumOthers.Text.Trim() == "")
+                    txtTotalPremiumOthers.Text = "0";
+                if ((txtToalHealthInsurancePremium.Text.Trim() != "") || (txtTotalPropertyInsurancePremium.Text.Trim() != "") || (txtTotalPersonalAccidentPremium.Text.Trim() != "") || (txtTotalPremiumOthers.Text.Trim() != ""))
                 {
-                    totalGIPremium = (float.Parse(txtHealthInsuranceCoverP.Text.Trim()) + float.Parse(txtPropertyInsuranceCoverP.Text.Trim()) + float.Parse(txtPersonalAccidentP.Text.Trim()) + float.Parse(txtOthersGIP.Text.Trim()));
+                    totalGIPremium = (float.Parse(txtToalHealthInsurancePremium.Text.Trim()) + float.Parse(txtTotalPropertyInsurancePremium.Text.Trim()) + float.Parse(txtTotalPersonalAccidentPremium.Text.Trim()) + float.Parse(txtTotalPremiumOthers.Text.Trim()));
                 }
 
                 if ((totalLIPremium != 0) || (totalGIPremium != 0))

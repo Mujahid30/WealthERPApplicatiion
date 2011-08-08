@@ -184,35 +184,36 @@
         }
 
         //LifeInsurance Premium total
-        if (document.getElementById("<%=txtTermP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTermP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalTermPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalTermPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtEndowmentP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtEndowmentP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalEndowmentPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalEndowmentPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtWholeLifeP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtWholeLifeP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalWholeLifePremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalWholeLifePremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtMoneyBackP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtMoneyBackP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalMoneyBackPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalMoneyBackPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtULIPP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtULIPP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalULIPPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalULIPPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtOthersLIP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtOthersLIP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalOthersPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalOthersPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtHealthInsuranceCoverP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtHealthInsuranceCoverP.ClientID%>").value);
+        //GeneralInsurance Premium Total
+        if (document.getElementById("<%=txtToalHealthInsurancePremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtToalHealthInsurancePremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtPropertyInsuranceCoverP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtPropertyInsuranceCoverP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalPropertyInsurancePremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalPropertyInsurancePremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtPersonalAccidentP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtPersonalAccidentP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalPersonalAccidentPremium.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalPersonalAccidentPremium.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtOthersGIP.ClientID%>").value != "") {
-            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtOthersGIP.ClientID%>").value);
+        if (document.getElementById("<%=txtTotalPremiumOthers.ClientID%>").value != "") {
+            AllLIandGIPremiumTotal += parseFloat(document.getElementById("<%=txtTotalPremiumOthers.ClientID%>").value);
         }
 
         //All Liability Tab's EMI Total
@@ -572,6 +573,11 @@
             <telerik:TargetInput ControlID="txtAdjustedOtherGIPremium" />
             <telerik:TargetInput ControlID="txtTotalPremiumOthers" />
             
+            <telerik:TargetInput ControlID="txtTotalLO" />
+            <telerik:TargetInput ControlID="txtTotalEmILO" />
+            <telerik:TargetInput ControlID="txtAssetTotal" />
+            <telerik:TargetInput ControlID="txtTotalLISA" />
+            <telerik:TargetInput ControlID="txtTotalGISA" />
             
            
         </TargetControls>
@@ -1379,7 +1385,7 @@
                                     <asp:TextBox ID="txtRentalProperty" runat="server" Style="direction: rtl" onchange="Total()"></asp:TextBox>
                                 </td>
                                 <td align="right">
-                                    <asp:Label ID="lblIncomeTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblIncomeTotal" runat="server" Text="Grand Total :  " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtIncomeTotal" runat="server" Style="direction: rtl" Enabled="false"
@@ -1619,7 +1625,7 @@
                                         Style="direction: rtl" ></asp:TextBox>
                                 </td>--%>
                                <td align="right">
-                                <asp:Label ID="lblExpenseTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label></td><td align="left">
+                                <asp:Label ID="lblExpenseTotal" runat="server" Text="Grand Total :  " CssClass="FieldName"></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtExpenseTotal" runat="server" Style="direction: rtl" Enabled="false" EnableViewState="true"></asp:TextBox></td></tr><tr>
                                     <td colspan="4">
                                     <asp:Label ID="LabelMainNote" runat="server" Text="Note: 1.SIP is coming from MF screen.<br />
@@ -1708,16 +1714,13 @@
                                     <asp:TextBox ID="txtOtherLoanEMI" runat="server" onchange="Total()" 
                                         Style="direction: rtl"></asp:TextBox></td></tr><tr>
                                     <td align="right">
-                                    <asp:Label ID="lblTotal" runat="server" CssClass="FieldName" Text="Total : "></asp:Label></td><td 
+                                    </td><td 
                                     align="left">
+                                    </td><td 
+                                    align="right">
+                                   <asp:Label ID="lblTotal" runat="server" CssClass="FieldName" Text="Grand Total : "></asp:Label></td><td align="left">
                                     <asp:TextBox ID="txtTotalLO" runat="server" Enabled="false" 
-                                        EnableViewState="true" Style="direction: rtl"></asp:TextBox></td><td 
-                                    align="left">
-                                    <%--<asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>--%>
-                                </td>
-                                <td align="right">
-                                   <asp:Label ID="lblTotalEMILO" runat="server" CssClass="FieldName" 
-                                        Text="Total(EMI) : "></asp:Label></td><td align="left">
+                                        EnableViewState="true" Style="direction: rtl"></asp:TextBox></td><td align="left">
                                   <asp:TextBox ID="txtTotalEmILO" runat="server" Enabled="false" 
                                         EnableViewState="true" onchange="Total()" Style="direction: rtl"></asp:TextBox></td></tr><%-- <tr>
                                             <td align="right">
@@ -1737,28 +1740,26 @@
                 </tr>
             </table>
         </asp:Panel>
-&nbsp;&nbsp;&nbsp; </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView6" runat="server">
+&nbsp;&nbsp;&nbsp;</telerik:RadPageView><telerik:RadPageView ID="RadPageView6" runat="server">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Panel ID="pnlLifeInsurance" runat="server">
             <table width="100%">
                 <tr>
                     <td>
                         <table width="100%">
                             <tr>
-                                <td style="width:10%;"></td>
-                                <td align="center" style="width:20%;">
-                                <asp:Label ID="lblLifeInsurancePortfolio" runat="server" CssClass="FieldName" 
-                                        Font-Bold="true" Font-Underline="False" Text="Portfolio"></asp:Label></td><td 
-                                    align="center" style="width:20%;">
-                                <asp:Label ID="lblLifeInsuranceAdjustments" runat="server" CssClass="FieldName" 
-                                        Font-Bold="true" Font-Underline="False" Text="Adjustments"></asp:Label></td><td 
-                                    align="center" style="width:20%;">
-                                <asp:Label ID="lblLifeInsuranceMainTotal" runat="server" CssClass="FieldName" 
-                                        Font-Bold="true" Font-Underline="False" Text="Total"></asp:Label></td><td 
-                                    align="center" style="width:20%;"></td>
-                                    </tr>
-                                    </table>
-                                    <table width="100%">
+                                <td> &nbsp; </td>
+                                <td colspan="2" align="center">
+                                    <asp:Label ID="lblLifeInsurancePortfolio" runat="server" CssClass="FieldName" 
+                                        Font-Bold="true" Font-Underline="False" Font-Size="11px" Text="Portfolio"></asp:Label></td><td colspan="2" align="center">
+                                    <asp:Label ID="lblLifeInsuranceAdjustments" Font-Size="11px" runat="server" CssClass="FieldName" 
+                                        Font-Bold="true" Font-Underline="False" Text="Adjustments"></asp:Label></td><td colspan="2" align="center">
+                                    <asp:Label ID="lblLifeInsuranceMainTotal" runat="server" CssClass="FieldName" 
+                                        Font-Bold="true" Font-Underline="False" Font-Size="11px" Text="Total"></asp:Label></td><td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        
                             <tr>
                                 <td align="right">
                                 </td>
@@ -1909,21 +1910,24 @@
             <table width="100%">
                 <tr>
                     <td>
-                    <table width="100%">
+                <table width="100%">
                             <tr>
-                                 <td></td>
-                                 <td></td>
-                                 <td></td>
-                                <td align="center"><asp:Label ID="lblGIPortFolio" runat="server" 
-                                        CssClass="FieldName" Font-Bold="true" Font-Underline="false" 
-                                        Text="Portfolio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></asp:Label></td><td></td>
-                                <td align="left">
-                                <asp:Label ID="lblGIAdjustments" runat="server" CssClass="FieldName" 
-                                        Font-Bold="true" Font-Underline="False" Text="Adjustments"></asp:Label></td><td></td>
-                             
-                                <td align="Left"><asp:Label ID="lblGITotalValues" runat="server" 
-                                        CssClass="FieldName" Font-Bold="true" Font-Underline="false" Text="Total"></asp:Label></td></tr></table><table 
-                            width="100%">
+                                <td> &nbsp; </td>
+                                <td colspan="2" align="center">
+                                    <asp:Label ID="lblGIPortFolio" runat="server" 
+                                        CssClass="FieldName" Font-Size="11px" Font-Bold="true" Font-Underline="false" 
+                                        Text="Portfolio"></asp:Label></td><td colspan="2" align="center">
+                                    <asp:Label ID="lblGIAdjustments" runat="server" Font-Size="11px" CssClass="FieldName" 
+                                        Font-Bold="true" Font-Underline="False" Text="Adjustments"></asp:Label></td><td colspan="2" align="center">
+                                    <asp:Label ID="lblGITotalValues" runat="server" Font-Size="11px"
+                                        CssClass="FieldName" Font-Bold="true" Font-Underline="false" Text="Total"></asp:Label></td><td></td>
+                                <td></td>
+                                <td></td>
+                            
+                            
+                            
+                            </tr>
+                       
                             <tr>
                                 <td align="right">
                                 </td>
@@ -2033,9 +2037,7 @@
                 </tr>
             </table>
         </asp:Panel>
-&nbsp;&nbsp;&nbsp; </telerik:RadPageView>
-</telerik:RadMultiPage>
-<asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
+&nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage><asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
     ValidationGroup="btnCustProsp" Text="Save" Style="height: 26px" />
     </td>
     </tr>
