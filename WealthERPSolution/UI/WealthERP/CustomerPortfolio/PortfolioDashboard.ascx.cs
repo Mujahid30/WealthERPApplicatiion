@@ -484,6 +484,11 @@ namespace WealthERP.CustomerPortfolio
 
             chrtTotalAssets.Series.Clear();
             chrtTotalAssets.Series.Add(seriesAssets);
+
+            chrtTotalAssets.Palette = ChartColorPalette.Pastel;
+            chrtTotalAssets.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
+
             
             //chrtTotalAssets.Series["Assets"].XValueMember = "AssetType";
             //chrtTotalAssets.Series["Assets"].YValueMembers = "AggrCurrentValue";
