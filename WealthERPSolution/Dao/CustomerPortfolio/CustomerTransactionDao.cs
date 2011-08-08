@@ -1680,7 +1680,10 @@ namespace DaoCustomerPortfolio
                         mfSystematicVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                         mfSystematicVo.SchemePlanName = dr["PASP_SchemePlanName"].ToString();
                         mfSystematicVo.StartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
-                        mfSystematicVo.SwitchSchemePlanCode = int.Parse(dr["PASP_SchemePlanCodeSwitch"].ToString());
+                        if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCodeSwitch"].ToString()))
+                            mfSystematicVo.SwitchSchemePlanCode = int.Parse(dr["PASP_SchemePlanCodeSwitch"].ToString());
+                        else
+                            mfSystematicVo.SwitchSchemePlanCode = 0;
                         if (dr["SwitchScheme"] != null)
                             mfSystematicVo.SwitchSchemePlanName = dr["SwitchScheme"].ToString();
                         mfSystematicVo.SystematicDay = int.Parse(dr["CMFSS_SystematicDate"].ToString());
