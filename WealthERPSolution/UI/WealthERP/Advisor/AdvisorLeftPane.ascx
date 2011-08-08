@@ -133,7 +133,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View Transactions" Value="View MF Transactions">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Transactions" Value="Add MF Transactions" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
