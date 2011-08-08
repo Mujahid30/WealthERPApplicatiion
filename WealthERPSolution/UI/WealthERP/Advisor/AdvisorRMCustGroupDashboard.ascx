@@ -28,7 +28,7 @@
     </tr>
     <tr>
         <td width="50%" valign="top">
-            <asp:Chart ID="Chart1" runat="server" Height="250px" Palette="SemiTransparent" Width="450px">
+            <asp:Chart ID="Chart1" runat="server" Height="250px" Width="450px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
