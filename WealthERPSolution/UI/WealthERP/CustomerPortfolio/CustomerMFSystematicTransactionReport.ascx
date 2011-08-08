@@ -109,7 +109,7 @@
                                 </td>
                                 <td valign="top">
                                     
-                                    <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbfield" 
+                                    <asp:DropDownList ID="ddlPeriod" runat="server" CssClass="cmbField"
                                         onselectedindexchanged="ddlPeriod_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                     <span id="Span4" class="spnRequiredField">*</span>                                 
                                    
