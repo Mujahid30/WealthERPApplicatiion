@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <td rowspan="2" class="style1">
-                            <asp:Chart ID="chrtTotalAssets" runat="server" BackColor="Transparent" Palette="Pastel" Width="400px" Height="200px">
+                            <asp:Chart ID="chrtTotalAssets" runat="server" BackColor="Transparent" Width="400px" Height="200px">
                                 <Series>
                                     <asp:Series Name="Series1">
                                     </asp:Series>
