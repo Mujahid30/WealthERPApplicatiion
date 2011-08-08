@@ -1532,25 +1532,25 @@ namespace WealthERP.Advisor
                 {
                     drAssetAllocation = dtAssetAllocation.NewRow();
                     drAssetAllocation["Class"] = dr["AssetType"].ToString();
-                    drAssetAllocation["CurrentPercentage"] = Math.Round(decimal.Parse(dr["Percentage"].ToString()),2);
+                    drAssetAllocation["CurrentPercentage"] =Math.Round(decimal.Parse(dr["Percentage"].ToString()),2).ToString();
 
                     DataRow[] drAssetType;                    
                     drAssetType = dtRecomAssetAllocation.Select("AssetType='" + dr["AssetType"].ToString()+"'");
                     if (drAssetType.Count() > 0)
                     {
                         drAssetAllocation["RecommendedPercentage"] = drAssetType[0][2].ToString();
-                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(drAssetType[0][2].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        drAssetAllocation["ActionNeeded"] = Math.Round((Math.Round(decimal.Parse(drAssetType[0][2].ToString()),2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)),2).ToString();                       
+                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", ((financialAssetTotal * Math.Round(decimal.Parse(drAssetType[0][2].ToString()), 2)) / 100).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetType[0][2].ToString()),2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();                       
                         
                     }
                     else
                     {
                         drAssetAllocation["RecommendedPercentage"] = 0;
-                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", ((financialAssetTotal * Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2)) / 100).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();
                     }
 
-                    drAssetAllocation["CurrentRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drAssetAllocation["CurrentRs"] = String.Format("{0:n2}", ((financialAssetTotal * Math.Round(decimal.Parse(dr["Percentage"].ToString()), 2)) / 100).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drAssetAllocation["ActionRs"] = String.Format("{0:n2}",(decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                     dtAssetAllocation.Rows.Add(drAssetAllocation);                    
