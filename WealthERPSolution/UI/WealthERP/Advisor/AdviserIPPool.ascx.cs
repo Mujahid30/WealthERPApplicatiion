@@ -523,7 +523,7 @@ namespace WealthERP.Advisor
             if (RecordStatus)
             {
                 Rebind(RecordStatus);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('IP deleted sucessfully!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Pageloadscript", "alert('IP deleted Successfully!');", true);
                
             }
         }
