@@ -182,7 +182,7 @@
         </td>                
     </tr>
    
-    <tr id="trBtnSubmit" runat="server">
+    <tr id="trBtnSubmit" runat="server" visible="false">
         <td>
         </td>
         <td>
