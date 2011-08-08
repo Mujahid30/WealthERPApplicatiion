@@ -298,6 +298,8 @@ namespace WealthERP.Advisor
                 Chart1.Series.Clear();
                 Chart1.Series.Add(seriesAssets);
 
+                Chart1.PaletteCustomColors = new Color[] { Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal};
                 //Chart1.Series[0].XValueMember = "AssetType";
                 //Chart1.Series[0].YValueMembers = "AggrCurrentValue";
                 Chart1.Legends.Add(legend);
