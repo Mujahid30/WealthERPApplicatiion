@@ -1539,19 +1539,19 @@ namespace WealthERP.Advisor
                     if (drAssetType.Count() > 0)
                     {
                         drAssetAllocation["RecommendedPercentage"] = drAssetType[0][2].ToString();
-                        drAssetAllocation["RecommendedRs"] = Math.Round(((financialAssetTotal * decimal.Parse(drAssetType[0][2].ToString())) / 100),2).ToString();
+                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(drAssetType[0][2].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drAssetAllocation["ActionNeeded"] = Math.Round((Math.Round(decimal.Parse(drAssetType[0][2].ToString()),2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)),2).ToString();                       
                         
                     }
                     else
                     {
                         drAssetAllocation["RecommendedPercentage"] = 0;
-                        drAssetAllocation["RecommendedRs"] = Math.Round(((financialAssetTotal * decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString())) / 100),2).ToString();
+                        drAssetAllocation["RecommendedRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drAssetAllocation["ActionNeeded"] = (Math.Round(decimal.Parse(drAssetAllocation["RecommendedPercentage"].ToString()), 2) - Math.Round(decimal.Parse(dr["Percentage"].ToString()),2)).ToString();
                     }
 
-                    drAssetAllocation["CurrentRs"] = Math.Round(((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString())) / 100),2).ToString();
-                    drAssetAllocation["ActionRs"] = (decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString();
+                    drAssetAllocation["CurrentRs"] = String.Format("{0:n2}", Math.Round(((financialAssetTotal * decimal.Parse(dr["Percentage"].ToString())) / 100), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drAssetAllocation["ActionRs"] = String.Format("{0:n2}",(decimal.Parse(drAssetAllocation["RecommendedRs"].ToString()) - decimal.Parse(drAssetAllocation["CurrentRs"].ToString())).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                     dtAssetAllocation.Rows.Add(drAssetAllocation);                    
                 }
@@ -1562,7 +1562,19 @@ namespace WealthERP.Advisor
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-            }            
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "FinancialPlanning.ascx:BindGridViewAssetAllocation()");
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         protected void gvAssetAllocation_RowDataBound(object sender, GridViewRowEventArgs e)
         {           
