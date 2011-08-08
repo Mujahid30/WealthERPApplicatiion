@@ -1,8 +1,6 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserIPPool.ascx.cs" Inherits="WealthERP.Advisor.AdviserIPPool" %>
-   
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserIPPool.ascx.cs" Inherits="WealthERP.Advisor.AdviserIPPool" %>  
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 
 
 <script type="text/javascript">
@@ -28,8 +26,7 @@
             return true;
         }
         else {
-            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-            //document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
+            document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;           
             return false;
         }
     }
@@ -41,7 +38,6 @@
         }
         else {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-//            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
@@ -53,19 +49,11 @@
         }
         else {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 0;
-//            document.getElementById("ctrl_AdviserIPPool_hiddenReloadPage").click();
             return false;
         }
     }
 </script>
 
-<script type="text/javascript">
-    function showBtnGetIP() {
-
-        document.getElementById("<%=btnGetIPsfromlog.ClientID%>").style.visibility = 'visible';
-
-    }
-</script>
 
 <script type="text/javascript">
 
@@ -82,7 +70,8 @@
 <telerik:RadFormDecorator ID="RadFormDecorator1" runat="server" DecoratedControls="All"
     Skin="Telerik" EnableEmbeddedSkins="false" />
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Setup IP pool"></asp:Label>
-<table width="100%">
+<hr />
+<table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td align="center">
             <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
@@ -91,10 +80,11 @@
         </td>
     </tr>
 </table>
-<hr />
+
 <asp:UpdatePanel ID="updatePnl" runat="server">
+
 <ContentTemplate>
-<telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
+      <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
     <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
         ErrorMessage="Is Required">
         <TargetControls>
@@ -129,11 +119,13 @@
     </telerik:NumericTextBoxSetting>--%>
 </telerik:RadInputManager>
 
-<telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
-    EnableEmbeddedSkins="false">
-</telerik:RadAjaxLoadingPanel>
-    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-<table width="100%" runat="server" id="tblIPAddresses">
+      <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
+        EnableEmbeddedSkins="false">
+      </telerik:RadAjaxLoadingPanel>
+
+      <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+      
+      <table width="100%" runat="server" id="tblIPAddresses">
     <tr>
         <td>
             <div style="float: left; width: 100%;" id="Div2" runat="server">
@@ -210,9 +202,12 @@
         </td>
     </tr>
 </table>
-</asp:Panel>
+     </asp:Panel>
 </ContentTemplate>
+
 </asp:UpdatePanel>
+
+
     <table width="100%">
     <tr>
         <td align="center" >

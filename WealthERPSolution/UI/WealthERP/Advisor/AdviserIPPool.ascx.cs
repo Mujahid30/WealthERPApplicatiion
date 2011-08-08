@@ -388,51 +388,64 @@ namespace WealthERP.Advisor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            bool isEditNotCompete = true;
             tempuservo = (UserVo)Session["uservo"];
             int createdById = tempuservo.UserId;
             dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-            if (dt.Rows.Count != 0)
+            foreach (GridEditableItem item in RadGrid1.MasterTableView.GetItems(GridItemType.EditItem))
             {
-                if (btnSubmit.Text == "Submit")
+                if (item.IsInEditMode)
                 {
-                    foreach (DataRow drIPsForAdviser in dt.Rows)
-                    {
-                        CreateAdviserIPPools(drIPsForAdviser, createdById);
-                    }
+                    isEditNotCompete = false;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Filling IP is Incomplete. Please Click Check or Cancel for data in Edit Mode');", true);
                 }
-                else if (btnSubmit.Text == "Update")
-                {
-                    foreach (DataRow drIPsForAdviser in dt.Rows)
-                    {
-                        if (drIPsForAdviser["AIPP_poolId"] != null && drIPsForAdviser["AIPP_poolId"].ToString() != "")
-                        {
-                            UpdateAdviserIPPools(drIPsForAdviser, createdById, "Update");
-                            if (RecordStatus == true)
-                            {
-                                msgRecordStatus.Visible = true;
-                                msgRecordStatus.InnerText = "Record updated Successfully";
-                            }
-                            else
-                                msgRecordStatus.Visible = false;
-                        }
-                        else
-                        {
-                            CreateAdviserIPPools(drIPsForAdviser, createdById);
-                            if (RecordStatus == true)
-                            {
-                                msgRecordStatus.Visible = true;
-                                msgRecordStatus.InnerText = "Record created Successfully";
-                            }
-                            else
-                                msgRecordStatus.Visible = false;
-                        }
-                    }
-                }
-                btnSubmit.Text = "Update";
-
             }
 
-            BindIPGrid();
+            if (isEditNotCompete)
+            {
+                if (dt.Rows.Count != 0)
+                {
+                    if (btnSubmit.Text == "Submit")
+                    {
+                        foreach (DataRow drIPsForAdviser in dt.Rows)
+                        {
+                            CreateAdviserIPPools(drIPsForAdviser, createdById);
+                        }
+                    }
+                    else if (btnSubmit.Text == "Update")
+                    {
+                        foreach (DataRow drIPsForAdviser in dt.Rows)
+                        {
+                            if (drIPsForAdviser["AIPP_poolId"] != null && drIPsForAdviser["AIPP_poolId"].ToString() != "")
+                            {
+                                UpdateAdviserIPPools(drIPsForAdviser, createdById, "Update");
+                                if (RecordStatus == true)
+                                {
+                                    msgRecordStatus.Visible = true;
+                                    msgRecordStatus.InnerText = "Record updated Successfully";
+                                }
+                                else
+                                    msgRecordStatus.Visible = false;
+                            }
+                            else
+                            {
+                                CreateAdviserIPPools(drIPsForAdviser, createdById);
+                                if (RecordStatus == true)
+                                {
+                                    msgRecordStatus.Visible = true;
+                                    msgRecordStatus.InnerText = "Record created Successfully";
+                                }
+                                else
+                                    msgRecordStatus.Visible = false;
+                            }
+                        }
+                    }
+                    btnSubmit.Text = "Update";
+
+                }
+
+                BindIPGrid();
+            }
         }
 
         private void CreateAdviserIPPools(DataRow drIPsForAdviser, int createdById)
