@@ -92,8 +92,10 @@ namespace WealthERP.Advisor
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
             bmID=rmVo.RMId;
-            
 
+            gvCalenderDetailView.Visible = true;
+            gvSystematicMIS.Visible = true;
+            ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
           
@@ -357,6 +359,12 @@ namespace WealthERP.Advisor
 
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
+            gvCalenderDetailView.Visible = false;
+            gvSystematicMIS.Visible = false;
+            tblMessage.Visible = true;
+            ErrorMessage.Visible = true;
+            ErrorMessage.InnerText = "No Records Found...!";
+          
         }
 
         protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
@@ -370,6 +378,14 @@ namespace WealthERP.Advisor
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
             ddlSelectCutomer.SelectedIndex = 0;
+            gvCalenderDetailView.Visible = false;
+            gvSystematicMIS.Visible = false;
+            tblMessage.Visible = true;
+            ErrorMessage.Visible = true;
+            ErrorMessage.InnerText = "No Records Found...!";
+           
+
+
         }
         /* Customer search for Group ang Individual*/
       
