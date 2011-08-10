@@ -1596,7 +1596,10 @@ namespace WealthERP.Advisor
                 else if (recommendedPctg < currentPctg)
                 {
                     imgActionIndicator.ImageUrl = "~/Images/RedDownArrow.png";
-
+                }
+                else if (recommendedPctg == currentPctg)
+                {
+                    imgActionIndicator.Visible = false;
                 }
             }
         }
