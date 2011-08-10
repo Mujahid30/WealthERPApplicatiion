@@ -7,7 +7,7 @@
     function alertingForAddDefaultIP() {
         var chkCheckedOrNot = document.getElementById("<%=chkIsIPEnable.ClientID%>").checked;
         if (chkCheckedOrNot == true) {
-            alert("By Enanbling this your IP Login Security has been activated.!! \n\n You current system IP has been added to your IP list..");
+            alert("By Enabling this your IP Login Security has been activated.!! \n\n You current system IP has been added to your IP list..");
         }
         else {
             alert("By Disabling this you will loose your IP Login Security..!!");
@@ -354,7 +354,7 @@
             <asp:Label ID="lblisIPEnable" runat="server" CssClass="FieldName" Text="IP Enanble"></asp:Label>
         </td>
          <td class="rightField" colspan="3">
-            <asp:CheckBox ID="chkIsIPEnable" onclick="alertingForAddDefaultIP()" CssClass="FieldName" runat="server" Text="Is IP Enanble ?" AutoPostBack="false" />
+            <asp:CheckBox ID="chkIsIPEnable" onclick="alertingForAddDefaultIP()" CssClass="FieldName" runat="server" Text="Is IP Enable ?" AutoPostBack="false" />
         </td>
     </tr>
     <tr>
