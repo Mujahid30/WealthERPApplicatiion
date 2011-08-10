@@ -170,7 +170,7 @@
            <div id="passwordNote" style="font-size: x-small; color: #16518A;"">
            <p>
              <span style="font-weight: bold">Note:</span><br />
-             1: Password length - 6 to 8.<br />
+             1: Password length - 6 to 12.<br />
              2: There should be 1 alpha character.<br />
              3: There should be 1 Numeric.<br />
              <br />
