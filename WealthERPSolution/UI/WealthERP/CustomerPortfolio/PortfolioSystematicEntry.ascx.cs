@@ -84,8 +84,9 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (Manage == "entry")
                     {
-                        SetControlsForFolioAdd(Manage);
-                        MaintainPageStateForControls();                       
+                        
+                          SetControlsForFolioAdd(Manage);                        
+                          MaintainPageStateForControls();                       
  
                     }
                   
@@ -131,14 +132,14 @@ namespace WealthERP.CustomerPortfolio
         {
             BindDropDowns(path);
             //BindPortfolioDropDown();
-           
+
             if ((Session["SystematicHT"] != null) && (Session["SystematicHT"].ToString() != ""))
             {
                 Hashtable hashRetainPreviousState = new Hashtable();
                 hashRetainPreviousState = (Hashtable)Session["SystematicHT"];
 
                 ddlSystematicType.SelectedValue = hashRetainPreviousState["SystematicType"].ToString();
-                if (ddlSystematicType.SelectedValue=="SIP")
+                if (ddlSystematicType.SelectedValue == "SIP")
                 {
                     trSipChequeDate.Visible = true;
                     trSipChequeNo.Visible = true;
@@ -157,16 +158,17 @@ namespace WealthERP.CustomerPortfolio
                 }
                 txtSearchScheme.Text = hashRetainPreviousState["SearchScheme"].ToString();
                 txtSwicthSchemeSearch.Text = hashRetainPreviousState["SwicthSchemeSearch"].ToString();
-                
+
                 //ddlFolioNumber.SelectedValue = hashRetainPreviousState["FolioNumber"].ToString();
 
                 txtSchemeCode.Value = hashRetainPreviousState["SchemeCode"].ToString();
-                
+
+
                 BindPortfolioDropDown();
                 ddlportfolio.SelectedValue = hashRetainPreviousState["Portfolio"].ToString();
                 schemePlanCode = int.Parse(hashRetainPreviousState["SchemeCode"].ToString());
                 BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue.ToString()));
-                ddlFolioNumber.SelectedValue =folioId;
+                ddlFolioNumber.SelectedValue = folioId;
 
                 txtStartDate.Text = hashRetainPreviousState["StartDate"].ToString();
                 txtSipChequeDate.Text = hashRetainPreviousState["SipChequeDate"].ToString();
@@ -175,7 +177,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     SetPreviousValuesForCheckboxes();
                 }
-                
+
                 txtSystematicDate.Text = hashRetainPreviousState["SystematicDate"].ToString();
                 ddlFrequency.SelectedValue = hashRetainPreviousState["Frequency"].ToString();
                 txtAmount.Text = hashRetainPreviousState["Amount"].ToString();
@@ -184,7 +186,16 @@ namespace WealthERP.CustomerPortfolio
                 txtEndDate.Text = hashRetainPreviousState["EndDate"].ToString();
                 txtRegistrationDate.Text = hashRetainPreviousState["RegistrationDate"].ToString();
                 ddlPaymentMode.SelectedValue = hashRetainPreviousState["PaymentMode"].ToString();
+
+                Session.Remove("SystematicHT");
             }
+            else
+            {
+                BindPortfolioDropDown();
+                ddlFolioNumber.Items.Insert(0, "Select");
+            }
+
+           
         }
 
         private void SetPreviousValuesForCheckboxes()
@@ -1230,6 +1241,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnAddFolio_Click(object sender, EventArgs e)
         {
+            if(ddlSystematicType.SelectedIndex!=0 && !string.IsNullOrEmpty(txtSearchScheme.Text.Trim()))
              SaveCurrentPageState();
              portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
