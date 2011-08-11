@@ -1516,7 +1516,7 @@ namespace WealthERP.FP
                     dtGEOther.Columns.Add("GEAssetValues", System.Type.GetType("System.Decimal"));
 
                     drGEGapAnalysis = dtGEGapAnalysis.NewRow();
-                    drGEGapAnalysis["GEAssetCategory"] = "Recommende Cover";
+                    drGEGapAnalysis["GEAssetCategory"] = "Recommended Cover";
                     if (totalAnnualIncome > 50000)
                     {
                         drGEGapAnalysis["GEAssetValues"] = 50000;
