@@ -240,6 +240,7 @@ namespace WealthERP.FP
                 txtTotalPropertyInsurancePremium.Attributes.Add("readonly", "readonly");
                 txtTotalPersonalAccidentPremium.Attributes.Add("readonly", "readonly");
                 txtTotalPremiumOthers.Attributes.Add("readonly", "readonly");
+                txtIncomeTotal.Attributes.Add("readonly", "readonly");
 
                 //txtToalHealthInsurancePremium.Enabled = false;
             }
@@ -1802,6 +1803,44 @@ namespace WealthERP.FP
                 {
                     assetgroupdetails.AdjustedValue += Math.Round(double.Parse(txtOthersGIA.Text.Trim()),0);
                 }
+
+                //Adjusted PremiumTotal For GI
+                if (txtAdjustedHealthPremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtAdjustedHealthPremium.Text.Trim()), 0); 
+                }
+                if (txtAdjustedPropertyInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtAdjustedPropertyInsurancePremium.Text.Trim()), 0);
+                }
+                if (txtPersonalAccidentPremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtPersonalAccidentPremium.Text.Trim()), 0);
+                }
+                if (txtAdjustedOtherGIPremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.AdjustedPremiumValue += Math.Round(double.Parse(txtAdjustedOtherGIPremium.Text.Trim()), 0);
+                }
+
+                //Grand Total PremiumTotal For GI
+
+                if (txtToalHealthInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtToalHealthInsurancePremium.Text.Trim()), 0);
+                }
+                if (txtTotalPropertyInsurancePremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtTotalPropertyInsurancePremium.Text.Trim()), 0);
+                }
+                if (txtTotalPersonalAccidentPremium.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtTotalPersonalAccidentPremium.Text.Trim()), 0);
+                }
+                if (txtTotalPremiumOthers.Text.Trim() != string.Empty)
+                {
+                    assetgroupdetails.TotalPremiumValue += Math.Round(double.Parse(txtTotalPremiumOthers.Text.Trim()), 0);
+                }
+
                 assetgroupdetailslist.Add(assetgroupdetails);
                 // General Insurance second Level
                 assetdetailsvo = new CustomerProspectAssetDetailsVo();
@@ -1809,6 +1848,8 @@ namespace WealthERP.FP
                 assetdetailsvo.AssetInstrumentCategoryCode = "GIRI";
                 assetdetailsvo.AdjustedValue = assetgroupdetails.AdjustedValue;
                 assetdetailsvo.Value = assetgroupdetails.Value;
+                assetdetailsvo.AdjustedPremium = assetgroupdetails.AdjustedPremiumValue;
+                assetdetailsvo.TotalPremiumValue = assetgroupdetails.TotalPremiumValue;
                 assetdetailsvolist.Add(assetdetailsvo);
 
 
