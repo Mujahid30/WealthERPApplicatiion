@@ -1831,40 +1831,40 @@ namespace WealthERP.Reports
                 {
                     if (pair.Key.Trim() == "#CurrEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currEquity.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currEquity,2).ToString() + "%");
                     }
                     else if (pair.Key.Trim() == "#CurrDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currDebt.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currDebt,0).ToString() + "%");
                     }
                     else if (pair.Key.Trim() == "#RecEquity#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recEquity.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recEquity,0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecDebt#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recDebt.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recDebt,2).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCash#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recCash.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recCash,2).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#CurrCash#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currCash.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currCash,0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#CurrAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, currAlternate.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(currAlternate,0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecAlternate#")
                     {
-                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, recAlternate.ToString() + "%");
+                        strRiskProfileAssetAllocationText = strRiskProfileAssetAllocationText.Replace(pair.Key, Math.Round(recAlternate,0).ToString() + "%");
 
                     }
                     else if (pair.Key.Trim() == "#RecCashLessMore#")
