@@ -191,12 +191,12 @@ div#MainDivLeft
 
 .TableBackground
 {
-    background-color: #FFFDE0 !important;
+    background-color: #FFFFFF !important;
 }
 
 .TDBackground
 {
-    background-color: #FFFDE0 !important;
+    background-color: #FFFFFF !important;
 }
 
 .DivScroll
@@ -535,7 +535,7 @@ a.aBreadCrumbCurrent
     font-size: x-small;
     color: #16518A;
     width: 100px;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
 }
 
 .GridViewCmbField
@@ -545,7 +545,7 @@ a.aBreadCrumbCurrent
     font-size: x-small;
     color: #16518A;
     width: 100px;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
 }
 
 .GridViewCmbFieldforBM
@@ -581,7 +581,7 @@ a.aBreadCrumbCurrent
 
 .TableBackground
 {
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
 }
 .modalBackground
 {
@@ -625,13 +625,13 @@ ul.tabbernav li a
     margin-left: 2px;
     border: 1px solid #778;
     border-bottom: none;
-    background: #FFFDE0;
+    background: #FFFFFF;
     text-decoration: none;
 }
 ul.tabbernav li a:link
 {
     color: #448;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
 }
 ul.tabbernav li a:visited
 {
@@ -642,17 +642,17 @@ ul.tabbernav li a:hover
     color: #000;
     
     border-color: #227;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
 }
 ul.tabbernav li.tabberactive a
 {
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
     border-bottom: 1px solid #fff;
 }
 ul.tabbernav li.tabberactive a:hover
 {
     color: #000;
-    background: #FFFDE0;
+    background: #FFFFFF;
     border-bottom: 1px solid white;
 }
 .tabberlive .tabbertab
@@ -692,7 +692,7 @@ ul.tabbernav li.tabberactive a:hover
 }
 .ajax__tab_body
 {
-    background-color: #FFFDE0 !important;
+    background-color: #FFFFFF !important;
 }
 
 /* AutoComplete item */
@@ -824,14 +824,14 @@ div.panel, div.flip
 {
     margin: 0px;
     padding: 5px;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
     border-bottom: solid 1.5px Black;
     font-size: x-small;
 }
 div.panel
 {
     border: solid 1px Maroon;
-    background-color: #FFFDE0;
+    background-color: #FFFFFF;
     font-family: Verdana,Tahoma;
     font-size: small;
     font-weight: bold;
