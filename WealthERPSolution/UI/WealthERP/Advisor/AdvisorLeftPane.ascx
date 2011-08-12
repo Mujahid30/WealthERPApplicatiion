@@ -163,6 +163,16 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Order Management" Value="OrderManagement">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS" Value="OrderMIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Recon" Value="OrderRecon">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Staff User Management" Value="Staff User Management">
@@ -264,7 +274,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View MF Transactions" Value="View MF Transactions">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Add MF Transactions" Value="Add MF Transactions">
+                                                    <telerik:RadPanelItem runat="server" Text="Add MF Transactions" Value="Add MF Transactions" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

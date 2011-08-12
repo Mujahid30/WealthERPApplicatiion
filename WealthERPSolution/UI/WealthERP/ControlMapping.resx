@@ -1173,4 +1173,16 @@
     <value>SuperAdmin//IFFUserManagement.ascx</value>
     <comment>SuperAdmin//IFFUserManagement.ascx</comment>
   </data>
+  <data name="OrderEntry" xml:space="preserve">
+    <value>OPS//OrderEntry.ascx</value>
+    <comment>OPS//OrderEntry.ascx</comment>
+  </data>
+  <data name="OrderMIS" xml:space="preserve">
+    <value>OPS//OrderMIS.ascx</value>
+    <comment>OPS//OrderMIS.ascx</comment>
+  </data>
+  <data name="OrderRecon" xml:space="preserve">
+    <value>OPS//OrderRecon.ascx</value>
+    <comment>OPS//OrderRecon.ascx</comment>
+  </data>
 </root>

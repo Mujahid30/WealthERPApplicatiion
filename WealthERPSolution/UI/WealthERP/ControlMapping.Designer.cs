@@ -1456,6 +1456,33 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//OrderEntry.ascx.
+        /// </summary>
+        internal static string OrderEntry {
+            get {
+                return ResourceManager.GetString("OrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OPS//OrderMIS.ascx.
+        /// </summary>
+        internal static string OrderMIS {
+            get {
+                return ResourceManager.GetString("OrderMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OPS//OrderRecon.ascx.
+        /// </summary>
+        internal static string OrderRecon {
+            get {
+                return ResourceManager.GetString("OrderRecon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//PensionAndGratuities.ascx.
         /// </summary>
         internal static string PensionAndGratuities {
