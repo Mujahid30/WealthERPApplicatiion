@@ -18,6 +18,44 @@
         return false;
     };
 </script>
+
+ <%--<script type="text/javascript">
+
+     function ShowHideFuture() {
+
+
+       
+         if (document.getElementById("<%= rbtnFuture.ClientID %>").checked == true) {
+          
+
+             document.getElementById("<%= trFutureTrigger.ClientID %>").style.display = 'block';
+             document.getElementById("<%= trfutureDate.ClientID %>").style.display = 'block';
+         }
+         else if (document.getElementById("<%= rbtnImmediate.ClientID %>").checked == true) {
+
+         document.getElementById("<%= trFutureTrigger.ClientID %>").style.display = 'none';
+         document.getElementById("<%= trfutureDate.ClientID %>").style.display = 'none';
+       
+         }
+          
+     }
+  
+
+</script>--%>
+<asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry"></asp:Label>
+<br />
+<hr />
+<telerik:RadToolBar ID="aplToolBar" runat="server" Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
+    Width="100%"  OnButtonClick="aplToolBar_ButtonClick">
+    <Items>
+        <telerik:RadToolBarButton ID="btnEdit" runat="server" Text="Edit" Value="Edit" ImageUrl="~/Images/Telerik/EditButton.gif"
+            ImagePosition="Left" ToolTip="Edit">            
+        </telerik:RadToolBarButton>
+        
+    </Items>
+</telerik:RadToolBar>
+<br />
+<br />
 <table width="70%">
 <tr>
   <td align="right">
@@ -80,7 +118,8 @@
   &nbsp;
   </td>
   <td>
-     <asp:Button ID="btnAddCustomer" runat="server" Text="Add a New Customer" CssClass="PCGButton" CausesValidation=false />
+     <asp:Button ID="btnAddCustomer" runat="server" Text="Add a New Customer" CssClass="PCGButton" CausesValidation="false" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','L');" />
   </td>
 </tr>
 
@@ -131,7 +170,8 @@
   &nbsp;
   </td>
   <td>
-     <asp:Button ID="btnAddFolio" runat="server" Text="Add a New Folio" CssClass="PCGButton" />
+     <asp:Button ID="btnAddFolio" runat="server" Text="Add a New Folio" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddFolio','L');"
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddFolio','L');" />
   </td>
 </tr>
 
@@ -158,7 +198,7 @@
 
 <tr>
   <td align="right">
-  <asp:Label ID="lblTransactionDate" runat="server" Text="Transaction DAte: "  CssClass="FieldName"></asp:Label>
+  <asp:Label ID="lblTransactionDate" runat="server" Text="Transaction Date: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
   <asp:TextBox ID="txtTransactionDate" runat="server" CssClass="txtField"></asp:TextBox>
@@ -185,12 +225,12 @@
      <asp:Label ID="lblOrderType" runat="server" Text="Order Type: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
-<asp:RadioButton ID="rbtnImmediate" Class="cmbField"  runat="server" 
-          GroupName="OrderDate" Checked="True"  Text="Immediate" AutoPostBack="true"
-          oncheckedchanged="rbtnImmediate_CheckedChanged" />
+<asp:RadioButton ID="rbtnImmediate" Class="cmbField"  runat="server" AutoPostBack="true"
+          GroupName="OrderDate" Checked="True"  Text="Immediate" OnCheckedChanged="rbtnImmediate_CheckedChanged"
+           />
 <asp:RadioButton ID="rbtnFuture" Class="cmbField" runat="server" AutoPostBack="true"
-          GroupName="OrderDate" Text="Future" 
-          oncheckedchanged="rbtnFuture_CheckedChanged" />
+          GroupName="OrderDate" Text="Future" OnCheckedChanged="rbtnFuture_CheckedChanged"
+           />
 </td>
   <td align="right">
   <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: "  CssClass="FieldName"></asp:Label>
@@ -320,7 +360,7 @@
 <tr>
 <td colspan="2"></td>
 <td colspan="2" align="left">
-<asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" />
+<asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" />
 </td>
 </tr>
 </table>

@@ -23,6 +23,33 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// lblOrderEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrderEntry;
+        
+        /// <summary>
+        /// aplToolBar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadToolBar aplToolBar;
+        
+        /// <summary>
+        /// btnEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadToolBarButton btnEdit;
+        
+        /// <summary>
         /// lblOrderNumber control.
         /// </summary>
         /// <remarks>

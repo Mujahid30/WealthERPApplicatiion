@@ -14,6 +14,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoAdvisorProfiling;
 using BoUploads;
+using Telerik.Web.UI;
 
 namespace WealthERP.OPS
 {
@@ -56,6 +57,20 @@ namespace WealthERP.OPS
                 BindFolionumberDropdown(portfolioId);
 
             }
+            if (ViewState["ActionEditViewMode"] == null)
+            {
+                ViewState["ActionEditViewMode"] = "View";
+            }
+
+            if (ViewState["ActionEditViewMode"].ToString() == "View")
+            {
+                SetEditViewMode(true);
+            }
+            else if (ViewState["ActionEditViewMode"].ToString() == "Edit")
+            {
+                SetEditViewMode(false);
+            }
+
         }
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
@@ -166,5 +181,104 @@ namespace WealthERP.OPS
             ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
 
         }
+
+        protected void aplToolBar_ButtonClick(object sender, RadToolBarEventArgs e)
+        {
+            if (e.Item.Value == "Edit")
+            {
+                ViewState["ActionEditViewMode"] = "Edit";
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAssumptionsPreferencesSetup','login');", true);
+                SetEditViewMode(false);
+            }
+        }
+
+
+        public void SetEditViewMode(bool Bool)
+        {
+
+            if (Bool)
+            {
+
+                txtOrederNumber.Enabled = false;
+                txtOrderDate.Enabled = false;
+                ddlBranch.Enabled = false;
+                ddlRM.Enabled = false;
+                txtCustomerName.Enabled = false;
+                btnAddCustomer.Enabled = false;
+                ddlTransactionType.Enabled = false;
+                ddlPortfolio.Enabled = false;
+                ddlFolioNumber.Enabled = false;
+                btnAddFolio.Enabled = false;
+                txtSchemeName.Enabled = false;
+                txtTransactionDate.Enabled = false;
+                txtReceivedDate.Enabled = false;
+                rbtnImmediate.Enabled = false;
+                rbtnFuture.Enabled = false;
+                txtFutureDate.Enabled = false;
+                txtFutureTrigger.Enabled = false;
+                txtAmount.Enabled = false;
+                txtUnits.Enabled = false;
+                chkCheque.Enabled = false;
+                chkECS.Enabled = false;
+                chkDraft.Enabled = false;
+                txtPaymentNumber.Enabled = false;
+                txtPaymentDetails.Enabled = false;
+                txtBankDetails.Enabled = false;
+                rbtnPending.Enabled = false;
+                rbtnExecuted.Enabled = false;
+                rbtnCancelled.Enabled = false;
+                rbtnReject.Enabled = false;
+                ddlOrderPendingReason.Enabled = false;
+                btnSubmit.Enabled = false;
+                DropDownList1.Enabled = false;
+
+            }
+            else
+            {
+                txtOrederNumber.Enabled = true;
+                txtOrderDate.Enabled = true;
+                ddlBranch.Enabled = true;
+                ddlRM.Enabled = true;
+                txtCustomerName.Enabled = true;
+                btnAddCustomer.Enabled = true;
+                ddlTransactionType.Enabled = true;
+                ddlPortfolio.Enabled = true;
+                ddlFolioNumber.Enabled = true;
+                btnAddFolio.Enabled = true;
+                txtSchemeName.Enabled = true;
+                txtTransactionDate.Enabled = true;
+                txtReceivedDate.Enabled = true;
+                rbtnImmediate.Enabled = true;
+                rbtnFuture.Enabled = true;
+                txtFutureDate.Enabled = true;
+                txtFutureTrigger.Enabled = true;
+                txtAmount.Enabled = true;
+                txtUnits.Enabled = true;
+                chkCheque.Enabled = true;
+                chkECS.Enabled = true;
+                chkDraft.Enabled = true;
+                txtPaymentNumber.Enabled = true;
+                txtPaymentDetails.Enabled = true;
+                txtBankDetails.Enabled = true;
+                rbtnPending.Enabled = true;
+                rbtnExecuted.Enabled = true;
+                rbtnCancelled.Enabled = true;
+                rbtnReject.Enabled = true;
+                ddlOrderPendingReason.Enabled = true;
+                btnSubmit.Enabled = true;
+                DropDownList1.Enabled = true;
+
+            }
+        
+        
+        }
+     
+
+        protected void btnSubmit_OnClick(object sender, EventArgs e)
+        {
+            int result = 1234;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);
+        } 
+
     }
 }
