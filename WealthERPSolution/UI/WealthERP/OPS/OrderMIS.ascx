@@ -25,7 +25,7 @@
 <br />
 <hr />
 <br />
-<table width="100%">
+<table width="80%">
 <tr>
   <td align="right">
   <asp:Label ID="lblBranch" runat="server" Text="Select The Branch: "  CssClass="FieldName"></asp:Label>
@@ -183,9 +183,6 @@
 <tr>
 <td colspan="6">&nbsp;</td>
 </tr>
-<tr>
-<td colspan="6">&nbsp;</td>
-</tr>
 
 <tr>
 <td colspan="2" align="left">
@@ -198,72 +195,50 @@
 </td>
 </tr>
 
-<tr>
-<td colspan="6">
-<table id="tbgvMIS" runat="server">
-<tr><td>
-<asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="Id" runat="server" AutoGenerateColumns="False"
+
+</table>
+
+<asp:Panel ID="tbgvMIS" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+<table width="100%">
+ 
+ 
+  <tr>
+    <td>
+  &nbsp;
+  </td>
+    <td>
+        <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="Id" runat="server" AutoGenerateColumns="False"
                                         ShowFooter="True">
                                         <RowStyle CssClass="RowStyle" />
                                         <AlternatingRowStyle CssClass="AltRowStyle" />
                                         <Columns>
-                                         <asp:BoundField DataField="Id" HeaderText="Id" Visible="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Assetclass" HeaderText="Asset class">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
+                                         <asp:TemplateField HeaderText="Select">
+                                            <ItemTemplate>
+                                              <asp:CheckBox ID="cbRecons" runat="server" />
+                                            </ItemTemplate>
+                                            <%-- <HeaderTemplate>
+                                                <input id="cbRecons" type="Select" />
+                                            </HeaderTemplate>--%>
+                                        </asp:TemplateField>                                 
                                             
-                                             <asp:BoundField DataField="Branch" HeaderText="Branch">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            
-                                             <asp:BoundField DataField="RM" HeaderText="RM">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            
-                                             <asp:BoundField DataField="Customer" HeaderText="Customer">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            
-                                            <asp:BoundField DataField="FolioNo" HeaderText="Folio No">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Scheme" HeaderText="Scheme">
+                                      <asp:TemplateField HeaderText="OrderNumber" HeaderStyle-HorizontalAlign="Right">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkOrderId" runat="server" CssClass="cmbField" Text='<%# Eval("OrderNumber") %>' OnClick="lnkOrderId_Click">
+                                            </asp:LinkButton>
+                                        </ItemTemplate>                                      
+                                     </asp:TemplateField>
+                                        
+                                        <%--<asp:TemplateField HeaderText="OrderNumber">
+                                        <ItemTemplate>
+                                        <asp:LinkButton ID="lnkOrderNumber" runat="server" Text='<%# Eval("OrderNumber").ToString() %>'>
+                                        </asp:LinkButton>
+                                        
+                                        </ItemTemplate>
+                                        </asp:TemplateField> --%>
+                                        <%-- <asp:BoundField DataField="OrderNumber" HeaderText="Order Number">
                                                 <HeaderStyle HorizontalAlign="Right" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Type" HeaderText="Type">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Price" HeaderText="Price (Rs)">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Units" HeaderText="Units">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="Amount" HeaderText="Amount (Rs)">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            
-                                               <asp:BoundField DataField="OrderNumber" HeaderText="Order Number">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
+                                            </asp:BoundField>--%>
                                             
                                                <asp:BoundField DataField="TransactionNumber" HeaderText="Transaction Number">
                                                 <HeaderStyle HorizontalAlign="Right" />
@@ -300,18 +275,62 @@
                                              <asp:BoundField DataField="ApplicationNumber" HeaderText="Application Number">
                                                 <HeaderStyle HorizontalAlign="Right" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>  
+                                         <asp:BoundField DataField="Id" HeaderText="Id" Visible="false">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
-                            
-                      
+                                            <asp:BoundField DataField="Assetclass" HeaderText="Asset class">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
                                             
-                       <asp:TemplateField HeaderText="Recons">
-                        <ItemTemplate>
-                          <asp:CheckBox ID="cbRecons" runat="server" />
-                        </ItemTemplate>
-                        <%-- <HeaderTemplate>
-                            <input id="cbRecons" type="Select" />
-                        </HeaderTemplate>--%>
-                    </asp:TemplateField>             
+                                             <asp:BoundField DataField="Branch" HeaderText="Branch">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                             <asp:BoundField DataField="RM" HeaderText="RM">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                             <asp:BoundField DataField="Customer" HeaderText="Customer">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                            <asp:BoundField DataField="FolioNo" HeaderText="Folio No">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="Scheme" HeaderText="Scheme">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right" Wrap="true"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="Type" HeaderText="Type">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="TransactionDate" HeaderText="Transaction Date">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="Price" HeaderText="Price (Rs)">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="Units" HeaderText="Units">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="Amount" HeaderText="Amount (Rs)">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                              
+                                 
                                         </Columns>
                                         <EditRowStyle CssClass="EditRowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
@@ -319,16 +338,26 @@
                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                                         <SelectedRowStyle CssClass="SelectedRowStyle" />
                                     </asp:GridView>
-                                    </td>
-                                    </tr>
-                                    <tr><td> <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" 
-                                            Text="Submit" onclick="btnSubmit_Click" /></td> </tr>
-                                    
+    </td>
+    <td>
+    &nbsp;&nbsp;
+    </td>
+  </tr>
+  
+  <tr>
+  <td colspan="3">
+  &nbsp;&nbsp;
+  </td>
+  </tr>
+  
+  <tr>
+    <td colspan="3"> 
+    <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" onclick="btnSubmit_Click" />
+    </td>
+  </tr>                                
 
 </table>
-</td>
-</tr>
-</table>
+</asp:Panel>
 
 
 

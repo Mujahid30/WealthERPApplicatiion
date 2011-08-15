@@ -59,7 +59,7 @@ namespace WealthERP.OPS
                 BindBranchDropDown();
                 BindRMDropDown();
                 //BindPortfolioDropdown();
-                BindFolionumberDropdown(portfolioId);
+                //BindFolionumberDropdown(portfolioId);
             }
             
 
@@ -135,7 +135,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "5360043/46";
             drdtBindGridView[6] = "ICICI Prudential Focused Bluechip Equity Fund - Retail Growth Plan";
             drdtBindGridView[7] = "BUY";
@@ -159,7 +159,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "1831166/97";
             drdtBindGridView[6] = "Kotak-Mid-Cap-Growth";
             drdtBindGridView[7] = "BUY";
@@ -183,7 +183,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "7034832/85";
             drdtBindGridView[6] = "HDFC Floating Rate Income Fund-Short Term Plan - Retail Option - Dividend - Daily";
             drdtBindGridView[7] = "BUY";
@@ -207,7 +207,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "1831166/97";
             drdtBindGridView[6] = "Kotak Floater Long-Term-Daily Dividend";
             drdtBindGridView[7] = "BUY";
@@ -231,7 +231,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "5360043/46";
             drdtBindGridView[6] = "ICICI Prudential Focused Bluechip Equity Fund - Retail Growth Plan";
             drdtBindGridView[7] = "BUY";
@@ -255,7 +255,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "7034832/85";
             drdtBindGridView[6] = "HDFC Floating Rate Income Fund-Short Term Plan - Retail Option - Dividend - Daily";
             drdtBindGridView[7] = "SELL";
@@ -279,7 +279,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "1831166/97";
             drdtBindGridView[6] = "Kotak Floater Long-Term-Daily Dividend";
             drdtBindGridView[7] = "SELL";
@@ -303,7 +303,7 @@ namespace WealthERP.OPS
             drdtBindGridView[1] = "MF";
             drdtBindGridView[2] = "Kalina";
             drdtBindGridView[3] = "Walk-in";
-            drdtBindGridView[4] = "AD JAIN";
+            drdtBindGridView[4] = "GK JAIN ";
             drdtBindGridView[5] = "5360043/46";
             drdtBindGridView[6] = "ICICI Prudential Flexible Income Plan Regular- Daily Dividend Plan";
             drdtBindGridView[7] = "SELL";
@@ -420,6 +420,12 @@ namespace WealthERP.OPS
 
             return gvIds;
  
+        }
+
+        protected void lnkOrderId_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','login');", true);
+            
         }
 
     }

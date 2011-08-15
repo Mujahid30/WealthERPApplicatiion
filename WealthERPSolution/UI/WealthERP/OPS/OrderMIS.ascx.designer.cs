@@ -362,7 +362,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tbgvMIS;
+        protected global::System.Web.UI.WebControls.Panel tbgvMIS;
         
         /// <summary>
         /// gvMIS control.
