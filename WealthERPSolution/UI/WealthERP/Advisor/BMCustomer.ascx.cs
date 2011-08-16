@@ -1851,7 +1851,7 @@ namespace WealthERP.Advisor
             if (txtPAN != null)
             {
                 hndPAN.Value = txtPAN.Text.Trim();
-                if ((Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
+                if ((Session["Customer"] == null || Session["Customer"].ToString() == "Customer") && (hndAll.Value != "0"))
                 {
                     this.BindGrid(mypager.CurrentPage, 0);
                 }
