@@ -1,0 +1,921 @@
+﻿body
+{
+    font-family: Verdana,Tahoma; /*background-color: rgb(226,226,226);*/ /*color: rgb(0,0,0);*/
+    text-align: left; /* for IE */
+     margin:0px;
+     
+}
+
+div#wrapper
+{
+    text-align: left; /* reset text alignment */
+    width: 748px; /* or a percentage, or whatever */
+    margin: 0 auto; /* for the rest */
+    min-height: 700px;
+}
+
+div#MainDivLeft
+{
+    width: 120px;
+    margin: 0 auto;
+    max-height: 700px;
+}
+
+.header
+{
+    background-image: url(Images/HeaderTB.jpg);
+    background-repeat: repeat;
+    height: 70px;
+}
+.FieldName
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: x-small;
+    color: #301775;
+    vertical-align: middle;
+    text-align: right;
+}
+.Field
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    vertical-align: middle;
+    color: #16518A;
+}
+.lblChooseBranch
+{
+    float: left;
+    color: #1E103F;
+}
+
+.txtField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 145px;
+}
+.txtLongAddField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 250px;
+    
+}
+.AddLongField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    vertical-align: middle;
+    color: #16518A;
+    width: 250px;
+}
+.txtSchemeName
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 500px;
+    
+}
+.cmbField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 150px; /*margin-left: 0px;*/
+}
+
+.cmbLongField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 250px; /*margin-left: 0px;*/
+}
+
+.Button
+{
+    font-weight: bold;
+    font-size: xx-small;
+    background-color: #C0C0C0;
+    color: Maroon;
+    width: 98px;
+    height: 24px;
+    margin-left: 0px;
+}
+
+.LinkButtons
+{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: small; /*color:#993434;*/
+    color: #547C3B;
+}
+
+.Error
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: red;
+}
+
+.UploadDateLbl
+{
+    
+    font-size: small;
+    color: #2E175F;
+}
+
+.SuccessMsg
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: #16518A;
+}
+
+.Message
+{
+    background-color: White;
+    text-align:left;
+}
+
+.SubTitle
+{
+    font-weight: bold;
+    font-size: large;
+    color: #547C3B;
+}
+.HeaderCell
+{
+    text-align: left;
+}
+.EditCell
+{
+    text-align: right;
+}
+.SubmitCell
+{
+    text-align: left;
+    margin-left: 80px;
+}
+.HeaderText
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: x-small;
+    color: #547C3B;/*#16518A;*/
+}
+.HeaderDateText
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: x-small;
+    color: #FFFFFF;
+}
+
+.HeaderTextBig
+{
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size: medium; /*color: #993434;*/
+    color: #547C3B;
+}
+.TableBackground
+{
+    /* background-color: #F1F9FC; */
+    background-color: #FFFFFF !important; 
+}
+.TDBackground
+{
+    background-color: #FFFFFF !important; 
+}
+.DivScroll
+{
+    width: 250;
+    height: 100;
+    overflow: auto;
+}
+.PCGRedBcknd
+{
+     /* background-color: #547C3B; */
+     background: url(Images/testSCBbackground.gif) repeat-x;
+}
+.PCGRedText
+{
+    /*  background-color: #547C3B; */
+}
+.PCGWhiteText
+{
+    color: White;
+    font-variant: small-caps;
+    font-size: small;
+    font-family: Verdana,Tahoma;
+}
+.MenuEX
+{
+    font-family: Verdana,Tahoma;
+}
+.level1
+{
+    color: White;
+   /* background-color: #547C3B; */
+    font-variant: small-caps;
+    font-size: small;
+    font-family: Verdana,Tahoma;
+    border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
+}
+.level2
+{
+    color: White;
+    background-color: #547C3B;
+    font-variant: small-caps;
+    font-size: small;
+    font-family: Verdana,Tahoma;
+    border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
+}
+
+.level3
+{
+    color: White;
+    background-color: #547C3B;
+    font-variant: small-caps;
+    font-size: small;
+    font-family: Verdana,Tahoma;
+    border-width: 6px;
+    border-bottom: solid 4px Transparent;
+    border-top: solid 4px Transparent;
+    border-left: solid 3px Transparent;
+    border-right: solid 4px Transparent; 
+}
+
+.hoverstyle
+{
+    color: #547C3B;
+    font-weight: bold;
+    background-color: #EAF7F4;
+}
+.sublevel1
+{
+    color: White !important;
+    font-variant: small-caps;
+    border-bottom: solid 6px Transparent;
+    border-top: solid 6px Transparent;
+    border-left: solid 6px Transparent;
+    border-right: solid 6px Transparent;
+}
+
+.CompanyNameHeader
+{
+    font-family: Century;
+    font-size: x-large;
+    font-weight: 200;
+    color: #16518A;
+}
+
+.dvDate
+{
+    height: 30px;
+    vertical-align: bottom;
+}
+
+.leftField
+{
+    text-align: right;
+    vertical-align: middle;
+}
+
+.rightField
+{
+    text-align: left;
+    vertical-align: middle;
+}
+
+.leftAddressField
+{
+    text-align: right;
+    vertical-align: top;
+}
+
+.PCGButton
+{
+    background: url(Images/PCG_gradient_button1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 69px;
+    cursor: pointer;
+}
+
+.PCGHoverButton
+{
+    background: url(Images/PCG_gradient_button.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 69px;
+    cursor: pointer;
+}
+.PCGLongButton
+{
+    background: url(Images/PCG_gradient_button_long.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 165px;
+    cursor: pointer;
+}
+.PCGHoverLongButton
+{
+    background: url(Images/PCG_gradient_button_long_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 165px;
+    cursor: pointer;
+}
+.PCGMediumButton
+{
+    background: url(Images/PCG_gradient_button_medium.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 125px;
+    cursor: pointer;
+}
+.PCGHoverMediumButton
+{
+    background: url(Images/PCG_gradient_button_medium_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 125px;
+    cursor: pointer;
+}
+
+a.aBreadCrumb
+{
+    color: #993333;
+    text-decoration: none;
+    font-size: small;
+}
+a.aBreadCrumb:active
+{
+    color: #993333;
+    text-decoration: none;
+    font-size: small;
+}
+a.aBreadCrumb:visited
+{
+    color: #993333;
+    text-decoration: none;
+    font-size: small;
+}
+a.aBreadCrumb:hover
+{
+    color: #16518A;
+    text-decoration: underline;
+    font-size: small;
+}
+a.aBreadCrumbCurrent
+{
+    color: #993333;
+    text-decoration: none;
+    font-size: small;
+    cursor: default;
+}
+.spnBreadcrumbSeparator
+{
+    color: #993333;
+    font-size: x-small;
+}
+.spnRequiredField
+{
+    color: #FF0033;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+}
+.lblRequiredText
+{
+    color: #FF0033;
+    font-family: Verdana,Tahoma;
+    font-size: small;
+}
+.tdRequiredText
+{
+    text-align: left;
+}
+.dvInLine
+{
+    display: inline;
+}
+.rfvPCG
+{
+    font-family: Verdana,Tahoma;
+    font-size: x-small;
+}
+.revPCG
+{
+    font-family: Verdana,Tahoma;
+    font-size: x-small;
+}
+
+.cvPCG
+{
+    font-family: Verdana,Tahoma;
+    font-size: x-small;
+}
+
+.SearchButton
+{
+	background: url(Images/Search_Image_1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.LoadingIndicatorPanel
+{
+    z-index: 998;
+    background-color: #DEF1FE;
+    position: fixed;
+    text-align: center;
+    left: 40%;
+    top: 220px;
+    border: 2px #7BC8FF solid;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bolder;
+    width: 220px;
+    cursor: wait;
+}
+
+#splitter_bar_left
+{
+    background-image: url(/CSS/Images/splitter_bar_left_pointer.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #515151;
+    cursor: pointer;
+    width: 0.25%;
+    float: left;
+}
+#splitter_bar_right
+{
+    background-image: url(/CSS/Images/splitter_bar_right_pointer.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #515151;
+    cursor: pointer;
+    width: 0.5%;
+    float: left;
+}
+.imgStageClosed
+{
+    src: url(/CSS/Images/redStatus.jpg);
+}
+
+.imgStageOpen
+{
+    src: url(/CSS/Images/greenStatus.jpg);
+}
+
+/*-------- Styles from ControlsStylesheet.css */
+
+.GridViewTxtField
+{
+    font-family: Verdana,Tahoma;
+	font-weight:normal;
+	font-size:x-small;
+	color:#16518A;
+	width:100px;
+	background-color: #FFFFFF;
+}
+
+.GridViewCmbField
+{
+    font-family:Verdana,tahoma;
+	font-weight:normal;
+	font-size:x-small;
+	color:#16518A;
+	width:100px;
+	background-color: #FFFFFF;
+}
+
+.GridViewCmbFieldforBM
+{
+    font-family: Verdana,tahoma;
+    font-size: 11px;
+}
+
+
+.HeaderTextSmall
+{
+	font-family:Arial;
+	font-weight:bold;
+	font-size:small;
+	/*color:#993434;*/
+	color:#547C3B;
+}
+.HeaderTextSmaller
+{
+	font-family:Arial;
+	font-weight:bold;
+	font-size:8pt;
+	/*color:#993434;*/
+	color:#547C3B;
+}
+.ButtonField
+{
+    color:Black;
+    font-family:Verdana,tahoma;
+    font-size:x-small;
+    font-weight:bold;
+    height: 26px;
+}
+
+.TableBackground
+{
+	background-color:#F1F9FC;
+}
+.modalBackground
+{
+    background-color: Gray;
+    filter: alpha(opacity=70);
+    opacity: 0.7;
+}
+
+/* Tab style */
+
+.tabberlive .tabbertabhide
+{
+    display: none;
+}
+.tabber
+{    height: 496px;
+    width: 650px;
+}
+.tabberlive
+{
+    margin-top: 1em;
+}
+ul.tabbernav
+{
+    margin: 2px;
+    padding: 2px 0;
+    border-bottom: 1px solid #778;
+    font: bold 10px Verdana, sans-serif;
+}
+ul.tabbernav li
+{
+    list-style: none;
+    margin: 2px;
+    display: inline;
+}
+ul.tabbernav li a
+{
+ padding:2px;
+ margin-left: 2px;
+ border: 1px solid #778;
+ border-bottom: none;
+ background: #DDE;
+ text-decoration: none;
+}
+ul.tabbernav li a:link
+{
+    color: #448;
+    background-color: #C7F9B6;
+}
+ul.tabbernav li a:visited
+{
+    color: #667;
+}
+ul.tabbernav li a:hover
+{
+    color: #000;
+ background-color: #9CED76;
+ border-color: #227;
+
+}
+ul.tabbernav li.tabberactive a
+{
+    background-color: #FFF;
+ border-bottom: 1px solid #fff;
+
+}
+ul.tabbernav li.tabberactive a:hover
+{
+    color: #000;
+ background: white;
+ border-bottom: 1px solid white;
+
+    
+}
+.tabberlive .tabbertab
+{
+    padding: 2px;
+    border: 1px solid #3F82CD;
+    border-top: 0;
+}
+.tabberlive .tabbertab h6
+{
+    display: none;
+}
+.tabbertab p
+{
+    display: none;
+}
+.tabberlive .tabbertab h3
+{
+    display: none;
+}
+.tabberlive#tab1
+{
+}
+.tabberlive#tab2
+{
+}
+.tabberlive#tab2 .tabbertab
+{
+    height: 200px;
+    overflow: auto;
+}
+.yellow-box {
+    background-color:#FFFFE5;
+    border:1px solid #F5E082;
+    padding:10px;
+}
+ .ajax__tab_body
+  {
+      background-color: #FFFFFF !important;
+  }
+  
+  /* AutoComplete item */
+.AutoCompleteExtender_CompletionList
+{
+    background-color : #F1F9FC;
+	color : #16518A;
+	padding:1px;
+	overflow-x: auto;
+	overflow-y: scroll;
+    max-height: 200px;
+     
+    margin : 0px !important; 
+    cursor : 'default'; 
+    padding-left : 15px;
+    
+    border-width : thin; 
+	border-style : solid;  
+	border-color : Scrollbar; 
+	visibility:hidden;
+}
+
+/*AutoComplete flyout */
+.AutoCompleteExtender_CompletionListItem
+{
+    
+    background-color : #F1F9FC;
+    font-size: small;
+    text-align: left;
+    max-height: 200px;
+}
+
+/* AutoComplete highlighted item */
+.AutoCompleteExtender_HighlightedItem
+{
+    background-color: #3267C3;
+	color: White;
+    font-size: small;
+    font-weight: bold;
+} 
+
+.success-msg, .failure-msg, .warning-msg, .information-msg
+    {
+        margin: 25px 0;        
+        padding: 15px 60px;
+        position:relative;      
+        -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+        font-size: 14px;
+        width: 600px;
+        Z-Index:-1;
+        text-align: center;
+    }
+    .success-msg
+    {
+        border: solid #22AA22 1px;
+        color: Black;
+        background: #94B66C url('images/success.png') no-repeat;
+    }
+    .failure-msg
+    {
+        border: solid #C49292 1px;
+        color: Black;
+        background: #94B66C url('images/warning.png') no-repeat;
+    }
+    .warning-msg
+    {
+        border: solid #E6D976 1px;
+        color: Black;
+        background: #94B66C url('images/alert.png') no-repeat;
+    }
+    .information-msg
+    {
+        border: solid #3460EC 1px;
+        color: Black;
+        background: #94B66C url('images/information.png') no-repeat;
+    }
+    .ExortPanelpopup
+    {
+         
+     Width: 208px;
+     Height: 112px;
+     background-color: Wheat;  
+     font-weight: bold;
+     color :Black;
+     border: #547C3B 5px;
+     border-style: outset;
+     
+    }
+    
+   .DemoListBox
+    {
+                
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size:small;
+    color: #16518A;
+    width: 145px;
+    width: 200px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: solid 1px #168921;
+    empty-cells:hide;
+    cursor:pointer;
+    line-height:3px;
+                
+    }
+
+    
+
+/* ..For Screen Info.. */
+
+div.panel,div.flip
+{
+margin:0px;
+padding:5px;
+background-color: #FFFFFF;
+border-bottom: solid 1.5px Black;
+font-size: x-small;
+}
+div.panel
+{
+    border: solid 1px #547C3B;
+    background-color: #FFFFFF;
+    font-family: Verdana,Tahoma;
+    font-size: small;
+    font-weight: bold;
+    color:  #16518A;
+    display: none;
+    padding-bottom: 0;
+    padding-top: 0;
+   
+}
+
+/* End  */
+
+/* Screen Tip */
+
+p.tip
+{
+    color: #547C3B;    
+    font-family: Verdana,Tahoma;
+	font-size: x-small;
+	margin: 0px;
+	padding: 5px;
+	}
+	
+/* End */
+
+/* Message Info */
+.MsgInfo
+{
+    color: #547C3B;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+     font-weight: 500;
+    
+} 
+
+/* End */
+
+/* Downloading Standerd Files in Upload Screens */
+
+.ModelPup
+{
+    
+    font-size: small;
+    background-color: #F5DEB4;
+    border: Solid 1px Black;
+    border-left: Solid 5px #DDBDBE;
+    border-top:  Solid 5px #DDBDBE; 
+    border-bottom: Solid 5px #501411; 
+    border-right: Solid 5px #501411; 
+    -moz-border-radius: 1em;
+    -webkit-box-shadow: 18px 15px 13px rgba(0,0,0,0.6);
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 50px;
+    width: 250px;
+    position: absolute; z-index: 100001; left: 280px; top: 35px !important; 
+    
+}
+
+
+/* For expand Collapse header*/
+.Collapse_list
+{
+    margin: 0px;
+    padding: 0px;
+    width: 383px;
+}
+
+.Collapse_header
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    background: url(Images/testSCBbackground.gif) repeat-x;
+    margin:1px;
+    
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size:x-small;
+    color: #FFFFFF;
+    vertical-align: middle;
+    text-align: left;
+    height:15px;
+    
+}
+
+.Collapse_body 
+{
+    padding: 5px 10px 15px;
+    
+}
+
+.Collapse_headerView
+{
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    background: url(Images/testSCBbackground.gif) repeat-x;
+    margin:1px;
+    
+    font-family: Verdana,Tahoma;
+    font-weight: bold;
+    font-size:x-small;
+    color: #FFFFFF;
+    vertical-align: middle;
+    text-align: left;
+    height:15px;
+}
+
+/* End */
+
+
