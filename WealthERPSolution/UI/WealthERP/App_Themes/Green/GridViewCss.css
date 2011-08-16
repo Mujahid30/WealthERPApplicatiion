@@ -78,7 +78,7 @@
 {
     font-family: Verdana,tahoma;
     font-size: 11px;
-    background-color: #EDFFF3;
+    background-color: #FFFFFF;
    
 }
 .HighLightRowStyle td
@@ -89,7 +89,7 @@
 }
 .AltRowStyle td
 {
-    background-color: #DCE8CB;
+    background-color: #EBF7D9;
 }
 .SelectedRowStyle td
 {
