@@ -94,7 +94,7 @@ namespace BoReports
             foreach (DataRow dr in dtIncome.Rows)
             {
                 //if (dr["IncomeCategory"].ToString().Trim() == "Salary")
-                if (dr["IncomeCategory"].ToString().Trim() == "Salary")
+                if (dr["IncomeCategory"].ToString().Trim() == "Gross Salary")
                 {
                     annualSalary = int.Parse(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString());
                 }
@@ -246,18 +246,19 @@ namespace BoReports
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalFixedIncome = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupCode"].ToString() == "OT" || dr["AssetGroupCode"].ToString() == "PG" || dr["AssetGroupCode"].ToString() == "GS" || dr["AssetGroupCode"].ToString() == "CS" || dr["AssetGroupCode"].ToString() == "SP" || dr["AssetGroupCode"].ToString() == "PM" || dr["AssetGroupCode"].ToString() == "GD" || dr["AssetGroupCode"].ToString() == "CM" || dr["AssetGroupCode"].ToString() == "CL")
-                {
-                    if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
-                        totalOther += double.Parse(dr["AssetValues"].ToString());
-
-                }
                 else if (dr["AssetGroupCode"].ToString() == "CS")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         cashAndSaving = double.Parse(dr["AssetValues"].ToString());
 
                 }
+                else if (dr["AssetGroupCode"].ToString() == "OT" || dr["AssetGroupCode"].ToString() == "PG" || dr["AssetGroupCode"].ToString() == "GS" || dr["AssetGroupCode"].ToString() == "CS" || dr["AssetGroupCode"].ToString() == "SP" || dr["AssetGroupCode"].ToString() == "PM" || dr["AssetGroupCode"].ToString() == "GD" || dr["AssetGroupCode"].ToString() == "CM" || dr["AssetGroupCode"].ToString() == "CL")
+                {
+                    if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
+                        totalOther += double.Parse(dr["AssetValues"].ToString());
+
+                }
+               
             }
 
             //**************Emergency Fund Ratio:*****************
@@ -276,13 +277,13 @@ namespace BoReports
             {
                 if (!string.IsNullOrEmpty(strInvestment))
                 {
-                    if (totalFixedIncome > 0 || totalFixedIncome > 0)
+                    if (totalFixedIncome > 0 || totalOther > 0)
                         strInvestment += ", " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     else if (totalFixedIncome == 0 && totalOther == 0)
                     {
                         strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
                     }
-
+                   
                 }
                 else
                     strInvestment = "Your current investments are Rs. " + convertUSCurrencyFormat(totalMF) + " in Mutual Fund";
@@ -303,7 +304,7 @@ namespace BoReports
             if (totalOther > 0)
             {
                 if (!string.IsNullOrEmpty(strInvestment))
-                    strInvestment += "and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
+                    strInvestment += " and " + "Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
                 else
                     strInvestment = "Your current investments is Rs. " + convertUSCurrencyFormat(totalOther) + " in Others";
 
@@ -431,6 +432,62 @@ namespace BoReports
             dtHealthAnalysis.Rows.Add(drHealthAnalysis);
 
             dsCustomerFPReportDetails.Tables.Add(dtHealthAnalysis);
+            //*****************Test Scenario-1*****************
+            //debt_Ratio = -2;
+            //debt_To_Income_Ratio = 44;            
+            //life_Insurance_Cover_Ratio = 1;
+            //loan_To_Assets_Ratio = 43;
+            //savings_To_Income_Ratio = 14;
+            //solvency_Ratio = 2;
+
+            ////*****************Test Scenario-2*****************
+            //debt_Ratio = -1;
+            //debt_To_Income_Ratio = 45;
+            //life_Insurance_Cover_Ratio = 2;
+            //loan_To_Assets_Ratio = 44;
+            //savings_To_Income_Ratio = 15;
+            //solvency_Ratio = 3;
+
+            ////*****************Test Scenario-3*****************
+            //debt_Ratio = 0;
+            //debt_To_Income_Ratio = 46;
+            //life_Insurance_Cover_Ratio = 3;
+            //loan_To_Assets_Ratio = 45;
+            //savings_To_Income_Ratio = 16;
+            //solvency_Ratio = 4;
+
+            ////*****************Test Scenario-4*****************
+            //debt_Ratio = 0.5;
+            //debt_To_Income_Ratio = 50;
+            //life_Insurance_Cover_Ratio = 3.5;
+            //loan_To_Assets_Ratio = 50;
+            //savings_To_Income_Ratio = 20;
+            //solvency_Ratio = 10;
+
+
+            ////*****************Test Scenario-5*****************
+            //debt_Ratio = 1;
+            //debt_To_Income_Ratio = 65;
+            //life_Insurance_Cover_Ratio = 4;
+            //loan_To_Assets_Ratio = 59;
+            //savings_To_Income_Ratio = 25;
+            //solvency_Ratio = 12;
+
+            ////*****************Test Scenario-6*****************
+            //debt_Ratio = 2;
+            //debt_To_Income_Ratio = 66;
+            //life_Insurance_Cover_Ratio = 5;
+            //loan_To_Assets_Ratio = 60;
+            //savings_To_Income_Ratio = 26;
+            //solvency_Ratio = 13;
+
+            ////*****************Test Scenario-7*****************
+            //debt_Ratio = 3;
+            //debt_To_Income_Ratio = 67;
+            //life_Insurance_Cover_Ratio = 6;
+            //loan_To_Assets_Ratio = 61;
+            //savings_To_Income_Ratio = 27;
+            //solvency_Ratio = 14;
 
             //adding customer all ratio to dictionary.
             foreach (DataRow dr in dsCustomerFPReportDetails.Tables["FPRatio"].Rows)
