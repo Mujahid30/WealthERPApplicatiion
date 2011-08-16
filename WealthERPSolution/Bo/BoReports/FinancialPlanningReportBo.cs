@@ -246,16 +246,17 @@ namespace BoReports
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalFixedIncome = double.Parse(dr["AssetValues"].ToString());
                 }
-                else if (dr["AssetGroupCode"].ToString() == "CS")
-                {
-                    if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
-                        cashAndSaving = double.Parse(dr["AssetValues"].ToString());
-
-                }
                 else if (dr["AssetGroupCode"].ToString() == "OT" || dr["AssetGroupCode"].ToString() == "PG" || dr["AssetGroupCode"].ToString() == "GS" || dr["AssetGroupCode"].ToString() == "CS" || dr["AssetGroupCode"].ToString() == "SP" || dr["AssetGroupCode"].ToString() == "PM" || dr["AssetGroupCode"].ToString() == "GD" || dr["AssetGroupCode"].ToString() == "CM" || dr["AssetGroupCode"].ToString() == "CL")
                 {
                     if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
                         totalOther += double.Parse(dr["AssetValues"].ToString());
+
+                    if (dr["AssetGroupCode"].ToString() == "CS")
+                    {
+                        if (!string.IsNullOrEmpty(dr["AssetValues"].ToString()))
+                            cashAndSaving = double.Parse(dr["AssetValues"].ToString());
+
+                    }
 
                 }
                
