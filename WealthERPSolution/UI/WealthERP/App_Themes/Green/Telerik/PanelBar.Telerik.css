@@ -319,15 +319,14 @@
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink .rpOut {
 
-	background-image: none !important;
-    
-	background-color: #DCE8CB;
+	background-image: none !important;    
+	background-color: #EBF7D9;
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink .rpText {
 
-	background-color: rgb(220, 232, 203);
+	background-color: #EBF7D9;
 	background-position: left;
 	
 
