@@ -32,8 +32,8 @@ namespace WealthERP.OPS
                 if (Session["GridView"] != null)
                     dtOrderRecon = (DataTable)Session["GridView"];
                 if (Request.QueryString["result"] != null)
-                BindReconGrid(dtOrderRecon, ids);
-            }  
+                    BindReconGrid(dtOrderRecon, ids);
+            }
 
         }
         private void BindPeriodDropDown()
@@ -50,19 +50,19 @@ namespace WealthERP.OPS
             ddlPeriod.Items.RemoveAt(15);
         }
 
-        private void BindReconGrid(DataTable dtRecon,string strReconIds)
+        private void BindReconGrid(DataTable dtRecon, string strReconIds)
         {
             string[] strIds = strReconIds.Split('~');
             DataRow[] drRow;
             DataTable dtSelectedForRecon = dtRecon.Clone();
-            bool isPending=false;
+            bool isPending = false;
             foreach (string str in strIds)
             {
                 if (!string.IsNullOrEmpty(str.Trim()))
                 {
                     drRow = dtRecon.Select("Id=" + str);
-                    if (drRow.Count()>0)
-                    dtSelectedForRecon.ImportRow(drRow[0]);
+                    if (drRow.Count() > 0)
+                        dtSelectedForRecon.ImportRow(drRow[0]);
 
                     if (drRow[0][15].ToString() == "Pending")
                     {
@@ -83,18 +83,18 @@ namespace WealthERP.OPS
             {
                 gvOrderRecon.Columns[6].Visible = false;
                 gvOrderRecon.Columns[7].Visible = false;
- 
+
             }
 
-//            DataTable above24 = dt.Clone();
+            //            DataTable above24 = dt.Clone();
 
-////get only the rows you want
-//DataRow[] results = dt.Select(”age > 24″);
+            ////get only the rows you want
+            //DataRow[] results = dt.Select(”age > 24″);
 
-////populate new destination table
-//foreach (DataRow dr in results)
-//above24.ImportRow(dr);
- 
+            ////populate new destination table
+            //foreach (DataRow dr in results)
+            //above24.ImportRow(dr);
+
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
@@ -137,6 +137,31 @@ namespace WealthERP.OPS
 
 
             }
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string ids = GetSelectedIdString();
+            Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + ids + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderManagement", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','?result=" + ids + "');", true);
+        }
+        private string GetSelectedIdString()
+        {
+            string gvIds = "";
+
+            //'Navigate through each row in the GridView for checkbox items
+            foreach (GridViewRow gvRow in gvOrderRecon.Rows)
+            {
+                RadioButton RdBnItem = (RadioButton)gvRow.FindControl("rbtnMatch");
+                if (RdBnItem.Checked)
+                {
+                    gvIds += Convert.ToString(gvOrderRecon.DataKeys[gvRow.RowIndex].Value) + "~";
+                }
+            }
+
+
+            return gvIds;
+
         }
 
     }

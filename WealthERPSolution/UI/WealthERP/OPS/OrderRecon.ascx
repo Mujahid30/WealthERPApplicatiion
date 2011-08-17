@@ -148,7 +148,6 @@
         <asp:ListItem Text="Executed" Value="Executed" ></asp:ListItem>
         <asp:ListItem Text="In Process" Value="In Process" ></asp:ListItem>
         <asp:ListItem Text="Pending" Value="Pending" ></asp:ListItem>
-        <asp:ListItem Text="Executed" Value="Executed"></asp:ListItem>
         <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
         <asp:ListItem Text="Reject" Value="Reject"></asp:ListItem>
         </asp:DropDownList>
@@ -302,7 +301,8 @@
   </tr>
   <tr>
   <td colspan="6"  align="left">
-  <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" />
+  <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
+          onclick="btnSubmit_Click" />
   </td>
   </tr>
 </table>

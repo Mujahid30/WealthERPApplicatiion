@@ -210,7 +210,7 @@
         <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="Id" runat="server" AutoGenerateColumns="False"
                                         ShowFooter="True">
                                         <RowStyle CssClass="RowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" />
+                                        <AlternatingRowStyle CssClass="AltRowStyle" />                                        
                                         <Columns>
                                          <asp:TemplateField HeaderText="Select">
                                             <ItemTemplate>
@@ -292,7 +292,7 @@
                                             
                                              <asp:BoundField DataField="RM" HeaderText="RM">
                                                 <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                                <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
                                             
                                              <asp:BoundField DataField="Customer" HeaderText="Customer">
@@ -306,7 +306,7 @@
                                             </asp:BoundField>
                                             <asp:BoundField DataField="Scheme" HeaderText="Scheme">
                                                 <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right" Wrap="true"></ItemStyle>
+                                                <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="Type" HeaderText="Type">
                                                 <HeaderStyle HorizontalAlign="Right" />

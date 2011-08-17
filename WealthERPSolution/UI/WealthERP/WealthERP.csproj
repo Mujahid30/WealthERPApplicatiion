@@ -2165,6 +2165,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="OPS\ManualOrderMapping.aspx.cs">
+      <DependentUpon>ManualOrderMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\ManualOrderMapping.aspx.designer.cs">
+      <DependentUpon>ManualOrderMapping.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\OrderEntry.ascx.cs">
       <DependentUpon>OrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3751,7 +3758,9 @@
     <Content Include="App_Themes\Green\Telerik\Splitter\Telerik.gif" />
     <Content Include="App_Themes\Green\Telerik\TabStrip.Telerik.css" />
     <Content Include="App_Themes\Green\Telerik\TabStrip\TabStripStates.png" />
+    <Content Include="App_Themes\Green\Telerik\TabStrip\TabStripStates_rtl.png" />
     <Content Include="App_Themes\Green\Telerik\TabStrip\TabStripVStates.gif" />
+    <Content Include="App_Themes\Green\Telerik\TabStrip\TabStripVStates.png" />
     <Content Include="App_Themes\Green\Telerik\TabStrip\Telerik.gif" />
     <Content Include="App_Themes\Green\Telerik\ToolBar.Telerik.css" />
     <Content Include="App_Themes\Green\Telerik\ToolBar\rtbActiveBg.gif" />
@@ -4549,6 +4558,7 @@
     <Content Include="MarketDataDownloadFiles\BseEquitiesFiltered.txt" />
     <Content Include="MarketDataDownloadFiles\NseEquities.txt" />
     <Content Include="MarketDataDownloadFiles\NseEquitiesFiltered.txt" />
+    <Content Include="OPS\ManualOrderMapping.aspx" />
     <Content Include="OPS\OrderEntry.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />
     <Content Include="OPS\OrderRecon.ascx" />

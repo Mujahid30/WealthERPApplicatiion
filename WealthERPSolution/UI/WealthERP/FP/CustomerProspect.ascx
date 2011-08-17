@@ -8,7 +8,8 @@
 <script type="text/javascript">
 
     function HideStatusMsg() {
-        document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
+        if (document.getElementById("<%=msgRecordStatus.ClientID%>")!=null)
+          document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
     }
 
 </script>
@@ -2091,8 +2092,8 @@
                 </tr>
             </table>--%>
         </asp:Panel>
-&nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage><asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click"
-    ValidationGroup="btnCustProsp" Text="Save" Style="height: 26px" />
+&nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage>
+<asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
     </td>
     </tr>
     </table></asp:Panel>
