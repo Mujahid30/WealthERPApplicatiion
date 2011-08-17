@@ -249,7 +249,7 @@ namespace WealthERP.Advisor
                         {
                             divQuestionAnswers.Visible = true;
                             tblRiskScore.Visible = true;
-                            rbtnAnsQuestions.Checked = true;
+                            //rbtnAnsQuestions.Checked = true;
                             lblRScore.Visible = true;
                             btnSubmitRisk.Visible = true;
                             trRiskProfiler.Visible = true;
@@ -257,7 +257,7 @@ namespace WealthERP.Advisor
                             tblPickRiskClass.Visible = false;
                             ddlPickRiskClass.Visible = false;
                             lblPickRiskPlass.Visible = false;
-                            rbtnPickRiskclass.Checked = false;
+                            //rbtnPickRiskclass.Checked = false;
                             Td1.Visible = true;
                             btnSubmitForPickRiskclass.Visible = false;
                             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
@@ -267,7 +267,7 @@ namespace WealthERP.Advisor
                             tblPickRiskClass.Visible = true;
                             ddlPickRiskClass.Visible = true;
                             lblPickRiskPlass.Visible = true;
-                            rbtnPickRiskclass.Checked = true;
+                            //rbtnPickRiskclass.Checked = true;
                             btnSubmitForPickRiskclass.Visible = true;
 
 
@@ -277,13 +277,55 @@ namespace WealthERP.Advisor
 
                             divQuestionAnswers.Visible = false;
                             tblRiskScore.Visible = false;
-                            rbtnAnsQuestions.Checked = false;
+                            //rbtnAnsQuestions.Checked = false;
                             trRiskProfiler.Visible = false;
                             lblRScore.Visible = false;
                             Td1.Visible = false;
                             btnSubmitRisk.Visible = false;
 
                             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+                        }
+
+                        if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                        {
+                            if (int.Parse(dsGetCustomerRiskProfile.Tables[0].Rows[0][5].ToString()) == 1)
+                            {
+                                btnSubmitForPickRiskclass.Visible = true;
+                                btnSubmitRisk.Visible = false;
+                                ddlPickRiskClass.Visible = true;
+                                lblPickRiskPlass.Visible = true;
+                                BindRiskClasses();
+                                trRiskProfiler.Visible = false;
+                                
+                                tblPickRiskClass.Visible = true;
+                                divQuestionAnswers.Visible = false;
+                                Span12.Visible = true;
+                                Td1.Visible = false;
+                                tblRiskScore.Visible = true;
+                                lblRiskProfilingParagraph.Visible = false;
+
+                                rbtnPickRiskclass.Checked = true;
+                                rbtnAnsQuestions.Checked = false;
+                                ddlPickRiskClass.SelectedValue = dsGetCustomerRiskProfile.Tables[0].Rows[0][3].ToString();
+                            }
+                            else
+                            {
+                                btnSubmitForPickRiskclass.Visible = false;
+                                btnSubmitRisk.Visible = true;
+                                ddlPickRiskClass.Visible = false;
+                                trRiskProfiler.Visible = true;
+                                tblPickRiskClass.Visible = false;
+                                divQuestionAnswers.Visible = true;
+                                lblRiskProfilingParagraph.Visible = true;
+                                Td1.Visible = true;
+                                lblRScore.Visible = true;
+                                if (lblRScore.Text == "")
+                                    lblRScore.Text = "0";
+
+                                rbtnAnsQuestions.Checked = true;
+                                rbtnPickRiskclass.Checked = false;
+                              
+                            }
                         }
 
                     }
@@ -1366,6 +1408,11 @@ namespace WealthERP.Advisor
                 //    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
             }
             tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 0;
+
+            if (!string.IsNullOrEmpty(riskCode))
+                ddlPickRiskClass.SelectedValue = riskCode.Trim();
+            
+
         }
 
         protected void rbtnAnsQuestions_CheckedChanged(object sender, EventArgs e)
