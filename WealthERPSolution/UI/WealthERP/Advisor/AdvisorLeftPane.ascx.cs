@@ -45,6 +45,9 @@ namespace WealthERP.Advisor
             dsSubscriptionDetails = adviserSubscriptionBo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
             if (!IsPostBack)
             {
+                if (Session["customerVo"] != null)
+                    Session.Remove("customerVo");
+
                 //Code to display and hide the searches based on the roles
                 if (userVo.RoleList.Contains("Admin"))
                 {
