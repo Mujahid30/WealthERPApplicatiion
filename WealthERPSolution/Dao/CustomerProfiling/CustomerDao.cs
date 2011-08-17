@@ -1511,6 +1511,7 @@ namespace DaoCustomerProfiling
                 db.AddOutParameter(createCustomerCmd, "@C_CustomerId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@U_UserId", DbType.Int32, 10);
                 db.AddOutParameter(createCustomerCmd, "@CP_PortfolioId", DbType.Int32, 10);
+                db.AddInParameter(createCustomerCmd,  "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
 
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {

@@ -236,7 +236,7 @@
             </td>
             
             <td class="leftField">
-                <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
+                <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
             </td>
             <td class="rightField">
                 <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>

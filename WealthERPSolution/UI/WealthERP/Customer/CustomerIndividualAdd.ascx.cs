@@ -714,13 +714,54 @@ namespace WealthERP.Customer
         // Functionality for Getting Customer Tax Slab
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
-            if (((rbtnMale.Checked == true) || (rbtnFemale.Checked == true)) && (txtDob.Text != ""))
+            //if (((rbtnMale.Checked == true) || (rbtnFemale.Checked == true)) && (txtDob.Text != ""))
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+            //}
+            bool isGenderExist = false;
+            if (!string.IsNullOrEmpty(txtDob.Text.Trim()))
+                CalculateAge(DateTime.Parse(txtDob.Text.Trim().ToString()));
+
+            if ((rbtnFemale.Checked == true || rbtnMale.Checked == true))
+            {
+                isGenderExist = true;
+            }
+            if ((!isGenderExist && years < 60) || (string.IsNullOrEmpty(txtDob.Text.Trim()) && years < 60))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
             }
-            else
+            else if (!string.IsNullOrEmpty(txtDob.Text.Trim()))
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+
+                if ((years < 60) && (!isGenderExist))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender because customer is not senior citizen');", true);
+                }
+                else
+                {
+                    dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, rbtnMale.Checked == true ? "Male" : "Female");
+                    if (dsGetSlab.Tables.Count > 0)
+                    {
+                        if (dsGetSlab.Tables[0].Rows.Count > 0)
+                        {
+                            if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                            {
+                                txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+                    }
+
+                }
             }
         }
         public int CalculateAge(DateTime birthDate)

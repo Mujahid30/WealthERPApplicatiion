@@ -1369,7 +1369,7 @@
                                 </td>
                                 
                                 <td align="right">
-                                    <asp:Label ID="lblTxtSlabProfile" runat="server" Text="Your Tax slab: " CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblTxtSlabProfile" runat="server" Text="Your Tax slab(%): " CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
                                     <asp:TextBox ID="txtSlabProfile" runat="server" onblur="fillValueToPopup();" Style="direction: rtl" Enabled="false"
@@ -1724,7 +1724,7 @@
                                     <asp:TextBox ID="txtTotalLO" runat="server"  
                                         EnableViewState="true" Style="direction: rtl"></asp:TextBox></td><td align="left">
                                   <asp:TextBox ID="txtTotalEmILO" runat="server" 
-                                        EnableViewState="true" onchange="Total()" Style="direction: rtl"></asp:TextBox></td></tr><%-- <tr>
+                                        EnableViewState="true" onchange="Total()" Style="direction: rtl" Visible="false"></asp:TextBox></td></tr><%-- <tr>
                                             <td align="right">
                                                 <asp:Label ID="lblLiabilitiesTotal" runat="server" Text="Total : " CssClass="FieldName"></asp:Label>
                                             </td>

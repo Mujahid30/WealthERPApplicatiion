@@ -69,7 +69,8 @@ namespace WealthERP.FP
 
                 int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-
+                if (Session["customerVo"] != null)
+                    customerVo = (CustomerVo)Session["customerVo"];
 
                     if (!IsPostBack)
                     {
@@ -1049,6 +1050,8 @@ namespace WealthERP.FP
                     userVo.MiddleName = txtMiddleName.Text.ToString();
                     userVo.LastName = txtLastName.Text.ToString();
                     customerVo.BranchId = int.Parse(ddlPickBranch.SelectedValue);
+                    if (!string.IsNullOrEmpty(txtSlab.Text.Trim()))
+                        customerVo.TaxSlab = int.Parse(txtSlab.Text.Trim());
 
                     if (rbtnMale.Checked)
                     {
@@ -1527,58 +1530,103 @@ namespace WealthERP.FP
 
         protected void btnGetSlab_Click(object sender, EventArgs e)
         {
-            int customerId = 0;
-            if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+            bool isGenderExist = false;
+            //int customerId = 0;
+            //if (Session[SessionContents.FPS_ProspectList_CustomerId] != null)
+            //{
+            //    customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+            //}
+            //if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (dpDOB.SelectedDate.ToString() == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
+            //}
+            //if ((customerVo.Gender != "") || ((rbtnMale.Checked != false) || (rbtnFemale.Checked != false)))
+            //{
+            //    if ((customerVo.Gender == "M") || (rbtnMale.Checked == true))
+            //        hdnGender.Value = "Male";
+            //    else if ((customerVo.Gender == "F") || (rbtnFemale.Checked == true))
+            //        hdnGender.Value = "Female";
+            //}
+            //if (dpDOB.SelectedDate.ToString() != "")
+            //{
+            //    CalculateAge(DateTime.Parse(dpDOB.SelectedDate.ToString()));
+            //    if ((years < 60) && (hdnGender.Value == ""))
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender because customer is not senior citizen');", true);
+            //    }
+            //    else
+            //    {
+            //        dsGetSlab = customerBo.GetCustomerTaxSlab(customerId, years, hdnGender.Value);
+            //    }
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select date of birth for the customer to get the tax slab');", true);
+            //}
+
+            //if (dsGetSlab.Tables.Count != 0)
+            //{
+            //    if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
+            //    {
+            //        if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+            //        {
+            //            txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+
+            //        }
+            //    }
+            //    else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+            //    }
+            //    else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
+            //    {
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+            //    }
+            //}
+            if(!string.IsNullOrEmpty(dpDOB.SelectedDate.ToString()))
+                CalculateAge(DateTime.Parse(dpDOB.SelectedDate.ToString()));
+
+            if ((rbtnFemale.Checked == true || rbtnMale.Checked == true))
             {
-                customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
+                isGenderExist=true;
             }
-            if ((((customerVo.Gender == "") && (customerVo.Dob == DateTime.MinValue)) && (dpDOB.SelectedDate.ToString() == "")) && ((rbtnMale.Checked == false) && (rbtnFemale.Checked == false)))
+            if ((!isGenderExist && years < 60) || (string.IsNullOrEmpty(dpDOB.SelectedDate.ToString()) && years < 60))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
             }
-            if ((customerVo.Gender != "") || ((rbtnMale.Checked != false) || (rbtnFemale.Checked != false)))
-            {
-                if ((customerVo.Gender == "M") || (rbtnMale.Checked == true))
-                    hdnGender.Value = "Male";
-                else if ((customerVo.Gender == "F") || (rbtnFemale.Checked == true))
-                    hdnGender.Value = "Female";
-            }
-            if (dpDOB.SelectedDate.ToString() != "")
-            {
-                CalculateAge(DateTime.Parse(dpDOB.SelectedDate.ToString()));
-                if ((years < 60) && (hdnGender.Value == ""))
+            else if (!string.IsNullOrEmpty(dpDOB.SelectedDate.ToString()))
+            {               
+
+                if ((years < 60) && (!isGenderExist))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender because customer is not senior citizen');", true);
                 }
                 else
-                {
-                    dsGetSlab = customerBo.GetCustomerTaxSlab(customerId, years, hdnGender.Value);
-                }
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select date of birth for the customer to get the tax slab');", true);
-            }
-
-            if (dsGetSlab.Tables.Count != 0)
-            {
-                if (dsGetSlab.Tables[0].Columns[0].ToString() != "Income")
-                {
-                    if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                {                    
+                    dsGetSlab = customerBo.GetCustomerTaxSlab(customerVo.CustomerId, years, rbtnMale.Checked == true ? "Male" : "Female");
+                    if (dsGetSlab.Tables.Count > 0)
                     {
-                        txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+                        if (dsGetSlab.Tables[0].Rows.Count > 0)
+                        {
+                            if (dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString() != null)
+                            {
+                                txtSlab.Text = dsGetSlab.Tables[0].Rows[0]["WTSR_TaxPer"].ToString();
+
+                            }
+                        }
 
                     }
-                }
-                else if ((dsGetSlab.Tables[0].Rows.Count == 0) || (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() == "0.00"))
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
-                }
-                else if (dsGetSlab.Tables[0].Rows[0]["Income"].ToString() != null)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide the proper required customer information to get Tax slab..');", true);
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please put Income details for the customer to get the tax slab');", true);
+                    }
+
                 }
             }
+
+
+
+
         }
 
         public int CalculateAge(DateTime birthDate)

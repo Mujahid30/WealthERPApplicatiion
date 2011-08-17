@@ -186,6 +186,25 @@
             <br />
         </td>
     </tr>
+    
+    <tr id="trForResidence" runat="server">
+                     <td class="leftField">
+                            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable(%):"></asp:Label>
+                        </td>
+                      
+                     <td class="rightField" width="25%">
+                            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
+                            <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab"
+                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
+                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                             
+                        <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" 
+                        CssClass="PCGMediumButton" OnClientClick="return CheckParameters()" 
+                        onclick="btnGetSlab_Click" />
+                        </td>
+                    
+    </tr>
+    
     <tr>
         <td colspan="2">
             <div class="tabber" id="divTab" runat="server" style="width: 100%">
@@ -743,22 +762,7 @@
             </div>
         </td>
     </tr>
-                    <tr id="trForResidence" runat="server">
-                     <td class="leftField">
-                            <asp:Label ID="lblSlabForOther" runat="server" CssClass="FieldName" Text="Tax slab applicable:"></asp:Label>
-                        </td>
-                        <td class="rightField" width="25%">
-                            <asp:TextBox ID="txtSlab" runat="server" CssClass="txtField"></asp:TextBox>
-                            <asp:CompareValidator ID="cmpareSlabForOther" ControlToValidate="txtSlab"
-                             runat="server" Display="Dynamic" ErrorMessage="<br /> Please enter a numeric value for Tax slab."
-                             Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-                        </td>
-                    <td>
-                    <asp:Button ID="btnGetSlab" runat="server" Text="Get the slab" 
-                        CssClass="PCGMediumButton" OnClientClick="return CheckParameters()" 
-                        onclick="btnGetSlab_Click" />
-                    </td>
-                    </tr>
+                    
                     </table>
                 </div>
             </div>
