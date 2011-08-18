@@ -75,6 +75,22 @@
         else
             return false;
     }
+
+    function CheckedOnlyOneRadioButton(spanChk) {
+        var IsChecked = spanChk.checked;
+        var CurrentRdbID = spanChk.id;
+        var Chk = spanChk;
+        Parent = document.getElementById("<%=gvOrderRecon.ClientID%>");
+        var items = Parent.getElementsByTagName('input');
+        for (i = 0; i < items.length; i++) {
+              if (items[i].id != CurrentRdbID && items[i].type == "radio") {
+                if (items[i].checked) {
+                    items[i].checked = false;
+
+                }
+            }
+        }
+    }
 </script>
 
 <table width="100%">
@@ -149,7 +165,7 @@
         <asp:ListItem Text="In Process" Value="In Process" ></asp:ListItem>
         <asp:ListItem Text="Pending" Value="Pending" ></asp:ListItem>
         <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
-        <asp:ListItem Text="Reject" Value="Reject"></asp:ListItem>
+        <asp:ListItem Text="Rejected" Value="Rejected"></asp:ListItem>
         </asp:DropDownList>
   </td>
 <td colspan="4"></td>
@@ -163,6 +179,7 @@
         <asp:ListItem Text="Immediate" Value="Immediate" Selected="true"></asp:ListItem>
         <asp:ListItem Text="Future" Value="Future"></asp:ListItem>
         </asp:DropDownList>
+   
   </td>
 </tr>
 
@@ -179,19 +196,20 @@
             </cc1:TextBoxWatermarkExtender>
   </td>
 </tr>
-  <tr>
+<tr>
   <td colspan="6">
    <asp:Button ID="btnGo" runat="server" CssClass="PCGButton"  Text="GO" 
           onclick="btnGo_Click" />
   </td>
   </tr>
-  
+<tr>
+<td colspan="6"></td>
+</tr>  
   <tr>
   <td colspan="6">
-  
-                <asp:GridView ID="gvOrderRecon" runat="server" AutoGenerateColumns="False" 
+  <asp:GridView ID="gvOrderRecon" runat="server" AutoGenerateColumns="False" 
                    CellPadding="4" CssClass="GridViewStyle" DataKeyNames="Id"
-                    ShowFooter="true" ShowHeader="true" width="100%">
+                    ShowFooter="true" ShowHeader="true" width="100%" >
                     <FooterStyle CssClass="FooterStyle" />
                     <PagerSettings Visible="False" />
                     <RowStyle CssClass="RowStyle" />
@@ -251,9 +269,9 @@
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField> 
                         
-                         <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                         <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
                             <HeaderTemplate>
-                                <asp:Label ID="lblOrderType" runat="server" Text="Order Type"></asp:Label>                  
+                                <asp:Label ID="lblOrderType" runat="server" Text="Order Type" ></asp:Label>                  
                                 </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblOrderTypeHeader" runat="server" Text='<%#Eval("OrderType").ToString() %>'> </asp:Label>
@@ -289,17 +307,21 @@
                                 <asp:Label ID="lblManualMatch" runat="server" Text="Manual Match"></asp:Label>                  
                                 </HeaderTemplate>
                             <ItemTemplate>
-                            <asp:RadioButton  ID="rbtnMatch" runat="server" Text=''/>
+                            <asp:RadioButton  ID="rbtnMatch" runat="server" Checked="false" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
                            </ItemTemplate>
                             <HeaderStyle Wrap="False" />
                             <ItemStyle Wrap="False" />
                         </asp:TemplateField>                          
                     </Columns>
                 </asp:GridView>
-          
-  </td>
+                </td>
   </tr>
   <tr>
+  <tr>
+  <td colspan="6">
+  &nbsp;
+  </td>
+  </tr>
   <td colspan="6"  align="left">
   <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
           onclick="btnSubmit_Click" />

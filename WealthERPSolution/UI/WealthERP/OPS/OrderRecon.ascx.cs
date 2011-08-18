@@ -121,7 +121,7 @@ namespace WealthERP.OPS
                     gvOrderRecon.DataBind();
 
                 }
-                if (ddlOrderStatus.SelectedValue == "Pending")
+                if (ddlOrderStatus.SelectedValue == "Pending" || ddlOrderStatus.SelectedValue == "Rejected")
                 {
                     gvOrderRecon.Columns[6].Visible = true;
                     gvOrderRecon.Columns[7].Visible = true;
@@ -163,6 +163,7 @@ namespace WealthERP.OPS
             return gvIds;
 
         }
+
 
     }
 }
