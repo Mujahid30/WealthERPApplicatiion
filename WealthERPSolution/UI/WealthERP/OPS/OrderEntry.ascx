@@ -118,7 +118,29 @@
 <hr />
 </td>
 </tr>
-
+<tr id="trSectionTwo3" runat="server">
+  <td align="right">
+  <asp:Label ID="ddlTransactionType" runat="server" Text="Transaction Type: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>
+        <asp:DropDownList ID="ddltransType" runat="server" CssClass="cmbField" AutoPostBack="true" onselectedindexchanged="ddltransType_SelectedIndexChanged">
+         <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
+        <asp:ListItem Text="New Purchase" Value="New_Purchase"></asp:ListItem>
+        <asp:ListItem Text="Additional Purchase" Value="Additional_Purchase"></asp:ListItem>
+        <asp:ListItem Text="Sell" Value="Sell"></asp:ListItem>
+        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+        <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
+        <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
+        <asp:ListItem Text="Switch" Value="Switch"></asp:ListItem>
+        <asp:ListItem Text="Change Of Bank Details" Value="Change_Of_Bank_Details"></asp:ListItem>
+        <asp:ListItem Text="Change Of Address Form" Value="Change_Of_Address_Form"></asp:ListItem>
+        <asp:ListItem Text="ConsoliDation Of Folio" Value="ConsoliDation_Of_Folio"></asp:ListItem>
+        <asp:ListItem Text="Change Of Nominee" Value="Change_Of_Nominee"></asp:ListItem>
+    </asp:DropDownList>
+  </td>
+  <td colspan="2">
+   </td>
+</tr>
 <tr id="trSectionTwo2" runat="server">
 <td align="right">
   <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "  CssClass="FieldName"></asp:Label>
@@ -140,31 +162,6 @@
   </td>
   
 </tr>
-
-<tr id="trSectionTwo3" runat="server">
-  <td align="right">
-  <asp:Label ID="ddlTransactionType" runat="server" Text="Transaction Type: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-        <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true" onselectedindexchanged="DropDownList1_SelectedIndexChanged">
-         <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
-        <asp:ListItem Text="New Purchase" Value="New_Purchase"></asp:ListItem>
-        <asp:ListItem Text="Additional Purchase" Value="Additional_Purchase"></asp:ListItem>
-        <asp:ListItem Text="Sell" Value="Sell"></asp:ListItem>
-        <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
-        <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
-        <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
-        <asp:ListItem Text="Switch" Value="Switch"></asp:ListItem>
-        <asp:ListItem Text="Change Of Bank Details" Value="Change_Of_Bank_Details"></asp:ListItem>
-        <asp:ListItem Text="Change Of Address Form" Value="Change_Of_Address_Form"></asp:ListItem>
-        <asp:ListItem Text="ConsoliDation Of Folio" Value="ConsoliDation_Of_Folio"></asp:ListItem>
-        <asp:ListItem Text="Change Of Nominee" Value="Change_Of_Nominee"></asp:ListItem>
-    </asp:DropDownList>
-  </td>
-  <td colspan="2">
-   </td>
-</tr>
-
 <tr id="trSectionTwo4" runat="server">
 <td align="right">
 <asp:Label ID="Label6" runat="server" Text="AMC: "  CssClass="FieldName"></asp:Label>
@@ -582,29 +579,6 @@
   <td colspan="2">
   </td>
 </tr>
-
-<tr id="trSectionTwo8" runat="server">
-  <td align="right">
-     <asp:Label ID="lblOrderType" runat="server" Text="Order Type: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-<asp:RadioButton ID="rbtnImmediate" Class="cmbField"  runat="server" AutoPostBack="true" GroupName="OrderDate" Checked="True"  Text="Immediate" OnCheckedChanged="rbtnImmediate_CheckedChanged" />
-<asp:RadioButton ID="rbtnFuture" Class="cmbField" runat="server" AutoPostBack="true" GroupName="OrderDate" Text="Future" OnCheckedChanged="rbtnFuture_CheckedChanged" />
-</td>
- <td align="right">
- <asp:Label ID="Label9" runat="server" Text="Order Status: "  CssClass="FieldName"></asp:Label>
- </td>
- <td align="left">
-  <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
-  <asp:ListItem Text="In Progress" Value="In Progress" Selected="True">  </asp:ListItem>
-  <asp:ListItem Text="Pending" Value="Pending">  </asp:ListItem>
-  <asp:ListItem Text="Executed" Value="Executed">  </asp:ListItem>
-  <asp:ListItem Text="Cancelled" Value="Cancelled">  </asp:ListItem>
-  <asp:ListItem Text="Reject" Value="Reject">  </asp:ListItem>
-  </asp:DropDownList>
-</td>
-</tr>
-
 <tr id="trSectionTwo9" runat="server">
 <td colspan="2">
 </td>
@@ -624,6 +598,30 @@
     </asp:DropDownList>
 </td>
 </tr>
+
+<tr id="trSectionTwo8" runat="server">
+  <td align="right">
+     <asp:Label ID="lblOrderType" runat="server" Text="Order Type: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>
+<asp:RadioButton ID="rbtnImmediate" Class="cmbField"  runat="server" AutoPostBack="true" GroupName="OrderDate" Checked="True"  Text="Immediate" OnCheckedChanged="rbtnImmediate_CheckedChanged" />
+<asp:RadioButton ID="rbtnFuture" Class="cmbField" runat="server" AutoPostBack="true" GroupName="OrderDate" Text="Future" OnCheckedChanged="rbtnFuture_CheckedChanged" />
+</td>
+ <td align="right">
+ <asp:Label ID="Label9" runat="server" Text="Order Status: "  CssClass="FieldName"></asp:Label>
+ </td>
+ <td align="left">
+  <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
+  <asp:ListItem Text="In Progress" Value="In Progress" Selected="True">  </asp:ListItem>
+  <asp:ListItem Text="Pending" Value="Pending">  </asp:ListItem>
+  <asp:ListItem Text="Executed" Value="Executed">  </asp:ListItem>
+  <asp:ListItem Text="Cancelled" Value="Cancelled">  </asp:ListItem>
+  <asp:ListItem Text="Rejected" Value="Reject">  </asp:ListItem>
+  </asp:DropDownList>
+</td>
+</tr>
+
+
 
 <tr id="trSectionTwo10" runat="server">
  

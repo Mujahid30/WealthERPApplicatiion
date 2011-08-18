@@ -236,7 +236,7 @@ namespace WealthERP.OPS
                 //rbtnReject.Enabled = false;
                 ddlOrderPendingReason.Enabled = false;
                 btnSubmit.Enabled = false;
-                DropDownList1.Enabled = false;
+                ddltransType.Enabled = false;
 
             }
             else
@@ -272,7 +272,7 @@ namespace WealthERP.OPS
                 //rbtnReject.Enabled = true;
                 ddlOrderPendingReason.Enabled = true;
                 btnSubmit.Enabled = true;
-                DropDownList1.Enabled = true;
+                ddltransType.Enabled = true;
 
             }
         
@@ -324,19 +324,19 @@ namespace WealthERP.OPS
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);
         }
 
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (DropDownList1.SelectedValue == "New_Purchase" || DropDownList1.SelectedValue == "Additional_Purchase" || DropDownList1.SelectedValue == "SIP")
+            if (ddltransType.SelectedValue == "New_Purchase" || ddltransType.SelectedValue == "Additional_Purchase" || ddltransType.SelectedValue == "SIP")
             {
-
+              
                 ShowTransactionType(1);
 
             }
-            else if (DropDownList1.SelectedValue == "Sell" || DropDownList1.SelectedValue == "STP" || DropDownList1.SelectedValue == "SWP" || DropDownList1.SelectedValue == "Switch")
+            else if (ddltransType.SelectedValue == "Sell" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "Switch")
             {
                 ShowTransactionType(2);
-                if (DropDownList1.SelectedValue == "Switch")
+                if (ddltransType.SelectedValue == "Switch")
                 {
                     trSell3.Visible = true;
                 }
@@ -347,7 +347,7 @@ namespace WealthERP.OPS
                 }
  
             }
-            else if (DropDownList1.SelectedValue == "Change_Of_Address_Form")
+            else if (ddltransType.SelectedValue == "Change_Of_Address_Form")
             {
                 ShowTransactionType(3);  
 
@@ -475,7 +475,7 @@ namespace WealthERP.OPS
             else if (DropDownList2.SelectedIndex == 0)
             {
                 ShowHideFields(0);
-                DropDownList1.SelectedIndex = 0;
+                ddltransType.SelectedIndex = 0;
                 rbtnImmediate.Checked = true;
                 trSell3.Visible = false;
                 trBtnSubmit.Visible = false;
