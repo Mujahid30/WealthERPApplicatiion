@@ -109,7 +109,7 @@
         <asp:ListItem Text="Pending" Value="Pending" Selected="true"></asp:ListItem>
         <asp:ListItem Text="Executed" Value="Executed"></asp:ListItem>
         <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
-        <asp:ListItem Text="Reject" Value="Reject"></asp:ListItem>
+        <asp:ListItem Text="Rejected" Value="Reject"></asp:ListItem>
         </asp:DropDownList>
   </td>
   
@@ -305,7 +305,7 @@
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="Scheme" HeaderText="Scheme">
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="Type" HeaderText="Type">
