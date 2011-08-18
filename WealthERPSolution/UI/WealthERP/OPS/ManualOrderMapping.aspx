@@ -12,11 +12,11 @@
     <div>
     <table width="100%" class="TableBackground">
 <tr>
-        <td class="HeaderCell">
+        <td class="HeaderCell" style="width:100%;">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Loan Structure with Partner"></asp:Label>
-            <hr />
+            <hr style="width:100%;" />
         </td>
-    </tr>
+</tr>
 </table>
 
 <table width="100%">

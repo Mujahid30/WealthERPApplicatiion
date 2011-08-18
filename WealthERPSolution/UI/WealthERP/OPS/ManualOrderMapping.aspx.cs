@@ -52,6 +52,13 @@ namespace WealthERP.OPS
 
             gvMannualMatch.DataSource = dtSelectedForMannualMatch;
             gvMannualMatch.DataBind();
+
+            lblGetOrderNo.Text = dtSelectedForMannualMatch.Rows[0]["OrderNumber"].ToString();
+            lblGetOrderDate.Text = dtSelectedForMannualMatch.Rows[0]["Orderdate"].ToString();
+            lblGetOrderStatus.Text = dtSelectedForMannualMatch.Rows[0]["OrderStatus"].ToString();
+            lblGetOrderType.Text = dtSelectedForMannualMatch.Rows[0]["OrderType"].ToString();
+
+
         }
 
     }
