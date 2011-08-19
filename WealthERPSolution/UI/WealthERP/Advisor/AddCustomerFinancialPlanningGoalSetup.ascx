@@ -306,14 +306,7 @@
                  </tr>
         </table>
         <table class="TableBackground">
-                <tr id="trRequied" align="right" runat="server">
-                    
-                    <td id="Td1" colspan="2" class="tdRequiredText" runat="server">
-                       <asp:Label ID="trRequiedNote" CssClass="lblRequiredText" runat="server" Text="Note : Fields marked with ' * ' are compulsory"></asp:Label>
-                       
-                    </td>
-                  
-                </tr>
+                
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="lblGoalbjective" runat="server" CssClass="FieldName" Text="Pick Goal Objective :"></asp:Label>
@@ -455,7 +448,7 @@
                 
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Current Investment for the purpose :"></asp:Label>
+                        <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Existing Investment Allocated :"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCurrentInvestPurpose" runat="server" AutoCompleteType="Disabled"
@@ -472,7 +465,7 @@
                 
                 <tr>
                     <td class="leftField">
-                        <asp:Label ID="lblRateOfInterstAbove" runat="server" CssClass="FieldName" Text="Rate of return of above(%) :"></asp:Label>
+                        <asp:Label ID="lblRateOfInterstAbove" runat="server" CssClass="FieldName" Text="Expected return on the allocated investment(%) :"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtAboveRateOfInterst" runat="server" AutoCompleteType="Disabled"
@@ -491,7 +484,7 @@
                 
                 <tr>
                     <td class="leftField">
-                      <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected Rate of Return on new investment(%) : "></asp:Label></nobr>
+                      <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected return on the future investment(%) :"></asp:Label></nobr>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtExpRateOfReturn" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
@@ -588,7 +581,18 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblNote" runat="server" CssClass="lblRequiredText" Text="Note : Expected rate of return is defaulted as per your risk assessment.If risk profile is not complete default risk profile will be 'Moderate'"></asp:Label>
+                        <asp:Label ID="Label2" runat="server" CssClass="cmbField" style="font-size: small;" Text="Note :"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                  <td id="Td1" class="tdRequiredText" runat="server">
+                       <asp:Label ID="trRequiedNote" CssClass="cmbField" style="font-size: small;" runat="server" Text="1)Fields marked with ' * ' are compulsory."></asp:Label>
+                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:Label ID="lblNote" runat="server" CssClass="cmbField" style="font-size: small;" Text="2)Expected rate of return is defaulted as per your risk assessment.If risk profile is not complete default risk profile will be 'MODERATE'."></asp:Label>
                     </td>
                 </tr>
             </table>
@@ -952,7 +956,7 @@
         <tr>
         
         <td>
-          <asp:Label ID="lblNoteFunding" runat="server" CssClass="FieldName" Text="Note :- Data display is for indicating purpose only."></asp:Label>
+          <asp:Label ID="lblNoteFunding" runat="server" CssClass="cmbField" style="font-size: small;" Text="Note :Data display is for indicating purpose only."></asp:Label>
         </td>
         </tr>
         </table>
