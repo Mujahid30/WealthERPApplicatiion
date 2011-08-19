@@ -145,7 +145,11 @@ namespace BoCustomerGoalProfiling
                 inflationValues = (Double)InflationPercent / 100;
 
                 futureCost = Math.Abs(FutureValue(inflationValues, requiredAfter, 0, costToday, 0));
-                if (currentValue == 0 && rateEarned == 0)
+                if (currentValue == 0)
+                {
+                    futureInvValue = 0;
+                }
+                else if (currentValue == 0 && rateEarned == 0)
                 {
                     futureInvValue = 0;
 

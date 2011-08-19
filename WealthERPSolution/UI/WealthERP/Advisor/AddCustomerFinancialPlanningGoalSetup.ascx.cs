@@ -786,9 +786,11 @@ namespace WealthERP.Advisor
                 {
                     goalProfileSetupVo.GoalDescription = txtGoalDescription.Text;
                 }
+                if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
+                    goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
 
-                goalProfileSetupVo.CurrInvestementForGoal = 0;
-                goalProfileSetupVo.ROIEarned =double.Parse(txtAboveRateOfInterst.Text);
+                if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
+                goalProfileSetupVo.ROIEarned =double.Parse(txtAboveRateOfInterst.Text.Trim());
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
@@ -1468,15 +1470,15 @@ namespace WealthERP.Advisor
                 {
                     goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
                 }
-                if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text))
-                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
+                if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
+                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
-                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
+                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
                 if (!string.IsNullOrEmpty(txtExpRateOfReturn.Text.Trim()))
-                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
-                if (!string.IsNullOrEmpty(txtInflation.Text))
+                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text.Trim());
+                if (!string.IsNullOrEmpty(txtInflation.Text.Trim()))
                 {
-                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
+                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text.Trim());
                 }
                 if (txtComment.Text != "")
                 {
