@@ -153,7 +153,7 @@ namespace BoCustomerGoalProfiling
                 else
                     futureInvValue = Math.Abs(FutureValue(rateEarned, requiredAfter, 0, currentValue, 0));
 
-                requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), (futureCost - futureInvValue), 0,0));
+                requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), 0, (futureCost - futureInvValue), 0));
                 GoalProfileVo.MonthlySavingsReq = requiredSavings;
                 GoalProfileVo.InflationPercent = (Double)InflationPercent;
                 GoalProfileVo.FutureValueOfCostToday = (Double)futureCost;
