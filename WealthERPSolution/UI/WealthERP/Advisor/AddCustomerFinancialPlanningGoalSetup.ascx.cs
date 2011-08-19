@@ -788,7 +788,7 @@ namespace WealthERP.Advisor
                 }
 
                 goalProfileSetupVo.CurrInvestementForGoal = 0;
-                goalProfileSetupVo.ROIEarned = 0;
+                goalProfileSetupVo.ROIEarned =double.Parse(txtAboveRateOfInterst.Text);
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
@@ -1470,7 +1470,9 @@ namespace WealthERP.Advisor
                 }
                 if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text))
                 goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text);
-                goalProfileSetupVo.ROIEarned = 0;
+                if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
+                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text);
+                if (!string.IsNullOrEmpty(txtExpRateOfReturn.Text.Trim()))
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
