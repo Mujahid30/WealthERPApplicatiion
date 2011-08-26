@@ -254,3 +254,6 @@
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
+
+<asp:HiddenField ID="hdnBranchSelection" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnRMSelection" runat="server" Visible="false" />

@@ -393,7 +393,7 @@ namespace WealthERP.Advisor
             amcCode = int.Parse(gvMFMIS.SelectedDataKey["AMCCode"].ToString());
             Session["PassAMCCode"] = amcCode.ToString();
             LatestValuationdate = Convert.ToDateTime(txtDate.Text).Date;
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','amcCode=" + amcCode + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','amcCode=" + amcCode + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "&BranchSelection=" + hdnBranchSelection.Value + "&RMSelection=" + hdnRMSelection.Value + "');", true);
 
         }
 
@@ -644,6 +644,7 @@ namespace WealthERP.Advisor
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
+            hdnBranchSelection.Value = ddlBranch.SelectedValue;
 
             if (ddlBranch.SelectedIndex == 0)
             {
@@ -658,6 +659,7 @@ namespace WealthERP.Advisor
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
+            hdnRMSelection.Value = ddlRM.SelectedValue;
             GenerateMIS();
         }
 
