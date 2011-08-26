@@ -106,30 +106,11 @@ namespace WealthERP
                         userVo = (UserVo)(Session["userVo"]);
                         rmVo = (RMVo)(Session[SessionContents.RmVo]);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        if ((!IsPostBack) && (userVo.UserType == "Customer"))
+                        {
+                            lnkDemo.Visible = false;
+                            lnkHelp.Visible = false;
+                        }
 
                         lblUserName.Text = "Welcome " + " " + userVo.FirstName + " " + userVo.LastName;
                         lblSignOut.Text = "SignOut";
@@ -151,24 +132,6 @@ namespace WealthERP
 
                         if (!IsPostBack)
                         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             if (!string.IsNullOrEmpty(generalconfigurationvo.AdviserLogoPlacement))
                             {
                                 if (logoPath != "Images/" && logoPath != "")

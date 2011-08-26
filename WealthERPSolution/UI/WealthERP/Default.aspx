@@ -171,11 +171,11 @@
                                             class="LinkButtons" href="#">Settings</a>&nbsp;
                                         <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
                                             CssClass="LinkButtons"></asp:LinkButton>
-                                        &nbsp;
-                                        <asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
-                                            CssClass="LinkButtons">Contact Us</asp:LinkButton>
-                                        &nbsp; <a href="Demo/Demo.html" class="LinkButtons" target="_blank">Demo</a> &nbsp;
-                                        <a id="lnkHelp" name="lnkHelp" href="help/Index.htm" class="LinkButtons" target="_blank">
+                                        <%--&nbsp;--%>
+                                        <%--<asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
+                                            CssClass="LinkButtons">Contact Us</asp:LinkButton>--%>
+                                        &nbsp; <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" target="_blank">Demo</a> &nbsp;
+                                        <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" class="LinkButtons" target="_blank">
                                             Help</a>
                                         <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
                                         &nbsp;
