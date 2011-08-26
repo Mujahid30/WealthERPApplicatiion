@@ -22,7 +22,7 @@
         <table>
             <tr>
                 <td colspan="2">
-                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text="Customer Contact Info"
+                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text="Contact Information"
                         runat="server"></asp:Label>
                 </td>
             </tr>
@@ -49,12 +49,6 @@
             </tr>
         </table>
         <table style="valign: top; width:100%;">
-            <tr>
-                <td>
-                    <label id="lblExpressLinks" class="HeaderTextSmall">
-                        Express Links</label>
-                </td>
-            </tr>
             <tr>
                 <td>
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
