@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
         string UploadImagePath = string.Empty;
         string imgPath = string.Empty;
         bool branchRMDependendency = false;
+        string branchDeletedOrNot = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -668,7 +669,7 @@ namespace WealthERP.Advisor
             branchCustomerDependency = advisorBranchBo.CheckBranchCustomerDependency(advisorBranchVo.BranchId);
             if (branchCustomerDependency == true)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... Branch is not deleted...');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... This Branch is not deleted because of the following reasons... </n> ');", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
 
             }
@@ -679,9 +680,8 @@ namespace WealthERP.Advisor
             }
             if (res == true)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Branch deleted Sucessfully');", true);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
- 
+                branchDeletedOrNot = "Branch is deleted";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','DeleteBranchFlag=" + branchDeletedOrNot + "' );", true);
             }
       
             
