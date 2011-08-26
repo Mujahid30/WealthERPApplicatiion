@@ -656,6 +656,7 @@
 <asp:HiddenField ID="hdnSelectedCategory" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRealizedSelectedCategory" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAllSelectedCategory" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnNoOfRecords" runat="server" Visible="false" />
 
 <script type="text/javascript">
     document.getElementById("<%= divAll.ClientID %>").style.display = 'none';

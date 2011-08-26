@@ -356,6 +356,7 @@ namespace WealthERP.CustomerPortfolio
                    
                     if (dtMFPortfolio.Rows.Count > 0)
                     {
+                        hdnNoOfRecords.Value = dtMFPortfolio.Rows.Count.ToString();
                         gvMFPortfolio.Visible = true;
                         gvMFPortfolio.DataSource = dtMFPortfolio;
                         gvMFPortfolio.DataBind();
@@ -407,6 +408,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (dtMFPortfolioRealized.Rows.Count > 0)
                     {
+                        hdnNoOfRecords.Value = dtMFPortfolioRealized.Rows.Count.ToString();
                         gvMFPortfolioRealized.Visible = true;
                         gvMFPortfolioRealized.DataSource = dtMFPortfolioRealized.DefaultView;
                         gvMFPortfolioRealized.DataBind();
@@ -460,6 +462,7 @@ namespace WealthERP.CustomerPortfolio
 
                         if (dtMFPortfolioNotional.Rows.Count > 0)
                         {
+                            hdnNoOfRecords.Value = dtMFPortfolioNotional.Rows.Count.ToString();
                             gvMFPortfolioNotional.Visible = true;
                             gvMFPortfolioNotional.DataSource = dtMFPortfolioNotional.DefaultView;
                             gvMFPortfolioNotional.DataBind();
@@ -1463,7 +1466,8 @@ namespace WealthERP.CustomerPortfolio
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
-               
+                if (hdnNoOfRecords.Value != "")
+                    e.Row.Cells[3].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[7].Text = double.Parse(acqCostExclDivReinvst.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[7].Attributes.Add("align", "Right");
                 e.Row.Cells[8].Text = double.Parse(CostOfAcquisition.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -1522,6 +1526,8 @@ namespace WealthERP.CustomerPortfolio
             {
                 e.Row.Cells[1].Text = "Total:";
                 e.Row.Cells[1].Attributes.Add("align", "Left");
+                if (hdnNoOfRecords.Value != "")
+                    e.Row.Cells[3].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[7].Text = double.Parse(salesProceedsTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[7].Attributes.Add("align", "Right");
                 e.Row.Cells[6].Text = double.Parse(costOfSalesTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -1584,7 +1590,8 @@ namespace WealthERP.CustomerPortfolio
             if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
-               
+                if (hdnNoOfRecords.Value != "")
+                    e.Row.Cells[3].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[7].Text = double.Parse(acqCostExclDivReinvst_Notional.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[7].Attributes.Add("align", "Right");
                 e.Row.Cells[8].Text = double.Parse(CostOfAcquisition_Notional.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
