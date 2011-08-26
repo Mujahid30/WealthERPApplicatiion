@@ -187,9 +187,12 @@ namespace WealthERP.Reports
             if (!Page.IsPostBack && CurrentReportType == ReportType.FinancialPlanningSectional)
             {
                 HideShowFPSection();
+                
             }
-
-            DisplayReport();
+            if (!Page.IsPostBack)
+            {
+                DisplayReport();
+            }
 
         }
 
