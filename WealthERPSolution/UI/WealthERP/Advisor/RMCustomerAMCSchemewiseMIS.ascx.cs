@@ -46,6 +46,9 @@ namespace WealthERP.Advisor
         DateTime Valuationdate;
         int rmid;
 
+        string BranchSelection = string.Empty;
+        string RMSelection = string.Empty;
+
         UserVo userVo = new UserVo();
         int bmID;
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
@@ -164,6 +167,16 @@ namespace WealthERP.Advisor
 
                 if (Request.QueryString["schemeplanid"] != null)
                 {
+                    if (Request.QueryString["BranchSelection"] != "")
+                    {
+                        BranchSelection = Request.QueryString["BranchSelection"].ToString();
+                        ddlBranch.SelectedValue = BranchSelection;
+                    }
+                    if (Request.QueryString["RMSelection"] != "")
+                    {
+                        RMSelection = Request.QueryString["RMSelection"].ToString();
+                        ddlRM.SelectedValue = RMSelection;
+                    }
 
                     schemeplanid = int.Parse(Request.QueryString["schemeplanid"].ToString());
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
