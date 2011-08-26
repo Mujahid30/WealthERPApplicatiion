@@ -1422,7 +1422,14 @@ namespace WealthERP.Advisor
             {
                 if (Session["LOBId"].ToString() == "lob")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
+                    if (Session["IFFAdd"] != null)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFFAdd','none');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','none');", true);
+                    }
                 }
                 else if (Session["LOBId"].ToString() == "FromReg")
                 {
