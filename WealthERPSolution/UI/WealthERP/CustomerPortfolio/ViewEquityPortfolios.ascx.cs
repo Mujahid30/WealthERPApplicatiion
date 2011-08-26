@@ -341,6 +341,7 @@ namespace WealthERP.CustomerPortfolio
                     // Bind EQ Net Position Details
                     if (dtEqPortfolio.Rows.Count > 0)
                     {
+                        hdnNoOfRecords.Value = dtEqPortfolio.Rows.Count.ToString();
                         gvEquityPortfolio.DataSource = dtEqPortfolio;
                         gvEquityPortfolio.DataBind();
                         gvEquityPortfolio.Visible = true;
@@ -372,6 +373,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (dtEqPortfolioDelivery.Rows.Count > 0)
                     {
+                        hdnNoOfRecords.Value = dtEqPortfolioDelivery.Rows.Count.ToString();
                         gvEquityPortfolioDelivery.DataSource = dtEqPortfolioDelivery;
                         gvEquityPortfolioDelivery.DataBind();
                         gvEquityPortfolioDelivery.Visible = true;
@@ -401,7 +403,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (dtEqPortfolioSpeculative.Rows.Count > 0)
                     {
-
+                        hdnNoOfRecords.Value = dtEqPortfolioSpeculative.Rows.Count.ToString();
                         gvEquityPortfolioSpeculative.DataSource = dtEqPortfolioSpeculative;
                         gvEquityPortfolioSpeculative.DataBind();
                         gvEquityPortfolioSpeculative.Visible = true;
@@ -431,6 +433,7 @@ namespace WealthERP.CustomerPortfolio
 
                     if (dtEqPortfolioUnrealized.Rows.Count > 0)
                     {
+                        hdnNoOfRecords.Value = dtEqPortfolioUnrealized.Rows.Count.ToString();
                         gvEquityPortfolioUnrealized.DataSource = dtEqPortfolioUnrealized;
                         gvEquityPortfolioUnrealized.DataBind();
                         gvEquityPortfolioUnrealized.Visible = true;
@@ -1070,6 +1073,8 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
+                if(hdnNoOfRecords.Value != "")
+                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[5].Text = costofpurchase_all.ToString("f4");
                 e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = currentPrice_All.ToString("f4");
@@ -1096,7 +1101,8 @@ namespace WealthERP.CustomerPortfolio
         {
             if (e.Row.RowType == DataControlRowType.Footer)
             {
-
+                if (hdnNoOfRecords.Value != "")
+                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[6].Text = realised_delivery.ToString("f4");
                 e.Row.Cells[6].Attributes.Add("align", "Right");
             }
@@ -1111,6 +1117,8 @@ namespace WealthERP.CustomerPortfolio
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[1].Text = "Total ";
+                if (hdnNoOfRecords.Value != "")
+                    e.Row.Cells[2].Text = "Total Records : " + hdnNoOfRecords.Value + "";
                 e.Row.Cells[5].Text = costofpurchase_Unrealized.ToString("f4");
                 e.Row.Cells[5].Attributes.Add("align", "Right");
                 e.Row.Cells[7].Text = String.Format("{0:n2}", decimal.Parse(currentPrice_UnRe.ToString("f2")));

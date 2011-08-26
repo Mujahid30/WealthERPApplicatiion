@@ -390,6 +390,7 @@
 <asp:HiddenField ID="hdnRealizedSpecScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnUnRealizedScipFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSelectedTab" runat="server" />
+<asp:HiddenField ID="hdnNoOfRecords" runat="server" />
 <table id="Table1" runat="server" visible="false">
     <tr id="Tr5" runat="server" visible="true">
         <td>
