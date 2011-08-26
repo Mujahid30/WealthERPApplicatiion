@@ -43,6 +43,8 @@ namespace WealthERP.Advisor
         static double totalUnits = 0;
         int count;
         int Count;
+        string BranchSelection = string.Empty;
+        string RMSelection = string.Empty;
 
 
         UserVo userVo = new UserVo();
@@ -162,6 +164,18 @@ namespace WealthERP.Advisor
                 }
                 if (Request.QueryString["amcCode"] != null)
                 {
+                    if (Request.QueryString["BranchSelection"] != "")
+                    {
+                        BranchSelection = Request.QueryString["BranchSelection"].ToString();
+                        ddlBranch.SelectedValue = BranchSelection;
+                        hdnBranchSelection.Value = BranchSelection;
+                    }
+                    if (Request.QueryString["RMSelection"] != "")
+                    {
+                        RMSelection = Request.QueryString["RMSelection"].ToString();
+                        ddlRM.SelectedValue = RMSelection;
+                        hdnRMSelection.Value = RMSelection;
+                    }
                     amcCode = int.Parse(Request.QueryString["amcCode"].ToString());
                     LatestValuationdate = DateTime.Parse(Request.QueryString["latestValuationdate"].ToString());
                 }
@@ -573,7 +587,7 @@ namespace WealthERP.Advisor
             schemeplanid = int.Parse(gvMFMIS.SelectedDataKey["SchemePlanCode"].ToString());
             LatestValuationdate = Convert.ToDateTime(txtDate.Text).Date;
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomerAMCSchemewiseMIS','?schemeplanid=" + schemeplanid + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "');", true);
-            Response.Redirect("ControlHost.aspx?pageid=RMCustomerAMCSchemewiseMIS&schemeplanid=" + schemeplanid+"&latestValuationdate="+LatestValuationdate.ToShortDateString() +"", false);
+            Response.Redirect("ControlHost.aspx?pageid=RMCustomerAMCSchemewiseMIS&schemeplanid=" + schemeplanid + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "&BranchSelection=" + hdnBranchSelection.Value + "&RMSelection=" + hdnRMSelection.Value + "", false);
             
         }
 
@@ -953,6 +967,7 @@ namespace WealthERP.Advisor
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
+            hdnBranchSelection.Value = ddlBranch.SelectedValue;
 
             if (ddlBranch.SelectedIndex == 0)
             {
@@ -968,6 +983,7 @@ namespace WealthERP.Advisor
 
         protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
+            hdnRMSelection.Value = ddlRM.SelectedValue.ToString();
             Session["RMFilterForAMC"] = ddlRM.SelectedValue;
             GenerateMIS();
         }
