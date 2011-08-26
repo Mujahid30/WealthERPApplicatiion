@@ -144,6 +144,15 @@ namespace WealthERP.Advisor
             {
                 if (!IsPostBack)
                 {
+                    if (Request.QueryString["DeleteBranchFlag"] != null)
+                    {
+                        msgRecordStatus.Visible = true;
+                        msgRecordStatus.InnerText = "Record Deleted Successfully...!";
+                    }
+                    else
+                    {
+                        msgRecordStatus.Visible = false;
+                    }
                     mypager.CurrentPage = 1;
                    
                     this.BindGrid();
@@ -292,7 +301,7 @@ namespace WealthERP.Advisor
                         dtAdvisorBranch2.Columns.Add("BranchName");
                         dtAdvisorBranch2.Columns.Add("BranchCode");
                         dtAdvisorBranch2.Columns.Add("Email");
-                        dtAdvisorBranch2.Columns.Add("Phone");
+                        dtAdvisorBranch2.Columns.Add("Phone");      
                         dtAdvisorBranch2.Columns.Add("BranchHead");
                         dtAdvisorBranch2.Columns.Add("BranchType");
 

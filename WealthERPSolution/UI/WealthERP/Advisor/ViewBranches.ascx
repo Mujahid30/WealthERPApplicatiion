@@ -11,6 +11,15 @@
     </tr>
 </table>
 
+<table width="100%">
+     <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record Deleted Successfully...!
+            </div>
+        </td>
+    </tr>
+</table>
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td>
