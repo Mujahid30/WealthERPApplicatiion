@@ -206,7 +206,10 @@ namespace WealthERP.CustomerPortfolio
 
                 if (personalList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                   
                   mypager.Visible = true;
                     DataTable dtPersonal = new DataTable();
@@ -254,7 +257,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMsg.Visible = true;
+                    //lblMsg.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     gvrPersonal.DataSource = null;
                     gvrPersonal.DataBind();
                     mypager.Visible = false;

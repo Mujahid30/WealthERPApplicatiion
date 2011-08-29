@@ -17,9 +17,9 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <%--<td>
             <asp:Label ID="lblMsg" class="Error" runat="server" Text="No Records Found...!"></asp:Label>
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td class="leftField">
@@ -76,6 +76,14 @@
         </td>
     </tr>
 </table>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+     <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 <table class="TableBackground" width="100%">
     <tr id="trPager" runat="server">
         <td align="center" colspan="3">
