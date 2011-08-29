@@ -87,7 +87,7 @@ namespace DaoUploads
 
             return dsGetCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -96,6 +96,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCAMSRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetMFUploadRejectsFolios");
+                db.AddInParameter(getCAMSRejectedProfilesCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
@@ -573,7 +574,7 @@ namespace DaoUploads
             return result;
         }
 
-        public DataSet getWERPRejectedProfiles(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        public DataSet getWERPRejectedProfiles(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
         {
             DataSet dsGetWERPRejectedProfiles;
             Database db;
@@ -582,7 +583,14 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetWERPUploadRejectsProfile");
-                db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                db.AddInParameter(getWERPRejectedProfilesCmd, "@adviserId", DbType.Int32, adviserId);
+                //db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                
+                if (processId != 0)
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);                
+                else
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, DBNull.Value);
+
                 db.AddInParameter(getWERPRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
 
@@ -597,7 +605,6 @@ namespace DaoUploads
 
                 if (RejectReasonFilter != "")
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-
 
                 dsGetWERPRejectedProfiles = db.ExecuteDataSet(getWERPRejectedProfilesCmd);
             }
@@ -689,7 +696,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
+        public DataSet GetRejectedEquityTransactionsStaging(int adviserId, int processId, int CurrentPage, out int Count,
            string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
         {
             DataSet dsGetWERPRejectedTransactions;
@@ -699,6 +706,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTransactionStaging");
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
@@ -769,13 +777,9 @@ namespace DaoUploads
                 db.AddInParameter(getMFRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);
 
                 if (processId != 0)
-                {
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
-                }
                 else
-                {
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
-                }
                 
                 if (RejectReasonFilter != "")
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
@@ -834,7 +838,7 @@ namespace DaoUploads
             return dsGetMFRejectedTransactions;
         }
         
-        public DataSet GetRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
+        public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -843,9 +847,13 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetUploadRejectsEquityTradeAccountStaging");
-                db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@adviserId", DbType.Int32, adviserId);                
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                if (processId != 0)
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
 
                 if (TradeAccountNumFilter != "")
                     db.AddInParameter(getWERPRejectedTransactionsCmd, "@TradeAccountNumber", DbType.String, TradeAccountNumFilter);
@@ -1337,16 +1345,58 @@ namespace DaoUploads
         }
 
         public void DeleteMFTransactionStaging(int StagingID)
-      {
-            
+        {            
             Database db;
             DbCommand deletetransactions;
 
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTransaction");
-                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-                db.ExecuteDataSet(deletetransactions);
-            
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTransaction");
+            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+            db.ExecuteDataSet(deletetransactions);            
+        }
+
+        public void DeleteWERPRejectedProfile(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            deletetransactions = db.GetStoredProcCommand("SP_DeleteWERPUploadRejectsProfileTransaction");
+            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+            db.ExecuteDataSet(deletetransactions);
+        }
+
+        public void DeleteRejectsEquityTradeAccountStaging(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTradeAccountStaging");
+            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+            db.ExecuteDataSet(deletetransactions);
+        }
+
+        public void DeleteRejectsEquityTransactionStaging(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTransactionStaging");
+            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+            db.ExecuteDataSet(deletetransactions);
+        }
+
+        public void DeleteMFRejectedFolios(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            deletetransactions = db.GetStoredProcCommand("SP_DeleteMFRejectedFolios");
+            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+            db.ExecuteDataSet(deletetransactions);
         }
     }
 }
