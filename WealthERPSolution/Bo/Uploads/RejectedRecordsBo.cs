@@ -142,13 +142,13 @@ namespace BoUploads
 
             return dsCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
         {
             DataSet dsCAMSRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter, DoesCustExistFilter);
+                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter, DoesCustExistFilter);
             }
             catch (BaseApplicationException Ex)
             {
@@ -450,13 +450,13 @@ namespace BoUploads
             return result;
         }
 
-        public DataSet getWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        public DataSet getWERPRejectedProfile(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
         {
             DataSet dsWERPRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedProfiles = rejecetedRecords.getWERPRejectedProfiles(processId, CurrentPage, out  Count, SortExpression, PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
+                dsWERPRejectedProfiles = rejecetedRecords.getWERPRejectedProfiles(adviserId, processId, CurrentPage, out  Count, SortExpression, PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
             }
             catch (BaseApplicationException Ex)
             {
@@ -523,14 +523,14 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
      
-        public DataSet GetRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
+        public DataSet GetRejectedEquityTransactionsStaging(int adviserId, int processId, int CurrentPage, out int Count,
             string SortExpression, string RejectReasonFilter,string PanNumberFilter,string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedEquityTransactionsStaging(processId, CurrentPage, out Count,
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedEquityTransactionsStaging(adviserId, processId, CurrentPage, out Count,
              SortExpression, RejectReasonFilter, PanNumberFilter, ScripFilter, ExchangeFilter, TransactionTypeFilter);
 
             }
@@ -607,13 +607,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public DataSet GetRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter)
+        public DataSet GetRejectedTradeAccountStaging(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedTradeAccountStaging(processId, CurrentPage, out Count, SortExpression, TradeAccountNumFilter, RejectReasonFilter, PanFilter);
+                dsWERPRejectedTransactions = rejecetedRecords.GetRejectedTradeAccountStaging(adviserId, processId, CurrentPage, out Count, SortExpression, TradeAccountNumFilter, RejectReasonFilter, PanFilter);
             }
             catch (BaseApplicationException Ex)
             {
@@ -971,15 +971,34 @@ namespace BoUploads
             return dsProcessIds;
         }
         public void DeleteMFTransactionStaging(int StagingID)
-       {
-            
-                RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
-
-                rejecetedRecords.DeleteMFTransactionStaging(StagingID);
-
-            
+        {            
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            rejecetedRecords.DeleteMFTransactionStaging(StagingID);            
         }
-       
+
+        public void DeleteWERPRejectedProfile(int StagingID)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            rejecetedRecordsDao.DeleteWERPRejectedProfile(StagingID);
+        }
+
+        public void DeleteRejectsEquityTradeAccountStaging(int StagingID)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            rejecetedRecordsDao.DeleteRejectsEquityTradeAccountStaging(StagingID);
+        }
+
+        public void DeleteRejectsEquityTransactionStaging(int StagingID)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            rejecetedRecordsDao.DeleteRejectsEquityTransactionStaging(StagingID);
+        }
+
+        public void DeleteMFRejectedFolios(int StagingID)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            rejecetedRecordsDao.DeleteMFRejectedFolios(StagingID);
+        }
     }
 
     
