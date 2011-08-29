@@ -14,7 +14,6 @@ using VoUploads;
 using System.Configuration;
 using BoCommon;
 
-
 namespace WealthERP.Uploads
 {
     public partial class RejectedMFTransactionStaging : System.Web.UI.UserControl
@@ -49,8 +48,6 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
-
-
             GetPageCount();
             this.BindEquityTransactionGrid(ProcessId);
         }
@@ -80,18 +77,14 @@ namespace WealthERP.Uploads
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             SessionBo.CheckSession();
             btnReprocess.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
+
             if (Request.QueryString["processId"] != null)
-            {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            }
-
-
+            
             if (Request.QueryString["filetypeId"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
@@ -103,7 +96,6 @@ namespace WealthERP.Uploads
             {
                 Session.Clear();
                 Session.Abandon();
-
                 // If User Sessions are empty, load the login control 
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
@@ -203,12 +195,6 @@ namespace WealthERP.Uploads
         protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlProcessId = GetProcessIdDDL();
-
-            //if (Request.QueryString["processId"] != null)
-            //    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            //if (Request.QueryString["filetypeId"] != null)
-            //    filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
             if (ddlProcessId != null)
             {
