@@ -106,7 +106,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    trSelectAction.Visible = true;
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                        trSelectAction.Visible = false;
+                    else
+                        trSelectAction.Visible = true;
                     trErrorMsg.Visible = false;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
