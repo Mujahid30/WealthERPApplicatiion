@@ -648,12 +648,17 @@ namespace WealthERP.Uploads
                                                             //common profile checks
                                                             packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
                                                             camsProCommonChecksResult = StandardProfileUploadBo.StdCommonProfileChecks(UploadProcessId, adviserVo.advisorId, packagePath, configPath);
-                                                            if (camsProCommonChecksResult)
+                                                            // Insert Customer Details into WERP Tables
+                                                          if(camsProCommonChecksResult)
+                                                            camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
+                                                          if (camsProCreateCustomerResult)
                                                             {
-                                                                // Insert Customer Details into WERP Tables
-                                                                camsProCreateCustomerResult = StandardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, UploadProcessId, rmVo.RMId, int.Parse(ddlListBranch.SelectedValue.ToString()), xmlPath, out countCustCreated);
-                                                                if (camsProCreateCustomerResult)
-                                                                {
+                                                             //Create new Bank Accounts
+                                                               packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
+                                                              bool camsProCreateBankAccountResult = StandardProfileUploadBo.StdCreationOfNewBankAccounts(UploadProcessId, packagePath, configPath);
+                                                              if(camsProCreateBankAccountResult)
+                                                               
+                                                              {
                                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                                     processlogVo.EndTime = DateTime.Now;
                                                                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "CA");
