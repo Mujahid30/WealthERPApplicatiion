@@ -1255,7 +1255,8 @@ namespace DaoAdvisorProfiling
                 getCustomerListCmd = db.GetStoredProcCommand("SP_GetBMCustomerList");
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
-                db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
+                if (!string.IsNullOrEmpty(sortExpression.Trim()))
+                  db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
                 if (nameFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
                 else
@@ -2031,7 +2032,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, all);
 
                 db.AddInParameter(getCustomerListCmd, "@CurrentPage", DbType.Int32, currentPage);
-                db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
+                if (!string.IsNullOrEmpty(sortExpression.Trim()))
+                    db.AddInParameter(getCustomerListCmd, "@SortOrder", DbType.String, sortExpression);
                 if (nameFilter != "")
                     db.AddInParameter(getCustomerListCmd, "@nameFilter", DbType.String, nameFilter);
                 else
