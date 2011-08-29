@@ -51,6 +51,12 @@ namespace BoUploads
             return rejectedTransactionsDao.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
         }
 
+        //public bool MapRejectedFoliosToCustomer(int mfFolioStagingId, int customerId, int userId)
+        //{
+        //    RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
+        //    return rejectedTransactionsDao.MapRejectedFoliosToCustomer(mfFolioStagingId, customerId, userId);
+        //}
+
         public bool MapEquityToCustomer(int transactionStagingId, int customerId, int userId)
         {
             RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
