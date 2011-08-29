@@ -192,7 +192,10 @@ namespace WealthERP.CustomerPortfolio
 
                 if (govtSavingsList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     GovtSavingsVo govtSavingsVo;
 
                     DataTable dtGovtSavings = new DataTable();
@@ -241,7 +244,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMsg.Visible = true;
+                    //lblMsg.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     gvrGovtSavings.DataSource = null;
                     gvrGovtSavings.DataBind();
                 }
