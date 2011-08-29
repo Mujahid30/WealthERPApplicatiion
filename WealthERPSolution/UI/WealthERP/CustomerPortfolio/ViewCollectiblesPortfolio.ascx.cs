@@ -174,7 +174,10 @@ namespace WealthERP.CustomerPortfolio
                 lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 if (collectiblesList == null)
                 {
-                    lblMessage.Visible = true;
+                    //lblMessage.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     DivPager.Visible = false;
@@ -183,7 +186,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMessage.Visible = false;
+                    //lblMessage.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
                     DivPager.Visible = true;

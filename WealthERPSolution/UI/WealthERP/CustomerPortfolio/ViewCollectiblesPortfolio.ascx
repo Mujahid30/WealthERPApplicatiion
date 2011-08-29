@@ -16,11 +16,11 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td>
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found!"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
@@ -75,6 +75,14 @@
         </td>
     </tr>
 </table>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+     <div class="failure-msg" id="ErrorMessage" visible="false" runat="server"  align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr>
