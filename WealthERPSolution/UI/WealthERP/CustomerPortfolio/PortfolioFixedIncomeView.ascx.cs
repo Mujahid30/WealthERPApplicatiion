@@ -168,11 +168,18 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (fixedincomeList == null)
                 {
-                    lblMessage.Visible = true;
+                    //lblMessage.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
+
                 }
                 else
                 {
-                    lblMessage.Visible = false;
+                    //lblMessage.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     DataTable dtFixedIncomePortfolio = new DataTable();
 
                     dtFixedIncomePortfolio.Columns.Add("FITransactionId");
