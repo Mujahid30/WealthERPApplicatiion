@@ -39,6 +39,32 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvWERPTrans.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvWERPTrans.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkBxWPTrans";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBxWPTransAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
+
 <table style="width: 100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -96,6 +122,10 @@
                 <Columns>
                     <%--- Check Boxes--%>
                     <asp:TemplateField HeaderText="Select">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                            <input id="chkBxWPTransAll" name="chkBxWPTransAll" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="chkBxWPTrans" runat="server" />
                             <asp:HiddenField ID="hdnBxWPTrans" runat="server" Value='<%# Eval("WERPTransactionId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
@@ -116,6 +146,18 @@
                             <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
+                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" 
+                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                    </asp:TemplateField>
+                    <%--<asp:BoundField DataField="ProcessId" HeaderText="Process Id" />--%>
                     <%-- <asp:TemplateField>
                        <HeaderTemplate>
                             <asp:Label ID="lblPanNumber" runat="server" Text="PAN Number"></asp:Label>
@@ -191,8 +233,7 @@
                         </FooterTemplate>--%>
                     </asp:TemplateField>
                     <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
-                    <asp:BoundField DataField="BrokerCode" HeaderText="Broker Code" />
-                    <asp:BoundField DataField="ProcessId" HeaderText="Process Id" />
+                    <asp:BoundField DataField="BrokerCode" HeaderText="Broker Code" />                    
                 </Columns>
             </asp:GridView>
         </td>
@@ -204,6 +245,8 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
             <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to WERP Customer"
                 OnClientClick="return ShowPopup()" />
+            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                OnClick="btnDelete_Click" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
@@ -239,6 +282,7 @@
 <asp:HiddenField ID="hdnAmountFilter" runat="server" Visible="false" />--%>
 <asp:HiddenField ID="hdnTransactionTypeFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
+ <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
 <%-- <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
 --%>
 <asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
