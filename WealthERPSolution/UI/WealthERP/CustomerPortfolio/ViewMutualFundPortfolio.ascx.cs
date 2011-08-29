@@ -314,15 +314,16 @@ namespace WealthERP.CustomerPortfolio
                             
                                 drMFPortfolio = dtMFPortfolio.NewRow();
                                 drMFPortfolio = PortfolioDetails(drMFPortfolio, i);
-                                if (drMFPortfolio["CurrentHoldings"].ToString() == "0.00")
-                                {
-                                    dtMFPortfolio.Rows.InsertAt(drMFPortfolio, dtMFPortfolio.Rows.Count);
-                                    
-                                }
-                                else
-                                {
-                                    dtMFPortfolio.Rows.InsertAt(drMFPortfolio,0);
-                                }
+                                //if (drMFPortfolio["CurrentHoldings"].ToString() == "0.00")
+                                //{
+                                //    dtMFPortfolio.Rows.InsertAt(drMFPortfolio, dtMFPortfolio.Rows.Count);
+
+                                //}
+                                //else
+                                //{
+                                //    dtMFPortfolio.Rows.InsertAt(drMFPortfolio, 0);
+                                //}
+                                dtMFPortfolio.Rows.Add(drMFPortfolio);
                            
                         }
                         # endregion
