@@ -516,7 +516,7 @@ namespace DaoCustomerPortfolio
             return eqTransactionsList;
         }
 
-        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate)
+        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate,int accountId)
         {
             List<EQTransactionVo> eqTransactionsList = null;
 
@@ -533,6 +533,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getEquityTransactionsCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
                 db.AddInParameter(getEquityTransactionsCmd, "@PEM_ScripCode", DbType.Int32, eqCode);
                 db.AddInParameter(getEquityTransactionsCmd, "@CET_TradeDate", DbType.DateTime, tradeDate);
+                db.AddInParameter(getEquityTransactionsCmd, "@AccountId", DbType.Int32, accountId);
                 dsGetEquityTransactions = db.ExecuteDataSet(getEquityTransactionsCmd);
                 if (dsGetEquityTransactions.Tables[0].Rows.Count > 0)
                 {
