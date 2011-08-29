@@ -14,6 +14,33 @@
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvWERPProfileReject.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvWERPProfileReject.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkBxWerp";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBxWerpAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
+
+
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -107,14 +134,18 @@
                 <Columns>
                     <%--Check Boxes--%>
                     <asp:TemplateField HeaderText="Select Records">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                            <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                        </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="chkBxWerp" runat="server" />
-                        </ItemTemplate>
+                        </ItemTemplate>                        
                         <FooterTemplate>
                             <asp:Button ID="btnEditSelectedWerp" CssClass="FieldName" OnClick="btnEditSelectedWerp_Click"
                                 runat="server" Text="Save" />
                         </FooterTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>                   
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
@@ -126,6 +157,17 @@
                             <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                     <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
+                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" 
+                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     <%--<asp:BoundField DataField="WERPCustomerName" HeaderText="CustomerName" SortExpression="WERPCustomerName" />--%>
                     <%--<asp:BoundField DataField="CustomerExists" HeaderText="Does Customer Exist" />--%>
                     <%--<asp:TemplateField>
@@ -177,8 +219,8 @@
                         </FooterTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="CUSTADDRESS" HeaderText="Address" />
-                    <asp:BoundField DataField="Pincode" HeaderText="PinCode" />
-                    <asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />
+                    <asp:BoundField DataField="Pincode" HeaderText="PinCode" />                    
+                    <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />--%>
                     <%--<asp:BoundField DataField="Scheme" HeaderText="Scheme" />--%>
                     <%--<asp:BoundField DataField="IsRejected" HeaderText="Is Rejected" />--%>
                     <%--      <asp:TemplateField>
@@ -200,6 +242,8 @@
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" OnClientClick="Loading(true);"     />
+            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+                OnClick="btnDelete_Click" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
@@ -231,5 +275,6 @@
 <asp:HiddenField ID="hdnBrokerCodeFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCustomerNameFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
 <asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
     BorderStyle="None" BackColor="Transparent" />

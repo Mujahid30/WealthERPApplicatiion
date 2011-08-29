@@ -28,6 +28,7 @@ namespace WealthERP.Uploads
 
         DataSet dsRejectedRecords;
 
+        int adviserId;
         int ProcessId;
         string configPath;
         string source;
@@ -38,22 +39,21 @@ namespace WealthERP.Uploads
         {
             ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
             mypager.EnableViewState = true;
-
-            
             base.OnInit(e);
         }
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
-            
+            //ProcessId = 0;
+            //if (Request.QueryString["processId"] != null)
+            //    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
 
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-
-            if(Request.QueryString["filetypeid"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+            //if(Request.QueryString["filetypeid"] != null)
+            //    filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+            //ProcessId = ddlProcessId.SelectedValue;
 
             GetPageCount();
+            ProcessId = int.Parse(hdnProcessIdFilter.Value.ToString());
             this.BindWerpProfileGrid(ProcessId);
         }
 
@@ -69,7 +69,7 @@ namespace WealthERP.Uploads
                 int ratio = rowCount / 10;
                 mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
                 upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -84,17 +84,15 @@ namespace WealthERP.Uploads
         {
             SessionBo.CheckSession();
             btnReprocess.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
-            ProcessId = 0;
+            //ProcessId = 0;
             uploadsCommonBo = new UploadCommonBo();
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             
             if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());            
 
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-
 
             if (Session["userVo"] != null)
             {
@@ -104,13 +102,13 @@ namespace WealthERP.Uploads
             {
                 Session.Clear();
                 Session.Abandon();
-
                 // If User Sessions are empty, load the login control 
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
 
             // Get Advisor Vo from Session
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            adviserId = adviserVo.advisorId;
             rmVo = (RMVo)Session[SessionContents.RmVo];
             //.GetProcessLogInfo(ProcessId);
 
@@ -118,6 +116,8 @@ namespace WealthERP.Uploads
             if (!IsPostBack)
             {
                 mypager.CurrentPage = 1;
+                hdnProcessIdFilter.Value = ProcessId.ToString();
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
                 // Bind Grid
                 BindWerpProfileGrid(ProcessId);
             }
@@ -153,12 +153,12 @@ namespace WealthERP.Uploads
 
             if (ProcessId == 0)
             {   // Bind All Processes
-                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
                 //   PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
             }
             else
             {   // Bind Grid for the specific Process Id
-                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getWERPRejectedProfile(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
             }
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -197,10 +197,11 @@ namespace WealthERP.Uploads
                 }
 
                 BindPanNumber(dsRejectedRecords.Tables[3]);
-
+                BindProcessId(dsRejectedRecords.Tables[4]);
             }
             else
             {
+                hdnRecordCount.Value = "0";
                 gvWERPProfileReject.DataSource = null;
                 gvWERPProfileReject.DataBind();
                 trMessage.Visible = true;
@@ -208,6 +209,100 @@ namespace WealthERP.Uploads
             }
             this.GetPageCount();
         }
+
+        //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
+        //********** Code Starts *************//
+        private void BindProcessId(DataTable dtProcessId)
+        {
+            Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();            
+            if (dtProcessId.Rows.Count > 0)
+            {
+                // Get the Reject Reason Codes Available into Generic Dictionary
+                foreach (DataRow dr in dtProcessId.Rows)
+                {
+                    genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
+                }
+
+                DropDownList ddlProcessId = GetProcessIdDDL();
+                if (ddlProcessId != null)
+                {
+                    ddlProcessId.DataSource = genDictPanNum;
+                    ddlProcessId.DataTextField = "Key";
+                    ddlProcessId.DataValueField = "Value";
+                    ddlProcessId.DataBind();
+                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+
+                if (hdnProcessIdFilter.Value != "")
+                {
+                    ddlProcessId.SelectedValue = hdnProcessIdFilter.Value.ToString().Trim();
+                }
+            }
+        }
+
+        protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlProcessId = GetProcessIdDDL();           
+            
+            if (ddlProcessId != null)
+            {
+                if (ddlProcessId.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindWerpProfileGrid(ProcessId);
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnProcessIdFilter.Value = "0";
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindWerpProfileGrid(ProcessId);
+                }
+            }
+        }
+        private DropDownList GetProcessIdDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvWERPProfileReject.HeaderRow.FindControl("ddlProcessId") != null)
+            {
+                ddl = (DropDownList)gvWERPProfileReject.HeaderRow.FindControl("ddlProcessId");
+            }
+            return ddl;
+        }
+        
+        /*************To delete the selected records ****************/
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach (GridViewRow gvr in this.gvWERPProfileReject.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBxWerp")).Checked == true)
+                    i = i + 1;
+            }
+
+            if (i == 0)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            else
+                CustomerTransactionDelete();
+        }
+        
+        private void CustomerTransactionDelete()
+        {
+            foreach (GridViewRow gvr in this.gvWERPProfileReject.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBxWerp")).Checked == true)
+                {
+                    rejectedRecordsBo = new RejectedRecordsBo();
+                    int StagingID = int.Parse(gvWERPProfileReject.DataKeys[gvr.RowIndex].Values["WERPProfileStagingId"].ToString());
+                    rejectedRecordsBo.DeleteWERPRejectedProfile(StagingID);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedWERPProfile','login');", true);
+                }
+            }
+        }
+
+        //************** Code End  ***********************//
+
 
         protected void ddlPanNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -218,6 +313,14 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
             if (ddlPanNum != null)
             {
                 if (ddlPanNum.SelectedIndex != 0)
@@ -517,6 +620,15 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
+
             if (ddlReject != null)
             {
                 if (ddlReject.SelectedIndex != 0)
@@ -583,6 +695,15 @@ namespace WealthERP.Uploads
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
 
             if (txtCustomerName != null)
                 hdnCustomerNameFilter.Value = txtCustomerName.Text.Trim();
