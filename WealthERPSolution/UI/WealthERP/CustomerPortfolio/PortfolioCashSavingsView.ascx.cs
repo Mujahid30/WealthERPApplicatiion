@@ -233,7 +233,12 @@ namespace WealthERP.CustomerPortfolio
                     if (customerCashSavingsList != null)
                     {
                         DivPager.Visible = true;
-                        lblMsg.Visible = false;
+                        //lblMsg.Visible = false;
+                        tblMessage.Visible = false;
+                        ErrorMessage.Visible = false;
+                        ErrorMessage.InnerText = "No Records Found...!";
+                        lblCurrentPage.Visible = true;
+                        lblTotalRows.Visible = true;
                         DataTable dtCustomerCashSavings = new DataTable();
 
                         dtCustomerCashSavings.Columns.Add("CashSavingsPortfolioId");
@@ -281,7 +286,12 @@ namespace WealthERP.CustomerPortfolio
                         gvCustomerCashSavings.DataBind();
                         gvCustomerCashSavings.Visible = false;
                         DivPager.Visible = false;
-                        lblMsg.Visible = true;
+                        //lblMsg.Visible = true;
+                        tblMessage.Visible = true;
+                        ErrorMessage.Visible = true;
+                        ErrorMessage.InnerText = "No Records Found...!";
+                        lblCurrentPage.Visible = false;
+                        lblTotalRows.Visible = false;
                     }
                 }
                 this.GetPageCount();
