@@ -200,7 +200,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (propertyList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     DataTable dtProperty = new DataTable();
                     //dtProperty.Columns.Add("SI.No");
                     dtProperty.Columns.Add("PropertyId");
@@ -240,7 +243,10 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMsg.Visible = true;
+                    //lblMsg.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     gvrProperty.DataSource = null;
                     gvrProperty.DataBind();
                 }
