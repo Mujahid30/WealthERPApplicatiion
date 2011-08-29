@@ -98,6 +98,7 @@ namespace WealthERP.Uploads
             {
                 mypager.CurrentPage = 1;
                 // Bind Grid
+                hdnProcessIdFilter.Value = ProcessId.ToString();
                 BindRejectedUploadsGrid(ProcessId);
             }
         }
@@ -119,11 +120,11 @@ namespace WealthERP.Uploads
 
             if (ProcessId == 0) //TODO : This IF ELSE can be removed.
             {   // Bind All Processes
-                dsRejectedRecords = rejectedRecordsBo.GetRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.GetRejectedTradeAccountStaging(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
             }
             else
             {   // Bind Grid for the specific Process Id
-                dsRejectedRecords = rejectedRecordsBo.GetRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.GetRejectedTradeAccountStaging(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
             }
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -162,7 +163,7 @@ namespace WealthERP.Uploads
                     }
                 }
                 BindPanNumber(dsRejectedRecords.Tables[3]);
-
+                BindProcessId(dsRejectedRecords.Tables[4]);
             }
             else
             {
@@ -235,7 +236,97 @@ namespace WealthERP.Uploads
             return ddl;
         }
 
+        //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
+        //********** Code Starts *************//
+        private void BindProcessId(DataTable dtProcessId)
+        {
+            Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();
+            if (dtProcessId.Rows.Count > 0)
+            {
+                // Get the Reject Reason Codes Available into Generic Dictionary
+                foreach (DataRow dr in dtProcessId.Rows)
+                {
+                    genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
+                }
 
+                DropDownList ddlProcessId = GetProcessIdDDL();
+                if (ddlProcessId != null)
+                {
+                    ddlProcessId.DataSource = genDictPanNum;
+                    ddlProcessId.DataTextField = "Key";
+                    ddlProcessId.DataValueField = "Value";
+                    ddlProcessId.DataBind();
+                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+
+                if (hdnProcessIdFilter.Value != "")
+                {
+                    ddlProcessId.SelectedValue = hdnProcessIdFilter.Value.ToString().Trim();
+                }
+            }
+        }
+
+        protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlProcessId = GetProcessIdDDL();
+
+            if (ddlProcessId != null)
+            {
+                if (ddlProcessId.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindRejectedUploadsGrid(ProcessId);
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnProcessIdFilter.Value = "0";
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindRejectedUploadsGrid(ProcessId);
+                }
+            }
+        }
+        private DropDownList GetProcessIdDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId") != null)
+            {
+                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlProcessId");
+            }
+            return ddl;
+        }
+
+        /*************To delete the selected records ****************/
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
+                    i = i + 1;
+            }
+
+            if (i == 0)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            else
+                CustomerTransactionDelete();
+        }
+
+        private void CustomerTransactionDelete()
+        {
+            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
+                {
+                    rejectedRecordsBo = new RejectedRecordsBo();
+                    int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["WERPTransactionId"].ToString());
+                    rejectedRecordsBo.DeleteRejectsEquityTradeAccountStaging(StagingID);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedTradeAccountStaging','login');", true);
+                }
+            }
+        }
+        //************** Code End  ***********************//
 
         protected void btnEditSelectedWPTrans_Click(object sender, EventArgs e)
         {
