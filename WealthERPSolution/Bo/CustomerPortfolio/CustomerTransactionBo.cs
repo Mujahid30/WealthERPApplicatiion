@@ -205,14 +205,14 @@ namespace BoCustomerPortfolio
             return eqTransactionsList;
         }
 
-        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate)
+        public List<EQTransactionVo> GetEquityTransactions(int customerId, int portfolioId, int eqCode, DateTime tradeDate,int accountId)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
 
             List<EQTransactionVo> eqTransactionsList = new List<EQTransactionVo>();
             try
             {
-                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, eqCode, tradeDate);
+                eqTransactionsList = customerTransactionDao.GetEquityTransactions(customerId, portfolioId, eqCode, tradeDate,accountId);
             }
             catch (BaseApplicationException Ex)
             {
