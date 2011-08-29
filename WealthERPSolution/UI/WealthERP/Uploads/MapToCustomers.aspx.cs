@@ -149,8 +149,10 @@ namespace WealthERP.Uploads
         {
             int userId = 0;
             int customerId = 0;
+            //int testVar = 0;
             customerId = Convert.ToInt32(e.CommandArgument);
             UserVo userVo = (UserVo)Session["userVo"];
+            //testVar = (int)Session["varTest"];
             userId = userVo.UserId;
             bool insertioncomplete = true;
             CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
@@ -160,7 +162,14 @@ namespace WealthERP.Uploads
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
               try
                 {
-                    insertioncomplete = MapfoliotoCustomer(customerId);
+                    //if (testVar == 1)
+                    //{
+                    //    insertioncomplete = MapRejectedFoliosToCustomer(customerId);
+                    //    Session.Remove("varTest");
+                    //}
+                    //else
+                        insertioncomplete = MapfoliotoCustomer(customerId);
+                  
                 }
                 catch (Exception ex)
                 {
@@ -204,6 +213,30 @@ namespace WealthERP.Uploads
             }
             return result;
         }
+
+        //private bool MapRejectedFoliosToCustomer(int customerId)
+        //{
+        //    bool result = true;
+        //    int mfFolioStagingId = 0;
+        //    UserVo userVo = (UserVo)Session["userVo"];
+        //    RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
+
+        //    int userId = userVo.UserId;
+        //    for (int i = 0; i < Stagingtableid.Count; i++)
+        //    {
+        //        try
+        //        {
+        //            mfFolioStagingId = Convert.ToInt32(Stagingtableid[i]);
+        //            result = rejectedTransactionsBo.MapRejectedFoliosToCustomer(mfFolioStagingId, customerId, userId);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            result = false;
+        //        }
+        //    }
+        //    return result;
+        //}
+
         #endregion
 
         #region Reporcess Code
