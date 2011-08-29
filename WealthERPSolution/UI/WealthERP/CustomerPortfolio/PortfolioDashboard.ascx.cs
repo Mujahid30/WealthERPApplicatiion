@@ -32,6 +32,7 @@ namespace WealthERP.CustomerPortfolio
         AdvisorVo adviserVo = null;
         int adviserId = 0;
         static int portfolioId;
+        int customerId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,6 +41,10 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 rmVo = (RMVo)Session["RmVo"];
                 userVo = (UserVo)Session["userVo"];
+                
+                if(customerVo != null)
+                    customerId = customerVo.CustomerId;
+
                 if (userVo.UserType == "Advisor")
                 {
                     adviserVo = (AdvisorVo)Session["advisorVo"];
@@ -630,6 +635,24 @@ namespace WealthERP.CustomerPortfolio
             Session[SessionContents.PortfolioId] = ddlPortfolio.SelectedItem.Value.ToString();
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             LoadChartsAndGrids();
+        }
+
+        protected void lnkMoreMFInvestments_Click(object sender, EventArgs e)
+        {
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "MFAssets";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+        }
+
+        protected void lnkEQInvestments_Click(object sender, EventArgs e)
+        {
+            customerVo = customerBo.GetCustomer(customerId);
+            Session["CustomerVo"] = customerVo;
+            Session["IsDashboard"] = "DirectEquity";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
     }

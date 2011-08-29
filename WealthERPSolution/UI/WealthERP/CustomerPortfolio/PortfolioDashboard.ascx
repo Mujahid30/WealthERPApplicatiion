@@ -184,6 +184,9 @@
                     </Columns>
                 </asp:GridView>
             </asp:Panel>
+            <br />
+            <asp:LinkButton ID="lnkMoreMFInvestments" runat="server" Text=">>More" ForeColor="Blue"
+                Font-Size="X-Small" Font-Bold="true" onclick="lnkMoreMFInvestments_Click"></asp:LinkButton>
         </td>
         <td style="width: 30%;" valign="top">
             <asp:Chart ID="chrtMFInv" BackColor="#FFEFEF" runat="server">
@@ -244,6 +247,9 @@
                     </Columns>
                 </asp:GridView>
             </asp:Panel>
+            <br />
+            <asp:LinkButton ID="lnkEQInvestments" runat="server" Text=">>More" ForeColor="Blue"
+                Font-Size="X-Small" Font-Bold="true" onclick="lnkEQInvestments_Click"></asp:LinkButton>
         </td>
     </tr>
     <tr>
