@@ -10,6 +10,7 @@ using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Text.RegularExpressions;
+using WealthERP.Base;
 using BoCommon;
 
 namespace WealthERP.CustomerPortfolio
@@ -114,6 +115,11 @@ namespace WealthERP.CustomerPortfolio
                 {
                     btnCancel.Visible = false;
                 }
+                if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                {
+                    btnCancel.Visible = false;
+                    lnkEdit.Visible = false;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -178,8 +184,10 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetFields(int i)
         {
+            
             if (i == 0)
             {
+
                 lblScheme.Enabled = false;
                 lblFolioNumber.Enabled = false;
                 lblTransactionType.Enabled = false;
@@ -207,26 +215,28 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                lblScheme.Enabled = true;
-                lblFolioNumber.Enabled = true;
-                lblTransactionType.Enabled = true;
-                txtTransactionDate.Enabled = true;
-                txtDividentRate.Enabled = true;
-                txtAmount.Enabled = true;
-                txtNAV.Enabled = true;
-                txtPrice.Enabled = true;
-                txtSTT.Enabled = true;
-                txtUnits.Enabled = true;
-                btnSubmit.Visible = true;
 
-                // Un-Hide the Validation Divs
-                dvSTT.Visible = true;
-                dvUnits.Visible = true;
-                dvAmount.Visible = true;
-                dvPrice.Visible = true;
-                dvNAV.Visible = true;
-                dvDividentRate.Visible = true;
-                dvTransactionDate.Visible = true;
+                    lblScheme.Enabled = true;
+                    lblFolioNumber.Enabled = true;
+                    lblTransactionType.Enabled = true;
+                    txtTransactionDate.Enabled = true;
+                    txtDividentRate.Enabled = true;
+                    txtAmount.Enabled = true;
+                    txtNAV.Enabled = true;
+                    txtPrice.Enabled = true;
+                    txtSTT.Enabled = true;
+                    txtUnits.Enabled = true;
+                    btnSubmit.Visible = true;
+
+                    // Un-Hide the Validation Divs
+                    dvSTT.Visible = true;
+                    dvUnits.Visible = true;
+                    dvAmount.Visible = true;
+                    dvPrice.Visible = true;
+                    dvNAV.Visible = true;
+                    dvDividentRate.Visible = true;
+                    dvTransactionDate.Visible = true;
+               
             }
         }
         protected void txtAmount_TextChanged(object sender, EventArgs e)

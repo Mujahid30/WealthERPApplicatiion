@@ -43,6 +43,8 @@
             <hr />
         </td>
     </tr>
+ </table>
+ <table width ="60%">   
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
