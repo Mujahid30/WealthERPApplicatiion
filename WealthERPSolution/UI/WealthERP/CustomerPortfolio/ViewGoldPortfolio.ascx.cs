@@ -171,7 +171,11 @@ namespace WealthERP.CustomerPortfolio
                     DivPager.Style.Add("display", "visible");
                 if (goldList == null)
                 {
-                    lblMessage.Visible = true;
+                    //lblMessage.Visible = true;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
+                    btnUpdateNP.Visible = false;
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     gvGoldPortfolio.DataSource = null;
@@ -179,7 +183,11 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lblMessage.Visible = false;
+                    //lblMessage.Visible = false;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
+                    btnUpdateNP.Visible = true;
                     lblTotalRows.Visible = true;
                     lblCurrentPage.Visible = true;
                     DataTable dtGoldPortfolio = new DataTable();

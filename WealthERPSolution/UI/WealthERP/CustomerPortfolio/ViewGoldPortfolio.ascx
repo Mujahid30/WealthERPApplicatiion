@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewGoldPortfolio.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewGoldPortfolio" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td colspan="4" class="HeaderCell">
@@ -18,7 +19,8 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records found..!"></asp:Label>
+            <%--<asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records found..!"></asp:Label>--%>
+            
         </td>
     </tr>
     <tr>
@@ -70,7 +72,14 @@
         </tr>
     </table>
 </div>
-
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+     <div class="failure-msg" id="ErrorMessage" visible="false" runat="server"  align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 <tr>
 <asp:Button ID="btnUpdateNP" runat="server" Text="Update Current Value" OnClick="btn_Update" CssClass="PCGLongButton" AutoPostBack="true" />
 </tr>
