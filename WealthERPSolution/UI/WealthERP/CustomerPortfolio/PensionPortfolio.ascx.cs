@@ -206,7 +206,11 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (pensionAndGratuitiesList != null)
                 {
-                    lblMsg.Visible = false;
+                    //lblMsg.Visible = false;
+
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    ErrorMessage.InnerText = "No Records Found...!";
                     DataTable dtPension = new DataTable();
                     //dtPension.Columns.Add("SI.No");
                     dtPension.Columns.Add("PortfolioId");
@@ -239,7 +243,11 @@ namespace WealthERP.CustomerPortfolio
                 {
                     gvrPensionAndGratuities.DataSource = null;
                     gvrPensionAndGratuities.DataBind();
-                    lblMsg.Visible = true;
+                    //lblMsg.Visible = true;
+
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
                 }
             }
             catch (BaseApplicationException Ex)
