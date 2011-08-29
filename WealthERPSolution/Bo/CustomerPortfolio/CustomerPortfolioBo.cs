@@ -45,7 +45,7 @@ namespace BoCustomerPortfolio
                 //eqPortfolioVo = eqPortfolioVoList[i];
                 eqTransactionVoList = new List<EQTransactionVo>();
                 eqPortfolioVoList[i].EqPortfolioId = (i + 1);
-                eqTransactionVoList = customerTransactionBo.GetEquityTransactions(eqPortfolioVoList[i].CustomerId, portfolioId, eqPortfolioVoList[i].EQCode, tradeDate);
+                eqTransactionVoList = customerTransactionBo.GetEquityTransactions(eqPortfolioVoList[i].CustomerId, portfolioId, eqPortfolioVoList[i].EQCode, tradeDate,eqPortfolioVoList[i].AccountId);
                 eqPortfolioVoList[i].EQPortfolioTransactionVo = ProcessEquityTransactions(eqTransactionVoList);
                 profitLoss = 0;
                 costOfSales = 0;
@@ -615,7 +615,7 @@ namespace BoCustomerPortfolio
                         //eqPortfolioVo = eqPortfolioVoList[i];
                         eqTransactionVoList = new List<EQTransactionVo>();
                         eqPortfolioVoList[i].EqPortfolioId = (i + 1);
-                        eqTransactionVoList = customerTransactionBo.GetEquityTransactions(eqPortfolioVoList[i].CustomerId, portfolioId, eqPortfolioVoList[i].EQCode, tradeDate);
+                        eqTransactionVoList = customerTransactionBo.GetEquityTransactions(eqPortfolioVoList[i].CustomerId, portfolioId, eqPortfolioVoList[i].EQCode, tradeDate,eqPortfolioVoList[i].AccountId);
                         eqPortfolioVoList[i].EQPortfolioTransactionVo = ProcessEquityTransactions(eqTransactionVoList, portfolioId);
                         profitLoss = 0;
                         costOfSales = 0;
