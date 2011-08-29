@@ -13,6 +13,7 @@ using VoUser;
 using WealthERP.Base;
 using System.Configuration;
 using BoCommon;
+using System.Collections;
 
 namespace WealthERP.Uploads
 {
@@ -55,11 +56,10 @@ namespace WealthERP.Uploads
             if (Request.QueryString["filetypeid"] != null)
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
-            if (Request.QueryString["filetypeid"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-
             if (!IsPostBack)
             {
+                mypager.CurrentPage = 1;
+                //ProcessId = int.Parse(hdnProcessIdFilter.Value.ToString());
                 BindGrid(ProcessId);
             }
         }
@@ -285,11 +285,11 @@ namespace WealthERP.Uploads
 
                 if (ProcessId == 0)
                 {   // Bind All Processes
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
+                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
                 }
                 else
                 {   // Bind Grid for the specific Process Id
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
+                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
                 }
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -395,6 +395,7 @@ namespace WealthERP.Uploads
                             txtPan.Text = hdnPANFilter.Value.ToString().Trim();
                         }
                     }
+                    BindProcessId(dsRejectedRecords.Tables[5]);
                 }
                 else
                 {
@@ -427,6 +428,102 @@ namespace WealthERP.Uploads
 
             this.GetPageCount();
         }
+
+        //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
+        //********** Code Starts *************//
+        private void BindProcessId(DataTable dtProcessId)
+        {
+            Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();
+            if (dtProcessId.Rows.Count > 0)
+            {
+                // Get the Reject Reason Codes Available into Generic Dictionary
+                foreach (DataRow dr in dtProcessId.Rows)
+                {
+                    genDictPanNum.Add(dr["ProcessId"].ToString(), dr["ProcessId"].ToString());
+                }
+
+                DropDownList ddlProcessId = GetProcessIdDDL();
+                if (ddlProcessId != null)
+                {
+                    ddlProcessId.DataSource = genDictPanNum;
+                    ddlProcessId.DataTextField = "Key";
+                    ddlProcessId.DataValueField = "Value";
+                    ddlProcessId.DataBind();
+                    ddlProcessId.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+
+                if (hdnProcessIdFilter.Value != "")
+                {
+                    ddlProcessId.SelectedValue = hdnProcessIdFilter.Value.ToString().Trim();
+                }
+            }
+        }
+
+        protected void ddlProcessId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlProcessId = GetProcessIdDDL();
+
+            if (ddlProcessId != null)
+            {
+                if (ddlProcessId.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindGrid(ProcessId);
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnProcessIdFilter.Value = "0";
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    BindGrid(ProcessId);
+                }
+            }
+        }
+        private DropDownList GetProcessIdDDL()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvCAMSProfileReject.HeaderRow.FindControl("ddlProcessId") != null)
+            {
+                ddl = (DropDownList)gvCAMSProfileReject.HeaderRow.FindControl("ddlProcessId");
+            }
+            return ddl;
+        }
+
+        /*************To delete the selected records ****************/
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
+                    i = i + 1;
+            }
+
+            if (i == 0)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            else
+                CustomerTransactionDelete();
+        }
+
+        private void CustomerTransactionDelete()
+        {
+            foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
+                {
+                    rejectedRecordsBo = new RejectedRecordsBo();
+                    int StagingID = int.Parse(gvCAMSProfileReject.DataKeys[gvr.RowIndex].Values["MFFolioStagingId"].ToString());
+                    rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+                }
+            }
+        }
+
+
+        //************** Code End  ***********************//
+
+
         private DropDownList GetRejectReasonDDL()
         {
             DropDownList ddl = new DropDownList();
@@ -645,5 +742,48 @@ namespace WealthERP.Uploads
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('StandardProfileInputRejects','processId=" + ProcessId + "');", true);
 
         }
+
+        //protected void btnMapToCustomer_Click(object sender, EventArgs e)
+        //{
+        //    ArrayList Stagingtableid = new ArrayList();
+        //    ArrayList ProcessId = new ArrayList();
+        //    int i = 0;
+        //    int varTest = 1;
+        //    //const int FOLIONUM_INDEX = 2;
+        //    HiddenField hdnStagingTableid;
+        //    HiddenField hdnProcessID;
+        //    //string folionum;
+        //    foreach (GridViewRow dr in gvCAMSProfileReject.Rows)
+        //    {
+        //        CheckBox checkBox = (CheckBox)dr.FindControl("chkBx");
+        //        if (checkBox.Checked)
+        //        {
+        //            hdnStagingTableid = (HiddenField)dr.FindControl("hdnBxStagingId");
+        //            Stagingtableid.Add(hdnStagingTableid.Value);
+        //            hdnProcessID = (HiddenField)dr.FindControl("hdnBxProcessID");
+        //            ProcessId.Add(hdnProcessID.Value);                    
+        //            i++;
+        //        }
+        //    }
+        //    //use a hashtable to create a unique list
+        //    Hashtable ht = new Hashtable();
+
+        //    foreach (string item in ProcessId)
+        //    {
+        //        //set a key in the hashtable for our arraylist value - leaving the hashtable value empty
+        //        ht[item] = null;
+        //    }
+        //    //now grab the keys from that hashtable into another arraylist
+        //    ArrayList distincProcessIds = new ArrayList(ht.Keys);
+
+        //    //int selectedcount = ProcessId.Count;
+        //    //string[] processids = new string[selectedcount];
+        //    //for(i=0; i<selectedcount; i++)
+        //    Session["Stagingtableid"] = Stagingtableid;
+        //    Session["distincProcessIds"] = distincProcessIds;
+        //    Session["varTest"] = varTest;
+            
+        //    Response.Write("<script type='text/javascript'>detailedresults=window.open('Uploads/MapToCustomers.aspx','mywindow', 'width=700,height=450,scrollbars=yes,location=no');</script>");
+        //}
     }
 }

@@ -4,6 +4,62 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
+<script>
+    function ShowPopup() {
+        var form = document.forms[0];
+        var transactionId = 0;
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+//                    hiddenField = form.elements[i].id.replace("chkBx", "hdnchkBx");
+//                    hiddenFieldValues = document.getElementById(hiddenField).value;
+//                    var splittedValues = hiddenFieldValues.split("-");
+//                    transactionId = splittedValues[0];
+//                    RejectReasonCode = splittedValues[1];
+                }
+            }
+        }        
+        if (count > 1) {
+            alert("You can select only one record at a time.")
+            return false;
+        }
+        else if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+        // window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
+        return true;
+    }
+</script>
+
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCAMSProfileReject.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvCAMSProfileReject.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkBx";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBxAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
+
 <asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">
     <table style="width: 100%" class="TableBackground">
         <tr>
@@ -47,8 +103,15 @@
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
                       <asp:TemplateField HeaderText="Select" ItemStyle-HorizontalAlign="Center">
+                            <HeaderTemplate>
+                            <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                            <input id="chkBxAll" name="chkBxAll" type="checkbox" onclick="checkAllBoxes()" />                           
+                        </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" />
+<%--                                 <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+--%>                                 <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ProcessID").ToString() %>' />
+                               <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() %>' />
                             </ItemTemplate>
                            <FooterTemplate>
                                 <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
@@ -63,11 +126,22 @@
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
+                            </ItemTemplate>                           
+                        </asp:TemplateField>
+                        
+                        <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
+                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" 
+                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
                             </ItemTemplate>
-                           
                         </asp:TemplateField>
                       
-                        <asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />
+                        <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />--%>
                         <asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />
                         <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
                         <asp:TemplateField>
@@ -133,13 +207,17 @@
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
-                    CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','S');"
-                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','S');" />
+                    CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" />
+                <%--<asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+                    OnClientClick="return ShowPopup()" OnClick="btnMapToCustomer_Click"/>--%>
+                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" 
+                 OnClick="btnDelete_Click" Text="Delete Records" />
             </td>
         </tr>
         <tr id="trProfileMessage" runat="server" visible="false">
             <td class="Message">
-                <asp:Label ID="lblEmptyMsg" runat="server" Text="There are no records to be displayed!">
+                <asp:Label ID="lblEmptyMsg" class="FieldName" runat="server" Text="There are no records to be displayed!">
                 </asp:Label>
             </td>
         </tr>
@@ -170,4 +248,5 @@
     <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnIsCustomerExistingFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
+    <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
 </asp:Panel>
