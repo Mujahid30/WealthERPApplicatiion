@@ -279,7 +279,14 @@ namespace DaoUploads
                 db.AddInParameter(updateProcessCmd, "@A_AdviserId", DbType.Int32, processlogVo.AdviserId);
                 db.AddInParameter(updateProcessCmd, "@ADUL_NoOfTotalRecords", DbType.Int32, processlogVo.NoOfTotalRecords);
                 db.AddInParameter(updateProcessCmd, "@ADUL_XMLFileName", DbType.String, processlogVo.XMLFileName);
-                db.AddInParameter(updateProcessCmd, "@ADUL_StartTime", DbType.DateTime, processlogVo.StartTime);
+                //db.AddInParameter(updateProcessCmd, "@ADUL_StartTime", DbType.DateTime, processlogVo.StartTime);
+                if (processlogVo.StartTime != DateTime.MinValue)
+                    db.AddInParameter(updateProcessCmd, "@ADUL_StartTime", DbType.DateTime, processlogVo.StartTime);
+                else
+                {
+                    processlogVo.StartTime = DateTime.Now;
+                    db.AddInParameter(updateProcessCmd, "@ADUL_StartTime", DbType.DateTime, processlogVo.StartTime);
+                }
                 db.AddInParameter(updateProcessCmd, "@ADUL_ModifiedBy", DbType.Int32, processlogVo.ModifiedBy);
                 db.AddInParameter(updateProcessCmd, "@U_UserId", DbType.Int32, processlogVo.UserId);
                 db.AddInParameter(updateProcessCmd, "@ADUL_Comment", DbType.String, processlogVo.Comment);
