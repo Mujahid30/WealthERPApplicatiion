@@ -439,27 +439,34 @@ namespace WealthERP.Uploads
 
             int countTransactionsInserted = 0;
             int countRejectedRecords = 0;
+            string error = "";
+            int processIdReprocessAll = 0;
 
             // BindGrid
             if (Request.QueryString["processId"] != null)
             {
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            }
-
-            //if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId, 13))
-            //{
-            //    // Start the Reprocess from the staging onwards
-
-                // WERP Insertion
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());               
                 blResult = TradeAccountStagingInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
-           // }
-
+            } 
+            else
+            {
+                DataSet ds = uploadsCommonBo.GetEquityTradeAccountStagingProcessId(adviserVo.advisorId);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());                    
+                    blResult = TradeAccountStagingInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);                   
+                }               
+            }
+            if (blResult == false)
+            {
+                error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+            }
+            
             if (blResult)
             {
                 // Success Message
                 trErrorMessage.Visible = true;
-                lblError.Text = "Reprocess Done Successfully!";
-                
+                lblError.Text = "Reprocess Done Successfully!";                
             }
             else
             {
@@ -467,7 +474,6 @@ namespace WealthERP.Uploads
                 trErrorMessage.Visible = true;
                 lblError.Text = "Reprocess Failure!";
             }
-
             BindRejectedUploadsGrid(ProcessId);
         }
 
