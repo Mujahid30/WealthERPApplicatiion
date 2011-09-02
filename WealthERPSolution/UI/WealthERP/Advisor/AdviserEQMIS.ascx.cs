@@ -1216,7 +1216,7 @@ namespace WealthERP.Advisor
                     ddlBranchForEQ.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                     ddlBranchForEQ.DataBind();
                 }
-                ddlBranchForEQ.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+                ddlBranchForEQ.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", advisorVo.advisorId.ToString()));
             }
             catch (BaseApplicationException Ex)
             {
