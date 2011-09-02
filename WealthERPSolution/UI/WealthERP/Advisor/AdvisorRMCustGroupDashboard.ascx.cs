@@ -54,6 +54,9 @@ namespace WealthERP.Advisor
         int userId;
         string metatablePrimaryKey;
         double sum = 0;
+        string customerStatus = string.Empty;
+        InsuranceVo insuranceVo = new InsuranceVo();
+        CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -61,7 +64,14 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session[SessionContents.UserVo];
-                customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+                if (Session["CustomerVo"] != null)
+                {
+                    customerVo = (CustomerVo)Session["CustomerVo"];
+                }
+                else
+                {
+                    customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+                }
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 userId = userVo.UserId;
                 customerId = customerVo.CustomerId;
@@ -79,6 +89,7 @@ namespace WealthERP.Advisor
                 BindGroupInsuranceDetails();
                 BindCustomerAssetMaturityDates();
                 BindCustomerAlerts();
+                Session["custStatusToShowGroupDashBoard"] = null;
             }
 
             catch (BaseApplicationException Ex)
@@ -272,6 +283,7 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
+                    
                     dtLifeInsDetails.Columns.Add("CustomerName");
                     dtLifeInsDetails.Columns.Add("Policy");
                     dtLifeInsDetails.Columns.Add("InsuranceType");
@@ -279,6 +291,7 @@ namespace WealthERP.Advisor
                     dtLifeInsDetails.Columns.Add("PremiumAmount");
                     dtLifeInsDetails.Columns.Add("PremiumFrequency");
                     dtLifeInsDetails.Columns.Add("CustomerId");
+                    dtLifeInsDetails.Columns.Add("InsuranceNPId");
 
                     foreach (DataRow dr in dsInsuranceDetails.Tables[0].Rows)
                     {
@@ -291,6 +304,7 @@ namespace WealthERP.Advisor
                         drLifeInsurance[4] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         drLifeInsurance[5] = dr["PremiumFrequency"].ToString();
                         drLifeInsurance[6] = dr["CustomerId"].ToString();
+                        drLifeInsurance[7] = dr["InsuranceNPId"].ToString();
 
                         dtLifeInsDetails.Rows.Add(drLifeInsurance);
                     }
@@ -305,12 +319,14 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
+                        
                         dtGenInsDetails.Columns.Add("CustomerName");
                         dtGenInsDetails.Columns.Add("PolicyIssuer");
                         dtGenInsDetails.Columns.Add("InsuranceType");
                         dtGenInsDetails.Columns.Add("SumAssured");
                         dtGenInsDetails.Columns.Add("PremiumAmount");
                         dtGenInsDetails.Columns.Add("CustomerId");
+                        dtGenInsDetails.Columns.Add("GenInsuranceNPId");
 
                         foreach (DataRow dr in dsInsuranceDetails.Tables[1].Rows)
                         {
@@ -322,6 +338,7 @@ namespace WealthERP.Advisor
                             drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance[4] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance[5] = dr["CustomerId"].ToString();
+                            drGeneralInsurance[6] = dr["GenInsuranceNPId"].ToString();
 
                             dtGenInsDetails.Rows.Add(drGeneralInsurance);
                         }
@@ -827,17 +844,19 @@ namespace WealthERP.Advisor
             int rowIndex = gvRow.RowIndex;
             DataKey dk = gvCustomerFamily.DataKeys[rowIndex];
             int customerId = Convert.ToInt32(dk.Value);
+            customerStatus = "Show GroupDashBoard";
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
             Session["IsDashboard"] = "CustDashboard";
+            Session["custStatusToShowGroupDashBoard"] = "customerStatus";
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
 
             if (Session["S_CurrentUserRole"] == "Customer")
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('AdvisorRMCustIndiDashboard','none');", true);
             else
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
 
         /// <summary>
@@ -919,6 +938,7 @@ namespace WealthERP.Advisor
         /// <param name="e"></param>
         protected void lnkCustomerNameLifeInsuranceGrid_Click(object sender, EventArgs e)
         {
+            gvLifeInsurance.DataKeyNames = new string[] { "CustomerId" };
             GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
             int rowIndex = gvRow.RowIndex;
             DataKey dk = gvLifeInsurance.DataKeys[rowIndex];
@@ -942,6 +962,7 @@ namespace WealthERP.Advisor
         /// <param name="e"></param>
         protected void lnkCustomerNameGeneralInsuranceGrid_Click(object sender, EventArgs e)
         {
+            gvGeneralInsurance.DataKeyNames = new string[] { "CustomerId" };
             GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
             int rowIndex = gvRow.RowIndex;
             DataKey dk = gvGeneralInsurance.DataKeys[rowIndex];
@@ -978,6 +999,33 @@ namespace WealthERP.Advisor
                 e.Row.Cells[12].Text = drNetHoldings[12].ToString();
                 e.Row.Cells[13].Text = drNetHoldings[13].ToString();
             }
+        }
+
+        protected void lnkLifeInsurancePolicy_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvLifeInsurance.DataKeys[rowIndex];
+            int insuranceId = Convert.ToInt32(dk.Value);
+
+            insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
+            Session["insuranceVo"] = insuranceVo;
+            Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
+
+        }
+
+        protected void lnkGeneralInsurancePolicy_Click(object sender, EventArgs e)
+        {
+            string qryString = string.Empty;
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvGeneralInsurance.DataKeys[rowIndex];
+            int geninsuranceId = Convert.ToInt32(dk.Value);
+
+            qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + geninsuranceId + "&action=View";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
         }
     }
 }
