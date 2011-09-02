@@ -106,8 +106,12 @@ namespace WealthERP.Advisor
                 }
                 if (userType == "adviser")
                 {
-                    BindBranchDropDown();
-                    BindRMDropDown();
+                    if (!IsPostBack)
+                    {
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                    }
+                    
                 }
                 if (userType == "bm")
                 {
@@ -178,7 +182,32 @@ namespace WealthERP.Advisor
                 }
                 else if (userType == "adviser")
                 {
-                    dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, dtFrom, dtTo);
+                    //dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, dtFrom, dtTo);
+                    if (hdnall.Value == "0")
+                    {
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = "0";
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, 0, 0, dtFrom, dtTo);
+                    }
+                    else if(hdnall.Value == "1")
+                    {
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = "0";
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, int.Parse(hdnbranchId.Value.ToString()), 0, dtFrom, dtTo); 
+                    }
+                    else if (hdnall.Value == "2")
+                    {
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, 0, int.Parse(hdnrmId.Value.ToString()), dtFrom, dtTo);
+                    }
+                    else if (hdnall.Value == "3")
+                    {
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnrmId.Value.ToString()), dtFrom, dtTo);
+                    }
+
                 }
                 else if (userType == "bm")
                 {
@@ -340,11 +369,42 @@ namespace WealthERP.Advisor
             /* For BM Branch wise MIS */
             if (userType == "adviser")
             {
-                dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, convertedFromDate, convertedToDate);
-                if (dsMfMIS.Tables[0].Rows.Count > 0)
+                //dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, convertedFromDate, convertedToDate);
+                //if (dsMfMIS.Tables[0].Rows.Count > 0)
+                //{
+                //    this.BindGrid(convertedFromDate, convertedToDate);
+                //}
+                if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
                 {
+                    hdnbranchId.Value = "0";
+                    hdnall.Value = "0";
+                    hdnrmId.Value = "0";
                     this.BindGrid(convertedFromDate, convertedToDate);
                 }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnall.Value = "1";
+                    hdnrmId.Value = "0";
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = "0";
+                    hdnall.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+                {
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnall.Value = "3";
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    this.BindGrid(convertedFromDate, convertedToDate);
+                }
+
+
             }
             else if (userType == "bm")
             {
@@ -385,8 +445,11 @@ namespace WealthERP.Advisor
                     //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
                     this.BindGrid(convertedFromDate, convertedToDate);
                 }
+              }
+            else if (userType == "rm")
+            {
+                this.BindGrid(convertedFromDate, convertedToDate);
             }
-            
         }
 
         /* ********************** */
