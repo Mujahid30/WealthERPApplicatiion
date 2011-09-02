@@ -3037,7 +3037,7 @@ namespace BoUploads
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetProfileUploadRejectCount()");
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetUploadProfileRejectCount()");
 
                 object[] objects = new object[2];
                 objects[0] = processID;
@@ -3936,5 +3936,85 @@ namespace BoUploads
             return ds;
         }
 
+        public DataSet GetWERPUploadProcessIdForAdviser(int AdviserId)
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetWERPUploadProcessIdForAdviser(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetWERPUploadProcessIdForAdviser()");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetEquityTradeAccountStagingProcessId(int AdviserId)
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetEquityTradeAccountStagingProcessId(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetEquityTradeAccountStagingProcessId()");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetEquityTransactionStagingProcessId(int AdviserId)
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetEquityTransactionStagingProcessId(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetEquityTransactionStagingProcessId()");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 }
