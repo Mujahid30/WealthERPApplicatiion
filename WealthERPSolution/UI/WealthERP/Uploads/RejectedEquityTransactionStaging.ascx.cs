@@ -509,21 +509,29 @@ namespace WealthERP.Uploads
 
             int countTransactionsInserted = 0;
             int countRejectedRecords = 0;
+            string error = "";
+            int processIdReprocessAll = 0;
 
             // BindGrid
             if (Request.QueryString["processId"] != null)
             {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
             }
-
-            //if (uploadsCommonBo.ResetRejectedFlagByProcess(ProcessId, 8))
-            //{
-            // start the reprocess from the staging onwards
-
-            // WERP Insertion
-            blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
-            //  }
-
+            else
+            {
+                DataSet ds = uploadsCommonBo.GetEquityTransactionStagingProcessId(adviserVo.advisorId);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+                    blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);                    
+                }
+            }
+            if (blResult == false)
+            {
+                error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+            }
+            
             if (blResult)
             {
                 // Success Message
