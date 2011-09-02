@@ -43,6 +43,14 @@
                 </td>
             </tr>
             <tr>
+                <td>
+                    <asp:Label ID="lblMobile" Text="Mobile:" runat="server" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:Label ID="lblMobileValue" Text="" runat="server" CssClass="Field"></asp:Label>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2">
                     <hr />
                 </td>

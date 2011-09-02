@@ -31,7 +31,11 @@ namespace WealthERP.Advisor
         int count;
         UserBo userBo = new UserBo();
         UserVo userVo;
+        RMVo rmVo = new RMVo();
         string strNodeValue = null;
+        bool ShowGroupOrNot = false;
+        int groupCustomerId = 0;
+        AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -39,6 +43,9 @@ namespace WealthERP.Advisor
             SessionBo.CheckSession();
             string First = null;
             string Middle = null;
+            string RMName = string.Empty;
+            string RMEmail = string.Empty;
+            string RMMobile = string.Empty;
             string Last = null;
             string treeType = null;
             DataSet dsTreeNodes;
@@ -53,11 +60,20 @@ namespace WealthERP.Advisor
                 {
                     Session[SessionContents.FPS_ProspectList_CustomerId] = customerVo.CustomerId;
                 }
+                groupCustomerId = customerBo.GetCustomerGroupHead(customerVo.CustomerId);
+                Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                rmVo = (RMVo)Session["rmVo"];
+
                 if (!IsPostBack)
                 {
                     First = customerVo.FirstName.ToString();
                     Middle = customerVo.MiddleName.ToString();
                     Last = customerVo.LastName.ToString();
+
+                    RMName = rmVo.FirstName + " " + rmVo.MiddleName + " " + rmVo.LastName;
+                    RMEmail = rmVo.Email;
+                    RMMobile = rmVo.Mobile.ToString();
+
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                     {
                         hdnUserRole.Value = "RM";
@@ -99,24 +115,64 @@ namespace WealthERP.Advisor
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
                         }
                     }
+                    if (Request.QueryString["customerStatusVar"] != null)
+                    {
+                        ShowGroupOrNot = true;
+                    }
+
+                    if (Session["custStatusToShowGroupDashBoard"] != null)
+                    {
+                        if (Session["custStatusToShowGroupDashBoard"].ToString() == "customerStatus")
+                        {
+                            ShowGroupOrNot = true;
+                        }
+                    }
+
                     if (Session["S_CurrentUserRole"].ToString() == "Customer")
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
                     }
 
-                    if (Middle != "")
+                    if (RMName != "")
                     {
-                        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        lblNameValue.Text = RMName;
                     }
                     else
                     {
-                        lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
+                        lblNameValue.Text = string.Empty;
                     }
 
-                    lblEmailIdValue.Text = customerVo.Email.ToString();
+                    if (RMEmail != "")
+                    {
+                        lblEmailIdValue.Text = RMEmail;
+                    }
+                    else
+                    {
+                        lblEmailIdValue.Text = string.Empty;
+                    }
+                    if (RMMobile != "0")
+                    {
+                        lblMobileValue.Text = RMMobile;
+                    }
+                    else
+                    {
+                        lblMobileValue.Text = string.Empty;
+                    }
 
+                    //if (Middle != "")
+                    //{
+                    //    lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                    //}
+                    //else
+                    //{
+                    //    lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
+                    //}
+
+                    //lblEmailIdValue.Text = customerVo.Email.ToString();
+
+                    
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                    if (isGrpHead == true)
+                    if ((isGrpHead == true) || (ShowGroupOrNot == true))
                     {
                         //TreeView1.Nodes.AddAt(1, new TreeNode("Group Dashboard"));
                         RadPanelBar1.FindItemByValue("Group Dashboard").Visible = true;
@@ -706,6 +762,7 @@ namespace WealthERP.Advisor
             DataSet dspotentialHomePage;
             string potentialHomePage = "";
 
+
             try
             {
                 if (e.Item.Value == "Home")
@@ -753,8 +810,14 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Group Dashboard")
                 {
+                    customerVo = customerBo.GetCustomer(groupCustomerId);
+                    Session["CustomerVo"] = customerVo;
+
                     Session["IsDashboard"] = "true";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorRMCustGroupDashboard", "loadcontrol('AdvisorRMCustGroupDashboard','none');", true);
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                 }
                 else if (e.Item.Value == "Customer Dashboard")
                 {
