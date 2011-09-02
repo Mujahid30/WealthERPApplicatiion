@@ -85,7 +85,7 @@
         <td width="50%" valign="top">
             <asp:Label ID="lblLifeInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
             <asp:GridView ID="gvLifeInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="97%">
+                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="InsuranceNPId" EnableViewState="false" Width="97%">
                 <%--<FooterStyle HorizontalAlign="Center" CssClass="FooterStyle"/>--%>
                 <RowStyle CssClass="RowStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -93,7 +93,14 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="Policy" HeaderText="Policy" />
+                    <asp:TemplateField HeaderText="Policy">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lnkLifeInsurancePolicy" runat="server" CssClass="GridViewCmbField"
+                                Text='<%# Eval("Policy") %>' onclick="lnkLifeInsurancePolicy_Click"></asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    
+                    <%--<asp:BoundField DataField="Policy" HeaderText="Policy" />--%>
                     <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
                     <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
                     <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />
@@ -104,14 +111,23 @@
         <td width="50%" valign="top">
             <asp:Label ID="lblGeneralInsurance" runat="server" CssClass="FieldName" Text="No Details to display..."></asp:Label>
             <asp:GridView ID="gvGeneralInsurance" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" CssClass="GridViewStyle" EnableViewState="false" Width="100%">
+                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="GenInsuranceNPId" EnableViewState="false" Width="100%">
                 <RowStyle CssClass="RowStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
                 <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="PolicyIssuer" HeaderText="Policy Issuer" />
+                
+                <asp:TemplateField HeaderText="Policy Issuer">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lnkGeneralInsurancePolicy" runat="server" CssClass="GridViewCmbField" onclick="lnkGeneralInsurancePolicy_Click"
+                                Text='<%# Eval("PolicyIssuer") %>'>
+                            </asp:LinkButton>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                
+                    <%--<asp:BoundField DataField="PolicyIssuer" HeaderText="Policy Issuer" />--%>
                     <asp:BoundField DataField="InsuranceType" HeaderText="Type" />
                     <asp:BoundField DataField="SumAssured" HeaderText="Sum Assured" />
                     <asp:BoundField DataField="PremiumAmount" HeaderText="Premium Amount" />

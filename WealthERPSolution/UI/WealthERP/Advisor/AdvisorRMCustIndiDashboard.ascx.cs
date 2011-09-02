@@ -52,6 +52,9 @@ namespace WealthERP.Advisor
         int userId;
         string metatablePrimaryKey;
         double sum = 0;
+        InsuranceVo insuranceVo = new InsuranceVo();
+        CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -539,6 +542,7 @@ namespace WealthERP.Advisor
                     dtLifeInsDetails.Columns.Add("SumAssured");
                     dtLifeInsDetails.Columns.Add("PremiumAmount");
                     dtLifeInsDetails.Columns.Add("PremiumFrequency");
+                    dtLifeInsDetails.Columns.Add("InsuranceNPId");
 
                     foreach (DataRow dr in dsInsuranceDetails.Tables[0].Rows)
                     {
@@ -550,6 +554,7 @@ namespace WealthERP.Advisor
                         drLifeInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drLifeInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                         drLifeInsurance[4] = dr["PremiumFrequency"].ToString();
+                        drLifeInsurance[5] = dr["InsuranceNPId"].ToString();
 
                         dtLifeInsDetails.Rows.Add(drLifeInsurance);
                     }
@@ -569,6 +574,7 @@ namespace WealthERP.Advisor
                     dtGenInsDetails.Columns.Add("InsuranceType");
                     dtGenInsDetails.Columns.Add("SumAssured");
                     dtGenInsDetails.Columns.Add("PremiumAmount");
+                    dtGenInsDetails.Columns.Add("GenInsuranceNPId");
 
                     if (dsInsuranceDetails.Tables[1].Rows.Count > 0)
                     {
@@ -580,7 +586,7 @@ namespace WealthERP.Advisor
                             drGeneralInsurance[1] = dr["InsuranceType"].ToString();
                             drGeneralInsurance[2] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance[3] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-
+                            drGeneralInsurance[4] = dr["GenInsuranceNPId"].ToString();
                             dtGenInsDetails.Rows.Add(drGeneralInsurance);
                         }
                     }
@@ -738,6 +744,33 @@ namespace WealthERP.Advisor
                 }
             }
 
+        }
+
+        protected void lnkLifeInsurancePolicy_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvLifeInsurance.DataKeys[rowIndex];
+            int insuranceId = Convert.ToInt32(dk.Value);
+
+            insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
+            Session["insuranceVo"] = insuranceVo;
+            Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
+
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
+
+        }
+
+        protected void lnkGeneralInsurancePolicy_Click(object sender, EventArgs e)
+        {
+            string qryString = string.Empty;
+            GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvGeneralInsurance.DataKeys[rowIndex];
+            int geninsuranceId = Convert.ToInt32(dk.Value);
+
+            qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + geninsuranceId + "&action=View";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
         }
     }
 }
