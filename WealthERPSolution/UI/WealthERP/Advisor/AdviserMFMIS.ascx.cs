@@ -208,6 +208,7 @@ namespace WealthERP.Advisor
                         dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, int.Parse(hdnbranchId.Value.ToString()), int.Parse(hdnrmId.Value.ToString()), dtFrom, dtTo);
                     }
 
+
                 }
                 else if (userType == "bm")
                 {
@@ -340,7 +341,6 @@ namespace WealthERP.Advisor
                 if (ddlPeriod.SelectedIndex != 0)
                 {
                     dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out dtFrom, out dtTo);
-                    this.BindGrid(dtFrom, dtTo);
                 }
             }
 
@@ -379,7 +379,10 @@ namespace WealthERP.Advisor
                     hdnbranchId.Value = "0";
                     hdnall.Value = "0";
                     hdnrmId.Value = "0";
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if(rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
@@ -387,21 +390,30 @@ namespace WealthERP.Advisor
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnall.Value = "1";
                     hdnrmId.Value = "0";
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
                 {
                     hdnbranchId.Value = "0";
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRM.SelectedValue;
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
                 {
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnall.Value = "3";
                     hdnrmId.Value = ddlRM.SelectedValue;
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
 
 
@@ -415,7 +427,10 @@ namespace WealthERP.Advisor
                     hdnall.Value = "2";
                     hdnrmId.Value = "0";
                     //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2);
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
                 {
@@ -425,7 +440,10 @@ namespace WealthERP.Advisor
                     hdnrmId.Value = ddlRM.SelectedValue;
 
                     //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 3);
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
@@ -433,7 +451,10 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "1";
                     //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
                 {
@@ -443,12 +464,18 @@ namespace WealthERP.Advisor
                     hdnrmId.Value = ddlRM.SelectedValue;
 
                     //dsMfMIS = adviserMFMIS.GetMFMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
-                    this.BindGrid(convertedFromDate, convertedToDate);
+                    if (rbtnPickPeriod.Checked)
+                        this.BindGrid(dtFrom, dtTo);
+                    else
+                        this.BindGrid(convertedFromDate, convertedToDate);
                 }
               }
             else if (userType == "rm")
             {
-                this.BindGrid(convertedFromDate, convertedToDate);
+                if (rbtnPickPeriod.Checked)
+                    this.BindGrid(dtFrom, dtTo);
+                else
+                   this.BindGrid(convertedFromDate, convertedToDate);
             }
         }
 
