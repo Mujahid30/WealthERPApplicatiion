@@ -669,7 +669,7 @@ namespace WealthERP.Advisor
             branchCustomerDependency = advisorBranchBo.CheckBranchCustomerDependency(advisorBranchVo.BranchId);
             if (branchCustomerDependency == true)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert('Sorry... This Branch is not deleted because of the following reasons... </n> ');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "alert(\"Branch cannot be deleted because of customer association to this branch.\\n To delete branch first re-assign all customer to other branch.\");", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
 
             }
