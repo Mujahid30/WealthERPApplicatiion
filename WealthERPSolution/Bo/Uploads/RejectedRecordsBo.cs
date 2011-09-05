@@ -924,7 +924,6 @@ namespace BoUploads
                 object[] objects = new object[2];
                 objects[0] = adviserid;
                 objects[1] = CurrentPage;
-                
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -955,13 +954,10 @@ namespace BoUploads
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
                 FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetUploadProcessIDForSelectedFoliosANDAMC()");
-
                 object[] objects = new object[3];
                 objects[0] = adviserid;
                 objects[1] = amccode;
                 objects[1] = folionum;
-
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -973,31 +969,137 @@ namespace BoUploads
         public void DeleteMFTransactionStaging(int StagingID)
         {            
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
-            rejecetedRecords.DeleteMFTransactionStaging(StagingID);            
+            try
+            {
+                rejecetedRecords.DeleteMFTransactionStaging(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteMFTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteWERPRejectedProfile(int StagingID)
         {
             RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
-            rejecetedRecordsDao.DeleteWERPRejectedProfile(StagingID);
+            try
+            {
+                rejecetedRecordsDao.DeleteWERPRejectedProfile(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteWERPRejectedProfile()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteRejectsEquityTradeAccountStaging(int StagingID)
         {
             RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
-            rejecetedRecordsDao.DeleteRejectsEquityTradeAccountStaging(StagingID);
+            try
+            {
+                rejecetedRecordsDao.DeleteRejectsEquityTradeAccountStaging(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteRejectsEquityTradeAccountStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteRejectsEquityTransactionStaging(int StagingID)
         {
             RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
-            rejecetedRecordsDao.DeleteRejectsEquityTransactionStaging(StagingID);
+            try
+            {
+                rejecetedRecordsDao.DeleteRejectsEquityTransactionStaging(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteRejectsEquityTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;    
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteMFRejectedFolios(int StagingID)
         {
             RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
-            rejecetedRecordsDao.DeleteMFRejectedFolios(StagingID);
+            try
+            {
+                rejecetedRecordsDao.DeleteMFRejectedFolios(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteMFRejectedFolios()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 

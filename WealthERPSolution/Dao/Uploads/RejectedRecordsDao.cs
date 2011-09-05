@@ -1345,14 +1345,36 @@ namespace DaoUploads
         }
 
         public void DeleteMFTransactionStaging(int StagingID)
-        {            
+        {
             Database db;
             DbCommand deletetransactions;
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTransaction");
-            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-            db.ExecuteDataSet(deletetransactions);            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTransaction");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+ 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteWERPRejectedProfile(int StagingID)
@@ -1360,10 +1382,32 @@ namespace DaoUploads
             Database db;
             DbCommand deletetransactions;
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            deletetransactions = db.GetStoredProcCommand("SP_DeleteWERPUploadRejectsProfileTransaction");
-            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-            db.ExecuteDataSet(deletetransactions);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteWERPUploadRejectsProfileTransaction");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteWERPRejectedProfile()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteRejectsEquityTradeAccountStaging(int StagingID)
@@ -1371,10 +1415,32 @@ namespace DaoUploads
             Database db;
             DbCommand deletetransactions;
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTradeAccountStaging");
-            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-            db.ExecuteDataSet(deletetransactions);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTradeAccountStaging");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteRejectsEquityTradeAccountStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteRejectsEquityTransactionStaging(int StagingID)
@@ -1382,10 +1448,33 @@ namespace DaoUploads
             Database db;
             DbCommand deletetransactions;
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTransactionStaging");
-            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-            db.ExecuteDataSet(deletetransactions);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteRejectsEquityTransactionStaging");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteRejectsEquityTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void DeleteMFRejectedFolios(int StagingID)
@@ -1393,10 +1482,32 @@ namespace DaoUploads
             Database db;
             DbCommand deletetransactions;
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            deletetransactions = db.GetStoredProcCommand("SP_DeleteMFRejectedFolios");
-            db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
-            db.ExecuteDataSet(deletetransactions);
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteMFRejectedFolios");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFRejectedFolios()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }
