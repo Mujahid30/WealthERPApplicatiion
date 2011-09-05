@@ -133,30 +133,66 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "topMenu", "loadtopmenu('AdvisorLeftPane');", true);
                     }
 
-                    if (RMName != "")
+                    if (userVo.UserType == "Customer")
                     {
-                        lblNameValue.Text = RMName;
-                    }
-                    else
-                    {
-                        lblNameValue.Text = string.Empty;
-                    }
+                        trCustDetails.Visible = true;
+                        trCustRMDetailsDivider.Visible = true;
+                        trMobileDetails.Visible = true;
+                        lblClientInfo.Text = "Adviser/RM";
+                        
+                        if (Middle != "")
+                        {
+                            lblCustomerDetails.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        }
+                        else
+                        {
+                            lblCustomerDetails.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
+                        }
+                        if (RMName != "")
+                        {
+                            lblNameValue.Text = RMName;
+                        }
+                        else
+                        {
+                            lblNameValue.Text = string.Empty;
+                        }
 
-                    if (RMEmail != "")
-                    {
-                        lblEmailIdValue.Text = RMEmail;
+                        if (RMEmail != "")
+                        {
+                            lblEmailIdValue.Text = RMEmail;
+                        }
+                        else
+                        {
+                            lblEmailIdValue.Text = string.Empty;
+                        }
+                        if (RMMobile != "0")
+                        {
+                            lblMobileValue.Text = RMMobile;
+                        }
+                        else
+                        {
+                            lblMobileValue.Text = string.Empty;
+                        }
                     }
                     else
                     {
-                        lblEmailIdValue.Text = string.Empty;
-                    }
-                    if (RMMobile != "0")
-                    {
-                        lblMobileValue.Text = RMMobile;
-                    }
-                    else
-                    {
-                        lblMobileValue.Text = string.Empty;
+                        trCustDetails.Visible = false;
+                        trCustRMDetailsDivider.Visible = false;
+                        trMobileDetails.Visible = false;
+                        lblClientInfo.Text = "Customer Contact Info";
+
+                        if (Middle != "")
+                        {
+                            lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        }
+                        else
+                        {
+                            lblNameValue.Text = customerVo.FirstName.ToString() + " " + customerVo.LastName.ToString();
+                        }
+
+                        lblEmailIdValue.Text = customerVo.Email.ToString();
+
+
                     }
 
                     //if (Middle != "")

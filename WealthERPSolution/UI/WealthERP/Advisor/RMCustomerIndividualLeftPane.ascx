@@ -20,9 +20,22 @@
 <asp:UpdatePanel ID="upnlCustomerLeftpanel" runat="server">
     <ContentTemplate>
         <table>
+            <tr id="trCustDetails" runat="server">
+                <td>
+                    <asp:Label ID="lblCustomer" Text="Customer:" runat="server" CssClass="FieldName"></asp:Label>
+                </td>
+                <td>
+                    <asp:Label ID="lblCustomerDetails" Text="" runat="server" CssClass="Field"></asp:Label>
+                </td>
+            </tr>
+            <tr id="trCustRMDetailsDivider" runat="server">
+                <td colspan="2">
+                    <hr />
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text="Contact Information"
+                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text=""
                         runat="server"></asp:Label>
                 </td>
             </tr>
@@ -42,7 +55,7 @@
                     <asp:Label ID="lblEmailIdValue" Text="" runat="server" CssClass="Field"></asp:Label>
                 </td>
             </tr>
-            <tr>
+            <tr id="trMobileDetails" runat="server">
                 <td>
                     <asp:Label ID="lblMobile" Text="Mobile:" runat="server" CssClass="FieldName"></asp:Label>
                 </td>
