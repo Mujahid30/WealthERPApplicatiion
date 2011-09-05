@@ -524,7 +524,7 @@ namespace WealthERP.Uploads
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
-                    blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);                    
+                    blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);                    
                 }
             }
             if (blResult == false)

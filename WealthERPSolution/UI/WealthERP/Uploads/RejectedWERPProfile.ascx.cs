@@ -590,29 +590,29 @@ namespace WealthERP.Uploads
                         StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                         //Checks in Profile Staging
                         string packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
-                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserVo.advisorId, packagePath, configPath);
+                        bool karvyProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processIdReprocessAll, adviserVo.advisorId, packagePath, configPath);
                         if (karvyProCommonChecksResult)
                         {
                             // Insert Customer Details into WERP Tables
 
-                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, ProcessId, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
+                            bool stdProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processIdReprocessAll, rmVo.RMId, processlogVo.BranchId, xmlPath, out  countCustCreated);
                             if (stdProCreateCustomerResult)
                             {
                                 //Create new Bank Accounts
                                 packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadCreateNewBankAccount.dtsx");
-                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(ProcessId, packagePath, configPath);
+                                bool stdProCreateBankAccountResult = standardProfileUploadBo.StdCreationOfNewBankAccounts(processIdReprocessAll, packagePath, configPath);
                                 if (stdProCreateBankAccountResult)
                                 {
                                     processlogVo.IsInsertionToWERPComplete = 1;
                                     processlogVo.EndTime = DateTime.Now;
-                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(ProcessId, source);
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processIdReprocessAll, source);
                                     processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
                                     processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
-                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(ProcessId, source);
+                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processIdReprocessAll, source);
                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                     if (blResult)
                                     {
-                                        bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(ProcessId);
+                                        bool stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processIdReprocessAll);
                                     }
                                 }
                             }

@@ -453,8 +453,8 @@ namespace WealthERP.Uploads
                 DataSet ds = uploadsCommonBo.GetEquityTradeAccountStagingProcessId(adviserVo.advisorId);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());                    
-                    blResult = TradeAccountStagingInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);                   
+                    processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+                    blResult = TradeAccountStagingInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);                   
                 }               
             }
             if (blResult == false)
