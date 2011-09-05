@@ -114,7 +114,14 @@ namespace DaoUploads
                     StandardProfileUploadVo.ContactGuardianFirstName = dr["CPS_ContactGuardianFirstName"].ToString();
                     StandardProfileUploadVo.ContactGuardianMiddleName = dr["CPS_ContactGuardianMiddleName"].ToString();
                     StandardProfileUploadVo.ContactGuardianLastName = dr["CPS_ContactGuardianLastName"].ToString();
-                    StandardProfileUploadVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                    if (dr["C_IsProspect"] == null || dr["C_IsProspect"].ToString() == "")
+                    {
+                        StandardProfileUploadVo.IsProspect = 0;
+                    }
+                    else
+                    {
+                        StandardProfileUploadVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                    }
                     uploadsCustomerList.Add(StandardProfileUploadVo);
                 }
             }
