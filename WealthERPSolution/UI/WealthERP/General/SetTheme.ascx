@@ -12,6 +12,7 @@
             <asp:DropDownList runat="server" ID="ddlTheme" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlTheme_SelectedIndexChanged">
                 <asp:ListItem Value="0">Select a Theme</asp:ListItem>
+                <asp:ListItem Value="BlackAndWhite">Black & white</asp:ListItem>
                 <asp:ListItem Value="Blue">Blue</asp:ListItem>
                 <asp:ListItem Value="Desert">Desert</asp:ListItem>
                 <asp:ListItem Value="Green">Green</asp:ListItem>
