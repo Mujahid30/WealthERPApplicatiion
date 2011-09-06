@@ -470,13 +470,13 @@ namespace BoAdvisorProfiling
 
 
 
-        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType,int scripCode)
+        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType)
         {
             DataSet dsEQMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsEQMIS = MISDao.GetAllUsersEQMISForComSec(userType, valuationDate, adviserId, RMId, BranchId, branchHeadId, all, EQMIStype, portfolioType, scripCode);
+                dsEQMIS = MISDao.GetAllUsersEQMISForComSec(userType, valuationDate, adviserId, RMId, BranchId, branchHeadId, all, EQMIStype, portfolioType);
             }
             catch (BaseApplicationException Ex)
             {
