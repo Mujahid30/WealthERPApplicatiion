@@ -60,9 +60,9 @@
     <asp:DropDownList ID="ddlMISType" style="vertical-align:middle" runat="server" 
             CssClass="cmbField" AutoPostBack="true" 
             onselectedindexchanged="ddlMISType_SelectedIndexChanged">
+    <asp:ListItem Value="TurnOverSummery" Text="Turn Over Summary"></asp:ListItem>
     <asp:ListItem Value="CompanyWise" Text="Company Wise"></asp:ListItem>
     <asp:ListItem Value="SectorWise" Text="Sector Wise"></asp:ListItem>
-    <asp:ListItem Value="TurnOverSummery" Text="Turn Over Summary"></asp:ListItem>
     </asp:DropDownList>
     </td>
 </tr>
@@ -207,11 +207,9 @@
     <tr>
         <td colspan="2" align="center" style="width: 100%" class="style3">
             <asp:GridView ID="gvEQMIS" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" DataKeyNames="ScripCodes"
-                GridLines="Both" ShowFooter="True" 
-                onselectedindexchanged="gvEQMIS_SelectedIndexChanged" 
-                onrowcommand="gvEQMIS_RowCommand">
+                CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" GridLines="Both" ShowFooter="True">
                 <RowStyle CssClass="RowStyle" />
+                
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -223,7 +221,6 @@
                <%-- End--%>
                
                  <Columns>
-                    <asp:CommandField ShowSelectButton="true" SelectText="Details"  ItemStyle-Width="15px" />
                     <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Left">
                         <HeaderTemplate>
                             <asp:Label ID="lblCustIndDelby" runat="server" Text=""></asp:Label>
@@ -301,6 +298,3 @@
 <asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnEQMISType" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnPortfolioType" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnScripCodes" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnBranchSelection" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnRMSelection" runat="server" Visible="false" />
