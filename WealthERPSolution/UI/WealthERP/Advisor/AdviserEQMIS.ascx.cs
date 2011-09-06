@@ -24,18 +24,18 @@ namespace WealthERP.Advisor
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         string path;
-        string userType; 
+        string userType;
         int advisorId;
         int rmId = 0;
         DateTime LatestValuationdate = new DateTime();
         DataRow drAdvEQMIS;
         UserVo userVo = new UserVo();
         int bmID;
-        int ScripCodeForCompany;
+
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
-        string BranchSelection = string.Empty;
-        string RMSelection = string.Empty;
+
+
 
 
         CustomerTransactionBo customertransactionbo = new CustomerTransactionBo();
@@ -104,25 +104,9 @@ namespace WealthERP.Advisor
                     rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                     bmID = rmVo.RMId;
 
-                    if (Request.QueryString["ScripCode"] != null)
-                    {
-                        if (Request.QueryString["BranchSelection"] != "")
-                        {
-                            BranchSelection = Request.QueryString["BranchSelection"].ToString();
-                            ddlBranchForEQ.SelectedValue = BranchSelection;
-                        }
-                        if (Request.QueryString["RMSelection"] != "")
-                        {
-                            RMSelection = Request.QueryString["RMSelection"].ToString();
-                            ddlRMEQ.SelectedValue = RMSelection;
-                        }
-                        ScripCodeForCompany = int.Parse(Request.QueryString["ScripCode"].ToString());
-                        ddlMISType.SelectedValue = "SectorWise";
-                    }
-
                     if (!IsPostBack)
                     {
-                        
+
                         if (valuedate != "")
                         {
                             LatestValuationdate = Convert.ToDateTime(portfoliobo.GetLatestValuationDate(advisorVo.advisorId, "EQ"));
@@ -261,14 +245,14 @@ namespace WealthERP.Advisor
                     }
 
                 }
-                    
+
             }
-                
+
             else
             {
-            LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
-            hdnValuationDate.Value = LatestValuationdate.ToString();
-            DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
+                LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
+                hdnValuationDate.Value = LatestValuationdate.ToString();
+                DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
 
                 if (ddlMISType.SelectedValue == "TurnOverSummery")
                 {
@@ -356,7 +340,7 @@ namespace WealthERP.Advisor
                     else if (userType == "rm")
                     {
                         trBranchRmDpRow.Visible = false;
-                        this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                        this.BindEQMISgrid(Valuation_Date);
                         GenerateEQMIS();
                     }
                     else if (userType == "bm")
@@ -367,17 +351,17 @@ namespace WealthERP.Advisor
                     }
                 }
             }
-            
+
         }
 
         private void BindGrid(DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsEQMIS = new DataSet();
             DataTable dtAdviserEQMIS = new DataTable();
-            gvEQMIS.DataKeyNames = null;
-            
+
+
             int ID = 0;
-           
+
             if (userType == "advisor")
                 ID = advisorVo.advisorId;
 
@@ -397,12 +381,12 @@ namespace WealthERP.Advisor
                     {
                         hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
                         hdnrmId.Value = ddlRMEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 0);
                     }
-                    else if(hdnall.Value == "1")
+                    else if (hdnall.Value == "1")
                     {
                         hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
-                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo,0,int.Parse(hdnbranchId.Value.ToString()),0 , 1);
+                        dsEQMIS = adviserMIS.GetEQMIS(userType, ID, dtFrom, dtTo, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1);
                     }
                     else if (hdnall.Value == "2")
                     {
@@ -449,7 +433,8 @@ namespace WealthERP.Advisor
                 {
                     DataRow drAdvEQMIS;
                     drAdvEQMIS = dtAdviserEQMIS.NewRow();
-                    
+
+
                     dtAdviserEQMIS.Columns.Add("CName_Industry_Delby");
                     dtAdviserEQMIS.Columns.Add("Industry_MValue_DelSell");
                     dtAdviserEQMIS.Columns.Add("MValue_Percentage_SpecSell");
@@ -476,7 +461,7 @@ namespace WealthERP.Advisor
 
                         dtAdviserEQMIS.Rows.Add(drAdvEQMIS);
 
-                        
+
                     }
 
                     if ((decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliveryBuy"].ToString()) != 0) || (decimal.Parse(dsEQMIS.Tables[0].Rows[0]["DeliverySell"].ToString()) != 0) ||
@@ -496,9 +481,9 @@ namespace WealthERP.Advisor
                         ErrorMessage.Visible = false;
                         gvEQMIS.DataSource = dtAdviserEQMIS;
                         gvEQMIS.DataBind();
-                        gvEQMIS.Columns[0].Visible = false;
+                        gvEQMIS.Columns[0].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
                         gvEQMIS.Columns[1].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
-                        gvEQMIS.Columns[2].ItemStyle.HorizontalAlign = HorizontalAlign.Right;
+
 
                         //Assigning Text To Header template
 
@@ -552,70 +537,70 @@ namespace WealthERP.Advisor
             }
         }
 
-        private void BindEQMISgrid(DateTime Valuationdate,int ScripCodes)
+        private void BindEQMISgrid(DateTime Valuationdate)
         {
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
             DataSet dsCompSecEQMIS = new DataSet();
             DataTable dtCompSecEQMIS = new DataTable();
-            gvEQMIS.DataKeyNames = new string[] { "ScripCodes" };
-            
+
+
             int adviserId = 0;
             int rmId = 0;
-           
+
             adviserId = advisorVo.advisorId;
 
             rmVo = (RMVo)Session[SessionContents.RmVo];
             rmId = rmVo.RMId;
-           
+
             hdnPortfolioType.Value = ddlPortfolioGroup.SelectedValue;
             hdnbranchHeadId.Value = ddlBranchForEQ.SelectedValue;
             hdnbranchId.Value = ddlBranchForEQ.SelectedValue;
             hdnrmId.Value = ddlRMEQ.SelectedValue;
-            hdnScripCodes.Value = ScripCodes.ToString();
+
 
 
             DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
 
             if (userType == "rm")
             {
-                dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, rmId, 0, 0, 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()),int.Parse(hdnScripCodes.Value.ToString()));
+                dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, rmId, 0, 0, 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
             }
             if (userType == "advisor")
             {
                 if (hdnall.Value == "0")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()),int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "1")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "2")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "3")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
             }
             if (userType == "bm")
             {
                 if (hdnall.Value == "0")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, 0, int.Parse(hdnbranchHeadId.Value.ToString()), 0, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "1")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, 0, int.Parse(hdnbranchId.Value.ToString()), 0, 1, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "2")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), 0, int.Parse(hdnbranchHeadId.Value.ToString()), 2, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
                 else if (hdnall.Value == "3")
                 {
-                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()), int.Parse(hdnScripCodes.Value.ToString()));
+                    dsCompSecEQMIS = adviserMISBo.GetAllUsersEQMISForComSec(userType, Valuation_Date, adviserId, int.Parse(hdnrmId.Value.ToString()), int.Parse(hdnbranchId.Value.ToString()), 0, 3, int.Parse(hdnEQMISType.Value.ToString()), int.Parse(hdnPortfolioType.Value.ToString()));
                 }
             }
 
@@ -627,41 +612,43 @@ namespace WealthERP.Advisor
             }
             else
             {
-                
+
 
                 ErrorMessage.Visible = false;
 
-                dtCompSecEQMIS.Columns.Add("ScripCodes");
+
                 dtCompSecEQMIS.Columns.Add("CName_Industry_Delby");
                 dtCompSecEQMIS.Columns.Add("Industry_MValue_DelSell");
                 dtCompSecEQMIS.Columns.Add("MValue_Percentage_SpecSell");
                 dtCompSecEQMIS.Columns.Add("MValue_Blank_SpecBuy");
-                
+
 
                 DataRow drAdvEQMIS;
 
                 for (int i = 0; i < dsCompSecEQMIS.Tables[0].Rows.Count; i++)
                 {
                     drAdvEQMIS = dtCompSecEQMIS.NewRow();
-                   
+
                     NumberFormatInfo nfi1 = new CultureInfo("en-US", false).NumberFormat;
                     NumberFormatInfo nfi2 = new CultureInfo("en-US", false).NumberFormat;
 
-                    
-                    drAdvEQMIS["ScripCodes"] = dsCompSecEQMIS.Tables[0].Rows[i]["ScripCode"].ToString();
+
+
                     if (hdnEQMISType.Value == "0")
                     {
-                        drAdvEQMIS["CName_Industry_Delby"] = dsCompSecEQMIS.Tables[0].Rows[i]["CompanyName"].ToString();
+                        drAdvEQMIS[0] = dsCompSecEQMIS.Tables[0].Rows[i]["CompanyName"].ToString();
                     }
                     else
-                        drAdvEQMIS["CName_Industry_Delby"] = string.Empty;
+                        drAdvEQMIS[0] = string.Empty;
 
-                    drAdvEQMIS["Industry_MValue_DelSell"] = dsCompSecEQMIS.Tables[0].Rows[i]["Industry"].ToString();
+                    drAdvEQMIS[1] = dsCompSecEQMIS.Tables[0].Rows[i]["Industry"].ToString();
                     nfi1.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["MarketValue"].ToString()).ToString("N", nfi1));
                     nfi2.NumberDecimalSeparator = String.Format("{0:0,0}", decimal.Parse(dsCompSecEQMIS.Tables[0].Rows[i]["NetAssetsPercentage"].ToString()).ToString("N", nfi2));
 
-                    drAdvEQMIS["MValue_Percentage_SpecSell"] = nfi1.NumberDecimalSeparator;
-                    drAdvEQMIS["MValue_Blank_SpecBuy"] = nfi2.NumberDecimalSeparator;
+                    drAdvEQMIS[2] = nfi1.NumberDecimalSeparator;
+                    drAdvEQMIS[3] = nfi2.NumberDecimalSeparator;
+
+
 
                     dtCompSecEQMIS.Rows.Add(drAdvEQMIS);
                 }
@@ -673,7 +660,7 @@ namespace WealthERP.Advisor
                 {
                     Label Hlb1 = (Label)gvEQMIS.HeaderRow.FindControl("lblCustIndDelby");
                     Hlb1.Text = "Company Name";
-                    
+
 
                     Label Hlb2 = (Label)gvEQMIS.HeaderRow.FindControl("lblIndMValueDelSell");
                     Hlb2.Text = "Industry";
@@ -699,7 +686,7 @@ namespace WealthERP.Advisor
                     TotalPerValue.Style.Add("float", "right");
 
 
-                    
+
                     //TotalValue.Text = drAdvEQMIS[dsCompSecEQMIS.Tables[0].Columns.Count - 1].ToString();
 
                 }
@@ -727,19 +714,19 @@ namespace WealthERP.Advisor
 
                     TotalPerValue.Text = "100%";
                     TotalPerValue.Style.Add("float", "right");
-                    
+
                     gvEQMIS.Columns[0].Visible = false;
-                    gvEQMIS.Columns[1].Visible = false;
+
                     //gvEQMIS.Columns[1].Visible = false;
                 }
 
-               
+
 
             }
 
         }
 
-        /* End */ 
+        /* End */
 
 
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
@@ -809,10 +796,10 @@ namespace WealthERP.Advisor
             LatestValuationdate = Convert.ToDateTime(txtEQDate.Text);
             hdnValuationDate.Value = LatestValuationdate.ToString();
             DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
-            if(txtFromDate.Text != "")
-                convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim(), ci);
-            if(txtToDate.Text != "")
-                convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim(), ci);
+
+            convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim(), ci);
+            convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim(), ci);
+
 
             /* For Turn Over EQ */
             if ((userType == "advisor") && (ddlMISType.SelectedValue == "TurnOverSummery"))
@@ -941,7 +928,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "0";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -949,7 +936,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "1";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
                 {
@@ -957,7 +944,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
                 {
@@ -965,7 +952,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "3";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
             }
             else if ((userType == "bm") && (ddlMISType.SelectedValue == "CompanyWise"))
@@ -976,7 +963,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "0";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -985,7 +972,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "1";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -994,7 +981,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -1003,7 +990,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "3";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
 
             }
@@ -1012,7 +999,7 @@ namespace WealthERP.Advisor
                 hdnbranchId.Value = "0";
                 rmId = rmVo.RMId;
                 hdnbranchHeadId.Value = "0";
-                this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                this.BindEQMISgrid(Valuation_Date);
             }
             /* ************* */
 
@@ -1024,7 +1011,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "0";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -1032,7 +1019,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "1";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
                 {
@@ -1040,7 +1027,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
                 {
@@ -1048,7 +1035,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "3";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
             }
             else if ((userType == "bm") && (ddlMISType.SelectedValue == "SectorWise"))
@@ -1059,7 +1046,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "0";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex == 0))
                 {
@@ -1068,7 +1055,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = "0";
                     hdnall.Value = "1";
                     hdnrmId.Value = "0";
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex == 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -1077,7 +1064,7 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnall.Value = "2";
                     hdnrmId.Value = ddlRMEQ.SelectedValue;
-                    this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                    this.BindEQMISgrid(Valuation_Date);
                 }
 
                 else if ((ddlBranchForEQ.SelectedIndex != 0) && (ddlRMEQ.SelectedIndex != 0))
@@ -1095,13 +1082,13 @@ namespace WealthERP.Advisor
                 hdnbranchId.Value = "0";
                 rmId = rmVo.RMId;
                 hdnbranchHeadId.Value = "0";
-                this.BindEQMISgrid(Valuation_Date, ScripCodeForCompany);
+                this.BindEQMISgrid(Valuation_Date);
             }
         }
 
         protected void ddlBranchForEQ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            hdnBranchSelection.Value = ddlBranchForEQ.SelectedValue.ToString();
+
             if (ddlBranchForEQ.SelectedIndex == 0)
             {
                 BindRMforBranchDropdown(0, bmID, 1);
@@ -1194,7 +1181,7 @@ namespace WealthERP.Advisor
 
         protected void ddlRMEQ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            hdnRMSelection.Value = ddlRMEQ.SelectedValue.ToString();
+
             GenerateEQMIS();
         }
 
@@ -1204,7 +1191,7 @@ namespace WealthERP.Advisor
 
         private void BindBranchDropDown()
         {
-            
+
             try
             {
                 UploadCommonBo uploadsCommonDao = new UploadCommonBo();
@@ -1276,7 +1263,7 @@ namespace WealthERP.Advisor
         protected void ddlMISType_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindMISTypeDropDown();
-            
+
         }
 
         protected void ddlPortfolioGroup_SelectedIndexChanged(object sender, EventArgs e)
@@ -1284,17 +1271,7 @@ namespace WealthERP.Advisor
             GenerateEQMIS();
         }
 
-        protected void gvEQMIS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int scripCode;
-            scripCode = int.Parse(gvEQMIS.SelectedDataKey["ScripCodes"].ToString());
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','ScripCode=" + scripCode + "&BranchSelection=" + hdnBranchSelection.Value + "&RMSelection=" + hdnRMSelection.Value + "');", true);
-        }
-
-        protected void gvEQMIS_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-        }
 
     }
 }
+
