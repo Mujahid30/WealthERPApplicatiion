@@ -238,9 +238,6 @@ namespace WealthERP.CustomerPortfolio
                     lblMessageRealized.Visible = true;
                     gvMFPortfolio.DataSource = null;
                     gvMFPortfolio.DataBind();
-
-
-
                     gvMFPortfolioRealized.DataSource = null;
                     gvMFPortfolioRealized.DataBind();
                     gvMFPortfolioNotional.DataSource = null;

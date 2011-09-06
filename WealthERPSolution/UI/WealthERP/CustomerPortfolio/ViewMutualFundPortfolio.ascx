@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewMutualFundPortfolio.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewMutualFundPortfolio" %>
+
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -7,22 +9,15 @@
 
 <script type="text/javascript">
 
-    var tabberOptions = { 'onClick': function(argsObj) {
-
-        var t = argsObj.tabber; /* Tabber object */
-        var id = t.id; /* ID of the main tabber DIV */
-        var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
-        var e = argsObj.event; /* Event object */
-        if (i == 3) {
+    function hideExportImageButton(args) {
+        
+        if (args == 3) {
             document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'hidden';
         }
         else {
             document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'visible';
         }
-
-        document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
     }
-    };
 </script>
 
 <%--<script type="text/javascript">
@@ -67,6 +62,7 @@
 </script>
 
 <table>
+    <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
     <asp:ScriptManager ID="scrptMgr" runat="server">
     </asp:ScriptManager>
     <tr>
@@ -146,17 +142,40 @@
         </td>
     </tr>--%>
 </table>
-
-  <asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-<table style="width: 100%;">
+<table>
     <tr>
         <td>
-            <div class="tabber" id="divMain">
-                <div class="tabbertab tabbertabdefault" runat="server" id="divNotional">
-                    <h6 class="HeaderText">
-                        Holdings</h6>
-              
-                    <table width="100%" cellspacing="0" cellpadding="0">
+            &nbsp;
+        </td>
+    </tr>
+</table>
+
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    EnableEmbeddedSkins="False" Width="100%" MultiPageID="MFPortfolioTabPages" SelectedIndex="0" EnableViewState="true">
+    <Tabs>
+        <telerik:RadTab runat="server" onclick="hideExportImageButton(0)" Text="Holdings"
+            Value="Holdings" TabIndex="0">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" onclick="hideExportImageButton(1)" Text="All"
+            Value="All" TabIndex="1">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" onclick="hideExportImageButton(2)" Text="Realized"
+            Value="Realized" TabIndex="2">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" onclick="hideExportImageButton(3)" Text="Performance and Analysis"
+            Value="Performance and Analysis" TabIndex="3">
+        </telerik:RadTab>
+        
+    </Tabs>
+</telerik:RadTabStrip>
+
+
+<telerik:RadMultiPage ID="MFPortfolioTabPages" runat="server" EnableViewState="true"
+SelectedIndex="0">
+
+    <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
+      <asp:Panel ID="pnlMFPortfolioHoldings" runat="server">
+          <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
                              <td class="rightField" width="100%">
                                 <div id="dvNotionalPortfolio" runat="server">
@@ -258,12 +277,12 @@
                             </td>
                         </tr>
                     </table>
-                  
-                </div>
-                <div class="tabbertab" runat="server" id="divAll">
-                    <h6 class="HeaderText">
-                        All</h6>
-                    <table id="tblAll" runat="server">
+      </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
+        <asp:Panel ID="pnlMFPortfolioAll" runat="server">
+            <table id="tblAll" runat="server">
                         <tr>
                             <td>
                                 <div id="dvMFPortfolio" runat="server">
@@ -389,20 +408,12 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <%--  This is the Set of things that is working for Realized Tab--%>
-                
-                
-                <%-- 
-                =======================================================================================================
-                <comments> In this Realized grid Dividend Income have been relabled to Dividend Total.  But Logic is same                
-                </comments>
-                =======================================================================================================
-                --%>
-                <div class="tabbertab" runat="server" id="divRealized">
-                    <h6 class="HeaderText" >
-                        Realized</h6>
-                    <table>
+        </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
+        <asp:Panel ID="pnlMFPortfolioRealized" runat="server">
+            <table>
                         <tr>
                             <td>
                                 <div id="dvRealizedPortfolio" runat="server">
@@ -513,11 +524,12 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div id="Div1" class="tabbertab" runat="server">
-                    <h6 class="HeaderText" >
-                        Performance and Analysis</h6>
-                    <table id="Table1" runat="server">
+        </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="MFPandATabPage" runat="server">
+        <asp:Panel ID="pnlMFPandATabPage" runat="server">
+            <table id="Table1" runat="server">
                         <tr id="trMFCode" runat="server">
                             <td>
                                 <asp:DropDownList ID="ddlMFClassificationCode" runat="server" CssClass="cmbField"
@@ -547,75 +559,22 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <!--  <asp:Button ID="btnUpdateNP" runat="server" OnClick="btnUpdateNP_Click" Text="Update Net Position"
-                Visible="False" CssClass="ButtonField" Width="162px" />-->
-        </td>
-    </tr>
-    <tr>
-        <td>
-           
-        </td>
-    </tr>
-    <%-- <tr>
-        <td colspan="3">
-            <div>
-                <table style="width: 30%;">
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Mutual Fund Portfolio Summary"></asp:Label>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                  <tr>
-                        <td>
-                            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Current Holdings"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="lblCurrentHolding" runat="server" CssClass="Field" Text="lblCurrentHolding"></asp:Label>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-               <tr>
-                        <td>
-                            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Cost of Acquisition (Rs) :"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="lblCostOfAcqusition" runat="server" CssClass="Field" Text="lblCostOfAcqusition"></asp:Label>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Current Value (Rs) :"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="lblCurrentValue" runat="server" CssClass="Field" Text="lblCurrentValue"></asp:Label>
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>--%>
-</table>
-</asp:Panel>
+             <table>
+                <tr>
+                    <td>
+                        <!--  <asp:Button ID="btnUpdateNP" runat="server" OnClick="btnUpdateNP_Click" Text="Update Net Position"
+                            Visible="False" CssClass="ButtonField" Width="162px" />-->
+                    </td>
+               </tr>
+             </table>
+        </asp:Panel>
+    </telerik:RadPageView>
+
+</telerik:RadMultiPage>
+
+
+
+ 
 <table>
 <tr>
         <td colspan="3">
@@ -658,13 +617,4 @@
 <asp:HiddenField ID="hdnAllSelectedCategory" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNoOfRecords" runat="server" Visible="false" />
 
-<script type="text/javascript">
-    document.getElementById("<%= divAll.ClientID %>").style.display = 'none';
-    document.getElementById("<%= Div1.ClientID %>").style.display = 'none';
-    document.getElementById("<%= divRealized.ClientID %>").style.display = 'none';
-    
-    if (document.getElementById('<%= hdnSelectedTab.ClientID %>').value == "" || document.getElementById('<%= hdnSelectedTab.ClientID %>').value == "3") {
-        document.getElementById('<%= hdnSelectedTab.ClientID %>').value = 0;
-    }
-</script>
 

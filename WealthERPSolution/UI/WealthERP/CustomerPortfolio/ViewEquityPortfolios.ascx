@@ -1,20 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewEquityPortfolios.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.ViewEquityPortfolios" %>
 
-<script type="text/javascript">
-    var tabberOptions = { 'onClick': function(argsObj) {
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
-        var t = argsObj.tabber; /* Tabber object */
-        var id = t.id; /* ID of the main tabber DIV */
-        var i = argsObj.index; /* Which tab was clicked (0 is the first tab) */
-        var e = argsObj.event; /* Event object */
-
-
-        document.getElementById('<%= hdnSelectedTab.ClientID %>').value = i;
-
-    }
-    };
-</script>
 
 <script type="text/javascript" src="../Scripts/tabber.js"></script>
 
@@ -42,6 +30,10 @@
     }
 </script>
 
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
+
 <table>
     <tr>
         <td class="leftField">
@@ -54,15 +46,41 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-<table style="width: 100%;">
+
+<table>
     <tr>
-        <td colspan="3">
-            <div class="tabber" id="divMain">
-                <div class="tabbertab" runat="server" id="divAll">
-                    <h6>
-                        All</h6>
-                    <table id="tblPortfolio" runat="server">
+        <td>
+            &nbsp;
+        </td>
+    </tr>
+</table>
+
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    EnableEmbeddedSkins="False" Width="100%" MultiPageID="EQPortfolioTabPages" SelectedIndex="0" EnableViewState="true">
+    <Tabs>
+        
+        <telerik:RadTab runat="server" Text="All"
+            Value="All" TabIndex="0">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Realized Delivery"
+            Value="Realized Delivery" TabIndex="1">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Realized Speculative"
+            Value="Realized Speculative" TabIndex="2">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="UnRealized"
+            Value="UnRealized" TabIndex="3">
+        </telerik:RadTab>
+        
+    </Tabs>
+</telerik:RadTabStrip>
+
+<telerik:RadMultiPage ID="EQPortfolioTabPages" runat="server" EnableViewState="true"
+SelectedIndex="0">
+
+    <telerik:RadPageView ID="EQPortfolioAllTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioAll" runat="server">
+        <table id="tblPortfolio" runat="server">
                         <tr id="Tr1" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -83,7 +101,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table>
+        <table>
                         <tr>
                             <td>
                                 <div id="dvEquityPortfolio" runat="server">
@@ -128,11 +146,12 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div class="tabbertab" runat="server" id="divRealized">
-                    <h6>
-                        Realized Delivery</h6>
-                    <table id="tblDelivery" runat="server">
+    </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="EQPortfolioRealizedDelTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioRealizedDel" runat="server">
+        <table id="tblDelivery" runat="server">
                         <tr id="Tr2" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnDeliveryExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -156,7 +175,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table>
+        <table>
                         <tr>
                             <td>
                                 <div id="dvEquityPortfolioDelivery" runat="server">
@@ -200,11 +219,12 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div class="tabbertab" runat="server">
-                    <h6>
-                        Realized Speculative</h6>
-                    <table id="tblSpec" runat="server">
+    </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="EQPortfolioRealizedSpecTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioRealizedSpec" runat="server">
+        <table id="tblSpec" runat="server">
                         <tr id="Tr3" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnSpecExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -228,7 +248,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table>
+        <table>
                         <tr>
                             <td>
                                 <div id="dvEquityPortfolioSpeculative" runat="server">
@@ -272,11 +292,12 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-                <div class="tabbertab" runat="server">
-                    <h6>
-                        UnRealized</h6>
-                    <table id="tblUnrealized" runat="server">
+    </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="EQPortfolioUnRealizedTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
+        <table id="tblUnrealized" runat="server">
                         <tr id="Tr4" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnUnrealExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -300,7 +321,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table>
+        <table>
                         <tr>
                             <td>
                                 <div id="dvEquityPortfolioUnrealized" runat="server">
@@ -345,38 +366,32 @@
                             </td>
                         </tr>
                     </table>
-                </div>
-            </div>
-        </td>
+    </asp:Panel>
+    </telerik:RadPageView>
+
+</telerik:RadMultiPage>
+
+<table style="width: 30%;">
+    <tr>
+        <td colspan="3">
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Equity Portfolio Summary"></asp:Label>
+         </td>
     </tr>
     <tr>
         <td colspan="3">
-            <div>
-                <table style="width: 30%;">
-                    <tr>
-                        <td colspan="3">
-                            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Equity Portfolio Summary"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Current Value (Rs)"></asp:Label>
-                        </td>
-                        <td colspan="2">
-                            <asp:Label ID="lblCurrentValue" runat="server" CssClass="Field" Text="lblCurrentValue"></asp:Label>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Current Value (Rs)"></asp:Label>
+        </td>
+        <td colspan="2">
+            <asp:Label ID="lblCurrentValue" runat="server" CssClass="Field" Text="lblCurrentValue"></asp:Label>
         </td>
     </tr>
 </table>
-</asp:Panel>
+
 <asp:Button ID="btnEQNPSearch" runat="server" Text="" OnClick="btnEQNPSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnEQRealizedSearch" runat="server" Text="" OnClick="btnEQRealizedSearch_Click"

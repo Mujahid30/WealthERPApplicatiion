@@ -14,6 +14,15 @@ namespace WealthERP.CustomerPortfolio {
     public partial class ViewMutualFundPortfolio {
         
         /// <summary>
+        /// RadStyleSheetManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
+        
+        /// <summary>
         /// scrptMgr control.
         /// </summary>
         /// <remarks>
@@ -140,22 +149,40 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator cmpAsOnDate;
         
         /// <summary>
-        /// tbl control.
+        /// RadTabStrip1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel tbl;
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStrip1;
         
         /// <summary>
-        /// divNotional control.
+        /// MFPortfolioTabPages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNotional;
+        protected global::Telerik.Web.UI.RadMultiPage MFPortfolioTabPages;
+        
+        /// <summary>
+        /// MFPortfolioHoldingsTabPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadPageView MFPortfolioHoldingsTabPage;
+        
+        /// <summary>
+        /// pnlMFPortfolioHoldings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioHoldings;
         
         /// <summary>
         /// dvNotionalPortfolio control.
@@ -203,13 +230,22 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.GridView gvMFPortfolioNotional;
         
         /// <summary>
-        /// divAll control.
+        /// MFPortfolioAllTabPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAll;
+        protected global::Telerik.Web.UI.RadPageView MFPortfolioAllTabPage;
+        
+        /// <summary>
+        /// pnlMFPortfolioAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioAll;
         
         /// <summary>
         /// tblAll control.
@@ -257,13 +293,22 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.GridView gvMFPortfolio;
         
         /// <summary>
-        /// divRealized control.
+        /// MFPortfolioRealizedTabPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRealized;
+        protected global::Telerik.Web.UI.RadPageView MFPortfolioRealizedTabPage;
+        
+        /// <summary>
+        /// pnlMFPortfolioRealized control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioRealized;
         
         /// <summary>
         /// dvRealizedPortfolio control.
@@ -302,13 +347,22 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.GridView gvMFPortfolioRealized;
         
         /// <summary>
-        /// Div1 control.
+        /// MFPandATabPage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        protected global::Telerik.Web.UI.RadPageView MFPandATabPage;
+        
+        /// <summary>
+        /// pnlMFPandATabPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPandATabPage;
         
         /// <summary>
         /// Table1 control.
