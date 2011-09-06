@@ -125,7 +125,7 @@ namespace DaoAdvisorProfiling
         /// <param name="portfolioType"></param>
         /// <returns></returns>
 
-        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType,int scripCodes)
+        public DataSet GetAllUsersEQMISForComSec(string userType, DateTime valuationDate, int adviserId, int RMId, int BranchId, int branchHeadId, int all, int EQMIStype, int portfolioType)
         {
             Database db;
             DbCommand getEQMISCmd;
@@ -140,6 +140,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getEQMISCmd, "@EQMIStype", DbType.Int16, EQMIStype);
                 db.AddInParameter(getEQMISCmd, "@portfolioType", DbType.Int16, portfolioType);
                 
+
                 if (adviserId != 0)
                     db.AddInParameter(getEQMISCmd, "@adviserId", DbType.Int16, adviserId);
                 else
@@ -162,9 +163,6 @@ namespace DaoAdvisorProfiling
 
                 if (all != 0)
                     db.AddInParameter(getEQMISCmd, "@all", DbType.Int16, all);
-
-                if(scripCodes != 0)
-                    db.AddInParameter(getEQMISCmd, "@ScripCode", DbType.Int16, scripCodes);
                 
 
                 dsGetAllUsersEQMIS = db.ExecuteDataSet(getEQMISCmd);
