@@ -460,7 +460,7 @@ namespace WealthERP.CustomerPortfolio
 
                         if (dtMFPortfolioNotional.Rows.Count > 0)
                         {
-                            hdnNoOfRecords.Value = dtMFPortfolioNotional.Rows.Count.ToString();
+                            hdnNoOfRecords.Value = dtMFPortfolioNotional.DefaultView.Count.ToString();
                             gvMFPortfolioNotional.Visible = true;
                             gvMFPortfolioNotional.DataSource = dtMFPortfolioNotional.DefaultView;
                             gvMFPortfolioNotional.DataBind();
