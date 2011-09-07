@@ -166,22 +166,34 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <div style="clear: both; z-index: 2500; text-align: right;">
-                                        &nbsp; <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
-                                            class="LinkButtons" style="text-decoration: none" href="#">Settings</a>&nbsp;
-                                        <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
-                                            CssClass="LinkButtons" style="text-decoration: none"></asp:LinkButton>
-                                        <%--&nbsp;--%>
-                                        <%--<asp:LinkButton ID="LinkButtonContactUs" runat="server" OnClientClick="javascript:loadcontrol('GeneralHome','none'); return false;"
-                                            CssClass="LinkButtons">Contact Us</asp:LinkButton>--%>
-                                        &nbsp; <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none" target="_blank">Demo</a> &nbsp;
-                                        <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" style="text-decoration: none" class="LinkButtons" target="_blank">
-                                            Help</a>
-                                        <%--<asp:LinkButton ID="LinkButtonHelp" runat="server" CssClass="LinkButtons" PostBackUrl="Help.htm">Help</asp:LinkButton>--%>
-                                        &nbsp;
-                                        <asp:LinkButton ID="lblSignOut" runat="server" Text="" style="text-decoration: none" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
-                                            CssClass="LinkButtons"></asp:LinkButton>
-                                    </div>
+                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td id="tdSettings" style="vertical-align: baseline" runat="server">
+                                                <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
+                                                    class="LinkButtons" style="text-decoration: none" href="#">Settings</a>
+                                                    &nbsp;
+                                            </td>
+                                            <td id="tdSignIn" runat="server">
+                                                <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
+                                                    CssClass="LinkButtons" style="text-decoration: none"></asp:LinkButton>
+                                                    &nbsp;
+                                            </td>
+                                            <td id="tdDemo" visible="true" runat="server">
+                                                <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none" target="_blank">Demo</a>  
+                                                &nbsp;
+                                            </td>
+                                            <td id="tdHelp" runat="server">
+                                                <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" style="text-decoration: none" class="LinkButtons" target="_blank">
+                                                    Help</a>
+                                                    &nbsp;
+                                            </td>
+                                            <td id="tdSignOut" runat="server">
+                                                <asp:LinkButton ID="lblSignOut" runat="server" Text="" style="text-decoration: none" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
+                                                    CssClass="LinkButtons"></asp:LinkButton>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
                                 </td>
                             </tr>
                             <%-- <tr>

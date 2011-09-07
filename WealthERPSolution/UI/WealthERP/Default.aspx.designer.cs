@@ -77,6 +77,24 @@ namespace WealthERP {
         protected global::System.Web.UI.HtmlControls.HtmlImage imgRightPlaceholder;
         
         /// <summary>
+        /// tdSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSettings;
+        
+        /// <summary>
+        /// tdSignIn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSignIn;
+        
+        /// <summary>
         /// LinkButtonSignIn control.
         /// </summary>
         /// <remarks>
@@ -84,6 +102,15 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonSignIn;
+        
+        /// <summary>
+        /// tdDemo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDemo;
         
         /// <summary>
         /// lnkDemo control.
@@ -95,6 +122,15 @@ namespace WealthERP {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkDemo;
         
         /// <summary>
+        /// tdHelp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdHelp;
+        
+        /// <summary>
         /// lnkHelp control.
         /// </summary>
         /// <remarks>
@@ -102,6 +138,15 @@ namespace WealthERP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkHelp;
+        
+        /// <summary>
+        /// tdSignOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSignOut;
         
         /// <summary>
         /// lblSignOut control.

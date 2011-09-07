@@ -108,6 +108,8 @@ namespace WealthERP
 
                         if ((!IsPostBack) && (userVo.UserType == "Customer"))
                         {
+                            tdDemo.Visible = false;
+                            tdHelp.Visible = false;
                             lnkDemo.Visible = false;
                             lnkHelp.Visible = false;
                         }
