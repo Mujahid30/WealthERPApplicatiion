@@ -304,30 +304,30 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FISD" || customerAccountVo.AssetCategory.ToString().Trim() == "FIGS")
                 {   // FI securities Debentures and FI securities G-secs
 
-                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToShortDateString();
+                    txtIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
                     txtIssueDate.Enabled = false;
-                    txtPurchaseDate.Text = fixedincomeVo.PurchaseDate.ToShortDateString();
+                    txtPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
                     txtPurchaseDate.Enabled = false;
-                    if (txtIssueDate.Text.Trim() == txtPurchaseDate.Text.Trim())
-                    {
-                        trPurchPrice.Visible = true;
-                        txtPurPurchasePrice.Text = fixedincomeVo.PurchasePrice.ToString();
-                        txtPurPurchasePrice.Enabled = false;
-                    }
-                    else
-                    {
-                        trPurchPrice.Visible = false;
-                    }
-                    txtPMaturityDate.Text = fixedincomeVo.MaturityDate.ToShortDateString();
+                    //if (txtIssueDate.Text.Trim() == txtPurchaseDate.Text.Trim())
+                    //{
+                    trPurchPrice.Visible = true;
+                    txtPurPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtPurPurchasePrice.Enabled = false;
+                    //}
+                    //else
+                    //{
+                    //    trPurchPrice.Visible = false;
+                    //}
+                    txtPMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
                     txtPMaturityDate.Enabled = false;
-                    txtPurFaceValue.Text = fixedincomeVo.FaceValue.ToString();
+                    txtPurFaceValue.Text = fixedIncomeVo.FaceValue.ToString();
                     txtPurFaceValue.Enabled = false;
-                    txtPurNoOfDebentures.Text = fixedincomeVo.DebentureNum.ToString();
+                    txtPurNoOfDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
                     txtPurNoOfDebentures.Enabled = false;
-                    txtPurPurchaseCost.Text = fixedincomeVo.PurchaseValue.ToString();
+                    txtPurPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
                     txtPurPurchaseCost.Enabled = false;
 
-                    txtInterstRate.Text = fixedincomeVo.InterestRate.ToString();
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
@@ -615,30 +615,30 @@ namespace WealthERP.CustomerPortfolio
                 else if (customerAccountVo.AssetCategory.ToString().Trim() == "FISD" || customerAccountVo.AssetCategory.ToString().Trim() == "FIGS")
                 {   // FI securities Debentures and FI securities G-secs
 
-                    txtIssueDate.Text = fixedincomeVo.IssueDate.ToShortDateString();
+                    txtIssueDate.Text = fixedIncomeVo.IssueDate.ToShortDateString();
                     txtIssueDate.Enabled = true;
-                    txtPurchaseDate.Text = fixedincomeVo.PurchaseDate.ToShortDateString();
+                    txtPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
                     txtPurchaseDate.Enabled = true;
-                    if (txtIssueDate.Text.Trim() == txtPurchaseDate.Text.Trim())
-                    {
-                        trPurchPrice.Visible = true;
-                        txtPurPurchasePrice.Text = fixedincomeVo.PurchasePrice.ToString();
-                        txtPurPurchasePrice.Enabled = true;
-                    }
-                    else
-                    {
-                        trPurchPrice.Visible = true;
-                    }
-                    txtPMaturityDate.Text = fixedincomeVo.MaturityDate.ToShortDateString();
+                    //if (txtIssueDate.Text.Trim() == txtPurchaseDate.Text.Trim())
+                    //{
+                    trPurchPrice.Visible = true;
+                    txtPurPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtPurPurchasePrice.Enabled = true;
+                    //}
+                    //else
+                    //{
+                    //    trPurchPrice.Visible = true;
+                    //}
+                    txtPMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
                     txtPMaturityDate.Enabled = true;
-                    txtPurFaceValue.Text = fixedincomeVo.FaceValue.ToString();
+                    txtPurFaceValue.Text = fixedIncomeVo.FaceValue.ToString();
                     txtPurFaceValue.Enabled = true;
-                    txtPurNoOfDebentures.Text = fixedincomeVo.DebentureNum.ToString();
+                    txtPurNoOfDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
                     txtPurNoOfDebentures.Enabled = true;
-                    txtPurPurchaseCost.Text = fixedincomeVo.PurchaseValue.ToString();
+                    txtPurPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
                     txtPurPurchaseCost.Enabled = true;
 
-                    txtInterstRate.Text = fixedincomeVo.InterestRate.ToString();
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = true;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = true;
@@ -1309,7 +1309,7 @@ namespace WealthERP.CustomerPortfolio
             trInterestDetailsSpace.Visible = true;
 
             ddlInterestBasis.SelectedValue = "SI";
-            ddlPayableFrequencyCode.SelectedValue = "HYear";
+            ddlPayableFrequencyCode.SelectedValue = "HY";
             lblInterestAmtCredited.Text = "Interest Amt Credited:";
         }
 
