@@ -4820,6 +4820,8 @@
     <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
+    <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSytematicUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSytematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardMFTransactionUploads.sln" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
@@ -5564,6 +5566,9 @@
     <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupInputToSystematicSetupStaging.dtsx" />
     <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupStagingToWERPSystematicSetup.dtsx" />
     <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupStagingToXtrnlSystematicSetup.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSytematicUploadPackageNew.database" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSytematicUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\Package.dtsx" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.database" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.dtproj" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadCAMSTransStgToMFTransStg.dtsx" />
