@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
+﻿                <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
     Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -62,6 +62,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Setup IP pool" Value="Setup IP pool">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Environment Settings" Value="Environment_Settings">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

@@ -1185,4 +1185,8 @@
     <value>OPS//OrderRecon.ascx</value>
     <comment>OPS//OrderRecon.ascx</comment>
   </data>
+  <data name="AdviserEnvironmentSettings" xml:space="preserve">
+    <value>Advisor//AdviserEnvironmentSettings.ascx</value>
+    <comment>Advisor//AdviserEnvironmentSettings.ascx</comment>
+  </data>
 </root>

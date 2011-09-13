@@ -566,6 +566,13 @@
     <Compile Include="Advisor\AdviserCustomerSMSAlerts.ascx.designer.cs">
       <DependentUpon>AdviserCustomerSMSAlerts.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserEnvironmentSettings.ascx.cs">
+      <DependentUpon>AdviserEnvironmentSettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserEnvironmentSettings.ascx.designer.cs">
+      <DependentUpon>AdviserEnvironmentSettings.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserEQMIS.ascx.cs">
       <DependentUpon>AdviserEQMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3059,6 +3066,7 @@
     <Content Include="Advisor\AdviserCustomer.ascx" />
     <Content Include="Advisor\AdviserCustomerManualSMS.ascx" />
     <Content Include="Advisor\AdviserCustomerSMSAlerts.ascx" />
+    <Content Include="Advisor\AdviserEnvironmentSettings.ascx" />
     <Content Include="Advisor\AdviserEQMIS.ascx" />
     <Content Include="Advisor\AdviserIPPool.ascx" />
     <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
