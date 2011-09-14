@@ -353,18 +353,18 @@
                     <td class="leftField">
                         <asp:Label ID="lblGoalCostToday" runat="server" CssClass="FieldName" Text="Goal Cost Today :"></asp:Label>
                     </td>
-                    <td class="rightField">
+                    <td class="rightField" runat="server">
                         <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="SpanGoalCostTodayReq" class="spnRequiredField" runat="server">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="txtField" ErrorMessage="Goal cost Today Required" Display="Dynamic"></asp:RequiredFieldValidator>
                              <ajaxToolkit:FilteredTextBoxExtender ID="txtGoalCostToday_E" runat="server" Enabled="True" TargetControlID="txtGoalCostToday"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                         
                          
                         <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic"  
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 15 digit"
-                             ValidationGroup="btnSave" MinimumValue="0" MaximumValue="999999999999999" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 15 digit & can't be zero"
+                             ValidationGroup="btnSave" MinimumValue="0.00000000001" MaximumValue="999999999999999" 
                             ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
                          
                     </td>
@@ -458,7 +458,7 @@
                                         </ajaxToolkit:FilteredTextBoxExtender>
                         <span id="SpanCurrInPurReq" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCurrentInvestPurpose"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some amount"></asp:RequiredFieldValidator>
+                            CssClass="txtField" ValidationGroup="btnSave" ErrorMessage="Please enter some amount"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                               
@@ -514,8 +514,8 @@
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                          <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtROIFutureInvest" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
+                            MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtROIFutureInvest" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtROIFutureInvest"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>

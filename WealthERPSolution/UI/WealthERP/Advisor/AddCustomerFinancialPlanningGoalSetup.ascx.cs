@@ -357,6 +357,9 @@ namespace WealthERP.Advisor
             lblPickChild.Text = "Child Name :";
             //chkApprove.Visible = false;
             trchkApprove.Visible = false;
+            Td1.Visible = true;
+            trRequiedNote.Visible = true;
+            lblNote.Visible = true;
         }
 
         protected void lnkGoalType_Click(object sender, EventArgs e)
@@ -373,6 +376,9 @@ namespace WealthERP.Advisor
             ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
             //lblPickCustomer.Text = "Customer Name";
             lblGoalbjective.Text = "Goal Objective :";
+            Td1.Visible = true;
+            trRequiedNote.Visible = true;
+            lblNote.Visible = true;
 
 
 
@@ -1219,11 +1225,51 @@ namespace WealthERP.Advisor
                     drRTGoal["CG_GoalId"] = dr["CG_GoalId"].ToString();
                     drRTGoal["XG_GoalName"] = dr["XG_GoalName"].ToString();
                     drRTGoal["CG_GoalYear"] = dr["CG_GoalYear"].ToString();
-                    drRTGoal["CG_FVofCostToday"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_FVofCostToday"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (decimal.Parse(dr["CG_FVofCostToday"].ToString()) != 0)
+                    {
+                        drRTGoal["CG_FVofCostToday"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_FVofCostToday"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                    else
+                    {
+                        drRTGoal["CG_FVofCostToday"] = "0";
+                    }
+                    //drRTGoal["CG_FVofCostToday"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_FVofCostToday"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (decimal.Parse(dr["CG_CurrentInvestment"].ToString()) != 0)
+                    {
+                        drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                    else
+                    {
+                        drRTGoal["CG_CurrentInvestment"] = "0";
+                    }
+                   // drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()) != 0)
+                    {
+                        drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                    else
+                    {
+                        drRTGoal["CG_LumpsumInvestmentRequired"] = "0";
+                    }
+                   // drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()) != 0)
+                    {
+                        drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                    else
+                    {
+                        drRTGoal["CG_YearlySavingsRequired"] = "0";
+                    }
+                   // drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()) != 0)
+                    {
+                        drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
+                    else
+                    {
+                        drRTGoal["CG_MonthlySavingsRequired"] = "0";
+                    }
+                    //drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drRTGoal["CG_GoalProfileDate"] =  dr["CG_GoalProfileDate"].ToString();
 
                     dtRTGoal.Rows.Add(drRTGoal);
