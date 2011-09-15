@@ -292,6 +292,7 @@ namespace WealthERP.Advisor
 
         public void ViewRMDetail()
         {
+            
             try
             {
                 if (Session["rmVo"] != null)
@@ -312,6 +313,11 @@ namespace WealthERP.Advisor
                             ChklistRMBM.Items.FindByText(Role).Selected = true;
                         }
                     }
+                    if (rmVo.RMRole == "Ops")
+                    {
+                        chkOps.Checked = true;
+                    }
+                   
                     lblMail.Text = rmVo.Email.ToString();
                     lblFax.Text = rmVo.FaxIsd.ToString() + "-" + rmVo.FaxStd.ToString() + "-" + rmVo.Fax.ToString();
                     lblMobile.Text = rmVo.Mobile.ToString();

@@ -77,6 +77,7 @@
                  <asp:ListItem Value="1001">RM</asp:ListItem>
            <asp:ListItem Value="1002">BM</asp:ListItem>               
           </asp:CheckBoxList>
+          <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004" Enabled="false" />&nbsp;
         </td>
     </tr>
     <tr>
