@@ -59,26 +59,32 @@
     }
 
     function CheckItem(sender, args) {
-        var chkControlId = '<%=ChklistRMBM.ClientID%>';
-        var options = document.getElementById(chkControlId).getElementsByTagName('input');
-        var ischecked = false;
-        args.IsValid = false;
-        for (i = 0; i < options.length; i++) {
-            var opt = options[i];
-            if (opt.type == "checkbox") {
-                var check = opt.checked;
-                if (!check && i == 0) {
-                    var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
-                    if (count > 0) {
-                        alert("Please deassociate Customer First");
-                        return false;
+        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+        if (chk4ops.checked == false) {
+
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+            var ischecked = false;
+            args.IsValid = false;
+            for (i = 0; i < options.length; i++) {
+                var opt = options[i];
+                if (opt.type == "checkbox") {
+                    var check = opt.checked;
+                    if (!check && i == 0) {
+                        var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
+                        if (count > 0) {
+                            alert("Please deassociate Customer First");
+                            return false;
+                        }
+                    }
+                    if (check) {
+                        ischecked = true;
+                        args.IsValid = true;
                     }
                 }
-                if (check) {
-                    ischecked = true;
-                    args.IsValid = true;
-                }
             }
+        }
+        else {
         }
     }
 
@@ -200,7 +206,9 @@
                  <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                
-            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*</span>
+            </asp:CheckBoxList>
+             <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField"/>
+            &nbsp;<span id="Span4" class="spnRequiredField">*</span>
            <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnUpdate" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
            
             

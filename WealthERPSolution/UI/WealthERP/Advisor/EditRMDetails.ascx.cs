@@ -48,14 +48,15 @@ namespace WealthERP.Advisor
             //deleteBranch.Attributes.Add("onclick", "return deletebranches('associatedBranch','availableBranch')");
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            if (Session["CurrentrmVo"] != null)
-            {
-                rmVo = (RMVo)Session["CurrentrmVo"];
-            }
-            else
-            {
-                rmVo = (RMVo)Session["rmVo"];
-            }
+             if (Session["CurrentrmVo"] != null)
+             {
+                  rmVo = (RMVo)Session["CurrentrmVo"];
+             }
+              else
+             {
+                 rmVo = (RMVo)Session["rmVo"];
+             }
+       
             if (!Page.IsPostBack)
             {
                
@@ -459,6 +460,7 @@ namespace WealthERP.Advisor
                 {
                     ChklistRMBM.Items.FindByText(Role).Selected=true;
                 }
+
             }
 
 
@@ -469,6 +471,18 @@ namespace WealthERP.Advisor
                 chkExternalStaff.Checked = false;
 
             BindBranchAssociation();
+            if (rmVo.RMRole == "Ops")
+            {
+                chkOps.Checked = true;
+                chkExternalStaff.Enabled = false;
+                ChklistRMBM.Enabled = false;
+                availableBranch.Enabled = false;
+                associatedBranch.Enabled = false;
+            }
+            else
+            {
+                chkOps.Enabled = false;
+            }
             Session["rmId"] = rmVo.RMId;
             rmIDRef = rmVo.RMId;
             Session["userId"] = rmVo.UserId;
@@ -605,12 +619,18 @@ namespace WealthERP.Advisor
 
 
  //*************Role Association Creation and deletion************************
-
-                    bool RMBMRole = false;
-                    string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
-                    foreach (ListItem Items in ChklistRMBM.Items)
+                    if (chkOps.Checked == true)
                     {
-                        
+                        rmVo.RMRole = "Ops";
+                        userBo.CreateRoleAssociation(rmVo.UserId, 1004);
+                    }
+                    else
+                    {
+                        bool RMBMRole = false;
+                        string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
+                        foreach (ListItem Items in ChklistRMBM.Items)
+                        {
+
                             if (Items.Text == "RM")
                             {
                                 foreach (string Role in RoleListArray)
@@ -621,7 +641,7 @@ namespace WealthERP.Advisor
                                     }
                                 }
                                 // Create Role Association for RM
-                                if (RMBMRole == false && Items.Selected==true)
+                                if (RMBMRole == false && Items.Selected == true)
                                 {
                                     userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
                                 }
@@ -629,7 +649,7 @@ namespace WealthERP.Advisor
                                 {
 
                                     userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
- 
+
                                 }
                                 RMBMRole = false;
                             }
@@ -664,7 +684,9 @@ namespace WealthERP.Advisor
 
                             }
 
+                        }
                     }
+                    
 
     //*************Role Association Creation and deletion************************   
 
