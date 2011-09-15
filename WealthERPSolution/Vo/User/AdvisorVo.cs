@@ -49,6 +49,7 @@ namespace VoUser
         private string s_LOBAssetGroup;
         private Int16 s_IsDependent;
         private Int16 s_IsIPEnable;
+        private Int16 s_IsOpsEnable;
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
 
       
@@ -241,6 +242,12 @@ namespace VoUser
         {
             get { return s_IsIPEnable; }
             set { s_IsIPEnable = value; }
+        }
+
+        public Int16 IsOpsEnable
+        {
+            get { return s_IsOpsEnable; }
+            set { s_IsOpsEnable = value; }
         }
 
         public string LOBAssetGroup
