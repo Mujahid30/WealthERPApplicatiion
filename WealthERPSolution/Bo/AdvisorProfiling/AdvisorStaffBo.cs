@@ -250,13 +250,13 @@ namespace BoAdvisorProfiling
         /// <param name="rmVo"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId)
+        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked)
         {
             List<int> rmIds = new List<int>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                rmIds = advisorStaffDao.CreateCompleteRM(userVo, rmVo, userId);
+                rmIds = advisorStaffDao.CreateCompleteRM(userVo, rmVo, userId, isOpsIsChecked);
             }
             catch (BaseApplicationException Ex)
             {
