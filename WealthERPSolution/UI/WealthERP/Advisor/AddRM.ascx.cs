@@ -36,6 +36,7 @@ namespace WealthERP.Advisor
         int rmId;
         int userId;
         string path = "";
+        bool isOpsIsChecked = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -391,7 +392,7 @@ namespace WealthERP.Advisor
                     else
                         rmVo.IsExternal = 0;
 
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId);
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked);
 
                     rmVo.UserId = rmIds[0];
                     Session["rmId"] = rmIds[1];
@@ -519,7 +520,15 @@ namespace WealthERP.Advisor
                 //        }
                 //        else
                 //        {
-                            CreateRM();
+                if (chkOps.Checked == true)
+                {
+                    isOpsIsChecked = true;
+                    CreateOps(isOpsIsChecked);
+                }
+                else
+                {
+                    CreateRM();
+                }
                 //        }
                 //    }
                 //    else if (i == 0)
@@ -555,6 +564,156 @@ namespace WealthERP.Advisor
 
             }
         }
+
+        private void CreateOps(bool isOpsIsChecked)
+        {
+            if (Validation())
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                RMVo rmVo = new RMVo();
+                Random id = new Random();
+                AdvisorBo advisorBo = new AdvisorBo();
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                int branchId;
+                string password = id.Next(10000, 99999).ToString();
+
+                rmUserVo.UserType = "Advisor";
+                rmUserVo.Password = Encryption.Encrypt(password);
+                rmUserVo.MiddleName = txtMiddleName.Text.ToString();
+                //rmUserVo.LoginId = txtEmail.Text.ToString();
+                rmUserVo.LastName = txtLastName.Text.ToString();
+                rmUserVo.FirstName = txtFirstName.Text.ToString();
+
+                rmUserVo.Email = txtEmail.Text.ToString();
+
+                rmVo.Email = txtEmail.Text.ToString();
+                if (txtFaxNumber.Text == "")
+                {
+                    rmVo.Fax = 0;
+                }
+                else
+                {
+                    rmVo.Fax = int.Parse(txtFaxNumber.Text.ToString());
+                }
+                if (txtFaxISD.Text == "")
+                {
+                    rmVo.FaxIsd = 0;
+                }
+                else
+                {
+                    rmVo.FaxIsd = int.Parse(txtFaxISD.Text.ToString());
+                }
+                if (txtFaxSTD.Text == "")
+                {
+                    rmVo.FaxStd = 0;
+                }
+                else
+                {
+                    rmVo.FaxStd = int.Parse(txtExtSTD.Text.ToString());
+                }
+
+                rmVo.FirstName = txtFirstName.Text.ToString();
+                rmVo.LastName = txtLastName.Text.ToString();
+                rmVo.MiddleName = txtMiddleName.Text.ToString();
+                rmVo.StaffCode = txtStaffCode.Text.ToString();
+                if (txtMobileNumber.Text.ToString() != "")
+                    rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
+                if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
+                    rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                if (!string.IsNullOrEmpty(txtPhDirectPhoneNumber.Text.ToString()))
+                    rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
+
+                if (txtPhExtISD.Text == "")
+                {
+                    rmVo.OfficePhoneExtIsd = 0;
+                }
+                else
+                {
+                    rmVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.ToString());
+                }
+                if (txtPhExtPhoneNumber.Text == "")
+                {
+                    rmVo.OfficePhoneExtNumber = 0;
+                }
+                else
+                {
+                    rmVo.OfficePhoneExtNumber = int.Parse(txtPhExtPhoneNumber.Text.ToString());
+                }
+                if (txtExtSTD.Text == "")
+                {
+                    rmVo.OfficePhoneExtStd = 0;
+                }
+                else
+                {
+                    rmVo.OfficePhoneExtStd = int.Parse(txtExtSTD.Text.ToString());
+                }
+                if (txtPhResiISD.Text == "")
+                {
+                    rmVo.ResPhoneIsd = 0;
+                }
+                else
+                {
+                    rmVo.ResPhoneIsd = int.Parse(txtPhResiISD.Text.ToString());
+                }
+                if (txtPhResiPhoneNumber.Text == "")
+                {
+                    rmVo.ResPhoneNumber = 0;
+                }
+                else
+                {
+                    rmVo.ResPhoneNumber = int.Parse(txtPhResiPhoneNumber.Text.ToString());
+                }
+                if (txtResiSTD.Text == "")
+                {
+                    rmVo.ResPhoneStd = 0;
+                }
+                else
+                {
+                    rmVo.ResPhoneStd = int.Parse(txtResiSTD.Text.ToString());
+                }
+                if (txtPhDirectSTD.Text == "")
+                {
+                    rmVo.OfficePhoneDirectStd = 0;
+                }
+                else
+                {
+                    rmVo.OfficePhoneDirectStd = int.Parse(txtPhDirectSTD.Text.ToString());
+                }
+                if (chkOps.Checked == true)
+                {
+                    rmVo.RMRole = "Ops";
+                }
+
+                rmVo.AdviserId = advisorVo.advisorId;
+
+                if (txtCTCMonthly.Text != "")
+                    rmVo.CTC = Double.Parse(txtCTCMonthly.Text);
+
+
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked);
+
+                rmVo.UserId = rmIds[0];
+                userBo.CreateRoleAssociation(rmVo.UserId, 1004);
+                Session["rmId"] = rmIds[1];
+                Session["rmUserVo"] = userBo.GetUserDetails(rmVo.UserId);
+                Session["userId"] = rmVo.UserId;
+                if ((chkMailSend.Checked == true) && (advisorVo.IsOpsEnable == 1))
+                {
+                    SendMail();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Yours Ops Is not enabled or Send login info is not Checked.Therefore you will not get Login details.');", true);
+                }
+
+
+                string hdnSelectedString = hdnSelectedBranches.Value.ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
+
+            }
+        }
+
+        
 
         private void CreateRM()
         {
@@ -693,7 +852,7 @@ namespace WealthERP.Advisor
                 else
                     rmVo.IsExternal = 0;
 
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId);
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId,isOpsIsChecked);
                 
                 rmVo.UserId = rmIds[0];
                 Session["rmId"] = rmIds[1];
@@ -836,7 +995,10 @@ namespace WealthERP.Advisor
             EmailMessage email = new EmailMessage();
 
             string userName = rmUserVo.FirstName + " " + rmUserVo.MiddleName + " " + rmUserVo.LastName;
-            email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
+            if(chkOps.Checked == true)
+                email.GetAdviserRMAccountMail("Ops" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
+            else
+                email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
             email.To.Add(rmUserVo.Email);

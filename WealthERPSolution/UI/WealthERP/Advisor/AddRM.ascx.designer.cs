@@ -140,6 +140,24 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.CheckBoxList ChklistRMBM;
         
         /// <summary>
+        /// lblOr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOr;
+        
+        /// <summary>
+        /// chkOps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkOps;
+        
+        /// <summary>
         /// chkExternalStaff control.
         /// </summary>
         /// <remarks>

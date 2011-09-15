@@ -23,18 +23,28 @@
         return result;
     }
     function CheckItem(sender, args) {
-        var chkControlId = '<%=ChklistRMBM.ClientID%>';
-        var options = document.getElementById(chkControlId).getElementsByTagName('input');
-        var ischecked = false;
-        args.IsValid = false;
-        for (i = 0; i < options.length; i++) {
-            var opt = options[i];
-            if (opt.type == "checkbox") {
-                if (opt.checked) {
-                    ischecked = true;
-                    args.IsValid = true;
+
+        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+
+        if (chk4ops.checked == false) {
+            
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+            var ischecked = false;
+            args.IsValid = false;
+
+            for (i = 0; i < options.length; i++) {
+                var opt = options[i];
+                if (opt.type == "checkbox") {
+                    if (opt.checked) {
+                        ischecked = true;
+                        args.IsValid = true;
+                    }
                 }
             }
+        }
+        else {
+           
         }
     }
 
@@ -78,8 +88,80 @@
             selectedBranches.value += Target.options[i].value + ",";
         }
         //alert(selectedBranches)
-    }  
+    }
 
+    function DisableControls() {
+
+
+        var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+        var options = document.getElementById(chkControlId).getElementsByTagName('input');
+        var ischecked = false;
+
+        for (i = 0; i < options.length; i++) {
+            var opt = options[i];
+            if (opt.type == "checkbox") {
+                if (opt.checked == true) {
+                   
+                    ischecked = true;
+                    document.getElementById("<%= chkOps.ClientID %>").disabled = true;
+                    document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
+                    document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
+                    document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
+                    break;
+
+                }
+                else {
+                   
+                    ischecked = false;
+                    document.getElementById("<%= chkOps.ClientID %>").disabled = false;
+                    document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
+                    document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
+                    document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
+                  
+
+                }
+            }
+        }
+        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+
+        if (chk4ops.checked == true) {
+           
+            document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
+            document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
+            document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
+            document.getElementById('addBranch').disabled = true;
+            document.getElementById('deleteBranch').disabled = true;
+
+
+
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+
+            for (a = 0; a<=options.length; a++) {
+
+                options[a].disabled = true;
+            }
+        }
+        else {
+            document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
+            document.getElementById("<%= associatedBranch.ClientID %>").disabled = false;
+            document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = false;
+            document.getElementById('addBranch').disabled = false;
+            document.getElementById('deleteBranch').disabled = false;
+
+            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+
+            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+
+            for (a = 0; a<=options.length; a++) {
+
+                options[a].disabled = false;
+            }
+        }
+    }
+    
     
 
 </script>
@@ -151,14 +233,16 @@
             
               
             <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True" 
-                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow">
+                RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" onclick="DisableControls()" >
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
-            </asp:CheckBoxList>&nbsp;<span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-             <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
-           
-           <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnSubmit" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
-           
+            </asp:CheckBoxList>
+            <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
+            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004" onclick="DisableControls()" />&nbsp;
+            <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                   
+            <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged" runat="server" AutoPostBack="true" Text="IsExternalStaff" CssClass="cmbField" />
+           <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail" ValidationGroup="btnSubmit" ErrorMessage="<br />Select at least one role" ClientValidationFunction="CheckItem" ValidateEmptyText="true"></asp:CustomValidator>
             
               
         </td>
@@ -370,6 +454,7 @@
          </td>
      </tr>
     <tr>
+    <td colspan="4">
         <table border="1">
     <tr>
         <td>
@@ -405,7 +490,9 @@
     </tr>
     
 </table>
+</td>
     </tr>
+    
     <tr>
         <td colspan="4">
             &nbsp;
