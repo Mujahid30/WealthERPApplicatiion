@@ -80,7 +80,7 @@ SelectedIndex="0">
 
     <telerik:RadPageView ID="EQPortfolioAllTabPage" runat="server">
     <asp:Panel ID="pnlEQPortfolioAll" runat="server">
-        <table id="tblPortfolio" runat="server">
+        <%--<table id="tblPortfolio" runat="server">
                         <tr id="Tr1" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -100,7 +100,16 @@ SelectedIndex="0">
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
+        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+                </td>                    
+            </tr>
+        </table>        
         <table>
                         <tr>
                             <td>
@@ -151,7 +160,7 @@ SelectedIndex="0">
     
     <telerik:RadPageView ID="EQPortfolioRealizedDelTabPage" runat="server">
     <asp:Panel ID="pnlEQPortfolioRealizedDel" runat="server">
-        <table id="tblDelivery" runat="server">
+        <%--<table id="tblDelivery" runat="server">
                         <tr id="Tr2" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnDeliveryExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -174,7 +183,16 @@ SelectedIndex="0">
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
+        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport1" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport1_Click" />
+                </td>                    
+            </tr>
+        </table>
         <table>
                         <tr>
                             <td>
@@ -224,7 +242,7 @@ SelectedIndex="0">
     
     <telerik:RadPageView ID="EQPortfolioRealizedSpecTabPage" runat="server">
     <asp:Panel ID="pnlEQPortfolioRealizedSpec" runat="server">
-        <table id="tblSpec" runat="server">
+        <%--<table id="tblSpec" runat="server">
                         <tr id="Tr3" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnSpecExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -247,7 +265,16 @@ SelectedIndex="0">
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
+        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport2" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport2_Click" />
+                </td>                    
+            </tr>
+        </table>
         <table>
                         <tr>
                             <td>
@@ -297,7 +324,7 @@ SelectedIndex="0">
     
     <telerik:RadPageView ID="EQPortfolioUnRealizedTabPage" runat="server">
     <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
-        <table id="tblUnrealized" runat="server">
+        <%--<table id="tblUnrealized" runat="server">
                         <tr id="Tr4" runat="server" visible="true">
                             <td>
                                 <asp:RadioButton ID="rbtnUnrealExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -320,7 +347,17 @@ SelectedIndex="0">
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
+        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport3" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport3_Click" style="width: 20px" />
+                </td>                    
+            </tr>
+        </table>
         <table>
                         <tr>
                             <td>
@@ -420,10 +457,10 @@ SelectedIndex="0">
     </tr>
     <tr>
         <td>
-            <asp:Button ID="Button2" runat="server" OnClick="btnExport_Click" Text="Export" CssClass="ButtonField" />
+            <%--<asp:Button ID="Button2" runat="server" OnClick="btnExport_Click" Text="Export" CssClass="ButtonField" />
             <asp:Button ID="Button3" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
             <asp:Button ID="Button4" runat="server" Text="" OnClick="btnPrintGrid_Click" BorderStyle="None"
-                BackColor="Transparent" />
+                BackColor="Transparent" />--%>
         </td>
     </tr>
 </table>
