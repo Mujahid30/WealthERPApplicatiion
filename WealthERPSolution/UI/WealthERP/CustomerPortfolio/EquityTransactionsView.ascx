@@ -21,12 +21,23 @@
 
         var btn = document.getElementById(btnID);
         btn.click();
+    } function DownloadScript() {
+    if (document.getElementById('<%= gvEquityTransactions.ClientID %>') == null) {
+            alert("No records to export");
+            return false;
+        }
+        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
+        btn.click();
+    }
+
+    function setPageType(pageType) {
+        document.getElementById('<%= hdnDownloadPageType.ClientID %>').value = pageType;
     }
     function AferExportAll(btnID) {
         var btn = document.getElementById(btnID);
         btn.click();
     }
-     function checkDate(sender, args) {
+    function checkDate(sender, args) {
 
         var selectedDate = new Date();
         selectedDate = sender._selectedDate;
@@ -99,16 +110,7 @@
         </td>
     </tr>
 </table>
-<table id="ErrorMessage" align="center" runat="server">
-    <tr>
-        <td>
-            <div class="failure-msg" align="center">
-                No Records found.....
-            </div>
-        </td>
-    </tr>
-</table>
-<table style="width: 100%;" class="TableBackground" id="tblGv" runat="server">
+<%--<table style="width: 100%;" class="TableBackground" id="tblGv" runat="server">
     <tr id="Tr1" runat="server" visible="true">
         <td>
             <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
@@ -127,23 +129,103 @@
                 CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="rbtnMultiple_CheckedChanged" />
         </td>
         <td>
-            <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"
-                CssClass="ButtonField" />
+            <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"  CssClass="ButtonField" />
             <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
             <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
                 BorderStyle="None" BackColor="Transparent" />
         </td>
     </tr>
+</table>--%>
+<table style="width: 100%; margin: 0px; padding: 0px;" cellpadding="0" cellspacing="0">
+    <tr id="trModalPopup" runat="server">
+        <td>
+            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel2"
+                TargetControlID="imgBtnExport" DynamicServicePath="" BackgroundCssClass="modalBackground"
+                Enabled="True" OkControlID="btnOK" CancelControlID="btnCancel" Drag="true" OnOkScript="DownloadScript();"
+                PopupDragHandleControlID="Panel2" X="280" Y="35">
+            </cc1:ModalPopupExtender>
+        </td>
+    </tr>
+    <tr id="trExportPopup" runat="server">
+        <td>
+            <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup">
+                <br />
+                <table width="100%">
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbCurrent" runat="server" name="Radio" onclick="setPageType('single')"
+                                type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbCurrent" style="color: Black; font-family: Verdana; font-size: 8pt;
+                                text-decoration: none">
+                                Current Page</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            <input id="rbAll" runat="server" name="Radio" onclick="setPageType('multiple')" type="radio" />
+                        </td>
+                        <td align="left">
+                            <label for="rbAll" style="color: Black; font-family: Verdana; font-size: 8pt; text-decoration: none">
+                                All Pages</label>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td align="right">
+                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
+            <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
+                OnClick="btnExportExcel_Click" Height="31px" Width="30px" />
+        </td>
+    </tr>   
     <tr>
-        <td colspan="4">
-            <table style="width: 100%">
+        <td colspan="3">
+            <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+                cellspacing="0">
                 <tr>
-                    <td class="leftField">
+                    <td>
+                        <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                            runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td class="leftField" align="right">
                         <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
                         <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    </table>
+<table id="ErrorMessage" align="center" runat="server">
+    <tr>
+        <td>
+            <div class="failure-msg" align="center">
+                No Records found.....
+            </div>
         </td>
     </tr>
 </table>
@@ -165,16 +247,16 @@
                     <HeaderStyle CssClass="HeaderStyle" />
                     <AlternatingRowStyle BackColor="White" CssClass="AltRowStyle" />
                     <Columns>
-                        <asp:TemplateField HeaderText="Select">
+                        <%--<asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" CssClass="cmbField"/>
                             </ItemTemplate>
-                        <%--    <FooterTemplate>
+                            <FooterTemplate>
                                 <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
                                     runat="server" Text="Delete" />
-                            </FooterTemplate>--%>
-                        </asp:TemplateField>
-                        <asp:ButtonField CommandName="Select" ShowHeader="True" Text="View Details" ItemStyle-Wrap="false" />
+                            </FooterTemplate>
+                        </asp:TemplateField>--%>
+                        <asp:ButtonField CommandName="Select" ShowHeader="True" HeaderText="View Details" Text="View Details" ItemStyle-Wrap="false" />
                         <asp:TemplateField ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblTradeNum" runat="server" Text="Trade Number" ></asp:Label>
@@ -260,3 +342,4 @@
 <asp:HiddenField ID="hdnExchange" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTradeDate" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSort" runat="server" Visible="false" Value="Name ASC" />
+<asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />

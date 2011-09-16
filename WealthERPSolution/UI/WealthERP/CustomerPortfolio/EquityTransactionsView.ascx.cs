@@ -244,7 +244,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                    // lblMsg.Visible = false;
                     ErrorMessage.Visible = false;
-                    tblGv.Visible = true;
+                    //tblGv.Visible = true;
                     dtEquityTransactions.Columns.Add("TransactionId");
                     dtEquityTransactions.Columns.Add("TradeNum");
                     dtEquityTransactions.Columns.Add("Scheme Name");
@@ -397,7 +397,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = true;
                     gvEquityTransactions.DataSource = null;
                     gvEquityTransactions.DataBind();
-                    tblGv.Visible = false;
+                    //tblGv.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -738,34 +738,70 @@ namespace WealthERP.CustomerPortfolio
 
             return ddl;
         }
-        protected void btnExport_Click(object sender, EventArgs e)
+        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        {
+            ModalPopupExtender1.Show();
+            ModalPopupExtender1.TargetControlID = "imgBtnExport";
+
+        }
+
+        //protected void btnExport_Click(object sender, EventArgs e)
+        //{
+        //    gvEquityTransactions.Columns[0].Visible = false;
+        //    gvEquityTransactions.Columns[1].Visible = false;
+        //    if (rbAll.Checked)
+        //    {
+        //        BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    }
+        //    else if (rbCurrent.Checked)
+        //    {
+        //        BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    }
+        //    PrepareGridViewForExport(gvEquityTransactions);
+        //    if (rbtnExcel.Checked)
+        //    {
+        //    ExportGridView("Excel");
+        //    }
+        //    else if (rbtnPDF.Checked)
+        //    {
+
+        //        ExportGridView("PDF");
+        //    }
+        //    else if (rbtnWord.Checked)
+        //    {
+        //        ExportGridView("Word");
+        //    }
+        //    BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    gvEquityTransactions.Columns[0].Visible = true;
+        //    gvEquityTransactions.Columns[1].Visible = true;
+        //}
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             gvEquityTransactions.Columns[0].Visible = false;
             gvEquityTransactions.Columns[1].Visible = false;
-            if (rbtnMultiple.Checked)
+            if (rbAll.Checked)
             {
-
                 BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-
             }
-            else
+            else if (rbCurrent.Checked)
             {
                 BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
             PrepareGridViewForExport(gvEquityTransactions);
-            if (rbtnExcel.Checked)
-            {
+            //if (rbtnExcel.Checked)
+            //{
                 ExportGridView("Excel");
-            }
-            else if (rbtnPDF.Checked)
-            {
+            //}
+            //else if (rbtnPDF.Checked)
+            //{
 
-                ExportGridView("PDF");
-            }
-            else if (rbtnWord.Checked)
-            {
-                ExportGridView("Word");
-            }
+            //    ExportGridView("PDF");
+            //}
+            //else if (rbtnWord.Checked)
+            //{
+            //    ExportGridView("Word");
+            //}
             BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             gvEquityTransactions.Columns[0].Visible = true;
             gvEquityTransactions.Columns[1].Visible = true;
@@ -836,232 +872,232 @@ namespace WealthERP.CustomerPortfolio
 
 
                 }
-                else if (Filetype == "PDF")
-                {
-                    string temp = customerVo.FirstName + customerVo.LastName + "'s_EquityTransactionList";
+                //else if (Filetype == "PDF")
+                //{
+                //    string temp = customerVo.FirstName + customerVo.LastName + "'s_EquityTransactionList";
 
-                    gvEquityTransactions.AllowPaging = false;
-                    gvEquityTransactions.DataBind();
-                    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gvEquityTransactions.Columns.Count - 2);
+                //    gvEquityTransactions.AllowPaging = false;
+                //    gvEquityTransactions.DataBind();
+                //    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gvEquityTransactions.Columns.Count - 2);
 
-                    table.HeaderRows = 4;
-                    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
+                //    table.HeaderRows = 4;
+                //    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
 
-                    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
-                    clApplicationName.Border = PdfPCell.NO_BORDER;
-                    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
-
-
-
-                    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                    PdfPCell clDate = new PdfPCell(phDate);
-                    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
-                    clDate.Border = PdfPCell.NO_BORDER;
-
-
-                    headerTable.AddCell(clApplicationName);
-                    headerTable.AddCell(clDate);
-                    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
-
-
-                    PdfPCell cellHeader = new PdfPCell(headerTable);
-                    cellHeader.Border = PdfPCell.NO_BORDER;
-                    cellHeader.Colspan = gvEquityTransactions.Columns.Count - 2;
-                    table.AddCell(cellHeader);
-
-                    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
-                    PdfPCell clHeader = new PdfPCell(phHeader);
-                    clHeader.Colspan = gvEquityTransactions.Columns.Count - 2;
-                    clHeader.Border = PdfPCell.NO_BORDER;
-                    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
-                    table.AddCell(clHeader);
-
-
-                    Phrase phSpace = new Phrase("\n");
-                    PdfPCell clSpace = new PdfPCell(phSpace);
-                    clSpace.Border = PdfPCell.NO_BORDER;
-                    clSpace.Colspan = gvEquityTransactions.Columns.Count - 2;
-                    table.AddCell(clSpace);
-
-                    GridViewRow HeaderRow = gvEquityTransactions.HeaderRow;
-                    if (HeaderRow != null)
-                    {
-                        string cellText = "";
-                        for (int j = 2; j < gvEquityTransactions.Columns.Count; j++)
-                        {
-                            if (j == 2)
-                            {
-                                cellText = "Trade Number";
-                            }
-                            else if (j == 3)
-                            {
-                                cellText = "Scrip Name";
-                            }
-                            else if (j == 4)
-                            {
-                                cellText = "Transaction Type";
-                            }
-                            else if (j == 5)
-                            {
-                                cellText = "Exchange";
-                            }
-                            else if (j == 6)
-                            {
-                                cellText = "Trade Date";
-                            }
-                            else if (j == 7)
-                            {
-                                cellText = "Rate (Rs)";
-                            }
-                            else if (j == 8)
-                            {
-                                cellText = "No Of Shares";
-                            }
-                            else if (j == 9)
-                            {
-                                cellText = "Brokerage (Rs)";
-                            }
-                            else if (j == 10)
-                            {
-                                cellText = "Other Charges (Rs)";
-                            }
-                            else if (j == 11)
-                            {
-                                cellText = "Trade total (Rs)";
-                            }
-                            else
-                            {
-                                cellText = Server.HtmlDecode(gvEquityTransactions.HeaderRow.Cells[j].Text);
-                            }
-                            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
-                            table.AddCell(ph);
-                        }
-
-                    }
-
-
-                    for (int i = 0; i < gvEquityTransactions.Rows.Count; i++)
-                    {
-                        string cellText = "";
-                        if (gvEquityTransactions.Rows[i].RowType == DataControlRowType.DataRow)
-                        {
-
-                            for (int j = 2; j < gvEquityTransactions.Columns.Count; j++)
-                            {
-                                //if ((Label)gvMFTransactions.Rows[i].Cells[j].FindControl("lblSchemeHeader")!=null)
-                                if (j == 2)
-                                {
-
-                                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTradeNumHeader")).Text;
-                                }
-                                else if (j == 3)
-                                {
-
-                                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblScripHeader")).Text;
-                                }
-                                else if (j == 4)
-                                {
-                                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTranTypeHeader")).Text;
-                                }
-                                else if (j == 5)
-                                {
-                                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblExchangeHeader")).Text;
-                                }
-                                else if (j == 6)
-                                {
-                                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTradeDateHeader")).Text;
-                                }
-                                else
-                                {
-                                    cellText = gvEquityTransactions.Rows[i].Cells[j].Text;
-                                }
-
-
-                                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
-                                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
-                                table.AddCell(ph);
-
-                            }
-
-                        }
-
-                    }
+                //    Phrase phApplicationName = new Phrase("WWW.PrincipalConsulting.net", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+                //    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
+                //    clApplicationName.Border = PdfPCell.NO_BORDER;
+                //    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
 
 
 
-                    //Create the PDF Document
-
-                    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                    pdfDoc.Open();
-                    pdfDoc.Add(table);
-                    pdfDoc.Close();
-                    Response.ContentType = "application/pdf";
-                    temp = "filename=" + temp + ".pdf";
-                    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
-                    Response.AddHeader("content-disposition", "attachment;" + temp);
-                    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                    Response.Write(pdfDoc);
-                    Response.End();
+                //    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+                //    PdfPCell clDate = new PdfPCell(phDate);
+                //    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
+                //    clDate.Border = PdfPCell.NO_BORDER;
 
 
+                //    headerTable.AddCell(clApplicationName);
+                //    headerTable.AddCell(clDate);
+                //    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
 
-                }
-                else if (Filetype == "Word")
-                {
-                    gvEquityTransactions.Columns.Remove(this.gvEquityTransactions.Columns[0]);
-                    string temp = customerVo.FirstName + customerVo.LastName + "'s_EquityTransactionList.doc";
-                    string attachment = "attachment; filename=" + temp;
-                    Response.ClearContent();
-                    Response.AddHeader("content-disposition", attachment);
-                    Response.ContentType = "application/msword";
-                    StringWriter sw = new StringWriter();
-                    HtmlTextWriter htw = new HtmlTextWriter(sw);
 
-                    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\" SIZE=\"4\">Equity Transactions</FONT></caption><tr><td>");
-                    Response.Output.Write("Advisor Name : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(userVo.FirstName + userVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Customer Name  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Contact Person  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                    Response.Output.Write("</td></tr><tr><td>");
-                    Response.Output.Write("Date : ");
-                    Response.Output.Write("</td><td>");
-                    System.DateTime tDate1 = System.DateTime.Now;
-                    Response.Output.Write(tDate1);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("</tbody></table>");
-                    if (gvEquityTransactions.HeaderRow != null)
-                    {
-                        PrepareControlForExport(gvEquityTransactions.HeaderRow);
-                    }
-                    foreach (GridViewRow row in gvEquityTransactions.Rows)
-                    {
-                        PrepareControlForExport(row);
-                    }
-                    if (gvEquityTransactions.FooterRow != null)
-                    {
-                        PrepareControlForExport(gvEquityTransactions.FooterRow);
-                    }
-                    gvEquityTransactions.Parent.Controls.Add(frm);
-                    frm.Controls.Add(gvEquityTransactions);
-                    frm.RenderControl(htw);
-                    Response.Write(sw.ToString());
-                    Response.End();
+                //    PdfPCell cellHeader = new PdfPCell(headerTable);
+                //    cellHeader.Border = PdfPCell.NO_BORDER;
+                //    cellHeader.Colspan = gvEquityTransactions.Columns.Count - 2;
+                //    table.AddCell(cellHeader);
 
-                }
+                //    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
+                //    PdfPCell clHeader = new PdfPCell(phHeader);
+                //    clHeader.Colspan = gvEquityTransactions.Columns.Count - 2;
+                //    clHeader.Border = PdfPCell.NO_BORDER;
+                //    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+                //    table.AddCell(clHeader);
+
+
+                //    Phrase phSpace = new Phrase("\n");
+                //    PdfPCell clSpace = new PdfPCell(phSpace);
+                //    clSpace.Border = PdfPCell.NO_BORDER;
+                //    clSpace.Colspan = gvEquityTransactions.Columns.Count - 2;
+                //    table.AddCell(clSpace);
+
+                //    GridViewRow HeaderRow = gvEquityTransactions.HeaderRow;
+                //    if (HeaderRow != null)
+                //    {
+                //        string cellText = "";
+                //        for (int j = 2; j < gvEquityTransactions.Columns.Count; j++)
+                //        {
+                //            if (j == 2)
+                //            {
+                //                cellText = "Trade Number";
+                //            }
+                //            else if (j == 3)
+                //            {
+                //                cellText = "Scrip Name";
+                //            }
+                //            else if (j == 4)
+                //            {
+                //                cellText = "Transaction Type";
+                //            }
+                //            else if (j == 5)
+                //            {
+                //                cellText = "Exchange";
+                //            }
+                //            else if (j == 6)
+                //            {
+                //                cellText = "Trade Date";
+                //            }
+                //            else if (j == 7)
+                //            {
+                //                cellText = "Rate (Rs)";
+                //            }
+                //            else if (j == 8)
+                //            {
+                //                cellText = "No Of Shares";
+                //            }
+                //            else if (j == 9)
+                //            {
+                //                cellText = "Brokerage (Rs)";
+                //            }
+                //            else if (j == 10)
+                //            {
+                //                cellText = "Other Charges (Rs)";
+                //            }
+                //            else if (j == 11)
+                //            {
+                //                cellText = "Trade total (Rs)";
+                //            }
+                //            else
+                //            {
+                //                cellText = Server.HtmlDecode(gvEquityTransactions.HeaderRow.Cells[j].Text);
+                //            }
+                //            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
+                //            table.AddCell(ph);
+                //        }
+
+                //    }
+
+
+                //    for (int i = 0; i < gvEquityTransactions.Rows.Count; i++)
+                //    {
+                //        string cellText = "";
+                //        if (gvEquityTransactions.Rows[i].RowType == DataControlRowType.DataRow)
+                //        {
+
+                //            for (int j = 2; j < gvEquityTransactions.Columns.Count; j++)
+                //            {
+                //                //if ((Label)gvMFTransactions.Rows[i].Cells[j].FindControl("lblSchemeHeader")!=null)
+                //                if (j == 2)
+                //                {
+
+                //                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTradeNumHeader")).Text;
+                //                }
+                //                else if (j == 3)
+                //                {
+
+                //                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblScripHeader")).Text;
+                //                }
+                //                else if (j == 4)
+                //                {
+                //                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTranTypeHeader")).Text;
+                //                }
+                //                else if (j == 5)
+                //                {
+                //                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblExchangeHeader")).Text;
+                //                }
+                //                else if (j == 6)
+                //                {
+                //                    cellText = ((Label)gvEquityTransactions.Rows[i].FindControl("lblTradeDateHeader")).Text;
+                //                }
+                //                else
+                //                {
+                //                    cellText = gvEquityTransactions.Rows[i].Cells[j].Text;
+                //                }
+
+
+                //                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
+                //                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
+                //                table.AddCell(ph);
+
+                //            }
+
+                //        }
+
+                //    }
+
+
+
+                //    //Create the PDF Document
+
+                //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                //    pdfDoc.Open();
+                //    pdfDoc.Add(table);
+                //    pdfDoc.Close();
+                //    Response.ContentType = "application/pdf";
+                //    temp = "filename=" + temp + ".pdf";
+                //    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
+                //    Response.AddHeader("content-disposition", "attachment;" + temp);
+                //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                //    Response.Write(pdfDoc);
+                //    Response.End();
+
+
+
+                //}
+                //else if (Filetype == "Word")
+                //{
+                //    gvEquityTransactions.Columns.Remove(this.gvEquityTransactions.Columns[0]);
+                //    string temp = customerVo.FirstName + customerVo.LastName + "'s_EquityTransactionList.doc";
+                //    string attachment = "attachment; filename=" + temp;
+                //    Response.ClearContent();
+                //    Response.AddHeader("content-disposition", attachment);
+                //    Response.ContentType = "application/msword";
+                //    StringWriter sw = new StringWriter();
+                //    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                //    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\" SIZE=\"4\">Equity Transactions</FONT></caption><tr><td>");
+                //    Response.Output.Write("Advisor Name : ");
+                //    Response.Output.Write("</td>");
+                //    Response.Output.Write("<td>");
+                //    Response.Output.Write(userVo.FirstName + userVo.LastName);
+                //    Response.Output.Write("</td></tr>");
+                //    Response.Output.Write("<tr><td>");
+                //    Response.Output.Write("Customer Name  : ");
+                //    Response.Output.Write("</td>");
+                //    Response.Output.Write("<td>");
+                //    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
+                //    Response.Output.Write("</td></tr>");
+                //    Response.Output.Write("<tr><td>");
+                //    Response.Output.Write("Contact Person  : ");
+                //    Response.Output.Write("</td>");
+                //    Response.Output.Write("<td>");
+                //    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
+                //    Response.Output.Write("</td></tr><tr><td>");
+                //    Response.Output.Write("Date : ");
+                //    Response.Output.Write("</td><td>");
+                //    System.DateTime tDate1 = System.DateTime.Now;
+                //    Response.Output.Write(tDate1);
+                //    Response.Output.Write("</td></tr>");
+                //    Response.Output.Write("</tbody></table>");
+                //    if (gvEquityTransactions.HeaderRow != null)
+                //    {
+                //        PrepareControlForExport(gvEquityTransactions.HeaderRow);
+                //    }
+                //    foreach (GridViewRow row in gvEquityTransactions.Rows)
+                //    {
+                //        PrepareControlForExport(row);
+                //    }
+                //    if (gvEquityTransactions.FooterRow != null)
+                //    {
+                //        PrepareControlForExport(gvEquityTransactions.FooterRow);
+                //    }
+                //    gvEquityTransactions.Parent.Controls.Add(frm);
+                //    frm.Controls.Add(gvEquityTransactions);
+                //    frm.RenderControl(htw);
+                //    Response.Write(sw.ToString());
+                //    Response.End();
+
+                //}
 
             }
 
@@ -1115,34 +1151,34 @@ namespace WealthERP.CustomerPortfolio
             Response.Clear();
 
         }
-        protected void btnPrint_Click(object sender, EventArgs e)
-        {
-            gvEquityTransactions.Columns[0].Visible = false;
-            gvEquityTransactions.Columns[1].Visible = false;
-            if (rbtnMultiple.Checked)
-            {
-                BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-            }
-            else
-            {
-                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-            }
-            PrepareGridViewForExport(gvEquityTransactions);
-            if (gvEquityTransactions.HeaderRow != null)
-            {
-                PrepareControlForExport(gvEquityTransactions.HeaderRow);
-            }
-            foreach (GridViewRow row in gvEquityTransactions.Rows)
-            {
-                PrepareControlForExport(row);
-            }
-            if (gvEquityTransactions.FooterRow != null)
-            {
-                PrepareControlForExport(gvEquityTransactions.FooterRow);
-            }
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_EquityTransactionsView_tbl','ctrl_EquityTransactionsView_btnPrintGrid');", true);
+        //protected void btnPrint_Click(object sender, EventArgs e)
+        //{
+        //    gvEquityTransactions.Columns[0].Visible = false;
+        //    gvEquityTransactions.Columns[1].Visible = false;
+        //    if (rbtnMultiple.Checked)
+        //    {
+        //        BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    }
+        //    else
+        //    {
+        //        BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    }
+        //    PrepareGridViewForExport(gvEquityTransactions);
+        //    if (gvEquityTransactions.HeaderRow != null)
+        //    {
+        //        PrepareControlForExport(gvEquityTransactions.HeaderRow);
+        //    }
+        //    foreach (GridViewRow row in gvEquityTransactions.Rows)
+        //    {
+        //        PrepareControlForExport(row);
+        //    }
+        //    if (gvEquityTransactions.FooterRow != null)
+        //    {
+        //        PrepareControlForExport(gvEquityTransactions.FooterRow);
+        //    }
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_EquityTransactionsView_tbl','ctrl_EquityTransactionsView_btnPrintGrid');", true);
 
-        }
+        //}
         private static void PrepareControlForExport(Control control)
         {
             for (int i = 0; i < control.Controls.Count; i++)
@@ -1186,16 +1222,16 @@ namespace WealthERP.CustomerPortfolio
             gvEquityTransactions.Columns[0].Visible = true;
             gvEquityTransactions.Columns[1].Visible = true;
         }
-        protected void rbtnSingle_CheckedChanged(object sender, EventArgs e)
-        {
+        //protected void rbtnSingle_CheckedChanged(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        protected void rbtnMultiple_CheckedChanged(object sender, EventArgs e)
-        {
-            BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_EquityTransactionsView_btnPrintGrid');", true);
-        }
+        //protected void rbtnMultiple_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    BindGridView(customerId, Pager1.CurrentPage, 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "AferExportAll('ctrl_EquityTransactionsView_btnPrintGrid');", true);
+        //}
 
 
         protected void gvEquityTransactions_Sort(object sender, GridViewSortEventArgs e)
