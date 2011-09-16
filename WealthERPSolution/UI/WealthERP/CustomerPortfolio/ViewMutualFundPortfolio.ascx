@@ -7,7 +7,7 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
 
     function hideExportImageButton(args) {
         
@@ -18,7 +18,7 @@
             document.getElementById('<%= imgBtnExport.ClientID  %>').style.visibility = 'visible';
         }
     }
-</script>
+</script>--%>
 
 <%--<script type="text/javascript">
 
@@ -56,8 +56,12 @@
     function setFormat(format) {
 
         document.getElementById('<%= hdnDownloadFormat.ClientID %>').value = format;
-        btn = document.getElementById('<%= btnExportExcel.ClientID %>');
-        btn.click();
+        btn1 = document.getElementById('<%= imgBtnExport1.ClientID %>');
+        btn1.click();
+        btn2 = document.getElementById('<%= imgBtnExport2.ClientID %>');
+        btn2.click();
+        btn3 = document.getElementById('<%= imgBtnExport3.ClientID %>');
+        btn3.click();        
     }
 </script>
 
@@ -65,7 +69,7 @@
     <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
     <asp:ScriptManager ID="scrptMgr" runat="server">
     </asp:ScriptManager>
-    <tr>
+    <%--<tr>
         <td>
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
@@ -81,7 +85,7 @@
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" Height="31px" Width="35px" />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
@@ -175,6 +179,16 @@ SelectedIndex="0">
 
     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
       <asp:Panel ID="pnlMFPortfolioHoldings" runat="server">
+      <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport1" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport1_Click" style="width: 20px" />
+                </td>                    
+            </tr>
+        </table>
           <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
                              <td class="rightField" width="100%">
@@ -282,6 +296,16 @@ SelectedIndex="0">
     
     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
         <asp:Panel ID="pnlMFPortfolioAll" runat="server">
+        <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport2" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport2_Click" style="width: 20px" />
+                </td>                    
+            </tr>
+        </table>
             <table id="tblAll" runat="server">
                         <tr>
                             <td>
@@ -412,6 +436,16 @@ SelectedIndex="0">
     </telerik:RadPageView>
     
     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
+    <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
+            cellspacing="0">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="imgBtnExport3" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport3_Click" style="width: 20px" />
+                </td>                    
+            </tr>
+        </table>
         <asp:Panel ID="pnlMFPortfolioRealized" runat="server">
             <table>
                         <tr>

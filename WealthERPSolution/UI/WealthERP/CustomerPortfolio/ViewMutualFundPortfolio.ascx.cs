@@ -2028,332 +2028,332 @@ namespace WealthERP.CustomerPortfolio
 
 
             }
-            else if (FileType.ToLower() == "word")
-            {
+            //else if (FileType.ToLower() == "word")
+            //{
 
-                string temp = customerVo.FirstName + customerVo.LastName + title + ".doc";
-                string attachment = "attachment; filename=" + temp;
-                Response.ClearContent();
-                Response.AddHeader("content-disposition", attachment);
-                Response.ContentType = "application/msword";
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
+            //    string temp = customerVo.FirstName + customerVo.LastName + title + ".doc";
+            //    string attachment = "attachment; filename=" + temp;
+            //    Response.ClearContent();
+            //    Response.AddHeader("content-disposition", attachment);
+            //    Response.ContentType = "application/msword";
+            //    StringWriter sw = new StringWriter();
+            //    HtmlTextWriter htw = new HtmlTextWriter(sw);
 
-                Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
-                Response.Output.Write(title + "</FONT></caption><tr><td>");
-                Response.Output.Write("Advisor Name : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(userVo.FirstName + userVo.LastName);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("<tr><td>");
-                Response.Output.Write("Customer Name  : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("<tr><td>");
-                Response.Output.Write("Contact Person  : ");
-                Response.Output.Write("</td>");
-                Response.Output.Write("<td>");
-                Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                Response.Output.Write("</td></tr><tr><td>");
-                Response.Output.Write("Date : ");
-                Response.Output.Write("</td><td>");
-                System.DateTime tDate1 = System.DateTime.Now;
-                Response.Output.Write(tDate1);
-                Response.Output.Write("</td></tr>");
-                Response.Output.Write("</tbody></table>");
-                // Create a form to contain the grid
-                gv.Parent.Controls.Add(frm);
-                frm.Controls.Add(gv);
-                frm.RenderControl(htw);
-                Response.Write(sw.ToString());
-                Response.End();
+            //    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
+            //    Response.Output.Write(title + "</FONT></caption><tr><td>");
+            //    Response.Output.Write("Advisor Name : ");
+            //    Response.Output.Write("</td>");
+            //    Response.Output.Write("<td>");
+            //    Response.Output.Write(userVo.FirstName + userVo.LastName);
+            //    Response.Output.Write("</td></tr>");
+            //    Response.Output.Write("<tr><td>");
+            //    Response.Output.Write("Customer Name  : ");
+            //    Response.Output.Write("</td>");
+            //    Response.Output.Write("<td>");
+            //    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
+            //    Response.Output.Write("</td></tr>");
+            //    Response.Output.Write("<tr><td>");
+            //    Response.Output.Write("Contact Person  : ");
+            //    Response.Output.Write("</td>");
+            //    Response.Output.Write("<td>");
+            //    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
+            //    Response.Output.Write("</td></tr><tr><td>");
+            //    Response.Output.Write("Date : ");
+            //    Response.Output.Write("</td><td>");
+            //    System.DateTime tDate1 = System.DateTime.Now;
+            //    Response.Output.Write(tDate1);
+            //    Response.Output.Write("</td></tr>");
+            //    Response.Output.Write("</tbody></table>");
+            //    // Create a form to contain the grid
+            //    gv.Parent.Controls.Add(frm);
+            //    frm.Controls.Add(gv);
+            //    frm.RenderControl(htw);
+            //    Response.Write(sw.ToString());
+            //    Response.End();
 
-            }
-            else if (FileType.ToLower() == "pdf")
-            {
-                string temp = customerVo.FirstName + customerVo.LastName + title;
-                iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gv.Columns.Count - 1);
-                table.HeaderRows = 4;
-                iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
-                Phrase phApplicationName = new Phrase(" ", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                PdfPCell clApplicationName = new PdfPCell(phApplicationName);
-                clApplicationName.Border = PdfPCell.NO_BORDER;
-                clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
-
-
-                Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
-                PdfPCell clDate = new PdfPCell(phDate);
-                clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
-                clDate.Border = PdfPCell.NO_BORDER;
+            //}
+            //else if (FileType.ToLower() == "pdf")
+            //{
+            //    string temp = customerVo.FirstName + customerVo.LastName + title;
+            //    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(gv.Columns.Count - 1);
+            //    table.HeaderRows = 4;
+            //    iTextSharp.text.pdf.PdfPTable headerTable = new iTextSharp.text.pdf.PdfPTable(2);
+            //    Phrase phApplicationName = new Phrase(" ", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+            //    PdfPCell clApplicationName = new PdfPCell(phApplicationName);
+            //    clApplicationName.Border = PdfPCell.NO_BORDER;
+            //    clApplicationName.HorizontalAlignment = Element.ALIGN_LEFT;
 
 
-                headerTable.AddCell(clApplicationName);
-                headerTable.AddCell(clDate);
-                headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
-
-                PdfPCell cellHeader = new PdfPCell(headerTable);
-                cellHeader.Border = PdfPCell.NO_BORDER;
-                cellHeader.Colspan = gv.Columns.Count - 1;
-                table.AddCell(cellHeader);
-
-                Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
-                PdfPCell clHeader = new PdfPCell(phHeader);
-                clHeader.Colspan = gv.Columns.Count - 1;
-                clHeader.Border = PdfPCell.NO_BORDER;
-                clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
-                table.AddCell(clHeader);
+            //    Phrase phDate = new Phrase(DateTime.Now.Date.ToString("dd/MM/yyyy"), FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.NORMAL));
+            //    PdfPCell clDate = new PdfPCell(phDate);
+            //    clDate.HorizontalAlignment = Element.ALIGN_RIGHT;
+            //    clDate.Border = PdfPCell.NO_BORDER;
 
 
-                Phrase phSpace = new Phrase("\n");
-                PdfPCell clSpace = new PdfPCell(phSpace);
-                clSpace.Border = PdfPCell.NO_BORDER;
-                clSpace.Colspan = gv.Columns.Count - 1;
-                table.AddCell(clSpace);
+            //    headerTable.AddCell(clApplicationName);
+            //    headerTable.AddCell(clDate);
+            //    headerTable.DefaultCell.Border = PdfPCell.NO_BORDER;
 
-                GridViewRow HeaderRow = gv.HeaderRow;
-                if (HeaderRow != null)
-                {
-                    string cellText = "";
-                    for (int j = 1; j < gv.Columns.Count; j++)
-                    {
+            //    PdfPCell cellHeader = new PdfPCell(headerTable);
+            //    cellHeader.Border = PdfPCell.NO_BORDER;
+            //    cellHeader.Colspan = gv.Columns.Count - 1;
+            //    table.AddCell(cellHeader);
 
-                        if (j == 2)
-                        {
-                            cellText = "Folio Number";
-                        }
-                        else if (j == 3)
-                        {
-                            cellText = "Scheme Name";
-                        }
-                        else if (j == 4)
-                        {
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Current Units";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Number of Units sold";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "Current Units";
-                            }
+            //    Phrase phHeader = new Phrase(temp, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD));
+            //    PdfPCell clHeader = new PdfPCell(phHeader);
+            //    clHeader.Colspan = gv.Columns.Count - 1;
+            //    clHeader.Border = PdfPCell.NO_BORDER;
+            //    clHeader.HorizontalAlignment = Element.ALIGN_CENTER;
+            //    table.AddCell(clHeader);
 
 
-                        }
-                        else if (j == 5)
-                        {
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Average Price (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Realized sale Proceeds (Rs)";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "Cost of Acquisition (Rs)";
-                            }
+            //    Phrase phSpace = new Phrase("\n");
+            //    PdfPCell clSpace = new PdfPCell(phSpace);
+            //    clSpace.Border = PdfPCell.NO_BORDER;
+            //    clSpace.Colspan = gv.Columns.Count - 1;
+            //    table.AddCell(clSpace);
+
+            //    GridViewRow HeaderRow = gv.HeaderRow;
+            //    if (HeaderRow != null)
+            //    {
+            //        string cellText = "";
+            //        for (int j = 1; j < gv.Columns.Count; j++)
+            //        {
+
+            //            if (j == 2)
+            //            {
+            //                cellText = "Folio Number";
+            //            }
+            //            else if (j == 3)
+            //            {
+            //                cellText = "Scheme Name";
+            //            }
+            //            else if (j == 4)
+            //            {
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Current Units";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Number of Units sold";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "Current Units";
+            //                }
 
 
-                        }
-                        else if (j == 6)
-                        {
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Cost of Acquisition (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Cost of Sales (Rs)";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "Current NAV (Rs)";
-                            }
+            //            }
+            //            else if (j == 5)
+            //            {
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Average Price (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Realized sale Proceeds (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "Cost of Acquisition (Rs)";
+            //                }
 
 
-                        }
-                        else if (j == 7)
-                        {
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Current NAV (Rs) ";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Divident Income (Rs)";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "Current Value (Rs)";
-                            }
+            //            }
+            //            else if (j == 6)
+            //            {
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Cost of Acquisition (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Cost of Sales (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "Current NAV (Rs)";
+            //                }
 
 
-                        }
-                        else if (j == 8)
-                        {
-
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Current Value (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Realized P/L (Rs)";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "UnRealized P/L (Rs)";
-                            }
-
-                        }
-                        else if (j == 9)
-                        {
-
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Dividend Income (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Absolute Return";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "UnRealized Gain/Loss %";
-                            }
-                        }
-                        else if (j == 10)
-                        {
-
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "UnRealized P/L (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "Annual Return";
-                            }
-                            else if (title == "MFPortfolioNotional")
-                            {
-                                cellText = "XIRR";
-                            }
-                        }
-                        else if (j == 11)
-                        {
-
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "Realized P/L (Rs)";
-                            }
-                            else if (title == "MFPortfolioRealized")
-                            {
-                                cellText = "XIRR";
-                            }
-                        }
-                        else if (j == 12)
-                        {
-
-                            if (title == "MFPortfolio")
-                            {
-                                cellText = "XIRR";
-                            }
-                        }
-                        else
-                        {
-                            cellText = Server.HtmlDecode(gv.HeaderRow.Cells[j].Text);
-                        }
-                        Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
-                        table.AddCell(ph);
-                    }
-
-                }
-
-                for (int i = 0; i < gv.Rows.Count; i++)
-                {
-                    string cellText = "";
-                    if (gv.Rows[i].RowType == DataControlRowType.DataRow)
-                    {
-                        for (int j = 1; j < gv.Columns.Count; j++)
-                        {
-                            if (j == 1)
-                            {
-                                cellText = (i + 1).ToString();
-                            }
-                            else if (j == 2)
-                            {
-                                if (title == "MFPortfolio")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblFolioHeader")).Text;
-                                }
-                                else if (title == "MFPortfolioRealized")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblRealizedFolioHeader")).Text;
-                                }
-                                else if (title == "MFPortfolioNotional")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblNotionalFolioHeader")).Text;
-                                }
+            //            }
+            //            else if (j == 7)
+            //            {
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Current NAV (Rs) ";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Divident Income (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "Current Value (Rs)";
+            //                }
 
 
-                            }
-                            else if (j == 3)
-                            {
-                                if (title == "MFPortfolio")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblNameHeader")).Text;
-                                }
-                                else if (title == "MFPortfolioRealized")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblRealizedNameHeader")).Text;
-                                }
-                                else if (title == "MFPortfolioNotional")
-                                {
-                                    cellText = ((Label)gv.Rows[i].FindControl("lblNotionalNameHeader")).Text;
-                                }
-                            }
-                            else
-                            {
-                                cellText = Server.HtmlDecode(gv.Rows[i].Cells[j].Text);
-                            }
+            //            }
+            //            else if (j == 8)
+            //            {
 
-                            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
-                            iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
-                            table.AddCell(ph);
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Current Value (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Realized P/L (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "UnRealized P/L (Rs)";
+            //                }
 
-                        }
+            //            }
+            //            else if (j == 9)
+            //            {
 
-                    }
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Dividend Income (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Absolute Return";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "UnRealized Gain/Loss %";
+            //                }
+            //            }
+            //            else if (j == 10)
+            //            {
 
-                }
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "UnRealized P/L (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "Annual Return";
+            //                }
+            //                else if (title == "MFPortfolioNotional")
+            //                {
+            //                    cellText = "XIRR";
+            //                }
+            //            }
+            //            else if (j == 11)
+            //            {
+
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "Realized P/L (Rs)";
+            //                }
+            //                else if (title == "MFPortfolioRealized")
+            //                {
+            //                    cellText = "XIRR";
+            //                }
+            //            }
+            //            else if (j == 12)
+            //            {
+
+            //                if (title == "MFPortfolio")
+            //                {
+            //                    cellText = "XIRR";
+            //                }
+            //            }
+            //            else
+            //            {
+            //                cellText = Server.HtmlDecode(gv.HeaderRow.Cells[j].Text);
+            //            }
+            //            Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.BOLD));
+            //            table.AddCell(ph);
+            //        }
+
+            //    }
+
+            //    for (int i = 0; i < gv.Rows.Count; i++)
+            //    {
+            //        string cellText = "";
+            //        if (gv.Rows[i].RowType == DataControlRowType.DataRow)
+            //        {
+            //            for (int j = 1; j < gv.Columns.Count; j++)
+            //            {
+            //                if (j == 1)
+            //                {
+            //                    cellText = (i + 1).ToString();
+            //                }
+            //                else if (j == 2)
+            //                {
+            //                    if (title == "MFPortfolio")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblFolioHeader")).Text;
+            //                    }
+            //                    else if (title == "MFPortfolioRealized")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblRealizedFolioHeader")).Text;
+            //                    }
+            //                    else if (title == "MFPortfolioNotional")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblNotionalFolioHeader")).Text;
+            //                    }
 
 
+            //                }
+            //                else if (j == 3)
+            //                {
+            //                    if (title == "MFPortfolio")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblNameHeader")).Text;
+            //                    }
+            //                    else if (title == "MFPortfolioRealized")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblRealizedNameHeader")).Text;
+            //                    }
+            //                    else if (title == "MFPortfolioNotional")
+            //                    {
+            //                        cellText = ((Label)gv.Rows[i].FindControl("lblNotionalNameHeader")).Text;
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    cellText = Server.HtmlDecode(gv.Rows[i].Cells[j].Text);
+            //                }
 
-                //Create the PDF Document
+            //                Phrase ph = new Phrase(cellText, FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL));
+            //                iTextSharp.text.Cell cell = new iTextSharp.text.Cell(cellText);
+            //                table.AddCell(ph);
 
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                pdfDoc.Open();
-                pdfDoc.NewPage();
-                pdfDoc.Add(table);
-                pdfDoc.Close();
-                Response.ContentType = "application/pdf";
-                temp = "filename=" + temp + ".pdf";
-                //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
-                Response.AddHeader("content-disposition", "attachment;" + temp);
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.Write(pdfDoc);
-                Response.End();
+            //            }
+
+            //        }
+
+            //    }
 
 
 
-            }
+            //    //Create the PDF Document
+
+            //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+            //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            //    pdfDoc.Open();
+            //    pdfDoc.NewPage();
+            //    pdfDoc.Add(table);
+            //    pdfDoc.Close();
+            //    Response.ContentType = "application/pdf";
+            //    temp = "filename=" + temp + ".pdf";
+            //    //    Response.AddHeader("content-disposition", "attachment;" + "filename=GridViewExport.pdf");
+            //    Response.AddHeader("content-disposition", "attachment;" + temp);
+            //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //    Response.Write(pdfDoc);
+            //    Response.End();
+
+
+
+            //}
         }
 
         //protected void btnExportPortfolio_Click(object sender, EventArgs e)
@@ -2542,100 +2542,207 @@ namespace WealthERP.CustomerPortfolio
         }
 
 
-        protected void btnPrintGrid_Click(object sender, EventArgs e)
-        {
-            LoadMFPortfolio();
+        //protected void btnPrintGrid_Click(object sender, EventArgs e)
+        //{
+        //    LoadMFPortfolio();
 
-        }
-        protected void btnExportExcel_Click(object sender, EventArgs e)
-        {
+        //}
+        //protected void btnExportExcel_Click(object sender, EventArgs e)
+        //{
 
-            hdnDownloadFormat.Value = "excel";
-            if (hdnSelectedTab.Value.ToString() == "1")
-            {
-                gvMFPortfolio.Columns[0].Visible = false;
-                for(int i=0;i<gvMFPortfolio.Rows.Count;i++)
-                {
-                    if (gvMFPortfolio.Rows[i].RowType!=DataControlRowType.Header)
-                    {
-                        gvMFPortfolio.Rows[i].Cells[7].Text=gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",","");
-                        gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
+        //    hdnDownloadFormat.Value = "excel";
+        //    if (hdnSelectedTab.Value.ToString() == "1")
+        //    {
+        //        gvMFPortfolio.Columns[0].Visible = false;
+        //        for(int i=0;i<gvMFPortfolio.Rows.Count;i++)
+        //        {
+        //            if (gvMFPortfolio.Rows[i].RowType!=DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolio.Rows[i].Cells[7].Text=gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",","");
+        //                gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
 
-                    }
-                }
-                PrepareGridViewForExport(gvMFPortfolio);
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolio);
                 
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
-            }
-            else if (hdnSelectedTab.Value.ToString() == "2")
-            {
-                gvMFPortfolioRealized.Columns[0].Visible = false;
-                for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
-                {
-                    if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
-                    {
-                        gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
+        //    }
+        //    else if (hdnSelectedTab.Value.ToString() == "2")
+        //    {
+        //        gvMFPortfolioRealized.Columns[0].Visible = false;
+        //        for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
+        //        {
+        //            if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
 
-                        gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[18].Text = gvMFPortfolioRealized.Rows[i].Cells[18].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[19].Text = gvMFPortfolioRealized.Rows[i].Cells[19].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[18].Text = gvMFPortfolioRealized.Rows[i].Cells[18].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[19].Text = gvMFPortfolioRealized.Rows[i].Cells[19].Text.Replace(",", "");
 
-                    }
-                }
-                PrepareGridViewForExport(gvMFPortfolioRealized);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
-            }
-            else if (hdnSelectedTab.Value.ToString() == "0")
-            {
-                gvMFPortfolioNotional.Columns[0].Visible = false;
-                for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
-                {
-                    if (gvMFPortfolioNotional.Rows[i].RowType != DataControlRowType.Header)
-                    {
-                        gvMFPortfolioNotional.Rows[i].Cells[6].Text = gvMFPortfolioNotional.Rows[i].Cells[6].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[7].Text = gvMFPortfolioNotional.Rows[i].Cells[7].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[8].Text = gvMFPortfolioNotional.Rows[i].Cells[8].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[9].Text = gvMFPortfolioNotional.Rows[i].Cells[9].Text.Replace(",", "");
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolioRealized);
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
+        //    }
+        //    else if (hdnSelectedTab.Value.ToString() == "0")
+        //    {
+        //        gvMFPortfolioNotional.Columns[0].Visible = false;
+        //        for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
+        //        {
+        //            if (gvMFPortfolioNotional.Rows[i].RowType != DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolioNotional.Rows[i].Cells[6].Text = gvMFPortfolioNotional.Rows[i].Cells[6].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[7].Text = gvMFPortfolioNotional.Rows[i].Cells[7].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[8].Text = gvMFPortfolioNotional.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[9].Text = gvMFPortfolioNotional.Rows[i].Cells[9].Text.Replace(",", "");
 
-                        gvMFPortfolioNotional.Rows[i].Cells[10].Text = gvMFPortfolioNotional.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[11].Text = gvMFPortfolioNotional.Rows[i].Cells[11].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[14].Text = gvMFPortfolioNotional.Rows[i].Cells[14].Text.Replace(",", "");
-                        gvMFPortfolioNotional.Rows[i].Cells[15].Text = gvMFPortfolioNotional.Rows[i].Cells[15].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[10].Text = gvMFPortfolioNotional.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[11].Text = gvMFPortfolioNotional.Rows[i].Cells[11].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[14].Text = gvMFPortfolioNotional.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[15].Text = gvMFPortfolioNotional.Rows[i].Cells[15].Text.Replace(",", "");
 
-                    }
-                }
-                PrepareGridViewForExport(gvMFPortfolioNotional);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
-            }
-
-
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolioNotional);
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
+        //    }
 
 
 
-        }
 
-        protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
-        {
-            hdnDownloadFormat.Value = "excel";
-            Export();
+
+        //}
+
+        //protected void imgBtnExport_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    hdnDownloadFormat.Value = "excel";
+        //    Export();
             
-        }
-        private void Export()
+        //}
+        //private void Export()
+        //{
+        //    if (hdnSelectedTab.Value.ToString() == "0")
+        //    {
+        //        gvMFPortfolioNotional.Columns[0].Visible = false;
+        //        for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
+        //        {
+        //            if (gvMFPortfolioNotional.Rows[i].RowType != DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolioNotional.Rows[i].Cells[6].Text = gvMFPortfolioNotional.Rows[i].Cells[6].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[7].Text = gvMFPortfolioNotional.Rows[i].Cells[7].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[8].Text = gvMFPortfolioNotional.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[9].Text = gvMFPortfolioNotional.Rows[i].Cells[9].Text.Replace(",", "");
+
+        //                gvMFPortfolioNotional.Rows[i].Cells[10].Text = gvMFPortfolioNotional.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[11].Text = gvMFPortfolioNotional.Rows[i].Cells[11].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[12].Text = gvMFPortfolioNotional.Rows[i].Cells[12].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[13].Text = gvMFPortfolioNotional.Rows[i].Cells[13].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[14].Text = gvMFPortfolioNotional.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[15].Text = gvMFPortfolioNotional.Rows[i].Cells[15].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[16].Text = gvMFPortfolioNotional.Rows[i].Cells[16].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[17].Text = gvMFPortfolioNotional.Rows[i].Cells[17].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[18].Text = gvMFPortfolioNotional.Rows[i].Cells[18].Text.Replace(",", "");
+        //                gvMFPortfolioNotional.Rows[i].Cells[19].Text = gvMFPortfolioNotional.Rows[i].Cells[19].Text.Replace(",", "");
+
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolioNotional);
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
+
+                
+        //    }
+        //    else if (hdnSelectedTab.Value.ToString() == "1")
+        //    {
+        //        gvMFPortfolio.Columns[0].Visible = false;
+        //        for (int i = 0; i < gvMFPortfolio.Rows.Count; i++)
+        //        {
+        //            if (gvMFPortfolio.Rows[i].RowType != DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolio.Rows[i].Cells[5].Text = gvMFPortfolio.Rows[i].Cells[5].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[6].Text = gvMFPortfolio.Rows[i].Cells[6].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[7].Text = gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[11].Text = gvMFPortfolio.Rows[i].Cells[11].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[17].Text = gvMFPortfolio.Rows[i].Cells[17].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[18].Text = gvMFPortfolio.Rows[i].Cells[18].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[19].Text = gvMFPortfolio.Rows[i].Cells[19].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[20].Text = gvMFPortfolio.Rows[i].Cells[20].Text.Replace(",", "");
+        //                gvMFPortfolio.Rows[i].Cells[21].Text = gvMFPortfolio.Rows[i].Cells[21].Text.Replace(",", "");
+
+
+
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolio);
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
+        //    }
+        //    else if (hdnSelectedTab.Value.ToString() == "2")
+        //    {
+        //        gvMFPortfolioRealized.Columns[0].Visible = false;
+        //        for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
+        //        {
+        //            if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
+        //            {
+        //                gvMFPortfolioRealized.Rows[i].Cells[6].Text = gvMFPortfolioRealized.Rows[i].Cells[6].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[9].Text = gvMFPortfolioRealized.Rows[i].Cells[9].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
+        //                gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
+
+
+        //            }
+        //        }
+        //        PrepareGridViewForExport(gvMFPortfolioRealized);
+        //        ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
+
+        //    }
+        //}
+
+        //protected void imgBtnWord_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    hdnDownloadFormat.Value = "word";
+        //    Export();
+        //}
+
+        //protected void imgBtnPdf_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    hdnDownloadFormat.Value = "pdf";
+        //    Export();
+        //}
+
+        //protected void imgBtnPrint_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    hdnDownloadFormat.Value = "print";
+        //    Export();
+        //}
+
+        private void gvMFPortfolioNotionalExport()
         {
-            if (hdnSelectedTab.Value.ToString() == "0")
-            {
                 gvMFPortfolioNotional.Columns[0].Visible = false;
                 for (int i = 0; i < gvMFPortfolioNotional.Rows.Count; i++)
                 {
@@ -2660,85 +2767,62 @@ namespace WealthERP.CustomerPortfolio
                     }
                 }
                 PrepareGridViewForExport(gvMFPortfolioNotional);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);
+                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvMFPortfolioNotional);            
+        }
 
-                
-            }
-            else if (hdnSelectedTab.Value.ToString() == "1")
+        private void gvMFPortfolioExport()
+        {
+            gvMFPortfolio.Columns[0].Visible = false;
+            for (int i = 0; i < gvMFPortfolio.Rows.Count; i++)
             {
-                gvMFPortfolio.Columns[0].Visible = false;
-                for (int i = 0; i < gvMFPortfolio.Rows.Count; i++)
+                if (gvMFPortfolio.Rows[i].RowType != DataControlRowType.Header)
                 {
-                    if (gvMFPortfolio.Rows[i].RowType != DataControlRowType.Header)
-                    {
-                        gvMFPortfolio.Rows[i].Cells[5].Text = gvMFPortfolio.Rows[i].Cells[5].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[6].Text = gvMFPortfolio.Rows[i].Cells[6].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[7].Text = gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[11].Text = gvMFPortfolio.Rows[i].Cells[11].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[17].Text = gvMFPortfolio.Rows[i].Cells[17].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[18].Text = gvMFPortfolio.Rows[i].Cells[18].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[19].Text = gvMFPortfolio.Rows[i].Cells[19].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[20].Text = gvMFPortfolio.Rows[i].Cells[20].Text.Replace(",", "");
-                        gvMFPortfolio.Rows[i].Cells[21].Text = gvMFPortfolio.Rows[i].Cells[21].Text.Replace(",", "");
-
-
-
-                    }
+                    gvMFPortfolio.Rows[i].Cells[5].Text = gvMFPortfolio.Rows[i].Cells[5].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[6].Text = gvMFPortfolio.Rows[i].Cells[6].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[7].Text = gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[11].Text = gvMFPortfolio.Rows[i].Cells[11].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[13].Text = gvMFPortfolio.Rows[i].Cells[13].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[14].Text = gvMFPortfolio.Rows[i].Cells[14].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[15].Text = gvMFPortfolio.Rows[i].Cells[15].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[16].Text = gvMFPortfolio.Rows[i].Cells[16].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[17].Text = gvMFPortfolio.Rows[i].Cells[17].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[18].Text = gvMFPortfolio.Rows[i].Cells[18].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[19].Text = gvMFPortfolio.Rows[i].Cells[19].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[20].Text = gvMFPortfolio.Rows[i].Cells[20].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[21].Text = gvMFPortfolio.Rows[i].Cells[21].Text.Replace(",", "");
                 }
-                PrepareGridViewForExport(gvMFPortfolio);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
             }
-            else if (hdnSelectedTab.Value.ToString() == "2")
+            PrepareGridViewForExport(gvMFPortfolio);
+            ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolio", gvMFPortfolio);
+            
+        }
+
+        private void gvMFPortfolioRealizedExport()
+        {
+          gvMFPortfolioRealized.Columns[0].Visible = false;
+            for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
             {
-                gvMFPortfolioRealized.Columns[0].Visible = false;
-                for (int i = 0; i < gvMFPortfolioRealized.Rows.Count; i++)
+                if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
                 {
-                    if (gvMFPortfolioRealized.Rows[i].RowType != DataControlRowType.Header)
-                    {
-                        gvMFPortfolioRealized.Rows[i].Cells[6].Text = gvMFPortfolioRealized.Rows[i].Cells[6].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[9].Text = gvMFPortfolioRealized.Rows[i].Cells[9].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
-                        gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
-
-
-                    }
+                    gvMFPortfolioRealized.Rows[i].Cells[6].Text = gvMFPortfolioRealized.Rows[i].Cells[6].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[7].Text = gvMFPortfolioRealized.Rows[i].Cells[7].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[8].Text = gvMFPortfolioRealized.Rows[i].Cells[8].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[9].Text = gvMFPortfolioRealized.Rows[i].Cells[9].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[10].Text = gvMFPortfolioRealized.Rows[i].Cells[10].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[11].Text = gvMFPortfolioRealized.Rows[i].Cells[11].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[12].Text = gvMFPortfolioRealized.Rows[i].Cells[12].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[13].Text = gvMFPortfolioRealized.Rows[i].Cells[13].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[14].Text = gvMFPortfolioRealized.Rows[i].Cells[14].Text.Replace(",", "");
+                    gvMFPortfolioRealized.Rows[i].Cells[15].Text = gvMFPortfolioRealized.Rows[i].Cells[15].Text.Replace(",", "");
                 }
-                PrepareGridViewForExport(gvMFPortfolioRealized);
-                ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
-
             }
-        }
+            PrepareGridViewForExport(gvMFPortfolioRealized);
+            ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioRealized", gvMFPortfolioRealized);
 
-        protected void imgBtnWord_Click(object sender, ImageClickEventArgs e)
-        {
-            hdnDownloadFormat.Value = "word";
-            Export();
-        }
-
-        protected void imgBtnPdf_Click(object sender, ImageClickEventArgs e)
-        {
-            hdnDownloadFormat.Value = "pdf";
-            Export();
-        }
-
-        protected void imgBtnPrint_Click(object sender, ImageClickEventArgs e)
-        {
-            hdnDownloadFormat.Value = "print";
-            Export();
         }
 
         protected void GetBackNotionalLink_Click(object sender, EventArgs e)
@@ -2754,6 +2838,24 @@ namespace WealthERP.CustomerPortfolio
         protected void GoBackAllLink_Click(object sender, EventArgs e)
         {
             LoadMFPortfolio();
+        }
+
+        protected void imgBtnExport1_Click(object sender, ImageClickEventArgs e)
+        {
+            hdnDownloadFormat.Value = "excel";
+            gvMFPortfolioNotionalExport();
+        }
+
+        protected void imgBtnExport2_Click(object sender, ImageClickEventArgs e)
+        {
+            hdnDownloadFormat.Value = "excel";
+            gvMFPortfolioExport();
+        }
+
+        protected void imgBtnExport3_Click(object sender, ImageClickEventArgs e)
+        {
+            hdnDownloadFormat.Value = "excel";
+            gvMFPortfolioRealizedExport();
         }
 
         //protected void btnGo_Click(object sender, EventArgs e)
