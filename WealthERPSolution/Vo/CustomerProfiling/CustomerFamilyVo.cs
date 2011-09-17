@@ -20,6 +20,7 @@ namespace VoCustomerProfiling
         private string m_MiddleName;
         private string m_LastName;
         private string m_EmailId;
+        private string m_PanNo;
 
 
 
@@ -83,7 +84,11 @@ namespace VoCustomerProfiling
             get { return m_LastName; }
             set { m_LastName = value; }
         }
-
+        public string PanNo
+        {
+            get { return m_PanNo; }
+            set { m_PanNo = value; }
+        }
         #endregion Properties
     }
 }
