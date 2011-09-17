@@ -83,6 +83,7 @@ namespace WealthERP.FP
                         dt.Columns.Add("LastName");
                         dt.Columns.Add("DOB");
                         dt.Columns.Add("EmailId");
+                        dt.Columns.Add("PanNum");
                         Session[SessionContents.FPS_AddProspect_DataTable] = dt;
 
                     }
@@ -123,6 +124,7 @@ namespace WealthERP.FP
                                     dr["DOB"] = customerFamilyVo.DOB.ToShortDateString();
                                 }
                                 dr["EmailId"] = customerFamilyVo.EmailId;
+                                dr["PanNum"] = customerFamilyVo.PanNo;
                                 dt.Rows.Add(dr);
                             }
                             Session[SessionContents.FPS_AddProspect_DataTable] = dt;
@@ -500,7 +502,7 @@ namespace WealthERP.FP
         }
         protected void BindRelation(DropDownList ddList)
         {
-
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
         }
 
 
@@ -1435,10 +1437,12 @@ namespace WealthERP.FP
             string associationStatus = "";
             if (val == "1")
             {
-                customerId = int.Parse(Session["ChildCustomerId"].ToString());
-                hdnassociationcount.Value = customerBo.CheckAndDeleteTheChildCustomers("C", customerId).ToString();
-                associationStatus = Convert.ToString(hdnassociationcount.Value);
-
+                if (Session["ChildCustomerId"].ToString() != null)
+                {
+                    customerId = int.Parse(Session["ChildCustomerId"].ToString());
+                    hdnassociationcount.Value = customerBo.CheckAndDeleteTheChildCustomers("C", customerId).ToString();
+                    associationStatus = Convert.ToString(hdnassociationcount.Value);
+                }
                 if (associationStatus == "0")
                 {
                     if (customerBo.DeleteChildCustomer(customerId, "D"))
@@ -1639,6 +1643,66 @@ namespace WealthERP.FP
                 --years;
 
             return years;
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showdeletemessage();", true);
+        }
+            
+
+        protected void hiddenassociation1_Click(object sender, EventArgs e)
+        {
+            int customerId;
+            string val = Convert.ToString(hdnDeletemsgValue.Value);
+            if (val == "1")
+            {
+                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
+                hdnassociationdeletecount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
+                string asc = Convert.ToString(hdnassociationdeletecount.Value);
+
+                if (asc == "0")
+                    DeleteCustomerProfile();
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Customer has associations, cannot be deleted');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                }
+            }
+        }
+        private void DeleteCustomerProfile()
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session[SessionContents.UserVo];
+
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomer','login');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
+                object[] objects = new object[3];
+                objects[0] = customerVo;
+                //objects[1] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
 
     }

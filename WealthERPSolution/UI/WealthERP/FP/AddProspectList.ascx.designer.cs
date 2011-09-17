@@ -536,6 +536,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceCustomerRelation;
         
         /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelete;
+        
+        /// <summary>
         /// btnSubmit control.
         /// </summary>
         /// <remarks>
@@ -599,6 +608,33 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.HiddenField hdnassociationcount;
         
         /// <summary>
+        /// hdnDeletemsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDeletemsgValue;
+        
+        /// <summary>
+        /// hdnassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociation;
+        
+        /// <summary>
+        /// hdnassociationdeletecount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnassociationdeletecount;
+        
+        /// <summary>
         /// hdnGender control.
         /// </summary>
         /// <remarks>
@@ -633,5 +669,14 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        
+        /// <summary>
+        /// hiddenassociation1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenassociation1;
     }
 }

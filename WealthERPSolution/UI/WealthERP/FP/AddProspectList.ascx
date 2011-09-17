@@ -33,6 +33,7 @@
 </script>
 
 <script type="text/javascript">
+//***********************Deletion of Child Customer**************
     function showmessage() {
         if (confirm("Are you sure you want to delete this child customer?")) {
             document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 1;
@@ -50,6 +51,29 @@
     function showassocation() {
         alert("Customer has associations, cannot be deleted");
     }
+
+    //*************************Deletion of parent Customer********
+
+    function showdeletemessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this Customer?');
+
+        if (bool) {
+            document.getElementById("ctrl_AddProspectList_hdnDeletemsgValue").value = 1;
+            document.getElementById("ctrl_AddProspectList_hiddenassociation1").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_AddProspectList_hdnDeletemsgValue").value = 0;
+            document.getElementById("ctrl_AddProspectList_hiddenassociation1").click();
+            return true;
+        }
+
+    }
+
+    
+    
 </script>
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
@@ -349,6 +373,8 @@
                                         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ControlToValidate="txtGridEmailId"></asp:RegularExpressionValidator>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn UniqueName="PanNum" HeaderText="Pan No" DataField="PanNum"
+                                    HeaderStyle-HorizontalAlign="Center" />
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
                                     ImageUrl="../Images/Telerik/Delete.gif" ButtonType="ImageButton" />
                             </Columns>
@@ -374,6 +400,7 @@
 <table width="100%">
     <tr>
         <td align="center">
+        <asp:Button ID="btnDelete" runat="server" Text="Delete" onclick="btnDelete_Click"/>
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
                  />
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
@@ -393,6 +420,10 @@
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnassociationcount" runat="server" />
 
+<asp:HiddenField ID="hdnDeletemsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociation" runat="server" Visible="true" />
+<asp:HiddenField ID="hdnassociationdeletecount" runat="server" />
+
 <asp:HiddenField ID="hdnGender" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAge" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnTaxSlabValue" runat="server" Visible="false" />
@@ -400,4 +431,7 @@
 <div style="visibility: hidden">
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" ForeColor="Transparent"   />
+    
+<asp:Button ID="hiddenassociation1" runat="server" OnClick="hiddenassociation1_Click"
+    BorderStyle="None" BackColor="Transparent" />
 </div>
