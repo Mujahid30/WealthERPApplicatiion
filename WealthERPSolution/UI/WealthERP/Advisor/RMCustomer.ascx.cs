@@ -781,15 +781,15 @@ namespace WealthERP
                 customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
                 Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
 
-                if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
-                {
+                //if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
+                //{
 
                     if (ddlAction.SelectedItem.Value.ToString() != "Profile")
                     {
 
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
                     }
-                }
+                //}
                 if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     if (customerVo.IsProspect == 0)
@@ -932,10 +932,10 @@ namespace WealthERP
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol(''GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 //}
-                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
-                {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-                }
+                //else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                //{
+                //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                //}
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
                     if (customerId != 0)

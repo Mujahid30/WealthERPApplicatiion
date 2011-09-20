@@ -176,7 +176,7 @@
                                     <asp:ListItem Text="Portfolio" />
                                     <%--<asp:ListItem Text="User Details" />--%>
                                     <asp:ListItem Text="Alerts" />
-                                    <asp:ListItem Text="Delete Profile" />
+                                    <%--<asp:ListItem Text="Delete Profile" />--%>
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                 </asp:DropDownList>
                             </ItemTemplate>
