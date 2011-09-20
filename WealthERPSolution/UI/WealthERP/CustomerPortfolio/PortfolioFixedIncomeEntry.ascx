@@ -675,6 +675,14 @@
                     <asp:DropDownList ID="ddlInterestBasis" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlInterestBasis_SelectedIndexChanged"
                         AutoPostBack="true">
                     </asp:DropDownList>
+                    <span id="Span8" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlInterestBasis"
+                        ErrorMessage="Please select an Interest Calc. Basis" Operator="NotEqual" ValueToCompare="Select an Interest Basis"
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="cvPCG"
+                     ControlToValidate="ddlCompoundInterestFreq" ErrorMessage="Please Select The DropDown" InitialValue="0">
+                     </asp:RequiredFieldValidator>--%>
                 </td>
             </tr>
             <tr id="trIntFreqCompound" runat="server">
@@ -683,7 +691,12 @@
                 </td>
                 <td class="rightField" colspan="3">
                     <asp:DropDownList ID="ddlCompoundInterestFreq" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
+                    </asp:DropDownList>  
+                    <span id="Span13" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlCompoundInterestFreq"
+                        ErrorMessage="Please select a Frequency" Operator="NotEqual" ValueToCompare="Select a Frequency"
+                        CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>                  
                 </td>
             </tr>
             <tr id="trIntFreqIntAmt" runat="server">

@@ -248,10 +248,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = false;
@@ -283,10 +284,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = false;
@@ -331,10 +333,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = false;
@@ -399,9 +402,14 @@ namespace WealthERP.CustomerPortfolio
                     txtDDBPurchasePrice.Enabled = false;
                     txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                     txtInterestAmtCredited.Enabled = false;
-
-                  
-
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
+                    }
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = false;
 
 
 
@@ -557,10 +565,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = true;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = true;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = true;
@@ -592,10 +601,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = true;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = true;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = true;
@@ -642,10 +652,11 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = true;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = true;
-                    if (fixedIncomeVo.InterestBasisCode.ToString() == "CI")
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
                         ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = true;
@@ -712,6 +723,14 @@ namespace WealthERP.CustomerPortfolio
                     txtInterestAmtCredited.Enabled = true;
                      
                     txtIssueDate.Enabled = true;
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
+                    }
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = true;
 
                     
                     
@@ -1124,6 +1143,7 @@ namespace WealthERP.CustomerPortfolio
             trInterestDetails.Visible = false;
             trIntRateIntBasis.Visible = false;
             trIntFreqIntAmt.Visible = false;
+            trIntFreqCompound.Visible = false;
             trInterestDetailsSpace.Visible = false;
 
             txtDepositAmount.Text = "";
@@ -1148,6 +1168,7 @@ namespace WealthERP.CustomerPortfolio
             txtInterstRate.Text = "";
             ddlInterestBasis.SelectedIndex = -1;
             ddlPayableFrequencyCode.SelectedIndex = -1;
+            ddlCompoundInterestFreq.SelectedIndex = -1;
             txtInterestAmtCredited.Text = "";
             txtCurrentValue.Text = "";
             txtMaturityValue.Text = "";
@@ -1155,7 +1176,7 @@ namespace WealthERP.CustomerPortfolio
         }
 
         public void SetFDCFD()
-        {
+        {           
             trDepositDetails.Visible = true;
             trDepoDateMatDate.Visible = true;
             trFaceValDebNum.Visible = false;
@@ -1183,9 +1204,9 @@ namespace WealthERP.CustomerPortfolio
 
             trInterestDetails.Visible = true;
             trIntRateIntBasis.Visible = true;
-            trIntFreqIntAmt.Visible = true;
-            trIntFreqCompound.Visible = false;
+            trIntFreqIntAmt.Visible = true;            
             trInterestDetailsSpace.Visible = true;
+            trIntFreqCompound.Visible = false;
 
             ddlInterestBasis.SelectedValue = "SI";
             ddlPayableFrequencyCode.SelectedValue = "HY";
@@ -1265,7 +1286,7 @@ namespace WealthERP.CustomerPortfolio
             trInterestDetails.Visible = true;
             trIntRateIntBasis.Visible = true;
             trIntFreqIntAmt.Visible = true;
-            trIntFreqCompound.Visible = true;
+            trIntFreqCompound.Visible = false;
             trInterestDetailsSpace.Visible = true;
 
             ddlInterestBasis.SelectedValue = "CI";
