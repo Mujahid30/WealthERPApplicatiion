@@ -7,6 +7,38 @@
 
 <script language="javascript" type="text/javascript">
 
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this profile?');
+
+        if (bool) {
+            document.getElementById("ctrl_AdviserCustomer_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AdviserCustomer_hiddenassociation").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_AdviserCustomer_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AdviserCustomer_hiddenassociation").click();
+            return true;
+        }
+    }
+
+    function showassocation() {
+
+        var bool = window.confirm('Customer has associations, cannot be deleted');
+        if (bool) {
+            document.getElementById("ctrl_AdviserCustomer_hdnassociation").value = 1;
+            document.getElementById("ctrl_AdviserCustomer_hiddenassociationfound").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_AdviserCustomer_hdnassociation").value = 0;
+            document.getElementById("ctrl_AdviserCustomer_hiddenassociationfound").click();
+            return true;
+        }
+    }
+    
     function DownloadScript() {
 
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
@@ -85,6 +117,16 @@
     </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div class="success-msg" id="CreationSuccessMessage" runat="server" visible="false"
+                align="center">
+                Record deleted successfully...
+            </div>
+        </td>
+    </tr>
+</table>
 <table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>
@@ -130,6 +172,7 @@
                                     <asp:ListItem Text="Portfolio" Value="Portfolio" />
                                    <%-- <asp:ListItem Text="User Details" Value="User Details" />--%>
                                     <asp:ListItem Text="Alerts" Value="Alerts" />
+                                    <asp:ListItem Text="Delete Profile" />
                                     <asp:ListItem Text="Financial Planning" Value="FinancialPlanning" />
                                 </asp:DropDownList>
                             </ItemTemplate>
@@ -418,6 +461,12 @@
     BorderStyle="None" BackColor="Transparent" />
 <asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
     BorderStyle="None" BackColor="Transparent" />
+    
+<asp:Button ID="hiddenassociation" runat="server" 
+    onclick="hiddenassociation_Click" BorderStyle="None" BackColor="Transparent" />
+
+
+
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
@@ -432,3 +481,5 @@
 <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnactive" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnIsProspect" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnassociationcount" runat="server" />

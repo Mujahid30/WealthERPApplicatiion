@@ -173,9 +173,13 @@ namespace WealthERP.Advisor
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
+            CreationSuccessMessage.Visible = false;
             if (!IsPostBack)
             {
-                //trPageChoice.Visible = false;
+                if (Request.QueryString["CustomerDeleteStatus"] != null)
+                {
+                    CreationSuccessMessage.Visible = true;
+                }
                 if (Session["Current_Link"].ToString() == "AdvisorLeftPane" || Session["Current_Link"].ToString() == "RMCustomerIndividualLeftPane" || Session["Current_Link"].ToString() == "LeftPanel_Links")
                 {
                     if (Session["Customer"] != null)
@@ -197,6 +201,7 @@ namespace WealthERP.Advisor
                 }
 
             }
+            
         }
 
         protected void BindGrid(int CurrentPage, int export)
@@ -543,15 +548,17 @@ namespace WealthERP.Advisor
                 selectedRow = gvr.RowIndex;
                 customerId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["CustomerId"].ToString());
                 userId = int.Parse(gvCustomers.DataKeys[selectedRow].Values["UserId"].ToString());
-
+                Session["CustomerIdForDelete"] = customerId;
                 customerVo = customerBo.GetCustomer(customerId);
                 Session["CustomerVo"] = customerVo;
 
-                if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+                if (ddlAction.SelectedItem.Value.ToString() != "Delete Profile")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    if (ddlAction.SelectedItem.Value.ToString() != "Profile")
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndi", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+                    }
                 }
-
                 if (ddlAction.SelectedItem.Value.ToString() == "Profile")
                 {
                     if (customerVo.IsProspect == 0)
@@ -700,6 +707,10 @@ namespace WealthERP.Advisor
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GenerateLoginPassword", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
 
                 //}
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete Profile")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
                 else if (ddlAction.SelectedItem.Value.ToString() == "FinancialPlanning")
                 {
                     Session["IsDashboard"] = "FP";
@@ -2020,6 +2031,63 @@ namespace WealthERP.Advisor
             ModalPopupExtender1.TargetControlID = "imgBtnPrint";
             ModalPopupExtender1.Show();
 
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
+                hdnassociationcount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
+                string asc = Convert.ToString(hdnassociationcount.Value);
+
+                if (asc == "0")
+
+                    DeleteCustomerProfile();
+
+
+                else
+
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showassocation();", true);
+            }
+        }
+
+        private void DeleteCustomerProfile()
+        {
+            try
+            {
+                customerVo = (CustomerVo)Session["CustomerVo"];
+                userVo = (UserVo)Session[SessionContents.UserVo];
+
+
+                if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
+                {
+                    string DeleteStatus = "Customer Deleted Successfully";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','CustomerDeleteStatus=" + DeleteStatus + "');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','login');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewCustomerIndividualProfile.ascx:btnDelete_Click()");
+                object[] objects = new object[3];
+                objects[0] = customerVo;
+                //objects[1] = userVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
 
 
