@@ -896,6 +896,7 @@ namespace WealthERP.Advisor
 
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
+            Session["custStatusToShowGroupDashBoard"] = "customerStatus";
 
             customerPortfolioVo = portfolioBo.GetCustomerDefaultPortfolio(customerId);
             Session[SessionContents.PortfolioId] = customerPortfolioVo.PortfolioId;
