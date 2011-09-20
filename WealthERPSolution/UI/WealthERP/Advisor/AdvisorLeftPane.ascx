@@ -169,6 +169,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Equity Transaction Exceptions" Value="View_Equity_Transaction_Exceptions">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions" Value="View_Systematic_Transaction_Exceptions">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Order Management" Value="OrderManagement">
