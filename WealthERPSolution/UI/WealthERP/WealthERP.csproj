@@ -2562,6 +2562,13 @@
     <Compile Include="Uploads\RejectedMFTransactionStaging.ascx.designer.cs">
       <DependentUpon>RejectedMFTransactionStaging.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\RejectedSystematicTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedSystematicTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\RejectedSystematicTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedSystematicTransactionStaging.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\RejectedTradeAccountStaging.ascx.cs">
       <DependentUpon>RejectedTradeAccountStaging.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4846,6 +4853,7 @@
     <Content Include="App_Themes\Maroon\PCG.skin" />
     <Content Include="App_Themes\Purple\TB.skin" />
     <Content Include="Uploads\RejectedFoliosTransactionUpload.ascx" />
+    <Content Include="Uploads\RejectedSystematicTransactionStaging.ascx" />
     <Content Include="Uploads\StandardProfileInputRejects.ascx" />
     <Content Include="Uploads\TempletonProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\TempletonTransInputRejects.ascx" />
