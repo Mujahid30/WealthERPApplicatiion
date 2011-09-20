@@ -1189,4 +1189,8 @@
     <value>Advisor//AdviserEnvironmentSettings.ascx</value>
     <comment>Advisor//AdviserEnvironmentSettings.ascx</comment>
   </data>
+  <data name="RejectedSystematicTransactionStaging" xml:space="preserve">
+    <value>Uploads//RejectedSystematicTransactionStaging.ascx</value>
+    <comment>Uploads//RejectedSystematicTransactionStaging.ascx</comment>
+  </data>
 </root>
