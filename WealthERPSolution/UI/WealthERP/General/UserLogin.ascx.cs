@@ -189,7 +189,7 @@ namespace WealthERP.General
                                 Session["refreshTheme"] = true;
                             }
                         }
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
+                        
                         
                         if (userVo.IsTempPassword == 0)
                         {
@@ -221,6 +221,15 @@ namespace WealthERP.General
                                     if (breakLoopIfIPFailed == false)
                                         return;
                                 }
+
+                                if ((advisorVo.IsOpsEnable == 0) && (roleList.Contains("Ops")))
+                                {
+                                    lblIllegal.Text = "Login Failed..! <br> Ops Role is Disabled...!!";
+                                    return;
+                                }
+
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
+
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
 
                                 if (count == 3)
@@ -367,6 +376,12 @@ namespace WealthERP.General
                                         }
 
                                     }
+                                    else if (roleList.Contains("Ops"))
+                                    {
+                                        Session["S_CurrentUserRole"] = "Admin";
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('AdviserCustomer','login');", true);
+
+                                    }
                                     else
                                     {
                                         dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
@@ -462,6 +477,7 @@ namespace WealthERP.General
                         }
                         else
                         {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ChangeTempPassword','none');", true);
                         }
                         
@@ -859,6 +875,12 @@ namespace WealthERP.General
                             }
 
                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loginloadcontrol('BMDashBoard','login','" + UserName + "','" + sourcePath + "','" + branchLogoSourcePath + "');", true);
+
+                        }
+                        else if (roleList.Contains("Ops"))
+                        {
+                            Session["S_CurrentUserRole"] = "Admin";
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('AdviserCustomer','login');", true);
 
                         }
                         else
