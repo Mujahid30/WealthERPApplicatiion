@@ -732,6 +732,39 @@ namespace DaoReports
             }
             return fromDate;
         }
+
+        /// <summary>
+        /// Get Opening Closing Transaction Report
+        /// </summary>
+        /// <param name="reports"></param>
+        /// <returns></returns>
+        public DataSet GetOpeningClosingTransactionReport(MFReportVo reports)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getCustomerTrancsactionListCmd;
+            DataSet getCustomerTrancsactionListDs;            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTrancsactionListCmd = db.GetStoredProcCommand("SP_RPT_OpeningClosingBalanceForMFTransactions");
+                reports.PortfolioIds = "39347,";
+                reports.FromDate = DateTime.Parse("2006/05/15");
+                reports.ToDate = DateTime.Parse("2011/09/19");
+                //reports.CustomerIds = 36991;
+                //db.AddInParameter(getCustomerTrancsactionListCmd, "@PortfolioIds", DbType.String, reports.CustomerIds); 
+                db.AddInParameter(getCustomerTrancsactionListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); 
+                db.AddInParameter(getCustomerTrancsactionListCmd, "@FromDate", DbType.DateTime, reports.FromDate);
+                db.AddInParameter(getCustomerTrancsactionListCmd, "@Todate", DbType.DateTime, reports.ToDate);
+                getCustomerTrancsactionListCmd.CommandTimeout = 60 * 60;
+                getCustomerTrancsactionListDs = db.ExecuteDataSet(getCustomerTrancsactionListCmd);
+                return getCustomerTrancsactionListDs;
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
         
 
     }
