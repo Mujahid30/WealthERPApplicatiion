@@ -386,5 +386,78 @@ namespace BoReports
             }
             return fromDate;
         }
+
+        public DataTable GetOpeningClosingTransactionReport(MFReportVo reports)
+        {
+            MFReportsDao mfReportsDao = new MFReportsDao();
+            DataSet dsTransactionList;
+            dsTransactionList = mfReportsDao.GetOpeningClosingTransactionReport(reports);
+            DataTable dtTransactionList;
+            DataTable dtSchemeOpeningBalance;
+            DataTable dtSchemeClosingBalance;
+            
+            dtTransactionList = dsTransactionList.Tables[0];
+            dtSchemeOpeningBalance = dsTransactionList.Tables[1];
+            dtSchemeClosingBalance = dsTransactionList.Tables[2];
+            DataRow drOpeningClosingSchemeWise;
+
+            DataTable dtOpeningClosingSchemeWise = new DataTable();
+            dtOpeningClosingSchemeWise.Columns.Add("PASP_SchemePlanName", typeof(string));
+            dtOpeningClosingSchemeWise.Columns.Add("WMTT_TransactionType", typeof(string));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_TransactionDate", typeof(string));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Price", typeof(decimal));
+            //dtOpeningClosingSchemeWise.Columns.Add("CMFT_Units", typeof(Int32));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Amount", typeof(decimal));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_OpeningBalance", typeof(decimal));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_ClosingBalance", typeof(decimal));
+            DataRow[] drOpening=new DataRow[3];
+            DataRow[] drClosing = new DataRow[3];
+            string tempSchemePlanCode=string.Empty;
+
+            if (dtTransactionList.Rows.Count > 0 && dtSchemeOpeningBalance.Rows.Count > 0 && dtSchemeClosingBalance.Rows.Count > 0)
+            
+            {
+                foreach (DataRow dr in dtTransactionList.Rows)
+                {
+                    drOpeningClosingSchemeWise = dtOpeningClosingSchemeWise.NewRow();
+                    if (dr["PASP_SchemePlanCode"].ToString() != tempSchemePlanCode)
+                    {
+                        tempSchemePlanCode = dr["PASP_SchemePlanCode"].ToString().Trim();
+                        drOpening = dtSchemeOpeningBalance.Select("PASP_SchemePlanCode='" + tempSchemePlanCode + "'");
+                        drClosing = dtSchemeClosingBalance.Select("PASP_SchemePlanCode='" + tempSchemePlanCode + "'");
+                    }
+                    
+                    drOpeningClosingSchemeWise["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"];
+                    drOpeningClosingSchemeWise["WMTT_TransactionType"] = dr["WMTT_TransactionType"];
+                    drOpeningClosingSchemeWise["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"];
+                    drOpeningClosingSchemeWise["CMFT_Price"] = dr["CMFT_Price"];
+                    drOpeningClosingSchemeWise["CMFT_Units"] = dr["CMFT_Units"];
+                    drOpeningClosingSchemeWise["CMFT_Amount"] = dr["CMFT_Amount"];
+                    if (drOpening.Count() > 0)
+                    {
+                        drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = drOpening[0][2].ToString();
+                    }
+                    else
+                        drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = 0;
+
+                    if (drClosing.Count() > 0)
+                    {
+                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = drOpening[0][2].ToString();
+                    }
+                    else
+                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = 0;
+                    
+
+                    //drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = 
+
+                    dtOpeningClosingSchemeWise.Rows.Add(drOpeningClosingSchemeWise);
+
+                }
+
+            }
+
+            return dtOpeningClosingSchemeWise;
+        }
+
     }
 }
