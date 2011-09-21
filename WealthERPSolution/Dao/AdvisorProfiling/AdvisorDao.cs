@@ -1396,6 +1396,7 @@ namespace DaoAdvisorProfiling
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
 
                     advisorVo.IsIPEnable = Convert.ToInt16(dr["A_isIPEnable"].ToString());
+                    advisorVo.IsOpsEnable = Convert.ToInt16(dr["A_IsOpsEnable"].ToString());
                 }
 
 
@@ -1473,7 +1474,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorUserCmd, "@A_AdviserLogo", DbType.String, advisorVo.LogoPath);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_Designation", DbType.String, advisorVo.Designation);
                 db.AddInParameter(updateAdvisorUserCmd, "@A_IsIPEnable", DbType.Int32, advisorVo.IsIPEnable);
-                
+                db.AddInParameter(updateAdvisorUserCmd, "@A_IsOpsEnable", DbType.Int32, advisorVo.IsOpsEnable);
+
                 if (db.ExecuteNonQuery(updateAdvisorUserCmd) != 0)
                     bResult = true;
             }
@@ -2099,6 +2101,99 @@ namespace DaoAdvisorProfiling
                 object[] objects = new object[2];
                 objects[0] = createdBy;
                 objects[1] = adviserIPvo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        /// <summary>
+        /// Get All the Ops Staffs for a perticular advisor...
+        /// Added by Vinayak Patil on 20th Sep 2011
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="UserRole"></param>
+        /// <returns></returns>
+        public DataSet GetAllOpsStaffsForAdviser(int adviserId, string UserRole)
+        {
+            Database db;
+            DbCommand GetAllOpsStaffsForAdviserCmd;
+            DataSet dsAllOpsStaffsForAdviser;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAllOpsStaffsForAdviserCmd = db.GetStoredProcCommand("SP_GetAllOpsStaffsForAdviser");
+                db.AddInParameter(GetAllOpsStaffsForAdviserCmd, "@AR_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetAllOpsStaffsForAdviserCmd, "@UR_UserRoleName", DbType.String, UserRole);
+
+                dsAllOpsStaffsForAdviser = db.ExecuteDataSet(GetAllOpsStaffsForAdviserCmd);
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserSibscriptionDetails(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAllOpsStaffsForAdviser;
+        }
+
+        /// <summary>
+        /// To Update the perticular RM Status..
+        /// Added by Vinayak Patil on 20th Sep 2011
+        /// </summary>
+        /// <param name="RMId"></param>
+        /// <param name="RMLoginStatus"></param>
+        /// <returns></returns>
+        
+        public bool UpdateOpsStaffLoginStatus(int RMId, int RMLoginStatus)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand updateOpsStaffLoginStatusCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateOpsStaffLoginStatusCmd = db.GetStoredProcCommand("SP_UpdateOpsStaffsLoginActiveStatus");
+                db.AddInParameter(updateOpsStaffLoginStatusCmd, "@AR_RMId", DbType.Int32, RMId);
+                db.AddInParameter(updateOpsStaffLoginStatusCmd, "@AR_IsActiveStatus", DbType.Int32, RMLoginStatus);
+
+
+                if (db.ExecuteNonQuery(updateOpsStaffLoginStatusCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceDao.cs:UpdateOpsStaffLoginStatus()");
+
+
+                object[] objects = new object[3];
+                objects[0] = RMId;
+                objects[1] = RMLoginStatus;
+
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
