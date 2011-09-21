@@ -2352,6 +2352,17 @@
     <Compile Include="Reports\MFFundSummaryDS.Designer.cs">
       <DependentUpon>MFFundSummaryDS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MFOpenCloseTransaction.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFOpenCloseTransaction.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFOpenCloseTransactionDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MFReports.ascx.cs">
       <DependentUpon>MFReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2770,6 +2781,10 @@
     <EmbeddedResource Include="Reports\MFFundSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFFundSummary1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFOpenCloseTransaction.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFOpenCloseTransaction.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFPortfolioAnalytics.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -5434,6 +5449,17 @@
     </None>
     <None Include="Reports\MFFundSummaryDS.xss">
       <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFOpenCloseTransactionDS.xsc">
+      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFOpenCloseTransactionDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFOpenCloseTransactionDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\MFOpenCloseTransactionDS.xss">
+      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\MFReportsDS.xsc">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
