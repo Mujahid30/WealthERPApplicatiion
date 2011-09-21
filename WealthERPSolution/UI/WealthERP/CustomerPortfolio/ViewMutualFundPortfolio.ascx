@@ -69,8 +69,8 @@
     <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
     <asp:ScriptManager ID="scrptMgr" runat="server">
     </asp:ScriptManager>
-    <%--<tr>
-        <td>
+    <tr>
+        <td colspan="5">
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 Height="25px" Width="25px" />
@@ -113,6 +113,14 @@
               </asp:CompareValidator>           
 
         </td>
+        
+        <td>
+        <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR:" runat="server" CssClass="FieldName"> </asp:Label>
+        </td>
+        <td>
+        <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+        </td> 
+
     </tr>
     <%--<tr>
         <td colspan="2">

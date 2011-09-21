@@ -97,8 +97,8 @@ namespace WealthERP.CustomerPortfolio
                     BindPortfolioDropDown();
                     LoadMFPortfolio();
                     //BindPerformaceChart();
-                    
-                   
+                    CalculatePortfolioXIRR(portfolioId);
+                 
                   
                     //  decimal.Parse(drResult["InsuranceAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     //lblCostOfAcqusition.Text = decimal.Parse(CostOfAcquisition.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -1780,6 +1780,7 @@ namespace WealthERP.CustomerPortfolio
             Session[SessionContents.PortfolioId] = portfolioId;
             LoadMFPortfolio();
             BindPerformaceChart();
+            CalculatePortfolioXIRR(portfolioId);
         }
         private DropDownList GetCategoryDDL()
         {
@@ -2838,6 +2839,24 @@ namespace WealthERP.CustomerPortfolio
         protected void GoBackAllLink_Click(object sender, EventArgs e)
         {
             LoadMFPortfolio();
+        }
+
+        protected void CalculatePortfolioXIRR(int portfolioId)
+        {
+            DataTable dtPortfolioXIRR;
+            dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(portfolioId.ToString()+",");
+            if (dtPortfolioXIRR.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtPortfolioXIRR.Rows)
+                {
+                    if (int.Parse(dr["PortfolioId"].ToString()) == portfolioId)
+                    {
+                        lblPortfolioXIRRValue.Text = double.Parse(dr["XIRR"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                    }
+
+                }
+            }
         }
 
         protected void imgBtnExport1_Click(object sender, ImageClickEventArgs e)
