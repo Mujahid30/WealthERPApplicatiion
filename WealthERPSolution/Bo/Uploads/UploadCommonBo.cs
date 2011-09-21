@@ -4016,5 +4016,72 @@ namespace BoUploads
             }
             return ds;
         }
+
+
+        public int GetUploadSystematicRejectCount(int processID, string source)
+        {
+            int count = 0;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                count = uploadDAO.GetUploadSystematicRejectCount(processID, source);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetUploadProfileRejectCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
+
+        public int GetUploadSystematicInsertCount(int processID, string source)
+        {
+            int count = 0;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                count = uploadDAO.GetUploadSystematicInsertCount(processID, source);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetUploadSystematicInsertCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
     }
 }

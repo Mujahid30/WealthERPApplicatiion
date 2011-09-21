@@ -3406,5 +3406,92 @@ namespace DaoUploads
             }
             return ds;
         }
+
+        public int GetUploadSystematicRejectCount(int processID, string source)
+        {
+            int count = 0;
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetUploadSystematicRejectCount");
+                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+                db.AddInParameter(getCount, "@source", DbType.String, source);
+                db.AddOutParameter(getCount, "@totalRejectedCount", DbType.Int32, 5000);
+
+                if (db.ExecuteNonQuery(getCount) != 0)
+                    count = int.Parse(db.GetParameterValue(getCount, "totalRejectedCount").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetUploadSystematicRejectCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
+
+        public int GetUploadSystematicInsertCount(int processID, string source)
+        {
+            int count = 0;
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetUploadSystematicInsertCount");
+                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+                db.AddInParameter(getCount, "@source", DbType.String, source);
+                db.AddOutParameter(getCount, "@totalRejectedCount", DbType.Int32, 5000);
+
+                if (db.ExecuteNonQuery(getCount) != 0)
+                    count = int.Parse(db.GetParameterValue(getCount, "totalRejectedCount").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetUploadSystematicInsertCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
+    
+    
+    
     }
 }
