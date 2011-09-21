@@ -51,8 +51,16 @@ namespace WealthERP.Advisor
                 //Code to display and hide the searches based on the roles
                 if (userVo.RoleList.Contains("Admin"))
                 {
-                    txtFindRMCustomer.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
+                    if (advisorVo.IsOpsEnable != 1)
+                    {
+                        txtFindRMCustomer.Visible = false;
+                        btnSearchRMCustomer.Visible = false;
+                    }
+                    else
+                    {
+                        txtFindAdviserCustomer.Visible = false;
+                        btnSearchAdviserCustomer.Visible = false;
+                    }
                 }
                 else if (userVo.RoleList.Contains("RM"))
                 {
@@ -74,6 +82,15 @@ namespace WealthERP.Advisor
                     txtFindRMCustomer.Visible = false;
                     btnSearchRMCustomer.Visible = false;
                 }
+                else if (userVo.RoleList.Contains("Ops"))
+                {
+                    txtFindRMCustomer.Visible = false;
+                    txtFindBranch.Visible = false;
+                    txtFindRM.Visible = false;
+                    btnSearchRM.Visible = false;
+                    btnSearchBranch.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
 
                 //Code to display the left tree based on the Roles
                 if (!userVo.RoleList.Contains("Admin"))
@@ -82,6 +99,8 @@ namespace WealthERP.Advisor
                     RadPanelBar2.Visible = false;
                 if (!userVo.RoleList.Contains("BM"))
                     RadPanelBar3.Visible = false;
+                if (!userVo.RoleList.Contains("Ops"))
+                    RadPanelBar4.Visible = false;
 
                 //Code to unhide the tree nodes based on User Roles
                 if (userVo.RoleList.Contains("Admin"))
@@ -99,6 +118,12 @@ namespace WealthERP.Advisor
                     dsTreeNodes = GetTreeNodesBasedOnUserRoles("BM", "Admin");
                     SetAdminTreeNodesForRoles(dsTreeNodes, "BM");
                 }
+                if (userVo.RoleList.Contains("Ops"))
+                {
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Ops", "Admin");
+                    SetAdminTreeNodesForRoles(dsTreeNodes, "Ops");
+                }
+
 
                 //Code to unhide the tree nodes based on Plans
                 dsTreeNodes = GetTreeNodesBasedOnPlans(advisorVo.advisorId, "Admin", "Admin");
@@ -122,11 +147,19 @@ namespace WealthERP.Advisor
                 //Code to expand the home node based on the User Roles
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
-                    RadPanelBar1.FindItemByValue("Admin").Expanded = true;
-                    if(Session["IsCustomerGrid"] == null)
-                        RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                    if (!userVo.RoleList.Contains("Ops"))
+                    {
+                        RadPanelBar1.FindItemByValue("Admin").Expanded = true;
+                        if (Session["IsCustomerGrid"] == null)
+                            RadPanelBar1.FindItemByValue("Admin Home").Selected = true;
+                        else
+                            RadPanelBar1.FindItemByValue("Customer").Selected = true;
+                    }
                     else
-                        RadPanelBar1.FindItemByValue("Customer").Selected = true;
+                    {
+                        RadPanelBar4.FindItemByValue("Ops").Expanded = true;
+                        RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                    }
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
@@ -151,6 +184,11 @@ namespace WealthERP.Advisor
                         RadPanelBar2.FindItemByValue("Customer").Selected = true;
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                }
+                else if (userVo.RoleList.Contains("Ops"))
+                {
+                    RadPanelBar4.FindItemByValue("Ops").Expanded = true;
+                    RadPanelBar4.FindItemByValue("Customer").Selected = true;
                 }
 
             }
@@ -983,6 +1021,176 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+        protected void RadPanelBar4_ItemClick(object sender, RadPanelBarEventArgs e)
+        {
+            RadPanelItem ItemClicked = e.Item;
+            RadPanelBar1.CollapseAllItems();
+            RadPanelBar2.CollapseAllItems();
+            RadPanelBar3.CollapseAllItems();
+            Session[SessionContents.CurrentUserRole] = "Ops";
+            hdfSession.Value = "Ops";
+            try
+            {
+                if (e.Item.Value == "Customer")
+                {
+                    Session["Customer"] = "Customer";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                }
+                else if (e.Item.Value == "Add Customer")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerType','login');", true);
+                }
+                else if (e.Item.Value == "Manage Group Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCustomerFamily','login');", true);
+                }
+                else if (e.Item.Value == "Add Group Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GroupAccountSetup','login');", true);
+                }
+                else if (e.Item.Value == "Customer Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
+                }
+                else if (e.Item.Value == "Alert Configuration")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "Customized SMS")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
+                }
+                else if (e.Item.Value == "MF Folios")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
+                }
+                else if (e.Item.Value == "View MF Transactions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
+                }
+                else if (e.Item.Value == "Add MF Transactions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
+                }
+                else if (e.Item.Value == "View EQ Transactions")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
+                }
+                else if (e.Item.Value == "Add EQ Transactions")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
+
+                }
+                else if (e.Item.Value == "MF MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
+                }
+                else if (e.Item.Value == "MF systematic MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                }
+                else if (e.Item.Value == "MF Commission MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
+                }
+                else if (e.Item.Value == "Equity MIS")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+                }
+                else if (e.Item.Value == "Loan MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
+                }
+                else if (e.Item.Value == "Upload")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
+                }
+                else if (e.Item.Value == "Uploads History")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+                }
+                else if (e.Item.Value == "View Transaction Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
+                }
+                else if (e.Item.Value == "View MF Folio Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
+                }
+                else if (e.Item.Value == "Staff User Management")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMUserDetails','login');", true);
+                }
+                else if (e.Item.Value == "Customer User Management")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
+                }
+                else if (e.Item.Value == "Valuation")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('DailyValuation','login');", true);
+                }
+                else if (e.Item.Value == "MF Systematic Daily Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFSystematicTransactionReport','login');", true);
+                }
+                else if (e.Item.Value == "MF Reversal Txn Exception Handling")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
+                }
+                else if (e.Item.Value == "Loan Schemes")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','login');", true);
+                }
+                else if (e.Item.Value == "Add Schemes")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','login');", true);
+                }
+                else if (e.Item.Value == "Loan Partner Commission")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
+
+                }
+                else if (e.Item.Value == "Multi Asset Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioReports','login');", true);
+                }
+                else if (e.Item.Value == "MF Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login');", true);
+                }
+                else if (e.Item.Value == "Equity Report")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','login');", true);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
+
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
 
         private DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType)
         {
@@ -1213,6 +1421,75 @@ namespace WealthERP.Advisor
                     }
                 }
             }
+
+            else if (userRole == "Ops")
+            {
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[0]);
+                tempView.Sort = "WTN_TreeNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[0].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[0].Columns["WTN_TreeNode"] };
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 2 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[1]);
+                tempView.Sort = "WTSN_TreeSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[1].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[1].Columns["WTSN_TreeSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[2]);
+                tempView.Sort = "WTSSN_TreeSubSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+            }
         }
 
         private void SetAdminTreeNodesForPlans(DataSet dsAdminTreeNodes)
@@ -1237,6 +1514,21 @@ namespace WealthERP.Advisor
                         {
                             Item.Visible = false;
                         }
+                        else if (advisorVo.IsOpsEnable == 1)
+                        {
+                            switch (Item.Value)
+                            {
+                                case "Customer":
+                                    Item.Visible = false;
+                                    break;
+                                case "Business MIS":
+                                    Item.Visible = false;
+                                    break;
+                                case "Customer Report":
+                                    Item.Visible = false;
+                                    break;
+                            }
+                        }
                     }
                 }
 
@@ -1254,6 +1546,30 @@ namespace WealthERP.Advisor
                             Item.Visible = false;
                             //Item.Owner.Items.Remove(Item);
                         }
+                        else if (advisorVo.IsOpsEnable == 1)
+                        {
+                            switch (Item.Value)
+                            {
+                                case "Upload":
+                                    Item.Visible = false;
+                                    break;
+                                case "Daily Process":
+                                    Item.Visible = false;
+                                    break;
+                                case "MF Systematic Daily Recon":
+                                    Item.Visible = false;
+                                    break;
+                                case "MF Reversal Txn Exception Handling":
+                                    Item.Visible = false;
+                                    break;
+                                case "Loan Schemes":
+                                    Item.Visible = false;
+                                    break;
+                                case "Loan Partner Commission":
+                                    Item.Visible = false;
+                                    break;
+                            }
+                        }
                     }
                 }
 
@@ -1269,7 +1585,15 @@ namespace WealthERP.Advisor
                         if (flag == -1)
                         {
                             Item.Visible = false;
-                            //Item.Owner.Items.Remove(Item);
+                        }
+                        else if (advisorVo.IsOpsEnable == 1)
+                        {
+                            switch (Item.Value)
+                            {
+                                case "Customer User Management":
+                                    Item.Visible = false;
+                                    break;
+                            }
                         }
                     }
                 }
@@ -1376,6 +1700,68 @@ namespace WealthERP.Advisor
                         {
                             Item.Visible = false;
                             //Item.Owner.Items.Remove(Item);
+                        }
+                    }
+                }
+            }
+
+            if (userVo.RoleList.Contains("Ops"))
+            {
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[0]);
+                tempView.Sort = "WTN_TreeNode";
+
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 2 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[1]);
+                tempView.Sort = "WTSN_TreeSubNode";
+
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                            //Item.Owner.Items.Remove(Item);
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[2]);
+                tempView.Sort = "WTSSN_TreeSubSubNode";
+
+                foreach (RadPanelItem Item in RadPanelBar4.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                            //Item.Owner.Items.Remove(Item);
+                        }
+                        else if (advisorVo.IsOpsEnable == 1)
+                        {
+                            switch (Item.Value)
+                            {
+                                case "Staff User Management":
+                                    Item.Visible = false;
+                                    break;
+                            }
                         }
                     }
                 }
