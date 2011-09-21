@@ -1348,6 +1348,83 @@ namespace BoAdvisorProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Get All the Ops Staffs for a perticular advisor...
+        /// Added by Vinayak Patil on 20th Sep 2011
+        /// </summary>
+        /// <param name="AdviserId"></param>
+        /// <param name="UserRole"></param>
+        /// <returns></returns>
+        
+        public DataSet GetAllOpsStaffsForAdviser(int AdviserId, string UserRole)
+        {
+            DataSet dsAllOpsStaffsForAdviser = new DataSet();
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                dsAllOpsStaffsForAdviser = adviserDao.GetAllOpsStaffsForAdviser(AdviserId, UserRole);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAllOpsStaffsForAdviser()");
+
+
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAllOpsStaffsForAdviser;
+        }
+
+        /// <summary>
+        /// To Update the perticular RM Status..
+        /// Added by Vinayak Patil on 20th Sep 2011
+        /// </summary>
+        /// <param name="RMId"></param>
+        /// <param name="RMLoginStatus"></param>
+        /// <returns></returns>
+        
+        public bool UpdateOpsStaffLoginStatus(int RMId, int RMLoginStatus)
+        {
+            bool bResult = false;
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                bResult = adviserDao.UpdateOpsStaffLoginStatus(RMId, RMLoginStatus);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)");
+                object[] objects = new object[3];
+                objects[0] = RMId;
+                objects[1] = RMLoginStatus;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
 
     }
 }
