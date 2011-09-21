@@ -2,20 +2,6 @@
     Inherits="WealthERP.Advisor.EditAdvisorProfile" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
-<script type="text/javascript">
-
-    function alertingForAddDefaultIP() {
-        var chkCheckedOrNot = document.getElementById("<%=chkIsIPEnable.ClientID%>").checked;
-        if (chkCheckedOrNot == true) {
-            alert("By Enabling this your IP Login Security has been activated.!! \n\n You current system IP has been added to your IP list..");
-        }
-        else {
-            alert("By Disabling this you will loose your IP Login Security..!!");
-        }
-    }
-
-
-</script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
@@ -349,21 +335,15 @@
             <asp:RadioButton ID="rbtnNo" runat="server" CssClass="txtField" Text="No" GroupName="grpMultiBranch" />
         </td>
     </tr>--%>
-    <tr>
+    <%--<tr>
         <td class="leftField">
             <asp:Label ID="lblisIPEnable" runat="server" CssClass="FieldName" Text="IP Enanble"></asp:Label>
         </td>
          <td class="rightField" colspan="3">
             <asp:CheckBox ID="chkIsIPEnable" onclick="alertingForAddDefaultIP()" CssClass="FieldName" runat="server" Text="Is IP Enable ?" AutoPostBack="false" />
         </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-            <asp:Label ID="lblNoteIP" runat="server" CssClass="txtField" Text="Note: Please check if you have static IP. Feature is useful with static IP only.">
-            </asp:Label>
-        </td>
-    </tr>
-    <tr>
+    </tr>--%>
+    
        
     </tr>
     <tr id="AdviserLogoHdr" runat="server">

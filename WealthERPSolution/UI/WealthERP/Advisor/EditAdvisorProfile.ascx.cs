@@ -163,10 +163,10 @@ namespace WealthERP.Advisor
                     if (advisorVo.Designation != null)
                         textDesignation.Text = advisorVo.Designation.ToString();
 
-                    if (advisorVo.IsIPEnable == 1)
-                        chkIsIPEnable.Checked = true;
-                    else
-                        chkIsIPEnable.Checked = false;
+                    //if (advisorVo.IsIPEnable == 1)
+                    //    chkIsIPEnable.Checked = true;
+                    //else
+                    //    chkIsIPEnable.Checked = false;
 
                     
                 }
@@ -605,10 +605,10 @@ namespace WealthERP.Advisor
                         advisorVo.State = null;
                     Session["advisorVo"] = (AdvisorVo)advisorVo;
 
-                    if (chkIsIPEnable.Checked == true)
-                        advisorVo.IsIPEnable = 1;
-                    else
-                        advisorVo.IsIPEnable = 0;
+                    //if (chkIsIPEnable.Checked == true)
+                    //    advisorVo.IsIPEnable = 1;
+                    //else
+                    //    advisorVo.IsIPEnable = 0;
 
 
                     
@@ -620,34 +620,34 @@ namespace WealthERP.Advisor
                     //userBo.UpdateUser(userVo);
                     //advisorStaffBo.UpdateStaff(newRmVo);
 
-                    if (advisorVo.IsIPEnable == 1)
-                    {
-                        int i = 0;
-                        IPAddress = HttpContext.Current.Request.UserHostAddress.ToString();
-                        dsGetAllAdviserIPFromIPPool = advisorBo.GetAdviserIPPoolsInformation(advisorVo.advisorId);
-                        if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
-                        {
-                            foreach (DataRow dr in dsGetAllAdviserIPFromIPPool.Tables[0].Rows)
-                            {
-                                if (IPAddress == dr["AIPP_IP"].ToString())
-                                {
-                                    i = 1;
-                                }
-                            }
-                            //DataRow[] drGetAdviserIP = dsGetAllAdviserIPFromIPPool.Tables[0].Select("AIPP_IP=" + IPAddress);
+                    //if (advisorVo.IsIPEnable == 1)
+                    //{
+                    //    int i = 0;
+                    //    IPAddress = HttpContext.Current.Request.UserHostAddress.ToString();
+                    //    dsGetAllAdviserIPFromIPPool = advisorBo.GetAdviserIPPoolsInformation(advisorVo.advisorId);
+                    //    if (dsGetAllAdviserIPFromIPPool.Tables.Count != 0)
+                    //    {
+                    //        foreach (DataRow dr in dsGetAllAdviserIPFromIPPool.Tables[0].Rows)
+                    //        {
+                    //            if (IPAddress == dr["AIPP_IP"].ToString())
+                    //            {
+                    //                i = 1;
+                    //            }
+                    //        }
+                    //        //DataRow[] drGetAdviserIP = dsGetAllAdviserIPFromIPPool.Tables[0].Select("AIPP_IP=" + IPAddress);
 
-                        }
-                        if (i != 1)
-                        {
-                            if (IPAddress != "")
-                                adviserIPVo.AdviserIPs = IPAddress;
-                            adviserIPVo.AdviserIPComments = "Adviser's Default IP";
-                            adviserIPVo.advisorId = advisorVo.advisorId;
-                            createdById = userVo.UserId;
+                    //    }
+                    //    if (i != 1)
+                    //    {
+                    //        if (IPAddress != "")
+                    //            adviserIPVo.AdviserIPs = IPAddress;
+                    //        adviserIPVo.AdviserIPComments = "Adviser's Default IP";
+                    //        adviserIPVo.advisorId = advisorVo.advisorId;
+                    //        createdById = userVo.UserId;
 
-                            RecordStatus = advisorBo.CreateAdviserIPPools(adviserIPVo, createdById);
-                        }
-                    }
+                    //        RecordStatus = advisorBo.CreateAdviserIPPools(adviserIPVo, createdById);
+                    //    }
+                    //}
 
 
                     //rbtnYes.Enabled = false;
