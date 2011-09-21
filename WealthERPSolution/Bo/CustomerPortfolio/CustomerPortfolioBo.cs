@@ -1962,7 +1962,7 @@ namespace BoCustomerPortfolio
                 {
                     mfPortfolioSellTransactionVo = new MFPortfolioSellTransactionVo();
                     mfPortfolioSellTransactionVo.SellDate = mfTransactionVoList[i].TransactionDate;
-                    mfPortfolioSellTransactionVo.SellPrice = mfTransactionVoList[i].Price;
+                    mfPortfolioSellTransactionVo.SellPrice = mfTransactionVoList[i].Price;                   
                     mfPortfolioSellTransactionVo.TransactionClassificationCode = mfTransactionVoList[i].TransactionClassificationCode;
                     mfPortfolioSellTransactionVo.TranscationType = mfTransactionVoList[i].TransactionType;
                     mfPortfolioSellTransactionVo.Units = mfTransactionVoList[i].Units;
@@ -3082,6 +3082,80 @@ namespace BoCustomerPortfolio
 
         }
         #endregion MF Portfolio Valuation
+
+        #region Portfolio Label XIRR
+        public DataTable GetCustomerPortfolioLabelXIRR(string portfolioIds)
+        {
+            
+            DataSet dsCustomerTransaction;
+            PortfolioDao customerPortfolioDao = new PortfolioDao();
+            string tempPortfoliId;
+            DataTable dtCustomerPortfolio;
+            DataTable dtCustomerTransaction;
+            DataTable dtCustomerPortfolioNetHolding;
+            DataTable dtCustomerPortfolioXIRR;
+            double tempPortfolioXIRR;
+
+            dsCustomerTransaction = customerPortfolioDao.GetCustomerTransactionDetailsForXIRR(portfolioIds);
+            dtCustomerPortfolio = dsCustomerTransaction.Tables[0];
+            dtCustomerTransaction = dsCustomerTransaction.Tables[1];
+            dtCustomerPortfolioNetHolding = dsCustomerTransaction.Tables[2];
+            DataRow[] drTransactionDateAmount;
+
+            dtCustomerPortfolioXIRR = new DataTable();
+            dtCustomerPortfolioXIRR.Columns.Add("CustomerId", typeof(Int32));
+            dtCustomerPortfolioXIRR.Columns.Add("CustomerName", typeof(string));
+            dtCustomerPortfolioXIRR.Columns.Add("PortfolioId", typeof(Int32));
+            dtCustomerPortfolioXIRR.Columns.Add("PortfolioName", typeof(string));
+            dtCustomerPortfolioXIRR.Columns.Add("XIRR", typeof(decimal));
+            DataRow drXIRR;
+            foreach (DataRow dr in dtCustomerPortfolio.Rows)
+            {
+                drXIRR=dtCustomerPortfolioXIRR.NewRow();
+                tempPortfoliId = dr["CP_PortfolioId"].ToString();
+                //var queryTransactionDate = from r in dtCustomerTransaction.AsEnumerable()
+                //                           where r.Field<int>("CP_PortfolioId") == tempPortfoliId
+                //                           select r.Field<DateTime>("CMFT_TransactionDate");
+
+                //var queryTransactionAmount = from r in dtCustomerTransaction.AsEnumerable()
+                //                             where r.Field<int>("CP_PortfolioId") == tempPortfoliId
+                //                             select r.Field<double>("CMFT_Amount");
+
+               //var data = from row in dtCustomerTransaction.AsEnumerable()
+                drTransactionDateAmount = dtCustomerTransaction.Select("CP_PortfolioId=" + tempPortfoliId);
+
+                double[] transactionAmount = new double[drTransactionDateAmount.Count()+1];
+                DateTime[] transactionDate = new DateTime[drTransactionDateAmount.Count()+1];
+                int tempCount=0;
+                foreach (DataRow drAmountDate in drTransactionDateAmount)
+                {                    
+                        transactionAmount[tempCount] = double.Parse(drAmountDate["Calculated_Amount"].ToString());
+                        transactionDate[tempCount] = DateTime.Parse(drAmountDate["CMFT_TransactionDate"].ToString());
+                        tempCount++;
+                   
+                }
+                foreach (DataRow drNetHolding in dtCustomerPortfolioNetHolding.Rows)
+                {
+                    if (drNetHolding["CP_PortfolioId"].ToString() == tempPortfoliId)
+                    {
+                        transactionAmount[tempCount] = double.Parse(drNetHolding["Holding_Amount"].ToString());
+                        transactionDate[tempCount] = DateTime.Parse(drNetHolding["Holding_AsOn"].ToString());
+                    }
+
+                }
+                tempPortfolioXIRR = CalculateXIRR(transactionAmount, transactionDate);
+                drXIRR["CustomerId"] = dr["C_CustomerId"];
+                drXIRR["CustomerName"] = dr["C_CustomerName"];
+                drXIRR["PortfolioId"] = tempPortfoliId;
+                drXIRR["PortfolioName"] = dr["CP_PortfolioName"];
+                drXIRR["XIRR"] = Math.Round(tempPortfolioXIRR*100,5);
+                dtCustomerPortfolioXIRR.Rows.Add(drXIRR);
+            }
+
+            return dtCustomerPortfolioXIRR;
+        }
+        #endregion Portfolio Label XIRR
+
         public DataSet GetProductAssetInstrumentCategory()
         {
             CustomerPortfolioDao customerportfoliodao = new CustomerPortfolioDao();
