@@ -827,19 +827,30 @@ namespace WealthERP.Advisor
                         else
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAAdminMainDasdadsard", "loadcontrol('RMCustomer','login');", true);
                     }
+                    else if ((Session[SessionContents.CurrentUserRole].ToString() == "Ops"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
+                    }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                     {
-                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
-                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
-                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
-                        if (potentialHomePage == "Admin Home")
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMasdadasdsdard", "loadcontrol('IFAAdminMainDashboard','login');", true);
-                        else if (potentialHomePage == "Admin Small IFA Home")
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMainDasdadsard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                        if (!userVo.RoleList.Contains("Ops"))
+                        {
+                            dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
+                            if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                            if (potentialHomePage == "Admin Home")
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMasdadasdsdard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                            else if (potentialHomePage == "Admin Small IFA Home")
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMainDasdadsard", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                            else
+                            {
+                                Session["Customer"] = "Customer";
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMboardasdasdsd", "loadcontrol('AdviserCustomer','login');", true);
+                            }
+                        }
                         else
                         {
-                            Session["Customer"] = "Customer";
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "IFAAdminMboardasdasdsd", "loadcontrol('AdviserCustomer','login');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
                         }
                     }
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','none');", true);
