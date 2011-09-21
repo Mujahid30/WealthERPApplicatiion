@@ -84,40 +84,6 @@
 <asp:UpdatePanel ID="updatePnl" runat="server">
 
 <ContentTemplate>
-      <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" EnableEmbeddedSkins="false">
-    <telerik:TextBoxSetting BehaviorID="TextBoxBehavior1" Validation-IsRequired="true"
-        ErrorMessage="Is Required">
-        <TargetControls>
-            <%--<telerik:TargetInput ControlID="txtIPName" />--%>
-        </TargetControls>
-        <Validation IsRequired="True"></Validation>
-    </telerik:TextBoxSetting>
-    <telerik:DateInputSetting BehaviorID="DateInputBehavior1" Validation-IsRequired="true"
-        DateFormat="MM/dd/yyyy" ErrorMessage="Is Required">
-        <TargetControls>
-            <telerik:TargetInput ControlID="dpDOB" />
-        </TargetControls>
-        <Validation IsRequired="True"></Validation>
-    </telerik:DateInputSetting>
-    <telerik:RegExpTextBoxSetting BehaviorID="RagExpBehavior1" Validation-IsRequired="true"
-        ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ErrorMessage="Invalid Email">
-        <TargetControls>
-           
-            <%--<telerik:TargetInput ControlID="txtGridEmailId" />--%>
-        </TargetControls>
-        <Validation IsRequired="True"></Validation>
-    </telerik:RegExpTextBoxSetting>
-    
-  <%--  <telerik:NumericTextBoxSetting DecimalDigits="2" DecimalSeparator="." ErrorMessage="Numbers"
-        NegativePattern="-n" PositivePattern="n" Validation-IsRequired="false" AllowRounding="False"
-        MaxValue="70368744177" MinValue="-70368744177" GroupSizes="3" 
-        Type="Number" Culture="Hindi (India)"
-        GroupSeparator="" >
-            <TargetControls>
-                <telerik:TargetInput ControlID="txtIPName" />
-            </TargetControls>
-    </telerik:NumericTextBoxSetting>--%>
-</telerik:RadInputManager>
 
       <telerik:RadAjaxLoadingPanel ID="IPAddressDetailsLoading" runat="server" Skin="Telerik"
         EnableEmbeddedSkins="false">
