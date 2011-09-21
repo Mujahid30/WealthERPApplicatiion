@@ -196,6 +196,15 @@ namespace WealthERP.Reports
 
         }
 
+        protected void Page_UnLoad(object sender, EventArgs e)
+        {
+            this.CrystalReportViewer1.Dispose();
+            this.CrystalReportViewer1 = null;
+            crmain.Close();
+            crmain.Dispose();
+            GC.Collect();
+        }
+
         #region ReporDisplay Methods
 
 
@@ -2667,6 +2676,28 @@ namespace WealthERP.Reports
                         else
                             SetNoRecords();
                         break;
+                    case "TRANSACTION_REPORT_OPEN_CLOSE_BALANCE":
+                        crmain.Load(Server.MapPath("MFOpenCloseTransaction.rpt"));
+                        DataTable dtOpeningClosingTransactions = mfReports.GetOpeningClosingTransactionReport(report);
+                        if (dtOpeningClosingTransactions.Rows.Count > 0)
+                        {
+                            //crmain.SetDataSource(dtOpeningClosingTransactions);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
+                            AssignReportViewerProperties();
+
+                            //For PDF View In Browser : Author-Pramod
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                        }
+                        else
+                            SetNoRecords();
+                        break;
 
                     case "DIVIDEND_STATEMENT":
                         crmain.Load(Server.MapPath("MFDividend.rpt"));
@@ -2719,11 +2750,14 @@ namespace WealthERP.Reports
 
                     case "RETURNS_PORTFOLIO":
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
+                        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         if (dtReturnsPortfolio.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
+                            crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());

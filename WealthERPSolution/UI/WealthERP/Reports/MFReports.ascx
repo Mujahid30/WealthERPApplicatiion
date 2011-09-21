@@ -344,6 +344,7 @@
         arr["ELIGIBLE_CAPITAL_GAIN_DETAILS"] = "AS_ON";
         arr["ELIGIBLE_CAPITAL_GAIN_SUMMARY"] = "AS_ON";
         arr["TRANSACTION_REPORT"] = "DATE_RANGE";
+        arr["TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"] = "DATE_RANGE";        
         arr["DIVIDEND_STATEMENT"] = "DATE_RANGE";
         arr["DIVIDEND_SUMMARY"] = "DATE_RANGE";
         arr["CAPITAL_GAIN_SUMMARY"] = "DATE_RANGE";
@@ -740,6 +741,7 @@
                                                                 <asp:ListItem Text="Capital Gain Details" Value="CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                                                 <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                                                 <asp:ListItem Text="Eligible Capital Gain Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
+                                                                <asp:ListItem Text="Opening Closing Transaction Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
