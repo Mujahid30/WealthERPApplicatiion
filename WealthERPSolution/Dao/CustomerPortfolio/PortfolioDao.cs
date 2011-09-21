@@ -650,5 +650,40 @@ namespace DaoCustomerPortfolio
             else return 1;
 
         }
+        public DataSet GetCustomerTransactionDetailsForXIRR(string portfolioIds)
+        {
+            Database db;
+            DbCommand getCustomerTrasactionDetailsCmd;
+            DataSet dsTransactionDetaisl;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTrasactionDetailsCmd = db.GetStoredProcCommand("SP_GetCustomerTransactionsDetailsForPortfolioXIRR");
+                db.AddInParameter(getCustomerTrasactionDetailsCmd, "@PortfolioIds", DbType.String, portfolioIds);
+                dsTransactionDetaisl = db.ExecuteDataSet(getCustomerTrasactionDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "PortfolioDao.cs:GetCustomerTransactionDetailsForXIRR()");
+
+                object[] objects = new object[1];
+                objects[0] = portfolioIds;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTransactionDetaisl;          
+            
+
+        }
     }
 }
