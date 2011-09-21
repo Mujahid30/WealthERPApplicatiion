@@ -132,6 +132,11 @@ namespace WealthERP.Advisor
                 else
                     lblChkIPEnableAns.Text = "Yes";
 
+                if (advisorVo.IsOpsEnable == 0)
+                    lblChkIsOpsEnableValue.Text = "No";
+                else
+                    lblChkIsOpsEnableValue.Text = "Yes";
+
             }
             catch (BaseApplicationException Ex)
             {

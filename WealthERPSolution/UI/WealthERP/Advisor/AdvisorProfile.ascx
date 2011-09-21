@@ -246,4 +246,13 @@
             <asp:Label ID="lblChkIPEnableAns" runat="server" Text="" CssClass="Field"></asp:Label>
         </td>
     </tr>
+    
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblChkIsOpsEnable" runat="server" CssClass="FieldName" Text="Is Ops Enable: "></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblChkIsOpsEnableValue" runat="server" Text="" CssClass="Field"></asp:Label>
+        </td>
+    </tr>
 </table>
