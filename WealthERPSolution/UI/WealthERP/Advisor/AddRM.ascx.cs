@@ -571,6 +571,7 @@ namespace WealthERP.Advisor
             {
                 AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
                 RMVo rmVo = new RMVo();
+                string FromPageToCheckOps = string.Empty;
                 Random id = new Random();
                 AdvisorBo advisorBo = new AdvisorBo();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -697,18 +698,29 @@ namespace WealthERP.Advisor
                 Session["rmId"] = rmIds[1];
                 Session["rmUserVo"] = userBo.GetUserDetails(rmVo.UserId);
                 Session["userId"] = rmVo.UserId;
-                if ((chkMailSend.Checked == true) && (advisorVo.IsOpsEnable == 1))
+                if (Request.QueryString["PreviousPageName"] != null)
+                    FromPageToCheckOps = Request.QueryString["PreviousPageName"].ToString();
+
+                if ((chkMailSend.Checked == true) && ((advisorVo.IsOpsEnable == 1) || (FromPageToCheckOps != string.Empty)))
                 {
                     SendMail();
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Yours Ops Is not enabled or Send login info is not Checked.Therefore you will not get Login details.');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Ops role is not enabled for this adviser, therefore Ops staff will not be able to login...!');", true);
                 }
 
 
-                string hdnSelectedString = hdnSelectedBranches.Value.ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
+                if (Request.QueryString["PreviousPageName"] != null)
+                {
+                    string PreviousPage = "AddRM";
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserEnvironmentSettings','PreviousPageName=" + PreviousPage + "');", true);
+                }
+                else
+                {
+                    string hdnSelectedString = hdnSelectedBranches.Value.ToString();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
+                }
 
             }
         }
