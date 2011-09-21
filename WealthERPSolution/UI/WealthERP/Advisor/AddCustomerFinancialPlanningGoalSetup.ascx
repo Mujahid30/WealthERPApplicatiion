@@ -586,7 +586,7 @@
                 </tr>
                 <tr>
                   <td id="Td1" class="tdRequiredText" runat="server">
-                       <asp:Label ID="trRequiedNote" CssClass="cmbField" style="font-size: small;" runat="server" Text="1)Fields marked with ' * ' are compulsory."></asp:Label>
+                       <asp:Label ID="trRequiedNote" CssClass="cmbField" style="font-size: small;" runat="server" Text="1)Fields marked with ' * ' are mandatory."></asp:Label>
                        
                     </td>
                 </tr>
