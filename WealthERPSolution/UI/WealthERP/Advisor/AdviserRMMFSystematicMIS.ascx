@@ -226,11 +226,11 @@
         <telerik:RadTab runat="server"  Text="Systematic Setup View" 
             Value="Systematic Setup View" TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Calendar Detail View" 
+        <%--<telerik:RadTab runat="server" Text="Calendar Detail View" 
             Value="Calendar Detail View" TabIndex="1" Selected="True">
-        </telerik:RadTab>
-        <%--<telerik:RadTab runat="server" Text="Calendar Summary View" Value="Calendar Summary View" TabIndex="2">
         </telerik:RadTab>--%>
+  <telerik:RadTab runat="server" Text="Calender Summary View" Value="Calender Summary View" TabIndex="1">
+        </telerik:RadTab>
        </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" 
@@ -252,7 +252,7 @@
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="SystematicTransactionType" 
-                                       HeaderText="Systematic Transaction Type" UniqueName="SystematicTransactionType">
+                                       HeaderText="Type" UniqueName="SystematicTransactionType">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC" 
@@ -280,6 +280,12 @@
                                        UniqueName="Frequency">
                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
+                                   
+                                   <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Systematic Date" 
+                    UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
+                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                                   
                                    <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" 
                                        DataType="System.Decimal" FooterText="Total:" HeaderText="Amount" 
                                        UniqueName="Amount">
@@ -297,7 +303,7 @@
                     </telerik:RadAjaxPanel>                    
         </asp:Panel>
     </telerik:RadPageView>
-    <telerik:RadPageView ID="RadPageView2" runat="server">
+    <%--<telerik:RadPageView ID="RadPageView2" runat="server">
         <asp:Panel ID="pnlCalenderDetailView" runat="server">
             <table width="100%"> 
             <tr>
@@ -337,7 +343,7 @@
                     <ItemTemplate>
                         <asp:Label ID="lblNextSystematicDate" runat="server" CssClass="CmbField" Text=''></asp:Label>
                     </ItemTemplate>
-                  </telerik:GridTemplateColumn>--%>
+                  </telerik:GridTemplateColumn>
                   
                   <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Systematic Date" 
                     UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
@@ -364,12 +370,12 @@
             </tr>             
         </table>
         </asp:Panel>
-    </telerik:RadPageView>
-   <telerik:RadPageView ID="RadPageView3" runat="server">
+    </telerik:RadPageView>--%>
+   <telerik:RadPageView ID="RadPageView2" runat="server">
         <asp:Panel ID="pnlCalenderSummaryView" runat="server">
             <table width="100%" > 
            <tr><td>
-            <%--<telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
+         <telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="false" AllowPaging="True" 
         ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
@@ -447,7 +453,7 @@
             <ClientSettings>
                 <Resizing AllowColumnResize="True"></Resizing>
             </ClientSettings>
-        </telerik:RadGrid>--%>
+        </telerik:RadGrid>
              </td></tr>           
             </table>
         </asp:Panel>

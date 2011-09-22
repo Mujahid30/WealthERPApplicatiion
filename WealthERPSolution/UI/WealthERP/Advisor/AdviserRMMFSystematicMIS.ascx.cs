@@ -93,7 +93,7 @@ namespace WealthERP.Advisor
             rmId = rmVo.RMId;
             bmID=rmVo.RMId;
 
-            gvCalenderDetailView.Visible = true;
+            //gvCalenderDetailView.Visible = true;
             gvSystematicMIS.Visible = true;
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
@@ -359,7 +359,7 @@ namespace WealthERP.Advisor
 
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
-            gvCalenderDetailView.Visible = false;
+            //gvCalenderDetailView.Visible = false;
             gvSystematicMIS.Visible = false;
             tblMessage.Visible = true;
             ErrorMessage.Visible = true;
@@ -378,7 +378,7 @@ namespace WealthERP.Advisor
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
             ddlSelectCutomer.SelectedIndex = 0;
-            gvCalenderDetailView.Visible = false;
+            //gvCalenderDetailView.Visible = false;
             gvSystematicMIS.Visible = false;
             tblMessage.Visible = true;
             ErrorMessage.Visible = true;
@@ -446,8 +446,8 @@ namespace WealthERP.Advisor
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
                 BindgvSystematicMIS();
-                BindgvCalenderDetailView();
-                //BindreptCalenderSummaryView();
+                //BindgvCalenderDetailView();//Calender Detail view
+                BindreptCalenderSummaryView();
             }
             else
             {
@@ -761,79 +761,79 @@ namespace WealthERP.Advisor
 
   
         }
-
-        private  void BindgvCalenderDetailView()
-        {
+        //*******************************alender Detail View******************************
+        //private  void BindgvCalenderDetailView()
+        //{
           
-            try
-            {
-                DataTable dtCalenderDetail = new DataTable();
-                dtCalenderDetail.Columns.Add("CustomerName");
-                dtCalenderDetail.Columns.Add("Type");
-                dtCalenderDetail.Columns.Add("Scheme");
-                dtCalenderDetail.Columns.Add("Frequency");
-                dtCalenderDetail.Columns.Add("NextSystematicDate");
-                dtCalenderDetail.Columns.Add("Amount",typeof(Decimal));
+        //    try
+        //    {
+        //        DataTable dtCalenderDetail = new DataTable();
+        //        dtCalenderDetail.Columns.Add("CustomerName");
+        //        dtCalenderDetail.Columns.Add("Type");
+        //        dtCalenderDetail.Columns.Add("Scheme");
+        //        dtCalenderDetail.Columns.Add("Frequency");
+        //        dtCalenderDetail.Columns.Add("NextSystematicDate");
+        //        dtCalenderDetail.Columns.Add("Amount",typeof(Decimal));
 
-                DataRow drCalenderDetail;
+        //        DataRow drCalenderDetail;
 
 
-                foreach (DataRow dr in dtSystematicMIS2.Rows)
-                {
+        //        foreach (DataRow dr in dtSystematicMIS2.Rows)
+        //        {
 
-                    drCalenderDetail = dtCalenderDetail.NewRow();
-                    drCalenderDetail["CustomerName"] = dr["CustomerName"].ToString();
-                    drCalenderDetail["Type"] = dr["TypeCode"].ToString();
-                    drCalenderDetail["Scheme"] = dr["SchemeName"].ToString();
-                    drCalenderDetail["Frequency"] = dr["Frequency"].ToString();
-                    startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    endDate = Convert.ToDateTime(dr["EndDate"].ToString());
-                    frequency = dr["Frequency"].ToString();
-                    systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
-                    DateTime nextSystematicDate = GetNextSystematicDate(startDate, endDate, frequency, systematicDate);
-                    drCalenderDetail["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
-                    drCalenderDetail["Amount"] = decimal.Parse(dr["Amount"].ToString());
+        //            drCalenderDetail = dtCalenderDetail.NewRow();
+        //            drCalenderDetail["CustomerName"] = dr["CustomerName"].ToString();
+        //            drCalenderDetail["Type"] = dr["TypeCode"].ToString();
+        //            drCalenderDetail["Scheme"] = dr["SchemeName"].ToString();
+        //            drCalenderDetail["Frequency"] = dr["Frequency"].ToString();
+        //            startDate = Convert.ToDateTime(dr["StartDate"].ToString());
+        //            endDate = Convert.ToDateTime(dr["EndDate"].ToString());
+        //            frequency = dr["Frequency"].ToString();
+        //            systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
+        //            DateTime nextSystematicDate = GetNextSystematicDate(startDate, endDate, frequency, systematicDate);
+        //            drCalenderDetail["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
+        //            drCalenderDetail["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
-                    dtCalenderDetail.Rows.Add(drCalenderDetail);
+        //            dtCalenderDetail.Rows.Add(drCalenderDetail);
                  
-                   }
-                gvCalenderDetailView.DataSource = dtCalenderDetail;
-                gvCalenderDetailView.DataBind();
+        //           }
+        //        gvCalenderDetailView.DataSource = dtCalenderDetail;
+        //        gvCalenderDetailView.DataBind();
 
-                if (dtCalenderDetail.Rows.Count > 0)
-                {
-                    gvCalenderDetailView.Visible = true;
-                    tblMessage.Visible = false;
-                    ErrorMessage.Visible = false;
-                  }
-                else
-                {
-                    gvCalenderDetailView.Visible = false;
-                    tblMessage.Visible = true;
-                    ErrorMessage.Visible = true;
-                    ErrorMessage.InnerText = "No Records Found...!";
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //        if (dtCalenderDetail.Rows.Count > 0)
+        //        {
+        //            gvCalenderDetailView.Visible = true;
+        //            tblMessage.Visible = false;
+        //            ErrorMessage.Visible = false;
+        //          }
+        //        else
+        //        {
+        //            gvCalenderDetailView.Visible = false;
+        //            tblMessage.Visible = true;
+        //            ErrorMessage.Visible = true;
+        //            ErrorMessage.InnerText = "No Records Found...!";
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindgvCalenderDetailView()");
+        //        FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindgvCalenderDetailView()");
 
-                object[] objects = new object[0];
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
         protected void gvCalenderDetailView_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
@@ -890,7 +890,7 @@ namespace WealthERP.Advisor
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
                 dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
-               // dtSystematicMIS4 = dsBindGvSystematicMIS.Tables[3];
+                //dtSystematicMIS4 = dsBindGvSystematicMIS.Tables[3];
 
                 DataTable dtSystematicDetails = new DataTable();
                 dtSystematicDetails.Columns.Add("CustomerName");
@@ -901,6 +901,7 @@ namespace WealthERP.Advisor
                 dtSystematicDetails.Columns.Add("StartDate");
                 dtSystematicDetails.Columns.Add("EndDate");
                 dtSystematicDetails.Columns.Add("Frequency");
+                dtSystematicDetails.Columns.Add("NextSystematicDate");
                 dtSystematicDetails.Columns.Add("Amount",typeof(Decimal));
 
                 DataRow drSystematicDetails;
@@ -915,6 +916,9 @@ namespace WealthERP.Advisor
                     drSystematicDetails["StartDate"] = DateTime.Parse(dr["StartDate"].ToString()).ToShortDateString();
                     drSystematicDetails["EndDate"] = DateTime.Parse(dr["EndDate"].ToString()).ToShortDateString();
                     drSystematicDetails["Frequency"] = dr["Frequency"].ToString();
+                    systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
+                    DateTime nextSystematicDate = GetNextSystematicDate(startDate, endDate, frequency, systematicDate);
+                    drSystematicDetails["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
@@ -999,129 +1003,129 @@ namespace WealthERP.Advisor
 
 
 
-        //private void BindreptCalenderSummaryView()
-        //{
-        //    totalSIPAmount = 0;
-        //    totalSWPAmount = 0;
-        //    totalNoOfSWP = 0;
-        //    totalNoOfSIP = 0;
-        //    totalNoOfFreshSIP = 0;
-        //    totalNoOfFreshSWP = 0;
-        //    try
-        //    {
-        //        DataTable dtCalenderSymmary = new DataTable();
-        //        dtCalenderSymmary.Columns.Add("Year");
-        //        dtCalenderSymmary.Columns.Add("Month");
-        //        dtCalenderSymmary.Columns.Add("FinalMonth");
-        //        dtCalenderSymmary.Columns.Add("SIPAmount", typeof(Decimal));
-        //        dtCalenderSymmary.Columns.Add("NoOfSIP", typeof(Int16));
-        //        dtCalenderSymmary.Columns.Add("NoOfFreshSIP", typeof(Int16));
-        //        dtCalenderSymmary.Columns.Add("SWPDate");
-        //        dtCalenderSymmary.Columns.Add("SWPAmount", typeof(Decimal));
-        //        dtCalenderSymmary.Columns.Add("NoOfSWP", typeof(Int16));
-        //        dtCalenderSymmary.Columns.Add("NoOfFreshSWP", typeof(Int16));
-        //        DataRow drCalenderSummary;
+        private void BindreptCalenderSummaryView()
+        {
+            totalSIPAmount = 0;
+            totalSWPAmount = 0;
+            totalNoOfSWP = 0;
+            totalNoOfSIP = 0;
+            totalNoOfFreshSIP = 0;
+            totalNoOfFreshSWP = 0;
+            try
+            {
+                DataTable dtCalenderSymmary = new DataTable();
+                dtCalenderSymmary.Columns.Add("Year");
+                dtCalenderSymmary.Columns.Add("Month");
+                dtCalenderSymmary.Columns.Add("FinalMonth");
+                dtCalenderSymmary.Columns.Add("SIPAmount", typeof(Decimal));
+                dtCalenderSymmary.Columns.Add("NoOfSIP", typeof(Int16));
+                dtCalenderSymmary.Columns.Add("NoOfFreshSIP", typeof(Int16));
+                dtCalenderSymmary.Columns.Add("SWPDate");
+                dtCalenderSymmary.Columns.Add("SWPAmount", typeof(Decimal));
+                dtCalenderSymmary.Columns.Add("NoOfSWP", typeof(Int16));
+                dtCalenderSymmary.Columns.Add("NoOfFreshSWP", typeof(Int16));
+                DataRow drCalenderSummary;
 
 
-        //        foreach (DataRow dr in dtSystematicMIS3.Rows)
-        //        {
-        //            drCalenderSummary = dtCalenderSymmary.NewRow();
-        //            if (dr["TypeCode"].ToString() == "SIP")
-        //            {
-        //                drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
-        //                drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
-        //                monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
-        //                String month = GetMonth(monthCode);
-        //                drCalenderSummary["FinalMonth"] = month;
-        //                drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
-        //                totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
-        //                drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
-        //                totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
+                foreach (DataRow dr in dtSystematicMIS3.Rows)
+                {
+                    drCalenderSummary = dtCalenderSymmary.NewRow();
+                    if (dr["TypeCode"].ToString() == "SIP")
+                    {
+                        drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
+                        drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
+                        monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
+                        String month = GetMonth(monthCode);
+                        drCalenderSummary["FinalMonth"] = month;
+                        drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                        totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                        drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
+                        totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
 
-        //                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
-        //                {
-        //                    drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
-        //                    totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
-        //                }
-        //                else
-        //                    drCalenderSummary["NoOfFreshSIP"] = 0;
+                        if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                        {
+                            drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
+                            totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
+                        }
+                        else
+                            drCalenderSummary["NoOfFreshSIP"] = 0;
 
-        //                drCalenderSummary["SWPAmount"] = 0;
-        //                drCalenderSummary["NoOfSWP"] = 0;
-        //                drCalenderSummary["NoOfFreshSWP"] = 0;
-        //            }
-        //            else if (dr["TypeCode"].ToString() == "SWP")
-        //            {
-        //                drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
-        //                drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
-        //                monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
-        //                String month = GetMonth(monthCode);
-        //                drCalenderSummary["FinalMonth"] = month;
-        //                drCalenderSummary["SIPAmount"] = 0;
-        //                drCalenderSummary["NoOfSIP"] = 0;
-        //                drCalenderSummary["NoOfFreshSIP"] = 0;
-        //                drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
-        //                totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
-        //                drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
-        //                totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
+                        drCalenderSummary["SWPAmount"] = 0;
+                        drCalenderSummary["NoOfSWP"] = 0;
+                        drCalenderSummary["NoOfFreshSWP"] = 0;
+                    }
+                    else if (dr["TypeCode"].ToString() == "SWP")
+                    {
+                        drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
+                        drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
+                        monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
+                        String month = GetMonth(monthCode);
+                        drCalenderSummary["FinalMonth"] = month;
+                        drCalenderSummary["SIPAmount"] = 0;
+                        drCalenderSummary["NoOfSIP"] = 0;
+                        drCalenderSummary["NoOfFreshSIP"] = 0;
+                        drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                        totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                        drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
+                        totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
 
-        //                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
-        //                {
-        //                    drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
-        //                    totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
-        //                }
-        //                else
-        //                    drCalenderSummary["NoOfFreshSWP"] = 0;
+                        if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                        {
+                            drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
+                            totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
+                        }
+                        else
+                            drCalenderSummary["NoOfFreshSWP"] = 0;
 
 
-        //            }
-        //            dtCalenderSymmary.Rows.Add(drCalenderSummary);
+                    }
+                    dtCalenderSymmary.Rows.Add(drCalenderSummary);
 
-        //        }
+                }
 
-        //        //dtSystematicMIS3.Merge(dtSystematicMIS4);
-        //        GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
-        //        //this.CustomizeExpression(expression1);
-        //        this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
-        //        reptCalenderSummaryView.DataSource = dtCalenderSymmary;
-        //        reptCalenderSummaryView.DataBind();
-        //        if (dtCalenderSymmary.Rows.Count > 0)
-        //        {
-        //            reptCalenderSummaryView.Visible = true;
-        //            tblMessage.Visible = false;
-        //            ErrorMessage.Visible = false;
-        //            //trPager.Visible = true;
-        //        }
+                //dtSystematicMIS3.Merge(dtSystematicMIS4);
+                GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
+                //this.CustomizeExpression(expression1);
+                this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
+                reptCalenderSummaryView.DataSource = dtCalenderSymmary;
+                reptCalenderSummaryView.DataBind();
+                if (dtCalenderSymmary.Rows.Count > 0)
+                {
+                    reptCalenderSummaryView.Visible = true;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    //trPager.Visible = true;
+                }
 
-        //        else
-        //        {
-        //            reptCalenderSummaryView.Visible = false;
-        //            tblMessage.Visible = true;
-        //            ErrorMessage.Visible = true;
-        //            ErrorMessage.InnerText = "No Records Found...!";
-        //            //trPager.Visible = false;
-        //        }
+                else
+                {
+                    reptCalenderSummaryView.Visible = false;
+                    tblMessage.Visible = true;
+                    ErrorMessage.Visible = true;
+                    ErrorMessage.InnerText = "No Records Found...!";
+                    //trPager.Visible = false;
+                }
 
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
-        //        FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindgvSystematicMIS()");
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindgvSystematicMIS()");
 
-        //        object[] objects = new object[0];
+                object[] objects = new object[0];
 
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
-        //    }
-        //}
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private String GetMonth(int monthCode)
         {
             String finalMonth = "";
@@ -1168,32 +1172,32 @@ namespace WealthERP.Advisor
             return finalMonth;
         }
 
-        //protected void reptCalenderSummaryView_ItemDataBound(object sender, GridItemEventArgs e)
-        //{
-        //    if (e.Item is GridFooterItem)
-        //    {
-        //        e.Item.Cells[3].Text = "Total :";
+        protected void reptCalenderSummaryView_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                e.Item.Cells[3].Text = "Total :";
 
-        //        e.Item.Cells[5].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-        //        e.Item.Cells[5].Attributes.Add("align", "Right");
+                e.Item.Cells[5].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[5].Attributes.Add("align", "Right");
 
-        //        e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
-        //        e.Item.Cells[6].Attributes.Add("align", "Right");
+                e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
+                e.Item.Cells[6].Attributes.Add("align", "Right");
 
-        //        e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
-        //        e.Item.Cells[7].Attributes.Add("align", "Right");
+                e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
+                e.Item.Cells[7].Attributes.Add("align", "Right");
 
-        //        e.Item.Cells[8].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-        //        e.Item.Cells[8].Attributes.Add("align", "Right");
+                e.Item.Cells[8].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[8].Attributes.Add("align", "Right");
 
-        //        e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
-        //        e.Item.Cells[9].Attributes.Add("align", "Right");
+                e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
+                e.Item.Cells[9].Attributes.Add("align", "Right");
 
-        //        e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
-        //        e.Item.Cells[10].Attributes.Add("align", "Right");
+                e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
+                e.Item.Cells[10].Attributes.Add("align", "Right");
 
-        //    }
-        //}
+            }
+        }
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
