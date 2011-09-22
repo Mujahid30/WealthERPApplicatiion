@@ -59,6 +59,7 @@ namespace WealthERP.Advisor
         string frequency = "";
         int systematicDate = 0;
         int monthCode = 0;
+        int year = 0;
         int isIndividualOrGroup = 0;
 
         int all;
@@ -1011,6 +1012,9 @@ namespace WealthERP.Advisor
             totalNoOfSIP = 0;
             totalNoOfFreshSIP = 0;
             totalNoOfFreshSWP = 0;
+            int i = 0;
+            int SIPAmount = 0;
+            
             try
             {
                 DataTable dtCalenderSymmary = new DataTable();
@@ -1030,58 +1034,150 @@ namespace WealthERP.Advisor
                 foreach (DataRow dr in dtSystematicMIS3.Rows)
                 {
                     drCalenderSummary = dtCalenderSymmary.NewRow();
-                    if (dr["TypeCode"].ToString() == "SIP")
-                    {
-                        drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
-                        drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
-                        monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
-                        String month = GetMonth(monthCode);
-                        drCalenderSummary["FinalMonth"] = month;
-                        drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
-                        totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
-                        drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
-                        totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
+                    drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
+                    drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
+                    monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
+                    year = Convert.ToInt32(drCalenderSummary["Year"]);
+                    String month = GetMonth(monthCode);
+                    drCalenderSummary["FinalMonth"] = month;
 
-                        if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                    if (dtCalenderSymmary.Rows.Count != 0)
+                    {
+                        if ((year != int.Parse(dtCalenderSymmary.Rows[i - 1]["Year"].ToString())) && (monthCode != int.Parse(dtCalenderSymmary.Rows[i - 1]["Month"].ToString())))
                         {
-                            drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
-                            totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
+                            if (dr["TypeCode"].ToString() == "SIP")
+                            {
+                                drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                                totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                                drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
+                                totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
+
+                                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                                {
+                                    drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
+                                    totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
+                                }
+                                else
+                                    drCalenderSummary["NoOfFreshSIP"] = 0;
+
+                                drCalenderSummary["SWPAmount"] = 0;
+                                drCalenderSummary["NoOfSWP"] = 0;
+                                drCalenderSummary["NoOfFreshSWP"] = 0;
+                            }
+                            else if (dr["TypeCode"].ToString() == "SWP")
+                            {
+                                drCalenderSummary["SIPAmount"] = 0;
+                                drCalenderSummary["NoOfSIP"] = 0;
+                                drCalenderSummary["NoOfFreshSIP"] = 0;
+                                drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                                totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                                drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
+                                totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
+
+                                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                                {
+                                    drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
+                                    totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
+                                }
+                                else
+                                    drCalenderSummary["NoOfFreshSWP"] = 0;
+                            }
+                            dtCalenderSymmary.Rows.Add(drCalenderSummary);
                         }
                         else
-                            drCalenderSummary["NoOfFreshSIP"] = 0;
+                        {
+                            dtCalenderSymmary.Rows[i - 1].BeginEdit();
 
-                        drCalenderSummary["SWPAmount"] = 0;
-                        drCalenderSummary["NoOfSWP"] = 0;
-                        drCalenderSummary["NoOfFreshSWP"] = 0;
+                            if (dr["TypeCode"].ToString() == "SIP")
+                            {
+                                dtCalenderSymmary.Rows[i - 1]["SIPAmount"] = Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SIPAmount"].ToString()) + Decimal.Parse(dr["SIPAmount"].ToString());
+                                totalSIPAmount = totalSIPAmount + Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SIPAmount"].ToString());
+                                dtCalenderSymmary.Rows[i - 1]["NoOfSIP"] = int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSIP"].ToString()) + int.Parse(dr["NoOfSIP"].ToString());
+                                totalNoOfSIP = totalNoOfSIP + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSIP"].ToString());
+
+                                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                                {
+                                    dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"] = int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"].ToString()) + int.Parse(dr["FreshSIP"].ToString());
+                                    totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"].ToString());
+                                }
+                                else
+                                    dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"].ToString());
+
+
+                                drCalenderSummary["SWPAmount"] = 0 + Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SWPAmount"].ToString());
+                                drCalenderSummary["NoOfSWP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSWP"].ToString());
+                                drCalenderSummary["NoOfFreshSWP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"].ToString());
+
+                            }
+                            else if (dr["TypeCode"].ToString() == "SWP")
+                            {
+
+                                dtCalenderSymmary.Rows[i - 1]["SWPAmount"] = Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SWPAmount"].ToString()) + Decimal.Parse(dr["SIPAmount"].ToString());
+                                totalSWPAmount = totalSWPAmount + Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SIPAmount"].ToString());
+                                dtCalenderSymmary.Rows[i - 1]["NoOfSWP"] = int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSWP"].ToString()) + int.Parse(dr["NoOfSIP"].ToString());
+                                totalNoOfSWP = totalNoOfSWP + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSWP"].ToString());
+
+                                if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                                {
+                                    dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"] = int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"].ToString()) + int.Parse(dr["FreshSIP"].ToString());
+                                    totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"].ToString());
+                                }
+                                else
+                                    dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSWP"].ToString());
+
+                                drCalenderSummary["SIPAmount"] = 0 + Decimal.Parse(dtCalenderSymmary.Rows[i - 1]["SIPAmount"].ToString());
+                                drCalenderSummary["NoOfSIP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfSIP"].ToString());
+                                drCalenderSummary["NoOfFreshSIP"] = 0 + int.Parse(dtCalenderSymmary.Rows[i - 1]["NoOfFreshSIP"].ToString());
+                            }
+                            dtCalenderSymmary.Rows[i - 1].EndEdit();
+                            dtCalenderSymmary.Rows[i - 1].AcceptChanges();
+                        }
                     }
-                    else if (dr["TypeCode"].ToString() == "SWP")
+                    else
                     {
-                        drCalenderSummary["Year"] = DateTime.Parse(dr["SIPDate"].ToString()).Year;
-                        drCalenderSummary["Month"] = DateTime.Parse(dr["SIPDate"].ToString()).Month;
-                        monthCode = Convert.ToInt32(drCalenderSummary["Month"]);
-                        String month = GetMonth(monthCode);
-                        drCalenderSummary["FinalMonth"] = month;
-                        drCalenderSummary["SIPAmount"] = 0;
-                        drCalenderSummary["NoOfSIP"] = 0;
-                        drCalenderSummary["NoOfFreshSIP"] = 0;
-                        drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
-                        totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
-                        drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
-                        totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
-
-                        if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                        if (dr["TypeCode"].ToString() == "SIP")
                         {
-                            drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
-                            totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
-                        }
-                        else
+                            drCalenderSummary["SIPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                            totalSIPAmount = totalSIPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                            drCalenderSummary["NoOfSIP"] = int.Parse(dr["NoOfSIP"].ToString());
+                            totalNoOfSIP = totalNoOfSIP + int.Parse(dr["NoOfSIP"].ToString());
+
+                            if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                            {
+                                drCalenderSummary["NoOfFreshSIP"] = int.Parse(dr["FreshSIP"].ToString());
+                                totalNoOfFreshSIP = totalNoOfFreshSIP + int.Parse(dr["FreshSIP"].ToString());
+                            }
+                            else
+                                drCalenderSummary["NoOfFreshSIP"] = 0;
+
+                            drCalenderSummary["SWPAmount"] = 0;
+                            drCalenderSummary["NoOfSWP"] = 0;
                             drCalenderSummary["NoOfFreshSWP"] = 0;
+                        }
+                        else if (dr["TypeCode"].ToString() == "SWP")
+                        {
+                            drCalenderSummary["SIPAmount"] = 0;
+                            drCalenderSummary["NoOfSIP"] = 0;
+                            drCalenderSummary["NoOfFreshSIP"] = 0;
+                            drCalenderSummary["SWPAmount"] = Decimal.Parse(dr["SIPAmount"].ToString());
+                            totalSWPAmount = totalSWPAmount + Decimal.Parse(dr["SIPAmount"].ToString());
+                            drCalenderSummary["NoOfSWP"] = int.Parse(dr["NoOfSIP"].ToString());
+                            totalNoOfSWP = totalNoOfSWP + int.Parse(dr["NoOfSIP"].ToString());
 
-
+                            if (!string.IsNullOrEmpty(dr["FreshSIP"].ToString()))
+                            {
+                                drCalenderSummary["NoOfFreshSWP"] = int.Parse(dr["FreshSIP"].ToString());
+                                totalNoOfFreshSWP = totalNoOfFreshSWP + int.Parse(dr["FreshSIP"].ToString());
+                            }
+                            else
+                                drCalenderSummary["NoOfFreshSWP"] = 0;
+                        }
+                        dtCalenderSymmary.Rows.Add(drCalenderSummary);
+                        
                     }
-                    dtCalenderSymmary.Rows.Add(drCalenderSummary);
-
+                    i = dtCalenderSymmary.Rows.Count;
                 }
+                    
 
                 //dtSystematicMIS3.Merge(dtSystematicMIS4);
                 GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
