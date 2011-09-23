@@ -5590,7 +5590,12 @@
     <None Include="UploadPackages\CAMSSIPUploadPackage\UploadCAMSXtrnlSystematicSetupStagingToXtrnlSystematicSetup.dtsx" />
     <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.database" />
     <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj" />
-    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\Package.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPCommonStagingCheck.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPCommonStagingToWERP.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPFileToInput.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPInputToStaging.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPStagingCheck.dtsx" />
+    <None Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\UploadSIPStagingtoCommonStaging.dtsx" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.database" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew.dtproj" />
     <None Include="UploadPackages\CAMSTransactionUploadPackageNew\CAMSTransactionUploadPackageNew\UploadCAMSTransStgToMFTransStg.dtsx" />
