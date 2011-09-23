@@ -378,6 +378,11 @@ namespace WealthERP.General
                                     }
                                     else if (roleList.Contains("Ops"))
                                     {
+                                        //RM Theme Will be same as Advisor Theme
+                                        userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                        Session["Theme"] = strUserTheme;
+                                        Session["refreshTheme"] = true;
+
                                         Session["S_CurrentUserRole"] = "Admin";
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('AdviserCustomer','login');", true);
 
