@@ -433,8 +433,194 @@ namespace DaoProductMaster
 
             return dtGetMFScheme;
         }
+        public DataSet GetProductAssetCategory()
+        {
+            Database db;
+            DbCommand getAssetCategoryCmd;
+            DataSet dsAssetCategory;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAssetCategoryCmd = db.GetStoredProcCommand("SP_GetProductAssetCategory");
+                dsAssetCategory = db.ExecuteDataSet(getAssetCategoryCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFDao.cs:GetProductAssetCategory()");
 
 
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsAssetCategory;
+        }
+
+        public DataSet GetSchemeName(int amcCode, string categoryCode, int all)
+        {
+            Database db;
+            DbCommand getSchemeNameCmd;
+            DataSet dsSchemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNameCmd = db.GetStoredProcCommand("SP_GetSchemeName");
+                db.AddInParameter(getSchemeNameCmd, "@amcCode", DbType.Int32, amcCode);
+                db.AddInParameter(getSchemeNameCmd, "@categoryCode", DbType.String, categoryCode);
+                db.AddInParameter(getSchemeNameCmd, "@All", DbType.Int16, all);
+                dsSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFDao.cs:GetProductAssetCategory()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSchemeName;
+        }
+
+        public DataSet GetFolioNumber(int portfolioId, int amcCode, int all)
+        {
+            Database db;
+            DbCommand getfolionumberCmd;
+            DataSet dsFolioNumber;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getfolionumberCmd = db.GetStoredProcCommand("SP_GetFolioNumber");
+                db.AddInParameter(getfolionumberCmd, "@portfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getfolionumberCmd, "@amcCode", DbType.Int32, amcCode);
+                db.AddInParameter(getfolionumberCmd, "@all", DbType.Int16, all);
+                dsFolioNumber = db.ExecuteDataSet(getfolionumberCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFDao.cs:GetProductAssetCategory()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFolioNumber;
+        }
+        public int GetAMCfromFolioNo(int accountId)
+        {
+            Database db;
+            DbCommand getamcfromfolioNoCmd;
+            DataSet dsGetAMC;
+            DataRow dr;
+            int amcCode;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getamcfromfolioNoCmd = db.GetStoredProcCommand("SP_GetAMCFromFolioNo");
+                db.AddInParameter(getamcfromfolioNoCmd, "@accountId", DbType.Int32, accountId);
+                dsGetAMC = db.ExecuteDataSet(getamcfromfolioNoCmd);
+                dr = dsGetAMC.Tables[0].Rows[0];
+                amcCode = int.Parse(dr["PA_AMCCode"].ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetAMCfromFolioNo()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return amcCode;
+        }
+        public string GetCategoryNameFromSChemeCode(int schemePlanCode)
+        {
+            Database db;
+            DbCommand getcategoryCmd;
+            DataSet dsGetCategory;
+            DataRow dr;
+            string category;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getcategoryCmd = db.GetStoredProcCommand("SP_GetCategoryNameFromSchemeCade");
+                db.AddInParameter(getcategoryCmd, "@schemeplanCode", DbType.Int32, schemePlanCode);
+                dsGetCategory = db.ExecuteDataSet(getcategoryCmd);
+                dr = dsGetCategory.Tables[0].Rows[0];
+                category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetAMCfromFolioNo()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return category;
+        }
 
     }
 }
