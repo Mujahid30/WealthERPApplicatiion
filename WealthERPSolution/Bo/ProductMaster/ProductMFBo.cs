@@ -274,5 +274,167 @@ namespace BoProductMaster
             }
             return dtSchemePlans;
         }
+
+        public DataSet GetProductAssetCategory()
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsAssetCategory;
+            try
+            {
+                dsAssetCategory = productMFDao.GetProductAssetCategory();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetProductAssetCategory()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAssetCategory;
+        }
+
+        public DataSet GetSchemeName(int amcCode, string categoryCode, int all)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsGetScheme;
+            try
+            {
+                dsGetScheme = productMFDao.GetSchemeName(amcCode, categoryCode, all);
+            }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetSchemeName()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetScheme;
+        }
+
+        public DataSet GetFolioNumber(int portfolioId, int amcCode, int all)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            DataSet dsGetFolioNumber;
+            try
+            {
+                dsGetFolioNumber = productMFDao.GetFolioNumber(portfolioId, amcCode, all);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetFolioNumber()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetFolioNumber;
+        }
+
+
+        public int GetAMCfromFolioNo(int accountId)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            int amcCode;
+            try
+            {
+                amcCode = productMFDao.GetAMCfromFolioNo(accountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetAMCfromFolioNo()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return amcCode;
+        }
+        public string GetCategoryNameFromSChemeCode(int schemePlanCode)
+        {
+            ProductMFDao productMFDao = new ProductMFDao();
+            string category;
+            try
+            {
+                category = productMFDao.GetCategoryNameFromSChemeCode(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetAMCfromFolioNo()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return category;
+        }
+      
+    
     }
 }
