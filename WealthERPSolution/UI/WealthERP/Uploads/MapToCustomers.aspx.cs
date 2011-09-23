@@ -31,6 +31,7 @@ namespace WealthERP.Uploads
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
 
+        //int testVar = 0;
         int MFTransactionStagingId =0;
         ArrayList Stagingtableid = new ArrayList();
         ArrayList DistinctProcessId = new ArrayList();
@@ -64,9 +65,13 @@ namespace WealthERP.Uploads
             advisorVo = (AdvisorVo)Session["advisorVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
+            MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
             Stagingtableid = (ArrayList)Session["Stagingtableid"];
             DistinctProcessId = (ArrayList)Session["distincProcessIds"];
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
+            //Session["ProcessIdMaptoCustomers"] = 1;
+            
+            //testVar = (int)Session["varTest"];
             
             //folionumbers = (String[])Request.Params["id"];
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
@@ -148,11 +153,9 @@ namespace WealthERP.Uploads
         protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int userId = 0;
-            int customerId = 0;
-            //int testVar = 0;
+            int customerId = 0;            
             customerId = Convert.ToInt32(e.CommandArgument);
-            UserVo userVo = (UserVo)Session["userVo"];
-            //testVar = (int)Session["varTest"];
+            UserVo userVo = (UserVo)Session["userVo"];           
             userId = userVo.UserId;
             bool insertioncomplete = true;
             CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
@@ -162,14 +165,7 @@ namespace WealthERP.Uploads
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
               try
                 {
-                    //if (testVar == 1)
-                    //{
-                    //    insertioncomplete = MapRejectedFoliosToCustomer(customerId);
-                    //    Session.Remove("varTest");
-                    //}
-                    //else
-                        insertioncomplete = MapfoliotoCustomer(customerId);
-                  
+                    insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);                  
                 }
                 catch (Exception ex)
                 {
@@ -183,7 +179,7 @@ namespace WealthERP.Uploads
                 lblMessage.Text = "Customer is mapped";
                 lblMessage.CssClass = "SuccessMsg";
                 tblSearch.Visible = false;
-                reprocess();
+                //reprocess();
             }
             else
             {
@@ -199,18 +195,20 @@ namespace WealthERP.Uploads
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
 
             int userId = userVo.UserId;
-            for (int i = 0; i < Stagingtableid.Count; i++)
-            {
-                try
-                {
-                    MFTransactionStagingId = Convert.ToInt32(Stagingtableid[i]);
-                    result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
-                }
-                catch (Exception ex)
-                {
-                    result = false;
-                }
-            }
+            MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
+            result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+            //for (int i = 0; i < Stagingtableid.Count; i++)
+            //{
+            //    try
+            //    {
+            //        MFTransactionStagingId = Convert.ToInt32(Stagingtableid[i]);
+            //        result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        result = false;
+            //    }
+            //}
             return result;
         }
 
