@@ -202,8 +202,14 @@ namespace WealthERP.CustomerPortfolio
                         drFixedIncomePortfolio[0] = fixedincomeVo.FITransactionId.ToString();
                         drFixedIncomePortfolio[1] = fixedincomeVo.Name.ToString();
                         drFixedIncomePortfolio[2] = fixedincomeVo.AssetInstrumentCategoryName.ToString();
-                        drFixedIncomePortfolio[3] = fixedincomeVo.PurchaseDate.ToShortDateString();
-                        drFixedIncomePortfolio[4] = fixedincomeVo.MaturityDate.ToShortDateString();
+                        if (fixedincomeVo.PurchaseDate != DateTime.MinValue)
+                            drFixedIncomePortfolio[3] = fixedincomeVo.PurchaseDate.ToShortDateString();
+                        else
+                            drFixedIncomePortfolio[3] = "";
+                        if (fixedincomeVo.MaturityDate != DateTime.MinValue)
+                            drFixedIncomePortfolio[4] = fixedincomeVo.MaturityDate.ToShortDateString();
+                        else
+                            drFixedIncomePortfolio[4] = "";
                         if (Convert.ToDecimal(fixedincomeVo.PrinciaplAmount.ToString()) == 0)
                             drFixedIncomePortfolio[5] = "0";
                         else
