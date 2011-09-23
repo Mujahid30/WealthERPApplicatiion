@@ -2427,6 +2427,7 @@
     <XMLExternalSourceFileType XESFT_FileTypeId="24" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="dbf" XES_SourceCode="DT" WUXFT_XMLFileTypeId="18" Deleted="False"/>
     <XMLExternalSourceFileType XESFT_FileTypeId="25" XESFT_AssetGroup="EQ" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="IIFL" WUXFT_XMLFileTypeId="19" Deleted="False"/>
     <XMLExternalSourceFileType XESFT_FileTypeId="26" XESFT_AssetGroup="MF" XESFT_FileType="Standard Folio" XESFT_FileExtension="xls" XES_SourceCode="WP" WUXFT_XMLFileTypeId="14" Deleted="False"/>
+    <XMLExternalSourceFileType XESFT_FileTypeId="27" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="CA" WUXFT_XMLFileTypeId="20" Deleted="False" />
 
   </Upload_Fileype>
 
