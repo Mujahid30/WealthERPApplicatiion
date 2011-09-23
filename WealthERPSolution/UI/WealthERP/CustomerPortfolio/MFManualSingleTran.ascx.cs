@@ -713,6 +713,8 @@ namespace WealthERP.CustomerPortfolio
         {
          //txtSearchScheme.Text="";
         ddlScheme.SelectedIndex = 0;
+         ddlAMC.SelectedIndex=0;
+         ddlCategory.SelectedIndex = 0;
         ddlTransactionType.SelectedIndex=0;
         ddlFolioNum.SelectedIndex=0;
         txtTransactionDate.Text="";
