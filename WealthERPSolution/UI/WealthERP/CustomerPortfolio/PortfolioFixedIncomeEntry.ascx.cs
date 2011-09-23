@@ -82,6 +82,18 @@ namespace WealthERP.CustomerPortfolio
                             case "FITB":
                                 lblInstrumentCategory.Text = "Tax Savings Bonds - Banks";
                                 break;
+                            case "FICE":
+                                lblInstrumentCategory.Text = "Certificate of Deposit";
+                                break;
+                            case "FIML":
+                                lblInstrumentCategory.Text = "Market linked";
+                                break;
+                            case "FIOT":
+                                lblInstrumentCategory.Text = "Others";
+                                break;
+                            case "FIPS":
+                                lblInstrumentCategory.Text = "PSU & PFI Bonds";
+                                break;
                             default:
                                 lblInstrumentCategory.Text = "N/A";
                                 break;
@@ -151,6 +163,86 @@ namespace WealthERP.CustomerPortfolio
             {
                 SetDDB();
             }
+            if (custAccVo.AssetCategory.ToString().Trim() == "FIML" || custAccVo.AssetCategory.ToString().Trim() == "FIOT")
+            {
+                SetOthers();
+            }
+            if (custAccVo.AssetCategory.ToString().Trim() == "FICE" || custAccVo.AssetCategory.ToString().Trim() == "FIPS")
+            {
+                SetMarketLink();
+            }
+        }
+
+        private void SetOthers()
+        {
+            trDepositDetails.Visible = false;
+            trDepoDateMatDate.Visible = false;
+            trFaceValDebNum.Visible = false;
+            trDeposit.Visible = false;
+            trDepositDetailsSpace.Visible = false;
+
+            trDDBDetails.Visible = false;
+            trDDBIssuePurchaseDate.Visible = false;
+            trDDBPurchPriceMatDate.Visible = false;
+            trDDBFaceValue.Visible = false;
+            trDDBNoofDebentures.Visible = false;
+            trDDBSpace.Visible = false;
+
+            trPurchaseDetails.Visible = false;
+            trIssueDate.Visible = false;
+            trPurchPrice.Visible = false;
+            trFaceValue.Visible = false;
+            trPurchCost.Visible = false;
+            trPurchaseSpace.Visible = false;
+
+            trDepositSchedule.Visible = false;
+            trDepositAmt.Visible = false;
+            trDepositScheduleSpace.Visible = false;
+
+            trInterestDetails.Visible = true;
+            trIntRateIntBasis.Visible = true;
+            trIntFreqIntAmt.Visible = true;
+            trIntFreqCompound.Visible = false;
+            trInterestDetailsSpace.Visible = true;
+
+            ddlInterestBasis.SelectedValue = "SI";
+            ddlPayableFrequencyCode.SelectedValue = "HY";
+        }
+        private void SetMarketLink()
+        {
+            trDepositDetails.Visible = false;
+            trDepoDateMatDate.Visible = false;
+            trFaceValDebNum.Visible = false;
+            trDeposit.Visible = false;
+            trDepositDetailsSpace.Visible = false;
+
+            trDDBDetails.Visible = true;
+            trDDBIssuePurchaseDate.Visible = false;
+            trDDBPurchPriceMatDate.Visible = true;
+            trDDBFaceValue.Visible = true;
+            trDDBNoofDebentures.Visible = true;
+            trDDBSpace.Visible = true;
+
+            trPurchaseDetails.Visible = false;
+            trIssueDate.Visible = false;
+            trPurchPrice.Visible = false;
+            trFaceValue.Visible = false;
+            trPurchCost.Visible = false;
+            trPurchaseSpace.Visible = false;
+
+            trDepositSchedule.Visible = false;
+            trDepositAmt.Visible = false;
+            //trDepositDate.Visible = false;
+            trDepositScheduleSpace.Visible = false;
+
+            trInterestDetails.Visible = true;
+            trIntRateIntBasis.Visible = true;
+            trIntFreqIntAmt.Visible = true;
+            trIntFreqCompound.Visible = false;
+            trInterestDetailsSpace.Visible = true;
+
+            ddlInterestBasis.SelectedValue = "SI";
+            ddlPayableFrequencyCode.SelectedValue = "HY";
         }
 
         private void SetViewFields()
@@ -192,6 +284,18 @@ namespace WealthERP.CustomerPortfolio
                         break;
                     case "FITB":
                         lblInstrumentCategory.Text = "Tax Savings Bonds - Banks";
+                        break;
+                    case "FICE":
+                        lblInstrumentCategory.Text = "Certificate of Deposit";
+                        break;
+                    case "FIML":
+                        lblInstrumentCategory.Text = "Market linked";
+                        break;
+                    case "FIOT":
+                        lblInstrumentCategory.Text = "Others";
+                        break;
+                    case "FIPS":
+                        lblInstrumentCategory.Text = "PSU & PFI Bonds";
                         break;
                     default:
                         lblInstrumentCategory.Text = "N/A";
@@ -402,6 +506,14 @@ namespace WealthERP.CustomerPortfolio
                     txtDDBPurchasePrice.Enabled = false;
                     txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                     txtInterestAmtCredited.Enabled = false;
+
+                }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS")
+                {
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = false;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = false;
                     if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
                     {
                         ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
@@ -410,8 +522,55 @@ namespace WealthERP.CustomerPortfolio
                     }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = false;
-
-
+                    if (fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim() == "AM")
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtAccumulated.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
+                    else
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
+                    txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDDBPurchaseDate.Enabled = false;
+                    txtDDBPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtDDBPurchasePrice.Enabled = false;
+                    txtDDBMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtDDBMaturityDate.Enabled = false;
+                    txtDDBMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtDDBMaturityDate.Enabled = false;
+                    txtDDBFaceValueMat.Text = fixedIncomeVo.MaturityFaceValue.ToString();
+                    txtDDBFaceValueMat.Enabled = false;
+                    txtDDBNoofDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
+                    txtDDBNoofDebentures.Enabled = false;
+                    txtDDBPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
+                    txtDDBPurchaseCost.Enabled = false;
+                }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
+                {
+                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = false;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = false;
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
+                    }
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = false;
+                    if (fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim() == "AM")
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtAccumulated.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
+                    else
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
 
                 }
                 // Valuation
@@ -510,6 +669,18 @@ namespace WealthERP.CustomerPortfolio
                         break;
                     case "FITB":
                         lblInstrumentCategory.Text = "Tax Savings Bonds - Banks";
+                        break;
+                    case "FICE":
+                        lblInstrumentCategory.Text = "Certificate of Deposit";
+                        break;
+                    case "FIML":
+                        lblInstrumentCategory.Text = "Market linked";
+                        break;
+                    case "FIOT":
+                        lblInstrumentCategory.Text = "Others";
+                        break;
+                    case "FIPS":
+                        lblInstrumentCategory.Text = "PSU & PFI Bonds";
                         break;
                     default:
                         lblInstrumentCategory.Text = "N/A";
@@ -732,9 +903,70 @@ namespace WealthERP.CustomerPortfolio
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = true;
 
-                    
-                    
-
+                }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS")
+                {
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = true;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = true;
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
+                    }
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = true;
+                    if (fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim() == "AM")
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtAccumulated.ToString();
+                        txtInterestAmtCredited.Enabled = true;
+                    }
+                    else
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                        txtInterestAmtCredited.Enabled = true;
+                    }
+                    txtDDBPurchaseDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
+                    txtDDBPurchaseDate.Enabled = true;
+                    txtDDBPurchasePrice.Text = fixedIncomeVo.PurchasePrice.ToString();
+                    txtDDBPurchasePrice.Enabled = true;
+                    txtDDBMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtDDBMaturityDate.Enabled = true;
+                    txtDDBMaturityDate.Text = fixedIncomeVo.MaturityDate.ToShortDateString();
+                    txtDDBMaturityDate.Enabled = true;
+                    txtDDBFaceValueMat.Text = fixedIncomeVo.MaturityFaceValue.ToString();
+                    txtDDBFaceValueMat.Enabled = true;
+                    txtDDBNoofDebentures.Text = fixedIncomeVo.DebentureNum.ToString();
+                    txtDDBNoofDebentures.Enabled = true;
+                    txtDDBPurchaseCost.Text = fixedIncomeVo.PurchaseValue.ToString();
+                    txtDDBPurchaseCost.Enabled = true;
+                }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
+                {
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Enabled = true;
+                    ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
+                    ddlInterestBasis.Enabled = true;
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = true;
+                        trIntFreqCompound.Visible = true;
+                    }
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = true;
+                    if (fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim() == "AM")
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtAccumulated.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
+                    else
+                    {
+                        txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
+                        txtInterestAmtCredited.Enabled = false;
+                    }
                 }
                 // Valuation
                 txtCurrentValue.Text = fixedIncomeVo.CurrentValue.ToString().Trim();
@@ -1066,6 +1298,91 @@ namespace WealthERP.CustomerPortfolio
                    fixedincomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text.Trim());
                     fixedincomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text.Trim());
                     fixedincomeVo.FaceValue = float.Parse(txtDDBFaceValueIssue.Text.ToString());
+                    fixedincomeVo.MaturityFaceValue = float.Parse(txtDDBFaceValueMat.Text.ToString());
+                    fixedincomeVo.PurchasePrice = float.Parse(txtDDBPurchasePrice.Text.ToString());
+                    fixedincomeVo.PurchaseValue = float.Parse(txtDDBPurchaseCost.Text.ToString());
+                    fixedincomeVo.DebentureNum = int.Parse(txtDDBNoofDebentures.Text.ToString());
+                    if (txtCurrentValue.Text.ToString() != "")
+                        fixedincomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if (txtMaturityValue.Text.ToString() != "")
+                        fixedincomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
+
+                    blResult = fixedincomeBo.CreateFixedIncome(fixedincomeVo, userVo.UserId);
+                }
+                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIOT")
+                {
+                    fixedincomeVo.CustomerId = customerVo.CustomerId;
+                    fixedincomeVo.AccountId = customerAccountsVo.AccountId;
+                    fixedincomeVo.AssetGroupCode = "FI";
+                    fixedincomeVo.AssetInstrumentCategoryCode = customerAccountsVo.AssetCategory;
+                    fixedincomeVo.DebtIssuerCode = ddlDebtIssuerCode.SelectedItem.Value.ToString();
+                    fixedincomeVo.Name = txtAssetParticulars.Text;
+                    fixedincomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
+                    fixedincomeVo.InterestBasisCode = ddlInterestBasis.SelectedValue.ToString();
+                    if (fixedincomeVo.InterestBasisCode == "CI")
+                    {
+                        fixedincomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
+                    }
+                    fixedincomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedValue.ToString();
+                    if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
+                    {
+                        fixedincomeVo.IsInterestAccumulated = 1;
+                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                    }
+                    else
+                    {
+                        fixedincomeVo.IsInterestAccumulated = 0;
+                        if (txtInterestAmtCredited.Text == "")
+                        {
+                            fixedincomeVo.InterestAmtPaidOut = 0;
+                        }
+                        else
+                        {
+                            fixedincomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        }
+                    }
+                    if (txtCurrentValue.Text.ToString() != "")
+                        fixedincomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if (txtMaturityValue.Text.ToString() != "")
+                        fixedincomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
+
+                    blResult = fixedincomeBo.CreateFixedIncome(fixedincomeVo, userVo.UserId);
+                }
+
+                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIPS")
+                {
+                    fixedincomeVo.CustomerId = customerVo.CustomerId;
+                    fixedincomeVo.AccountId = customerAccountsVo.AccountId;
+                    fixedincomeVo.AssetGroupCode = "FI";
+                    fixedincomeVo.AssetInstrumentCategoryCode = customerAccountsVo.AssetCategory;
+                    fixedincomeVo.DebtIssuerCode = ddlDebtIssuerCode.SelectedItem.Value.ToString();
+                    fixedincomeVo.Name = txtAssetParticulars.Text;
+                    fixedincomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
+                    fixedincomeVo.InterestBasisCode = ddlInterestBasis.SelectedValue.ToString();
+                    if (fixedincomeVo.InterestBasisCode == "CI")
+                    {
+                        fixedincomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
+                    }
+                    fixedincomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedValue.ToString();
+                    if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
+                    {
+                        fixedincomeVo.IsInterestAccumulated = 1;
+                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                    }
+                    else
+                    {
+                        fixedincomeVo.IsInterestAccumulated = 0;
+                        if (txtInterestAmtCredited.Text == "")
+                        {
+                            fixedincomeVo.InterestAmtPaidOut = 0;
+                        }
+                        else
+                        {
+                            fixedincomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        }
+                    }
+                    fixedincomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text.Trim());
+                    fixedincomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text.Trim());
                     fixedincomeVo.MaturityFaceValue = float.Parse(txtDDBFaceValueMat.Text.ToString());
                     fixedincomeVo.PurchasePrice = float.Parse(txtDDBPurchasePrice.Text.ToString());
                     fixedincomeVo.PurchaseValue = float.Parse(txtDDBPurchaseCost.Text.ToString());
@@ -1643,6 +1960,80 @@ namespace WealthERP.CustomerPortfolio
 
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
                 }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FICE")
+                {
+                    newFixedIncomeVo.CustomerId = customerVo.CustomerId;
+                    newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
+                    newFixedIncomeVo.AssetGroupCode = "FI";
+                    newFixedIncomeVo.AssetInstrumentCategoryCode = customerAccountVo.AssetCategory;
+                    newFixedIncomeVo.DebtIssuerCode = ddlDebtIssuerCode.SelectedItem.Value.ToString();
+                    newFixedIncomeVo.Name = txtAssetParticulars.Text;
+
+                    newFixedIncomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
+                    newFixedIncomeVo.InterestBasisCode = ddlInterestBasis.SelectedItem.Value.ToString();
+
+                    if (newFixedIncomeVo.InterestBasisCode == "CI")
+                    {
+                        newFixedIncomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
+                    }
+                    newFixedIncomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedItem.Value.ToString();
+                    if (txtInterestAmtCredited.Text == "")
+                    {
+                        newFixedIncomeVo.InterestAmtPaidOut = 0;
+                    }
+                    else
+                    {
+                        newFixedIncomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
+                    }
+
+                    if (txtDDBMaturityDate.Text != "")
+                    newFixedIncomeVo.MaturityDate = DateTime.Parse(txtDDBMaturityDate.Text);
+                    if (txtDDBPurchaseDate.Text != "")
+                    newFixedIncomeVo.PurchaseDate = DateTime.Parse(txtDDBPurchaseDate.Text);
+                    if (txtDDBFaceValueMat.Text != "")
+                    newFixedIncomeVo.MaturityFaceValue = float.Parse(txtDDBFaceValueMat.Text.ToString());
+                    if (txtDDBPurchasePrice.Text != "")
+                    newFixedIncomeVo.PurchasePrice = float.Parse(txtDDBPurchasePrice.Text.ToString());
+                    if (txtDDBPurchaseCost.Text != "")
+                    newFixedIncomeVo.PurchaseValue = float.Parse(txtDDBPurchaseCost.Text.ToString());
+                    if (txtDDBNoofDebentures.Text != "")
+                        newFixedIncomeVo.DebentureNum = int.Parse(txtDDBNoofDebentures.Text.ToString());
+
+                    if (txtCurrentValue.Text != "")
+                        newFixedIncomeVo.CurrentValue = float.Parse(txtCurrentValue.Text.ToString());
+                    if (txtMaturityValue.Text != "")
+                        newFixedIncomeVo.MaturityValue = float.Parse(txtMaturityValue.Text.ToString());
+
+                    fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
+                }
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
+                {
+                    newFixedIncomeVo.CustomerId = customerVo.CustomerId;
+                    newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
+                    newFixedIncomeVo.AssetGroupCode = "FI";
+                    newFixedIncomeVo.AssetInstrumentCategoryCode = customerAccountVo.AssetCategory;
+                    newFixedIncomeVo.DebtIssuerCode = ddlDebtIssuerCode.SelectedItem.Value.ToString();
+                    newFixedIncomeVo.Name = txtAssetParticulars.Text;
+
+                    newFixedIncomeVo.InterestRate = float.Parse(txtInterstRate.Text.ToString());
+                    newFixedIncomeVo.InterestBasisCode = ddlInterestBasis.SelectedItem.Value.ToString();
+
+                    if (newFixedIncomeVo.InterestBasisCode == "CI")
+                    {
+                        newFixedIncomeVo.CompoundInterestFrequencyCode = ddlCompoundInterestFreq.SelectedItem.Value.ToString();
+                    }
+                    newFixedIncomeVo.InterestPayableFrequencyCode = ddlPayableFrequencyCode.SelectedItem.Value.ToString();
+                    if (txtInterestAmtCredited.Text == "")
+                    {
+                        newFixedIncomeVo.InterestAmtPaidOut = 0;
+                    }
+                    else
+                    {
+                        newFixedIncomeVo.InterestAmtPaidOut = int.Parse(txtInterestAmtCredited.Text.ToString());
+                    }
+
+                    fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1686,5 +2077,6 @@ namespace WealthERP.CustomerPortfolio
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioFixedIncomeView','none');", true);
         }
+
     }
 }
