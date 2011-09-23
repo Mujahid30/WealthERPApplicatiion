@@ -700,7 +700,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View MF Folio Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
                 }
                 else if (e.Item.Value == "View_Equity_Trade_Account_Exceptions")
                 {
