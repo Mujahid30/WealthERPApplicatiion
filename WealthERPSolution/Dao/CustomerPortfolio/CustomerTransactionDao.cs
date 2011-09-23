@@ -1129,6 +1129,10 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
                         mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        mfTransactionVo.AMCCode =int.Parse(dr["PA_AMCCode"].ToString());
+                        mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
+                        mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                         {
                             mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
@@ -1891,6 +1895,10 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.TransactionStatusCode = 1;
 
                     }
+                    mfTransactionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                    mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
+                    mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                 }
             }
             catch (BaseApplicationException Ex)
