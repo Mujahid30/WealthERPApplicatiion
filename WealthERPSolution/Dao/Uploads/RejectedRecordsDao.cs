@@ -87,7 +87,7 @@ namespace DaoUploads
 
             return dsGetCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -120,10 +120,10 @@ namespace DaoUploads
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
                 else
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, DBNull.Value);
-                if (DoesCustExistFilter != "")
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DoesCustExistFilter);
-                else
-                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
+                //if (DoesCustExistFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DoesCustExistFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
 
                 dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
             }
@@ -147,7 +147,7 @@ namespace DaoUploads
                 objects[5] = RejectReasonFilter;
                 objects[6] = NameFilter;
                 objects[7] = FolioFilter;
-                objects[8] = DoesCustExistFilter;
+                //objects[8] = DoesCustExistFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1369,7 +1369,7 @@ namespace DaoUploads
 
                 object[] objects = new object[1];
                 objects[0] = StagingID;
- 
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1381,7 +1381,6 @@ namespace DaoUploads
         {
             Database db;
             DbCommand deletetransactions;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
