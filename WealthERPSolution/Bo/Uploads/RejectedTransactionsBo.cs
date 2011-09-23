@@ -51,11 +51,34 @@ namespace BoUploads
             return rejectedTransactionsDao.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
         }
 
-        //public bool MapRejectedFoliosToCustomer(int mfFolioStagingId, int customerId, int userId)
-        //{
-        //    RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
-        //    return rejectedTransactionsDao.MapRejectedFoliosToCustomer(mfFolioStagingId, customerId, userId);
-        //}
+        public bool MapRejectedFoliosToCustomer(int mfFolioStagingId, int customerId, int userId)
+        {
+            RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();
+            bool rejectedTransactions;
+            try
+            {
+                rejectedTransactions = rejectedTransactionsDao.MapRejectedFoliosToCustomer(mfFolioStagingId, customerId, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadBo.cs:GetRejectedRecords()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return rejectedTransactions;
+        }
 
         public bool MapEquityToCustomer(int transactionStagingId, int customerId, int userId)
         {
