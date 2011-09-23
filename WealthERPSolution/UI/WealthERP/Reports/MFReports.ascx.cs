@@ -153,7 +153,7 @@ namespace WealthERP.Reports
                       strFromCustomerDashBoard = true;
                 }
 
-                if (userVo.UserType == "Customer" || strFromCustomerDashBoard==true)
+                if (userVo.UserType == "Customer" && strFromCustomerDashBoard==true)
                 {
                     if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
                         customerVo = (CustomerVo)Session["CustomerVo"];
