@@ -193,6 +193,8 @@ namespace DaoCustomerProfiling
                         customerFamilyVo.FirstName = dr["C_FirstName"].ToString();
                         customerFamilyVo.MiddleName = dr["C_MiddleName"].ToString();
                         customerFamilyVo.LastName = dr["C_LastName"].ToString();
+                        if(!string.IsNullOrEmpty(dr["C_PANNum"].ToString()))
+                           customerFamilyVo.PanNo = dr["C_PANNum"].ToString();
                         customerFamilyVo.Relationship = dr["XR_Relationship"].ToString();
                         familyList.Add(customerFamilyVo);
                     }
