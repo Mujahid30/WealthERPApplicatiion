@@ -142,13 +142,13 @@ namespace BoUploads
 
             return dsCAMSRejectedProfiles;
         }
-        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string DoesCustExistFilter)
+        public DataSet getMFRejectedFolios(int adviserId, int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
         {
             DataSet dsCAMSRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter, DoesCustExistFilter);
+                dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFolios(adviserId, processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter);
             }
             catch (BaseApplicationException Ex)
             {
@@ -170,7 +170,7 @@ namespace BoUploads
                 objects[5] = RejectReasonFilter;
                 objects[6] = NameFilter;
                 objects[7] = FolioFilter;
-                objects[8] = DoesCustExistFilter;
+                //objects[8] = DoesCustExistFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
