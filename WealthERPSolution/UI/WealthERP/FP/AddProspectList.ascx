@@ -373,8 +373,19 @@
                                         ValidationExpression="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" ControlToValidate="txtGridEmailId"></asp:RegularExpressionValidator>
                                     </EditItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn UniqueName="PanNum" HeaderText="Pan No" DataField="PanNum"
-                                    HeaderStyle-HorizontalAlign="Center" />
+                                <telerik:GridTemplateColumn HeaderText="PAN Number" SortExpression="PanNum" UniqueName="PanNum"
+                                    EditFormColumnIndex="1" HeaderStyle-HorizontalAlign="Center">
+                                    <HeaderStyle Width="80px" />
+                                     <ItemTemplate>
+                                        <asp:Label runat="server" ID="lblPanNo" Text='<%# Bind("PanNum") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:TextBox runat="server" ID="txtChildPanNo" MaxLength="10" Text='<%# Bind("PanNum") %>' ></asp:TextBox>
+                                    </EditItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <%--<telerik:GridBoundColumn UniqueName="PanNum" HeaderText="PAN Number" DataField="PanNum"
+                                    HeaderStyle-HorizontalAlign="Center" />--%>
+                                    
                                 <telerik:GridButtonColumn UniqueName="DeleteColumn" Text="Delete" CommandName="Delete"
                                     ImageUrl="../Images/Telerik/Delete.gif" ButtonType="ImageButton" />
                             </Columns>
@@ -400,9 +411,9 @@
 <table width="100%">
     <tr>
         <td align="center">
-        <asp:Button ID="btnDelete" runat="server" Text="Delete" onclick="btnDelete_Click"/>
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
-                 />
+        
+          <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click"
+                 />  
             &nbsp;<asp:Button ID="btnSubmitAddDetails" runat="server" Text="Add Finance Details"
                 OnClick="btnSubmitAddDetails_Click"  />
                 &nbsp; 
@@ -410,6 +421,7 @@
                 Text="Convert to Customer" 
                 OnClientClick="return ConvertToCustomerConfirmation()" 
                 onclick="btnConvertToCustomer_Click" />
+                <asp:Button ID="btnDelete" runat="server" Text="Delete" onclick="btnDelete_Click"/>
         </td>
     </tr>
 </table>

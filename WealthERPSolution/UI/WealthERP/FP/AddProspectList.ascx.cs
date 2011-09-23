@@ -66,7 +66,7 @@ namespace WealthERP.FP
                     btnConvertToCustomer.Enabled = false;
                 }
 
-
+                btnDelete.Enabled = false;
                 int customerId = 0;
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 if (Session["customerVo"] != null)
@@ -218,7 +218,7 @@ namespace WealthERP.FP
                             rbtnFemale.Enabled = false;
                             txtSlab.Enabled = false;
                             headertitle.Text = "View Prospect";
-
+                            btnDelete.Enabled = false;
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = false;
 
                         }
@@ -244,6 +244,7 @@ namespace WealthERP.FP
                             rbtnFemale.Enabled = true;
                             btnGetSlab.Enabled = true;
                             txtSlab.Enabled = true;
+                            btnDelete.Enabled = true;
                             RadGrid1.Columns[RadGrid1.Columns.Count - 1].Visible = true;
                         }
                     }
@@ -331,71 +332,83 @@ namespace WealthERP.FP
                 int i = 2;
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dr = dt.NewRow();
-                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
-                {
-
-                    if (column is IGridEditableColumn)
+                //TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+                //if (PANValidation(txt1.Text))
+                //{
+                    foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
                     {
-                        IGridEditableColumn editableCol = (column as IGridEditableColumn);
-                        if (editableCol.IsEditable)
+
+                        if (column is IGridEditableColumn)
                         {
-                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
-                            string editorType = editor.ToString();
-                            string editorText = "unknown";
-                            object editorValue = null;
+                            IGridEditableColumn editableCol = (column as IGridEditableColumn);
+                            if (editableCol.IsEditable)
+                            {
+                                IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
+                                string editorType = editor.ToString();
+                                string editorText = "unknown";
+                                object editorValue = null;
 
-                            if (editor is GridTextColumnEditor)
-                            {
-                                editorText = (editor as GridTextColumnEditor).Text;
-                                editorValue = (editor as GridTextColumnEditor).Text;
-                            }
-                            if (editor is GridBoolColumnEditor)
-                            {
-                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
-                                editorValue = (editor as GridBoolColumnEditor).Value;
-                            }
-                            if (editor is GridDropDownColumnEditor)
-                            {
-                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
-                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
-                            }
-                            if (editor is GridTemplateColumnEditor)
-                            {
-                                if (i != 3)
+                                if (editor is GridTextColumnEditor)
                                 {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
+                                    editorText = (editor as GridTextColumnEditor).Text;
+                                    editorValue = (editor as GridTextColumnEditor).Text;
                                 }
-                                else if (i == 3)
+                                if (editor is GridBoolColumnEditor)
                                 {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
+                                    editorText = (editor as GridBoolColumnEditor).Value.ToString();
+                                    editorValue = (editor as GridBoolColumnEditor).Value;
                                 }
+                                if (editor is GridDropDownColumnEditor)
+                                {
+                                    editorText = (editor as GridDropDownColumnEditor).SelectedValue;
+                                    editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
+                                }
+                                if (editor is GridTemplateColumnEditor)
+                                {
+                                    if (i == 3)
+                                    {
+                                        TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                        editorText = txt.Text;
+                                        editorValue = txt.Text;
+                                    }
+                                    else if (i == 7)
+                                    {
+                                        TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                        editorText = txt.Text;
+                                        editorValue = txt.Text;
+                                    }
+                                    else if (i == 8)
+                                    {
+                                        TextBox txt = (TextBox)e.Item.FindControl("txtChildPanNo");
+                                        if (PANValidation(txt.Text))
+                                        {
+                                            editorText = txt.Text;
+                                            editorValue = txt.Text;
+                                        }
+                                    }
 
-                            }
-                            try
-                            {
-                                DataRow[] changedrows = dt.Select();
-                                changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
+                                }
+                                try
+                                {
+                                    DataRow[] changedrows = dt.Select();
+                                    changedrows[editedItem.ItemIndex][column.UniqueName] = editorValue;
 
 
+                                }
+                                catch (Exception ex)
+                                {
+                                    RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+                                    e.Canceled = true;
+                                    break;
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
-                                e.Canceled = true;
-                                break;
-                            }
+                            i++;
                         }
-                        i++;
-                    }
 
+                    }
+                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                        Rebind();
                 }
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
-            }
             catch (Exception ex)
             {
                 e.Canceled = true;
@@ -409,73 +422,86 @@ namespace WealthERP.FP
 
             try
             {
-                GridEditableItem editedItem = e.Item as GridEditableItem;
-                GridEditManager editMan = editedItem.EditManager;
-                int i = 2;
-                int j = 0;
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                dr = dt.NewRow();
-                foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
-                {
-                    if (column is IGridEditableColumn)
+                    GridEditableItem editedItem = e.Item as GridEditableItem;
+                    GridEditManager editMan = editedItem.EditManager;
+                    int i = 2;
+                    int j = 0;
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    dr = dt.NewRow();
+                    TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+                    if (PANValidation(txt1.Text))
                     {
-                        IGridEditableColumn editableCol = (column as IGridEditableColumn);
-                        if (editableCol.IsEditable)
+                        foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
                         {
-                            IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
-                            string editorType = editor.ToString();
-                            string editorText = "unknown";
-                            object editorValue = null;
 
-                            if (editor is GridTextColumnEditor)
+
+                            if (column is IGridEditableColumn)
                             {
-                                editorText = (editor as GridTextColumnEditor).Text;
-                                editorValue = (editor as GridTextColumnEditor).Text;
-                            }
-                            if (editor is GridBoolColumnEditor)
-                            {
-                                editorText = (editor as GridBoolColumnEditor).Value.ToString();
-                                editorValue = (editor as GridBoolColumnEditor).Value;
-                            }
-                            if (editor is GridDropDownColumnEditor)
-                            {
-                                editorText = (editor as GridDropDownColumnEditor).SelectedValue;
-                                editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
-                            }
-                            if (editor is GridTemplateColumnEditor)
-                            {
-                                if (i != 3)
+                                IGridEditableColumn editableCol = (column as IGridEditableColumn);
+                                if (editableCol.IsEditable)
                                 {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
-                                else if (i == 3)
-                                {
-                                    TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
-                                    editorText = txt.Text;
-                                    editorValue = txt.Text;
-                                }
+                                    IGridColumnEditor editor = editMan.GetColumnEditor(editableCol);
+                                    string editorType = editor.ToString();
+                                    string editorText = "unknown";
+                                    object editorValue = null;
 
-                            }
-                            try
-                            {
-                                dr[i] = editorText;
+                                    if (editor is GridTextColumnEditor)
+                                    {
+                                        editorText = (editor as GridTextColumnEditor).Text;
+                                        editorValue = (editor as GridTextColumnEditor).Text;
+                                    }
+                                    if (editor is GridBoolColumnEditor)
+                                    {
+                                        editorText = (editor as GridBoolColumnEditor).Value.ToString();
+                                        editorValue = (editor as GridBoolColumnEditor).Value;
+                                    }
+                                    if (editor is GridDropDownColumnEditor)
+                                    {
+                                        editorText = (editor as GridDropDownColumnEditor).SelectedValue;
+                                        editorValue = (editor as GridDropDownColumnEditor).SelectedValue;
+                                    }
 
-                            }
-                            catch (Exception ex)
-                            {
-                                RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
-                                e.Canceled = true;
-                                break;
+                                    if (editor is GridTemplateColumnEditor)
+                                    {
+                                        if (i == 3)
+                                        {
+                                            TextBox txt = (TextBox)e.Item.FindControl("txtChildFirstName");
+                                            editorText = txt.Text;
+                                            editorValue = txt.Text;
+                                        }
+                                        else if (i == 7)
+                                        {
+                                            TextBox txt = (TextBox)e.Item.FindControl("txtGridEmailId");
+                                            editorText = txt.Text;
+                                            editorValue = txt.Text;
+                                        }
+                                        else if (i == 8)
+                                        {
+                                            TextBox txt = (TextBox)e.Item.FindControl("txtChildPanNo");
+                                            editorText = txt.Text;
+                                            editorValue = txt.Text;
+                                        }
+
+                                    }
+                                    try
+                                    {
+                                        dr[i] = editorText;
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        RadGrid1.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+                                        e.Canceled = true;
+                                        break;
+                                    }
+                                }
+                                i++;
                             }
                         }
-                        i++;
+                        dt.Rows.Add(dr);
+                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                        Rebind();
                     }
-                }
-                dt.Rows.Add(dr);
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                Rebind();
             }
             catch (Exception ex)
             {
@@ -998,6 +1024,7 @@ namespace WealthERP.FP
                 customerVo.IsProspect = 0;
             }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
+            customerVo.PANNum = drChildCustomer["PanNum"].ToString();
             customerPortfolioVo.IsMainPortfolio = 1;
             customerPortfolioVo.PortfolioTypeCode = "RGL";
             customerPortfolioVo.PortfolioName = "MyPortfolioProspect";
@@ -1145,6 +1172,7 @@ namespace WealthERP.FP
                 customerVo.Dob = DateTime.Parse(drChildCustomer["DOB"].ToString());
             }
             customerVo.Email = drChildCustomer["EmailId"].ToString();
+            customerVo.PANNum = drChildCustomer["PanNum"].ToString();
             if (hdnIsActive.Value == "1")
             {
                 customerVo.IsActive = 1;
@@ -1511,6 +1539,15 @@ namespace WealthERP.FP
                         //UpdateCustomerExistingPortfolio(ChildPortFolioId);
                         AddCustomerManagePortFolio(ChildcustomerId);
                         UpdateCustomerForAddProspect(customerId, dr, true);
+                        //if (familyVo.PanNo == null)
+                        //{
+                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
+                        //}
+                        if (dr["PanNum"].ToString() == "")
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please provide PAN number of associate members');", true);
+                            return;
+                        }
                     }
                     else
                     {
@@ -1657,7 +1694,8 @@ namespace WealthERP.FP
             string val = Convert.ToString(hdnDeletemsgValue.Value);
             if (val == "1")
             {
-                customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
+                customerId = customerVo.CustomerId;
+                //customerId = int.Parse(Session["CustomerIdForDelete"].ToString());
                 hdnassociationdeletecount.Value = customerBo.GetAssociationCount("C", customerId).ToString();
                 string asc = Convert.ToString(hdnassociationdeletecount.Value);
 
@@ -1703,6 +1741,22 @@ namespace WealthERP.FP
                 throw exBase;
 
             }
+        }
+        public bool PANValidation(string Pan)
+        {
+            bool result = true;
+            int adviserId = (int)Session["adviserId"];
+            //string childPanNo = RadGrid1.FindControl("txtChildPanNo").ToString();
+            if (!string.IsNullOrEmpty(Pan))
+            {
+                if (customerBo.PANNumberDuplicateCheck(adviserId, Pan, customerVo.CustomerId))
+                {
+                    result = false;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+
+                }
+            }
+            return result;
         }
 
     }
