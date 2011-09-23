@@ -38,8 +38,13 @@ namespace WealthERP.CustomerPortfolio
         CustomerVo customerVo = new CustomerVo();
         UserVo userVo = new UserVo();
         AdvisorVo advisorVo = new AdvisorVo();
+        ProductMFBo productMfBo = new ProductMFBo();
         float stt;
         static int schemePlanCode;
+        int amcCode;
+        int accountId;
+        string categoryCode;
+        //string categoryName;
         int transactionId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         static int portfolioId;
@@ -47,6 +52,7 @@ namespace WealthERP.CustomerPortfolio
         PortfolioBo portfolioBo = new PortfolioBo();
         AssetBo assetBo = new AssetBo();
         CommonProgrammingBo commonMethods = new CommonProgrammingBo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -57,11 +63,17 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 BindPortfolioDropDown();
-                BindFolioNumber();
+                
+                
+                
                 if (!IsPostBack)
                 {
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     //BindPortfolioDropDown();
+                    BindAMC();
+                    BindCategory();
+                    BindScheme();
+                    BindFolioNumber();
                     tdSchemeNameLabel.Visible = false;
                     tdSchemeNameValue.Visible = false;
                     tdSchemeToLabel.Visible = false;
@@ -108,17 +120,146 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        private void BindFolioNumber()
+        private void BindScheme()
         {
-            dsCustomerAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, "MF", schemePlanCode);
-            dtCustomerAccounts = dsCustomerAccounts.Tables[0];
-            ddlFolioNum.DataSource = dtCustomerAccounts;
-            ddlFolioNum.DataTextField = "CMFA_FolioNum";
-            ddlFolioNum.DataValueField = "CMFA_AccountId";
-            ddlFolioNum.DataBind();
-            ddlFolioNum.Items.Insert(0, new ListItem("Select a Folio Number", "Select a Folio Number"));
+            try
+            {
+                DataSet dsScheme = new DataSet();
+                DataTable dtScheme;
+
+                if (ddlAMC.SelectedIndex != 0 && ddlCategory.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlAMC.SelectedValue.ToString());
+                    categoryCode = ddlCategory.SelectedValue;
+                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 1);
+                }
+                else if (ddlAMC.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlAMC.SelectedValue.ToString());
+                    categoryCode = ddlCategory.SelectedValue;
+                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 0);
+                }
+                if (dsScheme.Tables.Count > 0)
+                {
+                    dtScheme = dsScheme.Tables[0];
+                    ddlScheme.DataSource = dtScheme;
+                    ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
+                    ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
+                    ddlScheme.DataBind();
+                }
+                ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFManualSingleTran.ascx:Page_Load()");
+                object[] objects = new object[3];
+                objects[0] = userVo;
+                objects[1] = customerVo;
+                objects[2] = portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
+        private void BindCategory()
+        {
+            try
+            {
+                DataSet dsProductAssetCategory;
+                dsProductAssetCategory = productMfBo.GetProductAssetCategory();
+                DataTable dtCategory = dsProductAssetCategory.Tables[0];
+                if (dtCategory != null)
+                {
+                    ddlCategory.DataSource = dtCategory;
+                    ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                    ddlCategory.DataBind();
+                }
+                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFManualSingleTran.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        //private void BindFolioNumber()
+        //{
+        //    dsCustomerAccounts = customerAccountBo.GetCustomerMFAccounts(portfolioId, "MF", schemePlanCode);
+        //    dtCustomerAccounts = dsCustomerAccounts.Tables[0];
+        //    ddlFolioNum.DataSource = dtCustomerAccounts;
+        //    ddlFolioNum.DataTextField = "CMFA_FolioNum";
+        //    ddlFolioNum.DataValueField = "CMFA_AccountId";
+        //    ddlFolioNum.DataBind();
+        //    ddlFolioNum.Items.Insert(0, new ListItem("Select a Folio Number", "Select a Folio Number"));
+        //}
+        private void BindFolioNumber()
+        {
+            DataSet dsgetfolioNo= new DataSet();
+            DataTable dtgetfolioNo;
+            try
+            {
+                if (ddlAMC.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlAMC.SelectedValue);
+                    dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 1);
+                }
+                else
+                {
+                    dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 0);
+                }
+                if (dsgetfolioNo.Tables.Count > 0)
+                {
+                    dtgetfolioNo = dsgetfolioNo.Tables[0];
+                    ddlFolioNum.DataSource = dtgetfolioNo;
+                    ddlFolioNum.DataTextField =dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
+                    ddlFolioNum.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                    ddlFolioNum.DataBind();
+                }
+                ddlFolioNum.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFManualSingleTran.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private void BindPortfolioDropDown()
         {
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
@@ -322,12 +463,16 @@ namespace WealthERP.CustomerPortfolio
 
             try
             {
-                if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
-                {
+                //if (txtSearchScheme.Text != "" && lblScheme.Text == txtSearchScheme.Text)
+                //if(ddlScheme.SelectedIndex !=0 && lblScheme.Text == ddlScheme.SelectedItem.Text)
+                //{
                     mfTransactionVo.CustomerId = customerVo.CustomerId;
                     //mfTransactionVo.AccountId = "acc1";
                     mfTransactionVo.AccountId = int.Parse(ddlFolioNum.SelectedItem.Value.ToString());
-                    mfTransactionVo.MFCode = int.Parse(txtSchemeCode.Value);
+                    mfTransactionVo.AMCCode = int.Parse(ddlAMC.SelectedValue.ToString());
+                    mfTransactionVo.CategoryCode = ddlCategory.SelectedValue;
+                    mfTransactionVo.MFCode = schemePlanCode;
+                    //mfTransactionVo.MFCode = int.Parse(txtSchemeCode.Value);
                     mfTransactionVo.FinancialFlag = 1;
                     mfTransactionVo.TransactionDate = DateTime.Parse(txtTransactionDate.Text);//ddlTransactionDateDay.SelectedItem.Value + "/" + ddlTransactionDateMonth.SelectedItem.Value + "/" + ddlTransactionDateYear.SelectedItem.Value
                     mfTransactionVo.Source = "WP";
@@ -532,14 +677,16 @@ namespace WealthERP.CustomerPortfolio
                    
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView", false);
-                }
-                else
-                {
-                    //msgRecordStatus.InnerText = "Adding records is not successfull";
-                    //msgRecordStatus.Style.Add("background", "Red");
-                    RequiredFieldValidator3.ErrorMessage = "Please Select Proper Scheme Name";
-                    RequiredFieldValidator3.IsValid = false;
-                }
+                //}
+                //else
+                //{
+                //    //msgRecordStatus.InnerText = "Adding records is not successfull";
+                //    //msgRecordStatus.Style.Add("background", "Red");
+
+
+                //    //RequiredFieldValidator3.ErrorMessage = "Please Select Proper Scheme Name";
+                //    //RequiredFieldValidator3.IsValid = false;
+                //}
             }
             catch (BaseApplicationException Ex)
             {
@@ -564,12 +711,13 @@ namespace WealthERP.CustomerPortfolio
         }
         public void cleanAllFields()
         {
-         txtSearchScheme.Text="";
+         //txtSearchScheme.Text="";
+        ddlScheme.SelectedIndex = 0;
         ddlTransactionType.SelectedIndex=0;
         ddlFolioNum.SelectedIndex=0;
         txtTransactionDate.Text="";
         txtNAV.Text="";
-         txtPrice.Text="";
+        txtPrice.Text="";
         txtAmount.Text="";
         txtUnits.Text="";
         txtSTT.Text="";
@@ -605,17 +753,17 @@ namespace WealthERP.CustomerPortfolio
         {
             
         }
-        protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
-        {
-            msgRecordStatus.Visible = false;
-            tdSchemeNameLabel.Visible = true;
-            tdSchemeNameValue.Visible = true;
-            lblSchemeName.Visible = true;
-            lblScheme.Text = txtSearchScheme.Text;
-            schemePlanCode = int.Parse(txtSchemeCode.Value);
-            txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
-            BindFolioNumber();
-        }
+        //protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
+        //{
+        //    msgRecordStatus.Visible = false;
+        //    tdSchemeNameLabel.Visible = true;
+        //    tdSchemeNameValue.Visible = true;
+        //    lblSchemeName.Visible = true;
+        //    lblScheme.Text = txtSearchScheme.Text;
+        //    schemePlanCode = int.Parse(txtSchemeCode.Value);
+        //    txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
+        //    BindFolioNumber();
+        //}
         protected void btnNewFolioAdd_Click(object sender, EventArgs e)
         {
             SaveCurrentPageState();
@@ -688,8 +836,9 @@ namespace WealthERP.CustomerPortfolio
         {
             Hashtable hashtable = new Hashtable();
             hashtable.Add("Portfolio", ddlPortfolio.SelectedItem.Value);
-            hashtable.Add("SchemeSearch", txtSearchScheme.Text);
-            hashtable.Add("SchemeCode", txtSchemeCode.Value);
+            hashtable.Add("SchemeSearch", ddlScheme.SelectedValue);
+            //hashtable.Add("SchemeSearch", txtSearchScheme.Text);
+            //hashtable.Add("SchemeCode", txtSchemeCode.Value);
             hashtable.Add("TransactionType", ddlTransactionType.SelectedValue);
             hashtable.Add("SchemeName", lblScheme.Text);
             hashtable.Add("TransactionDate", txtTransactionDate.Text);
@@ -706,6 +855,8 @@ namespace WealthERP.CustomerPortfolio
             hashtable.Add("UnitsAllotted", txtUnitsAlloted.Text);
             hashtable.Add("STT", txtSTT.Text);
             hashtable.Add("AmountPur", txtAmtPurchased.Text);
+            hashtable.Add("AMC", ddlAMC.SelectedValue);
+            hashtable.Add("Category", ddlCategory.SelectedValue);
 
             Session["MFManualSingleTranHT"] = hashtable;
         }
@@ -719,9 +870,13 @@ namespace WealthERP.CustomerPortfolio
                 Hashtable hashtable = new Hashtable();
                 hashtable = (Hashtable)Session["MFManualSingleTranHT"];
                 ddlPortfolio.SelectedValue = hashtable["Portfolio"].ToString();
-                txtSearchScheme.Text = hashtable["SchemeSearch"].ToString();
+                ddlAMC.SelectedValue = hashtable["AMC"].ToString();
+                ddlCategory.SelectedValue = hashtable["Category"].ToString();
+                BindScheme();
+                ddlScheme.SelectedValue = hashtable["SchemeSearch"].ToString();
+                //txtSearchScheme.Text = hashtable["SchemeSearch"].ToString();
                 lblScheme.Text = hashtable["SchemeName"].ToString();
-                txtSchemeCode.Value = hashtable["SchemeCode"].ToString();
+                //txtSchemeCode.Value = hashtable["SchemeCode"].ToString();
                 ddlTransactionType.SelectedValue = hashtable["TransactionType"].ToString();
                 txtTransactionDate.Text = hashtable["TransactionDate"].ToString();
                 txtNAV.Text = hashtable["NAV"].ToString();
@@ -761,7 +916,85 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-       
+        private void BindAMC()
+        {
+            DataSet dsProductAmc;
+            DataTable dtProductAMC;
+            try
+            {
+                dsProductAmc = productMfBo.GetProductAmc();
+                if (dsProductAmc.Tables.Count > 0)
+                {
+                    dtProductAMC = dsProductAmc.Tables[0];
+                    ddlAMC.DataSource = dtProductAMC;
+                    ddlAMC.DataTextField = dtProductAMC.Columns["PA_AMCName"].ToString();
+                    ddlAMC.DataValueField = dtProductAMC.Columns["PA_AMCCode"].ToString();
+                    ddlAMC.DataBind();
+                }
+                ddlAMC.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+
+
+        protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAMC.SelectedIndex != 0)
+            {
+                amcCode = int.Parse(ddlAMC.SelectedValue);
+                BindScheme();
+                BindFolioNumber();
+            }
+        }
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            amcCode = int.Parse(ddlAMC.SelectedValue);
+            categoryCode = ddlCategory.SelectedValue;
+            BindScheme();
+        }
+
+        protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            msgRecordStatus.Visible = false;
+            if (ddlScheme.SelectedIndex != 0)
+            {
+                tdSchemeNameLabel.Visible = true;
+                tdSchemeNameValue.Visible = true;
+                lblSchemeName.Visible = true;
+                lblScheme.Text = ddlScheme.SelectedItem.Text;
+                schemePlanCode = int.Parse(ddlScheme.SelectedValue);
+                categoryCode = productMfBo.GetCategoryNameFromSChemeCode(schemePlanCode);
+                ddlCategory.SelectedValue = categoryCode;
+                txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
+            }
+        }
+
+        protected void ddlFolioNum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            accountId = int.Parse(ddlFolioNum.SelectedValue);
+            amcCode = productMfBo.GetAMCfromFolioNo(accountId);
+            ddlAMC.SelectedValue = amcCode.ToString();
+            BindScheme();
+        }
 
     }
 }

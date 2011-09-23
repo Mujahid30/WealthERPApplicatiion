@@ -27,12 +27,7 @@
         }
 
     }
-    function GetSchemeCode(source, eventArgs) {
 
-        document.getElementById("<%= txtSchemeCode.ClientID %>").value = eventArgs.get_value();
-
-        return false;
-    };
     function GetSwitchSchemeCode(source, eventArgs) {
 
         document.getElementById("<%= txtSwitchSchemeCode.ClientID %>").value = eventArgs.get_value();
@@ -103,15 +98,58 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
+                    
                 </td>
             </tr>
+            
+            <tr>
+            <td class="leftField" valign="top">
+            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC :"></asp:Label>
+            </td>
+            <td colspan="4" class="rightField">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    onselectedindexchanged="ddlAMC_SelectedIndexChanged" ></asp:DropDownList>
+                    <span id="Span7" class="spnRequiredField">*
+                                    </span>
+                    <asp:CompareValidator ID="cmpamc" runat="server" ErrorMessage="<br />Please select an AMC Name"
+                        ValidationGroup="MFSubmit" ControlToValidate="ddlAMC" Operator="NotEqual"
+                        CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                        
+                    
+            </td>
+            </tr>
+            
+            <tr>
+            <td class="leftField" valign="top">
+            <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category :"></asp:Label>
+            </td>
+            <td colspan="4" class="rightField">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    onselectedindexchanged="ddlCategory_SelectedIndexChanged" ></asp:DropDownList>
+                    <span id="Span5" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="cmpCategory" runat="server" ErrorMessage="<br />Please select a Category"
+                        ValidationGroup="MFSubmit" ControlToValidate="ddlCategory" Operator="NotEqual"
+                        CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                        
+            </td>
+            </tr>
+            
+            
             <tr style="width:100%">
-                <td class="leftField">
+                <td class="leftField" valign="top">
                     <asp:Label ID="lblSchemeSearch" runat="server" Text="Scheme Search :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField" colspan="4">
-                <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-                                    <asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtSchemeName"  AutoComplete="Off"
+                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"  
+                        AutoPostBack="true" onselectedindexchanged="ddlScheme_SelectedIndexChanged" ></asp:DropDownList>
+                        <span id="Span6" class="spnRequiredField">*
+                        <asp:CompareValidator ID="cmpScheme" runat="server" ErrorMessage="<br />Please select a Scheme Name"
+                        ValidationGroup="MFSubmit" ControlToValidate="ddlScheme" Operator="NotEqual"
+                        CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                        
+                                    </span>
+               <%-- <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />--%>
+                                    <%--<asp:TextBox ID="txtSearchScheme" runat="server" CssClass="txtSchemeName"  AutoComplete="Off"
                                         AutoPostBack="true"></asp:TextBox><cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender"
                                             runat="server" TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
                                         </cc1:TextBoxWatermarkExtender>
@@ -120,9 +158,9 @@
                                         MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                                         CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                                         CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
-                                    <span id="Span6" class="spnRequiredField">*<br />
-                                    </span>
+                                        UseContextKey="true" OnClientItemSelected="GetSchemeCode" />--%>
+                                    <%--<span id="Span6" class="spnRequiredField">*<br />
+                                    </span>--%>
                                     
                                         
                                  
@@ -131,7 +169,7 @@
             <tr>
                 <td>
                 </td>
-                <td><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                <%--<td><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of Scheme Name.</span><br/>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
                                         ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
@@ -140,7 +178,7 @@
                  <asp:CompareValidator ID="cmpSchemeName" runat="server" ErrorMessage="<br />Please select a transaction type"
                                   ValidationGroup="MFSubmit" ControlToValidate="txtSearchScheme" Operator="NotEqual"
                                   CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
-                </td>
+                </td>--%>
             <tr>
                 <td>
                     &nbsp;
@@ -148,7 +186,28 @@
                 <td style="display: run-in;">
                 </td>
             </tr>
-         
+         <tr>
+                <td class="leftField">
+                    <asp:Label ID="Label4" runat="server" Text="Folio Number :" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:DropDownList ID="ddlFolioNum" runat="server" CssClass="cmbField" 
+                        AutoPostBack="true" onselectedindexchanged="ddlFolioNum_SelectedIndexChanged">
+                    </asp:DropDownList>
+                    <span id="Span3" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
+                        ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
+                        CssClass="rfvPCG" ValueToCompare="Select a Folio Number" Display="Dynamic"></asp:CompareValidator>
+                </td>
+                <td class="style2">
+                </td>
+                <td class="style1">
+                </td>
+                <td>
+                    <asp:Button ID="btnNewFolioAdd" runat="server" Text="Add New Folio Number" CssClass="PCGLongButton"
+                        OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" />
+                </td>
+            </tr>
             <tr>
                 <td class="leftField">
                     <asp:Label ID="Label3" runat="server" Text="Transaction Type:" CssClass="FieldName"></asp:Label>
@@ -173,27 +232,7 @@
                         CssClass="rfvPCG" ValueToCompare="lblScheme" Display="Dynamic"></asp:CompareValidator>
                 </td>
             </tr>
-            <tr>
-                <td class="leftField">
-                    <asp:Label ID="Label4" runat="server" Text="Folio Number :" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightField">
-                    <asp:DropDownList ID="ddlFolioNum" runat="server" CssClass="cmbField" AutoPostBack="true">
-                    </asp:DropDownList>
-                    <span id="Span3" class="spnRequiredField">*</span>
-                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
-                        ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
-                        CssClass="rfvPCG" ValueToCompare="Select a Folio Number" Display="Dynamic"></asp:CompareValidator>
-                </td>
-                <td class="style2">
-                </td>
-                <td class="style1">
-                </td>
-                <td>
-                    <asp:Button ID="btnNewFolioAdd" runat="server" Text="Add New Folio Number" CssClass="PCGLongButton"
-                        OnClick="btnNewFolioAdd_Click" Height="26px" Width="167px" />
-                </td>
-            </tr>
+            
             <%--From here there is lots of work to do--%>
             <tr>
                 <td colspan="2">
@@ -268,7 +307,7 @@
                 <td class="leftField" id="tdSchemeToLabel" runat="server" colspan="2">
                     <asp:Label ID="lblSchemeTo" runat="server" Text="Scheme To :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdSchemeToValue" runat="server" colspan="2" >
+                <td class="rightField" id="tdSchemeToValue" runat="server" >
                  <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" 
                         onvaluechanged="txtSwitchSchemeCode_ValueChanged" />
                                     <asp:TextBox ID="txtSwicthSchemeSearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -349,7 +388,7 @@
                     <asp:Label ID="lblPricePurchased" runat="server" Text="Price of Scheme Purchased into :"
                         CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdPricePurchasedValue" runat="server" colspan="2">
+                <td class="rightField" id="tdPricePurchasedValue" runat="server">
                     <asp:TextBox ID="txtPricePurchased" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span11" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPricePurchased"
@@ -380,7 +419,7 @@
                <td class="leftField" id="tdAmtPurchasedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblAmtPurchased" runat="server" Text="Amount :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdAmtPurchasedValue" runat="server" colspan="2">
+                <td class="rightField" id="tdAmtPurchasedValue" runat="server">
                     <asp:TextBox ID="txtAmtPurchased" runat="server" CssClass="txtField" 
                         MaxLength="18" ontextchanged="txtAmtPurchased_TextChanged" AutoPostBack="true"></asp:TextBox>
                     <span id="Span15" class="spnRequiredField">*</span>
@@ -411,7 +450,7 @@
                  <td class="leftField" id="tdUnitsAllotedLabel" runat="server" colspan="2">
                     <asp:Label ID="lblUnitsAlloted" runat="server" Text="Units Allotted :" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" id="tdUnitsAllotedValue" runat="server"  colspan="2">
+                <td class="rightField" id="tdUnitsAllotedValue" runat="server">
                     <asp:TextBox ID="txtUnitsAlloted" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
                     <span id="Span13" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator50" ControlToValidate="txtUnitsAlloted"
