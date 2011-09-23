@@ -32,11 +32,16 @@ namespace WealthERP.Uploads
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            //ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];            
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-            ProcessId = 0;
+
+            if (Request.QueryString["processId"] != null)
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+            if (Request.QueryString["filetypeid"] != null)
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
 
             if (Session["userVo"] != null)
             {
@@ -51,16 +56,21 @@ namespace WealthERP.Uploads
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loadcontrol('SessionExpired','');", true);
             }
 
-            if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
-            if (Request.QueryString["filetypeid"] != null)
-                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
-
             if (!IsPostBack)
             {
                 mypager.CurrentPage = 1;
-                //ProcessId = int.Parse(hdnProcessIdFilter.Value.ToString());
+                hdnProcessIdFilter.Value = ProcessId.ToString();
+                //Session["ProcessId"] = "";
+                //Session["ProcessIdMaptoCustomers"] = "";
+                //if (Session["ProcessIdMaptoCustomers"].ToString() == "1")
+                //{
+                //    ProcessId = int.Parse(Session["ProcessId"].ToString());
+                //}
+
+                ProcessId = int.Parse(hdnProcessIdFilter.Value.ToString());
                 BindGrid(ProcessId);
+                //Session["ProcessId"] = "";
+                //Session["ProcessIdMaptoCustomers"]="";
             }
         }
         protected override void OnInit(EventArgs e)
@@ -161,6 +171,7 @@ namespace WealthERP.Uploads
                 }
                 else
                 {   // Bind the Grid with Only All Values
+                    hdnProcessIdFilter.Value = "";
                     hdnRejectReasonFilter.Value = "";
                     BindGrid(ProcessId);
                 }
@@ -285,11 +296,11 @@ namespace WealthERP.Uploads
 
                 if (ProcessId == 0)
                 {   // Bind All Processes
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
+                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim());
                 }
                 else
                 {   // Bind Grid for the specific Process Id
-                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim(), hdnIsCustomerExistingFilter.Value);
+                    dsRejectedRecords = rejectedRecordsBo.getMFRejectedFolios(adviserVo.advisorId, ProcessId, mypager.CurrentPage, out Count, hdnSortProcessID.Value, hdnIsRejectedFilter.Value, hdnPANFilter.Value.Trim(), hdnRejectReasonFilter.Value, hdnNameFilter.Value.Trim(), hdnFolioFilter.Value.Trim());
                 }
 
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -352,29 +363,29 @@ namespace WealthERP.Uploads
                         }
                     }
 
-                    if (dsRejectedRecords.Tables[4].Rows.Count > 0)
-                    {
-                        // Get Is Customer Exist Flag into Generic Dictionary
-                        foreach (DataRow dr in dsRejectedRecords.Tables[4].Rows)
-                        {
-                            genDictIsCustomerExisting.Add(dr["CustomerExists"].ToString(), dr["CustomerExists"].ToString());
-                        }
+                    //if (dsRejectedRecords.Tables[4].Rows.Count > 0)
+                    //{
+                    //    // Get Is Customer Exist Flag into Generic Dictionary
+                    //    foreach (DataRow dr in dsRejectedRecords.Tables[4].Rows)
+                    //    {
+                    //        genDictIsCustomerExisting.Add(dr["CustomerExists"].ToString(), dr["CustomerExists"].ToString());
+                    //    }
 
-                        DropDownList ddlCustExists = GetCustExistsDDL();
-                        if (ddlCustExists != null)
-                        {
-                            ddlCustExists.DataSource = genDictIsCustomerExisting;
-                            ddlCustExists.DataTextField = "Key";
-                            ddlCustExists.DataValueField = "Value";
-                            ddlCustExists.DataBind();
-                            ddlCustExists.Items.Insert(0, new ListItem("Select a Flag", "Select a Flag"));
-                        }
+                    //    DropDownList ddlCustExists = GetCustExistsDDL();
+                    //    if (ddlCustExists != null)
+                    //    {
+                    //        ddlCustExists.DataSource = genDictIsCustomerExisting;
+                    //        ddlCustExists.DataTextField = "Key";
+                    //        ddlCustExists.DataValueField = "Value";
+                    //        ddlCustExists.DataBind();
+                    //        ddlCustExists.Items.Insert(0, new ListItem("Select a Flag", "Select a Flag"));
+                    //    }
 
-                        if (hdnIsCustomerExistingFilter.Value != "")
-                        {
-                            ddlCustExists.SelectedValue = hdnIsCustomerExistingFilter.Value.ToString().Trim();
-                        }
-                    }
+                    //    if (hdnIsCustomerExistingFilter.Value != "")
+                    //    {
+                    //        ddlCustExists.SelectedValue = hdnIsCustomerExistingFilter.Value.ToString().Trim();
+                    //    }
+                    //}
 
                     TextBox txtName = GetNameTextBox();
                     TextBox txtFolio = GetFolioTextBox();
@@ -395,7 +406,7 @@ namespace WealthERP.Uploads
                             txtPan.Text = hdnPANFilter.Value.ToString().Trim();
                         }
                     }
-                    BindProcessId(dsRejectedRecords.Tables[5]);
+                    BindProcessId(dsRejectedRecords.Tables[4]);
                 }
                 else
                 {
@@ -474,7 +485,7 @@ namespace WealthERP.Uploads
                 else
                 {   // Bind the Grid with Only All Values
                     hdnProcessIdFilter.Value = "0";
-                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    //ProcessId = int.Parse(hdnProcessIdFilter.Value);
                     BindGrid(ProcessId);
                 }
             }
@@ -613,7 +624,7 @@ namespace WealthERP.Uploads
             StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
             StandardFolioUploadBo standardFolioUploadBo = new StandardFolioUploadBo();
             CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
-            int countCustCreated = 0;
+            //int countCustCreated = 0;
             //int countFolioCreated = 0;
             //int countRejectedRecords = 0;
             
@@ -748,7 +759,7 @@ namespace WealthERP.Uploads
         //    ArrayList Stagingtableid = new ArrayList();
         //    ArrayList ProcessId = new ArrayList();
         //    int i = 0;
-        //    int varTest = 1;
+        //    //int varTest = 1;
         //    //const int FOLIONUM_INDEX = 2;
         //    HiddenField hdnStagingTableid;
         //    HiddenField hdnProcessID;
@@ -761,8 +772,9 @@ namespace WealthERP.Uploads
         //            hdnStagingTableid = (HiddenField)dr.FindControl("hdnBxStagingId");
         //            Stagingtableid.Add(hdnStagingTableid.Value);
         //            hdnProcessID = (HiddenField)dr.FindControl("hdnBxProcessID");
-        //            ProcessId.Add(hdnProcessID.Value);                    
+        //            ProcessId.Add(hdnProcessID.Value);
         //            i++;
+        //            Session["ProcessId"] = hdnProcessID.Value;
         //        }
         //    }
         //    //use a hashtable to create a unique list
@@ -781,8 +793,8 @@ namespace WealthERP.Uploads
         //    //for(i=0; i<selectedcount; i++)
         //    Session["Stagingtableid"] = Stagingtableid;
         //    Session["distincProcessIds"] = distincProcessIds;
-        //    Session["varTest"] = varTest;
-            
+        //    //Session["varTest"] = varTest;
+
         //    Response.Write("<script type='text/javascript'>detailedresults=window.open('Uploads/MapToCustomers.aspx','mywindow', 'width=700,height=450,scrollbars=yes,location=no');</script>");
         //}
     }

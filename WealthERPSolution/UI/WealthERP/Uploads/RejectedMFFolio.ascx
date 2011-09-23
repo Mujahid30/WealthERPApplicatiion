@@ -13,11 +13,11 @@
             if (form.elements[i].type == 'checkbox') {
                 if (form.elements[i].checked == true) {
                     count++;
-//                    hiddenField = form.elements[i].id.replace("chkBx", "hdnchkBx");
-//                    hiddenFieldValues = document.getElementById(hiddenField).value;
-//                    var splittedValues = hiddenFieldValues.split("-");
-//                    transactionId = splittedValues[0];
-//                    RejectReasonCode = splittedValues[1];
+                    hiddenField = form.elements[i].id.replace("chkBx", "hdnchkBx");
+                    hiddenFieldValues = document.getElementById(hiddenField).value;
+                    var splittedValues = hiddenFieldValues.split("-");
+                    transactionId = splittedValues[0];
+                    RejectReasonCode = splittedValues[1];
                 }
             }
         }        
@@ -29,7 +29,7 @@
             alert("Please select one record.")
             return false;
         }
-        // window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
+        window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
         return true;
     }
 </script>
@@ -109,8 +109,8 @@
                         </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:CheckBox ID="chkBx" runat="server" />
-<%--                                 <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
---%>                                 <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ProcessID").ToString() %>' />
+                                 <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+                                 <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("ProcessID").ToString() %>' />
                                <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("MFFolioStagingId").ToString() %>' />
                             </ItemTemplate>
                            <FooterTemplate>
@@ -142,9 +142,9 @@
                         </asp:TemplateField>
                       
                         <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />--%>
-                        <asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />
+                        <%--<asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />--%>
                         <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
-                        <asp:TemplateField>
+                        <%--<asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblCustomerExists" runat="server" Text="Is Customer Existing"></asp:Label>
                                 <asp:DropDownList ID="ddlCustomerExists" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlCustomerExists_SelectedIndexChanged">
@@ -153,14 +153,14 @@
                             <ItemTemplate>
                                 <asp:Label ID="lblCustomerExistsHeader" runat="server" Text='<%# Eval("CustomerExists").ToString() %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
-                                <asp:TextBox ID="txtNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedCAMSProfile_btnGridSearch');" />
+                                <%--<asp:TextBox ID="txtNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedCAMSProfile_btnGridSearch');" />--%>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblNameHeader" runat="server" Text='<%# Eval("WERPCUstomerName").ToString() %>'></asp:Label>
+                                <asp:Label ID="lblNameHeader" Width="180px" runat="server" Text='<%# Eval("InvName").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--<asp:BoundField DataField="NAME" HeaderText="Name" />--%>
@@ -188,7 +188,7 @@
                                 <asp:TextBox ID="txtFolioMultiple" CssClass="txtField" runat="server" />
                             </FooterTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="AMC" HeaderText="AMC" />
+                        <%--<asp:BoundField DataField="AMC" HeaderText="AMC" />--%>
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblIsRejected" runat="server" Text="Is Rejected"></asp:Label>
@@ -209,8 +209,8 @@
                 <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                     CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" />
-                <%--<asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-                    OnClientClick="return ShowPopup()" OnClick="btnMapToCustomer_Click"/>--%>
+                <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
+                    OnClientClick="return ShowPopup()"/>
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" 
                  OnClick="btnDelete_Click" Text="Delete Records" />
             </td>
