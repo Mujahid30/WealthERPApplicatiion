@@ -1749,6 +1749,28 @@ namespace BoCustomerPortfolio
             }
 
         }
+
+        public double CalculatePortfolioXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+        {
+
+            double result = 0;
+            try
+            {
+                result = System.Numeric.Financial.XIrr(values, date);
+                //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
+                if (result.ToString().Contains("E") || result.ToString().Contains("e"))
+                {
+                    result = 0;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                string e = ex.ToString();
+                return result;
+            }
+
+        }
         public List<MFPortfolioTransactionVo> ProcessMFTransactions(List<MFTransactionVo> mfTransactionVoList, int portfolioId)
         {
             List<MFPortfolioTransactionVo> mfPortfolioTransactionVoList = new List<MFPortfolioTransactionVo>();
@@ -3143,7 +3165,7 @@ namespace BoCustomerPortfolio
                     }
 
                 }
-                tempPortfolioXIRR = CalculateXIRR(transactionAmount, transactionDate);
+                tempPortfolioXIRR = CalculatePortfolioXIRR(transactionAmount, transactionDate);
                 drXIRR["CustomerId"] = dr["C_CustomerId"];
                 drXIRR["CustomerName"] = dr["C_CustomerName"];
                 drXIRR["PortfolioId"] = tempPortfoliId;
