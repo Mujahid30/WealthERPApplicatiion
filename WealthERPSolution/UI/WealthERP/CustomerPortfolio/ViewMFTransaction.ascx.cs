@@ -76,7 +76,8 @@ namespace WealthERP.CustomerPortfolio
                 {
                     lnkEdit.Visible = false;
                 }
-                
+                lblAMCName.Text = mfTransactionVo.AMCName;
+                lblcategoryName.Text = mfTransactionVo.Category;
                 lblScheme.Text = mfTransactionVo.SchemePlan.ToString();
                 lblTransactionType.Text = mfTransactionVo.TransactionType.ToString();
                 lblFolioNumber.Text = mfTransactionVo.Folio.ToString();
@@ -187,7 +188,8 @@ namespace WealthERP.CustomerPortfolio
             
             if (i == 0)
             {
-
+                lblAMC.Enabled = false;
+                lblcategoryName.Enabled = false;
                 lblScheme.Enabled = false;
                 lblFolioNumber.Enabled = false;
                 lblTransactionType.Enabled = false;
@@ -216,6 +218,8 @@ namespace WealthERP.CustomerPortfolio
             else
             {
 
+                    lblAMC.Enabled = true; 
+                    lblcategoryName.Enabled = true;
                     lblScheme.Enabled = true;
                     lblFolioNumber.Enabled = true;
                     lblTransactionType.Enabled = true;
@@ -259,6 +263,8 @@ namespace WealthERP.CustomerPortfolio
             {
                 Session["MFEditValue"] = "View";
                 SetFields(1);
+                lblAMCName.Text = mfTransactionVo.AMCName;
+                lblcategoryName.Text = mfTransactionVo.Category;
                 lblScheme.Text = mfTransactionVo.SchemePlan.ToString();
                 lblTransactionType.Text = mfTransactionVo.TransactionType.ToString();
                 lblFolioNumber.Text = mfTransactionVo.Folio.ToString();

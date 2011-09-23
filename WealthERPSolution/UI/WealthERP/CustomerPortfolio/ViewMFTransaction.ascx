@@ -66,6 +66,24 @@
         </td>
     </tr>
     <tr>
+    <td class="leftField">
+            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:Label ID="lblAMCName" runat="server" Text="Label" CssClass="Field"></asp:Label>
+        </td>
+    </tr>
+    
+        <tr>
+    <td class="leftField">
+            <asp:Label ID="lblcategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:Label ID="lblcategoryName" runat="server" Text="Label" CssClass="Field"></asp:Label>
+        </td>
+    </tr>
+    
+    <tr>
         <td class="leftField">
             <asp:Label ID="lblSchemeName" runat="server" CssClass="FieldName" Text="Scheme Name:"></asp:Label>
         </td>
