@@ -2984,9 +2984,16 @@ namespace WealthERP.Reports
             else if (CurrentReportType == ReportType.MFReports)
             {
                 mfReport.SubType = Request.Form[ctrlPrefix + "ddlReportSubType"];
-                if (Request.Form["ctrl_MFReports$hndCustomerLogin"] == "true" && Request.Form["ctrl_MFReports$hndSelfOrGroup"] == "self")
+                if (Request.Form["ctrl_MFReports$hndSelfOrGroup"] == "self")
                 {
-                    mfReport.PortfolioIds = GetAllPortfolioOfCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
+                    if (Session["hndCustomerLogin"] != null)
+                    {
+                       if (Session["hndCustomerLogin"].ToString() == "true")
+                        mfReport.PortfolioIds = GetAllPortfolioOfCustomer(int.Parse(Request.Form["ctrl_MFReports$hdnCustomerId1"]));
+                       else
+                        mfReport.PortfolioIds = GetPortfolios();
+
+                    }
 
                 }
                 else
