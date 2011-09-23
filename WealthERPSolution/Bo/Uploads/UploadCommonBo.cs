@@ -4083,5 +4083,101 @@ namespace BoUploads
 
             return count;
         }
+
+
+        public DataSet GetRejectedSIPRecords(int adviserId, int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                dsSIPRejectedDetails = uploadDAO.GetRejectedSIPRecords(adviserId, CurrentPage, out Count, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, schemeNameFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetRejectedSIPRecords()");
+
+                object[] objects = new object[2];
+               
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsSIPRejectedDetails;
+        }
+
+
+        public DataSet GetSIPUploadRejectDistinctProcessIdForAdviser(int adviserId)
+        {
+            DataSet dsSIPRejectedData = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                dsSIPRejectedData = uploadDAO.GetSIPUploadRejectDistinctProcessIdForAdviser(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSIPUploadRejectDistinctProcessIdForAdviser()");
+
+                object[] objects = new object[2];
+
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsSIPRejectedData;
+
+        }
+
+        public void DeleteMFSIPTransactionStaging(int StagingID)
+        {
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                uploadDAO.DeleteMFSIPTransactionStaging(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteMFSIPTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        
     }
 }

@@ -3490,8 +3490,132 @@ namespace DaoUploads
 
             return count;
         }
-    
-    
-    
+
+
+        public DataSet GetRejectedSIPRecords(int adviserId, int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetSystematicRejectDetail");
+                db.AddInParameter(getCount, "@currentPage", DbType.Int32, CurrentPage);
+
+                db.AddInParameter(getCount, "@adviserId", DbType.Int32, adviserId);
+
+                if (processId != 0)
+                    db.AddInParameter(getCount, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getCount, "@processId", DbType.Int32, 0);
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getCount, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                if (fileNameFilter != "")
+                    db.AddInParameter(getCount, "@fileNameFilter", DbType.String, fileNameFilter);
+
+                if (FolioFilter != "")
+                    db.AddInParameter(getCount, "@folioFilter", DbType.String, FolioFilter);
+
+                if (TransactionTypeFilter != "")
+                    db.AddInParameter(getCount, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+
+                if (investorNameFileter != "")
+                    db.AddInParameter(getCount, "@investorNameFileter", DbType.String, investorNameFileter);
+
+
+                if (schemeNameFilter != "")
+                    db.AddInParameter(getCount, "@schemeNameFilter", DbType.String, schemeNameFilter);
+
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+
+                Count = Int32.Parse(dsSIPRejectedDetails.Tables[8].Rows[0]["CNT"].ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+
+            //    FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetRejectedSIPRecords()");
+
+            //    object[] objects = new object[2];
+            //    objects[0] = processID;
+
+
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
+           
+
+            return dsSIPRejectedDetails;
+        }
+
+
+        public DataSet GetSIPUploadRejectDistinctProcessIdForAdviser(int adviserId)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetSIPUploadRejectDistinctProcessIdForAdviser");
+                db.AddInParameter(getCount, "@adviserId", DbType.Int32, adviserId);
+
+                dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsSIPRejectedDetails;
+        }
+
+        public void DeleteMFSIPTransactionStaging(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingSIPTransaction");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
     }
 }

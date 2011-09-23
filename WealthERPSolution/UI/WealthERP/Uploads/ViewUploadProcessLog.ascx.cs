@@ -288,6 +288,11 @@ namespace WealthERP.Uploads
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
+                    else if (filetypeId == 20)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID  + "');", true);
+                    }
+
                 }
                 else
                 {
@@ -844,6 +849,34 @@ namespace WealthERP.Uploads
                                 }
                             }
                         }
+                        #endregion
+
+                        #region CAMS Profile
+                        //CAMS SYSTEMATIC 
+
+                        bool camsSIPCommonStagingChk = false;
+                        bool camsSIPCommonStagingToWERP = false;
+                        packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                        camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(processID, packagePath, configPath, "CA");
+
+                        if (camsSIPCommonStagingChk)
+                        {
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
+                            camsSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
+
+                            if (camsSIPCommonStagingToWERP)
+                            {
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "CA");
+
+
+                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "CA");
+                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                            }
+                        }
+
                         #endregion
 
                     }
