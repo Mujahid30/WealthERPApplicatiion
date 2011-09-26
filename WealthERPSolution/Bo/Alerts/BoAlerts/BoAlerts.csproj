@@ -39,10 +39,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\UI\WealthERP\bin\BoUser.dll</HintPath>
     </Reference>
-    <Reference Include="DaoAlerts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dao\Alerts\obj\Debug\DaoAlerts.dll</HintPath>
-    </Reference>
     <Reference Include="DaoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\UI\WealthERP\bin\DaoProductMaster.dll</HintPath>
@@ -75,6 +71,12 @@
   <ItemGroup>
     <Compile Include="AlertsBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dao\Alerts\DaoAlerts.csproj">
+      <Project>{9610BF68-ED9D-4C55-B130-7E21F9ABBDE8}</Project>
+      <Name>DaoAlerts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
