@@ -935,10 +935,10 @@ namespace WealthERP.Uploads
 
 
 
-        protected void btnMapFolios_Click(object sender, EventArgs e)
-        {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
-        }
+        //protected void btnMapFolios_Click(object sender, EventArgs e)
+        //{
+        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
+        //}
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {

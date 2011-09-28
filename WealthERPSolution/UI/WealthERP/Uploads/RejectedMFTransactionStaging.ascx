@@ -28,6 +28,41 @@
 
 <%--End--%>
 
+<script>
+    function ShowPopup() {
+        var form = document.forms[0];
+        var transactionId = 0;
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                    hiddenField = form.elements[i].id.replace("chkId", "hdnchkBx");
+                    hiddenFieldValues = document.getElementById(hiddenField).value;
+                    var splittedValues = hiddenFieldValues.split("-");
+                    transactionId = splittedValues[0];
+                    //rejectReasonCode = splittedValues[1];
+                    //                    if (rejectReasonCode != 22) {
+                    //                        alert("Select transaction with reject reason 'WERP Account id not found for Folio'")
+                    //                        return false;
+                    //                    }
+
+                }
+            }
+        }
+        if (count > 1) {
+            alert("You can select only one record at a time.")
+            return false;
+        }
+        else if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+        window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
+        return false;
+    }
+</script>
+
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
 
@@ -163,6 +198,7 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="chkId" runat="server" />
+                            <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTSId").ToString()%>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                         <asp:TemplateField>
@@ -276,7 +312,7 @@
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" OnClientClick="Loading(true);" />
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGLongButton" Text="Map Folios"
-                OnClick="btnMapFolios_Click" />
+                OnClientClick="return ShowPopup()" />
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
         </td>
