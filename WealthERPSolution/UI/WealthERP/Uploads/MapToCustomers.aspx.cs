@@ -627,7 +627,7 @@ namespace WealthERP.Uploads
                             lblMessage.Text = "Customer is mapped";
                             lblMessage.CssClass = "SuccessMsg";
                             tblSearch.Visible = false;
-                            reprocess();
+                            //reprocess();
                         }
                         else
                         {
