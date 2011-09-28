@@ -969,9 +969,12 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            amcCode = int.Parse(ddlAMC.SelectedValue);
-            categoryCode = ddlCategory.SelectedValue;
-            BindScheme();
+            if (ddlCategory.SelectedIndex != 0)
+            {
+                amcCode = int.Parse(ddlAMC.SelectedValue);
+                categoryCode = ddlCategory.SelectedValue;
+                BindScheme();
+            }
         }
 
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
@@ -987,15 +990,22 @@ namespace WealthERP.CustomerPortfolio
                 categoryCode = productMfBo.GetCategoryNameFromSChemeCode(schemePlanCode);
                 ddlCategory.SelectedValue = categoryCode;
                 txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
+                
             }
         }
 
         protected void ddlFolioNum_SelectedIndexChanged(object sender, EventArgs e)
         {
-            accountId = int.Parse(ddlFolioNum.SelectedValue);
-            amcCode = productMfBo.GetAMCfromFolioNo(accountId);
-            ddlAMC.SelectedValue = amcCode.ToString();
-            BindScheme();
+            if (ddlFolioNum.SelectedIndex != 0)
+            {
+                
+                accountId = int.Parse(ddlFolioNum.SelectedValue);
+                amcCode = productMfBo.GetAMCfromFolioNo(accountId);
+                ddlAMC.SelectedValue = amcCode.ToString();
+                if(ddlScheme.SelectedIndex == 0)
+                     BindScheme();
+ 
+            }
         }
 
     }

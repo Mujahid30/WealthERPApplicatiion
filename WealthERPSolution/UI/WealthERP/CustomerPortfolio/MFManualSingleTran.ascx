@@ -274,7 +274,7 @@
                 ValidationGroup="MFSubmit" Type="Date" ControlToValidate="txtTransactionDate"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
                 </td>
-                <td class="style2">
+                <td align="right">
                     <asp:Label ID="Label19" runat="server" Text="NAV :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="style1">
@@ -347,7 +347,8 @@
                 </td>
                 </tr>
                 <tr>
-                <td class="leftField" id="tdNAVPurchasedLabel" runat="server" colspan="2">
+                <td>&nbsp;</td>
+                <td  id="tdNAVPurchasedLabel" runat="server" align="right" colspan="2">
                     <asp:Label ID="lblNAVPurchased" runat="server" Text="NAV of Scheme Purchased into :"
                         CssClass="FieldName"></asp:Label>
                 </td>

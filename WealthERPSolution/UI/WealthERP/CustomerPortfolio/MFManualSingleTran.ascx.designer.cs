@@ -176,15 +176,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
-        /// btnNewFolioAdd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNewFolioAdd;
-        
-        /// <summary>
         /// Label3 control.
         /// </summary>
         /// <remarks>
