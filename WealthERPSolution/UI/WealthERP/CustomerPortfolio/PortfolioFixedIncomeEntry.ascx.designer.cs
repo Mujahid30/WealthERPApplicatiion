@@ -590,6 +590,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator cvtxtDDBIssueDate;
         
         /// <summary>
+        /// tdDDBFaceValueIssue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDBFaceValueIssue;
+        
+        /// <summary>
         /// lblDDBFaceValueIssue control.
         /// </summary>
         /// <remarks>
@@ -597,6 +606,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDDBFaceValueIssue;
+        
+        /// <summary>
+        /// tdDDBFaceValueIssueTxt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDBFaceValueIssueTxt;
         
         /// <summary>
         /// txtDDBFaceValueIssue control.
@@ -689,6 +707,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator cvDDBPurchaseDate;
         
         /// <summary>
+        /// tdDDBPurchasePrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDBPurchasePrice;
+        
+        /// <summary>
         /// lblDDBPurchasePrice control.
         /// </summary>
         /// <remarks>
@@ -696,6 +723,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDDBPurchasePrice;
+        
+        /// <summary>
+        /// tdDDBPurchasePriceTxtBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDDBPurchasePriceTxtBox;
         
         /// <summary>
         /// txtDDBPurchasePrice control.

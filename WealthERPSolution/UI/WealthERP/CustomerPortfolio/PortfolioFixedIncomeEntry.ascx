@@ -287,10 +287,10 @@
                         Type="Date" ControlToValidate="txtDDBIssueDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
                 </td>
-                <td class="leftField">
+                <td class="leftField" id="tdDDBFaceValueIssue" runat="server">
                     <asp:Label ID="lblDDBFaceValueIssue" runat="server" CssClass="FieldName" Text="Issue Price:"></asp:Label>
                 </td>
-                <td class="rightField">
+                <td class="rightField" id="tdDDBFaceValueIssueTxt" runat="server">
                     <asp:TextBox ID="txtDDBFaceValueIssue" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span17" class="spnRequiredField">*</span>
                     <br />
@@ -327,10 +327,10 @@
                         Type="Date" ControlToValidate="txtDDBPurchaseDate" Operator="DataTypeCheck" CssClass="cvPCG"
                         Display="Dynamic"></asp:CompareValidator>
                 </td>
-                <td class="leftField">
+                <td class="leftField" id="tdDDBPurchasePrice" runat="server">
                     <asp:Label ID="lblDDBPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Price:"></asp:Label>
                 </td>
-                <td class="rightField">
+                <td class="rightField" id="tdDDBPurchasePriceTxtBox" runat="server">
                     <asp:TextBox ID="txtDDBPurchasePrice" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span16" class="spnRequiredField">*</span>
                     <br />

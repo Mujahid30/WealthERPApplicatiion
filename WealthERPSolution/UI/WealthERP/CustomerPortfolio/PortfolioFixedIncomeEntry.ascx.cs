@@ -494,6 +494,8 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
+                    ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
+                    ddlPayableFrequencyCode.Enabled = false;
                     ddlFrequencyOfDeposit.SelectedValue = fixedIncomeVo.DepositFrequencyCode.ToString().Trim();
                     ddlFrequencyOfDeposit.Enabled = false;
                     txtSubsequentDepositAmt.Text = fixedIncomeVo.SubsequentDepositAmount.ToString();
@@ -1581,11 +1583,17 @@ namespace WealthERP.CustomerPortfolio
 
             trDDBDetails.Visible = false;
             trDDBIssuePurchaseDate.Visible = false;
-            trDDBPurchPriceMatDate.Visible = false;
+            //trDDBPurchPriceMatDate.Visible = false;
             trDDBFaceValue.Visible = false;
             trDDBNoofDebentures.Visible = false;
             trDDBSpace.Visible = false;
             trDDBIssuePurchaseDate.Visible = true;
+            trDDBPurchPriceMatDate.Visible = true;
+
+            tdDDBPurchasePrice.Visible = false;
+            tdDDBPurchasePriceTxtBox.Visible = false;
+            tdDDBFaceValueIssue.Visible = false;
+            tdDDBFaceValueIssueTxt.Visible = false;
 
             trPurchaseDetails.Visible = false;
             trIssueDate.Visible = false;
