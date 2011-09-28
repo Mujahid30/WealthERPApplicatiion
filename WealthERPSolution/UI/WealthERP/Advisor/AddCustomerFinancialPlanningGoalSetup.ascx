@@ -35,6 +35,11 @@
             return false;
         }
 
+//        if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") == "") {
+//            alert("Retirement Corpus(%) cannot be empty.")
+//            return false;
+//        }
+
         if (document.getElementById('<%=txtInflation.ClientID %>').value == "") {
             alert("Inflation(%) cannot be empty.")
             document.getElementById('<%=txtInflation.ClientID %>').focus();
@@ -59,7 +64,7 @@
         }
         if (RetirementCorps == "") {
 
-            alert("Return on retirement corpus(%) not to be empty ")
+            alert("Retirement Corpus(%) cannot be empty.")
             return false;
         }
         else if (parseInt(RetirementCorps) == 0) {
@@ -356,13 +361,13 @@
                     <td class="rightField" runat="server">
                         <asp:TextBox ID="txtGoalCostToday" runat="server" CssClass="txtField"></asp:TextBox>
                         <span id="SpanGoalCostTodayReq" class="spnRequiredField" runat="server">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="txtField" ErrorMessage="Goal cost Today Required" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtGoalCostToday" ValidationGroup="btnSave" CssClass="rfvPCG" ErrorMessage="Goal cost Today Required" Display="Dynamic"></asp:RequiredFieldValidator>
                              <ajaxToolkit:FilteredTextBoxExtender ID="txtGoalCostToday_E" runat="server" Enabled="True" TargetControlID="txtGoalCostToday"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                         
                          
-                        <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic"  
+                        <asp:RangeValidator ID="RVtxtGoalCostToday" Display="Dynamic" CssClass="rfvPCG"  
                             SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 15 digit & can't be zero"
                              ValidationGroup="btnSave" MinimumValue="0.00000000001" MaximumValue="999999999999999" 
                             ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
@@ -508,17 +513,18 @@
                     <td id="Td7" class="rightField" runat="server">
                         <asp:TextBox ID="txtROIFutureInvest" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             MaxLength="15"></asp:TextBox>
+                              <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtROIFutureInvest"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                             <span id="SpanROIFutureInvest" class="spnRequiredField" runat="server">*</span>
                             
                             <ajaxToolkit:FilteredTextBoxExtender ID="txtROIFutureInvest_E" runat="server" Enabled="True" TargetControlID="txtROIFutureInvest"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
-                         <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" 
+                         <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" CssClass="rfvPCG"
                             SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
                             MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtROIFutureInvest" 
                             runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtROIFutureInvest"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                      
                     </td>
                 </tr>
                 <tr>
@@ -574,7 +580,7 @@
                          <asp:Button ID="btnBackToView" runat="server" CssClass="PCGButton" Text="Back" OnClick="btnBackToView_Click"/>
                          <asp:Button ID="btnEdit" runat="server" CssClass="PCGButton" Text="Edit" OnClick="btnEdit_Click"/>
                         
-                         <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click"/>
+                         <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click" OnClientClick="return validate()"/>
                         
                         
                     </td>

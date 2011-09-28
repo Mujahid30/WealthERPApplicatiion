@@ -685,7 +685,7 @@ namespace WealthERP.Uploads
             CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
             bool camsSIPCommonStagingChk = false;
             bool camsSIPCommonStagingToWERP = false;
-        
+            bool updateProcessLog = false;
           
 
 
@@ -693,7 +693,8 @@ namespace WealthERP.Uploads
 
             string packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
             camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
-
+            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
             if (camsSIPCommonStagingChk)
             {
                 packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
@@ -706,7 +707,7 @@ namespace WealthERP.Uploads
                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");
 
 
-                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+                   
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                 }
@@ -739,6 +740,7 @@ namespace WealthERP.Uploads
             }
             else
             {
+                msgDelete.Visible = true;
                 CustomerSIPTransactionDelete();
                 msgDelete.Visible = true;
             }
@@ -756,8 +758,8 @@ namespace WealthERP.Uploads
 
                     uploadsCommonBo.DeleteMFSIPTransactionStaging(StagingID);
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
-
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
+                    BindRejectedSIPGrid(processId);
 
 
                 }

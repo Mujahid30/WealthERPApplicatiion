@@ -17,7 +17,7 @@
 <asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Systematic Transaction Staging"></asp:Label>
 <br />
 <hr />
-<br /><br /><br /><br /><br />
+<br />
 
 <script type="text/javascript">
     function pageLoad() {

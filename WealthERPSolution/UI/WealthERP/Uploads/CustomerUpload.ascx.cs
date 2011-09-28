@@ -1401,7 +1401,8 @@ namespace WealthERP.Uploads
 
                                         packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
                                         camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
-
+                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                         if (camsSIPCommonStagingChk)
                                         {
                                             packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
@@ -1414,7 +1415,7 @@ namespace WealthERP.Uploads
                                                 processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");
 
 
-                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+                                               
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                             }
                                         }
