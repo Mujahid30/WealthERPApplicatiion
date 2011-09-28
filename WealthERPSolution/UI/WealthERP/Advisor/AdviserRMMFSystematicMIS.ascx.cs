@@ -79,7 +79,7 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin") 
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";
@@ -1242,7 +1242,6 @@ namespace WealthERP.Advisor
                     ErrorMessage.Visible = false;
                     //trPager.Visible = true;
                 }
-
                 else
                 {
                     reptCalenderSummaryView.Visible = false;
