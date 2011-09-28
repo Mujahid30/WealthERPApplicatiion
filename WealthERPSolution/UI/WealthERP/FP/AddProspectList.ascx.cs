@@ -332,9 +332,9 @@ namespace WealthERP.FP
                 int i = 2;
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dr = dt.NewRow();
-                //TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
-                //if (PANValidation(txt1.Text))
-                //{
+                TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+                if (PANValidation(txt1.Text))
+                {
                     foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
                     {
 
@@ -380,11 +380,8 @@ namespace WealthERP.FP
                                     else if (i == 8)
                                     {
                                         TextBox txt = (TextBox)e.Item.FindControl("txtChildPanNo");
-                                        if (PANValidation(txt.Text))
-                                        {
                                             editorText = txt.Text;
                                             editorValue = txt.Text;
-                                        }
                                     }
 
                                 }
@@ -406,8 +403,9 @@ namespace WealthERP.FP
                         }
 
                     }
-                        Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                        Rebind();
+                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    Rebind();
+                }
                 }
             catch (Exception ex)
             {
@@ -1704,7 +1702,7 @@ namespace WealthERP.FP
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Customer has associations, cannot be deleted');", true);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMCustomer','none');", true);
                 }
             }
         }
@@ -1718,7 +1716,23 @@ namespace WealthERP.FP
 
                 if (customerBo.DeleteCustomer(customerVo.CustomerId, "D"))
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomer','login');", true);
+                    if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('BMCustomer','login');", true);
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RMCustomer','login');", true);
+                    }
+                    else if ((Session[SessionContents.CurrentUserRole].ToString() == "Ops"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
+                    }
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                    }
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','none');", true);
                 }
 
             }
@@ -1749,7 +1763,7 @@ namespace WealthERP.FP
             //string childPanNo = RadGrid1.FindControl("txtChildPanNo").ToString();
             if (!string.IsNullOrEmpty(Pan))
             {
-                if (customerBo.PANNumberDuplicateCheck(adviserId, Pan, customerVo.CustomerId))
+               if (customerBo.PANNumberDuplicateCheck(adviserId, Pan, customerVo.CustomerId))
                 {
                     result = false;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
