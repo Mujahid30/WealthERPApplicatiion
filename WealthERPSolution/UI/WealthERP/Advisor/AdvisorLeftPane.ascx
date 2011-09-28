@@ -423,12 +423,21 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Transaction Exceptions" Value="View Transaction Exceptions">
+                                                    <telerik:RadPanelItem runat="server" Text="View Profile Exceptions" Value="View_Profile_Exceptions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View MF Transaction Exceptions" Value="View Transaction Exceptions">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View MF Folio Exceptions" Value="View MF Folio Exceptions">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Equity Trade Account Exceptions" Value="View_Equity_Trade_Account_Exceptions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Equity Transaction Exceptions" Value="View_Equity_Transaction_Exceptions">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Systematic Transaction Exceptions" Value="View_Systematic_Transaction_Exceptions">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                            
                                              <telerik:RadPanelItem runat="server" Text="Order Management" Value="OrderManagement">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">

@@ -1027,7 +1027,7 @@ namespace WealthERP.Advisor
             RadPanelBar1.CollapseAllItems();
             RadPanelBar2.CollapseAllItems();
             RadPanelBar3.CollapseAllItems();
-            Session[SessionContents.CurrentUserRole] = "Ops";
+            Session[SessionContents.CurrentUserRole] = "Admin";
             hdfSession.Value = "Ops";
             try
             {
@@ -1115,13 +1115,29 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
                 }
+                else if (e.Item.Value == "View_Profile_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedWERPProfile','login');", true);
+                }
                 else if (e.Item.Value == "View Transaction Exceptions")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
                 }
                 else if (e.Item.Value == "View MF Folio Exceptions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+                }
+                else if (e.Item.Value == "View_Equity_Trade_Account_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedTradeAccountStaging','login');", true);
+                }
+                else if (e.Item.Value == "View_Equity_Transaction_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedEquityTransactionStaging','login');", true);
+                }
+                else if (e.Item.Value == "View_Systematic_Transaction_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
                 }
                 else if (e.Item.Value == "Staff User Management")
                 {
