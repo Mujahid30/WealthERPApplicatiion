@@ -2782,7 +2782,7 @@ namespace WealthERP.CustomerPortfolio
                     gvMFPortfolio.Rows[i].Cells[6].Text = gvMFPortfolio.Rows[i].Cells[6].Text.Replace(",", "");
                     gvMFPortfolio.Rows[i].Cells[7].Text = gvMFPortfolio.Rows[i].Cells[7].Text.Replace(",", "");
                     gvMFPortfolio.Rows[i].Cells[8].Text = gvMFPortfolio.Rows[i].Cells[8].Text.Replace(",", "");
-                    gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
+                    gvMFPortfolio.Rows[i].Cells[9].Text = gvMFPortfolio.Rows[i].Cells[9].Text.Replace(",", "");
                     gvMFPortfolio.Rows[i].Cells[10].Text = gvMFPortfolio.Rows[i].Cells[10].Text.Replace(",", "");
                     gvMFPortfolio.Rows[i].Cells[11].Text = gvMFPortfolio.Rows[i].Cells[11].Text.Replace(",", "");
                     gvMFPortfolio.Rows[i].Cells[12].Text = gvMFPortfolio.Rows[i].Cells[12].Text.Replace(",", "");
