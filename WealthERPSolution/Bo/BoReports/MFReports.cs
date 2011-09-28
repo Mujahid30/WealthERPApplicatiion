@@ -404,9 +404,9 @@ namespace BoReports
             DataTable dtOpeningClosingSchemeWise = new DataTable();
             dtOpeningClosingSchemeWise.Columns.Add("PASP_SchemePlanName", typeof(string));
             dtOpeningClosingSchemeWise.Columns.Add("WMTT_TransactionType", typeof(string));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_TransactionDate", typeof(string));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_TransactionDate", typeof(DateTime));
             dtOpeningClosingSchemeWise.Columns.Add("CMFT_Price", typeof(decimal));
-            //dtOpeningClosingSchemeWise.Columns.Add("CMFT_Units", typeof(Int32));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Units", typeof(Int32));
             dtOpeningClosingSchemeWise.Columns.Add("CMFT_Amount", typeof(decimal));
             dtOpeningClosingSchemeWise.Columns.Add("CMFT_OpeningBalance", typeof(decimal));
             dtOpeningClosingSchemeWise.Columns.Add("CMFT_ClosingBalance", typeof(decimal));
@@ -414,8 +414,7 @@ namespace BoReports
             DataRow[] drClosing = new DataRow[3];
             string tempSchemePlanCode=string.Empty;
 
-            if (dtTransactionList.Rows.Count > 0 && dtSchemeOpeningBalance.Rows.Count > 0 && dtSchemeClosingBalance.Rows.Count > 0)
-            
+            if (dtTransactionList.Rows.Count > 0 && dtSchemeOpeningBalance.Rows.Count > 0 && dtSchemeClosingBalance.Rows.Count > 0)            
             {
                 foreach (DataRow dr in dtTransactionList.Rows)
                 {
@@ -438,14 +437,14 @@ namespace BoReports
                         drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = drOpening[0][2].ToString();
                     }
                     else
-                        drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = 0;
+                        drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = 0.0;
 
                     if (drClosing.Count() > 0)
                     {
                         drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = drOpening[0][2].ToString();
                     }
                     else
-                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = 0;
+                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = 0.0;
                     
 
                     //drOpeningClosingSchemeWise["CMFT_OpeningBalance"] = 
