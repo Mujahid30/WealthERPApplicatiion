@@ -239,8 +239,8 @@ namespace WealthERP.CustomerPortfolio
 
                 int Count;
                 if (export == 1)
-                {                   
-                        mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to,hdnFolioFilter.Value.ToString());
+                {
+                    mfTransactionList = customerTransactionBo.GetMFTransactions(CustomerId, portfolioId, 1, CurrentPage, out Count, hdnSchemeFilter.Value.Trim(), hdnTranType.Value.Trim(), hdnTranTrigger.Value.Trim(), hdnStatus.Value.Trim(), hdnTranDate.Value.Trim(), out genDictTranType, out genDictTranTrigger, out genDictTranDate, hdnSort.Value, from, to, hdnFolioFilter.Value.ToString());
                    
                 }
                 else
@@ -745,7 +745,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else if(rbCurrent.Checked)
             {
-                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 1, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
+                BindGridView(customerId, int.Parse(hdnCurrentPage.Value.ToString()), 0, DateTime.Parse(txtFromTran.Text), DateTime.Parse(txtToTran.Text));
             }
 
             PrepareGridViewForExport(gvMFTransactions);           
