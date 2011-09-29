@@ -494,6 +494,12 @@ namespace WealthERP.CustomerPortfolio
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
+                    if (fixedIncomeVo.InterestBasisCode.ToString().Trim() == "CI")
+                    {
+                        ddlCompoundInterestFreq.SelectedValue = fixedIncomeVo.CompoundInterestFrequencyCode.ToString().Trim();
+                        ddlCompoundInterestFreq.Enabled = false;
+                        trIntFreqCompound.Visible = true;
+                    }
                     ddlPayableFrequencyCode.SelectedValue = fixedIncomeVo.InterestPayableFrequencyCode.ToString().Trim();
                     ddlPayableFrequencyCode.Enabled = false;
                     ddlFrequencyOfDeposit.SelectedValue = fixedIncomeVo.DepositFrequencyCode.ToString().Trim();
@@ -508,7 +514,6 @@ namespace WealthERP.CustomerPortfolio
                     txtDDBPurchasePrice.Enabled = false;
                     txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                     txtInterestAmtCredited.Enabled = false;
-
                 }
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS")
                 {
@@ -551,7 +556,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (customerAccountVo.AssetCategory.ToString().Trim() == "FIML" || customerAccountVo.AssetCategory.ToString().Trim() == "FIOT")
                 {
-                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
+                    txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = false;
                     ddlInterestBasis.SelectedValue = fixedIncomeVo.InterestBasisCode.ToString().Trim();
                     ddlInterestBasis.Enabled = false;
