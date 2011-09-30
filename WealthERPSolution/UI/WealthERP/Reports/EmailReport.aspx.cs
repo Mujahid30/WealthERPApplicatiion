@@ -599,11 +599,14 @@ namespace WealthERP.Reports
 
                     case "RETURNS_PORTFOLIO":
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
+                        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         if (dtReturnsPortfolio.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
+                            crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                             //crmain.SetParameterValue("CustomerName", "--");
