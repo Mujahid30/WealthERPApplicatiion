@@ -394,22 +394,23 @@ namespace BoReports
             dsTransactionList = mfReportsDao.GetOpeningClosingTransactionReport(reports);
             DataTable dtTransactionList;
             DataTable dtSchemeOpeningBalance;
-            DataTable dtSchemeClosingBalance;
-            
+            DataTable dtSchemeClosingBalance;            
             dtTransactionList = dsTransactionList.Tables[0];
             dtSchemeOpeningBalance = dsTransactionList.Tables[1];
             dtSchemeClosingBalance = dsTransactionList.Tables[2];
             DataRow drOpeningClosingSchemeWise;
 
             DataTable dtOpeningClosingSchemeWise = new DataTable();
-            dtOpeningClosingSchemeWise.Columns.Add("PASP_SchemePlanName", typeof(string));
-            dtOpeningClosingSchemeWise.Columns.Add("WMTT_TransactionType", typeof(string));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_TransactionDate", typeof(DateTime));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Price", typeof(decimal));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Units", typeof(Int32));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Amount", typeof(decimal));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_OpeningBalance", typeof(decimal));
-            dtOpeningClosingSchemeWise.Columns.Add("CMFT_ClosingBalance", typeof(decimal));
+            dtOpeningClosingSchemeWise.Columns.Add("CustomerName");
+            dtOpeningClosingSchemeWise.Columns.Add("CP_PortfolioName");
+            dtOpeningClosingSchemeWise.Columns.Add("PASP_SchemePlanName");
+            dtOpeningClosingSchemeWise.Columns.Add("WMTT_TransactionType");
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_TransactionDate");
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Price", System.Type.GetType("System.Decimal"));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Units");
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_Amount", System.Type.GetType("System.Decimal"));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_OpeningBalance", System.Type.GetType("System.Decimal"));
+            dtOpeningClosingSchemeWise.Columns.Add("CMFT_ClosingBalance", System.Type.GetType("System.Decimal"));
             DataRow[] drOpening=new DataRow[3];
             DataRow[] drClosing = new DataRow[3];
             string tempSchemePlanCode=string.Empty;
@@ -419,6 +420,9 @@ namespace BoReports
                 foreach (DataRow dr in dtTransactionList.Rows)
                 {
                     drOpeningClosingSchemeWise = dtOpeningClosingSchemeWise.NewRow();
+
+                    drOpeningClosingSchemeWise["CustomerName"] = dr["CustomerName"];
+                    drOpeningClosingSchemeWise["CP_PortfolioName"] = dr["CP_PortfolioName"];
                     if (dr["PASP_SchemePlanCode"].ToString() != tempSchemePlanCode)
                     {
                         tempSchemePlanCode = dr["PASP_SchemePlanCode"].ToString().Trim();
@@ -441,7 +445,7 @@ namespace BoReports
 
                     if (drClosing.Count() > 0)
                     {
-                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = drOpening[0][2].ToString();
+                        drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = drClosing[0][2].ToString();
                     }
                     else
                         drOpeningClosingSchemeWise["CMFT_ClosingBalance"] = 0.0;
