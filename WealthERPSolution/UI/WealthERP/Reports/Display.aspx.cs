@@ -193,21 +193,20 @@ namespace WealthERP.Reports
                 HideShowFPSection();
                 
             }
-            if (!Page.IsPostBack)
-            {
+           
                 DisplayReport();
-            }
+           
 
         }
 
-        protected void Page_UnLoad(object sender, EventArgs e)
-        {
-            this.CrystalReportViewer1.Dispose();
-            this.CrystalReportViewer1 = null;
-            crmain.Close();
-            crmain.Dispose();
-            GC.Collect();
-        }
+        //protected void Page_UnLoad(object sender, EventArgs e)
+        //{
+        //    this.CrystalReportViewer1.Dispose();
+        //    this.CrystalReportViewer1 = null;
+        //    crmain.Close();
+        //    crmain.Dispose();
+        //    GC.Collect();
+        //}
 
         #region ReporDisplay Methods
 
