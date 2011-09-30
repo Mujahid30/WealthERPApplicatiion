@@ -747,9 +747,9 @@ namespace DaoReports
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerTrancsactionListCmd = db.GetStoredProcCommand("SP_RPT_OpeningClosingBalanceForMFTransactions");
-                reports.PortfolioIds = "39347,";
-                reports.FromDate = DateTime.Parse("2006/05/15");
-                reports.ToDate = DateTime.Parse("2011/09/19");
+                //reports.PortfolioIds = "40595,";
+                //reports.FromDate = DateTime.Parse("2006/05/15");
+                //reports.ToDate = DateTime.Parse("2011/09/19");
                 //reports.CustomerIds = 36991;
                 //db.AddInParameter(getCustomerTrancsactionListCmd, "@PortfolioIds", DbType.String, reports.CustomerIds); 
                 db.AddInParameter(getCustomerTrancsactionListCmd, "@PortfolioIds", DbType.String, reports.PortfolioIds); 
