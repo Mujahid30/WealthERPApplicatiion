@@ -330,9 +330,15 @@ namespace WealthERP.FP
                 GridEditableItem editedItem = e.Item as GridEditableItem;
                 GridEditManager editMan = editedItem.EditManager;
                 int i = 2;
+                int count = 0;
+                int count1 = 0;
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dr = dt.NewRow();
                 TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+                if (txt1.Text == txtPanNumber.Text)
+                    count1++;
+                if(count1 == 0)
+                {
                 if (PANValidation(txt1.Text))
                 {
                     foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
@@ -380,8 +386,19 @@ namespace WealthERP.FP
                                     else if (i == 8)
                                     {
                                         TextBox txt = (TextBox)e.Item.FindControl("txtChildPanNo");
+                                        foreach (DataRow drPanChk in dt.Rows)
+                                        {
+                                            if (drPanChk["PanNum"].ToString() == txt.Text)
+                                            {
+                                                count++;
+                                            }
+
+                                        }
+                                        if (count == 0)
+                                        {
                                             editorText = txt.Text;
                                             editorValue = txt.Text;
+                                        }
                                     }
 
                                 }
@@ -403,8 +420,23 @@ namespace WealthERP.FP
                         }
 
                     }
+                    if (count == 0)
+                    {
+                        dt.Rows.Add(dr);
+                    }
+
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                    }
+
                     Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                     Rebind();
+                }
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
                 }
                 }
             catch (Exception ex)
@@ -420,13 +452,21 @@ namespace WealthERP.FP
 
             try
             {
-                    GridEditableItem editedItem = e.Item as GridEditableItem;
-                    GridEditManager editMan = editedItem.EditManager;
-                    int i = 2;
-                    int j = 0;
-                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                    dr = dt.NewRow();
-                    TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+                GridEditableItem editedItem = e.Item as GridEditableItem;
+                GridEditManager editMan = editedItem.EditManager;
+                int i = 2;
+                int j = 0;
+                int count = 0;
+                int countParentPan = 0;
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                dr = dt.NewRow();
+                TextBox txt1 = (TextBox)e.Item.FindControl("txtChildPanNo");
+
+                if (txt1.Text == txtPanNumber.Text)
+                    countParentPan++;
+
+                if (countParentPan == 0)
+                {
                     if (PANValidation(txt1.Text))
                     {
                         foreach (GridColumn column in e.Item.OwnerTableView.RenderColumns)
@@ -476,6 +516,15 @@ namespace WealthERP.FP
                                         else if (i == 8)
                                         {
                                             TextBox txt = (TextBox)e.Item.FindControl("txtChildPanNo");
+
+                                            foreach (DataRow drPanChk in dt.Rows)
+                                            {
+                                                if (drPanChk["PanNum"].ToString() == txt.Text)
+                                                {
+                                                    count++;
+                                                }
+
+                                            }
                                             editorText = txt.Text;
                                             editorValue = txt.Text;
                                         }
@@ -496,10 +545,25 @@ namespace WealthERP.FP
                                 i++;
                             }
                         }
-                        dt.Rows.Add(dr);
+                        if (count == 0)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                        }
+
                         Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                         Rebind();
                     }
+                }
+
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                }
             }
             catch (Exception ex)
             {
@@ -620,6 +684,7 @@ namespace WealthERP.FP
                                 bresult = DataPopulation(ParentCustomerId, customerId, dt, userVo, rmVo, createdById);
                                 msgRecordStatus.Visible = true;
                                 btnSubmit.Text = "Update";
+                                btnDelete.Enabled = true;
                             }
                         }
                         else
