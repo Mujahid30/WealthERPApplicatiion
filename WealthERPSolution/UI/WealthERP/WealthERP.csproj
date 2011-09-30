@@ -2352,16 +2352,16 @@
     <Compile Include="Reports\MFFundSummaryDS.Designer.cs">
       <DependentUpon>MFFundSummaryDS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\MFOpenCloseTransaction.cs">
+    <Compile Include="Reports\MFOpenCloseTransactionReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MFOpenCloseTransaction.rpt</DependentUpon>
+      <DependentUpon>MFOpenCloseTransactionReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reports\MFOpenCloseTransactionDS.Designer.cs">
+    <Compile Include="Reports\MFOpenCloseTransactionReportDS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+      <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\MFReports.ascx.cs">
       <DependentUpon>MFReports.ascx</DependentUpon>
@@ -2782,9 +2782,9 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFFundSummary1.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\MFOpenCloseTransaction.rpt">
+    <EmbeddedResource Include="Reports\MFOpenCloseTransactionReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>MFOpenCloseTransaction.cs</LastGenOutput>
+      <LastGenOutput>MFOpenCloseTransactionReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFPortfolioAnalytics.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -5450,16 +5450,16 @@
     <None Include="Reports\MFFundSummaryDS.xss">
       <DependentUpon>MFFundSummaryDS.xsd</DependentUpon>
     </None>
-    <None Include="Reports\MFOpenCloseTransactionDS.xsc">
-      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    <None Include="Reports\MFOpenCloseTransactionReportDS.xsc">
+      <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
     </None>
-    <None Include="Reports\MFOpenCloseTransactionDS.xsd">
+    <None Include="Reports\MFOpenCloseTransactionReportDS.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MFOpenCloseTransactionDS.Designer.cs</LastGenOutput>
+      <LastGenOutput>MFOpenCloseTransactionReportDS.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reports\MFOpenCloseTransactionDS.xss">
-      <DependentUpon>MFOpenCloseTransactionDS.xsd</DependentUpon>
+    <None Include="Reports\MFOpenCloseTransactionReportDS.xss">
+      <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\MFReportsDS.xsc">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>

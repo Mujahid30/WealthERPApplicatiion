@@ -31,6 +31,10 @@ using System.Configuration;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Security.AccessControl;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
 
 
 
@@ -402,6 +406,22 @@ namespace WealthERP.Reports
                 exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + PDFNames;
                 PDFViewPath = PDFNames;
                 crmain.ExportToDisk(ExportFormatType.PortableDocFormat, exportFilename);
+                //System.IO.Stream report = crmain.ExportToStream(ExportFormatType.PortableDocFormat);
+              
+//                Dim document As Document = New Document(PageSize.A4, 50, 50, 50, 50)
+//Dim writer As PdfWriter = PdfWriter.GetInstance(document, New FileStream(HttpContext.Current.Server.MapPath(LevelsToGoBack & "/Files/" & FileName), FileMode.Create))writer.SetEncryption(PdfWriter.STRENGTH128BITS, "mypass", Nothing, PdfWriter.AllowCopy)
+
+//document.Open()
+
+//document.Add(New Paragraph("This document is Top Secret!"))
+
+//document.Close()
+
+                //Document pdfDocument = new Document(PageSize.A4, 50, 50, 50, 50);
+                //PdfWriter pdfDocumentWriter = PdfWriter.GetInstance(pdfDocument, new FileStream(HttpContext.Current.Server.MapPath("~/Reports/TempReports/ViewInPDF/" + PDFNames), FileMode.Create));
+                //pdfDocumentWriter.SetEncryption(PdfWriter.STRENGTH128BITS, "mypass", "Nothing", PdfWriter.AllowCopy);
+
+                                   
             }
             catch (Exception ex)
             {
@@ -2677,12 +2697,28 @@ namespace WealthERP.Reports
                             SetNoRecords();
                         break;
                     case "TRANSACTION_REPORT_OPEN_CLOSE_BALANCE":
-                        crmain.Load(Server.MapPath("MFOpenCloseTransaction.rpt"));
+                        crmain.Load(Server.MapPath("MFOpenCloseTransactionReport.rpt"));
                         DataTable dtOpeningClosingTransactions = mfReports.GetOpeningClosingTransactionReport(report);
+
+                        //DataTable dtOpeningClosingTransactions = new DataTable();
+                        //dtOpeningClosingTransactions.Columns.Add("PASP_SchemePlanName");
+                        //dtOpeningClosingTransactions.Columns.Add("WMTT_TransactionType");
+                        //DataRow drOpeningClosingTransactions;
+
+                        //drOpeningClosingTransactions = dtOpeningClosingTransactions.NewRow();
+                        //drOpeningClosingTransactions["PASP_SchemePlanName"] = "ABC Scheme";
+                        //drOpeningClosingTransactions["WMTT_TransactionType"] = "Buy";
+
+                        //dtOpeningClosingTransactions.Rows.Add(drOpeningClosingTransactions);
+
+
                         if (dtOpeningClosingTransactions.Rows.Count > 0)
                         {
-                            //crmain.SetDataSource(dtOpeningClosingTransactions);
+                            
                             setLogo();
+                            //crmain.SetDataSource(dtOpeningClosingTransactions);
+                            crmain.Database.Tables["MFOpenCloseTransactionReport"].SetDataSource((DataTable)dtOpeningClosingTransactions);
+
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
