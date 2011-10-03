@@ -232,8 +232,8 @@
         <%--<telerik:RadTab runat="server" Text="Calendar Detail View" 
             Value="Calendar Detail View" TabIndex="1" Selected="True">
         </telerik:RadTab>--%>
-  <telerik:RadTab runat="server" Text="Calender Summary View" Value="Calender Summary View" TabIndex="1">
-        </telerik:RadTab>
+<%--  <telerik:RadTab runat="server" Text="Calender Summary View" Value="Calender Summary View" TabIndex="1">
+        </telerik:RadTab>--%>
        </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" 
