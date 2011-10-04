@@ -390,6 +390,11 @@ namespace WealthERP.FP
                                         {
                                             if (drPanChk["PanNum"].ToString() == txt.Text)
                                             {
+                                                if (txt.Text == "")
+                                                {
+
+                                                }
+                                                else
                                                 count++;
                                             }
 
@@ -422,12 +427,44 @@ namespace WealthERP.FP
                     }
                     if (count == 0)
                     {
-                        dt.Rows.Add(dr);
+                        //int CountCol = 0; //Counting each column of a row in  Table
+                        //DataRow drChk;      //Data row to check which row contains dummy record. 
+
+                        //for (int a = 0; a < dt.Rows.Count; a++)
+                        //{
+                        //    for (int j = 0; j < dt.Columns.Count; j++)
+                        //    {
+                        //        if (dt.Rows[a][j] == DBNull.Value)
+                        //        {
+                        //            CountCol++;
+                        //        }
+                        //    }
+                        //    if (CountCol == dt.Columns.Count)
+                        //    {
+                        //        dr = dt.Rows[a];
+                        //        dt.Rows.Remove(dr);
+                        //    }
+                        //    CountCol = 0;
+                        //}
+                        if (dr["FirstName"].ToString() == "")
+                        {
+
+                        }
+                        else
+                       dt.Rows.Add(dr);
+                        
                     }
+
+                    //else if (dr["PanNum"].ToString() == "")
+                    //{
+
+                    //}
 
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                       
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                      
                     }
 
                     Session[SessionContents.FPS_AddProspect_DataTable] = dt;
@@ -546,6 +583,10 @@ namespace WealthERP.FP
                             }
                         }
                         if (count == 0)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                        else if (dr["PanNum"].ToString() == "")
                         {
                             dt.Rows.Add(dr);
                         }
@@ -1828,7 +1869,7 @@ namespace WealthERP.FP
             //string childPanNo = RadGrid1.FindControl("txtChildPanNo").ToString();
             if (!string.IsNullOrEmpty(Pan))
             {
-               if (customerBo.PANNumberDuplicateCheck(adviserId, Pan, customerVo.CustomerId))
+               if (customerBo.PANNumberDuplicateChild(adviserId, Pan))
                 {
                     result = false;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
