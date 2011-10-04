@@ -704,10 +704,15 @@ namespace WealthERP.Advisor
                 if ((chkMailSend.Checked == true) && ((advisorVo.IsOpsEnable == 1) || (FromPageToCheckOps != string.Empty)))
                 {
                     SendMail();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Ops staff created successfully!');", true);
+                }
+                else if (advisorVo.IsOpsEnable == 0 && FromPageToCheckOps != "EnvironmentalSettings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Ops role is not enabled for this adviser, therefore Ops staff will not be able to login...!');", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Ops role is not enabled for this adviser, therefore Ops staff will not be able to login...!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Ops staff created successfully!');", true);
                 }
 
 
