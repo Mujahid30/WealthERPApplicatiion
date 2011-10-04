@@ -18,7 +18,7 @@ namespace WealthERP.Uploads
     {
         
         AdvisorVo advisorVo = new AdvisorVo();
-        int transactionStagingId;
+        int transactionStagingId;       
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
@@ -34,7 +34,7 @@ namespace WealthERP.Uploads
             advisorVo = (AdvisorVo)Session["advisorVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
-            transactionStagingId = Convert.ToInt32(Request.Params["id"]);
+            //transactionStagingId = Convert.ToInt32(Request.Params["id"]);
             
             if (advisorVo == null || advisorVo.advisorId < 1)
             {
@@ -66,17 +66,28 @@ namespace WealthERP.Uploads
 
         protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int i;
             int userId = 0;
             int customerId = 0;
+            bool isSucess = true;
             customerId = Convert.ToInt32(e.CommandArgument);
             UserVo userVo = (UserVo)Session["userVo"];
             userId = userVo.UserId;
             CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
             CustomerAccountBo customerBo = new CustomerAccountBo();
             GridView gv = (GridView)sender;
-
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
-            bool isSucess = rejectedTransactionsBo.MapEquityToCustomer(transactionStagingId, customerId, userId);
+
+            string transactionId = Convert.ToString(Request.Params["id"]);
+            string[] testArray = transactionId.Split('~');
+
+            for (i = 0; i < testArray.Length; i++)
+            {
+                transactionStagingId = int.Parse(testArray[i]);
+                isSucess = rejectedTransactionsBo.MapEquityToCustomer(transactionStagingId, customerId, userId);
+            }
+
+            
             if (isSucess)
             {
                 gvCustomers.Visible = false;
