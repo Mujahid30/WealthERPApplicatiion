@@ -3764,5 +3764,42 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public bool PANNumberDuplicateChild(int adviserId, string Pan)
+        {
+            Database db;
+            DbCommand cmdPanDuplicateCheck;
+            bool bResult = false;
+            int res = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdPanDuplicateCheck = db.GetStoredProcCommand("SP_PANDuplicateCheckForChild");
+                db.AddInParameter(cmdPanDuplicateCheck, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdPanDuplicateCheck, "@PAN", DbType.String, Pan);
+                res = int.Parse(db.ExecuteScalar(cmdPanDuplicateCheck).ToString());
+                if (res > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:PANNumberDuplicateChild()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = Pan;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
     }
 }
