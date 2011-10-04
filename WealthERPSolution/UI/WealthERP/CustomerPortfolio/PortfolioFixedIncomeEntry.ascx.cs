@@ -1137,6 +1137,7 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
+                        if (txtInterestAmtCredited.Text.ToString() != "")
                         fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
                     }
                     else
