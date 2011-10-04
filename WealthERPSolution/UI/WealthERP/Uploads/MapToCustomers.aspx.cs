@@ -65,7 +65,9 @@ namespace WealthERP.Uploads
             advisorVo = (AdvisorVo)Session["advisorVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
-            MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
+            string transactionId = Convert.ToString(Request.Params["id"]);
+            string[] testArray = transactionId.Split('~');
+            //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
             Stagingtableid = (ArrayList)Session["Stagingtableid"];
             DistinctProcessId = (ArrayList)Session["distincProcessIds"];
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
@@ -152,6 +154,7 @@ namespace WealthERP.Uploads
 
         protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int i;
             int userId = 0;
             int customerId = 0;            
             customerId = Convert.ToInt32(e.CommandArgument);
@@ -161,11 +164,17 @@ namespace WealthERP.Uploads
             CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
             CustomerAccountBo customerBo = new CustomerAccountBo();
             GridView gv = (GridView)sender;
+            string transactionId = Convert.ToString(Request.Params["id"]);
+            string[] testArray = transactionId.Split('~');
             
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
               try
                 {
-                    insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);                  
+                    for (i = 0; i < testArray.Length; i++)
+                    {
+                        MFTransactionStagingId = int.Parse(testArray[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -190,13 +199,23 @@ namespace WealthERP.Uploads
 
         private bool MapfoliotoCustomer(int customerId)
         {
+            int i;
             bool result = true;
             UserVo userVo = (UserVo)Session["userVo"];
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
 
+            string transactionId = Convert.ToString(Request.Params["id"]);
+            string[] testArray = transactionId.Split('~');
             int userId = userVo.UserId;
-            MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
-            result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+
+            for (i = 0; i < testArray.Length; i++)
+            {
+                MFTransactionStagingId = int.Parse(testArray[i]);
+                result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+            }
+
+            //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
+            //result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
             //for (int i = 0; i < Stagingtableid.Count; i++)
             //{
             //    try
