@@ -258,7 +258,7 @@ namespace BoCommon
         {
             //string connstr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + "; Extended Properties=DBASE 5.0";
             ErrorMessage = string.Empty;
-            OleDbConnection con = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + filepath + "; Extended Properties=DBASE 5.0");
+            OleDbConnection con = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filepath + "; Extended Properties=DBASE 5.0");
             DataSet ds = new DataSet();
             try
             {
