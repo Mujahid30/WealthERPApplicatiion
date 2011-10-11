@@ -2,6 +2,26 @@
     Inherits="WealthERP.CustomerPortfolio.ViewGovtSavings" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
+
+<script language="javascript" type="text/javascript">
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this record?');
+
+        if (bool) {
+            document.getElementById("ctrl_ViewGovtSavings_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_ViewGovtSavings_hiddenassociation").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_ViewGovtSavings_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_ViewGovtSavings_hiddenassociation").click();
+            return true;
+
+        }
+    }
+</script>
+
 <table style="width: 100%">
  <tr>
         <td class="HeaderCell" colspan="4">
@@ -45,12 +65,13 @@
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                            <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" 
                                 CssClass="GridViewCmbField">
                                 <asp:ListItem>Select </asp:ListItem>
                                 <asp:ListItem Text="View" Value="View">View</asp:ListItem>
                                 <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
-                            </asp:DropDownList>
+                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
+                            </asp:DropDownList>                            
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Category" HeaderText="Category" 
@@ -106,5 +127,19 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:HiddenField ID="hdnSort" runat="server" Value="CGSNP_CreatedOn DESC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdndeleteId" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />

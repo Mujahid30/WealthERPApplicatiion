@@ -284,6 +284,7 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlMenu.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 int govtSavingsId = int.Parse(gvrGovtSavings.DataKeys[selectedRow].Value.ToString());
+                hdndeleteId.Value = govtSavingsId.ToString();
                 Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(govtSavingsId);
                 if (ddlMenu.SelectedItem.Value.ToString() == "Edit")
                 {
@@ -292,6 +293,10 @@ namespace WealthERP.CustomerPortfolio
                 if (ddlMenu.SelectedItem.Value.ToString() == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGovtSavingsEntry','action=View');", true);
+                }
+                if (ddlMenu.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -360,8 +365,11 @@ namespace WealthERP.CustomerPortfolio
             GovtSavingsBo govtSavingsBo=new GovtSavingsBo();
             try
             {
+                string govtSavingId = "";
                 int index = Convert.ToInt16(e.CommandArgument.ToString());
                 int portfolioId = int.Parse(gvrGovtSavings.DataKeys[index].Value.ToString());
+                govtSavingId = gvrGovtSavings.DataKeys[index].Values["GovtSavingId"].ToString();
+                hdndeleteId.Value = govtSavingId;
                 Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(portfolioId);
                 if (e.CommandName.ToString() == "Edit")
                 {
@@ -370,6 +378,10 @@ namespace WealthERP.CustomerPortfolio
                 else if (e.CommandName.ToString() == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','ViewGS');", true);
+                }
+                else if (e.CommandName.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
                 else if (e.CommandName.ToString() == "Sort")
                 {
@@ -419,6 +431,17 @@ namespace WealthERP.CustomerPortfolio
         protected void gvrGovtSavings_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                govtSavingsBo.DeleteGovtSavingsPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGovtSavings','login');", true);
+                msgRecordStatus.Visible = true;
+            }
         }
     }
 }
