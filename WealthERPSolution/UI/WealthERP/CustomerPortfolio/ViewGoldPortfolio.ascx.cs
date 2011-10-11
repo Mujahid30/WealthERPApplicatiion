@@ -300,6 +300,7 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 int goldId = int.Parse(gvGoldPortfolio.DataKeys[selectedRow].Value.ToString());
+                hdndeleteId.Value = goldId.ToString();
                 Session["goldVo"] = goldBo.GetGoldAsset(goldId);
 
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
@@ -309,6 +310,10 @@ namespace WealthERP.CustomerPortfolio
                 else if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGoldEntry','action=EditGold');", true);
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
 
             }
@@ -368,6 +373,18 @@ namespace WealthERP.CustomerPortfolio
             //goldList = goldBo.GetGoldNetPosition(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
 
         }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                goldBo.DeleteGoldPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGoldPortfolio','login');", true);
+                msgRecordStatus.Visible = true;
+            }
+        }
+
     }
 
 }
