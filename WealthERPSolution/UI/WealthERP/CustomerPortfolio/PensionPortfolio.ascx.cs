@@ -286,6 +286,7 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 portfolioId = int.Parse(gvrPensionAndGratuities.DataKeys[selectedRow].Value.ToString());
+                hdndeleteId.Value = portfolioId.ToString();
                 pensionAndGratuitiesVo = pensionAndGratuitiesBo.GetPensionAndGratuities(portfolioId);
                 Session["pensionAndGratuitiesVo"] = pensionAndGratuitiesVo;
                 Session["customerAccountVo"] = customerAccountsBo.GetCustomerPensionAndGratuitiesAccount(pensionAndGratuitiesVo.AccountId);
@@ -298,6 +299,10 @@ namespace WealthERP.CustomerPortfolio
                 if (menu == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PensionAndGratuities','action=view');", true);
+                }
+                if (menu == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
 
             }
@@ -373,5 +378,15 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                pensionAndGratuitiesBo.DeletePensionAndGratuitiesPortfolio(int.Parse(hdndeleteId.Value), pensionAndGratuitiesVo.AccountId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PensionPortfolio','login');", true);
+                msgRecordStatus.Visible = true;
+            }
+        }
     }
 }
