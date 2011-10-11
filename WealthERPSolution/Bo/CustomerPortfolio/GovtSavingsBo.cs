@@ -124,14 +124,14 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeleteGovtSavingsPortfolio(int personalId, int accountId)
+        public bool DeleteGovtSavingsPortfolio(int personalId)
         {
             bool bResult = false;
             GovtSavingsDao govtDao = new GovtSavingsDao();
 
             try
             {
-                bResult = govtDao.DeleteGovtSavingsPortfolio(personalId, accountId);
+                bResult = govtDao.DeleteGovtSavingsPortfolio(personalId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -142,9 +142,9 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "GovtSavingsBo.cs:DeleteGovtSavingsPortfolio()");
-                object[] objects = new object[2];
+                object[] objects = new object[1];
                 objects[0] = personalId;
-                objects[1] = accountId;
+                //objects[1] = accountId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
