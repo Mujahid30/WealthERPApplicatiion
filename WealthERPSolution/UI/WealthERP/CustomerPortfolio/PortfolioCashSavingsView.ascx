@@ -1,6 +1,35 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortfolioCashSavingsView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.PortfolioCashSavingsView" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
+<script language="javascript" type="text/javascript">
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this record?');
+
+        if (bool) {
+            document.getElementById("ctrl_PortfolioCashSavingsView_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_PortfolioCashSavingsView_hiddenassociation").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_PortfolioCashSavingsView_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_PortfolioCashSavingsView_hiddenassociation").click();
+            return true;
+        }
+    }
+</script>
+
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td class="HeaderCell" colspan="2">
@@ -46,9 +75,10 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                 OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
-                                <asp:ListItem Text="Select" />
-                                <asp:ListItem Text="View" />
-                                <asp:ListItem Text="Edit" />
+                                <asp:ListItem>Select </asp:ListItem>
+                                <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
+                                <asp:ListItem Text="View" Value="View">View</asp:ListItem>
+                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -93,3 +123,8 @@
 </table>--%>
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="CCSNP_Name ASC" />
+
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdndeleteId" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />

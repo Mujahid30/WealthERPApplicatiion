@@ -349,18 +349,21 @@ namespace WealthERP.CustomerPortfolio
                 DropDownList ddl = (DropDownList)sender;
                 GridViewRow gvr = (GridViewRow)ddl.NamingContainer;
                 int index = gvr.RowIndex;
-                int portfolioId = int.Parse(gvCustomerCashSavings.DataKeys[index].Value.ToString());
+                int portfolioId = int.Parse(gvCustomerCashSavings.DataKeys[index].Value.ToString());                
                 Session["CashSavingsPortfolioId"] = gvCustomerCashSavings.DataKeys[index].Value.ToString();
+                hdndeleteId.Value = portfolioId.ToString();
                 if (ddl.SelectedItem.Value.ToString() == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','action=ViewCS');", true);
-
                 }
                 else if (ddl.SelectedItem.Value.ToString() == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioCashSavingsEntry','action=EditCS');", true);
                 }
-
+                else if (ddl.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
             }
 
             catch (BaseApplicationException Ex)
@@ -382,7 +385,17 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            customerCashSavingsVo = new CashAndSavingsVo();
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                customerCashSavingsBo.DeleteCashSavingsPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioCashSavingsView','login');", true);
+                msgRecordStatus.Visible = true;
+            }
+        }
 
     }
 }
