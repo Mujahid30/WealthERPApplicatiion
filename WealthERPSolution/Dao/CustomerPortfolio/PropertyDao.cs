@@ -318,7 +318,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeletePropertyPortfolio(int propertyId, int accountId)
+        public bool DeletePropertyPortfolio(int propertyId)
         {
             bool bResult = false;
 
@@ -331,7 +331,7 @@ namespace DaoCustomerPortfolio
                 deletePropertyPortfolioCmd = db.GetStoredProcCommand("SP_DeletePropertyNetPostion");
 
                 db.AddInParameter(deletePropertyPortfolioCmd, "@CPNP_PropertyNPId", DbType.Int32, propertyId);
-                db.AddInParameter(deletePropertyPortfolioCmd, "@CPA_AccountId", DbType.Int32, accountId);
+                //db.AddInParameter(deletePropertyPortfolioCmd, "@CPA_AccountId", DbType.Int32, accountId);
 
                 if (db.ExecuteNonQuery(deletePropertyPortfolioCmd) != 0)
                     bResult = true;
@@ -346,9 +346,9 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceDao.cs:DeletePropertyPortfolio()");
-                object[] objects = new object[2];
+                object[] objects = new object[1];
                 objects[0] = propertyId;
-                objects[1] = accountId;
+                //objects[1] = accountId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
