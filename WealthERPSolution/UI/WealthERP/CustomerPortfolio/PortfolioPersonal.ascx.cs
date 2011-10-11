@@ -307,18 +307,20 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 int personalsId = int.Parse(gvrPersonal.DataKeys[selectedRow].Value.ToString());
-
+                hdndeleteId.Value = personalsId.ToString();
                 // Set the VO into the Session
                 Session["personalVo"] = personalBo.GetPersonalAsset(personalsId);
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
-
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','action=edit');", true);
                 }
-                if (ddlAction.SelectedItem.Value.ToString() == "View")
+                else if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
-
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPersonalEntry','action=view');", true);
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -378,6 +380,16 @@ namespace WealthERP.CustomerPortfolio
             set { ViewState["sortDirection"] = value; }
         }
 
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                personalBo.DeletePersonalPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioPersonal','login');", true);
+                msgRecordStatus.Visible = true;
+            }
+        }
 
     }
 }
