@@ -276,9 +276,10 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;                
                 int selectedRow = gvr.RowIndex;
                 int propertyId = int.Parse(gvrProperty.DataKeys[selectedRow].Value.ToString());
+                hdndeleteId.Value = propertyId.ToString();
 
                 // Set the VO into the Session
                 propertyVo = propertyBo.GetPropertyAsset(propertyId);
@@ -289,9 +290,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPropertyEntry','action=Edit');", true);
                 }
-                if (ddlAction.SelectedItem.Value.ToString() == "View")
+                else if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioPropertyEntry','action=View');", true);
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -379,6 +384,17 @@ namespace WealthERP.CustomerPortfolio
         protected void gvrProperty_DataBound(object sender, EventArgs e)
         {
           
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                propertyBo.DeletePropertyPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioProperty','login');", true);
+                msgRecordStatus.Visible = true;
+            }
         }
 
     }
