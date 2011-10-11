@@ -145,7 +145,8 @@ namespace WealthERP.CustomerPortfolio
                 int selectedRow = gvr.RowIndex;
                 liabilityId = int.Parse(gvLiabilities.DataKeys[selectedRow].Value.ToString());
                 liabilityVo = liabilitiesBo.GetLiabilityDetails(liabilityId);
-                
+
+                hdndeleteId.Value = liabilityId.ToString();
                 menu = MyDropDownList.SelectedItem.Value.ToString();
               
                 if (menu == "View")
@@ -159,6 +160,10 @@ namespace WealthERP.CustomerPortfolio
                      Session["menu"]="Edit";
                      Session["liabilityVo"] = liabilityVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilitiesMaintenanceForm','none');", true);
+                }
+                if (menu == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -185,6 +190,17 @@ namespace WealthERP.CustomerPortfolio
         {
             gvLiabilities.PageIndex = e.NewPageIndex;
             BindGridview();
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                liabilitiesBo.DeleteLiabilityPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LiabilityView','login');", true);
+                msgRecordStatus.Visible = true;
+            }
         }
     }
 }

@@ -1,6 +1,34 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LiabilityView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.LiabilityView" %>
 
+<script language="javascript" type="text/javascript">
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this record?');
+
+        if (bool) {
+            document.getElementById("ctrl_LiabilityView_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_LiabilityView_hiddenassociation").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_LiabilityView_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_LiabilityView_hiddenassociation").click();
+            return true;
+        }
+    }
+</script>
+
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+
 <table width="100%">
 <tr>
         <td class="HeaderCell">
@@ -34,6 +62,7 @@
                                 <asp:ListItem>Select </asp:ListItem>
                                 <asp:ListItem Text="View" Value="View">View</asp:ListItem>
                                 <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
+                                <asp:ListItem Text="Delete" Value="Delete">Delete</asp:ListItem>
                             </asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -86,3 +115,9 @@
         </td>
     </tr>
 </table>
+
+
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdndeleteId" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />
