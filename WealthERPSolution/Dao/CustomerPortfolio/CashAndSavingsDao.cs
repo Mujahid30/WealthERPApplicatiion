@@ -380,7 +380,7 @@ namespace DaoCustomerPortfolio
             return blResult;
         }
 
-        public bool DeleteCashSavingsPortfolio(int cashSavingsId, int accountId)
+        public bool DeleteCashSavingsPortfolio(int cashSavingsId)
         {
             bool bResult = false;
 
@@ -407,9 +407,9 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CashAndSavingsBo.cs:DeleteCashSavingsPortfolio()");
-                object[] objects = new object[2];
+                object[] objects = new object[1];
                 objects[0] = cashSavingsId;
-                objects[1] = accountId;
+                //objects[1] = accountId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
