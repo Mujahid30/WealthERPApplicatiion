@@ -149,14 +149,14 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeletePropertyPortfolio(int propertyId, int accountId)
+        public bool DeletePropertyPortfolio(int propertyId)
         {
             bool bResult = false;
             PropertyDao propertyDao = new PropertyDao();
 
             try
             {
-                bResult = propertyDao.DeletePropertyPortfolio(propertyId, accountId);
+                bResult = propertyDao.DeletePropertyPortfolio(propertyId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -167,9 +167,9 @@ namespace BoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "InsuranceBo.cs:DeletePropertyPortfolio()");
-                object[] objects = new object[2];
+                object[] objects = new object[1];
                 objects[0] = propertyId;
-                objects[1] = accountId;
+                //objects[1] = accountId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
