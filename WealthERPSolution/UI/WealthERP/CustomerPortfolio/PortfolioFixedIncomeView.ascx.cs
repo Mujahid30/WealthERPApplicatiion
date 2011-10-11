@@ -268,6 +268,7 @@ namespace WealthERP.CustomerPortfolio
                 int selectedRow = gvr.RowIndex;
                 int portfolioId = int.Parse(gvFixedIncomePortfolio.DataKeys[selectedRow].Value.ToString());
                 Session["fixedIncomeVo"] = fixedincomeBo.GetFixedIncomePortfolio(portfolioId);
+                hdndeleteId.Value = portfolioId.ToString();
 
                 if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
@@ -276,6 +277,10 @@ namespace WealthERP.CustomerPortfolio
                 else if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "loadcontrol", "loadcontrol('PortfolioFixedIncomeEntry','action=EditFI');", true);
+                }
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (Exception Ex)
@@ -351,6 +356,17 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                fixedincomeBo.DeleteFixedIncomePortfolio(int.Parse(hdndeleteId.Value), fixedincomeVo.AccountId);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioFixedIncomeView','login');", true);
+                msgRecordStatus.Visible = true;
+            }
         }
     }
 }
