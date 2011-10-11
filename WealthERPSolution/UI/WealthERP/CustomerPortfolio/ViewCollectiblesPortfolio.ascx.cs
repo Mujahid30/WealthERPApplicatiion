@@ -279,17 +279,19 @@ namespace WealthERP.CustomerPortfolio
                 GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.RowIndex;
                 int collectiblesId = int.Parse(gvCollectiblesPortfolio.DataKeys[selectedRow].Value.ToString());
+                hdndeleteId.Value = collectiblesId.ToString();
                 Session["collectiblesVo"] = collectiblesBo.GetCollectiblesAsset(collectiblesId);
                 if (ddlAction.SelectedValue.ToString() == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','action=EditCol');", true);
                 }
                 if (ddlAction.SelectedValue.ToString() == "View")
-                {
-                    
-                    
-                    
+                { 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCollectiblesEntry','action=ViewCol');", true);
+                }
+                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
             }
             catch (Exception Ex)
@@ -373,6 +375,17 @@ namespace WealthERP.CustomerPortfolio
         {
 
 
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                collectiblesBo.DeleteCollectiblesPortfolio(int.Parse(hdndeleteId.Value));
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewCollectiblesPortfolio','login');", true);
+                msgRecordStatus.Visible = true;
+            }
         }
     }
 }
