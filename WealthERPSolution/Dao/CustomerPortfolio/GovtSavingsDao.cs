@@ -233,7 +233,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public bool DeleteGovtSavingsPortfolio(int govtSavingsId, int accountId)
+        public bool DeleteGovtSavingsPortfolio(int govtSavingsId)
         {
             bool bResult = false;
             Database db;
@@ -245,7 +245,7 @@ namespace DaoCustomerPortfolio
                 deleteGovtSavingsCmd = db.GetStoredProcCommand("SP_DeleteGovtSavingsNetPostion");
 
                 db.AddInParameter(deleteGovtSavingsCmd, "@CGSNP_GovtSavingNPId", DbType.Int32, govtSavingsId);
-                db.AddInParameter(deleteGovtSavingsCmd, "@CGSA_AccountId", DbType.Int32, accountId);
+                //db.AddInParameter(deleteGovtSavingsCmd, "@CGSA_AccountId", DbType.Int32, accountId);
 
                 if (db.ExecuteNonQuery(deleteGovtSavingsCmd) != 0)
                     bResult = true;
@@ -260,9 +260,9 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "GovtSavingsDao.cs:DeleteGovtSavingsPortfolio()");
-                object[] objects = new object[2];
+                object[] objects = new object[1];
                 objects[0] = govtSavingsId;
-                objects[1] = accountId;
+                //objects[1] = accountId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
