@@ -2932,6 +2932,42 @@ namespace DaoCustomerPortfolio
 
 
 
+        public bool DeleteLiabilityPortfolio(int liabilityId)
+        {
+
+            Database db;
+            DbCommand cmdDeleteLiability;
+            bool bResult = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdDeleteLiability = db.GetStoredProcCommand("SP_DeleteLiabilityPortfolio");
+                db.AddInParameter(cmdDeleteLiability, "@CL_LiabilitiesId", DbType.Int32, liabilityId);
+
+                if (db.ExecuteNonQuery(cmdDeleteLiability) != 0)
+                {
+                    bResult = true;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "LiabilitiesDao.cs:DeleteLiabilityPortfolio()");
+                object[] objects = new object[1];
+                objects[0] = liabilityId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
 
 
     }
