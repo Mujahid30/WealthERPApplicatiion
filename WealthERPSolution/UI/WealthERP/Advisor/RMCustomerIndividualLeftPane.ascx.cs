@@ -984,10 +984,10 @@ namespace WealthERP.Advisor
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalPlanningDetails','login')", true);
                 //}
-                //else if (e.Item.Value == "Goal Setup")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalSetup','login')", true);
-                //}
+                else if (e.Item.Value == "Projections")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerAdvancedGoalSetup','login')", true);
+                }
                 //else if (e.Item.Value == "Goal Funding")
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalFunding','login')", true);

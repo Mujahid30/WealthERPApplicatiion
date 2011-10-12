@@ -1197,4 +1197,8 @@
     <value>SuperAdmin//DailyValuationMonitor.ascx</value>
     <comment>SuperAdmin//DailyValuationMonitor.ascx</comment>
   </data>
+  <data name="CustomerAdvancedGoalSetup" xml:space="preserve">
+    <value>FP//CustomerAdvancedGoalSetup.ascx</value>
+    <comment>FP//CustomerAdvancedGoalSetup.ascx</comment>
+  </data>
 </root>

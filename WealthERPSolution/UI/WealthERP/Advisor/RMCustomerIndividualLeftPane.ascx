@@ -119,14 +119,14 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Risk Profile and Asset Allocation" Value="Risk profile and asset allocation">
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="Projections" Value="Projections" Visible="false">
+                                     <telerik:RadPanelItem runat="server" Text="Projections" Value="Projections">
                                     </telerik:RadPanelItem>
-                                <%--    <telerik:RadPanelItem runat="server" Text="Goal Planning" Value="Goal Planning">
+                                   <%-- <telerik:RadPanelItem runat="server" Text="Advanced Goal Planning" Value="Goal_Planning">
                                      <Items>
                                             <telerik:RadPanelItem runat="server" Text="Goal Setup" Value="Goal Setup">
                                             </telerik:RadPanelItem>
                                      </Items>
-                                     <Items>
+                                    <Items>
                                             <telerik:RadPanelItem runat="server" Text="Goal Funding" Value="Goal Funding">
                                             </telerik:RadPanelItem>
                                      </Items>
