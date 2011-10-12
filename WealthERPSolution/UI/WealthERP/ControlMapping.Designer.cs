@@ -943,6 +943,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//DailyValuationMonitor.ascx.
+        /// </summary>
+        internal static string DailyValuationMonitor {
+            get {
+                return ResourceManager.GetString("DailyValuationMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//DematAccountDetails.ascx.
         /// </summary>
         internal static string DematAccountDetails {

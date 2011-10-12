@@ -26,5 +26,11 @@
             </Items>
         </telerik:RadPanelItem>
         <telerik:RadPanelItem Text="Configuration" Value="Configuration"></telerik:RadPanelItem>
+         <telerik:RadPanelItem Text="OPS" Value="OPS">
+            <Items>
+                <telerik:RadPanelItem Text="Valuation Monitor" Value="Valuation_Monitor">
+                </telerik:RadPanelItem>
+            </Items>
+        </telerik:RadPanelItem>
     </Items>
 </telerik:RadPanelBar>

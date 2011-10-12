@@ -2428,6 +2428,13 @@
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\DailyValuationMonitor.ascx.cs">
+      <DependentUpon>DailyValuationMonitor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\DailyValuationMonitor.ascx.designer.cs">
+      <DependentUpon>DailyValuationMonitor.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\IFF.ascx.cs">
       <DependentUpon>IFF.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4834,6 +4841,7 @@
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
+    <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\IFFUserManagement.ascx" />

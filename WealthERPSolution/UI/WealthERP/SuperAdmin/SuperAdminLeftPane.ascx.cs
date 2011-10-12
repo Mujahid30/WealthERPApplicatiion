@@ -74,6 +74,10 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('SuperAdminConfiguration', 'none')", true);
                 }
+                else if (e.Item.Value == "Valuation_Monitor")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DailyValuationMonitor', 'none')", true);
+                }
 
             }
             catch (BaseApplicationException Ex)

@@ -1193,4 +1193,8 @@
     <value>Uploads//RejectedSystematicTransactionStaging.ascx</value>
     <comment>Uploads//RejectedSystematicTransactionStaging.ascx</comment>
   </data>
+  <data name="DailyValuationMonitor" xml:space="preserve">
+    <value>SuperAdmin//DailyValuationMonitor.ascx</value>
+    <comment>SuperAdmin//DailyValuationMonitor.ascx</comment>
+  </data>
 </root>
