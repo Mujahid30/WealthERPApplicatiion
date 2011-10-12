@@ -976,10 +976,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('FinancialPlanning','login')", true);
                 }
-                else if (e.Item.Value == "Projections")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPProjections','login')", true);
-                }
+                //else if (e.Item.Value == "Projections")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPProjections','login')", true);
+                //}
                 //else if (e.Item.Value == "Goal Planning")
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalPlanningDetails','login')", true);
