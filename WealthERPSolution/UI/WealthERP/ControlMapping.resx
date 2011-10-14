@@ -1201,4 +1201,8 @@
     <value>FP//CustomerAdvancedGoalSetup.ascx</value>
     <comment>FP//CustomerAdvancedGoalSetup.ascx</comment>
   </data>
+  <data name="PriceListMonitor" xml:space="preserve">
+    <value>SuperAdmin//PriceListMonitor.ascx</value>
+    <comment>SuperAdmin//PriceListMonitor.ascx</comment>
+  </data>
 </root>

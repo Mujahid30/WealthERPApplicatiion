@@ -30,6 +30,8 @@
             <Items>
                 <telerik:RadPanelItem Text="Valuation Monitor" Value="Valuation_Monitor">
                 </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="Gold Price Monitor" Value="Gold_Price_Monito">
+                </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
     </Items>
