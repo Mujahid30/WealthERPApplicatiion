@@ -1401,5 +1401,62 @@ namespace BoCustomerPortfolio
         }
 
         #endregion
+
+
+        public DataSet GetBankName(int customerId, string accountNo)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsgetBankName = new DataSet();
+            try
+            {
+                dsgetBankName = customerAccountDao.GetBankName(customerId, accountNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetBankName()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = accountNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetBankName;
+        }
+
+        public DataSet GetAccountNumber(int customerId, string categoryType)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            DataSet dsgetAccountNo;
+            try
+            {
+                dsgetAccountNo = customerAccountDao.GetAccountNumber(customerId, categoryType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetAccountNo()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = categoryType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetAccountNo;
+        }
     }
 }
