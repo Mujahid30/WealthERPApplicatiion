@@ -4875,6 +4875,8 @@
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardMFTransactionUploads.sln" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
+    <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.sln" />
+    <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.dtproj.user" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.sln" />
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj.user" />
     <Content Include="Uploads\CAMSProfileFolioInputRejects.ascx" />
@@ -5739,6 +5741,9 @@
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileDataFromFileToInput.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileFirstStagingToCommonStaging.dtsx" />
     <None Include="UploadPackages\StandardProfileUploadPackageNew\StandardProfileUploadPackageNew\UploadStdProfileInputDataToFirstStaging.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\Package.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.database" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.dtproj" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.database" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadFolioDataFromTempStagingToCommonStaging.dtsx" />
