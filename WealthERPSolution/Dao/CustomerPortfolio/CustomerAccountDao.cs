@@ -2068,6 +2068,70 @@ namespace DaoCustomerPortfolio
                
                 
             }
+        public DataSet GetBankName(int customerId, string accountNo)
+        {
+            Database db;
+            DbCommand getBankNamecmd;
+            DataSet dsBankName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankNamecmd = db.GetStoredProcCommand("SP_GetBankName");
+                db.AddInParameter(getBankNamecmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBankNamecmd, "@accountNo", DbType.String, accountNo);
+                dsBankName = db.ExecuteDataSet(getBankNamecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetBankName()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = accountNo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsBankName;
+        }
+        public DataSet GetAccountNumber(int customerId, string categoryType)
+        {
+            Database db;
+            DbCommand getBankAccountNocmd;
+            DataSet dsAccountNo;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBankAccountNocmd = db.GetStoredProcCommand("SP_GetAccountNumber");
+                db.AddInParameter(getBankAccountNocmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getBankAccountNocmd, "@accountType", DbType.String, categoryType);
+                dsAccountNo = db.ExecuteDataSet(getBankAccountNocmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetBankName()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = categoryType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAccountNo;
+        }
 
         #endregion
 
