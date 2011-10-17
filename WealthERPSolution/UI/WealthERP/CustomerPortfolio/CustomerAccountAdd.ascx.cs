@@ -40,7 +40,8 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtModeOfHolding;
         DataRow drCustomerAssociates;
         int accountId;
-
+        string accountNo;
+        string categoryType;
         string path;
         static int portfolioId;
         string group;
@@ -77,8 +78,8 @@ namespace WealthERP.CustomerPortfolio
                     else if (group == "CS")
                     {
                         lblAssetGroupName.Text = "Cash And Savings";
-                        lblAccountNum.Text = "Account Number:";
-                        lblAccountSource.Text = "Account with Bank";
+                        lblAccountnumddl.Text = "Account Number:";
+                        lblBankName.Text = "Account with Bank";
                         LoadCategory();
                         LoadCSContent();
                     }
@@ -168,7 +169,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlModeOfHolding.DataTextField = "ModeOfHolding";
                 ddlModeOfHolding.DataValueField = "ModeOfHoldingCode";
                 ddlModeOfHolding.DataBind();
-                ddlModeOfHolding.Items.Insert(0, new ListItem("Select Mode of Holding", "Select Mode of Holding"));
+                ddlModeOfHolding.Items.Insert(0, new ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -210,6 +211,8 @@ namespace WealthERP.CustomerPortfolio
             trModeOfHolding.Visible = false;
             trSubcategory.Visible = false;
             trError.Visible = false;
+            trAccountNoddl.Visible = false;
+            trBankName.Visible = false;
         }
 
         public void LoadInsuranceContent()
@@ -249,34 +252,115 @@ namespace WealthERP.CustomerPortfolio
 
         public void LoadCSContent()
         {
-
             trCategory.Visible = true;
-            if (ddlCategory.SelectedItem.Value.ToString() == "CSCA")
+            if (ddlCategory.SelectedItem.Value.ToString() == "CSCA" || ddlCategory.SelectedItem.Value.ToString() == "CSSA")
             {
-                trAccountNum.Visible = true;
-                trAccountSource.Visible = true;
+                trAccountNum.Visible = false;
+                trAccountSource.Visible = false;
+                trAccountNoddl.Visible = true;
+                trBankName.Visible = true;
                 trModeOfHolding.Visible = true;
                 trJoingHolding.Visible = true;
+                categoryType = ddlCategory.SelectedItem.Value;
+                BindAccountNum();
+                BindBankName();
             }
             else if (ddlCategory.SelectedItem.Value.ToString() == "CSLA")
             {
                 trModeOfHolding.Visible = true;
                 trJoingHolding.Visible = true;
             }
-            else if (ddlCategory.SelectedItem.Value.ToString() == "CSSA")
-            {
-                trAccountNum.Visible = true;
-                trAccountSource.Visible = true;
-                trModeOfHolding.Visible = true;
-                trJoingHolding.Visible = true;
-                //trAccountOpeningDate.Visible = true;
-            }
+            //else if (ddlCategory.SelectedItem.Value.ToString() == "CSSA")
+            //{
+            //    trAccountNum.Visible = false;
+            //    trAccountSource.Visible = false;
+            //    trAccountNoddl.Visible = true;
+            //    trBankName.Visible = true;
+            //    trModeOfHolding.Visible = true;
+            //    trJoingHolding.Visible = true;
+            //    categoryType = ddlCategory.SelectedItem.Value;
+            //    BindAccountNum();
+            //    BindBankName();
+            //    //trAccountOpeningDate.Visible = true;
+            //}
             else
             {
                 // Display Invalid Selection
             }
 
 
+        }
+
+        private void BindBankName()
+        {
+            DataSet dsBankName = new DataSet();
+            DataTable dtBankName;
+            try
+            {
+                if (ddlAccountNum.SelectedIndex != 0)
+                    dsBankName = customerAccountBo.GetBankName(customerVo.CustomerId, accountNo);
+                if (dsBankName.Tables.Count > 0)
+                {
+                    dtBankName = dsBankName.Tables[0];
+                    ddlBankName.DataSource = dtBankName;
+                    ddlBankName.DataValueField = dtBankName.Columns["CB_CustBankAccId"].ToString();
+                    ddlBankName.DataTextField = dtBankName.Columns["CB_BankName"].ToString();
+                    ddlBankName.DataBind();
+                }
+                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch(BaseApplicationException Ex)
+            {
+                throw(Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountAdd.ascx:BindBankName()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        private void BindAccountNum()
+        {
+            DataSet dsAccountNo = new DataSet();
+            DataTable dtAccountNo;
+            try
+            {
+                dsAccountNo = customerAccountBo.GetAccountNumber(customerVo.CustomerId, categoryType);
+                if (dsAccountNo.Tables.Count > 0)
+                {
+                    dtAccountNo = dsAccountNo.Tables[0];
+                    ddlAccountNum.DataSource = dtAccountNo;
+                    ddlAccountNum.DataValueField = dtAccountNo.Columns["CB_CustBankAccId"].ToString();
+                    ddlAccountNum.DataTextField = dtAccountNo.Columns["CB_AccountNum"].ToString();
+                    ddlAccountNum.DataBind();
+                    if(dtAccountNo.Rows.Count == 0)
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('No Account found for selected category please add your bank details from Profile Dashboard');", true);
+                }
+                ddlAccountNum.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountAdd.ascx:BindAccountNum()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         public void LoadPGContent()
@@ -469,24 +553,16 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountsVo.AssetClass = group;
                     customerAccountsVo.AssetCategory = ddlCategory.SelectedValue.Trim();
                     customerAccountsVo.AssetCategoryName = ddlCategory.SelectedItem.Text.ToString().Trim();
-                    customerAccountsVo.AccountNum = txtAccountNumber.Text;
                     customerAccountsVo.ModeOfHolding = ddlModeOfHolding.SelectedValue.ToString().Trim();
 
-                    if (ddlCategory.SelectedValue == "CSCA")
+                    if (ddlCategory.SelectedValue == "CSCA" || ddlCategory.SelectedValue == "CSSA")
                     {
-                        customerAccountsVo.BankName = txtAccountSource.Text.Trim();
-                    }
-                    else if (ddlCategory.SelectedValue == "CSSA")
-                    {
-                        customerAccountsVo.BankName = txtAccountSource.Text.Trim();
-                        //if (txtAccountOpeningDate.Text != "")
-                        //    customerAccountsVo.AccountOpeningDate = DateTime.Parse(txtAccountOpeningDate.Text.Trim());
-                        //else
-                        //    customerAccountsVo.AccountOpeningDate = DateTime.MinValue;
+                        customerAccountsVo.AccountNum = ddlAccountNum.SelectedItem.Text.ToString().Trim(); 
+                        customerAccountsVo.BankName = ddlBankName.SelectedItem.Text.ToString().Trim();
                     }
                     else if (ddlCategory.SelectedValue == "CSLA")
                     {
-
+                        //customerAccountsVo.AccountNum = txtAccountNumber.Text;
                     }
                     else
                     {
@@ -1094,7 +1170,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlCategory.DataTextField = "PAIC_AssetInstrumentCategoryName";
                 ddlCategory.DataValueField = "PAIC_AssetInstrumentCategoryCode";
                 ddlCategory.DataBind();
-                ddlCategory.Items.Insert(0, new ListItem("Select a Category", "Select a Category"));
+                ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -1119,6 +1195,18 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlAssetGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void ddlAccountNum_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int custBankAccId;
+            if (ddlAccountNum.SelectedIndex != 0)
+            {
+                accountNo = ddlAccountNum.SelectedItem.Text.ToString().Trim();
+                custBankAccId=int.Parse(ddlAccountNum.SelectedValue);
+                BindBankName();
+                ddlBankName.SelectedValue = custBankAccId.ToString();
+            }
         }
 
     }
