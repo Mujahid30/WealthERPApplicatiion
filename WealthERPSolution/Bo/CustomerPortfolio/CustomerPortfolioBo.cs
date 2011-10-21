@@ -1614,14 +1614,16 @@ namespace BoCustomerPortfolio
                         mfPortfolioVoList[i].CostOfPurchase = Math.Round(costOfAcquisition, 5);
                         mfPortfolioVoList[i].AcqCostExclDivReinvst = Math.Round(acqCostExclDivReinvst, 5);
                         mfPortfolioVoList[i].CurrentNAV = GetMFSchemePlanNAV(mfPortfolioVoList[i].MFCode, tradeDate);
-                        mfPortfolioVoList[i].RealizedPNL = Math.Round(realizedSalesProceed - costOfSales, 5);
+                        //Formula Chnaged As per Vivek & KM Requirement
+                        mfPortfolioVoList[i].RealizedPNL = Math.Round(realizedSalesProceed - costOfSales, 5) + Math.Round(dividendPayout, 5);
 
                         mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue, 5);
                         if (notionalProfitLoss != 0)
                             mfPortfolioVoList[i].UnRealizedPNL = Math.Round(notionalProfitLoss, 5);
                         else
                             mfPortfolioVoList[i].UnRealizedPNL = 0;
-                        mfPortfolioVoList[i].TotalPNL = Math.Round(realizedSalesProceed - costOfSales + currentValue - acqCostExclDivReinvst + dividendIncome, 5);
+                        //Formula Chnaged As per Vivek & KM Requirement
+                        mfPortfolioVoList[i].TotalPNL = Math.Round((realizedSalesProceed - costOfSales) + dividendPayout + (currentValue - acqCostExclDivReinvst) + dividendreinvested, 5);
                         mfPortfolioVoList[i].RealizedSalesProceed = Math.Round(realizedSalesProceed, 5);
                         mfPortfolioVoList[i].SalesQuantity = Math.Round(salesQuantity, 5);
                         mfPortfolioVoList[i].CostOfSales = Math.Round(costOfSales, 5);
