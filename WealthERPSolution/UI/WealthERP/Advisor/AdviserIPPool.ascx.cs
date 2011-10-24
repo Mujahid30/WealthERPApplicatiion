@@ -52,7 +52,7 @@ namespace WealthERP.Advisor
                     if (msgRecordStatus.Visible == true)
                     msgRecordStatus.Visible = false;
                 }
-                //getAllLoggedinIPs = advisorBo.GetAdvisersAlreadyLoggedIPs(advisorVo.advisorId);
+                getAllLoggedinIPs = advisorBo.GetAdvisersAlreadyLoggedIPs(advisorVo.advisorId);
                 if (!IsPostBack)
                 {
                     BindIPGrid();
@@ -161,8 +161,10 @@ namespace WealthERP.Advisor
                             ChildDeletionFunction();
                         }
                     }
-                    
-                    
+                    else
+                    {
+                        dt.Rows[e.Item.ItemIndex].Delete();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -371,7 +373,7 @@ namespace WealthERP.Advisor
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 RadGrid1.DataSource = dt;
-              
+
 
             }
         }
@@ -535,6 +537,7 @@ namespace WealthERP.Advisor
             {
                 mdlPopupGetIPlog.Show();
                 mdlPopupGetIPlog.TargetControlID = "btnGetIPsfromlog";
+                IPLogPopUp.Style.Add("visibility", "visible");
 
                 chklistIPPools.Visible = true;
                 chklistIPPools.DataSource = getAllLoggedinIPs.Tables[0];
@@ -589,10 +592,25 @@ namespace WealthERP.Advisor
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select one checkbox atleast..!!');", true);
             }
+            
+            Session[SessionContents.FPS_AddProspect_DataTable] = dt;
             Rebind(false);
+            
+            RadGrid1.Rebind();
             RadGrid1.MasterTableView.ClearEditItems();
             RadGrid1.MasterTableView.Rebind();
 
-        }
+            System.Web.HttpBrowserCapabilities browser = Request.Browser;
+            string name = browser.Browser;
+
+            if (name == "IE")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+
+                //RadGrid1.MasterTableView.Rebind();
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdviserIPPool", "loadlinks('AdviserIPPool','login');", true);
+            }
+
+        }   
     }
 }

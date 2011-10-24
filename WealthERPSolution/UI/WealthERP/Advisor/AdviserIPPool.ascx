@@ -20,6 +20,23 @@
 
 <script type="text/javascript">
     function showmessage() {
+        
+        __doPostBack('ctrl_AdviserIPPool_RadGrid1_ctl00_ctl02_ctl03_CancelButton', 'click');
+    }
+
+</script>
+
+<script type="text/javascript">
+    function showBtnGetIP() {
+
+        document.getElementById("<%= btnGetIPsfromlog.ClientID %>").style.visibility = 'visible';
+
+    }
+</script>
+
+
+<script type="text/javascript">
+    function showmessage() {
         if (confirm("By removing all IP's you will loose IP login Security.!! \n\n Are You sure you want to remove ??")) {
             document.getElementById("ctrl_AdviserIPPool_hdnMsgValue").value = 2;
             document.getElementById("ctrl_AdviserIPPool_hiddenassociation").click();
@@ -98,7 +115,7 @@
                 <%--<asp:Label ID="lblIP" runat="server" CssClass="HeaderText" Text="Already entered  IPs"></asp:Label>--%>
                 <br />
                 <telerik:RadAjaxPanel ID="AdviserIPPoolPanel" runat="server" Width="100%" HorizontalAlign="Center"
-                    LoadingPanelID="IPAddressDetailsLoading" EnablePageHeadUpdate="False">
+                    LoadingPanelID="IPAddressDetailsLoading" RenderMode="Block" EnablePageHeadUpdate="False">
                     <telerik:RadGrid ID="RadGrid1" runat="server" Width="96%" GridLines="None" AutoGenerateColumns="False"
                         PageSize="13" AllowSorting="True" AllowPaging="True" OnNeedDataSource="RadGrid1_NeedDataSource"
                         ShowStatusBar="True" OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
@@ -123,7 +140,7 @@
                                         <asp:Label runat="server" ID="lblIPName" Text='<%# Eval("AIPP_IP")%>'></asp:Label>
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                       <asp:TextBox runat="server" ID="txtIPName" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>' ></asp:TextBox>
+                                       <asp:TextBox runat="server" ID="txtIPName" onclick="showBtnGetIP()" Width="200px" MaxLength="16" Text='<%# Bind("AIPP_IP")%>' ></asp:TextBox>
                                        
                                         <asp:RegularExpressionValidator ID="RExpForValidIP" Display="Dynamic" runat="server" Text="Invalid IP Addres"
                                           ValidationExpression="\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
@@ -188,7 +205,7 @@
             </cc1:ModalPopupExtender>
         </td>
         <td>
-            <asp:Panel ID="IPLogPopUp" Width="300px" CssClass="ModelPup" class="Landscape" Height="250px" runat="server" Visible="false">
+            <asp:Panel ID="IPLogPopUp" Width="300px" style="visibility: hidden;" CssClass="ModelPup" class="Landscape" Height="250px" runat="server" >
                 <table>
                     <tr>
                         <td>
@@ -228,7 +245,8 @@
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true"/>   
 
 <div style="visibility: hidden">
-<asp:Button ID="hdnGetIPbtn" runat="server" style="background-color: Transparent; background: None; border: none; visibility: hidden;" OnClick="hdnGetIPbtn_Click"  Visible="false" />
+<asp:Button ID="hdnGetIPbtn" runat="server" BorderStyle="None" 
+    BackColor="Transparent" BorderColor="Transparent" OnClick="hdnGetIPbtn_Click"   />
 
 <asp:Button ID="hiddenReloadPage" runat="server" BorderStyle="None" 
     BackColor="Transparent" BorderColor="Transparent" 
