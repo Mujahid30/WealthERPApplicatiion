@@ -174,7 +174,15 @@ namespace DaoCustomerProfiling
                     if (dr["CB_CustBankAccId"].ToString() != "")
                     customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
                     customerBankAccountVo.BankName = dr["CB_BankName"].ToString();
-                    customerBankAccountVo.AccountType = dr["XBAT_BankAccountTypeCode"].ToString();
+                    if (dr["XBAT_BankAccountTypeCode"].ToString() == "SB")
+                    {
+
+                        customerBankAccountVo.AccountType = "SV";
+                    }
+                    else
+                    {
+                        customerBankAccountVo.AccountType = dr["XBAT_BankAccountTypeCode"].ToString();
+                    }
                     customerBankAccountVo.AccountNum = dr["CB_AccountNum"].ToString();
                     customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
