@@ -950,5 +950,38 @@ namespace BoCustomerPortfolio
 
             return grpNetHoldings;
         }
+        /// <summary>
+        /// Get Absolute return value for all type of asset category
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="portfolioId"></param>
+        /// <returns></returns>
+        public DataSet GetAbsoluteReturnForAllAssetType(int customerId, int portfolioId)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet dsGetAbsoluteReturn;
+            try
+            {
+                dsGetAbsoluteReturn = assetDao.GetAbsoluteReturnForAllAssetType(customerId, portfolioId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetBo.cs:GetAbsoluteReturnForAllAssetType()");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1]=portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAbsoluteReturn;
+        }
     }
 }
