@@ -1134,6 +1134,7 @@ namespace DaoFPSuperlite
 
                 db.AddInParameter(getUnmanagedManagedDetailsForFPCmd, "@Switch", DbType.Int32, Switch);
 
+                getUnmanagedManagedDetailsForFPCmd.CommandTimeout = 60 * 60;
                 dsgetUnmanagedManagedDetailsForFP = db.ExecuteDataSet(getUnmanagedManagedDetailsForFPCmd);
 
 
