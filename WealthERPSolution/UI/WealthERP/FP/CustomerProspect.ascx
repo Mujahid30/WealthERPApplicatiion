@@ -402,6 +402,8 @@
         <telerik:RadTab runat="server" onclick="HideStatusMsg()" ImageUrl="/Images/Telerik/FP/GeneralInsurance.gif"
             Text="General Insurance" Value="General Insurance" TabIndex="5">
         </telerik:RadTab>
+        <telerik:RadTab runat="server"  Text="Password Strength" Value="Password Strength" ImageUrl="/Images/Telerik/FP/Liabilities.gif" TabIndex="6">
+        </telerik:RadTab>
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" 
@@ -1633,8 +1635,10 @@
                                     <td colspan="4">
                                     <asp:Label ID="LabelMainNote" runat="server" Text="Note: 1.SIP is coming from MF screen.<br />
                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Loan EMI is coming from Liabilities.<br />
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel></telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Panel ID="pnlLiabilities" runat="server">
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel>
+    </telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+<asp:Panel ID="pnlLiabilities" runat="server">
             <table width="100%">
                 <tr>
                     <td>
@@ -2093,7 +2097,9 @@
             </table>--%>
         </asp:Panel>
 &nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage>
-<asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
+   
+   <telerik:RadPageView
+    <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
     </td>
     </tr>
     </table></asp:Panel>
