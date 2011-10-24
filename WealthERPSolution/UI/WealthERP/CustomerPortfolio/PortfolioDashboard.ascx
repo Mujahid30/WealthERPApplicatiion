@@ -337,6 +337,48 @@
             &nbsp;
         </td>
     </tr>
+    
+    <tr>
+        <td colspan="2">
+            <asp:Label ID="lblAbsoluteReturn" runat="server" CssClass="HeaderTextSmall" Text="Absolute Return"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    
+    <tr id="trAbsoluteReturn" runat="server" >
+        <td style="background-color: White; color: Black;" align="center" colspan="2">
+            <asp:Label ID="lblmsgAbsRetn" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+        </td>
+    </tr>
+    
+    <tr id="trAbsoluteReturnGrid" runat="server">
+    <td colspan="2">
+    <asp:Panel ID="pnlAbsoluteReturn" runat="server">
+    <asp:GridView ID="gvAbsoluteReturn" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                    CellPadding="4" EnableViewState="false" CssClass="GridViewStyle" OnRowDataBound="gvAbsoluteReturn_RowDataBound"
+                     ShowFooter="true">
+                    <RowStyle CssClass="RowStyle" />
+                    <FooterStyle CssClass="FooterStyle" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <EditRowStyle CssClass="EditRowStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <Columns>
+                    <asp:BoundField DataField="AssetType" HeaderText="Asset Category" />
+                    <asp:BoundField DataField="AmountInvested" HeaderText="Amount Invested" ItemStyle-HorizontalAlign="Right" />
+                     <asp:BoundField DataField="CurrentValue" HeaderText="Current Value" ItemStyle-HorizontalAlign="Right" />
+                     <asp:BoundField DataField="Change" HeaderText="Change"  ItemStyle-HorizontalAlign="Right" />
+                     <asp:BoundField DataField="PercentChange" HeaderText="%Change(ABS RET %)" ItemStyle-HorizontalAlign="Right" />
+                    </Columns>
+                    </asp:GridView>
+    </asp:Panel>
+    </td>
+    </tr>
+    <tr>
+          <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
     <tr>
         <td style="width: 100%;" colspan="2">
             <table style="width: 500px;">

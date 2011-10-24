@@ -33,6 +33,10 @@ namespace WealthERP.CustomerPortfolio
         int adviserId = 0;
         static int portfolioId;
         int customerId = 0;
+        double amountInvestedTotal = 0;
+        double currentValueTotal = 0;
+        double changeTotal = 0;
+        double percentChangeTotal = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -146,6 +150,9 @@ namespace WealthERP.CustomerPortfolio
             // Bind Net Income Summary
             dsNetIncomeSummary = assetsBo.GetNetIncomeSummary(portfolioId);
 
+            //Bind Absolute Return DataSet
+            DataSet dsAbsoluteReturn = assetsBo.GetAbsoluteReturnForAllAssetType(customerId, portfolioId);
+
             BindMFChart(dsMFInv.Tables[1]);
             BindMFGrid(dsMFInv.Tables[0]);
             BindEQGrid(dsEquity.Tables[0]);
@@ -154,6 +161,7 @@ namespace WealthERP.CustomerPortfolio
             BindOtherAssetGrid(dsOtherAssets.Tables[0]);
 
             BindAssetChart(dsAssetChart);
+            BindAbsoluteReturn(dsAbsoluteReturn);
 
             // Bind Total Asset Labels
             if (dsAssetChart.Tables[0].Rows.Count > 0)
@@ -209,6 +217,96 @@ namespace WealthERP.CustomerPortfolio
                 lblTotalValue.Text = String.Format("{0:n2}", assetTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 lblEQDidvidend.Text = String.Format("{0:n2}", eqDivIncome.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 lblDivIncomeTotal.Text = String.Format("{0:n2}", divIncomeTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+            }
+        }
+        /// <summary>
+        /// To get the Absolute return value for all asset type.
+        /// </summary>
+        /// <param name="dsAbsoluteReturn"></param>
+        private void BindAbsoluteReturn(DataSet dsAbsoluteReturn)
+        {
+            double amountInvested = 0.0;
+            double currentValue = 0.0;
+            double change=0.0;
+            double percentChange = 0.0;
+            DataTable dtAbsoluteReturn = new DataTable();
+            dtAbsoluteReturn = dsAbsoluteReturn.Tables[0];
+            try
+            {
+                if (dtAbsoluteReturn.Rows.Count > 0)
+                {
+                    DataTable dtGetAbsoluteReturn = new DataTable();
+                    dtGetAbsoluteReturn.Columns.Add("AssetType");
+                    dtGetAbsoluteReturn.Columns.Add("AmountInvested");
+                    dtGetAbsoluteReturn.Columns.Add("CurrentValue");
+                    dtGetAbsoluteReturn.Columns.Add("Change");
+                    dtGetAbsoluteReturn.Columns.Add("PercentChange");
+
+                    DataRow drGetAbsoluteReturn;
+
+                    foreach (DataRow dr in dtAbsoluteReturn.Rows)
+                    {
+                        drGetAbsoluteReturn = dtGetAbsoluteReturn.NewRow();
+
+                        drGetAbsoluteReturn["AssetType"] = dr["AssetType"].ToString();
+                        if (!string.IsNullOrEmpty(dr["AmountInvested"].ToString().Trim()))
+                            drGetAbsoluteReturn["AmountInvested"] = Math.Round(double.Parse(dr["AmountInvested"].ToString()), 0);
+                        else
+                            drGetAbsoluteReturn["AmountInvested"] = 0;
+                        amountInvested =double.Parse(drGetAbsoluteReturn["AmountInvested"].ToString());
+                        amountInvestedTotal = amountInvestedTotal + amountInvested;
+                        if (!string.IsNullOrEmpty(dr["CurrentValue"].ToString().Trim()))
+                            drGetAbsoluteReturn["CurrentValue"] = dr["CurrentValue"].ToString();
+                        else
+                            drGetAbsoluteReturn["CurrentValue"] = 0;
+                        currentValue = double.Parse(drGetAbsoluteReturn["CurrentValue"].ToString());
+                        currentValueTotal = currentValueTotal + currentValue;
+                        drGetAbsoluteReturn["Change"] = Math.Round((currentValue - amountInvested),4);
+                        change = double.Parse(drGetAbsoluteReturn["Change"].ToString());
+                        changeTotal = changeTotal + change;
+                        if( amountInvested == 0 && change !=0)
+                        {
+                            drGetAbsoluteReturn["PercentChange"] = "---";
+                            percentChange = 0.0;
+                        }
+                        else
+                        {
+                            if (change != 0 && amountInvested != 0)
+                            {
+                                drGetAbsoluteReturn["PercentChange"] = Math.Round(((change / amountInvested) * 100), 2);
+                                percentChange = double.Parse(drGetAbsoluteReturn["PercentChange"].ToString());
+                            }
+                            else
+                            {
+                                drGetAbsoluteReturn["PercentChange"] = 0.0;
+                                percentChange = 0.0;
+
+                            }
+                        }
+                        //percentChange = (change / amountInvested) * 100;
+                        //if(percentChange == Infinity)
+                        
+                        percentChangeTotal = percentChangeTotal + percentChange;
+
+                        dtGetAbsoluteReturn.Rows.Add(drGetAbsoluteReturn);
+                    }
+                    gvAbsoluteReturn.DataSource = dtGetAbsoluteReturn;
+                    gvAbsoluteReturn.DataBind();
+                    gvAbsoluteReturn.Visible = true;
+                    trAbsoluteReturn.Visible = false;
+                }
+                else
+                {
+                    trAbsoluteReturn.Visible=true;
+                    gvAbsoluteReturn.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
             }
         }
         private void BindPortfolioDropDown()
@@ -654,6 +752,22 @@ namespace WealthERP.CustomerPortfolio
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEquityPortfolios','none');", true);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIndLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
+        protected void gvAbsoluteReturn_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.Cells[0].Text = "Total Assets";
+                e.Row.Cells[1].Text = amountInvestedTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[1].Attributes.Add("align", "Right");
+                e.Row.Cells[2].Text = currentValueTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[2].Attributes.Add("align", "Right");
+                e.Row.Cells[3].Text = changeTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[3].Attributes.Add("align", "Right");
+                e.Row.Cells[4].Text = percentChangeTotal.ToString();
+                e.Row.Cells[4].Attributes.Add("align", "Right");
 
+            }
+        }
+                 
     }
 }
