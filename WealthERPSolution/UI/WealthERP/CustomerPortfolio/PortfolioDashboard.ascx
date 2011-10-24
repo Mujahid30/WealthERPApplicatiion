@@ -168,7 +168,7 @@
                     CellPadding="4" EnableViewState="false" SAllowPaging="True" CssClass="GridViewStyle"
                     OnRowDataBound="gvMFInv_RowDataBound" OnSorting="gvMFInv_Sorting" Width="100%" ShowFooter="true">
                     <RowStyle CssClass="RowStyle" />
-                    <FooterStyle CssClass="FooterStyle" />
+                    <FooterStyle CssClass="FooterStyle" HorizontalAlign="Right" />
                     <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                     <HeaderStyle CssClass="HeaderStyle" />
@@ -176,7 +176,7 @@
                     <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
                         <asp:BoundField DataField="SchemeType" HeaderText="Scheme Type"  />
-                        <asp:BoundField DataField="Scheme" HeaderText="Scheme" />
+                        <asp:BoundField DataField="Scheme" HeaderText="Scheme"/>
                         <asp:BoundField DataField="AmortisedCost" HeaderText="Amortised Cost (Rs)" 
                             ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" HtmlEncode="false" />
                         <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" 
