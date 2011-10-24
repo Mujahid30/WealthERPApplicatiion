@@ -186,7 +186,7 @@
 SelectedIndex="0">
 
     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
-      <asp:Panel ID="pnlMFPortfolioHoldings" runat="server">
+      <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
       <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
             cellspacing="0">
             <tr>
@@ -303,7 +303,7 @@ SelectedIndex="0">
     </telerik:RadPageView>
     
     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
-        <asp:Panel ID="pnlMFPortfolioAll" runat="server">
+        <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
         <table style="width: 100%; border: none; margin: 0px; padding: 0px;" cellpadding="0"
             cellspacing="0">
             <tr>
@@ -454,7 +454,7 @@ SelectedIndex="0">
                 </td>                    
             </tr>
         </table>
-        <asp:Panel ID="pnlMFPortfolioRealized" runat="server">
+        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <table>
                         <tr>
                             <td>
@@ -570,7 +570,7 @@ SelectedIndex="0">
     </telerik:RadPageView>
     
     <telerik:RadPageView ID="MFPandATabPage" runat="server">
-        <asp:Panel ID="pnlMFPandATabPage" runat="server">
+        <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <table id="Table1" runat="server">
                         <tr id="trMFCode" runat="server">
                             <td>
