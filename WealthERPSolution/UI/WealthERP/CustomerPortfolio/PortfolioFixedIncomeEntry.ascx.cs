@@ -1008,11 +1008,19 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DataTable dt = XMLBo.GetInterestBasis(path);
+                //ddlInterestBasis.DataSource = dt;
+                //ddlInterestBasis.DataTextField = dt.Columns["InterestBasisType"].ToString();
+                //ddlInterestBasis.DataValueField = dt.Columns["InterestBasisCode"].ToString();
+                //ddlInterestBasis.DataBind();
+                //ddlInterestBasis.Items.Insert(0, "Select an Interest Basis");
+
                 ddlInterestBasis.DataSource = dt;
-                ddlInterestBasis.DataTextField = dt.Columns["InterestBasisType"].ToString();
-                ddlInterestBasis.DataValueField = dt.Columns["InterestBasisCode"].ToString();
+                ddlInterestBasis.DataTextField = "InterestBasisType";
+                ddlInterestBasis.DataValueField = "InterestBasisCode";
                 ddlInterestBasis.DataBind();
                 ddlInterestBasis.Items.Insert(0, "Select an Interest Basis");
+                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1620,9 +1628,12 @@ namespace WealthERP.CustomerPortfolio
             trIntFreqCompound.Visible = false;
             trInterestDetailsSpace.Visible = true;
 
-            ddlInterestBasis.SelectedValue = "CI";
-            ddlCompoundInterestFreq.SelectedValue = "QT";
-            ddlPayableFrequencyCode.SelectedValue = "AM";
+            ddlInterestBasis.SelectedValue = "Select an Interest Basis";
+            //ddlInterestBasis.SelectedValue = "CI";
+            //ddlCompoundInterestFreq.SelectedValue = "QT";
+            ddlCompoundInterestFreq.SelectedValue = "Select a Frequency";
+            //ddlPayableFrequencyCode.SelectedValue = "AM";
+            ddlPayableFrequencyCode.SelectedValue = "Select a Frequency";
             lblInterestAmtCredited.Text = "Interest Amt Accumulated:";
         }
 
@@ -1704,10 +1715,13 @@ namespace WealthERP.CustomerPortfolio
             if (ddlInterestBasis.SelectedItem.Value == "CI")
             {
                 trIntFreqCompound.Visible = true;
+                ddlCompoundInterestFreq.SelectedValue = "Select a Frequency";
+                ddlPayableFrequencyCode.SelectedValue = "Select a Frequency";
             }
             else
             {
                 trIntFreqCompound.Visible = false;
+                ddlPayableFrequencyCode.SelectedValue = "Select a Frequency";
             }
         }
 
