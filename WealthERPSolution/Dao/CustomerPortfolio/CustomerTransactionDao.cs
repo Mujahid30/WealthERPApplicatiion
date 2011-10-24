@@ -2226,7 +2226,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(out int Count, int CurrentPage, int RMId,int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, string transactionStatus, out Dictionary<string, string> genDictTranType, string FolioNumber, string PasssedFolioValue, string categoryCode, int AMCCode, out Dictionary<string, string> genDictCategory, out Dictionary<string, int> genDictAMC)
         {
             DataSet ds = null;
             Database db;
@@ -2252,7 +2252,17 @@ namespace DaoCustomerPortfolio
                     getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerMFTransactions");
                 }
                 
-                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
+                if(RMId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, DBNull.Value);
+
+                if(AdviserID != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, AdviserID);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+
+
                 if (GroupHeadId != 0)
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
@@ -2281,7 +2291,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, FolioNumber);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FolioNumber", DbType.String, DBNull.Value);
-                if (PasssedFolioValue != string.Empty)
+                if (PasssedFolioValue != null)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, PasssedFolioValue);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@PasssedFolioValue", DbType.String, DBNull.Value);
