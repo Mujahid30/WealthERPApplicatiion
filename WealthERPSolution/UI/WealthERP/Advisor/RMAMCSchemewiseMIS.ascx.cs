@@ -690,7 +690,7 @@ namespace WealthERP.Advisor
         {
 
             //gvMFTransactions.Columns[0].Visible = false;
-
+            LatestValuationdate = Convert.ToDateTime(txtDate.Text);
             //gvMFTransactions.HeaderRow.Visible = true;
             gvMFMIS.Columns[0].Visible = false;
             gvMFMIS.HeaderRow.Visible = true;

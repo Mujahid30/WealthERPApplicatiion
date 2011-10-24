@@ -166,18 +166,25 @@ namespace WealthERP.CustomerPortfolio
                     lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                     tblPager.Visible = true;
                 }
+                else
+                {
+                    lblTotalRows.Text = "";
+                    tblPager.Visible = false;
+                }
                 if (fixedincomeList == null)
                 {
                     //lblMessage.Visible = true;
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
+                    gvFixedIncomePortfolio.Visible = false;
 
                 }
                 else
                 {
                     //lblMessage.Visible = false;
                     tblMessage.Visible = false;
+                    gvFixedIncomePortfolio.Visible = true;
                     ErrorMessage.Visible = false;
                     ErrorMessage.InnerText = "No Records Found...!";
                     DataTable dtFixedIncomePortfolio = new DataTable();
@@ -356,6 +363,7 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
+            LoadGridView();
         }
 
         protected void hiddenassociation_Click(object sender, EventArgs e)
