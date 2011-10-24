@@ -276,6 +276,7 @@ namespace DaoCustomerPortfolio
                 getMFAggregateCurrentValuesCmd = db.GetStoredProcCommand("SP_GetCustomerPortfolioMFInvstDashboard");
                 db.AddInParameter(getMFAggregateCurrentValuesCmd, "@PortfolioId", DbType.Int32, PortfolioId);
                 db.AddInParameter(getMFAggregateCurrentValuesCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                getMFAggregateCurrentValuesCmd.CommandTimeout = 60 * 60;
                 mfAggrCurrValues = db.ExecuteDataSet(getMFAggregateCurrentValuesCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1185,6 +1186,45 @@ namespace DaoCustomerPortfolio
             }
             return assetGrpNetHoldings;
         }
+        /// <summary>
+        /// Get Absolute return value for all type of asset category
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="portfolioId"></param>
+        /// <returns></returns>
+        public DataSet GetAbsoluteReturnForAllAssetType(int customerId, int portfolioId)
+        {
+            Database db;
+            DbCommand getAbsoluteReturnForAllAssettypecmd;
+            DataSet dsGetAbsoluteReturn;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAbsoluteReturnForAllAssettypecmd = db.GetStoredProcCommand("SP_GetAbsoluteReturnsForAllAssetType");
+                db.AddInParameter(getAbsoluteReturnForAllAssettypecmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getAbsoluteReturnForAllAssettypecmd, "@PortfolioId", DbType.Int32, portfolioId);
+                dsGetAbsoluteReturn = db.ExecuteDataSet(getAbsoluteReturnForAllAssettypecmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetDao.cs:GetAbsoluteReturnForAllAssetType()");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAbsoluteReturn;
+        }
+
 
     }
 
