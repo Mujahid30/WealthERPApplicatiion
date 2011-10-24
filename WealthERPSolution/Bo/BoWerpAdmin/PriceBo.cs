@@ -107,5 +107,46 @@ namespace BoWerpAdmin
             return dtGetAllScehmeList;
         }
 
+        public DataSet BindddlMFSubCategory()
+        {
+            DataSet dsGetSubCategory = new DataSet();
+            PriceDao priceDao = new PriceDao();
+            try
+            {
+                dsGetSubCategory = priceDao.BindddlMFSubCategory();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetSubCategory;
+
+        }
+        /***********************************************Bhoopendra's code for factsheet***************************************************************/
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Flag"></param>
+        /// <param name="StartDate"></param>
+        /// <param name="EndDate"></param>
+        /// <param name="Search"></param>
+        /// <param name="CurrentPage"></param>
+        /// <returns></returns>
+        /// 
+        public DataTable GetMFFundPerformance(int amcCode, string subCategory)
+        {
+            DataTable dtMFFund = new DataTable();
+            PriceDao PriceObj = new PriceDao();
+            try
+            {
+                dtMFFund = PriceObj.GetMFFundPerformance(amcCode, subCategory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtMFFund;
+
+        }
      }
 }

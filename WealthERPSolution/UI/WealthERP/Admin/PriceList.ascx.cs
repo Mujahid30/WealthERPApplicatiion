@@ -12,27 +12,31 @@ using System.Data.SqlTypes;
 using BoWerpAdmin;
 using WealthERP.Base;
 using BoCommon;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
+using System.Numeric;
+using Telerik.Web.UI;
+//using BoProductMaster;
 
 namespace WealthERP.Admin
 {
     public partial class PriceList : System.Web.UI.UserControl
     {
-
+        PriceBo priceBo = new PriceBo();
+        DataSet dsCategoryList = new DataSet();
+        DataTable dtGetMFfund = new DataTable();
+        //List<GoalProfileSetupVo> MutualFundList = new List<PriceVo>();
         protected override void OnInit(EventArgs e)
         {
             ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
             mypager.EnableViewState = true;
             base.OnInit(e);
         }
-
-
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
-
             OnClick_Submit(sender, e);
-
-
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
@@ -47,7 +51,6 @@ namespace WealthERP.Admin
 
             if (!IsPostBack)
             {
-
                 lblIllegal.Visible = false;
                 //trFromDate.Style.Add("display", "none");
                 //trToDate.Style.Add("display", "none");
@@ -57,14 +60,11 @@ namespace WealthERP.Admin
                 trbtnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 BindMutualFundDropDowns();
+                BindSelectAMCDropdown();
                 trSelectMutualFund.Visible = false;
-                trSelectSchemeNAV.Visible = false;
-
+                trSelectSchemeNAV.Visible = false;                
             }
-
         }
-
-
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
         {
@@ -89,19 +89,16 @@ namespace WealthERP.Admin
             {
                 trSelectSchemeNAV.Visible = true;
                 trSelectMutualFund.Visible = true;
-
             }
             else
             {
                 trSelectSchemeNAV.Visible = false;
                 trSelectMutualFund.Visible = false;
             }
-
         }
 
         protected void rbtnHistorical_CheckedChanged(object sender, EventArgs e)
         {
-
             hdnSchemeSearch.Value = null;
             hdnCompanySearch.Value = null;
             trgrMfView.Visible = false;
@@ -129,7 +126,6 @@ namespace WealthERP.Admin
             {
                 trSelectSchemeNAV.Visible = true;
                 trSelectMutualFund.Visible = true;
-
             }
             else
             {
@@ -156,7 +152,6 @@ namespace WealthERP.Admin
                 trbtnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
-
             }
             else if (ddlAssetGroup.SelectedValue == "Equity")
             {
@@ -166,7 +161,6 @@ namespace WealthERP.Admin
                 trbtnSubmit.Visible = false;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
-
             }
         }
 
@@ -180,8 +174,8 @@ namespace WealthERP.Admin
             ddlSelectMutualFund.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlSelectMutualFund.DataBind();
             ddlSelectMutualFund.Items.Insert(0, new ListItem("Select AMC Code", "Select AMC Code"));
-
         }
+
         protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             LoadAllSchemeNAV();
@@ -198,13 +192,9 @@ namespace WealthERP.Admin
                 ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
                 ddlSelectSchemeNAV.DataBind();
                 ddlSelectSchemeNAV.Items.Insert(0, new ListItem("All Scheme", "0"));
-
-
             }
             else
             {
-
-
             }
         }
         protected void OnClick_Submit(object sender, EventArgs e)
@@ -220,9 +210,6 @@ namespace WealthERP.Admin
             //hdnSchemeSearch.Value = null;
             //hdnCompanySearch.Value = null;
 
-
-
-
             if (ddlAssetGroup.SelectedValue == "0")
             {
                 //lblIllegal.Visible = true;
@@ -232,8 +219,6 @@ namespace WealthERP.Admin
             }
             else if (rbtnCurrent.Checked)
             {
-
-
                 if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
                 {
                     string Search = hdnCompanySearch.Value;
@@ -248,11 +233,7 @@ namespace WealthERP.Admin
                     DivMF.Style.Add("display", "none");
                     Search = null;
                     hdnCompanySearch.Value = null;
-
-
-
                 }
-
 
                 else
                 {
@@ -277,31 +258,21 @@ namespace WealthERP.Admin
                     }
                     else
                     {
-
                         trgvEquityView.Visible = false;
                         trgrMfView.Visible = false;
                         trPageCount.Visible = false;
                         trPager.Visible = false;
                         trMfPagecount.Visible = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
-
                     }
-
                 }
             }
-
-
-
             else if (rbtnHistorical.Checked)
             {
-
-
                 DateTime StartDate = DateTime.Parse(txtFromDate.Text.ToString());
                 DateTime EndDate = DateTime.Parse(txtToDate.Text.ToString());
                 hdnFromDate.Value = StartDate.ToString();
                 hdnToDate.Value = EndDate.ToString();
-
-
 
                 if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
                 {
@@ -316,9 +287,7 @@ namespace WealthERP.Admin
                     DivEquity.Style.Add("display", "visible");
                     DivMF.Style.Add("display", "none");
                     DivPager.Style.Add("display", "visible");
-
                     //hdnCompanySearch.Value = null;
-
                 }
                 else if (ddlAssetGroup.SelectedValue == Contants.Source.MF.ToString())
                 {
@@ -349,10 +318,8 @@ namespace WealthERP.Admin
                     }
                     //Search = null;
                     //hdnSchemeSearch.Value = null;
-
                 }
             }
-
         }
 
         private string SchemeName()
@@ -367,10 +334,6 @@ namespace WealthERP.Admin
             return txt;
         }
 
-
-
-
-
         private string CompanyName()
         {
             string txt3 = string.Empty;
@@ -383,11 +346,8 @@ namespace WealthERP.Admin
             return txt3;
         }
 
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
-
             if (ddlAssetGroup.SelectedValue == Contants.Source.Equity.ToString())
             {
                 string txtCompanyName = CompanyName();
@@ -401,20 +361,9 @@ namespace WealthERP.Admin
 
                 if (txtSchemeName != null)
                     hdnSchemeSearch.Value = txtSchemeName;
-
             }
-
-
-
-
             OnClick_Submit(sender, e);
-
         }
-
-
-
-
-
 
         private void GetPageCount_Equity()
         {
@@ -430,7 +379,6 @@ namespace WealthERP.Admin
             string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
             lblCurrentPage.Text = PageRecords;
             hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-
         }
 
         private void GetPageCount_MF()
@@ -451,10 +399,318 @@ namespace WealthERP.Admin
             string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
             lblMFCurrentPage.Text = PageRecords;
             hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-
         }
 
 
-    }
+        /*******************************************************************************************************/
+        /// <summary>
+        /// Code Started for Factsheet By Bhoopendra Prakash Sahoo(date:17/10/2011)
+        /// </summary>
+        /*******************************************************************************************************/
 
+        public void BindSelectAMCDropdown()
+        {
+            PriceBo priceBo = new PriceBo();
+            //ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtGetAMCList = new DataTable();
+            dtGetAMCList = priceBo.GetMutualFundList();
+            ddlSelectAMC.DataSource = dtGetAMCList;
+            ddlSelectAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
+            ddlSelectAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
+            ddlSelectAMC.DataBind();
+            ddlSelectAMC.Items.Insert(0, new ListItem("Select AMC Code", "Select AMC Code"));
+        }
+
+        //protected void ddlSelectAMC_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    LoadAllNAVScheme();
+        //}
+
+        //public void LoadAllNAVScheme()
+        //{
+        //    if (ddlSelectAMC.SelectedIndex != 0)
+        //    {
+        //        PriceBo priceBo = new PriceBo();
+        //        DataTable dtLoadAllSchemeNAV = new DataTable();
+        //        dtLoadAllSchemeNAV = priceBo.GetAllScehmeList(int.Parse(ddlSelectAMC.SelectedValue));
+        //        ddlSelectScheme.DataSource = dtLoadAllSchemeNAV;
+        //        ddlSelectScheme.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
+        //        ddlSelectScheme.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
+        //        ddlSelectScheme.DataBind();
+        //        ddlSelectScheme.Items.Insert(0, new ListItem("Select Scheme", "0"));
+        //    }
+        //    else
+        //    {
+        //    }
+        //}
+
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string categoryCode = ddlCategory.SelectedValue;
+            dsCategoryList = priceBo.BindddlMFSubCategory();
+            if (ddlCategory.SelectedIndex != 0)
+            {
+                if (categoryCode == "MFCO")
+                {
+                    ddlSubCategory.DataSource = dsCategoryList.Tables[0];
+                    ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                    ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    ddlSubCategory.DataBind();
+                }
+                if (categoryCode == "MFDT")
+                {
+                    ddlSubCategory.DataSource = dsCategoryList.Tables[1];
+                    ddlSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                    ddlSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    ddlSubCategory.DataBind();
+                }
+                if (categoryCode == "MFEQ")
+                {
+                    ddlSubCategory.DataSource = dsCategoryList.Tables[2];
+                    ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                    ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    ddlSubCategory.DataBind();
+                }
+                if (categoryCode == "MFHY")
+                {
+                    ddlSubCategory.DataSource = dsCategoryList.Tables[3];
+                    ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                    ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    ddlSubCategory.DataBind();
+                }
+            }
+
+        }
+
+        //protected void ddlReturn_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int returnPeriod = int.Parse(ddlReturn.SelectedValue);
+        //    if (ddlReturn.SelectedIndex != 0)
+        //    {
+        //        if (returnPeriod == 1)
+        //        {
+        //        }
+        //        if (returnPeriod == 2)
+        //        {
+        //        }
+        //        if (returnPeriod == 3)
+        //        {
+        //        }
+        //        if (returnPeriod == 4)
+        //        {
+        //        }
+        //        if (returnPeriod == 5)
+        //        {
+        //        }
+        //        if (returnPeriod == 6)
+        //        {
+        //        }
+        //        if (returnPeriod == 7)
+        //        {
+        //        }
+        //        if (returnPeriod == 8)
+        //        {
+        //        }
+        //        if (returnPeriod == 9)
+        //        {
+        //        }
+        //    }
+
+        //}
+
+        //protected void ddlCondition_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    string expression = string.Empty;
+
+
+        //    string condition = ddlCondition.SelectedValue;
+        //    int returnPeriod = int.Parse(ddlReturn.SelectedValue);
+        //    if (ddlCondition.SelectedIndex != 0)
+        //    {
+        //         if (returnPeriod == 1)
+        //        {
+        //               expression = "OneWeekReturn" + condition;
+
+        //        }
+                  
+                    
+        //        }
+        //        //if (condition == 2)
+        //        //{
+        //        //}
+        //        //if (condition == 3)
+        //        //{
+        //        //}
+        //        //if (condition == 4)
+        //        //{
+        //        //}
+        //        //if (condition == 5)
+        //        //{
+        //        //}
+        //        //if (condition == 6)
+        //        //{
+        //        //}
+        //        //if (condition == 7)
+        //        //{
+        //        //}
+        //        //if (condition == 8)
+        //        //{
+        //        //}
+        //        //if (condition == 9)
+        //        //{
+        //        //}
+        //        //if (condition == 10)
+        //        //{
+        //        //}
+        //    }
+        //}
+
+        protected void OnClick_btnViewFactsheet(object sender, EventArgs e)
+        {
+            int amcCode = int.Parse(ddlSelectAMC.SelectedValue);
+            //int selectSchemeCode = ddlSelectScheme.SelectedIndex;
+            //int schemeCode = int.Parse(ddlSelectScheme.SelectedValue);
+            string subCategory = ddlSubCategory.SelectedValue;
+            int returnPeriod = int.Parse(ddlReturn.SelectedValue);
+            string condition = ddlCondition.SelectedValue;
+            string expression = string.Empty;
+            dtGetMFfund = priceBo.GetMFFundPerformance(amcCode, subCategory);
+              if (returnPeriod == 1)
+              {
+                   expression = "OneWeekReturn" + condition;
+                   dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 2)
+              {
+                  expression = "OneMonthReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 3)
+              {
+                  expression = "ThreeMonthReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 4)
+              {
+                  expression = "SixMonthReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 5)
+              {
+                  expression = "OneYearReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 6)
+              {
+                  expression = "TwoYearReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 7)
+              {
+                  expression = "ThreeYearReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 8)
+              {
+                  expression = "FiveYearReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+              }
+              if (returnPeriod == 9)
+              {
+                  expression = "InceptionReturn" + condition;
+                  dtGetMFfund.DefaultView.RowFilter = expression;
+
+              }     
+              gvMFFundPerformance.DataSource = dtGetMFfund.DefaultView;
+              gvMFFundPerformance.DataBind();
+            //  DataTable dt = dtGetMFfund.DefaultView.Table.Clone();
+            //BindMFFundPerformance(dt);
+        }
+
+        //private void BindMFFundPerformance(DataTable dt)
+        //{
+        //    DataTable dtMFFundPerformance = new DataTable();
+        //    DataRow drMFFundPerformance;
+        //    try
+        //    {
+        //        if (dt.Rows.Count > 0)
+        //        {
+        //            dtMFFundPerformance.Columns.Add("SchemeName");
+        //            //dtMFFundPerformance.Columns.Add("AUM");
+        //            dtMFFundPerformance.Columns.Add("LaunchDate");
+        //            dtMFFundPerformance.Columns.Add("NAV");
+        //            //dtMFFundPerformance.Columns.Add("HighestNAV");
+        //            //dtMFFundPerformance.Columns.Add("LowestNAV");
+        //            //dtMFFundPerformance.Columns.Add("YTD");
+        //            dtMFFundPerformance.Columns.Add("OneWeekReturn");
+        //            dtMFFundPerformance.Columns.Add("OneMonthReturn");
+        //            dtMFFundPerformance.Columns.Add("ThreeMonthReturn");
+        //            dtMFFundPerformance.Columns.Add("SixMonthReturn");
+        //            dtMFFundPerformance.Columns.Add("OneYearReturn");
+        //            dtMFFundPerformance.Columns.Add("TwoYearReturn");
+        //            dtMFFundPerformance.Columns.Add("ThreeYearReturn");
+        //            dtMFFundPerformance.Columns.Add("FiveYearReturn");
+        //            dtMFFundPerformance.Columns.Add("InceptionReturn");
+        //            dtMFFundPerformance.Columns.Add("PE");
+        //            dtMFFundPerformance.Columns.Add("PB");
+        //            //dtMFFundPerformance.Columns.Add("Cash");
+        //            dtMFFundPerformance.Columns.Add("Sharpe");
+        //            dtMFFundPerformance.Columns.Add("SD");
+        //            //dtMFFundPerformance.Columns.Add("Top 5 Holdings");
+
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                drMFFundPerformance = dtMFFundPerformance.NewRow();
+        //                drMFFundPerformance["SchemeName"] = dr["SchemeName"].ToString();
+        //                //drMFFundPerformance["AUM"] = dr["AUM"].ToString();
+        //                drMFFundPerformance["LaunchDate"] = DateTime.Parse(dr["LaunchDate"].ToString()).ToShortDateString();
+        //                drMFFundPerformance["NAV"] = dr["NAV"].ToString();
+        //                //drMFFundPerformance["HighestNAV"] = dr["HighestNAV"].ToString();
+        //                //drMFFundPerformance["LowestNAV"] = dr["LowestNAV"].ToString();
+        //                //drMFFundPerformance["YTD"] = DateTime.Parse(dr["YTD"].ToString()).ToShortDateString();
+        //                drMFFundPerformance["OneWeekReturn"] = dr["OneWeekReturn"].ToString();
+        //                drMFFundPerformance["OneMonthReturn"] = dr["OneMonthReturn"].ToString();
+        //                drMFFundPerformance["ThreeMonthReturn"] = dr["ThreeMonthReturn"].ToString();
+        //                drMFFundPerformance["SixMonthReturn"] = dr["SixMonthReturn"].ToString();
+        //                drMFFundPerformance["OneYearReturn"] = dr["OneYearReturn"].ToString();
+        //                drMFFundPerformance["TwoYearReturn"] = dr["TwoYearReturn"].ToString();
+        //                drMFFundPerformance["ThreeYearReturn"] = dr["ThreeYearReturn"].ToString();
+        //                drMFFundPerformance["FiveYearReturn"] = dr["FiveYearReturn"].ToString();
+        //                drMFFundPerformance["InceptionReturn"] = dr["InceptionReturn"].ToString();
+        //                drMFFundPerformance["PE"] = dr["PE"].ToString();
+        //                drMFFundPerformance["PB"] = dr["PB"].ToString();
+        //                //drMFFundPerformance["Cash"] = dr["Cash"].ToString();
+        //                drMFFundPerformance["Sharpe"] = dr["Sharpe"].ToString();
+        //                drMFFundPerformance["SD"] = dr["SD"].ToString();
+        //                //drMFFundPerformance["Top5Holdings"] = dr["Top5Holdings"].ToString();
+
+        //                dtMFFundPerformance.Rows.Add(drMFFundPerformance);
+        //            }
+        //            gvMFFundPerformance.DataSource = dtMFFundPerformance;
+        //            gvMFFundPerformance.DataBind();
+        //        }
+        //        else
+        //        {
+
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PriceList.ascx:BindgvMFFundPerformance()");
+        //        object[] objects = new object[1];
+        //        objects[0] = Session["FP_UserID"];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+    }
 }

@@ -46,6 +46,12 @@
             return false;
         }
 
+        if ((document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value == "0") && (document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value > "0")) {
+            alert("You can not expect return when your existing allocated amount is not sufficient");
+            document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').focus();
+            return false;
+        }
+
         if (document.getElementById('<%=txtExpRateOfReturn.ClientID %>').value == "") {
             alert("Expected Rate of Return on new investment(%) cannot be empty.")
             document.getElementById('<%=txtExpRateOfReturn.ClientID %>').focus();
@@ -531,12 +537,14 @@
                     <td class="leftField">
                         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Inflation(%) :"></asp:Label>
                     </td>
-                    <td class="rightField" colspan="2">
-                        <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
-                            TextMode="SingleLine" ></asp:TextBox>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" 
+                            CssClass="txtField" ></asp:TextBox>
                               <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
-                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" SetFocusOnError="true" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" runat="server"></asp:RangeValidator>
+                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" 
+                            runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
@@ -622,7 +630,7 @@
                 <tr>
                     <td>
                         <asp:GridView ID="gvGoalOutPut" runat="server" AllowSorting="True" 
-                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
+                            AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" OnRowDataBound="gvGoalOutPut_RowDataBound"
                             DataKeyNames="GoalID" HorizontalAlign="Center" ShowFooter="True" EnableViewState="true">
                             <FooterStyle CssClass="FooterStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" />
@@ -752,6 +760,13 @@
                             <RowStyle CssClass="RowStyle" />
                             <SelectedRowStyle CssClass="SelectedRowStyle" />
                         </asp:GridView>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <asp:Label ID="LabelNote" runat="server" CssClass="cmbField" 
+                      Text="*Note: If the  investment amount allocated is highlighted in Green, it indicates that you have saved in excess to the goal amount.
+"></asp:Label>
                     </td>
                 </tr>
                 <tr id="trOtherGoalParagraph" runat="server" >

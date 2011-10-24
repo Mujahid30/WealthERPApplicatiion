@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PriceList.ascx.cs" Inherits="WealthERP.Admin.PriceList" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%--<script language="javascript" type="text/javascript">
     function checkLastDate(sender, args) {
 
@@ -19,22 +20,106 @@
     }
 </script>--%>
 
+
+ <script type="text/javascript">
+     //override the onload event handler to change the picker after the page is loaded
+     Sys.Application.add_load(setCalendarTable);
+
+     function setCalendarTable() {
+
+         var picker = $find("<%= RadDatePicker1.ClientID %>");
+         var calendar = picker.get_calendar();
+         var fastNavigation = calendar._getFastNavigation();
+
+         $clearHandlers(picker.get_popupButton());
+         picker.get_popupButton().href = "javascript:void(0);";
+         $addHandler(picker.get_popupButton(), "click", function() {
+             var textbox = picker.get_textBox();
+             //adjust where to show the popup table 
+             var x, y;
+             var adjustElement = textbox;
+             if (textbox.style.display == "none")
+                 adjustElement = picker.get_popupImage();
+
+             var pos = picker.getElementPosition(adjustElement);
+             x = pos.x;
+             y = pos.y + adjustElement.offsetHeight;
+
+             var e = {
+                 clientX: x,
+                 clientY: y - document.documentElement.scrollTop
+             };
+             //synchronize the input date if set with the picker one
+             var date = picker.get_selectedDate();
+             if (date) {
+                 calendar.get_focusedDate()[0] = date.getFullYear();
+                 calendar.get_focusedDate()[1] = date.getMonth() + 1;
+             }
+
+             $get(calendar._titleID).onclick(e);
+
+             return false;
+         });
+
+         fastNavigation.OnOK =
+                    function() {
+                        var date = new Date(fastNavigation.Year, fastNavigation.Month, 1);
+                        picker.get_dateInput().set_selectedDate(date);
+                        fastNavigation.Popup.Hide();
+                    }
+
+
+         fastNavigation.OnToday =
+                    function() {
+                        var date = new Date();
+                        picker.get_dateInput().set_selectedDate(date);
+                        fastNavigation.Popup.Hide();
+                    }
+     }   
+        </script>
+
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
+
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
 
 <div>
     <div>
-        <asp:ScriptManager ID="UploadScripManager" runat="server">
-        </asp:ScriptManager>
-        <table style="width: 100%">
-            <tr>
-                <td class="HeaderCell">
-                    <label id="lblheader" class="HeaderTextBig" title="Upload Screen">
-                        Price Screen</label>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div id="MainDiv" runat="server">
+        <%--<asp:ScriptManager ID="UploadScripManager" runat="server">
+        </asp:ScriptManager>--%>
+        
+<table style="width: 100%">
+    <tr>
+        <td class="HeaderCell">
+            <label id="lblheader" class="HeaderTextBig" title="Upload Screen">
+               Market Data</label>
+        </td>
+    </tr>
+</table>
+
+
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0" EnableViewState="true">
+    <Tabs>        
+        <telerik:RadTab runat="server" Text="Price" Value="Price" Selected="true" TabIndex="0">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Scheme Comparison" Value="Scheme_Comparison" TabIndex="2">
+        </telerik:RadTab>        
+    </Tabs>
+</telerik:RadTabStrip>
+
+<telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Telerik"
+    EnableEmbeddedSkins="false">
+</telerik:RadAjaxLoadingPanel>
+ 
+
+<telerik:RadMultiPage ID="FactsheetMultiPage" EnableViewState="true"  runat="server" SelectedIndex="0">
+    <telerik:RadPageView ID="RadPageView1" runat="server">
+     <asp:Panel ID="pnlPrice" runat="server">
+     <div id="MainDiv" runat="server">
         <table width="70%">
             <tr>
                 <td class="leftField">
@@ -51,7 +136,7 @@
                 ErrorMessage="Please Select  Asset" Operator="NotEqual" ValueToCompare="0"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
                 </td>
-                <td align="right" colspan="2">
+                <td align="right">
                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                 </td>
             </tr>
@@ -133,7 +218,7 @@
                     <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Select Scheme Name:"></asp:Label>
                 </td>
                 <td>
-                    <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField" >
+                    <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
                      <%--<asp:CompareValidator ID="cvddlSelectSchemeNAV" runat="server" ControlToValidate="ddlSelectSchemeNAV"
                 ErrorMessage="Please Select Scheme Name" Operator="NotEqual" ValueToCompare="Select Scheme Name"
@@ -337,10 +422,343 @@
             </tr>
         </table>
     </div>
+     </asp:Panel>
+    </telerik:RadPageView>
+        
+    <telerik:RadPageView ID="RadPageView2" runat="server">
+    <asp:Panel ID="pnlFactSheet" runat="server">
+        <table class="TableBackground" width="100%">
+                               
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblYear" runat="server" CssClass="FieldName" Text="Month & Year:">
+                        </asp:Label>
+                    </td>
+                    <td>
+                        <telerik:RadDatePicker Skin="Telerik" ID="RadDatePicker1" runat="server">
+                            <DateInput Skin="Telerik" DateFormat="MMMM yyyy">
+                            </DateInput>
+                            <Calendar>
+                                <FastNavigationSettings TodayButtonCaption="current date" />
+                            </Calendar>
+                        </telerik:RadDatePicker>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:Button ID="btnViewFactsheet" Text="View Factsheet" CssClass="PCGMediumButton" runat="server" OnClick="OnClick_btnViewFactsheet" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <%--<ajaxToolkit:UpdatePanelAnimationExtender ID="aeFactsheet"
+                          runat="server" TargetControlID="updatePanel">
+                             <Animations>
+                                <OnUpdating>
+                                    <Parallel duration="0">
+                                        <ScriptAction Script="onUpdating();" />  
+                                        <EnableAction AnimationTarget="btnViewFactsheet" Enabled="false" />
+                                        <FadeOut minimumOpacity=".5" />
+                                    </Parallel>
+                                </OnUpdating>
+                                <OnUpdated>
+                                    <Parallel duration="0">
+                                        <ScriptAction Script="onUpdated();" />  
+                                        <EnableAction AnimationTarget="btnViewFactsheet" Enabled="true" />
+                                        <FadeOut minimumOpacity=".5" />
+                                    </Parallel>
+                                </OnUpdated>
+                            </Animations>
+                        </ajaxToolkit:UpdatePanelAnimationExtender>--%>
+                    </td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td>
+                       <%-- <asp:UpdatePanel ID="updatePanel" runat="server">
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="btnSearch" EventName="Click" />
+                            </Triggers>
+                            <ContentTemplate>--%>
+                                <%--<asp:GridView ID="gvCustomers" runat="server" AllowPaging="true" AllowSorting="true"
+                                    PageSize="20" Width="95%">
+                                    <AlternatingRowStyle BackColor="aliceBlue" />
+                                    <HeaderStyle HorizontalAlign="Left" />
+                                </asp:GridView>--%>                                                             
+                           <%-- </ContentTemplate>
+                        </asp:UpdatePanel>--%>
+                    </td>
+                </tr>
+            </table>
+     </asp:Panel>
+    </telerik:RadPageView>
+    
+    <telerik:RadPageView ID="RadPageView3" runat="server">
+    <asp:Panel ID="pnlSchemeComparison" runat="server">
+        <table class="TableBackground" width="100%">
+            <tr>
+                <td>
+                    <asp:Label ID="lblFundPerformance" CssClass="HeaderText" Text="Fund Performance" runat="server"></asp:Label>
+                </td>
+            </tr>                
+            <tr>
+                <td>
+                    <table>
+                         <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblReturn" runat="server" CssClass="FieldName" Text="Return:">                                
+                                </asp:Label> 
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlReturn" runat="server" CssClass="cmbField" AutoPostBack="true" >
+                                <asp:ListItem Text="Choose return Period" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="1 Week" Value="1"></asp:ListItem>
+                                <asp:ListItem Text="1 Month" Value="2"></asp:ListItem>
+                                <asp:ListItem Text="3 Months" Value="3"></asp:ListItem>
+                                <asp:ListItem Text="6 Months" Value="4"></asp:ListItem>
+                                <asp:ListItem Text="1 Year" Value="5"></asp:ListItem>
+                                <asp:ListItem Text="2 Years" Value="6"></asp:ListItem>
+                                <asp:ListItem Text="3 Years" Value="7"></asp:ListItem>
+                                <asp:ListItem Text="5 Years" Value="8"></asp:ListItem>
+                                <asp:ListItem Text="Since Launch" Value="9"></asp:ListItem> 
+                                </asp:DropDownList>
+                                
+                                <span id="Span3" class="spnRequiredField">*</span>
+                                <asp:CompareValidator ID="ddlReturn_CompareValidator" runat="server"
+                                    ControlToValidate="ddlReturn" ErrorMessage="Please select a Return"
+                                    Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
+                                </asp:CompareValidator>
+                            </td>
+                        </tr>                       
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Condition:">
+                                </asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:DropDownList ID="ddlCondition" runat="server" CssClass="cmbField" 
+                                 AutoPostBack="true">
+                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="Less than 30%" Value="<30" ></asp:ListItem>
+                                <asp:ListItem Text="Less than 20%" Value="<20" ></asp:ListItem>
+                                <asp:ListItem Text="Less than 10%" Value="<10" ></asp:ListItem>             
+                                <asp:ListItem Text="Less than 5%" Value="<5" ></asp:ListItem>                                                             
+                                <asp:ListItem Text="Loser(-ve return)" Value="<0" ></asp:ListItem>
+                                <asp:ListItem Text="Gainer(+ve return)" Value=">0" ></asp:ListItem>
+                                <asp:ListItem Text="Above 5%" Value=">5" ></asp:ListItem>  
+                                <asp:ListItem Text="Above 10%" Value=">10" ></asp:ListItem> 
+                                <asp:ListItem Text="Above 20%" Value=">20" ></asp:ListItem>
+                                <asp:ListItem Text="Above 30%" Value=">30" ></asp:ListItem>       
+                                </asp:DropDownList>
+                                
+                                <span id="Span2" class="spnRequiredField">*</span>
+                                <asp:CompareValidator ID="ddlCondition_CompareValidator" runat="server"
+                                    ControlToValidate="ddlCondition" ErrorMessage="Please select a Condition"
+                                    Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
+                                </asp:CompareValidator>
+                            </td>                           
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblSelectAMC" runat="server" CssClass="FieldName" Text="AMC:">
+                                </asp:Label>                    
+                            </td>
+                            <td>
+                                <asp:DropDownList CssClass="cmbField" ID="ddlSelectAMC" runat="server" AutoPostBack="true">
+                                </asp:DropDownList> 
+                                <span id="Span4" class="spnRequiredField">*</span>
+                                <asp:CompareValidator ID="ddlAMC_CompareValidator" runat="server"
+                                    ControlToValidate="ddlSelectAMC" ErrorMessage="Please select an AMC"
+                                    Operator="NotEqual" ValueToCompare="Select AMC Code" CssClass="cvPCG" ValidationGroup="btnGo">
+                                </asp:CompareValidator>
+                            </td>
+                        </tr>
+                        <%--<tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblSelectScheme" runat="server" CssClass="FieldName" Text="Scheme:">
+                                </asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList CssClass="cmbField" ID="ddlSelectScheme" runat="server" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>--%>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:">
+                                </asp:Label> 
+                            </td>
+                            <td>
+                                <asp:DropDownList CssClass="cmbField" ID="ddlCategory" runat="server" 
+                                OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" AutoPostBack="true">
+                                 <asp:ListItem Text="Select Category" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="commodity" Value="MFCO"></asp:ListItem>
+                                <asp:ListItem Text="Debt" Value="MFDT"></asp:ListItem>
+                                <asp:ListItem Text="Equity" Value="MFEQ"></asp:ListItem>
+                                <asp:ListItem Text="Hybrid" Value="MFHY"></asp:ListItem>
+                                </asp:DropDownList>
+                                <span id="Span1" class="spnRequiredField">*</span>
+                                <asp:CompareValidator ID="ddlCategory_CompareValidator" runat="server"
+                                    ControlToValidate="ddlCategory" ErrorMessage="Please select a Category"
+                                    Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
+                                </asp:CompareValidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblSubCategory" CssClass="FieldName" Text="SubCategory:" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList CssClass="cmbField" ID="ddlSubCategory" runat="server">
+                                </asp:DropDownList>
+                                <%--<span id="Span2" class="spnRequiredField">*</span>
+                                <asp:CompareValidator ID="ddlSubCategory_CompareValidator" runat="server"
+                                    ControlToValidate="ddlCategory" ErrorMessage="Please select a SubCategory"
+                                    Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
+                                </asp:CompareValidator>--%>
+                            </td>
+                        </tr>
+                                               
+                        <tr>
+                            <td></td>
+                            <td>
+                                <asp:Button ID="btnGo" Text="Go" CssClass="PCGButton" runat="server" OnClick="OnClick_btnViewFactsheet" ValidationGroup="btnGo"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>                
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                   <telerik:RadGrid  ID="gvMFFundPerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="15" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" 
+                    AllowAutomaticInserts="false">
+                    <PagerStyle Mode="NumericPages"></PagerStyle>
+                    <MasterTableView Width="100%">
+                <Columns>
+                <telerik:GridBoundColumn  DataField="SchemeName"  HeaderText="Scheme Name" 
+                    UniqueName="SchemeName" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <%--<telerik:GridBoundColumn  DataField="AUM"  HeaderText="AUM" UniqueName="AUM" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                
+                <telerik:GridBoundColumn  DataField="LaunchDate"  HeaderText="Launch Date" UniqueName="LaunchDate" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="NAV"  HeaderText="Current NAV" UniqueName="NAV" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="OneYearHighNAV"  HeaderText="52 Weeks Highest NAV" UniqueName="OneYearHighNAV" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="OneYearLowNAV"  HeaderText="52 Weeks Lowest NAV" UniqueName="OneYearLowNAV" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <%--<telerik:GridBoundColumn  DataField="YTD"  HeaderText="YTD" UniqueName="YTD" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                
+                <telerik:GridBoundColumn  DataField="OneWeekReturn"  HeaderText="1 Week Return(%)" UniqueName="OneWeekReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="OneMonthReturn"  HeaderText="1 Month Return(%)" UniqueName="OneMonthReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="ThreeMonthReturn"  HeaderText="3 Months Return(%)" UniqueName="ThreeMonthReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="SixMonthReturn"  HeaderText="6 Months Return(%)" UniqueName="SixMonthReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="OneYearReturn"  HeaderText="1 Year Return(%)" UniqueName="OneYearReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="TwoYearReturn"  HeaderText="2 Years Return(%)" UniqueName="TwoYearReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="ThreeYearReturn"  HeaderText="3 Years Return(%)" UniqueName="ThreeYearReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="FiveYearReturn"  HeaderText="5 Years Return(%)" UniqueName="FiveYearReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="InceptionReturn"  HeaderText="Inception Ret." UniqueName="InceptionReturn" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="PE"  HeaderText="PE" UniqueName="PE" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="PB"  HeaderText="PB" UniqueName="PB" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+               <%-- <telerik:GridBoundColumn  DataField="Cash"  HeaderText="Cash %" UniqueName="Cash" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                
+                <telerik:GridBoundColumn  DataField="Sharpe"  HeaderText="Sharpe" UniqueName="Sharpe" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="SD"  HeaderText="SD" UniqueName="SD" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+               <%-- <telerik:GridBoundColumn  DataField="Top5Holdings"  HeaderText="Top 5 Holdings" UniqueName="Top5Holdings" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>--%>
+                               
+            </Columns>
+            </MasterTableView>
+            <ClientSettings>
+                    <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true">
+                    </Scrolling>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />                           
+                   <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
+            </ClientSettings>
+        </telerik:RadGrid>
+
+                   
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    </telerik:RadPageView>
+</telerik:RadMultiPage>
+        
+        
+        
+        
+        
+        
+        
+       
+    </div>
+    
     <table width="100%">
-        <tr>
-        </tr>
-    </table>
+        </table>
     <asp:HiddenField ID="hdnFromDate" runat="server" />
     <asp:HiddenField ID="hdnToDate" runat="server" />
     <asp:HiddenField ID="hdnMFCount" runat="server" />

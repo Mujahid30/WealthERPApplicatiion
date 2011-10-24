@@ -858,9 +858,8 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
-
         }
+
         private int BindGoalOutputGridView(int ActiveFlag)
         {
 
@@ -1069,6 +1068,31 @@ namespace WealthERP.Advisor
             }
 
 
+        }
+
+        protected void gvGoalOutPut_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //lblCurrentInvestment
+            //lblCostToday
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblCurrentInvestment = e.Row.FindControl("lblCurrentInvestment") as Label;
+                Label lblCostToday = e.Row.FindControl("lblCostToday") as Label;
+
+                if (lblCurrentInvestment.Text.ToString() != "" && lblCostToday.Text.ToString() != "")
+                {
+                double CurrentInvestment = 0;
+                double CostToday = 0;
+
+                CurrentInvestment = double.Parse(lblCurrentInvestment.Text.ToString());
+                CostToday = double.Parse(lblCostToday.Text.ToString());
+
+                if (CurrentInvestment > CostToday)
+                {
+                    e.Row.Cells[4].BackColor = System.Drawing.Color.LightGreen;
+                }
+                }
+            }
         }
 
         private void BindGoalGapTabGrid(bool isGoalListEmpty,int investmentTotal,int surplusTotal, int investedAmountForAllGaol,int monthlySavingRequired)
@@ -1827,7 +1851,7 @@ namespace WealthERP.Advisor
                 }
                 if (!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
                 {
-                    goalProfileSetupVo.CurrInvestementForGoal = int.Parse(txtCurrentInvestPurpose.Text.Trim());
+                    goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
                 }
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
                     goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
@@ -1910,18 +1934,7 @@ namespace WealthERP.Advisor
                 ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
                 ControlSetVisiblity(0);                
                 lblGoalbjective.Text = "Goal Objective :";
-
             }
-
-
-
         }
-
-
-
-
-
-
-
     }
 }
