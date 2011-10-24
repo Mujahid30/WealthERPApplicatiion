@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using VoSuperAdmin; 
 
 namespace DaoSuperAdmin
 {
@@ -213,5 +214,192 @@ namespace DaoSuperAdmin
            }
            
        }
+
+
+
+       public int InsertAndUpdateGoldPrice(SuperAdminOpsVo productGoldPriceVO)
+       {
+           Database db;
+           DbCommand createUserCmd;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           createUserCmd = db.GetStoredProcCommand("PG_goldPriceInsert");
+           try
+           {
+               db.AddInParameter(createUserCmd, "@pg_Date", DbType.DateTime, productGoldPriceVO.PG_Date);
+               db.AddInParameter(createUserCmd, "@pg_Price", DbType.String, productGoldPriceVO.PG_Price);
+               return db.ExecuteNonQuery(createUserCmd);
+           }
+           catch
+           {
+               throw;
+           }
+       }
+
+       public DataSet GetDataBetweenDatesForGoldPrice(SuperAdminOpsVo productGoldPriceVO, int productGoldPriceId, int CurrentPage, out int Count)
+       //public DataSet GetDataBetweenDatesForGoldPrice(SuperAdminOpsVo productGoldPriceVO)
+       {
+           DataSet ds;
+           Database db;
+           DbCommand getPGPDetails;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           getPGPDetails = db.GetStoredProcCommand("SP_ProductGoldPriceBteweenDates");
+
+           try
+           {
+               db.AddInParameter(getPGPDetails, "@currentPage", DbType.Int32, CurrentPage);
+               db.AddInParameter(getPGPDetails, "@pg_id", DbType.String, productGoldPriceVO.Pg_id);
+               if (productGoldPriceVO.Pg_fromDate != DateTime.MinValue)
+               {
+                   db.AddInParameter(getPGPDetails, "@PG_Date_From", DbType.DateTime, productGoldPriceVO.Pg_fromDate);
+
+
+               }
+               else
+               {
+                   db.AddInParameter(getPGPDetails, "@PG_Date_From", DbType.DateTime, DBNull.Value);
+
+               }
+               if (productGoldPriceVO.Pg_toDate != DateTime.MinValue)
+               {
+                   db.AddInParameter(getPGPDetails, "@PG_Date_To", DbType.DateTime, productGoldPriceVO.Pg_toDate);
+               }
+               else
+               {
+                   db.AddInParameter(getPGPDetails, "@PG_Date_To", DbType.DateTime, DBNull.Value);
+               }
+               db.AddOutParameter(getPGPDetails, "@Count", DbType.Int32, 0);
+               ds = db.ExecuteDataSet(getPGPDetails);
+               Count = (int)db.GetParameterValue(getPGPDetails, "@Count");
+
+               return ds;
+           }
+           catch
+           {
+               throw;
+           }
+       }
+
+       public DataSet GetGoldPriceAccordingToDate(DateTime txtDateSearch)
+       {
+           DataSet ds;
+           Database db;
+           DbCommand getGoldPriceDetailsAccordingToDate;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           getGoldPriceDetailsAccordingToDate = db.GetStoredProcCommand("SP_GetGoldPriceAccordingToDate");
+
+           try
+           {
+               db.AddInParameter(getGoldPriceDetailsAccordingToDate, "@Pg_date", DbType.DateTime, txtDateSearch);
+               ds = db.ExecuteDataSet(getGoldPriceDetailsAccordingToDate);
+               return ds;
+           }
+           catch
+           {
+               throw;
+           }
+       }
+
+       public DataSet GetGoldPriceAccordingToID(int productGoldPriceID)
+       {
+           DataSet ds;
+           Database db;
+           DbCommand getGoldPriceDetailsAccordingToDate;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           getGoldPriceDetailsAccordingToDate = db.GetStoredProcCommand("SP_GetGoldPriceDetailsAccordingToPGID");
+
+           try
+           {
+               db.AddInParameter(getGoldPriceDetailsAccordingToDate, "@pg_id", DbType.String, productGoldPriceID);
+               ds = db.ExecuteDataSet(getGoldPriceDetailsAccordingToDate);
+               return ds;
+           }
+           catch
+           {
+               throw;
+           }
+       }
+
+       public DataSet GetAllGoldPriceDetails()
+       {
+           DataSet ds;
+           Database db;
+           DbCommand getAllGoldPriceDetails;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           getAllGoldPriceDetails = db.GetStoredProcCommand("SP_GetAllGoldPriceDetails");
+
+           try
+           {
+               ds = db.ExecuteDataSet(getAllGoldPriceDetails);
+               return ds;
+           }
+           catch
+           {
+               throw;
+           }
+       }
+
+
+
+       public int deleteGoldPriceDetails(int productGoldPriceID)
+       {
+           int i = 0;
+           Database db;
+           DbCommand deleteGoldPriceDetails;
+           db = DatabaseFactory.CreateDatabase("wealtherp");
+           deleteGoldPriceDetails = db.GetStoredProcCommand("SP_DeleteGoldPrice");
+           try
+           {
+               db.AddInParameter(deleteGoldPriceDetails, "@Pg_Id", DbType.String, productGoldPriceID);
+               i = int.Parse(db.ExecuteScalar(deleteGoldPriceDetails).ToString());
+               return i;
+           }
+           catch (Exception ex)
+           {
+               ex.StackTrace.ToString();
+           }
+           return i;
+       }
+
+        //public List<SuperAdminOpsVo> GetDateList(int productGoldPriceId)
+        //{
+        //    List<SuperAdminOpsVo> rmList = new List<SuperAdminOpsVo>();
+        //    SuperAdminOpsVo saProductGoldPriceVO;
+        //    Database db;
+        //    DbCommand getPGPDetailsDb;
+        //    DataSet getPGPDetailsDs;
+
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        getPGPDetailsDb = db.GetStoredProcCommand("SP_GetGoldPriceAccordingToDate");
+        //        db.AddInParameter(getPGPDetailsDb, "@Pg_date", DbType.Int32, productGoldPriceId);
+        //        getPGPDetailsDs = db.ExecuteDataSet(getPGPDetailsDb);
+        //        if (getPGPDetailsDs.Tables[0].Rows.Count > 0)
+        //        {
+        //            foreach (DataRow dr in getPGPDetailsDs.Tables[0].Rows)
+        //            {
+        //                saProductGoldPriceVO = new SuperAdminOpsVo();
+        //                saProductGoldPriceVO.Pg_id = int.Parse(dr["Pg_date"].ToString());
+        //                if (dr["AR_OfficePhoneDirect"].ToString() != "")
+        //                    saProductGoldPriceVO.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
+        //                if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
+        //                    saProductGoldPriceVO.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
+        //                if (dr["AR_OfficePhoneDirectSTD"].ToString() != "")
+        //                    saProductGoldPriceVO.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
+
+        //                saProductGoldPriceVO.Email = dr["AR_Email"].ToString();
+        //                saProductGoldPriceVO.RMRole = dr["AR_JobFunction"].ToString();
+        //                rmList.Add(saProductGoldPriceVO);
+        //            }
+        //        }
+        //        else
+        //            rmList = null;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return rmList;
+        //}
     }
 }
