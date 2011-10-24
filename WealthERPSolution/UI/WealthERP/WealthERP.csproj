@@ -5746,9 +5746,10 @@
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\Package.dtsx" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.database" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.dtproj" />
-    <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\Package.dtsx" />
+    <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramFileToInput.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.database" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj" />
+    <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\UploadChkSundaramTransactionStaging.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.database" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadFolioDataFromTempStagingToCommonStaging.dtsx" />

@@ -761,8 +761,8 @@ namespace BoUploads
 
                 camsTranPkg3.Variables["varCheckDataTransProcessId"].Value = processId;
 
-
-                camsTranPkg3.Configurations[0].ConfigurationString = configPath;
+                camsTranPkg3.ImportConfigurationFile(configPath);
+               //camsTranPkg3.Configurations[0].ConfigurationString = configPath;
                 DTSExecResult camsTranResult3 = camsTranPkg3.Execute();
                 if (camsTranResult3.ToString() == "Success")
                     IsProcessComplete = true;
@@ -1059,6 +1059,44 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
+        //***************************************************************************************
+
+        public bool SundramInsertToInputProfile(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package camsProPkg1 = App.LoadPackage(Packagepath, null);
+                camsProPkg1.Variables["varXMLFilePath1"].Value = XMLFilepath;
+                camsProPkg1.Variables["varProcessId"].Value = processId;
+                camsProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult1 = camsProPkg1.Execute();
+                if (camsProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:SundramInsertToInputProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
 
     }
 }

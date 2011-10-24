@@ -708,7 +708,7 @@ namespace WealthERP.Uploads
             {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
                 processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-                if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17)
+                if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
                 {
                     blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords, processlogVo.FileTypeId);
                 }
@@ -722,7 +722,7 @@ namespace WealthERP.Uploads
                 {
                     processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
                     processlogVo = uploadsCommonBo.GetProcessLogInfo(processIdReprocessAll);
-                    if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17)
+                    if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
                     {
                         blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords, processlogVo.FileTypeId);
                     }
@@ -777,6 +777,15 @@ namespace WealthERP.Uploads
                     CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "CA", "CAMS");
                 }
             }
+            else if (fileTypeId == 25)
+            {
+
+                bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(ProcessId);
+                if (camsDatatranslationCheckResult)
+                {
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "SU", "Sundaram");
+                }
+            }
             else if (fileTypeId == 3)
             {
 
@@ -824,6 +833,8 @@ namespace WealthERP.Uploads
                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeTemp);
                     else if (fileTypeId == 17)
                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeDeutsche);
+                    else if (filetypeId == 25)
+                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, "SU");
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                 }
             }

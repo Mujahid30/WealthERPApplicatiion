@@ -531,7 +531,9 @@ namespace WealthERP.Uploads
                     source = "TN";
                 else if (processlogVo.FileTypeId == 18)
                     source = "DT";
-                if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18)
+                else if (processlogVo.FileTypeId == 21)
+                    source = "SU";
+                if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18 || processlogVo.FileTypeId==21)
                 {
                     StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                     //Checks in Profile Staging
@@ -584,8 +586,10 @@ namespace WealthERP.Uploads
                         source = "TN";
                     else if (processlogVo.FileTypeId == 18)
                         source = "DT";
+                    else if (processlogVo.FileTypeId == 21)
+                        source = "SU";
 
-                    if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18)
+                    if (processlogVo.FileTypeId == 7 || processlogVo.FileTypeId == 4 || processlogVo.FileTypeId == 2 || processlogVo.FileTypeId == 16 || processlogVo.FileTypeId == 18 || processlogVo.FileTypeId==21)
                     {
                         StandardProfileUploadBo standardProfileUploadBo = new StandardProfileUploadBo();
                         //Checks in Profile Staging
@@ -617,7 +621,8 @@ namespace WealthERP.Uploads
                                 }
                             }
                         }
-                    }                    
+                    } 
+                   
                 }
             }
 

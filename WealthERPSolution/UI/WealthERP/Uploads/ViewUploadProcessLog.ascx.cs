@@ -249,7 +249,7 @@ namespace WealthERP.Uploads
 
 
                     if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
-                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile)
+                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId==21)
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
@@ -263,7 +263,7 @@ namespace WealthERP.Uploads
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSTransaction || filetypeId == (int)Contants.UploadTypes.KarvyTransaction || filetypeId == (int)Contants.UploadTypes.TempletonTransaction ||
-                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction)
+                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId==25)
                        && extracttype == "MFT")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
@@ -470,6 +470,32 @@ namespace WealthERP.Uploads
                         }
                         #endregion CAMS MF TRansaction WERP Insertion
 
+                        #region Sundaram MF TRansaction WERP Insertion
+                        else if (filetypeId == 25)
+                        {
+
+                            bool camsDatatranslationCheckResult = uploadsCommonBo.UploadsCAMSDataTranslationForReprocess(processID);
+                            if (camsDatatranslationCheckResult)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                bool CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, processID, packagePath, configPath, "SU", "Sundaram");
+                                if (CommonTransChecks)
+                                {
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                    bool camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(processID, packagePath, configPath);
+                                    if (camsTranWerpResult)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID,"SU");
+                                        processlogVo.EndTime = DateTime.Now;
+                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    }
+                                }
+                            }
+                        }
+                        #endregion Sundaram MF TRansaction WERP Insertion
                         #region WERP Equity Transation Insertion
                         else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTransaction)
                         {
@@ -851,34 +877,35 @@ namespace WealthERP.Uploads
                         }
                         #endregion
 
-                        #region CAMS Profile
+                        #region CAMS SYSTEMATIC
                         //CAMS SYSTEMATIC 
-
-                        bool camsSIPCommonStagingChk = false;
-                        bool camsSIPCommonStagingToWERP = false;
-                        bool updateProcessLog = false;
-                        packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
-                        camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(processID, packagePath, configPath, "CA");
-                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "CA");
-                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                        if (camsSIPCommonStagingChk)
+                        if (filetypeId == 20)
                         {
-                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
-                            camsSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
-
-                            if (camsSIPCommonStagingToWERP)
+                            bool camsSIPCommonStagingChk = false;
+                            bool camsSIPCommonStagingToWERP = false;
+                            bool updateProcessLog = false;
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                            camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(processID, packagePath, configPath, "CA");
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "CA");
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (camsSIPCommonStagingChk)
                             {
-                                processlogVo.IsInsertionToWERPComplete = 1;
-                                processlogVo.EndTime = DateTime.Now;
-                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "CA");
+                                packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
+                                camsSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
+
+                                if (camsSIPCommonStagingToWERP)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "CA");
 
 
-                               // processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "CA");
-                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    // processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "CA");
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
+                                }
                             }
                         }
-
                         #endregion
 
                     }
@@ -1026,6 +1053,41 @@ namespace WealthERP.Uploads
                                             processlogVo.IsInsertionToWERPComplete = 1;
                                             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
                                             processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, Contants.UploadExternalTypeCAMS);
+                                            processlogVo.EndTime = DateTime.Now;
+                                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        #endregion
+
+                        #region Sundaram MF TRansaction Common Staging Insertion
+                        else if (filetypeId == 25)
+                        {
+
+                            packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadChkSundaramTransactionStaging.dtsx");
+                            bool camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(processID, adviserVo.advisorId, packagePath, configPath);
+                            if (camsTranStagingCheckResult)
+                            {
+                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog)
+                                {
+                                    packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                    bool CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, processID, packagePath, configPath, "SU", "Sundaram");
+
+                                    if (CommonTransChecks)
+                                    {
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                        bool camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(processID, packagePath, configPath);
+                                        if (camsTranWerpResult)
+                                        {
+                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "Su");
                                             processlogVo.EndTime = DateTime.Now;
                                             blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                         }
@@ -1688,6 +1750,54 @@ namespace WealthERP.Uploads
                                                 processlogVo.IsInsertionToWERPComplete = 1;
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
                                                 processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, Contants.UploadExternalTypeCAMS);
+                                                processlogVo.EndTime = DateTime.Now;
+                                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    #endregion
+
+                    #region Sundaram MF TRansaction First Staging Insertion
+
+                    else if (filetypeId == 25)
+                    {
+                        CamsUploadsBo camsUploadBo = new CamsUploadsBo();
+                        packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx");
+                        bool camsTranStagingResult = camsUploadsBo.CAMSInsertToStagingTrans(processID, packagePath, configPath);
+
+                        if (camsTranStagingResult)
+                        {
+                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (updateProcessLog)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadChkSundaramTransactionStaging.dtsx");
+                                bool camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(processID, adviserVo.advisorId, packagePath, configPath);
+                                if (camsTranStagingCheckResult)
+                                {
+                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    if (updateProcessLog)
+                                    {
+                                        packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                        bool CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, processID, packagePath, configPath, "SU", "Sundaram");
+                                        if (CommonTransChecks)
+                                        {
+
+                                            packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                            bool camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(processID, packagePath, configPath);
+                                            if (camsTranWerpResult)
+                                            {
+                                                processlogVo.IsInsertionToWERPComplete = 1;
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
+                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "SU");
                                                 processlogVo.EndTime = DateTime.Now;
                                                 blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                             }
@@ -2518,6 +2628,70 @@ namespace WealthERP.Uploads
                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                     processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
                                                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, Contants.UploadExternalTypeCAMS);
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+
+
+                #region Sundaram MF TRansaction Input Insertion
+
+                else if (filetypeId ==25)
+                {
+                    CamsUploadsBo camsUploadBo = new CamsUploadsBo();
+
+                    packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadTransactionDataFromCAMSFileToXtrnlTransactionInput.dtsx");
+                    bool camsTranInputResult = camsUploadsBo.CAMSInsertToInputTrans(processID, packagePath, xmlFileName, configPath);
+                    if (camsTranInputResult)
+                    {
+                        processlogVo.IsInsertionToInputComplete = 1;
+                        processlogVo.EndTime = DateTime.Now;
+                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                        bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                        processlogVo.EndTime = DateTime.Now;
+                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        if (updateProcessLog)
+                        {
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSTransactionUploadPackageNew\\CAMSTransactionUploadPackageNew\\UploadXtrnlTransactionInputToXtrnlTransactionStaging.dtsx");
+                            bool camsTranStagingResult = camsUploadsBo.CAMSInsertToStagingTrans(processID, packagePath, configPath);
+                            if (camsTranStagingResult)
+                            {
+                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog)
+                                {
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadChkSundaramTransactionStaging.dtsx");
+                                    bool camsTranStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingTrans(processID, adviserVo.advisorId, packagePath, configPath);
+                                    if (camsTranStagingCheckResult)
+                                    {
+                                        processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (updateProcessLog)
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+                                            bool CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, processID, packagePath, configPath, "SU", "Sundaram");
+                                            if (CommonTransChecks)
+                                            {
+                                                packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\InsertTransactionIntoWERP.dtsx");
+                                                bool camsTranWerpResult = uploadsCommonBo.InsertTransToWERP(processID, packagePath, configPath);
+                                                if (camsTranWerpResult)
+                                                {
+                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID,"");
                                                     processlogVo.EndTime = DateTime.Now;
                                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                 }
