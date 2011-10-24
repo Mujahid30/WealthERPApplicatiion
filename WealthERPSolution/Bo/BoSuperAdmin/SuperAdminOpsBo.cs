@@ -8,6 +8,12 @@ using System.Data.Common;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoSuperAdmin;
+using VoSuperAdmin;
+using System.Web;
+using System.Collections.Specialized;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Data;
+using System.Collections;
 
 
 namespace BoSuperAdmin
@@ -124,6 +130,121 @@ namespace BoSuperAdmin
             }
 
             
+        }
+
+        SuperAdminOpsDao ProductGoldPriceDao = new SuperAdminOpsDao();
+
+        public int InsertAndUpdateGoldPrice(SuperAdminOpsVo productGoldPriceVO)
+        {
+
+            try
+            {
+                return ProductGoldPriceDao.InsertAndUpdateGoldPrice(productGoldPriceVO);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public DataSet GetDataBetweenDatesForGoldPrice(SuperAdminOpsVo productGoldPriceVO, int productGoldPriceId, int CurrentPage, out int Count)
+        //public DataSet GetDataBetweenDatesForGoldPrice(SuperAdminOpsVo productGoldPriceVO)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                
+                 ds=ProductGoldPriceDao.GetDataBetweenDatesForGoldPrice(productGoldPriceVO,productGoldPriceId,CurrentPage,out Count);
+            }
+            catch
+            {
+                throw;
+            }
+            return ds;
+        }
+
+        public DataSet GetGoldPriceAccordingToDate(DateTime txtDateSearch)
+        {
+            try
+            {
+                return ProductGoldPriceDao.GetGoldPriceAccordingToDate(txtDateSearch);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public DataSet GetAllGoldPriceDetails()
+        {
+            SuperAdminOpsDao ProductGoldPriceDao = new SuperAdminOpsDao();
+            try
+            {
+                return ProductGoldPriceDao.GetAllGoldPriceDetails();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public DataSet GetGoldPriceAccordingToID(int productGoldPriceID)
+        {
+            try
+            {
+                return ProductGoldPriceDao.GetGoldPriceAccordingToID(productGoldPriceID);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        //public List<SuperAdminOpsVo> GetDateList(int pgpId, int currentPage, string sortOrder, out int Count, string dateSrch)
+        //{
+        //    List<SuperAdminOpsVo> rmList = null;
+        //    try
+        //    {
+
+        //        rmList = advisorStaffDao.GetRMList(advisorId, currentPage, sortOrder, out Count, nameSrch);
+
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetRMList()");
+
+
+        //        object[] objects = new object[1];
+        //        objects[0] = advisorId;
+
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return rmList;
+        //}
+
+        public int deleteGoldPriceDetails(int productGoldPriceID)
+        {
+
+            try
+            {
+                return ProductGoldPriceDao.deleteGoldPriceDetails(productGoldPriceID);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
     }
