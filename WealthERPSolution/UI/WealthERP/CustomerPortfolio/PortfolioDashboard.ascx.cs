@@ -17,7 +17,7 @@ using System.Web.UI.DataVisualization.Charting;
 using System.Data;
 using System.Drawing;
 using System.Collections.Specialized;
-using BoCommon;
+using BoCommon; 
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -33,7 +33,6 @@ namespace WealthERP.CustomerPortfolio
         int adviserId = 0;
         static int portfolioId;
         int customerId = 0;
-        decimal currentValueTotal = 0;
         double amountInvestedTotal = 0;
         double currentValueTotal = 0;
         double changeTotal = 0;
@@ -390,7 +389,6 @@ namespace WealthERP.CustomerPortfolio
                     drCurrentValuesForMF[3] = String.Format("{0:n2}", decimal.Parse(dtMFInvGrid.Rows[i]["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                     dtCurrentValusForMF.Rows.Add(drCurrentValuesForMF);
-                    currentValueTotal += decimal.Parse(dtMFInvGrid.Rows[i]["CurrentValue"].ToString());
                 }
 
 
@@ -644,12 +642,8 @@ namespace WealthERP.CustomerPortfolio
         }
 
         protected void gvMFInv_RowDataBound(object sender, GridViewRowEventArgs e)
-        {            
-            if (e.Row.RowType == DataControlRowType.Footer)
-                {
-                    e.Row.Cells[1].Text = "Total";
-                    e.Row.Cells[3].Text = currentValueTotal.ToString();
-                }            
+        {
+
         }
 
         protected void gvMFInv_Sorting(object sender, GridViewSortEventArgs e)
