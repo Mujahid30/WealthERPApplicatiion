@@ -2098,7 +2098,6 @@
         </asp:Panel>
 &nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage>
    
-   <telerik:RadPageView
     <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
     </td>
     </tr>
