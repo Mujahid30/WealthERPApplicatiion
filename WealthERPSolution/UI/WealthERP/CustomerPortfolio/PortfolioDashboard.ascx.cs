@@ -283,17 +283,18 @@ namespace WealthERP.CustomerPortfolio
 
                             }
                         }
-                        //percentChange = (change / amountInvested) * 100;
-                        //if(percentChange == Infinity)
-                        
-                        percentChangeTotal = percentChangeTotal + percentChange;
+                                                
+                        //percentChangeTotal = percentChangeTotal + percentChange;
 
                         dtGetAbsoluteReturn.Rows.Add(drGetAbsoluteReturn);
                     }
+                    percentChangeTotal = (changeTotal / amountInvestedTotal) * 100;
                     gvAbsoluteReturn.DataSource = dtGetAbsoluteReturn;
                     gvAbsoluteReturn.DataBind();
                     gvAbsoluteReturn.Visible = true;
                     trAbsoluteReturn.Visible = false;
+                    Label lblTotalText = (Label)gvAbsoluteReturn.FooterRow.FindControl("lblTotalPerChange");
+                    lblTotalText.Text = lblTotalText.Text + " " + decimal.Parse(percentChangeTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")).ToString(); 
                 }
                 else
                 {
@@ -763,9 +764,19 @@ namespace WealthERP.CustomerPortfolio
                 e.Row.Cells[2].Attributes.Add("align", "Right");
                 e.Row.Cells[3].Text = changeTotal.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[3].Attributes.Add("align", "Right");
-                e.Row.Cells[4].Text = percentChangeTotal.ToString();
-                e.Row.Cells[4].Attributes.Add("align", "Right");
+                //e.Row.Cells[4].Text = percentChangeTotal.ToString();
+                //e.Row.Cells[4].Attributes.Add("align", "Right");
 
+            }
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //double value = (double)DataBinder.Eval(e.Row.DataItem, e.Row.Cells[3].Text);
+                double value = double.Parse(e.Row.Cells[3].Text);
+                if (value < 0)
+                {
+                    e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[3].BorderColor = System.Drawing.Color.Black;
+                }
             }
         }
                  
