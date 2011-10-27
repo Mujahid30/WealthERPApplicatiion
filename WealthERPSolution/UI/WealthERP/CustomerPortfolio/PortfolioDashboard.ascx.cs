@@ -250,18 +250,37 @@ namespace WealthERP.CustomerPortfolio
 
                         drGetAbsoluteReturn["AssetType"] = dr["AssetType"].ToString();
                         if (!string.IsNullOrEmpty(dr["AmountInvested"].ToString().Trim()))
+                        {
                             drGetAbsoluteReturn["AmountInvested"] = Math.Round(double.Parse(dr["AmountInvested"].ToString()), 0);
+                            drGetAbsoluteReturn["AmountInvested"] = double.Parse(drGetAbsoluteReturn["AmountInvested"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        }
                         else
+                        {
                             drGetAbsoluteReturn["AmountInvested"] = 0;
+                        }
                         amountInvested =double.Parse(drGetAbsoluteReturn["AmountInvested"].ToString());
                         amountInvestedTotal = amountInvestedTotal + amountInvested;
                         if (!string.IsNullOrEmpty(dr["CurrentValue"].ToString().Trim()))
+                        {
                             drGetAbsoluteReturn["CurrentValue"] = dr["CurrentValue"].ToString();
+                            drGetAbsoluteReturn["CurrentValue"] = double.Parse(drGetAbsoluteReturn["CurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        }
                         else
+                        {
                             drGetAbsoluteReturn["CurrentValue"] = 0;
+                        }
+                    
                         currentValue = double.Parse(drGetAbsoluteReturn["CurrentValue"].ToString());
                         currentValueTotal = currentValueTotal + currentValue;
                         drGetAbsoluteReturn["Change"] = Math.Round((currentValue - amountInvested),4);
+                        if (!string.IsNullOrEmpty(drGetAbsoluteReturn["Change"].ToString().Trim()))
+                        {
+                            drGetAbsoluteReturn["Change"] = double.Parse(drGetAbsoluteReturn["Change"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        }
+                        else
+                        {
+                            drGetAbsoluteReturn["Change"] = 0;
+                        }
                         change = double.Parse(drGetAbsoluteReturn["Change"].ToString());
                         changeTotal = changeTotal + change;
                         if( amountInvested == 0 && change !=0)
@@ -274,7 +293,8 @@ namespace WealthERP.CustomerPortfolio
                             if (change != 0 && amountInvested != 0)
                             {
                                 drGetAbsoluteReturn["PercentChange"] = Math.Round(((change / amountInvested) * 100), 2);
-                                percentChange = double.Parse(drGetAbsoluteReturn["PercentChange"].ToString());
+                                drGetAbsoluteReturn["PercentChange"] = double.Parse(drGetAbsoluteReturn["PercentChange"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                                
                             }
                             else
                             {
@@ -282,6 +302,7 @@ namespace WealthERP.CustomerPortfolio
                                 percentChange = 0.0;
 
                             }
+                            percentChange = double.Parse(drGetAbsoluteReturn["PercentChange"].ToString());
                         }
                                                 
                         //percentChangeTotal = percentChangeTotal + percentChange;
@@ -776,6 +797,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     e.Row.Cells[3].ForeColor = System.Drawing.Color.Red;
                     e.Row.Cells[3].BorderColor = System.Drawing.Color.Black;
+                    e.Row.Cells[4].ForeColor = System.Drawing.Color.Red;
+                    e.Row.Cells[4].BorderColor = System.Drawing.Color.Black;
+                }
+                else
+                {
+                    e.Row.Cells[3].ForeColor = System.Drawing.Color.Green;
+                    e.Row.Cells[3].BorderColor = System.Drawing.Color.Black;
+                    e.Row.Cells[4].ForeColor = System.Drawing.Color.Green;
+                    e.Row.Cells[4].BorderColor = System.Drawing.Color.Black;
                 }
             }
         }
