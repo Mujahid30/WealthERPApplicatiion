@@ -664,7 +664,7 @@ namespace BoReports
                     {
                         if (tempLower == 0 && tempUpper != 0)
                         {
-                            strRatioRangeOne = "<=" + (tempUpper+1).ToString();
+                            strRatioRangeOne = "<" + (tempUpper+1).ToString();
 
                         }
                         //else if (tempLower != 0 && tempUpper != 0)
@@ -690,7 +690,7 @@ namespace BoReports
                     {
                         if (tempUpper == 0 && tempLower != 0)
                         {
-                            strRatioRangeThree = ">=" +(tempLower-1).ToString();
+                            strRatioRangeThree = ">" +(tempLower-1).ToString();
 
                         }
                         //else if (tempLower != 0 && tempUpper != 0)
