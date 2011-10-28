@@ -8,8 +8,8 @@
 <script type="text/javascript">
 
     function HideStatusMsg() {
-        if (document.getElementById("<%=msgRecordStatus.ClientID%>")!=null)
-          document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
+        if (document.getElementById("<%=msgRecordStatus.ClientID%>") != null)
+            document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
     }
 
 </script>
@@ -26,7 +26,7 @@
         var allEMIsTotal = 0.0;
         var endowMentTotal = 0.0;
 
-        
+
         //Assets
         if (document.getElementById("<%=txtDirectEquity.ClientID%>").value != "") {
             assettotal += parseFloat(document.getElementById("<%=txtDirectEquity.ClientID%>").value);
@@ -134,7 +134,7 @@
         if (document.getElementById("<%=txtReccuringDeposit.ClientID%>").value != "") {
             expensetotal += parseFloat(document.getElementById("<%=txtReccuringDeposit.ClientID%>").value);
         }
-        
+
         //Liabilities
         if (document.getElementById("<%=txtHomeLoanLO.ClientID%>").value != "") {
             liabilitiestotal += parseFloat(document.getElementById("<%=txtHomeLoanLO.ClientID%>").value);
@@ -234,23 +234,23 @@
             allEMIsTotal += parseFloat(document.getElementById("<%=txtOtherLoanEMI.ClientID%>").value);
         }
 
-        
-       
-       
+
+
+
         //Insurance and EMI Total from LI and GI Premium & Liability EMI
         document.getElementById("<%=txtInsurance.ClientID%>").value = (AllLIandGIPremiumTotal / 12).toString();
         document.getElementById("<%=txtExpenseEMI.ClientID%>").value = (allEMIsTotal / 12).toString();
         //Sectional Total
         document.getElementById("<%=txtAssetTotal.ClientID%>").value = assettotal.toString();
         document.getElementById("<%=txtIncomeTotal.ClientID%>").value = incometotal.toString();
-        
+
         document.getElementById("<%=txtExpenseTotal.ClientID%>").value = (expensetotal + (AllLIandGIPremiumTotal / 12) + (allEMIsTotal / 12)).toString();
         document.getElementById("<%=txtTotalLO.ClientID%>").value = liabilitiestotal.toString();
         document.getElementById("<%=txtTotalLISA.ClientID%>").value = lifeInsuranceTotal.toString();
         document.getElementById("<%=txtTotalGISA.ClientID%>").value = generalInsuranceTotal.toString();
         document.getElementById("<%=txtTotalEmILO.ClientID%>").value = allEMIsTotal.toString();
-        
-        
+
+
     }
     function SubTotal(columnstoadd1, columnstoadd2, columnstoadd3, columnstoadd4) {
         var tmp = 'ctrl_CustomerProspect_';
@@ -295,21 +295,20 @@
         document.getElementById("<%= txtTaxableIncome.ClientID %>").value = "";
         document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value = "";
     }
-    
+
     function CallFuncOnTxtTaxableIncome() {
-    
-    var TaxSlab = document.getElementById("<%=txtSlabAsPerProfile.ClientID%>");
-    var TaxableIncome = document.getElementById("<%=txtTaxableIncome.ClientID%>");
-    var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>");
-    var TaxIncomePreTax =  document.getElementById("<%= txtIncomePreTax.ClientID %>");
-    
+
+        var TaxSlab = document.getElementById("<%=txtSlabAsPerProfile.ClientID%>");
+        var TaxableIncome = document.getElementById("<%=txtTaxableIncome.ClientID%>");
+        var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>");
+        var TaxIncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>");
+
         if ((parseInt(TaxSlab.value) != 0) && (parseInt(TaxableIncome.value) != 0)) {
 
             document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value = (parseInt(TaxSlab.value) / 100) * parseInt(TaxableIncome.value);
         }
-        if(TaxIncomePreTax.value == "")
-        {
-        parseInt(TaxIncomePreTax.value) = 0;
+        if (TaxIncomePreTax.value == "") {
+            parseInt(TaxIncomePreTax.value) = 0;
         }
     }
 
@@ -324,17 +323,17 @@
 <script type="text/javascript">
 
 
-    
-    
+
+
     function MainCalculate() {
         var TaxToBePaid = document.getElementById("<%= txtTaxtoBePaid.ClientID %>").value;
         var TaxIncomePreTax = document.getElementById("<%= txtIncomePreTax.ClientID %>").value;
-        
+
         if (TaxIncomePreTax != "") {
             document.getElementById("<%= txtIncomePostTax.ClientID %>").value = TaxIncomePreTax - TaxToBePaid;
         }
 
-        
+
     }
 
     
@@ -402,8 +401,8 @@
         <telerik:RadTab runat="server" onclick="HideStatusMsg()" ImageUrl="/Images/Telerik/FP/GeneralInsurance.gif"
             Text="General Insurance" Value="General Insurance" TabIndex="5">
         </telerik:RadTab>
-        <telerik:RadTab runat="server"  Text="Password Strength" Value="Password Strength" ImageUrl="/Images/Telerik/FP/Liabilities.gif" TabIndex="6">
-        </telerik:RadTab>
+
+
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadInputManager ID="RadInputManager1" runat="server" Skin="Telerik" 
@@ -1451,7 +1450,7 @@
                                 </td>
                                 
                             </tr>
-                            <tr runat="server" visible="false">
+                            <tr id="Tr1" runat="server" visible="false">
                             <td>
                             </td>
                             <td>
@@ -1525,7 +1524,7 @@
                                     </asp:Panel>
                                 </td>
                             </tr>
-                            <tr runat="server" visible="false">
+                            <tr id="Tr2" runat="server" visible="false">
                             <td colspan="5">
                             <asp:Label ID="lblIncomeNote2" runat="server" Text="Notes: 1.If you have entered the pretax income then you can calculate the disposal <br />
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;income using Disposal income Calculator.
@@ -1635,10 +1634,10 @@
                                     <td colspan="4">
                                     <asp:Label ID="LabelMainNote" runat="server" Text="Note: 1.SIP is coming from MF screen.<br />
                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Loan EMI is coming from Liabilities.<br />
-                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel>
-    </telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-<asp:Panel ID="pnlLiabilities" runat="server">
+                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming from Insurance" Font-Size="Small" CssClass="cmbField"></asp:Label></td></tr></table></td></tr></table></asp:Panel></telerik:RadPageView><telerik:RadPageView ID="RadPageView5" runat="server">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:Panel ID="pnlLiabilities" runat="server">
+
+
             <table width="100%">
                 <tr>
                     <td>
@@ -2097,8 +2096,9 @@
             </table>--%>
         </asp:Panel>
 &nbsp;&nbsp;&nbsp;</telerik:RadPageView></telerik:RadMultiPage>
-   
-    <asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
+<asp:Button ID="btnCustomerProspect" runat="server" OnClick="btnCustomerProspect_Click" ValidationGroup="btnCustProsp" Text="Save" CssClass="PCGButton" />
+
+
     </td>
     </tr>
     </table></asp:Panel>
