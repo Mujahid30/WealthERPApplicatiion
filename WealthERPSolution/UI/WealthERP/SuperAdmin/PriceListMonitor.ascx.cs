@@ -95,6 +95,7 @@ namespace WealthERP.SuperAdmin
             mypager.CurrentPage = 1;
             if (!IsPostBack)
             {
+                mypager.Visible = false;
                 this.BindProductGoldPriceGrid(ProductGoldPriceID);
                 //this.BindGoldGridView();
             }
