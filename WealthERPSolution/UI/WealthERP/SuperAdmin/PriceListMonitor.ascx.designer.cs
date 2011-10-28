@@ -23,15 +23,6 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// updatePanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanel1;
-        
-        /// <summary>
         /// lblPriceMonitoring control.
         /// </summary>
         /// <remarks>
@@ -57,6 +48,33 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DDLProductList;
+        
+        /// <summary>
+        /// tblErrorMassage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblErrorMassage;
+        
+        /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        
+        /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
         /// lblFrom control.
@@ -86,6 +104,33 @@ namespace WealthERP.SuperAdmin {
         protected global::AjaxControlToolkit.CalendarExtender txtFromDate_CalendarExtender;
         
         /// <summary>
+        /// cmpValidatorFutureDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpValidatorFutureDate;
+        
+        /// <summary>
+        /// CompareValidatorTextBox1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidatorTextBox1;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// lblTo control.
         /// </summary>
         /// <remarks>
@@ -113,22 +158,13 @@ namespace WealthERP.SuperAdmin {
         protected global::AjaxControlToolkit.CalendarExtender txtToDate_CalendarExtender;
         
         /// <summary>
-        /// btnShowBetweendates control.
+        /// cmpCompareValidatorToDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowBetweendates;
-        
-        /// <summary>
-        /// CompareValidatorTextBox1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidatorTextBox1;
+        protected global::System.Web.UI.WebControls.CompareValidator cmpCompareValidatorToDate;
         
         /// <summary>
         /// CompareValidator1 control.
@@ -140,13 +176,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// CompareValidator3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator3;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -156,6 +192,15 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
+        /// btnShowBetweendates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowBetweendates;
         
         /// <summary>
         /// trNoRecords control.
@@ -356,6 +401,15 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
+        /// btnReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReset;
+        
+        /// <summary>
         /// lnkClickHereForPrice control.
         /// </summary>
         /// <remarks>
@@ -399,5 +453,50 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCount;
+        
+        /// <summary>
+        /// hdnMsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+        
+        /// <summary>
+        /// hdnButtonClick control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnButtonClick;
+        
+        /// <summary>
+        /// hdndeleteId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdndeleteId;
+        
+        /// <summary>
+        /// hiddenassociation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        
+        /// <summary>
+        /// hdnGoalId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnGoalId;
     }
 }
