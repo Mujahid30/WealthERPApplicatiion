@@ -1427,7 +1427,12 @@ namespace WealthERP.Advisor
                 //GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
                 ////this.CustomizeExpression(expression1);
                 //this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
-                reptCalenderSummaryView.DataSource = dtCalenderSymmary;
+                // Get the DefaultViewManager of a DataTable.
+                DataView calenderView = dtCalenderSymmary.DefaultView;
+                // By default, the first column sorted ascending.
+                calenderView.Sort = "Year DESC";
+
+                reptCalenderSummaryView.DataSource = calenderView;
                 reptCalenderSummaryView.DataBind();
                 //reptCalenderSummaryView.Columns[0].Visible = false;
                 if (dtCalenderSymmary.Rows.Count > 0)
