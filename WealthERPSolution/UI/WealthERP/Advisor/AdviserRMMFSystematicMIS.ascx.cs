@@ -1284,18 +1284,24 @@ namespace WealthERP.Advisor
                         {
                             if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SIP")
                             {
-                                newSipCount++;
+                                if (startYear >= DateTime.Parse(dr["StartDate"].ToString()).Year && startYear <= DateTime.Parse(dr["EndDate"].ToString()).Year)
+                                {
+                                      newSipCount++;
+                                }
                             }
                             if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP")
                             {
-                                newSwpCount++;
+                                if (startYear >= DateTime.Parse(dr["StartDate"].ToString()).Year && startYear <= DateTime.Parse(dr["EndDate"].ToString()).Year)
+                                {
+                                    newSwpCount++;
+                                }
                             }
 
                             DateTime tempStartSipSwp = DateTime.Parse(dr["StartDate"].ToString());
                             DateTime tempEndSipSwp = DateTime.Parse(dr["EndDate"].ToString());
                             //**************************DAILY***********************
 
-                            if (dr["FrequencyCode"].ToString() == "DA")
+                            if (dr["FrequencyCode"].ToString().Trim() == "DA")
                             {
                                 while (tempStartSipSwp <= tempEndSipSwp)
                                 {
@@ -1320,7 +1326,7 @@ namespace WealthERP.Advisor
 
                             //**************************WEEKLY***********************
 
-                            if (dr["FrequencyCode"].ToString() == "WK")
+                            if (dr["FrequencyCode"].ToString().Trim() == "WK")
                             {
                                 while (tempStartSipSwp <= tempEndSipSwp)
                                 {
@@ -1346,7 +1352,7 @@ namespace WealthERP.Advisor
                             //**************************MONTHLY***********************
 
 
-                            if (dr["FrequencyCode"].ToString() == "MN")
+                            if (dr["FrequencyCode"].ToString().Trim() == "MN")
                             {
                                 while (tempStartSipSwp <= tempEndSipSwp)
                                 {
@@ -1373,7 +1379,7 @@ namespace WealthERP.Advisor
                             //**************************QUATERLY***********************
 
 
-                            if (dr["FrequencyCode"].ToString() == "QT")
+                            if (dr["FrequencyCode"].ToString().Trim() == "QT")
                             {
                                 while (tempStartSipSwp <= tempEndSipSwp)
                                 {
