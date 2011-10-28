@@ -201,10 +201,10 @@ namespace DaoSuperAdmin
            {
                db = DatabaseFactory.CreateDatabase("wealtherp");
                getDeleteDuplicateRecordCmd = db.GetStoredProcCommand("SP_DeleteDuplicateNetPosition");
-               db.AddInParameter(getDeleteDuplicateRecordCmd, "@adviserId", DbType.Int16, adviserId);
-               db.AddInParameter(getDeleteDuplicateRecordCmd, "@accountId", DbType.Int16, accountId);
+               db.AddInParameter(getDeleteDuplicateRecordCmd, "@adviserId", DbType.Int32, adviserId);
+               db.AddInParameter(getDeleteDuplicateRecordCmd, "@accountId", DbType.Int32, accountId);
                db.AddInParameter(getDeleteDuplicateRecordCmd, "@netHolding", DbType.Double, netHolding);
-               db.AddInParameter(getDeleteDuplicateRecordCmd, "@schemeCode", DbType.Int16, schemeCode);
+               db.AddInParameter(getDeleteDuplicateRecordCmd, "@schemeCode", DbType.Int32, schemeCode);
                db.AddInParameter(getDeleteDuplicateRecordCmd, "@ValuationDate", DbType.Date, ValuationDate);
                db.ExecuteDataSet(getDeleteDuplicateRecordCmd);
            }
