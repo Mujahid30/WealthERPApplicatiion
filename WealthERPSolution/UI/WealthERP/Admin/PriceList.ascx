@@ -92,21 +92,23 @@
 <table style="width: 100%">
     <tr>
         <td class="HeaderCell">
-            <label id="lblheader" class="HeaderTextBig" title="Upload Screen">
-               Market Data</label>
+            <%--<label id="lblheader" class="HeaderTextBig" title="Upload Screen">
+               MF Data Query</label>--%>
+               <asp:Label ID="lblheader" runat="server" Class="HeaderTextBig"></asp:Label>
+               
         </td>
     </tr>
 </table>
 
 
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
-    EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0" EnableViewState="true">
+    EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0">
     <Tabs>        
-        <telerik:RadTab runat="server" Text="Price" Value="Price" Selected="true" TabIndex="0">
+        <telerik:RadTab runat="server" Text="NAV" Value="Price" TabIndex="0" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Scheme Comparison" Value="Scheme_Comparison" TabIndex="2">
+        <telerik:RadTab runat="server" Text="Scheme Comparison" Value="Scheme_Comparison" TabIndex="2" >
         </telerik:RadTab>        
     </Tabs>
 </telerik:RadTabStrip>
@@ -122,11 +124,11 @@
      <div id="MainDiv" runat="server">
         <table width="70%">
             <tr>
-                <td class="leftField">
+                <%--<td class="leftField">
                     <label id="Label1" class="FieldName" title=" Asset Group">
                         Asset Group:</label>
-                </td>
-                <td class="rightField">
+                </td>--%>
+                <%--<td class="rightField">
                     <asp:DropDownList CssClass="cmbField" ID="ddlAssetGroup" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAssetGroup_OnSelectedIndexChanged">
                         <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                         <asp:ListItem Text="Equity" Value="Equity"></asp:ListItem>
@@ -135,7 +137,7 @@
                     <asp:CompareValidator ID="cvddlAssetGroup" runat="server" ControlToValidate="ddlAssetGroup"
                 ErrorMessage="Please Select  Asset" Operator="NotEqual" ValueToCompare="0"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
-                </td>
+                </td>--%>
                 <td align="right">
                     <asp:Label ID="lblIllegal" Text="" runat="server" CssClass="Error" />
                 </td>
@@ -145,12 +147,17 @@
        
             <tr><td></td>
                 <td align="left">
-                    <asp:RadioButton ID="rbtnHistorical" Text="Historical Data" runat="server" AutoPostBack="true"
-                        GroupName="Snapshot" CssClass="cmbField" OnCheckedChanged="rbtnHistorical_CheckedChanged" />
-                </td>
-                <td align="center">
-                    <asp:RadioButton ID="rbtnCurrent" Text="Current Snapshot" runat="server" AutoPostBack="true"
+                 <asp:RadioButton ID="rbtnCurrent" Text="Latest" runat="server" AutoPostBack="true"
                         GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" CssClass="cmbField" />
+                   <%-- <asp:RadioButton ID="rbtnHistorical" Text="Historical" runat="server" AutoPostBack="true"
+                        GroupName="Snapshot" CssClass="cmbField" OnCheckedChanged="rbtnHistorical_CheckedChanged" />--%>
+                </td></tr>
+               <tr> <td></td>  <td align="left">
+                
+                <asp:RadioButton ID="rbtnHistorical" Text="Historical" runat="server" AutoPostBack="true"
+                        GroupName="Snapshot" CssClass="cmbField" OnCheckedChanged="rbtnHistorical_CheckedChanged" />
+                   <%-- <asp:RadioButton ID="rbtnCurrent" Text="Latest" runat="server" AutoPostBack="true"
+                        GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" CssClass="cmbField" />--%>
                 </td>
                
                
@@ -164,12 +171,17 @@
                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox><cc1:CalendarExtender
                         ID="FrmDate" TargetControlID="txtFromDate" runat="server" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
-                     <asp:CompareValidator id="cvChkFutureDate" runat="server"
+                     <asp:CompareValidator id="cvChkFutureDate" runat="server" Type="Date"
                    ControlToValidate="txtFromDate"
                    Operator="LessThanEqual" CssClass="cvPCG"
-                   ErrorMessage="Date Can't be in future" Type="Date"
-                   Display="dynamic" ValidationGroup="vgbtnSubmit">
+                   ErrorMessage="Date Can't be in future"
+                   Display="Dynamic" ValidationGroup="vgbtnSubmit">
                   </asp:CompareValidator>
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtFromDate" ErrorMessage="please enter from date" ValidationGroup="vgbtnSubmit"  CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+                  
+             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" Display="Dynamic" runat="server" CssClass="cvPCG" ErrorMessage="Please Enter valid Date"
+                                        ControlToValidate="txtFromDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
+       
                     <%--<asp:RequiredFieldValidator ID="frmdatevalid" runat="server" ControlToValidate="txtFromDate"
                         ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                 </td>
@@ -183,18 +195,19 @@
                     <asp:TextBox ID="txtToDate" CssClass="txtField" runat="server"></asp:TextBox><cc1:CalendarExtender
                         ID="TDate" TargetControlID="txtToDate" runat="server" Format="dd/MM/yyyy">
                     </cc1:CalendarExtender>
-                    <asp:CompareValidator id="compDateValidator" ValidationGroup="vgbtnSubmit"
+                    <asp:CompareValidator id="compDateValidator" ValidationGroup="vgbtnSubmit" Display="Dynamic"
                         ControlToValidate="txtToDate" Operator="LessThanEqual" Type="Date" CssClass="cvPCG"
                         runat="server" ErrorMessage="Date Can't be in future" ></asp:CompareValidator>
-                        <br />
-
-                
-                  <asp:CompareValidator id="cvCompareDate" runat="server"
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate" ErrorMessage="please enter to date" ValidationGroup="vgbtnSubmit" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator><br />
+                      
+               <asp:RegularExpressionValidator ID="RegularExpressionValidator6" Display="Dynamic" runat="server" CssClass="cvPCG" ErrorMessage="Please Enter valid Date"
+                                        ControlToValidate="txtToDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
+          <asp:CompareValidator id="cvCompareDate" runat="server"
                    ControlToValidate="txtToDate" ControlToCompare="txtFromDate"
                    Operator="GreaterThanEqual"
                    Type="Date" CssClass="cvPCG" ValidationGroup="vgbtnSubmit"
                    ErrorMessage="ToDate should be greater than FromDate"
-                   Display="dynamic">
+                   Display="Dynamic">
                  </asp:CompareValidator>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
                         ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
@@ -224,8 +237,8 @@
                 ErrorMessage="Please Select Scheme Name" Operator="NotEqual" ValueToCompare="Select Scheme Name"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>--%>
                 </td>
-            </tr>
-            <tr id="trbtnSubmit" runat="server">
+            </tr></table>
+            <table><tr id="trbtnSubmit" runat="server">
              <td>
              <asp:Button ID="btnSubmit" Text="Submit" CssClass="PCGButton" ValidationGroup="vgbtnSubmit" runat="server" OnClick="OnClick_Submit" />
             </td>
@@ -770,4 +783,5 @@
     <asp:HiddenField ID="hdnSort" runat="server" />
     <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click" BorderStyle="None"
         BackColor="Transparent" />
+          <asp:HiddenField ID="hdnassetType" runat="server" />
 </div>

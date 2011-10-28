@@ -11,7 +11,21 @@ namespace WealthERP.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+        }
 
+        protected void lnkEquityData_Click(object sender, EventArgs e)
+        {
+            string AssetId = "Equity";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdminPriceList", "loadcontrol('AdminPriceList','?AssetId=" + AssetId + "');", true);
+           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdminPriceList','login')", true);
+        }
+
+        protected void lnkMFData_Click(object sender, EventArgs e)
+        {
+            string AssetId = "MF";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdminPriceList", "loadcontrol('AdminPriceList','?AssetId=" + AssetId + "');", true);
+           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdminPriceList','login')", true);
         }
     }
 }

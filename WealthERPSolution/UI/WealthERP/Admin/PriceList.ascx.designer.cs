@@ -300,7 +300,9 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trbtnSubmit;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectScheme;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectAMC;
+        //protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
         /// <summary>
         /// btnSubmit control.
         /// </summary>
@@ -336,6 +338,7 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMFCurrentPage;
+        protected global::System.Web.UI.WebControls.Label lblheader;
         
         /// <summary>
         /// lblMFTotalRows control.
@@ -587,7 +590,7 @@ namespace WealthERP.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSelectAMC;
+       // protected global::System.Web.UI.WebControls.DropDownList ddlSelectAMC;
         
         /// <summary>
         /// ddlAMC_CompareValidator control.
@@ -732,7 +735,7 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCompanySearch;
-        
+        protected global::System.Web.UI.WebControls.HiddenField hdnassetType;
         /// <summary>
         /// hdnSort control.
         /// </summary>
