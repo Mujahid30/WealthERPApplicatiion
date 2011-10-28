@@ -15,8 +15,8 @@
         </td>
   </tr>
 <tr>
-<td align="Left" style="width:200px" valign="top">
-<asp:Label ID="lblAction" runat="server" Text="Select Type of Monitoring : " CssClass="FieldName"></asp:Label>&nbsp;&nbsp;&nbsp;
+<td align="Left" style="width:158px" valign="top">
+<asp:Label ID="lblAction" runat="server" Text="Select Type of Monitoring: "  CssClass="FieldName" Width="100%"></asp:Label>
 </td>
 <td>
 <asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField">
@@ -31,6 +31,7 @@
    CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
 </td>
 </tr>
+
 <tr>
 <%-- <td class="style1" colspan="2">
  
@@ -70,11 +71,12 @@
 </table>--%>
 <table id="tblRange" runat="server" >
     <tr id="trRange" visible="false" runat="server">
-        <td align="left" valign="top"  >
-            <asp:Label ID="lblFromDate" runat="server" Width="90" CssClass="FieldName">From:</asp:Label>
+        <td align="left" valign="top">
+            <asp:Label ID="lblFromDate" runat="server" width="50" CssClass="FieldName">From:</asp:Label>
             </td>
             <td valign="top">
-            <asp:TextBox ID="txtFromDate" Width="180" runat="server" style="vertical-align: middle" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtFromDate" runat="server" style="vertical-align: middle" Width="150" CssClass="txtField"></asp:TextBox>
+            <span id="spnFrom" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -88,10 +90,12 @@
             </asp:RequiredFieldValidator>
         </td>
         <td valign="top" align="left">
-            <asp:Label ID="lblToDate" runat="server" Width="60" CssClass="FieldName">To:</asp:Label>
+            <asp:Label ID="lblToDate" runat="server" width="50" CssClass="FieldName">To:</asp:Label>
             </td>
             <td valign="top">
-            <asp:TextBox ID="txtToDate" runat="server" Width="180" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField" Width="150"> 
+            </asp:TextBox>
+            <span id="spnTo" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -106,20 +110,23 @@
                 Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
-        <td class="style4">
-        </td>
+
     </tr>
+
      <tr id="trPeriod" visible="false" runat="server">
-        <td colspan="2">
-            <asp:Label ID="lblPeriod" runat="server" Width="90" CssClass="FieldName">Period:</asp:Label>
-            <asp:DropDownList ID="ddlPeriod" runat="server" Width="180" AutoPostBack="true" CssClass="cmbField" >
+        <td>
+            <asp:Label ID="lblPeriod" runat="server" Width="50"  CssClass="FieldName">Period:</asp:Label>
+            </td>
+            <td>
+            <asp:DropDownList ID="ddlPeriod" runat="server" Width="150"  AutoPostBack="true" CssClass="cmbField" >
             </asp:DropDownList>
+            <span id="spnPeriod" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Period"
             ValidationGroup="MFSubmit" ControlToValidate="ddlPeriod" Operator="NotEqual"
             CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-  
+  <tr><td>&nbsp;</td></tr>
     </table>
                         
                         
@@ -159,18 +166,25 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle " />
                 <Columns>
-                    
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Valuation Date">
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Select">
                         <ItemTemplate>
-                             <asp:Label ID="lblValuationDate" runat="server" Text='<%# Eval("CMFNP_ValuationDate","{0:d}").ToString() %>' ></asp:Label>                
+                             <asp:CheckBox ID="chkDelete" runat="server" />              
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                        <ItemStyle Wrap="False"></ItemStyle>
+                    </asp:TemplateField>
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Valuation Date" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                             <asp:Label ID="lblValuationDate"  runat="server" Text='<%# Eval("CMFNP_ValuationDate","{0:d}").ToString() %>' ></asp:Label>                
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true">
+                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right">
                     <HeaderTemplate>
                                 <asp:Label ID="lblAdviserIdData" runat="server" Text="AdviserID"></asp:Label>
+                                <br />
                                 <asp:DropDownList ID="ddlAdviserId" AutoPostBack="true" CssClass="cmbField"
                                     runat="server" OnSelectedIndexChanged="ddlAdviserIdDuplicate_SelectedIndexChanged"  >
                                 </asp:DropDownList>
@@ -182,9 +196,10 @@
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-HorizontalAlign="Left">
                        <HeaderTemplate>
                                 <asp:Label ID="lblOrganizationData" runat="server" Text="Adviser Name"></asp:Label>
+                                <br />
                                 <asp:DropDownList ID="ddlOrganization" AutoPostBack="true" CssClass="cmbField"
                                     runat="server"  OnSelectedIndexChanged="ddlOrganization_SelectedIndexChanged">
                                 </asp:DropDownList>
@@ -196,7 +211,7 @@
                         <ItemStyle Wrap="true"></ItemStyle>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="No of Duplicates">
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="No of Duplicates" ItemStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                              <asp:Label ID="lblDuplicate" runat="server" Text='<%# Eval("Duplicate").ToString() %>'></asp:Label>                
                         </ItemTemplate>
@@ -204,9 +219,10 @@
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                     
-                     <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true">
+                     <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Left">
                      <HeaderTemplate>
                                 <asp:Label ID="lblFolioNoData" runat="server" Text="Folio Number"></asp:Label>
+                                <br />
                                 <asp:DropDownList ID="ddlFolioNo" AutoPostBack="true" CssClass="cmbField"
                                     runat="server"  OnSelectedIndexChanged="ddlFolioNo_SelectedIndexChanged">
                                 </asp:DropDownList>
@@ -219,9 +235,10 @@
                     </asp:TemplateField>
                     
                                         
-                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" >
+                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Left">
                     <HeaderTemplate>
                                 <asp:Label ID="lblSchemeName" runat="server" Text="Scheme Name"></asp:Label>
+                                <br />
                                 <asp:DropDownList ID="ddlScheme" AutoPostBack="true" CssClass="cmbField"
                                     runat="server" OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
                                 </asp:DropDownList>
@@ -233,9 +250,9 @@
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                       
-                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Holdings">
+                     <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Holdings" ItemStyle-HorizontalAlign="Right">
                         <ItemTemplate>
-                             <asp:Label ID="lblHoldings" runat="server" Text='<%# Eval("CMFNP_NetHoldings").ToString() %>'></asp:Label>                
+                             <asp:Label ID="lblHoldings" runat="server" Text='<%# Eval("CMFNP_NetHoldings","{0:n}").ToString() %>'></asp:Label>                
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
@@ -249,13 +266,7 @@
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>--%>
                     
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Select">
-                        <ItemTemplate>
-                             <asp:CheckBox ID="chkDelete" runat="server" />              
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
+                    
                       
                 </Columns>
             </asp:GridView>
@@ -305,7 +316,7 @@
                         <HeaderStyle Wrap="true"></HeaderStyle>
                         <ItemStyle Wrap="true"></ItemStyle>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="AUM" HeaderText="AUM"  ItemStyle-HorizontalAlign="Right" />
+                    <asp:BoundField DataField="AUM" HeaderText="AUM"  ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n}" />
                 </Columns>
 
 </asp:GridView>
@@ -317,6 +328,7 @@
 </tr>
 <tr>
 <td>
+<asp:Panel ID="pnlReject" runat="server" class="Landscape" Width="60%" ScrollBars="Horizontal">
 <table style="width: 100%;" class="TableBackground">
 <tr>
  <td  class="leftField" align="right" width="95%">
@@ -327,9 +339,9 @@
     <tr>
         <td>
             <asp:GridView ID="gvMFRejectedDetails" runat="server" AutoGenerateColumns="False"  AllowSorting="True" 
-                CellPadding="4" CssClass="GridViewStyle" 
+                CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%" 
                  ShowFooter="True">
-                <FooterStyle CssClass="FooterStyle" />
+                <FooterStyle CssClass="FooterStyle"  />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
@@ -338,21 +350,47 @@
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
                    
-                    <asp:BoundField DataField="CMFTS_CreatedOn" HeaderText="Process Date"  />
-                    <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText="File NameSource Type"  />
-                    <asp:BoundField DataField="CMFTS_FolioNum" HeaderText="Folio number"  />
-                    <asp:BoundField DataField="CMFTS_SchemeCode" HeaderText="Scheme"  />
-                    <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme name"  />
-                    <asp:BoundField DataField="CMFTS_TransactionClassificationCode" HeaderText="Transaction type"  />
-                    <asp:BoundField DataField="CMFTS_TransactionDate" HeaderText="Transaction date"  />
-                     <asp:BoundField DataField="CMFTS_Price" HeaderText="Price"  />
-                    <asp:BoundField DataField="CMFTS_Units" HeaderText="Units"  />
-                    <asp:BoundField DataField="CMFTS_Amount" HeaderText="Amount"  />
+                    <asp:BoundField DataField="CMFTS_CreatedOn" HeaderText="Process Date" ItemStyle-HorizontalAlign="Center" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderStyle-Width="25px" />
+                    <asp:TemplateField ItemStyle-HorizontalAlign="right" HeaderStyle-Width="20px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" >
+                            <HeaderTemplate>
+                                <asp:Label ID="lbladviserId" runat="server" Text="AdviserId"></asp:Label>
+                                <br />
+                                <asp:DropDownList ID="ddlAdviserId" CssClass="cmbLongField" AutoPostBack="true" Width="80px"
+                                    runat="server"  OnSelectedIndexChanged="ddlAdviserId_SelectedIndexChanged" >
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lbladviser"  runat="server" Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="A_OrgName" HeaderText="Organization Name" ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
+                        ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                    <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText="File NameSource Type"  ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"/>
+                    <asp:BoundField DataField="CMFTS_FolioNum" HeaderText="Folio number" ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                    <asp:BoundField DataField="CMFTS_SchemeCode" HeaderText="Scheme" ItemStyle-HorizontalAlign="right" HeaderStyle-Width="20px" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false"  />
+                    <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme name" ItemStyle-HorizontalAlign="left" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-Width="225px" HeaderStyle-HorizontalAlign="Center" />
+                    <asp:BoundField DataField="CMFTS_TransactionClassificationCode" HeaderText="Transaction type" ItemStyle-HorizontalAlign="left" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderStyle-Width="20px"  />
+                    <asp:BoundField DataField="CMFTS_TransactionDate" HeaderText="Transaction date" ItemStyle-HorizontalAlign="center" HeaderStyle-Width="25px" 
                     
-                    <asp:TemplateField>
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                     <asp:BoundField DataField="CMFTS_Price" HeaderText="Price" ItemStyle-HorizontalAlign="right" DataFormatString="{0:n}" HeaderStyle-Width="20px" 
+                     ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                    <asp:BoundField DataField="CMFTS_Units" HeaderText="Units" ItemStyle-HorizontalAlign="right" DataFormatString="{0:n}" HeaderStyle-Width="20px" 
+                    ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                    <asp:BoundField DataField="CMFTS_Amount" HeaderText="Amount" ItemStyle-HorizontalAlign="right" DataFormatString="{0:n}" HeaderStyle-Width="20px" 
+                     ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                    
+                    <asp:TemplateField ItemStyle-HorizontalAlign="left" HeaderStyle-Width="10px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center"  >
                             <HeaderTemplate>
                                 <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                                <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
+                                <br />
+                                <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true" Width="80%"
                                     runat="server"  OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged" >
                                 </asp:DropDownList>
                             </HeaderTemplate>
@@ -361,22 +399,13 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         
-                        <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lbladviserId" runat="server" Text="AdviserId"></asp:Label>
-                                <asp:DropDownList ID="ddlAdviserId" CssClass="cmbLongField" AutoPostBack="true"
-                                    runat="server"  OnSelectedIndexChanged="ddlAdviserId_SelectedIndexChanged" >
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lbladviser"  runat="server" Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         
-                        <asp:TemplateField >
+                        
+                        <asp:TemplateField ItemStyle-HorizontalAlign="right" ItemStyle-Width="10px" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" >
                             <HeaderTemplate>
                                 <asp:Label ID="lblProcessId" runat="server" Text="ProcessId"></asp:Label>
-                                <asp:DropDownList ID="ddlProcessId" CssClass="cmbLongField" AutoPostBack="true"
+                                <br />
+                                <asp:DropDownList ID="ddlProcessId" CssClass="cmbLongField" AutoPostBack="true" Width="80px"
                                     runat="server"  OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged" >
                                 </asp:DropDownList>
                             </HeaderTemplate>
@@ -391,6 +420,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 </td>
 </tr>
 

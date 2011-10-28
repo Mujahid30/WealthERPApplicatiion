@@ -115,6 +115,13 @@ namespace WealthERP.SuperAdmin
             if (!Page.IsPostBack)
             {
                 trRange.Visible = true;
+                if (rbtnPickDate.Checked == true)
+                {
+                    trRange.Visible = true;
+                    txtFromDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                    txtToDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                    trPeriod.Visible = false;
+                }
                 btnDelete.Visible = false;
                 lblCurrentPage.Visible = false;
                 lblTotalRows.Visible = false;
@@ -126,6 +133,7 @@ namespace WealthERP.SuperAdmin
                 lblRejectCount.Visible = false;
                 lblRejectTotal.Visible = false;
                 hidDateType.Value = "DATE_RANGE";
+                pnlReject.Visible = false;
                 BindPeriodDropDown();
             }
         }
@@ -151,6 +159,8 @@ namespace WealthERP.SuperAdmin
            if (rbtnPickDate.Checked == true)
            {
                trRange.Visible = true;
+               txtFromDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+               txtToDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
                trPeriod.Visible = false;
            }
            else if (rbtnPickPeriod.Checked == true)
@@ -169,14 +179,17 @@ namespace WealthERP.SuperAdmin
            if (ddlAction.SelectedValue == "DuplicateMis")
            {
                BindDuplicateGrid();
+               
            }
            else if (ddlAction.SelectedValue == "AumMis")
            {
                BindAUMGrid();
+               btnDelete.Visible = false;
            }
            else if (ddlAction.SelectedValue == "mfRejects")
            {
                BindMFRejectedGrid();
+               btnDelete.Visible = false;
            }
        }
         /// <summary>
@@ -207,7 +220,7 @@ namespace WealthERP.SuperAdmin
                gvMFRejectedDetails.Visible = false;
                foreach (DataRow dr in dsAumMis.Tables[1].Rows)
                {
-                   genOrganizationData.Add(dr["A_OrgName"].ToString(), dr[0].ToString());
+                   genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
                }
                DropDownList ddlAdviserNameDate = GetOrganization();
                if (ddlAdviserNameDate != null)
@@ -218,10 +231,15 @@ namespace WealthERP.SuperAdmin
                    ddlAdviserNameDate.DataBind();
                    ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
                }
+               if (hdnAdviserNameAUMFilter.Value != "")
+               {
+                   ddlAdviserNameDate.SelectedValue = hdnAdviserNameAUMFilter.Value;
+               }
                this.GetPageCountAUM();
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
+               pnlReject.Visible = false;
            }
            else
            {
@@ -241,6 +259,7 @@ namespace WealthERP.SuperAdmin
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
+               pnlReject.Visible = false;
            }
        }
 
@@ -307,6 +326,7 @@ namespace WealthERP.SuperAdmin
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
+               pnlReject.Visible = false;
            }
            else
            {
@@ -326,6 +346,7 @@ namespace WealthERP.SuperAdmin
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
+               pnlReject.Visible = false;
            }
        }
 
@@ -606,6 +627,7 @@ namespace WealthERP.SuperAdmin
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
                throw exBase;
+               
            }
        }
         /// <summary>
@@ -680,6 +702,7 @@ namespace WealthERP.SuperAdmin
                trPagerReject.Visible = true;
                lblRejectCount.Visible = true;
                lblRejectTotal.Visible = true;
+               pnlReject.Visible = true;
 
                if (hdnRejectReasonFilter.Value != "")
                {
@@ -713,6 +736,7 @@ namespace WealthERP.SuperAdmin
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
+               pnlReject.Visible = false;
            }
 
           
@@ -869,28 +893,50 @@ namespace WealthERP.SuperAdmin
        }
        protected void btnDelete_Click(object sender, EventArgs e)
        {
-           int gvAdviserId =0;
-           int gvAccountId=0;
-           double gvNetHolding = 0;
-           int gvSchemeCode = 0;
-           DateTime gvValuationDate = new DateTime();
+          
+           int i=0;
+          
            foreach (GridViewRow gvRow in gvDuplicateCheck.Rows)
            {
 
                CheckBox chk = (CheckBox)gvRow.FindControl("chkDelete");
                if (chk.Checked)
                {
+                   i++;
+               }
+               
+           }
+           if (i == 0)
+           {
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+           }
+           else
+           {
+               DuplicateDelete();
+           }
+       }
+       private void DuplicateDelete()
+       {
+           int gvAdviserId = 0;
+           int gvAccountId = 0;
+           double gvNetHolding = 0;
+           int gvSchemeCode = 0;
+           DateTime gvValuationDate = new DateTime();
+           foreach (GridViewRow gvRow in gvDuplicateCheck.Rows)
+           {
+
+               if (((CheckBox)gvRow.FindControl("chkDelete")).Checked == true)
+               {
                    gvAdviserId = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["A_AdviserId"].ToString());
                    gvAccountId = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString());
-
                    gvNetHolding = double.Parse(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFNP_NetHoldings"].ToString());
-
                    gvSchemeCode = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["PASP_SchemePlanCode"].ToString());
                    gvValuationDate = DateTime.Parse(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFNP_ValuationDate"].ToString());
 
                    superAdminOpsBo.DeleteDuplicateRecord(gvAdviserId, gvAccountId, gvNetHolding, gvSchemeCode, gvValuationDate);
+
+                   BindDuplicateGrid();
                }
-               BindDuplicateGrid();
            }
        }
        private void GetPageCountReject()
