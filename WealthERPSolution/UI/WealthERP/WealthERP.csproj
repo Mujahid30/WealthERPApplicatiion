@@ -475,6 +475,13 @@
     <Compile Include="Admin\Mapping.ascx.designer.cs">
       <DependentUpon>Mapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\MarketData.ascx.cs">
+      <DependentUpon>MarketData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MarketData.ascx.designer.cs">
+      <DependentUpon>MarketData.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\PriceList.ascx.cs">
       <DependentUpon>PriceList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3091,6 +3098,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\MarketData.ascx" />
     <Content Include="Admin\UploadProcessLog.ascx" />
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />

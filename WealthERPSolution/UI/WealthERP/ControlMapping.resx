@@ -1205,4 +1205,8 @@
     <value>SuperAdmin//PriceListMonitor.ascx</value>
     <comment>SuperAdmin//PriceListMonitor.ascx</comment>
   </data>
+  <data name="MarketData" xml:space="preserve">
+    <value>Admin//MarketData.ascx</value>
+    <comment>Admin//MarketData.ascx</comment>
+  </data>
 </root>

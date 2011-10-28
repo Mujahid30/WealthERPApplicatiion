@@ -1429,6 +1429,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin//MarketData.ascx.
+        /// </summary>
+        internal static string MarketData {
+            get {
+                return ResourceManager.GetString("MarketData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//MFManualMultipleTran.ascx.
         /// </summary>
         internal static string MFManualMultipleTran {
