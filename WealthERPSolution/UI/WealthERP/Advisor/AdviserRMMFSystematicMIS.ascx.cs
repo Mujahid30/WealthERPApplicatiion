@@ -38,12 +38,12 @@ namespace WealthERP.Advisor
         CustomerVo customerVo = new CustomerVo();
         string strAmcCode = null;
         String userType;
-        int advisorId=0;
-        int customerId=0;
+        int advisorId = 0;
+        int customerId = 0;
         double sumTotal;
         double totalAmount = 0;
         int rmId = 0;
-        int bmID=0;
+        int bmID = 0;
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
@@ -53,7 +53,7 @@ namespace WealthERP.Advisor
         DataTable dtSystematicMIS2 = new DataTable();
         DataTable dtSystematicMIS3 = new DataTable();
         DataTable dtSystematicMIS4 = new DataTable();
-        
+
         DateTime startDate = new DateTime();
         DateTime endDate = new DateTime();
         string frequency = "";
@@ -72,8 +72,8 @@ namespace WealthERP.Advisor
         private int totalNoOfSWP = 0;
         private int totalNoOfFreshSWP = 0;
 
-       
-        string path;    
+
+        string path;
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -92,14 +92,14 @@ namespace WealthERP.Advisor
             int RMId = rmVo.RMId;
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
-            bmID=rmVo.RMId;
+            bmID = rmVo.RMId;
 
             //gvCalenderDetailView.Visible = true;
             gvSystematicMIS.Visible = true;
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
-          
+
             if (!IsPostBack)
             {
                 ddlSelectCutomer.Visible = false;
@@ -130,11 +130,11 @@ namespace WealthERP.Advisor
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                 }
-             }
+            }
             if (Session["ButtonGo"] != null)
                 CallAllGridBindingFunctions();
-    
-                  
+
+
         }
         /// <summary>
         /// Bind All the Dropdowns 
@@ -154,16 +154,16 @@ namespace WealthERP.Advisor
             ddlSystematicType.Items.Insert(0, "All");
             ddlSystematicType.Items.Remove("STP");
         }
-          
+
 
         /* Binding AMC DropDown */
         private void BindAMCDropDown(DataTable dtAMC)
         {
-            
+
             try
             {
                 if (dtAMC != null)
-                {                   
+                {
                     ddlAMC.DataSource = dtAMC;
                     ddlAMC.DataValueField = dtAMC.Columns["PA_AMCCode"].ToString();
                     ddlAMC.DataTextField = dtAMC.Columns["PA_AMCName"].ToString();
@@ -206,7 +206,7 @@ namespace WealthERP.Advisor
                 ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "Select"));
 
             }
-            catch(BaseApplicationException Ex)
+            catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
@@ -265,7 +265,7 @@ namespace WealthERP.Advisor
         /* Binding Branch DropDown*/
         private void BindBranchDropDown()
         {
-            
+
             RMVo rmVo = new RMVo();
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
@@ -365,7 +365,7 @@ namespace WealthERP.Advisor
             tblMessage.Visible = true;
             ErrorMessage.Visible = true;
             ErrorMessage.InnerText = "No Records Found...!";
-          
+
         }
 
         protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
@@ -384,12 +384,12 @@ namespace WealthERP.Advisor
             tblMessage.Visible = true;
             ErrorMessage.Visible = true;
             ErrorMessage.InnerText = "No Records Found...!";
-           
+
 
 
         }
         /* Customer search for Group ang Individual*/
-      
+
         private void BindBranchForBMDropDown()
         {
             try
@@ -435,7 +435,8 @@ namespace WealthERP.Advisor
             ViewState["SchemeDropDown"] = null;
             ViewState["GroupHeadCustomers"] = null;
             ViewState["IndividualCustomers"] = null;
-            
+            ViewState["CustomerId"] = null;
+
             CallAllGridBindingFunctions();
         }
         protected void CallAllGridBindingFunctions()
@@ -461,6 +462,7 @@ namespace WealthERP.Advisor
         private void GetDataFromDB()
         {
             dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup);
+            CreateCalenderViewSummaryDataTable();
         }
 
         private void SetParameter()
@@ -475,14 +477,14 @@ namespace WealthERP.Advisor
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
                 }
-                else if((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex==0))
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnAll.Value = "1";
                     hdnrmId.Value = "0";
                 }
-                else if(ddlBranch.SelectedIndex==0 && ddlRM.SelectedIndex!=0)
+                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = "0";
@@ -494,7 +496,7 @@ namespace WealthERP.Advisor
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
-                    hdnAll.Value="3";
+                    hdnAll.Value = "3";
                 }
 
             }
@@ -536,7 +538,7 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "3";
                 }
             }
-                    
+
 
             if (rdoPickCustomer.Checked == true && userType == "advisor")
             {
@@ -547,7 +549,7 @@ namespace WealthERP.Advisor
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
                 }
-                else  if (ddlBranch.SelectedIndex !=0 && ddlRM.SelectedIndex==0)
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex == 0)
                 {
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = "0";
@@ -556,7 +558,7 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
                 {
-                    
+
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnAll.Value = "6";
@@ -564,15 +566,15 @@ namespace WealthERP.Advisor
                 }
                 else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
                 {
-                    
+
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnAll.Value = "7";
                 }
             }
-             else if (rdoPickCustomer.Checked == true && userType == "rm")
+            else if (rdoPickCustomer.Checked == true && userType == "rm")
             {
-               hdnAll.Value = "1";
+                hdnAll.Value = "1";
             }
 
 
@@ -634,6 +636,14 @@ namespace WealthERP.Advisor
                 hdnendDate.Value = "EndDate";
             }
 
+            if (hdnCustomerId.Value != "")
+            {
+                ViewState["CustomerId"] = hdnCustomerId.Value;
+            }
+            else if (ViewState["CustomerId"] != null)
+            {
+                hdnCustomerId.Value = ViewState["CustomerId"].ToString();
+            }
 
             if (hdnIndividualOrGroup.Value == "Group Head")
             {
@@ -757,15 +767,15 @@ namespace WealthERP.Advisor
                 hdnadviserId.Value = "0";
 
             if (hdnrmId.Value == "")
-                hdnrmId.Value = "0";  
+                hdnrmId.Value = "0";
 
 
-  
+
         }
         //*******************************alender Detail View******************************
         //private  void BindgvCalenderDetailView()
         //{
-          
+
         //    try
         //    {
         //        DataTable dtCalenderDetail = new DataTable();
@@ -796,7 +806,7 @@ namespace WealthERP.Advisor
         //            drCalenderDetail["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
         //            dtCalenderDetail.Rows.Add(drCalenderDetail);
-                 
+
         //           }
         //        gvCalenderDetailView.DataSource = dtCalenderDetail;
         //        gvCalenderDetailView.DataBind();
@@ -849,10 +859,10 @@ namespace WealthERP.Advisor
             DateTime nextSystematicDate = new DateTime();
             DateTime currentDate = DateTime.Now;
             nextSystematicDate = new DateTime(currentDate.Year, currentDate.Month, 1);
-            nextSystematicDate = nextSystematicDate.AddDays(systematicDate-1);
+            nextSystematicDate = nextSystematicDate.AddDays(systematicDate - 1);
             switch (frequency)
             {
-               case "Daily":
+                case "Daily":
                     nextSystematicDate = nextSystematicDate.AddDays(1);
                     break;
                 case "FortNightly":
@@ -861,7 +871,7 @@ namespace WealthERP.Advisor
                 case "Weekly":
                     nextSystematicDate = nextSystematicDate.AddDays(7);
                     break;
-                case  "Monthly":
+                case "Monthly":
                     nextSystematicDate = nextSystematicDate.AddMonths(1);
                     break;
                 case "Quarterly":
@@ -877,7 +887,7 @@ namespace WealthERP.Advisor
 
             return nextSystematicDate;
 
-           }
+        }
 
 
         private void BindgvSystematicMIS()
@@ -885,9 +895,9 @@ namespace WealthERP.Advisor
             try
             {
 
-             
-               
-                
+
+
+
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
                 dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
@@ -903,12 +913,12 @@ namespace WealthERP.Advisor
                 dtSystematicDetails.Columns.Add("EndDate");
                 dtSystematicDetails.Columns.Add("Frequency");
                 dtSystematicDetails.Columns.Add("NextSystematicDate");
-                dtSystematicDetails.Columns.Add("Amount",typeof(Decimal));
+                dtSystematicDetails.Columns.Add("Amount", typeof(Decimal));
 
                 DataRow drSystematicDetails;
                 foreach (DataRow dr in dtSystematicMIS1.Rows)
                 {
-                    drSystematicDetails =  dtSystematicDetails.NewRow();
+                    drSystematicDetails = dtSystematicDetails.NewRow();
                     drSystematicDetails["CustomerName"] = dr["CustomerName"].ToString();
                     drSystematicDetails["SystematicTransactionType"] = dr["TypeCode"].ToString();
                     drSystematicDetails["AMCname"] = dr["AMCName"].ToString();
@@ -932,14 +942,14 @@ namespace WealthERP.Advisor
 
                 if (dtSystematicDetails.Rows.Count > 0)
                 {
-                   
-                    
+
+
                     gvSystematicMIS.Visible = true;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
                     //trPager.Visible = true;
-                 }
-              
+                }
+
                 else
                 {
                     gvSystematicMIS.Visible = false;
@@ -1007,7 +1017,7 @@ namespace WealthERP.Advisor
 
 
 
-      
+
 
         private String GetMonth(int monthCode)
         {
@@ -1059,25 +1069,25 @@ namespace WealthERP.Advisor
         {
             if (e.Item is GridFooterItem)
             {
-                e.Item.Cells[3].Text = "Total :";
+                e.Item.Cells[2].Text = "Total :";
 
-                e.Item.Cells[5].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[4].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[4].Attributes.Add("align", "Right");
+
+                e.Item.Cells[5].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
                 e.Item.Cells[5].Attributes.Add("align", "Right");
 
-                e.Item.Cells[6].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
+                e.Item.Cells[6].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
                 e.Item.Cells[6].Attributes.Add("align", "Right");
 
-                e.Item.Cells[7].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
+                e.Item.Cells[7].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Item.Cells[7].Attributes.Add("align", "Right");
 
-                e.Item.Cells[8].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Item.Cells[8].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
                 e.Item.Cells[8].Attributes.Add("align", "Right");
 
-                e.Item.Cells[9].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
+                e.Item.Cells[9].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
                 e.Item.Cells[9].Attributes.Add("align", "Right");
-
-                e.Item.Cells[10].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
-                e.Item.Cells[10].Attributes.Add("align", "Right");
 
             }
         }
@@ -1218,210 +1228,216 @@ namespace WealthERP.Advisor
 
         protected void CreateCalenderViewSummaryDataTable()
         {
-            
+
             DataTable dtSIPDetails;
             //dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(int.Parse(hdnadviserId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
             dtSIPDetails = dsBindGvSystematicMIS.Tables[2];
-            DataTable dtCalenderSymmary = new DataTable();
-            dtCalenderSymmary.Columns.Add("Year");
-            dtCalenderSymmary.Columns.Add("Month");
-            dtCalenderSymmary.Columns.Add("FinalMonth");
-             dtCalenderSymmary.Columns.Add("NoOfSIP", typeof(Int16));
-            dtCalenderSymmary.Columns.Add("SIPAmount", typeof(Decimal));           
-            dtCalenderSymmary.Columns.Add("NoOfFreshSIP", typeof(Int16));
-            //dtCalenderSymmary.Columns.Add("SWPDate");            
-            dtCalenderSymmary.Columns.Add("NoOfSWP", typeof(Int16));
-            dtCalenderSymmary.Columns.Add("SWPAmount", typeof(Decimal));
-            dtCalenderSymmary.Columns.Add("NoOfFreshSWP", typeof(Int16));
-            DataRow drCalenderSummary;
-            DateTime startSipSwpDate = DateTime.Parse(dtSIPDetails.Rows[0]["StartDate"].ToString());
-            DateTime endSipSwpDate = DateTime.Parse(dtSIPDetails.Rows[dtSIPDetails.Rows.Count - 1]["StartDate"].ToString());
-
-            int startMonth = startSipSwpDate.Month;
-            int startYear = startSipSwpDate.Year;
-            int endMonth = endSipSwpDate.Month;
-            int endYear = endSipSwpDate.Year;
-            DataRow[] drYearWiseSIPDetails;
-
-            double monthlyTotalSipAmount = 0;
-            double monthlyTotalSwpAmount = 0;
-            int newSipCount = 0;
-            int runningSipCount = 0;
-            int newSwpCount = 0;
-            int runningSwpCount = 0;
-
-            int tempStartMonth = 0;
-            int tempEndMonth = 0;
-            int tempDayCount = 0;
-
-            int tempStartDate = 0;
-            int tempEndDate = 0;
-
-
-            while (startSipSwpDate <= endSipSwpDate)
+            if (dtSIPDetails.Rows.Count > 0)
             {
-                for (int month = 1; month <= 12; month++)
+                DataTable dtCalenderSymmary = new DataTable();
+                dtCalenderSymmary.Columns.Add("Year");
+                dtCalenderSymmary.Columns.Add("Month");
+                dtCalenderSymmary.Columns.Add("FinalMonth");
+                dtCalenderSymmary.Columns.Add("NoOfSIP", typeof(Int16));
+                dtCalenderSymmary.Columns.Add("SIPAmount", typeof(Decimal));
+                dtCalenderSymmary.Columns.Add("NoOfFreshSIP", typeof(Int16));
+                //dtCalenderSymmary.Columns.Add("SWPDate");            
+                dtCalenderSymmary.Columns.Add("NoOfSWP", typeof(Int16));
+                dtCalenderSymmary.Columns.Add("SWPAmount", typeof(Decimal));
+                dtCalenderSymmary.Columns.Add("NoOfFreshSWP", typeof(Int16));
+                DataRow drCalenderSummary;
+                DateTime startSipSwpDate = DateTime.Parse(dtSIPDetails.Rows[0]["StartDate"].ToString());
+                DateTime endSipSwpDate = DateTime.Parse(hdnTodate.Value.ToString());
+
+                int startMonth = startSipSwpDate.Month;
+                int startYear = startSipSwpDate.Year;
+                int endMonth = endSipSwpDate.Month;
+                int endYear = endSipSwpDate.Year;
+                DataRow[] drYearWiseSIPDetails;
+
+                double monthlyTotalSipAmount = 0;
+                double monthlyTotalSwpAmount = 0;
+                int newSipCount = 0;
+                int runningSipCount = 0;
+                int newSwpCount = 0;
+                int runningSwpCount = 0;
+
+                int tempStartMonth = 0;
+                int tempEndMonth = 0;
+                int tempDayCount = 0;
+
+                int tempStartDate = 0;
+                int tempEndDate = 0;
+
+
+                while (startSipSwpDate <= endSipSwpDate)
                 {
-                    drCalenderSummary = dtCalenderSymmary.NewRow();
-
-                    drCalenderSummary["Year"] = startYear;
-                    drCalenderSummary["Month"] = month;
-                    drCalenderSummary["FinalMonth"] = GetMonth(month);
-
-                    foreach (DataRow dr in dtSIPDetails.Rows)
+                    for (int month = 1; month <= 12; month++)
                     {
-                        if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SIP")
-                        {
-                            newSipCount++;
-                        }
-                        if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP")
-                        {
-                            newSwpCount++;
-                        }
+                        drCalenderSummary = dtCalenderSymmary.NewRow();
 
-                        DateTime tempStartSipSwp = DateTime.Parse(dr["StartDate"].ToString());
-                        DateTime tempEndSipSwp = DateTime.Parse(dr["EndDate"].ToString());
-                        //**************************DAILY***********************
+                        drCalenderSummary["Year"] = startYear;
+                        drCalenderSummary["Month"] = month;
+                        drCalenderSummary["FinalMonth"] = GetMonth(month);
 
-                        if (dr["FrequencyCode"].ToString() == "DA")
+                        foreach (DataRow dr in dtSIPDetails.Rows)
                         {
-                            while (tempStartSipSwp <= tempEndSipSwp)
+                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SIP")
                             {
-                                if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
-                                {
-                                    if (dr["TypeCode"].ToString().Trim() == "SIP")
-                                    {
-                                        monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount += tempDayCount;
-                                    }
-                                    else if (dr["TypeCode"].ToString().Trim() == "SWP")
-                                    {
-                                        monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount++;
-                                    }
-                                }
-                                tempStartSipSwp = tempStartSipSwp.AddDays(1);
+                                newSipCount++;
                             }
-                        }
-
-                        //**************************DAILY***********************                                
-
-                        //**************************WEEKLY***********************
-
-                        if (dr["FrequencyCode"].ToString() == "WK")
-                        {
-                            while (tempStartSipSwp <= tempEndSipSwp)
+                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP")
                             {
-                                if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
-                                {
-                                    if (dr["TypeCode"].ToString().Trim() == "SIP")
-                                    {
-                                        monthlyTotalSipAmount +=  double.Parse(dr["Amount"].ToString());
-                                        runningSipCount += tempDayCount;
-                                    }
-                                    else if (dr["TypeCode"].ToString().Trim() == "SWP")
-                                    {
-                                        monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount++;
-                                    }
-                                }
-                                tempStartSipSwp = tempStartSipSwp.AddDays(7);
+                                newSwpCount++;
                             }
-                        }
 
-                        //**************************WEEKLY***********************
+                            DateTime tempStartSipSwp = DateTime.Parse(dr["StartDate"].ToString());
+                            DateTime tempEndSipSwp = DateTime.Parse(dr["EndDate"].ToString());
+                            //**************************DAILY***********************
 
-                        //**************************MONTHLY***********************
-
-
-                        if (dr["FrequencyCode"].ToString() == "MN")
-                        {
-                            while (tempStartSipSwp <= tempEndSipSwp)
+                            if (dr["FrequencyCode"].ToString() == "DA")
                             {
-                                if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
+                                while (tempStartSipSwp <= tempEndSipSwp)
                                 {
-                                    if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                    if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
                                     {
-                                        monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount++;
+                                        if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                        {
+                                            monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount += tempDayCount;
+                                        }
+                                        else if (dr["TypeCode"].ToString().Trim() == "SWP")
+                                        {
+                                            monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
                                     }
-                                    else if (dr["TypeCode"].ToString().Trim() == "SWP")
-                                    {
-                                        monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount++;
-                                    }
+                                    tempStartSipSwp = tempStartSipSwp.AddDays(1);
                                 }
-                                tempStartSipSwp = tempStartSipSwp.AddMonths(1);
                             }
-                        }
 
-                        //**************************MONTHLY***********************
+                            //**************************DAILY***********************                                
 
+                            //**************************WEEKLY***********************
 
-                        //**************************QUATERLY***********************
-
-
-                        if (dr["FrequencyCode"].ToString() == "QT")
-                        {
-                            while (tempStartSipSwp <= tempEndSipSwp)
+                            if (dr["FrequencyCode"].ToString() == "WK")
                             {
-                                if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
+                                while (tempStartSipSwp <= tempEndSipSwp)
                                 {
-                                    if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                    if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
                                     {
-                                        monthlyTotalSipAmount +=  double.Parse(dr["Amount"].ToString());
-                                        runningSipCount ++;
+                                        if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                        {
+                                            monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount += tempDayCount;
+                                        }
+                                        else if (dr["TypeCode"].ToString().Trim() == "SWP")
+                                        {
+                                            monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
                                     }
-                                    else if (dr["TypeCode"].ToString().Trim() == "SWP")
-                                    {
-                                        monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                        runningSipCount++;
-                                    }
+                                    tempStartSipSwp = tempStartSipSwp.AddDays(7);
                                 }
-                                tempStartSipSwp = tempStartSipSwp.AddMonths(3);
                             }
+
+                            //**************************WEEKLY***********************
+
+                            //**************************MONTHLY***********************
+
+
+                            if (dr["FrequencyCode"].ToString() == "MN")
+                            {
+                                while (tempStartSipSwp <= tempEndSipSwp)
+                                {
+                                    if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
+                                    {
+                                        if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                        {
+                                            monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
+                                        else if (dr["TypeCode"].ToString().Trim() == "SWP")
+                                        {
+                                            monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
+                                    }
+                                    tempStartSipSwp = tempStartSipSwp.AddMonths(1);
+                                }
+                            }
+
+                            //**************************MONTHLY***********************
+
+
+                            //**************************QUATERLY***********************
+
+
+                            if (dr["FrequencyCode"].ToString() == "QT")
+                            {
+                                while (tempStartSipSwp <= tempEndSipSwp)
+                                {
+                                    if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
+                                    {
+                                        if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                        {
+                                            monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
+                                        else if (dr["TypeCode"].ToString().Trim() == "SWP")
+                                        {
+                                            monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
+                                    }
+                                    tempStartSipSwp = tempStartSipSwp.AddMonths(3);
+                                }
+                            }
+
+                            //**************************QUATERLY***********************
+
                         }
 
-                        //**************************QUATERLY***********************
+                        drCalenderSummary["NoOfSIP"] = runningSipCount;
+                        drCalenderSummary["SIPAmount"] = monthlyTotalSipAmount;
+                        drCalenderSummary["NoOfFreshSIP"] = newSipCount;
+
+                        drCalenderSummary["NoOfSWP"] = runningSwpCount;
+                        drCalenderSummary["SWPAmount"] = monthlyTotalSwpAmount;
+                        drCalenderSummary["NoOfFreshSWP"] = newSwpCount;
+
+                        dtCalenderSymmary.Rows.Add(drCalenderSummary);
+
+                        runningSipCount = 0;
+                        monthlyTotalSipAmount = 0;
+                        newSipCount = 0;
+                        runningSwpCount = 0;
+                        monthlyTotalSwpAmount = 0;
+                        newSwpCount = 0;
 
                     }
 
-                    drCalenderSummary["NoOfSIP"] = runningSipCount;
-                    drCalenderSummary["SIPAmount"] = monthlyTotalSipAmount;
-                    drCalenderSummary["NoOfFreshSIP"] = newSipCount;
-
-                    drCalenderSummary["NoOfSWP"] = runningSwpCount;
-                    drCalenderSummary["SWPAmount"] = monthlyTotalSwpAmount;
-                    drCalenderSummary["NoOfFreshSWP"] = newSwpCount;
-
-                    dtCalenderSymmary.Rows.Add(drCalenderSummary);
-
-                    runningSipCount = 0;
-                    monthlyTotalSipAmount = 0;
-                    newSipCount = 0;
-                    runningSwpCount = 0;
-                    monthlyTotalSwpAmount = 0;
-                    newSwpCount = 0;
-
+                    startSipSwpDate = startSipSwpDate.AddYears(1);
+                    startYear++;
                 }
 
-                startSipSwpDate=startSipSwpDate.AddYears(1);
-                startYear++;
-            }
+                //reptCalenderSummaryView.MasterTableView.ExpandCollapseColumn.Display = false;
 
-            GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
-            //this.CustomizeExpression(expression1);
-            this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
-            reptCalenderSummaryView.DataSource = dtCalenderSymmary;
-            reptCalenderSummaryView.DataBind();
-            if (dtCalenderSymmary.Rows.Count > 0)
-            {
-                reptCalenderSummaryView.Visible = true;
-                tblMessage.Visible = false;
-                ErrorMessage.Visible = false;
-                //trPager.Visible = true;
-            }
 
+                //GridGroupByExpression expression1 = GridGroupByExpression.Parse("Year [year] Group By Year");
+                ////this.CustomizeExpression(expression1);
+                //this.reptCalenderSummaryView.MasterTableView.GroupByExpressions.Add(expression1);
+                reptCalenderSummaryView.DataSource = dtCalenderSymmary;
+                reptCalenderSummaryView.DataBind();
+                //reptCalenderSummaryView.Columns[0].Visible = false;
+                if (dtCalenderSymmary.Rows.Count > 0)
+                {
+                    reptCalenderSummaryView.Visible = true;
+                    tblMessage.Visible = false;
+                    ErrorMessage.Visible = false;
+                    //trPager.Visible = true;
+                }
+            }
             else
             {
                 reptCalenderSummaryView.Visible = false;
@@ -1471,9 +1487,19 @@ namespace WealthERP.Advisor
             return 30;
         }
 
-
-       
-
- 
+        protected void reptCalenderSummaryView_PreRender(object sender, EventArgs e)
+        {
+            //HideExpandColumnRecursive(reptCalenderSummaryView.MasterTableView);
+            foreach (GridColumn column in reptCalenderSummaryView.MasterTableView.RenderColumns)
+            {
+                if (column is GridGroupSplitterColumn)
+                {
+                    column.HeaderStyle.Width = Unit.Pixel(1);
+                    column.ItemStyle.Width = Unit.Pixel(1);
+                    column.Resizable = false;
+                }
+            }
+            reptCalenderSummaryView.Rebind();
+        }
     }
 }

@@ -218,13 +218,13 @@
     </td>
     </tr>
     </table>
-<div style="width:98%">
+<div style="width:99%">
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="SystameticMISMultiPage" 
-    SelectedIndex="0">
+    SelectedIndex="1">
     <Tabs>
         <telerik:RadTab runat="server"  Text="Systematic Setup View" 
-            Value="Systematic Setup View" TabIndex="0">
+            Value="Systematic Setup View" TabIndex="0" Selected="True">
         </telerik:RadTab>
         
         <telerik:RadTab runat="server" Text="Calender Summary View" 
@@ -239,7 +239,7 @@
 
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" runat="server" SelectedIndex="0" Width="100%">
     
-    <telerik:RadPageView ID="RadPageView1" runat="server">
+    <telerik:RadPageView ID="RadPageView1" runat="server" style="margin-top: 20px">
         <asp:Panel ID="pnlSystameticSetupView" runat="server" Width="100%">        
                    <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
@@ -247,9 +247,8 @@
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                            AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
-                           Skin="Telerik" Width="100%">
-                           <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" 
-                               Width="100%">
+                           Skin="Telerik">
+                           <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                <Columns>
                                    <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer Name" 
                                        UniqueName="CustomerName">
@@ -259,13 +258,13 @@
                                        HeaderText="Type" UniqueName="SystematicTransactionType">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC" 
+                                  <%-- <telerik:GridBoundColumn DataField="AMCname" HeaderText="AMC" 
                                        UniqueName="AMCname">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                   </telerik:GridBoundColumn>
+                                   </telerik:GridBoundColumn>--%>
                                    <telerik:GridBoundColumn DataField="SchemePlaneName" 
                                        HeaderText="Scheme" UniqueName="SchemePlaneName">
-                                       <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                       <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="160px" Wrap="true" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio Number" 
                                        UniqueName="FolioNumber">
@@ -296,10 +295,9 @@
                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                </Columns>
-                           </MasterTableView>
-                           <HeaderStyle Width="200px" />
+                           </MasterTableView>                          
                             <ClientSettings>
-                                <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
+                                <Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
                                 </Scrolling>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                            </ClientSettings>
@@ -308,74 +306,7 @@
         </asp:Panel>
     </telerik:RadPageView>
     
-    <%--<telerik:RadPageView ID="RadPageView2" runat="server">
-        <asp:Panel ID="pnlCalenderDetailView" runat="server">
-            <table width="100%"> 
-            <tr>
-            <td>
-        <telerik:RadAjaxPanel ID="RadAjaxPanel2" runat="server" Width="90%" EnableHistory="True"
-                        HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">               
-        <telerik:RadGrid ID="gvCalenderDetailView" runat="server" GridLines="None" AutoGenerateColumns="False"
-         AllowSorting="false" AllowPaging="True" PageSize="15"  ShowStatusBar="True"
-         ShowFooter="true" OnItemBound="gvCalenderDetailView_ItemDataBound"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
-        AllowFilteringByColumn="false" AllowAutomaticInserts="false" >
-        <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false">
-           
-            <Columns>
-                   
-                 <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer Name"  
-                    UniqueName="CustomerName">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn DataField="Type" HeaderText="Type"  
-                    UniqueName="Type">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn DataField="Scheme" HeaderText="Scheme"  
-                    UniqueName="Scheme">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency"  
-                    UniqueName="Frequency">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                            
-              <%--   <telerik:GridTemplateColumn AllowFiltering="false"  HeaderText="Next Systematic Date" >
-                <ItemStyle HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
-                    <ItemTemplate>
-                        <asp:Label ID="lblNextSystematicDate" runat="server" CssClass="CmbField" Text=''></asp:Label>
-                    </ItemTemplate>
-                  </telerik:GridTemplateColumn>
-                  
-                  <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Systematic Date" 
-                    UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
-                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                  
-                <telerik:GridBoundColumn  Aggregate="Sum" DataField="Amount" DataType="System.Decimal" HeaderText="Amount" 
-                    UniqueName="Amount" FooterText="Total:"  >
-                    <ItemStyle Width="" HorizontalAlign="Right"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-             
-            </Columns>
-                
-        </MasterTableView>
-        
-        <ClientSettings>
-            <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" >
-            </Scrolling>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-        </ClientSettings>
-    </telerik:RadGrid>
-               </telerik:RadAjaxPanel>
-            </td>
-            </tr>             
-        </table>
-        </asp:Panel>
-    </telerik:RadPageView>--%>
+  
     
     <telerik:RadPageView ID="RadPageView2" runat="server">
         <asp:Panel ID="pnlCalenderSummaryView" runat="server" Width="100%">       
@@ -384,9 +315,10 @@
         ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
         AllowFilteringByColumn="false" AllowAutomaticInserts="false" 
-                   onitemdatabound="reptCalenderSummaryView_ItemDataBound">
+                   onitemdatabound="reptCalenderSummaryView_ItemDataBound" 
+                onprerender="reptCalenderSummaryView_PreRender">
             <PagerStyle Mode="NumericPages"></PagerStyle>
-            <MasterTableView Width="100%">
+            <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton" s  >
             <Columns>
             <telerik:GridBoundColumn  DataField="Year"  HeaderText="Year" 
                     UniqueName="Year" >
