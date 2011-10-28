@@ -196,7 +196,7 @@ namespace WealthERP.Uploads
             genDictMF.Add("Karvy", "KA");
             genDictMF.Add("Templeton", "TN");
             genDictMF.Add("Deutsche", "DT");
-            genDictMF.Add("Sundram", "SU");
+            genDictMF.Add("Sundaram", "SU");
             return genDictMF;
         }
 
@@ -1483,12 +1483,12 @@ namespace WealthERP.Uploads
                         #endregion MF CAMS Systematic Upload
 
 
-                        #region MF Sundram Profile Upload
+                        #region MF Sundaram Profile Upload
                         //*****************************************************************************************************************************
-                        //MF Sundram Profile Upload
+                        //MF Sundaram Profile Upload
                         else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue == "SU")
                         {
-                            // Sundram Insert To Input Profile
+                            // Sundaram Insert To Input Profile
                             packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\SundramFileToInput.dtsx");
                             bool camsProInputResult = camsUploadsBo.SundramInsertToInputProfile(UploadProcessId, packagePath, fileName, configPath);
                             if (camsProInputResult)
@@ -1500,7 +1500,7 @@ namespace WealthERP.Uploads
                                 bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                 if (updateProcessLog1)
                                 {
-                                    // Sundram Insert To Staging Profile
+                                    // Sundaram Insert To Staging Profile
                                     packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx");
                                     camsProStagingResult = camsUploadsBo.CAMSInsertToStagingProfile(UploadProcessId, packagePath, configPath);
                                     if (camsProStagingResult)
@@ -1643,7 +1643,7 @@ namespace WealthERP.Uploads
                             txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
                             Session[SessionContents.ProcessLogVo] = processlogVo;
                         }
-                        #endregion MF Sundram Profile Upload
+                        #endregion MF Sundaram Profile Upload
 
 
 
@@ -2613,7 +2613,7 @@ namespace WealthERP.Uploads
                                         {
                                             processlogVo.IsInsertionToWERPComplete = 1;
                                             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPMF");
-                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId,"SU");
                                             processlogVo.EndTime = DateTime.Now;
                                             processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "SU");
                                             processlogVo.NoOfTransactionDuplicates = 0;
@@ -4477,7 +4477,7 @@ namespace WealthERP.Uploads
                 }
                 #endregion
 
-                #region Mf Sundram Profile
+                #region Mf Sundaram Profile
                 //Read File for Mf Deutsche Profile 
                 else if ((ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio || ddlUploadType.SelectedValue == Contants.ExtractTypeProfile || ddlUploadType.SelectedValue == Contants.ExtractTypeFolio) && ddlListCompany.SelectedValue =="SU")
                 {
