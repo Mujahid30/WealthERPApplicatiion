@@ -934,6 +934,7 @@ namespace WealthERP.Advisor
 
                     Label TotalText = (Label)gvGoalOutPut.FooterRow.FindControl("lblTotalText");
                     TotalText.Visible = false;
+                    LabelNote.Visible = false;
 
                     lblTotalText.Visible = false;
 
@@ -1035,7 +1036,7 @@ namespace WealthERP.Advisor
 
                     lblHeaderOutPut.Text = "Customer Goal Profile Details";
                     lblTotalText.Visible = true;
-
+                    LabelNote.Visible = true;
                     Activate.Visible = true;
                     Deactive.Visible = true;
                     Delete.Visible = true;
