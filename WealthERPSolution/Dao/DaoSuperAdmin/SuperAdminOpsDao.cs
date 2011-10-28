@@ -215,7 +215,7 @@ namespace DaoSuperAdmin
            
        }
 
-
+       
 
        public int InsertAndUpdateGoldPrice(SuperAdminOpsVo productGoldPriceVO)
        {
@@ -350,7 +350,7 @@ namespace DaoSuperAdmin
            try
            {
                db.AddInParameter(deleteGoldPriceDetails, "@Pg_Id", DbType.String, productGoldPriceID);
-               i = int.Parse(db.ExecuteScalar(deleteGoldPriceDetails).ToString());
+               i = int.Parse(db.ExecuteNonQuery(deleteGoldPriceDetails).ToString());
                return i;
            }
            catch (Exception ex)
@@ -359,47 +359,6 @@ namespace DaoSuperAdmin
            }
            return i;
        }
-
-        //public List<SuperAdminOpsVo> GetDateList(int productGoldPriceId)
-        //{
-        //    List<SuperAdminOpsVo> rmList = new List<SuperAdminOpsVo>();
-        //    SuperAdminOpsVo saProductGoldPriceVO;
-        //    Database db;
-        //    DbCommand getPGPDetailsDb;
-        //    DataSet getPGPDetailsDs;
-
-        //    try
-        //    {
-        //        db = DatabaseFactory.CreateDatabase("wealtherp");
-        //        getPGPDetailsDb = db.GetStoredProcCommand("SP_GetGoldPriceAccordingToDate");
-        //        db.AddInParameter(getPGPDetailsDb, "@Pg_date", DbType.Int32, productGoldPriceId);
-        //        getPGPDetailsDs = db.ExecuteDataSet(getPGPDetailsDb);
-        //        if (getPGPDetailsDs.Tables[0].Rows.Count > 0)
-        //        {
-        //            foreach (DataRow dr in getPGPDetailsDs.Tables[0].Rows)
-        //            {
-        //                saProductGoldPriceVO = new SuperAdminOpsVo();
-        //                saProductGoldPriceVO.Pg_id = int.Parse(dr["Pg_date"].ToString());
-        //                if (dr["AR_OfficePhoneDirect"].ToString() != "")
-        //                    saProductGoldPriceVO.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
-        //                if (dr["AR_OfficePhoneDirectISD"].ToString() != "")
-        //                    saProductGoldPriceVO.OfficePhoneDirectIsd = int.Parse(dr["AR_OfficePhoneDirectISD"].ToString());
-        //                if (dr["AR_OfficePhoneDirectSTD"].ToString() != "")
-        //                    saProductGoldPriceVO.OfficePhoneDirectStd = int.Parse(dr["AR_OfficePhoneDirectSTD"].ToString());
-
-        //                saProductGoldPriceVO.Email = dr["AR_Email"].ToString();
-        //                saProductGoldPriceVO.RMRole = dr["AR_JobFunction"].ToString();
-        //                rmList.Add(saProductGoldPriceVO);
-        //            }
-        //        }
-        //        else
-        //            rmList = null;
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    return rmList;
-        //}
+       
     }
 }

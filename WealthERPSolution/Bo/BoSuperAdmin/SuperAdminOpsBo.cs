@@ -239,7 +239,9 @@ namespace BoSuperAdmin
 
             try
             {
-                return ProductGoldPriceDao.deleteGoldPriceDetails(productGoldPriceID);
+                 int i;
+                 i=ProductGoldPriceDao.deleteGoldPriceDetails(productGoldPriceID);
+                 return i;
             }
             catch
             {
