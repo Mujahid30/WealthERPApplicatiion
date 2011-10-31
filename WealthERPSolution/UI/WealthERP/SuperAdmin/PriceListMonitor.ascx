@@ -14,7 +14,7 @@
 <script language="javascript" type="text/javascript">
     function showmessage() {
 
-        var bool = window.confirm('Are you sure you want to delete this profile?');
+        var bool = window.confirm('Are you sure you want to delete this price?');
 
         if (bool) {
             document.getElementById("ctrl_PriceListMonitor_hdnMsgValue").value = 1;
@@ -55,7 +55,7 @@
             Inputs[n].checked)
             return true;
 
-        alert('Select at least one price to delete!');
+        alert('Please select a price to delete!');
         return false;
     }
 </script>
@@ -86,7 +86,7 @@
             Inputs[n].checked)
             return true;
 
-        alert('Select at least one price to edit!');
+        alert('Please select a price to edit!');
         return false;
     }
 </script>
@@ -213,29 +213,16 @@
         </asp:DropDownList>
     </td>
     </tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
     </table>
          
     <%--<asp:UpdatePanel ID="showBetweenDatesPanel" runat="server" onload="btnShowBetweendates_Click" 
         UpdateMode="Conditional"><ContentTemplate>
     --%>    
-    <table id="tblErrorMassage" width="100%" visible="false" cellpadding="0" cellspacing="0" runat="server">
-    <tr>
-        <td align="center">
-            <div class="failure-msg" id="ErrorMessage" runat="server" align="center">
-            </div>
-        </td>
-    </tr>
- </table>
     
-    <table width="100%">
-    <tr>
-        <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
-                Goal has been deleted Successfully.
-            </div>
-        </td>
-    </tr>
-</table>
     
     <table width="50%">
     <%--<tr id="trNoRecords" runat="server">
@@ -263,13 +250,13 @@
     Operator="DataTypeCheck"
     ErrorMessage="Please Enter Valid From Date" ValidationGroup="btnShowBetweendates" Display="Dynamic" CssClass="cvPCG"
         />      
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFromDate" ErrorMessage="please enter from date" ValidationGroup="btnShowBetweendates" Display="Dynamic"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator CssClass="cvPCG" ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFromDate" ErrorMessage="please enter from date" ValidationGroup="btnShowBetweendates" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
         
-    <td>
+    <td class="leftField">
         <asp:Label class="FieldName" ID="lblTo" runat="server" Text="To :"></asp:Label>
     </td>
-    <td>
+    <td class="rightField">
         <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField" name="mydate" ValidationGroup="btnShowBetweendates" ></asp:TextBox>
         <cc1:CalendarExtender ID="txtToDate_CalendarExtender" runat="server"  
             Enabled="True" TargetControlID="txtToDate" Format="dd/MM/yyyy">
@@ -287,15 +274,25 @@
     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="To Date should not be less than From Date"
                 Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnShowBetweendates"></asp:CompareValidator>
-    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtToDate" ErrorMessage="please enter to date" ValidationGroup="btnShowBetweendates" Display="Dynamic"></asp:RequiredFieldValidator>
+    <asp:RequiredFieldValidator CssClass="cvPCG" ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtToDate" ErrorMessage="please enter to date" ValidationGroup="btnShowBetweendates" Display="Dynamic"></asp:RequiredFieldValidator>
     </td>
     <td>
     
     </td>
     </tr>
 
-  
+  <tr>
+  <td colspan="5"></td>
+  </tr>
     
+    <tr>
+  <td colspan="5"></td>
+  </tr>
+     <tr>
+  <td colspan="5"></td>
+  </tr> <tr>
+  <td colspan="5"></td>
+  </tr>
     <tr>
     <td></td>
     <td><asp:Button ID="btnShowBetweendates" runat="server" Text="Go" 
@@ -311,7 +308,45 @@
     </tr>
     </table>
   <%--  </ContentTemplate></asp:UpdatePanel>--%>
+    <table id="tblErrorMassage" width="100%" visible="false" cellpadding="0" cellspacing="0" runat="server">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" align="center">
+            </div>
+        </td>
+    </tr>
+ </table>
     
+    <table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Gold price has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatusForEdit" runat="server" class="success-msg" align="center" visible="false">
+                Gold price has been updated Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatusForSubmit" runat="server" class="success-msg" align="center" visible="false">
+                Gold price has been Submitted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+
     <table>
     <tr id="trNoRecords" runat="server">
         <td>
@@ -336,7 +371,8 @@
           <asp:GridView ID="GridViewDetails" runat="server" CssClass="GridViewStyle" 
               AutoGenerateColumns="False" DataKeyNames="PG_ID"
            CellPadding="4" ShowHeader="true" ShowFooter="true" 
-              Width="100%" AllowSorting="true">
+              Width="100%" AllowSorting="true" 
+            onrowdatabound="GridViewDetails_RowDataBound">
            
                                 <RowStyle CssClass="RowStyle"  />
                         <FooterStyle CssClass="FooterStyle" />
@@ -361,8 +397,8 @@
                  </ItemTemplate>
                  
         </asp:TemplateField>
-        <asp:TemplateField HeaderText="Price" HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right">
-                     <ItemTemplate>
+        <asp:TemplateField HeaderText="Price" HeaderStyle-ForeColor="White" ItemStyle-HorizontalAlign="Right" HeaderStyle-HorizontalAlign="Right" >
+                     <ItemTemplate >
                      <asp:Label ID="lblPGPrice" runat="server" Text='<%#Eval("PG_Price")%>'></asp:Label>
                  </ItemTemplate>
                  
@@ -506,4 +542,5 @@
 
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
+    
     <asp:HiddenField ID="hdnGoalId" runat="server" />

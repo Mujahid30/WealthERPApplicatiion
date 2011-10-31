@@ -16,6 +16,7 @@ using System.Text;
 using VoSuperAdmin;
 using BoSuperAdmin;
 using DaoSuperAdmin;
+using System.Globalization;
 
 namespace WealthERP.SuperAdmin
 {
@@ -100,13 +101,15 @@ namespace WealthERP.SuperAdmin
                 //this.BindGoldGridView();
             }
             ProductGoldPriceID = 0;
-            string strFromDate;
-            string strToDate;
-            strFromDate = "dd/mm/yyyy";
-            strToDate = "dd/mm/yyyy";
-            txtFromDate.Text = strFromDate.ToString();
-            txtToDate.Text = strToDate.ToString();
-           
+            //string strFromDate;
+            //string strToDate;
+            //strFromDate = "dd/mm/yyyy";
+            //strToDate = "dd/mm/yyyy";
+            //txtFromDate.Text = strFromDate.ToString();
+            //txtToDate.Text = strToDate.ToString();
+            txtFromDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            txtToDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+
             if(!IsPostBack)
                 hideControls();
             msgRecordStatus.Visible = false;
@@ -147,13 +150,17 @@ namespace WealthERP.SuperAdmin
                 {
                     if (hdnButtonClick.Value == "addClick")
                     {
-                        lblMessage.Visible = true;
-                        lblMessage.Text = "Price Submitted successfully";
+                        msgRecordStatusForSubmit.Visible = true;
+                        msgRecordStatusForEdit.Visible = false;
+                        //lblMessage.Visible = true;
+                        //lblMessage.Text = "Price Submitted successfully";
                     }
                     else if (hdnButtonClick.Value == "editClick")
                     {
-                        lblMessage.Visible = true;
-                        lblMessage.Text = "Price Updated successfully";
+                        msgRecordStatusForEdit.Visible = true;
+                        msgRecordStatusForSubmit.Visible = false;
+                        //lblMessage.Visible = true;
+                        //lblMessage.Text = "Price Updated successfully";
                     }
                     saProductGoldPriceVo.Pg_fromDate = DateTime.Parse(txtFromDate.Text);
                     saProductGoldPriceVo.Pg_toDate = DateTime.Parse(txtToDate.Text);
@@ -182,12 +189,20 @@ namespace WealthERP.SuperAdmin
 
         protected void btnShowBetweendates_Click(object sender, EventArgs e)
         {
+            hideSuccessLabels();
             saProductGoldPriceVo.Pg_fromDate = DateTime.Parse(txtFromDate.Text);
             saProductGoldPriceVo.Pg_toDate = DateTime.Parse(txtToDate.Text);
             BindGoldGridView();
             btnAdd.Visible = true;
             hideControlsForGoClick();           
         }
+
+        public void hideSuccessLabels()
+        {
+            msgRecordStatusForEdit.Visible = false;
+            msgRecordStatusForSubmit.Visible = false;
+        }
+
 
         public void hideControlsForGoClick()
         {
@@ -304,7 +319,7 @@ namespace WealthERP.SuperAdmin
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-
+            hideSuccessLabels();
             saProductGoldPriceVo.Pg_fromDate = DateTime.Parse(txtFromDate.Text);
             saProductGoldPriceVo.Pg_toDate = DateTime.Parse(txtToDate.Text);
           
@@ -352,7 +367,37 @@ namespace WealthERP.SuperAdmin
                 msgRecordStatus.Visible = true;
                 saProductGoldPriceVo.Pg_fromDate = DateTime.Parse(txtFromDate.Text);
                 saProductGoldPriceVo.Pg_toDate = DateTime.Parse(txtToDate.Text);
-                BindGoldGridView();
+
+                int count;
+                DataSet ds = saProductGoldPriceBo.GetDataBetweenDatesForGoldPrice(saProductGoldPriceVo, ProductGoldPriceID, mypager.CurrentPage, out count);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    hdnDateFilter.Value = "";
+                    // lblMsg.Visible = false;
+                    tblErrorMassage.Visible = false;
+                    GridViewDetails.DataSource = ds;
+                    GridViewDetails.DataBind();
+                    mypager.Visible = true;
+                    hdnRecordCount.Value = count.ToString();
+                    GetPageCount();
+                    btnDelete.Visible = true;
+                    btnEdit.Visible = true;
+                    lblCurrentPage.Visible = true;
+                    lblTotalRows.Visible = true;
+                }
+                else
+                {
+                    GridViewDetails.DataSource = ds;
+                    GridViewDetails.DataBind();
+                    mypager.Visible = false;
+                    lblCurrentPage.Visible = false;
+                    lblTotalRows.Visible = false;
+                    btnEdit.Visible = false;
+                    btnDelete.Visible = false;
+                    btnReset.Visible = false;
+                }
+                clearTextFields();
             }
         }
 
@@ -374,6 +419,8 @@ namespace WealthERP.SuperAdmin
             btnReset.Visible = true;
             btnSubmit.Visible = true;
             mypager.Visible = true;
+            msgRecordStatusForSubmit.Visible = false;
+            msgRecordStatusForEdit.Visible = false;            
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -429,6 +476,8 @@ namespace WealthERP.SuperAdmin
             txtDate.Visible = true;
             txtPrice.Visible = true;
             lnkClickHereForPrice.Visible = true;
+            msgRecordStatusForSubmit.Visible = false;
+            msgRecordStatusForEdit.Visible = false;
             //if (GridViewDetails.Visible == true)
             //{
             //    mypager.Visible = true;
@@ -469,6 +518,20 @@ namespace WealthERP.SuperAdmin
             saProductGoldPriceVo.Pg_fromDate = DateTime.Parse(txtFromDate.Text);
             saProductGoldPriceVo.Pg_toDate = DateTime.Parse(txtToDate.Text);
             BindGoldGridView();
+        }
+
+        protected void GridViewDetails_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblPGPrice = e.Row.FindControl("lblPGPrice") as Label;
+
+                if (lblPGPrice.Text.ToString() != "")
+                {
+
+                    lblPGPrice.Text = Math.Round(double.Parse(lblPGPrice.Text), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")).ToString();
+                }
+            }
         }
         //protected void GridViewDetails_PreRender(object sender, EventArgs e)
         //{
