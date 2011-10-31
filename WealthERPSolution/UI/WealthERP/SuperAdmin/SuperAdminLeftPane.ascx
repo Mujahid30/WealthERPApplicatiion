@@ -26,11 +26,11 @@
             </Items>
         </telerik:RadPanelItem>
         <telerik:RadPanelItem Text="Configuration" Value="Configuration"></telerik:RadPanelItem>
-         <telerik:RadPanelItem Text="OPS" Value="OPS">
+         <telerik:RadPanelItem Text="Ops" Value="OPS">
             <Items>
                 <telerik:RadPanelItem Text="Valuation Monitor" Value="Valuation_Monitor">
                 </telerik:RadPanelItem>
-                 <telerik:RadPanelItem Text="Gold Price Monitor" Value="Gold_Price_Monito">
+                 <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
