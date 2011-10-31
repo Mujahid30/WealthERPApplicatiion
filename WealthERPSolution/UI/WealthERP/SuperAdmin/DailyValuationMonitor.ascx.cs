@@ -112,6 +112,7 @@ namespace WealthERP.SuperAdmin
 
        protected void Page_Load(object sender, EventArgs e)
         {
+            btnGo.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             if (!Page.IsPostBack)
             {
                 trRange.Visible = true;
@@ -908,11 +909,12 @@ namespace WealthERP.SuperAdmin
            }
            if (i == 0)
            {
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record to delete!');", true);
            }
            else
            {
                DuplicateDelete();
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record has been deleted successfully.');", true);
            }
        }
        private void DuplicateDelete()
@@ -989,6 +991,14 @@ namespace WealthERP.SuperAdmin
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
                throw exBase;
+           }
+       }
+
+       protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           if (IsPostBack)
+           {
+               tblMessage.Visible = false;
            }
        }
     }

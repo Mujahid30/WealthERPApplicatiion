@@ -7,6 +7,37 @@
     
 </asp:ScriptManager>
 
+<script type="text/javascript">
+    function pageLoad() {
+        InitDialogs();
+        Loading(false);
+    }
+
+    function UpdateImg(ctrl, imgsrc) {
+        var img = document.getElementById(ctrl);
+        img.src = imgsrc;
+    }
+
+    // sets up all of the YUI dialog boxes
+    function InitDialogs() {
+        DialogBox_Loading = new YAHOO.widget.Panel("waitBox",
+	{ fixedcenter: true, modal: true, visible: false,
+	    width: "230px", close: false, draggable: true
+	});
+        DialogBox_Loading.setHeader("Processing, please wait...");
+        DialogBox_Loading.setBody('<div style="text-align:center;"><img src="/Images/Wait.gif" id="Image1" /></div>');
+        DialogBox_Loading.render(document.body);
+    }
+    function Loading(b) {
+        if (b == true && Page_IsValid == true) {
+            DialogBox_Loading.show();
+        }
+        else {
+            DialogBox_Loading.hide();
+        }
+    }
+
+</script>
 <table width="100%">
      <tr>
         <td colspan="6">
@@ -19,7 +50,8 @@
 <asp:Label ID="lblAction" runat="server" Text="Select Type of Monitoring: "  CssClass="FieldName" Width="100%"></asp:Label>
 </td>
 <td>
-<asp:DropDownList ID="ddlAction" runat="server" CssClass="cmbField">
+<asp:DropDownList ID="ddlAction" runat="server"  AutoPostBack="true" 
+        CssClass="cmbField" onselectedindexchanged="ddlAction_SelectedIndexChanged">
 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
 <asp:ListItem Text="Adviser Valuation" Value="AumMis"></asp:ListItem>
 <asp:ListItem Text="Duplicates" Value="DuplicateMis"></asp:ListItem>
@@ -33,12 +65,7 @@
 </tr>
 
 <tr>
-<%-- <td class="style1" colspan="2">
- 
-   <asp:RadioButton ID="rbtnPickDate" Class="cmbField" Checked="True" runat="server" Text="Pick a Date" GroupName="Date" onclick="DisplayDates('DATE_RANGE')" />
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <asp:RadioButton ID="rbtnPickPeriod" Class="cmbField" runat="server" Text="Pick a Period" GroupName="Date" onclick="DisplayDates('PERIOD')"/>
- </td>--%>
+
 <td class="style1" colspan="2">
             <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                 runat="server" GroupName="Date"  />
@@ -49,26 +76,7 @@
 </td>
 </tr>
 </table>
-  <%--<table id="tblRange">
-      <tr>
-         <td valign="middle" align="left">             
-         <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName"></asp:Label>
-         <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox>
-          <ajaxToolkit:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtFromDate" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
-          </ajaxToolkit:CalendarExtender>
-           <ajaxToolkit:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server" TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy" Enabled="True">
-           </ajaxToolkit:TextBoxWatermarkExtender>
-         </td>
-         <td valign="middle" align="left">
-          <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
-          <asp:TextBox ID="txtToDate" runat="server" CssClass="txtField"></asp:TextBox>
-         <ajaxToolkit:CalendarExtender ID="txtToDate_CalendarExtender" runat="server" TargetControlID="txtToDate" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
-          </ajaxToolkit:CalendarExtender>
-          <ajaxToolkit:TextBoxWatermarkExtender ID="txtToDate_TextBoxWatermarkExtender" runat="server" TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy" Enabled="True">
-            </ajaxToolkit:TextBoxWatermarkExtender>
-        </td>
-      </tr>
-</table>--%>
+
 <table id="tblRange" runat="server" >
     <tr id="trRange" visible="false" runat="server">
         <td align="left" valign="top">
@@ -145,7 +153,7 @@
 <tr>
 <td colspan="2">
 <asp:Button ID="btnGo" runat ="server" CssClass="PCGButton"  Text="Go" ValidationGroup="MFSubmit"
-        onclick="btnGo_Click"/>
+        onclick="btnGo_Click" OnClientClick="Loading(true)"/>
 </td>
 </tr>
 <tr>
@@ -329,7 +337,7 @@
 <tr>
 <td>
 <asp:Panel ID="pnlReject" runat="server" class="Landscape" Width="60%" ScrollBars="Horizontal">
-<table style="width: 100%;" class="TableBackground">
+<table width="100%">
 <tr>
  <td  class="leftField" align="right" width="95%">
             <asp:Label ID="lblRejectCount" class="Field" runat="server"></asp:Label>
@@ -364,7 +372,7 @@
                                 <asp:Label ID="lbladviser"  runat="server" Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="A_OrgName" HeaderText="Organization Name" ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
+                        <asp:BoundField DataField="A_OrgName" HeaderText="Adviser Name" ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
                         ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
                     <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText="File NameSource Type"  ItemStyle-HorizontalAlign="left" HeaderStyle-Width="20px" 
                     ItemStyle-Wrap="false" HeaderStyle-Wrap="false" ItemStyle-VerticalAlign="Middle"/>
