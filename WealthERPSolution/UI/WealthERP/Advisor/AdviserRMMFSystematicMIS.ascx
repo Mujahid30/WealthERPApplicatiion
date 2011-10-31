@@ -20,148 +20,164 @@
 
     <table style="width:100%;">
     <tr>
-        <td class="HeaderTextBig" colspan="6">
+        <td class="HeaderTextBig">
             <asp:Label ID="lblMFSystematicMIS" runat="server" CssClass="HeaderTextBig" Text="MF Systematic MIS"></asp:Label>
             <hr />
         </td>
+                
     </tr>
-    </table>
-    <table width="50%">
-    <tr id="trBranchRM" runat="server" >
-    <td align="left" style="width: 25%">
-    <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
-  
-    <asp:DropDownList ID="ddlBranch" runat="server" style="vertical-align: middle" AutoPostBack="true"
+    <tr>
+    <td style="width:100%;">
+      <table style="width:100%;">
+        
+        <tr id="trBranchRM" runat="server">
+        <td align="right" width="10%">
+         <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+        </td>
+        <td align="left" style="width:10%;">
+        <asp:DropDownList ID="ddlBranch" runat="server" style="vertical-align: middle" AutoPostBack="true"
             CssClass="cmbField" onselectedindexchanged="ddlBranch_SelectedIndexChanged" >
-    </asp:DropDownList>                  
-    </td>
-    <td align="left" style="width: 25%">
-    <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
-    
-    <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" style="vertical-align: middle" >
-     </asp:DropDownList>           
-     </td>
-    </tr>
-    </table>
-    
-    <table width="100%">
-     <tr>
-      <td id="tdSelectCusto" runat="server"  style="width: 40%" >
-       <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="MIS for :"></asp:Label>
-       <asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
+         </asp:DropDownList> 
+        </td>
+        
+        <td align="right" style="width:10%;">
+          <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+        </td>
+        <td align="left" style="width:10%;">
+         <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" style="vertical-align: middle" >
+         </asp:DropDownList>    
+        </td>
+        
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        </tr>
+        
+        <tr>
+        <td  align="right" width="10%">
+        <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="MIS for :"></asp:Label>
+        </td>
+        
+        <td id="tdSelectCusto" runat="server"  align="left" width="10%">
+         <asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" Checked="True" 
               oncheckedchanged="rdoAllCustomer_CheckedChanged" />
-         <asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick a Customer" AutoPostBack="true"
+              <br />
+              <asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" 
               oncheckedchanged="rdoPickCustomer_CheckedChanged" />
-       </td>
-       </tr>
-       <tr>
-       <td>
-       <table>
-       <tr>
-      <td align="right">
-      <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Select customer type: "></asp:Label>
-      </td>
-      <td>
-      <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" 
-              runat="server" CssClass="cmbField" AutoPostBack="true" 
-              onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged">
-      <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
-      <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
-      <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
-      </asp:DropDownList>
-      </td>
-      </tr>
-      <tr>
-      <td align="right">
-      <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Select Customer: "></asp:Label>
-      </td>
-      <td>
-     <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">  </asp:TextBox>
-    <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer" WatermarkText="Enter few chars of Customer"
-     runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
-             <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender" runat="server"
-              TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-              MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-              CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-              CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-              UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
-              
-     <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic" ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer" runat="server" ValidationGroup="btnGo">
-     </asp:RequiredFieldValidator>
-              
-              
-                                                                
-       </td>
-       </tr>
-     </table> 
-     </td>
-     </tr>
-     
-<%--     <tr id="trGroupCustomer" runat="server">
-     <td></td>
-     <td></td>
-     <td></td>
-     </tr>--%>
-     <tr>
-      <td align="right">
-     <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
-     </td>
-     <td>
-     <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
-      </asp:DropDownList>
-     </td>
-     <td align="right">
-     <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
-     </td>
-     <td>
-     <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField"  
-             AutoPostBack="true" onselectedindexchanged="ddlAMC_SelectedIndexChanged"> 
-      </asp:DropDownList>
-     </td>
-     <td></td>
-    </tr>
-    
-     <tr>
-     <td align="right">
-     <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
-     </td>
-     <td>
-     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
-      </asp:DropDownList>
-     </td>
-     <td align="right">
-      <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
-      </td>
-      <td>
-     <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
-      </asp:DropDownList>
-     </td>
-     <td></td>
-      </tr>
-      
-      <tr>
-      <td valign="middle" align="Right">
-         <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
-         </asp:Label>
+        </td>
+         
+        <td align="right" width="10%">
+         <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
+        </td>
         
-         </td>
-         <td align="left">
-         <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox> <span id="SpanFromDate" class="spnRequiredField">*</span>
+        <td  align="left" width="10%">
+         <asp:DropDownList ID="ddlSelectCutomer" style="vertical-align: middle" runat="server" CssClass="cmbField" AutoPostBack="true" onselectedindexchanged="ddlSelectCutomer_SelectedIndexChanged">
+          <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
+          <asp:ListItem Value="Group Head" Text="Group Head"></asp:ListItem>
+          <asp:ListItem Value="Individual" Text="Individual"></asp:ListItem>
+          </asp:DropDownList>
+        </td>
+        
+        <td align="right" width="10%">
+        <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
+        </td>
+        
+        <td align="left" width="10%">
+        <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">  </asp:TextBox>
+        <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer" WatermarkText="Enter few chars of Customer"
+         runat="server" EnableViewState="false"></cc1:TextBoxWatermarkExtender>
+                 <ajaxToolkit:AutoCompleteExtender ID="txtIndividualCustomer_autoCompleteExtender" runat="server"
+                  TargetControlID="txtIndividualCustomer" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                  MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                  CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                  CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                  UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
+                  
+         <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic" ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer" runat="server" ValidationGroup="btnGo">
+         </asp:RequiredFieldValidator>
+        </td>
+        <td>
+         
+        </td>
+        <td>
+        </td>
+        </tr>
+        
+        <tr>
+        <td align="right" width="10%">
+        <asp:Label ID="lblSystematicType" runat="server" Text="Systematic Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+        <asp:DropDownList ID="ddlSystematicType" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
+        </asp:DropDownList>
+        </td>
+        
+        <td align="right" width="10%">
+         <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+         <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField"  
+             AutoPostBack="true" onselectedindexchanged="ddlAMC_SelectedIndexChanged"> 
+        </asp:DropDownList>
+        </td>
+        
+        <td align="right" width="10%">
+        <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
+        </asp:DropDownList>
+        </td>
+        
+        <td align="right" width="10%">
+        <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
+        </asp:DropDownList>
+        </td>
+        
+        </tr>
+        
+        <tr>
+        <td  align="right" width="10%">
+        <asp:Label ID="lblDate" runat="server" Text="Date filter on: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+         <asp:DropDownList ID="ddlDateFilter" style="vertical-align: middle" runat="server" CssClass="cmbField"> 
+         <asp:ListItem Text="Start Date" Value="StartDate" Selected="True"></asp:ListItem>
+         <asp:ListItem Text="End Date" Value="EndDate"></asp:ListItem>
+         </asp:DropDownList>
+        </td>
+        
+        <td align="right" width="10%">
+          <asp:Label ID="lblFromDate" Text="From:" runat="server" CssClass="FieldName">
+         </asp:Label>
+        </td>
+        <td align="left" width="10%">
+        <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+         <%--<span id="SpanFromDate" class="spnRequiredField">*</span>--%>
          <ajaxToolkit:CalendarExtender ID="txtFrom_CalendarExtender" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
          </ajaxToolkit:CalendarExtender>
          <ajaxToolkit:TextBoxWatermarkExtender ID="txtFrom_TextBoxWatermarkExtender" runat="server" TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy" Enabled="True">
          </ajaxToolkit:TextBoxWatermarkExtender>
          <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Display="Dynamic" ControlToValidate="txtFrom" CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" runat="server" ValidationGroup="btnGo">
           </asp:RequiredFieldValidator>
-          </td>          
-         <td valign="middle" align="Right">
-             <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
-             
-             </td>
-             <td align="left">
-              <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox> <span id="SpanToDate" class="spnRequiredField">*</span>
+        </td>
+        
+        <td align="right" width="10%">
+         <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
+        </td>
+        <td align="left" width="10%" valign="middle" colspan="2">
+         <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+          <span id="SpanToDate" class="spnRequiredField">*</span>
               <ajaxToolkit:CalendarExtender ID="txtTo_CalendarExtender" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
                </ajaxToolkit:CalendarExtender>
                 <ajaxToolkit:TextBoxWatermarkExtender ID="txtTo_TextBoxWatermarkExtender" runat="server" TargetControlID="txtTo" WatermarkText="dd/mm/yyyy" Enabled="True">
@@ -172,52 +188,26 @@
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date" Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo">
                </asp:CompareValidator>
-         </td>
-         <td></td>
-      </tr>
-    </table>
-    <table width="100%">
-    <tr>
-     <td align="left" style="width:35%;">
-     <asp:Label ID="lblDate" runat="server" Text="Date filter on: " CssClass="FieldName"></asp:Label>
-     <asp:DropDownList ID="ddlDateFilter" style="vertical-align: middle" runat="server" CssClass="cmbField"> 
-     <asp:ListItem Text="Start Date" Value="StartDate" Selected="True"></asp:ListItem>
-     <asp:ListItem Text="End Date" Value="EndDate"></asp:ListItem>
-      </asp:DropDownList>
-     </td>
-    <%--<td style="width:66%">
-     <asp:Label ID="lblFrom" runat="server" Text="From:" CssClass="FieldName"></asp:Label>
-     <asp:TextBox ID="txtFrom" runat="server" style="vertical-align: middle" CssClass="txtField">
-      </asp:TextBox>
-      <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtFrom"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="txtStartDate_TextBoxWatermarkExtender" runat="server"
-                TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-      <asp:Label ID="Label1" runat="server" Text="To:" CssClass="FieldName" ></asp:Label>
-     <asp:TextBox ID="txtTo" runat="server" style="vertical-align: middle" CssClass="txtField">
-      </asp:TextBox>
-     <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
-                TargetControlID="txtTo" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-     </td>--%>
-                
-     </tr>
-     <tr>
-      
-     </tr>
-    </table>
-    <table>
-    <tr>
-    <td>
-    <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo"  
+        </td>
+        
+           <td>
+           </td>    
+        </tr>
+        <tr>
+        <td colspan="8">
+         <asp:Button ID="btnGo" runat="server" Text="Go" ValidationGroup="btnGo"  
             CssClass="PCGButton" onclick="btnGo_Click" />
+        </td>
+        </tr>
+        </table>
     </td>
     </tr>
     </table>
+    
+    
+   
+   
+    
 <div style="width:99%">
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="SystameticMISMultiPage" 
