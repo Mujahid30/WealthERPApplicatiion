@@ -1262,13 +1262,7 @@ namespace WealthERP.Advisor
                 int newSwpCount = 0;
                 int runningSwpCount = 0;
 
-                int tempStartMonth = 0;
-                int tempEndMonth = 0;
-                int tempDayCount = 0;
-
-                int tempStartDate = 0;
-                int tempEndDate = 0;
-
+           
 
                 while (startSipSwpDate <= endSipSwpDate)
                 {
@@ -1310,12 +1304,12 @@ namespace WealthERP.Advisor
                                         if (dr["TypeCode"].ToString().Trim() == "SIP")
                                         {
                                             monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount += tempDayCount;
+                                            runningSipCount ++;
                                         }
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
                                             monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount++;
+                                            runningSwpCount++;
                                         }
                                     }
                                     tempStartSipSwp = tempStartSipSwp.AddDays(1);
@@ -1335,12 +1329,12 @@ namespace WealthERP.Advisor
                                         if (dr["TypeCode"].ToString().Trim() == "SIP")
                                         {
                                             monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount += tempDayCount;
+                                            runningSipCount ++;
                                         }
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
                                             monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount++;
+                                            runningSwpCount++;
                                         }
                                     }
                                     tempStartSipSwp = tempStartSipSwp.AddDays(7);
@@ -1366,7 +1360,7 @@ namespace WealthERP.Advisor
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
                                             monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount++;
+                                            runningSwpCount++;
                                         }
                                     }
                                     tempStartSipSwp = tempStartSipSwp.AddMonths(1);
@@ -1393,7 +1387,7 @@ namespace WealthERP.Advisor
                                         else if (dr["TypeCode"].ToString().Trim() == "SWP")
                                         {
                                             monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
-                                            runningSipCount++;
+                                            runningSwpCount++;
                                         }
                                     }
                                     tempStartSipSwp = tempStartSipSwp.AddMonths(3);
