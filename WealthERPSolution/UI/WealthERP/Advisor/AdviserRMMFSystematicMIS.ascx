@@ -213,11 +213,11 @@
     EnableEmbeddedSkins="False" MultiPageID="SystameticMISMultiPage" 
     SelectedIndex="1">
     <Tabs>
-        <telerik:RadTab runat="server"  Text="Systematic Setup View" 
+        <telerik:RadTab runat="server"  Text="Setup View" 
             Value="Systematic Setup View" TabIndex="0" Selected="True">
         </telerik:RadTab>
         
-        <telerik:RadTab runat="server" Text="Calender Summary View" 
+        <telerik:RadTab runat="server" Text="Order Detail View" 
      Value="Calender Summary View" TabIndex="1">
    </telerik:RadTab>
    
@@ -240,7 +240,7 @@
                            Skin="Telerik">
                            <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                <Columns>
-                                   <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer Name" 
+                                   <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" 
                                        UniqueName="CustomerName">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -256,7 +256,7 @@
                                        HeaderText="Scheme" UniqueName="SchemePlaneName">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="160px" Wrap="true" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio Number" 
+                                   <telerik:GridBoundColumn DataField="FolioNumber" HeaderText="Folio" 
                                        UniqueName="FolioNumber">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -274,13 +274,13 @@
                                        <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    
-                                   <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Systematic Date" 
+                                   <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Date" 
                     UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
                      <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                                    
-                                   <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" 
-                                       DataType="System.Decimal" FooterText="Total:" HeaderText="Amount" 
+                                   <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" ItemStyle-HorizontalAlign="right"
+                                       DataType="System.Decimal" HeaderText="Amount" FooterText="Grand Total: " FooterStyle-HorizontalAlign="Right"
                                        UniqueName="Amount">
                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -308,10 +308,10 @@
                    onitemdatabound="reptCalenderSummaryView_ItemDataBound" 
                 onprerender="reptCalenderSummaryView_PreRender">
             <PagerStyle Mode="NumericPages"></PagerStyle>
-            <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton" s  >
+            <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton"   >
             <Columns>
             <telerik:GridBoundColumn  DataField="Year"  HeaderText="Year" 
-                    UniqueName="Year" >
+                    UniqueName="Year" FooterText="Grand Total: ">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                    <telerik:GridBoundColumn  DataField="FinalMonth"  HeaderText="Month" 
@@ -319,59 +319,80 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount">
+                <%--<telerik:GridTemplateColumn HeaderText="SIP Amount" UniqueName="SIPAmount"  ItemStyle-HorizontalAlign="Right">
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblSIPAmount" Text='<%# Eval("SIPAmount")%>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label runat="server" ID="lblSIPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
                 
-                <telerik:GridTemplateColumn HeaderText="No. of SIPs" UniqueName="NoOfSIP">
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="lblNoOfSIP" Text='<%# Eval("NoOfSIP")%>'></asp:Label>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:Label runat="server" ID="lblNoOfSIPFooter" Text=""></asp:Label>
-                    </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                  <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" DataType="System.Decimal" HeaderText="SIP Amount" 
+                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                  </telerik:GridBoundColumn>        
                 
-                <telerik:GridTemplateColumn HeaderText="No. of Fresh SIPs" UniqueName="NoOfFreshSIP">
+                <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderText="No. of SIPs" ItemStyle-HorizontalAlign="right" 
+                UniqueName="SIPAmount"  DataType="System.Int16" FooterText="" FooterStyle-HorizontalAlign="Right">
+                 <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                </telerik:GridBoundColumn>
+                
+                <%--<telerik:GridTemplateColumn HeaderText="No. of Fresh SIPs" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSIP" Text='<%# Eval("NoOfFreshSIP")%>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSIPFooter" Text=""></asp:Label>
                     </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
                 
-                <telerik:GridTemplateColumn HeaderText="SWP Amount" UniqueName="NoOfFreshSIP">
+                <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" DataType="System.Int16" HeaderText="No. of Fresh SIPs" 
+                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                  </telerik:GridBoundColumn>
+                
+                <%--<telerik:GridTemplateColumn HeaderText="SWP Amount" UniqueName="NoOfFreshSIP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblSWPAmount" Text='<%# Eval("SWPAmount")%>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label runat="server" ID="lblSWPAmountFooter" Text=""></asp:Label>
                     </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
+                
+                <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" DataType="System.Decimal" HeaderText="SWP Amount"
+                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                  </telerik:GridBoundColumn>
                                 
-                <telerik:GridTemplateColumn HeaderText="No. of SWPs" UniqueName="NoOfSWP">
-                    <ItemTemplate>
+               <%-- <telerik:GridTemplateColumn HeaderText="No. of SWPs" UniqueName="NoOfSWP" ItemStyle-HorizontalAlign="Right" >
+                    <ItemTemplate >
                         <asp:Label runat="server" ID="lblNoOfSWP" Text='<%# Eval("NoOfSWP")%>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label runat="server" ID="lblNoOfSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
+                
+                <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" DataType="System.Int16" HeaderText="No. of SWPs"
+                  ItemStyle-HorizontalAlign="Right" UniqueName="NoOfSWP" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                  </telerik:GridBoundColumn>
                                
-                 <telerik:GridTemplateColumn HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP">
+                 <%--<telerik:GridTemplateColumn HeaderText="No. of fresh SWPs" UniqueName="NoOfFreshSWP" ItemStyle-HorizontalAlign="Right" >
                     <ItemTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSWP" Text='<%# Eval("NoOfFreshSWP")%>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:Label runat="server" ID="lblNoOfFreshSWPFooter" Text=""></asp:Label>
                     </FooterTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
+                
+                <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP" DataType="System.Decimal" HeaderText="No. of fresh SWPs"
+                  ItemStyle-HorizontalAlign="Right" UniqueName="NoOfFreshSWP" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
+                  </telerik:GridBoundColumn>
                  
                  
             </Columns>
