@@ -1209,4 +1209,8 @@
     <value>Admin//MarketData.ascx</value>
     <comment>Admin//MarketData.ascx</comment>
   </data>
+  <data name="GoldPriceList" xml:space="preserve">
+    <value>Admin//GoldPriceList.ascx</value>
+    <comment>Admin//GoldPriceList.ascx</comment>
+  </data>
 </root>

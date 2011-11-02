@@ -1267,6 +1267,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin//GoldPriceList.ascx.
+        /// </summary>
+        internal static string GoldPriceList {
+            get {
+                return ResourceManager.GetString("GoldPriceList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//GroupAccountSetup.ascx.
         /// </summary>
         internal static string GroupAccountSetup {

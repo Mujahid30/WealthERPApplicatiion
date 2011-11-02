@@ -461,6 +461,13 @@
     <Compile Include="Admin\Download.ascx.designer.cs">
       <DependentUpon>Download.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\GoldPriceList.ascx.cs">
+      <DependentUpon>GoldPriceList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GoldPriceList.ascx.designer.cs">
+      <DependentUpon>GoldPriceList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Maintenance.ascx.cs">
       <DependentUpon>Maintenance.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3098,6 +3105,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\GoldPriceList.ascx" />
     <Content Include="Admin\MarketData.ascx" />
     <Content Include="Admin\UploadProcessLog.ascx" />
     <Content Include="Admin\UploadRejects.ascx" />
