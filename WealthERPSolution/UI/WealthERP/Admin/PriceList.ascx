@@ -106,7 +106,7 @@
     <Tabs>        
         <telerik:RadTab runat="server" Text="NAV" Value="Price" TabIndex="0" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1">
+        <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1" Visible="false">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Scheme Comparison" Value="Scheme_Comparison" TabIndex="2" >
         </telerik:RadTab>        

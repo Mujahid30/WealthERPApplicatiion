@@ -48,7 +48,7 @@ namespace WealthERP.Admin
             }
             if (hdnassetType.Value == "MF")
             {
-                RadTabStrip1.Tabs[1].Visible = true;
+                RadTabStrip1.Tabs[1].Visible = false;
                 RadTabStrip1.Tabs[2].Visible = true;
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
@@ -95,6 +95,7 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = false;
                 trToDate.Visible = false;
                 trFromDate.Visible = false;
+                RadTabStrip1.Tabs[0].Text = "Price";
             }
         }
 
