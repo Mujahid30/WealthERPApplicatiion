@@ -1433,13 +1433,13 @@ namespace WealthERP.FP
 
             //string strData = rangeone;
 
-            rangeoneUpper =int.Parse(rangeone.Substring(2));
+            rangeoneUpper =int.Parse(rangeone.Substring(1));
             string[] ratioMiddleRange = rangeTwo.Split('-');
             rangeTwoLower = int.Parse(ratioMiddleRange[0]);
             rangeTwoUpper = int.Parse(ratioMiddleRange[1]);
-            rangeThreeLower = int.Parse(rangeThree.Substring(2));
+            rangeThreeLower = int.Parse(rangeThree.Substring(1));
 
-            if (value <= rangeoneUpper)
+            if (value < rangeoneUpper)
             {
                 return 0;                
             }
