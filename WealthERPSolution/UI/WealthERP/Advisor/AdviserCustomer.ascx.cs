@@ -752,7 +752,14 @@ namespace WealthERP.Advisor
                     //}
 
                     Session[SessionContents.FPS_AddProspectListActionStatus] = "FPDashBoard";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+                    if (adviserVo.advisorId == 1157 && adviserVo.OrganizationName.Contains("Birla Money"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPGoalDashBoard','login');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPDashBoard','login');", true);
+                    }
                 }
             }
             catch (Exception Ex)

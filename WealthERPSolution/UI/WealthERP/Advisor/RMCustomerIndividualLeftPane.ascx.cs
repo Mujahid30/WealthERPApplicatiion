@@ -958,7 +958,14 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Financial Planning")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPDashboard", "loadcontrol('CustomerFPDashBoard','login')", true);
+                    if (advisorVo.advisorId == 1157 && advisorVo.OrganizationName.Contains("Birla Money"))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPGoalDashBoard','login');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFPDashboard", "loadcontrol('CustomerFPDashBoard','login')", true);
+                    }
                 }
                 else if (e.Item.Value == "Finance Profile")
                 {
