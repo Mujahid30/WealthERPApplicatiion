@@ -1213,4 +1213,8 @@
     <value>Admin//GoldPriceList.ascx</value>
     <comment>Admin//GoldPriceList.ascx</comment>
   </data>
+  <data name="CustomerFPGoalDashBoard" xml:space="preserve">
+    <value>FP//CustomerFPGoalDashBoard.ascx</value>
+    <comment>FP//CustomerFPGoalDashBoard.ascx</comment>
+  </data>
 </root>

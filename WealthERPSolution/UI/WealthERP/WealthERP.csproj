@@ -2001,6 +2001,13 @@
     <Compile Include="FP\CustomerFPDashBoard.ascx.designer.cs">
       <DependentUpon>CustomerFPDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="FP\CustomerFPGoalDashBoard.ascx.cs">
+      <DependentUpon>CustomerFPGoalDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FP\CustomerFPGoalDashBoard.ascx.designer.cs">
+      <DependentUpon>CustomerFPGoalDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="FP\CustomerFPGoalFunding.ascx.cs">
       <DependentUpon>CustomerFPGoalFunding.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4647,6 +4654,7 @@
     <Content Include="FP\CustomerFPAnalyticsDynamic.ascx" />
     <Content Include="FP\CustomerFPAnalyticsStandard.ascx" />
     <Content Include="FP\CustomerFPDashBoard.ascx" />
+    <Content Include="FP\CustomerFPGoalDashBoard.ascx" />
     <Content Include="FP\CustomerFPGoalFunding.ascx" />
     <Content Include="FP\CustomerFPGoalPlanningDetails.ascx" />
     <Content Include="FP\CustomerFPGoalSetup.ascx" />
