@@ -4,7 +4,10 @@
 <hr />
 <br />
 
-<table width="60%" class="TableBackground">
+<table width="100%" class="TableBackground">
+<tr>
+<td></td>
+<td>
     <asp:GridView ID="gVCustomerDashboard" runat="server" CssClass="GridViewStyle" 
         ShowFooter="True" onrowdatabound="gVCustomerDashboard_RowDataBound1"  AutoGenerateColumns="False" Width="60%">
     
@@ -50,7 +53,7 @@
                                 
    </Columns>
     </asp:GridView>
-    
+    </td></tr>
 </table>
 
 <table>
