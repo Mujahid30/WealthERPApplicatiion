@@ -27,5 +27,11 @@ namespace WealthERP.Admin
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdminPriceList", "loadcontrol('AdminPriceList','?AssetId=" + AssetId + "');", true);
            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdminPriceList','login')", true);
         }
+
+        protected void lnkGoldPrice_Click(object sender, EventArgs e)
+        {
+            string AssetId = "GOLD";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoldPriceList", "loadcontrol('GoldPriceList','?AssetId=" + AssetId + "');", true);
+        }
     }
 }
