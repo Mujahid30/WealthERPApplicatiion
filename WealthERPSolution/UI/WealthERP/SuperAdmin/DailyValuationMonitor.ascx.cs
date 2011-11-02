@@ -113,6 +113,7 @@ namespace WealthERP.SuperAdmin
        protected void Page_Load(object sender, EventArgs e)
         {
             btnGo.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            tblMessage.Visible = false;
             if (!Page.IsPostBack)
             {
                 trRange.Visible = true;
@@ -123,6 +124,7 @@ namespace WealthERP.SuperAdmin
                     txtToDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
                     trPeriod.Visible = false;
                 }
+                tblMessage.Visible = false;
                 btnDelete.Visible = false;
                 lblCurrentPage.Visible = false;
                 lblTotalRows.Visible = false;
@@ -174,6 +176,7 @@ namespace WealthERP.SuperAdmin
 
        protected void btnGo_Click(object sender, EventArgs e)
        {
+           
            CalculateDateRange(out dtFrom, out dtTo);
            hdnFromDate.Value = dtFrom.ToString();
            hdnToDate.Value = dtTo.ToString();
@@ -192,6 +195,7 @@ namespace WealthERP.SuperAdmin
                BindMFRejectedGrid();
                btnDelete.Visible = false;
            }
+           
        }
         /// <summary>
         ///  To Get All adviser's total AUM
@@ -994,12 +998,12 @@ namespace WealthERP.SuperAdmin
            }
        }
 
-       protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
-       {
-           if (IsPostBack)
-           {
-               tblMessage.Visible = false;
-           }
-       }
+       //protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+       //{
+       //    if (IsPostBack)
+       //    {
+       //        tblMessage.Visible = false;
+       //    }
+       //}
     }
 }

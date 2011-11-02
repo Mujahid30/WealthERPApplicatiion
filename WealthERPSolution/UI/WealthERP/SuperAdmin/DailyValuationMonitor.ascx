@@ -51,7 +51,7 @@
 </td>
 <td>
 <asp:DropDownList ID="ddlAction" runat="server"  AutoPostBack="true" 
-        CssClass="cmbField" onselectedindexchanged="ddlAction_SelectedIndexChanged">
+        CssClass="cmbField" >
 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
 <asp:ListItem Text="Adviser Valuation" Value="AumMis"></asp:ListItem>
 <asp:ListItem Text="Duplicates" Value="DuplicateMis"></asp:ListItem>
@@ -189,11 +189,11 @@
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
                     
-                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right">
+                    <asp:TemplateField ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="10px">
                     <HeaderTemplate>
                                 <asp:Label ID="lblAdviserIdData" runat="server" Text="AdviserID"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlAdviserId" AutoPostBack="true" CssClass="cmbField"
+                                <asp:DropDownList ID="ddlAdviserId" AutoPostBack="true" CssClass="cmbField" Width="80px"
                                     runat="server" OnSelectedIndexChanged="ddlAdviserIdDuplicate_SelectedIndexChanged"  >
                                 </asp:DropDownList>
                             </HeaderTemplate>
@@ -231,7 +231,7 @@
                      <HeaderTemplate>
                                 <asp:Label ID="lblFolioNoData" runat="server" Text="Folio Number"></asp:Label>
                                 <br />
-                                <asp:DropDownList ID="ddlFolioNo" AutoPostBack="true" CssClass="cmbField"
+                                <asp:DropDownList ID="ddlFolioNo" AutoPostBack="true" CssClass="cmbField" Width="80px"
                                     runat="server"  OnSelectedIndexChanged="ddlFolioNo_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
