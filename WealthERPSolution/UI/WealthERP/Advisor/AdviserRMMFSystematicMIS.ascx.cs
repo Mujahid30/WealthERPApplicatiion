@@ -1291,19 +1291,22 @@ namespace WealthERP.Advisor
 
                         foreach (DataRow dr in dtSIPDetails.Rows)
                         {
-                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SIP")
+                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SIP" && DateTime.Parse(dr["StartDate"].ToString()).Year == startSipSwpDate.Year)
                             {
                                 if (startYear >= DateTime.Parse(dr["StartDate"].ToString()).Year && startYear <= DateTime.Parse(dr["EndDate"].ToString()).Year)
                                 {
+
+                                }
                                       newSipCount++;
-                                }
+                                
                             }
-                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP")
+                            if (DateTime.Parse(dr["StartDate"].ToString()).Month == month && dr["TypeCode"].ToString().Trim() == "SWP" && DateTime.Parse(dr["StartDate"].ToString()).Year == startSipSwpDate.Year)
                             {
                                 if (startYear >= DateTime.Parse(dr["StartDate"].ToString()).Year && startYear <= DateTime.Parse(dr["EndDate"].ToString()).Year)
                                 {
-                                    newSwpCount++;
+                                    
                                 }
+                                newSwpCount++;
                             }
 
                             DateTime tempStartSipSwp = DateTime.Parse(dr["StartDate"].ToString());
