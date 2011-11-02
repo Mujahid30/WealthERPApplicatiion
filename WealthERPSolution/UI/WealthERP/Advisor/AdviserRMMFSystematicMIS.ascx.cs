@@ -848,41 +848,48 @@ namespace WealthERP.Advisor
 
         protected void gvCalenderDetailView_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate);
+            DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate,endDate);
             Label lblSysNxt = (Label)e.Item.FindControl("lblNextSystematicDate");
             //lblSysNxt.Text = dtCalenderDetail.ToShortDateString();
         }
 
-        private DateTime GetNextSystematicDate(string frequency, int systematicDate)
+        private DateTime GetNextSystematicDate(string frequency, int systematicDate, DateTime endDate)
         {
 
             DateTime nextSystematicDate = new DateTime();
             DateTime currentDate = DateTime.Now;
-            nextSystematicDate = new DateTime(currentDate.Year, currentDate.Month, 1);
-            nextSystematicDate = nextSystematicDate.AddDays(systematicDate - 1);
-            switch (frequency)
+            if (endDate >= currentDate)
             {
-                case "Daily":
-                    nextSystematicDate = nextSystematicDate.AddDays(1);
-                    break;
-                case "FortNightly":
-                    nextSystematicDate = nextSystematicDate.AddDays(15);
-                    break;
-                case "Weekly":
-                    nextSystematicDate = nextSystematicDate.AddDays(7);
-                    break;
-                case "Monthly":
-                    nextSystematicDate = nextSystematicDate.AddMonths(1);
-                    break;
-                case "Quarterly":
-                    nextSystematicDate = nextSystematicDate.AddMonths(4);
-                    break;
-                case "HalfYearly":
-                    nextSystematicDate = nextSystematicDate.AddMonths(6);
-                    break;
-                case "Yearly":
-                    nextSystematicDate = nextSystematicDate.AddYears(1);
-                    break;
+                nextSystematicDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+                nextSystematicDate = nextSystematicDate.AddDays(systematicDate - 1);
+                switch (frequency)
+                {
+                    case "Daily":
+                        nextSystematicDate = nextSystematicDate.AddDays(1);
+                        break;
+                    case "FortNightly":
+                        nextSystematicDate = nextSystematicDate.AddDays(15);
+                        break;
+                    case "Weekly":
+                        nextSystematicDate = nextSystematicDate.AddDays(7);
+                        break;
+                    case "Monthly":
+                        nextSystematicDate = nextSystematicDate.AddMonths(1);
+                        break;
+                    case "Quarterly":
+                        nextSystematicDate = nextSystematicDate.AddMonths(4);
+                        break;
+                    case "HalfYearly":
+                        nextSystematicDate = nextSystematicDate.AddMonths(6);
+                        break;
+                    case "Yearly":
+                        nextSystematicDate = nextSystematicDate.AddYears(1);
+                        break;
+                }
+            }
+            else
+            {
+                nextSystematicDate = DateTime.MinValue;
             }
 
             return nextSystematicDate;
@@ -929,10 +936,17 @@ namespace WealthERP.Advisor
                     drSystematicDetails["Frequency"] = dr["Frequency"].ToString();
                     systematicDate = Convert.ToInt32(dr["SystematicDate"].ToString());
                     //startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    //endDate = Convert.ToDateTime(dr["EndDate"].ToString());
+                    endDate = Convert.ToDateTime(dr["EndDate"].ToString());
                     frequency = dr["Frequency"].ToString();
-                    DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate);
-                    drSystematicDetails["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
+                    DateTime nextSystematicDate = GetNextSystematicDate(frequency, systematicDate, endDate);
+                    if (nextSystematicDate != DateTime.MinValue)
+                    {
+                        drSystematicDetails["NextSystematicDate"] = nextSystematicDate.ToShortDateString();
+                    }
+                    else
+                    {
+                        drSystematicDetails["NextSystematicDate"] = "---";
+                    }
                     drSystematicDetails["Amount"] = decimal.Parse(dr["Amount"].ToString());
 
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
