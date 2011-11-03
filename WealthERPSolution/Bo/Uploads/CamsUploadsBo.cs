@@ -624,6 +624,43 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
+        public bool SundaramInsertToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package camsProPkg4 = App.LoadPackage(Packagepath, null);
+                camsProPkg4.Variables["varProcessId"].Value = processId;
+                camsProPkg4.Variables["varXMLFileTypeId"].Value = 21;
+                camsProPkg4.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult4 = camsProPkg4.Execute();
+                if (camsProResult4.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "StandardProfileUploadBo.cs:StdInsertToFirstStaging()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
     //Transfer the Folio details from CAMS main staging to the Common Folio Staging
         public bool CAMSInsertFolioDataToFolioCommonStaging(int processId, string Packagepath, string configPath)
         {
@@ -633,6 +670,43 @@ namespace BoUploads
                 Package camsProPkg5 = App.LoadPackage(Packagepath, null);
                 camsProPkg5.Variables["varProcessId"].Value = processId;
                 camsProPkg5.Variables["varXMLFileTypeId"].Value = 2;
+                camsProPkg5.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult5 = camsProPkg5.Execute();
+                if (camsProResult5.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertFolioDataToFolioCommonStaging()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+                objects[2] = configPath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool SundaramInsertFolioDataToFolioCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package camsProPkg5 = App.LoadPackage(Packagepath, null);
+                camsProPkg5.Variables["varProcessId"].Value = processId;
+                camsProPkg5.Variables["varXMLFileTypeId"].Value = 21;
                 camsProPkg5.ImportConfigurationFile(configPath);
                 DTSExecResult camsProResult5 = camsProPkg5.Execute();
                 if (camsProResult5.ToString() == "Success")
