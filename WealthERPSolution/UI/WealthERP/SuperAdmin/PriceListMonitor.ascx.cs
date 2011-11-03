@@ -415,6 +415,7 @@ namespace WealthERP.SuperAdmin
             lblDate.Visible = true;
             txtPrice.Visible = true;
             txtDate.Visible = true;
+            showDateTextBoxWithFormat();
             lnkClickHereForPrice.Visible = true;
             btnReset.Visible = true;
             btnSubmit.Visible = true;
@@ -468,12 +469,19 @@ namespace WealthERP.SuperAdmin
             
         }
 
+        public void showDateTextBoxWithFormat()
+        {
+            String strDateFormat="dd/mm/yyyy";
+            txtDate.Text = strDateFormat;
+        }
+
         public void unHideControlsForBtnAdd()
         {
             btnSubmit.Visible = true;
             lblDate.Visible = true;
             lblPrice.Visible = true;
             txtDate.Visible = true;
+            showDateTextBoxWithFormat();
             txtPrice.Visible = true;
             lnkClickHereForPrice.Visible = true;
             msgRecordStatusForSubmit.Visible = false;
