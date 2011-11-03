@@ -5774,6 +5774,7 @@
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.database" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\UploadChkSundaramTransactionStaging.dtsx" />
+    <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.database" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew.dtproj" />
     <None Include="UploadPackages\TempletonProfileUploadPackageNew\TempletonProfileUploadPackageNew\UploadFolioDataFromTempStagingToCommonStaging.dtsx" />

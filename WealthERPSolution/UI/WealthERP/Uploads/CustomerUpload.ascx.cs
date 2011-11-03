@@ -1519,7 +1519,7 @@ namespace WealthERP.Uploads
                                                 {
                                                     // Insertion to common staging
                                                     packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
-                                                    camsProCommonStagingResult = camsUploadsBo.CAMSInsertToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                    camsProCommonStagingResult = camsUploadsBo.SundaramInsertToCommonStaging(UploadProcessId, packagePath, configPath);
                                                     if (camsProCommonStagingResult)
                                                     {
                                                         processlogVo.IsInsertionToSecondStagingComplete = 1;
@@ -1542,10 +1542,10 @@ namespace WealthERP.Uploads
                                                                 {
                                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                                     processlogVo.EndTime = DateTime.Now;
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "CA");
+                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(UploadProcessId, "SU");
                                                                     processlogVo.NoOfCustomerInserted = countCustCreated;
                                                                     txtUploadedRecords.Text = processlogVo.NoOfCustomerInserted.ToString();
-                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
+                                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "SU");
                                                                     processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords - processlogVo.NoOfInputRejects;
 
                                                                     //processlogVo.NoOfAccountsInserted = countFolioCreated;
@@ -1564,8 +1564,8 @@ namespace WealthERP.Uploads
                                     {
                                         if (camsProStagingResult)
                                         {
-                                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadFolioDataFromCAMSStagingToCommonStaging.dtsx");
-                                            camsFolioCommonStagingResult = camsUploadsBo.CAMSInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
+                                            packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx");
+                                            camsFolioCommonStagingResult = camsUploadsBo.SundaramInsertFolioDataToFolioCommonStaging(UploadProcessId, packagePath, configPath);
                                             if (camsFolioCommonStagingResult)
                                             {
                                                 //Folio Chks in Std Folio Staging 
@@ -1580,9 +1580,9 @@ namespace WealthERP.Uploads
                                                     {
                                                         processlogVo.IsInsertionToWERPComplete = 1;
                                                         processlogVo.EndTime = DateTime.Now;
-                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "CA");
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "SU");
                                                         processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
-                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "SU");
                                                         processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                         txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
 

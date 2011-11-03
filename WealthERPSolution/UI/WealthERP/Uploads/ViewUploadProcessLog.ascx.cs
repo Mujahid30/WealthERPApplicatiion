@@ -420,6 +420,64 @@ namespace WealthERP.Uploads
                         }
                         #endregion CAMS Profile
 
+                        #region Sundaram Profile
+                        if (filetypeId == 21)
+                        {
+                            if (extracttype == "FO" || extracttype == "PAF")
+                            {
+                                bool blCamsAMCUpdated = uploadsCommonBo.UpdateAMCForFolioReprocess(processID, "Sundaram");
+                            }
+                            // MF Sundaram Profile Upload
+                            if (extracttype == "PO" || extracttype == "PAF")
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);  //StandardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                if (stdProCommonChecksResult)
+                                {
+                                    // Insert Customer Details into WERP Tables
+                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    if (camsProCreateCustomerResult)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "SU");
+                                        processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
+                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "SU");
+                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (blResult)
+                                            stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
+                                    }
+                                }
+                            }
+                            if (extracttype == "FO" || extracttype == "PAF")
+                            {
+                                //Folio Chks in Std Folio Staging 
+                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, processID, configPath);
+                                if (camsFolioStagingChkResult)
+                                {
+                                    //Folio Staging to WERP Tables
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                    bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, processID, configPath);
+                                    if (camsFolioWerpInsertionResult)
+                                    {
+                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(processID, "SU");
+                                        processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(processID, "WPMF");
+                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "SU");
+                                        processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        if (blResult)
+                                            stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(processID);
+
+                                    }
+                                }
+                            }
+                        }
+                        #endregion Sundaram Profile
+
                         #region Standard Equity Trade Account WERP Insertion
                         else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTradeAccount)
                         {
@@ -988,6 +1046,83 @@ namespace WealthERP.Uploads
 
                         }
                         #endregion
+
+                        #region Sundaram Profile
+                        // Call WERP Insertion Logic
+                        if (filetypeId == 21)
+                        {
+                            if (extracttype == "PO" || extracttype == "PAF")
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
+                                bool camsProCommonStagingResult = camsUploadsBo.SundaramInsertToCommonStaging(processID, packagePath, configPath);
+                                if (camsProCommonStagingResult)
+                                {
+                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    if (updateProcessLog3)
+                                    {
+
+                                        //common profile checks
+
+                                        // Final step
+                                        packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                        bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                        if (stdProCommonChecksResult)
+                                        {
+                                            // Insert Customer Details into WERP Tables
+                                            bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                            if (camsProCreateCustomerResult)
+                                            {
+                                                processlogVo.IsInsertionToWERPComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "SU");
+                                                processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                                processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "WP");
+                                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                if (blResult)
+                                                    stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (extracttype == "FO" || extracttype == "PAF")
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx");
+                                bool camsFolioCommonStagingResult = camsUploadsBo.SundaramInsertFolioDataToFolioCommonStaging(processID, packagePath, configPath);
+                                if (camsFolioCommonStagingResult)
+                                {
+                                    //Folio Chks in Std Folio Staging 
+                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                    bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, processID, configPath);
+                                    if (camsFolioStagingChkResult)
+                                    {
+                                        //Folio Chks in Std Folio Staging 
+                                        packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                        bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, processID, configPath);
+                                        if (camsFolioWerpInsertionResult)
+                                        {
+                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(processID, "SU");
+                                            processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(processID, "WPMF");
+                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "SU");
+                                            processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                            if (blResult)
+                                                stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(processID);
+
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        }
+                        #endregion
+
 
                         #region Standard Equity Trade Account Common Staging Insertion
                         else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTradeAccount)
@@ -1651,6 +1786,107 @@ namespace WealthERP.Uploads
 
 
                     #endregion
+
+                    #region Sundaram Profile
+
+                    if (filetypeId == 21)
+                    {   // MF Sundaram Profile Upload
+                        packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                        bool camsProStagingResult = camsUploadsBo.CAMSInsertToStagingProfile(processID, packagePath, configPath);
+                        if (camsProStagingResult)
+                        {
+                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                            processlogVo.EndTime = DateTime.Now;
+                            bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (updateProcessLog2)
+                            {
+                                // Doing a check on data translation
+                                packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
+                                bool camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(processID, adviserVo.advisorId, packagePath, configPath);
+                                if (camsProStagingCheckResult)
+                                {
+                                    if (extracttype == "PO" || extracttype == "PAF")
+                                    {
+                                        // Insertion to common staging
+
+                                        // Thirs step fails
+                                        packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
+                                        bool camsProCommonStagingResult = camsUploadsBo.SundaramInsertToCommonStaging(processID, packagePath, configPath);
+                                        if (camsProCommonStagingResult)
+                                        {
+                                            processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                            if (updateProcessLog3)
+                                            {
+                                                //common profile checks
+
+                                                // Final step
+
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                                if (stdProCommonChecksResult)
+                                                {
+
+                                                    // Insert Customer Details into WERP Tables
+                                                    bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                    if (camsProCreateCustomerResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "SU");
+                                                        processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                        processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "WP");
+                                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (blResult)
+                                                            stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (extracttype == "FO" || extracttype == "PAF")
+                                    {
+                                        packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx");
+                                        bool camsFolioCommonStagingResult = camsUploadsBo.SundaramInsertFolioDataToFolioCommonStaging(processID, packagePath, configPath);
+                                        if (camsFolioCommonStagingResult)
+                                        {
+                                            //Folio Chks in Std Folio Staging 
+                                            packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                            bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, processID, configPath);
+                                            if (camsFolioStagingChkResult)
+                                            {
+                                                //Folio Chks in Std Folio Staging 
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, processID, configPath);
+                                                if (camsFolioWerpInsertionResult)
+                                                {
+                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(processID, "SU");
+                                                    processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(processID, "WPMF");
+                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "SU");
+                                                    processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    if (blResult)
+                                                        stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(processID);
+
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+
+
+                    #endregion
+
 
                     #region Standard Equity Trade Account First Staging Insertion
 
@@ -2501,6 +2737,121 @@ namespace WealthERP.Uploads
 
                 #endregion
 
+
+                #region Sundaram Profile
+
+                if (filetypeId == 21)
+                {   // MF CAMS Profile Upload
+                    // CAMS Insert To Input Profile
+                    // First step fails
+                    // Sundaram Insert To Input Profile
+                    packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\SundramFileToInput.dtsx");
+                    bool camsProInputResult = camsUploadsBo.SundramInsertToInputProfile(processID, packagePath, xmlFileName, configPath);
+                    if (camsProInputResult)
+                    {
+                        processlogVo.IsInsertionToInputComplete = 1;
+                        processlogVo.EndTime = DateTime.Now;
+                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                        bool updateProcessLog1 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                        if (updateProcessLog1)
+                        {
+                            // CAMS Insert To Staging Profile
+
+                            // Second step fails
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadXtrnlProfileInputToXtrnlProfileStaging.dtsx");
+                            bool camsProStagingResult = camsUploadsBo.CAMSInsertToStagingProfile(processID, packagePath, configPath);
+                            if (camsProStagingResult)
+                            {
+                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                processlogVo.EndTime = DateTime.Now;
+                                bool updateProcessLog2 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                if (updateProcessLog2)
+                                {
+                                    // Doing a check on data translation
+                                    packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadDataTranslationChecksFirstStaging.dtsx");
+                                    bool camsProStagingCheckResult = camsUploadsBo.CAMSProcessDataInStagingProfile(processID, adviserVo.advisorId, packagePath, configPath);
+                                    if (camsProStagingCheckResult)
+                                    {
+                                        if (extracttype == "PO" || extracttype == "PAF")
+                                        {
+                                            // Insertion to common staging
+
+                                            // Thirs step fails
+                                            packagePath = Server.MapPath("\\UploadPackages\\CAMSProfileUploadPackageNew\\CAMSProfileUploadPackageNew\\UploadProfileDataFromCAMSStagingToCommonStaging.dtsx");
+                                            bool camsProCommonStagingResult = camsUploadsBo.SundaramInsertToCommonStaging(processID, packagePath, configPath);
+                                            if (camsProCommonStagingResult)
+                                            {
+                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                bool updateProcessLog3 = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                if (updateProcessLog3)
+                                                {
+                                                    //common profile checks
+
+                                                    // Final step
+
+                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardProfileUploadPackageNew\\StandardProfileUploadPackageNew\\UploadsCommonProfileChecksInProfileStaging.dtsx");
+                                                    bool stdProCommonChecksResult = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                                    if (stdProCommonChecksResult)
+                                                    {
+
+                                                        // Insert Customer Details into WERP Tables
+                                                        bool camsProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                                        if (camsProCreateCustomerResult)
+                                                        {
+                                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                                            processlogVo.EndTime = DateTime.Now;
+                                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "SU");
+                                                            processlogVo.NoOfCustomerInserted = countCustCreated;
+                                                            processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "WP");
+                                                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                            if (blResult)
+                                                                stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (extracttype == "FO" || extracttype == "PAF")
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\SundramProfileUploadNew\\SundramProfileUploadNew\\UploadFolioDataFromSundaramStagingToCommonStaging.dtsx");
+                                            bool camsFolioCommonStagingResult = camsUploadsBo.SundaramInsertFolioDataToFolioCommonStaging(processID, packagePath, configPath);
+                                            if (camsFolioCommonStagingResult)
+                                            {
+                                                //Folio Chks in Std Folio Staging 
+                                                packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsCommonFolioChecksInFolioStaging.dtsx");
+                                                bool camsFolioStagingChkResult = standardFolioUploadBo.StdFolioChksInFolioStaging(packagePath, adviserVo.advisorId, processID, configPath);
+                                                if (camsFolioStagingChkResult)
+                                                {
+                                                    //Folio Chks in Std Folio Staging 
+                                                    packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadStdFolioFromFolioStagingToWerpTable.dtsx");
+                                                    bool camsFolioWerpInsertionResult = standardFolioUploadBo.StdCustomerFolioCreation(packagePath, adviserVo.advisorId, processID, configPath);
+                                                    if (camsFolioWerpInsertionResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(processID, "SU");
+                                                        processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(processID, "WPMF");
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "SU");
+                                                        processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
+                                                        blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                        if (blResult)
+                                                            stdFolioCommonDeleteResult = standardFolioUploadBo.StdDeleteCommonStaging(processID);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #endregion
                 #region Standard Equity Trade Account Input Insertion
 
                 else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTradeAccount)
