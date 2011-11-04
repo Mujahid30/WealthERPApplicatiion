@@ -415,7 +415,7 @@ namespace WealthERP.SuperAdmin
             lblDate.Visible = true;
             txtPrice.Visible = true;
             txtDate.Visible = true;
-            showDateTextBoxWithFormat();
+            //showDateTextBoxWithFormat();
             lnkClickHereForPrice.Visible = true;
             btnReset.Visible = true;
             btnSubmit.Visible = true;
