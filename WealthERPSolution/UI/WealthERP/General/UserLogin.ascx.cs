@@ -1062,13 +1062,17 @@ namespace WealthERP.General
         {
             string IPAddress = string.Empty;
             string browser = string.Empty;
+            string securedPassword = string.Empty;
 
             if (HttpContext.Current.Request.UserAgent != null)
                 browser = HttpContext.Current.Request.UserAgent;
 
             IPAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
 
-            UserBo.AddLoginTrack(txtLoginId.Text, txtPassword.Text, isSuccess, IPAddress, browser, createdBy);
+            if(txtPassword.Text != null)
+                securedPassword = Encryption.Encrypt(txtPassword.Text);
+
+            UserBo.AddLoginTrack(txtLoginId.Text, securedPassword, isSuccess, IPAddress, browser, createdBy);
 
         }
 
