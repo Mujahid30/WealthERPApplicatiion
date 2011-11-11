@@ -304,25 +304,41 @@ namespace BoFPSuperlite
 
                         if (dtCustomerLiabilitiesDetails.Rows[i]["XLT_LoanTypeCode"].ToString() != null)
                         {
+
+                            //Adjusted Loan
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"] != null)
+                            {
+                                customerprospectliabilitiesetailsvo.AdjustedLoan = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString());
+                            }
                             //Total Value
                             if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"] != null)
                             {
                                 customerprospectliabilitiesetailsvo.LoanOutstanding = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalLoanOutstanding"].ToString());
                             }
-                            //Adjusted Value
-                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"] != null)
+
+                            // EMI Value
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"] != null && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString() != "")
                             {
-                                customerprospectliabilitiesetailsvo.AdjustedLoan = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedLoanOutstanding"].ToString());
+                                customerprospectliabilitiesetailsvo.EMIAmount = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString());
                             }
+                            // Adjusted EMI 
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedEMIAmount"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedEMIAmount"] != null)
+                            {
+                                customerprospectliabilitiesetailsvo.AdjustedEMIAmount = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_AdjustedEMIAmount"].ToString());
+                            }
+
+                            // Total EMI 
+                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalEMIAmount"].ToString() != string.Empty && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalEMIAmount"] != null)
+                            {
+                                customerprospectliabilitiesetailsvo.TotalEMIAmount = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_TotalEMIAmount"].ToString());
+                            }
+                            
                             customerprospectliabilitiesetailsvo.LoanTypeCode = int.Parse(dtCustomerLiabilitiesDetails.Rows[i]["XLT_LoanTypeCode"].ToString());
                             if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"] != null && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"].ToString() != "")
                             {
                                 customerprospectliabilitiesetailsvo.Tenure = int.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_Tenure"].ToString());
                             }
-                            if (dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"] != null && dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString() != "")
-                            {
-                                customerprospectliabilitiesetailsvo.EMIAmount = double.Parse(dtCustomerLiabilitiesDetails.Rows[i]["CFPLD_EMIAmount"].ToString());
-                            }
+                            
                             customerprospectliabilitiesdetailslist.Add(customerprospectliabilitiesetailsvo);
                         }
                     }
