@@ -168,8 +168,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="500px" Width="100%" ScrollBars="Vertical"
-                Visible="false" HorizontalAlign="Left">
+            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="500px" Width="100%" ScrollBars="Vertical" HorizontalAlign="Left">
                 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId,AlertId" runat="server"
                     AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
                     Font-Size="Small" CssClass="GridViewStyle" ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound">

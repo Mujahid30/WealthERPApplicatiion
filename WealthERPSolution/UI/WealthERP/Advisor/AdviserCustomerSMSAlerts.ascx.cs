@@ -273,8 +273,6 @@ namespace WealthERP.Advisor
                 //lblNoRecords.Visible = true;
                 divNoRecords.Visible = true;
                 lblDisclaimer.Visible = false;
-                gvCustomerSMSAlerts.Visible = false;
-                pnlCustomerSMSAlerts.Visible = false;
                 btnSend.Visible = false;
                 DivPager.Visible = false;
                 trPageCount.Visible = false;
@@ -465,7 +463,7 @@ namespace WealthERP.Advisor
         protected void btnNameSearch_Click(object sender, EventArgs e)
         {
             TextBox txtName = GetCustNameTextBox();
-
+            hdnCurrentPage.Value = "1";
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
