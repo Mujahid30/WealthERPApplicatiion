@@ -792,168 +792,171 @@ namespace BoCustomerPortfolio
         {
             List<EQPortfolioTransactionVo> eqPortfolioTransactionVoList = new List<EQPortfolioTransactionVo>();
             EQPortfolioTransactionVo eqPortfolioTransactionVo = new EQPortfolioTransactionVo();
-            if (eqTransactionVoList.Count > 0)
+            if (eqTransactionVoList != null)
             {
-                int customerId = eqTransactionVoList[0].CustomerId;
-                int equityCode = eqTransactionVoList[0].ScripCode;
-                float speculativeAveragePrice = 0;
-                DateTime currentTradeDate = new DateTime();
-
-                for (int i = 0; i < eqTransactionVoList.Count; i++)
+                if (eqTransactionVoList.Count > 0)
                 {
+                    int customerId = eqTransactionVoList[0].CustomerId;
+                    int equityCode = eqTransactionVoList[0].ScripCode;
+                    float speculativeAveragePrice = 0;
+                    DateTime currentTradeDate = new DateTime();
 
-
-                    eqPortfolioTransactionVo = new EQPortfolioTransactionVo();
-                    eqPortfolioTransactionVo.TradeDate = eqTransactionVoList[i].TradeDate;
-                    eqPortfolioTransactionVo.TradeSide = eqTransactionVoList[i].BuySell;
-                    eqPortfolioTransactionVo.TradeType = eqTransactionVoList[i].TradeType;
-                    if (eqPortfolioTransactionVo.TradeSide == "B")
+                    for (int i = 0; i < eqTransactionVoList.Count; i++)
                     {
-                        eqPortfolioTransactionVo.BuyQuantity = eqTransactionVoList[i].Quantity;
-                        eqPortfolioTransactionVo.BuyPrice = eqTransactionVoList[i].Rate + eqTransactionVoList[i].Brokerage + eqTransactionVoList[i].ServiceTax + eqTransactionVoList[i].STT + eqTransactionVoList[i].EducationCess + eqTransactionVoList[i].OtherCharges;
-                        eqPortfolioTransactionVo.SellQuantity = 0;
-                        eqPortfolioTransactionVo.SellPrice = 0;
+
+
+                        eqPortfolioTransactionVo = new EQPortfolioTransactionVo();
+                        eqPortfolioTransactionVo.TradeDate = eqTransactionVoList[i].TradeDate;
+                        eqPortfolioTransactionVo.TradeSide = eqTransactionVoList[i].BuySell;
+                        eqPortfolioTransactionVo.TradeType = eqTransactionVoList[i].TradeType;
+                        if (eqPortfolioTransactionVo.TradeSide == "B")
+                        {
+                            eqPortfolioTransactionVo.BuyQuantity = eqTransactionVoList[i].Quantity;
+                            eqPortfolioTransactionVo.BuyPrice = eqTransactionVoList[i].Rate + eqTransactionVoList[i].Brokerage + eqTransactionVoList[i].ServiceTax + eqTransactionVoList[i].STT + eqTransactionVoList[i].EducationCess + eqTransactionVoList[i].OtherCharges;
+                            eqPortfolioTransactionVo.SellQuantity = 0;
+                            eqPortfolioTransactionVo.SellPrice = 0;
+                        }
+                        else
+                        {
+                            eqPortfolioTransactionVo.BuyQuantity = 0;
+                            eqPortfolioTransactionVo.BuyPrice = 0;
+                            eqPortfolioTransactionVo.SellQuantity = eqTransactionVoList[i].Quantity;
+                            eqPortfolioTransactionVo.SellPrice = eqTransactionVoList[i].Rate - eqTransactionVoList[i].Brokerage - eqTransactionVoList[i].ServiceTax - eqTransactionVoList[i].STT - eqTransactionVoList[i].EducationCess - eqTransactionVoList[i].OtherCharges;
+                        }
+                        eqPortfolioTransactionVo.CostOfAcquisition = eqPortfolioTransactionVo.BuyPrice * eqPortfolioTransactionVo.BuyQuantity;
+                        eqPortfolioTransactionVo.RealizedSalesValue = eqPortfolioTransactionVo.SellPrice * eqPortfolioTransactionVo.SellQuantity;
+
+                        eqPortfolioTransactionVoList.Add(eqPortfolioTransactionVo);
+
+
+
+
+
                     }
-                    else
+                    currentTradeDate = eqPortfolioTransactionVoList[0].TradeDate;
+                    speculativeAveragePrice = GetCustomerEquitySpeculativeAveragePrice(customerId, equityCode, currentTradeDate);
+                    for (int j = 0; j < eqPortfolioTransactionVoList.Count; j++)
                     {
-                        eqPortfolioTransactionVo.BuyQuantity = 0;
-                        eqPortfolioTransactionVo.BuyPrice = 0;
-                        eqPortfolioTransactionVo.SellQuantity = eqTransactionVoList[i].Quantity;
-                        eqPortfolioTransactionVo.SellPrice = eqTransactionVoList[i].Rate - eqTransactionVoList[i].Brokerage - eqTransactionVoList[i].ServiceTax - eqTransactionVoList[i].STT - eqTransactionVoList[i].EducationCess - eqTransactionVoList[i].OtherCharges;
-                    }
-                    eqPortfolioTransactionVo.CostOfAcquisition = eqPortfolioTransactionVo.BuyPrice * eqPortfolioTransactionVo.BuyQuantity;
-                    eqPortfolioTransactionVo.RealizedSalesValue = eqPortfolioTransactionVo.SellPrice * eqPortfolioTransactionVo.SellQuantity;
+                        //Cost Of Sales
+                        if (eqPortfolioTransactionVoList[j].TradeSide == "S")
+                        {
+                            if (eqPortfolioTransactionVoList[j].TradeType == "D")
+                            {
+                                if (j != 0)
+                                {
+                                    eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j - 1].AveragePrice;
+                                }
+                                else
+                                {
+                                    eqPortfolioTransactionVoList[j].CostOfSales = 0;
+                                }
 
-                    eqPortfolioTransactionVoList.Add(eqPortfolioTransactionVo);
+                            }
+                            else
+                            {
+                                if (eqPortfolioTransactionVoList[j].TradeDate == currentTradeDate)
+                                {
+                                    eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * speculativeAveragePrice;
+                                }
+                                else
+                                {
+                                    currentTradeDate = eqPortfolioTransactionVoList[j].TradeDate;
+                                    speculativeAveragePrice = GetCustomerEquitySpeculativeAveragePrice(customerId, portfolioId, equityCode, currentTradeDate);
+                                    eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * speculativeAveragePrice;
 
+                                }
+                            }
+                        }
+                        else
+                        {
+                            eqPortfolioTransactionVoList[j].CostOfSales = 0;
+                        }
 
+                        //Net Cost
 
-
-
-                }
-                currentTradeDate = eqPortfolioTransactionVoList[0].TradeDate;
-                speculativeAveragePrice = GetCustomerEquitySpeculativeAveragePrice(customerId, equityCode, currentTradeDate);
-                for (int j = 0; j < eqPortfolioTransactionVoList.Count; j++)
-                {
-                    //Cost Of Sales
-                    if (eqPortfolioTransactionVoList[j].TradeSide == "S")
-                    {
                         if (eqPortfolioTransactionVoList[j].TradeType == "D")
                         {
-                            if (j != 0)
+                            if (eqPortfolioTransactionVoList[j].TradeSide == "B")
                             {
-                                eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j - 1].AveragePrice;
+                                if (j != 0)
+                                {
+                                    eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost + (eqPortfolioTransactionVoList[j].BuyQuantity * eqPortfolioTransactionVoList[j].BuyPrice);
+                                }
+                                else
+                                {
+                                    eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j].BuyQuantity * eqPortfolioTransactionVoList[j].BuyPrice;
+                                }
                             }
                             else
                             {
-                                eqPortfolioTransactionVoList[j].CostOfSales = 0;
-                            }
-
-                        }
-                        else
-                        {
-                            if (eqPortfolioTransactionVoList[j].TradeDate == currentTradeDate)
-                            {
-                                eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * speculativeAveragePrice;
-                            }
-                            else
-                            {
-                                currentTradeDate = eqPortfolioTransactionVoList[j].TradeDate;
-                                speculativeAveragePrice = GetCustomerEquitySpeculativeAveragePrice(customerId, portfolioId, equityCode, currentTradeDate);
-                                eqPortfolioTransactionVoList[j].CostOfSales = eqPortfolioTransactionVoList[j].SellQuantity * speculativeAveragePrice;
-
-                            }
-                        }
-                    }
-                    else
-                    {
-                        eqPortfolioTransactionVoList[j].CostOfSales = 0;
-                    }
-
-                    //Net Cost
-
-                    if (eqPortfolioTransactionVoList[j].TradeType == "D")
-                    {
-                        if (eqPortfolioTransactionVoList[j].TradeSide == "B")
-                        {
-                            if (j != 0)
-                            {
-                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost + (eqPortfolioTransactionVoList[j].BuyQuantity * eqPortfolioTransactionVoList[j].BuyPrice);
-                            }
-                            else
-                            {
-                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j].BuyQuantity * eqPortfolioTransactionVoList[j].BuyPrice;
+                                if (j != 0)
+                                {
+                                    eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j - 1].AveragePrice);
+                                }
+                                else
+                                {
+                                    eqPortfolioTransactionVoList[j].NetCost = -(eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j].SellPrice);
+                                }
                             }
                         }
                         else
                         {
                             if (j != 0)
                             {
-                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost - (eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j - 1].AveragePrice);
+                                eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost;
                             }
                             else
                             {
-                                eqPortfolioTransactionVoList[j].NetCost = -(eqPortfolioTransactionVoList[j].SellQuantity * eqPortfolioTransactionVoList[j].SellPrice);
+                                eqPortfolioTransactionVoList[j].NetCost = 0;
                             }
                         }
-                    }
-                    else
-                    {
-                        if (j != 0)
+
+                        //Net Holdings
+
+                        if (eqPortfolioTransactionVoList[j].TradeType == "D")
                         {
-                            eqPortfolioTransactionVoList[j].NetCost = eqPortfolioTransactionVoList[j - 1].NetCost;
+                            if (eqPortfolioTransactionVoList[j].TradeSide == "B")
+                            {
+                                if (j != 0)
+                                {
+                                    eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings + eqPortfolioTransactionVoList[j].BuyQuantity;
+                                }
+                                else
+                                {
+                                    eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j].BuyQuantity;
+                                }
+                            }
+                            else
+                            {
+                                if (j != 0)
+                                {
+                                    eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings - eqPortfolioTransactionVoList[j].SellQuantity;
+                                }
+                                else
+                                {
+                                    eqPortfolioTransactionVoList[j].NetHoldings = -eqPortfolioTransactionVoList[j].SellQuantity;
+                                }
+                            }
                         }
                         else
-                        {
-                            eqPortfolioTransactionVoList[j].NetCost = 0;
-                        }
-                    }
-
-                    //Net Holdings
-
-                    if (eqPortfolioTransactionVoList[j].TradeType == "D")
-                    {
-                        if (eqPortfolioTransactionVoList[j].TradeSide == "B")
                         {
                             if (j != 0)
                             {
-                                eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings + eqPortfolioTransactionVoList[j].BuyQuantity;
+                                eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings;
                             }
                             else
                             {
-                                eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j].BuyQuantity;
+                                eqPortfolioTransactionVoList[j].NetHoldings = 0;
                             }
                         }
-                        else
+                        if (eqPortfolioTransactionVoList[j].NetHoldings != 0)
                         {
-                            if (j != 0)
-                            {
-                                eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings - eqPortfolioTransactionVoList[j].SellQuantity;
-                            }
-                            else
-                            {
-                                eqPortfolioTransactionVoList[j].NetHoldings = -eqPortfolioTransactionVoList[j].SellQuantity;
-                            }
+                            eqPortfolioTransactionVoList[j].AveragePrice = eqPortfolioTransactionVoList[j].NetCost / eqPortfolioTransactionVoList[j].NetHoldings;
                         }
-                    }
-                    else
-                    {
-                        if (j != 0)
-                        {
-                            eqPortfolioTransactionVoList[j].NetHoldings = eqPortfolioTransactionVoList[j - 1].NetHoldings;
-                        }
-                        else
-                        {
-                            eqPortfolioTransactionVoList[j].NetHoldings = 0;
-                        }
-                    }
-                    if (eqPortfolioTransactionVoList[j].NetHoldings != 0)
-                    {
-                        eqPortfolioTransactionVoList[j].AveragePrice = eqPortfolioTransactionVoList[j].NetCost / eqPortfolioTransactionVoList[j].NetHoldings;
-                    }
-                    eqPortfolioTransactionVoList[j].RealizedProfitLoss = eqPortfolioTransactionVoList[j].RealizedSalesValue - eqPortfolioTransactionVoList[j].CostOfSales;
+                        eqPortfolioTransactionVoList[j].RealizedProfitLoss = eqPortfolioTransactionVoList[j].RealizedSalesValue - eqPortfolioTransactionVoList[j].CostOfSales;
 
 
+                    }
                 }
             }
 
