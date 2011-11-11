@@ -227,7 +227,7 @@ namespace WealthERP.Alerts
 
                 if (eventType == "PremiumReminder")
                 {
-                    alertsBo.SaveAdviserInsuranceReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, inNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserInsuranceReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, inNPId, 0, reminderDays, userVo.UserId);
                 }
 
                 BindCustomerINAlertGrid();
