@@ -532,7 +532,7 @@ namespace WealthERP.Alerts
                 schemeId = int.Parse(gvMFAlerts.DataKeys[index].Values["SchemeId"].ToString());
                 accountId = int.Parse(gvMFAlerts.DataKeys[index].Values["AccountId"].ToString());
 
-                alertsBo.SaveAdviserSIPConfirmationAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
+                alertsBo.SaveAdviserSIPConfirmationAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
 
                 BindCustomerMFAlertGrid();
             }
@@ -569,7 +569,7 @@ namespace WealthERP.Alerts
                 schemeId = int.Parse(gvMFAlerts.DataKeys[index].Values["SchemeId"].ToString());
                 accountId = int.Parse(gvMFAlerts.DataKeys[index].Values["AccountId"].ToString());
 
-                alertsBo.SaveAdviserSWPConfirmationAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
+                alertsBo.SaveAdviserSWPConfirmationAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
 
                 BindCustomerMFAlertGrid();
             }
@@ -606,7 +606,7 @@ namespace WealthERP.Alerts
                 schemeId = int.Parse(gvMFAlerts.DataKeys[index].Values["SchemeId"].ToString());
                 accountId = int.Parse(gvMFAlerts.DataKeys[index].Values["AccountId"].ToString());
 
-                alertsBo.SaveAdviserMFDividendConfirmationAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
+                alertsBo.SaveAdviserMFDividendConfirmationAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId);
 
                 BindCustomerMFAlertGrid();
             }
@@ -730,15 +730,15 @@ namespace WealthERP.Alerts
 
                 if (eventType == "SIPReminder")
                 {
-                    alertsBo.SaveAdviserSIPReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserSIPReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
                 }
                 if (eventType == "SWPReminder")
                 {
-                    alertsBo.SaveAdviserSWPReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserSWPReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
                 }
                 if (eventType == "ELSSMaturity")
                 {
-                    alertsBo.SaveAdviserELSSMaturityReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserELSSMaturityReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, reminderDays, userVo.UserId);
                 }
 
                 BindCustomerMFAlertGrid();
@@ -782,11 +782,11 @@ namespace WealthERP.Alerts
 
                 if (eventType == "MFAbsoluteProfitBooking")
                 {
-                    alertsBo.SaveAdviserMFProfitBookingOccurrenceAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId, condition, preset);
+                    alertsBo.SaveAdviserMFProfitBookingOccurrenceAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId, condition, preset);
                 }
                 if (eventType == "MFAbsoluteStopLoss")
                 {
-                    alertsBo.SaveAdviserMFStopLossOccurrenceAlert(rmVo.RMId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId, condition, preset);
+                    alertsBo.SaveAdviserMFStopLossOccurrenceAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, schemeId, 0, userVo.UserId, condition, preset);
                 }
 
                 BindCustomerMFAlertGrid();
