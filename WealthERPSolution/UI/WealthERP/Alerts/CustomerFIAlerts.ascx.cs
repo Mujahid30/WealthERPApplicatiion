@@ -286,11 +286,11 @@ namespace WealthERP.Alerts
 
                 if (eventType == "RDReminder")
                 {
-                    alertsBo.SaveAdviserFDRecurringDepositReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserFDRecurringDepositReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
                 }
                 if (eventType == "FDMaturityReminder")
                 {
-                    alertsBo.SaveAdviserFDMaturityReminderAlert(rmVo.RMId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
+                    alertsBo.SaveAdviserFDMaturityReminderAlert(rmVo.AdviserId, customerVo.CustomerId, accountId, fiNPId, 0, reminderDays, userVo.UserId);
                 }
 
                 BindCustomerFIAlertGrid();
