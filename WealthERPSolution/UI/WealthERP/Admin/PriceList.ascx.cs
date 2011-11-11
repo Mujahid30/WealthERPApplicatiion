@@ -41,7 +41,7 @@ namespace WealthERP.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-            cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+            cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");            
             if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
@@ -60,7 +60,7 @@ namespace WealthERP.Admin
                 lblheader.Text = "MF Data Query";
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
-
+                BindMFFundPerformance();
 
                 if (!IsPostBack)
                 {
@@ -69,14 +69,14 @@ namespace WealthERP.Admin
                     //trToDate.Style.Add("display", "none");
                     trFromDate.Visible = false;
                     trToDate.Visible = false;
-
+                    
                     trbtnSubmit.Visible = false;
                     trSelectMutualFund.Visible = false;
                     BindMutualFundDropDowns();
                     BindSelectAMCDropdown();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
-                }
+                }                
             }
             else if (hdnassetType.Value == "Equity")
             {
@@ -97,6 +97,8 @@ namespace WealthERP.Admin
                 trFromDate.Visible = false;
                 RadTabStrip1.Tabs[0].Text = "Price";
             }
+         
+
         }
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
@@ -558,151 +560,139 @@ namespace WealthERP.Admin
 
         }
 
-        //protected void ddlReturn_OnSelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    int returnPeriod = int.Parse(ddlReturn.SelectedValue);
-        //    if (ddlReturn.SelectedIndex != 0)
-        //    {
-        //        if (returnPeriod == 1)
-        //        {
-        //        }
-        //        if (returnPeriod == 2)
-        //        {
-        //        }
-        //        if (returnPeriod == 3)
-        //        {
-        //        }
-        //        if (returnPeriod == 4)
-        //        {
-        //        }
-        //        if (returnPeriod == 5)
-        //        {
-        //        }
-        //        if (returnPeriod == 6)
-        //        {
-        //        }
-        //        if (returnPeriod == 7)
-        //        {
-        //        }
-        //        if (returnPeriod == 8)
-        //        {
-        //        }
-        //        if (returnPeriod == 9)
-        //        {
-        //        }
-        //    }
-
-        //}
-
-        //protected void ddlCondition_OnSelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    string expression = string.Empty;
-
-
-        //    string condition = ddlCondition.SelectedValue;
-        //    int returnPeriod = int.Parse(ddlReturn.SelectedValue);
-        //    if (ddlCondition.SelectedIndex != 0)
-        //    {
-        //         if (returnPeriod == 1)
-        //        {
-        //               expression = "OneWeekReturn" + condition;
-
-        //        }
-                  
-                    
-        //        }
-        //        //if (condition == 2)
-        //        //{
-        //        //}
-        //        //if (condition == 3)
-        //        //{
-        //        //}
-        //        //if (condition == 4)
-        //        //{
-        //        //}
-        //        //if (condition == 5)
-        //        //{
-        //        //}
-        //        //if (condition == 6)
-        //        //{
-        //        //}
-        //        //if (condition == 7)
-        //        //{
-        //        //}
-        //        //if (condition == 8)
-        //        //{
-        //        //}
-        //        //if (condition == 9)
-        //        //{
-        //        //}
-        //        //if (condition == 10)
-        //        //{
-        //        //}
-        //    }
-        //}
-
-        protected void OnClick_btnViewFactsheet(object sender, EventArgs e)
+        protected void OnClick_btnGo(object sender, EventArgs e)
         {
-            int amcCode = int.Parse(ddlSelectAMC.SelectedValue);
-            //int selectSchemeCode = ddlSelectScheme.SelectedIndex;
-            //int schemeCode = int.Parse(ddlSelectScheme.SelectedValue);
-            string subCategory = ddlSubCategory.SelectedValue;
-            int returnPeriod = int.Parse(ddlReturn.SelectedValue);
-            string condition = ddlCondition.SelectedValue;
-            string expression = string.Empty;
-            dtGetMFfund = priceBo.GetMFFundPerformance(amcCode, subCategory);
-              if (returnPeriod == 1)
-              {
-                   expression = "OneWeekReturn" + condition;
-                   dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 2)
-              {
-                  expression = "OneMonthReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 3)
-              {
-                  expression = "ThreeMonthReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 4)
-              {
-                  expression = "SixMonthReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 5)
-              {
-                  expression = "OneYearReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 6)
-              {
-                  expression = "TwoYearReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 7)
-              {
-                  expression = "ThreeYearReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 8)
-              {
-                  expression = "FiveYearReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
-              }
-              if (returnPeriod == 9)
-              {
-                  expression = "InceptionReturn" + condition;
-                  dtGetMFfund.DefaultView.RowFilter = expression;
+            ViewState["AmcCode"] = null;
+            ViewState["SubCategory"] = null;
+            ViewState["ReturnPeriod"] = null;
+            ViewState["Condition"] = null;
 
-              }     
-              gvMFFundPerformance.DataSource = dtGetMFfund.DefaultView;
-              gvMFFundPerformance.DataBind();
-            //  DataTable dt = dtGetMFfund.DefaultView.Table.Clone();
-            //BindMFFundPerformance(dt);
+            hdnAmcCode.Value = ddlSelectAMC.SelectedValue;
+            ViewState["AmcCode"] = hdnAmcCode.Value;
+
+            hdnSubCategory.Value = ddlSubCategory.SelectedValue;
+            ViewState["SubCategory"] = hdnSubCategory.Value;
+
+            hdnReturnPeriod.Value = ddlReturn.SelectedValue;
+            ViewState["ReturnPeriod"] = hdnReturnPeriod.Value;
+
+            hdnCondition.Value = ddlCondition.SelectedValue;
+            ViewState["Condition"] = hdnCondition.Value;
+
+            BindMFFundPerformance();
         }
 
+        private void BindMFFundPerformance()
+        { 
+            string expression = string.Empty;
+            if (hdnSubCategory.Value == "")
+            {
+                if(ViewState["SubCategory"] == null)
+                {
+                    hdnSubCategory.Value = "0";
+                }
+                else
+                {
+                    hdnSubCategory.Value = ViewState["SubCategory"].ToString();
+                }
+            }
+
+            if (hdnAmcCode.Value == "")
+            {
+                if (ViewState["AmcCode"] == null)
+                {
+                    hdnAmcCode.Value = "0";
+                }
+                else
+                {
+                    hdnAmcCode.Value = ViewState["AmcCode"].ToString();
+                }
+            }
+
+            if (hdnReturnPeriod.Value == "")
+            {
+                if (ViewState["ReturnPeriod"] == null)
+                {
+                    hdnReturnPeriod.Value = "0";
+                }
+                else
+                {
+                    hdnReturnPeriod.Value = ViewState["ReturnPeriod"].ToString();
+                }
+            }
+
+            if (hdnCondition.Value == "")
+            {
+                if (ViewState["Condition"] == null)
+                {
+                    hdnCondition.Value = "0";
+                }
+                else
+                {
+                    hdnCondition.Value = ViewState["Condition"].ToString();
+                }
+            }
+            
+            dtGetMFfund = priceBo.GetMFFundPerformance(int.Parse(hdnAmcCode.Value), hdnSubCategory.Value);
+            
+            if (int.Parse(hdnReturnPeriod.Value) == 1)
+            {
+                expression = "OneWeekReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 2)
+            {
+                expression = "OneMonthReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 3)
+            {
+                expression = "ThreeMonthReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 4)
+            {
+                expression = "SixMonthReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 5)
+            {
+                expression = "OneYearReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 6)
+            {
+                expression = "TwoYearReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 7)
+            {
+                expression = "ThreeYearReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 8)
+            {
+                expression = "FiveYearReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+            }
+            if (int.Parse(hdnReturnPeriod.Value) == 9)
+            {
+                expression = "InceptionReturn" + hdnCondition.Value;
+                dtGetMFfund.DefaultView.RowFilter = expression;
+
+            }
+            //if (dtGetMFfund.DefaultView.Count > 0)
+            //{
+            gvMFFundPerformance.DataSource = dtGetMFfund.DefaultView;
+            gvMFFundPerformance.DataBind();
+            //    ErrorMessage.Visible = false;
+            //}
+            //else
+            //{
+            //    ErrorMessage.Visible = true;
+            //    //gvMFFundPerformance.Visible = false;
+            //}
+        }
         //private void BindMFFundPerformance(DataTable dt)
         //{
         //    DataTable dtMFFundPerformance = new DataTable();

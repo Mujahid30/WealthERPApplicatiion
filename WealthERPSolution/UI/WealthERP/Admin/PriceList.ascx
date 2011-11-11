@@ -100,7 +100,6 @@
     </tr>
 </table>
 
-
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="FactsheetMultiPage" SelectedIndex="0">
     <Tabs>        
@@ -460,7 +459,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <asp:Button ID="btnViewFactsheet" Text="View Factsheet" CssClass="PCGMediumButton" runat="server" OnClick="OnClick_btnViewFactsheet" />
+                        <asp:Button ID="btnSchemeCompare" Text="View Factsheet" CssClass="PCGMediumButton" runat="server"/>
                     </td>
                 </tr>
                 <tr>
@@ -544,8 +543,6 @@
                                     Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
                                 </asp:CompareValidator>
                             </td>
-                        </tr>                       
-                        <tr>
                             <td class="leftField">
                                 <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Condition:">
                                 </asp:Label>
@@ -554,10 +551,10 @@
                                 <asp:DropDownList ID="ddlCondition" runat="server" CssClass="cmbField" 
                                  AutoPostBack="true">
                                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Less than 30%" Value="<30" ></asp:ListItem>
-                                <asp:ListItem Text="Less than 20%" Value="<20" ></asp:ListItem>
-                                <asp:ListItem Text="Less than 10%" Value="<10" ></asp:ListItem>             
-                                <asp:ListItem Text="Less than 5%" Value="<5" ></asp:ListItem>                                                             
+                                <asp:ListItem Text="Less than 30%" Value="<-30" ></asp:ListItem>
+                                <asp:ListItem Text="Less than 20%" Value="<-20" ></asp:ListItem>
+                                <asp:ListItem Text="Less than 10%" Value="<-10" ></asp:ListItem>             
+                                <asp:ListItem Text="Less than 5%" Value="<-5" ></asp:ListItem>                                                             
                                 <asp:ListItem Text="Loser(-ve return)" Value="<0" ></asp:ListItem>
                                 <asp:ListItem Text="Gainer(+ve return)" Value=">0" ></asp:ListItem>
                                 <asp:ListItem Text="Above 5%" Value=">5" ></asp:ListItem>  
@@ -571,9 +568,7 @@
                                     ControlToValidate="ddlCondition" ErrorMessage="Please select a Condition"
                                     Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
                                 </asp:CompareValidator>
-                            </td>                           
-                        </tr>
-                        <tr>
+                            </td>
                             <td class="leftField">
                                 <asp:Label ID="lblSelectAMC" runat="server" CssClass="FieldName" Text="AMC:">
                                 </asp:Label>                    
@@ -587,7 +582,13 @@
                                     Operator="NotEqual" ValueToCompare="Select AMC Code" CssClass="cvPCG" ValidationGroup="btnGo">
                                 </asp:CompareValidator>
                             </td>
-                        </tr>
+                        </tr>                       
+                       <%-- <tr>
+                                                       
+                        </tr>--%>
+                       <%-- <tr>
+                            
+                        </tr>--%>
                         <%--<tr>
                             <td class="leftField">
                                 <asp:Label ID="lblSelectScheme" runat="server" CssClass="FieldName" Text="Scheme:">
@@ -618,145 +619,159 @@
                                     Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
                                 </asp:CompareValidator>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="leftField">
                                 <asp:Label ID="lblSubCategory" CssClass="FieldName" Text="SubCategory:" runat="server"></asp:Label>
                             </td>
                             <td>
                                 <asp:DropDownList CssClass="cmbField" ID="ddlSubCategory" runat="server">
-                                </asp:DropDownList>
-                                <%--<span id="Span2" class="spnRequiredField">*</span>
-                                <asp:CompareValidator ID="ddlSubCategory_CompareValidator" runat="server"
-                                    ControlToValidate="ddlCategory" ErrorMessage="Please select a SubCategory"
-                                    Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
-                                </asp:CompareValidator>--%>
+                                </asp:DropDownList>                                
                             </td>
-                        </tr>
-                                               
-                        <tr>
                             <td></td>
                             <td>
-                                <asp:Button ID="btnGo" Text="Go" CssClass="PCGButton" runat="server" OnClick="OnClick_btnViewFactsheet" ValidationGroup="btnGo"/>
+                                <asp:Button ID="btnGo" Text="Go" CssClass="PCGButton" runat="server" OnClick="OnClick_btnGo" ValidationGroup="btnGo"/>
                             </td>
                         </tr>
-                    </table>
+                     <%--   <tr>
+                            
+                        </tr>--%>
+                                               
+                        </table>
                 </td>                
             </tr>
         </table>
-        <table>
+        <%--<table  style="width: 100%;">
             <tr>
                 <td>
-                   <telerik:RadGrid  ID="gvMFFundPerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="15" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" 
-                    AllowAutomaticInserts="false">
-                    <PagerStyle Mode="NumericPages"></PagerStyle>
-                    <MasterTableView Width="100%">
-                <Columns>
-                <telerik:GridBoundColumn  DataField="SchemeName"  HeaderText="Scheme Name" 
-                    UniqueName="SchemeName" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <%--<telerik:GridBoundColumn  DataField="AUM"  HeaderText="AUM" UniqueName="AUM" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>--%>
-                
-                <telerik:GridBoundColumn  DataField="LaunchDate"  HeaderText="Launch Date" UniqueName="LaunchDate" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="NAV"  HeaderText="Current NAV" UniqueName="NAV" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="OneYearHighNAV"  HeaderText="52 Weeks Highest NAV" UniqueName="OneYearHighNAV" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="OneYearLowNAV"  HeaderText="52 Weeks Lowest NAV" UniqueName="OneYearLowNAV" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <%--<telerik:GridBoundColumn  DataField="YTD"  HeaderText="YTD" UniqueName="YTD" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>--%>
-                
-                <telerik:GridBoundColumn  DataField="OneWeekReturn"  HeaderText="1 Week Return(%)" UniqueName="OneWeekReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="OneMonthReturn"  HeaderText="1 Month Return(%)" UniqueName="OneMonthReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="ThreeMonthReturn"  HeaderText="3 Months Return(%)" UniqueName="ThreeMonthReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="SixMonthReturn"  HeaderText="6 Months Return(%)" UniqueName="SixMonthReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="OneYearReturn"  HeaderText="1 Year Return(%)" UniqueName="OneYearReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="TwoYearReturn"  HeaderText="2 Years Return(%)" UniqueName="TwoYearReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="ThreeYearReturn"  HeaderText="3 Years Return(%)" UniqueName="ThreeYearReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="FiveYearReturn"  HeaderText="5 Years Return(%)" UniqueName="FiveYearReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="InceptionReturn"  HeaderText="Inception Ret." UniqueName="InceptionReturn" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="PE"  HeaderText="PE" UniqueName="PE" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="PB"  HeaderText="PB" UniqueName="PB" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-               <%-- <telerik:GridBoundColumn  DataField="Cash"  HeaderText="Cash %" UniqueName="Cash" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>--%>
-                
-                <telerik:GridBoundColumn  DataField="Sharpe"  HeaderText="Sharpe" UniqueName="Sharpe" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn  DataField="SD"  HeaderText="SD" UniqueName="SD" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-               <%-- <telerik:GridBoundColumn  DataField="Top5Holdings"  HeaderText="Top 5 Holdings" UniqueName="Top5Holdings" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>--%>
-                               
-            </Columns>
-            </MasterTableView>
-            <ClientSettings>
-                    <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true">
-                    </Scrolling>
-                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />                           
-                   <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
-            </ClientSettings>
-        </telerik:RadGrid>
-
-                   
+                    <table id="ErrorMessage" align="center" runat="server" visible="false">
+                        <tr>
+                            <td>
+                                <div class="failure-msg" align="center">
+                                    No Records found ...
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-        </table>
+        </table>--%>
+        <%--<table>
+            <tr>
+                <td>--%>
+                <div style="overflow-x:auto;overflow-y:hidden;width:100%;padding: 0 0 20px 0">
+
+                   <telerik:RadGrid  ID="gvMFFundPerformance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" 
+                    AllowAutomaticInserts="false">
+                    <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
+                    <MasterTableView Width="99%" AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+                        <Columns>
+                        <telerik:GridBoundColumn  DataField="SchemeName"  HeaderText="Scheme Name" 
+                            UniqueName="SchemeName" >
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <%--<telerik:GridBoundColumn  DataField="AUM"  HeaderText="AUM" UniqueName="AUM" >
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
+                        
+                        <telerik:GridBoundColumn  DataField="LaunchDate"  HeaderText="Launch Date" UniqueName="LaunchDate" DataFormatString="{0:d}">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="ClosingDate"  HeaderText="Closing Date" UniqueName="ClosingDate" DataFormatString="{0:d}">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="NAV"  HeaderText="Current NAV" UniqueName="NAV" DataFormatString="{0:0.0000}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="OneYearHighNAV"  HeaderText="52 Weeks Highest NAV" UniqueName="OneYearHighNAV" DataFormatString="{0:0.0000}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="OneYearLowNAV"  HeaderText="52 Weeks Lowest NAV" UniqueName="OneYearLowNAV" DataFormatString="{0:0.0000}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <%--<telerik:GridBoundColumn  DataField="YTD"  HeaderText="YTD" UniqueName="YTD" >
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
+                        
+                        <telerik:GridBoundColumn  DataField="OneWeekReturn"  HeaderText="1 Week Return(%)" UniqueName="OneWeekReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top"/>
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="OneMonthReturn"  HeaderText="1 Month Return(%)" UniqueName="OneMonthReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="ThreeMonthReturn"  HeaderText="3 Months Return(%)" UniqueName="ThreeMonthReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="SixMonthReturn"  HeaderText="6 Months Return(%)" UniqueName="SixMonthReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="OneYearReturn"  HeaderText="1 Year Return(%)" UniqueName="OneYearReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="TwoYearReturn"  HeaderText="2 Years Return(%)" UniqueName="TwoYearReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="ThreeYearReturn"  HeaderText="3 Years Return(%)" UniqueName="ThreeYearReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="FiveYearReturn"  HeaderText="5 Years Return(%)" UniqueName="FiveYearReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="InceptionReturn"  HeaderText="Inception Ret." UniqueName="InceptionReturn" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="Center"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="PE"  HeaderText="PE" UniqueName="PE" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="PB"  HeaderText="PB" UniqueName="PB" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                       <%-- <telerik:GridBoundColumn  DataField="Cash"  HeaderText="Cash %" UniqueName="Cash" >
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
+                        
+                        <telerik:GridBoundColumn  DataField="Sharpe"  HeaderText="Sharpe" UniqueName="Sharpe" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  DataField="SD"  HeaderText="SD" UniqueName="SD" DataFormatString="{0:0.00}">
+                            <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                       <%-- <telerik:GridBoundColumn  DataField="Top5Holdings"  HeaderText="Top 5 Holdings" UniqueName="Top5Holdings" >
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>--%>
+                                       
+                    </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <%--<Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true">
+                        </Scrolling>--%>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />                           
+                        <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
+                    </ClientSettings>
+                    </telerik:RadGrid>
+                </div>
+                <%--</td>
+            </tr>
+        </table>--%>
     </asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
@@ -781,6 +796,11 @@
     <asp:HiddenField ID="hdnCurrentPage" runat="server" />
     <asp:HiddenField ID="hdnCompanySearch" runat="server" />
     <asp:HiddenField ID="hdnSort" runat="server" />
+    
+    <asp:HiddenField ID="hdnAmcCode" runat="server" />
+    <asp:HiddenField ID="hdnSubCategory" runat="server" />
+    <asp:HiddenField ID="hdnCondition" runat="server" />
+    <asp:HiddenField ID="hdnReturnPeriod" runat="server" />
     <asp:Button ID="btnSearch" runat="server" Text="" OnClick="btnSearch_Click" BorderStyle="None"
         BackColor="Transparent" />
           <asp:HiddenField ID="hdnassetType" runat="server" />
