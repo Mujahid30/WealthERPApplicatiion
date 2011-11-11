@@ -14,6 +14,8 @@ namespace VoFPSuperlite
         private double FP_LoanOutstanding;       
         private int FP_Tenure;        
         private double FP_EMIAmount;
+        private double FP_AdjustedEMIAmount;
+        private double FP_TotalEMIAmount;
         private double FP_AdjustedLoan;
 
        
@@ -42,6 +44,16 @@ namespace VoFPSuperlite
         {
             get { return FP_EMIAmount; }
             set { FP_EMIAmount = value; }
+        }
+        public double AdjustedEMIAmount
+        {
+            get { return FP_AdjustedEMIAmount; }
+            set { FP_AdjustedEMIAmount = value; }
+        }
+        public double TotalEMIAmount
+        {
+            get { return FP_TotalEMIAmount; }
+            set { FP_TotalEMIAmount = value; }
         }
         public double AdjustedLoan
         {
