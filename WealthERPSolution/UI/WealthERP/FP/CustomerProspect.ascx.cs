@@ -242,6 +242,14 @@ namespace WealthERP.FP
                 txtTotalPremiumOthers.Attributes.Add("readonly", "readonly");
                 txtIncomeTotal.Attributes.Add("readonly", "readonly");
                 txtTotalLO.Attributes.Add("readonly", "readonly");
+
+                // EMI Total textboxes
+                txtHomeLoanEMITotal.Attributes.Add("readonly", "readonly");
+                txtAutoLoanEMITotal.Attributes.Add("readonly", "readonly");
+                txtPersonalLoanEMITotal.Attributes.Add("readonly", "readonly");
+                txtEducationLoanEMITotal.Attributes.Add("readonly", "readonly");
+                txtOtherLoanEMITotal.Attributes.Add("readonly", "readonly");
+
                 
                 //txtToalHealthInsurancePremium.Enabled = false;
             }
@@ -854,7 +862,7 @@ namespace WealthERP.FP
                 //    //totalincome += incomedetailsvo.IncomeValue;
                 //}
 
-               
+
 
 
                 //Liabilities(Loan)
@@ -867,18 +875,30 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 1;
                 if (txtHomeLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtHomeLoanA.Text.Trim()),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtHomeLoanA.Text.Trim()), 0);
                 }
                 if (txtHomeLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtHomeLoanLO.Text.Trim()),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtHomeLoanLO.Text.Trim()), 0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtHomeLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtHomeLoanEMI.Text.Trim()),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtHomeLoanEMI.Text.Trim()), 0);
                 }
+
+                if (txtHomeLoanEMIA.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.AdjustedEMIAmount = Math.Round(double.Parse(txtHomeLoanEMIA.Text.Trim()), 0);
+                }
+
+                if (txtHomeLoanEMITotal.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.TotalEMIAmount = Math.Round(double.Parse(txtHomeLoanEMITotal.Text.Trim()), 0);
+                }
+
+
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
 
@@ -888,18 +908,29 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 2;
                 if (txtAutoLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtAutoLoanA.Text.Trim()),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtAutoLoanA.Text.Trim()), 0);
                 }
                 if (txtAutoLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtAutoLoanLO.Text.Trim()),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtAutoLoanLO.Text.Trim()), 0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtAutoLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtAutoLoanEMI.Text.Trim()),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtAutoLoanEMI.Text.Trim()), 0);
                 }
+
+                if (txtAutoLoanEMIA.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.AdjustedEMIAmount = Math.Round(double.Parse(txtAutoLoanEMIA.Text.Trim()), 0);
+                }
+
+                if (txtAutoLoanEMITotal.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.TotalEMIAmount = Math.Round(double.Parse(txtAutoLoanEMITotal.Text.Trim()), 0);
+                }
+
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
 
@@ -909,18 +940,29 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 5;
                 if (txtEducationLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtEducationLoanA.Text.Trim()),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtEducationLoanA.Text.Trim()), 0);
                 }
                 if (txtEducationLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtEducationLoanLO.Text.Trim()),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtEducationLoanLO.Text.Trim()), 0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
 
                 if (txtEducationLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtEducationLoanEMI.Text.Trim()),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtEducationLoanEMI.Text.Trim()), 0);
                 }
+
+                if (txtEducationLoanEMIA.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.AdjustedEMIAmount = Math.Round(double.Parse(txtEducationLoanEMIA.Text.Trim()), 0);
+                }
+
+                if (txtEducationLoanEMITotal.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.TotalEMIAmount = Math.Round(double.Parse(txtEducationLoanEMITotal.Text.Trim()), 0);
+                }
+
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
 
@@ -930,17 +972,28 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 6;
                 if (txtPersonalLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtPersonalLoanA.Text.Trim()),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtPersonalLoanA.Text.Trim()), 0);
                 }
                 if (txtPersonalLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtPersonalLoanLO.Text.Trim()),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtPersonalLoanLO.Text.Trim()), 0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
                 if (txtPersonalLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtPersonalLoanEMI.Text.Trim()),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtPersonalLoanEMI.Text.Trim()), 0);
                 }
+
+                if (txtPersonalLoanEMIA.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.AdjustedEMIAmount = Math.Round(double.Parse(txtPersonalLoanEMIA.Text.Trim()), 0);
+                }
+
+                if (txtPersonalLoanEMITotal.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.TotalEMIAmount = Math.Round(double.Parse(txtPersonalLoanEMITotal.Text.Trim()), 0);
+                }
+
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
 
@@ -949,40 +1002,51 @@ namespace WealthERP.FP
                 liabilitiesdetailsvo.LoanTypeCode = 9;
                 if (txtOtherLoanA.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtOtherLoanA.Text.Trim()),0);
+                    liabilitiesdetailsvo.AdjustedLoan = Math.Round(double.Parse(txtOtherLoanA.Text.Trim()), 0);
                 }
                 if (txtOtherLoanLO.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtOtherLoanLO.Text.Trim()),0);
+                    liabilitiesdetailsvo.LoanOutstanding = Math.Round(double.Parse(txtOtherLoanLO.Text.Trim()), 0);
                     totalliabilities += liabilitiesdetailsvo.LoanOutstanding;
                 }
                 if (txtOtherLoanEMI.Text.Trim() != string.Empty)
                 {
-                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtOtherLoanEMI.Text.Trim()),0);
+                    liabilitiesdetailsvo.EMIAmount = Math.Round(double.Parse(txtOtherLoanEMI.Text.Trim()), 0);
+                }
+
+                if (txtOtherLoanEMIA.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.AdjustedEMIAmount = Math.Round(double.Parse(txtOtherLoanEMIA.Text.Trim()), 0);
+                }
+
+                if (txtOtherLoanEMITotal.Text.Trim() != string.Empty)
+                {
+                    liabilitiesdetailsvo.TotalEMIAmount = Math.Round(double.Parse(txtOtherLoanEMITotal.Text.Trim()), 0);
                 }
                 liabilitiesdetailsvolist.Add(liabilitiesdetailsvo);
 
                 //Calculating Total EMI
-                if (txtHomeLoanEMI.Text.Trim() == "")
-                    txtHomeLoanEMI.Text = "0";
-                if (txtAutoLoanEMI.Text.Trim() == "")
-                    txtAutoLoanEMI.Text = "0";
-                if (txtPersonalLoanEMI.Text.Trim() == "")
-                    txtPersonalLoanEMI.Text = "0";
-                if (txtEducationLoanEMI.Text.Trim() == "")
-                    txtEducationLoanEMI.Text = "0";
-                if (txtOtherLoanEMI.Text.Trim() == "")
-                    txtOtherLoanEMI.Text = "0";
+                if (txtHomeLoanEMITotal.Text.Trim() == "")
+                    txtHomeLoanEMITotal.Text = "0";
+                if (txtAutoLoanEMITotal.Text.Trim() == "")
+                    txtAutoLoanEMITotal.Text = "0";
+                if (txtPersonalLoanEMITotal.Text.Trim() == "")
+                    txtPersonalLoanEMITotal.Text = "0";
+                if (txtEducationLoanEMITotal.Text.Trim() == "")
+                    txtEducationLoanEMITotal.Text = "0";
+                if (txtOtherLoanEMITotal.Text.Trim() == "")
+                    txtOtherLoanEMITotal.Text = "0";
 
-                if ((txtHomeLoanEMI.Text.Trim() != "") || (txtAutoLoanEMI.Text.Trim() != "") || (txtPersonalLoanEMI.Text.Trim() != "") || (txtEducationLoanEMI.Text.Trim() != "") || (txtOtherLoanEMI.Text.Trim() != ""))
+                if ((txtHomeLoanEMITotal.Text.Trim() != "") || (txtAutoLoanEMITotal.Text.Trim() != "") || (txtPersonalLoanEMITotal.Text.Trim() != "") || (txtEducationLoanEMITotal.Text.Trim() != "") || (txtOtherLoanEMITotal.Text.Trim() != ""))
                 {
-                    totalEMIForExpense = (float.Parse(txtHomeLoanEMI.Text.Trim()) + float.Parse(txtAutoLoanEMI.Text.Trim()) + float.Parse(txtPersonalLoanEMI.Text.Trim()) + float.Parse(txtEducationLoanEMI.Text.Trim()) + float.Parse(txtOtherLoanEMI.Text.Trim()));
+                    totalEMIForExpense = (float.Parse(txtHomeLoanEMITotal.Text.Trim()) + float.Parse(txtAutoLoanEMITotal.Text.Trim()) + float.Parse(txtPersonalLoanEMITotal.Text.Trim()) + float.Parse(txtEducationLoanEMITotal.Text.Trim()) + float.Parse(txtOtherLoanEMITotal.Text.Trim()));
                 }
 
                 if (totalEMIForExpense != 0)
                 {
                     finalExpenseEMItotal = totalEMIForExpense / 12;
                 }
+
 
                 //==========================================================================================================================
 
@@ -2393,6 +2457,8 @@ namespace WealthERP.FP
                         txtHomeLoanLO.Text = cpld.LoanOutstanding.ToString();
                         txtHomeLoanA.Text = cpld.AdjustedLoan.ToString();
                         txtHomeLoanEMI.Text = cpld.EMIAmount.ToString();
+                        txtHomeLoanEMIA.Text = cpld.AdjustedEMIAmount.ToString();
+                        txtHomeLoanEMITotal.Text = cpld.TotalEMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
                     if (cpld.LoanTypeCode == 2)
@@ -2400,6 +2466,8 @@ namespace WealthERP.FP
                         txtAutoLoanLO.Text = cpld.LoanOutstanding.ToString();
                         txtAutoLoanA.Text = cpld.AdjustedLoan.ToString();
                         txtAutoLoanEMI.Text = cpld.EMIAmount.ToString();
+                        txtAutoLoanEMIA.Text = cpld.AdjustedEMIAmount.ToString();
+                        txtAutoLoanEMITotal.Text = cpld.TotalEMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
 
@@ -2408,6 +2476,8 @@ namespace WealthERP.FP
                         txtEducationLoanLO.Text = cpld.LoanOutstanding.ToString();
                         txtEducationLoanA.Text = cpld.AdjustedLoan.ToString();
                         txtEducationLoanEMI.Text = cpld.EMIAmount.ToString();
+                        txtEducationLoanEMIA.Text = cpld.AdjustedEMIAmount.ToString();
+                        txtEducationLoanEMITotal.Text = cpld.TotalEMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
                     if (cpld.LoanTypeCode == 6)
@@ -2415,6 +2485,8 @@ namespace WealthERP.FP
                         txtPersonalLoanLO.Text = cpld.LoanOutstanding.ToString();
                         txtPersonalLoanA.Text = cpld.AdjustedLoan.ToString();
                         txtPersonalLoanEMI.Text = cpld.EMIAmount.ToString();
+                        txtPersonalLoanEMIA.Text = cpld.AdjustedEMIAmount.ToString();
+                        txtPersonalLoanEMITotal.Text = cpld.TotalEMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
                     if (cpld.LoanTypeCode == 9)
@@ -2422,6 +2494,8 @@ namespace WealthERP.FP
                         txtOtherLoanLO.Text = cpld.LoanOutstanding.ToString();
                         txtOtherLoanA.Text = cpld.AdjustedLoan.ToString();
                         txtOtherLoanEMI.Text = cpld.EMIAmount.ToString();
+                        txtOtherLoanEMIA.Text = cpld.AdjustedEMIAmount.ToString();
+                        txtOtherLoanEMITotal.Text = cpld.TotalEMIAmount.ToString();
                         totalliabilities += cpld.LoanOutstanding;
                     }
 
