@@ -422,6 +422,17 @@ namespace DaoFPSuperlite
                     db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_EMIAmount", DbType.Decimal, customerProspectLiabilitiesDetailsVo.EMIAmount);
                 else
                     db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_EMIAmount", DbType.Int32, 0.0);
+
+                if (customerProspectLiabilitiesDetailsVo.AdjustedEMIAmount != 0)
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedEMIAmount", DbType.Decimal, customerProspectLiabilitiesDetailsVo.AdjustedEMIAmount);
+                else
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedEMIAmount", DbType.Int32, 0.0);
+
+                if (customerProspectLiabilitiesDetailsVo.TotalEMIAmount != 0)
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_TotalEMIAmount", DbType.Decimal, customerProspectLiabilitiesDetailsVo.TotalEMIAmount);
+                else
+                    db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@CFPLD_TotalEMIAmount", DbType.Int32, 0.0);
+
                 db.AddInParameter(cmdAddLiabilitiesDetailsForCustomerProspect, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdAddLiabilitiesDetailsForCustomerProspect) != 0)
                     bLiabilitiesResult = true;
@@ -520,6 +531,17 @@ namespace DaoFPSuperlite
                     db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_EMIAmount", DbType.Int32, customerProspectLiabilitiesDetailsVo.EMIAmount);
                 else
                     db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_EMIAmount", DbType.Int32, 0.0);
+                
+                if (customerProspectLiabilitiesDetailsVo.AdjustedEMIAmount != 0)
+                    db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedEMIAmount", DbType.Int32, customerProspectLiabilitiesDetailsVo.AdjustedEMIAmount);
+                else
+                    db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_AdjustedEMIAmount", DbType.Int32, 0.0);
+
+                if (customerProspectLiabilitiesDetailsVo.TotalEMIAmount != 0)
+                    db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_TotalEMIAmount", DbType.Int32, customerProspectLiabilitiesDetailsVo.TotalEMIAmount);
+                else
+                    db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@CFPLD_TotalEMIAmount", DbType.Int32, 0.0);
+
                 db.AddInParameter(cmdUpdateLiabilitiesDetailsForCustomerProspect, "@U_UserId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(cmdUpdateLiabilitiesDetailsForCustomerProspect) != 0)
                     bLiabilitiesResult = true;
