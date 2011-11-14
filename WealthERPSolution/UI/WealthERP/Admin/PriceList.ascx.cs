@@ -97,8 +97,8 @@ namespace WealthERP.Admin
                 trFromDate.Visible = false;
                 RadTabStrip1.Tabs[0].Text = "Price";
             }
-         
 
+            BindSelectAMCDropdown();
         }
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
@@ -208,7 +208,7 @@ namespace WealthERP.Admin
             ddlSelectMutualFund.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlSelectMutualFund.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlSelectMutualFund.DataBind();
-            ddlSelectMutualFund.Items.Insert(0, new ListItem("All AMC", "Select AMC Code"));
+            ddlSelectMutualFund.Items.Insert(0, new ListItem("Select AMC", "Select AMC Code"));
         }
 
         protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -522,42 +522,48 @@ namespace WealthERP.Admin
 
             string categoryCode = ddlCategory.SelectedValue;
             dsCategoryList = priceBo.BindddlMFSubCategory();
-            if (ddlCategory.SelectedIndex != 0)
+            if (categoryCode == "0")
             {
-                if (categoryCode == "MFCO")
-                {
-                    ddlSubCategory.DataSource = dsCategoryList.Tables[0];
-                    ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    ddlSubCategory.DataBind();
-                   // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-                }
-                if (categoryCode == "MFDT")
-                {
-                    ddlSubCategory.DataSource = dsCategoryList.Tables[1];
-                    ddlSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    ddlSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    ddlSubCategory.DataBind();
-                    //ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-                }
-                if (categoryCode == "MFEQ")
-                {
-                    ddlSubCategory.DataSource = dsCategoryList.Tables[2];
-                    ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    ddlSubCategory.DataBind();
-                   // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-                }
-                if (categoryCode == "MFHY")
-                {
-                    ddlSubCategory.DataSource = dsCategoryList.Tables[3];
-                    ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                    ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    ddlSubCategory.DataBind();
-                   // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-                }
+                divSubCategory.Visible = false;
+                hdnSubCategory.Value = "";
+                
             }
-
+            if (categoryCode == "MFCO")
+            {
+                divSubCategory.Visible = true;
+                ddlSubCategory.DataSource = dsCategoryList.Tables[0];
+                ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubCategory.DataBind();
+               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            }
+            if (categoryCode == "MFDT")
+            {
+                divSubCategory.Visible = true;
+                ddlSubCategory.DataSource = dsCategoryList.Tables[1];
+                ddlSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubCategory.DataBind();
+                //ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            }
+            if (categoryCode == "MFEQ")
+            {
+                divSubCategory.Visible = true;
+                ddlSubCategory.DataSource = dsCategoryList.Tables[2];
+                ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubCategory.DataBind();
+               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            }
+            if (categoryCode == "MFHY")
+            {
+                divSubCategory.Visible = true;
+                ddlSubCategory.DataSource = dsCategoryList.Tables[3];
+                ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlSubCategory.DataBind();
+               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            }            
         }
 
         protected void OnClick_btnGo(object sender, EventArgs e)
@@ -570,7 +576,10 @@ namespace WealthERP.Admin
             hdnAmcCode.Value = ddlSelectAMC.SelectedValue;
             ViewState["AmcCode"] = hdnAmcCode.Value;
 
-            hdnSubCategory.Value = ddlSubCategory.SelectedValue;
+            if (ddlCategory.SelectedIndex != 0)
+                hdnSubCategory.Value = ddlSubCategory.SelectedValue;
+            else
+                hdnSubCategory.Value = "";
             ViewState["SubCategory"] = hdnSubCategory.Value;
 
             hdnReturnPeriod.Value = ddlReturn.SelectedValue;

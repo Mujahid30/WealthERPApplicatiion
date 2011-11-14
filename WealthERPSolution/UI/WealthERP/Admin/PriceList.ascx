@@ -607,18 +607,19 @@
                             <td>
                                 <asp:DropDownList CssClass="cmbField" ID="ddlCategory" runat="server" 
                                 OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged" AutoPostBack="true">
-                                 <asp:ListItem Text="Select Category" Value="0"></asp:ListItem>
+                                 <asp:ListItem Text="All Category" Value="0"></asp:ListItem>
                                 <asp:ListItem Text="commodity" Value="MFCO"></asp:ListItem>
                                 <asp:ListItem Text="Debt" Value="MFDT"></asp:ListItem>
                                 <asp:ListItem Text="Equity" Value="MFEQ"></asp:ListItem>
                                 <asp:ListItem Text="Hybrid" Value="MFHY"></asp:ListItem>
                                 </asp:DropDownList>
-                                <span id="Span1" class="spnRequiredField">*</span>
+                                <%--<span id="Span1" class="spnRequiredField">*</span>
                                 <asp:CompareValidator ID="ddlCategory_CompareValidator" runat="server"
                                     ControlToValidate="ddlCategory" ErrorMessage="Please select a Category"
                                     Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
-                                </asp:CompareValidator>
+                                </asp:CompareValidator>--%>
                             </td>
+                            <div id="divSubCategory" runat="server" visible="false">
                             <td class="leftField">
                                 <asp:Label ID="lblSubCategory" CssClass="FieldName" Text="SubCategory:" runat="server"></asp:Label>
                             </td>
@@ -626,6 +627,7 @@
                                 <asp:DropDownList CssClass="cmbField" ID="ddlSubCategory" runat="server">
                                 </asp:DropDownList>                                
                             </td>
+                            </div>
                             <td></td>
                             <td>
                                 <asp:Button ID="btnGo" Text="Go" CssClass="PCGButton" runat="server" OnClick="OnClick_btnGo" ValidationGroup="btnGo"/>
