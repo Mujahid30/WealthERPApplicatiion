@@ -453,8 +453,8 @@ namespace WealthERP.CustomerPortfolio
                     schemePlanCode = systematicSetupVo.SchemePlanCode;
                     //BindFolioDropDown(systematicSetupVo.PortfolioId);
 
-                    
-                    //ddlFolioNumber.SelectedValue = systematicSetupVo.AccountId.ToString();
+
+                    ddlFolioNumber.SelectedItem.Text = systematicSetupVo.Folio;
                     txtSearchScheme.Text = systematicSetupVo.SchemePlan.ToString();
                     txtSchemeCode.Value = systematicSetupVo.SchemePlanCode.ToString();
                     if (systematicSetupVo.SchemePlan != "")
@@ -469,11 +469,17 @@ namespace WealthERP.CustomerPortfolio
                     txtPeriod.Text = systematicSetupVo.Period.ToString();
                     txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
                     txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
-                    ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
+                    if (systematicSetupVo.PeriodSelection!=null)
+                        ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
+                    else
+                        ddlPeriodSelection.SelectedValue = "DA";
                     txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
                     RegistrationDate_CalendarExtender.Enabled = true;
                     RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
-                    ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode.ToString();
+                    if (systematicSetupVo.PaymentMode != null)
+                        ddlPaymentMode.SelectedValue = systematicSetupVo.PaymentMode.ToString();
+                    else
+                        ddlPaymentMode.SelectedValue = "ES";
                     //if (systematicSetupVo.SystematicTypeCode.Trim() == "STP")
                     //{
                     //    txtSwitchSchemeCode.Value = systematicSetupVo.SchemePlanCodeSwitch.ToString();
@@ -889,7 +895,7 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.SchemePlan = "";
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
             systematicSetupVo.Portfolio = ddlportfolio.SelectedItem.Value;
-            systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
+            systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Value.ToString();
             systematicSetupVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
             systematicSetupVo.FrequencyCode = ddlFrequency.SelectedItem.Value.ToString();
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
@@ -1243,6 +1249,7 @@ namespace WealthERP.CustomerPortfolio
         {
             if(ddlSystematicType.SelectedIndex!=0 && !string.IsNullOrEmpty(txtSearchScheme.Text.Trim()))
              SaveCurrentPageState();
+
              portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
             //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
@@ -1257,6 +1264,7 @@ namespace WealthERP.CustomerPortfolio
             hashSaveCurrentPageStatus.Add("SearchScheme", txtSearchScheme.Text);
             hashSaveCurrentPageStatus.Add("SchemeCode", txtSchemeCode.Value);
             hashSaveCurrentPageStatus.Add("SwicthSchemeSearch", txtSwicthSchemeSearch.Text);
+           // BindPortfolioDropDown();
             hashSaveCurrentPageStatus.Add("Portfolio", ddlportfolio.SelectedItem.Value);
             hashSaveCurrentPageStatus.Add("FolioNumber", ddlFolioNumber.SelectedValue);
             hashSaveCurrentPageStatus.Add("StartDate", txtStartDate.Text);
