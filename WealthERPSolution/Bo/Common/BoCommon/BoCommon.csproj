@@ -61,6 +61,7 @@
     <Compile Include="EmailSMSBo.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="GetDifferenceInTables.cs" />
+    <Compile Include="OneWayEncryption.cs" />
     <Compile Include="REadExternalFileBO.cs" />
     <Compile Include="SessionBo.cs" />
     <Compile Include="XMLBo.cs" />
