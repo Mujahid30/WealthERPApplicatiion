@@ -180,7 +180,7 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="Login Id" HeaderText="Login Id" />
                     <asp:BoundField DataField="Email Id" HeaderText="Email Id" />
-                    <asp:ButtonField CommandName="resetPassword" Text="Reset Password" />
+                    <asp:ButtonField CommandName="resetPassword" Text="Reset Password" Visible="false" />
                 </Columns>
                 <AlternatingRowStyle CssClass="AltRowStyle" />
             </asp:GridView>
@@ -208,10 +208,10 @@
     </tr>--%>
     <tr>
         <td>
-            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Send Login Password"
+            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Reset & Send"
                 CssClass="loadme PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');" />
-                 <div class='loadmediv'></div>
+             <div class='loadmediv'></div>
         </td>
     </tr>
 </table>

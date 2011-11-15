@@ -37,6 +37,7 @@ namespace WealthERP.Advisor
         PcgMailMessage email = new PcgMailMessage();
         string statusMessage = string.Empty;
         AdvisorVo advisorVo = new AdvisorVo();
+        OneWayEncryption encryption;
 
         private SortDirection GridViewSortDirection
         {
@@ -345,6 +346,7 @@ namespace WealthERP.Advisor
         {
             int Count = 0;
             bool loginReset = false;
+            encryption=new OneWayEncryption();
             try
             {
                 foreach (GridViewRow gvr in this.gvCustomers.Rows)
@@ -367,6 +369,8 @@ namespace WealthERP.Advisor
                         if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                         {
                             string password = r.Next(20000, 100000).ToString();
+                            string hassedPassword;
+                            string saltValue;
                             userId = int.Parse(gvCustomers.DataKeys[gvr.RowIndex].Value.ToString());
                             userVo = new UserVo();
                             userVo = userBo.GetUserDetails(userId);
@@ -375,10 +379,22 @@ namespace WealthERP.Advisor
                             {
                                 loginReset = true;
                                 userVo.LoginId = r.Next(10000000, 99999999).ToString();
-                                userVo.Password = Encryption.Encrypt(password);
+                                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                                userVo.Password = hassedPassword;
+                                userVo.PasswordSaltValue = saltValue;
+                                userVo.OriginalPassword = password;
                                 userVo.IsTempPassword = 1;
                                 userBo.UpdateUser(userVo);
-                               
+
+                            }
+                            else
+                            {
+                                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                                userVo.Password = hassedPassword;
+                                userVo.PasswordSaltValue = saltValue;
+                                userVo.OriginalPassword = password;
+                                userVo.IsTempPassword = 1;
+                                userBo.UpdateUser(userVo);
                             }
                             //Send email to customer
                             //
@@ -450,7 +466,7 @@ namespace WealthERP.Advisor
                 {
                     email.To.Add(userVo.Email);
                     string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                    email.GetCustomerAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), name);
+                    email.GetResetPasswordMail(userVo.LoginId, userVo.OriginalPassword, name);
                     email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                     email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
@@ -563,9 +579,17 @@ namespace WealthERP.Advisor
                 userVo = userBo.GetUserDetails(userId);
                 if (userVo != null)
                 {
-                    userVo.Password = r.Next(20000, 100000).ToString();
+                    string hassedPassword = string.Empty;
+                    string saltValue = string.Empty;
+                    string password = r.Next(20000, 100000).ToString();
+
+                    userVo = userBo.GetUserDetails(userId);
+                    string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                    userVo.Password = hassedPassword;
+                    userVo.PasswordSaltValue = saltValue;
+                    userVo.OriginalPassword = password;
                     userVo.IsTempPassword = 1;
-                    userVo.Password = Encryption.Encrypt(userVo.Password);
                     isSuccess = userBo.UpdateUser(userVo);
                 }
                 if (isSuccess)
