@@ -148,5 +148,21 @@ namespace BoWerpAdmin
             return dtMFFund;
 
         }
+
+        public DataSet GetFactSheetSchemeDetails(int schemePlanId, int month, int year)
+        {
+            DataSet dsFactsheetschemeDetails = new DataSet();
+            PriceDao PriceObj = new PriceDao();
+            try
+            {
+                dsFactsheetschemeDetails = PriceObj.GetFactSheetSchemeDetails(schemePlanId, month, year);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsFactsheetschemeDetails;
+
+        }
      }
 }
