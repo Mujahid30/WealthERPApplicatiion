@@ -473,7 +473,10 @@ namespace WealthERP.CustomerPortfolio
                         ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
                     else
                         ddlPeriodSelection.SelectedValue = "DA";
-                    txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
+                    if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
+                        txtRegistrationDate.Text = systematicSetupVo.RegistrationDate.ToShortDateString();
+                    else
+                        txtRegistrationDate.Text = "dd/mm/yyyy";
                     RegistrationDate_CalendarExtender.Enabled = true;
                     RegistrationDate_TextBoxWatermarkExtender.Enabled = true;
                     if (systematicSetupVo.PaymentMode != null)
@@ -846,6 +849,7 @@ namespace WealthERP.CustomerPortfolio
         /// <param name="e"></param>
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            int folioAccountId = 0;
             if (ddlPaymentMode.SelectedItem.Value == "ES")
             {
                 hdnddlPaymentMode.Value = "ES";
@@ -895,7 +899,14 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.SchemePlan = "";
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
             systematicSetupVo.Portfolio = ddlportfolio.SelectedItem.Value;
-            systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Value.ToString();
+            systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Text.ToString();
+            if (Session["SourcePage"].ToString() == "ReconReport")
+            {
+                folioAccountId = systematicSetupBo.GetAccountIdAccodingToFolio(systematicSetupVo.Folio);
+                systematicSetupVo.AccountId = folioAccountId;
+            }
+            else
+                systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
             systematicSetupVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
             systematicSetupVo.FrequencyCode = ddlFrequency.SelectedItem.Value.ToString();
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
@@ -1105,6 +1116,7 @@ namespace WealthERP.CustomerPortfolio
                 if (Session["SourcePage"] != null && Session["SourcePage"].ToString() == "ReconReport")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFSystematicTransactionReport','none');", true);
+                    Session["SourcePage"] = "";
                 }
                 else
                 {
@@ -1124,6 +1136,7 @@ namespace WealthERP.CustomerPortfolio
             }
 
         }
+
 
         /// <summary>
         /// Calculates the End Date based on the period by adding it to the Start Date
