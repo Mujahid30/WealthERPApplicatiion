@@ -2763,6 +2763,58 @@ namespace DaoAlerts
             }
             return bResult;
         }
-    }
 
+        /// <summary>
+        /// Get Adviser user alerts...
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="Remindercount"></param>
+        /// <param name="ConditionsCount"></param>
+        /// <returns></returns>
+        
+        public DataSet GetAdviserUserAlerts(int userId, out int Remindercount, out int ConditionsCount)
+        {
+            DataSet dsAdviserAlertList = new DataSet();
+            Database db;
+            DbCommand getListOfAlertsCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getListOfAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserOrUserAlerts");
+                db.AddInParameter(getListOfAlertsCmd, "@U_UserId", DbType.Int16, userId);
+                dsAdviserAlertList = db.ExecuteDataSet(getListOfAlertsCmd);
+
+                if ((dsAdviserAlertList.Tables[0] != null) && (dsAdviserAlertList.Tables[0].Rows.Count > 0))
+                    Remindercount = dsAdviserAlertList.Tables[0].Rows.Count;
+                else
+                    Remindercount = 0;
+
+                if ((dsAdviserAlertList.Tables[1] != null) && (dsAdviserAlertList.Tables[1].Rows.Count > 0))
+                    ConditionsCount = dsAdviserAlertList.Tables[1].Rows.Count;
+                else
+                    ConditionsCount = 0;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsDao.cs:GetAdviserUserAlerts()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, null);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsAdviserAlertList;
+        }
+    }
 }

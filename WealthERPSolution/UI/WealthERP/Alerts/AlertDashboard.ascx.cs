@@ -402,6 +402,12 @@ namespace WealthERP.Alerts
         private static string eqStopLossCondition = "<";
         private static int eqProfitBookingPreset = 10;
         private static int eqStopLossPreset = 10;
+        DataSet dsAdviserAlertSetUps = new DataSet();
+        DataTable dtAdviserReminderAlerts = new DataTable();
+        DataTable dtAdviserConditionAlerts = new DataTable();
+
+        int reminderCount = 0;
+        int conditionCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -537,38 +543,33 @@ namespace WealthERP.Alerts
                         //ddlRMCustList.Visible = false;
                         //trChooseCustomer.Visible = false;
                     }
-                    if (!IsPostBack)
-                    {
-                        sipReminder = 2;
-                        swpReminder = 2;
-                        dobReminder = 2;
-                        anniversaryReminder = 2;
-                        elssReminder = 2;
-                        fdMaturityReminder = 2;
-                        fdRecurringReminder = 2;
-                        insuranceReminder = 2;
-                        propertyOccurrence = 10;
-                        personalOccurrence = 10;
-                        propertyCondition = ">";
-                        personalCondition = "<";
-                        mfProfitBookingCondition = ">";
-                        mfStopLossCondition = "<";
-                        mfProfitBookingPreset = 10;
-                        mfStopLossPreset = 10;
-                        eqProfitBookingCondition = ">";
-                        eqStopLossCondition = "<";
-                        eqProfitBookingPreset = 10;
-                        eqStopLossPreset = 10;
-                    }
-                    BindSystemAlertsGrid();
-                    //else
-                    //{
-                    //    BindCustomerListDropDown(rmId);
-                    //    pnlDashboardGrid.Visible = false;
-                    //    //ddlRMCustList.Visible = true;
-                    //    trChooseCustomer.Visible = true;
-                    //}
                 }
+                if (!IsPostBack)
+                {
+                    dsAdviserAlertSetUps = alertsBo.GetAdviserUserAlerts(userVo.UserId, out reminderCount, out conditionCount);
+                    dtAdviserReminderAlerts = dsAdviserAlertSetUps.Tables[0];
+                    dtAdviserConditionAlerts = dsAdviserAlertSetUps.Tables[1];
+
+                    if (reminderCount == 0)
+                    {
+                        SetDefaultReminderValues();
+                    }
+                    else
+                    {
+                        SetAdviserReminderValues();
+                    }
+
+                    if (conditionCount == 0)
+                    {
+                        SetDefaultConditionValues();
+                    }
+                    else
+                    {
+                        SetAdviserConditionValues();
+                    }
+                    
+                }
+                BindSystemAlertsGrid();
             }
             catch (BaseApplicationException Ex)
             {
@@ -590,6 +591,128 @@ namespace WealthERP.Alerts
             }
 
         }
+        public void SetDefaultConditionValues()
+        {
+            propertyOccurrence = 10;
+            personalOccurrence = 10;
+            propertyCondition = ">";
+            personalCondition = "<";
+            mfProfitBookingCondition = ">";
+            mfStopLossCondition = "<";
+            mfProfitBookingPreset = 10;
+            mfStopLossPreset = 10;
+            eqProfitBookingCondition = ">";
+            eqStopLossCondition = "<";
+            eqProfitBookingPreset = 10;
+            eqStopLossPreset = 10;
+        }
+
+        private void SetAdviserConditionValues()
+        {
+            foreach (DataRow dr in dtAdviserConditionAlerts.Rows)
+            {
+                switch (dr["AEL_EventCode"].ToString().Trim())
+                {
+                    case "Personal":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            personalOccurrence = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            personalCondition = dr["ADCS_Condition"].ToString();
+                        }
+                        break;
+                    case "Property":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            propertyOccurrence = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            propertyCondition = dr["ADCS_Condition"].ToString();
+                        }
+                        break;
+                    case "MF Absolute Stop Loss":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            mfStopLossPreset = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            mfStopLossCondition = dr["ADCS_Condition"].ToString();
+
+                        }
+                        break;
+                    case "MF Absolute Profit booking":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            mfProfitBookingPreset = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            mfProfitBookingCondition = dr["ADCS_Condition"].ToString();
+                        }
+                        break;
+                    case "Equity Absolute stop Loss":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            eqStopLossPreset = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            eqStopLossCondition = dr["ADCS_Condition"].ToString();
+                        }
+                        break;
+                    case "Equity Absolute Profit booking":
+                        if ((dr["ADCS_SetUpPresetValue"] != null) && (dr["ADCS_Condition"] != null))
+                        {
+                            eqProfitBookingPreset = int.Parse(dr["ADCS_SetUpPresetValue"].ToString());
+                            eqProfitBookingCondition = dr["ADCS_Condition"].ToString();
+                        }
+                        break;
+                }
+            }            
+        }
+
+        private void SetAdviserReminderValues()
+        {
+            foreach (DataRow dr in dtAdviserReminderAlerts.Rows)
+            {
+                switch (dr["AEL_EventCode"].ToString().Trim())
+                {
+                    case "SIP":
+                        if(dr["AES_ReminderDays"] != null)
+                            sipReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "SWP":
+                        if (dr["AES_ReminderDays"] != null)
+                            swpReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "Anniversary":
+                        if (dr["AES_ReminderDays"] != null)
+                            anniversaryReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "DOB":
+                        if (dr["AES_ReminderDays"] != null)
+                            dobReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "ELSS Maturity":
+                        if (dr["AES_ReminderDays"] != null)
+                            elssReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "Insurance Premium payment":
+                        if (dr["AES_ReminderDays"] != null)
+                            insuranceReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "FD/Recurring Deposit":
+                        if (dr["AES_ReminderDays"] != null)
+                            fdRecurringReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                    case "Bank FD Maturity":
+                        if (dr["AES_ReminderDays"] != null)
+                            fdMaturityReminder = int.Parse(dr["AES_ReminderDays"].ToString());
+                        break;
+                }
+            }
+        }
+        public void SetDefaultReminderValues()
+        {
+            sipReminder = 2;
+            swpReminder = 2;
+            dobReminder = 2;
+            anniversaryReminder = 2;
+            elssReminder = 2;
+            fdMaturityReminder = 2;
+            fdRecurringReminder = 2;
+            insuranceReminder = 2;
+        }
+       
 
         private void BindSystemAlertsGrid()
         {

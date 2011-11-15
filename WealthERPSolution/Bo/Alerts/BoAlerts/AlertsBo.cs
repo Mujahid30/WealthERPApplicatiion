@@ -1730,5 +1730,44 @@ namespace BoAlerts
             }
             return bResult;
         }
+
+        /// <summary>
+        /// Get adviser user alerts..
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="Remindercount"></param>
+        /// <param name="ConditionsCount"></param>
+        /// <returns></returns>
+        
+        public DataSet GetAdviserUserAlerts(int userId, out int Remindercount, out int ConditionsCount)
+        {
+            DataSet dsGetAdviserUserAlerts = new DataSet();
+            AlertsDao alertsDao = new AlertsDao();
+
+            try
+            {
+                dsGetAdviserUserAlerts = alertsDao.GetAdviserUserAlerts(userId, out Remindercount, out ConditionsCount);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AlertsBo.cs:GetSystemAlerts()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsGetAdviserUserAlerts;
+        }
     }
 }
