@@ -181,6 +181,7 @@ namespace DaoAdvisorProfiling
                 createRMCmd = db.GetStoredProcCommand("SP_CreateCompleteRM");
 
                 db.AddInParameter(createRMCmd, "@U_Password", DbType.String, userVo.Password);
+                db.AddInParameter(createRMCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(createRMCmd, "@U_FirstName", DbType.String, userVo.FirstName);
                 db.AddInParameter(createRMCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
                 db.AddInParameter(createRMCmd, "@U_LastName", DbType.String, userVo.LastName);
@@ -211,7 +212,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AR_CTC", DbType.Double, rmVo.CTC);
                 db.AddInParameter(createRMCmd, "@U_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createRMCmd, "@U_ModifiedBy", DbType.Int32, userId);
-
+                
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
                 else
