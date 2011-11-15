@@ -164,6 +164,7 @@ namespace WealthERP.Uploads
 
                 BindPanNumber(dsRejectedRecords.Tables[3]);
                 BindProcessId(dsRejectedRecords.Tables[6]);
+                BindTranscationType(dsRejectedRecords.Tables[4]);
 
             }
             else
@@ -344,7 +345,33 @@ namespace WealthERP.Uploads
                 }
             }
         }
+        private void BindTranscationType(DataTable dtTransactionType)
+        {
+            Dictionary<string, string> genDictTrxnType = new Dictionary<string, string>();
+            if (dtTransactionType.Rows.Count > 0)
+            {
+                // Get the Reject Reason Codes Available into Generic Dictionary
+                foreach (DataRow dr in dtTransactionType.Rows)
+                {
+                    genDictTrxnType.Add(dr["WETT_TransactionTYpeName"].ToString(), dr["WETT_TransactionCode"].ToString());
+                }
 
+                DropDownList ddlTrxnType = GetTransactionTypeDdl();
+                if (ddlTrxnType != null)
+                {
+                    ddlTrxnType.DataSource = genDictTrxnType;
+                    ddlTrxnType.DataTextField = "Key";
+                    ddlTrxnType.DataValueField = "Value";
+                    ddlTrxnType.DataBind();
+                    ddlTrxnType.Items.Insert(0, new ListItem("Select Transaction Type", "Select Transaction Type"));
+                }
+
+                if (hdnTransactionTypeFilter.Value != "")
+                {
+                    ddlTrxnType.SelectedValue = hdnTransactionTypeFilter.Value.ToString().Trim();
+                }
+            }
+        }
         private DropDownList GetPanNumDDL()
         {
             DropDownList ddl = new DropDownList();

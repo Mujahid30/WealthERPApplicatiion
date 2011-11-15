@@ -111,7 +111,9 @@
         <td>
             <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId" AllowSorting="true"
-                OnSorting="gvWERPTrans_Sort" OnRowDataBound="gvWERPTrans_RowDataBound">
+                OnSorting="gvWERPTrans_Sort" >
+                <%--OnRowDataBound="gvWERPTrans_RowDataBound"--%>
+                
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" CssClass="EditRowStyle" />
