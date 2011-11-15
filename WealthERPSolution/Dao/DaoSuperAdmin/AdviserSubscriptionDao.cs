@@ -349,5 +349,40 @@ namespace DaoSuperAdmin
             return dsSubscriptionFlavour;
 
         }
+
+        public void SetFlavoursToAdviser(string flavourIds, int adviserId)
+        {
+            DataSet dsSetFlovoursToAdviser;
+            Database db;
+            DbCommand FlovoursToAdviserCmd= null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                FlovoursToAdviserCmd = db.GetStoredProcCommand("SP_SetFlavourToAdviser");
+                db.AddInParameter(FlovoursToAdviserCmd, "@FlavourIds", DbType.String, flavourIds);
+                db.AddInParameter(FlovoursToAdviserCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsSetFlovoursToAdviser = db.ExecuteDataSet(FlovoursToAdviserCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorSubscriptionDao.cs:SetFlavoursToAdviser()");
+                object[] objects = new object[2];
+                objects[0] = flavourIds;
+                objects[1] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
     }
 }
