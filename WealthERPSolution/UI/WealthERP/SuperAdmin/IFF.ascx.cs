@@ -736,6 +736,11 @@ namespace WealthERP.SuperAdmin
                     Session.Remove("IDs");
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IFFAdd','none');", true);
                 }
+                if (menu == "Subscription")
+                {
+                    Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('Subscription','none');", true);
+                }
                 //if (menu == "User Management")
                 //{
                 //    Session["UserManagement"] = "IFF";
