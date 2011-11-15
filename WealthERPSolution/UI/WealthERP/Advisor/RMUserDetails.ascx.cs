@@ -30,7 +30,7 @@ namespace WealthERP.Advisor
         List<RMVo> rmUserList = null;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         int userId;
-
+        OneWayEncryption encryption;
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
 
@@ -377,9 +377,17 @@ namespace WealthERP.Advisor
                 userVo = userBo.GetUserDetails(Convert.ToInt32(gvRMUsers.DataKeys[int.Parse(e.CommandArgument.ToString())].Value));
                 if (userVo != null)
                 {
-                    userVo.Password = r.Next(20000, 100000).ToString();
+                    string hassedPassword = string.Empty;
+                    string saltValue = string.Empty;
+                    string password = r.Next(20000, 100000).ToString();
+
+                    userVo = userBo.GetUserDetails(userId);
+                    string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                    userVo.Password = hassedPassword;
+                    userVo.PasswordSaltValue = saltValue;
+                    userVo.OriginalPassword = password;
                     userVo.IsTempPassword = 1;
-                    userVo.Password = Encryption.Encrypt(userVo.Password);
                     isSuccess = userBo.UpdateUser(userVo);
                 }
 
@@ -411,9 +419,8 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
-            advisorVo=(AdvisorVo)Session["advisorVo"];
-            
-            
+            advisorVo=(AdvisorVo)Session["advisorVo"];            
+
             if (Page.IsValid)
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
@@ -429,10 +436,23 @@ namespace WealthERP.Advisor
 
                             Emailer emailer = new Emailer();
                             EmailMessage email = new EmailMessage();
+                            string hassedPassword = string.Empty;
+                            string saltValue = string.Empty;
+                            encryption = new OneWayEncryption();
+                            Random r = new Random();
 
                             userVo = userBo.GetUserDetails(userId);
+                            string password = r.Next(20000, 100000).ToString();
+                            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                            userVo.Password = hassedPassword;
+                            userVo.PasswordSaltValue = saltValue;
+                            userVo.OriginalPassword = password;
+                            userVo.IsTempPassword = 1;
+                            userBo.UpdateUser(userVo);
+
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                            email.GetAdviserRMAccountMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+
+                            email.GetResetPasswordMail(userVo.LoginId, password, userName);
                             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                             email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
@@ -464,11 +484,16 @@ namespace WealthERP.Advisor
 
                                 }
                             }
-                            bool isMailSent = emailer.SendMail(email);
+                            bool isMailSent = false;
 
+                            if (userBo.UpdateUser(userVo))
+                            {
+                                isMailSent = emailer.SendMail(email);
+                            }
+                            
                             if (isMailSent)
                             {
-                                statusMessage = "Credentials have been sent to selected user" ;
+                                statusMessage = "Credentials have been reset and sent to selected user" ;
                                 tblMessage.Visible = true;
                                 ErrorMessage.Visible = false;
                                 SuccessMsg.InnerText = statusMessage;
