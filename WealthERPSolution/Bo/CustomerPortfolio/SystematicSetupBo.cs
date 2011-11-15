@@ -265,5 +265,59 @@ namespace BoCustomerPortfolio
             return dsGetSystematicMIS;
         }
 
+
+
+        public DataSet GetCalenderSummaryView(string userType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate)
+        {
+            DataSet dsGetCalenderSummaryView = new DataSet();
+            try
+            {
+                dsGetCalenderSummaryView = systematicSetupDao.GetCalenderSummaryView(userType, AdviserId, RmId, CustomerId, BranchHeadId, BranchId, All, Category, SysType, AmcCode, SchemePlanCode, dtFrom, dtTo, isIndividualOrGroup, StartDate, EndDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupBo.cs:GetCalenderSummaryView()");
+                object[] objects = new object[14];
+                objects[0] = userType;
+                objects[1] = AdviserId;
+                objects[2] = RmId;
+                objects[3] = CustomerId;
+                objects[4] = BranchHeadId;
+                objects[5] = BranchId;
+                objects[6] = All;
+                objects[7] = Category;
+                objects[8] = SysType;
+                objects[9] = AmcCode;
+                objects[10] = SchemePlanCode;
+                objects[11] = dtFrom;
+                objects[12] = dtTo;
+                objects[13] = isIndividualOrGroup;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCalenderSummaryView;
+        }
+
+        public int GetAccountIdAccodingToFolio(string folioNo)
+        {
+            int accountId = 0;
+            try
+            {
+                accountId = systematicSetupDao.GetAccountIdAccordingToFolio(folioNo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return accountId;
+        }
     }
 }
