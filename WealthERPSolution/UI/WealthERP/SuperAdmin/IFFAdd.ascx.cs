@@ -326,6 +326,10 @@ namespace WealthERP.SuperAdmin
                             userBo.CreateRoleAssociation(Ids[0], rm);
                             userBo.CreateRoleAssociation(Ids[0], bm);
                             GridValidationForIsDependent();
+                            if (chkMailSend.Checked == true)
+                            {
+                                SendMail(userVo);
+                            }
                         }
                         try
                         {

@@ -376,9 +376,15 @@
             <asp:Label ID="lblMultiBranchNetwork" runat="server" CssClass="FieldName" Text="Multibranch Network :"></asp:Label>
         </td>
         
-        <td id="tdRadioBtnMultiBranch"  runat="server" class="rightField" colspan="3">
+        <td id="tdRadioBtnMultiBranch"  runat="server" class="rightField">
             <asp:RadioButton ID="rbtnYes" runat="server" CssClass="txtField" Checked="true" Text="Yes" GroupName="grpMultiBranch" />
             <asp:RadioButton ID="rbtnNo" runat="server" CssClass="txtField" Text="No" GroupName="grpMultiBranch" />
+        </td>
+        <td>
+        &nbsp;
+        </td>
+        <td>
+         <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"  CssClass="cmbField"/>
         </td>
     </tr>
     <tr>
@@ -386,6 +392,12 @@
             <hr />
         </td>
     </tr>
+    <tr>
+    <td colspan="4">            
+      
+    </td>
+    </tr>
+    
 </table>
 <table width="100%">
     <tr>
