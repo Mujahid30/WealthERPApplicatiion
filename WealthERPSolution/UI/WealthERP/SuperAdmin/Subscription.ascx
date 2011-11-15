@@ -231,7 +231,7 @@
                             <asp:ListItem Text="Cash & Savings" Value="11"></asp:ListItem>
                             <asp:ListItem Text="Personal Assets" Value="12"></asp:ListItem>
                             <asp:ListItem Text="Collectibles" Value="13"></asp:ListItem>
-                            <asp:ListItem Text="SCB" Value="15"></asp:ListItem>
+                            <%--<asp:ListItem Text="SCB" Value="15"></asp:ListItem>--%>
                         </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="cvmodulelist" 
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>

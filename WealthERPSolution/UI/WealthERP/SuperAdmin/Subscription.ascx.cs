@@ -174,6 +174,8 @@ namespace WealthERP.SuperAdmin
                         if (uservo != null)
                         {
                             _subscriptionId = _advisersubscriptionbo.CreateAdviserSubscription(_advisersubscriptionvo, uservo.UserId);
+                            string flavourIds=GetFlavourIds();
+                            _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
                             SettingsSavedMessage.Visible = true;
                         }
                     }
@@ -184,6 +186,20 @@ namespace WealthERP.SuperAdmin
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", @"alert('Something Went Wrong \n Record Status: Unsuccessful');", true);
             }
+        }
+
+
+        private string GetFlavourIds()
+        {
+            string flavourIds="";
+            for (int i = 0; i < chkModules.Items.Count; i++)
+            {
+                if(chkModules.Items[i].Selected == true)
+                    {
+                        flavourIds += chkModules.Items[i].Value + "~";
+                    }
+            }
+          return flavourIds;
         }
         public void SelectCheckList(int _planid)
         {
