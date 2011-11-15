@@ -987,8 +987,15 @@ namespace WealthERP.Uploads
                     int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
 
                     rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+                    if (hdnProcessIdFilter.Value != "")
+                    {
+                        ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                    }
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
+                    BindEquityTransactionGrid(ProcessId);
+
+                    
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
                     
                     
                    
