@@ -140,7 +140,7 @@
         <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" width="10%">
-        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"  AutoPostBack="false"> 
+        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField"  AutoPostBack="true"> 
         </asp:DropDownList>
         </td>
         
@@ -230,15 +230,15 @@
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" runat="server" SelectedIndex="0" Width="100%">
     
     <telerik:RadPageView ID="RadPageView1" runat="server" style="margin-top: 20px">
-        <asp:Panel ID="pnlSystameticSetupView" runat="server" Width="100%">        
+        <asp:Panel ID="pnlSystameticSetupView" runat="server"  Width="100%">        
                    <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
-                       <telerik:RadGrid ID="gvSystematicMIS" runat="server" 
+                       <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true"  runat="server" 
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
-                           AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
+                            AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
                            Skin="Telerik">
-                           <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+                           <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                                <Columns>
                                    <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" 
                                        UniqueName="CustomerName">
@@ -260,7 +260,7 @@
                                        UniqueName="FolioNumber">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="StartDate" 
+                                   <telerik:GridBoundColumn SortExpression="yyyy-MM-dd" DataField="StartDate" 
                                        DataFormatString="{0:dd-MM-yyyy}" HeaderText="Start Date" 
                                        UniqueName="StartDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />

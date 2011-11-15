@@ -199,7 +199,7 @@ namespace WealthERP.Advisor
                 if (dtScheme != null)
                 {
                     ddlScheme.DataSource = dtScheme;
-                    ddlScheme.DataValueField = dtScheme.Columns["PA_AMCCode"].ToString();
+                    ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                     ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                     ddlScheme.DataBind();
                 }
@@ -907,7 +907,7 @@ namespace WealthERP.Advisor
 
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];
                 dtSystematicMIS2 = dsBindGvSystematicMIS.Tables[1];
-                dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
+                //dtSystematicMIS3 = dsBindGvSystematicMIS.Tables[2];
                 //dtSystematicMIS4 = dsBindGvSystematicMIS.Tables[3];
 
                 DataTable dtSystematicDetails = new DataTable();
@@ -1243,10 +1243,11 @@ namespace WealthERP.Advisor
 
         protected void CreateCalenderViewSummaryDataTable()
         {
-
+            DataSet dsCalenderSummaryView;
             DataTable dtSIPDetails;
-            //dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(int.Parse(hdnadviserId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value));
-            dtSIPDetails = dsBindGvSystematicMIS.Tables[2];
+            dsCalenderSummaryView = systematicSetupBo.GetCalenderSummaryView(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, hdnstartdate.Value, hdnendDate.Value);
+            //dtSIPDetails = dsBindGvSystematicMIS.Tables[2];
+            dtSIPDetails = dsCalenderSummaryView.Tables[0];
             if (dtSIPDetails.Rows.Count > 0)
             {
                 DataTable dtCalenderSymmary = new DataTable();
@@ -1262,7 +1263,8 @@ namespace WealthERP.Advisor
                 dtCalenderSymmary.Columns.Add("NoOfFreshSWP", typeof(Int16));
                 DataRow drCalenderSummary;
                 DateTime startSipSwpDate = DateTime.Parse(dtSIPDetails.Rows[0]["StartDate"].ToString());
-                DateTime endSipSwpDate = DateTime.Parse(hdnTodate.Value.ToString());
+                DateTime endSipSwpDate = DateTime.Parse(dsCalenderSummaryView.Tables[1].Rows[0]["LastDate"].ToString());
+                //DateTime endSipSwpDate = DateTime.Parse(dtSIPDetails.Rows[dtSIPDetails.Rows.Count - 1]["EndDate"].ToString());
 
                 int startMonth = startSipSwpDate.Month;
                 int startYear = startSipSwpDate.Year;
