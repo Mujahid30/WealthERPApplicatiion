@@ -801,7 +801,7 @@ namespace DaoUploads
 
                 if (schemeNameFilter != "")
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
-
+                getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
             }
             catch (BaseApplicationException Ex)
