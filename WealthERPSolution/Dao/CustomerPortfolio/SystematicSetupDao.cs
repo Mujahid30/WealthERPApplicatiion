@@ -33,7 +33,8 @@ namespace DaoCustomerPortfolio
                 createSystematicSchemeSetupCmd = db.GetStoredProcCommand("SP_CreateSystematicSetup");
 
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCode",DbType.Int32,systematicSetupVo.SchemePlanCode);
-                db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCodeSwitch",DbType.Int32,systematicSetupVo.SchemePlanCodeSwitch);
+                if(systematicSetupVo.SchemePlanCodeSwitch !=0)
+                   db.AddInParameter(createSystematicSchemeSetupCmd,"@PASP_SchemePlanCodeSwitch",DbType.Int32,systematicSetupVo.SchemePlanCodeSwitch);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFA_AccountId",DbType.Int32,systematicSetupVo.AccountId);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@XSTT_SystematicTypeCode",DbType.String,systematicSetupVo.SystematicTypeCode);
                 db.AddInParameter(createSystematicSchemeSetupCmd,"@CMFSS_StartDate",DbType.DateTime,systematicSetupVo.StartDate);
@@ -118,6 +119,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
 
                 db.AddInParameter(updateSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+                db.AddInParameter(updateSystematicSchemeSetupCmd, "@Tenure", DbType.Int16, systematicSetupVo.Period);
 
                 if (systematicSetupVo.SipChequeDate != DateTime.MinValue)
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);
@@ -555,9 +557,101 @@ namespace DaoCustomerPortfolio
             }
             return dsGetSystematicMIS;
         }
-        
-        
+        public DataSet GetCalenderSummaryView(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, string StartDate, string EndDate)
+        {
+            DataSet dsGetcalenderSummaryView = new DataSet();
+            Database db;
+            DbCommand getCalenderSummaryViewCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCalenderSummaryViewCmd = db.GetStoredProcCommand("SP_GetCalenderDetailView");
+                db.AddInParameter(getCalenderSummaryViewCmd, "@UserType", DbType.String, UserType);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@RMId", DbType.Int32, RmId);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@branchHeadId", DbType.Int32, BranchHeadId);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@BranchId", DbType.Int32, BranchId);
+                db.AddInParameter(getCalenderSummaryViewCmd, "@all", DbType.Int32, All);
+                if (!string.IsNullOrEmpty(Category))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@Category", DbType.String, Category);
+                if (!string.IsNullOrEmpty(SysType))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@SystematicType", DbType.String, SysType);
+                if (!string.IsNullOrEmpty(AmcCode))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@AMCCode", DbType.String, AmcCode);
+                if (!string.IsNullOrEmpty(SchemePlanCode))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
+                if (dtFrom != DateTime.MinValue)
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@dtFrom", DbType.DateTime, dtFrom);
+                else
+                    dtFrom = DateTime.MinValue;
+                if (dtTo != DateTime.MinValue)
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@dtTo", DbType.DateTime, dtTo);
+                else
+                    dtTo = DateTime.MinValue;
 
+                if (isIndividualOrGroup != 0)
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@isIndividualOrGroup", DbType.Int16, isIndividualOrGroup);
+                if (!string.IsNullOrEmpty(StartDate))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@Startdate", DbType.String, StartDate);
+                if (!string.IsNullOrEmpty(EndDate))
+                    db.AddInParameter(getCalenderSummaryViewCmd, "@Enddate", DbType.String, EndDate);
+
+                dsGetcalenderSummaryView = db.ExecuteDataSet(getCalenderSummaryViewCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SystematicSetupBo.cs:GetCalenderSummaryView()");
+                object[] objects = new object[13];
+                objects[0] = UserType;
+                objects[1] = AdviserId;
+                objects[2] = RmId;
+                objects[3] = CustomerId;
+                objects[4] = BranchHeadId;
+                objects[5] = BranchId;
+                objects[6] = All;
+                objects[7] = Category;
+                objects[8] = SysType;
+                objects[9] = AmcCode;
+                objects[10] = SchemePlanCode;
+                objects[11] = dtFrom;
+                objects[12] = dtTo;
+                objects[13] = isIndividualOrGroup;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetcalenderSummaryView;
+        }
+
+
+        public int GetAccountIdAccordingToFolio(string folioNo)
+        {
+            int accountId = 0;
+            Database db;
+            DbCommand getAccountIdcmd;
+            DataSet dsgetAccountId;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAccountIdcmd = db.GetStoredProcCommand("SP_GetAccountIdAccodingToFolio");
+                db.AddInParameter(getAccountIdcmd, "@folioNo", DbType.String, folioNo);
+                dsgetAccountId = db.ExecuteDataSet(getAccountIdcmd);
+                accountId = int.Parse(dsgetAccountId.Tables[0].Rows[0]["CMFA_AccountId"].ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return accountId;
+        }
 
     }
 }
