@@ -26,6 +26,7 @@ namespace WealthERP.Advisor
         UserVo rmUserVo = new UserVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
+        OneWayEncryption encryption = new OneWayEncryption();
 
         List<AdvisorBranchVo> advisorBranchList = null;
         List<int> rmIds;
@@ -577,9 +578,17 @@ namespace WealthERP.Advisor
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 int branchId;
                 string password = id.Next(10000, 99999).ToString();
+                string hassedPassword = string.Empty;
+                string saltValue = string.Empty;
 
                 rmUserVo.UserType = "Advisor";
-                rmUserVo.Password = Encryption.Encrypt(password);
+                //rmUserVo.Password = Encryption.Encrypt(password);
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                rmUserVo.Password = hassedPassword;
+                rmUserVo.PasswordSaltValue = saltValue;
+                rmUserVo.OriginalPassword = password;
+                rmUserVo.IsTempPassword = 1;
+
                 rmUserVo.MiddleName = txtMiddleName.Text.ToString();
                 //rmUserVo.LoginId = txtEmail.Text.ToString();
                 rmUserVo.LastName = txtLastName.Text.ToString();
@@ -743,9 +752,17 @@ namespace WealthERP.Advisor
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 int branchId;
                 string password = id.Next(10000, 99999).ToString();
+                string hassedPassword = string.Empty;
+                string saltValue = string.Empty;
 
                 rmUserVo.UserType = "Advisor";
-                rmUserVo.Password = Encryption.Encrypt(password);
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                rmUserVo.Password = hassedPassword;
+                rmUserVo.PasswordSaltValue = saltValue;
+                rmUserVo.OriginalPassword = password;
+                rmUserVo.IsTempPassword = 1;
+
+                //rmUserVo.Password = Encryption.Encrypt(password);
                 rmUserVo.MiddleName = txtMiddleName.Text.ToString();
                 //rmUserVo.LoginId = txtEmail.Text.ToString();
                 rmUserVo.LastName = txtLastName.Text.ToString();
@@ -1013,9 +1030,9 @@ namespace WealthERP.Advisor
 
             string userName = rmUserVo.FirstName + " " + rmUserVo.MiddleName + " " + rmUserVo.LastName;
             if(chkOps.Checked == true)
-                email.GetAdviserRMAccountMail("Ops" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
+                email.GetAdviserRMAccountMail("Ops" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
             else
-                email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), Encryption.Decrypt(rmUserVo.Password), userName);
+                email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
             email.To.Add(rmUserVo.Email);
