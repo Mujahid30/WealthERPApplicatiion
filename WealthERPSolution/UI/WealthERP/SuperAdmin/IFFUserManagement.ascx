@@ -157,7 +157,7 @@
                     </asp:TemplateField>
                     <asp:BoundField DataField="LoginId" ItemStyle-HorizontalAlign="Left" HeaderText="Login Id" />
                     <asp:BoundField DataField="EmailId" ItemStyle-HorizontalAlign="Left" HeaderText="Email Id" />
-                    <asp:ButtonField CommandName="resetPassword" ItemStyle-HorizontalAlign="Left" Text="Reset Password" />
+                  <asp:ButtonField CommandName="resetPassword" ItemStyle-HorizontalAlign="Left" Text="Reset Password" />
                 </Columns>
             </asp:GridView>
 
@@ -171,7 +171,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Button ID="btnSendEmailToIFF" runat="server" Text="Send Login Password" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_SuperAdminMessageBroadcast_btnSendEmailToIFF', 'L');"
+            <asp:Button ID="btnSendEmailToIFF" runat="server" Text="Reset & Send Login Details" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_SuperAdminMessageBroadcast_btnSendEmailToIFF', 'L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_SuperAdminMessageBroadcast_btnSendEmailToIFF', 'L');" 
                 CssClass="loadme PCGLongButton" onclick="btnSendEmailToIFF_Click" />
             <div class='loadmediv'>

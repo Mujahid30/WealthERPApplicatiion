@@ -25,7 +25,7 @@ namespace WealthERP.SuperAdmin
         List<RMVo> IFFUserList = null;
         int userId;
         UserBo userBo = new UserBo();
-
+        OneWayEncryption encryption = new OneWayEncryption();
         AdviserMaintenanceBo adviserMaintenanceBo = new AdviserMaintenanceBo();
 
         protected override void OnInit(EventArgs e)
@@ -184,6 +184,7 @@ namespace WealthERP.SuperAdmin
             AdvisorBo advisorBo = new AdvisorBo();
             RMVo rmVo = new RMVo();
             AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+            Random r = new Random();
 
             if (Page.IsValid)
             {
@@ -203,10 +204,21 @@ namespace WealthERP.SuperAdmin
 
                             Emailer emailer = new Emailer();
                             EmailMessage email = new EmailMessage();
+                            string hassedPassword = string.Empty;
+                            string saltValue = string.Empty;
+                            string password = r.Next(20000, 100000).ToString();
 
                             userVo = userBo.GetUserDetails(userId);
                             string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                            email.GetAdviserRegistrationMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), userName);
+
+                            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                            userVo.Password = hassedPassword;
+                            userVo.PasswordSaltValue = saltValue;
+                            userVo.OriginalPassword = password;
+                            userVo.IsTempPassword = 1;
+
+                            email.GetResetPasswordMail(userVo.LoginId, password, userName);
+
                             //email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                             //email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             //email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
@@ -240,11 +252,16 @@ namespace WealthERP.SuperAdmin
 
                                 }
                             }
-                            bool isMailSent = emailer.SendMail(email);
+
+                            bool isMailSent=false;
+                            if (userBo.UpdateUser(userVo))
+                            {
+                                isMailSent=emailer.SendMail(email); 
+                            }
 
                             if (isMailSent)
                             {
-                                statusMessage = "Credentials have been sent to selected Adviser";
+                                statusMessage = "Credentials have been reset & sent to selected Adviser";
                                 tblMessage.Visible = true;
                                 tblErrorMassage.Visible = false;
                                 //ErrorMessage.Visible = false;
@@ -325,9 +342,17 @@ namespace WealthERP.SuperAdmin
                 userVo = userBo.GetUserDetails(Convert.ToInt32(gvIFFUsers.DataKeys[int.Parse(e.CommandArgument.ToString())].Value));
                 if (userVo != null)
                 {
-                    userVo.Password = r.Next(20000, 100000).ToString();
+                    string hassedPassword = string.Empty;
+                    string saltValue = string.Empty;
+                    string password = r.Next(20000, 100000).ToString();
+
+                    userVo = userBo.GetUserDetails(userId);
+                    string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                    userVo.Password = hassedPassword;
+                    userVo.PasswordSaltValue = saltValue;
+                    userVo.OriginalPassword = password;
                     userVo.IsTempPassword = 1;
-                    userVo.Password = Encryption.Encrypt(userVo.Password);
                     isSuccess = userBo.UpdateUser(userVo);
                 }
 

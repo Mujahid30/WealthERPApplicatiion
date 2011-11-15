@@ -388,13 +388,13 @@ namespace BoUser
             return roleList;
         }
 
-        public bool ChangePassword(int userId, string password, int isTempPass)
+        public bool ChangePassword(int userId, string password,string pwdSaltValue, int isTempPass)
         {
             bool bResult = false;
             UserDao userDao = new UserDao();
             try
             {
-                userDao.ChangePassword(userId, password, isTempPass);
+                userDao.ChangePassword(userId, password, pwdSaltValue, isTempPass);
                 bResult = true;
             }
             catch (BaseApplicationException Ex)

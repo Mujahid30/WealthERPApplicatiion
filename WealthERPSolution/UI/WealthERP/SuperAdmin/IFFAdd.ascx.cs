@@ -30,6 +30,7 @@ namespace WealthERP.SuperAdmin
         UserVo tempUserVo = new UserVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
+        OneWayEncryption encryption = new OneWayEncryption();
         UserVo user;
         int rm;
         int bm;
@@ -533,7 +534,7 @@ namespace WealthERP.SuperAdmin
             {
                 email.To.Add(userVo.Email);
                 string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                email.GetAdviserRegistrationMail(userVo.LoginId, Encryption.Decrypt(userVo.Password), name);
+                email.GetAdviserRegistrationMail(userVo.LoginId, userVo.OriginalPassword , name);
                 isMailSent = emailer.SendMail(email);
 
                 //Send a notification mail to Wealth ERP team.
@@ -651,11 +652,21 @@ namespace WealthERP.SuperAdmin
         }
         public void DataPopulating()
         {
+            string hassedPassword = string.Empty;
+            string saltValue = string.Empty;
+            string password = r.Next(20000, 100000).ToString();
             userVo.Email = txtEmailId.Text.ToString();
             Session["IFFEmailId"] = txtEmailId.Text.ToString();
             userVo.FirstName = txtContactPerson.Text.ToString();
             Session["IFFContactPerson"] = txtContactPerson.Text.ToString();
-            userVo.Password = Encryption.Encrypt(r.Next(20000, 100000).ToString());
+            //userVo.Password = Encryption.Encrypt(r.Next(20000, 100000).ToString());
+
+            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+            userVo.Password = hassedPassword;
+            userVo.PasswordSaltValue = saltValue;
+            userVo.OriginalPassword = password;
+            userVo.IsTempPassword = 1;
+
             userVo.UserType = "Advisor";
             userVo.LoginId = txtLoginId.Text.ToString();
             Session["IFFLoginId"] = txtLoginId.Text.ToString();

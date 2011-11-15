@@ -12,7 +12,9 @@ namespace VoUser
     {
         private int m_UserId;
         private string m_LoginId;
+        private string m_OriginalPassword;
         private string m_Password;
+        private string m_PwdSaltValue;
         private string m_FirstName;
         private string m_MiddleName;
         private string m_LastName;
@@ -47,6 +49,17 @@ namespace VoUser
             set { m_Password = value; }
         }
 
+        public string OriginalPassword
+        {
+            get { return m_OriginalPassword; }
+            set { m_OriginalPassword = value; }
+        }
+        public string PasswordSaltValue
+        {
+            get { return m_PwdSaltValue; }
+            set { m_PwdSaltValue = value; }
+        }
+        
         public string FirstName
         {
             get { return m_FirstName; }
