@@ -35,6 +35,7 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCompleteAdvisorCmd = db.GetStoredProcCommand("SP_CreateCompleteAdviser");
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_Password", DbType.String, userVo.Password);
+                db.AddInParameter(createCompleteAdvisorCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(createCompleteAdvisorCmd, "@U_FirstName ", DbType.String, userVo.FirstName);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_MiddleName", DbType.String, userVo.MiddleName);
                 //db.AddInParameter(createCompleteAdvisorCmd, "@U_Lastname", DbType.String, userVo.LastName);
