@@ -56,6 +56,25 @@ namespace BoCommon
                 //    //}
                     
                 //}
+                int CountCol = 0; //Counting each column of a row in  Table
+                DataRow dr;      //Data row to check which row contains dummy record. 
+
+                for (int a = 0; a < ds.Tables[0].Rows.Count; a++)
+                {
+                    for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                    {
+                        if (ds.Tables[0].Rows[a][i] == DBNull.Value)
+                        {
+                            CountCol++;
+                        }
+                    }
+                    if (CountCol == ds.Tables[0].Columns.Count)
+                    {
+                        dr = ds.Tables[0].Rows[a];
+                        ds.Tables[0].Rows.Remove(dr);
+                    }
+                    CountCol = 0;
+                }
                 
             }
             catch (Exception ex)
@@ -267,6 +286,25 @@ namespace BoCommon
 
                 //OleDbCommand cmd = new OleDbCommand("Select *  from camsprof",conn);
                 daGetTableData.Fill(ds);
+                int CountCol = 0; //Counting each column of a row in  Table
+                DataRow dr;      //Data row to check which row contains dummy record. 
+
+                for (int a = 0; a < ds.Tables[0].Rows.Count; a++)
+                {
+                    for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                    {
+                        if (ds.Tables[0].Rows[a][i] == DBNull.Value)
+                        {
+                            CountCol++;
+                        }
+                    }
+                    if (CountCol == ds.Tables[0].Columns.Count)
+                    {
+                        dr = ds.Tables[0].Rows[a];
+                        ds.Tables[0].Rows.Remove(dr);
+                    }
+                    CountCol = 0;
+                }
             }
             catch (Exception ex)
             {
