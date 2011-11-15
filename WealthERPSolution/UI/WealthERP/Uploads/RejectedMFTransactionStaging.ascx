@@ -225,6 +225,8 @@
                             <HeaderStyle Wrap="False" />
                         </asp:TemplateField>
                         
+                        <asp:BoundField HeaderText="PAN Number" DataField="CMFTS_PANNum" />
+                        
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
