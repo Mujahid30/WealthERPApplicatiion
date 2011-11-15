@@ -12,6 +12,9 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoUser;
 using System.Data.SqlClient;
+using BoCommon;
+using System.Text;
+using System.Numeric;
 
 
 
@@ -110,6 +113,8 @@ namespace DaoUser
                     
                     if(!string.IsNullOrEmpty(dr["RoleList"].ToString()))
                         userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+                    if (!string.IsNullOrEmpty(dr["U_PwdSaltValue"].ToString()))
+                        userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
                 }
 
             }
@@ -172,6 +177,8 @@ namespace DaoUser
                         userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
                     if (dr["U_Theme"].ToString() != "")
                         userVo.theme = dr["U_Theme"].ToString();
+                    if (dr["U_PwdSaltValue"] != null)
+                        userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString();
                 }
             }
 
@@ -331,6 +338,8 @@ namespace DaoUser
                 db.AddInParameter(updateUserCmd, "@U_Email", DbType.String, userVo.Email);
                 db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(updateUserCmd, "@U_Password", DbType.String, userVo.Password);
+                if (!string.IsNullOrEmpty(userVo.PasswordSaltValue.Trim()))
+                db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(updateUserCmd, "@U_IsTempPassword", DbType.String, userVo.IsTempPassword);
                 db.ExecuteNonQuery(updateUserCmd);
                 bResult = true;
@@ -638,7 +647,7 @@ namespace DaoUser
             return roleList;
         }
 
-        public bool ChangePassword(int userId, string password, int isTempPass)
+        public bool ChangePassword(int userId, string password,string pwdSaltValue, int isTempPass)
         {
             bool bResult = false;
             Database db;
@@ -651,8 +660,10 @@ namespace DaoUser
                 changePasswordCmd = db.GetStoredProcCommand("SP_ChangePassword");
                 db.AddInParameter(changePasswordCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(changePasswordCmd, "@U_Password", DbType.String, password);
+                if (!string.IsNullOrEmpty(pwdSaltValue))
+                 db.AddInParameter(changePasswordCmd, "@U_PwdSaltValue", DbType.String, pwdSaltValue);
                 db.AddInParameter(changePasswordCmd, "@U_IsTempPassword", DbType.Int16, isTempPass);
-
+                
                 db.ExecuteNonQuery(changePasswordCmd);
                 bResult = true;
 
@@ -669,10 +680,11 @@ namespace DaoUser
                 FunctionInfo.Add("Method", "UserDao.cs:ChangePassword()");
 
 
-                object[] objects = new object[3];
+                object[] objects = new object[4];
                 objects[0] = userId;
                 objects[1] = password;
-                objects[2] = isTempPass;
+                objects[2]=pwdSaltValue;
+                objects[3] = isTempPass;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1041,8 +1053,10 @@ namespace DaoUser
             int rowCount;
             string userDBPassWord = string.Empty;
             string actualPassWord = string.Empty;
+            string strPwdSaltValue=string.Empty;
             Hashtable hashUserAuthenticationDetails = new Hashtable();
             DataSet ds;
+            OneWayEncryption oneWayEncryption=new OneWayEncryption();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1063,11 +1077,25 @@ namespace DaoUser
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     userDBPassWord = ds.Tables[0].Rows[0]["U_Password"].ToString().Trim();
-                    if ((userDBPassWord != "") && (userDBPassWord != string.Empty))
+                    if (ds.Tables[0].Rows[0]["U_PwdSaltValue"]!=null)
+                     strPwdSaltValue = ds.Tables[0].Rows[0]["U_PwdSaltValue"].ToString().Trim();
+
+                    if (!string.IsNullOrEmpty(userDBPassWord))
                     {
                         try
                         {
-                            actualPassWord = Encryption.Decrypt(userDBPassWord.ToString());
+                            if (!string.IsNullOrEmpty(strPwdSaltValue))
+                            {
+                                if (oneWayEncryption.VerifyHashString(userPassword, userDBPassWord, strPwdSaltValue))
+                                    actualPassWord = userPassword;
+                                else
+                                    actualPassWord = GetPassword();
+                            }
+                            else
+                            {
+                                actualPassWord = Encryption.Decrypt(userDBPassWord.ToString());
+                            }
+                            
                         }
                         catch (Exception ex)
                         {
@@ -1133,7 +1161,35 @@ namespace DaoUser
             return hashUserAuthenticationDetails;
 
         }
-            
+
+        private string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch ;
+            for(int i=0; i<size; i++)
+            {
+            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))) ;
+            builder.Append(ch);
+            }
+            if(lowerCase)
+            return builder.ToString().ToLower();
+            return builder.ToString();
+        }
+        private int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
+        public string GetPassword()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(RandomString(4, true));
+            builder.Append(RandomNumber(1000, 9999));
+            builder.Append(RandomString(2, false));
+            return builder.ToString();
+        } 
+                
 
     }
 }
