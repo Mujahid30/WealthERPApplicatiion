@@ -20,6 +20,7 @@ namespace WealthERP.Advisor
         UserBo userBo = new UserBo();
         AdvisorVo advisorVo = new AdvisorVo();
         int tempPass;
+        OneWayEncryption encryption = new OneWayEncryption();
         //int changeTemp;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -62,17 +63,41 @@ namespace WealthERP.Advisor
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            bool isValidPwd=false;
+            string password = string.Empty;
+            string pwdSaltValue = string.Empty;
             try
             {
 
-                if (txtNewPassword.Text != userVo.LoginId)
+                if (txtNewPassword.Text.Trim() != userVo.LoginId)
                 {
-                    if (txtCurrentPassword.Text == Encryption.Decrypt(userVo.Password.ToString()))
+                    if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
                     {
-                        if (txtNewPassword.Text == txtConfirmPassword.Text)
+                        isValidPwd = encryption.VerifyHashString(txtCurrentPassword.Text.Trim(), userVo.Password.Trim(), userVo.PasswordSaltValue.Trim());
+                    }
+                    else
+                    {
+                        if (txtCurrentPassword.Text.Trim() == Encryption.Decrypt(userVo.Password.ToString()))
+                            isValidPwd = true;
+                    }
+                    if (isValidPwd)
+                    {
+                        if (txtNewPassword.Text.Trim() == txtConfirmPassword.Text.Trim())
                         {
-                            userVo.Password = txtConfirmPassword.Text.ToString();
-                            userBo.ChangePassword(userVo.UserId, Encryption.Encrypt(userVo.Password), tempPass);
+                            //userVo.Password = txtConfirmPassword.Text.ToString();
+                            if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
+                            {
+                                 encryption.GetHashAndSaltString(txtConfirmPassword.Text.Trim(), out password, out pwdSaltValue);
+                                 userVo.Password=password;
+                                 userVo.PasswordSaltValue=pwdSaltValue;
+                            }
+                            else
+                            {
+                                 password=Encryption.Encrypt(txtConfirmPassword.Text.Trim());
+                                 userVo.Password=password;
+                                 
+                            }
+                            userBo.ChangePassword(userVo.UserId, password,pwdSaltValue, tempPass);
 
                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Message", "alert('Your Password Changed Successfully..!');", true);
                             if (Session["ChangeTempPass"] != null && Session["ChangeTempPass"].ToString() == "Y")
