@@ -287,7 +287,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dsCustomerAssociates = customerAccountBo.GetCustomerFamilyDetail(customerVo.CustomerId);
                 dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
 
                 dtCustomerAssociates.Columns.Add("MemberCustomerId");
