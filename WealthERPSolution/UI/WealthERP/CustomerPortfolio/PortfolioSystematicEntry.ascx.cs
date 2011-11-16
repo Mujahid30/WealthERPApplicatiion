@@ -899,14 +899,13 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.SchemePlan = "";
             systematicSetupVo.SystematicTypeCode = ddlSystematicType.SelectedItem.Value.ToString();
             systematicSetupVo.Portfolio = ddlportfolio.SelectedItem.Value;
-            systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Text.ToString();
-            if (Session["SourcePage"].ToString() == "ReconReport")
-            {
-                folioAccountId = systematicSetupBo.GetAccountIdAccodingToFolio(systematicSetupVo.Folio);
-                systematicSetupVo.AccountId = folioAccountId;
-            }
-            else
-                systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
+            systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Text;
+
+            folioAccountId = systematicSetupBo.GetAccountIdAccodingToFolio(systematicSetupVo.Folio);
+            systematicSetupVo.AccountId = folioAccountId;
+
+            //else
+            //    systematicSetupVo.AccountId = int.Parse(ddlFolioNumber.SelectedItem.Value.ToString());
             systematicSetupVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
             systematicSetupVo.FrequencyCode = ddlFrequency.SelectedItem.Value.ToString();
             systematicSetupVo.Amount = double.Parse(txtAmount.Text.ToString().Trim());
@@ -1261,12 +1260,15 @@ namespace WealthERP.CustomerPortfolio
         protected void btnAddFolio_Click(object sender, EventArgs e)
         {
             if(ddlSystematicType.SelectedIndex!=0 && !string.IsNullOrEmpty(txtSearchScheme.Text.Trim()))
-             SaveCurrentPageState();
+               SaveCurrentPageState();
+            if (Session["SourcePage"] == null)
+            {
+                portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
+                //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
+            }
 
-             portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
-            //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
-             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
             
         }
 
