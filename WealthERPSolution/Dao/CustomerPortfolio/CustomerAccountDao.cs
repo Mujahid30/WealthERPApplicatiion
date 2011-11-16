@@ -1113,6 +1113,42 @@ namespace DaoCustomerPortfolio
             return dsGetCustomerDPAccounts;
         }
 
+        public DataSet GetCustomerFamilyDetail(int customerId)
+        {
+            DataSet dsCustomerAssociates = null;
+            DbCommand getCustomerAssociatesCmd;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerAssociatesCmd = db.GetStoredProcCommand("SP_GetCustomerFamilyDetail");
+                db.AddInParameter(getCustomerAssociatesCmd, "@C_CustomerId", DbType.Int32, customerId);
+                dsCustomerAssociates = db.ExecuteDataSet(getCustomerAssociatesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetCustomerFamilyDetail()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerAssociates;
+        }
+
         public DataSet GetCustomerAssociatesRel(int customerId)
         {
             DataSet dsCustomerAssociates = null;
