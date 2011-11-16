@@ -175,7 +175,17 @@
         </td>
         <td>
             
-            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+            
+       
+        <%--<asp:CompareValidator id="cmpCompareValidatorToDate" 
+                        ControlToValidate="txtAccountOpeningDate" Operator="LessThanEqual" Type="Date" CssClass="cvPCG"
+                        runat="server" ErrorMessage="Date Can't be in future" Display="Dynamic" ></asp:CompareValidator>
+                        --%>
+                         <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="txtAccountOpeningDate"
+                    Type="Date" Operator="DataTypeCheck" ErrorMessage="Please Enter a Valid Date" Display="Dynamic" CssClass="cvPCG"/>
+   <%--
+    
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
                 ControlToValidate="txtAccountOpeningDate" 
                 ErrorMessage="Account Opening Date Required" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
             
