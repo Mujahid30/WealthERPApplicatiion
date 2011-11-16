@@ -58,6 +58,7 @@ namespace WealthERP.CustomerPortfolio
         private double realisedPNL = 0;
         private double unrealisedPNL = 0;
         private double divIncomeTotal = 0;
+        private double divReinvstdTotal = 0;
         private double stcg_notional_total = 0.0;
         private double ltcg_notional_total = 0.0;
         private double stcg_realized_total = 0.0;
@@ -295,6 +296,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         unrealizedPLSum = unrealizedPLSum + mfPortfolioList[j].UnRealizedPNL;
                         divIncomeTotal = divIncomeTotal + mfPortfolioList[j].DividendIncome;
+                        divReinvstdTotal = divReinvstdTotal + mfPortfolioList[j].DividendReinvested;
                         costOfSalesTotal = costOfSalesTotal + mfPortfolioList[j].CostOfSales;
                         salesProceedsTotal = salesProceedsTotal + mfPortfolioList[j].RealizedSalesProceed;
                         if (mfPortfolioList[j].ContainsFolioTransfer)
@@ -464,6 +466,7 @@ namespace WealthERP.CustomerPortfolio
                             gvMFPortfolioNotional.Visible = true;
                             gvMFPortfolioNotional.DataSource = dtMFPortfolioNotional.DefaultView;
                             gvMFPortfolioNotional.DataBind();
+                            gvMFPortfolioNotional.Columns[15].Visible = false;
                         }
                         else
                         {
@@ -1488,7 +1491,7 @@ namespace WealthERP.CustomerPortfolio
                 e.Row.Cells[17].Attributes.Add("align", "Right");
                 e.Row.Cells[18].Text = double.Parse(realized_all.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[18].Attributes.Add("align", "Right");
-                e.Row.Cells[19].Text = double.Parse((realized_all + unrealised_all + divIncomeTotal).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                e.Row.Cells[19].Text = double.Parse((realized_all + unrealised_all + divReinvstdTotal).ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 e.Row.Cells[19].Attributes.Add("align", "Right");
             }
                 DataSet dsGetProductAssteInstrumentCategory = customerPortfolioBo.GetProductAssetInstrumentCategory();
