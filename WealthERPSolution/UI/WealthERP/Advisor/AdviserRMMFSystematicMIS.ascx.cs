@@ -196,7 +196,7 @@ namespace WealthERP.Advisor
             try
             {
 
-                if (dtScheme != null)
+                if (dtScheme.Rows.Count > 0)
                 {
                     ddlScheme.DataSource = dtScheme;
                     ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
