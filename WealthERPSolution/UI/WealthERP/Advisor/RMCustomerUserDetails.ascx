@@ -136,7 +136,8 @@
             <asp:GridView ID="gvCustomers" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 DataKeyNames="UserId" CssClass="GridViewStyle" ShowFooter="true" 
                 AllowSorting="True" OnSorting="gvCustomers_Sort" 
-                onrowcommand="gvCustomers_RowCommand">
+                onrowcommand="gvCustomers_RowCommand" 
+                onrowdatabound="gvCustomers_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Center" VerticalAlign="Top" CssClass="EditRowStyle" />
@@ -178,9 +179,41 @@
                         <HeaderStyle Wrap="False"></HeaderStyle>
                         <ItemStyle Wrap="False"></ItemStyle>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Login Id" HeaderText="Login Id" />
+                   <%-- <asp:BoundField DataField="Login Id" HeaderText="Login Id" />--%>
+                    
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblLoginId" runat="server" Text="Login Id"></asp:Label>                           
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                           <asp:Label ID="lblLoginId" runat="server" Text='<%# Eval("Login Id").ToString() %>'></asp:Label>
+                           
+                          <asp:LinkButton ID="lnkGenerateLogin" runat="server" CausesValidation="false" CommandName="GenerateLogin"
+                                Text='Generate Login' CommandArgument='<%# Eval("UserId") %>'>
+                          </asp:LinkButton>
+                          
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                        <ItemStyle Wrap="False"></ItemStyle>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="Email Id" HeaderText="Email Id" />
-                    <asp:ButtonField CommandName="resetPassword" Text="Reset Password" Visible="false" />
+                    
+                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblResetPassword" runat="server" Text="Reset Password"></asp:Label>                           
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                                                      
+                          <asp:LinkButton ID="lnkResetPassword" runat="server" CausesValidation="false" CommandName="resetPassword"
+                                Text='Reset Password' CommandArgument='<%# Eval("UserId") %>'>
+                          </asp:LinkButton>
+                          
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                        <ItemStyle Wrap="False"></ItemStyle>
+                    </asp:TemplateField>
+                    
+                    <%--<asp:ButtonField CommandName="resetPassword" Text="Reset Password"/>--%>
                 </Columns>
                 <AlternatingRowStyle CssClass="AltRowStyle" />
             </asp:GridView>
@@ -208,7 +241,7 @@
     </tr>--%>
     <tr>
         <td>
-            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Reset & Send"
+            <asp:Button ID="btnGenerate" runat="server" OnClick="btnGenerate_Click" Text="Reset & Send Login Details"
                 CssClass="loadme PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMCustomerUserDetails_btnGenerate', 'L');" />
              <div class='loadmediv'></div>

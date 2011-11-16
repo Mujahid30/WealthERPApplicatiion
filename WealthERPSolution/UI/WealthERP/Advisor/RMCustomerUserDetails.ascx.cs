@@ -400,7 +400,7 @@ namespace WealthERP.Advisor
                             //
                             //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
                             //email.SendCustomerLoginPassMail(advisorUserVo.Email, userVo.Email, advisorUserVo.LastName, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, password, EmailPath);
-                            SendMail(userVo);
+                            SendMail(userVo,false);
                             
 
                         }
@@ -442,7 +442,7 @@ namespace WealthERP.Advisor
             }
         }
 
-        private bool SendMail(UserVo userVo)
+        private bool SendMail(UserVo userVo,bool isNewLogin)
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();           
@@ -466,7 +466,14 @@ namespace WealthERP.Advisor
                 {
                     email.To.Add(userVo.Email);
                     string name = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                    email.GetResetPasswordMail(userVo.LoginId, userVo.OriginalPassword, name);
+                    if (isNewLogin)
+                    {
+                        email.GetCustomerAccountMail(userVo.LoginId, userVo.OriginalPassword, name);
+                    }
+                    else
+                    {
+                        email.GetResetPasswordMail(userVo.LoginId, userVo.OriginalPassword, name);
+                    }
                     email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                     email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
@@ -570,12 +577,12 @@ namespace WealthERP.Advisor
         {
 
             Random r = new Random();
-
+            encryption = new OneWayEncryption();
             bool isSuccess = false;
 
             if (e.CommandName == "resetPassword")
             {
-                int userId = int.Parse(gvCustomers.DataKeys[Convert.ToInt32(e.CommandArgument)].Value.ToString());
+                int userId = int.Parse(e.CommandArgument.ToString());
                 userVo = userBo.GetUserDetails(userId);
                 if (userVo != null)
                 {
@@ -608,10 +615,31 @@ namespace WealthERP.Advisor
                     
                 }
             }
-            else if (e.CommandName == "ViewDetails")
+            else if (e.CommandName == "GenerateLogin")
             {
-                string userId = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                int userId =int.Parse(e.CommandArgument.ToString());
+                string password = r.Next(20000, 100000).ToString();
+                string hassedPassword;
+                string saltValue;
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                userVo = userBo.GetUserDetails(userId);
+                
+                if (string.IsNullOrEmpty(userVo.LoginId))
+                {                    
+                    userVo.LoginId ="Cu" + r.Next(100000, 999999).ToString();
+                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                    userVo.Password = hassedPassword;
+                    userVo.PasswordSaltValue = saltValue;
+                    userVo.OriginalPassword = password;
+                    userVo.IsTempPassword = 1;
+                    userBo.UpdateUser(userVo);
+                                        
+                }
+                SendMail(userVo, true);
+
+                mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
+                BindGrid();
+
             }
         }
 
@@ -640,6 +668,29 @@ namespace WealthERP.Advisor
                 txt = null;
 
             return txt;
+        }
+
+        protected void gvCustomers_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblLoginId = e.Row.FindControl("lblLoginId") as Label;                
+                LinkButton lblGenerateLogin = e.Row.FindControl("lnkGenerateLogin") as LinkButton;
+                LinkButton lnkResetPassword = e.Row.FindControl("lnkResetPassword") as LinkButton;                
+                CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
+                if (!string.IsNullOrEmpty(lblLoginId.Text.Trim()))
+                {
+                    lblGenerateLogin.Visible = false;
+                    
+                }
+                else
+                {
+                    lblLoginId.Visible = false;
+                    chkBox.Enabled = false;
+                    lnkResetPassword.Visible = false;
+                }
+            }
+                
         }
     }
 }
