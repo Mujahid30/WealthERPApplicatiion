@@ -218,20 +218,20 @@
         }
 
         //All Liability Tab's EMI Total
-        if (document.getElementById("<%=txtHomeLoanEMI.ClientID%>").value != "") {
-            allEMIsTotal += parseFloat(document.getElementById("<%=txtHomeLoanEMI.ClientID%>").value);
+        if (document.getElementById("<%=txtHomeLoanEMITotal.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtHomeLoanEMITotal.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtAutoLoanEMI.ClientID%>").value != "") {
-            allEMIsTotal += parseFloat(document.getElementById("<%=txtAutoLoanEMI.ClientID%>").value);
+        if (document.getElementById("<%=txtAutoLoanEMITotal.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtAutoLoanEMITotal.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtPersonalLoanEMI.ClientID%>").value != "") {
-            allEMIsTotal += parseFloat(document.getElementById("<%=txtPersonalLoanEMI.ClientID%>").value);
+        if (document.getElementById("<%=txtPersonalLoanEMITotal.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtPersonalLoanEMITotal.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtEducationLoanEMI.ClientID%>").value != "") {
-            allEMIsTotal += parseFloat(document.getElementById("<%=txtEducationLoanEMI.ClientID%>").value);
+        if (document.getElementById("<%=txtEducationLoanEMITotal.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtEducationLoanEMITotal.ClientID%>").value);
         }
-        if (document.getElementById("<%=txtOtherLoanEMI.ClientID%>").value != "") {
-            allEMIsTotal += parseFloat(document.getElementById("<%=txtOtherLoanEMI.ClientID%>").value);
+        if (document.getElementById("<%=txtOtherLoanEMITotal.ClientID%>").value != "") {
+            allEMIsTotal += parseFloat(document.getElementById("<%=txtOtherLoanEMITotal.ClientID%>").value);
         }
 
 
