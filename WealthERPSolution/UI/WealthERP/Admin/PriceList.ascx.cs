@@ -16,12 +16,14 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Numeric;
 using Telerik.Web.UI;
+using BoCustomerPortfolio;
 //using BoProductMaster;
 
 namespace WealthERP.Admin
 {
     public partial class PriceList : System.Web.UI.UserControl
     {
+        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         PriceBo priceBo = new PriceBo();
         DataSet dsCategoryList = new DataSet();
         DataTable dtGetMFfund = new DataTable();
@@ -41,7 +43,7 @@ namespace WealthERP.Admin
         protected void Page_Load(object sender, EventArgs e)
         {
             compDateValidator.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-            cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");            
+            cvChkFutureDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             if (Request.QueryString["AssetId"] != null)
             {
                 hdnassetType.Value = Request.QueryString["AssetId"].ToString();
@@ -62,6 +64,8 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = true;
                 BindMFFundPerformance();
                 tblFactSheet.Visible = false;
+                BindYear();
+                BindMonth();
                 if (!IsPostBack)
                 {
                     lblIllegal.Visible = false;
@@ -69,14 +73,14 @@ namespace WealthERP.Admin
                     //trToDate.Style.Add("display", "none");
                     trFromDate.Visible = false;
                     trToDate.Visible = false;
-                    
+
                     trbtnSubmit.Visible = false;
                     trSelectMutualFund.Visible = false;
                     BindMutualFundDropDowns();
                     BindSelectAMCDropdown();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
-                }                
+                }
             }
             else if (hdnassetType.Value == "Equity")
             {
@@ -99,6 +103,27 @@ namespace WealthERP.Admin
             }
 
             BindSelectAMCDropdown();
+        }
+
+        private void BindMonth()
+        {
+            DataSet ds = customerPortfolioBo.PopulateEQTradeMonth(int.Parse(ddYear.SelectedItem.Value.ToString()));
+            ddMonth.DataSource = ds;
+            ddMonth.DataTextField = ds.Tables[0].Columns["TradeMonth"].ToString();
+            ddMonth.DataValueField = ds.Tables[0].Columns["WTD_Month"].ToString();
+            ddMonth.DataBind();
+            ddMonth.SelectedValue = DateTime.Now.Month.ToString();
+          
+        }
+
+        private void BindYear()
+        {
+            DataSet ds = customerPortfolioBo.PopulateEQTradeYear();
+            ddYear.DataSource = ds;
+            ddYear.DataTextField = ds.Tables[0].Columns["TradeYear"].ToString();
+            ddYear.DataValueField = ds.Tables[0].Columns["TradeYear"].ToString();
+            ddYear.DataBind();
+            ddYear.SelectedValue = DateTime.Now.Year.ToString();
         }
 
         protected void rbtnCurrent_CheckedChanged(object sender, EventArgs e)
@@ -125,11 +150,11 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = true;
                 trSelectMutualFund.Visible = true;
             }
-           else
-           {
-               trSelectSchemeNAV.Visible = false;
-               trSelectMutualFund.Visible = false;
-           }
+            else
+            {
+                trSelectSchemeNAV.Visible = false;
+                trSelectMutualFund.Visible = false;
+            }
         }
 
         protected void rbtnHistorical_CheckedChanged(object sender, EventArgs e)
@@ -534,7 +559,7 @@ namespace WealthERP.Admin
             {
                 divSubCategory.Visible = false;
                 hdnSubCategory.Value = "";
-                
+
             }
             if (categoryCode == "MFCO")
             {
@@ -543,7 +568,7 @@ namespace WealthERP.Admin
                 ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 ddlSubCategory.DataBind();
-               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
             }
             if (categoryCode == "MFDT")
             {
@@ -561,7 +586,7 @@ namespace WealthERP.Admin
                 ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 ddlSubCategory.DataBind();
-               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
             }
             if (categoryCode == "MFHY")
             {
@@ -570,8 +595,8 @@ namespace WealthERP.Admin
                 ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 ddlSubCategory.DataBind();
-               // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-            }            
+                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            }
         }
 
         protected void OnClick_btnGo(object sender, EventArgs e)
@@ -600,11 +625,11 @@ namespace WealthERP.Admin
         }
 
         private void BindMFFundPerformance()
-        { 
+        {
             string expression = string.Empty;
             if (hdnSubCategory.Value == "")
             {
-                if(ViewState["SubCategory"] == null)
+                if (ViewState["SubCategory"] == null)
                 {
                     hdnSubCategory.Value = "0";
                 }
@@ -649,9 +674,9 @@ namespace WealthERP.Admin
                     hdnCondition.Value = ViewState["Condition"].ToString();
                 }
             }
-            
+
             dtGetMFfund = priceBo.GetMFFundPerformance(int.Parse(hdnAmcCode.Value), hdnSubCategory.Value);
-            
+
             if (int.Parse(hdnReturnPeriod.Value) == 1)
             {
                 expression = "OneWeekReturn" + hdnCondition.Value;
@@ -713,96 +738,120 @@ namespace WealthERP.Admin
 
         protected void btnViewFactsheet_Click(object sender, EventArgs e)
         {
-                 tblFactSheet.Visible = true;
-                 DateTime factSheetDate;
-                 string monthName;
-                 factSheetDate = Convert.ToDateTime(txtFactSheetDate.Text);
-                 PriceBo priceBo = new PriceBo();
-                 DataSet dsFactsheetschemeDetails = new DataSet();
-                 int schemePlanId = 0, month = 0, year = 0;
-                 month = factSheetDate.Month;
-                 year = factSheetDate.Year;
-                 monthName = GetMonthName(month);
-                 schemePlanId = int.Parse(ddlSchemeList.SelectedValue.ToString());
-                 lblGetScheme.Text = ddlSchemeList.SelectedItem.Text;
-                 lblGetMonth.Text = monthName;
-                 //month=RadDatePicker1
-                 dsFactsheetschemeDetails = priceBo.GetFactSheetSchemeDetails(schemePlanId, month, year);
-                 if (dsFactsheetschemeDetails.Tables[3].Rows.Count > 0)
-                 {
-                     lblgetWebsite.Text = dsFactsheetschemeDetails.Tables[3].Rows[0][3].ToString();
-                     lblgetAddress.Text = dsFactsheetschemeDetails.Tables[3].Rows[0]["Address"].ToString();
-                     lblgetAMC.Text = dsFactsheetschemeDetails.Tables[3].Rows[0]["PA_FundName"].ToString();
-                 }
-                 else
-                 {
-                     lblgetWebsite.Text = "";
-                     lblgetAddress.Text = "";
-                     lblgetAMC.Text = "";
-                 }
-                 if (dsFactsheetschemeDetails.Tables[0].Rows.Count > 0)
-                 {
-                     lblObjPara.Text = dsFactsheetschemeDetails.Tables[0].Rows[0]["PAS_SchemeObjective"].ToString();
-                 }
-                 else
-                 {
-                     lblObjPara.Text = "";
-                 }
-                 if (dsFactsheetschemeDetails.Tables[1].Rows.Count > 0)
-                 {
-                     lblgetSchemeType.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["SchemeType"].ToString();
-                     lblgetlunchDate.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["LaunchDate"].ToString();
-                     lblGetFundMgr.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["FundManager"].ToString();
-                     lblgetBenchMark.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["BenchMark"].ToString();
-                 }
-                 else
-                 {
-                     lblgetSchemeType.Text = "";
-                     lblgetlunchDate.Text = "";
-                     lblGetFundMgr.Text = "";
-                     lblgetBenchMark.Text = "";
-                 }
-                 if (dsFactsheetschemeDetails.Tables[2].Rows.Count > 0)
-                 {
-                     lblgetPERatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PE"].ToString();
-                     lblgetPBRatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PB"].ToString();
-                     lblgetAvgMkt.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_MarketCap"].ToString();
-                 }
-                 else
-                 {
-                     lblgetPERatio.Text = "";
-                     lblgetPBRatio.Text = "";
-                     lblgetAvgMkt.Text = "";
-                 }
-                 if (dsFactsheetschemeDetails.Tables[4].Rows.Count > 0)
-                 {
-                     lblgetNAV.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PSP_NetAssetValue"].ToString();
-                     lblgetNAV52high.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekHigh"].ToString();
-                     lblgetNAV52Low.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekLow"].ToString();
-                     lblgetMinInvestment.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASP_MinInvestment"].ToString();
-                 }
-                 else
-                 {
-                     lblgetNAV.Text = "";
-                     lblgetNAV52high.Text = "";
-                     lblgetNAV52Low.Text = "";
-                     lblgetMinInvestment.Text = "";
-                 }
-                 if (dsFactsheetschemeDetails.Tables[5].Rows.Count > 0)
-                 {
-                     lblgetFama.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Fama"].ToString();
-                     lblgetstdDev.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Std_Dev"].ToString();
-                     lblgetBeta.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
-                     lblgetSharpe.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
-                 }
-                 else
-                 {
-                     lblgetFama.Text = "";
-                     lblgetstdDev.Text = "";
-                     lblgetBeta.Text = "";
-                     lblgetSharpe.Text = "";
-                 }
-                 BindSectorWiseGrid(dsFactsheetschemeDetails);
+            tblFactSheet.Visible = true;
+            DateTime factSheetDate;
+            string monthName;
+            //factSheetDate = Convert.ToDateTime(txtFactSheetDate.Text);
+            PriceBo priceBo = new PriceBo();
+            DataSet dsFactsheetschemeDetails = new DataSet();
+            int schemePlanId = 0, month = 0, year = 0;
+            month = int.Parse(ddMonth.SelectedValue.ToString());
+            year = int.Parse(ddYear.SelectedValue.ToString());
+            monthName = GetMonthName(month);
+            schemePlanId = int.Parse(ddlSchemeList.SelectedValue.ToString());
+            lblGetScheme.Text = ddlSchemeList.SelectedItem.Text;
+            lblGetMonth.Text = monthName;
+            //month=RadDatePicker1
+            dsFactsheetschemeDetails = priceBo.GetFactSheetSchemeDetails(schemePlanId, month, year);
+            if (dsFactsheetschemeDetails.Tables[3].Rows.Count > 0)
+            {
+                tblFundHouseDetails.Visible = false;
+                tblFactFundHouseDetails.Visible = true;
+                lblgetWebsite.Text = dsFactsheetschemeDetails.Tables[3].Rows[0][3].ToString();
+                lblgetAddress.Text = dsFactsheetschemeDetails.Tables[3].Rows[0]["Address"].ToString();
+                lblgetAMC.Text = dsFactsheetschemeDetails.Tables[3].Rows[0]["PA_FundName"].ToString();
+            }
+            else
+            {
+                tblFundHouseDetails.Visible = true;
+                tblFactFundHouseDetails.Visible = false;
+                //lblgetWebsite.Text = "";
+                //lblgetAddress.Text = "";
+                //lblgetAMC.Text = "";
+            }
+            if (dsFactsheetschemeDetails.Tables[0].Rows.Count > 0)
+            {
+                tblFundObject.Visible = false;
+                tblFactFundObject.Visible = true;
+                lblObjPara.Text = dsFactsheetschemeDetails.Tables[0].Rows[0]["PAS_SchemeObjective"].ToString();
+            }
+            else
+            {
+                //lblObjPara.Text = "";
+                tblFactFundObject.Visible = false;
+                tblFundObject.Visible = true;
+            }
+            if (dsFactsheetschemeDetails.Tables[1].Rows.Count > 0)
+            {
+                tblInvInformation.Visible = false;
+                tblFactInvInformation.Visible = true;
+                lblgetSchemeType.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["SchemeType"].ToString();
+                lblgetlunchDate.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["LaunchDate"].ToString();
+                lblGetFundMgr.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["FundManager"].ToString();
+                lblgetBenchMark.Text = dsFactsheetschemeDetails.Tables[1].Rows[0]["BenchMark"].ToString();
+            }
+            else
+            {
+                tblInvInformation.Visible = true;
+                tblFactInvInformation.Visible = false;
+                //lblgetSchemeType.Text = "";
+                //lblgetlunchDate.Text = "";
+                //lblGetFundMgr.Text = "";
+                //lblgetBenchMark.Text = "";
+            }
+            if (dsFactsheetschemeDetails.Tables[2].Rows.Count > 0)
+            {
+                tblFundStructure.Visible = false;
+                tblFactFundStructure.Visible = true;
+                lblgetPERatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PE"].ToString();
+                lblgetPBRatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PB"].ToString();
+                lblgetAvgMkt.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_MarketCap"].ToString();
+            }
+            else
+            {
+                tblFundStructure.Visible = true;
+                tblFactFundStructure.Visible = false;
+                //lblgetPERatio.Text = "";
+                //lblgetPBRatio.Text = "";
+                //lblgetAvgMkt.Text = "";
+            }
+            if (dsFactsheetschemeDetails.Tables[4].Rows.Count > 0)
+            {
+                tblFinancialDetails.Visible = false;
+                tblFactFinancialDetails.Visible = true;
+                lblgetNAV.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PSP_NetAssetValue"].ToString();
+                lblgetNAV52high.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekHigh"].ToString();
+                lblgetNAV52Low.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekLow"].ToString();
+                lblgetMinInvestment.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASP_MinInvestment"].ToString();
+            }
+            else
+            {
+                tblFinancialDetails.Visible = true;
+                tblFactFinancialDetails.Visible = false;
+                //lblgetNAV.Text = "";
+                //lblgetNAV52high.Text = "";
+                //lblgetNAV52Low.Text = "";
+                //lblgetMinInvestment.Text = "";
+            }
+            if (dsFactsheetschemeDetails.Tables[5].Rows.Count > 0)
+            {
+                tblVolatality.Visible = false;
+                tblFactVolatality.Visible = true;
+                lblgetFama.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Fama"].ToString();
+                lblgetstdDev.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Std_Dev"].ToString();
+                lblgetBeta.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
+                lblgetSharpe.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
+            }
+            else
+            {
+                tblVolatality.Visible = true;
+                tblFactVolatality.Visible = false;
+                //lblgetFama.Text = "";
+                //lblgetstdDev.Text = "";
+                //lblgetBeta.Text = "";
+                //lblgetSharpe.Text = "";
+            }
+            BindSectorWiseGrid(dsFactsheetschemeDetails);
         }
 
         private string GetMonthName(int month)
@@ -859,7 +908,12 @@ namespace WealthERP.Admin
 
         protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadAllSchemeList();
+            if (ddlAmcCode.SelectedIndex != 0)
+            {
+                LoadAllSchemeList();
+            }
+            else
+                ddlSchemeList.SelectedItem.Text = "";
         }
 
         private void LoadAllSchemeList()
@@ -878,6 +932,10 @@ namespace WealthERP.Admin
             else
             {
             }
+        }
+        protected void ddYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindMonth();
         }
         //private void BindMFFundPerformance(DataTable dt)
         //{

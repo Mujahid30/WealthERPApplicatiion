@@ -105,7 +105,7 @@
     <Tabs>        
         <telerik:RadTab runat="server" Text="NAV" Value="Price" TabIndex="0" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1" >
+        <telerik:RadTab runat="server" Text="Factsheet" Value="Factsheet" TabIndex="1" Visible="true">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Scheme Comparison" Value="Scheme_Comparison" TabIndex="2" >
         </telerik:RadTab>        
@@ -168,8 +168,7 @@
                 </td>
                 <td align="left">
                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="txtField"></asp:TextBox><cc1:CalendarExtender
-                        ID="FrmDate" TargetControlID="txtFromDate" runat="server" Format="dd/MM/yyyy">
-                    </cc1:CalendarExtender>
+                        ID="FrmDate" TargetControlID="txtFromDate" runat="server" Format="dd/MM/yyyy"></cc1:CalendarExtender>
                      <asp:CompareValidator id="cvChkFutureDate" runat="server" Type="Date"
                    ControlToValidate="txtFromDate"
                    Operator="LessThanEqual" CssClass="cvPCG"
@@ -192,21 +191,21 @@
                 </td>
                 <td align="left">
                     <asp:TextBox ID="txtToDate" CssClass="txtField" runat="server"></asp:TextBox><cc1:CalendarExtender
-                        ID="TDate" TargetControlID="txtToDate" runat="server" Format="dd/MM/yyyy">
-                    </cc1:CalendarExtender>
+                        ID="TDate" TargetControlID="txtToDate" runat="server" Format="dd/MM/yyyy"></cc1:CalendarExtender>
                     <asp:CompareValidator id="compDateValidator" ValidationGroup="vgbtnSubmit" Display="Dynamic"
                         ControlToValidate="txtToDate" Operator="LessThanEqual" Type="Date" CssClass="cvPCG"
                         runat="server" ErrorMessage="Date Can't be in future" ></asp:CompareValidator>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate" ErrorMessage="please enter to date" ValidationGroup="vgbtnSubmit" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator><br />
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate" ErrorMessage="please enter to date" ValidationGroup="vgbtnSubmit" CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <br />
                       
-               <asp:RegularExpressionValidator ID="RegularExpressionValidator6" Display="Dynamic" runat="server" CssClass="cvPCG" ErrorMessage="Please Enter valid Date"
-                                        ControlToValidate="txtToDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
-          <asp:CompareValidator id="cvCompareDate" runat="server"
-                   ControlToValidate="txtToDate" ControlToCompare="txtFromDate"
-                   Operator="GreaterThanEqual"
-                   Type="Date" CssClass="cvPCG" ValidationGroup="vgbtnSubmit"
-                   ErrorMessage="ToDate should be greater than FromDate"
-                   Display="Dynamic">
+               <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" 
+                        ControlToValidate="txtToDate" CssClass="cvPCG" Display="Dynamic" 
+                        ErrorMessage="Please Enter valid Date" 
+                        ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
+          <asp:CompareValidator ID="cvCompareDate" runat="server" ControlToCompare="txtFromDate" 
+                        ControlToValidate="txtToDate" CssClass="cvPCG" Display="Dynamic" 
+                        ErrorMessage="ToDate should be greater than FromDate" 
+                        Operator="GreaterThanEqual" Type="Date" ValidationGroup="vgbtnSubmit">
                  </asp:CompareValidator>
                     <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtToDate"
                         ErrorMessage="*" ForeColor="Red"></asp:RequiredFieldValidator>--%>
@@ -236,11 +235,11 @@
                 ErrorMessage="Please Select Scheme Name" Operator="NotEqual" ValueToCompare="Select Scheme Name"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>--%>
                 </td>
-            </tr></table>
-            <table><tr id="trbtnSubmit" runat="server">
+            </tr>
+            <tr id="trbtnSubmit" runat="server">
+            <td></td>
              <td>
              <asp:Button ID="btnSubmit" Text="Submit" CssClass="PCGButton" ValidationGroup="vgbtnSubmit" runat="server" OnClick="OnClick_Submit" />
-               
             </td>
             </tr>
         </table>
@@ -264,7 +263,7 @@
         <table style="width: 100%">
             <tr runat="server" id="trgrMfView">
                 <td>
-                     <asp:GridView ID="gvMFRecord" runat="server" CssClass="GridViewStyle" AutoGenerateColumns="False"
+                    <asp:GridView ID="gvMFRecord" runat="server" CssClass="GridViewStyle" AutoGenerateColumns="False"
                         ShowFooter="true" Font-Size="Small">
                         <RowStyle CssClass="RowStyle" />
                         <FooterStyle CssClass="FooterStyle" />
@@ -292,7 +291,8 @@
                             <asp:BoundField DataField="PostDate" HeaderText="Post Date" />
                             <asp:BoundField DataField="Date" HeaderText="Date" />
                         </Columns>
-                    </asp:GridView></td>
+                    </asp:GridView>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -440,29 +440,38 @@
     <telerik:RadPageView ID="RadPageView2" runat="server">
     <asp:Panel ID="pnlFactSheet" runat="server">
         <table class="TableBackground" width="100%">
-         <tr id="tr1" runat="server">
+              
+              <tr>
+              <td colspan="2"></td>
+              </tr>
+              
+              <tr>
+              <td colspan="2"></td>
+              </tr>
+                               
+             <tr id="tr1" runat="server">
                 <td align="right" width="40%">
                     <asp:Label ID="lblAmcCode" runat="server" CssClass="FieldName" 
                         Text="Select AMC Code:"></asp:Label>
                 </td>
                 <td width="60%">
-                    <asp:DropDownList ID="ddlAmcCode" runat="server" AutoPostBack="true" 
+                    <asp:DropDownList ID="ddlAmcCode" runat="server" AutoPostBack="true" style="width:350px;"
                         CssClass="cmbField" onselectedindexchanged="ddlAmcCode_SelectedIndexChanged" 
                          >
-                    </asp:DropDownList>
+                    </asp:DropDownList><span class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" 
                         ControlToValidate="ddlAmcCode" CssClass="cvPCG" Display="Dynamic" 
-                        ErrorMessage="Please Select AMC Code" Operator="NotEqual" 
-                        ValidationGroup="btnFactSheet" ValueToCompare="Select AMC Code"></asp:CompareValidator>
+                        ErrorMessage="<br />Please Select AMC Code" Operator="NotEqual" 
+                        ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                 </td>
             </tr>
-             <tr id="tr2" runat="server">
+            <tr id="tr2" runat="server">
                 <td align="right" width="40%">
                     <asp:Label ID="lblSchemeList" runat="server" CssClass="FieldName" 
                         Text="Select Scheme Name:"></asp:Label>
                 </td>
                 <td width="60%">
-                    <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" style="width:350px;">
                     </asp:DropDownList>
                      <%--<asp:CompareValidator ID="cvddlSelectSchemeNAV" runat="server" ControlToValidate="ddlSelectSchemeNAV"
                 ErrorMessage="Please Select Scheme Name" Operator="NotEqual" ValueToCompare="Select Scheme Name"
@@ -483,54 +492,35 @@
                                 <FastNavigationSettings TodayButtonCaption="current date" />
                             </Calendar>
                         </telerik:RadDatePicker>--%>
-                     <asp:TextBox ID="txtFactSheetDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
+                     <%--<asp:TextBox ID="txtFactSheetDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
+                     <span class="spnRequiredField">*</span>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="FieldName" ErrorMessage="Invalid Date"
                                         ControlToValidate="txtFactSheetDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtFactSheetDate_CalendarExtender" runat="server" TargetControlID="txtFactSheetDate"
-                                        Format="dd/MM/yyyy" Enabled="True">
-                                    </cc1:CalendarExtender>
+                                        Format="dd/MM/yyyy" Enabled="True"></cc1:CalendarExtender>
                                     <cc1:TextBoxWatermarkExtender ID="txtFactSheetDate_TextBoxWatermarkExtender" runat="server"
-                                        TargetControlID="txtFactSheetDate" WatermarkText="dd/mm/yyyy" Enabled="True">
-                                    </cc1:TextBoxWatermarkExtender>
+                                        TargetControlID="txtFactSheetDate" WatermarkText="dd/mm/yyyy" Enabled="True"></cc1:TextBoxWatermarkExtender>
+                                    <asp:RequiredFieldValidator ID="rfv_txtFactSheetDate" ControlToValidate="txtFactSheetDate"
+                ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter a Date" Display="Dynamic"
+                runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>--%>
+            <asp:DropDownList ID="ddYear" runat="server" CssClass="cmbField" AutoPostBack="True">
+            </asp:DropDownList>
+            <asp:DropDownList ID="ddMonth" runat="server" CssClass="cmbField" AutoPostBack="True">
+            </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td >
-                        <asp:Button ID="btnViewFactsheet" Text="View Factsheet" 
-                            CssClass="PCGMediumButton" runat="server" onclick="btnViewFactsheet_Click"  />
+                        <asp:Button ID="btnViewFactsheet" Text="View Factsheet"  ValidationGroup="MFSubmit"
+                            CssClass="PCGMediumButton" runat="server" onclick="btnViewFactsheet_Click" />
                     </td>
-                </tr>
-                <tr>
-                <td colspan="2"></td>
                 </tr>
                 
-                <tr>
-                      <td colspan="2">
-                        <%--<ajaxToolkit:UpdatePanelAnimationExtender ID="aeFactsheet"
-                          runat="server" TargetControlID="updatePanel">
-                             <Animations>
-                                <OnUpdating>
-                                    <Parallel duration="0">
-                                        <ScriptAction Script="onUpdating();" />  
-                                        <EnableAction AnimationTarget="btnViewFactsheet" Enabled="false" />
-                                        <FadeOut minimumOpacity=".5" />
-                                    </Parallel>
-                                </OnUpdating>
-                                <OnUpdated>
-                                    <Parallel duration="0">
-                                        <ScriptAction Script="onUpdated();" />  
-                                        <EnableAction AnimationTarget="btnViewFactsheet" Enabled="true" />
-                                        <FadeOut minimumOpacity=".5" />
-                                    </Parallel>
-                                </OnUpdated>
-                            </Animations>
-                        </ajaxToolkit:UpdatePanelAnimationExtender>--%>
-                    </td>
-                </tr>
-<tr>
-<td colspan="2">
- <table id="tblFactSheet" runat="server" width="80%" align="center">
+               <tr>
+               <td colspan="2">
+               <table id="tblFactSheet" runat="server" width="80%" align="center">
             
             <tr>
             <td colspan="3">
@@ -567,17 +557,34 @@
             
             <tr>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+            <table id="tblFundObject" runat="server" width="100%">
+            <tr id="tr3" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            <table id="tblFactFundObject" runat="server"  border="1" width="100%" cellspacing="0">
             <tr>
             <td>
              <asp:Label ID="lblObjPara" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
             </table>
+            
             </td>
             <td width="10%"></td>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+            <table id="tblInvInformation" runat="server" width="100%">
+            <tr id="tr4" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            <table id="tblFactInvInformation" runat="server" border="1" width="100%"  cellspacing="0">
             <tr>
             <td>
             <asp:Label ID="lblSchemeType" runat="server" CssClass="FieldName" Text="Scheme Type:"></asp:Label>
@@ -635,7 +642,15 @@
             
             <tr>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+              <table id="tblFundHouseDetails" runat="server" width="100%">
+            <tr id="tr5" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            <table id="tblFactFundHouseDetails" runat="server" border="1" width="100%" cellspacing="0">
             <tr>
             <td>
             <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC : "></asp:Label>
@@ -667,7 +682,15 @@
             </td>
             <td width="10%"></td>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+              <table id="tblFundStructure" runat="server" width="100%">
+            <tr id="tr6" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            <table id="tblFactFundStructure" runat="server" border="1" width="100%" cellspacing="0">
             <tr>
             <td>
             <asp:Label ID="lblPERatio" runat="server" CssClass="FieldName" Text="P/E Ratio:"></asp:Label>
@@ -714,7 +737,15 @@
             
             <tr>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+              <table id="tblFinancialDetails" runat="server" width="100%">
+            <tr id="tr7" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            <table id="tblFactFinancialDetails" runat="server" border="1" width="100%" cellspacing="0">
             <tr>
             <td width="50%">
             <asp:Label ID="lblAUM" runat="server" CssClass="FieldName" Text="AUM"></asp:Label>
@@ -764,7 +795,16 @@
             </td>
             <td width="10%"></td>
             <td width="30%">
-            <table width="100%" border="1px" cellspacing="0">
+              <table id="tblVolatality" runat="server" width="100%">
+            <tr id="tr8" runat="server">
+            <td style="background-color: White; color: Black;" align="center">
+            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
+            </td>
+            </tr>
+            </table>
+            
+            
+            <table id="tblFactVolatality" runat="server" border="1" width="100%" cellspacing="0">
             <tr>
             <td>
             <asp:Label ID="lblFama" runat="server" Text="Fama" CssClass="FieldName"></asp:Label>
@@ -843,7 +883,9 @@
 </tr>
 
             </table>
-            
+               </td>
+               </tr> 
+            </table>
             <table>
                 <tr>
                     <td>
@@ -1131,8 +1173,7 @@
                 </div>
                 <%--</td>
             </tr>
-        </table>--%>
-    </asp:Panel>
+        </table>--%></asp:Panel>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
         
