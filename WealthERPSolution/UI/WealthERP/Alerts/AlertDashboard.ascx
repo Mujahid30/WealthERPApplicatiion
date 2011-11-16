@@ -2,6 +2,24 @@
     Inherits="WealthERP.Alerts.AlertDashboard" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <script language="javascript" type="text/javascript">
+    function CheckReminderTextBoxEmpty() {
+        var reminderTextbox = document.getElementById('<%= txtReminderDays.ClientID %>').value;
+
+        if (reminderTextbox == '') {
+            alert('Field can not be blank');
+            return false;
+        }
+    }
+
+    function CheckOccuranceTextBoxEmpty() {
+        var occuranceTextbox = document.getElementById('<%= txtOccurrencePreset.ClientID %>').value;
+
+        if (occuranceTextbox == '') {
+            alert('Field can not be blank');
+            return false;
+        }
+    }
+    
 function checkAllBoxes() 
     {
 
@@ -94,7 +112,7 @@ function checkAllBoxes()
                                     <asp:CheckBox ID="chkId" runat="server" />
                                 </ItemTemplate>
                                 <HeaderTemplate>
-                            <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
+                            <input id="chkBoxAll" name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
                         </HeaderTemplate>
                             </asp:TemplateField>
                             <%--Subscription Status--%>
@@ -188,7 +206,7 @@ function checkAllBoxes()
                 <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
                     onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                    OnClick="btnSubmitReminder_Click" />
+                    OnClick="btnSubmitReminder_Click" OnClientClick="return CheckReminderTextBoxEmpty();" />
             </td>
         </tr>
     </table>
@@ -245,7 +263,7 @@ function checkAllBoxes()
                 <asp:Button ID="btnSubmitOccurrence" runat="server" Text="Submit" CssClass="PCGButton"
                     onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                    OnClick="btnSubmitOccurrence_Click" />
+                    OnClick="btnSubmitOccurrence_Click" OnClientClick="return CheckOccuranceTextBoxEmpty();" />
             </td>
             <td class="rightField">
                 &nbsp;

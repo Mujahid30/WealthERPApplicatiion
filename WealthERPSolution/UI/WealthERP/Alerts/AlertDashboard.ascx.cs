@@ -787,10 +787,10 @@ namespace WealthERP.Alerts
                                 drAlertType[4] = fdMaturityReminder + " days before";
                                 break;
                             case "Personal":
-                                drAlertType[4] = propertyCondition + propertyOccurrence;
+                                drAlertType[4] = personalCondition + personalOccurrence;
                                 break;
                             case "Property":
-                                drAlertType[4] = propertyCondition + personalOccurrence;
+                                drAlertType[4] = propertyCondition + propertyOccurrence;
                                 break;
                             case "MF Absolute Stop Loss":
                                 drAlertType[4] = mfStopLossCondition + mfStopLossPreset;
@@ -920,6 +920,8 @@ namespace WealthERP.Alerts
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 rmId = rmVo.RMId;
                 userId = userVo.UserId;
+                tblOccurrenceEdit.Visible = false;
+                tblReminderEdit.Visible = false;
 
                 foreach (GridViewRow gvr in this.gvSystemAlerts.Rows)
                 {
@@ -1235,6 +1237,10 @@ namespace WealthERP.Alerts
                         }
 
                         tblReminderEdit.Visible = false;
+                        if (tblOccurrenceEdit.Visible == true)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "checkAllBoxes();", true);
+                        }
                         BindSystemAlertsGrid();
                     }
                 }
@@ -1340,6 +1346,8 @@ namespace WealthERP.Alerts
                 rmVo = (RMVo)Session[SessionContents.RmVo];
                 rmId = rmVo.RMId;
                 userId = userVo.UserId;
+                tblOccurrenceEdit.Visible = false;
+                tblReminderEdit.Visible = false;
                 foreach (GridViewRow gvr in this.gvSystemAlerts.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
