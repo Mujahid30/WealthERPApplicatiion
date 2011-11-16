@@ -532,7 +532,7 @@ namespace WealthERP.SuperAdmin
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
-            userVo = (UserVo)Session["iffUserVo"];
+            //userVo = (UserVo)Session["iffUserVo"];
             bool isMailSent = false;
             try
             {
