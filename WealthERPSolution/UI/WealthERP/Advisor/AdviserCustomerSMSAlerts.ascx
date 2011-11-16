@@ -16,7 +16,6 @@
         try {
             //get target base control.
             TargetBaseControl = document.getElementById('<%= gvCustomerSMSAlerts.ClientID %>');
-            HideColumn(7);
         }
         catch (err) {
 
@@ -162,24 +161,24 @@
     <tr>
         <td align="center">
             <div id="divNoRecords" runat="server" class="failure-msg">
-                <asp:Label ID="lblNoRecords" Text="No Alert Exists" runat="server" Visible="true"></asp:Label>
+                <asp:Label ID="lblNoRecords" Text="No Records found" runat="server" Visible="true"></asp:Label>
             </div>
         </td>
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="500px" Width="100%" ScrollBars="Vertical" HorizontalAlign="Left">
+            <%--<asp:Panel ID="pnlCustomerSMSAlerts" runat="server" Height="500px" Width="100%" ScrollBars="Both" HorizontalAlign="Left">--%>
                 <asp:GridView ID="gvCustomerSMSAlerts" DataKeyNames="CustomerId,AlertId" runat="server"
-                    AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
-                    Font-Size="Small" CssClass="GridViewStyle" ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound">
-                    <PagerStyle BorderStyle="Solid" />
-                    <SelectedRowStyle Font-Bold="True" CssClass="SelectedRowStyle" />
-                    <HeaderStyle Font-Bold="True" Font-Size="Small" ForeColor="White" CssClass="HeaderStyle" />
-                    <EditRowStyle Font-Size="X-Small" CssClass="EditRowStyle" />
-                    <AlternatingRowStyle BorderStyle="None" CssClass="AltRowStyle" />
-                    <PagerSettings Mode="NextPreviousFirstLast" />
+                    AutoGenerateColumns="False" Width="100%" CellPadding="4"
+                    CssClass="GridViewStyle" ShowFooter="True" OnRowDataBound="gvCustomerSMSAlerts_RowDataBound">
+                     <FooterStyle CssClass="FooterStyle" />
+                    <PagerSettings Visible="False" />
                     <RowStyle CssClass="RowStyle" />
-                    <FooterStyle CssClass="FooterStyle" />
+                    <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" 
+                        VerticalAlign="Top" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
                     <Columns>
                         <asp:TemplateField HeaderText="Select">
                             <ItemTemplate>
@@ -189,7 +188,7 @@
                             <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
                         </HeaderTemplate>
                             <FooterTemplate>
-                                <asp:Button ID="btnDeleteSelected" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
+                                <asp:Button ID="btnDeleteSelected" OnClientClick="return TestCheckBox();" CssClass="FieldName" OnClick="btnDeleteSelected_Click"
                                     runat="server" Text="Delete" />
                             </FooterTemplate>
                         </asp:TemplateField>
@@ -209,6 +208,9 @@
                         <asp:BoundField DataField="LastSMSDate" HeaderText="Last SMS Date" ReadOnly="true" />
                         <asp:BoundField DataField="AlertDate" HeaderText="Alert Date" ReadOnly="true" />
                         <asp:TemplateField HeaderText="Mobile No">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblCustMobileNumber" runat="server" Text="Mobile No"></asp:Label>
+                            </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:TextBox ID="txtMobileNo" runat="server" Text='<%# Eval("Mobile") %>' CssClass="txtField"
                                     MaxLength="10" />
@@ -239,7 +241,7 @@
                         </td>
                     </tr>
                 </table>
-            </asp:Panel>
+            <%--</asp:Panel>--%>
         </td>
     </tr>
     <tr>

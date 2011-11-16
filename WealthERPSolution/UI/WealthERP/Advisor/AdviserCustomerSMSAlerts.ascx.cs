@@ -253,7 +253,8 @@ namespace WealthERP.Advisor
                 gvCustomerSMSAlerts.DataSource = dtAdviserCustomerAlerts;
                 gvCustomerSMSAlerts.DataBind();
                 gvCustomerSMSAlerts.Visible = true;
-                pnlCustomerSMSAlerts.Visible = true;
+                gvCustomerSMSAlerts.Columns[7].Visible = false;
+                //pnlCustomerSMSAlerts.Visible = true;
                 //lblNoRecords.Visible = false;
                 divNoRecords.Visible = false;
                 btnSend.Visible = true;
@@ -274,8 +275,8 @@ namespace WealthERP.Advisor
                 divNoRecords.Visible = true;
                 lblDisclaimer.Visible = false;
                 btnSend.Visible = false;
-                DivPager.Visible = false;
-                trPageCount.Visible = false;
+                //DivPager.Visible = false;
+                //trPageCount.Visible = false;
             }
 
         }
