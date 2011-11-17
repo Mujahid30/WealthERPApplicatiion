@@ -1165,9 +1165,15 @@ namespace WealthERP.Alerts
                     }
                 }
                 if (reminderSelected > 0)
+                {
+                    txtReminderDays.Text = "";
                     tblReminderEdit.Visible = true;
+                }
                 if (occurrenceSelected > 0)
+                {
+                    txtOccurrencePreset.Text = "";
                     tblOccurrenceEdit.Visible = true;
+                }
             }
             catch (BaseApplicationException Ex)
             {
