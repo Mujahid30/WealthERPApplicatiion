@@ -2782,7 +2782,7 @@ namespace DaoAlerts
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getListOfAlertsCmd = db.GetStoredProcCommand("SP_GetAdviserOrUserAlerts");
-                db.AddInParameter(getListOfAlertsCmd, "@U_UserId", DbType.Int16, userId);
+                db.AddInParameter(getListOfAlertsCmd, "@U_UserId", DbType.Int32, userId);
                 dsAdviserAlertList = db.ExecuteDataSet(getListOfAlertsCmd);
 
                 if ((dsAdviserAlertList.Tables[0] != null) && (dsAdviserAlertList.Tables[0].Rows.Count > 0))
