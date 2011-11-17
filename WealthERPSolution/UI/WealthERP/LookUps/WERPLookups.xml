@@ -1971,8 +1971,8 @@
     <FiscalYear FiscalYearCode="0708" FiscalYear="2007-2008" Deleted="False" />
     <FiscalYear FiscalYearCode="0809" FiscalYear="2008-2009" Deleted="False" />
     <FiscalYear FiscalYearCode="0910" FiscalYear="2009-2010" Deleted="False" />
-    <FiscalYear FiscalYearCode="0911" FiscalYear="2010-2011" Deleted="False" />
-    <FiscalYear FiscalYearCode="0912" FiscalYear="2011-2012" Deleted="False" />
+    <FiscalYear FiscalYearCode="1011" FiscalYear="2010-2011" Deleted="False" />
+    <FiscalYear FiscalYearCode="1112" FiscalYear="2011-2012" Deleted="False" />
   </Fiscal>
 
   <Freq>
