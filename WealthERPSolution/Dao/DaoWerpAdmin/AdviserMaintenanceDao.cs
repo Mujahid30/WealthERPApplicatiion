@@ -277,7 +277,7 @@ namespace DaoWerpAdmin
 
         }
 
-        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression, string filterExpression)
+        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression, string filterExpression,string ifaNameSearch)
         {
             List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
             //List<AdvisorLOBVo> advisorLOBVoList=new List<AdvisorLOBVo>();
@@ -292,6 +292,10 @@ namespace DaoWerpAdmin
                 Cmd = db.GetStoredProcCommand("SP_GetAllAdvisersWithPaging");
                 db.AddInParameter(Cmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(Cmd, "@SortOrder", DbType.String, SortExpression);
+                if (!string.IsNullOrEmpty(ifaNameSearch))
+                db.AddInParameter(Cmd, "@IFAName", DbType.String, ifaNameSearch);
+                else
+                db.AddInParameter(Cmd, "@IFAName", DbType.String, DBNull.Value);
                 db.AddInParameter(Cmd, "@filterexpression", DbType.String, filterExpression);
                 getAdvisorDs = db.ExecuteDataSet(Cmd);
                 dtAdvisers = getAdvisorDs.Tables[0];
