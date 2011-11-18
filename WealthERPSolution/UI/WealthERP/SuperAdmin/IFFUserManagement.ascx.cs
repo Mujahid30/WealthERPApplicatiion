@@ -346,7 +346,7 @@ namespace WealthERP.SuperAdmin
                     string saltValue = string.Empty;
                     string password = r.Next(20000, 100000).ToString();
 
-                    userVo = userBo.GetUserDetails(userId);
+                    //userVo = userBo.GetUserDetails(userId);
                     string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                     encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
                     userVo.Password = hassedPassword;
