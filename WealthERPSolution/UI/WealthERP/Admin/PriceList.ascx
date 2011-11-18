@@ -796,9 +796,9 @@
                 ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter a Date" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:DropDownList ID="ddYear" runat="server" CssClass="cmbField" AutoPostBack="True">
+            <asp:DropDownList ID="ddYear" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <asp:DropDownList ID="ddMonth" runat="server" CssClass="cmbField" AutoPostBack="True">
+            <asp:DropDownList ID="ddMonth" runat="server" CssClass="cmbField">
             </asp:DropDownList>
                     </td>
                   
@@ -999,7 +999,7 @@
             <td>
             <asp:Label ID="lblPERatio" runat="server" CssClass="FieldName" Text="P/E Ratio:"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetPERatio" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1008,7 +1008,7 @@
             <td>
             <asp:Label ID="lblPBRatio" runat="server" CssClass="FieldName" Text="P/B Ratio:"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetPBRatio" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1017,7 +1017,7 @@
             <td>
             <asp:Label ID="lblAvgMkt" runat="server" CssClass="FieldName" Text="Avg Market Cap(Rs):"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetAvgMkt" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1054,7 +1054,7 @@
             <td width="50%">
             <asp:Label ID="lblAUM" runat="server" CssClass="FieldName" Text="AUM"></asp:Label>
             </td>
-            <td width="50%">
+            <td width="50%" align="right">
             <asp:Label ID="lblgetAUM" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1063,7 +1063,7 @@
             <td width="50%">
             <asp:Label ID="lblNAV" runat="server" CssClass="FieldName" Text="NAV"></asp:Label>
             </td>
-            <td width="50%">
+            <td width="50%" align="right">
             <asp:Label ID="lblgetNAV" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1072,7 +1072,7 @@
             <td width="50%">
             <asp:Label ID="lblMinInvestment" runat="server" CssClass="FieldName" Text="Min Investment"></asp:Label>
             </td>
-            <td width="50%">
+            <td width="50%" align="right">
             <asp:Label ID="lblgetMinInvestment" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1081,7 +1081,7 @@
             <td width="50%">
             <asp:Label ID="lblNAV52high" runat="server" CssClass="FieldName" Text="NAV(52 week high)"></asp:Label>
             </td>
-            <td width="50%">
+            <td width="50%" align="right">
             <asp:Label ID="lblgetNAV52high" runat="server" CssClass="FieldName" Text=""></asp:Label>
             </td>
             </tr>
@@ -1113,13 +1113,13 @@
             <td>
             <asp:Label ID="lblFama" runat="server" Text="Fama" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetFama" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             <asp:Label ID="lblstdDev" runat="server" Text="Std Deviation" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetstdDev" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </td>
             </tr>
@@ -1128,13 +1128,13 @@
             <td>
             <asp:Label ID="lblBeta" runat="server" Text="Beta" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetBeta" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             <asp:Label ID="lblSharpe" runat="server" Text="Sharpe" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             <asp:Label ID="lblgetSharpe" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </td>
             </tr>
@@ -1182,8 +1182,8 @@
                         <EditRowStyle CssClass="EditRowStyle" />
                         <AlternatingRowStyle CssClass="AltRowStyle " />
                         <Columns>
-                            <asp:BoundField DataField="PEM_CompanyName" HeaderStyle-Width="20%" HeaderText="Name" />
-                            <asp:BoundField DataField="PASPO_HoldPercentage" DataFormatString="{0:n2}" 
+                            <asp:BoundField DataField="PEM_CompanyName" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" HeaderText="Name" />
+                            <asp:BoundField DataField="PASPO_HoldPercentage" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:n2}" 
                                 HeaderStyle-Width="20%" HeaderText="%" />
                         </Columns>
                     </asp:GridView>
@@ -1211,8 +1211,8 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle " />
                 <Columns>
-                   <asp:BoundField DataField="Sector" HeaderText="Name" HeaderStyle-Width="20%" />
-                   <asp:BoundField DataField="HoldPercen" HeaderText="%" DataFormatString="{0:n2}"  HeaderStyle-Width="20%" />
+                   <asp:BoundField DataField="Sector" HeaderText="Name" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" />
+                   <asp:BoundField DataField="HoldPercen" HeaderText="%" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:n2}"  HeaderStyle-Width="20%" />
                 </Columns>
 
 </asp:GridView>
@@ -1240,6 +1240,16 @@
             </table>
             
             <table id="tblFactSchemePerformance" runat="server" border="1" width="100%" cellspacing="0">
+            
+             <tr>
+            <td width="50%" align="center">
+            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName" Text="Period"></asp:Label>
+            </td>
+            <td width="50%" align="center">
+            <asp:Label ID="lblReturns" runat="server" CssClass="FieldName" Text="Returns"></asp:Label>
+            </td>
+            </tr>
+            
             <tr>
             <td width="50%">
             <asp:Label ID="lbl3Month" runat="server" CssClass="FieldName" Text="3Months"></asp:Label>

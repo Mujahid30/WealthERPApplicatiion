@@ -897,9 +897,9 @@ namespace WealthERP.Admin
                 lblGet3Month.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_3MonthReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 lblGet6Month.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_6MonthReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 lblGet1year.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_1YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                lblGet3Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_3YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                lblGet5Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_5YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                lblGetSinceInception.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_InceptionReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet3Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[9].Rows[0]["PASPAR_3YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet5Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[9].Rows[0]["PASPAR_5YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGetSinceInception.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[9].Rows[0]["PASPAR_InceptionReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
             }
             else
             {
