@@ -213,11 +213,11 @@
     EnableEmbeddedSkins="False" MultiPageID="SystameticMISMultiPage" 
     SelectedIndex="1">
     <Tabs>
-        <telerik:RadTab runat="server"  Text="Setup View" 
+        <telerik:RadTab runat="server"  Text="Systematic Setup" 
             Value="Systematic Setup View" TabIndex="0" Selected="True">
         </telerik:RadTab>
         
-        <telerik:RadTab runat="server" Text="Order Detail View" 
+        <telerik:RadTab runat="server" Text="Systematic Payment Projection" 
      Value="Calender Summary View" TabIndex="1">
    </telerik:RadTab>
    
@@ -299,7 +299,14 @@
   
     
     <telerik:RadPageView ID="RadPageView2" runat="server">
-        <asp:Panel ID="pnlCalenderSummaryView" runat="server" Width="100%">       
+        <asp:Panel ID="pnlCalenderSummaryView" runat="server" Width="100%">
+        <table id="tblNote" runat="server">
+<tr>
+<td>
+<asp:Label ID="lblNote" runat="server" Text="Note: The view displays the expected monthly order flow for the individual schemes displayed on the systematic set up tab." Font-Size="Small" CssClass="cmbField"></asp:Label>
+</td>
+</tr>
+</table>       
          <telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="false" AllowPaging="True" 
         ShowStatusBar="True" ShowFooter="true"

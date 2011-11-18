@@ -456,6 +456,7 @@ namespace WealthERP.Advisor
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
+                tblNote.Visible = false;
             }
         }
 
