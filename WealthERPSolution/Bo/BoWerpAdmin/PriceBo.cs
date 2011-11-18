@@ -164,5 +164,20 @@ namespace BoWerpAdmin
             return dsFactsheetschemeDetails;
 
         }
-     }
+
+        public DataSet GetSchemeListCategorySubCategory(int amcCode, string categoryCode, string subCategory)
+        {
+            DataSet dsSchemeListCategorySubCategory = new DataSet();
+            PriceDao PriceObj = new PriceDao();
+            try
+            {
+                dsSchemeListCategorySubCategory = PriceObj.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeListCategorySubCategory;
+        }
+    }
 }
