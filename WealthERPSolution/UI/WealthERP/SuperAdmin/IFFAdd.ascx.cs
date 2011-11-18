@@ -69,7 +69,7 @@ namespace WealthERP.SuperAdmin
                         hidStatus.Value = "1";
                         btnAddLOB.Visible = true;
                         //btnSendLoginId.Visible = true;
-                        //btnSubscription.Visible = true;
+                        btnSubscription.Visible = true;
                         lblIFFAdd.Text = "Edit IFF";
                         btnSubmit.Text = "Update";
                         Deactivation.Visible = false;
@@ -207,7 +207,7 @@ namespace WealthERP.SuperAdmin
                     {
                         btnAddLOB.Visible = true;
                         //btnSendLoginId.Visible = true;
-                        //btnSubscription.Visible = true;
+                        btnSubscription.Visible = true;
                         btnSubmit.Text = "Update";
                         IsAddUpdate = true;
                         ddlStatus.Items[1].Enabled = true;
@@ -218,7 +218,7 @@ namespace WealthERP.SuperAdmin
                     {
                         btnAddLOB.Visible = false;
                         //btnSendLoginId.Visible = false;
-                        //btnSubscription.Visible = false;
+                        btnSubscription.Visible = false;
                         ddlStatus.Items[1].Enabled = false;
                         if (!IsPostBack)
                         {
@@ -340,7 +340,7 @@ namespace WealthERP.SuperAdmin
                             Session["iffUserVo"] = userVo;
                             btnAddLOB.Visible = true;
                             //btnSendLoginId.Visible = true;
-                            //btnSubscription.Visible = true;
+                            btnSubscription.Visible = true;
                             lblMsg.Visible = true;
                             btnSubmit.Text = "Update";
                             advisorVo = (AdvisorVo)Session["advisorVo"]; DataRepopulating();

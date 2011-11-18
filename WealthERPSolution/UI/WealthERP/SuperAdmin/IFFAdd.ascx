@@ -477,7 +477,7 @@
        <%-- Add/Edit Subscription Option not included in this release so hiding this button for this release --%>
        
        <td>
-            <asp:Button ID="btnSubscription" runat="server" Text="Add/Edit Subscription" Visible="false" CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
+            <asp:Button ID="btnSubscription" runat="server" Text="Subscription"  CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
                 />
         </td>
     </tr>
