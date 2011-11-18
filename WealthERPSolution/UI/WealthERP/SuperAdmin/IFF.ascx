@@ -62,8 +62,20 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:BoundField DataField="IFFName" HeaderText="IFF" SortExpression="IFFName" ItemStyle-HorizontalAlign="Left"
-                            ItemStyle-Wrap="false" />
+                        <%--<asp:BoundField DataField="IFFName" HeaderText="IFF" SortExpression="IFFName" ItemStyle-HorizontalAlign="Left"
+                            ItemStyle-Wrap="false" />--%>
+                       <asp:TemplateField ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Left">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblIFFName" runat="server" Text="IFF"></asp:Label>
+                                 <br />
+                                <asp:TextBox ID="txtIFFSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_IFF_btnIFFSearch');" /> 
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblFFName1" runat="server" Text='<%# Eval("IFFName").ToString() %>'>
+                                </asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>                      
+                            
                         <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
                         <asp:TemplateField ItemStyle-Wrap="false" ItemStyle-HorizontalAlign="Center">
                             <HeaderTemplate>
@@ -121,3 +133,6 @@
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
 <asp:HiddenField ID="hdnCategory" runat="server" />
+<asp:HiddenField ID="hidIFA" runat="server" />
+<asp:Button ID="btnIFFSearch" runat="server" Text=""
+    BorderStyle="None" BackColor="Transparent" onclick="btnIFFSearch_Click" />

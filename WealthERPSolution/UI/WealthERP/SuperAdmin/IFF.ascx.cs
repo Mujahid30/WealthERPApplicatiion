@@ -252,7 +252,7 @@ namespace WealthERP.SuperAdmin
             try
             {
 
-                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression);
+                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression,Convert.ToString(hidIFA.Value.Trim()));
                 Session["IFFAdvisorVoList"] = advisorvolist;
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (advisorvolist.Count != 0)
@@ -440,6 +440,18 @@ namespace WealthERP.SuperAdmin
 
                     gvAdvisorList.DataSource = dtAdvisor;
                     gvAdvisorList.DataBind();
+
+
+                    TextBox txtIFA = GetIFATextBox();
+                    if (txtIFA != null)
+                    {
+                        if (hidIFA.Value != "")
+                        {
+                            txtIFA.Text = hidIFA.Value.ToString();
+                        }
+                    }
+
+
                     this.GetPageCount();
                 }
                 else
@@ -1036,6 +1048,34 @@ namespace WealthERP.SuperAdmin
                 throw exBase;
             }
         }
+
+        protected void btnIFFSearch_Click(object sender, EventArgs e)
+        {
+            TextBox txIFA = GetIFATextBox();
+            hdnCurrentPage.Value = "1";
+            if (txIFA != null)
+            {
+                hidIFA.Value = txIFA.Text.Trim();
+                BindGrid();
+            }
+        }
+
+        private TextBox GetIFATextBox()
+        {
+            TextBox txt = new TextBox();
+            if (gvAdvisorList.HeaderRow != null)
+            {
+                if ((TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch") != null)
+                {
+                    txt = (TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch");
+                }
+            }
+            else
+                txt = null;
+
+            return txt;
+        }
+
 
     }
 }
