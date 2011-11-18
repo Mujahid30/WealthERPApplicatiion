@@ -237,7 +237,10 @@ namespace WealthERP.SuperAdmin
                     }
                 }
             }
-
+            if (lblIFFAdd.Text == "Edit IFF")
+            {
+                chkMailSend.Visible = false;
+            }
 
         }
 
