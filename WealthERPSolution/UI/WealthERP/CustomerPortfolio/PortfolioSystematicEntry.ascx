@@ -456,6 +456,10 @@
                 ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a numeric Value"
                 Operator="DataTypeCheck" Type="Integer" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
             </asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator1" runat="server"
+                ControlToValidate="txtPeriod" ErrorMessage="<br />Please update the  value"
+                Operator="GreaterThan"  Type="Integer" ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+            </asp:CompareValidator>
         </td>
         <td>
 

@@ -43,6 +43,7 @@ namespace WealthERP.CustomerPortfolio
         string path;
         string AssetGroupCode = "MF";
         string Manage = string.Empty;
+        string PageRecon = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,12 +55,11 @@ namespace WealthERP.CustomerPortfolio
             if (Request.QueryString["action"] != null)
                 Manage = Request.QueryString["action"].ToString();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-
-            
+            customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             if (!IsPostBack)
             {
                 userVo = (UserVo)Session[SessionContents.UserVo];
-                customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
+                
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
                 {
@@ -467,8 +467,17 @@ namespace WealthERP.CustomerPortfolio
                     SipChequeDate_TextBoxWatermarkExtender.Enabled = true;
                     //tsPeriod=systematicSetupVo.EndDate.Subtract(systematicSetupVo.StartDate);
                     txtPeriod.Text = systematicSetupVo.Period.ToString();
-                    txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
-                    txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+
+                    if (systematicSetupVo.SipChequeNo != 0)
+                        txtSipChecqueNo.Text = systematicSetupVo.SipChequeNo.ToString();
+                    else
+                        txtSipChecqueNo.Text = "";
+                    
+                    if (systematicSetupVo.SipChequeDate != DateTime.MinValue)
+                        txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
+                    else
+                        txtSipChequeDate.Text = "dd/mm/yyyy";
+                    //txtSipChequeDate.Text = systematicSetupVo.SipChequeDate.ToShortDateString();
                     if (systematicSetupVo.PeriodSelection!=null)
                         ddlPeriodSelection.SelectedValue = systematicSetupVo.PeriodSelection.ToString();
                     else
@@ -1259,15 +1268,16 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnAddFolio_Click(object sender, EventArgs e)
         {
+            string portfolio = string.Empty;
             if(ddlSystematicType.SelectedIndex!=0 && !string.IsNullOrEmpty(txtSearchScheme.Text.Trim()))
-               SaveCurrentPageState();
-            if (Session["SourcePage"] == null)
-            {
-                portfolioId = int.Parse(ddlportfolio.SelectedItem.Value.ToString());
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
-                //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
-            }
+                 SaveCurrentPageState();
+            portfolio = ddlportfolio.SelectedItem.Text;
+            portfolioId = systematicSetupBo.GetPortFolioId(portfolio, customerVo.CustomerId);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
+            //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
+
+
 
             
         }
