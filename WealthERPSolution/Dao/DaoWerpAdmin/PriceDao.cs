@@ -330,6 +330,28 @@ namespace DaoWerpAdmin
             return dsFactsheetschemeDetails;
 
         }
+        public DataSet GetSchemeListCategorySubCategory(int amcCode, string categoryCode, string subCategory)
+        {
+            
+            DataSet dsSchemeListCategorySubCategory = new DataSet();
+            Database dbFactsheetschemeDetails;
+            DbCommand CmdSchemeListCategorySubCategory;
+            try
+            {
+                dbFactsheetschemeDetails = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdSchemeListCategorySubCategory = dbFactsheetschemeDetails.GetStoredProcCommand("SP_GetSchemeNameOnCategorySubCategory");
+                dbFactsheetschemeDetails.AddInParameter(CmdSchemeListCategorySubCategory, "@AmcCode", DbType.Int32, amcCode);
+                dbFactsheetschemeDetails.AddInParameter(CmdSchemeListCategorySubCategory, "@CategoryCode", DbType.String, categoryCode);
+                dbFactsheetschemeDetails.AddInParameter(CmdSchemeListCategorySubCategory, "@SubCategory", DbType.String, subCategory);
+                CmdSchemeListCategorySubCategory.CommandTimeout = 60 * 60;
+                dsSchemeListCategorySubCategory = dbFactsheetschemeDetails.ExecuteDataSet(CmdSchemeListCategorySubCategory);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeListCategorySubCategory;
+        }
     }
 }
 
