@@ -368,7 +368,7 @@ namespace WealthERP.Advisor
         protected void gvRMUsers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             Random r = new Random();
-            
+            encryption = new OneWayEncryption();
             bool isSuccess = false;
 
             if (e.CommandName == "resetPassword")
@@ -381,7 +381,7 @@ namespace WealthERP.Advisor
                     string saltValue = string.Empty;
                     string password = r.Next(20000, 100000).ToString();
 
-                    userVo = userBo.GetUserDetails(userId);
+                    //userVo = userBo.GetUserDetails(userId);
                     string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
                     encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
                     userVo.Password = hassedPassword;
