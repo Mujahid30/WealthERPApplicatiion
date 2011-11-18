@@ -28,6 +28,9 @@ namespace WealthERP.Admin
         DataSet dsCategoryList = new DataSet();
         DataTable dtGetMFfund = new DataTable();
         string assetType = "";
+        string categoryCode;
+        int amcCode = 0;
+        string subCategory="All";
         //List<GoalProfileSetupVo> MutualFundList = new List<PriceVo>();
         protected override void OnInit(EventArgs e)
         {
@@ -62,6 +65,7 @@ namespace WealthERP.Admin
                 lblheader.Text = "MF Data Query";
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
+                trNavCategory.Visible = true;
                 BindMFFundPerformance();
                 tblFactSheet.Visible = false;
                 BindYear();
@@ -78,8 +82,10 @@ namespace WealthERP.Admin
                     trSelectMutualFund.Visible = false;
                     BindMutualFundDropDowns();
                     BindSelectAMCDropdown();
+                    BindNavSubCategory();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
+                    trNavCategory.Visible = false;
                 }
             }
             else if (hdnassetType.Value == "Equity")
@@ -97,6 +103,7 @@ namespace WealthERP.Admin
                 rbtnHistorical.Visible = true;
                 trSelectMutualFund.Visible = false;
                 trSelectSchemeNAV.Visible = false;
+                trNavCategory.Visible = false;
                 trToDate.Visible = false;
                 trFromDate.Visible = false;
                 RadTabStrip1.Tabs[0].Text = "Price";
@@ -104,6 +111,8 @@ namespace WealthERP.Admin
 
             BindSelectAMCDropdown();
         }
+
+
 
         private void BindMonth()
         {
@@ -250,16 +259,46 @@ namespace WealthERP.Admin
         }
         public void LoadAllSchemeNAV()
         {
-            if (ddlSelectMutualFund.SelectedIndex != 0)
+            if (ddlSelectMutualFund.SelectedIndex != 0 )
             {
                 PriceBo priceBo = new PriceBo();
+                DataSet dsLoadAllSchemeNAV;
                 DataTable dtLoadAllSchemeNAV = new DataTable();
-                dtLoadAllSchemeNAV = priceBo.GetAllScehmeList(int.Parse(ddlSelectMutualFund.SelectedValue));
-                ddlSelectSchemeNAV.DataSource = dtLoadAllSchemeNAV;
-                ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
-                ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
-                ddlSelectSchemeNAV.DataBind();
-                ddlSelectSchemeNAV.Items.Insert(0, new ListItem("All Scheme", "0"));
+                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex == 0)
+                {
+                    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                    categoryCode = ddlNAVCategory.SelectedValue;
+                    subCategory = "All";
+                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+
+                    //dtLoadAllSchemeNAV = priceBo.GetAllScehmeList(int.Parse(ddlAmcCode.SelectedValue));
+                }
+                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0 && ddlNAVSubCategory.SelectedIndex == 0)
+                {
+                    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                    categoryCode = ddlNAVCategory.SelectedValue;
+                    subCategory = ddlNAVSubCategory.SelectedValue;
+                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+                }
+                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0 && ddlNAVSubCategory.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                    categoryCode = ddlNAVCategory.SelectedValue;
+                    subCategory = ddlNAVSubCategory.SelectedValue;
+                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+                }
+                if (dtLoadAllSchemeNAV.Rows.Count > 0)
+                {
+                    ddlSelectSchemeNAV.DataSource = dtLoadAllSchemeNAV;
+                    ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
+                    ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
+                    ddlSelectSchemeNAV.DataBind();
+                    ddlSelectSchemeNAV.Items.Insert(0, new ListItem("All Scheme", "0"));
+                }
+                ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
             }
             else
             {
@@ -803,9 +842,9 @@ namespace WealthERP.Admin
             {
                 tblFundStructure.Visible = false;
                 tblFactFundStructure.Visible = true;
-                lblgetPERatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PE"].ToString();
-                lblgetPBRatio.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PB"].ToString();
-                lblgetAvgMkt.Text = dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_MarketCap"].ToString();
+                lblgetPERatio.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PE"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetPBRatio.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_PB"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetAvgMkt.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[2].Rows[0]["PASPEBR_MarketCap"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
             }
             else
             {
@@ -819,10 +858,10 @@ namespace WealthERP.Admin
             {
                 tblFinancialDetails.Visible = false;
                 tblFactFinancialDetails.Visible = true;
-                lblgetNAV.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PSP_NetAssetValue"].ToString();
-                lblgetNAV52high.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekHigh"].ToString();
-                lblgetNAV52Low.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekLow"].ToString();
-                lblgetMinInvestment.Text = dsFactsheetschemeDetails.Tables[4].Rows[0]["PASP_MinInvestment"].ToString();
+                lblgetNAV.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[4].Rows[0]["PSP_NetAssetValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetNAV52high.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekHigh"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetNAV52Low.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[4].Rows[0]["PASPHL_52WeekLow"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetMinInvestment.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[4].Rows[0]["PASP_MinInvestment"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
             }
             else
             {
@@ -837,10 +876,10 @@ namespace WealthERP.Admin
             {
                 tblVolatality.Visible = false;
                 tblFactVolatality.Visible = true;
-                lblgetFama.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Fama"].ToString();
-                lblgetstdDev.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Std_Dev"].ToString();
-                lblgetBeta.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
-                lblgetSharpe.Text = dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString();
+                lblgetFama.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[5].Rows[0]["Fama"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetstdDev.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[5].Rows[0]["Std_Dev"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetBeta.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[5].Rows[0]["Beta"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblgetSharpe.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[5].Rows[0]["Sharpe"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
             }
             else
             {
@@ -851,8 +890,26 @@ namespace WealthERP.Admin
                 //lblgetBeta.Text = "";
                 //lblgetSharpe.Text = "";
             }
+            if (dsFactsheetschemeDetails.Tables[8].Rows.Count > 0)
+            {
+                tblFactSchemePerformance.Visible = true;
+                tblmsgSchemePerformance.Visible = false;
+                lblGet3Month.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_3MonthReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet6Month.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_6MonthReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet1year.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPABR_1YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet3Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_3YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGet5Years.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_5YearReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                lblGetSinceInception.Text = String.Format("{0:n2}", decimal.Parse(dsFactsheetschemeDetails.Tables[8].Rows[0]["PASPAR_InceptionReturn"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+            }
+            else
+            {
+                tblFactSchemePerformance.Visible = false;
+                tblmsgSchemePerformance.Visible = true;
+            }
             BindSectorWiseGrid(dsFactsheetschemeDetails);
+            BindTop10Company(dsFactsheetschemeDetails);
         }
+
 
         private string GetMonthName(int month)
         {
@@ -905,6 +962,22 @@ namespace WealthERP.Admin
                 trSector.Visible = true;
             }
         }
+        private void BindTop10Company(DataSet dsFactsheetschemeDetails)
+        {
+            DataTable dtTop10Company = dsFactsheetschemeDetails.Tables[7];
+            if (dtTop10Company.Rows.Count > 0)
+            {
+                gvTop10Companies.DataSource = dtTop10Company;
+                gvTop10Companies.DataBind();
+                gvTop10Companies.Visible = true;
+                trTop10Company.Visible = false;
+            }
+            else
+            {
+                gvTop10Companies.Visible = false;
+                trTop10Company.Visible = true;
+            }
+        }
 
         protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -915,27 +988,83 @@ namespace WealthERP.Admin
             else
                 ddlSchemeList.SelectedItem.Text = "";
         }
-
+        protected void ddlNAVCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindNavSubCategory();
+            LoadAllSchemeNAV();
+        }
         private void LoadAllSchemeList()
         {
+            PriceBo priceBo = new PriceBo();
+            DataTable dtLoadAllScheme = new DataTable();
             if (ddlAmcCode.SelectedIndex != 0)
             {
-                PriceBo priceBo = new PriceBo();
-                DataTable dtLoadAllSchemeNAV = new DataTable();
-                dtLoadAllSchemeNAV = priceBo.GetAllScehmeList(int.Parse(ddlAmcCode.SelectedValue));
-                ddlSchemeList.DataSource = dtLoadAllSchemeNAV;
-                ddlSchemeList.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
-                ddlSchemeList.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
-                ddlSchemeList.DataBind();
-                //ddlAmcCode.Items.Insert(0, new ListItem("All Scheme", "0"));
+                dtLoadAllScheme = priceBo.GetAllScehmeList(int.Parse(ddlAmcCode.SelectedValue));
             }
-            else
+            if (dtLoadAllScheme.Rows.Count > 0)
             {
+                ddlSchemeList.DataSource = dtLoadAllScheme;
+                ddlSchemeList.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
+                ddlSchemeList.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
+                ddlSchemeList.DataBind();
             }
+            ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
         }
         protected void ddYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindMonth();
+        }
+        private void BindNavSubCategory()
+        {
+            string categoryCode = ddlNAVCategory.SelectedValue;
+            dsCategoryList = priceBo.BindddlMFSubCategory();
+            if (categoryCode == "All")
+            {
+                trNavSubCategory.Visible = false;
+                hdnSubCategory.Value = "";
+
+            }
+            if (categoryCode == "MFCO")
+            {
+                trNavSubCategory.Visible = true;
+                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[0];
+                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlNAVSubCategory.DataBind();
+                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+            }
+            if (categoryCode == "MFDT")
+            {
+                trNavSubCategory.Visible = true;
+                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[1];
+                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlNAVSubCategory.DataBind();
+                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+            }
+            if (categoryCode == "MFEQ")
+            {
+                trNavSubCategory.Visible = true;
+                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[2];
+                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlNAVSubCategory.DataBind();
+                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+            }
+            if (categoryCode == "MFHY")
+            {
+                trNavSubCategory.Visible = true;
+                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[3];
+                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                ddlNAVSubCategory.DataBind();
+                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+            }
+            LoadAllSchemeNAV();
+        }
+        protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadAllSchemeNAV();
         }
         //private void BindMFFundPerformance(DataTable dt)
         //{
