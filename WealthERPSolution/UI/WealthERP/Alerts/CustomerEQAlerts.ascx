@@ -1,5 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerEQAlerts.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerEQAlerts" %>
+    
+    <script type="text/javascript">
+        function CheckOccuranceTextBoxEmpty() {
+            var occuranceTextbox = document.getElementById('<%= txtOccurrencePreset.ClientID %>').value;
+
+            if (occuranceTextbox == '') {
+                alert('Field can not be blank');
+                return false;
+            }
+        }
+    
+    </script>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
@@ -106,6 +118,8 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtOccurrencePreset" CssClass="txtField" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator ValidationGroup="Validate" Display="Dynamic" ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ControlToValidate="txtOccurrencePreset" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" ValidationGroup="Validate" ControlToValidate="txtOccurrencePreset" runat="server" CssClass="FieldName" ErrorMessage="Field can not be blank"></asp:RequiredFieldValidator>
                     <asp:Label ID="lblPercent" CssClass="Field" Text="%" runat="server"></asp:Label>
                 </td>
             </tr>
@@ -117,7 +131,7 @@
                     <asp:Button ID="btnSubmitOccurrence" runat="server" Text="Submit" CssClass="PCGButton"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        OnClick="btnSubmitOccurrence_Click" />
+                        OnClick="btnSubmitOccurrence_Click" ValidationGroup="Validate"  />
                 </td>
                 <td class="rightField">
                     &nbsp;

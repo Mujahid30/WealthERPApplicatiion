@@ -1,6 +1,27 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerMFAlert.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerMFAlert" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+
+<script type="text/javascript">
+    function CheckReminderTextBoxEmpty() {
+        var reminderTextbox = document.getElementById('<%= txtReminderDays.ClientID %>').value;
+
+        if (reminderTextbox == '') {
+            alert('Field can not be blank');
+            return false;
+        }        
+    }
+
+    function CheckOccuranceTextBoxEmpty() {
+        var occuranceTextbox = document.getElementById('<%= txtOccurrencePreset.ClientID %>').value;
+
+        if (occuranceTextbox == '') {
+            alert('Field can not be blank');
+            return false;
+        }
+    }
+
+</script>
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -154,10 +175,11 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtReminderDays" CssClass="txtField" runat="server"></asp:TextBox>
-                    <asp:Label ID="lblDaysBefore" CssClass="Field" Text=" days before" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
+                    <asp:RegularExpressionValidator ValidationGroup="Validate" Display="Dynamic" ID="RegularExpressionValidator5" runat="server" CssClass="FieldName" ControlToValidate="txtReminderDays" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="FieldName" Display="Dynamic" ValidationGroup="Validate" ControlToValidate="txtReminderDays" runat="server" ErrorMessage="Field can not be blank"></asp:RequiredFieldValidator>                
+                    
+                   
+                    <asp:Label ID="lblDaysBefore" CssClass="Field" Text=" days before" runat="server"></asp:Label></td></tr><tr>
                 <td class="leftField" width="15%">
                     &nbsp;
                 </td>
@@ -165,7 +187,7 @@
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAlert_btnSubmitReminder', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAlert_btnSubmitReminder', 'S');"
-                        OnClick="btnSubmitReminder_Click" />
+                        OnClick="btnSubmitReminder_Click" ValidationGroup="Validate" />
                 </td>
             </tr>
         </table>
@@ -173,21 +195,15 @@
             <tr>
                 <td colspan="3">
                     <asp:Label ID="lblOccurrenceEdit" CssClass="HeaderTextSmall" Text="Occurrence Alert Setup"
-                        runat="server"></asp:Label>
-                    <hr />
+                        runat="server"></asp:Label><hr />
                 </td>
             </tr>
             <tr>
                 <td class="leftField">
-                    <asp:Label ID="lblCondition" CssClass="FieldName" Text="Preset Condition" runat="server"></asp:Label>
+                    <asp:Label ID="lblCondition" CssClass="FieldName" Text="Preset Condition" runat="server"></asp:Label></td><td>
                 </td>
                 <td>
-                </td>
-                <td>
-                    <asp:Label ID="lblPreset" CssClass="FieldName" Text="Preset" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
+                    <asp:Label ID="lblPreset" CssClass="FieldName" Text="Preset" runat="server"></asp:Label></td></tr><tr>
                 <td class="leftField" width="15%">
                     &nbsp;
                 </td>
@@ -203,14 +219,11 @@
                     </asp:DropDownList>
                 </td>
                 <td align="center">
-                    <asp:Label ID="lblBy" CssClass="Field" Text="By" runat="server"></asp:Label>
-                </td>
-                <td class="rightField">
+                    <asp:Label ID="lblBy" CssClass="Field" Text="By" runat="server"></asp:Label></td><td class="rightField">
                     <asp:TextBox ID="txtOccurrencePreset" CssClass="txtField" runat="server"></asp:TextBox>
-                    <asp:Label ID="lblPercent" CssClass="Field" Text="%" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
+                    <asp:RegularExpressionValidator ValidationGroup="Validate" Display="Dynamic" ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ControlToValidate="txtOccurrencePreset" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" CssClass="FieldName" ValidationGroup="Validate" ControlToValidate="txtOccurrencePreset" runat="server" ErrorMessage="Field can not be blank"></asp:RequiredFieldValidator>    
+                    <asp:Label ID="lblPercent" CssClass="Field" Text="%" runat="server"></asp:Label></td></tr><tr>
                 <td class="leftField" width="15%">
                     &nbsp;
                 </td>
@@ -218,7 +231,7 @@
                     <asp:Button ID="btnSubmitOccurrence" runat="server" Text="Submit" CssClass="PCGButton"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAlert_btnSubmitOccurrence', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAlert_btnSubmitOccurrence', 'S');"
-                        OnClick="btnSubmitOccurrence_Click" />
+                        OnClick="btnSubmitOccurrence_Click" ValidationGroup="Validate"  />
                 </td>
                 <td class="rightField">
                     &nbsp;

@@ -1,6 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFIAlerts.ascx.cs"
     Inherits="WealthERP.Alerts.CustomerFIAlerts" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<script type="text/javascript">
+    function CheckReminderTextBoxEmpty() {
+        var reminderTextbox = document.getElementById('<%= txtReminderDays.ClientID %>').value;
+
+        if (reminderTextbox == '') {
+            alert('Field can not be blank');
+            return false;
+        }
+    }
+</script>
+
 <div>
     <table style="width: 100%;" cssclass="TableBackground">
         <tr>
@@ -88,6 +99,8 @@
                 </td>
                 <td class="rightField">
                     <asp:TextBox ID="txtReminderDays" CssClass="txtField" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator ValidationGroup="Validate" ID="RegularExpressionValidator5" runat="server" CssClass="FieldName" ControlToValidate="txtReminderDays" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="FieldName" ValidationGroup="Validate" ControlToValidate="txtReminderDays" runat="server" ErrorMessage="Field can not be blank"></asp:RequiredFieldValidator>    
                     <asp:Label ID="lblDaysBefore" CssClass="Field" Text=" days before" runat="server"></asp:Label>
                 </td>
             </tr>
@@ -99,7 +112,7 @@
                     <asp:Button ID="btnSubmitReminder" runat="server" Text="Submit" CssClass="PCGButton"
                         onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_AlertDashboard_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AlertDashboard_btnSubmit', 'S');"
-                        OnClick="btnSubmitReminder_Click" />
+                        OnClick="btnSubmitReminder_Click" ValidationGroup="Validate" />
                 </td>
             </tr>
         </table>
