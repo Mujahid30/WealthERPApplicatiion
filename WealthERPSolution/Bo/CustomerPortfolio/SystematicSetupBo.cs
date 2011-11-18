@@ -319,5 +319,20 @@ namespace BoCustomerPortfolio
             }
             return accountId;
         }
+
+        public int GetPortFolioId(string portfolio, int customerId)
+        {
+            int portfolioId = 0;
+            try
+            {
+                portfolioId = systematicSetupDao.GetPortFolioId(portfolio, customerId);
+            }
+            catch(BaseApplicationException Ex)
+            {
+                throw(Ex);
+            }
+            return portfolioId;
+
+        }
     }
 }

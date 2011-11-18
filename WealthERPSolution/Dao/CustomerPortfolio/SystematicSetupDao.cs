@@ -653,5 +653,27 @@ namespace DaoCustomerPortfolio
             return accountId;
         }
 
+        public int GetPortFolioId(string portfolio, int customerId)
+        {
+            int portfolioId = 0;
+            Database db;
+            DbCommand cmdGetPortFolioId;
+            DataSet dsGetPortFolioId;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetPortFolioId = db.GetStoredProcCommand("SP_GetPortFolioId");
+                db.AddInParameter(cmdGetPortFolioId, "@portfolioname", DbType.String, portfolio);
+                db.AddInParameter(cmdGetPortFolioId, "@customerId", DbType.Int32, customerId);
+                dsGetPortFolioId = db.ExecuteDataSet(cmdGetPortFolioId);
+                portfolioId = int.Parse(dsGetPortFolioId.Tables[0].Rows[0]["CP_PortfolioId"].ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return portfolioId;
+        }
+
     }
 }
