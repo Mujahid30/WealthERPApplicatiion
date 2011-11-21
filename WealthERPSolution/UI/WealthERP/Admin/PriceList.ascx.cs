@@ -30,7 +30,7 @@ namespace WealthERP.Admin
         string assetType = "";
         string categoryCode;
         int amcCode = 0;
-        string subCategory="All";
+        string subCategory = "All";
         //List<GoalProfileSetupVo> MutualFundList = new List<PriceVo>();
         protected override void OnInit(EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace WealthERP.Admin
             ddMonth.DataValueField = ds.Tables[0].Columns["WTD_Month"].ToString();
             ddMonth.DataBind();
             ddMonth.SelectedValue = DateTime.Now.Month.ToString();
-          
+
         }
 
         private void BindYear()
@@ -259,7 +259,7 @@ namespace WealthERP.Admin
         }
         public void LoadAllSchemeNAV()
         {
-            if (ddlSelectMutualFund.SelectedIndex != 0 )
+            if (ddlSelectMutualFund.SelectedIndex != 0)
             {
                 PriceBo priceBo = new PriceBo();
                 DataSet dsLoadAllSchemeNAV;
@@ -296,8 +296,16 @@ namespace WealthERP.Admin
                     ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
                     ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
                     ddlSelectSchemeNAV.DataBind();
+                    ddlSelectSchemeNAV.Items.Insert(0, new ListItem("All Scheme", "0"));
                 }
-                ddlSelectSchemeNAV.Items.Insert(0, new ListItem("Select", "Select"));
+                else
+                {
+                    ddlSelectSchemeNAV.Items.Clear();
+                    ddlSelectSchemeNAV.DataSource = null;
+                    ddlSelectSchemeNAV.DataBind();
+                    ddlSelectSchemeNAV.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                // ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
             }
             else
             {
@@ -1059,7 +1067,7 @@ namespace WealthERP.Admin
                 ddlNAVSubCategory.DataBind();
                 ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
-
+            LoadAllSchemeNAV();
         }
         protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
