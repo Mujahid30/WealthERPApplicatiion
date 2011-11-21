@@ -296,9 +296,8 @@ namespace WealthERP.Admin
                     ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
                     ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
                     ddlSelectSchemeNAV.DataBind();
-                    ddlSelectSchemeNAV.Items.Insert(0, new ListItem("All Scheme", "0"));
                 }
-                ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlSelectSchemeNAV.Items.Insert(0, new ListItem("Select", "Select"));
             }
             else
             {
@@ -1060,7 +1059,7 @@ namespace WealthERP.Admin
                 ddlNAVSubCategory.DataBind();
                 ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
-            LoadAllSchemeNAV();
+
         }
         protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
