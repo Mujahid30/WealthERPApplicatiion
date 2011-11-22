@@ -491,6 +491,29 @@
                         </Items>
                         <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
+                    <telerik:RadPanelBar ID="RadPanelBar5" runat="server" EnableEmbeddedSkins="false"
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
+                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" 
+                        onitemclick="RadPanelBar5_ItemClick">
+                        <Items>
+                            <telerik:RadPanelItem runat="server" Text="Research" Value="Research">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Reference data" Value="Reference_Data">
+                                        <Items>                                          
+                                         
+                                             <telerik:RadPanelItem runat="server" Text="Model Portflio Setup" Value="Model_Portflio_Setup">                                                
+                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Attatch Scheme to model portfolio" Value="Attatch_Scheme_To_ModelPortfolio">
+                                             </telerik:RadPanelItem>
+                                         
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                  
+                                </Items>
+                            </telerik:RadPanelItem>
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
+                    </telerik:RadPanelBar>
                 </td>
             </tr>
             <tr>

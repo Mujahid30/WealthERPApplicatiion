@@ -1483,6 +1483,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Research//ModelPortfolioSetup.ascx.
+        /// </summary>
+        internal static string ModelPortfolioSetup {
+            get {
+                return ResourceManager.GetString("ModelPortfolioSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//MoneyBackEpisodeAdd.aspx.
         /// </summary>
         internal static string MoneyBackEpisodeAdd {
@@ -2091,6 +2100,15 @@ namespace WealthERP {
         internal static string RMUserDetails {
             get {
                 return ResourceManager.GetString("RMUserDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Research//SchemeMappingToModelPortfolio.ascx.
+        /// </summary>
+        internal static string SchemeMappingToModelPortfolio {
+            get {
+                return ResourceManager.GetString("SchemeMappingToModelPortfolio", resourceCulture);
             }
         }
         

@@ -1217,4 +1217,12 @@
     <value>FP//CustomerFPGoalDashBoard.ascx</value>
     <comment>FP//CustomerFPGoalDashBoard.ascx</comment>
   </data>
+  <data name="ModelPortfolioSetup" xml:space="preserve">
+    <value>Research//ModelPortfolioSetup.ascx</value>
+    <comment>Research//ModelPortfolioSetup.ascx</comment>
+  </data>
+  <data name="SchemeMappingToModelPortfolio" xml:space="preserve">
+    <value>Research//SchemeMappingToModelPortfolio.ascx</value>
+    <comment>Research//SchemeMappingToModelPortfolio.ascx</comment>
+  </data>
 </root>
