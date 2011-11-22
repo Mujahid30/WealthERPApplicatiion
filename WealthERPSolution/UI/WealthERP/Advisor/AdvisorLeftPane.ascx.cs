@@ -1207,46 +1207,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-        protected void RadPanelBar5_ItemClick(object sender, RadPanelBarEventArgs e)
-        {
-            RadPanelItem ItemClicked = e.Item;
-            RadPanelBar1.CollapseAllItems();
-            RadPanelBar2.CollapseAllItems();
-            RadPanelBar3.CollapseAllItems();
-            RadPanelBar4.CollapseAllItems();
-            Session[SessionContents.CurrentUserRole] = "Research";
-            hdfSession.Value = "Research";
-            try
-            {
-                if (e.Item.Value == "Model_Portflio_Setup")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ModelPortfolioSetup','login');", true);
-                }
-                else if (e.Item.Value == "Attatch_Scheme_To_ModelPortfolio")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeMappingToModelPortfolio','login');", true);
-                }
-                
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
-
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-
+       
         private DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType)
         {
             AdvisorBo advisorBo = new AdvisorBo();
@@ -1820,6 +1781,46 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
+            }
+        }
+
+        protected void RadPanelBar5_ItemClick(object sender, RadPanelBarEventArgs e)
+        {
+            RadPanelItem ItemClicked = e.Item;
+            RadPanelBar1.CollapseAllItems();
+            RadPanelBar2.CollapseAllItems();
+            RadPanelBar3.CollapseAllItems();
+            RadPanelBar4.CollapseAllItems();
+            Session[SessionContents.CurrentUserRole] = "Research";
+            hdfSession.Value = "Research";
+            try
+            {
+                if (e.Item.Value == "Model_Portflio_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ModelPortfolioSetup','login');", true);
+                }
+                else if (e.Item.Value == "Attatch_Scheme_To_ModelPortfolio")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeMappingToModelPortfolio','login');", true);
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:TreeView1_SelectedNodeChanged()");
+
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
     }
