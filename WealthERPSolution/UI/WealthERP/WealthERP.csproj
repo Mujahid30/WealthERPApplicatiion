@@ -2872,6 +2872,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BoResearch\BoResearch.csproj">
+      <Project>{A9708127-A676-48FD-9FD3-610B12740A41}</Project>
+      <Name>BoResearch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Bo\AdvisorProfiling\BoAdvisorProfiling.csproj">
       <Project>{57F14CB4-03CF-4E2D-B015-CBF45984F8A6}</Project>
       <Name>BoAdvisorProfiling</Name>
