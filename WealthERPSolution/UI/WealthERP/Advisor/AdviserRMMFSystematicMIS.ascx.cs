@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
         double totalAmount = 0;
         int rmId = 0;
         int bmID = 0;
+        double monthlyTotalSipAmount = 0;
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
@@ -1082,30 +1083,30 @@ namespace WealthERP.Advisor
 
         protected void reptCalenderSummaryView_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            
-            //if (e.Item is GridFooterItem)
-            //{
-            //    e.Item.Cells[2].Text = "Total :";
 
-            //    e.Item.Cells[4].Text = double.Parse(totalSIPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            //    e.Item.Cells[4].Attributes.Add("align", "Right");
+            if (e.Item is GridFooterItem)
+            {
+                //e.Item.Cells[2].Text = "Total :";
 
-            //    e.Item.Cells[5].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
-            //    e.Item.Cells[5].Attributes.Add("align", "Right");
+                //e.Item.Cells[4].Text = double.Parse(monthlyTotalSipAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //e.Item.Cells[3].Attributes.Add("align", "Right");
 
-            //    e.Item.Cells[6].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
-            //    e.Item.Cells[6].Attributes.Add("align", "Right");
+                //e.Item.Cells[5].Text = int.Parse(totalNoOfSIP.ToString()).ToString();
+                //e.Item.Cells[5].Attributes.Add("align", "Right");
 
-            //    e.Item.Cells[7].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-            //    e.Item.Cells[7].Attributes.Add("align", "Right");
+                //e.Item.Cells[6].Text = int.Parse(totalNoOfFreshSIP.ToString()).ToString();
+                //e.Item.Cells[6].Attributes.Add("align", "Right");
 
-            //    e.Item.Cells[8].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
-            //    e.Item.Cells[8].Attributes.Add("align", "Right");
+                //e.Item.Cells[7].Text = double.Parse(totalSWPAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                //e.Item.Cells[7].Attributes.Add("align", "Right");
 
-            //    e.Item.Cells[9].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
-            //    e.Item.Cells[9].Attributes.Add("align", "Right");
+                //e.Item.Cells[8].Text = int.Parse(totalNoOfSWP.ToString()).ToString();
+                //e.Item.Cells[8].Attributes.Add("align", "Right");
 
-            //}
+                //e.Item.Cells[9].Text = int.Parse(totalNoOfFreshSWP.ToString()).ToString();
+                //e.Item.Cells[9].Attributes.Add("align", "Right");
+
+            }
         }
 
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
@@ -1273,7 +1274,7 @@ namespace WealthERP.Advisor
                 int endYear = endSipSwpDate.Year;
                 DataRow[] drYearWiseSIPDetails;
 
-                double monthlyTotalSipAmount = 0;
+                //double monthlyTotalSipAmount = 0;
                 double monthlyTotalSwpAmount = 0;
                 int newSipCount = 0;
                 int runningSipCount = 0;
@@ -1416,6 +1417,33 @@ namespace WealthERP.Advisor
                             }
 
                             //**************************QUATERLY***********************
+
+
+                            //**************************HALFYEARLY***********************
+
+
+                            if (dr["FrequencyCode"].ToString().Trim() == "HY")
+                            {
+                                while (tempStartSipSwp <= tempEndSipSwp)
+                                {
+                                    if (tempStartSipSwp.Year == startYear && tempStartSipSwp.Month == month)
+                                    {
+                                        if (dr["TypeCode"].ToString().Trim() == "SIP")
+                                        {
+                                            monthlyTotalSipAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSipCount++;
+                                        }
+                                        else if (dr["TypeCode"].ToString().Trim() == "SWP")
+                                        {
+                                            monthlyTotalSwpAmount += double.Parse(dr["Amount"].ToString());
+                                            runningSwpCount++;
+                                        }
+                                    }
+                                    tempStartSipSwp = tempStartSipSwp.AddMonths(6);
+                                }
+                            }
+
+                            //**************************HALFYEARLY***********************
 
                         }
 
