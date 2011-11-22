@@ -52,13 +52,17 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createSystematicSchemeSetupCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
 
                 if (systematicSetupVo.SipChequeDate!=DateTime.MinValue)
-                db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);               
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);    
+                else
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, DBNull.Value);    
                 if(systematicSetupVo.SipChequeNo!=0)
-                db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, systematicSetupVo.SipChequeNo);
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, systematicSetupVo.SipChequeNo);
+                else
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, DBNull.Value);
                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
                     db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
                 else
-                    systematicSetupVo.RegistrationDate = DateTime.MinValue;
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
 
                 db.ExecuteNonQuery(createSystematicSchemeSetupCmd);
                 bResult = true;
@@ -124,15 +128,15 @@ namespace DaoCustomerPortfolio
                 if (systematicSetupVo.SipChequeDate != DateTime.MinValue)
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, systematicSetupVo.SipChequeDate);
                 else
-                    systematicSetupVo.SipChequeDate = DateTime.MinValue;
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeDate", DbType.DateTime, DBNull.Value); 
                 if (systematicSetupVo.SipChequeNo != 0)
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, systematicSetupVo.SipChequeNo);
                 else
-                    systematicSetupVo.SipChequeNo = 0;
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SIPFirstChequeNo", DbType.Int64, DBNull.Value);
                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
                 else
-                    systematicSetupVo.RegistrationDate = DateTime.MinValue;
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
                 db.ExecuteNonQuery(updateSystematicSchemeSetupCmd);
                 bResult = true;
 
