@@ -790,12 +790,40 @@
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
+    <tr runat="server" id="trUlipPremiumAmount">
+    <td class="leftField" colspan="2">
+            <asp:Label ID="lblUlipPremiumInstAmt" runat="server" CssClass="FieldName" Text="Premium Installment Amount:"></asp:Label>
+        </td>
+         <td>
+            <asp:TextBox ID="txtUlipPremiumInstAmt" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<span id="Span25" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvULIPGracePeriod" ControlToValidate="txtULIPGracePeriod"
+                        ErrorMessage="Please enter the Grace Period" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>--%>
+            <asp:CompareValidator ID="CompareValidator53" runat="server" ErrorMessage="Please enter an integer value"
+                Type="Integer" ControlToValidate="txtUlipPremiumInstAmt" Operator="DataTypeCheck"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        
+         <td class="leftField" colspan="2">
+            <asp:Label ID="lblULIPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span23" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlULIPPremiumFrequencyCode"
+                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
     <tr id="trULIPPremiumFirstLast" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtULIPFirstPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtULIPFirstPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField" OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="ceULIPFirstPremiumDate" runat="server" TargetControlID="txtULIPFirstPremiumDate"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
@@ -815,7 +843,7 @@
             <asp:Label ID="lblULIPLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtULIPLastPremiumDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtULIPLastPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField" OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="ceULIPLastPremiumDate" runat="server" TargetControlID="txtULIPLastPremiumDate"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
@@ -833,17 +861,22 @@
         </td>
     </tr>
     <tr id="trULIPPremiumCycle" runat="server">
-        <td class="leftField" colspan="2">
-            <asp:Label ID="lblULIPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
+       
+         <td class="leftField" colspan="2">
+            <asp:Label ID="lblUlipPremiuimPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <span id="Span23" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlULIPPremiumFrequencyCode"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
+            <asp:TextBox ID="txtUlipPremiuimPeriod" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<span id="Span20" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvMPPremiumDuration" ControlToValidate="txtMPPremiumDuration"
+                        ErrorMessage="Please enter the Premium Period" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>--%>
+            <asp:CompareValidator ID="CompareValidator59" runat="server" ErrorMessage="Please enter a numeric value"
+                Type="Double" ControlToValidate="txtUlipPremiuimPeriod" Operator="DataTypeCheck"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
+       
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>

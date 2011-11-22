@@ -210,6 +210,7 @@ namespace WealthERP.CustomerPortfolio
             trULIPSurrenderValue.Visible = false;
             trULIPCharges.Visible = false;
             trULIPRemarks.Visible = false;
+            trUlipPremiumAmount.Visible = false;
 
             trTPPremiumAmount.Visible = false;
             trTPPremiumPeriod.Visible = false;
@@ -535,6 +536,8 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtULIPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtULIPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
+                        txtUlipPremiumInstAmt.Text = insuranceVo.PremiumAmount.ToString();
+
                         LoadUlipPlan();
                         // Get the ULIP Plan Code from CustomerInsuraceULIPPlan Table
                         DataSet dsUlipPlanCode = insuranceBo.GetUlipPlanCode(insuranceVo.CustInsInvId);
@@ -913,7 +916,9 @@ namespace WealthERP.CustomerPortfolio
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
-
+                        trUlipPremiumAmount.Visible = true;
+                        txtUlipPremiuimPeriod.Enabled = false;
+                        txtUlipPremiumInstAmt.Enabled = false;
                         ddlULIPPremiumFrequencyCode.Enabled = false;
                         ddlULIPPrPayDate.Enabled = false;
                         txtULIPFirstPremiumDate.Enabled = false;
@@ -1129,7 +1134,9 @@ namespace WealthERP.CustomerPortfolio
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
-
+                        trUlipPremiumAmount.Visible = true;
+                        txtUlipPremiuimPeriod.Enabled = true;
+                        txtUlipPremiumInstAmt.Enabled = true;
                         ddlULIPPremiumFrequencyCode.Enabled = true;
                         ddlULIPPrPayDate.Enabled = true;
                         txtULIPFirstPremiumDate.Enabled = true;
@@ -1304,7 +1311,10 @@ namespace WealthERP.CustomerPortfolio
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
+                        trUlipPremiumAmount.Visible = true;
 
+                        txtUlipPremiumInstAmt.Enabled = true;
+                        txtUlipPremiuimPeriod.Enabled = true;
                         ddlULIPPremiumFrequencyCode.Enabled = true;
                         ddlULIPPrPayDate.Enabled = true;
                         ddlUlipPlans.Enabled = true;
@@ -1530,9 +1540,14 @@ namespace WealthERP.CustomerPortfolio
                             List<float> subPlanList = null;
                             List<InsuranceULIPVo> insuranceUlipList;
                             InsuranceULIPVo insuranceUlipVo;
-
-                            insuranceVo.PremiumAmount = 0;
-                            insuranceVo.PremiumDuration = 0;
+                            if (txtUlipPremiumInstAmt.Text == "")
+                                insuranceVo.PremiumAmount = 0;
+                            else
+                                insuranceVo.PremiumAmount = double.Parse(txtUlipPremiumInstAmt.Text);
+                            if (txtUlipPremiuimPeriod.Text == "")
+                                insuranceVo.PremiumDuration = 0;
+                            else
+                                insuranceVo.PremiumDuration = float.Parse(txtUlipPremiuimPeriod.Text);
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
                             insuranceVo.PremiumFrequencyCode = ddlULIPPremiumFrequencyCode.SelectedValue;
@@ -1869,6 +1884,15 @@ namespace WealthERP.CustomerPortfolio
 
                             insuranceVo.PremiumAmount = 0;
                             insuranceVo.PremiumDuration = 0;
+                            if (txtUlipPremiumInstAmt.Text == "")
+                                insuranceVo.PremiumAmount = 0;
+                            else
+                                insuranceVo.PremiumAmount = double.Parse(txtUlipPremiumInstAmt.Text);
+                            if (txtUlipPremiuimPeriod.Text == "")
+                                insuranceVo.PremiumDuration = 0;
+                            else
+                                insuranceVo.PremiumDuration = float.Parse(txtUlipPremiuimPeriod.Text);
+                       
                             insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
                             insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
 
@@ -2719,6 +2743,19 @@ namespace WealthERP.CustomerPortfolio
 
                 float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+            }
+        }
+
+        protected void txtULIPFirstPremiumDate_TextChanged(object sender, EventArgs e)
+        {
+            if (txtULIPLastPremiumDate.Text != "dd/mm/yyyy" && txtULIPFirstPremiumDate.Text != string.Empty && txtULIPFirstPremiumDate.Text != "dd/mm/yyyy" && txtULIPLastPremiumDate.Text != string.Empty)
+            {
+                DateTime dtFrom = DateTime.Parse(txtULIPFirstPremiumDate.Text);
+                DateTime dtTo = DateTime.Parse(txtULIPLastPremiumDate.Text);
+                DateBo dtBo = new DateBo();
+
+                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f2");
             }
         }
 
