@@ -3048,6 +3048,10 @@
       <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
       <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\VoResearch\VoResearch.csproj">
+      <Project>{E91F7952-B03D-4E80-8722-F54961A101B5}</Project>
+      <Name>VoResearch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Vo\AdvisorProfiling\VoAdvisorProfiling.csproj">
       <Project>{E48FFEBF-AC77-4063-A48C-C9381B5D4C6F}</Project>
       <Name>VoAdvisorProfiling</Name>
@@ -4588,7 +4592,11 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
+    <Content Include="bin\BoResearch.dll" />
+    <Content Include="bin\BoResearch.pdb" />
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
+    <Content Include="bin\DaoResearch.dll" />
+    <Content Include="bin\DaoResearch.pdb" />
     <Content Include="bin\Financial.dll" />
     <Content Include="bin\FusionCharts.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
@@ -4605,6 +4613,8 @@
     <Content Include="bin\Microsoft.Vbe.Interop.dll" />
     <Content Include="bin\office.dll" />
     <Content Include="bin\Telerik.Web.UI.dll" />
+    <Content Include="bin\VoResearch.dll" />
+    <Content Include="bin\VoResearch.pdb" />
     <Content Include="CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />

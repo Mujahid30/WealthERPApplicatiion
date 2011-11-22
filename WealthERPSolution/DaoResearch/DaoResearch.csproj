@@ -72,6 +72,12 @@
     <Compile Include="ModelPortfolioDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VoResearch\VoResearch.csproj">
+      <Project>{E91F7952-B03D-4E80-8722-F54961A101B5}</Project>
+      <Name>VoResearch</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

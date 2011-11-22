@@ -77,6 +77,10 @@
       <Project>{BF99994D-150C-42FD-9D4A-67FAEF7FCDC8}</Project>
       <Name>DaoResearch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VoResearch\VoResearch.csproj">
+      <Project>{E91F7952-B03D-4E80-8722-F54961A101B5}</Project>
+      <Name>VoResearch</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
