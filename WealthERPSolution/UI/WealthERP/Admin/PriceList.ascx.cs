@@ -971,6 +971,7 @@ namespace WealthERP.Admin
         }
         private void BindTop10Company(DataSet dsFactsheetschemeDetails)
         {
+            double sumTotal = 0;
             DataTable dtTop10Company = dsFactsheetschemeDetails.Tables[7];
             if (dtTop10Company.Rows.Count > 0)
             {
