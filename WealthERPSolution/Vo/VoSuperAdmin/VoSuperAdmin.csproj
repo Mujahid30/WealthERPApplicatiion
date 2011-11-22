@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdviserSubscriptionVo.cs" />
+    <Compile Include="IssueTrackerVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuperAdminOpsVo.cs" />
   </ItemGroup>
