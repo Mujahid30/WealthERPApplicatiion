@@ -2470,6 +2470,13 @@
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\AddIssue.ascx.cs">
+      <DependentUpon>AddIssue.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\AddIssue.ascx.designer.cs">
+      <DependentUpon>AddIssue.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\DailyValuationMonitor.ascx.cs">
       <DependentUpon>DailyValuationMonitor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2532,6 +2539,13 @@
     </Compile>
     <Compile Include="SuperAdmin\SuperAdminMessageBroadcast.ascx.designer.cs">
       <DependentUpon>SuperAdminMessageBroadcast.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\ViewIssuseDetails.ascx.cs">
+      <DependentUpon>ViewIssuseDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\ViewIssuseDetails.ascx.designer.cs">
+      <DependentUpon>ViewIssuseDetails.ascx</DependentUpon>
     </Compile>
     <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.cs">
       <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
@@ -4915,6 +4929,7 @@
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
+    <Content Include="SuperAdmin\AddIssue.ascx" />
     <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
@@ -4924,6 +4939,7 @@
     <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
+    <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />

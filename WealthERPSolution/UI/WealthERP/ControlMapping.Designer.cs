@@ -97,6 +97,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//AddIssue.ascx.
+        /// </summary>
+        internal static string AddIssue {
+            get {
+                return ResourceManager.GetString("AddIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AddLOB.ascx.
         /// </summary>
         internal static string AddLOB {
@@ -2442,6 +2451,15 @@ namespace WealthERP {
         internal static string ViewInsuranceDetails {
             get {
                 return ResourceManager.GetString("ViewInsuranceDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//ViewIssuseDetails.ascx.
+        /// </summary>
+        internal static string ViewIssuseDetails {
+            get {
+                return ResourceManager.GetString("ViewIssuseDetails", resourceCulture);
             }
         }
         

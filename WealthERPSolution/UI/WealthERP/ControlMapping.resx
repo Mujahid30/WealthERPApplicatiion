@@ -1225,4 +1225,12 @@
     <value>Research//SchemeMappingToModelPortfolio.ascx</value>
     <comment>Research//SchemeMappingToModelPortfolio.ascx</comment>
   </data>
+  <data name="AddIssue" xml:space="preserve">
+    <value>SuperAdmin//AddIssue.ascx</value>
+    <comment>SuperAdmin//AddIssue.ascx</comment>
+  </data>
+  <data name="ViewIssuseDetails" xml:space="preserve">
+    <value>SuperAdmin//ViewIssuseDetails.ascx</value>
+    <comment>SuperAdmin//ViewIssuseDetails.ascx</comment>
+  </data>
 </root>
