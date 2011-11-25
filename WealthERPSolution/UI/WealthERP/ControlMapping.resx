@@ -1233,4 +1233,8 @@
     <value>SuperAdmin//ViewIssuseDetails.ascx</value>
     <comment>SuperAdmin//ViewIssuseDetails.ascx</comment>
   </data>
+  <data name="CustomerFPGoalFundingProgress" xml:space="preserve">
+    <value>FP//CustomerFPGoalFundingProgress.ascx</value>
+    <comment>FP//CustomerFPGoalFundingProgress.ascx</comment>
+  </data>
 </root>

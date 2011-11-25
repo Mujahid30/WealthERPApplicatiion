@@ -763,6 +763,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FP//CustomerFPGoalFundingProgress.ascx.
+        /// </summary>
+        internal static string CustomerFPGoalFundingProgress {
+            get {
+                return ResourceManager.GetString("CustomerFPGoalFundingProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//CustomerFPGoalPlanningDetails.ascx.
         /// </summary>
         internal static string CustomerFPGoalPlanningDetails {
