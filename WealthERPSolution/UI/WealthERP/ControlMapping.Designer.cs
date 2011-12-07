@@ -475,11 +475,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Research//AssetMapping.ascx.
+        /// </summary>
+        internal static string AssetMapping {
+            get {
+                return ResourceManager.GetString("AssetMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AssociateCategory.ascx.
         /// </summary>
         internal static string AssociateCategory {
             get {
                 return ResourceManager.GetString("AssociateCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Research//Assumptions.ascx.
+        /// </summary>
+        internal static string Assumptions {
+            get {
+                return ResourceManager.GetString("Assumptions", resourceCulture);
             }
         }
         
@@ -1294,6 +1312,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Research//GoalScore.ascx.
+        /// </summary>
+        internal static string GoalScore {
+            get {
+                return ResourceManager.GetString("GoalScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin//GoldPriceList.ascx.
         /// </summary>
         internal static string GoldPriceList {
@@ -1915,11 +1942,38 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Research//ResearchDashboard.ascx.
+        /// </summary>
+        internal static string ResearchDashboard {
+            get {
+                return ResourceManager.GetString("ResearchDashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//ReverseTransactionExceptionHandling.ascx.
         /// </summary>
         internal static string ReverseTransactionExceptionHandling {
             get {
                 return ResourceManager.GetString("ReverseTransactionExceptionHandling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Research//RiskGoalClass.ascx.
+        /// </summary>
+        internal static string RiskGoalClass {
+            get {
+                return ResourceManager.GetString("RiskGoalClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Research//RiskScore.ascx.
+        /// </summary>
+        internal static string RiskScore {
+            get {
+                return ResourceManager.GetString("RiskScore", resourceCulture);
             }
         }
         

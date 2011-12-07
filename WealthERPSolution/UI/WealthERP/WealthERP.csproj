@@ -2456,12 +2456,54 @@
     <Compile Include="Reports\PortfolioReports.ascx.designer.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Research\AssetMapping.ascx.cs">
+      <DependentUpon>AssetMapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\AssetMapping.ascx.designer.cs">
+      <DependentUpon>AssetMapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Research\Assumptions.ascx.cs">
+      <DependentUpon>Assumptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\Assumptions.ascx.designer.cs">
+      <DependentUpon>Assumptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Research\GoalScore.ascx.cs">
+      <DependentUpon>GoalScore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\GoalScore.ascx.designer.cs">
+      <DependentUpon>GoalScore.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Research\ModelPortfolioSetup.ascx.cs">
       <DependentUpon>ModelPortfolioSetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Research\ModelPortfolioSetup.ascx.designer.cs">
       <DependentUpon>ModelPortfolioSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Research\ResearchDashboard.ascx.cs">
+      <DependentUpon>ResearchDashboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\ResearchDashboard.ascx.designer.cs">
+      <DependentUpon>ResearchDashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Research\RiskGoalClass.ascx.cs">
+      <DependentUpon>RiskGoalClass.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\RiskGoalClass.ascx.designer.cs">
+      <DependentUpon>RiskGoalClass.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Research\RiskScore.ascx.cs">
+      <DependentUpon>RiskScore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\RiskScore.ascx.designer.cs">
+      <DependentUpon>RiskScore.ascx</DependentUpon>
     </Compile>
     <Compile Include="Research\SchemeMappingToModelPortfolio.ascx.cs">
       <DependentUpon>SchemeMappingToModelPortfolio.ascx</DependentUpon>
@@ -4939,7 +4981,13 @@
     <Content Include="Reports\MFReports.ascx" />
     <Content Include="Reports\OfflineForm.ascx" />
     <Content Include="Reports\PortfolioReports.ascx" />
+    <Content Include="Research\AssetMapping.ascx" />
+    <Content Include="Research\Assumptions.ascx" />
+    <Content Include="Research\GoalScore.ascx" />
     <Content Include="Research\ModelPortfolioSetup.ascx" />
+    <Content Include="Research\ResearchDashboard.ascx" />
+    <Content Include="Research\RiskGoalClass.ascx" />
+    <Content Include="Research\RiskScore.ascx" />
     <Content Include="Research\SchemeMappingToModelPortfolio.ascx" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\jquery-1.3.1.min.js" />

@@ -1237,4 +1237,28 @@
     <value>FP//CustomerFPGoalFundingProgress.ascx</value>
     <comment>FP//CustomerFPGoalFundingProgress.ascx</comment>
   </data>
+  <data name="AssetMapping" xml:space="preserve">
+    <value>Research//AssetMapping.ascx</value>
+    <comment>Research//AssetMapping.ascx</comment>
+  </data>
+  <data name="Assumptions" xml:space="preserve">
+    <value>Research//Assumptions.ascx</value>
+    <comment>Research//Assumptions.ascx</comment>
+  </data>
+  <data name="GoalScore" xml:space="preserve">
+    <value>Research//GoalScore.ascx</value>
+    <comment>Research//GoalScore.ascx</comment>
+  </data>
+  <data name="ResearchDashboard" xml:space="preserve">
+    <value>Research//ResearchDashboard.ascx</value>
+    <comment>Research//ResearchDashboard.ascx</comment>
+  </data>
+  <data name="RiskGoalClass" xml:space="preserve">
+    <value>Research//RiskGoalClass.ascx</value>
+    <comment>Research//RiskGoalClass.ascx</comment>
+  </data>
+  <data name="RiskScore" xml:space="preserve">
+    <value>Research//RiskScore.ascx</value>
+    <comment>Research//RiskScore.ascx</comment>
+  </data>
 </root>

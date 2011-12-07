@@ -1795,11 +1795,35 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Research";
             try
             {
-                if (e.Item.Value == "Model_Portflio_Setup")
+                if (e.Item.Value == "Research_Dashboard")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ResearchDashboard','login');", true);
+                }
+                else if (e.Item.Value == "RiskGoal_Classes")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RiskGoalClass','login');", true);
+                }
+                else if (e.Item.Value == "Risk_Score")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RiskScore','login');", true);
+                }
+                else if (e.Item.Value == "Goal_Score")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalScore','login');", true);
+                }
+                else if (e.Item.Value == "Asset_Mapping")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetMapping','login');", true);
+                }
+                else if (e.Item.Value == "Assumptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Assumptions','login');", true);
+                }
+                else if (e.Item.Value == "Asset_Allocation")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ModelPortfolioSetup','login');", true);
                 }
-                else if (e.Item.Value == "Attatch_Scheme_To_ModelPortfolio")
+                else if (e.Item.Value == "MF_Investment")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeMappingToModelPortfolio','login');", true);
                 }

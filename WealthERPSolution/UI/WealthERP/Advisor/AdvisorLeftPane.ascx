@@ -498,12 +498,36 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Research" Value="Research">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Reference data" Value="Reference_Data">
+                                 <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">                                                
+                                 </telerik:RadPanelItem>
+                                 
+                                 <telerik:RadPanelItem runat="server" Text="Configure" Value="Configure">
+                                 <Items>
+                                  <telerik:RadPanelItem runat="server" Text="Risk/Goal Classes" Value="RiskGoal_Classes">                                                
+                                  </telerik:RadPanelItem>
+                                  
+                                  <telerik:RadPanelItem runat="server" Text="Risk Score" Value="Risk_Score">                                                
+                                  </telerik:RadPanelItem>
+                                  
+                                  <telerik:RadPanelItem runat="server" Text="Goal Score" Value="Goal_Score">                                                
+                                  </telerik:RadPanelItem>
+                                  
+                                  <telerik:RadPanelItem runat="server" Text="Asset Mapping" Value="Asset_Mapping">                                                
+                                  </telerik:RadPanelItem>
+                                  
+                                  <telerik:RadPanelItem runat="server" Text="Assumptions" Value="Assumptions">                                                
+                                  </telerik:RadPanelItem>
+                                  
+                                 </Items> 
+                                                                                
+                                 </telerik:RadPanelItem>
+                                 
+                                  <telerik:RadPanelItem runat="server" Text="Models" Value="Reference_Data">
                                         <Items>                                          
                                          
-                                             <telerik:RadPanelItem runat="server" Text="Model Portflio Setup" Value="Model_Portflio_Setup">                                                
+                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation" Value="Asset_Allocation">                                                
                                              </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Attatch Scheme to model portfolio" Value="Attatch_Scheme_To_ModelPortfolio">
+                                             <telerik:RadPanelItem runat="server" Text="MF Investment" Value="MF_Investment">
                                              </telerik:RadPanelItem>
                                          
                                         </Items>
