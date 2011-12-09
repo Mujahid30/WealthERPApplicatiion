@@ -640,7 +640,21 @@
                                         <asp:CheckBox ID="chkGoalOutput" runat="server" CssClass="cmbField" />
                                     </ItemTemplate>                                  
                                 </asp:TemplateField>
-                                  
+                                   
+                                    <asp:TemplateField HeaderText="" HeaderStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                      <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                 OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                                    <%--OnSelectedIndexChanged="ddlGoalOutput_OnSelectedIndexChange"--%>
+                                    <asp:ListItem Text="Select" Value="Select" />
+                                    <asp:ListItem Text="View" Value="View" />
+                                    <asp:ListItem Text="Fund/Progress" Value="Fund" />
+             
+                                    </asp:DropDownList>
+                                      
+                                    </ItemTemplate>                                  
+                                </asp:TemplateField>
+                                
                                 <asp:TemplateField HeaderText="Goal Type" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 

@@ -629,5 +629,55 @@ namespace DaoFPSuperlite
             }
             return true;
         }
+
+        public DataSet GetExistingInvestmentDetails(int CustomerID,int goalId)
+        {
+            Database db;
+            DataSet dsGetExistingInvestmentDetails = new DataSet();
+            DbCommand getExistingInvestmentDetailsCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getExistingInvestmentDetailsCmd = db.GetStoredProcCommand("SP_GetExistingInvestmentDetails");
+                db.AddInParameter(getExistingInvestmentDetailsCmd, "@CustomerId", DbType.Int32, CustomerID);
+                db.AddInParameter(getExistingInvestmentDetailsCmd, "@goalId", DbType.Int32, goalId);
+                //getExistingInvestmentDetailsCmd.CommandTimeout = 60 * 60;
+                dsGetExistingInvestmentDetails = db.ExecuteDataSet(getExistingInvestmentDetailsCmd);
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetExistingInvestmentDetails;
+        }
+
+
+        public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId)
+        {
+            Database db;
+            DbCommand goalAllocationPercentageCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                goalAllocationPercentageCmd = db.GetStoredProcCommand("SP_UpdateGoalAllocationPercentage");
+                db.AddInParameter(goalAllocationPercentageCmd, "@allocationPercentage", DbType.Decimal, allocationPercentage);
+                db.AddInParameter(goalAllocationPercentageCmd, "@goalId", DbType.Int32, goalId);
+                db.AddInParameter(goalAllocationPercentageCmd, "@schemeId", DbType.Int32, schemeId);
+                db.ExecuteNonQuery(goalAllocationPercentageCmd);
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+        }
     }
 }

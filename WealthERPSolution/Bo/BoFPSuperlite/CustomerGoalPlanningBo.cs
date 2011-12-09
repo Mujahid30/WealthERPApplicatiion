@@ -480,5 +480,37 @@ namespace BoFPSuperlite
             }
         }
 
+        public DataSet GetExistingInvestmentDetails(int customerId,int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsExistingInvestment = new DataSet();
+            try
+            {
+                dsExistingInvestment = customerGoalPlanningDao.GetExistingInvestmentDetails(customerId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsExistingInvestment;
+        }
+
+        public void UpdateGoalAllocationPercentage(decimal allocationPercentage,int schemeId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+           
+            try
+            {
+                 customerGoalPlanningDao.UpdateGoalAllocationPercentage(allocationPercentage, schemeId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+        }
+        
     }
 }

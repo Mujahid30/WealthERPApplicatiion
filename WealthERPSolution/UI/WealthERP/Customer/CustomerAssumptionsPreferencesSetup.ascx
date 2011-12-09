@@ -20,7 +20,7 @@ p { padding: 5px 0; }
     }
 
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function tSpeedValue() 
     {
 
@@ -61,8 +61,8 @@ p { padding: 5px 0; }
 
        }
    }
-  </script>
- 
+  </script>--%>
+<%-- 
  <script type="text/javascript">
 
      function ShowHideGaolType() {
@@ -94,9 +94,9 @@ p { padding: 5px 0; }
     function clientSideFunctionsForSubmit() {        
         document.getElementById('<%=ViewParagraph.ClientID%>').click();
     }
-</script>
+</script>--%>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
     $(document).ready(function() {
         //hide the all of the element with class Collapse_body
         $(".Collapse_body").hide();
@@ -130,7 +130,7 @@ p { padding: 5px 0; }
             $(this).next(".Collapse_body").slideToggle(600);
         });
     });
-</script>
+</script>--%>
   
 
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
@@ -168,23 +168,23 @@ p { padding: 5px 0; }
 
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerAssumptionsPreferencesSetupId" 
-    SelectedIndex="1">
+    SelectedIndex="0">
     <Tabs>
         
-        <telerik:RadTab runat="server" Text="Preferences" onclick="HideStatusMsg()"
-            Value="Preferences" TabIndex="0">
+        <telerik:RadTab runat="server" Text="Goal Funding" onclick="HideStatusMsg()"
+            Value="Preferences" TabIndex="0" Selected="True">
         </telerik:RadTab>
         <telerik:RadTab runat="server" Text="Assumptions" onclick="HideStatusMsg()"
-            Value="Assumtion" TabIndex="1" Selected="True">
+            Value="Assumtion" TabIndex="1" Visible="false">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Calculation Basis" onclick="HideStatusMsg()"
+        <telerik:RadTab runat="server" Text="Model Portfolio" onclick="HideStatusMsg()"
             Value="Calculation Basis" TabIndex="2">
         </telerik:RadTab>
         
     </Tabs>
 </telerik:RadTabStrip>
 <telerik:RadMultiPage ID="CustomerAssumptionsPreferencesSetupId" 
-    EnableViewState="true" runat="server" SelectedIndex="1">
+    EnableViewState="true" runat="server" SelectedIndex="0">
  <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="pnlPreferences" runat="server">
             <table width="50%">
@@ -194,22 +194,22 @@ p { padding: 5px 0; }
                 <tr>
                 <td></td>
    <td>
-<asp:RadioButton ID="rbtnSelfOnly" runat="server" CssClass="cmbField" Text="Plan for self only" GroupName="gpPlan" Checked="true"/>
+<asp:RadioButton ID="rbtnMapping" runat="server" CssClass="cmbField" Text="Mapping" GroupName="gpPlan" Checked="true"/>
         
  </td>
 
                     </tr>
                     <tr>
                     <td></td><td>
-                        <asp:RadioButton ID="rbtnSpouse" runat="server" CssClass="cmbField" 
-                            GroupName="gpPlan" Text="Plan with Spouse" />
+                        <asp:RadioButton ID="rbtnConsolidateEntry" runat="server" CssClass="cmbField" 
+                            GroupName="gpPlan" Text="Consolidate Entry" />
                         </td>
                     </tr>
                     
                     <tr>
                     <td style="width:95px"></td>
                     <td>
-                        <asp:Button ID="btnPlanPreference" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnPlanPreference_OnClick" />
+                        <asp:Button ID="btnGoalFundingPreference" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnGoalFundingPreference_OnClick" />
                     </td>
                     
                     </tr>
@@ -218,13 +218,13 @@ p { padding: 5px 0; }
                     </telerik:RadPageView>
                     
 
-                    
+  <%--                  
 <table width="100%">
 <tr>
-<td>
-    <telerik:RadPageView ID="RadPageView1" runat="server">
-        <asp:Panel ID="pnlAssumption" runat="server">
-        
+<td>--%>
+    <telerik:RadPageView ID="RadPageView1" runat="server" Visible="false">
+        <asp:Panel ID="pnlAssumption" runat="server" Visible="false">
+      <%--  
         <table width="768px">
             <tr>
                 <td style="width:10%" align="center">
@@ -240,8 +240,8 @@ p { padding: 5px 0; }
                 <td style="width:80%"></td>
             </tr>
         </table>
-        
-        <div class="Collapse_list" style="width:100%">
+        --%>
+   <%--     <div class="Collapse_list" style="width:100%">
         <p class="Collapse_header">
             <img src="../Images/collapseRight arrow.png" style="height: 10px; vertical-align: middle; width: 10px;" class="ImageClass" name='EditCollapseImage' border='0' />
             
@@ -262,7 +262,7 @@ p { padding: 5px 0; }
                             CssClass="cmbField" OnSelectedIndexChanged="ddlPickAssumtion_OnSelectedIndexChanged">
                             </asp:DropDownList><br />
                             <%--<asp:RequiredFieldValidator ID="rfvPickAssumption" runat="server" ValidationGroup="vgroup1" CssClass="rfvPCG" Text="Pick Assumption" ControlToValidate="ddlPickAssumtion"></asp:RequiredFieldValidator>--%>
-                            <asp:CompareValidator ID="cvPickAssumption" runat="server" ControlToValidate="ddlPickAssumtion"
+                           <%--  <asp:CompareValidator ID="cvPickAssumption" runat="server" ControlToValidate="ddlPickAssumtion"
                             ErrorMessage="Please Select Assumption" Operator="NotEqual" ValueToCompare="-Select-"
                             CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>
                         </td> 
@@ -337,7 +337,7 @@ p { padding: 5px 0; }
                         Type="Integer" ControlToValidate="txtAssumptionValue" Operator="DataTypeCheck"
                         CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgbtnSubmit"></asp:CompareValidator>--%>
                         
-                          <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
+                         <%--  <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                               ControlToValidate="txtAssumptionValue" CssClass="cvPCG" Display="Dynamic" 
                               ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
@@ -361,11 +361,11 @@ p { padding: 5px 0; }
 
 
                                      
-                </table>
+                </table>--%>
            
-                
+               <%-- 
                  </ContentTemplate>
-         </asp:UpdatePanel>        
+         </asp:UpdatePanel>   --%>     
 <%--        <table  width="768px">
             <tr id="trRbtnYear" runat="server">
         
@@ -377,12 +377,12 @@ p { padding: 5px 0; }
         </table>--%>
 
 
-    </div>
+  <%--  </div>
 
-        </div>
+        </div>--%>
         
 
- 
+ <%--
 <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
     
@@ -402,7 +402,7 @@ p { padding: 5px 0; }
                         CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>--%>
-                <tr ID="trLifeExpectancy" runat="server">
+                <%--<tr ID="trLifeExpectancy" runat="server">
                     <td align="right" style="width:20%">
                         <asp:Label ID="lblLifeExpectancy" runat="server" CssClass="FieldName" 
                             Text="Life Expectancy:"></asp:Label>
@@ -435,8 +435,8 @@ p { padding: 5px 0; }
         ShowStatusBar="True" ShowFooter="true" Width="100%"
         Skin="Telerik" EnableEmbeddedSkins="false"
         
-        AllowAutomaticInserts="false">
-        <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
+        AllowAutomaticInserts="false">--%>
+        <%--<MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false">
            
             <Columns>
              <telerik:GridBoundColumn DataField="Year" HeaderText="Year" HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="60px" SortExpression="Year"
@@ -519,8 +519,8 @@ p { padding: 5px 0; }
                 
             </Columns>
                 
-        </MasterTableView>
-        <HeaderStyle Width="140px" VerticalAlign="Top" Wrap="false" />
+        </MasterTableView>--%>
+      <%--  <HeaderStyle Width="140px" VerticalAlign="Top" Wrap="false" />
         <ClientSettings>
             <Scrolling AllowScroll="True" UseStaticHeaders="True" EnableVirtualScrollPaging="false" SaveScrollPosition="true" FrozenColumnsCount="1">
             </Scrolling>
@@ -530,24 +530,24 @@ p { padding: 5px 0; }
             
             </td>
             </tr>
-            </table>
+            </table>--%>
             
             
-            
-
+            --%>
+<%--
     </telerik:RadAjaxPanel>
-            <asp:HiddenField ID="hfAge" runat="server" />
+           <%-- <asp:HiddenField ID="hfAge" runat="server" />
             
-            </div>
+          --%> <%-- </div>--%>--%>
             
             
        </asp:Panel>
         </telerik:RadPageView>
-        </div>
+        <%--</div>
         
         </td>
 </tr>
-</table>
+</table>--%>
                     
    <telerik:RadPageView ID="RadPageView2" runat="server">
    <asp:Panel ID="pnlCalculation" runat="server">
@@ -557,9 +557,9 @@ p { padding: 5px 0; }
        </td>
        <td>
        <br />
-           <asp:Label ID="lblRetirementGoalAnalysis0" runat="server" CssClass="FieldName" 
-               Text="Retirement Goal Settings:"></asp:Label>
-       </td>
+          <%-- <asp:Label ID="lblRetirementGoalAnalysis0" runat="server" CssClass="FieldName" 
+               Text="Retirement Goal Settings:"></asp:Label>--%>
+     </td>
    </tr>
        </table>
        <table width="50%">
@@ -567,16 +567,16 @@ p { padding: 5px 0; }
        <td style="width:95px"></td>
        
        <td align="left">
-           <asp:RadioButton ID="rbtnNoCorpus" runat="server" Checked="true" 
+           <asp:RadioButton ID="rbtnYes" runat="server" Checked="true" 
                CssClass="cmbField" GroupName="gpRetirement" 
-               Text="No Corpus to be left behind" />
+               Text="Yes" />
        </td><td></td>
        </tr>
    <tr>
    <td style="width:95px"></td>
    <td align="left">
-       <asp:RadioButton ID="rbtnCorpus" runat="server" CssClass="cmbField" 
-           GroupName="gpRetirement" Text="Corpus to be left behind" />
+       <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" 
+           GroupName="gpRetirement" Text="No" />
        </td><td>
            &nbsp;</td>
    </tr>
@@ -587,7 +587,9 @@ p { padding: 5px 0; }
    <tr>
    <td style="width:35px"></td>
    <td>
-       <asp:Button ID="btnCalculationBasis" OnClientClick="clientSideFunctionsForSubmit()" runat="server" CssClass="PCGButton" 
+  <%--     <asp:Button ID="btnCalculationBasis" OnClientClick="clientSideFunctionsForSubmit()" runat="server" CssClass="PCGButton" 
+           OnClick="btnCalculationBasis_OnClick " Text="Submit" />--%>
+            <asp:Button ID="btnCalculationBasis" runat="server" CssClass="PCGButton" 
            OnClick="btnCalculationBasis_OnClick " Text="Submit" />
    </td>
    <td></td>
@@ -597,10 +599,10 @@ p { padding: 5px 0; }
                     </telerik:RadPageView>
                     
                     </telerik:RadMultiPage>  
-<script language="javascript" type="text/javascript">
+<%--<script language="javascript" type="text/javascript">
     document.getElementById('<%=trRangeYear.ClientID %>').style.display = 'none';
     
-</script>             
+</script>--%>             
 
 <asp:HiddenField ID="hdnChangeTabValueEdit" Value="0" runat="server" />    
 <asp:HiddenField ID="hdnChangeTabValueView" Value="0" runat="server" />    

@@ -792,11 +792,11 @@ namespace WealthERP.Advisor
                 {
                     goalProfileSetupVo.GoalDescription = txtGoalDescription.Text;
                 }
-                if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
+                if (!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
                     goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
 
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
-                goalProfileSetupVo.ROIEarned =double.Parse(txtAboveRateOfInterst.Text.Trim());
+                    goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
                 goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
@@ -863,14 +863,14 @@ namespace WealthERP.Advisor
         private int BindGoalOutputGridView(int ActiveFlag)
         {
 
-           
+
 
             try
             {
                 //use same seeion name what ever used in risk profilling..
 
 
-                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(int.Parse(Session["FP_UserID"].ToString()), ActiveFlag,out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
+                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(int.Parse(Session["FP_UserID"].ToString()), ActiveFlag, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
 
 
                 //if (GoalProfileList == null)
@@ -881,7 +881,7 @@ namespace WealthERP.Advisor
                 //{
                 //    BindGoalGapTabGrid(false, investmentTotal, surplusTotal, investedAmountForAllGaol, monthlySavingRequired);
                 //}
-                
+
 
 
 
@@ -985,13 +985,13 @@ namespace WealthERP.Advisor
                         drGoalProfile["GoalID"] = goalProfileSetupVo.GoalId.ToString();
                         drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
                         drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
-                        drGoalProfile["CostToday"] =goalProfileSetupVo.CostOfGoalToday!=0 ? String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))):"0"; 
+                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         allGoalCostToday += goalProfileSetupVo.CostOfGoalToday;
-                        drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal!=0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))):"0";
+                        drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         currentInvestmentTotal += goalProfileSetupVo.CurrInvestementForGoal;
-                        drGoalProfile["SavingRequired"] =goalProfileSetupVo.MonthlySavingsReq!=0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")):"0";
+                        drGoalProfile["SavingRequired"] = goalProfileSetupVo.MonthlySavingsReq != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                         monthlySaveRequired += goalProfileSetupVo.MonthlySavingsReq;
-                        drGoalProfile["GoalAmount"] =goalProfileSetupVo.FutureValueOfCostToday !=0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")):"0";
+                        drGoalProfile["GoalAmount"] = goalProfileSetupVo.FutureValueOfCostToday != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.FutureValueOfCostToday.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                         allGoalCostInGoalYear += goalProfileSetupVo.FutureValueOfCostToday;
                         drGoalProfile["GoalPrifileDate"] = goalProfileSetupVo.GoalProfileDate.ToShortDateString();
                         drGoalProfile["GoalYear"] = goalProfileSetupVo.GoalYear.ToString();
@@ -1082,21 +1082,21 @@ namespace WealthERP.Advisor
 
                 if (lblCurrentInvestment.Text.ToString() != "" && lblCostToday.Text.ToString() != "")
                 {
-                double CurrentInvestment = 0;
-                double CostToday = 0;
+                    double CurrentInvestment = 0;
+                    double CostToday = 0;
 
-                CurrentInvestment = double.Parse(lblCurrentInvestment.Text.ToString());
-                CostToday = double.Parse(lblCostToday.Text.ToString());
+                    CurrentInvestment = double.Parse(lblCurrentInvestment.Text.ToString());
+                    CostToday = double.Parse(lblCostToday.Text.ToString());
 
-                if (CurrentInvestment > CostToday)
-                {
-                    e.Row.Cells[4].BackColor = System.Drawing.Color.LightGreen;
-                }
+                    if (CurrentInvestment > CostToday)
+                    {
+                        e.Row.Cells[4].BackColor = System.Drawing.Color.LightGreen;
+                    }
                 }
             }
         }
 
-        private void BindGoalGapTabGrid(bool isGoalListEmpty,int investmentTotal,int surplusTotal, int investedAmountForAllGaol,int monthlySavingRequired)
+        private void BindGoalGapTabGrid(bool isGoalListEmpty, int investmentTotal, int surplusTotal, int investedAmountForAllGaol, int monthlySavingRequired)
         {
 
             try
@@ -1121,8 +1121,8 @@ namespace WealthERP.Advisor
                         drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = " + investedAmountForAllGaol.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                     else
-                    { 
-                        drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = 0" ;
+                    {
+                        drGoalFundedGap["GoalFunding"] = "Total money allocated to Goals = 0";
                     }
                     if (existingInvestmentGap != 0)
                     {
@@ -1197,10 +1197,10 @@ namespace WealthERP.Advisor
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-            } 
-                
-            
- 
+            }
+
+
+
         }
         protected void gvGoalFundingGap_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -1241,7 +1241,7 @@ namespace WealthERP.Advisor
                 dtRTGoal.Columns.Add("CG_YearlySavingsRequired");
                 dtRTGoal.Columns.Add("CG_MonthlySavingsRequired");
                 dtRTGoal.Columns.Add("CG_GoalProfileDate");
-                
+
                 DataRow drRTGoal;
 
                 foreach (DataRow dr in dsRTGoal.Tables[0].Rows)
@@ -1267,7 +1267,7 @@ namespace WealthERP.Advisor
                     {
                         drRTGoal["CG_CurrentInvestment"] = "0";
                     }
-                   // drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    // drRTGoal["CG_CurrentInvestment"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_CurrentInvestment"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     if (decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()) != 0)
                     {
                         drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -1276,7 +1276,7 @@ namespace WealthERP.Advisor
                     {
                         drRTGoal["CG_LumpsumInvestmentRequired"] = "0";
                     }
-                   // drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    // drRTGoal["CG_LumpsumInvestmentRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_LumpsumInvestmentRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     if (decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()) != 0)
                     {
                         drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -1285,7 +1285,7 @@ namespace WealthERP.Advisor
                     {
                         drRTGoal["CG_YearlySavingsRequired"] = "0";
                     }
-                   // drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    // drRTGoal["CG_YearlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_YearlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     if (decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()) != 0)
                     {
                         drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -1295,7 +1295,7 @@ namespace WealthERP.Advisor
                         drRTGoal["CG_MonthlySavingsRequired"] = "0";
                     }
                     //drRTGoal["CG_MonthlySavingsRequired"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["CG_MonthlySavingsRequired"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    drRTGoal["CG_GoalProfileDate"] =  dr["CG_GoalProfileDate"].ToString();
+                    drRTGoal["CG_GoalProfileDate"] = dr["CG_GoalProfileDate"].ToString();
 
                     dtRTGoal.Rows.Add(drRTGoal);
                 }
@@ -1541,12 +1541,12 @@ namespace WealthERP.Advisor
                 {
                     goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
                 }
-                if(!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
-                goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
+                if (!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
+                    goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
-                goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
+                    goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
                 if (!string.IsNullOrEmpty(txtExpRateOfReturn.Text.Trim()))
-                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text.Trim());
+                    goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text.Trim());
                 if (!string.IsNullOrEmpty(txtInflation.Text.Trim()))
                 {
                     goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text.Trim());
@@ -1933,9 +1933,54 @@ namespace WealthERP.Advisor
             {
                 int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
                 ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), GoalId);
-                ControlSetVisiblity(0);                
+                ControlSetVisiblity(0);
                 lblGoalbjective.Text = "Goal Objective :";
             }
+        }
+
+        protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = null;
+            GridViewRow gvr = null;
+            int selectedRow = 0;
+            int goalId = 0;
+            UserVo tempUser = null;
+
+            bool isGrpHead = false;
+
+            if (Session[SessionContents.PortfolioId] != null)
+            {
+                Session.Remove(SessionContents.PortfolioId);
+            }
+            ddlAction = (DropDownList)sender;
+            gvr = (GridViewRow)ddlAction.NamingContainer;
+            selectedRow = gvr.RowIndex;
+            goalId = int.Parse(gvGoalOutPut.DataKeys[selectedRow].Values["GoalID"].ToString());
+
+            if (ddlAction.SelectedValue == "View")
+            {
+
+               // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FPGoalFunding", "loadcontrol('CustomerFPGoalFundingProgress','?goalId=" + goalId + "');", true);
+                TabContainer1.ActiveTabIndex = 0;
+                ControlSetVisiblity(0);
+                ViewState["ViewEditID"] = goalId;
+                ShowGoalDetails(int.Parse(Session["FP_UserID"].ToString()), goalId);
+                //lblPickCustomer.Text = "Customer Name";
+                lblGoalbjective.Text = "Goal Objective :";
+                Td1.Visible = true;
+                trRequiedNote.Visible = true;
+                lblNote.Visible = true;
+
+            }
+            if (ddlAction.SelectedValue == "Fund")
+            {
+               
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FPGoalFunding", "loadcontrol('CustomerFPGoalFundingProgress','?goalId=" + goalId + "');", true);
+                
+
+
+            }
+
         }
     }
 }
