@@ -14,15 +14,6 @@ namespace WealthERP.FP {
     public partial class CustomerFPGoalFundingProgress {
         
         /// <summary>
-        /// RadStyleSheetManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
-        
-        /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -32,49 +23,58 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// headertitle control.
+        /// RadStyleSheetManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label headertitle;
+        protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         
         /// <summary>
-        /// aplToolBar control.
+        /// divMsgs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadToolBar aplToolBar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgs;
         
         /// <summary>
-        /// btnEdit control.
+        /// Label11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadToolBarButton btnEdit;
+        protected global::System.Web.UI.WebControls.Label Label11;
         
         /// <summary>
-        /// msgRecordStatus control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// RadTabStripFPFundingProgress control.
+        /// RadCodeBlock1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTabStrip RadTabStripFPFundingProgress;
+        protected global::Telerik.Web.UI.RadCodeBlock RadCodeBlock1;
+        
+        /// <summary>
+        /// RadAjaxManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadAjaxManager RadAjaxManager1;
         
         /// <summary>
         /// RadAjaxLoadingPanel1 control.
@@ -86,13 +86,40 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadAjaxLoadingPanel RadAjaxLoadingPanel1;
         
         /// <summary>
-        /// CustomerFPGoalFunding control.
+        /// headertitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadMultiPage CustomerFPGoalFunding;
+        protected global::System.Web.UI.WebControls.Label headertitle;
+        
+        /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
+        /// RadTabStripFPGoalDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadTabStrip RadTabStripFPGoalDetails;
+        
+        /// <summary>
+        /// CustomerFPGoalDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadMultiPage CustomerFPGoalDetails;
         
         /// <summary>
         /// RadPageView2 control.
@@ -104,22 +131,22 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadPageView RadPageView2;
         
         /// <summary>
-        /// pnlFunding control.
+        /// pnlFundingProgress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFunding;
+        protected global::System.Web.UI.WebControls.Panel pnlFundingProgress;
         
         /// <summary>
-        /// lblGoal control.
+        /// lblGoalName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoal;
+        protected global::System.Web.UI.WebControls.Label lblGoalName;
         
         /// <summary>
         /// txtGoalName control.
@@ -131,148 +158,337 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtGoalName;
         
         /// <summary>
-        /// lblGoalYear control.
+        /// lblGoalStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalYear;
+        protected global::System.Web.UI.WebControls.Label lblGoalStatus;
         
         /// <summary>
-        /// txtGoalYearDetails control.
+        /// lblStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGoalYearDetails;
+        protected global::System.Web.UI.WebControls.Label lblStartDate;
         
         /// <summary>
-        /// lblGoalTargetAmount control.
+        /// txtStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalTargetAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtStartDate;
         
         /// <summary>
-        /// txtGoalTargetAmountDetails control.
+        /// lblTargetDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGoalTargetAmountDetails;
+        protected global::System.Web.UI.WebControls.Label lblTargetDate;
         
         /// <summary>
-        /// lblGoalBalanceAmount control.
+        /// txtTargetDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalBalanceAmount;
+        protected global::System.Web.UI.WebControls.TextBox txtTargetDate;
         
         /// <summary>
-        /// txtGoalBalanceAmountDetails control.
+        /// lblGoalAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGoalBalanceAmountDetails;
+        protected global::System.Web.UI.WebControls.Label lblGoalAmount;
         
         /// <summary>
-        /// lblGoalFundAccumulated control.
+        /// txtGoalAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalFundAccumulated;
+        protected global::System.Web.UI.WebControls.TextBox txtGoalAmount;
         
         /// <summary>
-        /// txtGoalFundAccumulatedDetails control.
+        /// lblTenureCompleted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtGoalFundAccumulatedDetails;
+        protected global::System.Web.UI.WebControls.Label lblTenureCompleted;
         
         /// <summary>
-        /// tdMapping control.
+        /// txtTenureCompleted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdMapping;
+        protected global::System.Web.UI.WebControls.TextBox txtTenureCompleted;
         
         /// <summary>
-        /// lblGoalMapping control.
+        /// lblBalanceTenor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGoalMapping;
+        protected global::System.Web.UI.WebControls.Label lblBalanceTenor;
         
         /// <summary>
-        /// Td2 control.
+        /// txtBalanceTenor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td2;
+        protected global::System.Web.UI.WebControls.TextBox txtBalanceTenor;
         
         /// <summary>
-        /// ddlGoalMapping control.
+        /// lblMonthlyContribution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGoalMapping;
+        protected global::System.Web.UI.WebControls.Label lblMonthlyContribution;
         
         /// <summary>
-        /// lblPickAssetClass control.
+        /// txtMonthlyContribution control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPickAssetClass;
+        protected global::System.Web.UI.WebControls.TextBox txtMonthlyContribution;
         
         /// <summary>
-        /// txtPickAssetClass control.
+        /// lblAmountInvestedTillDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPickAssetClass;
+        protected global::System.Web.UI.WebControls.Label lblAmountInvestedTillDate;
         
         /// <summary>
-        /// gvExistInvestMapping control.
+        /// txtAmountInvested control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvExistInvestMapping;
+        protected global::System.Web.UI.WebControls.TextBox txtAmountInvested;
         
         /// <summary>
-        /// btnMapAllocation control.
+        /// lblValueOfCurrentGoal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMapAllocation;
+        protected global::System.Web.UI.WebControls.Label lblValueOfCurrentGoal;
+        
+        /// <summary>
+        /// txtValueOfCurrentGoal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtValueOfCurrentGoal;
+        
+        /// <summary>
+        /// lblReturnsXIRR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReturnsXIRR;
+        
+        /// <summary>
+        /// txtReturnsXIRR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReturnsXIRR;
+        
+        /// <summary>
+        /// lblCostAtBeginning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCostAtBeginning;
+        
+        /// <summary>
+        /// txtCostAtBeginning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCostAtBeginning;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// lblEstmdTimeToReachGoal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstmdTimeToReachGoal;
+        
+        /// <summary>
+        /// txtEstmdTimeToReachGoal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEstmdTimeToReachGoal;
+        
+        /// <summary>
+        /// lblProjectedValueOnGoalDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectedValueOnGoalDate;
+        
+        /// <summary>
+        /// txtProjectedValueOnGoalDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProjectedValueOnGoalDate;
+        
+        /// <summary>
+        /// lblProjectedGap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblProjectedGap;
+        
+        /// <summary>
+        /// txtProjectedGap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProjectedGap;
+        
+        /// <summary>
+        /// lblAdditionalInvestmentsRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdditionalInvestmentsRequired;
+        
+        /// <summary>
+        /// txtAdditionalInvestmentsRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdditionalInvestmentsRequired;
+        
+        /// <summary>
+        /// lblAdditionalInvestments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdditionalInvestments;
+        
+        /// <summary>
+        /// txtAdditionalInvestments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdditionalInvestments;
+        
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// pnlDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDocuments;
+        
+        /// <summary>
+        /// tblDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblDocuments;
+        
+        /// <summary>
+        /// RadGrid1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid RadGrid1;
+        
+        /// <summary>
+        /// CollapsiblePanelExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender CollapsiblePanelExtender2;
         
         /// <summary>
         /// RadPageView1 control.
