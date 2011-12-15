@@ -3030,7 +3030,7 @@ namespace DaoCustomerProfiling
 
         }
 
-        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType, int selectedYear, int rangeFromYear, int rangeToYear)
+        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
         {
 
             Database db;
@@ -3046,9 +3046,6 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_Value", DbType.Decimal, assumptionValue);
                 db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@CPA_ModifiedBy", DbType.Int32, userId);
-                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@year", DbType.Int32, selectedYear);
-                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@RangeFromyear", DbType.Int32, rangeFromYear);
-                db.AddInParameter(cmdUpdateCustomerProjectedDetalis, "@RangeToyear", DbType.Int32, rangeToYear);
                 db.ExecuteDataSet(cmdUpdateCustomerProjectedDetalis);
 
 
@@ -3093,7 +3090,7 @@ namespace DaoCustomerProfiling
             return expiryAge;
         }
 
-        public DataSet GetAllCustomersAssumptions(int customerId)
+        public DataSet GetAllCustomersAssumptions(int customerId,int adviserid)
         {
 
             Database db;
@@ -3105,7 +3102,7 @@ namespace DaoCustomerProfiling
                 //To retreive data from the table 
                 cmdGetAllCustomersAssumptions = db.GetStoredProcCommand("SP_GetAllCustomersAssumptions");
                 db.AddInParameter(cmdGetAllCustomersAssumptions, "@C_CustomerId", DbType.Int32, customerId);
-
+                db.AddInParameter(cmdGetAllCustomersAssumptions, "@AdviserId", DbType.Int32, adviserid);
 
                 dsGetAllCustomersAssumptions = db.ExecuteDataSet(cmdGetAllCustomersAssumptions);
             }

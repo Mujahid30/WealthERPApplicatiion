@@ -1482,10 +1482,10 @@ namespace BoCustomerProfiling
                 throw Ex;
             }
         }
-        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType, int selectedYear, int rangeFromYear, int rangeToYear)
+        public void UpdateCustomerProjectedDetalis(int userId, int customerId, decimal assumptionValue, string assumptionType)
         {
             CustomerDao customerDao = new CustomerDao();
-            customerDao.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, assumptionType, selectedYear, rangeFromYear, rangeToYear);
+            customerDao.UpdateCustomerProjectedDetalis(userId, customerId, assumptionValue, assumptionType);
         }
         public int ExpiryAgeOfAdviser(int adviserId, int customerId)
         {
@@ -1501,13 +1501,13 @@ namespace BoCustomerProfiling
             }
             return expiryAge;
         }
-        public DataSet GetAllCustomersAssumptions(int customerId)
+        public DataSet GetAllCustomersAssumptions(int customerId,int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
             DataSet dsGetAllCustomersAssumptions;
             try
             {
-                dsGetAllCustomersAssumptions = customerDao.GetAllCustomersAssumptions(customerId);
+                dsGetAllCustomersAssumptions = customerDao.GetAllCustomersAssumptions(customerId, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
