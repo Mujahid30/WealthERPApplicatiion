@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdviserFPConfigurationBo.cs" />
     <Compile Include="CustomerFPAnalyticsBo.cs" />
     <Compile Include="CustomerGoalPlanningBo.cs" />
     <Compile Include="CustomerProspectBo.cs" />
