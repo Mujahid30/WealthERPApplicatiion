@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdviserFPConfigurationVo.cs" />
     <Compile Include="CustomerGoalPlanningVo.cs" />
     <Compile Include="CustomerProspectAssetDetailsVo.cs">
       <SubType>Code</SubType>
