@@ -14,6 +14,17 @@ namespace BoFPSuperlite
 {
     public class CustomerGoalPlanningBo
     {
+
+        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID, out bool isHavingAssumption)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
+
+            customerAssumptionVo = customerGoalPlanningDao.GetCustomerAssumptions(CustomerID, out isHavingAssumption);
+
+            return customerAssumptionVo;
+
+        }
         public DataSet GetGoalObjectiveTypes()
         {
             DataSet dsGoalObjectiveTypes;
@@ -84,7 +95,7 @@ namespace BoFPSuperlite
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                 CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
-                customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
+                //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
                 if (isHavingAssumption)
                 {
 
