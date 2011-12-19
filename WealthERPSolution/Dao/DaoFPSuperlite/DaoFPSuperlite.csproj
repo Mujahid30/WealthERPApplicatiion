@@ -77,7 +77,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdviserFPConfigurationDao.cs" />
     <Compile Include="CustomerFPAnalyticsDao.cs" />
     <Compile Include="CustomerGoalPlanningDao.cs" />
     <Compile Include="CustomerProspectDao.cs" />
