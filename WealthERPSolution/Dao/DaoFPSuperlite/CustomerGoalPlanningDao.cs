@@ -247,7 +247,7 @@ namespace DaoFPSuperlite
 
         }
 
-        public CustomerAssumptionVo GetAllCustomerAssumption(int CustomerID,int goalYear,out bool isHavingAssumption)
+        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID,out bool isHavingAssumption)
         {
             Database db;
             DbCommand allCustomerAssumptionCmd;
@@ -258,7 +258,7 @@ namespace DaoFPSuperlite
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 allCustomerAssumptionCmd = db.GetStoredProcCommand("SP_GetCustomerAssumptionForGoalSetup");
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
-                db.AddInParameter(allCustomerAssumptionCmd, "@GoalYear", DbType.Int32, goalYear);
+                //db.AddInParameter(allCustomerAssumptionCmd, "@GoalYear", DbType.Int32, goalYear);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseAge", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseEOL", DbType.Int32, 1000);
@@ -286,6 +286,7 @@ namespace DaoFPSuperlite
 
                 DataTable dtCustomerStaticAssumption = allCustomerAssumptionDs.Tables[0];
                 DataTable dtCustomerProjectedAssumption = allCustomerAssumptionDs.Tables[1];
+                DataTable dtCustomerFPConfiguration = allCustomerAssumptionDs.Tables[2];
                 foreach (DataRow dr in dtCustomerStaticAssumption.Rows)
                 {
                     if(Convert.ToString(dr["WA_AssumptionId"])=="LE")
@@ -300,7 +301,7 @@ namespace DaoFPSuperlite
                     }
  
                 }
-                foreach (DataRow dr in dtCustomerProjectedAssumption.Rows)
+                foreach (DataRow dr in dtCustomerProjectedAssumption.Rows)                
                 {
                     switch(Convert.ToString(dr["WA_AssumptionId"]))
                     {
@@ -320,6 +321,51 @@ namespace DaoFPSuperlite
                                 break;
                             }
                     }
+                }
+
+                foreach (DataRow dr in dtCustomerFPConfiguration.Rows)
+                {
+                    switch (Convert.ToInt32(dr["WFPC_CalculationId"].ToString()))
+                    {
+                        case 1:
+                            {
+                                if (Convert.ToInt16(dr["WFPCB_CalculationBasisId"].ToString()) == 1)
+                                {
+                                    customerAssumptionVo.IsCorpusToBeLeftBehind = false;
+                                }
+                                else
+                                {
+                                    customerAssumptionVo.IsCorpusToBeLeftBehind = true;
+                                }
+                                break;
+                            }
+                        case 3:
+                            {
+                                if (Convert.ToInt16(dr["WFPCB_CalculationBasisId"].ToString()) == 5)
+                                {
+                                    customerAssumptionVo.IsGoalFundingFromInvestMapping = true;
+                                }
+                                else
+                                {
+                                    customerAssumptionVo.IsGoalFundingFromInvestMapping = false;
+                                }
+                                break;
+                            }
+                        case 4:
+                            {
+                                if (Convert.ToInt16(dr["WFPCB_CalculationBasisId"].ToString()) == 7)
+                                {
+                                    customerAssumptionVo.IsModelPortfolio = true;
+                                }
+                                else
+                                {
+                                    customerAssumptionVo.IsModelPortfolio = false;
+                                }
+                                break;
+                            }
+ 
+                    }
+ 
                 }
               
             }
