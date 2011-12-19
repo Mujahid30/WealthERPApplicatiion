@@ -335,6 +335,31 @@ namespace VoFPSuperlite
             get { return A_RTGoalYear; }
             set { A_RTGoalYear = value; }
         }
+
+        private bool C_IsModelPortfolio;
+
+        public bool IsModelPortfolio
+        {
+            get { return C_IsModelPortfolio; }
+            set { C_IsModelPortfolio = value; }
+        }
+
+        private bool C_IsGoalFundingFromInvestMapping;
+
+        public bool IsGoalFundingFromInvestMapping
+        {
+            get { return C_IsGoalFundingFromInvestMapping; }
+            set { C_IsGoalFundingFromInvestMapping = value; }
+        }
+
+        private bool C_IsCorpusToBeLeftBehind;
+
+        public bool IsCorpusToBeLeftBehind
+        {
+            get { return C_IsCorpusToBeLeftBehind; }
+            set { C_IsCorpusToBeLeftBehind = value; }
+        }
+
     }
 
 
