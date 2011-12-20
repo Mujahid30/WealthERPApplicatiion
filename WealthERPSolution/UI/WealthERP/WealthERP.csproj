@@ -2449,6 +2449,17 @@
     <Compile Include="Reports\OfflineForm.ascx.designer.cs">
       <DependentUpon>OfflineForm.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\OrderTransactionSlip.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderTransactionSlip.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\OrderTransactionSlipDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\PortfolioReports.ascx.cs">
       <DependentUpon>PortfolioReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2932,6 +2943,10 @@
     <EmbeddedResource Include="Reports\MultiiAssetReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MultiiAssetReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\OrderTransactionSlip.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>OrderTransactionSlip.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -5710,6 +5725,17 @@
     </None>
     <None Include="Reports\MultiiAssetReportDS.xss">
       <DependentUpon>MultiiAssetReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\OrderTransactionSlipDS.xsc">
+      <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\OrderTransactionSlipDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderTransactionSlipDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\OrderTransactionSlipDS.xss">
+      <DependentUpon>OrderTransactionSlipDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\TempReports\MFReports_634040161522846026.pdf" />
     <None Include="Reports\TempReports\MFReports_634042746966961210.pdf" />
