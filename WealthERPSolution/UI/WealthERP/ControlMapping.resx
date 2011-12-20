@@ -1261,4 +1261,8 @@
     <value>Research//RiskScore.ascx</value>
     <comment>Research//RiskScore.ascx</comment>
   </data>
+  <data name="ManualValuation" xml:space="preserve">
+    <value>SuperAdmin//ManualValuation.ascx</value>
+    <comment>SuperAdmin//ManualValuation.ascx</comment>
+  </data>
 </root>

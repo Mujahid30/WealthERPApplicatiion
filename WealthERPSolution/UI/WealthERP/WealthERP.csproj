@@ -2565,6 +2565,13 @@
     <Compile Include="SuperAdmin\IFFUserManagement.ascx.designer.cs">
       <DependentUpon>IFFUserManagement.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\ManualValuation.ascx.cs">
+      <DependentUpon>ManualValuation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\ManualValuation.ascx.designer.cs">
+      <DependentUpon>ManualValuation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\PriceListMonitor.ascx.cs">
       <DependentUpon>PriceListMonitor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5019,6 +5026,7 @@
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\IFFUserManagement.ascx" />
+    <Content Include="SuperAdmin\ManualValuation.ascx" />
     <Content Include="SuperAdmin\PriceListMonitor.ascx" />
     <Content Include="SuperAdmin\Subscription.ascx" />
     <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
