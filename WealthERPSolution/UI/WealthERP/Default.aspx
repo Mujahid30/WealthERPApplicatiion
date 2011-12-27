@@ -287,7 +287,13 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
-                                                                Value="Interest Calculator"></asp:MenuItem>
+                                                                Value="Interest Calculator" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                                
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');" Text="Transact/Business online"
+                                                              Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                              
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links"
+                                                              Value="Info links" ></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
