@@ -468,6 +468,13 @@
     <Compile Include="Admin\GoldPriceList.ascx.designer.cs">
       <DependentUpon>GoldPriceList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\InfoLinks.ascx.cs">
+      <DependentUpon>InfoLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\InfoLinks.ascx.designer.cs">
+      <DependentUpon>InfoLinks.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Maintenance.ascx.cs">
       <DependentUpon>Maintenance.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -495,6 +502,13 @@
     </Compile>
     <Compile Include="Admin\PriceList.ascx.designer.cs">
       <DependentUpon>PriceList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.cs">
+      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TransactBusinessOnlineLinks.ascx.designer.cs">
+      <DependentUpon>TransactBusinessOnlineLinks.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Upload.ascx.cs">
       <DependentUpon>Upload.ascx</DependentUpon>
@@ -3228,7 +3242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\GoldPriceList.ascx" />
+    <Content Include="Admin\InfoLinks.ascx" />
     <Content Include="Admin\MarketData.ascx" />
+    <Content Include="Admin\TransactBusinessOnlineLinks.ascx" />
     <Content Include="Admin\UploadProcessLog.ascx" />
     <Content Include="Admin\UploadRejects.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
@@ -4923,6 +4939,7 @@
     <Content Include="Images\Loading.gif" />
     <Content Include="Images\loadingGIF.gif" />
     <Content Include="Images\logoplaceholder.jpg" />
+    <Content Include="Images\lt_new.gif" />
     <Content Include="Images\MailSend-loader.gif" />
     <Content Include="Images\MenuSeparator.jpg" />
     <Content Include="Images\Money_Touch_360_logo1.gif" />
