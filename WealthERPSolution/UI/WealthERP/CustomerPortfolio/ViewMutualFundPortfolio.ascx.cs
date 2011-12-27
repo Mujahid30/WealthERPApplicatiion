@@ -595,6 +595,7 @@ namespace WealthERP.CustomerPortfolio
             dtMFPortfolioNotional.Columns.Add("STCG");
             dtMFPortfolioNotional.Columns.Add("LTCG");
             dtMFPortfolioNotional.Columns.Add("TotalPL");
+            dtMFPortfolioNotional.Columns.Add("SchemeCode");
         }
         /// <summary>
         /// Below three functions are used to add details for the datatable.... schema which define on above three
@@ -986,11 +987,19 @@ namespace WealthERP.CustomerPortfolio
             CostOfAcquisition_Notional = CostOfAcquisition_Notional + mfPortfolioVo.CostOfPurchase;
             acqCostExclDivReinvst_Notional = acqCostExclDivReinvst_Notional + mfPortfolioVo.AcqCostExclDivReinvst;
             currentHoldings_Notional = currentHoldings_Notional + mfPortfolioVo.Quantity;
+
+            drMFPortfolioNotional[19] = mfPortfolioVo.MFCode;
             return drMFPortfolioNotional;
         }
         #region Portfolio All Grid View Methods
         protected void gvMFPortfolio_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int schemeCode = 0;
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month - 1;
+            string schemeName = null;
+            int amcCode = 0;
+
             try
             {
                 LoadMFPortfolio();
@@ -1006,6 +1015,9 @@ namespace WealthERP.CustomerPortfolio
                     //Session["MFPortfolioVo"] = mfPortfolioList[slNo - 1];
                     Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
                     Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeName = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeCode = mfPortfolioList[slNo - 1].MFCode;
+                    amcCode = mfPortfolioList[slNo - 1].AMCCode;
                     Hashtable ht = new Hashtable();
                     ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
                     ht["To"] = DateTime.Today.ToShortDateString();
@@ -1014,6 +1026,11 @@ namespace WealthERP.CustomerPortfolio
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     }
+                    if (e.CommandName == "NavigateToMarketData")
+                    {
+                        Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
+                    }
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1123,6 +1140,12 @@ namespace WealthERP.CustomerPortfolio
         #region Portfolio Realized Grid View Methods
         protected void gvMFPortfolioRealized_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int schemeCode = 0;
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month - 1;
+            string schemeName = null;
+            int amcCode = 0;
+
             try
             {
                 LoadMFPortfolio();
@@ -1136,6 +1159,9 @@ namespace WealthERP.CustomerPortfolio
                     int slNo = int.Parse(gvMFPortfolioRealized.DataKeys[index].Value.ToString());
                     Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
                     Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeName = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeCode = mfPortfolioList[slNo - 1].MFCode;
+                    amcCode = mfPortfolioList[slNo - 1].AMCCode;
                     Hashtable ht = new Hashtable();
                     ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
                     ht["To"] = DateTime.Today.ToShortDateString();
@@ -1143,6 +1169,10 @@ namespace WealthERP.CustomerPortfolio
                     if (e.CommandName == "Select")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                    }
+                    if (e.CommandName == "NavigateToMarketData")
+                    {
+                        Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
                     }
                 }
             }
@@ -1255,6 +1285,12 @@ namespace WealthERP.CustomerPortfolio
         #region Portfolio Notional Grid View Methods
         protected void gvMFPortfolioNotional_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int schemeCode = 0;
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month - 1;
+            string schemeName = null;
+            int amcCode = 0;
+            
             try
             {
                 LoadMFPortfolio();
@@ -1268,6 +1304,9 @@ namespace WealthERP.CustomerPortfolio
                     int slNo = int.Parse(gvMFPortfolioNotional.DataKeys[index].Value.ToString());
                     Session["Folio"] = mfPortfolioList[slNo - 1].Folio.ToString();
                     Session["Scheme"] = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeName = mfPortfolioList[slNo - 1].SchemePlan.ToString();
+                    schemeCode = mfPortfolioList[slNo - 1].MFCode;
+                    amcCode = mfPortfolioList[slNo - 1].AMCCode;
                     Hashtable ht = new Hashtable();
                     ht["From"] = mfPortfolioList[slNo - 1].MFPortfolioTransactionVoList[0].BuyDate.ToShortDateString();
                     ht["To"] = DateTime.Today.ToShortDateString();
@@ -1275,6 +1314,10 @@ namespace WealthERP.CustomerPortfolio
                     if (e.CommandName == "Select")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                    }
+                    if (e.CommandName == "NavigateToMarketData")
+                    {
+                        Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
                     }
                 }
             }
@@ -2878,6 +2921,13 @@ namespace WealthERP.CustomerPortfolio
         {
             hdnDownloadFormat.Value = "excel";
             gvMFPortfolioRealizedExport();
+        }
+
+        // Link Button Function for navigating Schemes from MF to Factsheet..
+
+        protected void lnkbtnSchemes_Click(object sender, EventArgs e)
+        {            
+            string ID = gvMFPortfolioNotional.DataKeys[0].Values[1].ToString();
         }
 
         //protected void btnGo_Click(object sender, EventArgs e)

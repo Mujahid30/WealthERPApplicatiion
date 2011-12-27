@@ -207,7 +207,7 @@ SelectedIndex="0">
                                         runat="server" CssClass="Field"></asp:Label><asp:LinkButton ID="lnkGetBackNotionalLink"
                                             runat="server" OnClick="GetBackNotionalLink_Click" Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
                                     <asp:GridView ID="gvMFPortfolioNotional" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="SI.No" EnableViewState="true" HorizontalAlign="Center" CssClass="GridViewStyle"
+                                        CellPadding="4" DataKeyNames="SI.No,SchemeCode" EnableViewState="true" HorizontalAlign="Center" CssClass="GridViewStyle"
                                         ShowFooter="True" OnSorting="gvMFPortfolioNotional_Sorting" OnRowCommand="gvMFPortfolioNotional_RowCommand"
                                         OnPageIndexChanging="gvMFPortfolioNotional_PageIndexChanging" Width="100%" OnDataBound="gvMFPortfolioNotional_DataBound"
                                         OnRowDataBound="gvMFPortfolioNotional_RowDataBound">
@@ -241,7 +241,8 @@ SelectedIndex="0">
                                                         onkeydown="return JSdoPostback(event,'ctrl_ViewMutualFundPortfolio_btnPortfolioNotionalSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblNotionalNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>
+                                                    <%--<asp:Label ID="lblNotionalNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>--%>
+                                                    <asp:LinkButton ID="lnkbtnSchemes" CommandName="NavigateToMarketData" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Wrap="false">
@@ -356,7 +357,8 @@ SelectedIndex="0">
                                                         onkeydown="return JSdoPostback(event,'ctrl_ViewMutualFundPortfolio_btnPortfolioSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>
+                                                    <%--<asp:Label ID="lblNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>--%>
+                                                    <asp:LinkButton ID="lblNameHeader" CommandName="NavigateToMarketData" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Wrap="false">
@@ -500,7 +502,8 @@ SelectedIndex="0">
                                                         onkeydown="return JSdoPostback(event,'ctrl_ViewMutualFundPortfolio_btnPortfolioRealizedSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblRealizedNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>
+                                                    <%--<asp:Label ID="lblRealizedNameHeader" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:Label>--%>
+                                                    <asp:LinkButton ID="lblRealizedNameHeader" CommandName="NavigateToMarketData" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" runat="server" Text='<%# Eval("FundDescription").ToString() %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <%--<asp:BoundField DataField="Fund Description" HeaderText="Scheme Name" 
