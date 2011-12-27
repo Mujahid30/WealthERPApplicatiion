@@ -232,7 +232,7 @@ namespace WealthERP.General
 
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
 
-                                if (count == 3)
+                                if (count == 4)
                                 {
                                     advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                     Session["advisorBranchVo"] = advisorBranchVo;
@@ -252,6 +252,39 @@ namespace WealthERP.General
                                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                     }
                                     Session["S_CurrentUserRole"] = "Admin";
+                                }
+
+                                if (count == 3)
+                                {
+                                    if (roleList.Contains("Admin") && (roleList.Contains("RM") && roleList.Contains("BM")))
+                                    {
+                                        advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                                        Session["advisorBranchVo"] = advisorBranchVo;
+                                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
+                                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                                        if (potentialHomePage == "Admin Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                                        else if (potentialHomePage == "Admin Small IFA Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderw", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                                        else
+                                        {
+                                            Session["Customer"] = "Customer";
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
+                                        }
+                                        Session["S_CurrentUserRole"] = "Admin";
+                                    }
+                                    if (roleList.Contains("Admin") && (roleList.Contains("RM") && roleList.Contains("Research")))
+                                    {
+
+                                    }
+                                    if (roleList.Contains("Admin") && (roleList.Contains("BM") && roleList.Contains("Research")))
+                                    {
+
+                                    }
                                 }
                                 if (count == 2)
                                 {
@@ -322,6 +355,75 @@ namespace WealthERP.General
                                         //login user role Type
                                         Session["S_CurrentUserRole"] = "Admin";
                                     }
+                                    else if (roleList.Contains("Admin") && roleList.Contains("Research"))
+                                    {
+                                        advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                                        Session["advisorBranchVo"] = advisorBranchVo;
+                                        //login user role Type
+                                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "Admin");
+                                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                                        if (potentialHomePage == "Admin Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                                        else if (potentialHomePage == "Admin Small IFA Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderw", "loadcontrol('IFAAdminMainDashboard','login');", true);
+                                        else
+                                        {
+                                            Session["Customer"] = "Customer";
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
+                                        }
+                                        Session["S_CurrentUserRole"] = "Admin";
+                                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                    }
+                                    else if (roleList.Contains("RM") && roleList.Contains("Research"))
+                                    {
+                                        Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                                        //Session["advisorVo"]=advisorBo.GetAdvisor(
+                                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                        sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
+                                        Session[SessionContents.LogoPath] = sourcePath;
+                                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //login user role Type Issue Reported by Ajay on July 1 2010
+                                        Session["S_CurrentUserRole"] = "RM";
+                                        //RM Theme Will be same as Advisor Theme
+                                        userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                        Session["Theme"] = strUserTheme;
+                                        Session["refreshTheme"] = true;
+                                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "RM");
+                                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                                        if (potentialHomePage == "RM Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('RMDashBoard','login');", true);
+                                        else
+                                        {
+                                            Session["Customer"] = "Customer";
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('RMCustomer','login');", true);
+                                        }
+                                    }
+                                    else if (roleList.Contains("BM") && roleList.Contains("Research"))
+                                    {
+                                        advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                                        Session["advisorBranchVo"] = advisorBranchVo;
+                                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //login user role Type Issue Reported by Ajay on July 1 2010
+                                        Session["S_CurrentUserRole"] = "BM";
+                                        //RM Theme Will be same as Advisor Theme
+                                        userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                        Session["Theme"] = strUserTheme;
+                                        Session["refreshTheme"] = true;
+                                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");
+                                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                                        if (potentialHomePage == "BM Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeejuywerw", "loadcontrol('BMDashBoard','login');", true);
+                                        else
+                                        {
+                                            Session["Customer"] = "Customer";
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('BMCustomer','login');", true);
+                                        }
+                                    }
                                 }
 
                                 if (count == 1)
@@ -374,6 +476,16 @@ namespace WealthERP.General
                                             Session["Customer"] = "Customer";
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('BMCustomer','login');", true);
                                         }
+
+                                    }
+                                    else if (roleList.Contains("Research"))
+                                    {
+                                        userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                        Session["Theme"] = strUserTheme;
+                                        Session["refreshTheme"] = true;
+
+                                        Session["S_CurrentUserRole"] = "Research";
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('ModelPortfolioSetup','login');", true);
 
                                     }
                                     else if (roleList.Contains("Ops"))
