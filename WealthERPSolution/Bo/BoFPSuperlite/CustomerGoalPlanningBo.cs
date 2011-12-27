@@ -15,12 +15,12 @@ namespace BoFPSuperlite
     public class CustomerGoalPlanningBo
     {
 
-        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID, out bool isHavingAssumption)
+        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID,int adviserId ,out bool isHavingAssumption)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
 
-            customerAssumptionVo = customerGoalPlanningDao.GetCustomerAssumptions(CustomerID, out isHavingAssumption);
+            customerAssumptionVo = customerGoalPlanningDao.GetCustomerAssumptions(CustomerID,adviserId, out isHavingAssumption);
 
             return customerAssumptionVo;
 
@@ -507,6 +507,23 @@ namespace BoFPSuperlite
             return dsExistingInvestment;
         }
 
+        public DataSet GetSIPInvestmentDetails(int customerId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsSIPInvestment = new DataSet();
+            try
+            {
+                dsSIPInvestment = customerGoalPlanningDao.GetSIPInvestmentDetails(customerId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSIPInvestment;
+        }
+
+
         public void UpdateGoalAllocationPercentage(decimal allocationPercentage,int schemeId, int goalId)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
@@ -522,6 +539,53 @@ namespace BoFPSuperlite
             }
            
         }
-        
+
+
+        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int schemeId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+           
+            try
+            {
+                customerGoalPlanningDao.UpdateSIPGoalAllocationAmount(allocationAmount, schemeId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+           
+        }
+        public DataSet BindDDLSchemeAllocated(int customerId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsBindDDLSchemeAllocated = new DataSet();
+            try
+            {
+                dsBindDDLSchemeAllocated = customerGoalPlanningDao.BindDDLSchemeAllocated(customerId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBindDDLSchemeAllocated;
+        }
+
+        public DataSet BindDDLSIPSchemeAllocated(int customerId, int goalId)
+        {
+            CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
+            DataSet dsBindDDLSIPSchemeAllocated = new DataSet();
+            try
+            {
+                dsBindDDLSIPSchemeAllocated = customerGoalPlanningDao.BindDDLSIPSchemeAllocated(customerId, goalId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBindDDLSIPSchemeAllocated;
+        }
     }
 }

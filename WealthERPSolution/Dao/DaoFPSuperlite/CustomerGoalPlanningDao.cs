@@ -247,7 +247,7 @@ namespace DaoFPSuperlite
 
         }
 
-        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID,out bool isHavingAssumption)
+        public CustomerAssumptionVo GetCustomerAssumptions(int CustomerID,int adviserId,out bool isHavingAssumption)
         {
             Database db;
             DbCommand allCustomerAssumptionCmd;
@@ -258,7 +258,7 @@ namespace DaoFPSuperlite
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 allCustomerAssumptionCmd = db.GetStoredProcCommand("SP_GetCustomerAssumptionForGoalSetup");
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
-                //db.AddInParameter(allCustomerAssumptionCmd, "@GoalYear", DbType.Int32, goalYear);
+                db.AddInParameter(allCustomerAssumptionCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseAge", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseEOL", DbType.Int32, 1000);
@@ -320,7 +320,17 @@ namespace DaoFPSuperlite
                                 customerAssumptionVo.ReturnOnNewInvestment = double.Parse(Convert.ToString(dr["CPA_Value"]));
                                 break;
                             }
-                    }
+                        case "DR":
+                            {
+                                customerAssumptionVo.ReturnOnDebt = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                        case "ER":
+                            {
+                                customerAssumptionVo.ReturnOnEquity = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                      }
                 }
 
                 foreach (DataRow dr in dtCustomerFPConfiguration.Rows)
@@ -509,7 +519,8 @@ namespace DaoFPSuperlite
                     GoalPlanningVo.GoalDescription = dtGoalDetails.Rows[0]["CG_GoalDescription"].ToString();
                     if (dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"] != null && dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"].ToString().Trim() != "")
                     GoalPlanningVo.CorpusLeftBehind =double.Parse(dtGoalDetails.Rows[0]["CG_CorpusLeftBehind"].ToString());
-
+                    if (dtGoalDetails.Rows[0]["CG_FVofCostToday"] != null && dtGoalDetails.Rows[0]["CG_FVofCostToday"].ToString().Trim() != "")
+                        GoalPlanningVo.FutureValueOfCostToday = double.Parse(dtGoalDetails.Rows[0]["CG_FVofCostToday"].ToString());
                     if (int.Parse(dtGoalDetails.Rows[0]["CG_IsOnetimeOccurence"].ToString()) == 1)
                     {
                         GoalPlanningVo.IsOnetimeOccurence = true;
@@ -688,11 +699,8 @@ namespace DaoFPSuperlite
                 getExistingInvestmentDetailsCmd = db.GetStoredProcCommand("SP_GetExistingInvestmentDetails");
                 db.AddInParameter(getExistingInvestmentDetailsCmd, "@CustomerId", DbType.Int32, CustomerID);
                 db.AddInParameter(getExistingInvestmentDetailsCmd, "@goalId", DbType.Int32, goalId);
-                //getExistingInvestmentDetailsCmd.CommandTimeout = 60 * 60;
+                getExistingInvestmentDetailsCmd.CommandTimeout = 60 * 60;
                 dsGetExistingInvestmentDetails = db.ExecuteDataSet(getExistingInvestmentDetailsCmd);
-
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -701,7 +709,27 @@ namespace DaoFPSuperlite
             return dsGetExistingInvestmentDetails;
         }
 
+        public DataSet GetSIPInvestmentDetails(int CustomerID, int goalId)
+        {
+            Database db;
+            DataSet dsGetSIPInvestmentDetails = new DataSet();
+            DbCommand getSIPInvestmentDetailsCmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSIPInvestmentDetailsCmd = db.GetStoredProcCommand("SP_GetSIPInvestmentDetails");
+                db.AddInParameter(getSIPInvestmentDetailsCmd, "@CustomerId", DbType.Int32, CustomerID);
+                db.AddInParameter(getSIPInvestmentDetailsCmd, "@goalId", DbType.Int32, goalId);
+                dsGetSIPInvestmentDetails = db.ExecuteDataSet(getSIPInvestmentDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetSIPInvestmentDetails;
+        }
+        
         public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId)
         {
             Database db;
@@ -724,6 +752,70 @@ namespace DaoFPSuperlite
                 throw Ex;
             }
            
+        }
+
+        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int schemeId, int goalId)
+        {
+            Database db;
+            DbCommand SIPGoalAllocationCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                SIPGoalAllocationCmd = db.GetStoredProcCommand("SP_UpdateSIPGoalAllocationAmount");
+                db.AddInParameter(SIPGoalAllocationCmd, "@allocationAmount", DbType.Decimal, allocationAmount);
+                db.AddInParameter(SIPGoalAllocationCmd, "@goalId", DbType.Int32, goalId);
+                db.AddInParameter(SIPGoalAllocationCmd, "@schemeId", DbType.Int32, schemeId);
+                db.ExecuteNonQuery(SIPGoalAllocationCmd);
+
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+
+        public DataSet BindDDLSchemeAllocated(int customerId, int goalId)
+        {
+            Database db;
+            DbCommand bindDDLSchemeAllocatedCmd;
+            DataSet dsBindDDLSchemeAllocated = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                bindDDLSchemeAllocatedCmd = db.GetStoredProcCommand("SP_BindDDLSchemeGoalAllocation");
+                db.AddInParameter(bindDDLSchemeAllocatedCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(bindDDLSchemeAllocatedCmd, "@GoalId", DbType.Int32, goalId);
+                dsBindDDLSchemeAllocated= db.ExecuteDataSet(bindDDLSchemeAllocatedCmd); 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBindDDLSchemeAllocated;
+        }
+
+        public DataSet BindDDLSIPSchemeAllocated(int customerId, int goalId)
+        {
+            Database db;
+            DbCommand bindDDLSIPSchemeAllocatedCmd;
+            DataSet dsBindDDLSIPSchemeAllocated = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                bindDDLSIPSchemeAllocatedCmd = db.GetStoredProcCommand("SP_BindSIPDDLSchemeGoalAllocation");
+                db.AddInParameter(bindDDLSIPSchemeAllocatedCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(bindDDLSIPSchemeAllocatedCmd, "@GoalId", DbType.Int32, goalId);
+                dsBindDDLSIPSchemeAllocated = db.ExecuteDataSet(bindDDLSIPSchemeAllocatedCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsBindDDLSIPSchemeAllocated;
         }
     }
 }
