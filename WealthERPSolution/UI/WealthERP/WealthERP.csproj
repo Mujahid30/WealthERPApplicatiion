@@ -4907,6 +4907,7 @@
     <Content Include="Images\1044_South.jpg" />
     <Content Include="Images\1044_Southnd.jpg" />
     <Content Include="Images\arrow_double_up_7.gif" />
+    <Content Include="Images\birlasunlife.jpg" />
     <Content Include="Images\Black-sample.gif" />
     <Content Include="Images\blue-sample.gif" />
     <Content Include="Images\collapse.png" />
@@ -4925,11 +4926,13 @@
     <Content Include="Images\greenStatus.png" />
     <Content Include="Images\GreenUpArrow.png" />
     <Content Include="Images\h2_trigger_a.gif" />
+    <Content Include="Images\hdfc.jpg" />
     <Content Include="Images\help.png" />
     <Content Include="Images\helpImage.png" />
     <Content Include="Images\helpInfo.png" />
     <Content Include="Images\help_button.png" />
     <Content Include="Images\HomeLoan.jpg" />
+    <Content Include="Images\icicipru.jpg" />
     <Content Include="Images\income.png" />
     <Content Include="Images\info.png" />
     <Content Include="Images\info_image.png" />
