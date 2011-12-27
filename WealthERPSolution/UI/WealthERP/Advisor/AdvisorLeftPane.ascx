@@ -491,17 +491,17 @@
                         </Items>
                         <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
-                    <telerik:RadPanelBar ID="RadPanelBar5" runat="server" EnableEmbeddedSkins="false"
+                    <telerik:RadPanelBar ID="RadPanelBar5" style="vertical-align: middle;" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" 
                         onitemclick="RadPanelBar5_ItemClick">
                         <Items>
-                            <telerik:RadPanelItem runat="server" Text="Research" Value="Research">
+                            <telerik:RadPanelItem runat="server" ImageUrl="~/Images/lt_new.gif" ImagePosition="Left" Text="Research" Value="Research" >
                                 <Items>
-                                 <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">                                                
+                                 <telerik:RadPanelItem runat="server" ImageUrl="~/Images/lt_new.gif" ImagePosition="Left" Text="Research Dashboard" Value="Research_Dashboard">                                                
                                  </telerik:RadPanelItem>
                                  
-                                 <telerik:RadPanelItem runat="server" Text="Configure" Value="Configure">
+                                 <telerik:RadPanelItem runat="server" ImageUrl="~/Images/lt_new.gif" ImagePosition="Left" Text="Configure" Value="Configure">
                                  <Items>
                                   <telerik:RadPanelItem runat="server" Text="Risk/Goal Classes" Value="RiskGoal_Classes">                                                
                                   </telerik:RadPanelItem>
@@ -522,7 +522,7 @@
                                                                                 
                                  </telerik:RadPanelItem>
                                  
-                                  <telerik:RadPanelItem runat="server" Text="Models" Value="Reference_Data">
+                                  <telerik:RadPanelItem runat="server" ImageUrl="~/Images/lt_new.gif" ImagePosition="Left" Text="Models" Value="Reference_Data">
                                         <Items>                                          
                                          
                                              <telerik:RadPanelItem runat="server" Text="Asset Allocation" Value="Asset_Allocation">                                                

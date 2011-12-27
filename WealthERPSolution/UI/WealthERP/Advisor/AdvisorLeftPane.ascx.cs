@@ -17,7 +17,7 @@ using System.Data;
 
 namespace WealthERP.Advisor
 {
-    public partial class AdvisorLeftPane : System.Web.UI.UserControl
+    public partial class AdvisorLeftPane : UserControl
     {
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
@@ -91,6 +91,18 @@ namespace WealthERP.Advisor
                     btnSearchBranch.Visible = false;
                     btnSearchRMCustomer.Visible = false;
                 }
+                else if (userVo.RoleList.Contains("Research"))
+                {
+                    txtFindRM.Visible = false;
+                    btnSearchRM.Visible = false;
+                    txtFindBranch.Visible = false;
+                    btnSearchBranch.Visible = false;
+                    txtFindAdviserCustomer.Visible = false;
+                    btnSearchAdviserCustomer.Visible = false;
+                    txtFindRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
+
 
                 //Code to display the left tree based on the Roles
                 if (!userVo.RoleList.Contains("Admin"))
@@ -101,6 +113,8 @@ namespace WealthERP.Advisor
                     RadPanelBar3.Visible = false;
                 if (!userVo.RoleList.Contains("Ops"))
                     RadPanelBar4.Visible = false;
+                if (!userVo.RoleList.Contains("Research"))
+                    RadPanelBar5.Visible = false;
 
                 //Code to unhide the tree nodes based on User Roles
                 if (userVo.RoleList.Contains("Admin"))
@@ -122,6 +136,11 @@ namespace WealthERP.Advisor
                 {
                     dsTreeNodes = GetTreeNodesBasedOnUserRoles("Ops", "Admin");
                     SetAdminTreeNodesForRoles(dsTreeNodes, "Ops");
+                }
+                if (userVo.RoleList.Contains("Research"))
+                {
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Research", "Admin");
+                    SetAdminTreeNodesForRoles(dsTreeNodes, "Research");
                 }
 
 
@@ -189,6 +208,11 @@ namespace WealthERP.Advisor
                 {
                     RadPanelBar4.FindItemByValue("Ops").Expanded = true;
                     RadPanelBar4.FindItemByValue("Customer").Selected = true;
+                }
+                else if (userVo.RoleList.Contains("Research"))
+                {
+                    RadPanelBar5.FindItemByValue("Reference_Data").Expanded = true;
+                    RadPanelBar5.FindItemByValue("Reference_Data").Selected = true;
                 }
 
             }
@@ -1421,6 +1445,74 @@ namespace WealthERP.Advisor
                 //Setting Primary key for the datatable inorder to find a value based on the key
                 dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
                 foreach (RadPanelItem Item in RadPanelBar3.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+            }
+            else if (userRole == "Research")
+            {
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[0]);
+                tempView.Sort = "WTN_TreeNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[0].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[0].Columns["WTN_TreeNode"] };
+                foreach (RadPanelItem Item in RadPanelBar5.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 2 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[1]);
+                tempView.Sort = "WTSN_TreeSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[1].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[1].Columns["WTSN_TreeSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar5.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[2]);
+                tempView.Sort = "WTSSN_TreeSubSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar5.GetAllItems())
                 {
                     if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
                     {
