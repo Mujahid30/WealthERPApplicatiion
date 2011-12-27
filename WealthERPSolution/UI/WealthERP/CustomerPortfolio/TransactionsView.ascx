@@ -290,8 +290,10 @@
                                 <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_TransactionsView_btnTranSchemeSearch');" />
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'
-                                    ItemStyle-Wrap="false"></asp:Label>
+                                <%--<asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'
+                                    ItemStyle-Wrap="false"></asp:Label>--%> 
+                                <asp:LinkButton ID="lblSchemeHeader" CommandName="NavigateToMarketData" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'>
+                                </asp:LinkButton>   
                             </ItemTemplate>
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:TemplateField>

@@ -502,12 +502,37 @@ namespace WealthERP.CustomerPortfolio
             Hashtable hshTranDates;
             try
             {
+                if (ViewState["dtFrom"] != null)
+                {
+                    dtFrom = DateTime.Parse(ViewState["dtFrom"].ToString());
+                }
+                else if(txtFromTran.Text != "")
+                {
+                    dtFrom = DateTime.Parse(txtFromTran.Text);
+                }
+
+                if (ViewState["dtTo"] != null)
+                {
+                    dtTo = DateTime.Parse(ViewState["dtTo"].ToString());
+                }
+                else if (txtToTran.Text != null)
+                {
+                    dtTo = DateTime.Parse(txtToTran.Text);
+                }
+
+                BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
 
                 if (e.CommandName.ToString() != "Sort")
                 {
                     index = Convert.ToInt32(e.CommandArgument);
                     int transactionId = int.Parse(gvMFTransactions.DataKeys[index].Value.ToString());
                     Session["MFTransactionVo"] = customerTransactionBo.GetMFTransaction(transactionId);
+
+                    int amcCode = mfTransactionList[index].AMCCode;
+                    int schemeCode = mfTransactionList[index].MFCode;
+                    int year = DateTime.Now.Year;
+                    int month = DateTime.Now.Month - 1;
+                    string schemeName = mfTransactionList[index].SchemePlan;
 
 
                     if (e.CommandName == "Select")
@@ -518,6 +543,12 @@ namespace WealthERP.CustomerPortfolio
                         Session["tranDates"] = hshTranDates;
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMFTransaction','none');", true);
                         Session["MFEditValue"] = "Value";
+                    }
+                    if (e.CommandName == "NavigateToMarketData")
+                    {
+                        
+
+                        Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
                     }
                 }
             }
@@ -1275,7 +1306,9 @@ namespace WealthERP.CustomerPortfolio
         {
             
             dtFrom = DateTime.Parse(txtFromTran.Text);
+            ViewState["dtFrom"] = dtFrom;
             dtTo = DateTime.Parse(txtToTran.Text);
+            ViewState["dtTo"] = dtTo;
             hdnStatus.Value = "1";
             BindGridView(customerId, mypager.CurrentPage, 0, dtFrom, dtTo);
         }
