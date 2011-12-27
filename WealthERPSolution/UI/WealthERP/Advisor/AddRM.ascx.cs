@@ -38,6 +38,7 @@ namespace WealthERP.Advisor
         int userId;
         string path = "";
         bool isOpsIsChecked = false;
+        bool isPurelyResearchLogin = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -393,7 +394,7 @@ namespace WealthERP.Advisor
                     else
                         rmVo.IsExternal = 0;
 
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked);
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked,isPurelyResearchLogin);
 
                     rmVo.UserId = rmIds[0];
                     Session["rmId"] = rmIds[1];
@@ -487,6 +488,7 @@ namespace WealthERP.Advisor
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
+            
             //int i = 0;
             //int j = 0,temp=0;
             try
@@ -528,7 +530,11 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    CreateRM();
+                    if ((ChklistRMBM.Items[2].Selected == true) && ((ChklistRMBM.Items[0].Selected != true) && (ChklistRMBM.Items[1].Selected != true)))
+                    {
+                        isPurelyResearchLogin = true;
+                    }
+                    CreateRM(isPurelyResearchLogin);
                 }
                 //        }
                 //    }
@@ -700,7 +706,7 @@ namespace WealthERP.Advisor
                     rmVo.CTC = Double.Parse(txtCTCMonthly.Text);
 
 
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked);
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked,isPurelyResearchLogin);
 
                 rmVo.UserId = rmIds[0];
                 userBo.CreateRoleAssociation(rmVo.UserId, 1004);
@@ -739,9 +745,9 @@ namespace WealthERP.Advisor
             }
         }
 
-        
 
-        private void CreateRM()
+
+        private void CreateRM(bool isPurelyResearchLogin)
         {
             if (Validation())
             {
@@ -867,9 +873,13 @@ namespace WealthERP.Advisor
                 {
                     rmVo.RMRole = "RM";
                 }
-                else
+                else if (ChklistRMBM.Items[1].Selected == true)
                 {
                     rmVo.RMRole = "BM";
+                }
+                else if (ChklistRMBM.Items[2].Selected == true)
+                {
+                    rmVo.RMRole = "Research";
                 }
                 //rmVo.RMRole = ddlRMRole.SelectedValue.ToString();
 
@@ -886,7 +896,7 @@ namespace WealthERP.Advisor
                 else
                     rmVo.IsExternal = 0;
 
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId,isOpsIsChecked);
+                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmVo, userVo.UserId, isOpsIsChecked, isPurelyResearchLogin);
                 
                 rmVo.UserId = rmIds[0];
                 Session["rmId"] = rmIds[1];
@@ -932,8 +942,11 @@ namespace WealthERP.Advisor
                         {
                             // Create Association for RM
                             userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
-                                
- 
+                        }
+                        else if (Items.Text == "Research")
+                        {
+                            // Create Association for Research
+                            userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
                         }
 
                     }
@@ -1031,8 +1044,11 @@ namespace WealthERP.Advisor
             string userName = rmUserVo.FirstName + " " + rmUserVo.MiddleName + " " + rmUserVo.LastName;
             if(chkOps.Checked == true)
                 email.GetAdviserRMAccountMail("Ops" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
+            else if ((ChklistRMBM.Items[2].Selected == true) && ((ChklistRMBM.Items[0].Selected != true) && (ChklistRMBM.Items[1].Selected != true)))
+                email.GetAdviserRMAccountMail("Research" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
             else
                 email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
+            
             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
             email.To.Add(rmUserVo.Email);

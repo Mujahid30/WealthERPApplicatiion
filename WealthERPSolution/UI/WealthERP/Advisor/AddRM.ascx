@@ -236,6 +236,7 @@
                 RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" onclick="DisableControls()" >
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
+                <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
             <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
             <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004" onclick="DisableControls()" />&nbsp;
