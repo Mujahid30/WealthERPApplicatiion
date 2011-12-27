@@ -167,7 +167,7 @@ namespace DaoAdvisorProfiling
             return bResult;
         }
 
-        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked)
+        public List<int> CreateCompleteRM(UserVo userVo, RMVo rmVo, int userId, bool isOpsIsChecked, bool isPurelyResearchLogin)
         {
             int rmId;
             int rmUserId;
@@ -216,7 +216,12 @@ namespace DaoAdvisorProfiling
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
                 else
-                    db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 0);   
+                    db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 0);
+
+                if (isPurelyResearchLogin == true)
+                    db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 1);
+                else
+                    db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
 
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 10);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 10);
