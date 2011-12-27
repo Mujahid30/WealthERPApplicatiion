@@ -19,6 +19,7 @@ namespace VoCustomerPortfolio
         private int m_AccountId;
         private DateTime m_ValuationDate;
         private string m_CategoryCode;
+        private int m_AMCCode;
 
         private string m_Category;
 
@@ -158,6 +159,12 @@ namespace VoCustomerPortfolio
         {
             get { return m_MFCode; }
             set { m_MFCode = value; }
+        }
+
+        public int AMCCode
+        {
+            get { return m_AMCCode; }
+            set { m_AMCCode = value; }
         }
 
         public string SchemePlan
