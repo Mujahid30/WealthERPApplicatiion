@@ -258,7 +258,21 @@ namespace VoFPSuperlite
     public class CustomerAssumptionVo
     {
         private double A_InflationPercent;
+        private double A_ReturnOnEquity;
 
+        public double ReturnOnEquity
+        {
+            get { return A_ReturnOnEquity; }
+            set { A_ReturnOnEquity= value; }
+        }
+        private double A_ReturnOnDebt;
+
+        public double ReturnOnDebt
+        {
+            get { return A_ReturnOnDebt; }
+            set { A_ReturnOnDebt = value; }
+        }
+     
         public double InflationPercent
         {
             get { return A_InflationPercent; }
