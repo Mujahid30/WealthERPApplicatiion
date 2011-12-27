@@ -86,6 +86,8 @@ namespace WealthERP.Admin
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
                     trNavCategory.Visible = false;
+
+                    
                 }
             }
             else if (hdnassetType.Value == "Equity")
@@ -107,6 +109,25 @@ namespace WealthERP.Admin
                 trToDate.Visible = false;
                 trFromDate.Visible = false;
                 RadTabStrip1.Tabs[0].Text = "Price";
+            }
+            if (!IsPostBack)
+            {
+                if ((Request.QueryString["SchemeCode"] != null) && (Request.QueryString["AMCCode"] != null))
+                {
+                    int month = int.Parse(Request.QueryString["Month"].ToString());
+                    int amcCode = int.Parse(Request.QueryString["AMCCode"].ToString());
+                    int schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    ShowFactSheet();
+                    BindMutualFundDropDowns();
+                    ddlAmcCode.SelectedValue = amcCode.ToString();
+                    LoadAllSchemeList(amcCode);
+                    ddlSchemeList.SelectedValue = schemeCode.ToString();
+                    BindYear();
+                    BindMonth();
+                    ddMonth.SelectedValue = month.ToString();
+                    RadTabStrip1.Tabs[2].Selected = true;
+                    FactsheetMultiPage.PageViews[2].Selected = true;
+                }
             }
 
             BindSelectAMCDropdown();
@@ -784,6 +805,11 @@ namespace WealthERP.Admin
 
         protected void btnViewFactsheet_Click(object sender, EventArgs e)
         {
+            ShowFactSheet();
+        }
+
+        public void ShowFactSheet()
+        {
             tblFactSheet.Visible = true;
             DateTime factSheetDate;
             string monthName;
@@ -791,11 +817,34 @@ namespace WealthERP.Admin
             PriceBo priceBo = new PriceBo();
             DataSet dsFactsheetschemeDetails = new DataSet();
             int schemePlanId = 0, month = 0, year = 0;
-            month = int.Parse(ddMonth.SelectedValue.ToString());
-            year = int.Parse(ddYear.SelectedValue.ToString());
+
+            // Get Month from Portfolio MF Page
+            if (Request.QueryString["Month"] != null)
+                month = int.Parse(Request.QueryString["Month"].ToString());
+            else
+                month = int.Parse(ddMonth.SelectedValue.ToString());
+
+            // Get Year from Portfolio MF Page
+            if (Request.QueryString["Year"] != null)
+                year = int.Parse(Request.QueryString["Year"].ToString());
+            else
+                year = int.Parse(ddYear.SelectedValue.ToString());
+
             monthName = GetMonthName(month);
-            schemePlanId = int.Parse(ddlSchemeList.SelectedValue.ToString());
-            lblGetScheme.Text = ddlSchemeList.SelectedItem.Text;
+
+            // Get SchemeCode from Portfolio MF Page
+            if (Request.QueryString["SchemeCode"] != null)
+                schemePlanId = int.Parse(Request.QueryString["SchemeCode"].ToString());
+            else
+                schemePlanId = int.Parse(ddlSchemeList.SelectedValue.ToString());
+
+            //Get Scheme Name from Portfolio MF Page
+            if (Request.QueryString["SchemeName"] != null)
+                lblGetScheme.Text = Request.QueryString["SchemeName"].ToString();
+            else
+                lblGetScheme.Text = ddlSchemeList.SelectedItem.Text;
+
+
             lblGetMonth.Text = monthName;
             //month=RadDatePicker1
             dsFactsheetschemeDetails = priceBo.GetFactSheetSchemeDetails(schemePlanId, month, year);
@@ -989,9 +1038,10 @@ namespace WealthERP.Admin
 
         protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int amcCode = int.Parse(ddlAmcCode.SelectedValue);
             if (ddlAmcCode.SelectedIndex != 0)
             {
-                LoadAllSchemeList();
+                LoadAllSchemeList(amcCode);
             }
             else
                 ddlSchemeList.SelectedItem.Text = "";
@@ -1001,13 +1051,13 @@ namespace WealthERP.Admin
             BindNavSubCategory();
             LoadAllSchemeNAV();
         }
-        private void LoadAllSchemeList()
+        private void LoadAllSchemeList(int amcCode)
         {
             PriceBo priceBo = new PriceBo();
             DataTable dtLoadAllScheme = new DataTable();
             if (ddlAmcCode.SelectedIndex != 0)
             {
-                dtLoadAllScheme = priceBo.GetAllScehmeList(int.Parse(ddlAmcCode.SelectedValue));
+                dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
             }
             if (dtLoadAllScheme.Rows.Count > 0)
             {
