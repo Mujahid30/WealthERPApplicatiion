@@ -590,13 +590,21 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
     if (IsParent == "false") {
         if (signInText != "") {
 
-            parent.document.getElementById("lnkHelp").style.display = 'none';
+            var lnkHelp = document.getElementById("lnkHelp");
+
+            if (lnkHelp != null)
+                parent.document.getElementById("lnkHelp").style.display = 'none';
+                
             parent.document.getElementById("LinkButtonUserSettings").style.display = 'none';
 
         }
         else {
 
-            parent.document.getElementById("lnkHelp").style.display = 'inline';
+            var lnkHelp = document.getElementById("lnkHelp");
+
+            if (lnkHelp != null)
+                parent.document.getElementById("lnkHelp").style.display = 'inline';
+
             parent.document.getElementById("LinkButtonUserSettings").style.display = 'inline';
         }
         if (msie > 0)      // If Internet Explorer
@@ -623,11 +631,20 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
     else if (IsParent == "true") {
         if (signInText != "") {
 
-            document.getElementById("lnkHelp").style.display = 'none';
+
+            var lnkHelp = document.getElementById("lnkHelp");
+
+            if (lnkHelp != null)
+                parent.document.getElementById("lnkHelp").style.display = 'none';
+                
             document.getElementById("LinkButtonUserSettings").style.display = 'none';
         }
         else {
-            document.getElementById("lnkHelp").style.visible = 'inline';
+            var lnkHelp = document.getElementById("lnkHelp");
+
+            if (lnkHelp != null)
+                parent.document.getElementById("lnkHelp").style.display = 'inline';
+                
             document.getElementById("LinkButtonUserSettings").style.visible = 'inline';
         }
         if (msie > 0)      // If Internet Explorer
