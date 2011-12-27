@@ -562,6 +562,7 @@ namespace DaoCustomerPortfolio
                         mfPortfolioVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfPortfolioVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfPortfolioVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfPortfolioVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                         mfPortfolioVoList.Add(mfPortfolioVo);
                     }
                 }
