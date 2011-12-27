@@ -1375,6 +1375,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin//InfoLinks.ascx.
+        /// </summary>
+        internal static string InfoLinks {
+            get {
+                return ResourceManager.GetString("InfoLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {
@@ -2271,6 +2280,15 @@ namespace WealthERP {
         internal static string TempletonTransInputRejects {
             get {
                 return ResourceManager.GetString("TempletonTransInputRejects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin//TransactBusinessOnlineLinks.ascx.
+        /// </summary>
+        internal static string TransactBusinessOnlineLinks {
+            get {
+                return ResourceManager.GetString("TransactBusinessOnlineLinks", resourceCulture);
             }
         }
         

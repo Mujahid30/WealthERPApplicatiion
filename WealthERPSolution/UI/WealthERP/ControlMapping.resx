@@ -1265,4 +1265,12 @@
     <value>SuperAdmin//ManualValuation.ascx</value>
     <comment>SuperAdmin//ManualValuation.ascx</comment>
   </data>
+  <data name="InfoLinks" xml:space="preserve">
+    <value>Admin//InfoLinks.ascx</value>
+    <comment>Admin//InfoLinks.ascx</comment>
+  </data>
+  <data name="TransactBusinessOnlineLinks" xml:space="preserve">
+    <value>Admin//TransactBusinessOnlineLinks.ascx</value>
+    <comment>Admin//TransactBusinessOnlineLinks.ascx</comment>
+  </data>
 </root>
