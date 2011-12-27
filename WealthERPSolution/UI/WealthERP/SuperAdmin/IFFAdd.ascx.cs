@@ -34,6 +34,7 @@ namespace WealthERP.SuperAdmin
         UserVo user;
         int rm;
         int bm;
+        int reaserchRole;
         int advisor;
         int advisorId;
         int result = 0;
@@ -325,9 +326,11 @@ namespace WealthERP.SuperAdmin
                             advisor = 1000;
                             rm = 1001;
                             bm = 1002;
+                            reaserchRole = 1005;
                             userBo.CreateRoleAssociation(Ids[0], advisor);
                             userBo.CreateRoleAssociation(Ids[0], rm);
                             userBo.CreateRoleAssociation(Ids[0], bm);
+                            userBo.CreateRoleAssociation(Ids[0], reaserchRole);
                             GridValidationForIsDependent();
                             if (chkMailSend.Checked == true)
                             {
