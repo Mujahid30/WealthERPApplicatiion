@@ -272,7 +272,23 @@ namespace VoFPSuperlite
             get { return A_ReturnOnDebt; }
             set { A_ReturnOnDebt = value; }
         }
-     
+
+        private double A_ReturnOnCash;
+
+        public double ReturnOnCash
+        {
+            get { return A_ReturnOnCash; }
+            set { A_ReturnOnCash = value; }
+        }
+
+        private double A_ReturnOnAlternate;
+
+        public double ReturnOnAlternate
+        {
+            get { return A_ReturnOnAlternate; }
+            set { A_ReturnOnAlternate = value; }
+        } 
+
         public double InflationPercent
         {
             get { return A_InflationPercent; }
@@ -316,6 +332,14 @@ namespace VoFPSuperlite
         {
             get { return A_ReturnOnNewInvestment; }
             set { A_ReturnOnNewInvestment = value; }
+        }
+
+        private double A_WeightedReturn;
+
+        public double WeightedReturn
+        {
+            get { return A_WeightedReturn; }
+            set { A_WeightedReturn = value; }
         }
 
         private int A_CustomerEOL;
@@ -372,6 +396,14 @@ namespace VoFPSuperlite
         {
             get { return C_IsCorpusToBeLeftBehind; }
             set { C_IsCorpusToBeLeftBehind = value; }
+        }
+
+        private bool C_IsRiskProfileComplete;
+
+        public bool IsRiskProfileComplete
+        {
+            get { return C_IsRiskProfileComplete; }
+            set { C_IsRiskProfileComplete = value; }
         }
 
     }
