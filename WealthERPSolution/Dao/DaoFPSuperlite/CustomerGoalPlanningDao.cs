@@ -262,6 +262,7 @@ namespace DaoFPSuperlite
                 db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseAge", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseEOL", DbType.Int32, 1000);
+                db.AddOutParameter(allCustomerAssumptionCmd, "@isRiskProfileComplete", DbType.Int32, 1000);
 
                 allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
 
@@ -277,6 +278,17 @@ namespace DaoFPSuperlite
                 if (objSpouseEOL != DBNull.Value)
                     customerAssumptionVo.SpouseEOL = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseEOL");
 
+                Object objRiskProfileComplete = db.GetParameterValue(allCustomerAssumptionCmd, "@isRiskProfileComplete");
+                if (objRiskProfileComplete != DBNull.Value)
+                {
+                    int isRiskComplete;
+                    isRiskComplete= (int)db.GetParameterValue(allCustomerAssumptionCmd, "@isRiskProfileComplete");
+                    if (isRiskComplete == 1)
+                        customerAssumptionVo.IsRiskProfileComplete = true;
+                    else
+                        customerAssumptionVo.IsRiskProfileComplete = false;
+                }
+
                 //customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
 
                 if ((allCustomerAssumptionDs.Tables[0].Rows.Count) > 0 && (allCustomerAssumptionDs.Tables[1].Rows.Count) > 0)
@@ -287,6 +299,8 @@ namespace DaoFPSuperlite
                 DataTable dtCustomerStaticAssumption = allCustomerAssumptionDs.Tables[0];
                 DataTable dtCustomerProjectedAssumption = allCustomerAssumptionDs.Tables[1];
                 DataTable dtCustomerFPConfiguration = allCustomerAssumptionDs.Tables[2];
+                DataTable dtCustomerAssetAllocation = allCustomerAssumptionDs.Tables[3];
+
                 foreach (DataRow dr in dtCustomerStaticAssumption.Rows)
                 {
                     if(Convert.ToString(dr["WA_AssumptionId"])=="LE")
@@ -328,6 +342,16 @@ namespace DaoFPSuperlite
                         case "ER":
                             {
                                 customerAssumptionVo.ReturnOnEquity = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                        case "CR":
+                            {
+                                customerAssumptionVo.ReturnOnCash = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
+                        case "AR":
+                            {
+                                customerAssumptionVo.ReturnOnAlternate = double.Parse(Convert.ToString(dr["CPA_Value"]));
                                 break;
                             }
                       }
@@ -376,6 +400,33 @@ namespace DaoFPSuperlite
  
                     }
  
+                }
+
+                if (dtCustomerAssetAllocation.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtCustomerAssetAllocation.Rows)
+                    {
+                        if (Convert.ToString(dr["WAC_AssetClassificationCode"]).Trim() == "1")
+                        {
+                            customerAssumptionVo.WeightedReturn = customerAssumptionVo.WeightedReturn+ (Convert.ToDouble(dr["CAA_RecommendedPercentage"])/100 * customerAssumptionVo.ReturnOnEquity);
+                        }
+                        else if (Convert.ToString(dr["WAC_AssetClassificationCode"]).Trim() == "2")
+                        {
+                            customerAssumptionVo.WeightedReturn =customerAssumptionVo.WeightedReturn+ (Convert.ToDouble(dr["CAA_RecommendedPercentage"])/100 * customerAssumptionVo.ReturnOnDebt);
+                        }
+                        else if (Convert.ToString(dr["WAC_AssetClassificationCode"]).Trim() == "3")
+                        {
+                            customerAssumptionVo.WeightedReturn =customerAssumptionVo.WeightedReturn+ (Convert.ToDouble(dr["CAA_RecommendedPercentage"])/100 * customerAssumptionVo.ReturnOnCash);
+
+                        }
+                        else if (Convert.ToString(dr["WAC_AssetClassificationCode"]).Trim() == "4")
+                        {
+                            customerAssumptionVo.WeightedReturn = customerAssumptionVo.WeightedReturn + (Convert.ToDouble(dr["CAA_RecommendedPercentage"])/100 * customerAssumptionVo.ReturnOnAlternate);
+
+                        }
+                    }
+ 
+
                 }
               
             }
