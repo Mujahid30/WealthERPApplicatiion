@@ -88,16 +88,14 @@ namespace BoFPSuperlite
         }
 
 
-        public bool CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo, int UserId, bool updateGoal)
+        public bool CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo,CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal)
         {
             bool isHavingAssumption = false; 
             try
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
-                CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
-                //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
-                if (isHavingAssumption)
-                {
+               //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
+               
 
                     if (goalPlanningVo.Goalcode != "RT")
                         goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
@@ -108,11 +106,8 @@ namespace BoFPSuperlite
                         customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
                     else
                         customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo);
-                }
-                else
-                {
-                    isHavingAssumption = false;
-                }
+               
+               
 
             }
             catch (BaseApplicationException Ex)
@@ -133,7 +128,7 @@ namespace BoFPSuperlite
                 throw exBase;
 
             }
-            return isHavingAssumption;
+            return true;
 
         }
 
@@ -203,7 +198,7 @@ namespace BoFPSuperlite
         public CustomerGoalPlanningVo CalculateGoalProfileRT(CustomerGoalPlanningVo goalPlanningVo, CustomerAssumptionVo customerAssumptionVo)
         {
 
-            double yearsLeftForRetirement = customerAssumptionVo.RetirementAge - goalPlanningVo.CustomerAge;
+            double yearsLeftForRetirement = customerAssumptionVo.RetirementAge - customerAssumptionVo.CustomerAge;
             double amountAfterFirstMonthRetirement;
             double spouseLifeAfterCustomerRet;
             double adjustedInfluation;
@@ -213,7 +208,11 @@ namespace BoFPSuperlite
             try
             {
                 amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -goalPlanningVo.CostOfGoalToday, 1);
-                spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (goalPlanningVo.CustomerAge - customerAssumptionVo.SpouseAge);
+                if (customerAssumptionVo.SpouseAge != 0)
+                    spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (customerAssumptionVo.CustomerAge - customerAssumptionVo.SpouseAge);
+                else
+                    spouseLifeAfterCustomerRet = customerAssumptionVo.CustomerEOL - customerAssumptionVo.RetirementAge;
+
                 adjustedInfluation = ((1 + customerAssumptionVo.PostRetirementReturn / 100) / (1 + customerAssumptionVo.InflationPercent / 100) - 1) * 100;
                 if (goalPlanningVo.CorpusLeftBehind == 0)
                 {
@@ -234,7 +233,7 @@ namespace BoFPSuperlite
                 goalPlanningVo.FutureValueOfCostToday = Math.Round(amountAfterFirstMonthRetirement);
                 goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth,2);
                 //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
-                goalPlanningVo.GoalYear = customerAssumptionVo.RTGoalYear;
+                goalPlanningVo.GoalYear = goalPlanningVo.GoalYear;
                 goalPlanningVo.InflationPercent = customerAssumptionVo.InflationPercent;
 
             }
@@ -587,5 +586,10 @@ namespace BoFPSuperlite
             }
             return dsBindDDLSIPSchemeAllocated;
         }
+
+        //public void CreateCustomerGoalPlanning(global::VoCustomerGoalProfiling.GoalProfileSetupVo goalProfileSetupVo, CustomerAssumptionVo customerAssumptionVo, int ParentCustomerId, bool p)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
