@@ -260,15 +260,21 @@ namespace DaoFPSuperlite
                 db.AddInParameter(allCustomerAssumptionCmd, "@CustomerId", DbType.Int32, CustomerID);
                 db.AddInParameter(allCustomerAssumptionCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@RTGaolYear", DbType.Int32, 1000);
+                db.AddOutParameter(allCustomerAssumptionCmd, "@CustomerAge", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseAge", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@SpouseEOL", DbType.Int32, 1000);
                 db.AddOutParameter(allCustomerAssumptionCmd, "@isRiskProfileComplete", DbType.Int32, 1000);
+                
 
                 allCustomerAssumptionDs = db.ExecuteDataSet(allCustomerAssumptionCmd);
 
                 Object objRTGoalYear = db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
                 if (objRTGoalYear != DBNull.Value)
                     customerAssumptionVo.RTGoalYear = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@RTGaolYear");
+
+                Object objCustomerAge = db.GetParameterValue(allCustomerAssumptionCmd, "@CustomerAge");
+                if (objCustomerAge != DBNull.Value)
+                    customerAssumptionVo.CustomerAge = (int)db.GetParameterValue(allCustomerAssumptionCmd, "@CustomerAge");
 
                 Object objSpouseAge = db.GetParameterValue(allCustomerAssumptionCmd, "@SpouseAge");
                 if (objSpouseAge != DBNull.Value)
