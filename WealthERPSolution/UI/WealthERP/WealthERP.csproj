@@ -2523,6 +2523,13 @@
     <Compile Include="Research\RiskGoalClass.ascx.designer.cs">
       <DependentUpon>RiskGoalClass.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Research\RiskScore.ascx.cs">
+      <DependentUpon>RiskScore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Research\RiskScore.ascx.designer.cs">
+      <DependentUpon>RiskScore.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Research\SchemeMappingToModelPortfolio.ascx.cs">
       <DependentUpon>SchemeMappingToModelPortfolio.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5022,6 +5029,7 @@
     <Content Include="Research\ModelPortfolioSetup.ascx" />
     <Content Include="Research\ResearchDashboard.ascx" />
     <Content Include="Research\RiskGoalClass.ascx" />
+    <Content Include="Research\RiskScore.ascx" />
     <Content Include="Research\SchemeMappingToModelPortfolio.ascx" />
     <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\jquery-1.3.1.min.js" />
