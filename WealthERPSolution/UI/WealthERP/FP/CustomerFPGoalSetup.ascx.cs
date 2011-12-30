@@ -147,7 +147,7 @@ namespace WealthERP.FP
             }
             goalPlanningVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
 
-            result = goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
+            //result = goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
             if (!result)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp The Assuption For This Customer');", true);
@@ -343,7 +343,7 @@ namespace WealthERP.FP
                 goalPlanningVo.Comments = txtComment.Text.ToString();
 
             }
-            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
+            //goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
 
         }
             
@@ -454,7 +454,7 @@ namespace WealthERP.FP
             goalPlanningVo.CreatedBy = rmVo.RMId;
 
 
-            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
+            //goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, false);
             msgRecordStatus.Visible = true;
         }
         protected void btnRTUpdate_Click(object sender, EventArgs e)
@@ -502,7 +502,7 @@ namespace WealthERP.FP
             goalPlanningVo.CreatedBy = rmVo.RMId;
 
 
-            goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
+            //goalPlanningBo.CreateCustomerGoalPlanning(goalPlanningVo, customerVo.CustomerId, true);
           
 
         }
