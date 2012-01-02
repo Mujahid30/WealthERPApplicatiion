@@ -788,6 +788,218 @@ namespace BoCustomerPortfolio
             }
             return eqPortfolioVoList;
         }
+
+        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter)
+        {
+            List<EQPortfolioVo> eqPortfolioVoList = new List<EQPortfolioVo>();
+            List<EQTransactionVo> eqTransactionVoList = null;
+            EQPortfolioVo eqPortfolioVo = new EQPortfolioVo();
+            EQTransactionVo eqTransactionVo = new EQTransactionVo();
+            EQPortfolioTransactionVo eqPortfolioTransactionVo = new EQPortfolioTransactionVo();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+
+            try
+            {
+
+
+                float profitLoss = 0;
+                float costOfSales = 0;
+                int cntCurrentValueBuy = 0;
+                int cntCurrentValueSell = 0;
+                float realizedSalesProceeds = 0;
+                float sSalesQuantity = 0;
+                float sCostOfSales = 0;
+                float sRealizedSalesProceeds = 0;
+                float dSalesQuantity = 0;
+                float dCostOfSales = 0;
+                float dRealizedSalesProceeds = 0;
+                int portfolioTransactionCount = 0;
+
+                eqPortfolioVoList = customerPortfolioDao.GetCustomerEquityPortfolio(customerId, portfolioId, tradeDate, ScripNameFilter);
+                if (eqPortfolioVoList != null)
+                {
+                    for (int i = 0; i < eqPortfolioVoList.Count; i++)
+                    {
+                        //eqPortfolioVo = new EQPortfolioVo();
+                        //eqPortfolioVo = eqPortfolioVoList[i];
+                        eqTransactionVoList = new List<EQTransactionVo>();
+                        eqPortfolioVoList[i].EqPortfolioId = (i + 1);
+                        eqTransactionVoList = customerTransactionBo.GetEquityTransactions(eqPortfolioVoList[i].CustomerId, portfolioId, eqPortfolioVoList[i].EQCode, tradeDate, eqPortfolioVoList[i].AccountId);
+                        eqPortfolioVoList[i].EQPortfolioTransactionVo = ProcessEquityTransactions(eqTransactionVoList, portfolioId);
+                        profitLoss = 0;
+                        costOfSales = 0;
+                        realizedSalesProceeds = 0;
+                        sSalesQuantity = 0;
+                        sCostOfSales = 0;
+                        sRealizedSalesProceeds = 0;
+                        dSalesQuantity = 0;
+                        dCostOfSales = 0;
+                        dRealizedSalesProceeds = 0;
+                        portfolioTransactionCount = eqPortfolioVoList[i].EQPortfolioTransactionVo.Count;
+                        cntCurrentValueBuy = 0;
+                        cntCurrentValueSell = 0;
+                        double[] dlCurrentValueXIRR = new double[portfolioTransactionCount];
+                        DateTime[] dtTranDateXIRR = new DateTime[portfolioTransactionCount];
+                        float cntOpenTrade = 0;
+                        DateTime tempBuy = new DateTime(1000, 12, 29);
+                        tempBuy = DateTime.Parse(tempBuy.ToShortDateString().ToString());
+                        DateTime tempSell = new DateTime(1000, 12, 29);
+                        tempSell = DateTime.Parse(tempSell.ToShortDateString().ToString());
+                        if (portfolioTransactionCount != 0)
+                        {
+
+                            for (int j = 0; j < portfolioTransactionCount; j++)
+                            {
+                                profitLoss = profitLoss + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].RealizedProfitLoss;
+                                costOfSales = costOfSales + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].CostOfSales;
+                                realizedSalesProceeds = realizedSalesProceeds + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].RealizedSalesValue;
+                                if (eqPortfolioVoList[i].EQPortfolioTransactionVo[j].TradeType == "D")
+                                {
+                                    dSalesQuantity = dSalesQuantity + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].SellQuantity;
+                                    dCostOfSales = dCostOfSales + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].CostOfSales;
+                                    dRealizedSalesProceeds = dRealizedSalesProceeds + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].RealizedSalesValue;
+                                }
+                                else
+                                {
+                                    sSalesQuantity = sSalesQuantity + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].SellQuantity;
+                                    sCostOfSales = sCostOfSales + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].CostOfSales;
+                                    sRealizedSalesProceeds = sRealizedSalesProceeds + eqPortfolioVoList[i].EQPortfolioTransactionVo[j].RealizedSalesValue;
+
+                                }
+                                if ((eqPortfolioVoList[i].EQPortfolioTransactionVo[j].TradeSide.ToString()) == "B")
+                                {
+                                    cntCurrentValueBuy = cntCurrentValueBuy + 1;
+                                    dlCurrentValueXIRR[j] = eqPortfolioVoList[i].EQPortfolioTransactionVo[j].BuyQuantity * eqPortfolioVoList[i].EQPortfolioTransactionVo[j].BuyPrice;
+                                    cntOpenTrade = eqPortfolioVoList[i].EQPortfolioTransactionVo[j].BuyQuantity + cntOpenTrade;
+                                    // = (eqPortfolioVoList[i].EQPortfolioTransactionVo[j].NetCost);
+
+                                }
+                                else if ((eqPortfolioVoList[i].EQPortfolioTransactionVo[j].TradeSide.ToString()) == "S")
+                                {
+                                    cntCurrentValueSell = cntCurrentValueSell + 1;
+                                    dlCurrentValueXIRR[j] = -(eqPortfolioVoList[i].EQPortfolioTransactionVo[j].SellQuantity * eqPortfolioVoList[i].EQPortfolioTransactionVo[j].SellPrice);
+                                    cntOpenTrade = cntOpenTrade - eqPortfolioVoList[i].EQPortfolioTransactionVo[j].SellQuantity;
+                                }
+                                dtTranDateXIRR[j] = eqPortfolioVoList[i].EQPortfolioTransactionVo[j].TradeDate;
+
+                            }
+                            if (cntCurrentValueSell == 0 && cntCurrentValueBuy >= 1)
+                            {
+
+                                double[] dlCurrentValueXIR = new double[portfolioTransactionCount + 1];
+                                DateTime[] dtTranDateXIR = new DateTime[portfolioTransactionCount + 1];
+                                float currentNAv = 0;
+                                Array.Copy(dlCurrentValueXIRR, dlCurrentValueXIR, portfolioTransactionCount);
+                                Array.Copy(dtTranDateXIRR, dtTranDateXIR, portfolioTransactionCount);
+                                currentNAv = GetEquityScripClosePrice(eqPortfolioVoList[i].EQCode, tradeDate);
+                                if (currentNAv == 0)
+                                {
+                                    eqPortfolioVoList[i].XIRR = 0;
+                                }
+                                else
+                                {
+                                    dtTranDateXIR[portfolioTransactionCount] = DateTime.Today;
+                                    dlCurrentValueXIR[portfolioTransactionCount] = -(currentNAv * cntOpenTrade);
+                                    eqPortfolioVoList[i].XIRR = (CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100);
+                                }
+
+
+                            }
+
+                            else if (cntCurrentValueBuy >= 1 && dlCurrentValueXIRR[0] >= 0 && cntCurrentValueSell >= 1)
+                            {
+                                if (cntOpenTrade > 0)
+                                {
+                                    double[] dlCurrentValueXIR = new double[portfolioTransactionCount + 1];
+                                    DateTime[] dtTranDateXIR = new DateTime[portfolioTransactionCount + 1];
+                                    float currentNAv = 0;
+                                    Array.Copy(dlCurrentValueXIRR, dlCurrentValueXIR, portfolioTransactionCount);
+                                    Array.Copy(dtTranDateXIRR, dtTranDateXIR, portfolioTransactionCount);
+                                    currentNAv = GetEquityScripClosePrice(eqPortfolioVoList[i].EQCode, tradeDate);
+                                    dtTranDateXIR[portfolioTransactionCount] = DateTime.Today;
+                                    dlCurrentValueXIR[portfolioTransactionCount] = -(currentNAv * cntOpenTrade);
+                                    eqPortfolioVoList[i].XIRR = (CalculateXIRR(dlCurrentValueXIR, dtTranDateXIR) * 100);
+                                }
+                                else if (cntOpenTrade < 0)
+                                {
+                                    eqPortfolioVoList[i].XIRR = 0;
+                                }
+                                else
+                                {
+                                    eqPortfolioVoList[i].XIRR = (CalculateXIRR(dlCurrentValueXIRR, dtTranDateXIRR) * 100);
+                                }
+                            }
+
+                            else
+                            {
+                                eqPortfolioVoList[i].XIRR = 0;
+                            }
+                            eqPortfolioVoList[i].AveragePrice = eqPortfolioVoList[i].EQPortfolioTransactionVo[portfolioTransactionCount - 1].AveragePrice;
+                            eqPortfolioVoList[i].Quantity = eqPortfolioVoList[i].EQPortfolioTransactionVo[portfolioTransactionCount - 1].NetHoldings;
+                            eqPortfolioVoList[i].NetCost = eqPortfolioVoList[i].EQPortfolioTransactionVo[portfolioTransactionCount - 1].NetCost;
+                            eqPortfolioVoList[i].CostOfPurchase = eqPortfolioVoList[i].Quantity * eqPortfolioVoList[i].AveragePrice;
+                            eqPortfolioVoList[i].RealizedPNL = profitLoss;
+                            eqPortfolioVoList[i].MarketPrice = GetEquityScripClosePrice(eqPortfolioVoList[i].EQCode, tradeDate);
+                            eqPortfolioVoList[i].CurrentValue = eqPortfolioVoList[i].MarketPrice * eqPortfolioVoList[i].Quantity;
+                            eqPortfolioVoList[i].UnRealizedPNL = eqPortfolioVoList[i].CurrentValue - eqPortfolioVoList[i].CostOfPurchase;
+                            eqPortfolioVoList[i].DeliverySalesQuantity = dSalesQuantity;
+                            eqPortfolioVoList[i].DeliveryCostOfSales = dCostOfSales;
+                            eqPortfolioVoList[i].DeliveryRealizedSalesProceeds = dRealizedSalesProceeds;
+                            eqPortfolioVoList[i].DeliveryRealizedProfitLoss = dRealizedSalesProceeds - dCostOfSales;
+                            eqPortfolioVoList[i].SpeculativeSalesQuantity = sSalesQuantity;
+                            eqPortfolioVoList[i].SpeculativeCostOfSales = sCostOfSales;
+                            eqPortfolioVoList[i].SpeculativeRealizedSalesProceeds = sRealizedSalesProceeds;
+                            eqPortfolioVoList[i].SpeculativeRealizedProfitLoss = sRealizedSalesProceeds - sCostOfSales;
+                            eqPortfolioVoList[i].ValuationDate = tradeDate;
+                            eqPortfolioVoList[i].CostOfSales = costOfSales;
+                            eqPortfolioVoList[i].RealizedSalesProceed = realizedSalesProceeds;
+                            //if (cntOpenTrade == 0)
+                            //{
+                            //    if (eqPortfolioVoList[i].CostOfPurchase != 0)
+                            //        eqPortfolioVoList[i].AbsoluteReturn = (((eqPortfolioVoList[i].RealizedSalesProceed - eqPortfolioVoList[i].CostOfPurchase) / (mfPortfolioVoList[i].CostOfPurchase)) * 100);
+                            //    dateDiff = (TimeSpan)(tempSell.Subtract(tempBuy));
+                            //    ageOfInvestment = dateDiff.Days;
+
+                            //}
+                            //else
+                            //{
+                            //    if (eqPortfolioVoList[i].CostOfPurchase != 0)
+                            //        eqPortfolioVoList[i].AbsoluteReturn = (((eqPortfolioVoList[i].CurrentValue - eqPortfolioVoList[i].CostOfPurchase) / (mfPortfolioVoList[i].CostOfPurchase)) * 100);
+                            //    dateDiff = (TimeSpan)(DateTime.Now.Subtract(tempBuy));
+                            //    ageOfInvestment = dateDiff.Days;
+
+                            //}
+                            //eqPortfolioVoList[i].AnnualReturn = (double)((eqPortfolioVoList[i].AbsoluteReturn / ageOfInvestment) * 365);
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioBo.cs:GetCustomerEquityPortfolio()");
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+                objects[2] = tradeDate;
+                objects[3] = ScripNameFilter;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return eqPortfolioVoList;
+        }
+
+
         public List<EQPortfolioTransactionVo> ProcessEquityTransactions(List<EQTransactionVo> eqTransactionVoList, int portfolioId)
         {
             List<EQPortfolioTransactionVo> eqPortfolioTransactionVoList = new List<EQPortfolioTransactionVo>();
