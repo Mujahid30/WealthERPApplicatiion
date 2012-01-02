@@ -145,6 +145,74 @@ namespace DaoCustomerPortfolio
             }
             return eqPortfolioVoList;
         }
+
+        public List<EQPortfolioVo> GetCustomerEquityPortfolio(int customerId, int portfolioId, DateTime tradeDate, string ScripNameFilter)
+        {
+            List<EQPortfolioVo> eqPortfolioVoList = null;
+            EQPortfolioVo eqPortfolioVo = new EQPortfolioVo();
+            Database db;
+            DbCommand getEquityPortfolioCmd;
+            DataSet dsGetEquityPortfolio;
+            DataTable dtGetEquityPortfolio;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getEquityPortfolioCmd = db.GetStoredProcCommand("SP_GetCustomerPortfolioEquityTransactionScripCodes");
+                db.AddInParameter(getEquityPortfolioCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getEquityPortfolioCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getEquityPortfolioCmd, "@CET_tradeDate", DbType.DateTime, tradeDate.ToString());
+                if (ScripNameFilter != "")
+                    db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, ScripNameFilter);
+                else
+                    db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, DBNull.Value);
+               
+               db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, DBNull.Value);
+
+                dsGetEquityPortfolio = db.ExecuteDataSet(getEquityPortfolioCmd);
+                if (dsGetEquityPortfolio.Tables[0].Rows.Count > 0)
+                {
+                    dtGetEquityPortfolio = dsGetEquityPortfolio.Tables[0];
+                    eqPortfolioVoList = new List<EQPortfolioVo>();
+                    foreach (DataRow dr in dtGetEquityPortfolio.Rows)
+                    {
+                        eqPortfolioVo = new EQPortfolioVo();
+                        eqPortfolioVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        eqPortfolioVo.AccountId = int.Parse(dr["CETA_AccountId"].ToString());
+                        eqPortfolioVo.EQCode = int.Parse(dr["PEM_ScripCode"].ToString());
+                        eqPortfolioVo.EQCompanyName = dr["PEM_CompanyName"].ToString();
+                        eqPortfolioVo.EQTicker = dr["PEM_Ticker"].ToString();
+                        eqPortfolioVo.ValuationDate = tradeDate;
+
+                        eqPortfolioVoList.Add(eqPortfolioVo);
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerPortfolio(int customerId)");
+
+
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+                objects[2] = tradeDate;
+                objects[3] = ScripNameFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return eqPortfolioVoList;
+        }
         public float GetEquityScripClosePrice(int scripCode, DateTime priceDate)
         {
             float scripClosePrice = 0;
