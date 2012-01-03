@@ -29,6 +29,10 @@
          <telerik:RadPanelItem Text="Ops" Value="OPS">
             <Items>
                 <telerik:RadPanelItem Text="Valuation Monitor" Value="Valuation_Monitor">
+                <Items>
+                    <telerik:RadPanelItem Text="Manual Valuation" Value="Manual_Valuation">
+                    </telerik:RadPanelItem>
+                </Items>
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
                 </telerik:RadPanelItem>
