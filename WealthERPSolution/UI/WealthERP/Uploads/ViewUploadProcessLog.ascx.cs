@@ -263,7 +263,7 @@ namespace WealthERP.Uploads
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSTransaction || filetypeId == (int)Contants.UploadTypes.KarvyTransaction || filetypeId == (int)Contants.UploadTypes.TempletonTransaction ||
-                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId==25)
+                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId==25||filetypeId==6)
                        && extracttype == "MFT")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
@@ -288,7 +288,7 @@ namespace WealthERP.Uploads
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
-                    else if (filetypeId == 20)
+                    else if (filetypeId == 20||filetypeId==26)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID  + "');", true);
                     }
@@ -934,6 +934,52 @@ namespace WealthERP.Uploads
                             }
                         }
                         #endregion
+
+                            //****gobinda transaction and folio****\\
+
+                        #region Standard Transaction + Folio Insertion
+                        else if (filetypeId == 6)
+                        {
+                            if (extracttype == "MFT")
+                            {
+                                bool blDeutcheAMCUpdated = uploadsCommonBo.UpdateAMCForFolioReprocess(processID, "Standard");
+                            }
+
+                            if (extracttype == "MFT")
+                            {
+                                //common profile checks
+                                bool CommonTransChecks = false;
+                                string packagePath;
+                                packagePath= Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
+                                CommonTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                
+                                if (CommonTransChecks)
+                                {
+                                    // Insert Customer Details into WERP Tables
+                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
+                                    if (deutscheProCreateCustomerResult)
+                                    {
+                                        //Create new Bank Accounts
+                                        packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
+                                        CommonTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
+                                        if (CommonTransChecks)
+                                        {
+                                            processlogVo.IsInsertionToWERPComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "WP");
+                                            processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
+                                            processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
+                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "WP");
+                                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                            if (blResult)
+                                                stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
+                                        }
+                                    }
+                                }
+                            }                           
+                        }
+                        #endregion
+
 
                         #region CAMS SYSTEMATIC
                         //CAMS SYSTEMATIC 
