@@ -558,6 +558,7 @@ namespace DaoFPSuperlite
                 dtGoalDetails=goalDetailsDS.Tables[0];
                 if (dtGoalDetails.Rows.Count > 0)
                 {
+                    GoalPlanningVo.GoalName = dtGoalDetails.Rows[0]["XG_GoalName"].ToString();
                     GoalPlanningVo.Goalcode = dtGoalDetails.Rows[0]["XG_GoalCode"].ToString();
                     if (!string.IsNullOrEmpty(dtGoalDetails.Rows[0]["CG_CostToday"].ToString().Trim()))
                     GoalPlanningVo.CostOfGoalToday =double.Parse(dtGoalDetails.Rows[0]["CG_CostToday"].ToString());
@@ -786,8 +787,8 @@ namespace DaoFPSuperlite
             }
             return dsGetSIPInvestmentDetails;
         }
-        
-        public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId)
+
+        public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId, decimal investedAmount)
         {
             Database db;
             DbCommand goalAllocationPercentageCmd;
@@ -799,10 +800,8 @@ namespace DaoFPSuperlite
                 db.AddInParameter(goalAllocationPercentageCmd, "@allocationPercentage", DbType.Decimal, allocationPercentage);
                 db.AddInParameter(goalAllocationPercentageCmd, "@goalId", DbType.Int32, goalId);
                 db.AddInParameter(goalAllocationPercentageCmd, "@schemeId", DbType.Int32, schemeId);
-                db.ExecuteNonQuery(goalAllocationPercentageCmd);
-
-
-
+                db.AddInParameter(goalAllocationPercentageCmd, "@investedAmount", DbType.Decimal, investedAmount);
+                db.ExecuteNonQuery(goalAllocationPercentageCmd);                
             }
             catch (BaseApplicationException Ex)
             {
@@ -811,7 +810,7 @@ namespace DaoFPSuperlite
            
         }
 
-        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int schemeId, int goalId)
+        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int sipId, int goalId)
         {
             Database db;
             DbCommand SIPGoalAllocationCmd;
@@ -822,7 +821,7 @@ namespace DaoFPSuperlite
                 SIPGoalAllocationCmd = db.GetStoredProcCommand("SP_UpdateSIPGoalAllocationAmount");
                 db.AddInParameter(SIPGoalAllocationCmd, "@allocationAmount", DbType.Decimal, allocationAmount);
                 db.AddInParameter(SIPGoalAllocationCmd, "@goalId", DbType.Int32, goalId);
-                db.AddInParameter(SIPGoalAllocationCmd, "@schemeId", DbType.Int32, schemeId);
+                db.AddInParameter(SIPGoalAllocationCmd, "@sipId", DbType.Int32, sipId);
                 db.ExecuteNonQuery(SIPGoalAllocationCmd);
 
 
@@ -846,6 +845,7 @@ namespace DaoFPSuperlite
                 bindDDLSchemeAllocatedCmd = db.GetStoredProcCommand("SP_BindDDLSchemeGoalAllocation");
                 db.AddInParameter(bindDDLSchemeAllocatedCmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(bindDDLSchemeAllocatedCmd, "@GoalId", DbType.Int32, goalId);
+                bindDDLSchemeAllocatedCmd.CommandTimeout=60 * 60;
                 dsBindDDLSchemeAllocated= db.ExecuteDataSet(bindDDLSchemeAllocatedCmd); 
             }
             catch (BaseApplicationException Ex)
