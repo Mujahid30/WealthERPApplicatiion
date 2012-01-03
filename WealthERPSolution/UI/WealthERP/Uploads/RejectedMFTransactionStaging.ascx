@@ -28,6 +28,30 @@
 
 <%--End--%>
 
+<script type="text/javascript">
+    function ShowPopupProbableInsert_Delete() {
+      
+        var form = document.forms[0];
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                    
+                }
+            }
+        }
+        //        if (count > 1) {
+        //            alert("You can select only one record at a time.")
+        //            return false;
+        //        }
+        if (count == 0) {
+            alert("Please select probable duplicate transaction record.")
+            return false;
+        }
+    }
+</script>
+
 <script>
     function ShowPopup() {
         var form = document.forms[0];
@@ -325,6 +349,10 @@
                 OnClientClick="return ShowPopup()" />
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
+                <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton" Text="Insert Probable Duplicate Records"
+                OnClick="btnProbableInsert_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
+                <asp:Button ID="btnProbableDuplicateDelete" runat="server" CssClass="PCGLongLongButton" Text="Delete Probable Duplicate Records"
+                OnClick="btnProbableDelete_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">

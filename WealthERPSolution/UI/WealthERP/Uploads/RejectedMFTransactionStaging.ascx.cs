@@ -1004,6 +1004,102 @@ namespace WealthERP.Uploads
 
         }
 
+        protected void btnProbableInsert_Click(object sender, EventArgs e)
+        {
+            bool result = true;
+            bool blResult = true;
+            string gvStagingIds = "";
+            uploadsCommonBo = new UploadCommonBo();
+            processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
+
+            int fileTypeId = processlogVo.FileTypeId;
+            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            //{
+            //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+            //    {
+            //        rejectedRecordsBo = new RejectedRecordsBo();
+
+            //        int stagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
+
+            //        result = rejectedRecordsBo.InsertProbableDuplicatesRejectedTransaction(stagingID);
+
+            //    }
+
+            //}
+            rejectedRecordsBo = new RejectedRecordsBo();
+            foreach (GridViewRow gvRow in gvWERPTrans.Rows)
+            {
+                CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkId");
+                if (ChkBxItem.Checked)
+                {
+                    gvStagingIds += gvWERPTrans.DataKeys[gvRow.RowIndex].Values["CMFTSId"].ToString() + ",";
+                }
+            }
+            result = rejectedRecordsBo.InsertProbableDuplicatesRejectedTransaction(gvStagingIds);
+            if (result)
+            {
+                // Success Message
+                processlogVo.IsInsertionToWERPComplete = 1;
+                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(ProcessId, "WPMF");
+
+                processlogVo.EndTime = DateTime.Now;
+
+                if (fileTypeId == 1)
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeCAMS);
+                else if (fileTypeId == 3)
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeKarvy);
+                else if (fileTypeId == 15)
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeTemp);
+                else if (fileTypeId == 17)
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeDeutsche);
+                else if (filetypeId == 25)
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, "SU");
+                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Records Inserted Successfully');", true);
+
+            }
+            else
+            {
+                // Failure Message
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Probable Duplicate Records');", true);
+            }
+
+            BindEquityTransactionGrid(ProcessId);
+            
+        }
+
+        protected void btnProbableDelete_Click(object sender, EventArgs e)
+        {
+            bool result = true;
+            bool blResult = true;
+            string gvStagingIds = "";
+            rejectedRecordsBo = new RejectedRecordsBo();
+            foreach (GridViewRow gvRow in gvWERPTrans.Rows)
+            {
+                CheckBox ChkBxItem = (CheckBox)gvRow.FindControl("chkId");
+                if (ChkBxItem.Checked)
+                {
+                    gvStagingIds += gvWERPTrans.DataKeys[gvRow.RowIndex].Values["CMFTSId"].ToString() + ",";
+                }
+            }
+            result = rejectedRecordsBo.DeleteProbableDuplicatesRejectedTransaction(gvStagingIds);
+            if (result)
+            {
+                // Success Message
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Records Deleted Successfully');", true);
+                
+            }
+            else
+            {
+                // Failure Message
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Probable Duplicate Records');", true);
+                
+            }
+
+            BindEquityTransactionGrid(ProcessId);
+        }
+
     }
 
 }
