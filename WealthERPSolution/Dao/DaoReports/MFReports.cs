@@ -481,9 +481,10 @@ namespace DaoReports
 
             try
             {
-
-                String[] portfolioIds = reports.PortfolioIds.Split(',');
-                if (portfolioIds.Count() > 1)
+             String[] portfolioIds = reports.PortfolioIds.Split(',');
+             if (portfolioIds.Count()>=1)
+                //String[] portfolioIds = reports.PortfolioIds.Split(',');
+                //if (portfolioIds.Count() > 1)
                 {
                     foreach (string strPortfoliioId in portfolioIds)
                     {
@@ -764,6 +765,42 @@ namespace DaoReports
             {
                 throw (ex);
             }
+        }
+        public DataSet GetOrderTransactionForm(OrderTransactionSlipVo report)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand getOrderTransactionFormCmd;
+            DataSet dsgetOrderTransactionForm;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getOrderTransactionFormCmd = db.GetStoredProcCommand("SP_RPT_OrderTransactionSlip");
+                db.AddInParameter(getOrderTransactionFormCmd, "@customerId", DbType.Int32, report.CustomerId);
+                db.AddInParameter(getOrderTransactionFormCmd, "@SchemeCode", DbType.Int32, report.SchemeCode);
+                db.AddInParameter(getOrderTransactionFormCmd, "@Type", DbType.String, report.Type);
+                getOrderTransactionFormCmd.CommandTimeout = 60 * 60;
+                dsgetOrderTransactionForm = db.ExecuteDataSet(getOrderTransactionFormCmd);
+                
+            }
+            catch(BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:GetOrderTransactionForm()");
+                object[] objects = new object[3];
+                objects[0] = report.CustomerId;
+                objects[1] = report.SchemeCode;
+                objects[2] = report.Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetOrderTransactionForm;
         }
         
 
