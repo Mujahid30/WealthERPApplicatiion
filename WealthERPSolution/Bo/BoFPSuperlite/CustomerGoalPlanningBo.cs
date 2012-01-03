@@ -288,6 +288,13 @@ namespace BoFPSuperlite
             result = System.Numeric.Financial.Fv(rate, nper, pmt, pv, 0);
             return result;
         }
+        public double NPER(double rate,double pmt, double pv,double fv, int type)
+        {
+            double result = 0;
+            result = System.Numeric.Financial.NPer(rate, pmt, pv, fv,0);
+            return result;
+        }
+
 
         public double PMT(double rate, double nper, double pv, double fv, int type)
         {
@@ -523,13 +530,13 @@ namespace BoFPSuperlite
         }
 
 
-        public void UpdateGoalAllocationPercentage(decimal allocationPercentage,int schemeId, int goalId)
+        public void UpdateGoalAllocationPercentage(decimal allocationPercentage, int schemeId, int goalId, decimal investedAmount)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
            
             try
             {
-                 customerGoalPlanningDao.UpdateGoalAllocationPercentage(allocationPercentage, schemeId, goalId);
+                customerGoalPlanningDao.UpdateGoalAllocationPercentage(allocationPercentage, schemeId, goalId, investedAmount);
 
             }
             catch (BaseApplicationException Ex)
@@ -540,13 +547,13 @@ namespace BoFPSuperlite
         }
 
 
-        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int schemeId, int goalId)
+        public void UpdateSIPGoalAllocationAmount(decimal allocationAmount, int sipId, int goalId)
         {
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
            
             try
             {
-                customerGoalPlanningDao.UpdateSIPGoalAllocationAmount(allocationAmount, schemeId, goalId);
+                customerGoalPlanningDao.UpdateSIPGoalAllocationAmount(allocationAmount, sipId, goalId);
 
             }
             catch (BaseApplicationException Ex)
