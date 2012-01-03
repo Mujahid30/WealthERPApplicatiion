@@ -65,7 +65,6 @@
 </tr>
 
 <tr>
-
 <td class="style1" colspan="2">
             <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                 runat="server" GroupName="Date"  />
@@ -284,6 +283,8 @@
 <td>
 <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="PCGButton"  
         onclick="btnDelete_Click" />
+<asp:Button ID="btnDeleteAll" runat="server" Text="Delete All" CssClass="PCGButton" 
+        onclick="btnDeleteAll_Click" />
 </td>
 </tr>
 

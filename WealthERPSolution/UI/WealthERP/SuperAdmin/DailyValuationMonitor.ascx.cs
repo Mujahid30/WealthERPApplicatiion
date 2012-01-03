@@ -126,6 +126,7 @@ namespace WealthERP.SuperAdmin
                 }
                 tblMessage.Visible = false;
                 btnDelete.Visible = false;
+                btnDeleteAll.Visible = false;
                 lblCurrentPage.Visible = false;
                 lblTotalRows.Visible = false;
                 lblPage.Visible = false;
@@ -189,11 +190,13 @@ namespace WealthERP.SuperAdmin
            {
                BindAUMGrid();
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
            }
            else if (ddlAction.SelectedValue == "mfRejects")
            {
                BindMFRejectedGrid();
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
            }
            
        }
@@ -222,6 +225,7 @@ namespace WealthERP.SuperAdmin
                trpagerDuplicate.Visible = false;
                trmypagerAUM.Visible = true;
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
                gvMFRejectedDetails.Visible = false;
                foreach (DataRow dr in dsAumMis.Tables[1].Rows)
                {
@@ -260,6 +264,7 @@ namespace WealthERP.SuperAdmin
                trpagerDuplicate.Visible = false;
                trmypagerAUM.Visible = false;
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
                gvMFRejectedDetails.Visible = false;
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
@@ -327,6 +332,7 @@ namespace WealthERP.SuperAdmin
                trmypagerAUM.Visible = false;
                trpagerDuplicate.Visible = true;
                btnDelete.Visible = true;
+               btnDeleteAll.Visible = true;
                gvMFRejectedDetails.Visible = false;
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
@@ -348,6 +354,7 @@ namespace WealthERP.SuperAdmin
                trmypagerAUM.Visible = false;
                trpagerDuplicate.Visible = false;
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
@@ -738,6 +745,7 @@ namespace WealthERP.SuperAdmin
                trmypagerAUM.Visible = false;
                trpagerDuplicate.Visible = false;
                btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
@@ -941,9 +949,10 @@ namespace WealthERP.SuperAdmin
 
                    superAdminOpsBo.DeleteDuplicateRecord(gvAdviserId, gvAccountId, gvNetHolding, gvSchemeCode, gvValuationDate);
 
-                   BindDuplicateGrid();
+                  
                }
            }
+           BindDuplicateGrid();
        }
        private void GetPageCountReject()
        {
@@ -996,6 +1005,13 @@ namespace WealthERP.SuperAdmin
                ExceptionManager.Publish(exBase);
                throw exBase;
            }
+       }
+
+       protected void btnDeleteAll_Click(object sender, EventArgs e)
+       {
+           superAdminOpsBo.DeleteAllDuplicates();
+           BindDuplicateGrid();
+           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record has been deleted successfully.');", true);
        }
 
        //protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
