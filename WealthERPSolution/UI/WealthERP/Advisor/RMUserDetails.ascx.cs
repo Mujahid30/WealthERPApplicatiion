@@ -117,11 +117,11 @@ namespace WealthERP.Advisor
                     rowCount = Convert.ToInt32(hdnRecordCount.Value);
                 if (rowCount > 0)
                 {
-                    ratio = rowCount / 10;
-                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+                    ratio = rowCount / 15;
+                    mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
                     mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-                    upperlimit = (mypager.CurrentPage * 10).ToString();
+                    lowerlimit = (((mypager.CurrentPage - 1) * 15)+1).ToString();
+                    upperlimit = (mypager.CurrentPage * 15).ToString();
                     if (mypager.CurrentPage == mypager.PageCount)
                         upperlimit = hdnRecordCount.Value;
                     PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
@@ -456,6 +456,8 @@ namespace WealthERP.Advisor
                             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                             email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+                            email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
+                            
                             email.To.Add(userVo.Email);
 
                             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
