@@ -9,7 +9,6 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data.Sql;
 using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Configuration;
-using VoUser;
 using VoCustomerRiskProfiling;
 using System.Collections.Specialized;
 
