@@ -42,9 +42,10 @@ namespace VoCustomerGoalProfiling
         private string G_ChildName;
         private int G_GoalId;
 
+        private double G_CurrentGoalValue;
+        private double G_GoalCompletionPercent;
 
-
-
+        
 
         public int CustomerGoalId
         {
@@ -202,6 +203,18 @@ namespace VoCustomerGoalProfiling
         {
             get { return G_FutureValueOfCostToday; }
             set { G_FutureValueOfCostToday = value; }
+        }
+
+        public double GoalCompletionPercent
+        {
+            get { return G_GoalCompletionPercent; }
+            set { G_GoalCompletionPercent = value; }
+        }
+
+        public double CurrentGoalValue
+        {
+            get { return G_CurrentGoalValue; }
+            set { G_CurrentGoalValue = value; }
         }
         
        
