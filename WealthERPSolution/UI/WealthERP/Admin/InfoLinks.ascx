@@ -1,1 +1,32 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InfoLinks.ascx.cs" Inherits="WealthERP.Admin.InfoLinks" %>
+
+<table width="100%" class="TableBackground">
+    <tr>
+        <td class="HeaderTextBig" colspan="2">
+            <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Info Links"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <br />
+            <asp:GridView ID="gvAdviserLinks" ShowHeader="false" runat="server" DataKeyNames="AL_LinkId" 
+                AutoGenerateColumns="False" BorderStyle="None" BorderColor="Transparent"
+                        Font-Size="Small" HorizontalAlign="Center" 
+                        EnableViewState="true" onrowcommand="gvAdviserLinks_RowCommand">
+                        
+                        <Columns>
+                            
+                                <asp:TemplateField>
+                                    <ItemTemplate>  
+                                        <asp:LinkButton ID="lnkLinks" runat="server" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" Text='<%# Eval("AL_Link").ToString() %>' CommandName="NavigateToLink" ></asp:LinkButton>
+                                    </ItemTemplate>                           
+                                     <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />
+                                 </asp:TemplateField>
+                                   
+                        </Columns>
+                        
+                    </asp:GridView>
+        </td>
+    </tr>
+</table>
