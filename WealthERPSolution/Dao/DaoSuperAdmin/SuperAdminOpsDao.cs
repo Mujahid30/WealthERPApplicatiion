@@ -438,6 +438,41 @@ namespace DaoSuperAdmin
                throw exBase;
            }
        }
+
+       public DataTable GetAdviserValuationStatus(string assetType, DateTime valuationDate)
+       {
+           DataSet dsAdviserList;
+           Database db;
+           DbCommand getAdviserList;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               getAdviserList = db.GetStoredProcCommand("SP_GetAdviserValuationStatus");
+               db.AddInParameter(getAdviserList, "@AssetType", DbType.String, assetType);
+               db.AddInParameter(getAdviserList, "@ValuationDate", DbType.Date, valuationDate);
+               dsAdviserList = db.ExecuteDataSet(getAdviserList);
+
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw (Ex);
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:GetAllAdviserAUM()");
+               object[] objects = new object[3];
+               objects[0] = assetType;
+               objects[1] = valuationDate;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
+
+           return dsAdviserList.Tables[0];
+       }
        
     }
 }
