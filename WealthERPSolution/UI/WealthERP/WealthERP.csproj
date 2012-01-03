@@ -5908,9 +5908,13 @@
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.database" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadChecksStandardTransactionStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsCommonFolioChecksInFolioStaging.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadsStandardMFTrxnStagingChk.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStandardTransactionFolioDataToStandardTransactionFolioInput.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadStdFolioXMLtoInput.dtsx" />
+    <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\UploadXtrnlTransactionFolioInputToXtrnlTransactionFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadsCommonProfileChecksInProfileStaging.dtsx" />
     <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadsDataTranslationChecksInStdProfileMainStaging.dtsx" />
     <None Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\bin\UploadStdProfileDataFromFileToInput.dtsx" />
@@ -5940,6 +5944,12 @@
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\Package.dtsx" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.database" />
     <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.dtproj" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadStandardTransactionCommonStagingCheck.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadStandardTransactionCommonStagingToWERP.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadStandardTransactionStagingCheck.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadSystematicTransationInputToStaging.dtsx" />
+    <None Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload\UploadSystematicTransationXMLToInput.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramFileToInput.dtsx" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.database" />
     <None Include="UploadPackages\SundramProfileUploadNew\SundramProfileUploadNew\SundramProfileUploadNew.dtproj" />

@@ -210,7 +210,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 82
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://122.166.49.39:8080/tfs/Ampsys%20WealthERP
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Bo\\AdvisorProfiling\\BoAdvisorProfiling.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
