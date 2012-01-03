@@ -179,5 +179,35 @@ namespace BoWerpAdmin
             }
             return dsSchemeListCategorySubCategory;
         }
+
+        public DataSet GetNavOverAllCategoryList()
+        {
+            DataSet dsGetOverAllCategoryList = new DataSet();
+            PriceDao PriceObj = new PriceDao();
+            try
+            {
+                dsGetOverAllCategoryList = PriceObj.GetNavOverAllCategoryList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetOverAllCategoryList;
+        }
+
+        public DataSet GetSchemeListCategoryConcatenation(int amcCode, string categoryCode)
+        {
+            DataSet dsGetSchemeFromOverAllCategoryList = new DataSet();
+            PriceDao PriceObj = new PriceDao();
+            try
+            {
+                dsGetSchemeFromOverAllCategoryList = PriceObj.GetSchemeFromOverAllCategoryList(amcCode, categoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetSchemeFromOverAllCategoryList;
+        }
     }
 }
