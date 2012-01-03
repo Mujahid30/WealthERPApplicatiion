@@ -261,5 +261,36 @@ namespace BoSuperAdmin
                 throw (Ex);
             }
         }
+
+        public DataTable GetAdviserValuationStatus(string assetType, DateTime valuationDate)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            try
+            {
+                DataTable dtAdviserList = superAdminOpsDao.GetAdviserValuationStatus(assetType, valuationDate);
+                return dtAdviserList;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "SuperAdminOpsBo:GetAdviserValuationStatus()");
+
+                object[] objects = new object[2];
+                objects[0] = assetType;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
     }
 }
