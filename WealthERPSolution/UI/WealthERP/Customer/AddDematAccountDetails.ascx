@@ -164,7 +164,7 @@
         </td>
         <td>
             <!-- calAccountOpeningDate -->
-            <asp:TextBox ID="txtAccountOpeningDate" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtAccountOpeningDate"  CssClass="txtField" runat="server"></asp:TextBox>
             <ajaxToolKit:CalendarExtender runat="server" Format="dd/MM/yyyy" TargetControlID="txtAccountOpeningDate"
                 ID="calExeAccountOpeningDate" Enabled="true" OnClientDateSelectionChanged="checkDate">
             </ajaxToolKit:CalendarExtender>
