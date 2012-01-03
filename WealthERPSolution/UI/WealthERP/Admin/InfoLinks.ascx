@@ -20,6 +20,7 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>  
                                         <asp:LinkButton ID="lnkLinks" runat="server" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" Text='<%# Eval("AL_Link").ToString() %>' CommandName="NavigateToLink" ></asp:LinkButton>
+                                        <br /><br />
                                     </ItemTemplate>                           
                                      <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />
                                  </asp:TemplateField>
