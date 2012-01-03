@@ -462,5 +462,34 @@ namespace BoReports
             return dtOpeningClosingSchemeWise;
         }
 
+
+        public DataSet GetOrderTransactionForm(OrderTransactionSlipVo report)
+        {
+            MFReportsDao mfReportsDao = new MFReportsDao();
+            DataSet dsTransactionSlip = new DataSet();
+            try
+            {
+                dsTransactionSlip = mfReportsDao.GetOrderTransactionForm(report);
+            }
+            catch(BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:GetOrderTransactionForm()");
+                object[] objects = new object[3];
+                objects[0] = report.CustomerId;
+                objects[1] = report.SchemeCode;
+                objects[2] = report.Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTransactionSlip;
+        }
     }
 }
