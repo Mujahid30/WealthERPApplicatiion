@@ -20,6 +20,41 @@
 <!--This script is used for Progress bar -->
 <%--This scripts includes the JQuery coding about the screen info   --%>
 
+<script>
+    function ShowPopup() {
+        var form = document.forms[0];
+        var transactionId = "";
+        var count = 0
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                    hiddenField = form.elements[i].id.replace("chkId", "hdnchkBx");
+                    hiddenFieldValues = document.getElementById(hiddenField).value;
+                    var splittedValues = hiddenFieldValues.split("-");
+                    if (count == 1) {
+                        transactionId = splittedValues[0];
+                    }
+                    else {
+                        transactionId = transactionId + "~" + splittedValues[0];
+                    }
+                    RejectReasonCode = splittedValues[1];
+                }
+            }
+        }
+        //        if (count > 1) {
+        //            alert("You can select only one record at a time.")
+        //            return false;
+        //        }
+        if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+        window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
+        return true;
+    }
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
@@ -70,6 +105,7 @@
                     else {
                         transactionId = transactionId + "~" + splittedValues[0];
                     }
+                    
                 }
             }
         }
@@ -84,7 +120,7 @@
         window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
         return true;
     }
-</script>
+</script>--%>
 
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
@@ -198,6 +234,8 @@
         </td>
     </tr>
 </table>
+
+    
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
@@ -347,7 +385,7 @@
                 CssClass="PCGLongButton" OnClientClick="Loading(true);" />
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGLongButton" Text="Map Folios"
                 OnClientClick="return ShowPopup()" />
-                <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
                 <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton" Text="Insert Probable Duplicate Records"
                 OnClick="btnProbableInsert_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />

@@ -708,7 +708,7 @@ namespace WealthERP.Uploads
             {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
                 processlogVo = uploadsCommonBo.GetProcessLogInfo(ProcessId);
-                if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
+                if (processlogVo.FileTypeId == 1 || processlogVo.FileTypeId == 6 || processlogVo.FileTypeId == 3 || processlogVo.FileTypeId == 15 || processlogVo.FileTypeId == 17 || processlogVo.FileTypeId == 25)
                 {
                     blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords, processlogVo.FileTypeId);
                 }
@@ -767,6 +767,7 @@ namespace WealthERP.Uploads
 
             //CAMS and KARVY Reprocess 
             string packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
+            
             bool CommonTransChecks = false;
             if (fileTypeId == 1)
             {
@@ -786,6 +787,13 @@ namespace WealthERP.Uploads
                     CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "SU", "Sundaram");
                 }
             }
+                //***reprocess for folioandTrnx
+            else if (fileTypeId == 6)
+            {
+                    string packagePathForStandard = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
+                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "WP", "Standard");               
+            }
+
             else if (fileTypeId == 3)
             {
 
