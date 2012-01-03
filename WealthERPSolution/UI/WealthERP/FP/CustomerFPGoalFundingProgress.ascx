@@ -304,32 +304,38 @@
    <table>
    <tr>
    <td>
+   </br>
     <asp:Panel runat="server" ID="pnlDocuments">
-     <table ID="tblDocuments" runat="server" Style="border: solid 1px #CCC" Width="550px" rules="rows">
+     <table ID="tblDocuments" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
+     <tr class="EditFormHeader">
+                            <td colspan="2" style="font-size: small">
+                                <b>MF Investment Funding</b>
+                            </td>
+                        </tr>
      <tr>
      <td>
       <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
-        AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
-        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="True"
-        AllowAutomaticUpdates="True" Skin="telerik"
-        OnItemInserted="RadGrid1_ItemInserted" OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
+        AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound" OnInsertCommand="RadGrid1_ItemInserted"
+        OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
         OnPreRender="RadGrid1_PreRender">
-        <MasterTableView CommandItemDisplay="TopAndBottom">
+        <MasterTableView CommandItemDisplay="Top" DataKeyNames="SchemeCode,OtherGoalAllocation">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>
                 <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Scheme" DataField="SchemeName">
-                    <HeaderStyle ForeColor="Silver" Width="20px"></HeaderStyle>
-                    <ItemStyle ForeColor="Gray" />
+                    <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
+                   <%-- <ItemStyle ForeColor="Gray" />--%>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="InvestedAmount" HeaderText="Invested Amount" DataField="InvestedAmount">
-                    <HeaderStyle Width="60px"></HeaderStyle>
+                    <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="Units" HeaderText="Units" DataField="Units">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="ReturnsXIRR" HeaderText="Returns (XIRR)" DataField="ReturnsXIRR">
+                <telerik:GridBoundColumn UniqueName="ReturnsXIRR" HeaderText="Returns (XIRR)" DataField="ReturnsXIRR" Visible="false">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="ProjectedAmount" HeaderText="Projected amount in goal year" DataField="ProjectedAmount">
                 </telerik:GridBoundColumn>
@@ -347,21 +353,33 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <b>Scheme Allocation:</b>
+                                <b><asp:Label id="Label12" Text="Scheme Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  </b>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <table id="Table3" cellspacing="1" cellpadding="1" width="250" border="0" class="module">
+                                <table id="Table3" cellspacing="1" cellpadding="1" border="0" class="module">
                                     <tr>
                                         <td>
                                         </td>
                                         <td>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr runat="server" id="trSchemeDDL">
+                                     <td>
+                                            <asp:Label id="Label13" Text="Scheme:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                    <td>
+                               <asp:DropDownList ID="ddlPickScheme" runat="server" OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged" AutoPostBack="true"  CssClass="cmbField">                                    
+                                </asp:DropDownList>
+                            </td>
+                            </tr>
+                                    <tr runat="server" id="trSchemeTextBox">
                                         <td>
-                                            Scheme:
+                                            <asp:Label id="Label3" Text="Scheme:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
                                         </td>
                                         <td>
                                         <asp:Label id="lblGoalName" Text='<%# Bind("SchemeName") %>'  CssClass="FieldName" runat="server">
@@ -369,33 +387,69 @@
                                            
                                         </td>
                                     </tr>
+                                    
                                     <tr>
                                         <td>
-                                            AllocationPercent:
+                                        <asp:Label id="Label5" Text="Units:" CssClass="FieldName" runat="server">
+                                        </asp:Label>
+                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtSchemeAllocationPer" runat="server" Text='<%# Bind("AllocationPercent") %>' TabIndex="1">
+                                            <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField" Text='<%# Bind("Units") %>'  Enabled="false" TabIndex="2">
                                             </asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Units:
+                                          <asp:Label id="Label6" Text="Current Value:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtUnits" runat="server" Text='<%# Bind("Units") %>' TabIndex="2">
+                                            <asp:TextBox ID="txtCurrentValue" CssClass="txtField" runat="server" Text='<%# Bind("CurrentValue") %>'  Enabled="false" TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr>      
+                                     <tr>
+                                        <td>
+                                           <asp:Label id="Label7" Text="Total Goal Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="TextBox1" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AllocationEntry") %>' TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr>  
+                                    <tr>
+                                        <td>
+                                        <asp:Label id="Label8" Text="Current Goal Allocation:" CssClass="FieldName" runat="server" Enabled="false">
+                                        </asp:Label>
+                                          
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td>
+                                         <asp:Label id="Label9" Text="Other Goal Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'  Enabled="false" TabIndex="1">
                                             </asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Current Value:
+                                         <asp:Label id="Label10" Text="Available Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtCurrentValue" runat="server" Text='<%# Bind("CurrentValue") %>' TabIndex="3">
+                                            <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("AvailableAllocation") %>' TabIndex="1">
                                             </asp:TextBox>
                                         </td>
-                                    </tr>                                    
+                                    </tr>                                
                                 </table>
                             </td>
                             <td>
@@ -406,9 +460,147 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                    runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                 </asp:Button>&nbsp;
-    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel"></asp:Button>
+    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                            </td>
+                        </tr>
+                    </table>
+                </FormTemplate>
+            </EditFormSettings>
+        </MasterTableView>
+        <ClientSettings>
+            <ClientEvents OnRowDblClick="RowDblClick" />
+        </ClientSettings>
+    </telerik:RadGrid>
+     </td>
+     </tr>
+     </table>
+    </asp:Panel>
+    
+    <asp:Panel runat="server" ID="Panel2">
+     <table ID="Table1" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
+        <tr class="EditFormHeader">
+                            <td colspan="2" style="font-size: small">
+                                <b>Monthly SIP MF Funding</b>
+                            </td>
+                        </tr>
+     <tr>
+     <td>
+      <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
+        AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid2_ItemDataBound" OnInsertCommand="RadGrid2_ItemInserted"
+        OnItemCommand="RadGrid2_ItemCommand"
+        >
+        <MasterTableView CommandItemDisplay="Top" DataKeyNames="SIPId,TotalSIPamount">
+            <Columns>
+                <telerik:GridEditCommandColumn>
+                </telerik:GridEditCommandColumn>
+                <telerik:GridBoundColumn UniqueName="SchemeName" HeaderText="Scheme" DataField="SchemeName">
+                    <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
+                   <%-- <ItemStyle ForeColor="Gray" />--%>
+                </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn UniqueName="AvailableAllocation" HeaderText="SIP Amount Available" DataField="AvailableAllocation">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="SIPInvestedAmount" HeaderText="SIP Amount Invested" DataField="SIPInvestedAmount">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+               
+                <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
+                </telerik:GridButtonColumn>--%>
+            </Columns>
+            <EditFormSettings EditFormType="Template">
+                <FormTemplate>
+                    <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
+                        style="border-collapse: collapse; background: white;">
+                        <tr class="EditFormHeader">
+                            <td colspan="2" style="font-size: small">
+                                <b>Monthly SIP MF Funding</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <b><asp:Label id="Label12" Text="Scheme Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  </b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table id="Table3" cellspacing="1" cellpadding="1" border="0" class="module">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr runat="server" id="trSchemeNameDDL">
+                                     <td>
+                                            <asp:Label id="Label13" Text="Scheme-Amount-SIP Date:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                    <td>
+                               <asp:DropDownList ID="ddlPickSIPScheme" runat="server" CssClass="cmbField">                                    
+                                </asp:DropDownList>
+                            </td>
+                            </tr>
+                                    <tr runat="server" id="trSchemeNameText">
+                                        <td>
+                                            <asp:Label id="Label3" Text="Scheme:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                        <td>
+                                        <asp:Label id="lblSchemeName" Text='<%# Bind("SchemeName") %>'  CssClass="FieldName" runat="server">
+                                        </asp:Label>
+                                           
+                                        </td>
+                                    </tr>                                  
+                                      
+                                    <tr>
+                                        <td>
+                                        <asp:Label id="Label8" Text="Current Goal Allocation:" CssClass="FieldName" runat="server" Enabled="false">
+                                        </asp:Label>
+                                          
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>' TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td>
+                                         <asp:Label id="Label9" Text="Other Goal Allocation:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'  Enabled="false" TabIndex="1">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                         <asp:Label id="Label10" Text="Available Amount:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("AvailableAllocation") %>' TabIndex="1">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr>                                
+                                </table>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                       
+                        <tr>
+                            <td align="right" colspan="2">
+                                <asp:Button ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                    runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                </asp:Button>&nbsp;
+    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                             </td>
                         </tr>
                     </table>
