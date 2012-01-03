@@ -113,7 +113,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.FPOfflineForm;
                     }
-                    if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null)
+                    if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewInDOC"] != null)
                     {
                         return ReportType.OrderTransactionSlip;
                     }
@@ -182,7 +182,7 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FPOfflineForm;
                 ctrlPrefix = "ctrl_OfflineForm$";
             }
-            if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewReport"] != null)
+            if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewReport"] != null || Request.Form["ctrl_OrderEntry$btnViewInDOC"] != null)
             {
                 btnSendMail.Visible = true;
                 CurrentReportType = ReportType.OrderTransactionSlip;
@@ -466,9 +466,13 @@ namespace WealthERP.Reports
                    lblClosingBalanceNote.Visible = false;
                 }
                 if (Request.QueryString["mail"] == "2")
-                   {
-                     ExportInPDF();
-                   }
+                {
+                    ExportInPDF();
+                }
+                if (Request.QueryString["mail"] == "4")
+                {
+                    ExportInDOC();
+                }
 
 
         }
