@@ -625,9 +625,7 @@ namespace WealthERP.Uploads
             uploadsCommonBo = new UploadCommonBo();
             UploadProcessLogVo processlogVo = new UploadProcessLogVo();
             string error = "";
-            int processIdReprocessAll = 0;
-
-          
+            int processIdReprocessAll = 0;       
 
 
             if (Request.QueryString["processId"] != null)
@@ -684,6 +682,7 @@ namespace WealthERP.Uploads
             uploadsCommonBo = new UploadCommonBo();
             CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
             bool camsSIPCommonStagingChk = false;
+            bool standardSIPCommonStagingChk = false;
             bool camsSIPCommonStagingToWERP = false;
             bool updateProcessLog = false;
           
@@ -692,8 +691,14 @@ namespace WealthERP.Uploads
             processlogVo = uploadsCommonBo.GetProcessLogInfo(UploadProcessId);
 
             string packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+            
             camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
+                                        //************standard transaction reprocessing Start***************\\
+
+            standardSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "WPT");
+            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "WPT");
+                                        //************standard transaction reprocessing end***************\\
             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
             if (camsSIPCommonStagingChk)
             {
@@ -704,22 +709,17 @@ namespace WealthERP.Uploads
                 {
                     processlogVo.IsInsertionToWERPComplete = 1;
                     processlogVo.EndTime = DateTime.Now;
-                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");
-
-
-                   
+                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");                   
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
                 }
             }
+            else if (standardSIPCommonStagingChk)
+            {
 
-
-
-
+            }
             return blResult;
-
         }
-
+      
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
