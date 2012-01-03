@@ -290,16 +290,13 @@
        <asp:Label ID="lblCheckAll" class="Field" Text="Check All" runat="server"></asp:Label>
       </td>
       
-      <td style="width:60%" align="left">
-            <table align="right">
-            <tr>
-            <td> 
-                <asp:Button ID="btnViewReport" runat=server Text="View Report" CssClass="PCGMediumButton" PostBackUrl="~/Reports/Display.aspx?mail=0" />&nbsp;&nbsp;
-                <asp:Button  ID="btnViewInPDF" runat="server" CssClass="PCGMediumButton" Text="View In PDF" OnClientClick="return CustomerValidate('pdf')"
-                   PostBackUrl="~/Reports/Display.aspx?mail=2" /> 
-            </td>
-            </tr>
-            </table>
+      <td style="width:60%" align="right">
+        <asp:Button ID="btnViewReport" runat="server" Text="View Report" 
+     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />&nbsp;&nbsp;
+     <asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
+     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" /> 
+      <asp:Button ID="btnViewInDOC" runat="server" Text="Export To Doc"  CssClass="PCGMediumButton" OnClientClick="return CustomerValidate('doc')"
+     PostBackUrl="~/Reports/Display.aspx?mail=4"  />   
       </td>
       </tr>
       
