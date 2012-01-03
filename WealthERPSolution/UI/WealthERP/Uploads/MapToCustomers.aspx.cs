@@ -25,14 +25,15 @@ namespace WealthERP.Uploads
 {
     public partial class MapToCustomers : System.Web.UI.Page
     {
-        
+
         AdvisorVo advisorVo = new AdvisorVo();
         UploadProcessLogVo processlogVo;
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
 
         //int testVar = 0;
-        int MFTransactionStagingId =0;
+        int MFTransactionStagingId = 0;
+        int MFFolioStagingId = 0;
         ArrayList Stagingtableid = new ArrayList();
         ArrayList DistinctProcessId = new ArrayList();
         string configPath;
@@ -49,7 +50,7 @@ namespace WealthERP.Uploads
         DataTable dtCustomerSubType = new DataTable();
         string assetInterest;
         string path;
-        
+
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["Theme"] == null || Session["Theme"].ToString() == string.Empty)
@@ -65,25 +66,33 @@ namespace WealthERP.Uploads
             advisorVo = (AdvisorVo)Session["advisorVo"];
             lblRefine.Visible = false;
             lblMessage.Text = "";
+            string folioId = Convert.ToString(Request.Params["Folioid"]);
+            if (folioId != null)
+            {
+                string[] testArrayFolio = folioId.Split('~');
+            }
             string transactionId = Convert.ToString(Request.Params["id"]);
-            string[] testArray = transactionId.Split('~');
+            if (transactionId != null)
+            {
+                string[] testArray = transactionId.Split('~');
+            }
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
             Stagingtableid = (ArrayList)Session["Stagingtableid"];
             DistinctProcessId = (ArrayList)Session["distincProcessIds"];
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             //Session["ProcessIdMaptoCustomers"] = 1;
-            
+
             //testVar = (int)Session["varTest"];
-            
+
             //folionumbers = (String[])Request.Params["id"];
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
 
             if (!IsPostBack)
             {
                 rdbtnMapFolio.Checked = true;
-                
+
             }
-            
+
             if (rdbtnMapFolio.Checked)
             {
                 divMapToCustomer.Visible = true;
@@ -108,7 +117,7 @@ namespace WealthERP.Uploads
                 }
 
             }
-            
+
             if (advisorVo == null || advisorVo.advisorId < 1)
             {
                 lblMessage.Visible = true;
@@ -136,7 +145,7 @@ namespace WealthERP.Uploads
         #region Mapfolio code
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            
+
             if (advisorVo != null && advisorVo.advisorId > 0)
             {
                 CustomerBo customerBo = new CustomerBo();
@@ -149,26 +158,42 @@ namespace WealthERP.Uploads
                 else
                     lblRefine.Visible = false;
             }
-           
+
         }
 
         protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int i;
             int userId = 0;
-            int customerId = 0;            
+            int customerId = 0;
+            string[] testArrayFolio = new string[0];
+            string[] testArray = new string[0];
             customerId = Convert.ToInt32(e.CommandArgument);
-            UserVo userVo = (UserVo)Session["userVo"];           
+            UserVo userVo = (UserVo)Session["userVo"];
             userId = userVo.UserId;
             bool insertioncomplete = true;
             CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
             CustomerAccountBo customerBo = new CustomerAccountBo();
             GridView gv = (GridView)sender;
+            //string transactionId = Convert.ToString(Request.Params["id"]);
+            //string folioId = Convert.ToString(Request.Params["Folioid"]);
+            //string[] testArrayFolio = folioId.Split('~');
+            //string[] testArray = transactionId.Split('~');
+            string folioId = Convert.ToString(Request.Params["Folioid"]);
+            if (folioId != null)
+            {
+                testArrayFolio = folioId.Split('~');
+            }
             string transactionId = Convert.ToString(Request.Params["id"]);
-            string[] testArray = transactionId.Split('~');
-            
+            if (transactionId != null)
+            {
+                testArray = transactionId.Split('~');
+            }
+
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
-              try
+            try
+            {
+                if (transactionId != null)
                 {
                     for (i = 0; i < testArray.Length; i++)
                     {
@@ -176,11 +201,20 @@ namespace WealthERP.Uploads
                         insertioncomplete = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
                     }
                 }
-                catch (Exception ex)
+                if (folioId != null)
                 {
-                    insertioncomplete = false;
+                    for (i = 0; i < testArrayFolio.Length; i++)
+                    {
+                        MFFolioStagingId = int.Parse(testArrayFolio[i]);
+                        insertioncomplete = rejectedTransactionsBo.MapRejectedFoliosToCustomer(MFFolioStagingId, customerId, userId);
+                    }
                 }
-           
+            }
+            catch (Exception ex)
+            {
+                insertioncomplete = false;
+            }
+
             if (insertioncomplete)
             {
                 gvCustomers.Visible = false;
@@ -200,18 +234,34 @@ namespace WealthERP.Uploads
         private bool MapfoliotoCustomer(int customerId)
         {
             int i;
+            string[] testArrayFolio = new string[0];
+            string[] testArray = new string[0];
             bool result = true;
             UserVo userVo = (UserVo)Session["userVo"];
             RejectedTransactionsBo rejectedTransactionsBo = new RejectedTransactionsBo();
-
+            string folioId = Convert.ToString(Request.Params["Folioid"]);
+            if (folioId != null)
+                testArrayFolio = folioId.Split('~');
             string transactionId = Convert.ToString(Request.Params["id"]);
-            string[] testArray = transactionId.Split('~');
+            if (transactionId != null)
+                testArray = transactionId.Split('~');
             int userId = userVo.UserId;
 
-            for (i = 0; i < testArray.Length; i++)
+            if (transactionId != null)
             {
-                MFTransactionStagingId = int.Parse(testArray[i]);
-                result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+                for (i = 0; i < testArray.Length; i++)
+                {
+                    MFTransactionStagingId = int.Parse(testArray[i]);
+                    result = rejectedTransactionsBo.MapFolioToCustomer(MFTransactionStagingId, customerId, userId);
+                }
+            }
+            if (folioId != null)
+            {
+                for (i = 0; i < testArrayFolio.Length; i++)
+                {
+                    MFFolioStagingId = int.Parse(testArrayFolio[i]);
+                    result = rejectedTransactionsBo.MapRejectedFoliosToCustomer(MFFolioStagingId, customerId, userId);
+                }
             }
 
             //MFTransactionStagingId = Convert.ToInt32(Request.Params["id"]);
@@ -288,7 +338,7 @@ namespace WealthERP.Uploads
                     else
                     {
                         // Failure Message
-                        
+
                         lblMessage.Text = "Reprocess Failure!";
                     }
 
@@ -382,7 +432,7 @@ namespace WealthERP.Uploads
             return blResult;
         }
 
-        
+
         #endregion
 
 
@@ -481,7 +531,7 @@ namespace WealthERP.Uploads
                     lblPanDuplicate.Visible = true;
                 }
 
-                
+
             }
 
             catch (BaseApplicationException Ex)
@@ -635,7 +685,7 @@ namespace WealthERP.Uploads
                         familyVo.CustomerId = customerIds[1];
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-                        
+
                         //Map folios to the new customer created
                         bool Mapfolio = MapfoliotoCustomer(customerIds[1]);
 
@@ -653,7 +703,7 @@ namespace WealthERP.Uploads
                             lblMessage.Visible = true;
                             lblMessage.Text = "An error occurred while mapping.";
                         }
-                        
+
                     }
 
                 }
