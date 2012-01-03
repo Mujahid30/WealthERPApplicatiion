@@ -356,6 +356,18 @@ div#MainDivLeft
     cursor: pointer;
 }
 
+.PCGLongLongButton
+{
+    background: url(Images/PCG_gradient_button_long.jpg) left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 220px;
+    cursor: pointer;
+}
+
 .PCGHoverLongButton
 {
     background: url(Images/PCG_gradient_button_long_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
