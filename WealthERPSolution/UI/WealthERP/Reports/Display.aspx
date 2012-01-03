@@ -215,7 +215,17 @@
          </tr>
          <tr>
            <td width="100%" align="left" style=" font-family: Verdana,Tahoma;  font-weight: normal;  font-size: x-small; color: #16518A;">
-            <asp:Label ID="lblIncomeNote2" runat="server" Text="Note: <br />1.You can navigate to any particular page by directly typing a Page Number in Provided Space.<br />2.You can export this report in PDF, Word & Excel format by clicking on Export Icon on Top bar."
+            <asp:Label ID="lblNote" runat="server" Text="Note: <br />1.You can navigate to any particular page by directly typing a Page Number in Provided Space.<br />2.You can export this report in PDF, Word & Excel format by clicking on Export Icon on Top bar."
+             Font-Size="Small">
+            </asp:Label>
+           </td>
+         </tr>
+         <tr>
+            <td width="100%">&nbsp;</td>
+         </tr>
+         <tr>
+           <td width="100%" align="left" style=" font-family: Verdana,Tahoma;  font-weight: normal;  font-size: x-small; color: #16518A;">
+            <asp:Label ID="lblClosingBalanceNote" runat="server" Text="Note:Make sure that daily Valuation is done for the choosen dates."
              Font-Size="Small">
             </asp:Label>
            </td>

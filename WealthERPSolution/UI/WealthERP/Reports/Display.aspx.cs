@@ -34,6 +34,8 @@ using System.Security.AccessControl;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using BoOps;
+
 
 
 
@@ -51,6 +53,7 @@ namespace WealthERP.Reports
         public string isMail = "0";
         bool CustomerLogIn = false;
         string PDFViewPath = "";
+        string DOCViewPath = "";
 
         RiskProfileBo riskprofilebo = new RiskProfileBo();
         RMVo customerRMVo = new RMVo();
@@ -59,6 +62,7 @@ namespace WealthERP.Reports
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
         FinancialPlanningVo financialPlanning = new FinancialPlanningVo();
         FPOfflineFormVo fpOfflineForm = new FPOfflineFormVo();
+        OrderTransactionSlipVo orderTransaction = new OrderTransactionSlipVo();
         AdvisorVo advisorVo = null;
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
@@ -101,13 +105,17 @@ namespace WealthERP.Reports
                     {
                         return ReportType.FinancialPlanning;
                     }
-                    else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null)
+                    else if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null || Request.Form["ctrl_FPSectional$btnViewInDOC"] != null)
                     {
                         return ReportType.FinancialPlanningSectional;
                     }
-                    if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null)
+                    else if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null || Request.Form["ctrl_OfflineForm$btnViewInDOC"] != null)
                     {
                         return ReportType.FPOfflineForm;
+                    }
+                    if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null)
+                    {
+                        return ReportType.OrderTransactionSlip;
                     }
                     else
                         return ReportType.Invalid;
@@ -162,17 +170,23 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FinancialPlanning;
                 ctrlPrefix = "ctrl_FinancialPlanningReports$";
             }
-            if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null)
+            if (Request.Form["ctrl_FPSectional$btnViewReport"] != null || Request.Form["ctrl_FPSectional$btnViewInPDF"] != null || Request.Form["ctrl_FPSectional$btnViewInDOC"] != null)
             {
                 btnSendMail.Visible = false;
                 CurrentReportType = ReportType.FinancialPlanningSectional;
                 ctrlPrefix = "ctrl_FPSectional$";
             }
-            if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null || Request.Form["ctrl_OfflineForm$btnViewReport"] != null)
+            if (Request.Form["ctrl_OfflineForm$btnViewInPDF"] != null || Request.Form["ctrl_OfflineForm$btnViewReport"] != null || Request.Form["ctrl_OfflineForm$btnViewInDOC"] != null)
             {
                 btnSendMail.Visible = true;
                 CurrentReportType = ReportType.FPOfflineForm;
                 ctrlPrefix = "ctrl_OfflineForm$";
+            }
+            if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewReport"] != null)
+            {
+                btnSendMail.Visible = true;
+                CurrentReportType = ReportType.OrderTransactionSlip;
+                ctrlPrefix = "ctrl_OrderEntry$";
             }
 
             if (PreviousPage != null)
@@ -193,13 +207,12 @@ namespace WealthERP.Reports
                 HideShowFPSection();
                 
             }
-           
                 DisplayReport();
            
 
         }
 
-        //protected void Page_UnLoad(object sender, EventArgs e)
+       //protected void Page_UnLoad(object sender, EventArgs e)
         //{
         //    this.CrystalReportViewer1.Dispose();
         //    this.CrystalReportViewer1 = null;
@@ -341,6 +354,10 @@ namespace WealthERP.Reports
             {
                 DisplayReport(fpOfflineForm);
             }
+            else if (CurrentReportType == ReportType.OrderTransactionSlip)
+            {
+                DisplayReport(orderTransaction);
+            }
             else
             {
                 Response.Write("Invalid Report Type");
@@ -371,7 +388,150 @@ namespace WealthERP.Reports
                 //    //}
                 //}
             }
+            else if (Request.QueryString["mail"] == "4")
+            {
+                string logoPath = "~/TempReports/ViewInPDF//" + DOCViewPath;
+                if (DOCViewPath != "")
+                    Response.Redirect("TempReports/ViewInPDF//" + DOCViewPath);
+            }
         }
+
+        private void DisplayReport(OrderTransactionSlipVo report)
+        {
+                string folio=string.Empty;
+                string amcName = string.Empty;
+                string schemeName = string.Empty;
+                string panNo = string.Empty;
+                string CustomerName = string.Empty;
+                string ChequeNo = string.Empty;
+                DateTime chequeDate = DateTime.MinValue;
+                double amount = 0.0;
+                double unit = 0.0;
+                DateTime startDate = DateTime.MinValue;
+                DateTime endDate = DateTime.MinValue;
+                string bankName = string.Empty;
+                string branchName = string.Empty;
+                string address = string.Empty;
+                string city = string.Empty;
+                string state = string.Empty;
+                string country = string.Empty;
+                string schemeSwitchName = string.Empty;
+                long pinNo = 0;
+                //OperationBo operationBo = new OperationBo();
+                MFReportsBo mfReportBo = new MFReportsBo();
+                report = (OrderTransactionSlipVo)Session["reportParams"];
+                DataSet dstransactionSlip = new DataSet();
+                DataTable dtTransactionSlip;
+                
+                crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
+
+                dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
+                DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
+                setLogo();
+
+                if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count>0)
+                {
+                    drOrderTransactionForm=dstransactionSlip.Tables[0].Select();
+
+                    crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["PA_AMCName"].ToString().Trim()) ? drOrderTransactionForm[0]["PA_AMCName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_ChequeNumber"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_PaymentDate"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_PaymentDate"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Amount"].ToString() : string.Empty);
+                    crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_StartDate"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_StartDate"].ToString() : string.Empty);
+                    crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_EndDate"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_EndDate"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_BankName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_BranchName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_City"].ToString() : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_State"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Country"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Pincode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Pincode"].ToString() : string.Empty);
+                    crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
+
+                    ShowTransactionShowHide(report.Type);
+
+                    CrystalReportViewer1.ReportSource = crmain;
+                    CrystalReportViewer1.EnableDrillDown = true;
+                    CrystalReportViewer1.HasCrystalLogo = false;
+                    lblClosingBalanceNote.Visible = false;   
+
+                }
+                else
+                {
+                   SetNoRecords();
+                   lblClosingBalanceNote.Visible = false;
+                }
+                if (Request.QueryString["mail"] == "2")
+                   {
+                     ExportInPDF();
+                   }
+
+
+        }
+
+        private void ShowTransactionShowHide(string Type)
+        {
+            crmain.SetParameterValue("SuppressAP", "0");
+            crmain.SetParameterValue("SuppressRedem", "0");
+            crmain.SetParameterValue("SuppressSwitch", "0");
+            crmain.SetParameterValue("SuppressCA", "0");
+            crmain.SetParameterValue("SuppressSIP", "0");
+            crmain.SetParameterValue("SuppressNP", "0");
+            crmain.SetParameterValue("SuppressSTP", "0");
+            crmain.SetParameterValue("SuppressSWP", "0");
+
+            switch (Type)
+            {
+                case "BUY":
+                    {
+                        crmain.SetParameterValue("SuppressNP", "1");
+                        break;
+                    }
+                case "ABY":
+                    {
+                        crmain.SetParameterValue("SuppressAP", "1");
+                        break;
+                    }
+                case "Sel":
+                    {
+                        crmain.SetParameterValue("SuppressRedem", "1");
+                        break;
+                    }
+                case "SIP":
+                    {
+                        crmain.SetParameterValue("SuppressSIP", "1");
+                        break;
+                    }
+                case "SWP":
+                    {
+                        crmain.SetParameterValue("SuppressSWP", "1");
+                        break;
+                    }
+                case "STP":
+                    {
+                        crmain.SetParameterValue("SuppressSTP", "1");
+                        break;
+                    }
+                case "SWB":
+                    {
+                        crmain.SetParameterValue("SuppressSwitch", "1");
+                        break;
+                    }
+                case "CAF":
+                    {
+                        crmain.SetParameterValue("SuppressCA", "1");
+                        break;
+                    }
+                default:
+                    break;
+
+            }
+        }
+
         /// <summary >
         /// Exporting Disk For Viewing Report in PDF Format In browser : Author-Pramod
         /// </summary>
@@ -474,6 +634,7 @@ namespace WealthERP.Reports
                         crmain.SetParameterValue("OtherGoalDescription", customerGoalsBo.OtherGoalDescriptionText(int.Parse(report.CustomerId)));
                         crmain.SetParameterValue("AssetDescription", riskprofilebo.GetAssetAllocationText(int.Parse(report.CustomerId)));
                         crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+
                     }
                     else if (dsEquitySectorwise.Tables[0].Rows.Count > 0 || dsEquitySectorwise.Tables[2].Rows.Count > 0)
                     {
@@ -502,10 +663,16 @@ namespace WealthERP.Reports
                         crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                     }
                     else
+                    {
                         SetNoRecords();
+                        lblClosingBalanceNote.Visible = false;
+                    }
                 }
                 else
+                {
                     SetNoRecords();
+                    lblClosingBalanceNote.Visible = false;
+                }
 
 
 
@@ -542,16 +709,27 @@ namespace WealthERP.Reports
 
                     CrystalReportViewer1.EnableDrillDown = true;
                     CrystalReportViewer1.HasCrystalLogo = false;
+                    lblClosingBalanceNote.Visible = false;
                 }
                 else
+                {
                     SetNoRecords();
+                    lblClosingBalanceNote.Visible = false;
+                }
 
             }
             catch (Exception ex)
             {
                 throw (ex);
             }
-            ExportInPDF();
+                if (Request.QueryString["mail"] == "2")
+                {
+                    ExportInPDF();
+                }
+                if (Request.QueryString["mail"] == "4")
+                {
+                    ExportInDOC();
+                }
 
         }
 
@@ -966,7 +1144,7 @@ namespace WealthERP.Reports
                             if (pair.Value == "Y")
                                 crmain.SetParameterValue("Insurance", "1");
                             else
-                                crmain.SetParameterValue("Insurance", "1");
+                                crmain.SetParameterValue("Insurance", "0");
                             break;
 
                         }
@@ -1009,7 +1187,31 @@ namespace WealthERP.Reports
             if (Request.QueryString["mail"] == "2")
             {
                 ExportInPDF();
+            }
+            if (Request.QueryString["mail"] == "4")
+            {
+                ExportInDOC();
+            }
+        }
 
+        private void ExportInDOC()
+        {
+            
+            try
+            {
+                string fileExtension = ".doc";
+                string exportFilename = string.Empty;
+                System.Guid guid = System.Guid.NewGuid();
+                //For DOC View In Browser
+                string DocFileNames = CurrentReportType.ToString() + "_" + guid + fileExtension;
+                exportFilename = Server.MapPath("~/Reports/TempReports/ViewInPDF/") + DocFileNames;
+                DOCViewPath = DocFileNames;
+                crmain.ExportToDisk(ExportFormatType.WordForWindows, exportFilename);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
             }
         }
 
@@ -2226,6 +2428,7 @@ namespace WealthERP.Reports
         /// </summary>
         private void SetNoRecords()
         {
+            lblNote.Visible = false;
             lblNoRecords.Visible = true;
             btnSendMail.Visible = false;
         }
@@ -2274,9 +2477,13 @@ namespace WealthERP.Reports
                             CrystalReportViewer1.EnableDrillDown = true;
                             CrystalReportViewer1.HasCrystalLogo = false;
                             //AssignReportViewerProperties();
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "ASSET_ALLOCATION_REPORT":
@@ -2302,10 +2509,13 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
-
+                                lblClosingBalanceNote.Visible = false;
                             }
                             else
+                            {
                                 SetNoRecords();
+                                lblClosingBalanceNote.Visible = false;
+                            }
 
 
                         }
@@ -2324,10 +2534,13 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
-
+                                lblClosingBalanceNote.Visible = false;
                             }
                             else
+                            {
                                 SetNoRecords();
+                                lblClosingBalanceNote.Visible = false;
+                            }
 
                         }
 
@@ -2362,10 +2575,13 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
-
+                                lblClosingBalanceNote.Visible = false;
                             }
                             else
+                            {
                                 SetNoRecords();
+                                lblClosingBalanceNote.Visible = false;
+                            }
                         }
                         else
                         {
@@ -2385,10 +2601,13 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.ReportSource = crmain;
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
-
+                                lblClosingBalanceNote.Visible = false;
                             }
                             else
+                            {
                                 SetNoRecords();
+                                lblClosingBalanceNote.Visible = false;
+                            }
                         }
 
                         break;
@@ -2434,9 +2653,13 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "EQUITY_TRANSACTION_WISE":
@@ -2449,10 +2672,14 @@ namespace WealthERP.Reports
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+                            lblClosingBalanceNote.Visible = false;
 
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "EQUITY_HOLDING_WISE":
@@ -2468,10 +2695,14 @@ namespace WealthERP.Reports
                             AssignReportViewerProperties();
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
+                            lblClosingBalanceNote.Visible = false;
 
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
 
@@ -2508,9 +2739,13 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "EQ_PORTFOLIO_RETURNS_REPORT":
@@ -2545,9 +2780,13 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
 
                             AssignReportViewerProperties();
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
 
@@ -2615,10 +2854,14 @@ namespace WealthERP.Reports
                                 ExportInPDF();
 
                             }
+                            lblClosingBalanceNote.Visible = false;
 
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "CAPITAL_GAIN_DETAILS":
@@ -2639,9 +2882,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
 
@@ -2668,9 +2915,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "TRANSACTION_REPORT":
@@ -2691,9 +2942,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
                     case "TRANSACTION_REPORT_OPEN_CLOSE_BALANCE":
                         crmain.Load(Server.MapPath("MFOpenCloseTransactionReport.rpt"));
@@ -2713,7 +2968,7 @@ namespace WealthERP.Reports
 
                         if (dtOpeningClosingTransactions.Rows.Count > 0)
                         {
-                            
+
                             setLogo();
                             //crmain.SetDataSource(dtOpeningClosingTransactions);
                             crmain.Database.Tables["MFOpenCloseTransactionReport"].SetDataSource((DataTable)dtOpeningClosingTransactions);
@@ -2729,9 +2984,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = true;
+                        }
                         break;
 
                     case "DIVIDEND_STATEMENT":
@@ -2753,6 +3012,7 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
                             SetNoRecords();
@@ -2778,9 +3038,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "RETURNS_PORTFOLIO":
@@ -2803,9 +3067,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
                     case "COMPREHENSIVE":
                         crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
@@ -2829,9 +3097,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     //Added Three more cases for Display three new report : Author-Pramod
@@ -2851,9 +3123,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "ELIGIBLE_CAPITAL_GAIN_DETAILS":
@@ -2874,9 +3150,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "ELIGIBLE_CAPITAL_GAIN_SUMMARY":
@@ -2897,9 +3177,13 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
 
@@ -3113,6 +3397,18 @@ namespace WealthERP.Reports
             {
                 fpOfflineForm.advisorId = advisorVo.advisorId;
                 Session["reportParams"] = fpOfflineForm;
+            }
+            else if (CurrentReportType == ReportType.OrderTransactionSlip)
+            {
+                orderTransaction.advisorId = advisorVo.advisorId;
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnCustomerId"]))
+                {
+                    orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_OrderEntry$hdnCustomerId"]);
+                }
+                orderTransaction.Type = Request.Form[ctrlPrefix + "ddltransType"];
+                //orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "txtCustomerId"]);
+                orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "ddlAmcSchemeList"]);
+                Session["reportParams"] = orderTransaction;
             }
 
         }
@@ -3402,6 +3698,13 @@ namespace WealthERP.Reports
                     cust.LastName = string.Empty;
                     subType = "FPOfflineForm";
                 }
+                else if (CurrentReportType == ReportType.OrderTransactionSlip)
+                {
+                    subType = string.Empty;
+                    fromDate = DateTime.Today;
+                    toDate = DateTime.Today;
+                    cust = customerBo.GetCustomer(Convert.ToInt32(orderTransaction.CustomerId));
+                }
 
                 if (!string.IsNullOrEmpty(txtCC.Text.Trim()))
                 Session["hidCC"] = txtCC.Text;
@@ -3463,6 +3766,8 @@ namespace WealthERP.Reports
                 subject = "FP Offline Form";
                 
             }
+            else if (CurrentReportType == ReportType.OrderTransactionSlip)
+                subject = "Transction Slip";
 
             if (CurrentReportType == ReportType.FPOfflineForm)
             {
@@ -3555,6 +3860,9 @@ namespace WealthERP.Reports
                     break;
                 case ReportType.FPOfflineForm:
                     subject = "FP Offline Form";
+                    break;
+                case ReportType.OrderTransactionSlip:
+                    subject = "Transaction Form";
                     break;
             }
 
