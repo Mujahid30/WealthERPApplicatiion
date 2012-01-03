@@ -141,6 +141,17 @@ namespace DaoSuperAdmin
            }
            return dsGetAumValue;
        }
+       /// <summary>
+       /// Display rejected records with all the information
+       /// </summary>
+       /// <param name="fromdate"></param>
+       /// <param name="todate"></param>
+       /// <param name="currentPage"></param>
+       /// <param name="count"></param>
+       /// <param name="rejectReasoncode"></param>
+       /// <param name="adviserId"></param>
+       /// <param name="processId"></param>
+       /// <returns></returns>
        public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate, int currentPage, out int count, string rejectReasoncode, string adviserId, string processId)
        {
            DataSet dsRejectedRecords = new DataSet();
@@ -187,10 +198,34 @@ namespace DaoSuperAdmin
            {
                throw Ex;
            }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:GetMfrejectedDetails()");
+               object[] objects = new object[6];
+               objects[0] = fromdate;
+               objects[1] = todate;
+               objects[2] = currentPage;
+               objects[3] = rejectReasoncode;
+               objects[4] = adviserId;
+               objects[5] = processId;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
            return dsRejectedRecords;
        }
 
-
+       /// <summary>
+       /// Delete (selected) duplicate records from net position Table
+       /// </summary>
+       /// <param name="adviserId"></param>
+       /// <param name="accountId"></param>
+       /// <param name="netHolding"></param>
+       /// <param name="schemeCode"></param>
+       /// <param name="ValuationDate"></param>
        public void DeleteDuplicateRecord(int adviserId, int accountId, double netHolding, int schemeCode, DateTime ValuationDate)
        {
           
@@ -211,6 +246,22 @@ namespace DaoSuperAdmin
            catch (BaseApplicationException Ex)
            {
                throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:DeleteDuplicateRecord()");
+               object[] objects = new object[5];
+               objects[0] = adviserId;
+               objects[1] = accountId;
+               objects[2] = netHolding;
+               objects[3] = schemeCode;
+               objects[4] = ValuationDate;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
            }
            
        }
@@ -358,6 +409,34 @@ namespace DaoSuperAdmin
                ex.StackTrace.ToString();
            }
            return i;
+       }
+       /// <summary>
+       /// Delete all duplicate records since inception.
+       /// </summary>
+       public void DeleteAllDuplicatesForASuperAdmin()
+       {
+           Database db;
+           DbCommand deleteAllDuplicatescmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               deleteAllDuplicatescmd = db.GetStoredProcCommand("SP_DeleteAllDuplicatesForASuperAdmin");
+               deleteAllDuplicatescmd.CommandTimeout = 60 * 60;
+               db.ExecuteDataSet(deleteAllDuplicatescmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw (Ex);
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "PortfolioBo.cs:DeleteAllDuplicatesForASuperAdmin()");
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
        }
        
     }
