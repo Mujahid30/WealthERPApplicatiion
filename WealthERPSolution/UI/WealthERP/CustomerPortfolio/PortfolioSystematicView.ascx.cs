@@ -153,7 +153,7 @@ namespace WealthERP.CustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "PortfolioSystematicView.ascx:Page_Load()");
-                object[] objects = new object[1];
+                object[] objects = new object[2];
                 objects[0] = customerVo;
                 objects[1] = portfolioId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, null);/*, objects*/
