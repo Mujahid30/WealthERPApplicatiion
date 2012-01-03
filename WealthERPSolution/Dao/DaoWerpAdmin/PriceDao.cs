@@ -274,7 +274,7 @@ namespace DaoWerpAdmin
                 db.AddInParameter(CmdMFFundPerformance, "@subCategory", DbType.String, subCategory);
                 //db.AddInParameter(CmdMFFundPerformance, "@returnPeriod", DbType.Int32, returnPeriod);
                 //db.AddInParameter(CmdMFFundPerformance, "@conditionType", DbType.Int32, conditionType);
-
+                CmdMFFundPerformance.CommandTimeout = 60 * 60;
                 dsMFFundPerformance = db.ExecuteDataSet(CmdMFFundPerformance);
                 dtMFFundPerformance = dsMFFundPerformance.Tables[0];               
             }
@@ -351,6 +351,42 @@ namespace DaoWerpAdmin
                 throw Ex;
             }
             return dsSchemeListCategorySubCategory;
+        }
+        public DataSet GetNavOverAllCategoryList()
+        {
+            DataSet dsGetOverAllCategoryList = new DataSet();
+            Database db;
+            DbCommand CmdGetOverAllCategoryList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdGetOverAllCategoryList = db.GetStoredProcCommand("SP_GetNavOverAllCategoryList");
+                dsGetOverAllCategoryList = db.ExecuteDataSet(CmdGetOverAllCategoryList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetOverAllCategoryList;
+        }
+        public DataSet GetSchemeFromOverAllCategoryList(int amcCode, string categoryCode)
+        {
+            DataSet dsSchemeFromOverAllCategoryList = new DataSet();
+            Database db;
+            DbCommand CmdSchemeFromOverAllCategoryList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdSchemeFromOverAllCategoryList = db.GetStoredProcCommand("SP_GetSchemeFromOverAllCategoryList");
+                db.AddInParameter(CmdSchemeFromOverAllCategoryList, "@AmcCode", DbType.Int32, amcCode);
+                db.AddInParameter(CmdSchemeFromOverAllCategoryList, "@CategoryCode", DbType.String, categoryCode);
+                dsSchemeFromOverAllCategoryList = db.ExecuteDataSet(CmdSchemeFromOverAllCategoryList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeFromOverAllCategoryList;
         }
     }
 }
