@@ -233,6 +233,31 @@ namespace WealthERP.Reports
  
         }
 
+        //protected void ddlBtnSelect_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlBtnSelect.SelectedIndex != -1)
+        //    {
+        //        if (ddlBtnSelect.SelectedValue == "ViewReport")
+        //        {
+        //            btnViewReport.Visible = true;
+        //            btnViewInPDF.Visible = false;
+        //            btnViewInDOC.Visible = false;
+        //        }
+        //        if (ddlBtnSelect.SelectedValue == "ViewInPdf")
+        //        {
+        //            btnViewReport.Visible = false;
+        //            btnViewInPDF.Visible = true;
+        //            btnViewInDOC.Visible = false;
+        //        }
+        //        if (ddlBtnSelect.SelectedValue == "ViewInDoc")
+        //        {
+        //            btnViewReport.Visible = false;
+        //            btnViewInPDF.Visible = false;
+        //            btnViewInDOC.Visible = true;
+        //        }
+        //    }
+        //}
+
         //protected void btnAddPara_Click(object sender, EventArgs e)
         //{
         //    PlaceHolder PlaceHolder1 = new PlaceHolder();

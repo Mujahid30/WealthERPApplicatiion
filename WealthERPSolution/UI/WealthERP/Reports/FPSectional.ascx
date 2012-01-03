@@ -57,7 +57,11 @@
         if (type == 'pdf') {
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
-        } else {
+        } else if (type == 'doc') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
+        }
+        else {
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
         }
@@ -269,7 +273,7 @@
  <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="pnlReportGeneration" runat="server">
 
-<table>
+<table width="100%">
   <%--  <tr>
         <td colspan="3">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextSmall" Text="Financial Planning Reports"></asp:Label>
@@ -281,13 +285,21 @@
       <tr>
       <td style="width:3%">
       </td> 
-      <td >
+      <td style="width:37%">
       <input id="chkCheckAll"  name="Select All" value="Customer" type="checkbox" onclick="CheckBoxListSelect()" />
-       <asp:Label ID="lblCheckAll" class="Field" Text="Check All" runat="server"></asp:Label>           
+       <asp:Label ID="lblCheckAll" class="Field" Text="Check All" runat="server"></asp:Label>
       </td>
       
-      <td >
-            
+      <td style="width:60%" align="left">
+            <table align="right">
+            <tr>
+            <td> 
+                <asp:Button ID="btnViewReport" runat=server Text="View Report" CssClass="PCGMediumButton" PostBackUrl="~/Reports/Display.aspx?mail=0" />&nbsp;&nbsp;
+                <asp:Button  ID="btnViewInPDF" runat="server" CssClass="PCGMediumButton" Text="View In PDF" OnClientClick="return CustomerValidate('pdf')"
+                   PostBackUrl="~/Reports/Display.aspx?mail=2" /> 
+            </td>
+            </tr>
+            </table>
       </td>
       </tr>
       
@@ -418,19 +430,26 @@
       </tr>
     
     
-    <tr>
+<%--    <tr>
     <td style="width:3%">
     </td> 
-    <td style="width:50%">
-    <asp:Button ID="btnViewReport" runat="server" Text="View Report" 
-     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />&nbsp;&nbsp;
-     <asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
-     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />
+    <td style="width:30%">
+   <asp:DropDownList ID="ddlBtnSelect" runat="server" CssClass="cmbField" AutoPostBack="true"
+            onselectedindexchanged="ddlBtnSelect_SelectedIndexChanged">
+   <asp:ListItem Value="ViewReport" Text="ViewReport" Selected="True"></asp:ListItem>
+   <asp:ListItem Value="ViewInPdf" Text="View In PDF"></asp:ListItem>
+   <asp:ListItem Value="ViewInDoc" Text="View In Doc"></asp:ListItem>
+   </asp:DropDownList>
     </td>
-    <td style="width:50%">
-     
+    <td style="width:77%">
+     <asp:Button ID="btnViewReport" runat="server" Text="Go" 
+     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGButton" />&nbsp;&nbsp;
+     <asp:Button ID="btnViewInPDF" runat="server" Text="Go" OnClientClick="return CustomerValidate('pdf')"
+     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGButton" />&nbsp;&nbsp;
+     <asp:Button ID="btnViewInDOC" runat="server" Text="Go"  CssClass="PCGButton" OnClientClick="return CustomerValidate('doc')"
+     PostBackUrl="~/Reports/Display.aspx?mail=4" />
     </td>
-    </tr>
+    </tr>--%>
  </table>
       </asp:Panel>
  </telerik:RadPageView>
