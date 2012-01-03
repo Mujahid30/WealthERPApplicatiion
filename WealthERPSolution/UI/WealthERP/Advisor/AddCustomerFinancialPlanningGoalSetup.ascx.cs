@@ -20,6 +20,9 @@ using VoCustomerGoalProfiling;
 using VoCustomerPortfolio;
 using System.Collections;
 
+using BoFPSuperlite;
+using VoFPSuperlite;
+
 namespace WealthERP.Advisor
 {
     public partial class AddCustomerFinancialPlanningGoalSetup : System.Web.UI.UserControl
@@ -30,6 +33,9 @@ namespace WealthERP.Advisor
         CustomerGoalSetupDao customerGoalSetupDao = new CustomerGoalSetupDao();
         CustomerVo customerVo = new CustomerVo();
         List<GoalProfileSetupVo> GoalProfileList = new List<GoalProfileSetupVo>();
+        CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
+        CustomerGoalPlanningBo customerGoalPlanningBo = new CustomerGoalPlanningBo();
+        CustomerGoalPlanningVo customerGoalPlanningVo = new CustomerGoalPlanningVo();
 
         double RTSaveReq = 0.0;
         string ActiveFilter = "";
@@ -44,6 +50,7 @@ namespace WealthERP.Advisor
         int surplusTotal = 0;
         int investedAmountForAllGaol = 0;
         int monthlySavingRequired = 0;
+        bool isHavingAssumption = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -57,15 +64,46 @@ namespace WealthERP.Advisor
                 //this.txtPickCustomer.Attributes.Add("onkeypress", "ShowImage()");
                 //this.txtPickCustomer.Attributes.Add("onblur", "HideImage()");
 
-
+                if (advisorVo != null)
+                    advisorVo = (AdvisorVo)Session["advisorVo"];
                 SessionBo.CheckSession();
                 if (ViewState["FilterValue"] != null)
                     ActiveFilter = ViewState["FilterValue"].ToString();
                 lblNoteFunding.Visible = false;
                 if (!IsPostBack)
                 {
-                    InflationPercent = GoalSetupBo.GetInflationPercent();
-                    ViewState["InflationPer"] = InflationPercent;
+                    customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(int.Parse(Session["FP_UserID"].ToString()), advisorVo.advisorId, out isHavingAssumption);
+                    if (!isHavingAssumption)
+                    {
+                        btnBackToAddMode.Enabled = false;
+                        btnBackToView.Enabled = false;
+                        btnCancel.Enabled = false;
+                        btnNext.Enabled = false;
+                        btnSaveAdd.Enabled = false;
+                        btnUpdate.Enabled = false;
+
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp The Assumptions For This Customer');", true);
+                        return;
+                    }
+                    else if (customerAssumptionVo.CustomerAge == 0)
+                    {
+                        btnBackToAddMode.Enabled = false;
+                        btnBackToView.Enabled = false;
+                        btnCancel.Enabled = false;
+                        btnNext.Enabled = false;
+                        btnSaveAdd.Enabled = false;
+                        btnUpdate.Enabled = false;
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please SetUp Dob for customer or Spouse');", true);
+                        //return;
+                    }
+                    if (customerAssumptionVo.IsRiskProfileComplete == false)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please first complete Risk Profile');", true);
+                        return;
+                    }
+                    ControlShowHide(customerAssumptionVo, "OT");
+                    //InflationPercent = GoalSetupBo.GetInflationPercent();
+                    ViewState["InflationPer"] = customerAssumptionVo.InflationPercent;
                     //Session["FP_UserID"] = "";
                     //Session["FP_UserName"] = "";
                     //Session[SessionContents.CurrentUserRole] = "RM";
@@ -81,7 +119,7 @@ namespace WealthERP.Advisor
                         AdvisorRMId = advisorVo.advisorId;
                         //txtPickCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                     }
-
+                    
                     if ((Session["FP_UserID"] == null) && (Session["FP_UserName"] == null))
                     {
                         SessionBo.CheckSession();
@@ -90,7 +128,7 @@ namespace WealthERP.Advisor
 
                         //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
                         BindGoalObjTypeDropDown();
-                        InitialPageLoadState();
+                        InitialPageLoadState();                       
                         Tab2ControlVisibility(0);
                         TabContainer1.ActiveTabIndex = 0;
                     }
@@ -102,8 +140,8 @@ namespace WealthERP.Advisor
                         SessionBo.CheckSession();
                         //txtPickCustomer_autoCompleteExtender.ContextKey = AdvisorRMId.ToString();
                         InitialPageLoadState();
-                        double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                        txtExpRateOfReturn.Text = ExpROI.ToString();
+                        //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
+                        //txtExpRateOfReturn.Text = ExpROI.ToString();
                         ddlGoalType.Enabled = true;
                         txtCurrentInvestPurpose.Text = "0";
                         txtAboveRateOfInterst.Text = "0";
@@ -640,6 +678,9 @@ namespace WealthERP.Advisor
         protected void ddlGoalType_SelectedIndexChanged(object sender, EventArgs e)
         {
             int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
+            customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(ParentCustomerId, advisorVo.advisorId, out isHavingAssumption);
+            txtGoalDescription.Text = string.Empty;
+
             switch (ddlGoalType.SelectedValue.ToString())
             {
                 case "BH":
@@ -707,13 +748,15 @@ namespace WealthERP.Advisor
 
                     //trGoalDesc.Visible = false;
 
-                    trROIFutureInvestment.Visible = true;
-                    txtROIFutureInvest.Text = "7";
+                    //trROIFutureInvestment.Visible = true;
+                    //txtROIFutureInvest.Text = "7";
                     lblGoalYear.Text = "Goal Year :";
-                    lblGoalCostToday.Text = "Annual Requirment Today :";
+                    lblGoalCostToday.Text = "Monthly Requirment Today :";
                     //default  current investment and Rate of return of above to 0
-                    txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
+                    //txtCurrentInvestPurpose.Text = "0";
+                    //txtAboveRateOfInterst.Text = "0";
+
+
                     TabContainer1.ActiveTabIndex = 0;
                     break;
                 case "OT":
@@ -737,7 +780,69 @@ namespace WealthERP.Advisor
                     break;
 
             }
+            ControlShowHide(customerAssumptionVo, ddlGoalType.SelectedValue.ToString());
 
+        }
+
+        protected void ControlShowHide(CustomerAssumptionVo customerAssumptionVo, String goalCode)
+        {
+            if (goalCode == "RT")
+            {
+                trCustomerAge.Visible = true;
+                trSpouseAge.Visible = true;
+                trRetirementAge.Visible = true;
+                trCustomerEOL.Visible = true;
+                trSpouseEOL.Visible = true;
+                trPostRetirementReturns.Visible = true;
+                trReturnOnNewInvestments.Visible = true;
+                trCorpusToBeLeftBehind.Visible = true;
+                
+                
+                //trExistingInvestmentAllocated.Visible = false;
+                //trReturnOnExistingInvestmentAll.Visible = false;
+                trReturnOnFutureInvest.Visible = false;
+                trROIFutureInvestment.Visible = false;
+
+                txtCustomerAge.Text = customerAssumptionVo.CustomerAge.ToString();
+                txtSpouseAge.Text = customerAssumptionVo.SpouseAge.ToString();                
+                txtRetirementAge.Text = customerAssumptionVo.RetirementAge.ToString();
+                txtCustomerEOL.Text = customerAssumptionVo.CustomerEOL.ToString();
+                txtSpouseEOL.Text = customerAssumptionVo.SpouseEOL.ToString();
+                txtPostRetirementReturns.Text = customerAssumptionVo.PostRetirementReturn.ToString();
+                txtReturnOnNewInvestments.Text = customerAssumptionVo.WeightedReturn.ToString();
+
+            }
+            else
+            {
+                trCustomerAge.Visible = false;
+                trSpouseAge.Visible = false;
+                trRetirementAge.Visible = false;
+                trCustomerEOL.Visible = false;
+                trSpouseEOL.Visible = false;
+                trPostRetirementReturns.Visible = false;
+                trReturnOnNewInvestments.Visible = false;
+                trCorpusToBeLeftBehind.Visible = false;
+                
+
+                //trExistingInvestmentAllocated.Visible = true;
+                //trReturnOnExistingInvestmentAll.Visible = true;
+                trReturnOnFutureInvest.Visible = true;
+                //trROIFutureInvestment.Visible = true;
+
+                
+            }
+
+            txtExpRateOfReturn.Text = customerAssumptionVo.WeightedReturn.ToString();
+            txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
+
+            if (customerAssumptionVo.IsGoalFundingFromInvestMapping == true)
+            {
+                trExistingInvestmentAllocated.Visible = false;
+                trReturnOnExistingInvestmentAll.Visible = false;               
+
+            }
+
+ 
         }
 
         private void BindGoalObjTypeDropDown()
@@ -779,48 +884,61 @@ namespace WealthERP.Advisor
                 rmVo = (RMVo)Session[SessionContents.RmVo];
 
                 int ParentCustomerId = int.Parse(Session["FP_UserID"].ToString());
-                goalProfileSetupVo.CustomerId = ParentCustomerId;
-                goalProfileSetupVo.Goalcode = ddlGoalType.SelectedValue.ToString();
-                goalProfileSetupVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
-                goalProfileSetupVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
-                goalProfileSetupVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
+                customerGoalPlanningVo.CustomerId = ParentCustomerId;
+                customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
+                customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text);
+                customerGoalPlanningVo.GoalDate = DateTime.Parse(txtGoalDate.Text);
+                customerGoalPlanningVo.GoalYear = int.Parse(ddlGoalYear.SelectedValue);
                 if (ddlGoalType.SelectedValue == "ED" || ddlGoalType.SelectedValue == "MR")
                 {
-                    goalProfileSetupVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
+                    customerGoalPlanningVo.AssociateId = int.Parse(ddlPickChild.SelectedValue.ToString());
                 }
                 if (!string.IsNullOrEmpty(txtGoalDescription.Text))
                 {
-                    goalProfileSetupVo.GoalDescription = txtGoalDescription.Text;
+                    customerGoalPlanningVo.GoalDescription = txtGoalDescription.Text;
                 }
                 if (!string.IsNullOrEmpty(txtCurrentInvestPurpose.Text.Trim()))
-                    goalProfileSetupVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
+                    customerGoalPlanningVo.CurrInvestementForGoal = double.Parse(txtCurrentInvestPurpose.Text.Trim());
 
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
-                    goalProfileSetupVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
-                goalProfileSetupVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
+                    customerGoalPlanningVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
+                customerGoalPlanningVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
-                    goalProfileSetupVo.InflationPercent = double.Parse(txtInflation.Text);
+                    customerGoalPlanningVo.InflationPercent = double.Parse(txtInflation.Text);
                 }
                 if (txtComment.Text != "")
                 {
-                    goalProfileSetupVo.Comments = txtComment.Text.ToString();
+                    customerGoalPlanningVo.Comments = txtComment.Text.ToString();
 
                 }
-                goalProfileSetupVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
+                customerGoalPlanningVo.CreatedBy = int.Parse(rmVo.RMId.ToString());
                 if (chkApprove.Checked == true)
-                    goalProfileSetupVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
+                    customerGoalPlanningVo.CustomerApprovedOn = DateTime.Parse(txtGoalDate.Text);
 
 
 
                 if (ddlGoalType.SelectedValue == "RT")
                 {
-                    goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
-                    GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, ParentCustomerId, 0);
+                    //customerAssumptionVo.c
+                    //goalProfileSetupVo.RateofInterestOnFture = double.Parse(txtROIFutureInvest.Text);
+                    //GoalSetupBo.CreateCustomerGoalProfileForRetirement(goalProfileSetupVo, customerAssumptionVo, ParentCustomerId, 0);
+                    //customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false);
+                    customerAssumptionVo.CustomerAge = Convert.ToUInt16(txtCustomerAge.Text);
+                    customerAssumptionVo.SpouseAge = Convert.ToUInt16(txtSpouseAge.Text);
+                    customerAssumptionVo.RetirementAge = Convert.ToUInt16(txtRetirementAge.Text);
+                    customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
+                    customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
+                    customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
+                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtReturnOnNewInvestments.Text);                   
+                    customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
+
+                    customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
-                else
-                    GoalSetupBo.CreateCustomerGoalProfile(goalProfileSetupVo, ParentCustomerId, 0);
+
+               
+               customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false);
 
 
                 //Tab2ControlVisibility(0);
@@ -966,6 +1084,8 @@ namespace WealthERP.Advisor
                     dtGoalProfile.Columns.Add("GoalYear");
                     dtGoalProfile.Columns.Add("IsActive");
                     dtGoalProfile.Columns.Add("CustomerApprovedOn");
+                    dtGoalProfile.Columns.Add("CurrentGoalValue");
+                    dtGoalProfile.Columns.Add("CompletionPer");
 
                     double monthlySaveRequired = 0.0;
                     double allGoalCostToday = 0;
@@ -975,10 +1095,12 @@ namespace WealthERP.Advisor
                     double TotalSaveReq = 0.0;
 
                     DataRow drGoalProfile;
+                    
 
                     for (int i = 0; i < GoalProfileList.Count; i++)
                     {
 
+                        
                         drGoalProfile = dtGoalProfile.NewRow();
                         goalProfileSetupVo = new GoalProfileSetupVo();
                         goalProfileSetupVo = GoalProfileList[i];
@@ -1008,6 +1130,9 @@ namespace WealthERP.Advisor
                             drGoalProfile["CustomerApprovedOn"] = goalProfileSetupVo.CustomerApprovedOn.ToShortDateString();
                         else
                             drGoalProfile["CustomerApprovedOn"] = string.Empty;
+
+                        drGoalProfile["CurrentGoalValue"] = goalProfileSetupVo.CurrentGoalValue.ToString();
+                        drGoalProfile["CompletionPer"] = goalProfileSetupVo.GoalCompletionPercent.ToString();
                         dtGoalProfile.Rows.Add(drGoalProfile);
                     }
 
@@ -1341,8 +1466,9 @@ namespace WealthERP.Advisor
                 txtInflation.Text = ViewState["InflationPer"].ToString();
                 trROIFutureInvestment.Visible = false;
                 txtComment.Text = "";
-                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                txtExpRateOfReturn.Text = ExpROI.ToString();
+                txtGoalDescription.Text = string.Empty;
+                //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
+                //txtExpRateOfReturn.Text = ExpROI.ToString();
 
                 chkApprove.Checked = false;
 
@@ -1376,8 +1502,9 @@ namespace WealthERP.Advisor
                 txtROIFutureInvest.Text = "";
 
                 txtComment.Text = "";
-                double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
-                txtExpRateOfReturn.Text = ExpROI.ToString();
+                txtGoalDescription.Text = string.Empty;
+                //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
+                //txtExpRateOfReturn.Text = ExpROI.ToString();
                 if (chkApprove.Checked == true)
                 {
                     chkApprove.Checked = false;

@@ -457,7 +457,7 @@
                     </td>
                 </tr>
                 
-                <tr>
+                <tr id="trExistingInvestmentAllocated" runat="server">
                     <td class="leftField">
                         <asp:Label ID="lblCurrentInvestPurpose" runat="server" CssClass="FieldName" Text="Existing Investment Allocated :"></asp:Label>
                     </td>
@@ -474,7 +474,7 @@
                 </tr>
                               
                 
-                <tr>
+                <tr id="trReturnOnExistingInvestmentAll" runat="server">
                     <td class="leftField">
                         <asp:Label ID="lblRateOfInterstAbove" runat="server" CssClass="FieldName" Text="Expected return on the allocated investment(%) :"></asp:Label>
                     </td>
@@ -493,7 +493,7 @@
                     </td>
                 </tr>
                 
-                <tr>
+                <tr id="trReturnOnFutureInvest" runat="server">
                     <td class="leftField">
                       <nobr>  <asp:Label ID="ExpRateOfReturn" runat="server" CssClass="FieldName" Text="Expected return on the future investment(%) :"></asp:Label></nobr>
                     </td>
@@ -523,7 +523,7 @@
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                             <span id="SpanROIFutureInvest" class="spnRequiredField" runat="server">*</span>
                             
-                            <ajaxToolkit:FilteredTextBoxExtender ID="txtROIFutureInvest_E" runat="server" Enabled="True" TargetControlID="txtROIFutureInvest"
+                         <ajaxToolkit:FilteredTextBoxExtender ID="txtROIFutureInvest_E" runat="server" Enabled="True" TargetControlID="txtROIFutureInvest"
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                          <asp:RangeValidator ID="RangeValidator2"  Display="Dynamic" CssClass="rfvPCG"
@@ -533,22 +533,164 @@
                       
                     </td>
                 </tr>
-                <tr>
+               
+                
+                <tr id="trCustomerAge" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Customer Age :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtCustomerAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span8" class="spnRequiredField" runat="server">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator12"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
+                            MinimumValue="18" MaximumValue="150" ControlToValidate="txtCustomerAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator16" runat="server" ControlToValidate="txtCustomerAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr id="trSpouseAge" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Spouse Age :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSpouseAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span7" class="spnRequiredField" runat="server">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator11"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
+                            MinimumValue="18" MaximumValue="150" ControlToValidate="txtSpouseAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator15" runat="server" ControlToValidate="txtSpouseAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                
+                <tr id="trRetirementAge" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Retirement Age :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtRetirementAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span6" class="spnRequiredField" runat="server">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator10"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 65"
+                            MinimumValue="30" MaximumValue="65" ControlToValidate="txtRetirementAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtRetirementAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                
+                 <tr id="trCustomerEOL" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Customer EOL :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtCustomerEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span5" class="spnRequiredField" runat="server">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator9"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
+                            MinimumValue="30" MaximumValue="150" ControlToValidate="txtCustomerEOL" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCustomerEOL"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                
+                <tr id="trSpouseEOL" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtSpouseEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span4" class="spnRequiredField" runat="server">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator8"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
+                            MinimumValue="30" MaximumValue="150" ControlToValidate="txtSpouseEOL" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtSpouseEOL"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                
+                 <tr>
                     <td class="leftField">
                         <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Inflation(%) :"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" 
                             CssClass="txtField" ></asp:TextBox>
-                              <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
+                            <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
                             <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should not be more than 100"
                             MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
+                                
+               
+                <tr id="trPostRetirementReturns" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Post Retirement Returns(%) :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtPostRetirementReturns" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span1" class="spnRequiredField" runat="server">*</span>                           
+                        <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" TargetControlID="txtPostRetirementReturns"
+                                            FilterType="Custom, Numbers" ValidChars=".">
+                        </ajaxToolkit:FilteredTextBoxExtender>
+                        <asp:RangeValidator ID="RangeValidator5"  Display="Dynamic" CssClass="rfvPCG"
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
+                            MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtPostRetirementReturns" 
+                            runat="server"></asp:RangeValidator>
+                            
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPostRetirementReturns"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr> 
+                
+                <tr id="trReturnOnNewInvestments" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Return On New Investments(%) :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtReturnOnNewInvestments" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span2" class="spnRequiredField" runat="server">*</span>                           
+                         <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" Enabled="True" TargetControlID="txtReturnOnNewInvestments"
+                                            FilterType="Custom, Numbers" ValidChars=".">
+                        </ajaxToolkit:FilteredTextBoxExtender>
+                        <asp:RangeValidator ID="RangeValidator6"  Display="Dynamic" CssClass="rfvPCG"
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
+                            MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtReturnOnNewInvestments" 
+                            runat="server"></asp:RangeValidator>
+                            
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtReturnOnNewInvestments"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr> 
+                
+                <tr id="trCorpusToBeLeftBehind" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label10" runat="server" CssClass="FieldName" Text="Corpus To Be Left Behind :"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtCorpusToBeLeftBehind" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span3" class="spnRequiredField" runat="server">*</span>                           
+                        <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" Enabled="True" TargetControlID="txtCorpusToBeLeftBehind"
+                                            FilterType="Custom, Numbers" ValidChars=".">
+                        </ajaxToolkit:FilteredTextBoxExtender>
+                        <asp:RangeValidator ID="RangeValidator7"  Display="Dynamic" CssClass="rfvPCG"
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 9999999999"
+                            MinimumValue="0" MaximumValue="9999999999" ControlToValidate="txtReturnOnNewInvestments" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtCorpusToBeLeftBehind"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                </tr> 
+                
                 <tr>
                     <td class="leftField">
                         <asp:Label ID="lblComment" runat="server" CssClass="FieldName" Text="Comments :"></asp:Label>
@@ -558,6 +700,7 @@
                             TextMode="MultiLine" ></asp:TextBox>
                     </td>
                 </tr>
+                
             </table>
         <table class="TableBackground">
                 <tr id="trchkApprove" runat="server">
@@ -648,8 +791,7 @@
                                     <%--OnSelectedIndexChanged="ddlGoalOutput_OnSelectedIndexChange"--%>
                                     <asp:ListItem Text="Select" Value="Select" />
                                     <asp:ListItem Text="View" Value="View" />
-                                    <asp:ListItem Text="Fund/Progress" Value="Fund" />
-             
+                                    <asp:ListItem Text="Fund/Progress" Value="Fund" />             
                                     </asp:DropDownList>
                                       
                                     </ItemTemplate>                                  
@@ -667,13 +809,15 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Name of Associate Customer" HeaderStyle-HorizontalAlign="Center">
+                                
+                                <%--<asp:TemplateField HeaderText="Name of Associate Customer" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblAssociateName" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("ChildName") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
+                                
                                 <asp:TemplateField HeaderText="Cost Today(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCostToday" runat="server" CssClass="cmbField" 
@@ -686,18 +830,20 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Investment Amount Allocated(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                
+                                <asp:TemplateField HeaderText="Goal Amount(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCurrentInvestment" runat="server" CssClass="cmbField" 
-                                            Text='<%#Eval("CurrentInvestment")%>'>
+                                        <asp:Label ID="lblGaolAmount" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("GoalAmount")%>'>
                                         </asp:Label>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        <asp:Label ID="lblCurrentInvestmentTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                    </ItemTemplate>  
+                                     <FooterTemplate>
+                                        <asp:Label ID="lblGoalAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
                                             ForeColor="White" Text="">
                                         </asp:Label>
-                                    </FooterTemplate>
+                                    </FooterTemplate>                                 
                                 </asp:TemplateField>
+                                
                                 <asp:TemplateField HeaderText="Amount To be Saved Per Month(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSavingReq" runat="server" CssClass="cmbField" 
@@ -710,25 +856,7 @@
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Goal Amount(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGaolAmount" runat="server" CssClass="cmbField" 
-                                            Text='<%#Eval("GoalAmount")%>'>
-                                        </asp:Label>
-                                    </ItemTemplate>  
-                                     <FooterTemplate>
-                                        <asp:Label ID="lblGoalAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
-                                            ForeColor="White" Text="">
-                                        </asp:Label>
-                                    </FooterTemplate>                                 
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Calculated On" HeaderStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" 
-                                            Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
-                                        </asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                
                                 <asp:TemplateField HeaderText="Required In Year" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblGoalYear" runat="server" CssClass="cmbField" 
@@ -736,6 +864,48 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Amount Invested(Rs.)" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCurrentInvestment" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CurrentInvestment")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblCurrentInvestmentTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Current Value Of Goal" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCurrentGoalValue" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CurrentGoalValue")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="(%) Completion" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCompletionPer" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("CompletionPer")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    
+                                </asp:TemplateField>
+                                
+                                  
+                               <%-- <asp:TemplateField HeaderText="Calculated On" HeaderStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                
+                               
                                 <asp:TemplateField HeaderText="IsActive" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblIsActive" runat="server" CssClass="cmbField" 
