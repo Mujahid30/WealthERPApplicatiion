@@ -1425,6 +1425,45 @@ namespace BoAdvisorProfiling
             return bResult;
         }
 
+        /// <summary>
+        /// Get all the Advisers Online Transaction AMC Links..
+        /// </summary>
+        /// <param name="aotalVo"></param>
+        /// <returns></returns>
+
+        public List<AdviserOnlineTransactionAMCLinksVo> GetAdviserOnlineTransactionAMCLinks(AdviserOnlineTransactionAMCLinksVo aotalVo)
+        {
+            DataSet dsGetAdviserOnlineTransactionAMCLinks = new DataSet();
+            AdvisorDao adviserDao = new AdvisorDao();
+            List<AdviserOnlineTransactionAMCLinksVo> adviserOTALink = null;
+            try
+            {
+                adviserOTALink = adviserDao.GetAdviserOnlineTransactionAMCLinks(aotalVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserOnlineTransactionAMCLinks(AdviserOnlineTransactionAMCLinksVo aotalVo)");
+
+
+                object[] objects = new object[1];
+                objects[0] = aotalVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return adviserOTALink;
+        }
+
 
     }
 }
