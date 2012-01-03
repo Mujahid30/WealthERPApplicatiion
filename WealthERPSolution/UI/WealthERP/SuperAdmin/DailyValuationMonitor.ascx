@@ -491,7 +491,14 @@
  </tr>
 
 </table>
-
+<table>
+<tr>
+<td>
+<asp:Button id="btnSyncSIPToGoal" runat="server" CssClass="PCGButton" Text="Sync" 
+        onclick="btnSyncSIPToGoal_Click" />
+</td>
+</tr>
+</table>
 
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />

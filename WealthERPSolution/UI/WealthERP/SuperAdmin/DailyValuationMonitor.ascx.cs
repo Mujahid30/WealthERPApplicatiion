@@ -1007,6 +1007,11 @@ namespace WealthERP.SuperAdmin
            }
        }
 
+       protected void btnSyncSIPToGoal_Click(object sender, EventArgs e)
+       {
+           superAdminOpsBo.SyncSIPtoGoal();
+       }
+
        protected void btnDeleteAll_Click(object sender, EventArgs e)
        {
            superAdminOpsBo.DeleteAllDuplicates();
