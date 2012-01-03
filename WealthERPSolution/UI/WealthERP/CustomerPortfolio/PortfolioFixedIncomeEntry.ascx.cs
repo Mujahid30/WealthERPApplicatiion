@@ -1145,8 +1145,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        if (txtInterestAmtCredited.Text.ToString() != "")
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
@@ -1192,7 +1194,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
@@ -1238,8 +1243,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        if(txtInterestAmtCredited.Text != "")
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
                             fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
@@ -1274,7 +1281,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
@@ -1343,7 +1353,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
@@ -1383,7 +1396,10 @@ namespace WealthERP.CustomerPortfolio
                     if (ddlPayableFrequencyCode.SelectedValue.ToString().Trim() == "AM")
                     {
                         fixedincomeVo.IsInterestAccumulated = 1;
-                        fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        if (!string.IsNullOrEmpty(txtInterestAmtCredited.Text.ToString().Trim()))
+                            fixedincomeVo.InterestAmtAccumulated = int.Parse(txtInterestAmtCredited.Text.ToString());
+                        else
+                            fixedincomeVo.InterestAmtAccumulated = 0;
                     }
                     else
                     {
