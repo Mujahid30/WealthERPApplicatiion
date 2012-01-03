@@ -261,6 +261,21 @@ namespace BoSuperAdmin
                 throw (Ex);
             }
         }
+        public void SyncSIPtoGoal()
+        {
+
+            DataSet dsGetAum;
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            try
+            {
+                superAdminOpsDao.SyncSIPtoGoal();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+        }
 
         public DataTable GetAdviserValuationStatus(string assetType, DateTime valuationDate)
         {
