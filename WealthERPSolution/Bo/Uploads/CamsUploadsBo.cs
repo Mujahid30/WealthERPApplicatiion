@@ -735,7 +735,131 @@ namespace BoUploads
             }
             return IsProcessComplete;
         }
+        //******************Folio and Transaction uploads start************************\\
+        public bool StandardFolioAndTrxInsertToInputTrans(int ProcessId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package camsTranPkg1 = App.LoadPackage(Packagepath, null);
+                camsTranPkg1.Variables["varXMLFilePath1"].Value = XMLFilepath;
+                camsTranPkg1.Variables["varMovetoExternal"].Value = ProcessId;
 
+                camsTranPkg1.Variables["varSetRejectedZero"].Value = ProcessId;
+                camsTranPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult camsTranResult1 = camsTranPkg1.Execute();
+                if (camsTranResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToInputTrans()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool StandardInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package camsTranPkg2 = App.LoadPackage(Packagepath, null);
+                camsTranPkg2.Variables["varCheckProcessId"].Value = processId;
+                camsTranPkg2.Variables["varProcessId"].Value = processId;
+                camsTranPkg2.Variables["varClrIpTablePrId"].Value = processId;
+                camsTranPkg2.Variables["varSourceProcessId"].Value = processId;
+                camsTranPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult camsTranResult2 = camsTranPkg2.Execute();
+                if (camsTranResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingTrans()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool StandardProcessDataInStagingTrans(int processId, int AdviserId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+
+
+                Package camsTranPkg3 = App.LoadPackage(Packagepath, null);
+                camsTranPkg3.Variables["varCheckDataTransProcessId"].Value = processId;
+
+                camsTranPkg3.Variables["varProcessId"].Value = processId;
+
+                camsTranPkg3.Variables["varCheckDataTransProcessId"].Value = processId;
+
+                camsTranPkg3.ImportConfigurationFile(configPath);
+                //camsTranPkg3.Configurations[0].ConfigurationString = configPath;
+                DTSExecResult camsTranResult3 = camsTranPkg3.Execute();
+                if (camsTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[1] = AdviserId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+        //******************Folio and Transaction uploads End************************\\
 
 //************************************************************************************************************************
 
@@ -899,6 +1023,239 @@ namespace BoUploads
 
 
        //---------------------------SIP Uploads-------------------------------------\\
+
+        //--------------------------Start Standard Uploads---------------------------------\\
+        public bool StandardSIPInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package standardProPkg1 = App.LoadPackage(Packagepath, null);
+                standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                standardProPkg1.Variables["varProcessId"].Value = processId;
+                standardProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult1 = standardProPkg1.Execute();
+                if (camsProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToInputProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool StandardSIPInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult2 = standardProPkg2.Execute();
+                if (camsProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool StandardSIPProcessDataInStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+
+
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult camsTranResult3 = standardTranPkg3.Execute();
+                if (camsTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool StandardSIPStagingToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult2 = standardProPkg2.Execute();
+                if (camsProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool StandardSIPCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult2 = standardProPkg2.Execute();
+                if (camsProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+
+        public bool StandardSIPCommonStagingToWERP(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        //-------------------------End Standard Uploads---------------------------------\\
+
 
         public bool CAMSSIPInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
         {
