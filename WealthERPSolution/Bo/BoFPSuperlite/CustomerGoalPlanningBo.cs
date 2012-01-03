@@ -88,9 +88,9 @@ namespace BoFPSuperlite
         }
 
 
-        public bool CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo,CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo,CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal)
         {
-            bool isHavingAssumption = false; 
+            
             try
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
@@ -128,7 +128,7 @@ namespace BoFPSuperlite
                 throw exBase;
 
             }
-            return true;
+            
 
         }
 

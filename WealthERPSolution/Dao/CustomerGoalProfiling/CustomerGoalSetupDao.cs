@@ -331,6 +331,9 @@ namespace DaoCustomerGoalProfiling
             List<GoalProfileSetupVo> GoalProfileList = null;
             GoalProfileSetupVo GoalProfileVo = new GoalProfileSetupVo();
             DataTable dtGoalProfile = new DataTable();
+            DataTable dtGoalFund = new DataTable();
+            DataRow[] drGoalFundingDetails;
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -341,9 +344,9 @@ namespace DaoCustomerGoalProfiling
                 db.AddOutParameter(getCustomerGoalProfileCmd, "@SurplusTotal", DbType.Int32, 20);
                 db.AddOutParameter(getCustomerGoalProfileCmd, "@InvestedAmountForAllGaol", DbType.Int32, 20);
                 db.AddOutParameter(getCustomerGoalProfileCmd, "@MonthlySavingTotal", DbType.Int32, 20);
-
+                getCustomerGoalProfileCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getCustomerGoalProfileCmd);
-
+                dtGoalFund = ds.Tables[1];
 
                 Object objInvestmentTotal = db.GetParameterValue(getCustomerGoalProfileCmd, "@InvestmentTotal");
                 if (objInvestmentTotal != DBNull.Value)
@@ -402,10 +405,22 @@ namespace DaoCustomerGoalProfiling
                         {
                             GoalProfileVo.CustomerApprovedOn = DateTime.Parse(dr["CG_CustomerApprovedOn"].ToString());
  
+                        
                         }
-                       
+                        drGoalFundingDetails = new DataRow[dtGoalFund.Rows.Count];
+                        if (dtGoalFund.Rows.Count>0)
+                          drGoalFundingDetails = dtGoalFund.Select("CG_GoalId='" + GoalProfileVo.GoalId.ToString());
+                        if(drGoalFundingDetails.Count()>0)
+                        {
+                            if (GoalProfileVo.CurrInvestementForGoal != 0)
+                                GoalProfileVo.CurrInvestementForGoal = Convert.ToDouble(drGoalFundingDetails[1].ToString());
+                            GoalProfileVo.CurrentGoalValue = Convert.ToDouble(drGoalFundingDetails[2].ToString());
+                            GoalProfileVo.GoalCompletionPercent = (GoalProfileVo.CurrentGoalValue / GoalProfileVo.CostOfGoalToday) * 100;
+
+                        }
+
                          
-                          GoalProfileList.Add(GoalProfileVo);
+                        GoalProfileList.Add(GoalProfileVo);
                                               
 
                     }
