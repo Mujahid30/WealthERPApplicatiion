@@ -146,19 +146,23 @@
           
             
        
-            <tr><td></td>
-                <td align="left">
+            <tr>
+                <td align="right">
                  <asp:RadioButton ID="rbtnCurrent" runat="server" AutoPostBack="true" 
                         CssClass="cmbField" GroupName="Snapshot" 
                         OnCheckedChanged="rbtnCurrent_CheckedChanged" Text="Latest" />
                    <%-- <asp:RadioButton ID="rbtnHistorical" Text="Historical" runat="server" AutoPostBack="true"
                         GroupName="Snapshot" CssClass="cmbField" OnCheckedChanged="rbtnHistorical_CheckedChanged" />--%>
-                </td></tr>
-               <tr> <td></td>  <td align="left">
-                
+                </td>
+                <td align="left">
                 <asp:RadioButton ID="rbtnHistorical" runat="server" AutoPostBack="true" 
                        CssClass="cmbField" GroupName="Snapshot" 
                        OnCheckedChanged="rbtnHistorical_CheckedChanged" Text="Historical" />
+                </td>
+                </tr>
+               <tr> <td></td>  <td align="left">
+                
+                
                    <%-- <asp:RadioButton ID="rbtnCurrent" Text="Latest" runat="server" AutoPostBack="true"
                         GroupName="Snapshot" OnCheckedChanged="rbtnCurrent_CheckedChanged" CssClass="cmbField" />--%>
                 </td>
@@ -246,16 +250,11 @@
                             <td>
                                 <asp:DropDownList ID="ddlNAVCategory" runat="server" AutoPostBack="true" 
                                     CssClass="cmbField" 
-                                    OnSelectedIndexChanged="ddlNAVCategory_OnSelectedIndexChanged">
-                                 <asp:ListItem Text="All" Value="All"></asp:ListItem>
-                                <asp:ListItem Text="commodity" Value="MFCO"></asp:ListItem>
-                                <asp:ListItem Text="Debt" Value="MFDT"></asp:ListItem>
-                                <asp:ListItem Text="Equity" Value="MFEQ"></asp:ListItem>
-                                <asp:ListItem Text="Hybrid" Value="MFHY"></asp:ListItem>
+                                    OnSelectedIndexChanged="ddlNAVCategory_OnSelectedIndexChanged">                                
                                 </asp:DropDownList>
                             </td>
             </tr>
-                <tr id="trNavSubCategory" runat="server">
+                <%--<tr id="trNavSubCategory" runat="server">
                 <td align="right">
                     <asp:Label ID="lblNAVSubCategory" runat="server" CssClass="FieldName" 
                         Text="Sub Category:"></asp:Label>
@@ -266,7 +265,7 @@
                         OnSelectedIndexChanged="ddlNAVSubCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
-            </tr>
+            </tr>--%>
              <tr id="trSelectSchemeNAV" runat="server">
                 <td align="right">
                     <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" 
@@ -337,8 +336,8 @@
                             <asp:BoundField DataField="NetAssetValue" HeaderText="Net AssetValue" />
                             <asp:BoundField DataField="RepurchasePrice" HeaderText="Repurchase Price" />
                             <asp:BoundField DataField="SalePrice" HeaderText="Sale Price" />
-                            <asp:BoundField DataField="PostDate" HeaderText="Post Date" />
-                            <asp:BoundField DataField="Date" HeaderText="Date" />
+                            <asp:BoundField DataField="PostDate" HeaderText="NAV Date" />
+                            <%--<asp:BoundField DataField="Date" HeaderText="Date" />--%>
                         </Columns>
                     
                     </asp:GridView>
@@ -602,19 +601,14 @@
                             <td>
                                 <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" 
                                     CssClass="cmbField" OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
-                                 <asp:ListItem Text="All Category" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="commodity" Value="MFCO"></asp:ListItem>
-                                <asp:ListItem Text="Debt" Value="MFDT"></asp:ListItem>
-                                <asp:ListItem Text="Equity" Value="MFEQ"></asp:ListItem>
-                                <asp:ListItem Text="Hybrid" Value="MFHY"></asp:ListItem>
-                                </asp:DropDownList>
+                                 </asp:DropDownList>
                                 <%--<span id="Span1" class="spnRequiredField">*</span>
                                 <asp:CompareValidator ID="ddlCategory_CompareValidator" runat="server"
                                     ControlToValidate="ddlCategory" ErrorMessage="Please select a Category"
                                     Operator="NotEqual" ValueToCompare="0" CssClass="cvPCG" ValidationGroup="btnGo">
                                 </asp:CompareValidator>--%>
                             </td>
-                            <div id="divSubCategory" runat="server" visible="false">
+                           <%-- <div id="divSubCategory" runat="server" visible="false">
                             <td class="leftField">
                                 <asp:Label ID="lblSubCategory" runat="server" CssClass="FieldName" 
                                     Text="SubCategory:"></asp:Label>
@@ -623,7 +617,7 @@
                                 <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbField">
                                 </asp:DropDownList>                                
                             </td>
-                            </div>
+                            </div>--%>
                             <td></td>
                             <td>
                                 <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" 

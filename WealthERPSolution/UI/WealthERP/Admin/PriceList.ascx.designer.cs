@@ -320,33 +320,6 @@ namespace WealthERP.Admin {
         protected global::System.Web.UI.WebControls.DropDownList ddlNAVCategory;
         
         /// <summary>
-        /// trNavSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNavSubCategory;
-        
-        /// <summary>
-        /// lblNAVSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNAVSubCategory;
-        
-        /// <summary>
-        /// ddlNAVSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlNAVSubCategory;
-        
-        /// <summary>
         /// trSelectSchemeNAV control.
         /// </summary>
         /// <remarks>
@@ -660,33 +633,6 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
-        
-        /// <summary>
-        /// divSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSubCategory;
-        
-        /// <summary>
-        /// lblSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSubCategory;
-        
-        /// <summary>
-        /// ddlSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
         
         /// <summary>
         /// btnGo control.

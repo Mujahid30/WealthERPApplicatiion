@@ -66,7 +66,8 @@ namespace WealthERP.Admin
                 trSelectMutualFund.Visible = true;
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
-                BindMFFundPerformance();
+                gvMFFundPerformance.Visible = false;
+               // BindMFFundPerformance();
                 tblFactSheet.Visible = false;
                 BindYear();
                 BindMonth();
@@ -82,7 +83,8 @@ namespace WealthERP.Admin
                     trSelectMutualFund.Visible = false;
                     BindMutualFundDropDowns();
                     BindSelectAMCDropdown();
-                    BindNavSubCategory();
+                    BindNAVCategory();
+                    BindSchemeCategory();
                     trSelectMutualFund.Visible = false;
                     trSelectSchemeNAV.Visible = false;
                     trNavCategory.Visible = false;
@@ -131,6 +133,41 @@ namespace WealthERP.Admin
             }
 
             BindSelectAMCDropdown();
+        }
+
+
+
+        private void BindNAVCategory()
+        {
+            DataSet dsNavCategory;
+            DataTable dtNavCategory;
+            dsNavCategory = priceBo.GetNavOverAllCategoryList();
+            if (dsNavCategory.Tables.Count > 0)
+            {
+                dtNavCategory = dsNavCategory.Tables[0];
+                ddlNAVCategory.DataSource = dtNavCategory;
+                ddlNAVCategory.DataValueField = dtNavCategory.Columns["Category_Code"].ToString();
+                ddlNAVCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
+                ddlNAVCategory.DataBind();
+            }
+            ddlNAVCategory.Items.Insert(0, new ListItem("All", "All"));
+        }
+        private void BindSchemeCategory()
+        {
+            DataSet dsSchemeCategory;
+            DataTable dtSchemeCategory;
+            dsSchemeCategory = priceBo.GetNavOverAllCategoryList();
+            //----------------------------------------------Scheme Category Binding------------------------
+            if (dsSchemeCategory.Tables.Count > 0)
+            {
+                dtSchemeCategory = dsSchemeCategory.Tables[0];
+                ddlCategory.DataSource = dtSchemeCategory;
+                ddlCategory.DataValueField = dtSchemeCategory.Columns["Category_Code"].ToString();
+                ddlCategory.DataTextField = dtSchemeCategory.Columns["Category_Name"].ToString();
+                ddlCategory.DataBind();
+                
+            }
+            ddlCategory.Items.Insert(0, new ListItem("All", "All"));
         }
 
 
@@ -289,26 +326,26 @@ namespace WealthERP.Admin
                 {
                     amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
                     categoryCode = ddlNAVCategory.SelectedValue;
-                    subCategory = "All";
-                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                    //subCategory = "All";
+                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
                     dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
 
                     //dtLoadAllSchemeNAV = priceBo.GetAllScehmeList(int.Parse(ddlAmcCode.SelectedValue));
                 }
-                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0 && ddlNAVSubCategory.SelectedIndex == 0)
+                //if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0 && ddlNAVSubCategory.SelectedIndex == 0)
+                //{
+                //    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                //    categoryCode = ddlNAVCategory.SelectedValue;
+                //    subCategory = ddlNAVSubCategory.SelectedValue;
+                //    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                //    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+                //}
+                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0)
                 {
                     amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
                     categoryCode = ddlNAVCategory.SelectedValue;
-                    subCategory = ddlNAVSubCategory.SelectedValue;
-                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
-                    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
-                }
-                if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0 && ddlNAVSubCategory.SelectedIndex != 0)
-                {
-                    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
-                    categoryCode = ddlNAVCategory.SelectedValue;
-                    subCategory = ddlNAVSubCategory.SelectedValue;
-                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategorySubCategory(amcCode, categoryCode, subCategory);
+                    //subCategory = ddlNAVSubCategory.SelectedValue;
+                    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
                     dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
                 }
                 if (dtLoadAllSchemeNAV.Rows.Count > 0)
@@ -620,50 +657,50 @@ namespace WealthERP.Admin
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
-            string categoryCode = ddlCategory.SelectedValue;
-            dsCategoryList = priceBo.BindddlMFSubCategory();
-            if (categoryCode == "0")
-            {
-                divSubCategory.Visible = false;
-                hdnSubCategory.Value = "";
+            //string categoryCode = ddlCategory.SelectedValue;
+            //dsCategoryList = priceBo.BindddlMFSubCategory();
+            //if (categoryCode == "0")
+            //{
+            //    divSubCategory.Visible = false;
+            //    hdnSubCategory.Value = "";
 
-            }
-            if (categoryCode == "MFCO")
-            {
-                divSubCategory.Visible = true;
-                ddlSubCategory.DataSource = dsCategoryList.Tables[0];
-                ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlSubCategory.DataBind();
-                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-            }
-            if (categoryCode == "MFDT")
-            {
-                divSubCategory.Visible = true;
-                ddlSubCategory.DataSource = dsCategoryList.Tables[1];
-                ddlSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlSubCategory.DataBind();
-                //ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-            }
-            if (categoryCode == "MFEQ")
-            {
-                divSubCategory.Visible = true;
-                ddlSubCategory.DataSource = dsCategoryList.Tables[2];
-                ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlSubCategory.DataBind();
-                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-            }
-            if (categoryCode == "MFHY")
-            {
-                divSubCategory.Visible = true;
-                ddlSubCategory.DataSource = dsCategoryList.Tables[3];
-                ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlSubCategory.DataBind();
-                // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
-            }
+            //}
+            //if (categoryCode == "MFCO")
+            //{
+            //    divSubCategory.Visible = true;
+            //    ddlSubCategory.DataSource = dsCategoryList.Tables[0];
+            //    ddlSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+            //    ddlSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            //    ddlSubCategory.DataBind();
+            //    // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            //}
+            //if (categoryCode == "MFDT")
+            //{
+            //    divSubCategory.Visible = true;
+            //    ddlSubCategory.DataSource = dsCategoryList.Tables[1];
+            //    ddlSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+            //    ddlSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            //    ddlSubCategory.DataBind();
+            //    //ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            //}
+            //if (categoryCode == "MFEQ")
+            //{
+            //    divSubCategory.Visible = true;
+            //    ddlSubCategory.DataSource = dsCategoryList.Tables[2];
+            //    ddlSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+            //    ddlSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            //    ddlSubCategory.DataBind();
+            //    // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            //}
+            //if (categoryCode == "MFHY")
+            //{
+            //    divSubCategory.Visible = true;
+            //    ddlSubCategory.DataSource = dsCategoryList.Tables[3];
+            //    ddlSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+            //    ddlSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            //    ddlSubCategory.DataBind();
+            //    // ddlSubCategory.Items.Insert(0, new ListItem("All Sub Category", "0"));
+            //}
         }
 
         protected void OnClick_btnGo(object sender, EventArgs e)
@@ -677,7 +714,7 @@ namespace WealthERP.Admin
             ViewState["AmcCode"] = hdnAmcCode.Value;
 
             if (ddlCategory.SelectedIndex != 0)
-                hdnSubCategory.Value = ddlSubCategory.SelectedValue;
+                hdnSubCategory.Value = ddlCategory.SelectedValue;
             else
                 hdnSubCategory.Value = "";
             ViewState["SubCategory"] = hdnSubCategory.Value;
@@ -801,6 +838,7 @@ namespace WealthERP.Admin
             //    ErrorMessage.Visible = true;
             //    //gvMFFundPerformance.Visible = false;
             //}
+            gvMFFundPerformance.Visible = true;
         }
 
         protected void btnViewFactsheet_Click(object sender, EventArgs e)
@@ -1048,7 +1086,7 @@ namespace WealthERP.Admin
         }
         protected void ddlNAVCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindNavSubCategory();
+            //BindNavSubCategory();
             LoadAllSchemeNAV();
         }
         private void LoadAllSchemeList(int amcCode)
@@ -1072,58 +1110,58 @@ namespace WealthERP.Admin
         {
             BindMonth();
         }
-        private void BindNavSubCategory()
-        {
-            string categoryCode = ddlNAVCategory.SelectedValue;
-            dsCategoryList = priceBo.BindddlMFSubCategory();
-            if (categoryCode == "All")
-            {
-                trNavSubCategory.Visible = false;
-                hdnSubCategory.Value = "";
+        //private void BindNavSubCategory()
+        //{
+        //    string categoryCode = ddlNAVCategory.SelectedValue;
+        //    dsCategoryList = priceBo.BindddlMFSubCategory();
+        //    if (categoryCode == "All")
+        //    {
+        //        trNavSubCategory.Visible = false;
+        //        hdnSubCategory.Value = "";
 
-            }
-            if (categoryCode == "MFCO")
-            {
-                trNavSubCategory.Visible = true;
-                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[0];
-                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlNAVSubCategory.DataBind();
-                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-            }
-            if (categoryCode == "MFDT")
-            {
-                trNavSubCategory.Visible = true;
-                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[1];
-                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlNAVSubCategory.DataBind();
-                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-            }
-            if (categoryCode == "MFEQ")
-            {
-                trNavSubCategory.Visible = true;
-                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[2];
-                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlNAVSubCategory.DataBind();
-                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-            }
-            if (categoryCode == "MFHY")
-            {
-                trNavSubCategory.Visible = true;
-                ddlNAVSubCategory.DataSource = dsCategoryList.Tables[3];
-                ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-                ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                ddlNAVSubCategory.DataBind();
-                ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
-            }
-            LoadAllSchemeNAV();
-        }
-        protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadAllSchemeNAV();
-        }
+        //    }
+        //    if (categoryCode == "MFCO")
+        //    {
+        //        trNavSubCategory.Visible = true;
+        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[0];
+        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+        //        ddlNAVSubCategory.DataBind();
+        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+        //    }
+        //    if (categoryCode == "MFDT")
+        //    {
+        //        trNavSubCategory.Visible = true;
+        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[1];
+        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+        //        ddlNAVSubCategory.DataBind();
+        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+        //    }
+        //    if (categoryCode == "MFEQ")
+        //    {
+        //        trNavSubCategory.Visible = true;
+        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[2];
+        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+        //        ddlNAVSubCategory.DataBind();
+        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+        //    }
+        //    if (categoryCode == "MFHY")
+        //    {
+        //        trNavSubCategory.Visible = true;
+        //        ddlNAVSubCategory.DataSource = dsCategoryList.Tables[3];
+        //        ddlNAVSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+        //        ddlNAVSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+        //        ddlNAVSubCategory.DataBind();
+        //        ddlNAVSubCategory.Items.Insert(0, new ListItem("All", "All"));
+        //    }
+        //    LoadAllSchemeNAV();
+        //}
+        //protected void ddlNAVSubCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    LoadAllSchemeNAV();
+        //}
         //private void BindMFFundPerformance(DataTable dt)
         //{
         //    DataTable dtMFFundPerformance = new DataTable();
