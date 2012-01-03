@@ -438,6 +438,22 @@ namespace DaoSuperAdmin
                throw exBase;
            }
        }
+       public void SyncSIPtoGoal()
+       {
+
+           Database db;
+           DbCommand syncSIPtoGoalCmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               syncSIPtoGoalCmd = db.GetStoredProcCommand("SP_SyncSIPToGoalAllocation");
+               db.ExecuteNonQuery(syncSIPtoGoalCmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw (Ex);
+           }
+       }
 
        public DataTable GetAdviserValuationStatus(string assetType, DateTime valuationDate)
        {
