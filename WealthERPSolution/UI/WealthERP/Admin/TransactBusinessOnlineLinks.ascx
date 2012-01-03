@@ -19,12 +19,12 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>    
                                         <asp:ImageButton ID="imgbtnLinks" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" Width="90px" Height="60px" CommandName="NavigateToLink" onclick="imgbtnLinks_Click" ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>' runat="server" />
-                                        <%--<asp:HyperLink ID="hlAMCLinkImages" ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>'  NavigateUrl='<%# Eval("AL_Link").ToString() %>'  runat="server">HyperLink</asp:HyperLink>--%>
+                                        <br /><br />
                                     </ItemTemplate>                           
                                      <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />
                                  </asp:TemplateField>
-                                   
                         </Columns>
+                        
                         
                     </asp:GridView>
         </td>
