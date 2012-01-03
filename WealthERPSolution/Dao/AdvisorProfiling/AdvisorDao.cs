@@ -2203,6 +2203,71 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
+
+        /// <summary>
+        /// Get all the Advisers Online Transaction AMC Links..
+        /// </summary>
+        /// <returns></returns>
+        public List<AdviserOnlineTransactionAMCLinksVo> GetAdviserOnlineTransactionAMCLinks(AdviserOnlineTransactionAMCLinksVo aotalVo)
+        {
+            Database db;
+            DbCommand GetAdviserOnlineTransactionAMCLinksCmd;
+            DataSet dsGetAdviserOnlineTransactionAMCLinks = new DataSet();
+            List<AdviserOnlineTransactionAMCLinksVo> adviserOTALink = null;
+            AdviserOnlineTransactionAMCLinksVo aoTALVo = new AdviserOnlineTransactionAMCLinksVo();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserOnlineTransactionAMCLinksCmd = db.GetStoredProcCommand("SP_GetAdviserOnlineTransactionAMCLinks");
+                db.AddInParameter(GetAdviserOnlineTransactionAMCLinksCmd, "@A_AdviserID", DbType.Int32, aotalVo.advisorId);
+                db.AddInParameter(GetAdviserOnlineTransactionAMCLinksCmd, "@XLU_LinkUserCode", DbType.Int32, aotalVo.AMCLinkUserCode);
+                db.AddInParameter(GetAdviserOnlineTransactionAMCLinksCmd, "@XLTY_LinkTypeCode", DbType.Int32, aotalVo.AMCLinkTypeCode);
+
+                dsGetAdviserOnlineTransactionAMCLinks = db.ExecuteDataSet(GetAdviserOnlineTransactionAMCLinksCmd);
+
+                if (dsGetAdviserOnlineTransactionAMCLinks.Tables.Count > 0)
+                {
+                    if (dsGetAdviserOnlineTransactionAMCLinks.Tables[0].Rows.Count > 0)
+                    {
+                        adviserOTALink = new List<AdviserOnlineTransactionAMCLinksVo>();
+
+                        foreach (DataRow dr in dsGetAdviserOnlineTransactionAMCLinks.Tables[0].Rows)
+                        {
+                            aoTALVo = new AdviserOnlineTransactionAMCLinksVo();
+                            aoTALVo.AMCLinkId = int.Parse(dr["AL_LinkId"].ToString());
+                            aoTALVo.advisorId = int.Parse(dr["A_AdviserId"].ToString());
+                            aoTALVo.AMCLinkUserCode = int.Parse(dr["XLU_LinkUserCode"].ToString());
+                            aoTALVo.AMCLinkTypeCode = int.Parse(dr["XLTY_LinkTypeCode"].ToString());
+                            aoTALVo.AMCLinks = dr["AL_Link"].ToString();
+                            aoTALVo.AMCImagePath = dr["AL_LinkImagePath"].ToString();
+
+
+                            adviserOTALink.Add(aoTALVo);
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserOnlineTransactionAMCLinks(AdviserOnlineTransactionAMCLinksVo aotalVo)");
+                object[] objects = new object[1];
+                objects[0] = aotalVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return adviserOTALink;
+        }
     }
 }
 
