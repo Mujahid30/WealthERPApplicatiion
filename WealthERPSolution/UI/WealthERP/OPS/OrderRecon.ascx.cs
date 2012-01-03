@@ -13,11 +13,16 @@ using WealthERP.Base;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
+using BoOps;
 
 namespace WealthERP.OPS
 {
     public partial class OrderRecon : System.Web.UI.UserControl
     {
+        OperationBo operationBo = new OperationBo();
+        DateBo dtBo = new DateBo();
+        DateTime dtTo = new DateTime();
+        DateTime dtFrom = new DateTime();
         string path = string.Empty;
         string ids = string.Empty;
         DataTable dtOrderRecon;
@@ -25,7 +30,7 @@ namespace WealthERP.OPS
         {
             if (!Page.IsPostBack)
             {
-                hidDateType.Value = "DATE_RANGE";
+                btnSubmit.Visible = false;
                 BindPeriodDropDown();
                 if (Request.QueryString["result"] != null)
                     ids = Request.QueryString["result"];
@@ -33,8 +38,50 @@ namespace WealthERP.OPS
                     dtOrderRecon = (DataTable)Session["GridView"];
                 if (Request.QueryString["result"] != null)
                     BindReconGrid(dtOrderRecon, ids);
+                trRange.Visible = true;
+                if (rbtnPickDate.Checked == true)
+                {
+                    trRange.Visible = true;
+                    txtFromDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                    txtToDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                    trPeriod.Visible = false;
+                }
+                BindOrderStatus();
+                tblMessage.Visible = false;
             }
+ 
 
+        }
+        protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbtnPickDate.Checked == true)
+            {
+                trRange.Visible = true;
+                txtFromDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                txtToDate.Text = Convert.ToString(DateTime.Now.ToShortDateString());
+                trPeriod.Visible = false;
+            }
+            else if (rbtnPickPeriod.Checked == true)
+            {
+                trRange.Visible = false;
+                trPeriod.Visible = true;
+                BindPeriodDropDown();
+            }
+        }
+        private void BindOrderStatus()
+        {
+            DataSet dsOrderStaus;
+            DataTable dtOrderStatus;
+            dsOrderStaus = operationBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStaus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["XS_StatusCode"].ToString();
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
         }
         private void BindPeriodDropDown()
         {
@@ -60,7 +107,7 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty(str.Trim()))
                 {
-                    drRow = dtRecon.Select("Id=" + str);
+                    drRow = dtRecon.Select("CMOT_MFOrderId=" + str);
                     if (drRow.Count() > 0)
                         dtSelectedForRecon.ImportRow(drRow[0]);
 
@@ -98,30 +145,73 @@ namespace WealthERP.OPS
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
+       {
+              BindOrderRecon();
+              btnSubmit.Visible = true;
+        //    if (Session["GridView"] != null)
+        //    {
+        //        DataTable dtForRecon;
+        //        if (Session["GridView"] != null)
+        //            dtOrderRecon = (DataTable)Session["GridView"];
+        //        if (dtOrderRecon.Rows.Count > 0)
+        //        {
+        //            dtForRecon = dtOrderRecon.Clone();
+        //            DataRow[] drRecon = dtOrderRecon.Select("OrderStatus='" + ddlOrderStatus.SelectedValue.ToString() + "'");
+        //            if (drRecon.Count() > 0)
+        //            {
+        //                foreach (DataRow dr in drRecon)
+        //                {
+        //                    dtForRecon.ImportRow(dr);
+
+        //                }
+
+        //            }
+        //            gvOrderRecon.DataSource = dtForRecon;
+        //            gvOrderRecon.DataBind();
+
+        //        }
+        //        if (ddlOrderStatus.SelectedValue == "Pending" || ddlOrderStatus.SelectedValue == "Rejected")
+        //        {
+        //            gvOrderRecon.Columns[6].Visible = true;
+        //            gvOrderRecon.Columns[7].Visible = true;
+
+        //        }
+        //        else
+        //        {
+        //            gvOrderRecon.Columns[6].Visible = false;
+        //            gvOrderRecon.Columns[7].Visible = false;
+
+        //        }
+
+
+
+        //    }
+        }
+
+        private void BindOrderRecon()
         {
-            if (Session["GridView"] != null)
+            DataSet dsMFOrderRecon;
+            DataTable dtMFOrderRecon;
+            CalculateDateRange(out dtFrom, out dtTo);
+            hdnFromDate.Value = dtFrom.ToString();
+            hdnToDate.Value = dtTo.ToString();
+            if (ddlOrderStatus.SelectedIndex != 0)
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+            else
+                hdnOrderStatus.Value = "";
+            if (ddlOrderType.SelectedIndex != 0)
+                hdnOrderType.Value = "N";
+            else
+                hdnOrderType.Value = "Y";
+            dsMFOrderRecon = operationBo.GetMFOrderRecon(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), hdnOrderStatus.Value, hdnOrderType.Value);
+            dtMFOrderRecon = dsMFOrderRecon.Tables[0];
+            if (dtMFOrderRecon.Rows.Count > 0)
             {
-                DataTable dtForRecon;
-                if (Session["GridView"] != null)
-                    dtOrderRecon = (DataTable)Session["GridView"];
-                if (dtOrderRecon.Rows.Count > 0)
-                {
-                    dtForRecon = dtOrderRecon.Clone();
-                    DataRow[] drRecon = dtOrderRecon.Select("OrderStatus='" + ddlOrderStatus.SelectedValue.ToString() + "'");
-                    if (drRecon.Count() > 0)
-                    {
-                        foreach (DataRow dr in drRecon)
-                        {
-                            dtForRecon.ImportRow(dr);
+                gvOrderRecon.Visible = true;
+                gvOrderRecon.DataSource = dtMFOrderRecon;
+                gvOrderRecon.DataBind();
 
-                        }
-
-                    }
-                    gvOrderRecon.DataSource = dtForRecon;
-                    gvOrderRecon.DataBind();
-
-                }
-                if (ddlOrderStatus.SelectedValue == "Pending" || ddlOrderStatus.SelectedValue == "Rejected")
+                if (ddlOrderStatus.SelectedValue == "GPPD" || ddlOrderStatus.SelectedValue == "GPRJ")
                 {
                     gvOrderRecon.Columns[6].Visible = true;
                     gvOrderRecon.Columns[7].Visible = true;
@@ -133,9 +223,15 @@ namespace WealthERP.OPS
                     gvOrderRecon.Columns[7].Visible = false;
 
                 }
-
-
-
+                tblMessage.Visible = false;
+            }
+            else
+            {
+               
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+                gvOrderRecon.Visible = false;
             }
         }
 
@@ -147,7 +243,7 @@ namespace WealthERP.OPS
         }
         private string GetSelectedIdString()
         {
-            string gvIds = "";
+            string gvId = "";
 
             //'Navigate through each row in the GridView for checkbox items
             foreach (GridViewRow gvRow in gvOrderRecon.Rows)
@@ -155,13 +251,47 @@ namespace WealthERP.OPS
                 RadioButton RdBnItem = (RadioButton)gvRow.FindControl("rbtnMatch");
                 if (RdBnItem.Checked)
                 {
-                    gvIds += Convert.ToString(gvOrderRecon.DataKeys[gvRow.RowIndex].Value) + "~";
+                    gvId = Convert.ToString(gvOrderRecon.DataKeys[gvRow.RowIndex].Value);
                 }
             }
 
 
-            return gvIds;
+            return gvId;
 
+        }
+        private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
+        {
+            if (rbtnPickDate.Checked==true)
+            {
+                fromDate = DateTime.Parse(txtFromDate.Text);
+                toDate = DateTime.Parse(txtToDate.Text);
+            }
+            else if (rbtnPickPeriod.Checked == true)
+            {
+                dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue.ToString(), out dtFrom, out dtTo);
+                fromDate = dtFrom;
+                toDate = dtTo;
+            }
+            else
+            {
+                fromDate = DateTime.MinValue;
+                toDate = DateTime.MinValue;
+            }
+
+        }
+
+        protected void gvOrderRecon_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lblordertype = e.Row.FindControl("lblOrderType") as Label;
+                string ordertype = null;
+                ordertype = lblordertype.Text;
+                if (ordertype == "1")
+                    lblordertype.Text = "Immediate";
+                else
+                    lblordertype.Text = "Future";
+            }
         }
 
 
