@@ -6,7 +6,6 @@ using DaoResearch;
 using System.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
-using VoUser;
 using VoCustomerRiskProfiling;
 
 namespace BoResearch
