@@ -8,9 +8,7 @@
 <script type="text/javascript">
 
     function Validate() {
-        var assumptionValue = document.getElementById('ctrl_CustomerAssumptionsPreferencesSetup_RadGrid1_ctl00__2').value;
-        alert('hi');
-        alert(assumptionValue);
+        var assumptionValue = document.getElementById('ctrl_CustomerAssumptionsPreferencesSetup_RadGrid1_ctl00__2').value;        
         return false;
     }
 
