@@ -55,6 +55,13 @@ namespace VoReports
     {
         public int advisorId;
     }
+    public struct OrderTransactionSlipVo
+    {
+        public int advisorId;
+        public int CustomerId;
+        public string Type;
+        public int SchemeCode;
+    }
 
     public enum ReportType
     {
@@ -64,7 +71,8 @@ namespace VoReports
         PortfolioReports = 3,
         FinancialPlanning = 4,
         FinancialPlanningSectional=5,
-        FPOfflineForm=6
+        FPOfflineForm=6,
+        OrderTransactionSlip=7
     }
 
 
