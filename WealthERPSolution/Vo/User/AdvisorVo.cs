@@ -329,4 +329,59 @@ namespace VoUser
         #endregion Properties
     }
 
+    public class AdviserOnlineTransactionAMCLinksVo
+    {
+        #region Fields
+        private int m_advisorId;
+        private int m_AMCLinkId;
+        private int m_AMCLinkUserCode;
+        private int m_AMCLinkTypeCode;
+        private string m_AMCLinks;
+        private string m_AMCImagePath;
+
+        #endregion Fields
+
+
+
+        #region Properties
+        public int advisorId
+        {
+            get { return m_advisorId; }
+            set { m_advisorId = value; }
+        }
+        public int AMCLinkId
+        {
+            get { return m_AMCLinkId; }
+            set { m_AMCLinkId = value; }
+        }
+
+        public int AMCLinkUserCode
+        {
+            get { return m_AMCLinkUserCode; }
+            set { m_AMCLinkUserCode = value; }
+        }
+
+        public int AMCLinkTypeCode
+        {
+            get { return m_AMCLinkTypeCode; }
+            set { m_AMCLinkTypeCode = value; }
+        }
+
+        public string AMCLinks
+        {
+            get { return m_AMCLinks; }
+            set { m_AMCLinks = value; }
+        }
+
+        public string AMCImagePath
+        {
+            get { return m_AMCImagePath; }
+            set { m_AMCImagePath = value; }
+        }
+        #endregion Properties
+    }
+
+    
+
+
 }
