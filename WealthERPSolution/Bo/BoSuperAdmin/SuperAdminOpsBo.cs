@@ -117,7 +117,6 @@ namespace BoSuperAdmin
         public void DeleteDuplicateRecord(int adviserId,int accountId,double netHolding,int schemeCode,DateTime ValuationDate)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
-            DataSet dsRejectedRecords;
 
             try
             {
@@ -249,5 +248,18 @@ namespace BoSuperAdmin
             }
         }
 
+
+        public void DeleteAllDuplicates()
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            try
+            {
+                superAdminOpsDao.DeleteAllDuplicatesForASuperAdmin();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
     }
 }
