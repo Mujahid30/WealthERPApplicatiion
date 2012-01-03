@@ -1508,5 +1508,57 @@ namespace DaoUploads
                 throw exBase;
             }
         }
+
+        public bool InsertProbableDuplicatesRejectedTransaction(string stagingIDs)
+        {
+            int affectedRecords = 0;
+            Database db;
+            DbCommand InsertProbableDuplicatestransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                InsertProbableDuplicatestransactionsCmd = db.GetStoredProcCommand("SP_InsertProbableDuplicatesRejectedTransaction");
+                db.AddInParameter(InsertProbableDuplicatestransactionsCmd, "@StagingIDs", DbType.String, stagingIDs);
+                db.AddOutParameter(InsertProbableDuplicatestransactionsCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(InsertProbableDuplicatestransactionsCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(InsertProbableDuplicatestransactionsCmd, "@IsSuccess").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            if (affectedRecords > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+        public bool DeleteProbableDuplicatesRejectedTransaction(string stagingIDs)
+        {
+            int affectedRecords = 0;
+            Database db;
+            DbCommand DeleteProbableDuplicatestransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteProbableDuplicatestransactionsCmd = db.GetStoredProcCommand("SP_DeleteProbableDuplicatesRejectedTransaction");
+                db.AddInParameter(DeleteProbableDuplicatestransactionsCmd, "@StagingIDs", DbType.String, stagingIDs);
+                db.AddOutParameter(DeleteProbableDuplicatestransactionsCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(DeleteProbableDuplicatestransactionsCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(DeleteProbableDuplicatestransactionsCmd, "@IsSuccess").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            if (affectedRecords > 0)
+                return true;
+            else
+                return false;
+        }
+        
     }
 }

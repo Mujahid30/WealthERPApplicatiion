@@ -1101,6 +1101,38 @@ namespace BoUploads
                 throw exBase;
             }
         }
+
+        public bool InsertProbableDuplicatesRejectedTransaction(string stagingIDs)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            bool affectedRecords;
+            try
+            {
+               affectedRecords= rejecetedRecordsDao.InsertProbableDuplicatesRejectedTransaction(stagingIDs);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return affectedRecords;
+        }
+
+        public bool DeleteProbableDuplicatesRejectedTransaction(string stagingIDs)
+        {
+            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
+            bool affectedRecords;
+            try
+            {
+                affectedRecords = rejecetedRecordsDao.DeleteProbableDuplicatesRejectedTransaction(stagingIDs);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return affectedRecords;
+        }
+        
+
     }
 
     
