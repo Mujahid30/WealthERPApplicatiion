@@ -34,48 +34,53 @@ namespace WealthERP.Research
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DataTable dtOldData = new DataTable();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             if (!IsPostBack)
             {
-                dtGlobal = new DataTable();
-                dtGlobal.Columns.Add("XAMP_ModelPortfolioCode");
-                dtGlobal.Columns.Add("XAMP_ModelPortfolioName");
-                dtGlobal.Columns.Add("XRC_RiskClass");
-                dtGlobal.Columns.Add("XRC_RiskClassCode");
-                dtGlobal.Columns.Add("XAMP_MinAUM");
-                dtGlobal.Columns.Add("XAMP_MaxAUM");
-                dtGlobal.Columns.Add("XAMP_MinAge");
-                dtGlobal.Columns.Add("XAMP_MaxAge");
-                dtGlobal.Columns.Add("XAMP_MinTimeHorizon");
-                dtGlobal.Columns.Add("XAMP_MaxTimeHorizon");
-                //dtGlobal.Columns.Add("XAMP_MinTimeHorizonMonth");
-                //dtGlobal.Columns.Add("XAMP_MaxTimeHorizonMonth");
-                dtGlobal.Columns.Add("XAMP_Description");
-
-                dtGlobal.Columns.Add("Cash");
-                dtGlobal.Columns.Add("Debt");
-                dtGlobal.Columns.Add("Equity");
-                dtGlobal.Columns.Add("Alternate");
-
-                dtGlobal.Columns.Add("XAMP_ROR");
-                dtGlobal.Columns.Add("XAMP_RiskPercentage");
-                dtGlobal.Columns.Add("Allocation");
-
-                Session[SessionContents.FPS_AddProspect_DataTable] = dtGlobal;
-                RadGrid1.DataSource = dtGlobal;
-                bindRadGrid1();
+                dtOldData = bindRadGrid1();
+                if(dtOldData.Rows.Count == 0)
+                    CreateDataTable();
             }
             
         }
+        public void CreateDataTable()
+        {
+            dtGlobal.Columns.Add("XAMP_ModelPortfolioCode");
+            dtGlobal.Columns.Add("XAMP_ModelPortfolioName");
+            dtGlobal.Columns.Add("XRC_RiskClass");
+            dtGlobal.Columns.Add("XRC_RiskClassCode");
+            dtGlobal.Columns.Add("XAMP_MinAUM");
+            dtGlobal.Columns.Add("XAMP_MaxAUM");
+            dtGlobal.Columns.Add("XAMP_MinAge");
+            dtGlobal.Columns.Add("XAMP_MaxAge");
+            dtGlobal.Columns.Add("XAMP_MinTimeHorizon");
+            dtGlobal.Columns.Add("XAMP_MaxTimeHorizon");
+            dtGlobal.Columns.Add("XAMP_Description");
 
-        public void bindRadGrid1()
+            dtGlobal.Columns.Add("Cash");
+            dtGlobal.Columns.Add("Debt");
+            dtGlobal.Columns.Add("Equity");
+            dtGlobal.Columns.Add("Alternate");
+
+            dtGlobal.Columns.Add("XAMP_ROR");
+            dtGlobal.Columns.Add("XAMP_RiskPercentage");
+            dtGlobal.Columns.Add("Allocation");
+
+            Session[SessionContents.FPS_AddProspect_DataTable] = dtGlobal;
+
+            RadGrid1.DataSource = dtGlobal;
+            RadGrid1.DataBind();
+        }
+
+        public DataTable bindRadGrid1()
         {
             DataTable dtVariant = new DataTable();
+            DataTable dtModel = new DataTable();
             ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
 
-            modelPortfolioBo.GetVariantAssetPortfolioDetails(modelPortfolioVo.ModelPortfolioCode);
-
-            DataTable dtModel = new DataTable();
+            dtModel = modelPortfolioBo.GetVariantAssetPortfolioDetails(advisorVo.advisorId);
+            
             dtVariant.Columns.Add("XAMP_ModelPortfolioCode");
             dtVariant.Columns.Add("XAMP_ModelPortfolioName");
             dtVariant.Columns.Add("XRC_RiskClass");
@@ -96,10 +101,10 @@ namespace WealthERP.Research
 
             dtVariant.Columns.Add("XAMP_ROR");
             dtVariant.Columns.Add("XAMP_RiskPercentage");
-            dtVariant.Columns.Add("Risk");
+            //dtVariant.Columns.Add("Risk");
 
             DataRow drVariant;
-            foreach (DataRow dr in dtVariant.Rows)
+            foreach (DataRow dr in dtModel.Rows)
             {
                 drVariant = dtVariant.NewRow();
                 drVariant["XAMP_ModelPortfolioCode"] = dr["XAMP_ModelPortfolioCode"].ToString();
@@ -115,28 +120,29 @@ namespace WealthERP.Research
                 drVariant["XAMP_Description"] = dr["XAMP_Description"].ToString();
                 drVariant["Allocation"] = dr["Allocation"].ToString();
 
-                drVariant["Cash"] = dr["Cash"].ToString();
-                drVariant["Debt"] = dr["Debt"].ToString();
-                drVariant["Equity"] = dr["Equity"].ToString();
-                drVariant["Alternate"] = dr["Alternate"].ToString();
+                //drVariant["Cash"] = dr["Cash"].ToString();
+                //drVariant["Debt"] = dr["Debt"].ToString();
+                //drVariant["Equity"] = dr["Equity"].ToString();
+                //drVariant["Alternate"] = dr["Alternate"].ToString();
 
                 drVariant["XAMP_ROR"] = dr["XAMP_ROR"].ToString();
                 drVariant["XAMP_RiskPercentage"] = dr["XAMP_RiskPercentage"].ToString();
-                drVariant["Risk"] = dr["Risk"].ToString();
+                //drVariant["Risk"] = dr["Risk"].ToString();
                 dtVariant.Rows.Add(drVariant);
             }
-            if (dtVariant.Rows.Count > 0)
-            {
-                Session[SessionContents.FPS_AddProspect_DataTable] = dtModel;
-                RadGrid1.DataSource = dtModel;
+            //if (dtVariant.Rows.Count > 0)
+            //{
+                Session[SessionContents.FPS_AddProspect_DataTable] = dtVariant;
+                RadGrid1.DataSource = dtVariant;
                 RadGrid1.DataSourceID = String.Empty;
                 RadGrid1.DataBind();
-            }
-            else
-            {
-                RadGrid1.DataSource = dtModel;
-                RadGrid1.DataBind();
-            }
+            //}
+            //else
+            //{
+            //    RadGrid1.DataSource = dtModel;
+            //    RadGrid1.DataBind();
+            //}
+                return dtVariant;
         }
 
         protected void RadGrid1_DataBound(object sender, EventArgs e)
@@ -155,6 +161,9 @@ namespace WealthERP.Research
                 decimal riskPer = 0;
                 DataSet ds = adviserFPConfigurationBo.GetAdviserAssumptions(advisorVo.advisorId);
 
+                //GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                //DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickScheme");
+                DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
                 TextBox txtboxPortfolioName = (TextBox)e.Item.FindControl("txtNamePortfolio");
                 TextBox txtboxMinAUM = (TextBox)e.Item.FindControl("txtMinAUM");
                 TextBox txtboxMaxAUM = (TextBox)e.Item.FindControl("txtMaxAUM");
@@ -256,11 +265,12 @@ namespace WealthERP.Research
                 if (allocation == 100)
                 {
                     dtGlobal = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    
 
                     drGlobal = dtGlobal.NewRow();
                     drGlobal["XAMP_ModelPortfolioName"] = txtboxPortfolioName.Text;
-                    drGlobal["XRC_RiskClass"] = ddlRiskClass.SelectedItem;
-                    drGlobal["XRC_RiskClassCode"] = ddlRiskClass.SelectedValue;
+                    drGlobal["XRC_RiskClass"] = ddl.SelectedItem;
+                    drGlobal["XRC_RiskClassCode"] = ddl.SelectedValue;
                     drGlobal["XAMP_MinAUM"] = txtboxMinAUM.Text;
                     drGlobal["XAMP_MaxAUM"] = txtboxMaxAUM.Text;
                     drGlobal["XAMP_MinAge"] = txtboxMinAge.Text;
@@ -332,6 +342,7 @@ namespace WealthERP.Research
                 decimal riskPer = 0;
                 DataSet ds = adviserFPConfigurationBo.GetAdviserAssumptions(advisorVo.advisorId);
 
+                DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
                 TextBox txtboxPortfolioName = (TextBox)e.Item.FindControl("txtNamePortfolio");
                 TextBox txtboxMinAUM = (TextBox)e.Item.FindControl("txtMinAUM");
                 TextBox txtboxMaxAUM = (TextBox)e.Item.FindControl("txtMaxAUM");
@@ -496,13 +507,13 @@ namespace WealthERP.Research
 
         protected void RadGrid1_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-            if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
-            {
-                //the dropdown list will be the first control in the Controls collection of the corresponding cell
-                GridEditableItem edititem = (GridEditableItem)e.Item;
-                GridEditFormItem editform = (GridEditFormItem)e.Item;
-                ddlRiskClass = (DropDownList)editform.FindControl("ddlPickRiskClass");
-            }
+            //if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
+            //{
+            //    //the dropdown list will be the first control in the Controls collection of the corresponding cell
+            //    GridEditableItem edititem = (GridEditableItem)e.Item;
+            //    GridEditFormItem editform = (GridEditFormItem)e.Item;
+            //    ddlRiskClass = (DropDownList)editform.FindControl("ddlPickRiskClass");
+            //}
         }
 
         protected void RadGrid1_PreRender(object sender, EventArgs e)
@@ -514,7 +525,7 @@ namespace WealthERP.Research
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
-                //DropDownList ddlPickRiskClass = (DropDownList)editform.FindControl("ddlPickRiskClass");
+                DropDownList ddlPickRiskClass = (DropDownList)editform.FindControl("ddlPickRiskClass");
                 TextBox txtNamePortfolio = (TextBox)editform.FindControl("txtNamePortfolio");
                 TextBox txtPortfolioName = (TextBox)editform.FindControl("txtPortfolioName");
                 HtmlTableRow trRiskClassDdl = (HtmlTableRow)editform.FindControl("trRiskClassDdl");
@@ -534,12 +545,12 @@ namespace WealthERP.Research
                     dsGlobal = riskprofilebo.GetAdviserRiskClasses(adviserId);
                     if (dsGlobal.Tables[0].Rows.Count > 0)
                     {
-                        ddlRiskClass.DataSource = dsGlobal.Tables[0];
-                        ddlRiskClass.DataValueField = dsGlobal.Tables[0].Columns["XRC_RiskClassCode"].ToString();
-                        ddlRiskClass.DataTextField = dsGlobal.Tables[0].Columns["XRC_RiskClass"].ToString();
-                        ddlRiskClass.DataBind();                        
-                    }
-                    ddlRiskClass.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
+                        ddlPickRiskClass.DataSource = dsGlobal.Tables[0];
+                        ddlPickRiskClass.DataValueField = dsGlobal.Tables[0].Columns["XRC_RiskClassCode"].ToString();
+                        ddlPickRiskClass.DataTextField = dsGlobal.Tables[0].Columns["XRC_RiskClass"].ToString();
+                        ddlPickRiskClass.DataBind();
+                        ddlPickRiskClass.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
+                    }                    
                 }
                 else
                 {

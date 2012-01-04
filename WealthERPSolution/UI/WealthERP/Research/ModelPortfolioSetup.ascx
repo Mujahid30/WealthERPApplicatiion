@@ -72,7 +72,7 @@
                 </telerik:GridButtonColumn>
             </Columns>
             <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center"
-            PopUpSettings-Modal="true" PopUpSettings-ZIndex="80" EditFormType="Template">            
+            PopUpSettings-Modal="true" PopUpSettings-ZIndex="20" EditFormType="Template">            
                 <FormTemplate>
                     <table ID="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">                        
                         <tr id="trAddNamePortfolio" runat="server">
@@ -82,6 +82,12 @@
                             <td class="rightField">
                                 <asp:TextBox ID="txtNamePortfolio" CssClass="txtField" runat="server">
                                 </asp:TextBox>                               
+                            </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNamePortfolio"
+                                ErrorMessage="Please Name the Portfolio" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr id="trEditNamePortfolio" runat="server">
@@ -101,18 +107,25 @@
                                <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" >                                                         
                                </asp:DropDownList>
                             </td>
+                            <td>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator15" Text="Please Select Risk Class" InitialValue="Select Risk Class" 
+                                ControlToValidate="ddlPickRiskClass" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                                </asp:RequiredFieldValidator>
+                            </td>
                         </tr>
                         <tr id="trRiskClassTxt" runat="server">
                             <td class="leftField">
                                 <asp:Label ID="lblClass" runat="server" Text="Risk/Goal class :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                               <asp:TextBox ID="txtPickRiskClass" CssClass="txtField"  Enabled="false" runat="server">
+                               <asp:TextBox ID="txtPickRiskClass" CssClass="txtField" Text='<%# Bind( "XRC_RiskClass") %>' Enabled="false" runat="server">
                                 </asp:TextBox>     
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="leftField">
                             <td>
+                            <br />
                                 <asp:Label ID="lblAUM" runat="server" Text="AUM :" CssClass="FieldName"></asp:Label>
                             </td>
                         </tr>
@@ -124,6 +137,17 @@
                                 <asp:TextBox ID="txtMinAUM" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                             <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMinAUM"
+                                ErrorMessage="Please Enter Minimum AUM" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtMinAUM"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
                         </tr>
                         <tr>
                             <td class="leftField">
@@ -133,9 +157,20 @@
                                 <asp:TextBox ID="txtMaxAUM" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                             <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtMaxAUM"
+                                ErrorMessage="Please Enter Maximum AUM" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtMaxAUM"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>
+                        <tr class="leftField">
+                            <td><br />
                                 <asp:Label ID="lblAge" runat="server" Text="Age (years) :" CssClass="FieldName"></asp:Label>
                             </td>
                         </tr>
@@ -148,6 +183,17 @@
                                 <asp:TextBox ID="txtMinAge" runat="server" CssClass="txtField">
                                 </asp:TextBox>                               
                             </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMinAge"
+                                ErrorMessage="Please Enter Minimum AUM" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtMinAge"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
                         </tr>
                         <tr>
                              <td class="leftField">
@@ -157,9 +203,20 @@
                                 <asp:TextBox ID="txtMaxAge" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
-                        </tr> 
-                        <tr>
                             <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtMaxAge"
+                                ErrorMessage="Please Enter Maximum Age" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtMaxAge"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
+                        </tr> 
+                        <tr class="leftField">
+                            <td><br />
                                 <asp:Label ID="lblTimeHorizon" runat="server" Text="Time Horizon :" CssClass="FieldName"></asp:Label>
                             </td>
                         </tr>
@@ -171,6 +228,17 @@
                                 <asp:TextBox ID="txtMinTimeHorizonYear" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtMinTimeHorizonYear"
+                                ErrorMessage="Please Enter Minimum Time Horizon in Year" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtMinTimeHorizonYear"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
                         </tr>
                         <tr>
                             <td class="leftField">
@@ -179,6 +247,17 @@
                             <td class="rightField">
                                 <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" CssClass="txtField">
                                 </asp:TextBox>
+                            </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtMinTimeHorizonMonth"
+                                ErrorMessage="Please Enter Minimum Time Horizon in Month" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtMinTimeHorizonMonth"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
                             </td>
                         </tr>                       
                         <tr>
@@ -189,6 +268,17 @@
                                 <asp:TextBox ID="txtMaxTimeHorizonYear" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtMaxTimeHorizonYear"
+                                ErrorMessage="Please Enter Maximum Time Horizon in Year" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMaxTimeHorizonYear"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
+                            </td>
                         </tr>
                         <tr>
                             <td class="leftField">
@@ -197,6 +287,17 @@
                             <td class="rightField">
                                 <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" CssClass="txtField">
                                 </asp:TextBox>
+                            </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtMaxTimeHorizonMonth"
+                                ErrorMessage="Please Enter Maximum Time Horizon in Month" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtMaxTimeHorizonMonth"
+                                ValidationGroup="Button1" Display="Dynamic" runat="server" CssClass="rfvPCG" 
+                                 ErrorMessage="Not acceptable format" ValidationExpression="^\d*$">
+                            </asp:RegularExpressionValidator>
                             </td>
                         </tr>
                         <tr>
@@ -207,9 +308,15 @@
                                 <asp:TextBox ID="txtDescription" TextMode="MultiLine" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
-                        </tr> 
-                        <tr>
                             <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtDescription"
+                                ErrorMessage="Please Enter the Variant Description" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                            </td>
+                        </tr> 
+                        <tr class="leftField">
+                            <td><br />
                                 <asp:Label ID="lblAllocation" runat="server" Text="Allocation :" CssClass="FieldName"></asp:Label>
                             </td>
                         </tr> 
@@ -221,6 +328,17 @@
                                 <asp:TextBox ID="txtDebt" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtDebt"
+                                ErrorMessage="Please Enter the Debt allocation" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
+                              ControlToValidate="txtDebt" CssClass="cvPCG" Display="Dynamic" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
+                            </td>
                         </tr>   
                         <tr>
                             <td class="leftField">
@@ -230,6 +348,17 @@
                                 <asp:TextBox ID="txtEquity" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtEquity"
+                                ErrorMessage="Please Enter the Equity allocation" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RangeValidator ID="RangeValidator1" runat="server" 
+                              ControlToValidate="txtEquity" CssClass="cvPCG" Display="Dynamic" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
+                            </td>                            
                         </tr>
                         <tr>
                             <td class="leftField">
@@ -238,6 +367,17 @@
                             <td class="rightField">
                                 <asp:TextBox ID="txtCash" runat="server" CssClass="txtField">
                                 </asp:TextBox>
+                            </td>
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCash"
+                                ErrorMessage="Please Enter the Cash allocation" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RangeValidator ID="RangeValidator2" runat="server" 
+                              ControlToValidate="txtCash" CssClass="cvPCG" Display="Dynamic" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                             </td>
                         </tr>
                         <tr>
@@ -248,12 +388,22 @@
                                 <asp:TextBox ID="txtAlternate" runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
-                        </tr>                                    
-                    </table>
-                    <table style="width: 100%">
+                            <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtAlternate"
+                                ErrorMessage="Please Enter the Alternate allocation" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RangeValidator ID="RangeValidator3" runat="server" 
+                              ControlToValidate="txtAlternate" CssClass="cvPCG" Display="Dynamic" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
+                            </td>
+                        </tr>                      
                         <tr>
+                        <td></td>
                             <td align="right" colspan="2">
-                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' ValidationGroup="Button1"
                                   CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton"  Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
