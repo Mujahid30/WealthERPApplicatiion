@@ -528,10 +528,21 @@ namespace WealthERP.CustomerPortfolio
                     int transactionId = int.Parse(gvMFTransactions.DataKeys[index].Value.ToString());
                     Session["MFTransactionVo"] = customerTransactionBo.GetMFTransaction(transactionId);
 
+                    int month = 0;
                     int amcCode = mfTransactionList[index].AMCCode;
                     int schemeCode = mfTransactionList[index].MFCode;
-                    int year = DateTime.Now.Year;
-                    int month = DateTime.Now.Month - 1;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
                     string schemeName = mfTransactionList[index].SchemePlan;
 
 
