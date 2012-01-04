@@ -408,6 +408,56 @@ namespace DaoResearch
             return dsGetAdviserMaintainedRiskProfileQuestionAndOptionsCmd;
         }
 
+        /// <summary>
+        /// Delete Question Options..
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="QuestionId"></param>
+        /// <param name="OptionId"></param>
+        /// <param name="QuestionOrOptionFlag"></param>
+        /// <returns></returns>
+        
+        public bool DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteQuestionOptionCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteQuestionOptionCmd = db.GetStoredProcCommand("SP_DeleteAdvisorDynamicRiskProfileQuestionOptions");
+                db.AddInParameter(deleteQuestionOptionCmd, "@AdvisorId", DbType.Int32, adviserId);
+                db.AddInParameter(deleteQuestionOptionCmd, "@QM_QustionID", DbType.Int32, QuestionId);
+                db.AddInParameter(deleteQuestionOptionCmd, "@QOM_OptionId", DbType.Int32, OptionId);
+                db.AddInParameter(deleteQuestionOptionCmd, "@QuestionOrOption", DbType.Int32, QuestionOrOptionFlag);
+
+                if (db.ExecuteNonQuery(deleteQuestionOptionCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)");
+
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                //objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
     }
 }
 
