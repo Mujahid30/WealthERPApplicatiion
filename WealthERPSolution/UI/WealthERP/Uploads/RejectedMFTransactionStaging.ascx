@@ -120,7 +120,7 @@
         window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
         return true;
     }
-</script>--%>
+</script>
 
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
