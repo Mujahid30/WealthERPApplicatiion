@@ -17,10 +17,16 @@
         </table>  
         
       <table style="width:75%">
-        <tr>
+      <tr>
         <td>
-            <asp:Label ID="lblAssetMapping" runat="server" CssClass="FieldName" Text="Asset classification to financial product mapping"></asp:Label>            
+            <asp:Label ID="lblAssetMapping" runat="server" CssClass="FieldName" Text="Asset classification to financial product mapping"></asp:Label>
+            
         </td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+        <tr>        
         <td>
         <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
         AllowSorting="True" AutoGenerateColumns="False" Skin="Telerik"
