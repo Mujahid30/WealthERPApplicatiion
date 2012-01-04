@@ -1,11 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransactBusinessOnlineLinks.ascx.cs" Inherits="WealthERP.Admin.TransactBusinessOnlineLinks" %>
-<table width="100%" class="TableBackground">
+
+
+<table width="100%">
     <tr>
         <td class="HeaderTextBig" colspan="2">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Transact/Business Links"></asp:Label>
             <hr />
         </td>
     </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgNoRecords" runat="server" class="failure-msg" align="center">
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%" class="TableBackground">
     <tr>
         <td>
         <br />
