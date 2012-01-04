@@ -963,5 +963,29 @@ p.tip
     text-align: left;
     height:15px;
 }
+.PDFButton
+{
+    background: url(Images/Export_Pdf.gif) no-repeat left top; 
+    color: White;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
+.DOCButton
+{
+    background: url(Images/Export_Word.jpg) no-repeat left top; 
+    color: White;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
+.CrystalButton
+{
+    background: url(Images/Export_Excel.png) no-repeat left top; 
+    color: White;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+}
 
 /* End */
