@@ -32,6 +32,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblOrderEntry;
         
         /// <summary>
+        /// trReportButtons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell trReportButtons;
+        
+        /// <summary>
         /// btnViewReport control.
         /// </summary>
         /// <remarks>
@@ -86,15 +95,6 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblCustomer;
         
         /// <summary>
-        /// txtCustomerId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
-        
-        /// <summary>
         /// txtCustomerName control.
         /// </summary>
         /// <remarks>
@@ -104,24 +104,6 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.TextBox txtCustomerName;
         
         /// <summary>
-        /// rvcustomerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvcustomerName;
-        
-        /// <summary>
-        /// txtCustomerName_water control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomerName_water;
-        
-        /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
         /// </summary>
         /// <remarks>
@@ -129,6 +111,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
+        
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// btnAddCustomer control.
@@ -1659,5 +1650,14 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+        
+        /// <summary>
+        /// txtCustomerId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
     }
 }

@@ -71,7 +71,7 @@ namespace WealthERP.OPS
             //}
             if (!IsPostBack)
             {
-
+                trReportButtons.Visible = false;
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -735,25 +735,7 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((lblGetAvailableAmount.Text).ToString().Trim()))
                     operationVo.Amount = double.Parse(lblGetAvailableAmount.Text);
-                if (ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP")
-                {
-                    if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
-                        operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-                    if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
-                        operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
-                    if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
-                        operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
-                }
-                
-            }
-            else if (ddltransType.SelectedValue == "SIP")
-            {
-                if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
-                    operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-                if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
-                if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+               
             }
             if (!string.IsNullOrEmpty((lblGetAvailableUnits.Text).ToString().Trim()))
                 operationVo.Units = double.Parse(lblGetAvailableUnits.Text);
@@ -816,9 +798,36 @@ namespace WealthERP.OPS
                 operationVo.Pincode = "";
             operationVo.Country = ddlCorrAdrCountry.SelectedValue;
 
+            if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
+                operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
+            else
+                operationVo.FrequencyCode = "";
+            if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
+                operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
+            else
+                operationVo.StartDate = DateTime.MinValue;
+            if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
+                operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
+            else
+                operationVo.EndDate = DateTime.MinValue;
+
+            if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
+                operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
+            else
+                operationVo.FrequencyCode = "";
+            if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
+                operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
+            else
+                operationVo.StartDate = DateTime.MinValue;
+            if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
+                operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+            else
+                operationVo.EndDate = DateTime.MinValue;
+
             operationBo.CreateMFOrderTracking(operationVo);
             btnSubmit.Enabled = false;
             btnUpdate.Enabled = false;
+            trReportButtons.Visible = true;
 
             txtCustomerName.Enabled = false;
             ddltransType.Enabled = false;
@@ -861,6 +870,7 @@ namespace WealthERP.OPS
             txtstartDateSTP.Enabled = false;
 
             btnSubmit.Visible = false;
+           
 
             //msgRecordStatus.Visible = true;
             //CleanAllFields();
@@ -1344,11 +1354,6 @@ namespace WealthERP.OPS
             }
         }
 
-        protected void txtCustomerName_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlOrderStatus.SelectedItem.Selected == true)
@@ -1408,26 +1413,8 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((lblGetAvailableAmount.Text).ToString().Trim()))
                     operationVo.Amount = double.Parse(lblGetAvailableAmount.Text);
-                if (ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP")
-                {
-                    if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
-                        operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-                    if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
-                        operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
-                    if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
-                        operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
-                }
+            }
 
-            }
-            else if (ddltransType.SelectedValue == "SIP")
-            {
-                if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
-                     operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-                if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
-                if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
-            }
             if (!string.IsNullOrEmpty((lblGetAvailableUnits.Text).ToString().Trim()))
                 operationVo.Units = double.Parse(lblGetAvailableUnits.Text);
             else
@@ -1489,9 +1476,36 @@ namespace WealthERP.OPS
                 operationVo.Pincode = "";
             operationVo.Country = ddlCorrAdrCountry.SelectedValue;
 
+            if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
+                operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
+            else
+                operationVo.FrequencyCode = "";
+            if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
+                operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
+            else
+                operationVo.StartDate = DateTime.MinValue;
+            if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
+                operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
+            else
+                operationVo.EndDate = DateTime.MinValue;
+
+            if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
+                operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
+            else
+                operationVo.FrequencyCode = "";
+            if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
+                operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
+            else
+                operationVo.StartDate = DateTime.MinValue;
+            if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
+                operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+            else
+                operationVo.EndDate = DateTime.MinValue;
+
             operationBo.UpdateOrderTracking(operationVo);
             btnSubmit.Enabled = false;
             btnUpdate.Enabled = true;
+            trReportButtons.Visible = true;
 
             txtCustomerName.Enabled = false;
             ddltransType.Enabled = false;
