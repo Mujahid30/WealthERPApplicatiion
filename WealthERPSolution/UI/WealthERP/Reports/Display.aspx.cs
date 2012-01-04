@@ -3019,7 +3019,10 @@ namespace WealthERP.Reports
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
+                        {
                             SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
                         break;
 
                     case "DIVIDEND_SUMMARY":
@@ -3408,10 +3411,11 @@ namespace WealthERP.Reports
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnCustomerId"]))
                 {
                     orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_OrderEntry$hdnCustomerId"]);
+                    orderTransaction.Type = Request.Form[ctrlPrefix + "ddltransType"];
+                    //orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "txtCustomerId"]);
+                    orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "ddlAmcSchemeList"]);
                 }
-                orderTransaction.Type = Request.Form[ctrlPrefix + "ddltransType"];
-                //orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "txtCustomerId"]);
-                orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "ddlAmcSchemeList"]);
+                
                 Session["reportParams"] = orderTransaction;
             }
 
