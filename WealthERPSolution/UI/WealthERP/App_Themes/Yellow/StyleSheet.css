@@ -118,7 +118,7 @@ div#MainDivLeft
     font-family: Arial;
     font-weight: bold;
     font-size: small; /*color:#993434;*/
-    color: #055187;
+    color: #4B4726;
 }
 
 .Error
@@ -174,14 +174,14 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
-    color: #055187;/*#16518A;*/
+    color: #4B4726;/*#16518A;*/
 }
 .HeaderDateText
 {
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
-    color: #FFFFFF;
+    color: #4B4726;
 }
 
 .HeaderTextBig
@@ -189,7 +189,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: medium; /*color: #993434;*/
-    color: #055187;
+    color: #4B4726;
 }
 .TableBackground
 {
@@ -217,7 +217,7 @@ div#MainDivLeft
 }
 .PCGWhiteText
 {
-    color: White;
+    color: #4B4726;
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
@@ -228,7 +228,7 @@ div#MainDivLeft
 }
 .level1
 {
-    color: White;
+    color: #4B4726;
    /* background-color: #055187; */
     font-variant: small-caps;
     font-size: small;
@@ -555,7 +555,7 @@ a.aBreadCrumbCurrent
 	font-weight:bold;
 	font-size:small;
 	/*color:#993434;*/
-	color:#055187;
+	color:#4B4726;
 }
 .HeaderTextSmaller
 {
@@ -687,7 +687,7 @@ ul.tabbernav li.tabberactive a:hover
 }
  .ajax__tab_body
   {
-      background-color: #FFFFFF !important;
+      background-color: #4B4726 !important;
   }
   
   /* AutoComplete item */
@@ -890,7 +890,7 @@ p.tip
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size:x-small;
-    color: #FFFFFF;
+    color: #4B4726;
     vertical-align: middle;
     text-align: left;
     height:15px;

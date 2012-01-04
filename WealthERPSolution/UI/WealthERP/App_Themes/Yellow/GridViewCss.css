@@ -23,12 +23,12 @@
 .HeaderStyle th
 {
     padding: 5px;
-    color: #ffffff;
+    color: #4B4726;
 }
 .HeaderStyle a
 {
     text-decoration: none;
-    color: #ffffff;
+    color: #4B4726;
     display: block;
     text-align: left;
     /*font-weight: bold;*/
@@ -50,7 +50,7 @@
 }
 .PagerStyle a
 {
-    color: #ffffff;
+    color: #4B4726;
     text-decoration: none;
     padding: 2px 10px 2px 10px;
     border-top: solid 1px #777777;
@@ -61,7 +61,7 @@
 .PagerStyle span
 {
     font-weight: bold;
-    color: #ffffff;
+    color: #4B4726;
     text-decoration: none;
     padding: 2px 10px 2px 10px;
 }
@@ -93,7 +93,7 @@
 .FooterStyle td
 {
      background-image: url(Images/rgCommandRow.gif);
-    color: White;
+    color: #4B4726;
     font-family: Verdana,tahoma;
     font-weight: bold;
     font-size: x-small;
