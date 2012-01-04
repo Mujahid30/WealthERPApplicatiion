@@ -4,7 +4,7 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<script>
+<script type="text/javascript">
     function ShowPopup() {
         var form = document.forms[0];
         var transactionId = "";
