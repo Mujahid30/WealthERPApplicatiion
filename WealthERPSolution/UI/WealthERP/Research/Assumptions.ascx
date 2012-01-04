@@ -37,10 +37,10 @@
              </telerik:GridBoundColumn>                
             </Columns>
             <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
-            PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode: {0}"
+            PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode"
             CaptionDataField="AA_Value" EditFormType="Template">
                 <FormTemplate>
-                    <table id="Table1" cellspacing="1" cellpadding="1" width="450" border="0">
+                    <table id="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">
                         <tr>
                             <td>
                             </td>
@@ -53,8 +53,6 @@
                             </td>
                             <td>
                                <asp:TextBox ID="txtAssumptions" runat="server" Text='<%# Bind( "WA_AssumptionName") %>' CssClass="txtField" Enabled="false"></asp:TextBox>
-                                                                 
-                               
                             </td>
                         </tr>
                         <tr>
@@ -64,7 +62,6 @@
                             <td>
                                 <asp:TextBox ID="txtAssumptionValue"  runat="server" CssClass="txtField" Text='<%# Bind( "AA_Value") %>'>
                                 </asp:TextBox>
-                                
                             </td>
                         </tr>
                         <tr>
@@ -78,9 +75,9 @@
                         </td>
                        
                         </tr>                                           
-                    </table>
-                    <table style="width: 100%">
+                    
                         <tr>
+                         <td></td>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                     runat="server" CssClass="PCGButton" OnClientClick="return Validate()" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
@@ -88,6 +85,10 @@
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
                             </td>
+                           
+                        </tr>
+                        <tr>
+                        <td></td>
                         </tr>
                     </table>
                 </FormTemplate>
