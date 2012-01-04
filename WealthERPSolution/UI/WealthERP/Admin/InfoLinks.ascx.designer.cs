@@ -23,6 +23,15 @@ namespace WealthERP.Admin {
         protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
+        /// msgNoRecords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgNoRecords;
+        
+        /// <summary>
         /// gvAdviserLinks control.
         /// </summary>
         /// <remarks>

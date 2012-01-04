@@ -66,10 +66,8 @@ namespace WealthERP.Admin
 
             adviserOTALink = advisorBo.GetAdviserOnlineTransactionAMCLinks(AOTALVo);
 
-            if (adviserOTALink.Count > 0)
+            if (adviserOTALink != null)
             {
-
-
                 for (int i = 1; i <= adviserOTALink.Count; i++)
                 {
                     AOTALVo = new AdviserOnlineTransactionAMCLinksVo();
@@ -86,18 +84,19 @@ namespace WealthERP.Admin
 
                     dtBindLinks.Rows.Add(drAdvisorLinks);
                 }
-            }
-
-            if (dtBindLinks.Rows.Count > 0)
-            {
-                gvAdviserLinks.DataSource = dtBindLinks;
-                gvAdviserLinks.DataBind();
-                //HyperLink HpLink = (HyperLink)gvAdviserLinks.HeaderRow.FindControl("hlAMCLinkImages");
-                //HpLink.ImageUrl = "Images/" + dtBindLinks.;
+                if (dtBindLinks.Rows.Count > 0)
+                {
+                    gvAdviserLinks.DataSource = dtBindLinks;
+                    gvAdviserLinks.DataBind();
+                    //HyperLink HpLink = (HyperLink)gvAdviserLinks.HeaderRow.FindControl("hlAMCLinkImages");
+                    //HpLink.ImageUrl = "Images/" + dtBindLinks.;
+                }
             }
             else
             {
                 gvAdviserLinks.DataSource = null;
+                msgNoRecords.Visible = true;
+                msgNoRecords.InnerText = "No Links available for this adviser..";
             }
         }
         protected void imgbtnLinks_Click(object sender, ImageClickEventArgs e)
