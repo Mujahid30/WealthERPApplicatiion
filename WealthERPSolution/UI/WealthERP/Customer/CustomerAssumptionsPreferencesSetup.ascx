@@ -5,14 +5,14 @@
 
 
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
 
     function Validate() {
-        var assumptionValue = document.getElementById('ctrl_CustomerAssumptionsPreferencesSetup_RadGrid1_ctl00__2').value;        
-        return false;
+//        var assumptionValue = document.getElementById('ctrl_CustomerAssumptionsPreferencesSetup_RadGrid1_ctl00__2').value;        
+//        return false;
     }
 
-</script>
+</script>--%>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
@@ -124,7 +124,7 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                    runat="server" CssClass="PCGButton" OnClientClick="return Validate()" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    runat="server" CssClass="PCGButton" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
