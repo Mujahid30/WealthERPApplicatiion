@@ -39,6 +39,7 @@ namespace WealthERP.Research
             {
                 pnlAdviserQuestionsDisplay.Visible = true;
                 pnlAdviserQuestionsMaintanance.Visible = false;
+                pnlMaintanceFormTitle.Visible = false;
                 GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
             }
         }
@@ -214,6 +215,8 @@ namespace WealthERP.Research
         {
             pnlAdviserQuestionsDisplay.Visible = false;
             pnlAdviserQuestionsMaintanance.Visible = true;
+            pnlMaintanceFormTitle.Visible = true;
+            tblEditForm.Visible = true;
 
             trOptions2.Style.Add("visibility", "visible");
             trOptions3.Style.Add("visibility", "visible");
@@ -299,6 +302,7 @@ namespace WealthERP.Research
                 txtEnterWeightage6.Text = string.Empty;
             }
 
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "DisableMaintananceFormControls();", true);
 
 
         }
@@ -744,6 +748,8 @@ namespace WealthERP.Research
 
         protected void btnAddQuestions_Click(object sender, EventArgs e)
         {
+            pnlMaintanceFormTitle.Visible = true;
+            tblEditForm.Visible = false;
             pnlAdviserQuestionsDisplay.Visible = false;
             pnlAdviserQuestionsMaintanance.Visible = true;
             SetUpNewQuestionsAndOptions();
@@ -821,6 +827,49 @@ namespace WealthERP.Research
                 }
             }
 
+        }
+
+        protected void btnDeleteQuestions_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
+        }
+
+        protected void hiddenDeleteQuestion_Click(object sender, EventArgs e)
+        {
+            bool bStatus = false;
+            bool bOptionStatus = false;
+            int questionId = 0;
+            int optionId = 0;
+            int adviserId =0;
+            DataSet dsGetDataForOptionsToDelete = new DataSet();
+            DataRow[] drOptionId = null;
+
+            adviserId = adviserVo.advisorId;
+
+            questionId = int.Parse(ViewState["QuestionId"].ToString());
+
+            if (hdnDeletemsgValue.Value == "1")
+            {
+                if (Session["GetDataForQuestionOptions"] != "")
+                {
+                    dsGetDataForOptionsToDelete = (DataSet)Session["GetDataForQuestionOptions"];
+
+                    drOptionId = dsGetDataForOptionsToDelete.Tables[0].Select("QM_QuestionId=" + questionId);
+                }
+
+                foreach (DataRow dr in drOptionId)
+                {
+                    optionId = int.Parse(dr["QOM_OptionId"].ToString());
+
+                    bOptionStatus = adviserFPConfigurationBo.DeleteAdviserQuestionOptions(adviserId, questionId, optionId, 1);
+                }
+
+                bStatus = adviserFPConfigurationBo.DeleteAdviserQuestionOptions(adviserId, questionId, 0, 0);
+            }
+            pnlAdviserQuestionsDisplay.Visible = true;
+            pnlAdviserQuestionsMaintanance.Visible = false;
+            pnlMaintanceFormTitle.Visible = false;
+            GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
         }
     }
 }

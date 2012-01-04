@@ -149,13 +149,22 @@ namespace WealthERP.Research {
         protected global::System.Web.UI.WebControls.Button btnAddQuestions;
         
         /// <summary>
-        /// pnlAdviserQuestionsMaintanance control.
+        /// pnlMaintanceFormTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAdviserQuestionsMaintanance;
+        protected global::System.Web.UI.WebControls.Panel pnlMaintanceFormTitle;
+        
+        /// <summary>
+        /// MaintanceFormTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable MaintanceFormTitle;
         
         /// <summary>
         /// Label9 control.
@@ -165,6 +174,33 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label9;
+        
+        /// <summary>
+        /// tblEditForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblEditForm;
+        
+        /// <summary>
+        /// btnDeleteQuestions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteQuestions;
+        
+        /// <summary>
+        /// pnlAdviserQuestionsMaintanance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAdviserQuestionsMaintanance;
         
         /// <summary>
         /// txtQuestion control.
@@ -669,5 +705,23 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmit;
+        
+        /// <summary>
+        /// hdnDeletemsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDeletemsgValue;
+        
+        /// <summary>
+        /// hiddenDeleteQuestion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenDeleteQuestion;
     }
 }

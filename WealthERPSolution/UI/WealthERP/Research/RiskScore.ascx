@@ -17,13 +17,22 @@
         var txtWtage = document.getElementById("<%=txtEnterWeightage1.ClientID%>").value;
 
         if ((txtOption != "") && (txtWtage != "")) {
-            document.getElementById("<%=trOptions2.ClientID%>").style.visibility = "visible";
-            document.getElementById("<%=reqOpt2.ClientID%>").style.visibility = "hidden";
-            document.getElementById("<%=reqWt2.ClientID%>").style.visibility = "hidden";
+            if (isNaN(txtWtage)) {
+
+            }
+            else {
+                document.getElementById("<%=trOptions2.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt2.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt2.ClientID%>").style.visibility = "hidden";
+            }
         }
     }
 
     function ShowOption3() {
+
+        var txtPreviousWtage = document.getElementById("<%=txtEnterWeightage1.ClientID%>").value;
+
+    
         var txtOption = document.getElementById("<%=txtEnterOption2.ClientID%>").value;
         var txtWtage = document.getElementById("<%=txtEnterWeightage2.ClientID%>").value;
 
@@ -31,27 +40,45 @@
         document.getElementById("<%=reqWt2.ClientID%>").style.visibility = "visible";
 
         if ((txtOption != "") && (txtWtage != "")) {
-            document.getElementById("<%=trOptions3.ClientID%>").style.visibility = "visible";
-            document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "hidden";
-            document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "hidden";
+            if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
+
+            }
+            else {
+                document.getElementById("<%=trOptions3.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "hidden";
+            }
         }
     }
 
     function ShowOption4() {
+
+        var txtPreviousWtage = document.getElementById("<%=txtEnterWeightage2.ClientID%>").value;
         var txtOption = document.getElementById("<%=txtEnterOption3.ClientID%>").value;
         var txtWtage = document.getElementById("<%=txtEnterWeightage3.ClientID%>").value;
-
+       
         document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "visible";
 
         if ((txtOption != "") && (txtWtage != "")) {
-            document.getElementById("<%=trOptions4.ClientID%>").style.visibility = "visible";
-            document.getElementById("<%=reqOpt4.ClientID%>").style.visibility = "hidden";
-            document.getElementById("<%=reqWt4.ClientID%>").style.visibility = "hidden";
+
+            if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
+
+            }
+            else {
+
+                document.getElementById("<%=trOptions4.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt4.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt4.ClientID%>").style.visibility = "hidden";
+            }
+           
         }
     }
 
     function ShowOption5() {
+    
+        var txtPreviousWtage = document.getElementById("<%=txtEnterWeightage3.ClientID%>").value;
+    
         var txtOption = document.getElementById("<%=txtEnterOption4.ClientID%>").value;
         var txtWtage = document.getElementById("<%=txtEnterWeightage4.ClientID%>").value;
 
@@ -59,25 +86,98 @@
         document.getElementById("<%=reqWt4.ClientID%>").style.visibility = "visible";
 
         if ((txtOption != "") && (txtWtage != "")) {
-            document.getElementById("<%=trOptions5.ClientID%>").style.visibility = "visible";
-            document.getElementById("<%=reqOpt5.ClientID%>").style.visibility = "hidden";
-            document.getElementById("<%=reqWt5.ClientID%>").style.visibility = "hidden";
+            if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
+
+            }
+            else {
+                document.getElementById("<%=trOptions5.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt5.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt5.ClientID%>").style.visibility = "hidden";
+            }
+           
         }
     }
 
     function ShowOption6() {
+    
+        var txtPreviousWtage = document.getElementById("<%=txtEnterWeightage4.ClientID%>").value;
+    
         var txtOption = document.getElementById("<%=txtEnterOption5.ClientID%>").value;
         var txtWtage = document.getElementById("<%=txtEnterWeightage5.ClientID%>").value;
-
-        if ((txtOption != "") && (txtWtage != "")) {
-            document.getElementById("<%=trOptions6.ClientID%>").style.visibility = "visible";
-
-        }
 
         document.getElementById("<%=reqOpt5.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt5.ClientID%>").style.visibility = "visible";
 
-        
+        if ((txtOption != "") && (txtWtage != "")) {
+            if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
+
+            }
+            else {
+                document.getElementById("<%=trOptions6.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt6.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt6.ClientID%>").style.visibility = "hidden";
+            }
+        }
+    }
+
+    function ShowOption7() {
+    
+        var txtOption = document.getElementById("<%=txtEnterOption6.ClientID%>").value;
+        var txtWtage = document.getElementById("<%=txtEnterWeightage6.ClientID%>").value;
+
+        if ((txtOption == "") && (txtWtage == "")) {
+
+            document.getElementById("<%=reqOpt6.ClientID%>").style.visibility = "visible";
+            document.getElementById("<%=reqWt6.ClientID%>").style.visibility = "visible";
+
+        }
+
+    }
+
+    function DisableMaintananceFormControls() {
+       
+        var Controls_to_disable = document.getElementById('<%=pnlAdviserQuestionsMaintanance.ClientID %>').getElementsByTagName("input");
+        var children = Controls_to_disable; //.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            children[i].disabled = true;
+        };
+
+        var Controls_to_disable1 = document.getElementById('<%=pnlAdviserQuestionsMaintanance.ClientID %>').getElementsByTagName("textarea");
+        var children1 = Controls_to_disable1; //.childNodes;
+        for (var i = 0; i < children1.length; i++) {
+            children1[i].disabled = true;
+        };
+    }
+
+    function EnableMaintananceFormControls() {
+
+        var Controls_to_Enable = document.getElementById('<%=pnlAdviserQuestionsMaintanance.ClientID %>').getElementsByTagName("input");
+        var children = Controls_to_Enable; //.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            children[i].disabled = false;
+        };
+
+        var Controls_to_Enable1 = document.getElementById('<%=pnlAdviserQuestionsMaintanance.ClientID %>').getElementsByTagName("textarea");
+        var children1 = Controls_to_Enable1; //.childNodes;
+        for (var i = 0; i < children1.length; i++) {
+            children1[i].disabled = false;
+        };
+    }
+
+    function DeleteConfirmation() {
+
+        var bool = window.confirm('Are you sure you want to delete this Question?');
+
+        if (bool) {
+            document.getElementById("ctrl_RiskScore_hdnDeletemsgValue").value = 1;
+            document.getElementById("ctrl_RiskScore_hiddenDeleteQuestion").click();
+
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_RiskScore_hdnDeletemsgValue").value = 0;
+            return true;
+        }
     }
 
 </script>
@@ -189,7 +289,7 @@
     
 <telerik:RadPageView ID="RadPageView2" runat="server">
 <asp:Panel ID="pnlAdviserQuestionsDisplay" runat="server">
-<table id="tblAdviserQuestionsDisplay" style="width: 100%" runat="server">
+    <table id="tblAdviserQuestionsDisplay" style="width: 100%" runat="server">
      <tr>
         <td align="center">
             <div id="msgNoRecords" runat="server" class="failure-msg" align="center" visible="false">
@@ -198,7 +298,7 @@
         </td>
     </tr>
     <tr>
-        <td class="HeaderTextBig" colspan="2">
+        <td class="HeaderTextBig">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Risk Profile Questions and options."></asp:Label>
         </td>
     </tr>
@@ -276,7 +376,7 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+    <table width="100%">
     <tr>
         <td>
             <asp:Button ID="btnAddQuestions" runat="server" CssClass="PCGLongButton" Text="AddQuestions" 
@@ -285,19 +385,40 @@
     </tr>
 </table>
 </asp:Panel>
-<asp:Panel ID="pnlAdviserQuestionsMaintanance" runat="server">
-<table id="tblAdviserQuestionMaintainance" width="100%">
-        <tr>
-            <td class="HeaderTextBig" colspan="2">
-                <asp:Label ID="Label9" runat="server" CssClass="HeaderTextBig" Text="Set Risk Questions and scores."></asp:Label>
-            </td>
-        </tr>
+<asp:Panel ID="pnlMaintanceFormTitle" runat="server">
+<table id="MaintanceFormTitle" runat="server" width="100%">
+    <tr>
+        <td class="HeaderTextBig">
+            <asp:Label ID="Label9" runat="server" CssClass="HeaderTextBig" Text="Set Risk Questions and scores."></asp:Label>
+                <hr />
+        </td>
+    </tr>
+</table>
+<table runat="server" id="tblEditForm" width="30%">
+    <tr>
+        <td>
+            <input type="button" class="PCGButton" onclick="EnableMaintananceFormControls();" value="Edit" />
+        </td>
+        <td>
+            
+            <asp:Button ID="btnDeleteQuestions" CssClass="PCGLongButton" runat="server" Text="Delete Question" 
+                onclick="btnDeleteQuestions_Click" />
+        </td>
+    </tr>
+</table>
+</asp:Panel>
+
+<asp:Panel ID="pnlAdviserQuestionsMaintanance"  runat="server">
+    
+    <table id="tblAdviserQuestionMaintainance" width="100%">
+        
         <tr id="trAdviserQuestionMaintance">
             <td style="width: 15%;" >
                 <label id="lblEnterQuestion" class="HeaderText">Enter the Question: </label>
             </td>
             <td>
                 <asp:TextBox ID="txtQuestion" Width="500px" Height="100px" TextMode="MultiLine" runat="server"></asp:TextBox>
+                
             </td>
         </tr>
          <tr>
@@ -306,7 +427,7 @@
             </td>
         </tr>
         </table>
-        <table width="100%">
+    <table width="100%">
         <tr>
             <td>
                 &nbsp;
@@ -329,12 +450,12 @@
                 <label id="Label1" class="HeaderText">Option 1: </label>
             </td>
             <td align="left" >
-                <asp:TextBox ID="txtEnterOption1" onfocus="CheckQuestion()" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtEnterOption1" TextMode="MultiLine" onfocus="CheckQuestion()" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage1" onfocus="CheckQuestion()" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:Button ID="btnAddOp2" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option2" class="PCGLongButton" OnClientClick="ShowOption2()" />
             </td>
             <td>
@@ -355,12 +476,12 @@
                 <label id="Label3" class="HeaderText">Option 2: </label>
             </td>
             <td>
-                <asp:TextBox ID="txtEnterOption2" runat="server"></asp:TextBox> 
+                <asp:TextBox ID="txtEnterOption2" TextMode="MultiLine" runat="server"></asp:TextBox> 
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage2" runat="server"></asp:TextBox> 
             </td>
-            <td> 
+            <td style="vertical-align: top;"> 
                 <asp:Button ID="btnAddOption3" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option3" class="PCGLongButton" OnClientClick="ShowOption3()" />
             </td> 
              <td>
@@ -384,12 +505,12 @@
                 <label id="Label4" class="HeaderText">Option 3: </label>
             </td>
             <td>
-                <asp:TextBox ID="txtEnterOption3" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtEnterOption3" TextMode="MultiLine" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage3" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:Button ID="btnOpt4" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option4" class="PCGLongButton" OnClientClick="ShowOption4()" />
             </td>
             <td>
@@ -413,12 +534,12 @@
                 <label id="Label5" class="HeaderText">Option 4: </label>
             </td>
             <td>
-                <asp:TextBox ID="txtEnterOption4" runat="server"></asp:TextBox> 
+                <asp:TextBox ID="txtEnterOption4" TextMode="MultiLine" runat="server"></asp:TextBox> 
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage4" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="vertical-align: top;">
                  <asp:Button ID="btnOption5" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option5" class="PCGLongButton" OnClientClick="ShowOption5()" />
             </td>
             <td>
@@ -443,12 +564,12 @@
                 <label id="Label6" class="HeaderText">Option 5: </label>
             </td>
             <td>
-                <asp:TextBox ID="txtEnterOption5" runat="server"></asp:TextBox> 
+                <asp:TextBox ID="txtEnterOption5" TextMode="MultiLine" runat="server"></asp:TextBox> 
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage5" runat="server"></asp:TextBox>
             </td>
-             <td>
+             <td style="vertical-align: top;">
                 <asp:Button ID="btnOpt6" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option6" class="PCGLongButton" OnClientClick="ShowOption6()" />
             </td>
              <td>
@@ -473,9 +594,9 @@
                 <label id="Label7" class="HeaderText">Option 6: </label>
             </td>
             <td>
-                <asp:TextBox ID="txtEnterOption6" runat="server"></asp:TextBox> 
+                <asp:TextBox ID="txtEnterOption6" TextMode="MultiLine" runat="server"></asp:TextBox> 
             </td>
-            <td>
+            <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage6" runat="server"></asp:TextBox>
             </td>
              <td>
@@ -504,12 +625,12 @@
         </tr>
         <tr runat="server" id="tr7">
             <td>
-                <asp:Button ID="btnSubmitAndEnterNewQuestion" ValidationGroup="ValidateQuestionOptions" CssClass="PCGLongButton" 
+                <asp:Button ID="btnSubmitAndEnterNewQuestion" OnClientClick="ShowOption7()" ValidationGroup="ValidateQuestionOptions" CssClass="PCGLongButton" 
                     runat="server" Text="Submit & Add new question" 
                     onclick="btnSubmitAndEnterNewQuestion_Click" />
             </td>
             <td>
-                <asp:Button ID="btnSubmit" runat="server" ValidationGroup="ValidateQuestionOptions" CssClass="PCGButton" Text="Submit" 
+                <asp:Button ID="btnSubmit" runat="server" OnClientClick="ShowOption7()" ValidationGroup="ValidateQuestionOptions" CssClass="PCGButton" Text="Submit" 
                     onclick="btnSubmit_Click" />
             </td>
             <td>
@@ -523,3 +644,8 @@
 </asp:Panel>
 </telerik:RadPageView>         
 </telerik:RadMultiPage>
+
+<asp:HiddenField ID="hdnDeletemsgValue" runat="server" />
+<div style="visibility: hidden">
+    <asp:Button ID="hiddenDeleteQuestion" runat="server" onclick="hiddenDeleteQuestion_Click" BorderStyle="None" BackColor="Transparent" /> 
+</div>
