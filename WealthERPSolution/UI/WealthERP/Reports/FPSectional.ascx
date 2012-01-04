@@ -291,12 +291,12 @@
       </td>
       
       <td style="width:60%" align="right">
-        <asp:Button ID="btnViewReport" runat="server" Text="View Report" 
-     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />&nbsp;&nbsp;
-     <asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
-     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" /> 
-      <asp:Button ID="btnViewInDOC" runat="server" Text="Export To Doc"  CssClass="PCGMediumButton" OnClientClick="return CustomerValidate('doc')"
-     PostBackUrl="~/Reports/Display.aspx?mail=4"  />   
+        <asp:Button ID="btnViewReport" runat="server"  
+     PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
+     <asp:Button ID="btnViewInPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
+     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" /> &nbsp;&nbsp;
+      <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+     PostBackUrl="~/Reports/Display.aspx?mail=4"  /> &nbsp;&nbsp;  
       </td>
       </tr>
       
