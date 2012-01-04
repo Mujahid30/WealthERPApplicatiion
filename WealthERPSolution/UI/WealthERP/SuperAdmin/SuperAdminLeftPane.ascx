@@ -38,5 +38,15 @@
                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
+        <telerik:RadPanelItem Text="Issue Tracker">
+            <Items>
+                <telerik:RadPanelItem Text="View Issue Tracker" Value="IssueTracker">
+                </telerik:RadPanelItem>
+            </Items>
+            <Items>
+                <telerik:RadPanelItem Text="Add New Issue" Value="AddNewIssue">
+                </telerik:RadPanelItem>
+            </Items>
+        </telerik:RadPanelItem>
     </Items>
 </telerik:RadPanelBar>

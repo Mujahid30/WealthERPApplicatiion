@@ -86,6 +86,14 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PriceListMonitor', 'none')", true);
                 }
+                else if (e.Item.Value == "IssueTracker")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewIssuseDetails', 'none')", true);
+                }
+                else if (e.Item.Value == "AddNewIssue")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddIssue', 'none')", true);
+                }
 
             }
             catch (BaseApplicationException Ex)
