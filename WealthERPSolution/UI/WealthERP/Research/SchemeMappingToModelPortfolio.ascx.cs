@@ -52,67 +52,74 @@ namespace WealthERP.Research
             if (!IsPostBack)
             {
                 BindSelectedMPDropDown();
+                
+                    dt = new DataTable();
+                    dt.Columns.Add("PASP_SchemePlanName");
+                    dt.Columns.Add("PASP_SchemePlanCode");
+                    dt.Columns.Add("AMFMPD_AllocationPercentage");
+                    dt.Columns.Add("AMFMPD_AddedOn");
+                    dt.Columns.Add("AMFMPD_SchemeDescription");
+                    dt.Columns.Add("AMFMPD_Id");
+                    dt.Columns.Add("AMFMPD_RemovedOn");
+                    dt.Columns.Add("XAR_ArchiveReason");
 
-                dt = new DataTable();
-                dt.Columns.Add("PASP_SchemePlanName");
-                dt.Columns.Add("PASP_SchemePlanCode");
-                dt.Columns.Add("AMFMPD_AllocationPercentage");
-                dt.Columns.Add("AMFMPD_AddedOn");
-                dt.Columns.Add("AMFMPD_SchemeDescription");
-                dt.Columns.Add("AMFMPD_Id");
-                dt.Columns.Add("AMFMPD_RemovedOn");
-                dt.Columns.Add("XAR_ArchiveReason");
-
-                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                RadGrid1.DataSource = dt;
-                bindRadGrid1();
-            } 
-            
+                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    RadGrid1.DataSource = dt;
+                    bindRadGrid1();
+                
+            }
         }
-     
+
         public void bindRadGrid1()
         {
-            DataTable dtRiskClass = new DataTable();          
+            DataTable dtRiskClass = new DataTable();
             DataTable dtClass = new DataTable();
-            if (ddlSelectedMP.SelectedValue != "0")
+            if (ddlSelectedMP.SelectedValue != "0" && ddlSelectedMP.SelectedValue != "")
+            {
                 modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
-            
-            dtRiskClass = modelPortfolioBo.GetAttachedSchemeDetails(modelPortfolioVo, advisorVo.advisorId);
 
-            dtClass.Columns.Add("PASP_SchemePlanName");
-            dtClass.Columns.Add("PASP_SchemePlanCode");
-            dtClass.Columns.Add("AMFMPD_AllocationPercentage");
-            dtClass.Columns.Add("AMFMPD_AddedOn");
-            dtClass.Columns.Add("AMFMPD_SchemeDescription");
-            dtClass.Columns.Add("AMFMPD_Id");
-            dtClass.Columns.Add("AMFMPD_RemovedOn");
-            dtClass.Columns.Add("XAR_ArchiveReason");
+                dtRiskClass = modelPortfolioBo.GetAttachedSchemeDetails(modelPortfolioVo, advisorVo.advisorId);
+                if (dtRiskClass.Rows.Count > 0)
+                {
+                    dtClass.Columns.Add("PASP_SchemePlanName");
+                    dtClass.Columns.Add("PASP_SchemePlanCode");
+                    dtClass.Columns.Add("AMFMPD_AllocationPercentage");
+                    dtClass.Columns.Add("AMFMPD_AddedOn");
+                    dtClass.Columns.Add("AMFMPD_SchemeDescription");
+                    dtClass.Columns.Add("AMFMPD_Id");
+                    dtClass.Columns.Add("AMFMPD_RemovedOn");
+                    dtClass.Columns.Add("XAR_ArchiveReason");
 
-            DataRow drRiskClass;
-            foreach (DataRow dr in dtRiskClass.Rows)
-            {
-                drRiskClass = dtClass.NewRow();
-                drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
-                drRiskClass["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
-                drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
-                drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
-                drRiskClass["AMFMPD_Id"] = dr["AMFMPD_Id"].ToString();
-                drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
-                dtClass.Rows.Add(drRiskClass);
-            }
-            if (dtRiskClass.Rows.Count > 0)
-            {
-                Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
+                    DataRow drRiskClass;
+                    foreach (DataRow dr in dtRiskClass.Rows)
+                    {
+                        drRiskClass = dtClass.NewRow();
+                        drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
+                        drRiskClass["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
+                        drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
+                        drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
+                        drRiskClass["AMFMPD_Id"] = dr["AMFMPD_Id"].ToString();
+                        drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
+                        dtClass.Rows.Add(drRiskClass);
+                    }
 
-                RadGrid1.DataSource = dtClass;
-
-                RadGrid1.DataSourceID = String.Empty;
-                RadGrid1.DataBind();
+                    Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
+                    RadGrid1.DataSource = dtClass;
+                    RadGrid1.DataSourceID = String.Empty;
+                    RadGrid1.DataBind();
+                }
+                else
+                {
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    RadGrid1.DataSource = dt;
+                    RadGrid1.DataBind();
+                    tableGrid.Visible = true;
+                }
             }
             else
             {
-                RadGrid1.DataSource = dtClass;
-                RadGrid1.DataBind();
+                tableGrid.Visible = false;
+                tblSelectddl.Visible = true;
             }
         }
         

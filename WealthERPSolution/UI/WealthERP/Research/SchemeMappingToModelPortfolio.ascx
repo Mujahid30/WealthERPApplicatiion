@@ -29,9 +29,9 @@
     </tr>
           
 </table>
-<table class="TableBackground" width="40%">
+<table id="tblSelectddl" runat="server" class="TableBackground" width="40%">
 <tr>
-    <br />
+    <td><br /></td>
 </tr>
 <tr>
     <td class="leftField">
@@ -207,7 +207,7 @@
                     </td>
                 </tr>
             </table>
-            <table id="tblArchive" runat="server">
+           <%-- <table id="tblArchive" runat="server">
             <tr>
             <td class="leftField">
                         <asp:Label ID="lblArchive" runat="server" CssClass="FieldName" Text="Reason for Archiving:"></asp:Label>
@@ -217,7 +217,7 @@
                         </asp:DropDownList>
                     </td>
             </tr>
-            </table>                    
+            </table>--%>                    
                 </FormTemplate>
             </EditFormSettings>
         </MasterTableView>

@@ -57,7 +57,7 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tableGrid;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblSelectddl;
         /// <summary>
         /// RadGrid1 control.
         /// </summary>
