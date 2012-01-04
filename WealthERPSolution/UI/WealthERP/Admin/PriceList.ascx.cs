@@ -119,12 +119,12 @@ namespace WealthERP.Admin
                     int month = int.Parse(Request.QueryString["Month"].ToString());
                     int amcCode = int.Parse(Request.QueryString["AMCCode"].ToString());
                     int schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    BindYear();
                     ShowFactSheet();
                     BindMutualFundDropDowns();
                     ddlAmcCode.SelectedValue = amcCode.ToString();
                     LoadAllSchemeList(amcCode);
                     ddlSchemeList.SelectedValue = schemeCode.ToString();
-                    BindYear();
                     BindMonth();
                     ddMonth.SelectedValue = month.ToString();
                     RadTabStrip1.Tabs[2].Selected = true;
@@ -867,6 +867,9 @@ namespace WealthERP.Admin
                 year = int.Parse(Request.QueryString["Year"].ToString());
             else
                 year = int.Parse(ddYear.SelectedValue.ToString());
+            BindYear();
+            ddYear.SelectedValue = year.ToString();
+
 
             monthName = GetMonthName(month);
 
