@@ -18,6 +18,7 @@
                 <asp:ListItem Value="Green">Green</asp:ListItem>
                 <asp:ListItem Value="Maroon">Maroon</asp:ListItem>
                 <asp:ListItem Value="Purple">Purple</asp:ListItem>
+                <asp:ListItem Value="Yellow">Yellow</asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
