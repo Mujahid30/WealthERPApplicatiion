@@ -310,6 +310,44 @@ namespace BoResearch
             }
             return dsGetAdviserMaintainedRiskProfileQuestionAndOptions;
         }
+
+        /// <summary>
+        /// Delete Question Options..
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="QuestionId"></param>
+        /// <param name="OptionId"></param>
+        /// <param name="QuestionOrOptionFlag"></param>
+        /// <returns></returns>
+        public bool DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)
+        {
+            bool bResult = false;
+            AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
+            try
+            {
+                bResult = adviserFPConfigurationDao.DeleteAdviserQuestionOptions(adviserId, QuestionId, OptionId, QuestionOrOptionFlag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }
 
