@@ -994,9 +994,21 @@ namespace WealthERP.CustomerPortfolio
         #region Portfolio All Grid View Methods
         protected void gvMFPortfolio_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int month = 0;
             int schemeCode = 0;
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month - 1;
+            int year = 0;
+
+            if (DateTime.Now.Month != 1)
+            {
+                month = DateTime.Now.Month - 1;
+                year = DateTime.Now.Year;
+            }
+            else
+            {
+                month = 12;
+                year = DateTime.Now.Year - 1;
+            }
+
             string schemeName = null;
             int amcCode = 0;
 
@@ -1140,9 +1152,21 @@ namespace WealthERP.CustomerPortfolio
         #region Portfolio Realized Grid View Methods
         protected void gvMFPortfolioRealized_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int month = 0;
             int schemeCode = 0;
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month - 1;
+            int year = 0;
+
+            if (DateTime.Now.Month != 1)
+            {
+                month = DateTime.Now.Month - 1;
+                year = DateTime.Now.Year;
+            }
+            else
+            {
+                month = 12;
+                year = DateTime.Now.Year - 1;
+            }
+
             string schemeName = null;
             int amcCode = 0;
 
@@ -1285,9 +1309,21 @@ namespace WealthERP.CustomerPortfolio
         #region Portfolio Notional Grid View Methods
         protected void gvMFPortfolioNotional_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int month = 0;
             int schemeCode = 0;
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month - 1;
+            int year = 0;
+
+            if (DateTime.Now.Month != 1)
+            {
+                month = DateTime.Now.Month - 1;
+                year = DateTime.Now.Year;
+            }
+            else
+            {
+                month = 12;
+                year = DateTime.Now.Year - 1;
+            }
+
             string schemeName = null;
             int amcCode = 0;
             
