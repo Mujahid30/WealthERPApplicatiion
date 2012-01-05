@@ -535,13 +535,13 @@ namespace BoResearch
         }
 
 
-        public DataTable GetVariantAssetPortfolioDetails(int modelPortfolioCode)
+        public DataTable GetVariantAssetPortfolioDetails(int advisorId)
         {
             DataTable dt;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dt = modelPortfolioDao.GetVariantAssetPortfolioDetails(modelPortfolioCode);
+                dt = modelPortfolioDao.GetVariantAssetPortfolioDetails(advisorId);
 
             }
             catch (BaseApplicationException Ex)
@@ -555,7 +555,7 @@ namespace BoResearch
                 FunctionInfo.Add("Method", "ModelPortfolioBo.cs:GetVariantAssetPortfolioDetails()");
 
                 object[] objects = new object[1];
-                objects[0] = modelPortfolioCode;
+                objects[0] = advisorId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
