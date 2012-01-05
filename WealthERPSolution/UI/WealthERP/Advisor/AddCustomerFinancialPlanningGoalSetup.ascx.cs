@@ -99,7 +99,13 @@ namespace WealthERP.Advisor
                     if (customerAssumptionVo.IsRiskProfileComplete == false)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please first complete Risk Profile');", true);
-                        return;
+                        btnBackToAddMode.Enabled = false;
+                        btnBackToView.Enabled = false;
+                        btnCancel.Enabled = false;
+                        btnNext.Enabled = false;
+                        btnSaveAdd.Enabled = false;
+                        btnUpdate.Enabled = false;
+                        
                     }
                     ControlShowHide(customerAssumptionVo, "OT");
                     //InflationPercent = GoalSetupBo.GetInflationPercent();
@@ -218,7 +224,7 @@ namespace WealthERP.Advisor
 
 
                     }
-                    Trigger();
+                    //Trigger();
                 }
 
 
@@ -1019,6 +1025,8 @@ namespace WealthERP.Advisor
                     dtGoalProfile.Columns.Add("GoalYear");
                     dtGoalProfile.Columns.Add("IsActive");
                     dtGoalProfile.Columns.Add("CustomerApprovedOn");
+                    dtGoalProfile.Columns.Add("CurrentGoalValue");
+                    dtGoalProfile.Columns.Add("CompletionPer");
 
 
 
@@ -1037,6 +1045,8 @@ namespace WealthERP.Advisor
                     drGoalProfile["GoalPrifileDate"] = string.Empty;
                     drGoalProfile["GoalYear"] = string.Empty;
                     drGoalProfile["IsActive"] = string.Empty;
+                    drGoalProfile["CurrentGoalValue"] = string.Empty;
+                    drGoalProfile["CompletionPer"] = string.Empty;
 
                     if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
                         drGoalProfile["CustomerApprovedOn"] = string.Empty;
