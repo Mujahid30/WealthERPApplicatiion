@@ -709,7 +709,7 @@ namespace DaoResearch
             return bResult;
         }
 
-        public DataTable GetVariantAssetPortfolioDetails(int modelPortfolioCode)
+        public DataTable GetVariantAssetPortfolioDetails(int advisorId)
         {
             DataTable dt;
             DataSet ds;
@@ -720,7 +720,7 @@ namespace DaoResearch
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 AttachedVariantCmd = db.GetStoredProcCommand("SP_GetVariantAssetPortfolioDetails");
                 //db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(AttachedVariantCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
+                db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, advisorId);
                 ds = db.ExecuteDataSet(AttachedVariantCmd);
                 dt = ds.Tables[0];
             }
@@ -734,7 +734,7 @@ namespace DaoResearch
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetVariantAssetPortfolioDetails()");
                 object[] objects = new object[1];
-                objects[0] = modelPortfolioCode;
+                objects[0] = advisorId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
