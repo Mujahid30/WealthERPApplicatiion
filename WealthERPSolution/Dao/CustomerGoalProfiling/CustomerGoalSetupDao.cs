@@ -408,15 +408,17 @@ namespace DaoCustomerGoalProfiling
                         
                         }
                         drGoalFundingDetails = new DataRow[dtGoalFund.Rows.Count];
-                        if (dtGoalFund.Rows.Count>0)
-                          drGoalFundingDetails = dtGoalFund.Select("CG_GoalId='" + GoalProfileVo.GoalId.ToString());
-                        if(drGoalFundingDetails.Count()>0)
+                        if (dtGoalFund.Rows.Count > 0)
                         {
-                            if (GoalProfileVo.CurrInvestementForGoal != 0)
-                                GoalProfileVo.CurrInvestementForGoal = Convert.ToDouble(drGoalFundingDetails[1].ToString());
-                            GoalProfileVo.CurrentGoalValue = Convert.ToDouble(drGoalFundingDetails[2].ToString());
-                            GoalProfileVo.GoalCompletionPercent = (GoalProfileVo.CurrentGoalValue / GoalProfileVo.CostOfGoalToday) * 100;
+                            drGoalFundingDetails = dtGoalFund.Select("CG_GoalId=" + GoalProfileVo.GoalId.ToString());
+                            if (drGoalFundingDetails.Count() > 0)
+                            {
+                                if (GoalProfileVo.CurrInvestementForGoal != 0)
+                                    GoalProfileVo.CurrInvestementForGoal = Convert.ToDouble(drGoalFundingDetails[0][1].ToString());
+                                GoalProfileVo.CurrentGoalValue = Convert.ToDouble(drGoalFundingDetails[0][2].ToString());
+                                GoalProfileVo.GoalCompletionPercent = (GoalProfileVo.CurrentGoalValue / GoalProfileVo.CostOfGoalToday) * 100;
 
+                            }
                         }
 
                          
