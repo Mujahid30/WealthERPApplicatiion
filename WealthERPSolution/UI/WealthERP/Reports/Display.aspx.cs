@@ -422,8 +422,9 @@ namespace WealthERP.Reports
                 report = (OrderTransactionSlipVo)Session["reportParams"];
                 DataSet dstransactionSlip = new DataSet();
                 DataTable dtTransactionSlip;
-                
+
                 crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
+                //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
 
                 dstransactionSlip = mfReportBo.GetOrderTransactionForm(report);
                 DataRow[] drOrderTransactionForm = new DataRow[dstransactionSlip.Tables[0].Columns.Count];
@@ -431,6 +432,7 @@ namespace WealthERP.Reports
 
                 if (dstransactionSlip.Tables.Count > 0 && dstransactionSlip.Tables[0].Rows.Count>0)
                 {
+                    crmain.SetDataSource(dstransactionSlip.Tables[0]);
                     drOrderTransactionForm=dstransactionSlip.Tables[0].Select();
 
                     crmain.SetParameterValue("FolioNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFA_FolioNum"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFA_FolioNum"].ToString() : string.Empty);
@@ -457,6 +459,16 @@ namespace WealthERP.Reports
                     CrystalReportViewer1.ReportSource = crmain;
                     CrystalReportViewer1.EnableDrillDown = true;
                     CrystalReportViewer1.HasCrystalLogo = false;
+
+                    if (Request.QueryString["mail"] == "2")
+                    {
+                        ExportInPDF();
+                    }
+                    if (Request.QueryString["mail"] == "4")
+                    {
+                        ExportInDOC();
+                    }
+
                     lblClosingBalanceNote.Visible = false;   
 
                 }
@@ -465,16 +477,6 @@ namespace WealthERP.Reports
                    SetNoRecords();
                    lblClosingBalanceNote.Visible = false;
                 }
-                if (Request.QueryString["mail"] == "2")
-                {
-                    ExportInPDF();
-                }
-                if (Request.QueryString["mail"] == "4")
-                {
-                    ExportInDOC();
-                }
-
-
         }
 
         private void ShowTransactionShowHide(string Type)
@@ -3405,16 +3407,17 @@ namespace WealthERP.Reports
                 fpOfflineForm.advisorId = advisorVo.advisorId;
                 Session["reportParams"] = fpOfflineForm;
             }
-            else if (CurrentReportType == ReportType.OrderTransactionSlip)
+            else  if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnCustomerId"]))
                 {
                     orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_OrderEntry$hdnCustomerId"]);
-                    orderTransaction.Type = Request.Form[ctrlPrefix + "ddltransType"];
-                    //orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "txtCustomerId"]);
-                    orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "ddlAmcSchemeList"]);
                 }
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnSchemeCode"]))
+                    orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"]);
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnType"]))
+                    orderTransaction.Type = Request.Form["ctrl_OrderEntry$hdnType"];
                 
                 Session["reportParams"] = orderTransaction;
             }
