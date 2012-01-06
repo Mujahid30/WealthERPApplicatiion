@@ -90,7 +90,7 @@
     <BankName	BankNameCode="IBK" BankFullName="Indian Bank" Deleted="False"	/>
     <BankName	BankNameCode="DCBK" BankFullName="Deveopment Credit Bank" Deleted="False"	/>
     <BankName	BankNameCode="IOBK" BankFullName="Indian Overseas Bank" Deleted="False"	/>
-    <BankName	BankNameCode="JKBK" BankFullName="Jammu& Kashmir Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="JKBK" BankFullName="Jammu and Kashmir Bank Ltd." Deleted="False"	/>
     <BankName	BankNameCode="KBLBK" BankFullName="Karnataka Bank Ltd." Deleted="False"	/>
     <BankName	BankNameCode="OBCBK" BankFullName="Oriental Bank of Commerce" Deleted="False"	/>
     <BankName	BankNameCode="PSBK" BankFullName="Punjab and Sind Bank" Deleted="False"	/>
@@ -130,7 +130,6 @@
     <BankName	BankNameCode="DBSBK" BankFullName="DBS Bank" Deleted="False"	/>
     <BankName	BankNameCode="HSBC" BankFullName="HSBC" Deleted="False"	/>
     <BankName	BankNameCode="SCBK" BankFullName="Standard Chartered Bank" Deleted="False"	/>
-
   </BankName>
 
   <CustomerSubTypes>
