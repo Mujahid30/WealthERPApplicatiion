@@ -143,9 +143,7 @@
     EnableEmbeddedSkins="False" MultiPageID="CustomerFPGoalDetails" SelectedIndex="0" EnableViewState="true">
     <Tabs>
         <telerik:RadTab runat="server" Text="Goal Funding/Progress" Value="Funding" Selected="true" TabIndex="0">
-        </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Goal Progress Chart" Value="Progress" TabIndex="1">
-        </telerik:RadTab>       
+        </telerik:RadTab>  
     </Tabs>
 </telerik:RadTabStrip>
 
@@ -328,16 +326,16 @@
                     <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
                    <%-- <ItemStyle ForeColor="Gray" />--%>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="InvestedAmount" HeaderText="Invested Amount" DataField="InvestedAmount">
+                <telerik:GridBoundColumn UniqueName="InvestedAmount" HeaderText="Invested Amount" DataField="InvestedAmount" DataFormatString="{0:C2}">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="Units" HeaderText="Units" DataField="Units">
+                <telerik:GridBoundColumn UniqueName="Units" HeaderText="Units" DataField="Units" DataFormatString="{0:C2}">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue">
+                <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue" DataFormatString="{0:C2}">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="ReturnsXIRR" HeaderText="Returns (XIRR)" DataField="ReturnsXIRR" Visible="false">
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="ProjectedAmount" HeaderText="Projected amount in goal year" DataField="ProjectedAmount">
+                <telerik:GridBoundColumn UniqueName="ProjectedAmount" HeaderText="Projected amount in goal year" DataField="ProjectedAmount" DataFormatString="{0:n2}">
                 </telerik:GridBoundColumn>
                 <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>--%>
@@ -372,7 +370,7 @@
                                         </asp:Label> 
                                         </td>
                                     <td>
-                               <asp:DropDownList ID="ddlPickScheme" runat="server" OnSelectedIndexChanged="ddlPickScheme_OnSelectedIndexChanged" AutoPostBack="true"  CssClass="cmbField">                                    
+                               <asp:DropDownList ID="ddlPickScheme" runat="server" CssClass="cmbField">                                    
                                 </asp:DropDownList>
                             </td>
                             </tr>
@@ -395,7 +393,7 @@
                                             
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField" Text='<%# Bind("Units") %>'  Enabled="false" TabIndex="2">
+                                            <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField" Text='<%# Bind("Units") %>'  Enabled="false" TabIndex="2" >
                                             </asp:TextBox>
                                         </td>
                                     </tr>
@@ -426,7 +424,7 @@
                                           
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3">
+                                            <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3" > 
                                             </asp:TextBox>
                                         </td>
                                     </tr> 
@@ -478,7 +476,9 @@
      </table>
     </asp:Panel>
     
-    <asp:Panel runat="server" ID="Panel2">
+    <hr />
+  
+   <asp:Panel runat="server" ID="Panel2">
      <table ID="Table1" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
         <tr class="EditFormHeader">
                             <td colspan="2" style="font-size: small">
@@ -491,8 +491,7 @@
         AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
         AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid2_ItemDataBound" OnInsertCommand="RadGrid2_ItemInserted"
-        OnItemCommand="RadGrid2_ItemCommand"
-        >
+        OnItemCommand="RadGrid2_ItemCommand" >
         <MasterTableView CommandItemDisplay="Top" DataKeyNames="SIPId,TotalSIPamount">
             <Columns>
                 <telerik:GridEditCommandColumn>
@@ -612,6 +611,9 @@
         </ClientSettings>
     </telerik:RadGrid>
      </td>
+     <td>
+     <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
+     </td>
      </tr>
      </table>
     </asp:Panel>
@@ -627,14 +629,6 @@
      
    
  </telerik:RadPageView>
-  
- <telerik:RadPageView ID="RadPageView1" runat="server">
-        <asp:Panel ID="Panel1" runat="server">
-       
-       
-       
-        </asp:Panel>
-</telerik:RadPageView>
         
  </telerik:RadMultiPage>
 

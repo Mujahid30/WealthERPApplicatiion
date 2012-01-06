@@ -51,60 +51,78 @@ namespace WealthERP.FP
 
         protected void ShowGoalDetails(int goalId)
         {
-           
+
             if (goalPlanningVo != null)
             {
-               if (goalPlanningVo.GoalName!=null)
-               txtGoalName.Text= goalPlanningVo.GoalName.Trim();
-               if (goalPlanningVo.GoalProfileDate!=DateTime.MinValue)
-               txtStartDate.Text= goalPlanningVo.GoalProfileDate.Year.ToString();
-               txtTargetDate.Text = goalPlanningVo.GoalYear.ToString();
-               txtGoalAmount.Text = goalPlanningVo.FutureValueOfCostToday.ToString();
-               txtTenureCompleted.Text = (DateTime.Now.Year -goalPlanningVo.GoalProfileDate.Year).ToString();
-               txtBalanceTenor.Text = (goalPlanningVo.GoalYear - DateTime.Now.Year).ToString();
-               //txtMonthlyContribution.Text = string.Empty;
-               //txtAmountInvested.Text = goalPlanningVo.CurrInvestementForGoal.ToString();
-               txtValueOfCurrentGoal.Text = string.Empty;
-               txtReturnsXIRR.Text = string.Empty;
-               txtCostAtBeginning.Text = goalPlanningVo.CostOfGoalToday.ToString();
-               txtEstmdTimeToReachGoal.Text = string.Empty;
-               //txtProjectedValueOnGoalDate.Text = string.Empty;
-               txtProjectedGap.Text = string.Empty;
-               txtAdditionalInvestmentsRequired.Text = string.Empty;
-               txtAdditionalInvestments.Text = string.Empty;
-               decimal totalMFFundingInvestedAmount = 0;
-               decimal totalMFSIPFunding = 0;
-               decimal totalMFCurrentValue = 0;
-               decimal totalMFProjectedAmount = 0;
-               foreach (DataRow dr in dtCustomerGoalFunding.Rows)
-               {
-                   totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + decimal.Parse(dr["InvestedAmount"].ToString());
-                   totalMFCurrentValue = totalMFCurrentValue + decimal.Parse(dr["CurrentValue"].ToString());
-                   totalMFProjectedAmount = totalMFProjectedAmount + decimal.Parse(dr["ProjectedAmount"].ToString());
-               }
-               foreach (DataRow dr in dtCustomerSIPGoalFunding.Rows)
-               {
-                   totalMFSIPFunding = totalMFSIPFunding + decimal.Parse(dr["SIPInvestedAmount"].ToString());
-               }
-               txtAmountInvested.Text = totalMFFundingInvestedAmount.ToString();
-               txtMonthlyContribution.Text = totalMFSIPFunding.ToString();
-               txtProjectedValueOnGoalDate.Text = totalMFProjectedAmount.ToString();
-               txtValueOfCurrentGoal.Text = totalMFCurrentValue.ToString();
-               if (dtCustomerGoalFunding.Rows.Count > 0)
-               {
-                   double returns = double.Parse((weightedReturn / 100).ToString());
-                   double remainingTime = customerGoalPlanningBo.NPER(returns, 0, -double.Parse(totalMFCurrentValue.ToString()), double.Parse(totalMFProjectedAmount.ToString()), 0);
-                   int year = 0;
-                   double month = 0;
-                   year = (int)remainingTime;
-                   month = remainingTime - year;
-                   month = Math.Round((month * 12), 0);
-                   txtEstmdTimeToReachGoal.Text = year + "-" + "Years" + "" + month + "-" + "Months";
-                   txtAdditionalInvestments.Text = ((double.Parse(txtProjectedValueOnGoalDate.Text) - double.Parse(txtGoalAmount.Text)) / remainingTime).ToString();
-                   txtAdditionalInvestmentsRequired.Text=(double.Parse(txtAdditionalInvestments.Text)/12).ToString();
-               }
-               txtReturnsXIRR.Text = weightedReturn.ToString();
-               txtProjectedGap.Text = (decimal.Parse(txtProjectedValueOnGoalDate.Text) - decimal.Parse(txtGoalAmount.Text)).ToString();
+                if (goalPlanningVo.GoalName != null)
+                    txtGoalName.Text = goalPlanningVo.GoalName.Trim();
+                if (goalPlanningVo.GoalProfileDate != DateTime.MinValue)
+                    txtStartDate.Text = goalPlanningVo.GoalProfileDate.Year.ToString();
+                txtTargetDate.Text = goalPlanningVo.GoalYear.ToString();
+                txtGoalAmount.Text = String.Format("{0:n2}", Math.Round(goalPlanningVo.FutureValueOfCostToday, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                txtTenureCompleted.Text = (DateTime.Now.Year - goalPlanningVo.GoalProfileDate.Year).ToString();
+                txtBalanceTenor.Text = (goalPlanningVo.GoalYear - DateTime.Now.Year).ToString();
+                //txtMonthlyContribution.Text = string.Empty;
+                //txtAmountInvested.Text = goalPlanningVo.CurrInvestementForGoal.ToString();
+                txtValueOfCurrentGoal.Text = string.Empty;
+                txtReturnsXIRR.Text = string.Empty;
+                txtCostAtBeginning.Text = String.Format("{0:n2}", Math.Round(goalPlanningVo.CostOfGoalToday, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                txtEstmdTimeToReachGoal.Text = string.Empty;
+                //txtProjectedValueOnGoalDate.Text = string.Empty;
+                txtProjectedGap.Text = string.Empty;
+                txtAdditionalInvestmentsRequired.Text = string.Empty;
+                txtAdditionalInvestments.Text = string.Empty;
+                decimal totalMFFundingInvestedAmount = 0;
+                decimal totalMFSIPFunding = 0;
+                decimal totalMFCurrentValue = 0;
+                decimal totalMFProjectedAmount = 0;
+
+                foreach (DataRow dr in dtCustomerGoalFunding.Rows)
+                {
+                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + decimal.Parse(dr["InvestedAmount"].ToString());
+                    if (dr["CurrentValue"].ToString() != "")
+                    {
+                        totalMFCurrentValue = totalMFCurrentValue + decimal.Parse(dr["CurrentValue"].ToString());
+                    }
+                    else
+                    {
+                        totalMFCurrentValue = totalMFCurrentValue + 0;
+                    }
+                    if (dr["ProjectedAmount"].ToString() != "")
+                    {
+                        totalMFProjectedAmount = totalMFProjectedAmount + decimal.Parse(dr["ProjectedAmount"].ToString());
+                    }
+                    else
+                    {
+                        totalMFProjectedAmount = totalMFProjectedAmount + 0;
+                    }
+                }
+                foreach (DataRow dr in dtCustomerSIPGoalFunding.Rows)
+                {
+                    totalMFSIPFunding = totalMFSIPFunding + decimal.Parse(dr["SIPInvestedAmount"].ToString());
+                }
+                txtAmountInvested.Text = String.Format("{0:n2}", Math.Round(totalMFFundingInvestedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                txtMonthlyContribution.Text = String.Format("{0:n2}", Math.Round(totalMFSIPFunding, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                txtProjectedValueOnGoalDate.Text = String.Format("{0:n2}", Math.Round(totalMFProjectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                txtValueOfCurrentGoal.Text = String.Format("{0:n2}", Math.Round(totalMFCurrentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                if (dtCustomerGoalFunding.Rows.Count > 0)
+                {
+                    double returns = double.Parse((weightedReturn / 100).ToString());
+                    double remainingTime = customerGoalPlanningBo.NPER(returns, 0, -double.Parse(totalMFCurrentValue.ToString()), double.Parse(totalMFProjectedAmount.ToString()), 0);
+                    int year = 0;
+                    double month = 0;
+                    year = (int)remainingTime;
+                    month = remainingTime - year;
+                    month = Math.Round((month * 12), 0);
+                    txtEstmdTimeToReachGoal.Text = year + "-" + "Years" + "" + month + "-" + "Months";
+                    txtAdditionalInvestments.Text = String.Format("{0:n2}", Math.Round(((double.Parse(txtProjectedValueOnGoalDate.Text) - double.Parse(txtGoalAmount.Text)) / remainingTime), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    txtAdditionalInvestmentsRequired.Text = String.Format("{0:n2}", Math.Round((double.Parse(txtAdditionalInvestments.Text) / 12), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                }
+                txtReturnsXIRR.Text = Math.Round(weightedReturn, 2).ToString();
+                if (txtGoalAmount.Text != "")
+                {
+                    txtProjectedGap.Text = String.Format("{0:n2}", Math.Round((totalMFProjectedAmount - decimal.Parse(txtGoalAmount.Text)), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                }
             }
             SetControlsReadOnly();
         }
@@ -319,7 +337,7 @@ namespace WealthERP.FP
                 {
                     decimal investedAmount = 0;
                     decimal acqCost = 0;
-                    foreach (DataRow dr in dsExistingInvestment.Tables[0].Rows)
+                    foreach (DataRow dr in dsExistingInvestment.Tables[6].Rows)
                     {
                         if (dr["PASP_SchemePlanCode"].ToString() == schemeplanId.ToString())
                         {
@@ -461,7 +479,7 @@ namespace WealthERP.FP
             dtCustomerSIPGoalFunding = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataSource = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataBind();
-
+            //ShowGoalDetails(goalId);
             //DataTable dtCustomerGoalFundingSIPDetails = new DataTable();
             //dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
             //dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeCode");
@@ -646,16 +664,23 @@ namespace WealthERP.FP
 
                             currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
 
-                            drCustomerGoalFundingDetails["InvestedAmount"] = ((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100).ToString();
+                            drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
-                            drCustomerGoalFundingDetails["Units"] = drGoalExistingInvestments["CMFNP_NetHoldings"].ToString();
-                            drCustomerGoalFundingDetails["CurrentValue"] = ((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100).ToString();
+                            drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["AllocationEntry"] = drSchemeId["allocatedPercentage"].ToString();
                             drCustomerGoalFundingDetails["AvailableAllocation"] = 100 - decimal.Parse(drSchemeId["allocatedPercentage"].ToString());
                             drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
-                            futureCost =Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
-                            drCustomerGoalFundingDetails["OtherGoalAllocation"] = (decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation).ToString();
-                            drCustomerGoalFundingDetails["ProjectedAmount"] = futureCost.ToString();
+                            if (currentValue != 0)
+                            {
+                                futureCost = Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
+                            }
+                            else
+                            {
+                                futureCost = 0;
+                            }
+                                drCustomerGoalFundingDetails["OtherGoalAllocation"] = (decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation).ToString();
+                                drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                             dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
                         }
@@ -668,16 +693,23 @@ namespace WealthERP.FP
                     drCustomerGoalFundingDetails["SchemeName"] = drGoalExistingInvestments["PASP_SchemePlanName"].ToString();
                     drCustomerGoalFundingDetails["SchemeCode"] = drGoalExistingInvestments["PASP_SchemePlanCode"].ToString();
                     currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
-                    drCustomerGoalFundingDetails["InvestedAmount"] = ((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100).ToString();
+                    drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
-                    drCustomerGoalFundingDetails["Units"] = drGoalExistingInvestments["CMFNP_NetHoldings"].ToString();
-                    drCustomerGoalFundingDetails["CurrentValue"] = ((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100).ToString();
+                    drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["AllocationEntry"] = "0";
                     drCustomerGoalFundingDetails["AvailableAllocation"] = "100";
                     drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
                     drCustomerGoalFundingDetails["OtherGoalAllocation"] = "0";
-                    futureCost = Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
-                    drCustomerGoalFundingDetails["ProjectedAmount"] = futureCost.ToString();
+                    if (currentValue != 0)
+                    {
+                        futureCost = Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
+                    }
+                    else
+                    {
+                        futureCost = 0;
+                    }
+                    drCustomerGoalFundingDetails["ProjectedAmount"] = String.Format("{0:n2}", Math.Round(futureCost, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["Category"] = drGoalExistingInvestments["PAIC_AssetInstrumentCategoryCode"].ToString();
                     dtCustomerGoalFundingDetails.Rows.Add(drCustomerGoalFundingDetails);
 
@@ -687,6 +719,8 @@ namespace WealthERP.FP
             dtCustomerGoalFunding = dtCustomerGoalFundingDetails;
             RadGrid1.DataSource = dtCustomerGoalFundingDetails;
             RadGrid1.DataBind();
+
+           
 
 
 
@@ -754,11 +788,11 @@ namespace WealthERP.FP
        //{
 
        //}
-       protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
-       {
-           //DropDownList dropdown = (DropDownList)sender;
-           //string a = dropdown.SelectedValue;
-       }
+       //protected void ddlPickScheme_OnSelectedIndexChanged(object sender, EventArgs e)
+       //{
+       //    //DropDownList dropdown = (DropDownList)sender;
+       //    //string a = dropdown.SelectedValue;
+       //}
        protected void RadGrid1_ItemUpdated(object source, GridCommandEventArgs e)
         {
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -827,7 +861,7 @@ namespace WealthERP.FP
            // decimal otherAllocation = decimal.Parse(gvExistInvestMapping.DataKeys[dr.RowIndex].Values["OtherGoalAllocation"].ToString());
             decimal investedAmount = 0;
             decimal acqCost = 0;
-            foreach (DataRow dr in dsExistingInvestment.Tables[0].Rows)
+            foreach (DataRow dr in dsExistingInvestment.Tables[6].Rows)
             {
                 if (dr["PASP_SchemePlanCode"].ToString() == schemeId.ToString())
                 {
@@ -905,6 +939,12 @@ namespace WealthERP.FP
                 }
                 weightedReturn = (equityAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnEquity.ToString()) + (debtAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnDebt.ToString());
             }
-         }        
+         }
+
+        protected void btnSIPAdd_OnClick(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicEntry','login');", true);
+
+        }
      }
  }
