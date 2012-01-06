@@ -510,7 +510,7 @@ namespace DaoResearch
             return dtSchemeAsset;
         }
 
-        public DataTable GetRiskGoalClassData(int adviserId)
+        public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
             DataTable dtRiskClass;
             DataSet dsRiskClass;
@@ -521,7 +521,7 @@ namespace DaoResearch
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 RiskClassCmd = db.GetStoredProcCommand("SP_GetRiskGoalClassData");
                 db.AddInParameter(RiskClassCmd, "@adviserId", DbType.Int32, adviserId);
-                //db.AddInParameter(RiskClassCmd, "@description", DbType.String, modelPortfolioVo.Description);
+                db.AddInParameter(RiskClassCmd, "@isRiskClass", DbType.Int32, isRiskClass);
                 //db.AddInParameter(RiskClassCmd, "@classCode", DbType.String, modelPortfolioVo.RiskClassCode);
                 //if(var != "")
                 //db.AddInParameter(RiskClassCmd, "@var", DbType.Int16, var);
@@ -622,7 +622,7 @@ namespace DaoResearch
             }
         }
 
-        public DataSet bindDdlPickRiskClass(int adviserId)
+        public DataSet bindDdlPickRiskClass(int adviserId, int isRiskClass)
         {
             Database db;
             DbCommand getAdviserRiskClassesCmd;
@@ -632,6 +632,7 @@ namespace DaoResearch
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClass");
                 db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserRiskClassesCmd, "@isRiskClass", DbType.Int32, isRiskClass);
                 dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);                
             }
             catch (BaseApplicationException Ex)
@@ -709,9 +710,8 @@ namespace DaoResearch
             return bResult;
         }
 
-        public DataTable GetVariantAssetPortfolioDetails(int advisorId)
-        {
-            DataTable dt;
+        public DataSet GetVariantAssetPortfolioDetails(int advisorId)
+        {            
             DataSet ds;
             Database db;
             DbCommand AttachedVariantCmd;
@@ -721,8 +721,7 @@ namespace DaoResearch
                 AttachedVariantCmd = db.GetStoredProcCommand("SP_GetVariantAssetPortfolioDetails");
                 //db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, advisorId);
-                ds = db.ExecuteDataSet(AttachedVariantCmd);
-                dt = ds.Tables[0];
+                ds = db.ExecuteDataSet(AttachedVariantCmd);                
             }
             catch (BaseApplicationException Ex)
             {
@@ -741,7 +740,7 @@ namespace DaoResearch
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dt;
+            return ds;
         }
        
         public void DeleteVariantAssetPortfolio(int modelPortfolioCode)

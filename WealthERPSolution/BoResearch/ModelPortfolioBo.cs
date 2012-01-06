@@ -383,13 +383,13 @@ namespace BoResearch
             return dtSchemeAssetChart;
         }
 
-        public DataTable GetRiskGoalClassData(int adviserId)
+        public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
             DataTable dt;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dt = modelPortfolioDao.GetRiskGoalClassData(adviserId);
+                dt = modelPortfolioDao.GetRiskGoalClassData(adviserId, isRiskClass);
 
             }
             catch (BaseApplicationException Ex)
@@ -473,13 +473,13 @@ namespace BoResearch
             }
         }
 
-        public DataSet bindDdlPickRiskClass(int adviserId)
+        public DataSet bindDdlPickRiskClass(int adviserId, int isRiskClass)
         {
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             DataSet ds = new DataSet();
             try
             {
-                ds = modelPortfolioDao.bindDdlPickRiskClass(adviserId);
+                ds = modelPortfolioDao.bindDdlPickRiskClass(adviserId, isRiskClass);
             }
             catch (BaseApplicationException Ex)
             {
@@ -535,13 +535,13 @@ namespace BoResearch
         }
 
 
-        public DataTable GetVariantAssetPortfolioDetails(int advisorId)
+        public DataSet GetVariantAssetPortfolioDetails(int advisorId)
         {
-            DataTable dt;
+            DataSet ds;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dt = modelPortfolioDao.GetVariantAssetPortfolioDetails(advisorId);
+                ds = modelPortfolioDao.GetVariantAssetPortfolioDetails(advisorId);
 
             }
             catch (BaseApplicationException Ex)
@@ -562,7 +562,7 @@ namespace BoResearch
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dt;
+            return ds;
         }
 
         public void DeleteVariantAssetPortfolio(int modelPortfolioCode)
