@@ -230,9 +230,25 @@
     //**********Customer Login MF Report Validation For ViewReport and Export To PDF Button
     function CustomerValidate(type) {
         if (type == 'view') {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
         } else {
+        dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+        if (dateType == 'PERIOD') {
+            dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+            if (dateVal < 1) {
+                alert("Please select a period")
+                return false;
+            }
+        }
         window.document.forms[0].target = '_blank';
         window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
         }
