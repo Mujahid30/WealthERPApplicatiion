@@ -402,11 +402,12 @@ namespace BoOps
             return operationVo;
         }
 
-        public void UpdateMFTransaction(int gvOrderId,int gvSchemeCode, int gvaccountId, string gvTrxType,int gvPortfolioId,double gvAmount)
+        public bool UpdateMFTransaction(int gvOrderId,int gvSchemeCode, int gvaccountId, string gvTrxType,int gvPortfolioId,double gvAmount)
         {
+            bool Result = false;
             try
             {
-                operationDao.UpdateMFTransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount);
+                Result=operationDao.UpdateMFTransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result);
             }
             catch (BaseApplicationException Ex)
             {
@@ -429,6 +430,7 @@ namespace BoOps
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return Result;
         }
 
         public bool UpdateOrderTracking(OperationVo operationVo)
@@ -445,12 +447,12 @@ namespace BoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount)
+        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount, string TrxType)
         {
             bool Result = false;
             try
             {
-               Result= operationDao.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, out Result);
+                Result = operationDao.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, out Result, TrxType);
             }
             catch (BaseApplicationException Ex)
             {
