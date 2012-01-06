@@ -477,6 +477,7 @@ namespace WealthERP.Advisor
                     email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                     email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+                    email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
                     //Assign SMTP Credentials if configured.
                     if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                     {
