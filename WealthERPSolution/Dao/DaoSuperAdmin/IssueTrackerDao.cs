@@ -1422,5 +1422,91 @@ namespace DaoSuperAdmin
             return result;
         }
         //**********END OF NEW CODE FOR SENDING FROM LEVEL3 TO ANY LEVEL ON UPDATE BUTTON CLICK***********\\                
+
+        //**********START OF CODE FOR SENDING FROM LEVEL1 AND CLOSING THE ISSUE ON THE SUBMIT BUTTON***********\\                
+        public int CloseIssueOnLevel1(IssueTrackerVo superAdminCSIssueTrackerVo)
+        {
+            int i = 0;
+            int j = 0;
+            int k = 0;
+            int result = 0;
+            Database db;
+            DbCommand cmdCloseIssueByLevel1;
+            DbCommand cmdUpdateCSIssueLevelAssociationCSDetails;
+            DbCommand cmdUpdateCSIssueActiveLevel1Close;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCloseIssueByLevel1 = db.GetStoredProcCommand("SP_CloseIssueByLevel1");
+                cmdUpdateCSIssueLevelAssociationCSDetails = db.GetStoredProcCommand("SP_InsertIntoCSIssueLevelAssociation");
+                cmdUpdateCSIssueActiveLevel1Close = db.GetStoredProcCommand("SP_UpdateCSIssueActiveLevel1Close");
+                
+
+                
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_Code", DbType.String, superAdminCSIssueTrackerVo.CSI_Code);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@A_AdviserId", DbType.Int32, superAdminCSIssueTrackerVo.A_AdviserId);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ContactPerson", DbType.String, superAdminCSIssueTrackerVo.CSI_ContactPerson);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_Phone", DbType.String, superAdminCSIssueTrackerVo.CSI_Phone);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_Email", DbType.String, superAdminCSIssueTrackerVo.CSI_Email);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@UR_RoleId", DbType.Int32, superAdminCSIssueTrackerVo.UR_RoleId);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@WTN_TreeNodeId", DbType.Int32, superAdminCSIssueTrackerVo.WTN_TreeNodeId);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@WTSN_TreeSubNodeId", DbType.Int32, superAdminCSIssueTrackerVo.WTSN_TreeSubNodeId);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@WTSSN_TreeSubSubNodeId", DbType.Int32, superAdminCSIssueTrackerVo.WTSSN_TreeSubSubNodeId);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_CustomerDescription", DbType.String, superAdminCSIssueTrackerVo.CSI_CustomerDescription);
+                if (superAdminCSIssueTrackerVo.CSI_ReportedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_issueAddedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_issueAddedDate);
+
+                else
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_issueAddedDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ReportedVia", DbType.String, superAdminCSIssueTrackerVo.CSI_ReportedVia);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_CustomerSupportComments", DbType.String, superAdminCSIssueTrackerVo.CSILA_Comments);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_Atuhor", DbType.String, superAdminCSIssueTrackerVo.CSI_Atuhor);
+                if (superAdminCSIssueTrackerVo.CSI_ReportedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ReportedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ReportedDate);
+
+                else
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ReportedDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@XMLCSP_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSP_Code);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@XMLCSS_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSS_Code);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@XMLCST_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCST_Code);
+                db.AddInParameter(cmdCloseIssueByLevel1, "@XMLACSP_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLACSP_Code);
+                if (superAdminCSIssueTrackerVo.CSI_ResolvedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ResolvedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ResolvedDate);
+                else
+                    db.AddInParameter(cmdCloseIssueByLevel1, "@CSI_ResolvedDate", DbType.DateTime, DBNull.Value);
+                db.AddOutParameter(cmdCloseIssueByLevel1, "@CSI_id", DbType.Int32, 1);
+
+                i = db.ExecuteNonQuery(cmdCloseIssueByLevel1);
+                int CsCode = Convert.ToChar(db.GetParameterValue(cmdCloseIssueByLevel1, "@CSI_id"));
+
+                db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSI_id", DbType.Int32, CsCode);
+                db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Comments", DbType.String, superAdminCSIssueTrackerVo.CSILA_Comments);
+
+                db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedBy", DbType.String, superAdminCSIssueTrackerVo.CSI_Atuhor);
+                if (superAdminCSIssueTrackerVo.CSI_ReportedDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ReportedDate);
+                else
+                    db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Version", DbType.String, DBNull.Value);
+
+                j = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
+
+                db.AddInParameter(cmdUpdateCSIssueActiveLevel1Close, "@CSI_id", DbType.String, CsCode);
+                db.AddInParameter(cmdUpdateCSIssueActiveLevel1Close, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+
+                k = db.ExecuteNonQuery(cmdUpdateCSIssueActiveLevel1Close);
+                
+            }
+            catch (Exception ex)
+            {
+                ex.StackTrace.ToString();
+            }
+            result = i + j+k;
+            return result;    
+        }
+        //**********START OF CODE FOR SENDING FROM LEVEL1 AND CLOSING THE ISSUE ON THE SUBMIT BUTTON***********\\                
+
     }
 }

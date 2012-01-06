@@ -1,8 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddIssue.ascx.cs" Inherits="WealthERP.SuperAdmin.AddIssue" %>
 <style type="text/css">
-    .style1
+    .blinkColors
     {
-        height: 104px;
+       font-size:small;
+       color:Red
     }
 </style>
 <%--<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddIssueTracker.ascx.cs" Inherits="WealthERP.SuperAdmin.AddIssueTracker" %>--%>
@@ -11,6 +12,9 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <asp:ScriptManager ID="smanager" runat="server"></asp:ScriptManager>
+
+
+
 
 <script type="text/javascript">
     function ValidateStauts(Source, args) {        
@@ -24,6 +28,11 @@
         }        
     } 
 </script>
+
+
+
+
+
 
 <table>
 <tr>
@@ -65,14 +74,14 @@
             <asp:Label ID="AdviserPhoneNo" class="FieldName" runat="server"></asp:Label>
         </td>
         <td class="lefttField">  
-            <asp:Label ID="lblAdviserEmailId" class="FieldName" Text="email :" runat="server" />
+            <asp:Label ID="lblAdviserEmailId" class="FieldName" Text="Email :" runat="server" />
         </td>
         <td class="rightField">
             <asp:Label runat="server"  class="FieldName" ID="AdviserEmail"></asp:Label>
         </td>
         <td></td>
-        <td class="leftField"><asp:Label Text="Issue Status :" ID="lblIssueStatus" runat="server"  class="FieldName"></asp:Label></td>
-        <td class="rightField"><asp:Label ID="lblOpenClose" runat="server"  class="FieldName"></asp:Label></td>
+        <td class="leftField"><asp:Label Text="Issue Status :" ID="lblIssueStatus" runat="server"  class="FieldName" ></asp:Label></td>
+        <td class="rightField"><asp:Label Font-Bold="true"  CssClass="blinkColors" ID="lblOpenClose" runat="server" ></asp:Label></td>
     </tr>
      <tr>
         <td class="leftField" valign="top">  
@@ -93,7 +102,7 @@
             <asp:RegularExpressionValidator Display="Dynamic" ValidationExpression="^((\\+91-?)|0)?[0-9]{10}$" runat="server" CssClass="cvPCG" ErrorMessage="Enter A Valid Phone" ControlToValidate="txtCustomerPhone" ValidationGroup="vgBtnSubmit"></asp:RegularExpressionValidator>
         </td>
         <td class="lefttField" align="right">  
-            <asp:Label ID="Label4" class="FieldName" Text="email :" runat="server" />
+            <asp:Label ID="Label4" class="FieldName" Text="Email :" runat="server" />
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCustomerEmail" CssClass="txtField" runat="server"></asp:TextBox>
@@ -101,8 +110,9 @@
             <asp:RegularExpressionValidator Display="Dynamic" runat="server" CssClass="cvPCG" ControlToValidate="txtCustomerEmail" ErrorMessage="Enter A Valid EMail" ValidationExpression="^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$" ValidationGroup="vgBtnSubmit"></asp:RegularExpressionValidator>
         </td>
         <td></td>
-         <td class="leftField"><asp:Label class="FieldName" ID="lblLevel" Text="Active :" runat="server"></asp:Label></td>
-         <td class="rightField"><asp:Label class="FieldName" ID="lblTypes" runat="server"></asp:Label></td>
+         <td class="leftField"><asp:Label class="FieldName" ID="lblLevel" Text="Active :" 
+                 runat="server" ></asp:Label></td>
+         <td class="rightField"><asp:Label ID="lblTypes" Font-Bold="true" CssClass="blinkColors" runat="server"></asp:Label></td>
     </tr>
     
     <tr>
@@ -231,7 +241,7 @@
     <td class="rightField"><asp:DropDownList CssClass="cmbField" ID="ddlReportedBy" runat="server">
         <asp:ListItem>Select</asp:ListItem>
         <asp:ListItem>Phone </asp:ListItem>
-        <asp:ListItem>Mail</asp:ListItem>
+        <asp:ListItem>Email</asp:ListItem>
         <asp:ListItem>Visit</asp:ListItem>
         <asp:ListItem>Skype</asp:ListItem>
         <asp:ListItem>Others</asp:ListItem>
@@ -382,10 +392,10 @@
                 <td class="leftField"><asp:Label class="FieldName" runat="server" ID="lblReleaseVersion" Text="Release :"></asp:Label></td>
                 <td>
                     <asp:TextBox ID="txteleaseVersion" CssClass="txtField" runat="server"></asp:TextBox>
-                    <span class="spnRequiredField">*</span>                    
+                    <%--<span class="spnRequiredField">*</span>                    
                     <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="vgBtnQSubmit" CssClass="cvPCG" runat="server" ControlToValidate="txteleaseVersion" ErrorMessage="Enter Release Number" Display="Dynamic"></asp:RequiredFieldValidator>
-                
+                --%>
                 </td>
          
                 

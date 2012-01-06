@@ -677,5 +677,17 @@ namespace BoSuperAdmin
                 throw Ex;
             }
         }
+
+        public int CloseIssueOnLevel1(IssueTrackerVo superAdminCSIssueTrackerVo)
+        {
+            try
+            {
+                return superAdmincsissueTrackerDao.CloseIssueOnLevel1(superAdminCSIssueTrackerVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
     }
 }

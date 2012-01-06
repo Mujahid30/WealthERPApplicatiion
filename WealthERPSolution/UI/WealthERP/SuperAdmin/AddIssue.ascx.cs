@@ -46,6 +46,11 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            System.Drawing.Color color = System.Drawing.Color.FromArgb(255 - 0 - 0);
+            lblOpenClose.Attributes.Add("style", "text-decoration:blink");
+            lblTypes.Attributes.Add("style", "text-decoration:blink");
+            lblOpenClose.BackColor.GetBrightness();
+            lblTypes.BackColor.GetBrightness();
             txtVersionReadOnly.Enabled = false;
             tblErrorMassage.Visible = false;
             QueryStringSelection();
@@ -74,7 +79,13 @@ namespace WealthERP.SuperAdmin
                 level1ControlDisable();
                 level2ControlDisable();
                 level3ControlDisable();
-            }
+                btnSubmit.Visible = false;
+                btnUpdate.Visible = false;
+                QASubmit.Visible = false;
+                btnQAUpdate.Visible = false;
+                btnDEVSubmit.Visible = false;
+                btnDevUpdate.Visible = false;
+            }            
         }
 
         public void QueryStringSelection()
@@ -162,6 +173,7 @@ namespace WealthERP.SuperAdmin
                     btnQAUpdate.Visible = false;
                     btnDevUpdate.Visible = false;
                     dtSolveDate.Enabled = false;
+                    dtSolveDate.SelectedDate = DateTime.Now;
                 }
                 else
                 {
@@ -659,7 +671,7 @@ namespace WealthERP.SuperAdmin
                     {
                         dtSolveDate.SelectedDate = DateTime.MinValue;
                     }
-                    statusResult = superAdminOpsBo.CloseIssue(superAdminCSIssueTrackerVo);
+                    statusResult = superAdminOpsBo.CloseIssueOnLevel1(superAdminCSIssueTrackerVo);
 
                     if (statusResult > 0)
                     {
@@ -670,7 +682,8 @@ namespace WealthERP.SuperAdmin
                     else
                         tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Issue Closed Successfully";
-                }
+                    ShowIssueDetailsPage();
+                }   
 
                 else 
                 {
@@ -684,13 +697,13 @@ namespace WealthERP.SuperAdmin
                     else
                         tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Record submitted successfully";
-
+                    ShowIssueDetailsPage();
                 }                
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
+            }            
         }
 
         public void level1ControlDisable()
@@ -786,13 +799,14 @@ namespace WealthERP.SuperAdmin
                         tblErrorMassage.Visible = true;
                         ErrorMessage.InnerHtml = "Record submitted successfully";
                     }
+                    ShowIssueDetailsPage();
                 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
+           
         }
 
         protected void ddlSubNode_SelectedIndexChanged(object sender, EventArgs e)
@@ -974,10 +988,10 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSI_ReportedDate = txtDEVReportedDate.SelectedDate.Value;
             superAdminCSIssueTrackerVo.XMLCSL_Code = int.Parse(ddlReportDEV.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_id = strCsId;
-            if (txteleaseVersion.Text != "")
-                superAdminCSIssueTrackerVo.CSILA_Version = txteleaseVersion.Text;
-            else
-                txteleaseVersion.Text = "";
+            //if (txteleaseVersion.Text != "")
+            //    superAdminCSIssueTrackerVo.CSILA_Version = txteleaseVersion.Text;
+            //else
+            //    txteleaseVersion.Text = "";
 
             try
             {                               
@@ -992,11 +1006,13 @@ namespace WealthERP.SuperAdmin
                                 tblErrorMassage.Visible = true;
                                 ErrorMessage.InnerHtml = "Record submitted successfully";
                             }
+                            ShowIssueDetailsPage();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+           
         }
 
         protected void btnQAUpdate_Click(object sender, EventArgs e)
@@ -1021,7 +1037,8 @@ namespace WealthERP.SuperAdmin
                 {
                     tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Record updated successfully";
-                }           
+                }
+                ShowIssueDetailsPage();
         }
 
         protected void btnDevUpdate_Click(object sender, EventArgs e)
@@ -1049,6 +1066,7 @@ namespace WealthERP.SuperAdmin
                     tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Record updated successfully";
                 }
+                ShowIssueDetailsPage();
         }
 
         public void btnUpdate_Click(object sender, EventArgs e)
@@ -1109,6 +1127,7 @@ namespace WealthERP.SuperAdmin
                 else
                     tblErrorMassage.Visible = true;
                 ErrorMessage.InnerHtml = "Issue Closed Successfully";
+                ShowIssueDetailsPage();
             }            
                 else
                 {
@@ -1122,8 +1141,15 @@ namespace WealthERP.SuperAdmin
                     {
                         tblErrorMassage.Visible = true;
                         ErrorMessage.InnerHtml = "Record updated successfully";
-                    }                    
+                    }
+                    ShowIssueDetailsPage();
                 }
-            }  
+            
+            }
+
+            public void ShowIssueDetailsPage()
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ViewIssuseDetails');", true);   
+            }
         }
     }
