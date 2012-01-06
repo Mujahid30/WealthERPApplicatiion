@@ -19,27 +19,28 @@ namespace WealthERP.Research
 {
     public partial class RiskGoalClass : System.Web.UI.UserControl
     {
-        DataSet dsGlobal = new DataSet();
         AdvisorVo advisorVo = new AdvisorVo();
         ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
         RiskProfileBo riskprofilebo = new RiskProfileBo();
         private string gridMessage = null;
-        int var = 0;
+        int isRiskClass;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            //BindRiskClasses();            
-                bindRadGrid1(); 
+            if (IsPostBack)
+            {
+                bindRadGrid1();
+            }
         }
 
         public void bindRadGrid1()
         {
             DataTable dtRiskClass = new DataTable();
-            DataTable dataTable = new DataTable();
-            var = 1;
+            
             ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
-            dtRiskClass = modelPortfolioBo.GetRiskGoalClassData(advisorVo.advisorId);
+
+            dtRiskClass = modelPortfolioBo.GetRiskGoalClassData(advisorVo.advisorId, Convert.ToInt16(ddlClassType.SelectedValue));
             DataTable dtClass = new DataTable();
             dtClass.Columns.Add("XRC_RiskClass");
             dtClass.Columns.Add("XRC_RiskClassCode");
@@ -59,16 +60,9 @@ namespace WealthERP.Research
             RadGrid1.DataBind();
         }
         
-        protected void RadGrid1_DataBound(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(gridMessage))
-            {
-                DisplayMessage(gridMessage);
-            }
-        }
-
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            DataSet dsRiskClass = new DataSet();
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
@@ -81,15 +75,15 @@ namespace WealthERP.Research
                 {
                     trRiskCodeddl.Visible = true;
                     trRiskGoaltextBox.Visible = false;
-                    dsGlobal = modelPortfolioBo.bindDdlPickRiskClass(adviserId);
-                    if (dsGlobal.Tables[0].Rows.Count > 0)
+                    dsRiskClass = modelPortfolioBo.bindDdlPickRiskClass(adviserId, Convert.ToInt16(ddlClassType.SelectedValue));
+                    if (dsRiskClass.Tables[0].Rows.Count > 0)
                     {
-                        ddl.DataSource = dsGlobal.Tables[0];
-                        ddl.DataValueField = dsGlobal.Tables[0].Columns["XRC_RiskClassCode"].ToString();
-                        ddl.DataTextField = dsGlobal.Tables[0].Columns["XRC_RiskClass"].ToString();
+                        ddl.DataSource = dsRiskClass.Tables[0];
+                        ddl.DataValueField = dsRiskClass.Tables[0].Columns["XRC_RiskClassCode"].ToString();
+                        ddl.DataTextField = dsRiskClass.Tables[0].Columns["XRC_RiskClass"].ToString();
                         ddl.DataBind();
-                    }
-                    ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
+                        ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
+                    }                   
                 }
                 else
                 {
@@ -104,9 +98,7 @@ namespace WealthERP.Research
             try
             {                    
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
-                //string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
                 DropDownList ddl = (DropDownList)item.FindControl("ddlPickRiskClass");
-                //ddl.Visible = false;
                 TextBox Description = (TextBox)item.FindControl("txtDescription");
                 modelPortfolioBo.InsertUpdateRiskGoalClass(ddl.SelectedValue, Description.Text, advisorVo.advisorId);
                 bindRadGrid1();
@@ -124,7 +116,6 @@ namespace WealthERP.Research
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 String riskCode = dataItem.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                //DropDownList ddl = (DropDownList)dataItem.FindControl("ddlPickRiskClass");
                 modelPortfolioBo.DeleteRiskClass(riskCode, advisorVo.advisorId);
                 bindRadGrid1();
             }
@@ -145,8 +136,7 @@ namespace WealthERP.Research
                     {
                         GridEditFormItem item = (GridEditFormItem)e.Item;
                         string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                        //DropDownList ddl = (DropDownList)item.FindControl("ddlPickRiskClass");
-                        TextBox txtRiskCode = (TextBox)item.FindControl("txtRiskCode");
+                        //TextBox txtRiskCode = (TextBox)item.FindControl("txtRiskCode");
                         TextBox Description = (TextBox)item.FindControl("txtDescription");
 
                         modelPortfolioBo.InsertUpdateRiskGoalClass(riskCode, Description.Text, advisorVo.advisorId);
@@ -161,25 +151,10 @@ namespace WealthERP.Research
             }
         }
 
-        private void DisplayMessage(string text)
-        {
-            RadGrid1.Controls.Add(new LiteralControl(string.Format("<span style='color:red'>{0}</span>", text)));
-        }
-
-        private void SetMessage(string message)
-        {
-            gridMessage = message;
-        }
-
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {   
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
-                //GridEditableItem item = (GridEditableItem)e.Item;
-                //TableRow tr1 = (TableRow)item.FindControl("trRiskCode");
-                //TableRow tr2 = (TableRow)item.FindControl("trRiskGoal");
-                //tr1.Visible = false;
-                //tr2.Visible = true;
             }
             else if (e.CommandName == RadGrid.RebindGridCommandName && e.Item.OwnerTableView.IsItemInserted)
             {
@@ -187,11 +162,6 @@ namespace WealthERP.Research
             }
             else if (e.CommandName == RadGrid.EditCommandName)
             {
-                //GridEditableItem item = (GridEditableItem)e.Item;
-                //TableRow tr1 = (TableRow)item.FindControl("trRiskCode");
-                //TableRow tr2 = (TableRow)item.FindControl("trRiskGoal");
-                //tr1.Visible = true;
-                //tr2.Visible = false;
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -201,35 +171,21 @@ namespace WealthERP.Research
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
                 if (!editColumn.Visible)
                     editColumn.Visible = true;
-                //GridEditableItem tableItem = (GridEditableItem)e.Item;
-                //GridDataItem item = (GridDataItem)e.Item;
-                //string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                ////string riskCode2 = tableItem.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                //DropDownList ddl1 = (DropDownList)tableItem.FindControl("ddlPickRiskClass");
-                //ddl1.SelectedValue = riskCode;
-                //ddl1.Enabled = false;
             }
-            //if (e.Item is GridEditableItem && e.Item.IsInEditMode)
-            //{
-            //    GridEditableItem editableItem = (GridEditableItem)e.Item;
-            //    GridEditFormItem editform = (GridEditFormItem)e.Item;
-            //    //string riskCode = editform.GetDataKeyValue("XRC_RiskClassCode").ToString();
-            //    DropDownList ddl1 = (DropDownList)editableItem.FindControl("ddlPickRiskClass");
-            //    //ddl1.SelectedValue = riskCode;
-            //    ddl1.Enabled = false;
-
-            //    //GridEditableItem tableItem = (GridEditableItem)e.Item;
-            //    //GridDataItem item = (GridDataItem)e.Item;
-            //    //string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
-            //    ////string riskCode2 = tableItem.GetDataKeyValue("XRC_RiskClassCode").ToString();
-            //    //DropDownList ddl1 = (DropDownList)tableItem.FindControl("ddlPickRiskClass");
-            //    //ddl1.SelectedValue = riskCode;
-            //    //ddl1.Enabled = false;
-            //}
         }
 
-        protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {            
+        protected void ddlClassType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (ddlClassType.SelectedValue != "10")
+            {
+                bindRadGrid1();
+                RadGrid1.Visible = true;
+            }
+            else
+            {
+                RadGrid1.Visible = false;
+            }
         }
     }
 }

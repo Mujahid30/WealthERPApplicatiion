@@ -12,20 +12,50 @@ namespace WealthERP.Research {
     
     
     public partial class RiskGoalClass {
-
+        
+        /// <summary>
+        /// RadScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
+        
+        /// <summary>
+        /// lblSetUpClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSetUpClass;
+        
+        /// <summary>
+        /// lblSelectClassType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectClassType;
+        
+        /// <summary>
+        /// ddlClassType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClassType;
+        
+        /// <summary>
+        /// RadGrid1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
-
-        protected global::System.Web.UI.WebControls.Button Button1;
-        protected global::System.Web.UI.WebControls.Button Button2;
-
-        protected global::System.Web.UI.WebControls.Label lblPickClass;
-        protected global::System.Web.UI.WebControls.Label lblDescription;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblChildCustomer;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRiskCodeddl;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRiskGoaltextBox;
-
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
-        protected global::System.Web.UI.WebControls.DropDownList ddlPickRiskClass;
     }
 }
