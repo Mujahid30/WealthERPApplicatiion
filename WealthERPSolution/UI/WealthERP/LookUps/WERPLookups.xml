@@ -80,6 +80,59 @@
     <BankAccountTypes BankAccountTypeCode="TBC" BankAccountType="To Be Categorized" Deleted="False" />
   </BankAccount>
 
+
+  <BankName>
+    <BankName	BankNameCode="ALBK" BankFullName="Allahabad Bank" Deleted="False"	/>
+    <BankName	BankNameCode="ANBK" BankFullName="Andhra Bank" Deleted="False"	/>
+    <BankName	BankNameCode="BOBK" BankFullName="Bank of Baroda" Deleted="False"	/>
+    <BankName	BankNameCode="BOBLK" BankFullName="Bharat Overseas Bank Ltd.	 " Deleted="False"	/>
+    <BankName	BankNameCode="CBK" BankFullName="Canara Bank" Deleted="False"	/>
+    <BankName	BankNameCode="IBK" BankFullName="Indian Bank" Deleted="False"	/>
+    <BankName	BankNameCode="DCBK" BankFullName="Deveopment Credit Bank" Deleted="False"	/>
+    <BankName	BankNameCode="IOBK" BankFullName="Indian Overseas Bank" Deleted="False"	/>
+    <BankName	BankNameCode="JKBK" BankFullName="Jammu& Kashmir Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="KBLBK" BankFullName="Karnataka Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="OBCBK" BankFullName="Oriental Bank of Commerce" Deleted="False"	/>
+    <BankName	BankNameCode="PSBK" BankFullName="Punjab and Sind Bank" Deleted="False"	/>
+    <BankName	BankNameCode="SBI" BankFullName="State Bank of India" Deleted="False"	/>
+    <BankName	BankNameCode="SBIM" BankFullName="State Bank of Mysore" Deleted="False"	/>
+    <BankName	BankNameCode="SBIS" BankFullName="State Bank of Saurashtra" Deleted="False"	/>
+    <BankName	BankNameCode="SBK" BankFullName="Syndicate Bank" Deleted="False"	/>
+    <BankName	BankNameCode="UBI" BankFullName="Union Bank of India" Deleted="False"	/>
+    <BankName	BankNameCode="CBK" BankFullName="Corporation Bank" Deleted="False"	/>
+    <BankName	BankNameCode="DBK" BankFullName="Dena Bank" Deleted="False"	/>
+    <BankName	BankNameCode="UCOBK" BankFullName="UCO Bank" Deleted="False"	/>
+    <BankName	BankNameCode="VBK" BankFullName="Vijaya Bank" Deleted="False"	/>
+    <BankName	BankNameCode="KBK" BankFullName="Kerala Banking" Deleted="False"	/>
+    <BankName	BankNameCode="CBOP" BankFullName="Centurian Bank of Punjab" Deleted="False"	/>
+    <BankName	BankNameCode="CBK" BankFullName="Corporation Bank" Deleted="False"	/>
+    <BankName	BankNameCode="DEBK" BankFullName="Dena Bank" Deleted="False"	/>
+    <BankName	BankNameCode="EIBOI" BankFullName="Export-Import Bank of India" Deleted="False"	/>
+    <BankName	BankNameCode="GSBN" BankFullName="Guardian Sahakara Bank Niyamita" Deleted="False"	/>
+    <BankName	BankNameCode="HDFC" BankFullName="HDFC Bank" Deleted="False"	/>
+    <BankName	BankNameCode="ICICI" BankFullName="ICICI Bank" Deleted="False"	/>
+    <BankName	BankNameCode="IDBI" BankFullName="IDBI Bank" Deleted="False"	/>
+    <BankName	BankNameCode="IBKL" BankFullName="IndusInd Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="INGB" BankFullName="ING Vysya Bank" Deleted="False"	/>
+    <BankName	BankNameCode="KMBK" BankFullName="Kotak Mahindra Bank" Deleted="False"	/>
+    <BankName	BankNameCode="PMBK" BankFullName="Punjab and Maharashtra Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="SCOBK" BankFullName="Saraswat Co-operative Bank Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="TJSBL" BankFullName="Thane Janta Sahakari Bank, Ltd." Deleted="False"	/>
+    <BankName	BankNameCode="TIBK" BankFullName="Times Bank" Deleted="False"	/>
+    <BankName	BankNameCode="UTI" BankFullName="UTI Bank" Deleted="False"	/>
+    <BankName	BankNameCode="YES" BankFullName="Yes Bank " Deleted="False"	/>
+    <BankName	BankNameCode="RBS" BankFullName="RBS" Deleted="False"	/>
+    <BankName	BankNameCode="ADCBK" BankFullName="Abu Dhabi Commercial Bank" Deleted="False"	/>
+    <BankName	BankNameCode="AEBK" BankFullName="American Express Bank" Deleted="False"	/>
+    <BankName	BankNameCode="ANZ" BankFullName="ANZ" Deleted="False"	/>
+    <BankName	BankNameCode="BNPP" BankFullName="BNP Paribas" Deleted="False"	/>
+    <BankName	BankNameCode="CITIBK" BankFullName="Citibank India" Deleted="False"	/>
+    <BankName	BankNameCode="DBSBK" BankFullName="DBS Bank" Deleted="False"	/>
+    <BankName	BankNameCode="HSBC" BankFullName="HSBC" Deleted="False"	/>
+    <BankName	BankNameCode="SCBK" BankFullName="Standard Chartered Bank" Deleted="False"	/>
+
+  </BankName>
+
   <CustomerSubTypes>
     <CustomerSubType CustomerSubTypeCode="RES" CustomerTypeCode="IND" CustomerTypeName="Resident" Deleted="False" />
     <CustomerSubType CustomerSubTypeCode="NRI" CustomerTypeCode="IND" CustomerTypeName="NRI" Deleted="False" />
