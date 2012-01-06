@@ -74,6 +74,9 @@ namespace WealthERP.Research
                     if (dsGetAdviserQuestions.Tables[0].Rows.Count > 0)
                     {
                         int RiskQuestionId = 0;
+                        int QuestionSerialNo = 1;
+                        
+                        
                         foreach (DataRow drQuestions in dsGetAdviserQuestions.Tables[0].Rows)
                         {
                             if (RiskQuestionId != Convert.ToInt32(drQuestions["QM_QuestionId"].ToString()))
@@ -82,8 +85,9 @@ namespace WealthERP.Research
 
                                 DataRow[] drQuestionOptions = dsGetAdviserQuestions.Tables[0].Select("QM_QuestionId=" + RiskQuestionId);
 
-
                                 drBindAdviserQuestionsAndOptions = dtBindAdviserQuestionsOptions.NewRow();
+
+                                int OptionSerialNo = 1;
 
                                 foreach (DataRow drOptions in drQuestionOptions)
                                 {
@@ -92,39 +96,42 @@ namespace WealthERP.Research
                                         drBindAdviserQuestionsAndOptions["QM_QuestionID"] = drOptions["QM_QuestionId"];
 
                                     if (drBindAdviserQuestionsAndOptions["QM_Question"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_Question"] = drOptions["QM_Question"];
+                                        drBindAdviserQuestionsAndOptions["QM_Question"] = QuestionSerialNo.ToString() + "." + " " + drOptions["QM_Question"];
 
                                     if (drBindAdviserQuestionsAndOptions["QOM_OptionId"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QOM_OptionId"] = drOptions["QOM_OptionId"];
+                                        drBindAdviserQuestionsAndOptions["QOM_OptionId"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_OptionId"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
                                     // Option Inserting..
                                     if (drBindAdviserQuestionsAndOptions["QM_QuestionOption1"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption1"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption1"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
                                     else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption2"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption2"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption2"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
                                     else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption3"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption3"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption3"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
                                     else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption4"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption4"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption4"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
                                     else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption5"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption5"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption5"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
                                     else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption6"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption6"] = drOptions["QOM_Option"];
+                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption6"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
+                                    OptionSerialNo = OptionSerialNo + 1;
                                 }
                                 dtBindAdviserQuestionsOptions.Rows.Add(drBindAdviserQuestionsAndOptions);
+                                QuestionSerialNo = QuestionSerialNo + 1;
                             }
-                        }
+                            
+                        }     
                     }
                 }
                 if (dtBindAdviserQuestionsOptions.Rows.Count > 0)
@@ -224,6 +231,13 @@ namespace WealthERP.Research
             trOptions5.Style.Add("visibility", "visible");
             trOptions6.Style.Add("visibility", "visible");
 
+            btnAddOp2.Visible = false;
+            btnAddOption3.Visible = false;
+            btnOpt4.Visible = false;
+            btnOption5.Visible = false;
+            btnOpt6.Visible = false;
+
+
             if (drBindAdviserQuestionsAndOptions["QM_Question"].ToString() != "")
             {
                 txtQuestion.Text = drBindAdviserQuestionsAndOptions["QM_Question"].ToString();
@@ -234,6 +248,9 @@ namespace WealthERP.Research
             {
                 txtEnterOption1.Text = drBindAdviserQuestionsAndOptions["QM_QuestionOption1"].ToString();
                 txtEnterWeightage1.Text = drBindAdviserQuestionsAndOptions["QOM_Weightage1"].ToString();
+
+                if(drBindAdviserQuestionsAndOptions["QM_QuestionOption2"].ToString() == "")
+                    btnAddOp2.Visible = true;
             }
             else
             {
@@ -246,6 +263,9 @@ namespace WealthERP.Research
             {
                 txtEnterOption2.Text = drBindAdviserQuestionsAndOptions["QM_QuestionOption2"].ToString();
                 txtEnterWeightage2.Text = drBindAdviserQuestionsAndOptions["QOM_Weightage2"].ToString();
+
+                if (drBindAdviserQuestionsAndOptions["QM_QuestionOption3"].ToString() == "")
+                    btnAddOption3.Visible = true;
             }
             else
             {
@@ -258,6 +278,9 @@ namespace WealthERP.Research
             {
                 txtEnterOption3.Text = drBindAdviserQuestionsAndOptions["QM_QuestionOption3"].ToString();
                 txtEnterWeightage3.Text = drBindAdviserQuestionsAndOptions["QOM_Weightage3"].ToString();
+
+                if (drBindAdviserQuestionsAndOptions["QM_QuestionOption4"].ToString() == "")
+                    btnOpt4.Visible = true;
             }
             else
             {
@@ -270,6 +293,9 @@ namespace WealthERP.Research
             {
                 txtEnterOption4.Text = drBindAdviserQuestionsAndOptions["QM_QuestionOption4"].ToString();
                 txtEnterWeightage4.Text = drBindAdviserQuestionsAndOptions["QOM_Weightage4"].ToString();
+
+                if (drBindAdviserQuestionsAndOptions["QM_QuestionOption5"].ToString() == "")
+                    btnOption5.Visible = true;
             }
             else
             {
@@ -282,6 +308,9 @@ namespace WealthERP.Research
             {
                 txtEnterOption5.Text = drBindAdviserQuestionsAndOptions["QM_Question"].ToString();
                 txtEnterWeightage5.Text = drBindAdviserQuestionsAndOptions["QOM_Weightage5"].ToString();
+
+                if (drBindAdviserQuestionsAndOptions["QM_QuestionOption6"].ToString() == "")
+                    btnOpt6.Visible = true;
             }
             else
             {
@@ -870,6 +899,13 @@ namespace WealthERP.Research
             pnlAdviserQuestionsMaintanance.Visible = false;
             pnlMaintanceFormTitle.Visible = false;
             GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            pnlMaintanceFormTitle.Visible = false;
+            pnlAdviserQuestionsMaintanance.Visible = false;
+            pnlAdviserQuestionsDisplay.Visible = true;
         }
     }
 }

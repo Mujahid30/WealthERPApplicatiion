@@ -113,6 +113,15 @@ namespace WealthERP.Research {
         protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
+        /// btnAddQuestions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddQuestions;
+        
+        /// <summary>
         /// trAdviserQuestionDisplay control.
         /// </summary>
         /// <remarks>
@@ -138,15 +147,6 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repAdviserQuestions;
-        
-        /// <summary>
-        /// btnAddQuestions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddQuestions;
         
         /// <summary>
         /// pnlMaintanceFormTitle control.
@@ -183,6 +183,15 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblEditForm;
+        
+        /// <summary>
+        /// btnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack;
         
         /// <summary>
         /// btnDeleteQuestions control.
@@ -245,7 +254,7 @@ namespace WealthERP.Research {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddOp2;
+        protected global::System.Web.UI.WebControls.ImageButton btnAddOp2;
         
         /// <summary>
         /// compareInt1 control.
@@ -317,7 +326,7 @@ namespace WealthERP.Research {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddOption3;
+        protected global::System.Web.UI.WebControls.ImageButton btnAddOption3;
         
         /// <summary>
         /// compareWt1AndWt2 control.
@@ -398,7 +407,7 @@ namespace WealthERP.Research {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOpt4;
+        protected global::System.Web.UI.WebControls.ImageButton btnOpt4;
         
         /// <summary>
         /// compareWt2AndWt3 control.
@@ -479,7 +488,7 @@ namespace WealthERP.Research {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOption5;
+        protected global::System.Web.UI.WebControls.ImageButton btnOption5;
         
         /// <summary>
         /// compareWt3AndWt4 control.
@@ -560,7 +569,7 @@ namespace WealthERP.Research {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOpt6;
+        protected global::System.Web.UI.WebControls.ImageButton btnOpt6;
         
         /// <summary>
         /// compareWt4AndWt5 control.

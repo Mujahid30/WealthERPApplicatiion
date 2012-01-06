@@ -125,11 +125,13 @@
         var txtOption = document.getElementById("<%=txtEnterOption6.ClientID%>").value;
         var txtWtage = document.getElementById("<%=txtEnterWeightage6.ClientID%>").value;
 
-        if ((txtOption == "") && (txtWtage == "")) {
+        if ((document.getElementById("<%=txtEnterOption6.ClientID%>").style.visibility == "visible") && (document.getElementById("<%=txtEnterWeightage6.ClientID%>").style.visibility == "visible")) {
+            if ((txtOption == "") && (txtWtage == "")) {
 
-            document.getElementById("<%=reqOpt6.ClientID%>").style.visibility = "visible";
-            document.getElementById("<%=reqWt6.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqOpt6.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqWt6.ClientID%>").style.visibility = "visible";
 
+            }
         }
 
     }
@@ -301,6 +303,13 @@
         <td class="HeaderTextBig">
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Risk Profile Questions and options."></asp:Label>
         </td>
+        
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Button ID="btnAddQuestions" runat="server" CssClass="PCGMediumButton" Text="AddQuestions" 
+                onclick="btnAddQuestions_Click" />
+        </td>
     </tr>
     <tr runat="server" id="trAdviserQuestionDisplay">
         <td>
@@ -308,7 +317,7 @@
             <asp:Repeater ID="repAdviserQuestions" OnItemCommand="repAdviserQuestions_ItemCommand" runat="server">        
                 <HeaderTemplate></HeaderTemplate>
                 <ItemTemplate>
-                    <table Width="100%">
+                    <table width="100%">
                         <tr>
                             <td>
                                 <hr />
@@ -340,7 +349,7 @@
                                 </td>
                             </tr>
                             </table>
-                            <table Width="100%">
+                            <table width="100%">
                             <tr>
                                 <td>
                                     &nbsp;
@@ -376,14 +385,7 @@
         </td>
     </tr>
 </table>
-    <table width="100%">
-    <tr>
-        <td>
-            <asp:Button ID="btnAddQuestions" runat="server" CssClass="PCGLongButton" Text="AddQuestions" 
-                onclick="btnAddQuestions_Click" />
-        </td>
-    </tr>
-</table>
+    
 </asp:Panel>
 <asp:Panel ID="pnlMaintanceFormTitle" runat="server">
 <table id="MaintanceFormTitle" runat="server" width="100%">
@@ -396,6 +398,10 @@
 </table>
 <table runat="server" id="tblEditForm" width="30%">
     <tr>
+        <td>
+            <asp:Button ID="btnBack" runat="server" CssClass="PCGButton" Text="Back" 
+                onclick="btnBack_Click" />
+        </td>
         <td>
             <input type="button" class="PCGButton" onclick="EnableMaintananceFormControls();" value="Edit" />
         </td>
@@ -429,7 +435,7 @@
         </table>
     <table width="100%">
         <tr>
-            <td>
+            <td style="width: 10%">
                 &nbsp;
             </td>
             <td style="width: 10%">
@@ -455,8 +461,9 @@
             <td style="vertical-align: top;">
                 <asp:TextBox ID="txtEnterWeightage1" onfocus="CheckQuestion()" runat="server"></asp:TextBox>
             </td>
-            <td style="vertical-align: top;">
-                <asp:Button ID="btnAddOp2" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option2" class="PCGLongButton" OnClientClick="ShowOption2()" />
+            <td style="vertical-align: top; width: 20px;">
+               
+                <asp:ImageButton ID="btnAddOp2" runat="server" ValidationGroup="ValidateQuestionOptions" OnClientClick="ShowOption2()" ImageUrl="~/Images/AddPlus.png" />
             </td>
             <td>
                 <asp:CompareValidator ID="compareInt1" ValidationGroup="ValidateQuestionOptions" CssClass="FieldName" Display="Dynamic" runat="server" Operator="DataTypeCheck" Type="Integer" 
@@ -482,7 +489,8 @@
                 <asp:TextBox ID="txtEnterWeightage2" runat="server"></asp:TextBox> 
             </td>
             <td style="vertical-align: top;"> 
-                <asp:Button ID="btnAddOption3" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option3" class="PCGLongButton" OnClientClick="ShowOption3()" />
+                <%--<asp:Button ID="btnAddOption3" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add" class="PCGButton" OnClientClick="ShowOption3()" />--%>
+                <asp:ImageButton ID="btnAddOption3" runat="server" ValidationGroup="ValidateQuestionOptions" OnClientClick="ShowOption3()" ImageUrl="~/Images/AddPlus.png" />
             </td> 
              <td>
                 <asp:CompareValidator runat="server" ValidationGroup="ValidateQuestionOptions" id="compareWt1AndWt2" Display="Dynamic" ControlToValidate="txtEnterWeightage2" CssClass="FieldName" ControlToCompare="txtEnterWeightage1" Operator="GreaterThan" type="Integer" 
@@ -511,7 +519,7 @@
                 <asp:TextBox ID="txtEnterWeightage3" runat="server"></asp:TextBox>
             </td>
             <td style="vertical-align: top;">
-                <asp:Button ID="btnOpt4" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option4" class="PCGLongButton" OnClientClick="ShowOption4()" />
+                <asp:ImageButton ID="btnOpt4" runat="server" ValidationGroup="ValidateQuestionOptions" OnClientClick="ShowOption4()" ImageUrl="~/Images/AddPlus.png" />
             </td>
             <td>
                  <asp:CompareValidator runat="server" ValidationGroup="ValidateQuestionOptions" id="compareWt2AndWt3" Display="Dynamic" CssClass="FieldName" ControlToValidate="txtEnterWeightage3" ControlToCompare="txtEnterWeightage2" Operator="GreaterThan" type="Integer" 
@@ -540,7 +548,7 @@
                 <asp:TextBox ID="txtEnterWeightage4" runat="server"></asp:TextBox>
             </td>
             <td style="vertical-align: top;">
-                 <asp:Button ID="btnOption5" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option5" class="PCGLongButton" OnClientClick="ShowOption5()" />
+                <asp:ImageButton ID="btnOption5" runat="server" ValidationGroup="ValidateQuestionOptions" OnClientClick="ShowOption5()" ImageUrl="~/Images/AddPlus.png" />
             </td>
             <td>
                   <asp:CompareValidator runat="server" ValidationGroup="ValidateQuestionOptions" id="compareWt3AndWt4" Display="Dynamic" CssClass="FieldName" ControlToValidate="txtEnterWeightage4" ControlToCompare="txtEnterWeightage3" Operator="GreaterThan" type="Integer" 
@@ -570,7 +578,7 @@
                 <asp:TextBox ID="txtEnterWeightage5" runat="server"></asp:TextBox>
             </td>
              <td style="vertical-align: top;">
-                <asp:Button ID="btnOpt6" runat="server" ValidationGroup="ValidateQuestionOptions" Text="Add Option6" class="PCGLongButton" OnClientClick="ShowOption6()" />
+             <asp:ImageButton ID="btnOpt6" runat="server" ValidationGroup="ValidateQuestionOptions" OnClientClick="ShowOption6()" ImageUrl="~/Images/AddPlus.png" />
             </td>
              <td>
                  <asp:CompareValidator runat="server" id="compareWt4AndWt5" ValidationGroup="ValidateQuestionOptions" Display="Dynamic" CssClass="FieldName" ControlToValidate="txtEnterWeightage5" ControlToCompare="txtEnterWeightage4" Operator="GreaterThan" type="Integer" 
