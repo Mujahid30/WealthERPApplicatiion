@@ -119,7 +119,7 @@
                     type="radio" />
                 <label for="Radio1" style="font-family: Times New Roman; font-size: medium; font-stretch: wider;
                     font-weight: 500">All Pages</label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
                 <br />
                 <div align="center">
                     <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" />
@@ -243,7 +243,8 @@
   </td>
   
   <td>
-        <asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField">
+        <asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" 
+            onselectedindexchanged="ddlMISOrderStatus_SelectedIndexChanged">
         <%--<asp:ListItem Text="Pending" Value="Pending" Selected="true"></asp:ListItem>
         <asp:ListItem Text="Executed" Value="Executed"></asp:ListItem>
         <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
@@ -397,7 +398,9 @@
   &nbsp;
   </td>
     <td>
-        <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount"  runat="server" AutoGenerateColumns="False"
+        <asp:GridView ID="gvMIS" CssClass="GridViewStyle" 
+        DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate"  
+        runat="server" AutoGenerateColumns="False"
                                         ShowFooter="True" OnRowDataBound="gvMIS_RowDataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <AlternatingRowStyle CssClass="AltRowStyle" />                                        
@@ -546,22 +549,7 @@
   
   <tr>
   <td colspan="3">
-  <table width="50%">
-  <tr> 
-    <td>
-    <asp:Button ID="btnSync" runat="server" Text="Sync" CssClass="PCGButton" 
-        onclick="btnSync_Click" />
-    </td>
-     <td> 
-    <asp:Button ID="btnMannualMatch"  runat="server" Text="Mannual Match" CssClass="PCGLongButton"
-             onclick="btnMannualMatch_Click" />
-    </td>
-<%--    <td> 
-    <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" onclick="btnSubmit_Click" />
-    </td>--%>
-    
-  </tr> 
-</table>
+
   </td>
   </tr>
                              
@@ -574,6 +562,22 @@
             <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
         </td>
     </tr>
+</table>
+  <table width="50%">
+  <tr> 
+    <td>
+    <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton" 
+        onclick="btnSync_Click" />
+    </td>
+     <td> 
+    <asp:Button ID="btnMannualMatch"  runat="server" Text="Mannual Match" CssClass="PCGMediumButton"
+             onclick="btnMannualMatch_Click" />
+    </td>
+<%--    <td> 
+    <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" onclick="btnSubmit_Click" />
+    </td>--%>
+    
+  </tr> 
 </table>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>

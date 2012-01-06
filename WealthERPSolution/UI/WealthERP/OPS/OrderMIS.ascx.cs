@@ -314,12 +314,20 @@ namespace WealthERP.OPS
                 gvMIS.DataBind();
                 gvMIS.Visible = true;
                 this.GetPageCount();
+                if (ddlMISOrderStatus.SelectedValue == "OMIP")
+                {
+                    btnSync.Visible = true;
+                    btnMannualMatch.Visible = true;
+                }
+                else
+                {
+                    btnSync.Visible = false;
+                    btnMannualMatch.Visible = false;
+                }
                 //btnSubmit.Visible = true;
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 Session["GridView"] = dtOrderMIS;
-                btnSync.Visible = true;
-                btnMannualMatch.Visible = true;
                 tblPager.Visible = true;
                 trPager.Visible = true;
                 lblCurrentPage.Visible = true;
@@ -571,6 +579,7 @@ namespace WealthERP.OPS
             int gvaccountId = 0;
             string gvTrxType = "";
             double gvAmount = 0.0;
+            bool result = false;
             foreach (GridViewRow gvRow in gvMIS.Rows)
            {
 
@@ -596,10 +605,17 @@ namespace WealthERP.OPS
                         //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
                         gvPortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CP_portfolioId"].ToString());
                         gvSchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-                        gvaccountId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString());
+                        if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
+                            gvaccountId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString());
+                        else
+                            gvaccountId = 0;
                         gvTrxType = gvMIS.DataKeys[gvRow.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         gvAmount = Convert.ToDouble(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_Amount"].ToString());
-                        operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount);
+                        result=operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount);
+                        if (result == true)
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sync done');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to sync');", true);
                     }
                 }
                 BindMISGridView();
@@ -837,7 +853,7 @@ namespace WealthERP.OPS
                 int SchemeCode = 0;
                 int accountId = 0;
                 double Amount = 0.0;
-                //string TrxType = string.Empty;
+                string TrxType = string.Empty;
                 bool isUpdate = false;
                 foreach (GridViewRow gvRow1 in gvMIS.Rows)
                 {
@@ -846,15 +862,20 @@ namespace WealthERP.OPS
                         OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
                         PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
                         SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-                        accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
-                        //TrxType = gvMIS.DataKeys[gvRow.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
+                        if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
+                            accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
+                        else
+                            accountId = 0;
+                        TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
-                        isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount);
+                        isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, TrxType);
+
+                        if (isUpdate == true)
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
                     }
-                    if (isUpdate == true)
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
-                    else
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
+                    
                 }
                 BindMISGridView();
             }
@@ -864,6 +885,15 @@ namespace WealthERP.OPS
                 BindMISGridView();
             }
            
+        }
+
+        protected void ddlMISOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlMISOrderStatus.SelectedValue=="OMIP")
+            {
+                btnMannualMatch.Visible=true;
+                btnSync.Visible=true;
+            }
         }
     }
 }

@@ -365,24 +365,6 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.GridView gvMIS;
         
         /// <summary>
-        /// btnSync control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSync;
-        
-        /// <summary>
-        /// btnMannualMatch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMannualMatch;
-        
-        /// <summary>
         /// tblPager control.
         /// </summary>
         /// <remarks>
@@ -399,6 +381,24 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WealthERP.Pager mypager;
+        
+        /// <summary>
+        /// btnSync control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSync;
+        
+        /// <summary>
+        /// btnMannualMatch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMannualMatch;
         
         /// <summary>
         /// tblMessage control.
