@@ -68,6 +68,7 @@ namespace WealthERP.Admin
 
             if (adviserOTALink != null)
             {
+                msgNoRecords.Visible = false;
                 for (int i = 1; i <= adviserOTALink.Count; i++)
                 {
                     AOTALVo = new AdviserOnlineTransactionAMCLinksVo();
