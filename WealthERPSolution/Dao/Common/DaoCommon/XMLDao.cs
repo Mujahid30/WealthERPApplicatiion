@@ -3041,5 +3041,24 @@ namespace DaoCommon
             return dt;
         }
 
+        public static DataTable GetBankName(string path)
+        {
+            DataSet ds;
+            DataTable dt = new DataTable();
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+
+                dt = ds.Tables["BankName"];
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+
     }
 }
