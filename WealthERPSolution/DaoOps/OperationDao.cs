@@ -726,11 +726,11 @@ namespace DaoOps
             return operationVo;
         }
 
-        public void UpdateMFTransactionForSynch(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType,int gvPortfolioId,double gvAmount)
+        public bool UpdateMFTransactionForSynch(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status)
         {
             Database db;
             DbCommand updateMFTransactionForSynchCmd;
-
+            int affectedRecords = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -741,7 +741,9 @@ namespace DaoOps
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@trxType", DbType.String, gvTrxType);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@portfolioId", DbType.Int32, gvPortfolioId);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@amount", DbType.Double, gvAmount);
-                db.ExecuteDataSet(updateMFTransactionForSynchCmd);
+                db.AddOutParameter(updateMFTransactionForSynchCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateMFTransactionForSynchCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateMFTransactionForSynchCmd, "@IsSuccess").ToString());
             }
             catch (BaseApplicationException Ex)
             {
@@ -764,6 +766,10 @@ namespace DaoOps
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
         }
 
         public bool UpdateOrderTracking(OperationVo operationVo)
@@ -882,7 +888,7 @@ namespace DaoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount,out bool status)
+        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount, out bool status, string TrxType)
         {
             Database db;
             int affectedRecords = 0;
@@ -897,6 +903,7 @@ namespace DaoOps
                 db.AddInParameter(getOrderMannualMatchCmd, "@schemeCode", DbType.Int32, SchemeCode);
                 db.AddInParameter(getOrderMannualMatchCmd, "@portfolioId", DbType.Int32, PortfolioId);
                 db.AddInParameter(getOrderMannualMatchCmd, "@amount", DbType.Double, Amount);
+                db.AddInParameter(getOrderMannualMatchCmd, "@type", DbType.String, TrxType);
                 db.AddOutParameter(getOrderMannualMatchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(getOrderMannualMatchCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(getOrderMannualMatchCmd, "@IsSuccess").ToString());
