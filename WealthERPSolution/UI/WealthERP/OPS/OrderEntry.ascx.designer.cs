@@ -68,6 +68,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnViewInDOC;
         
         /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
         /// lblAssetType control.
         /// </summary>
         /// <remarks>
@@ -77,6 +86,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblAssetType;
         
         /// <summary>
+        /// lblBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBranch;
+        
+        /// <summary>
         /// lblShowAssetType control.
         /// </summary>
         /// <remarks>
@@ -84,6 +102,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblShowAssetType;
+        
+        /// <summary>
+        /// lblGetBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGetBranch;
         
         /// <summary>
         /// lblCustomer control.
@@ -131,22 +158,22 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnAddCustomer;
         
         /// <summary>
-        /// lblBranch control.
+        /// lblPan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBranch;
+        protected global::System.Web.UI.WebControls.Label lblPan;
         
         /// <summary>
-        /// lblGetBranch control.
+        /// lblgetPan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGetBranch;
+        protected global::System.Web.UI.WebControls.Label lblgetPan;
         
         /// <summary>
         /// lblRM control.
@@ -165,24 +192,6 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGetRM;
-        
-        /// <summary>
-        /// lblPan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPan;
-        
-        /// <summary>
-        /// lblgetPan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblgetPan;
         
         /// <summary>
         /// trSectionTwo1 control.
@@ -455,13 +464,49 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblOrderDate;
         
         /// <summary>
-        /// lblGetOrderDate control.
+        /// txtOrderDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGetOrderDate;
+        protected global::System.Web.UI.WebControls.TextBox txtOrderDate;
+        
+        /// <summary>
+        /// CalendarExtender9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender9;
+        
+        /// <summary>
+        /// TextBoxWatermarkExtender9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender9;
+        
+        /// <summary>
+        /// CompareValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator8;
+        
+        /// <summary>
+        /// RequiredFieldValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// Label2 control.
@@ -806,13 +851,13 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblBankName;
         
         /// <summary>
-        /// txtBankName control.
+        /// ddlBankName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBankName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBankName;
         
         /// <summary>
         /// lblBranchName control.
@@ -1659,5 +1704,23 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
+        
+        /// <summary>
+        /// hdnSchemeCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnSchemeCode;
+        
+        /// <summary>
+        /// hdnType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnType;
     }
 }

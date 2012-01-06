@@ -22,7 +22,12 @@
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
         }
-        else {
+        else if (type == 'View') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
+        }
+        else         
+        {
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
         }
@@ -65,7 +70,7 @@
 <asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry"></asp:Label>
 </td>
 <td id="trReportButtons" runat="server" width="70%"  align="right">
-<asp:Button ID="btnViewReport" runat="server"  PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="MFSubmit" />&nbsp;&nbsp;
+<asp:Button ID="btnViewReport" runat="server"  PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
 <asp:Button ID="btnViewInPDF" runat="server"  ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
      PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
 <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
@@ -100,14 +105,25 @@
         </td>
        </tr>
        </table>--%>
-<table width="85%">
+        </table>
+        <table width="100%">
+        <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Order entered Successfully
+            </div>
+        </td>
+       </tr>
+       </table>
+<table width="100%">
 
 <tr>
   <td align="right" valign="top">
-<asp:Label ID="lblAssetType" runat="server" Text="Asset Type: "  CssClass="FieldName"></asp:Label>
+<asp:Label ID="lblAssetType" runat="server" Text="Asset Type: "  CssClass="FieldName"></asp:Label><br />
+<asp:Label ID="lblBranch" runat="server" Text="Branch: "  CssClass="FieldName"></asp:Label>
 </td>
   <td valign="top">
-  <asp:Label ID="lblShowAssetType" runat="server" Text="Mutual Fund"  CssClass="FieldName"></asp:Label>
+  <asp:Label ID="lblShowAssetType" runat="server" Text="Mutual Fund"  CssClass="FieldName"></asp:Label><br />
 <%--    <asp:DropDownList ID="ddlAssetType" runat="server" CssClass="cmbField" 
           AutoPostBack="true" onselectedindexchanged="ddlAssetType_SelectedIndexChanged">
        <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
@@ -117,11 +133,12 @@
         <asp:ListItem Text="Loan Application" Value="Loan Application"></asp:ListItem>
         <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
      </asp:DropDownList>--%>
+     <asp:Label ID="lblGetBranch" runat="server" Text=""  CssClass="FieldName"></asp:Label>
   </td>
-  <td align="right" valign="top">
+  <td align="right">
   <asp:Label ID="lblCustomer" runat="server" Text="Customer: "  CssClass="FieldName"></asp:Label>
   </td>
-  <td align="left" valign="top">
+  <td align="left">
     <%--
    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" 
           AutoPostBack="true"  AutoComplete="Off"></asp:TextBox>
@@ -141,19 +158,19 @@
      <span style='font-size: 10px; font-weight: normal' class='FieldName'><br />
      Enter few characters of Customer. </span>--%>
      <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
+     <span id="spnCustomer" class="spnRequiredField">*</span>
      <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
      TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
      MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
      CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
      CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
      UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                              
+      <span style='font-size: 9px; font-weight: normal' class='FieldName'><br />
+       Enter few characters of Individual customer name. </span>                                                        
                                                             
-                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
-                                                                ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
-                                                                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator><span
-                                                                    style='font-size: 9px; font-weight: normal' class='FieldName'><br />
-                                                                    Enter few characters of Individual customer name. </span>
+       <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCustomerName"
+       ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
+       CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
       
     </td>
     <td>
@@ -165,13 +182,14 @@
     </td>
 </tr>
 <tr>
+ 
   <td align="right">
-  <asp:Label ID="lblBranch" runat="server" Text="Branch: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-  <asp:Label ID="lblGetBranch" runat="server" Text=""  CssClass="FieldName"></asp:Label>
+  <asp:Label ID="lblPan" runat="server" Text="PAN No: "  CssClass="FieldName"></asp:Label>
   <%-- <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" 
           onselectedindexchanged="ddlBranch_SelectedIndexChanged"></asp:DropDownList>--%>
+  </td>
+  <td>
+  <asp:Label ID="lblgetPan" runat="server" Text=""  CssClass="FieldName"></asp:Label>
   </td>
   <td align="right">
   <asp:Label ID="lblRM" runat="server" Text="RM: "  CssClass="FieldName"></asp:Label>
@@ -183,17 +201,17 @@
 </tr>
 <tr>
 <td align="right">
-  <asp:Label ID="lblPan" runat="server" Text="PAN No: "  CssClass="FieldName"></asp:Label>
+  
   </td>
    <td>
-  <asp:Label ID="lblgetPan" runat="server" Text=""  CssClass="FieldName"></asp:Label>
+  
   </td>
   <td colspan="2"></td>
 </tr>
 
 
 <tr id="trSectionTwo1" runat="server">
-<td colspan="4">
+<td colspan="5">
 <hr />
 </td>
 </tr>
@@ -215,7 +233,7 @@
         <%--<asp:ListItem Text="Change Of Bank Details" Value="Change_Of_Bank_Details"></asp:ListItem>--%>
        <%-- <asp:ListItem Text="ConsoliDation Of Folio" Value="ConsoliDation_Of_Folio"></asp:ListItem>
         <asp:ListItem Text="Change Of Nominee" Value="Change_Of_Nominee"></asp:ListItem>--%>
-    </asp:DropDownList>
+    </asp:DropDownList><span id="spnTransType" class="spnRequiredField">*</span>
     <asp:CompareValidator ID="CVTrxType" runat="server" 
                         ControlToValidate="ddltransType" CssClass="cvPCG" Display="Dynamic" 
                         ErrorMessage="<br />Please select a transaction type" Operator="NotEqual" 
@@ -230,6 +248,7 @@
   </td>
   <td align="left">
   <asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox>
+  <span id="spnReceiveDate" class="spnRequiredField">*</span>
            <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReceivedDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -247,7 +266,7 @@
   <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: "  CssClass="FieldName"></asp:Label>
   </td>
   <td valign="top">
- <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
+ <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
                CssClass="rfvPCG" ErrorMessage="<br />Please select a Application number" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -261,7 +280,7 @@
 <td align="left">
   <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
         onselectedindexchanged="ddlAMCList_SelectedIndexChanged">
-  </asp:DropDownList>
+  </asp:DropDownList><span id="Span2" class="spnRequiredField">*</span>
   <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select an AMC" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
 </td>
@@ -283,7 +302,7 @@
   <td>  
 <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
           onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
-</asp:DropDownList> 
+</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   
@@ -309,8 +328,20 @@
   <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
-  <asp:Label ID="lblGetOrderDate" runat="server" Text=""  CssClass="cmbField"></asp:Label>   
-         
+  <%--<asp:Label ID="lblGetOrderDate" runat="server" Text=""  CssClass="cmbField"></asp:Label>--%>   
+   <asp:TextBox ID="txtOrderDate" runat="server" CssClass="txtField"></asp:TextBox><span id="Span4" class="spnRequiredField">*</span>
+           <cc1:CalendarExtender ID="CalendarExtender9" runat="server" TargetControlID="txtOrderDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server"
+                TargetControlID="txtOrderDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
+              Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
+              ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select order date" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>     
   </td>
   <td align="right">
   <asp:Label ID="Label2" runat="server" Text="Portfolio: "  CssClass="FieldName"></asp:Label>
@@ -370,7 +401,7 @@
 </tr>
 <tr id="trSectionTwo10" runat="server">
  
- <td  align="right" valign="top">
+ <td  align="right" >
  <asp:Label ID="lblFutureDate" runat="server" Text="Select Future Date: "  CssClass="FieldName"></asp:Label>
  </td>
  <td>
@@ -402,7 +433,7 @@
 
 
 <tr id="trPurchase" runat="server">
-<td colspan="4">
+<td colspan="5">
 <hr />
 </td>
 </tr>
@@ -468,7 +499,9 @@
   <asp:Label ID="lblBankName" runat="server" Text="Bank Name: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
- <asp:TextBox ID="txtBankName" runat="server" CssClass="txtField"></asp:TextBox>
+ <%--<asp:TextBox ID="txtBankName" runat="server" CssClass="txtField"></asp:TextBox>--%>
+  <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" >
+   </asp:DropDownList>
   </td>
    <td align="right">
   <asp:Label ID="lblBranchName" runat="server" Text="Branch Name: "  CssClass="FieldName"></asp:Label>
@@ -519,7 +552,7 @@
 </tr>
 
 <tr id="trPurchase4" runat="server">
-<td colspan="4">
+<td colspan="5">
 <hr />
 </td>
 </tr>
@@ -613,7 +646,7 @@
 </tr>
 
 <tr id="trSell4" runat="server">
-<td colspan="4">
+<td colspan="5">
 <hr />
 </td>
 </tr>
@@ -792,3 +825,5 @@
 </table>
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server"  onvaluechanged="txtCustomerId_ValueChanged" />
+<asp:HiddenField ID="hdnSchemeCode" runat="server" />
+<asp:HiddenField ID="hdnType" runat="server" />
