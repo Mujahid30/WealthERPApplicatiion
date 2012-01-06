@@ -12,11 +12,10 @@
     <td>
      <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
     PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" 
-    AllowAutomaticInserts="false" OnItemDataBound="RadGrid1_ItemDataBound" OnDataBound="RadGrid1_DataBound"
-    OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand" OnInsertCommand="RadGrid1_InsertCommand"
-    OnPreRender="RadGrid1_PreRender" OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated" 
+    AllowAutomaticInserts="false" OnItemDataBound="RadGrid1_ItemDataBound" OnDataBound="RadGrid1_DataBound" OnDeleteCommand="RadGrid1_DeleteCommand" 
+    OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand" OnInsertCommand="RadGrid1_InsertCommand"    
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XAMP_ModelPortfolioCode">
-        <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="XAMP_ModelPortfolioCode">
+        <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="XAMP_ModelPortfolioCode,XRC_RiskClassCode">
             <Columns>
                  <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
                     CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
@@ -64,11 +63,11 @@
                 <telerik:GridBoundColumn UniqueName="XAMP_RiskPercentage" HeaderText="Risk(%)" DataField="XAMP_RiskPercentage">
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Remove" ConfirmText="Are you sure you want to Remove this Row?" 
+                <%--<telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Remove" ConfirmText="Are you sure you want to Remove this Row?" 
                 ShowInEditForm="true" ImageUrl="../Images/Telerik/Delete.gif" Text="Remove Row" UniqueName="Remove">
-                </telerik:GridButtonColumn>
+                </telerik:GridButtonColumn>--%> 
                 
-                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="column">
                 </telerik:GridButtonColumn>
             </Columns>
             <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center"
@@ -80,7 +79,7 @@
                                 <asp:Label ID="lblNamePortfolio" runat="server" Text="Portfolio Name :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtNamePortfolio" CssClass="txtField" runat="server">
+                                <asp:TextBox ID="txtNamePortfolio" CssClass="txtField" Text='<%# Bind( "XAMP_ModelPortfolioName") %>' runat="server">
                                 </asp:TextBox>                               
                             </td>
                             <td>
@@ -90,7 +89,7 @@
                             </asp:RequiredFieldValidator>
                             </td>
                         </tr>
-                        <tr id="trEditNamePortfolio" runat="server">
+                        <tr id="trEditNamePortfolio" runat="server" visible="false">
                             <td class="leftField">
                                 <asp:Label ID="lblPortfolioName" runat="server" Text="Portfolio Name :" CssClass="FieldName"></asp:Label>
                             </td>
@@ -134,7 +133,7 @@
                                 <asp:Label ID="lblMinAum" runat="server" Text="From :" CssClass="FieldName"></asp:Label>                                
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMinAUM" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMinAUM" runat="server" Text='<%# Bind( "XAMP_MinAUM") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                              <td>
@@ -154,7 +153,7 @@
                                 <asp:Label ID="lblMaxAUM" runat="server" Text="To :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMaxAUM" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMaxAUM" runat="server" Text='<%# Bind( "XAMP_MaxAUM") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                              <td>
@@ -180,7 +179,7 @@
                                 <asp:Label ID="lblMinAge" runat="server" Text="From :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMinAge" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMinAge" runat="server" Text='<%# Bind( "XAMP_MinAge") %>' CssClass="txtField">
                                 </asp:TextBox>                               
                             </td>
                             <td>
@@ -200,7 +199,7 @@
                                 <asp:Label ID="lblMaxAge" runat="server" Text="To :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMaxAge" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -225,7 +224,7 @@
                             <asp:Label ID="lblMinTimeHorizonYear" runat="server" Text="Minimum Year:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMinTimeHorizonYear" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMinTimeHorizonYear" runat="server"  Text='<%# Bind( "MinYear") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -245,7 +244,7 @@
                             <asp:Label ID="lblMinTimeHorizonMonth" runat="server" Text="Minimum month:" CssClass="FieldName"></asp:Label>                            
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" Text='<%# Bind( "MinMonth") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -265,7 +264,7 @@
                             <asp:Label ID="lblMaxTimeHorizonYear" runat="server" Text="Maximum Year:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMaxTimeHorizonYear" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMaxTimeHorizonYear" runat="server" Text='<%# Bind( "MaxYear") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -285,7 +284,7 @@
                             <asp:Label ID="lblMaxTimeHorizonMonth" runat="server" Text="Maximum month :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" Text='<%# Bind( "MaxMonth") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -305,7 +304,7 @@
                                 <asp:Label ID="lblDescription" runat="server" Text="Description :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField" colspan="3">
-                                <asp:TextBox ID="txtDescription" TextMode="MultiLine" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtDescription" TextMode="MultiLine" Text='<%# Bind( "XAMP_Description") %>' runat="server" CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -325,7 +324,7 @@
                                 <asp:Label ID="lblDebt" runat="server" Text="Debt :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtDebt" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtDebt" runat="server" Text='<%# Bind( "Debt") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -345,7 +344,7 @@
                                 <asp:Label ID="lblEquity" runat="server" Text="Equity :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtEquity" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtEquity" runat="server" Text='<%# Bind( "Equity") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -365,7 +364,7 @@
                                 <asp:Label ID="lblCash" runat="server" Text="Cash :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtCash" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtCash" runat="server" Text='<%# Bind( "Cash") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -385,7 +384,7 @@
                                 <asp:Label ID="lblAlternate" runat="server" Text="Alternate :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox ID="txtAlternate" runat="server" CssClass="txtField">
+                                <asp:TextBox ID="txtAlternate" runat="server" Text='<%# Bind( "Alternate") %>' CssClass="txtField">
                                 </asp:TextBox>
                             </td>
                             <td>
@@ -421,13 +420,13 @@
     </td>
     <td></td>
     </tr>
-<tr>
+<%--<tr>
     <td>
         <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" onclick="btnSubmit_Click" 
            />
     </td>
     <td></td>
     </tr>
-  
+  --%>
 </table>
   
