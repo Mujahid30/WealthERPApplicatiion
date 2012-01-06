@@ -282,7 +282,7 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" ImageUrl="~/Images/new.gif" Text="Market Data"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
