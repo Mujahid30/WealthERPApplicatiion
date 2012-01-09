@@ -484,9 +484,12 @@
                             <td colspan="2" style="font-size: small">
                                 <b>Monthly SIP MF Funding</b>
                             </td>
+                             <td runat="server" align="right">
+     <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
+     </td>
                         </tr>
      <tr>
-     <td>
+     <td colspan="3">
       <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
         AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -611,9 +614,7 @@
         </ClientSettings>
     </telerik:RadGrid>
      </td>
-     <td>
-     <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
-     </td>
+  
      </tr>
      </table>
     </asp:Panel>
