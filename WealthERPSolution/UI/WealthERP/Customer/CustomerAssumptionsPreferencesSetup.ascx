@@ -28,15 +28,15 @@
         <telerik:RadTab runat="server" Text="Assumptions" onclick="HideStatusMsg()"
             Value="Assumtion" TabIndex="0" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Goal Funding" onclick="HideStatusMsg()"
+        <telerik:RadTab runat="server" Text="Preferences" onclick="HideStatusMsg()"
             Value="Preferences" TabIndex="1">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Model Portfolio" onclick="HideStatusMsg()"
+    <%--    <telerik:RadTab runat="server" Text="Model Portfolio" onclick="HideStatusMsg()"
             Value="Calculation Basis" TabIndex="2">
         </telerik:RadTab>
          <telerik:RadTab runat="server" Text="Retirement" onclick="HideStatusMsg()"
             Value="Retirement" TabIndex="2">
-        </telerik:RadTab>
+        </telerik:RadTab>--%>
         
     </Tabs>
 </telerik:RadTabStrip>
@@ -150,22 +150,29 @@
  
  <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="Panel1" runat="server">
-         <table width="50%">
+         <table>
             <tr>
             <td><br /></td>
             </tr>
                 <tr>
                 <td></td>
    <td>
-<asp:RadioButton ID="rbtnMapping" runat="server" CssClass="cmbField" Text="Mapping" GroupName="gpPlan" Checked="true"/>
+<asp:CheckBox ID="chkMapping" runat="server" CssClass="cmbField" Text="Goal funding from MF Investments" />
         
  </td>
 
                     </tr>
                     <tr>
                     <td></td><td>
-                        <asp:RadioButton ID="rbtnConsolidateEntry" runat="server" CssClass="cmbField" 
-                            GroupName="gpPlan" Text="Consolidate Entry" />
+                        <asp:CheckBox ID="chkRetirement" runat="server" CssClass="cmbField" 
+                             Text="Retirement calculation basis corpus to be left behind" />
+                        </td>
+                    </tr>
+                    
+                     <tr>
+                    <td></td><td>
+                        <asp:CheckBox ID="chkModelPortFolio" runat="server" CssClass="cmbField" 
+                          Text="View Model Portfolio" />
                         </td>
                     </tr>
                     
@@ -179,108 +186,7 @@
                     </table>
         </asp:Panel>
         </telerik:RadPageView>
-        
-        
-        <telerik:RadPageView ID="RadPageView1" runat="server">
-        <asp:Panel ID="Panel2" runat="server">
-         <table width="50%">
-   <tr>
-       <td style="width:35px">
-       </td>
-       <td>
-       <br />
-          <%-- <asp:Label ID="lblRetirementGoalAnalysis0" runat="server" CssClass="FieldName" 
-               Text="Retirement Goal Settings:"></asp:Label>--%>
-     </td>
-   </tr>
-       </table>
-       <table width="50%">
-   <tr>
-       <td style="width:95px"></td>
-       
-       <td align="left">
-           <asp:RadioButton ID="rbtnYes" runat="server" Checked="true" 
-               CssClass="cmbField" GroupName="gpRetirement" 
-               Text="Yes" />
-       </td><td></td>
-       </tr>
-   <tr>
-   <td style="width:95px"></td>
-   <td align="left">
-       <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" 
-           GroupName="gpRetirement" Text="No" />
-       </td><td>
-           &nbsp;</td>
-   </tr>
-   <tr>
-   <td style="width:35px"></td>
-   <td></td><td></td>
-   </tr>
-   <tr>
-   <td style="width:35px"></td>
-   <td>
-  <%--     <asp:Button ID="btnCalculationBasis" OnClientClick="clientSideFunctionsForSubmit()" runat="server" CssClass="PCGButton" 
-           OnClick="btnCalculationBasis_OnClick " Text="Submit" />--%>
-            <asp:Button ID="btnCalculationBasis" runat="server" CssClass="PCGButton" 
-           OnClick="btnCalculationBasis_OnClick " Text="Submit" />
-   </td>
-   <td></td>
-   </tr>
-           </table>
-        
-         </asp:Panel>
-        </telerik:RadPageView>
-        
-         <telerik:RadPageView ID="RadPageView4" runat="server">
-        <asp:Panel ID="Retirementpnl" runat="server">
-          <table width="50%">
-   <tr>
-       <td style="width:35px">
-       </td>
-       <td>
-       <br />
-          <%-- <asp:Label ID="lblRetirementGoalAnalysis0" runat="server" CssClass="FieldName" 
-               Text="Retirement Goal Settings:"></asp:Label>--%>
-     </td>
-   </tr>
-       </table>
-       <table width="50%">
-   <tr>
-       <td style="width:95px"></td>
-       
-       <td align="left">
-           <asp:RadioButton ID="rbtnNoCorpus" runat="server" Checked="true" 
-               CssClass="cmbField" GroupName="grpRetirement" 
-               Text="No corpus to be left behind" />
-       </td><td></td>
-       </tr>
-   <tr>
-   <td style="width:95px"></td>
-   <td align="left">
-       <asp:RadioButton ID="rbtnCorpus" runat="server" CssClass="cmbField" 
-           GroupName="grpRetirement" Text="Corpus to be left behind" />
-       </td><td>
-           &nbsp;</td>
-   </tr>
-   <tr>
-   <td style="width:35px"></td>
-   <td></td><td></td>
-   </tr>
-   <tr>
-   <td style="width:35px"></td>
-   <td>
-  <%--     <asp:Button ID="btnCalculationBasis" OnClientClick="clientSideFunctionsForSubmit()" runat="server" CssClass="PCGButton" 
-           OnClick="btnCalculationBasis_OnClick " Text="Submit" />--%>
-            <asp:Button ID="Button3" runat="server" CssClass="PCGButton" 
-           OnClick="btnRetirementCalculationBasis_OnClick" Text="Submit" />
-   </td>
-   <td></td>
-   </tr>
-           </table>
-        
-         </asp:Panel>
-        </telerik:RadPageView>
-    </telerik:RadMultiPage>
+ </telerik:RadMultiPage>
  
  <asp:HiddenField ID="hdnLEValue" Value="0" runat="server" />    
 <asp:HiddenField ID="hdnRAValue" Value="0" runat="server" />    

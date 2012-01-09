@@ -189,39 +189,52 @@ namespace WealthERP.Customer
 
         public void UpdatePlanPreferences()
         {
-            if (rbtnMapping.Checked)
+            if (chkMapping.Checked)
             {
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 5, 3);
-               
             }
-            if (rbtnConsolidateEntry.Checked)
+            else
             {
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 6, 3);
-              
-                //IsSpouseExist();
             }
-
-        }
-
-        protected void btnCalculationBasis_OnClick(object sender, EventArgs e)
-        {
-            UpdateCalculationBasis();
-            //msgRecordStatus.Visible = true;
-        }
-
-        public void UpdateCalculationBasis()
-        {
-            if (rbtnYes.Checked)
+            if (chkRetirement.Checked)
+            {
+                customerBo.InsertPlanPreferences(customerVo.CustomerId, 2, 1);
+            }
+            else
+            {
+                customerBo.InsertPlanPreferences(customerVo.CustomerId, 1, 1);
+            }
+            if (chkModelPortFolio.Checked)
             {
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 7, 4);
-               
             }
-            if (rbtnNo.Checked)
+            else
             {
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 8, 4);
-                
             }
+
         }
+
+        //protected void btnCalculationBasis_OnClick(object sender, EventArgs e)
+        //{
+        //    UpdateCalculationBasis();
+        //    //msgRecordStatus.Visible = true;
+        //}
+
+        //public void UpdateCalculationBasis()
+        //{
+        //    if (rbtnYes.Checked)
+        //    {
+        //        customerBo.InsertPlanPreferences(customerVo.CustomerId, 7, 4);
+               
+        //    }
+        //    if (rbtnNo.Checked)
+        //    {
+        //        customerBo.InsertPlanPreferences(customerVo.CustomerId, 8, 4);
+                
+        //    }
+        //}
 
         public void SetDefaultPlanRetirementValueForCustomer()
         {
@@ -229,11 +242,12 @@ namespace WealthERP.Customer
             customerId = customerVo.CustomerId;
             int calculationIdRowI = 0;
             int calculationIdRowII = 0;
+            int calculationIdRowIII = 0;
             int calculationBasisIdI = 0;
             int calculationBasisIdII = 0;
             int calculationBasisIdIII = 0;
-            int calculationIdRowIII = 0;
-
+         
+          
             DataSet dsSetDefaultPlanRetirementValueForCustomer;
             dsSetDefaultPlanRetirementValueForCustomer = customerBo.SetDefaultPlanRetirementValueForCustomer(customerId);
 
@@ -248,47 +262,39 @@ namespace WealthERP.Customer
 
                 calculationBasisIdIII = int.Parse(dsSetDefaultPlanRetirementValueForCustomer.Tables[0].Rows[2]["WFPCB_CalculationBasisId"].ToString());
                 calculationIdRowIII = int.Parse(dsSetDefaultPlanRetirementValueForCustomer.Tables[0].Rows[2]["WFPCB_CalculationId"].ToString());
-                
-                
-                if (calculationIdRowI == 3)
-                {
-                    if (calculationBasisIdI == 5)
-                    {
-                        rbtnMapping.Checked = true;
-                        rbtnConsolidateEntry.Checked = false;
 
+
+                if (calculationIdRowII == 3)
+                {
+                    if (calculationBasisIdII == 5)
+                    {
+                        chkMapping.Checked = true;
                     }
                     else
                     {
-                        rbtnMapping.Checked = false;
-                        rbtnConsolidateEntry.Checked = true;
+                        chkMapping.Checked = false;
                     }
                 }
-                if (calculationIdRowII == 4)
+                if (calculationIdRowIII == 4)
                 {
-                    if (calculationBasisIdII == 7)
+                    if (calculationBasisIdIII == 7)
                     {
-                        rbtnYes.Checked = true;
-                        rbtnNo.Checked = false;
+                        chkModelPortFolio.Checked=true;
                     }
                     else
                     {
-                        rbtnYes.Checked = false;
-                        rbtnNo.Checked = true;
+                        chkModelPortFolio.Checked = false;
                     }
                 }
-                if (calculationIdRowIII == 1)
+                if (calculationIdRowI == 1)
                 {
-                    if (calculationBasisIdIII == 1)
+                    if (calculationBasisIdI == 1)
                     {
-                        rbtnNoCorpus.Checked = true;
-                       rbtnCorpus.Checked = false;
-
+                        chkRetirement.Checked = false;
                     }
                     else
                     {
-                        rbtnNoCorpus.Checked = false;
-                        rbtnCorpus.Checked = true;
+                        chkRetirement.Checked = true;
                     }
                 }
 
@@ -296,27 +302,27 @@ namespace WealthERP.Customer
 
             else
             {
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 5, 3);
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 7, 4);
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 1, 1);
+                customerBo.InsertPlanPreferences(customerVo.CustomerId,1, 1);
+                customerBo.InsertPlanPreferences(customerVo.CustomerId,6, 3);
+                customerBo.InsertPlanPreferences(customerVo.CustomerId,8, 4);
                 SetDefaultPlanRetirementValueForCustomer();
             }
 
         }
 
-        protected void btnRetirementCalculationBasis_OnClick(object sender, EventArgs e)
-        {
-            UpdateRetirementCalculationBasis();
-            //msgRecordStatus.Visible = true;
-        }
-        public void UpdateRetirementCalculationBasis()
-        {
-            if (rbtnNoCorpus.Checked)
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 1, 1);
-            if (rbtnCorpus.Checked)
-                customerBo.InsertPlanPreferences(customerVo.CustomerId, 2, 1);
+        //protected void btnRetirementCalculationBasis_OnClick(object sender, EventArgs e)
+        //{
+        //    UpdateRetirementCalculationBasis();
+        //    //msgRecordStatus.Visible = true;
+        //}
+        //public void UpdateRetirementCalculationBasis()
+        //{
+        //    if (rbtnNoCorpus.Checked)
+        //        customerBo.InsertPlanPreferences(customerVo.CustomerId, 1, 1);
+        //    if (rbtnCorpus.Checked)
+        //        customerBo.InsertPlanPreferences(customerVo.CustomerId, 2, 1);
 
-        }
+        //}
 
     }
 }
