@@ -239,8 +239,16 @@
                         ErrorMessage="<br />Please select a transaction type" Operator="NotEqual" 
                         ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   </td>
-  <td colspan="2">
-   </td>
+  <td align="right" valign="top">
+<asp:Label ID="lblAMC" runat="server" Text="AMC: "  CssClass="FieldName"></asp:Label>
+</td>
+<td align="left">
+  <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
+        onselectedindexchanged="ddlAMCList_SelectedIndexChanged">
+  </asp:DropDownList><span id="Span2" class="spnRequiredField">*</span>
+  <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList" CssClass="cvPCG" Display="Dynamic" 
+   ErrorMessage="<br />Please select an AMC" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+</td>
 </tr>
 <tr id="trSectionTwo2" runat="server">
 <td align="right" valign="top">
@@ -262,28 +270,30 @@
                CssClass="rfvPCG" ErrorMessage="<br />Please select a Application receive Date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
   </td>
-   <td align="right" valign="top">
-  <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: "  CssClass="FieldName"></asp:Label>
+   <td align="right" valign="top"> 
+  <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
   </td>
-  <td valign="top">
- <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
- <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
-               CssClass="rfvPCG" ErrorMessage="<br />Please select a Application number" Display="Dynamic"
-               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+  <td>  
+<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+          onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
+</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
+<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
+   ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+  
+   
   </td>
   
 </tr>
 <tr id="trSectionTwo4" runat="server">
 <td align="right" valign="top">
-<asp:Label ID="lblAMC" runat="server" Text="AMC: "  CssClass="FieldName"></asp:Label>
-</td>
-<td align="left">
-  <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
-        onselectedindexchanged="ddlAMCList_SelectedIndexChanged">
-  </asp:DropDownList><span id="Span2" class="spnRequiredField">*</span>
-  <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList" CssClass="cvPCG" Display="Dynamic" 
-   ErrorMessage="<br />Please select an AMC" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-</td>
+  <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: "  CssClass="FieldName"></asp:Label>
+  </td>
+   <td valign="top">
+ <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
+ <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select a Application number" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+  </td>
 
 <td align="right">
 <asp:Label ID="Label7" runat="server" Text="Category: "  CssClass="FieldName"></asp:Label>
@@ -296,18 +306,7 @@
 </tr>
 
 <tr id="trSectionTwo5" runat="server">
-  <td align="right" valign="top"> 
-  <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>  
-<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-          onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
-</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
-<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
-   ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-  
-   
-  </td>
+  <td colspan="2"></td>
   <td align="right" valign="top">
   <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number: "  CssClass="FieldName"></asp:Label>
   </td>
@@ -317,9 +316,7 @@
    </asp:DropDownList>
    <%--<asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlFolioNumber" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select a folio" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>
-   <asp:Button ID="btnAddFolio" runat="server" Text="Add a Folio" CssClass="PCGMediumButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddFolio','M');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddFolio','M');" Visible="false"/>
-  </td>
+    </td>
  
 </tr>
 
@@ -445,7 +442,10 @@
   <asp:Label ID="lblAmount" runat="server" Text="Amount: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
- <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
+ <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
+ <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>  
   <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
    Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
   </td>
@@ -453,7 +453,7 @@
   <td align="right" valign="top">
   <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment: "  CssClass="FieldName"></asp:Label>
   </td>
-  <td>
+  <td valign="top">
   <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
   <asp:ListItem Text="Cheque" Value="CQ" Selected="True"></asp:ListItem>
   <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
@@ -489,6 +489,9 @@
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                                     Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                                     ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                                    <asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than Order Date"
+                            Type="Date" ControlToValidate="txtPaymentInstDate" ControlToCompare="txtOrderDate" Operator="LessThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
 </td>
 
 
