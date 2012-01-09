@@ -175,9 +175,9 @@
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif"  Text="Order Management" Value="OrderManagement">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Entry" Value="OrderEntry">
-                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Query/MIS" Value="OrderMIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Entry" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Recon" Value="OrderRecon">
                                                     </telerik:RadPanelItem>
@@ -438,13 +438,13 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             
-                                             <telerik:RadPanelItem runat="server" Text="Order Management" Value="OrderManagement">
+                                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Management" Value="OrderManagement">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">
+                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Query/MIS" Value="OrderMIS">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS" Value="OrderMIS">
+                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Entry" Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Recon" Value="OrderRecon">
+                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Recon" Value="OrderRecon">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
