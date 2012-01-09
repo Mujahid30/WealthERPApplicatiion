@@ -2085,10 +2085,10 @@ namespace WealthERP.Advisor
 
             bool isGrpHead = false;
 
-            if (Session[SessionContents.PortfolioId] != null)
-            {
-                Session.Remove(SessionContents.PortfolioId);
-            }
+            //if (Session[SessionContents.PortfolioId] != null)
+            //{
+            //    Session.Remove(SessionContents.PortfolioId);
+            //}
             ddlAction = (DropDownList)sender;
             gvr = (GridViewRow)ddlAction.NamingContainer;
             selectedRow = gvr.RowIndex;
