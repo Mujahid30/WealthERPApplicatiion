@@ -402,12 +402,12 @@ namespace BoOps
             return operationVo;
         }
 
-        public bool UpdateMFTransaction(int gvOrderId,int gvSchemeCode, int gvaccountId, string gvTrxType,int gvPortfolioId,double gvAmount)
+        public bool UpdateMFTransaction(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, DateTime gvOrderDate)
         {
             bool Result = false;
             try
             {
-                Result=operationDao.UpdateMFTransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result);
+                Result = operationDao.UpdateMFTransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result, gvOrderDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -418,13 +418,14 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:UpdateMFTransaction()");
-                object[] objects = new object[6];
+                object[] objects = new object[7];
                 objects[0] = gvOrderId;
                 objects[1] = gvSchemeCode;
                 objects[2] = gvaccountId;
                 objects[3] = gvTrxType;
                 objects[4] = gvPortfolioId;
                 objects[5] = gvAmount;
+                objects[6] = gvOrderDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -447,12 +448,12 @@ namespace BoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount, string TrxType)
+        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, DateTime orderDate, string TrxType)
         {
             bool Result = false;
             try
             {
-                Result = operationDao.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, out Result, TrxType);
+                Result = operationDao.OrderMannualMatch(OrderId, accountId, SchemeCode,orderDate, out Result, TrxType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -463,12 +464,12 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:OrderMannualMatch()");
-                object[] objects = new object[5];
+                object[] objects = new object[4];
                 objects[0] = OrderId;
                 objects[1] = accountId;
                 objects[2] = SchemeCode;
-                objects[3] = PortfolioId;
-                objects[4] = Amount;
+                objects[3] = orderDate;
+                
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
