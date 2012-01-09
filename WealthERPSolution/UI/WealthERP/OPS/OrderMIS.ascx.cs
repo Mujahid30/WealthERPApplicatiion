@@ -579,6 +579,7 @@ namespace WealthERP.OPS
             int gvaccountId = 0;
             string gvTrxType = "";
             double gvAmount = 0.0;
+            DateTime gvOrderDate = DateTime.MinValue;
             bool result = false;
             foreach (GridViewRow gvRow in gvMIS.Rows)
            {
@@ -611,11 +612,12 @@ namespace WealthERP.OPS
                             gvaccountId = 0;
                         gvTrxType = gvMIS.DataKeys[gvRow.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         gvAmount = Convert.ToDouble(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_Amount"].ToString());
-                        result=operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount);
+                        gvOrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_OrderDate"].ToString());
+                        result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
                         if (result == true)
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sync done');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match done');", true);
                         else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to sync');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
                     }
                 }
                 BindMISGridView();
@@ -829,61 +831,82 @@ namespace WealthERP.OPS
 
         protected void btnMannualMatch_Click(object sender, EventArgs e)
         {
-            int count = 0;
+            int i = 0;
             foreach (GridViewRow gvRow in gvMIS.Rows)
             {
+
                 CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
                 if (chk.Checked)
                 {
-                    count++;
+                    i++;
                 }
-                if(count>1)
-                    chk.Checked = false;
 
             }
-            if (count == 0)
+            if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
                 BindMISGridView();
             }
-            if (count == 1)
-            {
-                int OrderId = 0;
-                int PortfolioId = 0;
-                int SchemeCode = 0;
-                int accountId = 0;
-                double Amount = 0.0;
-                string TrxType = string.Empty;
-                bool isUpdate = false;
-                foreach (GridViewRow gvRow1 in gvMIS.Rows)
-                {
-                    if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
-                    {
-                        OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
-                        PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
-                        SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-                        if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
-                            accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
-                        else
-                            accountId = 0;
-                        TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-                        Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
-                        isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, TrxType);
-
-                        if (isUpdate == true)
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
-                        else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
-                    }
-                    
-                }
-                BindMISGridView();
-            }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
-                BindMISGridView();
+                string ids = GetSelectedIdString();
+                Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + ids + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
             }
+           
+            //foreach (GridViewRow gvRow in gvMIS.Rows)
+            //{
+            //    CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+            //    if (chk.Checked)
+            //    {
+            //        count++;
+            //    }
+            //    if(count>1)
+            //        chk.Checked = false;
+
+            //}
+            //if (count == 0)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+            //    BindMISGridView();
+            //}
+            //if (count == 1)
+            //{
+            //    int OrderId = 0;
+            //    int PortfolioId = 0;
+            //    int SchemeCode = 0;
+            //    int accountId = 0;
+            //    double Amount = 0.0;
+            //    string TrxType = string.Empty;
+            //    bool isUpdate = false;
+            //    foreach (GridViewRow gvRow1 in gvMIS.Rows)
+            //    {
+            //        if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
+            //        {
+            //            OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
+            //            PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
+            //            SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
+            //            if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
+            //                accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
+            //            else
+            //                accountId = 0;
+            //            TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
+            //            Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
+            //            isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, TrxType);
+
+            //            if (isUpdate == true)
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
+            //            else
+            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
+            //        }
+                    
+            //    }
+            //    BindMISGridView();
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
+            //    BindMISGridView();
+            //}
            
         }
 

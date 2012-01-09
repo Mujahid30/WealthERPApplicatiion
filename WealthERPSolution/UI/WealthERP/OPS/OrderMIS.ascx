@@ -86,13 +86,14 @@
         <td colspan="3">
             <div class="panel">
                 <p>
-                    "sync" button will synchronise order details and transaction details of Customer.
+                    1.View various orders.<br />
+                    2.Match orders to the receive transactions.
                 </p>
             </div>
         </td>
     </tr>
     <tr>
-        <td class="style12">
+        <td  class="style12" align="right">
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
                 AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 OnClientClick="setFormat('excel')" CausesValidation="false" />
@@ -336,7 +337,7 @@
 
 <tr>
 <td align="right" valign="top">
- <asp:Label ID="lblFrom" runat="server" Text="From Date: "  CssClass="FieldName"></asp:Label>
+ <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: "  CssClass="FieldName"></asp:Label>
 </td>
 <td>
  <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField" >
@@ -351,7 +352,7 @@
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
 </td>
 <td align="right" valign="top">
- <asp:Label ID="lblTo" runat="server" Text="To Date: "  CssClass="FieldName"></asp:Label>
+ <asp:Label ID="lblTo" runat="server" Text="Order ToDate: "  CssClass="FieldName"></asp:Label>
 </td>
 <td>
  <asp:TextBox ID="txtTo" runat="server" CssClass="txtField" ></asp:TextBox>
@@ -420,6 +421,27 @@
                                             </asp:LinkButton>
                                         </ItemTemplate>                                      
                                      </asp:TemplateField>
+                                     
+                                     <asp:BoundField DataField="Customer_Name" HeaderText="Customer" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                      <asp:BoundField DataField="XS_Status" HeaderText="Order Status" ItemStyle-Wrap="false">
+                                        <HeaderStyle HorizontalAlign="left" />
+                                         <ItemStyle HorizontalAlign="left"></ItemStyle>
+                                       </asp:BoundField>
+                                       
+                                            <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
+                                           <HeaderTemplate>
+                                               <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type" ></asp:Label>                  
+                                           </HeaderTemplate>
+                                            <ItemTemplate>
+                                            <asp:Label ID="lblOrderType" runat="server" Text='<%#Eval("CMOT_IsImmediate").ToString() %>'> </asp:Label>
+                                             </ItemTemplate>
+                                            <HeaderStyle Wrap="False" />
+                                            <ItemStyle Wrap="False" />
+                                            </asp:TemplateField>
                                         
                                         <%--<asp:TemplateField HeaderText="OrderNumber">
                                         <ItemTemplate>
@@ -442,20 +464,8 @@
                                                 <HeaderStyle HorizontalAlign="Right" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>--%>
-                                            <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
-                                           <HeaderTemplate>
-                                               <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type" ></asp:Label>                  
-                                           </HeaderTemplate>
-                                            <ItemTemplate>
-                                            <asp:Label ID="lblOrderType" runat="server" Text='<%#Eval("CMOT_IsImmediate").ToString() %>'> </asp:Label>
-                                             </ItemTemplate>
-                                            <HeaderStyle Wrap="False" />
-                                            <ItemStyle Wrap="False" />
-                                            </asp:TemplateField>
-                                             <asp:BoundField DataField="XS_Status" HeaderText="Order Status" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
-                                                <ItemStyle HorizontalAlign="left"></ItemStyle>
-                                            </asp:BoundField>
+                                       
+                                             
                                             
                                             <asp:BoundField DataField="CMOT_ApplicationReceivedDate" HeaderText="Applicateion receive date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="Center" />
@@ -498,11 +508,7 @@
                                                 <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
                                             
-                                             <asp:BoundField DataField="Customer_Name" HeaderText="Customer" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            
+                                           
                                             <asp:BoundField DataField="CMFA_FolioNum" HeaderText="Folio No" ItemStyle-Wrap="false">
                                                 <HeaderStyle HorizontalAlign="Left" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
