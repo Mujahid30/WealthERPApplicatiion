@@ -1121,6 +1121,10 @@ namespace WealthERP.CustomerPortfolio
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                     
                 }
+                if (Request.QueryString["FromPage"] == "CustomerFPGoalFundingProgress")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerFPGoalFundingProgress','?prevPage=PortfolioSystematicEntry');", true);
+                }
                 if (Session["SourcePage"] != null && Session["SourcePage"].ToString() == "ReconReport")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFSystematicTransactionReport','none');", true);
