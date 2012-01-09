@@ -204,7 +204,7 @@ namespace DaoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(string orderId)
+        public DataSet GetOrderMannualMatch(string orderIds)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -213,7 +213,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMannualMatchcmd = db.GetStoredProcCommand("SP_GetMannualOrderMapping");
-                db.AddInParameter(getMannualMatchcmd, "@orderId", DbType.Int32, orderId);
+                db.AddInParameter(getMannualMatchcmd, "@orderIds", DbType.String, orderIds);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)
@@ -226,7 +226,7 @@ namespace DaoOps
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:GetOrderMannualMatch()");
                 object[] objects = new object[1];
-                objects[0] = orderId;
+                objects[0] = orderIds;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -726,7 +726,7 @@ namespace DaoOps
             return operationVo;
         }
 
-        public bool UpdateMFTransactionForSynch(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status)
+        public bool UpdateMFTransactionForSynch(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status, DateTime gvOrderDate)
         {
             Database db;
             DbCommand updateMFTransactionForSynchCmd;
@@ -741,6 +741,7 @@ namespace DaoOps
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@trxType", DbType.String, gvTrxType);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@portfolioId", DbType.Int32, gvPortfolioId);
                 db.AddInParameter(updateMFTransactionForSynchCmd, "@amount", DbType.Double, gvAmount);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDate", DbType.DateTime, gvOrderDate);
                 db.AddOutParameter(updateMFTransactionForSynchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(updateMFTransactionForSynchCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(updateMFTransactionForSynchCmd, "@IsSuccess").ToString());
@@ -754,13 +755,14 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:UpdateMFTransactionForSynch()");
-                object[] objects = new object[6];
+                object[] objects = new object[7];
                 objects[0] = gvOrderId;
                 objects[1] = gvSchemeCode;
                 objects[2] = gvaccountId;
                 objects[3] = gvTrxType;
                 objects[4] = gvPortfolioId;
                 objects[5] = gvAmount;
+                objects[6] = gvOrderDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -888,7 +890,7 @@ namespace DaoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, int PortfolioId, double Amount, out bool status, string TrxType)
+        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode,DateTime orderDate, out bool status, string TrxType)
         {
             Database db;
             int affectedRecords = 0;
@@ -901,8 +903,8 @@ namespace DaoOps
                 db.AddInParameter(getOrderMannualMatchCmd, "@orderId", DbType.Int32, OrderId);
                 db.AddInParameter(getOrderMannualMatchCmd, "@accountId", DbType.Int32, accountId);
                 db.AddInParameter(getOrderMannualMatchCmd, "@schemeCode", DbType.Int32, SchemeCode);
-                db.AddInParameter(getOrderMannualMatchCmd, "@portfolioId", DbType.Int32, PortfolioId);
-                db.AddInParameter(getOrderMannualMatchCmd, "@amount", DbType.Double, Amount);
+                //db.AddInParameter(getOrderMannualMatchCmd, "@portfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getOrderMannualMatchCmd, "@orderDate", DbType.DateTime, orderDate);
                 db.AddInParameter(getOrderMannualMatchCmd, "@type", DbType.String, TrxType);
                 db.AddOutParameter(getOrderMannualMatchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(getOrderMannualMatchCmd) != 0)
@@ -918,12 +920,12 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:OrderMannualMatch()");
-                object[] objects = new object[5];
+                object[] objects = new object[4];
                 objects[0] = OrderId;
                 objects[1] = accountId;
                 objects[2] = SchemeCode;
-                objects[3] = PortfolioId;
-                objects[4] = Amount;
+                objects[3] = orderDate;
+               
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
