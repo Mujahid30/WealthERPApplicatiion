@@ -3,6 +3,25 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<script type="text/javascript" language="javascript">
+
+    function CheckedOnlyOneRadioButton(spanChk) {
+        var IsChecked = spanChk.checked;
+        var CurrentRdbID = spanChk.id;
+        var Chk = spanChk;
+        Parent = document.getElementById("<%=gvMannualMatch.ClientID%>");
+        var items = Parent.getElementsByTagName('input');
+        for (i = 0; i < items.length; i++) {
+            if (items[i].id != CurrentRdbID && items[i].type == "radio") {
+                if (items[i].checked) {
+                    items[i].checked = false;
+
+                }
+            }
+        }
+    }
+
+</script>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title></title>
@@ -20,7 +39,7 @@
 </table>
 
 <table width="100%">
-<tr>
+<%--<tr>
 <td align="left" style="width:25%;">
 <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number: "  CssClass="FieldName"></asp:Label>
 <asp:Label ID="lblGetOrderNo" runat="server" Text=" "  CssClass="FieldName"></asp:Label>
@@ -42,23 +61,21 @@
 <asp:Label ID="lblGetOrderType" runat="server" Text=" "  CssClass="FieldName"></asp:Label>
 </td>
 <td colspan="4"></td>
-</tr>
+</tr>--%>
 
 <tr>
 <td colspan="6">
-<asp:GridView ID="gvMannualMatch" CssClass="GridViewStyle"  runat="server" AutoGenerateColumns="False" DataKeyNames="CMOT_MFOrderId"
+<asp:GridView ID="gvMannualMatch" CssClass="GridViewStyle"  runat="server" AutoGenerateColumns="False" DataKeyNames="CMOT_MFOrderId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_OrderDate"
 ShowFooter="True">
 <RowStyle CssClass="RowStyle" />
 <AlternatingRowStyle CssClass="AltRowStyle" />
  <Columns>
- <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" >
- <HeaderTemplate>
-<asp:Label ID="lblPendingReason" runat="server" Text="Pending/Reject Reason"></asp:Label>
-<%--<br />
-<asp:TextBox ID="txtPendingRejectSearch" runat="server" CssClass="GridViewTxtField" />--%>
-</HeaderTemplate>
+
+
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Map Transaction">
   <ItemTemplate>
-     <asp:Label ID="lblPendingRejectSearchCol" runat="server" Text='<%# Eval("XSR_StatusReason").ToString() %>'></asp:Label>
+  <%--<asp:CheckBox ID="chkMapTransaction" runat="server" />--%>
+  <asp:RadioButton  ID="rbtnMatch" runat="server" Checked="false" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -123,7 +140,7 @@ ShowFooter="True">
 <asp:TextBox ID="txtTransactionTypeSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblTransactionTypeCol" runat="server" Text='<%# Eval("WMTT_TransactionClassificationName").ToString() %>'></asp:Label>
+     <asp:Label ID="lblTransactionTypeCol" runat="server" Text='<%# Eval("WMTT_TransactionClassificationCode").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -187,10 +204,14 @@ ShowFooter="True">
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
 
-<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Map Transaction">
+ <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" >
+ <HeaderTemplate>
+<asp:Label ID="lblPendingReason" runat="server" Text="Pending/Reject Reason"></asp:Label>
+<%--<br />
+<asp:TextBox ID="txtPendingRejectSearch" runat="server" CssClass="GridViewTxtField" />--%>
+</HeaderTemplate>
   <ItemTemplate>
-  <asp:CheckBox ID="chkMapTransaction" runat="server" />
-     <%--<asp:Label ID="lblMapTransactionCol" runat="server" Text='<%# Eval("MapTransaction").ToString() %>'></asp:Label>--%>
+     <asp:Label ID="lblPendingRejectSearchCol" runat="server" Text='<%# Eval("XSR_StatusReason").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -206,7 +227,8 @@ ShowFooter="True">
 </td>
 </tr>
 <td colspan="6" align="left">
-<asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" />
+<asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
+        onclick="btnSubmit_Click" />
 </td>
 </table>
 
