@@ -289,10 +289,10 @@
                                                             <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                                 
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');" Text="Transact/Business online"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');" ImageUrl="~/Images/new.gif" Text="Transact/Business online"
                                                               Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                               
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" ImageUrl="~/Images/new.gif" Text="Info links"
                                                               Value="Info links" ></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
