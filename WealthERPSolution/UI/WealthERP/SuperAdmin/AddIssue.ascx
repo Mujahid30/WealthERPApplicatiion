@@ -3,7 +3,6 @@
     .blinkColors
     {
        font-size:small;
-       color:Red
     }
 </style>
 <%--<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddIssueTracker.ascx.cs" Inherits="WealthERP.SuperAdmin.AddIssueTracker" %>--%>
@@ -298,7 +297,7 @@
                             <asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ErrorMessage="Enter Your Name" Display="Dynamic" ControlToValidate="txtReportedBy" ValidationGroup="vgBtnSubmit"></asp:RequiredFieldValidator>
                             </td>
                              <td class="leftField"><asp:Label class="FieldName" runat="server" ID="lblChkCSClose" Text="Status :"></asp:Label></td>
-                <td class="rightField"><asp:DropDownList runat="server" ID="ddlIssueStatus" 
+                <td class="rightField"><asp:DropDownList OnSelectedIndexChanged="SetToFirstLevel" AutoPostBack="true" runat="server" ID="ddlIssueStatus" 
                         CssClass="cmbField" >
                     <asp:ListItem>Select</asp:ListItem>
                     <asp:ListItem>Open</asp:ListItem>

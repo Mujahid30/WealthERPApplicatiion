@@ -46,9 +46,9 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            System.Drawing.Color color = System.Drawing.Color.FromArgb(255 - 0 - 0);
-            lblOpenClose.Attributes.Add("style", "text-decoration:blink");
-            lblTypes.Attributes.Add("style", "text-decoration:blink");
+            //System.Drawing.Color color = System.Drawing.Color.FromArgb(255 - 0 - 0);
+            //lblOpenClose.Attributes.Add("style", "text-decoration:blink");
+            //lblTypes.Attributes.Add("style", "text-decoration:blink");
             lblOpenClose.BackColor.GetBrightness();
             lblTypes.BackColor.GetBrightness();
             txtVersionReadOnly.Enabled = false;
@@ -97,7 +97,21 @@ namespace WealthERP.SuperAdmin
                 strActiveLevel = Request.QueryString["strActiveLevel"].ToString();
 
             if (Request.QueryString["strStatus"] != null)
+            {
                 strStatus = Request.QueryString["strStatus"].ToString();
+                if (strStatus == "Closed ")
+                {
+                    System.Drawing.Color color = System.Drawing.Color.FromArgb(34 - 139 - 34);
+                    lblTypes.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
+                    lblOpenClose.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
+                }
+                else if(strStatus=="Open ")
+                {
+                    System.Drawing.Color color = System.Drawing.Color.FromArgb(34 - 139 - 34);
+                    lblTypes.Attributes.Add("style", "text-decoration:blink; color: Red");
+                    lblOpenClose.Attributes.Add("style", "text-decoration:blink; color: Red");
+                }
+            }
         }
 
         public void advisorControlDisable()
@@ -208,8 +222,10 @@ namespace WealthERP.SuperAdmin
                 tblErrorMassage.Visible = true;
                 ErrorMessage.InnerHtml = "Record not found";
             }
+
             lblTypes.Text = strActiveLevel.ToString();
             lblOpenClose.Text = strStatus.ToString();
+            
         }
 
         public void CsLevelDataInsertion()
@@ -659,6 +675,7 @@ namespace WealthERP.SuperAdmin
             {
                 if (ddlIssueStatus.SelectedValue.Equals("3"))
                 {
+
                     if (dtSolveDate.SelectedDate != DateTime.MinValue)
                     {
                         DateTime dt = dtSolveDate.SelectedDate.Value;
@@ -1150,6 +1167,12 @@ namespace WealthERP.SuperAdmin
             public void ShowIssueDetailsPage()
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ViewIssuseDetails');", true);   
+            }
+            public void SetToFirstLevel(Object sender, EventArgs e)
+            {
+
+                ddlReportFromCS.SelectedItem.Value.Equals("10");
+               
             }
         }
     }
