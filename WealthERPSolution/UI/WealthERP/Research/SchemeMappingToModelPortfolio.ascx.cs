@@ -21,7 +21,7 @@ using System.Web.UI.HtmlControls;
 namespace WealthERP.Research
 {
     public partial class SchemeMappingToModelPortfolio : System.Web.UI.UserControl
-    {      
+    {
         AdvisorVo advisorVo = new AdvisorVo();
         DataSet dsCategoryList = new DataSet();
         RiskProfileBo riskprofilebo = new RiskProfileBo();
@@ -36,37 +36,43 @@ namespace WealthERP.Research
         DataTable dtGetAMCList = new DataTable();
         DataTable dt = new DataTable();
         DataRow dr;
-        
+
 
         string categoryCode;
         int amcCode = 0;
         string subCategory = "All";
         int AMPTBValueId = 0;
-        int IsActiveFlag = 1;       
+        int IsActiveFlag = 1;
 
-      
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];            
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             //bindRadGrid1();
             if (!IsPostBack)
             {
                 BindSelectedMPDropDown();
-                
-                    dt = new DataTable();
-                    dt.Columns.Add("PASP_SchemePlanName");
-                    dt.Columns.Add("PASP_SchemePlanCode");
-                    dt.Columns.Add("AMFMPD_AllocationPercentage");
-                    dt.Columns.Add("AMFMPD_AddedOn");
-                    dt.Columns.Add("AMFMPD_SchemeDescription");
-                    dt.Columns.Add("AMFMPD_Id");
-                    dt.Columns.Add("AMFMPD_RemovedOn");
-                    dt.Columns.Add("XAR_ArchiveReason");
+                bindRadGrid1();
 
-                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                    RadGrid1.DataSource = dt;
-                    bindRadGrid1();
-                
+                dt = new DataTable();
+                dt.Columns.Add("PASP_SchemePlanName");
+                dt.Columns.Add("PASP_SchemePlanCode");
+                dt.Columns.Add("AMFMPD_AllocationPercentage");
+                dt.Columns.Add("AMFMPD_AddedOn");
+                dt.Columns.Add("AMFMPD_SchemeDescription");
+                dt.Columns.Add("AMFMPD_Id");
+                dt.Columns.Add("AMFMPD_RemovedOn");
+                dt.Columns.Add("XAR_ArchiveReason");
+                dt.Columns.Add("PA_AMCName");
+                dt.Columns.Add("PAIC_AssetInstrumentCategoryName");
+                dt.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+
+                Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                RadGrid1.DataSource = dt;
+                //tblPieChart.Visible = false;
+
+
+
             }
         }
 
@@ -76,9 +82,9 @@ namespace WealthERP.Research
             DataTable dtClass = new DataTable();
             if (ddlSelectedMP.SelectedValue != "0" && ddlSelectedMP.SelectedValue != "")
             {
-                modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                //modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                dtRiskClass = modelPortfolioBo.GetAttachedSchemeDetails(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
 
-                dtRiskClass = modelPortfolioBo.GetAttachedSchemeDetails(modelPortfolioVo, advisorVo.advisorId);
                 if (dtRiskClass.Rows.Count > 0)
                 {
                     dtClass.Columns.Add("PASP_SchemePlanName");
@@ -89,6 +95,9 @@ namespace WealthERP.Research
                     dtClass.Columns.Add("AMFMPD_Id");
                     dtClass.Columns.Add("AMFMPD_RemovedOn");
                     dtClass.Columns.Add("XAR_ArchiveReason");
+                    dtClass.Columns.Add("PA_AMCName");
+                    dtClass.Columns.Add("PAIC_AssetInstrumentCategoryName");
+                    dtClass.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
 
                     DataRow drRiskClass;
                     foreach (DataRow dr in dtRiskClass.Rows)
@@ -100,9 +109,12 @@ namespace WealthERP.Research
                         drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
                         drRiskClass["AMFMPD_Id"] = dr["AMFMPD_Id"].ToString();
                         drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
+                        drRiskClass["PA_AMCName"] = dr["PA_AMCName"].ToString();
+                        drRiskClass["PAIC_AssetInstrumentCategoryName"] = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        drRiskClass["PAISC_AssetInstrumentSubCategoryName"] = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+
                         dtClass.Rows.Add(drRiskClass);
                     }
-
                     Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
                     RadGrid1.DataSource = dtClass;
                     RadGrid1.DataSourceID = String.Empty;
@@ -110,11 +122,13 @@ namespace WealthERP.Research
                 }
                 else
                 {
+                    //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                     RadGrid1.DataSource = dt;
                     RadGrid1.DataBind();
-                    tableGrid.Visible = true;
+                    //tableGrid.Visible = false;
                 }
+                tableGrid.Visible = true;
             }
             else
             {
@@ -122,45 +136,44 @@ namespace WealthERP.Research
                 tblSelectddl.Visible = true;
             }
         }
-        
+
         protected void RadGrid1_DataBound(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
         {
-            try
-            {  
-                TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
-                TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
-                modelPortfolioVo.Weightage = Convert.ToInt32(weightage.Text);
-                modelPortfolioVo.SchemeDescription = description.Text;
-                modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
-                modelPortfolioVo.SchemeCode = Convert.ToInt32(dropdownScheme.SelectedValue);
-                
-                modelPortfolioVo.ArchiveReason = 0;
-                               
-                dt=(DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                
-                dr = dt.NewRow();
-                dr["PASP_SchemePlanName"] = dropdownScheme.SelectedItem;
-                dr["PASP_SchemePlanCode"] = dropdownScheme.SelectedValue;
-                dr["AMFMPD_AllocationPercentage"] = weightage.Text;
-                dr["AMFMPD_SchemeDescription"] = description.Text;
-                dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
-                
-                dt.Rows.Add(dr);
-                
-                //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
-                RadGrid1.DataSource = dt;               
-                RadGrid1.Rebind();
-            }
-            catch (Exception ex)
-            {
-                RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
-                e.Canceled = true;
-            } 
+            //try
+            //{  
+            //    TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
+            //    TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
+            //    modelPortfolioVo.Weightage = Convert.ToInt32(weightage.Text);
+            //    modelPortfolioVo.SchemeDescription = description.Text;
+            //    modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+            //    modelPortfolioVo.SchemeCode = Convert.ToInt32(dropdownScheme.SelectedValue);                
+            //    modelPortfolioVo.ArchiveReason = 0;
+
+            //    dt=(DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+
+            //    dr = dt.NewRow();
+            //    dr["PASP_SchemePlanName"] = dropdownScheme.SelectedItem;
+            //    dr["PASP_SchemePlanCode"] = dropdownScheme.SelectedValue;
+            //    dr["AMFMPD_AllocationPercentage"] = weightage.Text;
+            //    dr["AMFMPD_SchemeDescription"] = description.Text;
+            //    dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
+
+            //    dt.Rows.Add(dr);
+
+            //    //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+            //    RadGrid1.DataSource = dt;               
+            //    RadGrid1.Rebind();
+            //}
+            //catch (Exception ex)
+            //{
+            //    RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
+            //    e.Canceled = true;
+            //} 
         }
 
         protected void Rebind()
@@ -207,22 +220,17 @@ namespace WealthERP.Research
             {
                 TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
                 TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
-                modelPortfolioVo.Weightage = Convert.ToInt32(weightage.Text);
-                modelPortfolioVo.SchemeDescription = description.Text;
-                modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
-                modelPortfolioVo.SchemeCode = Convert.ToInt32(dropdownScheme.SelectedValue);                
-                modelPortfolioVo.ArchiveReason = 0;
-          
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                dr = dt.NewRow();
-                dr["PASP_SchemePlanName"] = dropdownScheme.SelectedItem;
-                dr["PASP_SchemePlanCode"] = dropdownScheme.SelectedValue;
-                dr["AMFMPD_AllocationPercentage"] = weightage.Text;
-                dr["AMFMPD_SchemeDescription"] = description.Text;
-                dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
 
-                dt.Rows.Add(dr);
-                //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                DataRow[] drRow = dt.Select("AMFMPD_Id=" + Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString()));
+
+                foreach (DataRow dr in drRow)
+                {
+                    dr["AMFMPD_AllocationPercentage"] = weightage.Text;
+                    dr["AMFMPD_SchemeDescription"] = description.Text;
+                    dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
+                    dt.AcceptChanges();
+                }
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
             }
@@ -230,7 +238,7 @@ namespace WealthERP.Research
             {
                 RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
                 e.Canceled = true;
-            } 
+            }
             //try
             //{
             //    TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
@@ -270,14 +278,14 @@ namespace WealthERP.Research
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
-                
+
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
-               
+
             }
             else if (e.CommandName == "Archive")
-            {                 
+            {
                 //try
                 //{
                 //    int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
@@ -290,6 +298,41 @@ namespace WealthERP.Research
                 //    e.Canceled = true;
                 //}
             }
+            else if (e.CommandName == "PerformInsert")
+            {
+                try
+                {
+                    TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
+                    TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
+                    modelPortfolioVo.Weightage = Convert.ToInt32(weightage.Text);
+                    modelPortfolioVo.SchemeDescription = description.Text;
+                    modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                    modelPortfolioVo.SchemeCode = Convert.ToInt32(dropdownScheme.SelectedValue);
+                    modelPortfolioVo.ArchiveReason = 0;
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    dr = dt.NewRow();
+                    dr["PASP_SchemePlanName"] = dropdownScheme.SelectedItem;
+                    dr["PASP_SchemePlanCode"] = dropdownScheme.SelectedValue;
+                    dr["AMFMPD_AllocationPercentage"] = weightage.Text;
+                    dr["AMFMPD_SchemeDescription"] = description.Text;
+                    dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
+
+                    dr["PA_AMCName"] = dropdownAMC.SelectedItem;
+                    dr["PAIC_AssetInstrumentCategoryName"] = dropdownCategory.SelectedItem;
+                    dr["PAISC_AssetInstrumentSubCategoryName"] = dropdownSubCategory.SelectedItem;
+
+                    dt.Rows.Add(dr);
+
+                    //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    RadGrid1.DataSource = dt;
+                    RadGrid1.Rebind();
+                }
+                catch (Exception ex)
+                {
+                    RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
+                    e.Canceled = true;
+                }
+            }
             else
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
@@ -299,11 +342,14 @@ namespace WealthERP.Research
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
-            }            
+            }
         }
 
         protected void RadGrid1_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
+
+
+
             if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
             {
                 //the dropdown list will be the first control in the Controls collection of the corresponding cell
@@ -312,34 +358,60 @@ namespace WealthERP.Research
                 dropdownAMC = (DropDownList)edititem.FindControl("ddlAMC");
                 dropdownCategory = (DropDownList)edititem.FindControl("ddlCategory");
                 dropdownSubCategory = (DropDownList)edititem.FindControl("ddlSubCategory");
-                dropdownScheme = (DropDownList)edititem.FindControl("ddlScheme");                
+                dropdownScheme = (DropDownList)edititem.FindControl("ddlScheme");
                 dropdownArchive = (DropDownList)edititem.FindControl("ddlArchive");
                 trSubCategory = (HtmlTableRow)editform.FindControl("divSubCategory");
                 //attach SelectedIndexChanged event for the combobox control
-                dropdownAMC.SelectedIndexChanged += new EventHandler(ddlAMC_SelectedIndexChanged);               
+                dropdownAMC.SelectedIndexChanged += new EventHandler(ddlAMC_SelectedIndexChanged);
             }
         }
 
         protected void RadGrid1_PreRender(object sender, EventArgs e)
-        {            
+        {
+            // Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "getControl();", true);
         }
 
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            DataTable dt = new DataTable();            
-            if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
+
+
+
+            DataTable dt = new DataTable();
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
-                //GridEditableItem edititem = (GridEditableItem)e.Item;
-                //GridEditFormItem editform = (GridEditFormItem)e.Item;
-                ////dropdownAMC = (DropDownList)edititem.FindControl("ddlAMC");
+                GridEditableItem edititem = (GridEditableItem)e.Item;
+                GridEditFormItem editform = (GridEditFormItem)e.Item;
+                //dropdownAMC = (DropDownList)edititem.FindControl("ddlAMC");
                 //dropdownCategory = (DropDownList)edititem.FindControl("ddlCategory");
                 //dropdownSubCategory = (DropDownList)edititem.FindControl("ddlSubCategory");
                 //dropdownScheme = (DropDownList)edititem.FindControl("ddlScheme");
                 //trSubCategory = (HtmlTableRow)editform.FindControl("divSubCategory");
                 //dropdownArchive = (DropDownList)edititem.FindControl("ddlArchive");
+                DropDownList ddl = (DropDownList)edititem.FindControl("ddlAMC"); //the field should point to the ListValueField of the dropdown editor
 
-                if (dtGetAMCList.Rows.Count == 0)
+                HtmlTableRow trDdlPickAMC = (HtmlTableRow)editform.FindControl("trDdlPickAMC");
+                HtmlTableRow trPickAMCtxt = (HtmlTableRow)editform.FindControl("trPickAMCtxt");
+
+                HtmlTableRow trddlCategory = (HtmlTableRow)editform.FindControl("trddlCategory");
+                HtmlTableRow trTxtCategory = (HtmlTableRow)editform.FindControl("trTxtCategory");
+
+                HtmlTableRow divSubCategory = (HtmlTableRow)editform.FindControl("divSubCategory");
+                HtmlTableRow trTxtSubCategory = (HtmlTableRow)editform.FindControl("trTxtSubCategory");
+
+                HtmlTableRow trddlScheme = (HtmlTableRow)editform.FindControl("trddlScheme");
+                HtmlTableRow trTxtScheme = (HtmlTableRow)editform.FindControl("trTxtScheme");
+
+                if (e.Item.RowIndex == -1)
                 {
+                    trDdlPickAMC.Visible = true;
+                    trddlCategory.Visible = true;
+                    divSubCategory.Visible = true;
+                    trddlScheme.Visible = true;
+                    trPickAMCtxt.Visible = false;
+                    trTxtCategory.Visible = false;
+                    trTxtSubCategory.Visible = false;
+                    trTxtScheme.Visible = false;
+
                     dtGetAMCList = modelPortfolioBo.GetAMCList();
                     if (dtGetAMCList.Rows.Count != 0)
                     {
@@ -347,15 +419,28 @@ namespace WealthERP.Research
                         dropdownAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
                         dropdownAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
                         dropdownAMC.DataBind();
+                        dropdownAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "Select AMC Code"));
+                        if (dropdownAMC.SelectedValue == "")
+                        {
+                            dropdownAMC.SelectedValue = ddl.SelectedValue;
+                        }
                     }
-                    dropdownAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "Select AMC Code"));
-                }  
+                }
+                else
+                {
+                    trDdlPickAMC.Visible = false;
+                    trddlCategory.Visible = false;
+                    divSubCategory.Visible = false;
+                    trddlScheme.Visible = false;
+                    trPickAMCtxt.Visible = true;
+                    trTxtCategory.Visible = true;
+                    trTxtSubCategory.Visible = true;
+                    trTxtScheme.Visible = true;
+                }
             }
         }
 
-
-
-/****************************************************************************************************************************** */
+        /****************************************************************************************************************************** */
 
 
         public void BindSelectedMPDropDown()
@@ -397,7 +482,7 @@ namespace WealthERP.Research
                 {
                     amcCode = int.Parse(dropdownAMC.SelectedValue.ToString());
                     categoryCode = dropdownCategory.SelectedValue;
-                    subCategory = dropdownSubCategory.SelectedValue;
+                    subCategory = "All";
                     dsLoadAllScheme = ModelPortfolioBo.GetSchemeListSubCategory(amcCode, categoryCode, subCategory);
                     dtLoadAllScheme = dsLoadAllScheme.Tables[0];
                 }
@@ -417,19 +502,27 @@ namespace WealthERP.Research
                     dropdownScheme.DataBind();
                     dropdownScheme.Items.Insert(0, new ListItem("All Scheme", "0"));
                 }
-            }
-            else
-            {
+                else
+                {
+                    dropdownScheme.Items.Clear();
+                    dropdownScheme.DataSource = null;
+                    dropdownScheme.DataBind();
+                    dropdownScheme.Items.Insert(0, new ListItem("Select", "Select"));
+                }
             }
         }
 
         protected void ddlSelectedMP_SelectedIndexChanged(object sender, EventArgs e)
         {
             bindRadGrid1();
+            //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
+            bindAssetChart();
+            bindAssetChartOnSubCategory();
+            tblPieChart.Visible = true;
         }
 
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             //dtGetAMCList = modelPortfolioBo.GetAMCList();
             //if (dtGetAMCList.Rows.Count != 0)
             //{
@@ -441,7 +534,7 @@ namespace WealthERP.Research
             //dropdownAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "Select AMC Code"));
             LoadAllSchemeNAV();
         }
-        
+
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList dropdown = (DropDownList)sender;
@@ -463,7 +556,7 @@ namespace WealthERP.Research
                 dropdownSubCategory.DataTextField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 dropdownSubCategory.DataValueField = dsCategoryList.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 dropdownSubCategory.DataBind();
-                //dropdownSubCategory.Items.Insert(0, new ListItem("Select", "All"));   
+                dropdownSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
             if (categoryCode == "MFDT")
             {
@@ -472,7 +565,7 @@ namespace WealthERP.Research
                 dropdownSubCategory.DataTextField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 dropdownSubCategory.DataValueField = dsCategoryList.Tables[1].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 dropdownSubCategory.DataBind();
-                ////dropdownSubCategory.Items.Insert(0, new ListItem("Select", "All"));
+                dropdownSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
             if (categoryCode == "MFEQ")
             {
@@ -481,7 +574,7 @@ namespace WealthERP.Research
                 dropdownSubCategory.DataTextField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 dropdownSubCategory.DataValueField = dsCategoryList.Tables[2].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 dropdownSubCategory.DataBind();
-                ////dropdownSubCategory.Items.Insert(0, new ListItem("Select", "All"));
+                dropdownSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
             if (categoryCode == "MFHY")
             {
@@ -490,16 +583,16 @@ namespace WealthERP.Research
                 dropdownSubCategory.DataTextField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 dropdownSubCategory.DataValueField = dsCategoryList.Tables[3].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
                 dropdownSubCategory.DataBind();
-                ////dropdownSubCategory.Items.Insert(0, new ListItem("Select", "All"));
+                dropdownSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
-            LoadAllSchemeNAV();
+            //LoadAllSchemeNAV();
         }
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //LoadAllSchemeNAV();
-            DropDownList dropdown1 = (DropDownList)sender;
-            string a = dropdown1.SelectedValue;
+            //DropDownList dropdown1 = (DropDownList)sender;
+            //string a = dropdown1.SelectedValue;
+            LoadAllSchemeNAV();
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -524,14 +617,251 @@ namespace WealthERP.Research
                     modelPortfolioVo.ArchiveReason = 0;
                     modelPortfolioBo.AttachSchemeToPortfolio(modelPortfolioVo, advisorVo.advisorId, IsActiveFlag);
                 }
+                bindAssetChart();
+                bindAssetChartOnSubCategory();
+                tblPieChart.Visible = true;
             }
             else
             {
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Weightage must be 100');", true);
+                tblPieChart.Visible = false;
             }
 
         }
+
+        protected void bindAssetChart()
+        {
+            Series AssetAllocation = new Series("Asset");
+            try
+            {
+                ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
+                modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                DataTable dtChartAsset = new DataTable();
+                dtChartAsset = modelPortfolioBo.GetSchemeAssetAllocation(modelPortfolioVo, advisorVo.advisorId);
+
+                Legend legend = new Legend("ChartAssetAllocationLegend");
+                legend.Enabled = true;
+
+                if (dtChartAsset.Rows.Count > 0)
+                {
+
+                    // LoadChart 
+                    AssetAllocation.ChartType = SeriesChartType.Pie;
+                    ChartAsset.DataSource = dtChartAsset.DefaultView;
+                    ChartAsset.Series.Clear();
+                    ChartAsset.Series.Add(AssetAllocation);
+                    ChartAsset.Series[0].XValueMember = "Category";
+                    ChartAsset.Series[0].XValueType = ChartValueType.String;
+                    ChartAsset.Series[0].YValueMembers = "Weightage";
+
+                    ChartAsset.Palette = ChartColorPalette.Pastel;
+                    ChartAsset.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
+                    ChartAsset.Legends.Add(legend);
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
+
+                    ChartArea chartArea1 = ChartAsset.ChartAreas[0];
+
+                    LegendCellColumn colorColumn = new LegendCellColumn();
+                    colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+                    colorColumn.HeaderText = "Color";
+                    colorColumn.HeaderBackColor = Color.WhiteSmoke;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].CellColumns.Add(colorColumn);
+                    chartArea1.BackColor = System.Drawing.Color.Transparent;
+                    chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
+
+                    LegendCellColumn TypeColumn = new LegendCellColumn();
+                    TypeColumn.Alignment = ContentAlignment.TopLeft;
+                    TypeColumn.Text = "#VALX";
+                    TypeColumn.HeaderText = "Type";
+                    TypeColumn.Name = "TypeColumn";
+                    TypeColumn.HeaderBackColor = Color.WhiteSmoke;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].CellColumns.Add(TypeColumn);
+
+                    LegendCellColumn percentColumn = new LegendCellColumn();
+                    percentColumn.Alignment = ContentAlignment.MiddleLeft;
+                    percentColumn.HeaderText = "%";
+                    percentColumn.Text = "#PERCENT";
+                    percentColumn.HeaderBackColor = Color.WhiteSmoke;
+                    ChartAsset.Legends["ChartAssetAllocationLegend"].CellColumns.Add(percentColumn);
+
+                    ChartAsset.Series[0]["PieLabelStyle"] = "Disabled";
+                    ChartAsset.ChartAreas[0].Area3DStyle.Enable3D = true;
+                    ChartAsset.ChartAreas[0].Area3DStyle.Perspective = 50;
+                    ChartAsset.Series[0].ToolTip = "#VALX: #PERCENT";
+                    ChartAsset.DataBind();
+
+                    DataRow drAsset;
+                    DataTable dtAssetForGrid = new DataTable();
+                    dtAssetForGrid.Columns.Add("Category");
+                    dtAssetForGrid.Columns.Add("Weightage", System.Type.GetType("System.Decimal"));
+
+                    dtAssetForGrid.Columns.Add("Percent", System.Type.GetType("System.Decimal"));
+                    double WeightageSum = 0;
+                    foreach (DataRow dr in dtChartAsset.Rows)
+                    {
+                        WeightageSum = WeightageSum + double.Parse(dr["Weightage"].ToString());
+                    }
+
+                    foreach (DataRow dr in dtChartAsset.Rows)
+                    {
+                        drAsset = dtAssetForGrid.NewRow();
+                        drAsset["Category"] = dr["Category"];
+                        drAsset["Weightage"] = dr["Weightage"];
+                        drAsset["Percent"] = Math.Round(((double.Parse(dr["Weightage"].ToString()) / WeightageSum) * 100), 2);
+
+                        dtAssetForGrid.Rows.Add(drAsset);
+                    }
+
+                    ChartAsset.DataSource = dtAssetForGrid;
+                    ChartAsset.DataBind();
+                    ChartAsset.Visible = true;
+                }
+                else
+                {
+                    ChartAsset.DataSource = null;
+                    ChartAsset.Visible = false;
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        protected void bindAssetChartOnSubCategory()
+        {
+            Series AssetAllocationSubCategory = new Series("Asset");
+            try
+            {
+                ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
+                modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                DataTable dtChartAsset = new DataTable();
+                dtChartAsset = modelPortfolioBo.SchemeAssetChartOnSubCategory(modelPortfolioVo, advisorVo.advisorId);
+
+                Legend legend = new Legend("ChartAssetAllocationLegend");
+                legend.Enabled = true;
+
+                if (dtChartAsset.Rows.Count > 0)
+                {
+                    // LoadChart 
+                    AssetAllocationSubCategory.ChartType = SeriesChartType.Pie;
+                    Chart1.DataSource = dtChartAsset.DefaultView;
+                    Chart1.Series.Clear();
+                    Chart1.Series.Add(AssetAllocationSubCategory);
+                    Chart1.Series[0].XValueMember = "SubCategory";
+                    Chart1.Series[0].XValueType = ChartValueType.String;
+                    Chart1.Series[0].YValueMembers = "Weightage";
+
+                    Chart1.Palette = ChartColorPalette.Pastel;
+                    Chart1.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
+                                                                          Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
+
+                    Chart1.Legends.Add(legend);
+                    Chart1.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
+                    Chart1.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
+                    Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                    Chart1.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
+                    Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
+
+                    ChartArea chartArea1 = Chart1.ChartAreas[0];
+
+                    LegendCellColumn colorColumn = new LegendCellColumn();
+                    colorColumn.ColumnType = LegendCellColumnType.SeriesSymbol;
+                    colorColumn.HeaderText = "Color";
+                    colorColumn.HeaderBackColor = Color.WhiteSmoke;
+                    Chart1.Legends["ChartAssetAllocationLegend"].CellColumns.Add(colorColumn);
+                    chartArea1.BackColor = System.Drawing.Color.Transparent;
+                    chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
+
+                    LegendCellColumn TypeColumn = new LegendCellColumn();
+                    TypeColumn.Alignment = ContentAlignment.TopLeft;
+                    TypeColumn.Text = "#VALX";
+                    TypeColumn.HeaderText = "Type";
+                    TypeColumn.Name = "TypeColumn";
+                    TypeColumn.HeaderBackColor = Color.WhiteSmoke;
+                    Chart1.Legends["ChartAssetAllocationLegend"].CellColumns.Add(TypeColumn);
+
+                    LegendCellColumn percentColumn = new LegendCellColumn();
+                    percentColumn.Alignment = ContentAlignment.MiddleLeft;
+                    percentColumn.HeaderText = "%";
+                    percentColumn.Text = "#PERCENT";
+                    percentColumn.HeaderBackColor = Color.WhiteSmoke;
+                    Chart1.Legends["ChartAssetAllocationLegend"].CellColumns.Add(percentColumn);
+
+                    Chart1.Series[0]["PieLabelStyle"] = "Disabled";
+                    Chart1.ChartAreas[0].Area3DStyle.Enable3D = true;
+                    Chart1.ChartAreas[0].Area3DStyle.Perspective = 50;
+                    Chart1.Series[0].ToolTip = "#VALX: #PERCENT";
+                    Chart1.DataBind();
+
+                    DataRow drAsset;
+                    DataTable dtAssetForGrid = new DataTable();
+                    dtAssetForGrid.Columns.Add("SubCategory");
+                    dtAssetForGrid.Columns.Add("Weightage", System.Type.GetType("System.Decimal"));
+
+                    dtAssetForGrid.Columns.Add("Percent", System.Type.GetType("System.Decimal"));
+                    double WeightageSum = 0;
+                    foreach (DataRow dr in dtChartAsset.Rows)
+                    {
+                        WeightageSum = WeightageSum + double.Parse(dr["Weightage"].ToString());
+                    }
+
+                    foreach (DataRow dr in dtChartAsset.Rows)
+                    {
+                        drAsset = dtAssetForGrid.NewRow();
+                        drAsset["SubCategory"] = dr["SubCategory"];
+                        drAsset["Weightage"] = dr["Weightage"];
+                        drAsset["Percent"] = Math.Round(((double.Parse(dr["Weightage"].ToString()) / WeightageSum) * 100), 2);
+                        dtAssetForGrid.Rows.Add(drAsset);
+                    }
+
+                    Chart1.DataSource = dtAssetForGrid;
+                    Chart1.DataBind();
+                    Chart1.Visible = true;
+                }
+                else
+                {
+                    Chart1.DataSource = null;
+                    Chart1.Visible = false;
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+
+        }
+
+        protected void btnArchive_Click(object sender, EventArgs e)
+        {
+            Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
+
+            foreach (GridDataItem dataItem in RadGrid1.MasterTableView.Items)
+            {
+                CheckBox chk = (dataItem.FindControl("chk") as CheckBox);
+                if (chk.Checked)
+                {
+                    int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AMFMPD_Id"].ToString());
+                    ModalPopupExtender1.Show();
+                }
+                else
+                {
+
+
+                }
+               
+            }
+        }
     }
-}      
+}
 
         
