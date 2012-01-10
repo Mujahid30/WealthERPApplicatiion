@@ -405,7 +405,7 @@ namespace DaoResearch
             return bResult;
         }
 
-        public DataTable GetAttachedSchemeDetails(ModelPortfolioVo modelPortfolioVo, int adviserId)
+        public DataTable GetAttachedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
             DataTable dtAttachedScheme;
             DataSet dsAttachedScheme;
@@ -416,7 +416,7 @@ namespace DaoResearch
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 AttachedSchemeCmd = db.GetStoredProcCommand("SP_GetAttachedSchemeDetails");
                 db.AddInParameter(AttachedSchemeCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(AttachedSchemeCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);
+                db.AddInParameter(AttachedSchemeCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
                 dsAttachedScheme = db.ExecuteDataSet(AttachedSchemeCmd);
                 dtAttachedScheme = dsAttachedScheme.Tables[0];
             }
@@ -430,7 +430,8 @@ namespace DaoResearch
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetAttachedSchemeDetails()");
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = modelPortfolioCode;
+                objects[1] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

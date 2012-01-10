@@ -176,13 +176,13 @@ namespace BoResearch
             return dtModelPortFolio;
         }
 
-        public DataTable GetAttachedSchemeDetails(ModelPortfolioVo modelPortfolioVo, int adviserId)
+        public DataTable GetAttachedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
             DataTable dtAttachedScheme;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dtAttachedScheme = modelPortfolioDao.GetAttachedSchemeDetails(modelPortfolioVo, adviserId);
+                dtAttachedScheme = modelPortfolioDao.GetAttachedSchemeDetails(modelPortfolioCode, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -196,7 +196,7 @@ namespace BoResearch
                 FunctionInfo.Add("Method", "ModelPortfolioBo.cs:GetAttachedSchemeDetails()");
 
                 object[] objects = new object[1];
-                objects[0] = modelPortfolioVo;
+                objects[0] = modelPortfolioCode;
                 objects[1] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
