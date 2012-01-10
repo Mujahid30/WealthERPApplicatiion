@@ -184,6 +184,18 @@
 
 </script>
 
+<%--Code for risk score validation By Bhoopendra--%>
+<%--<script type="text/javascript">
+
+    function some() {
+        var prevtxt = document.getElementByID('ctrl_RiskScore_RadGrid1_ctl00_ctl05_txtUpperLimit').value;
+        var currenttxt = document.getElementByID('ctrl_RiskScore_RadGrid1_ctl00_ctl07_txtUpperLimit').value;
+        if (prevtxt != currenttxt + 1) {
+            alert('Please fill ');
+        }
+    }
+</script>--%>
+
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager> 
 
@@ -204,6 +216,14 @@
 <telerik:RadPageView ID="RadPageView1" runat="server">
 <asp:Panel ID="pnlRiskScore" runat="server">
 
+<table class="TableBackground" style="width: 100%;">
+    <tr>
+        <td>
+            <asp:Label ID="lblSetUpScore" runat="server" CssClass="HeaderTextBig" Text="Set up risk scores for the risk classes"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+</table>
 <table style="width:75%">
     <tr>
         <td>
@@ -214,7 +234,7 @@
             ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="False"  OnItemDataBound="RadGrid1_ItemDataBound"
         OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
          OnItemCommand="RadGrid1_ItemCommand" OnPreRender="RadGrid1_PreRender" AllowAutomaticUpdates="False" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode">            
-            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="XRC_RiskClassCode">
+            <MasterTableView EditMode="PopUp" DataKeyNames="XRC_RiskClassCode">
                 <Columns>
                     <telerik:GridEditCommandColumn>
                     </telerik:GridEditCommandColumn>
@@ -226,8 +246,8 @@
                     </telerik:GridBoundColumn>
                     <%--<telerik:GridBoundColumn UniqueName="CPA_Value" HeaderText="Value" DataField="CPA_Value" >
                     </telerik:GridBoundColumn>--%>
-                     <telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
-                    </telerik:GridButtonColumn>
+                     <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
+                    </telerik:GridButtonColumn>--%>
                 </Columns>
                 <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
                 PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode: {0}"
