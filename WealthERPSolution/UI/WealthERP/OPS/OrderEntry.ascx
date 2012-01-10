@@ -5,6 +5,23 @@
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#ctrl_OrderEntry_btnViewReport').bubbletip($('#div1'), { deltaDirection: 'left' });
+    $('#ctrl_OrderEntry_btnViewInPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
+    $('#ctrl_OrderEntry_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
+    });
+</script>
+
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
@@ -70,11 +87,26 @@
 <asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry"></asp:Label>
 </td>
 <td id="trReportButtons" runat="server" width="70%"  align="right">
-<asp:Button ID="btnViewReport" runat="server"  PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
+<asp:Button ID="btnViewReport" runat="server"  PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" 
+ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
+            <div id="div1" style="display: none;">
+                <p class="tip">
+                    Enter and view order details.
+                </p>
+            </div>
 <asp:Button ID="btnViewInPDF" runat="server"  ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
      PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
+     <div id="div2" style="display: none;">
+                <p class="tip">
+                    Enter and view order details.
+                </p>
+      </div>
 <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
      PostBackUrl="~/Reports/Display.aspx?mail=4" />
+     <div id="div3" style="display: none;">
+                <p class="tip">
+                    Enter and view order details..</p>
+     </div>
 </td>
 </tr>
 <tr>
@@ -116,7 +148,12 @@
        </tr>
        </table>
 <table width="100%">
-
+<tr>
+<td colspan="4">
+<asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit" 
+        onclick="lnkBtnEdit_Click" ></asp:LinkButton>
+</td>
+</tr>
 <tr>
   <td align="right" valign="top">
 <asp:Label ID="lblAssetType" runat="server" Text="Asset Type: "  CssClass="FieldName"></asp:Label><br />
@@ -135,7 +172,7 @@
      </asp:DropDownList>--%>
      <asp:Label ID="lblGetBranch" runat="server" Text=""  CssClass="FieldName"></asp:Label>
   </td>
-  <td align="right">
+  <td align="right" valign="top">
   <asp:Label ID="lblCustomer" runat="server" Text="Customer: "  CssClass="FieldName"></asp:Label>
   </td>
   <td align="left">
@@ -220,7 +257,7 @@
   <asp:Label ID="ddlTransactionType" runat="server" Text="Transaction Type: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
-        <asp:DropDownList ID="ddltransType" runat="server" CssClass="cmbField" AutoPostBack="true" onselectedindexchanged="ddltransType_SelectedIndexChanged">
+        <asp:DropDownList ID="ddltransType" runat="server" CssClass="cmbField"  AutoPostBack="true" onselectedindexchanged="ddltransType_SelectedIndexChanged">
          <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
         <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
         <asp:ListItem Text="Additional Purchase" Value="ABY"></asp:ListItem>
@@ -255,8 +292,7 @@
   <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "  CssClass="FieldName"></asp:Label>
   </td>
   <td align="left">
-  <asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox>
-  <span id="spnReceiveDate" class="spnRequiredField">*</span>
+  <asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox><span id="spnReceiveDate" class="spnRequiredField">*</span>
            <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReceivedDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -270,18 +306,14 @@
                CssClass="rfvPCG" ErrorMessage="<br />Please select a Application receive Date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
   </td>
-   <td align="right" valign="top"> 
-  <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>  
-<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-          onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
-</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
-<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
-   ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-  
-   
-  </td>
+  <td align="right">
+<asp:Label ID="Label7" runat="server" Text="Category: "  CssClass="FieldName"></asp:Label>
+</td>
+<td align="left">
+  <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+        onselectedindexchanged="ddlCategory_SelectedIndexChanged">  
+  </asp:DropDownList>
+</td>
   
 </tr>
 <tr id="trSectionTwo4" runat="server">
@@ -294,15 +326,19 @@
                CssClass="rfvPCG" ErrorMessage="<br />Please select a Application number" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
   </td>
+<td align="right" valign="top"> 
+  <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>  
+<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+          onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
+</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
+<asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
+   ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+  
+   
+  </td>
 
-<td align="right">
-<asp:Label ID="Label7" runat="server" Text="Category: "  CssClass="FieldName"></asp:Label>
-</td>
-<td align="left">
-  <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-        onselectedindexchanged="ddlCategory_SelectedIndexChanged">  
-  </asp:DropDownList>
-</td>
 </tr>
 
 <tr id="trSectionTwo5" runat="server">
@@ -338,7 +374,8 @@
               ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
                CssClass="rfvPCG" ErrorMessage="<br />Please select order date" Display="Dynamic"
-               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>     
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator> 
+                  
   </td>
   <td align="right">
   <asp:Label ID="Label2" runat="server" Text="Portfolio: "  CssClass="FieldName"></asp:Label>
@@ -820,9 +857,8 @@
 </td>
 
 <td colspan="2">
-<%--<asp:Button ID="btnViewReport" runat="server" Text="View Report" PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" />&nbsp;&nbsp;
-<asp:Button ID="btnViewInPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
-     PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />--%>
+<asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
+        CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
 </td>
 </tr>
 </table>
