@@ -534,7 +534,7 @@ namespace WealthERP.OPS
 
                     operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
                     Session["operationVo"] = operationVo;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','action=Edit');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','action=View');", true);
                 
             }
             catch (BaseApplicationException Ex)
