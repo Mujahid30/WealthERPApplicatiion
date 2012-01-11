@@ -65,7 +65,7 @@
 
 <tr>
 <td colspan="6">
-<asp:GridView ID="gvMannualMatch" CssClass="GridViewStyle"  runat="server" AutoGenerateColumns="False" DataKeyNames="CMOT_MFOrderId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_OrderDate"
+<asp:GridView ID="gvMannualMatch" CssClass="GridViewStyle"  runat="server" AutoGenerateColumns="False" DataKeyNames="CMFT_MFTransId,CMFA_AccountId,PASP_SchemePlanCode,CMFT_Amount,WMTT_TransactionClassificationCode"
 ShowFooter="True">
 <RowStyle CssClass="RowStyle" />
 <AlternatingRowStyle CssClass="AltRowStyle" />
@@ -75,7 +75,7 @@ ShowFooter="True">
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Map Transaction">
   <ItemTemplate>
   <%--<asp:CheckBox ID="chkMapTransaction" runat="server" />--%>
-  <asp:RadioButton  ID="rbtnMatch" runat="server" Checked="false" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
+  <asp:RadioButton  ID="rbtnMatch" runat="server" Checked="true" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -109,12 +109,12 @@ ShowFooter="True">
 
  <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
-<asp:Label ID="lblCustomer" runat="server" Text="Customer"></asp:Label>
+<asp:Label ID="lblCustomer" runat="server" Text="Folio Number"></asp:Label>
 <%--<br />
 <asp:TextBox ID="txtCustomerSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblCustomerCol" runat="server" Text='<%# Eval("Customer_Name").ToString() %>'></asp:Label>
+     <asp:Label ID="lblCustomerCol" runat="server" Text='<%# Eval("CMFA_FolioNum").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -135,12 +135,12 @@ ShowFooter="True">
 
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
-<asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type"></asp:Label>
+<asp:Label ID="lblTransactionType" runat="server" Text="Scheme Name"></asp:Label>
 <%--<br />
 <asp:TextBox ID="txtTransactionTypeSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblTransactionTypeCol" runat="server" Text='<%# Eval("WMTT_TransactionClassificationCode").ToString() %>'></asp:Label>
+     <asp:Label ID="lblTransactionTypeCol" runat="server" Text='<%# Eval("PASP_SchemePlanName").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -148,12 +148,12 @@ ShowFooter="True">
 
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
-<asp:Label ID="lblFolioNo" runat="server" Text="Folio Number"></asp:Label>
+<asp:Label ID="lblFolioNo" runat="server" Text="Transaction Date"></asp:Label>
 <%--<br />
 <asp:TextBox ID="txtFolioNoSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblFolioNoCol" runat="server" Text='<%# Eval("CMFA_FolioNum").ToString() %>'></asp:Label>
+     <asp:Label ID="lblFolioNoCol" runat="server" Text='<%# Eval("CMFT_TransactionDate").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -161,36 +161,12 @@ ShowFooter="True">
 
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
   <HeaderTemplate>
-<asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
+<asp:Label ID="lblScheme" runat="server" Text="Price"></asp:Label>
 <%--<br />
 <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" />--%>
 </HeaderTemplate>
   <ItemTemplate>
-     <asp:Label ID="lblSchemeCol" runat="server" Text='<%# Eval("PASP_SchemePlanName").ToString() %>'></asp:Label>
-  </ItemTemplate>
-  <HeaderStyle Wrap="False" />
-   <ItemStyle Wrap="False" />
-</asp:TemplateField>
-
-<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Transaction Date">
-  <ItemTemplate>
-     <asp:Label ID="lblTransactionDateCol" runat="server" Text='<%# Eval("CMFT_TransactionDate").ToString() %>'></asp:Label>
-  </ItemTemplate>
-  <HeaderStyle Wrap="False" />
-   <ItemStyle Wrap="False" />
-</asp:TemplateField>
-
-<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Price">
-  <ItemTemplate>
-     <asp:Label ID="lblPriceCol" runat="server" Text='<%# Eval("CMFT_Price").ToString() %>'></asp:Label>
-  </ItemTemplate>
-  <HeaderStyle Wrap="False" />
-   <ItemStyle Wrap="False" />
-</asp:TemplateField>
-
-<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Units">
-  <ItemTemplate>
-     <asp:Label ID="lblUnitsCol" runat="server" Text='<%# Eval("CMFT_Units").ToString() %>'></asp:Label>
+     <asp:Label ID="lblSchemeCol" runat="server" Text='<%# Eval("CMFT_Price").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -198,24 +174,29 @@ ShowFooter="True">
 
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Amount">
   <ItemTemplate>
-     <asp:Label ID="lblAmountCol" runat="server" Text='<%# Eval("CMOT_Amount").ToString() %>'></asp:Label>
+     <asp:Label ID="lblTransactionDateCol" runat="server" Text='<%# Eval("CMFT_Amount").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
 
- <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" >
- <HeaderTemplate>
-<asp:Label ID="lblPendingReason" runat="server" Text="Pending/Reject Reason"></asp:Label>
-<%--<br />
-<asp:TextBox ID="txtPendingRejectSearch" runat="server" CssClass="GridViewTxtField" />--%>
-</HeaderTemplate>
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Units">
   <ItemTemplate>
-     <asp:Label ID="lblPendingRejectSearchCol" runat="server" Text='<%# Eval("XSR_StatusReason").ToString() %>'></asp:Label>
+     <asp:Label ID="lblPriceCol" runat="server" Text='<%# Eval("CMFT_Units").ToString() %>'></asp:Label>
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
 </asp:TemplateField>
+
+<asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Type">
+  <ItemTemplate>
+     <asp:Label ID="lblUnitsCol" runat="server" Text='<%# Eval("WMTT_TransactionClassificationCode").ToString() %>'></asp:Label>
+  </ItemTemplate>
+  <HeaderStyle Wrap="False" />
+   <ItemStyle Wrap="False" />
+</asp:TemplateField>
+
+
 
  </Columns>
  <EditRowStyle CssClass="EditRowStyle" />
@@ -226,12 +207,20 @@ ShowFooter="True">
 </asp:GridView>
 </td>
 </tr>
+<tr>
 <td colspan="6" align="left">
 <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
         onclick="btnSubmit_Click" />
-</td>
+</td></tr>
 </table>
-
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
     </div>
     </form>
 </body>

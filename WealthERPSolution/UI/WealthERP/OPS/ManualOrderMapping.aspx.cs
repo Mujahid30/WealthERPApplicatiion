@@ -13,8 +13,14 @@ namespace WealthERP.OPS
     {
         OperationBo operationBo = new OperationBo();
        string path = string.Empty;
-       string Ids = string.Empty;
-        DataTable dtOrderRecon;
+       //string Ids = string.Empty;
+       int Ids;
+       int scheme;
+       int accountId;
+       string type;
+       double amount;
+       DateTime orderDate;
+       DataTable dtOrderRecon;
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["Theme"] != null)
@@ -25,41 +31,74 @@ namespace WealthERP.OPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (Request.QueryString["result"] != null)
             {
-                if (Request.QueryString["result"] != null)
-                {
-                    Ids = Request.QueryString["result"];
-                    BindMannualMatchGrid(Ids);
-                }
+                Ids = Convert.ToInt32(Request.QueryString["result"]);
+                //BindMannualMatchGrid(Ids);
+            }
+            if (Request.QueryString["SchemeCode"] != null)
+            {
+                scheme = Convert.ToInt32(Request.QueryString["SchemeCode"]);
+            }
+            if (Request.QueryString["AccountId"] != null)
+            {
+                accountId = Convert.ToInt32(Request.QueryString["AccountId"]);
+            }
+            if (Request.QueryString["Type"] != null)
+            {
+                type = Request.QueryString["Type"];
+            }
+            if (Request.QueryString["Amount"] != null)
+            {
+                amount = Convert.ToDouble(Request.QueryString["Amount"]);
+            }
+            if (Request.QueryString["OrderDate"] != null)
+            {
+                orderDate = Convert.ToDateTime(Request.QueryString["OrderDate"]);
+            }
+            
+            if (!IsPostBack)
+            {
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate);
                 //if (Session["GridView"] != null)
                 //    dtOrderRecon = (DataTable)Session["GridView"];
                 //if (Request.QueryString["result"] != null)
                     //BindMannualMatchGrid(dtOrderRecon, ids);
-                    
-            } 
+             } 
         }
 
-        private void BindMannualMatchGrid(string Ids)
+        private void BindMannualMatchGrid(int scheme,int accountId,string type,double amount,DateTime orderDate)
         {
-            string orderIds = Ids;
+            //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(orderIds);
+            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
                 gvMannualMatch.DataSource = dtOrderMannualMatch;
                 gvMannualMatch.DataBind();
+                gvMannualMatch.Visible = true;
                 //lblGetOrderNo.Text = dtOrderMannualMatch.Rows[0]["CMOT_OrderNumber"].ToString();
                 //lblGetOrderDate.Text = dtOrderMannualMatch.Rows[0]["CMOT_OrderDate"].ToString();
                 //lblGetOrderStatus.Text = dtOrderMannualMatch.Rows[0]["XS_Status"].ToString();
-                if(dtOrderMannualMatch.Rows[0]["CMOT_IsImmediate"].ToString()=="1")
-                    OrderType = "Immediate";
-                else
-                    OrderType = "Future";
+                //if(dtOrderMannualMatch.Rows[0]["CMOT_IsImmediate"].ToString()=="1")
+                //    OrderType = "Immediate";
+                //else
+                //    OrderType = "Future";
                 //lblGetOrderType.Text = OrderType;
+                btnSubmit.Visible = true;
+                ErrorMessage.Visible = false;
+                tblMessage.Visible = false;
+            }
+            else
+            {
+                gvMannualMatch.Visible = false;
+                btnSubmit.Visible=false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
             }
         }
 
@@ -68,52 +107,52 @@ namespace WealthERP.OPS
             int count = 0;
             foreach (GridViewRow gvRow in gvMannualMatch.Rows)
             {
-                RadioButton rbd = (RadioButton)gvRow.FindControl("rbtnMatch");
-                if (rbd.Checked)
+                RadioButton RdBnItem = (RadioButton)gvRow.FindControl("rbtnMatch");
+                if (RdBnItem.Checked)
                 {
                     count++;
                 }
-                if (count > 1)
-                    rbd.Checked = false;
-
             }
             if (count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMannualMatchGrid(Ids);
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate); ;
             }
             else
             {
-                int OrderId = 0;
-                int PortfolioId = 0;
+                int transId = 0;
                 int SchemeCode = 0;
                 int accountId = 0;
-                DateTime orderDate = DateTime.MinValue;
+                double amount = 0.0;
                 string TrxType = string.Empty;
                 bool isUpdate = false;
                 foreach (GridViewRow gvRow1 in gvMannualMatch.Rows)
                 {
                     if (((RadioButton)gvRow1.FindControl("rbtnMatch")).Checked == true)
                     {
-                        OrderId = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
-                        //PortfolioId = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
+                        transId = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFT_MFTransId"].ToString());
                         SchemeCode = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-                        if (!string.IsNullOrEmpty(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
-                            accountId = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
-                        else
-                            accountId = 0;
+                        //if (!string.IsNullOrEmpty(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
+                        //    accountId = Convert.ToInt32(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
+                        //else
+                        //    accountId = 0;
                         TrxType = gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-                        orderDate = Convert.ToDateTime(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMOT_OrderDate"].ToString());
-                        isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, orderDate, TrxType);
+                        amount = Convert.ToDouble(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFT_Amount"].ToString());
+                        isUpdate = operationBo.OrderMannualMatch(Ids, transId, SchemeCode, amount, TrxType);
 
                         if (isUpdate == true)
+                        {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','none');", true);
+                        }
                         else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match mannually');", true);
+                        }
                     }
 
                 }
-               
+
             }
       
         }
