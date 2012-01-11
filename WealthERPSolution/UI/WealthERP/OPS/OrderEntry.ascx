@@ -136,8 +136,8 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
             </div>
         </td>
        </tr>
-       </table>--%>
-        </table>
+       </table>
+        </table>--%>
         <table width="100%">
         <tr>
         <td align="center">
@@ -194,8 +194,8 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
      UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
      <span style='font-size: 10px; font-weight: normal' class='FieldName'><br />
      Enter few characters of Customer. </span>--%>
-     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True"></asp:TextBox>
-     <span id="spnCustomer" class="spnRequiredField">*</span>
+     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">
+     </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
      <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
      TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
      MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -332,7 +332,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   <td>  
 <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
           onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
-</asp:DropDownList> <span id="Span3" class="spnRequiredField">*</span>
+</asp:DropDownList><span id="Span3" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   
@@ -449,6 +449,9 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
             <asp:CompareValidator ID="CVFutureDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
               Type="Date" ControlToValidate="txtFutureDate" CssClass="cvPCG" Operator="DataTypeCheck"
               ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+              <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtFutureDate"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select Future Date" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator> 
 </td>
 
 <td align="right">
@@ -615,23 +618,23 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 </tr>
 
 
-<%--<tr id="trSell2" runat="server">
+<tr id="trSell2" runat="server">
   <td align="right">
   <asp:Label ID="Label16" runat="server" Text="Redeem/Switch: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
 <asp:RadioButton ID="rbtAmount" Class="cmbField"  runat="server" AutoPostBack="true" GroupName="AmountUnit" Checked="True"  Text="Amount"/>
-<asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server" AutoPostBack="true" GroupName="AmountUnit" Text="Units"/>
+<%--<asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server" AutoPostBack="true" GroupName="AmountUnit" Text="Units"/>--%>
 </td>
 
  <td align="right">
-   <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Units: "  CssClass="FieldName"></asp:Label>
+   <asp:Label ID="lblAmountUnits" runat="server" Text="Amount: "  CssClass="FieldName"></asp:Label>
   </td>
  <td>
- <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField"></asp:TextBox>
+ <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField"></asp:TextBox>
  </td>
 
-</tr>--%>
+</tr>
 
 <tr id="trSell3" runat="server">
   <td align="right">
