@@ -383,6 +383,68 @@ namespace BoResearch
             return dtSchemeAssetChart;
         }
 
+
+
+        public DataTable GetArchivedSchemeDetails(int modelPortfolioCode, int adviserId)
+        {
+            DataTable dtAttachedScheme;
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+                dtAttachedScheme = modelPortfolioDao.GetArchivedSchemeDetails(modelPortfolioCode, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioBo.cs:GetArchivedSchemeDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = modelPortfolioCode;
+                objects[1] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAttachedScheme;
+        }
+
+
+        public void ArchiveSchemeFromModelPortfolio(int AMFMPD_Id, int xarId)
+        {
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+                modelPortfolioDao.ArchiveSchemeFromModelPortfolio(AMFMPD_Id, xarId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ModelPortfolioBo.cs:ArchiveSchemeFromModelPortfolio()");
+
+                object[] objects = new object[1];
+                objects[0] = AMFMPD_Id;
+                objects[1] = xarId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        
         public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
             DataTable dt;
