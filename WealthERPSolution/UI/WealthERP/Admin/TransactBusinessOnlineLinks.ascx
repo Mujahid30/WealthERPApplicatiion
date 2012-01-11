@@ -8,6 +8,11 @@
             <hr />
         </td>
     </tr>
+     <tr>
+        <td>
+            <asp:Label ID="lblNote" runat="server" Font-Size="Small" CssClass="cmbField" Text="Note: Please Contact customer care if you would like to add or remove links." ></asp:Label>
+        </td>
+    </tr>
 </table>
 <table width="100%">
     <tr>
@@ -18,6 +23,7 @@
     </tr>
 </table>
 <table width="100%" class="TableBackground">
+   
     <tr>
         <td>
         <br />
