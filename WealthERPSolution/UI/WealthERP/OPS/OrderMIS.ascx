@@ -22,6 +22,31 @@
          $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvMIS.Rows.Count %>');
+        var gvControl = document.getElementById('<%= gvMIS.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "cbRecons";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkBxWerpAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+    </script>
 
 <%--<script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
@@ -407,6 +432,10 @@
                                         <AlternatingRowStyle CssClass="AltRowStyle" />                                        
                                         <Columns>
                                          <asp:TemplateField HeaderText="Select">
+                                         <HeaderTemplate>
+                                         <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                         <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                         </HeaderTemplate>
                                             <ItemTemplate>
                                               <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                                             </ItemTemplate>
@@ -576,7 +605,7 @@
         onclick="btnSync_Click" />
     </td>
      <td> 
-    <asp:Button ID="btnMannualMatch"  runat="server" Text="Mannual Match" CssClass="PCGMediumButton"
+    <asp:Button ID="btnMannualMatch"  runat="server" Text="Manual Match" CssClass="PCGMediumButton"
              onclick="btnMannualMatch_Click" />
     </td>
 <%--    <td> 

@@ -180,7 +180,8 @@ namespace WealthERP.OPS
             }
             btnSync.Visible = false;
             btnMannualMatch.Visible = false;
-            
+            txtFrom.Text = DateTime.Now.ToShortDateString();
+            txtTo.Text = DateTime.Now.ToShortDateString();
 
         }
 
@@ -615,7 +616,7 @@ namespace WealthERP.OPS
                         gvOrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_OrderDate"].ToString());
                         result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
                         if (result == true)
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match done');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
                         else
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
                     }
@@ -832,81 +833,78 @@ namespace WealthERP.OPS
         protected void btnMannualMatch_Click(object sender, EventArgs e)
         {
             int i = 0;
-            foreach (GridViewRow gvRow in gvMIS.Rows)
-            {
-
-                CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
-                if (chk.Checked)
-                {
-                    i++;
-                }
-
-            }
-            if (i == 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMISGridView();
-            }
-            else
-            {
-                string ids = GetSelectedIdString();
-                Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + ids + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
-            }
-           
             //foreach (GridViewRow gvRow in gvMIS.Rows)
             //{
+
             //    CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
             //    if (chk.Checked)
             //    {
-            //        count++;
+            //        i++;
             //    }
-            //    if(count>1)
-            //        chk.Checked = false;
 
             //}
-            //if (count == 0)
+            //if (i == 0)
             //{
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
             //    BindMISGridView();
             //}
-            //if (count == 1)
-            //{
-            //    int OrderId = 0;
-            //    int PortfolioId = 0;
-            //    int SchemeCode = 0;
-            //    int accountId = 0;
-            //    double Amount = 0.0;
-            //    string TrxType = string.Empty;
-            //    bool isUpdate = false;
-            //    foreach (GridViewRow gvRow1 in gvMIS.Rows)
-            //    {
-            //        if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
-            //        {
-            //            OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
-            //            PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
-            //            SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-            //            if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
-            //                accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
-            //            else
-            //                accountId = 0;
-            //            TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-            //            Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
-            //            isUpdate = operationBo.OrderMannualMatch(OrderId, accountId, SchemeCode, PortfolioId, Amount, TrxType);
-
-            //            if (isUpdate == true)
-            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
-            //            else
-            //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Multiple records found.Not able to match mannually');", true);
-            //        }
-                    
-            //    }
-            //    BindMISGridView();
-            //}
             //else
             //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
-            //    BindMISGridView();
+            //    string ids = GetSelectedIdString();
+            //    Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + ids + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
             //}
+
+            foreach (GridViewRow gvRow in gvMIS.Rows)
+            {
+                CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+                if (chk.Checked)
+                {
+                    count++;
+                }
+                if (count > 1)
+                    chk.Checked = false;
+
+            }
+            if (count == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                BindMISGridView();
+            }
+            if (count == 1)
+            {
+                int OrderId = 0;
+                int PortfolioId = 0;
+                int SchemeCode = 0;
+                int accountId = 0;
+                double Amount = 0.0;
+                string TrxType = string.Empty;
+                DateTime OrderDate = DateTime.MinValue;
+                foreach (GridViewRow gvRow1 in gvMIS.Rows)
+                {
+                    if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
+                    {
+                        OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
+                        //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                        //PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
+                        SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
+                        if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
+                            accountId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString());
+                        else
+                            accountId = 0;
+                        TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
+                        Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
+                        OrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_OrderDate"].ToString());
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                    }
+
+                }
+                BindMISGridView();
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
+                BindMISGridView();
+            }
            
         }
 
