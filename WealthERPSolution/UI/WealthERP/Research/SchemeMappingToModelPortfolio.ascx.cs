@@ -53,6 +53,7 @@ namespace WealthERP.Research
             {
                 BindSelectedMPDropDown();
                 bindRadGrid1();
+                bindHistryRadGrid();
 
                 dt = new DataTable();
                 dt.Columns.Add("PASP_SchemePlanName");
@@ -66,14 +67,14 @@ namespace WealthERP.Research
                 dt.Columns.Add("PA_AMCName");
                 dt.Columns.Add("PAIC_AssetInstrumentCategoryName");
                 dt.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+                dt.Columns.Add("AMFMPD_IsActive");
 
                 Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                 RadGrid1.DataSource = dt;
                 //tblPieChart.Visible = false;
-
-
-
             }
+
+            //BindArchiveReasonDropDown();
         }
 
         public void bindRadGrid1()
@@ -98,6 +99,7 @@ namespace WealthERP.Research
                     dtClass.Columns.Add("PA_AMCName");
                     dtClass.Columns.Add("PAIC_AssetInstrumentCategoryName");
                     dtClass.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+                    dtClass.Columns.Add("AMFMPD_IsActive");
 
                     DataRow drRiskClass;
                     foreach (DataRow dr in dtRiskClass.Rows)
@@ -112,6 +114,7 @@ namespace WealthERP.Research
                         drRiskClass["PA_AMCName"] = dr["PA_AMCName"].ToString();
                         drRiskClass["PAIC_AssetInstrumentCategoryName"] = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         drRiskClass["PAISC_AssetInstrumentSubCategoryName"] = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        drRiskClass["AMFMPD_IsActive"] = dr["AMFMPD_IsActive"].ToString();
 
                         dtClass.Rows.Add(drRiskClass);
                     }
@@ -123,9 +126,17 @@ namespace WealthERP.Research
                 else
                 {
                     //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
-                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                    RadGrid1.DataSource = dt;
-                    RadGrid1.DataBind();
+                    if (dtRiskClass.Rows.Count > 0)
+                    {
+                        dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                        RadGrid1.DataSource = dt;
+                        RadGrid1.DataBind();
+                    }
+                    else
+                    {
+                        RadGrid1.DataSource = dtRiskClass;
+                        RadGrid1.DataBind();
+                    }
                     //tableGrid.Visible = false;
                 }
                 tableGrid.Visible = true;
@@ -215,30 +226,34 @@ namespace WealthERP.Research
         }
 
         protected void RadGrid1_UpdateCommand(object source, GridCommandEventArgs e)
-        {
-            try
-            {
-                TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
-                TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
+        {            
+            /*********************************This code is for updating the percentage & Description of attached scheme**************************************************/
+            //try
+            //{
+            //    TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
+            //    TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
 
-                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                DataRow[] drRow = dt.Select("AMFMPD_Id=" + Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString()));
+            //    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+            //    DataRow[] drRow = dt.Select("AMFMPD_Id=" + Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString()));
 
-                foreach (DataRow dr in drRow)
-                {
-                    dr["AMFMPD_AllocationPercentage"] = weightage.Text;
-                    dr["AMFMPD_SchemeDescription"] = description.Text;
-                    dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
-                    dt.AcceptChanges();
-                }
-                RadGrid1.DataSource = dt;
-                RadGrid1.Rebind();
-            }
-            catch (Exception ex)
-            {
-                RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
-                e.Canceled = true;
-            }
+            //    foreach (DataRow dr in drRow)
+            //    {
+            //        dr["AMFMPD_AllocationPercentage"] = weightage.Text;
+            //        dr["AMFMPD_SchemeDescription"] = description.Text;
+            //        dr["AMFMPD_AddedOn"] = DateTime.Now.ToString();
+            //        dt.AcceptChanges();
+            //    }
+            //    RadGrid1.DataSource = dt;
+            //    RadGrid1.Rebind();
+            //}
+            //catch (Exception ex)
+            //{
+            //    RadGrid1.Controls.Add(new LiteralControl("Unable to insert Scheme. Reason: " + ex.Message));
+            //    e.Canceled = true;
+            //}
+
+            /*********************************This code End**************************************************/
+
             //try
             //{
             //    TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
@@ -284,6 +299,32 @@ namespace WealthERP.Research
             {
 
             }
+            else if (e.CommandName == "Update")
+            {
+                try
+                {
+                    int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
+                    int xarId = dropdownArchive.SelectedIndex;
+                    modelPortfolioVo.ArchiveReason = Convert.ToInt32(dropdownArchive.SelectedIndex);
+                    //modelPortfolioBo.DeleteSchemeFromModelPortfolio(modelId, advisorVo.advisorId);
+                    dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
+
+                    dr = dt.NewRow();                    
+                    dr["AMFMPD_IsActive"] = 1;
+
+                    dt.AcceptChanges();
+
+                    //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    RadGrid1.DataSource = dt;
+                    RadGrid1.Rebind();
+                }
+                catch (Exception ex)
+                {
+                    RadGrid1.Controls.Add(new LiteralControl("Unable to Archive. Reason: " + ex.Message));
+                    e.Canceled = true;
+                }
+            }
             else if (e.CommandName == "Archive")
             {
                 //try
@@ -320,6 +361,7 @@ namespace WealthERP.Research
                     dr["PA_AMCName"] = dropdownAMC.SelectedItem;
                     dr["PAIC_AssetInstrumentCategoryName"] = dropdownCategory.SelectedItem;
                     dr["PAISC_AssetInstrumentSubCategoryName"] = dropdownSubCategory.SelectedItem;
+                    dr["AMFMPD_IsActive"] = 0;
 
                     dt.Rows.Add(dr);
 
@@ -347,9 +389,6 @@ namespace WealthERP.Research
 
         protected void RadGrid1_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
         {
-
-
-
             if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
             {
                 //the dropdown list will be the first control in the Controls collection of the corresponding cell
@@ -372,11 +411,19 @@ namespace WealthERP.Research
         }
 
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
-        {
-
-
-
+        {      
             DataTable dt = new DataTable();
+            if (e.Item is GridCommandItem)
+            {
+                GridCommandItem cmditm = (GridCommandItem)e.Item;
+                //to hide AddNewRecord button
+                //cmditm.FindControl("InitInsertButton").Visible = false;//hide the text
+                //cmditm.FindControl("AddNewRecordButton").Visible = false;//hide the image
+
+                //to hide Refresh button
+                cmditm.FindControl("RefreshButton").Visible = false;//hide the text
+                cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
+            }      
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 GridEditableItem edititem = (GridEditableItem)e.Item;
@@ -387,7 +434,12 @@ namespace WealthERP.Research
                 //dropdownScheme = (DropDownList)edititem.FindControl("ddlScheme");
                 //trSubCategory = (HtmlTableRow)editform.FindControl("divSubCategory");
                 //dropdownArchive = (DropDownList)edititem.FindControl("ddlArchive");
+
+                TextBox weightage = (TextBox)e.Item.FindControl("txtWeightage");
+                TextBox description = (TextBox)e.Item.FindControl("txtSchemeDescription");
+
                 DropDownList ddl = (DropDownList)edititem.FindControl("ddlAMC"); //the field should point to the ListValueField of the dropdown editor
+                DropDownList dropdownArchive = (DropDownList)edititem.FindControl("ddlArchive");
 
                 HtmlTableRow trDdlPickAMC = (HtmlTableRow)editform.FindControl("trDdlPickAMC");
                 HtmlTableRow trPickAMCtxt = (HtmlTableRow)editform.FindControl("trPickAMCtxt");
@@ -401,6 +453,8 @@ namespace WealthERP.Research
                 HtmlTableRow trddlScheme = (HtmlTableRow)editform.FindControl("trddlScheme");
                 HtmlTableRow trTxtScheme = (HtmlTableRow)editform.FindControl("trTxtScheme");
 
+                HtmlTableRow trArchive = (HtmlTableRow)editform.FindControl("trArchive");
+
                 if (e.Item.RowIndex == -1)
                 {
                     trDdlPickAMC.Visible = true;
@@ -411,6 +465,8 @@ namespace WealthERP.Research
                     trTxtCategory.Visible = false;
                     trTxtSubCategory.Visible = false;
                     trTxtScheme.Visible = false;
+                    
+                    trArchive.Visible = false;
 
                     dtGetAMCList = modelPortfolioBo.GetAMCList();
                     if (dtGetAMCList.Rows.Count != 0)
@@ -436,6 +492,21 @@ namespace WealthERP.Research
                     trTxtCategory.Visible = true;
                     trTxtSubCategory.Visible = true;
                     trTxtScheme.Visible = true;
+
+                    weightage.Enabled = false;                    
+                    trArchive.Visible = true;
+                    description.Enabled = false;
+
+                    DataTable dtGetArchiveReason = new DataTable();
+                    dtGetArchiveReason = modelPortfolioBo.GetArchiveReason();
+                    if (dtGetArchiveReason.Rows.Count != 0)
+                    {
+                        dropdownArchive.DataSource = dtGetArchiveReason;
+                        dropdownArchive.DataTextField = dtGetArchiveReason.Columns["XAR_ArchiveReason"].ToString();
+                        dropdownArchive.DataValueField = dtGetArchiveReason.Columns["XAR_Id"].ToString();
+                        dropdownArchive.DataBind();
+                        dropdownArchive.Items.Insert(0, new ListItem("Select Reason", "0"));
+                    }
                 }
             }
         }
@@ -515,6 +586,7 @@ namespace WealthERP.Research
         protected void ddlSelectedMP_SelectedIndexChanged(object sender, EventArgs e)
         {
             bindRadGrid1();
+            bindHistryRadGrid();
             //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
             bindAssetChart();
             bindAssetChartOnSubCategory();
@@ -523,15 +595,6 @@ namespace WealthERP.Research
 
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //dtGetAMCList = modelPortfolioBo.GetAMCList();
-            //if (dtGetAMCList.Rows.Count != 0)
-            //{
-            //    dropdownAMC.DataSource = dtGetAMCList;
-            //    dropdownAMC.DataTextField = dtGetAMCList.Columns["PA_AMCName"].ToString();
-            //    dropdownAMC.DataValueField = dtGetAMCList.Columns["PA_AMCCode"].ToString();
-            //    dropdownAMC.DataBind();
-            //}
-            //dropdownAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select AMC", "Select AMC Code"));
             LoadAllSchemeNAV();
         }
 
@@ -590,8 +653,6 @@ namespace WealthERP.Research
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //DropDownList dropdown1 = (DropDownList)sender;
-            //string a = dropdown1.SelectedValue;
             LoadAllSchemeNAV();
         }
 
@@ -600,22 +661,36 @@ namespace WealthERP.Research
             decimal sum = 0;
             //DataTable dtDetails;
             //DataRow drDetails;
-            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+            dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];            
+            
             foreach (DataRow dr in dt.Rows)
             {
-                sum += Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"].ToString());
+                if (int.Parse(dr["AMFMPD_IsActive"].ToString()) == 1)
+                {
+                    sum += Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"].ToString());
+                }
             }
             if (sum == 100)
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    modelPortfolioVo.Weightage = Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"]);
-                    modelPortfolioVo.SchemeDescription = dr["AMFMPD_SchemeDescription"].ToString();
-                    modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
-                    modelPortfolioVo.SchemeCode = Convert.ToInt32(dr["PASP_SchemePlanCode"]);
-                    IsActiveFlag = 1;
-                    modelPortfolioVo.ArchiveReason = 0;
-                    modelPortfolioBo.AttachSchemeToPortfolio(modelPortfolioVo, advisorVo.advisorId, IsActiveFlag);
+                    if (int.Parse(dr["AMFMPD_IsActive"].ToString()) == 1)
+                    {
+                        modelPortfolioVo.Weightage = Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"]);
+                        modelPortfolioVo.SchemeDescription = dr["AMFMPD_SchemeDescription"].ToString();
+                        modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                        modelPortfolioVo.SchemeCode = Convert.ToInt32(dr["PASP_SchemePlanCode"]);
+                        IsActiveFlag = 1;
+                        //modelPortfolioVo.ArchiveReason = 0;
+                        modelPortfolioBo.AttachSchemeToPortfolio(modelPortfolioVo, advisorVo.advisorId, IsActiveFlag);
+                    }
+                    else if (int.Parse(dr["AMFMPD_IsActive"].ToString()) == 0)
+                    {
+                        Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
+                        int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[item.ItemIndex]["AMFMPD_Id"].ToString());
+                        int xarId = modelPortfolioVo.ArchiveReason;
+                        modelPortfolioBo.ArchiveSchemeFromModelPortfolio(modelId, xarId);
+                    }
                 }
                 bindAssetChart();
                 bindAssetChartOnSubCategory();
@@ -625,8 +700,8 @@ namespace WealthERP.Research
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Weightage must be 100');", true);
                 tblPieChart.Visible = false;
-            }
-
+            }           
+            RadGrid1.Rebind();
         }
 
         protected void bindAssetChart()
@@ -644,7 +719,6 @@ namespace WealthERP.Research
 
                 if (dtChartAsset.Rows.Count > 0)
                 {
-
                     // LoadChart 
                     AssetAllocation.ChartType = SeriesChartType.Pie;
                     ChartAsset.DataSource = dtChartAsset.DefaultView;
@@ -728,7 +802,6 @@ namespace WealthERP.Research
                     ChartAsset.Visible = false;
                 }
             }
-
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -832,33 +905,91 @@ namespace WealthERP.Research
                     Chart1.Visible = false;
                 }
             }
-
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-
-
         }
 
-        protected void btnArchive_Click(object sender, EventArgs e)
+        //protected void btnArchive_Click(object sender, EventArgs e)
+        //{
+        //    Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
+
+        //    foreach (GridDataItem dataItem in RadGrid1.MasterTableView.Items)
+        //    {
+        //        CheckBox chk = (dataItem.FindControl("chk") as CheckBox);
+        //        if (chk.Checked)
+        //        {
+        //            int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AMFMPD_Id"].ToString());
+        //            ModalPopupExtender1.Show();
+        //        }
+        //        else
+        //        {
+
+
+        //        }               
+        //    }
+        //}
+
+        //public void BindArchiveReasonDropDown()
+        //{
+        //    ModelPortfolioBo ModelPortfolioBo = new ModelPortfolioBo();
+        //    DataTable dtGetArchiveReason = new DataTable();
+        //    dtGetArchiveReason = ModelPortfolioBo.GetArchiveReason();
+        //    ddlArchive.DataSource = dtGetArchiveReason;
+        //    ddlArchive.DataTextField = dtGetArchiveReason.Columns["XAR_ArchiveReason"].ToString();
+        //    ddlArchive.DataValueField = dtGetArchiveReason.Columns["XAR_Id"].ToString();
+        //    ddlArchive.DataBind();
+        //    ddlArchive.Items.Insert(0, new ListItem("Select Reason", "0"));
+        //}
+
+        //protected void ddlArchive_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    string archiveReason = ddlArchive.SelectedValue;
+        //}
+
+        public void bindHistryRadGrid()
         {
-            Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
+            DataTable dtRiskClass = new DataTable();
+            DataTable dtClass = new DataTable();
+            //if (ddlSelectedMP.SelectedValue != "0" && ddlSelectedMP.SelectedValue != "")
+            //{
+                //modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
+                dtRiskClass = modelPortfolioBo.GetArchivedSchemeDetails(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
 
-            foreach (GridDataItem dataItem in RadGrid1.MasterTableView.Items)
-            {
-                CheckBox chk = (dataItem.FindControl("chk") as CheckBox);
-                if (chk.Checked)
+                if (dtRiskClass.Rows.Count > 0)
                 {
-                    int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[dataItem.ItemIndex]["AMFMPD_Id"].ToString());
-                    ModalPopupExtender1.Show();
-                }
-                else
-                {
+                    dtClass.Columns.Add("PASP_SchemePlanName");
+                    dtClass.Columns.Add("AMFMPD_AddedOn");
+                    dtClass.Columns.Add("AMFMPD_RemovedOn");
+                    dtClass.Columns.Add("AMFMPD_AllocationPercentage");
+                    dtClass.Columns.Add("AMFMPD_SchemeDescription");
+                    dtClass.Columns.Add("XAR_ArchiveReason");
 
-
-                }
-               
+                    DataRow drRiskClass;
+                    foreach (DataRow dr in dtRiskClass.Rows)
+                    {
+                        drRiskClass = dtClass.NewRow();
+                        drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
+                        drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
+                        drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
+                        drRiskClass["AMFMPD_RemovedOn"] = dr["AMFMPD_RemovedOn"].ToString();
+                        drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
+                        drRiskClass["XAR_ArchiveReason"] = dr["XAR_ArchiveReason"].ToString();
+                        dtClass.Rows.Add(drRiskClass);
+                    }                    
+                    histryRadGrid.DataSource = dtClass;
+                    histryRadGrid.DataSourceID = String.Empty;
+                    histryRadGrid.DataBind();
+                //}
+                //else
+                //{
+                //    //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
+                //    //dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                //    histryRadGrid.DataSource = dt;
+                //    histryRadGrid.DataBind();
+                //    //tableGrid.Visible = false;
+                //}               
             }
         }
     }

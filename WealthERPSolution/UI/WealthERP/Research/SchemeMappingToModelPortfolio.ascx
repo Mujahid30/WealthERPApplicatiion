@@ -6,53 +6,25 @@
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        if ($('.Hello').Click()) {
-            alert('Hello');
-        }
-    });
-</script>
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager> 
 
-<script type="text/javascript">
+<telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
+    EnableEmbeddedSkins="False" MultiPageID="SchemeDetailsId" 
+    SelectedIndex="0">
+    <Tabs>
+        <telerik:RadTab runat="server" Text="Attach Scheme" 
+            Value="ActiveScheme" TabIndex="0" Selected="True">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="View Hystory Schemes"
+            Value="HistoryScheme" TabIndex="1" Selected="True">
+        </telerik:RadTab>        
+    </Tabs>
+</telerik:RadTabStrip>
 
-
-    function getControl() {
-        alert(1);
-
-        var key = document.getElementById('ctrl_SchemeMappingToModelPortfolio_RadGrid1_ctl00_ctl04_lnkArchive');
-
-        alert(key.ID);
-
-        var modalpop = document.getElementById("<%=ModalPopupExtender1.ClientID %>");
-        modalpop.TargetControlID = key;
-        
-    }
-
-</script>
-
-<asp:ScriptManager ID="scriptmanager1" runat="server">
-</asp:ScriptManager>
-
-
-<%--
-<script type="text/javascript">
-    function showmessage() {
-        if (confirm("Are you sure you want to delete this child customer?")) {
-            document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_AddProspectList_hiddenassociation").click();
-            return true;
-        }
-        else {
-            document.getElementById("ctrl_AddProspectList_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_AddProspectList_hiddenassociation").click();
-            return false;
-        }
-
-    }
-</script>--%>
-
-
+<telerik:RadMultiPage ID="SchemeDetailsId" EnableViewState="true" runat="server" SelectedIndex="0">
+<telerik:RadPageView ID="RadPageView1" runat="server">
+<asp:Panel ID="pnlSchemeAttachment" runat="server">
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td>
@@ -60,6 +32,16 @@
         </td>
     </tr>
           
+</table>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                Please Create variant Asset allocation models.....
+            </div>
+        </td>
+    </tr>
 </table>
 <table id="tblSelectddl" runat="server" class="TableBackground" width="40%">
 <tr>
@@ -76,16 +58,6 @@
     </td>
 </tr>
 </table>
-<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
-    visible="false">
-    <tr>
-        <td align="center">
-            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
-                Please Create variant Asset allocation models.....
-            </div>
-        </td>
-    </tr>
-</table>
 <table id="tableGrid" runat="server" class="TableBackground" width="100%">
 
     <tr>
@@ -98,14 +70,7 @@
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="AMFMPD_Id">
         <MasterTableView CommandItemDisplay="Top" DataKeyNames="AMFMPD_Id" EditMode="PopUp">
             <Columns>
-               
-                <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                                    CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
-                                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
-                                    EditImageUrl="../Images/Telerik/Edit.gif">
-                                    <HeaderStyle Width="85px"></HeaderStyle>
-                 </telerik:GridEditCommandColumn>
-                  <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" ConfirmText="Are you sure you want to delete the Scheme?"  ShowInEditForm="true"
+                <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" ConfirmText="Are you sure you want to delete the Scheme?"  ShowInEditForm="true"
                 ImageUrl="../Images/Telerik/Delete.gif"
                 Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>
@@ -137,24 +102,24 @@
                     <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
          
-              <%--  <telerik:GridButtonColumn ButtonType="LinkButton" ButtonCssClass="Hello" CommandName="Archive" UniqueName="Archive" ConfirmText="Are you sure you want to Archive the Scheme?"  
+                <%--<telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Archive" UniqueName="Archive" ConfirmText="Are you sure you want to Archive the Scheme?"  
                 ShowInEditForm="true" ImageUrl="../Images/Telerik/Delete.gif" Text="Archive" >
-                </telerik:GridButtonColumn>
-                --%>
+                </telerik:GridButtonColumn>--%>
+                
                 
                 <%--<telerik:GridCheckBoxColumn UniqueName="GridCheckBoxColumn" DataField="Bool"  FooterText="CheckBox column footer" /> --%>
-                <telerik:GridTemplateColumn UniqueName="Hello" HeaderText="CheckBox Column">
+                <%--<telerik:GridTemplateColumn UniqueName="CheckBox" HeaderText="CheckBox Column">
                 <ItemTemplate>
                     <asp:CheckBox ID="Chk" runat="server"/>
                 </ItemTemplate>
-                </telerik:GridTemplateColumn>
-          
+                </telerik:GridTemplateColumn>--%>
+                <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn" CancelText="Cancel">                
+                    <HeaderStyle Width="85px"></HeaderStyle>
+                </telerik:GridEditCommandColumn>
                
-            </Columns>
-            
-                
+            </Columns>                
             <EditFormSettings InsertCaption="Add new Scheme" FormTableStyle-HorizontalAlign="Center"
-            PopUpSettings-Modal="true" PopUpSettings-ZIndex="80" CaptionFormatString="Edit Risk ClassCode: {0}"
+            PopUpSettings-Modal="true" PopUpSettings-ZIndex="80" CaptionFormatString="Archive Scheme:"
             CaptionDataField="AMFMPD_Id" EditFormType="Template">
                 <FormTemplate>
                 <table id="tblMain" cellspacing="1" cellpadding="1" runat="server" width="100%" border="0">
@@ -199,8 +164,7 @@
                     <td class="rightField">
                         <asp:TextBox ID="TextBox1" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind( "PAIC_AssetInstrumentCategoryName") %>'></asp:TextBox>
                     </td>
-                </tr>                   
-                 <%--   <div id="divSubCategory" runat="server" visible="false"> </div>      --%>
+                </tr>
                 <tr id="divSubCategory" runat="server"  visible="false">
                      <td class="leftField">
                         <asp:Label ID="lblSubCategory" runat="server" CssClass="FieldName" Text="Sub Category"></asp:Label>
@@ -238,39 +202,48 @@
                         <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind( "PASP_SchemePlanName") %>'></asp:TextBox>
                     </td>
                 </tr>
-                    <tr>
+                <tr id="trAddWeightage" runat="server">
                     <td class="leftField">
                         <asp:Label ID="lblWeightage" runat="server" CssClass="FieldName" Text="Weightage(%)"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtWeightage" runat="server" CssClass="txtField" Text='<%# Bind( "AMFMPD_AllocationPercentage") %>'></asp:TextBox>                       
+                    </td>                   
+                </tr> 
+                <%--<tr id="trEditWeightage" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Weightage(%)"></asp:Label>
                     </td>
-                    <%--<td class="leftField">
-                        <asp:Label ID="lblArchive" runat="server" CssClass="FieldName" Text="Reason for Archiving:"></asp:Label>
-                    </td>
-                    <td class="rightField">                         
-                        <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField">               
-                        </asp:DropDownList>
-                    </td>--%>
-                </tr>  
-                <tr>
+                    <td>
+                        <asp:TextBox ID="TextBox4" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind( "AMFMPD_AllocationPercentage") %>'></asp:TextBox>                       
+                    </td>                   
+                </tr> --%>
+                <tr id="trAddDescription" runat="server">
                     <td class="leftField">
                         <asp:Label ID="lblSchemeDescription" runat="server" CssClass="FieldName" Text="Description:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtSchemeDescription" runat="server" CssClass="txtField" Text='<%# Bind( "AMFMPD_SchemeDescription") %>' TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtSchemeDescription" runat="server" CssClass="txtField" 
+                        Text='<%# Bind( "AMFMPD_SchemeDescription") %>' TextMode="MultiLine"></asp:TextBox>
+                    </td>                    
+                </tr>  
+                <%--<tr id="trEditDescription" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Description:"></asp:Label>
                     </td>
-                    <td>
-                        <%--<asp:Label ID="lblEndDate" runat="server" CssClass="FieldName" Text="EndDate"></asp:Label>--%>
-                    </td>
-                    <td></td>
-                </tr>
-               <%-- <tr>                    
-                    <td></td>
                     <td class="rightField">
-                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"/>
+                        <asp:TextBox ID="TextBox5" runat="server" CssClass="txtField" 
+                        Text='<%# Bind( "AMFMPD_SchemeDescription") %>' Enabled="false" TextMode="MultiLine"></asp:TextBox>
+                    </td>                    
+                </tr>--%>
+                <tr id="trArchive" runat="server">
+                    <td class="leftField">
+                        <asp:Label ID="lblArchive" runat="server" CssClass="FieldName" Text="Reason for Archiving:"></asp:Label>
                     </td>
-                </tr>--%>  
+                    <td class="rightField">                         
+                        <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField"></asp:DropDownList>
+                    </td>
+                </tr>             
                 <tr>
                     <td align="right" colspan="2">
                         <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
@@ -300,67 +273,70 @@
 
             <%--<ClientEvents OnRowDblClick="RowDblClick" />--%>
         </ClientSettings>
-    </telerik:RadGrid>       
-    
-
-        </td>
-        <td>
-           <%-- <telerik:RadWindow ID="Radwindow" runat="server">
-                <ContentTemplate>
-                    <asp:DropDownList ID="ddd" runat="server">
-                        <asp:ListItem Text="Hi" Value="0"></asp:ListItem>
-                    </asp:DropDownList>
-                </ContentTemplate>
-            </telerik:RadWindow>--%>
-        </td>
-       
+    </telerik:RadGrid> 
+</td>
+<td>
+</td> 
+    </tr>
+    <tr>
+    <td>   
+    </td>
+   <td>
+   </td>
     </tr>
     <tr>
     <td>
-            <asp:Button ID="btnArchive" runat="server" Text="Archive" CssClass="PCGButton" 
-                onclick="btnArchive_Click" />
-            <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="pnlWindow"
-                TargetControlID="hdnTempId" DynamicServicePath="" BackgroundCssClass="modalBackground"
-                Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="pnlWindow" CancelControlID="btnCancel" Drag="true">
-            </cc1:ModalPopupExtender> 
+        <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" 
+            onclick="btnSubmit_Click"/>
+        <%--<asp:Button ID="btnArchive" runat="server" Text="Archive" CssClass="PCGButton" 
+            onclick="btnArchive_Click" />--%>
     </td>
-       <td>
-            <asp:Panel ID="pnlWindow" runat="server" CssClass="ModelPup" >
-            
+    <td>
+        
+        <%--<cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="pnlWindow"
+            TargetControlID="hdnTempId" DynamicServicePath="" BackgroundCssClass="modalBackground"
+            Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="pnlWindow" CancelControlID="btnCancel" Drag="true">
+        </cc1:ModalPopupExtender>--%>         
+    </td>
+    </tr> 
+    <tr>
+        <td>
+            <%--<asp:Panel ID="pnlWindow" runat="server" CssClass="ModelPup" >
                 <table>
                     <tr>
                         <td class="leftField">
                         <asp:Label ID="lblArchive" runat="server" CssClass="FieldName" Text="Reason for Archiving:"></asp:Label>
                         </td>
                         <td class="rightField">                         
-                            <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField">               
+                            <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField" 
+                                onselectedindexchanged="ddlArchive_SelectedIndexChanged">               
                             </asp:DropDownList>
                         </td>
-                    </tr>
+                    </tr>                    
+                    <tr id="trArchiveWeightage" runat="server">
+                        <td class="leftField">
+                            <asp:Label ID="lblArchiveWeightage" runat="server" CssClass="FieldName" Text="Weightage(%)"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtArchiveWeightage" runat="server" CssClass="txtField" Text='<%# Bind( "AMFMPD_AllocationPercentage") %>'></asp:TextBox>                       
+                        </td>
+                    </tr>                     
                     <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblReasonDescription" runat="server" CssClass="FieldName" Text="Archive Reason Description:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtReason" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
-                    </td>                    
-                </tr>
+                        <td class="leftField">
+                            <asp:Label ID="lblReasonDescription" runat="server" CssClass="FieldName" Text="Archive Reason Description:"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                            <asp:TextBox ID="txtReason" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
+                        </td>                    
+                    </tr>
                 </table>
            
-                <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
+                <asp:Button ID="btnOk" runat="server" Text="Ok" CausesValidation="false" CssClass="PCGButton" />
                 &nbsp;
                 <asp:Button ID="btnCancel"  CausesValidation="false" runat="server" Text="Cancel" CssClass="PCGButton" />
-            
-            </asp:Panel>
-       </td>
-    </tr>
-    <tr>
-    <td>
-        <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" 
-            onclick="btnSubmit_Click"/>
-    </td>
-    <td></td>
-    </tr>  
+            </asp:Panel>--%>
+        </td>
+    </tr> 
 </table>
 <table class="TableBackground" id="tblPieChart" runat="server" width="100%">
 <tr>
@@ -390,6 +366,69 @@
     </td>
 </tr>    
 </table>
-    <asp:HiddenField ID="hdnSubCategory" runat="server" />  
-       <asp:HiddenField ID="hdnWeightage" runat="server" />  
-       <asp:HiddenField ID="hdnTempId" runat="server" />
+<asp:HiddenField ID="hdnSubCategory" runat="server" />  
+<asp:HiddenField ID="hdnWeightage" runat="server" />  
+<asp:HiddenField ID="hdnTempId" runat="server" />
+</asp:Panel>
+</telerik:RadPageView>
+
+<telerik:RadPageView ID="RadPageView2" runat="server">
+<asp:Panel ID="pnlHystoryGrid" runat="server">
+
+<table class="TableBackground" style="width: 100%;">
+    <tr>
+        <td>
+            <asp:Label ID="Label4" runat="server" CssClass="HeaderTextSmall" Text="Archived Schemes"></asp:Label>
+        </td>
+    </tr>          
+</table>
+<table>
+    <tr>
+        <td>
+               
+        <telerik:RadGrid ID="histryRadGrid" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
+            PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="False" AllowAutomaticDeletes="false" 
+            AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="100%">
+        <MasterTableView>
+            <Columns>                             
+                <telerik:GridBoundColumn  DataField="PASP_SchemePlanName"  HeaderText="Name" UniqueName="PASP_SchemePlanName" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage" UniqueName="AMFMPD_AllocationPercentage">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <%--<telerik:GridBoundColumn  DataField="PASP_SchemePlanCode" Visible="false" HeaderText="SchemePlanCode" UniqueName="PASP_SchemePlanCode">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
+                </telerik:GridBoundColumn>--%>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:d}" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"/>
+                </telerik:GridBoundColumn>                
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_RemovedOn"  HeaderText="End Date" UniqueName="AMFMPD_RemovedOn" DataFormatString="{0:d}" >
+                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="XAR_ArchiveReason"  HeaderText="ArchiveReason" UniqueName="XAR_ArchiveReason">
+                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_SchemeDescription"  HeaderText="Description" UniqueName="AMFMPD_SchemeDescription">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+            </Columns>            
+        </MasterTableView>
+        <ClientSettings>
+        <ClientEvents />
+            <%--<ClientEvents OnRowDblClick="RowDblClick" />--%>
+        </ClientSettings>
+    </telerik:RadGrid> 
+        </td>
+    </tr>
+</table>
+</asp:Panel>
+</telerik:RadPageView>
+
+</telerik:RadMultiPage>
