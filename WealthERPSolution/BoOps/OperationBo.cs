@@ -156,12 +156,12 @@ namespace BoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(string orderId)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate)
         {
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.GetOrderMannualMatch(orderId);
+                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -172,8 +172,12 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:GetOrderMannualMatch()");
-                object[] objects = new object[1];
-                objects[0] = orderId;
+                object[] objects = new object[5];
+                objects[0] = scheme;
+                objects[1] = accountId;
+                objects[2] = type;
+                objects[3] = amount;
+                objects[4] = orderDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -448,12 +452,12 @@ namespace BoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode, DateTime orderDate, string TrxType)
+        public bool OrderMannualMatch(int OrderId, int transId, int SchemeCode, double amount, string TrxType)
         {
             bool Result = false;
             try
             {
-                Result = operationDao.OrderMannualMatch(OrderId, accountId, SchemeCode,orderDate, out Result, TrxType);
+                Result = operationDao.OrderMannualMatch(OrderId,transId, SchemeCode, amount, out Result, TrxType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -464,11 +468,12 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:OrderMannualMatch()");
-                object[] objects = new object[4];
+                object[] objects = new object[5];
                 objects[0] = OrderId;
-                objects[1] = accountId;
+                objects[1] = transId;
                 objects[2] = SchemeCode;
-                objects[3] = orderDate;
+                objects[3] = amount;
+                objects[4] = TrxType;
                 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
