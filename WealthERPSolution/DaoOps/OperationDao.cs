@@ -204,7 +204,7 @@ namespace DaoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(string orderIds)
+        public DataSet GetOrderMannualMatch(int scheme,int accountId, string type,double amount,DateTime orderDate)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -213,7 +213,11 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMannualMatchcmd = db.GetStoredProcCommand("SP_GetMannualOrderMapping");
-                db.AddInParameter(getMannualMatchcmd, "@orderIds", DbType.String, orderIds);
+                db.AddInParameter(getMannualMatchcmd, "@schemeCode", DbType.Int32, scheme);
+                db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
+                db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
+                db.AddInParameter(getMannualMatchcmd, "@amount", DbType.Double, amount);
+                db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)
@@ -225,8 +229,12 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:GetOrderMannualMatch()");
-                object[] objects = new object[1];
-                objects[0] = orderIds;
+                object[] objects = new object[5];
+                objects[0] = scheme;
+                objects[1] = accountId;
+                objects[2] = type;
+                objects[3] = amount;
+                objects[4] = orderDate;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -890,7 +898,7 @@ namespace DaoOps
             return bResult;
         }
 
-        public bool OrderMannualMatch(int OrderId, int accountId, int SchemeCode,DateTime orderDate, out bool status, string TrxType)
+        public bool OrderMannualMatch(int OrderId, int transId, int SchemeCode, double amount, out bool status, string TrxType)
         {
             Database db;
             int affectedRecords = 0;
@@ -901,10 +909,10 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getOrderMannualMatchCmd = db.GetStoredProcCommand("SP_GetOrderMannualMatch");
                 db.AddInParameter(getOrderMannualMatchCmd, "@orderId", DbType.Int32, OrderId);
-                db.AddInParameter(getOrderMannualMatchCmd, "@accountId", DbType.Int32, accountId);
+                db.AddInParameter(getOrderMannualMatchCmd, "@transId", DbType.Int32, transId);
                 db.AddInParameter(getOrderMannualMatchCmd, "@schemeCode", DbType.Int32, SchemeCode);
                 //db.AddInParameter(getOrderMannualMatchCmd, "@portfolioId", DbType.Int32, PortfolioId);
-                db.AddInParameter(getOrderMannualMatchCmd, "@orderDate", DbType.DateTime, orderDate);
+                db.AddInParameter(getOrderMannualMatchCmd, "@amount", DbType.Double, amount);
                 db.AddInParameter(getOrderMannualMatchCmd, "@type", DbType.String, TrxType);
                 db.AddOutParameter(getOrderMannualMatchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(getOrderMannualMatchCmd) != 0)
@@ -920,12 +928,12 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationDao.cs:OrderMannualMatch()");
-                object[] objects = new object[4];
+                object[] objects = new object[5];
                 objects[0] = OrderId;
-                objects[1] = accountId;
+                objects[1] = transId;
                 objects[2] = SchemeCode;
-                objects[3] = orderDate;
-               
+                objects[3] = amount;
+                objects[4] = TrxType;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
