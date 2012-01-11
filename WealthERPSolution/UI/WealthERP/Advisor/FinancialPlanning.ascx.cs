@@ -18,6 +18,7 @@ using WealthERP.Base;
 using BoCommon;
 using BoCustomerProfiling;
 using BoFPSuperlite;
+using BoResearch;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 
@@ -27,7 +28,7 @@ namespace WealthERP.Advisor
     public partial class FinancialPlanning : System.Web.UI.UserControl
     {
         RiskProfileBo riskprofilebo = new RiskProfileBo();
-
+        ModelPortfolioBo modelPortFoliobo = new ModelPortfolioBo();
         List<RiskOptionVo> listRiskOptionVo;
         DataSet dsGetRiskProfileQuestion;
         DataSet dsGetRiskProfileQuestionOption;
@@ -48,6 +49,7 @@ namespace WealthERP.Advisor
         DataSet dsGetRiskProfileRules;
         int rScore = 0;
         int age = 0;
+        int modelPortfolioId = 0;
 
         /// <summary>
         /// For Java script coding variables are declared here
@@ -78,6 +80,7 @@ namespace WealthERP.Advisor
                 customerBo = new CustomerBo();
                 customerVo = customerBo.GetCustomer(customerId);
                 Session[SessionContents.CustomerVo] = customerVo;
+                
             }
 
             //PlaceHolder1.Controls.Add(new LiteralControl("<table>"));
@@ -345,7 +348,7 @@ namespace WealthERP.Advisor
                     //btnSubmitRisk.Visible = false;
                     //btnSubmitForPickRiskclass.Visible = false;
                     PickQuestions();
-
+                    HideModelPortFolioTab();
                 }
             }
             catch (Exception ex)
@@ -857,8 +860,9 @@ namespace WealthERP.Advisor
                         trCustomerAssetText.Visible = true;
                     lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
                 }
-
+                HideModelPortFolioTab();
             }
+
             catch (Exception ex)
             {
                 throw ex;
@@ -1549,6 +1553,7 @@ namespace WealthERP.Advisor
                     trCustomerAssetText.Visible = true;
                 lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
             }
+            HideModelPortFolioTab();
         }
 
         public void BindGridViewAssetAllocation(DataSet dsAssetAllocationDetails)
@@ -1649,6 +1654,62 @@ namespace WealthERP.Advisor
                     imgActionIndicator.Visible = false;
                 }
             }
+        }
+
+        protected void HideModelPortFolioTab()
+        {
+            DataSet dsModelPortFolio = new DataSet();
+            dsModelPortFolio = riskprofilebo.GetModelPortFolio(customerId,riskCode);
+            if (dsModelPortFolio.Tables[0].Rows.Count > 0)
+            {
+                int modelportfolioCode = int.Parse(dsModelPortFolio.Tables[0].Rows[0]["WFPCB_CalculationBasisId"].ToString());
+                if (modelportfolioCode == 7)
+                {
+                    if (dsModelPortFolio.Tables[1].Rows.Count > 0)
+                    {
+                        TabPanel2.Visible = true;
+                        ddlModelPortFolio.DataSource = dsModelPortFolio.Tables[1];
+                        ddlModelPortFolio.DataTextField = dsModelPortFolio.Tables[1].Columns["XAMP_ModelPortfolioName"].ToString();
+                        ddlModelPortFolio.DataValueField = dsModelPortFolio.Tables[1].Columns["XAMP_ModelPortfolioCode"].ToString();
+                        ddlModelPortFolio.DataBind();
+                        modelPortfolioId = int.Parse(dsModelPortFolio.Tables[1].Rows[0]["XAMP_ModelPortfolioCode"].ToString());
+                        BindModelPortFolioSchemes(modelPortfolioId);
+                        //ddlModelPortFolio.DataSource=
+                    }
+                    else
+                    {
+                        TabPanel2.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    TabPanel2.Visible = false;
+                }
+            }
+            else
+            {
+                TabPanel2.Visible = false;
+            }
+        }
+
+        protected void ddlModelPortFolio_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            modelPortfolioId = int.Parse(ddlModelPortFolio.SelectedValue);
+            BindModelPortFolioSchemes(modelPortfolioId);
+            tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 2;
+        }
+        protected void BindModelPortFolioSchemes(int modelPortFolioCode)
+        {
+          DataTable dtModelPortFolioSchemeDetails=modelPortFoliobo.GetAttachedSchemeDetails(modelPortFolioCode, advisorVo.advisorId);
+
+          if (dtModelPortFolioSchemeDetails.Rows.Count > 0)
+            {
+
+                RadGrid1.DataSource = dtModelPortFolioSchemeDetails;
+                RadGrid1.DataBind();
+            }
+            
         }
     }
 }

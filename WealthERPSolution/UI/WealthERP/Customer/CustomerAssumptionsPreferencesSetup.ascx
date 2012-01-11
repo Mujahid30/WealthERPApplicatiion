@@ -2,6 +2,8 @@
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <%@ Register TagPrefix="qsf" Namespace="Telerik" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 
 
@@ -14,12 +16,28 @@
 
 </script>--%>
 
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
     </telerik:RadScriptManager> 
     <br /> 
     
-    
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
+        $('.ScreenTip2').bubbletip($('#div2'), { deltaDirection: 'right' });
+        $('.ScreenTip3').bubbletip($('#div3'), { deltaDirection: 'right' });
+    });
+</script>    
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerAssumptionsPreferencesSetupId" 
     SelectedIndex="0">
@@ -158,6 +176,13 @@
                 <td></td>
    <td>
 <asp:CheckBox ID="chkMapping" runat="server" CssClass="cmbField" Text="Goal funding from MF Investments" />
+    <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
+            <div id="div1" style="display: none;">
+                <p class="tip">
+                   Check if you are funding for Goal from MF Investments
+                    
+                </p>
+            </div>
         
  </td>
 
@@ -166,6 +191,12 @@
                     <td></td><td>
                         <asp:CheckBox ID="chkRetirement" runat="server" CssClass="cmbField" 
                              Text="Retirement calculation basis corpus to be left behind" />
+                              <img src="../Images/help.png" class="ScreenTip2" style="height: 15px; width: 15px;" />
+            <div id="div2" style="display: none;">
+                <p class="tip">
+                    Check if you want retirement calculation based on corpus to be left behind
+                </p>
+            </div>
                         </td>
                     </tr>
                     
@@ -173,6 +204,12 @@
                     <td></td><td>
                         <asp:CheckBox ID="chkModelPortFolio" runat="server" CssClass="cmbField" 
                           Text="View Model Portfolio" />
+                              <img src="../Images/help.png" class="ScreenTip3" style="height: 15px; width: 15px;" />
+            <div id="div3" style="display: none;">
+                <p class="tip">
+                   Check if you want to use model portfolio
+                </p>
+            </div>
                         </td>
                     </tr>
                     

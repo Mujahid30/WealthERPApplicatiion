@@ -708,5 +708,32 @@ namespace DaoCustomerRiskProfiling
         //    }
 
         //}
+
+        public DataSet GetModelPortFolio(int customerId, string riskCode)
+        {
+            Database db;
+            DbCommand dbGetModelPortFolio = null;
+            DataSet dsGetModelPortFolio = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbGetModelPortFolio = db.GetStoredProcCommand("SP_GetModelPortFolio");
+                db.AddInParameter(dbGetModelPortFolio, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(dbGetModelPortFolio, "@riskCode", DbType.String, riskCode);
+                dsGetModelPortFolio = db.ExecuteDataSet(dbGetModelPortFolio);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException baseEx = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RiskProfileDao.cs:GetModelPortFolio()");
+                throw baseEx;
+            }
+            return dsGetModelPortFolio;
+        }
     }
 }

@@ -282,5 +282,23 @@ namespace BoCustomerRiskProfiling
         //    }
         //    return dsAssetAllocation;
         //}
+
+
+        public DataSet GetModelPortFolio(int customerId,string riskCode)
+        {
+
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = riskprofiledao.GetModelPortFolio(customerId,riskCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return ds;
+        }
+        
     }
 }

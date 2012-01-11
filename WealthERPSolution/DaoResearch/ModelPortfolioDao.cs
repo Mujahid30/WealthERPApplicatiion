@@ -776,5 +776,28 @@ namespace DaoResearch
         }
 
 //********************************************** Code for Asset Allocation Ends***********************************************************
+
+        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId,int adviserId,int goalId)
+        {
+            Database db;
+            DbCommand getGoalModelPortFolioAttachedSchemesCmd;
+            DataTable dtModelPortFolioSchemeDetails = new DataTable();
+            DataSet dsModelPortFolioSchemeDetails = new DataSet();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGoalModelPortFolioAttachedSchemesCmd = db.GetStoredProcCommand("SP_GetGoalModelPortFolioAttachedSchemes");
+                db.AddInParameter(getGoalModelPortFolioAttachedSchemesCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getGoalModelPortFolioAttachedSchemesCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getGoalModelPortFolioAttachedSchemesCmd, "@goalId", DbType.Int32, goalId);
+                dsModelPortFolioSchemeDetails = db.ExecuteDataSet(getGoalModelPortFolioAttachedSchemesCmd);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsModelPortFolioSchemeDetails;
+        }
     }
 }

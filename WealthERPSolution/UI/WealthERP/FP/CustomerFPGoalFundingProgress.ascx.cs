@@ -10,6 +10,7 @@ using System.Data;
 using VoUser;
 using Telerik.Web.UI;
 using BoCommon;
+using BoResearch;
 using System.Web.UI.HtmlControls;
 namespace WealthERP.FP
 {
@@ -17,6 +18,7 @@ namespace WealthERP.FP
     {
         CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
         CustomerAssumptionVo customerAssumptionVo=new CustomerAssumptionVo();
+        ModelPortfolioBo modelportfolioBo = new ModelPortfolioBo();
         AdvisorVo advisorVo = new AdvisorVo();
         int goalId;
         CustomerGoalPlanningBo customerGoalPlanningBo = new CustomerGoalPlanningBo();
@@ -25,6 +27,7 @@ namespace WealthERP.FP
         DataSet dsExistingInvestment = new DataSet();
         DataTable dtCustomerSIPGoalFunding = new DataTable();
         DataSet dsSIPInvestment = new DataSet();
+        DataSet dsModelPortFolioSchemeDetails = new DataSet();
         decimal weightedReturn = 0;
         decimal totalInvestedSIPamount = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -38,6 +41,10 @@ namespace WealthERP.FP
             {
                 goalId = int.Parse(Request.QueryString["goalId"].ToString());
             }
+            if (Request.QueryString["GoalId"] != null)
+            {
+                goalId = int.Parse(Request.QueryString["GoalId"].ToString());
+            }
             if (!IsPostBack)
             {               
                 
@@ -46,6 +53,7 @@ namespace WealthERP.FP
             BindMonthlySIPFundingScheme();
             CalculateweightedReturn();
             ShowGoalDetails(goalId);
+            BindddlModelPortfolioGoalSchemes();
           
         }
 
@@ -72,17 +80,17 @@ namespace WealthERP.FP
                 txtProjectedGap.Text = string.Empty;
                 txtAdditionalInvestmentsRequired.Text = string.Empty;
                 txtAdditionalInvestments.Text = string.Empty;
-                decimal totalMFFundingInvestedAmount = 0;
-                decimal totalMFSIPFunding = 0;
-                decimal totalMFCurrentValue = 0;
-                decimal totalMFProjectedAmount = 0;
+                double totalMFFundingInvestedAmount = 0;
+                double totalMFSIPFunding = 0;
+                double totalMFCurrentValue = 0;
+                double totalMFProjectedAmount = 0;
 
                 foreach (DataRow dr in dtCustomerGoalFunding.Rows)
                 {
-                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + decimal.Parse(dr["InvestedAmount"].ToString());
+                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
                     if (dr["CurrentValue"].ToString() != "")
                     {
-                        totalMFCurrentValue = totalMFCurrentValue + decimal.Parse(dr["CurrentValue"].ToString());
+                        totalMFCurrentValue = totalMFCurrentValue + double.Parse(dr["CurrentValue"].ToString());
                     }
                     else
                     {
@@ -90,7 +98,7 @@ namespace WealthERP.FP
                     }
                     if (dr["ProjectedAmount"].ToString() != "")
                     {
-                        totalMFProjectedAmount = totalMFProjectedAmount + decimal.Parse(dr["ProjectedAmount"].ToString());
+                        totalMFProjectedAmount = totalMFProjectedAmount + double.Parse(dr["ProjectedAmount"].ToString());
                     }
                     else
                     {
@@ -99,7 +107,7 @@ namespace WealthERP.FP
                 }
                 foreach (DataRow dr in dtCustomerSIPGoalFunding.Rows)
                 {
-                    totalMFSIPFunding = totalMFSIPFunding + decimal.Parse(dr["SIPInvestedAmount"].ToString());
+                    totalMFSIPFunding = totalMFSIPFunding + double.Parse(dr["SIPInvestedAmount"].ToString());
                 }
                 txtAmountInvested.Text = String.Format("{0:n2}", Math.Round(totalMFFundingInvestedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 txtMonthlyContribution.Text = String.Format("{0:n2}", Math.Round(totalMFSIPFunding, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
@@ -115,16 +123,17 @@ namespace WealthERP.FP
                     month = remainingTime - year;
                     month = Math.Round((month * 12), 0);
                     txtEstmdTimeToReachGoal.Text = year + "-" + "Years" + "" + month + "-" + "Months";
-                    txtAdditionalInvestments.Text = String.Format("{0:n2}", Math.Round(((double.Parse(txtProjectedValueOnGoalDate.Text) - double.Parse(txtGoalAmount.Text)) / remainingTime), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    txtAdditionalInvestmentsRequired.Text = String.Format("{0:n2}", Math.Round((double.Parse(txtAdditionalInvestments.Text) / 12), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    double addInvestmentReq=(totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday) / remainingTime;
+                    txtAdditionalInvestments.Text = String.Format("{0:n2}", Math.Round(addInvestmentReq, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    txtAdditionalInvestmentsRequired.Text = String.Format("{0:n2}", Math.Round((addInvestmentReq / 12), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 }
                 txtReturnsXIRR.Text = Math.Round(weightedReturn, 2).ToString();
                 if (txtGoalAmount.Text != "")
                 {
-                    txtProjectedGap.Text = String.Format("{0:n2}", Math.Round((totalMFProjectedAmount - decimal.Parse(txtGoalAmount.Text)), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    txtProjectedGap.Text = String.Format("{0:n2}", Math.Round((totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 }
             }
-            SetControlsReadOnly();
+            //SetControlsReadOnly();
         }
 
         protected void SetControlsReadOnly()
@@ -754,6 +763,11 @@ namespace WealthERP.FP
 
                }
            }
+           //if (e.Item is GridCommandItem)
+           //{
+           //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
+           //    refreshButton.Visible = false;
+           //}
           
        }
 
@@ -781,6 +795,11 @@ namespace WealthERP.FP
                    trSchemeTextBox.Visible = true;
                }
            }
+           //if (e.Item is GridCommandItem)
+           //{
+           //    LinkButton refreshButton = e.Item.Controls[0].Controls[0].Controls[0].Controls[1].Controls[0] as LinkButton;
+           //    refreshButton.Visible = false;
+           //}
 
        }
 
@@ -944,8 +963,51 @@ namespace WealthERP.FP
         protected void btnSIPAdd_OnClick(object sender, EventArgs e)
         {
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicEntry','login');", true);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?FromPage=CustomerFPGoalFundingProgress');", true);
+           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PortfolioSystematicEntry','?FromPage=CustomerFPGoalFundingProgress');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematic", "loadcontrol('PortfolioSystematicEntry','?GoalId=" + goalId + "');", true);
+        }
+
+        protected void BindddlModelPortfolioGoalSchemes()
+        {
+            int modelPortfolioId;
+            dsModelPortFolioSchemeDetails = modelportfolioBo.GetGoalModelPortFolioAttachedSchemes(customerVo.CustomerId, advisorVo.advisorId, goalId);
+            //if (dsModelPortFolioSchemeDetails.Tables[2].Rows.Count > 0)
+            //{
+            //    int modelportfolioCode = int.Parse(dsModelPortFolioSchemeDetails.Tables[2].Rows[0]["WFPCB_CalculationBasisId"].ToString());
+            //    if (modelportfolioCode == 7)
+            //    {
+
+                    if (dsModelPortFolioSchemeDetails.Tables[1].Rows.Count > 0)
+                    {
+                        ddlModelPortFolio.DataSource = dsModelPortFolioSchemeDetails.Tables[1];
+                        ddlModelPortFolio.DataTextField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioName"].ToString();
+                        ddlModelPortFolio.DataValueField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioCode"].ToString();
+                        ddlModelPortFolio.DataBind();
+                        modelPortfolioId = int.Parse(dsModelPortFolioSchemeDetails.Tables[1].Rows[0]["XAMP_ModelPortfolioCode"].ToString());
+                        BindModelPortFolioSchemes(modelPortfolioId);
+                       
+                    }
+
+            //    }
+            //}
 
         }
+
+        protected void BindModelPortFolioSchemes(int modelPortfolioId)
+        {
+           DataTable dtModelPortFolioSchemeDetails = dsModelPortFolioSchemeDetails.Tables[0];
+            string expression = "XAMP_ModelPortfolioCode=" + modelPortfolioId;
+            dtModelPortFolioSchemeDetails.DefaultView.RowFilter = expression;
+            RadGrid3.DataSource = dtModelPortFolioSchemeDetails.DefaultView;
+            RadGrid3.DataBind();
+        }
+
+        protected void ddlModelPortFolio_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int modelportfoliocode = 0;
+            modelportfoliocode = int.Parse(ddlModelPortFolio.SelectedValue);
+            BindModelPortFolioSchemes(modelportfoliocode);
+        }
+        
      }
  }

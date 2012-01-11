@@ -593,5 +593,22 @@ namespace BoResearch
             }
         }
         //********************************************** Code for Asset Allocation Ends***********************************************************
+
+        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId,int adviserId,int goalId)
+        {
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            DataSet dsModelPortFolioSchemeDetails = new DataSet();
+            try
+            {
+                dsModelPortFolioSchemeDetails = modelPortfolioDao.GetGoalModelPortFolioAttachedSchemes(customerId, adviserId, goalId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsModelPortFolioSchemeDetails;
+           
+        }
+    
     }
 }

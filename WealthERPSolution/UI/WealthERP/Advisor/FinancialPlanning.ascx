@@ -66,29 +66,9 @@
             alert("Please select answer for question(s) " + notAnsweredDisplay)
             return false;
        }
-       return  GoalDeactiveConfirm();
+     
 
     }
-
-    function GoalDeactiveConfirm()
-    {
-     if(document.getElementById("<%= hidGoalCount.ClientID %>")!=null)
-     {
-     if(document.getElementById("<%= hidGoalCount.ClientID %>").value >0)
-     {  
-      
-       var confirmValue=confirm("All the goals setup for you will be deactivated. Do you wish to continue?");
-        
-      if(confirmValue)
-      {
-          return true;         
-      }
-      else 
-       {
-          return false;
-       }
-       
-      }
       }
     }
 
@@ -134,7 +114,7 @@
     <tr>
         <td>
             <ajaxToolkit:TabContainer ID="tabRiskProfilingAndAssetAllocation" runat="server"
-                ActiveTabIndex="1" Width="100%" Style="visibility: visible;">
+                ActiveTabIndex="2" Width="100%" Style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" 
                     HeaderText="Risk Profiling">
                     <HeaderTemplate>
@@ -450,6 +430,80 @@
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
+                
+                  <ajaxToolkit:TabPanel ID="TabPanel2" runat="server" 
+                    HeaderText="Asset Allocation">
+                    <HeaderTemplate>
+                        Model Portfolio
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <table width="100%">
+                            <tr style="float: left">
+                            <td>
+                            <asp:Label ID="lblModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio :"></asp:Label>
+                            </td>
+                                <td>
+                                <asp:DropDownList ID="ddlModelPortFolio" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlModelPortFolio_OnSelectedIndexChanged"></asp:DropDownList>
+                                </td>
+                                </tr>
+                                </table>
+                             
+                                <br />
+                                
+                                <table id="tableGrid" runat="server" class="TableBackground" width="100%">
+                                
+
+    <tr>
+        <td>
+    <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
+    PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" 
+    AllowAutomaticInserts="false" 
+    AllowAutomaticUpdates="false" HorizontalAlign="NotSet">
+        <MasterTableView>
+            <Columns>
+                <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn"/>--%>               
+                <telerik:GridBoundColumn  DataField="PASP_SchemePlanName"  HeaderText="Scheme Name" UniqueName="PASP_SchemePlanName" >
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage" UniqueName="AMFMPD_AllocationPercentage">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn  DataField="PASP_SchemePlanCode" Visible="false" HeaderText="SchemePlanCode" UniqueName="PASP_SchemePlanCode">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn  DataField="AMFMPD_SchemeDescription"  HeaderText="Description" UniqueName="AMFMPD_SchemeDescription">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+            </Columns>
+           <%-- <table id="tblArchive" runat="server">
+            <tr>
+            <td class="leftField">
+                        <asp:Label ID="lblArchive" runat="server" CssClass="FieldName" Text="Reason for Archiving:"></asp:Label>
+                    </td>
+                    <td class="rightField">                         
+                        <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField">               
+                        </asp:DropDownList>
+                    </td>
+            </tr>
+            </table>--%>                    
+        </MasterTableView>
+        <ClientSettings>
+            <%--<ClientEvents OnRowDblClick="RowDblClick" />--%>
+        </ClientSettings>
+    </telerik:RadGrid>   
+    </td>
+    </tr>
+    </table>
+    
+                                </ContentTemplate>
+                                </ajaxToolkit:TabPanel>
             </ajaxToolkit:TabContainer>
         </td>
     </tr>

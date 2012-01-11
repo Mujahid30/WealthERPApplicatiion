@@ -44,13 +44,17 @@ namespace WealthERP.CustomerPortfolio
         string AssetGroupCode = "MF";
         string Manage = string.Empty;
         string PageRecon = string.Empty;
-
+        int fundGoalId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             
               
             // Check Querystring to see if its an Edit/View/Entry
 
+            if (Request.QueryString["GoalId"] != null)
+            {
+                fundGoalId = int.Parse(Request.QueryString["GoalId"].ToString());
+            }
             //BindFolioDropDown();
             if (Request.QueryString["action"] != null)
                 Manage = Request.QueryString["action"].ToString();
@@ -1121,19 +1125,20 @@ namespace WealthERP.CustomerPortfolio
                     systematicSetupBo.CreateSystematicSchemeSetup(systematicSetupVo, userVo.UserId);
                     
                 }
-                if (Request.QueryString["FromPage"] == "CustomerFPGoalFundingProgress")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerFPGoalFundingProgress','?prevPage=PortfolioSystematicEntry');", true);
-                }
+                
                 if (Session["SourcePage"] != null && Session["SourcePage"].ToString() == "ReconReport")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFSystematicTransactionReport','none');", true);
                     Session["SourcePage"] = "";
                 }
+                else if (Request.QueryString["GoalId"] != null)
+                {
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerFPGoalFundingProgress','?prevPage=PortfolioSystematicEntry');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + fundGoalId + "');", true);
+                }
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioSystematicView','none');", true);
-
                 }
                 //}
 

@@ -74,16 +74,26 @@ namespace WealthERP.Customer
             foreach (DataRow drStaticAssumption in dsBindAllCustomerAssumptions.Tables[0].Rows)
             {
                 drAssumption = dtAssumption.NewRow();
-                drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
-                drAssumption["CPA_Value"] = drStaticAssumption["CSA_Value"].ToString();
-                drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
-                dtAssumption.Rows.Add(drAssumption);
+                if (drStaticAssumption["WA_AssumptionId"].ToString() == "LE" || drStaticAssumption["WA_AssumptionId"].ToString() == "RA")
+                {
+                    drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
+                    drAssumption["CPA_Value"] = Math.Round(Decimal.Parse(drStaticAssumption["CPA_Value"].ToString()),0);
+                    drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    dtAssumption.Rows.Add(drAssumption);
+                }
+                else
+                {
+                    drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
+                    drAssumption["CPA_Value"] = drStaticAssumption["CPA_Value"].ToString();
+                    drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    dtAssumption.Rows.Add(drAssumption);
+                }
             }
 
-            DataRow[] drassumptionLE;
-            drassumptionLE = dtAssumption.Select("WA_AssumptionId='" + "LE" + "'");
-            DataRow[] drassumptionRA;
-            drassumptionRA = dtAssumption.Select("WA_AssumptionId='" + "RA" + "'");
+            //DataRow[] drassumptionLE;
+            //drassumptionLE = dtAssumption.Select("WA_AssumptionId='" + "LE" + "'");
+            //DataRow[] drassumptionRA;
+            //drassumptionRA = dtAssumption.Select("WA_AssumptionId='" + "RA" + "'");
             //hdnLEValue.Value = dtAssumption.Rows[0][""].ToString();
             RadGrid1.DataSource = dtAssumption;
             RadGrid1.DataBind();
