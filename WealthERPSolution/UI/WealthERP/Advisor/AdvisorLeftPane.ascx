@@ -509,7 +509,7 @@
                                   <telerik:RadPanelItem runat="server" Text="Risk Score" ImageUrl="~/Images/new.gif" Value="Risk_Score">                                                
                                   </telerik:RadPanelItem>
                                   
-                                  <telerik:RadPanelItem runat="server" Text="Goal Score" ImageUrl="~/Images/new.gif" Value="Goal_Score">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Goal Score" ImageUrl="~/Images/new.gif" Value="Goal_Score" Visible="false">                                                
                                   </telerik:RadPanelItem>
                                   
                                   <telerik:RadPanelItem runat="server" Text="Asset Mapping" ImageUrl="~/Images/new.gif" Value="Asset_Mapping">                                                
