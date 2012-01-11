@@ -441,6 +441,74 @@ namespace DaoResearch
             return dtAttachedScheme;
         }
 
+        public void ArchiveSchemeFromModelPortfolio(int AMFMPD_Id, int xarId)
+        {
+            Database db;
+            DbCommand ArchiveRecordsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ArchiveRecordsCmd = db.GetStoredProcCommand("SP_ArchiveAttachedScheme");
+                db.AddInParameter(ArchiveRecordsCmd, "@amfmpd_Id", DbType.Int32, AMFMPD_Id);
+                db.AddInParameter(ArchiveRecordsCmd, "@xarId", DbType.Int32, xarId);
+                db.ExecuteDataSet(ArchiveRecordsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioDao.cs:ArchiveSchemeFromModelPortfolio()");
+
+                object[] objects = new object[1];
+                objects[0] = AMFMPD_Id;
+                objects[1] = xarId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        public DataTable GetArchivedSchemeDetails(int modelPortfolioCode, int adviserId)
+        {
+            DataTable dtAttachedScheme;
+            DataSet dsAttachedScheme;
+            Database db;
+            DbCommand AttachedSchemeCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AttachedSchemeCmd = db.GetStoredProcCommand("SP_GetArchivedSchemeDetails");
+                db.AddInParameter(AttachedSchemeCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(AttachedSchemeCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
+                dsAttachedScheme = db.ExecuteDataSet(AttachedSchemeCmd);
+                dtAttachedScheme = dsAttachedScheme.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetArchivedSchemeDetails()");
+                object[] objects = new object[1];
+                objects[0] = modelPortfolioCode;
+                objects[1] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAttachedScheme;
+        }
+
         public DataTable GetSchemeAssetAllocation(ModelPortfolioVo modelPortfolioVo, int adviserId)
         {
             DataTable dtSchemeAsset;
