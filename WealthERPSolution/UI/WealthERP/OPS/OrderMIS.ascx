@@ -160,25 +160,45 @@
 </table>
 <table width="80%">
 <tr>
-  <td align="right">
-  <asp:Label ID="lblBranch" runat="server" Text="Select The Branch: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-  <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
-          onselectedindexchanged="ddlBranch_SelectedIndexChanged" >
-  </asp:DropDownList>
-  </td>
-  <td align="right">
-  <asp:Label ID="lblRM" runat="server" Text="Select the RM: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-   <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" >
-  </asp:DropDownList>
-  </td>
+<td align="right" valign="top">
+ <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: "  CssClass="FieldName"></asp:Label>
+</td>
+<td>
+ <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField" >
+         </asp:TextBox>
+         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFrom"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFrom" CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+</td>
+<td align="right" valign="top">
+ <asp:Label ID="lblTo" runat="server" Text="Order ToDate: "  CssClass="FieldName"></asp:Label>
+</td>
+<td>
+ <asp:TextBox ID="txtTo" runat="server" CssClass="txtField" ></asp:TextBox>
+         <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server"
+                TargetControlID="txtTo" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtTo" CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+               <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br />To Date should not less than From Date"
+                            Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+</td>
+<td colspan="2"></td>
+</tr>
+<tr>
 <td align="right">
   <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type: "  CssClass="FieldName"></asp:Label>
   </td>
-  <td>
+<td>
   <asp:DropDownList ID="ddlTrxType" runat="server" CssClass="cmbField">
    <asp:ListItem Text="All" Value="All" Selected="true"></asp:ListItem>
         <asp:ListItem Text="New Purchase" Value="BUY"></asp:ListItem>
@@ -209,6 +229,23 @@
                         ErrorMessage="<br />Please select a transaction type" Operator="NotEqual" 
                         ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>  
   </td>
+  <td align="right">
+  <asp:Label ID="lblAMC" runat="server" Text="AMC: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>
+        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField">     
+        </asp:DropDownList>
+  </td>
+  <td align="right">
+  <asp:Label ID="lblBranch" runat="server" Text="Select The Branch: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>
+  <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
+          onselectedindexchanged="ddlBranch_SelectedIndexChanged" >
+  </asp:DropDownList>
+  </td>
+  
+
 <%--<td align="right">
 <asp:Label ID="lblAssetType" runat="server" Text="Asset Type:"  CssClass="FieldName"></asp:Label>
 </td>
@@ -291,6 +328,13 @@
         <asp:ListItem Text="Future" Value="0"></asp:ListItem>
         </asp:DropDownList>
   </td>
+  <td align="right">
+  <asp:Label ID="lblRM" runat="server" Text="Select the RM: "  CssClass="FieldName"></asp:Label>
+  </td>
+  <td>
+   <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" >
+  </asp:DropDownList>
+  </td>
 <%--    <td align="right">
   <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: "  CssClass="FieldName"></asp:Label>
   </td>
@@ -307,13 +351,7 @@
                                             runat="server" InitialValue="" ValidationGroup="MFSubmit">
                                   </asp:RequiredFieldValidator>
   </td>--%>
-  <td align="right">
-  <asp:Label ID="lblAMC" runat="server" Text="AMC: "  CssClass="FieldName"></asp:Label>
-  </td>
-  <td>
-        <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField">     
-        </asp:DropDownList>
-  </td>
+  
 </tr>
 
 <%--<tr>
@@ -360,41 +398,7 @@
   </td>
 </tr>--%>
 
-<tr>
-<td align="right" valign="top">
- <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: "  CssClass="FieldName"></asp:Label>
-</td>
-<td>
- <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField" >
-         </asp:TextBox>
-         <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFrom"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
-                TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFrom" CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
-               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-</td>
-<td align="right" valign="top">
- <asp:Label ID="lblTo" runat="server" Text="Order ToDate: "  CssClass="FieldName"></asp:Label>
-</td>
-<td>
- <asp:TextBox ID="txtTo" runat="server" CssClass="txtField" ></asp:TextBox>
-         <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server"
-                TargetControlID="txtTo" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
-            <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtTo" CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
-               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-               <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br />To Date should not less than From Date"
-                            Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
-                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
-</td>
-<td colspan="2"></td>
-</tr>
+
 
 <tr>
 <td colspan="2" align="left">
@@ -444,22 +448,32 @@
                                             </HeaderTemplate>--%>
                                         </asp:TemplateField>                                 
                                             
-                                      <asp:TemplateField HeaderText="OrderNumber" HeaderStyle-HorizontalAlign="Right">
+                                      <asp:TemplateField HeaderText="Number" HeaderStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lnkOrderId" runat="server" CssClass="cmbField" Text='<%# Eval("CMOT_OrderNumber") %>' OnClick="lnkOrderId_Click">
                                             </asp:LinkButton>
                                         </ItemTemplate>                                      
                                      </asp:TemplateField>
                                      
+                                      <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                     <asp:BoundField DataField="XS_Status" HeaderText="Status" ItemStyle-Wrap="false" >
+                                        <HeaderStyle HorizontalAlign="left" />
+                                         <ItemStyle HorizontalAlign="left"></ItemStyle>
+                                       </asp:BoundField> 
+                                     
                                      <asp:BoundField DataField="Customer_Name" HeaderText="Customer" ItemStyle-Wrap="false">
                                                 <HeaderStyle HorizontalAlign="Left" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
                                             
-                                      <asp:BoundField DataField="XS_Status" HeaderText="Order Status" ItemStyle-Wrap="false">
-                                        <HeaderStyle HorizontalAlign="left" />
-                                         <ItemStyle HorizontalAlign="left"></ItemStyle>
-                                       </asp:BoundField>
+                                      <asp:BoundField DataField="WMTT_TransactionClassificationCode" HeaderText="Trns Type" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="left" />
+                                                <ItemStyle HorizontalAlign="left"></ItemStyle>
+                                      </asp:BoundField>
                                        
                                             <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
                                            <HeaderTemplate>
@@ -471,6 +485,15 @@
                                             <HeaderStyle Wrap="False" />
                                             <ItemStyle Wrap="False" />
                                             </asp:TemplateField>
+                                            
+                                             <asp:BoundField DataField="CMFA_FolioNum" HeaderText="Folio" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
+                                            </asp:BoundField>
                                         
                                         <%--<asp:TemplateField HeaderText="OrderNumber">
                                         <ItemTemplate>
@@ -484,10 +507,7 @@
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>--%>
                                             
-                                               <asp:BoundField DataField="CMFT_TransactionNumber" ItemStyle-Wrap="false" HeaderText="Transaction Number">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
+                                         
                                             
                                             <%--<asp:BoundField DataField="CMOT_IsImmediate" HeaderText="Order Type">
                                                 <HeaderStyle HorizontalAlign="Right" />
@@ -496,38 +516,24 @@
                                        
                                              
                                             
-                                            <asp:BoundField DataField="CMOT_ApplicationReceivedDate" HeaderText="Applicateion receive date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                            <asp:BoundField DataField="CMOT_ApplicationReceivedDate" HeaderText="App rcv Date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
-                                                <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                            <asp:BoundField DataField="CMOT_ApplicationNumber" HeaderText="App Nbr" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="left" />
+                                                <ItemStyle HorizontalAlign="left"></ItemStyle>
+                                            </asp:BoundField> 
+                                            <asp:BoundField DataField="CMOT_Amount" HeaderText="Amount" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="XSR_StatusReason" HeaderText="Pending/Reject reason" ItemStyle-Wrap="false">
                                                 <HeaderStyle HorizontalAlign="left" />
                                                 <ItemStyle HorizontalAlign="left"></ItemStyle>
                                             </asp:BoundField>
                                             
-                                            <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Process ID" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
-                                            
-                                             <asp:BoundField DataField="CMOT_ApplicationNumber" HeaderText="Application Number" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
-                                                <ItemStyle HorizontalAlign="left"></ItemStyle>
-                                            </asp:BoundField>  
-                                         <%--<asp:BoundField DataField="CMOT_MFOrderId" HeaderText="Id" Visible="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>--%>
-                                            <%--<asp:BoundField DataField="Assetclass" HeaderText="Asset class">
-                                                <HeaderStyle HorizontalAlign="Left" />
-                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>--%>
-                                            
-                                             <asp:BoundField DataField="AB_BranchName" HeaderText="Branch" ItemStyle-Wrap="false">
+                                               <asp:BoundField DataField="AB_BranchName" HeaderText="Branch" ItemStyle-Wrap="false">
                                                 <HeaderStyle HorizontalAlign="Left" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
@@ -536,21 +542,27 @@
                                                 <HeaderStyle HorizontalAlign="Left" />
                                                 <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
+                                             <asp:BoundField DataField="CMFT_TransactionNumber" ItemStyle-Wrap="false" HeaderText="Trns Nbr">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
                                             
-                                           
-                                            <asp:BoundField DataField="CMFA_FolioNum" HeaderText="Folio No" ItemStyle-Wrap="false">
+                                            <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Upload ProcessID" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            
+                                              
+                                         <%--<asp:BoundField DataField="CMOT_MFOrderId" HeaderText="Id" Visible="false">
                                                 <HeaderStyle HorizontalAlign="Left" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="WMTT_TransactionClassificationCode" HeaderText="Type" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
-                                                <ItemStyle HorizontalAlign="left"></ItemStyle>
-                                            </asp:BoundField>
-                                            <asp:BoundField DataField="CMFT_TransactionDate" HeaderText="Transaction Date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                            </asp:BoundField>--%>
+                                            <%--<asp:BoundField DataField="Assetclass" HeaderText="Asset class">
+                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                            </asp:BoundField>--%>
+                                                    
+                                            <asp:BoundField DataField="CMFT_TransactionDate" HeaderText="Trns Date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="center" />
                                                 <ItemStyle HorizontalAlign="center"></ItemStyle>
                                             </asp:BoundField>
@@ -562,10 +574,7 @@
                                                 <HeaderStyle HorizontalAlign="Right" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="CMOT_Amount" HeaderText="Amount (Rs)" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
-                                                <HeaderStyle HorizontalAlign="Right" />
-                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                            </asp:BoundField>
+                                            
                                             
                                               
                                  
