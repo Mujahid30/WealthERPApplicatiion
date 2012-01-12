@@ -17,7 +17,7 @@ namespace WealthERP.FP
     public partial class CustomerFPGoalFundingProgress : System.Web.UI.UserControl
     {
         CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
-        CustomerAssumptionVo customerAssumptionVo=new CustomerAssumptionVo();
+        CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
         ModelPortfolioBo modelportfolioBo = new ModelPortfolioBo();
         AdvisorVo advisorVo = new AdvisorVo();
         int goalId;
@@ -29,14 +29,14 @@ namespace WealthERP.FP
         DataSet dsSIPInvestment = new DataSet();
         DataSet dsModelPortFolioSchemeDetails = new DataSet();
         decimal weightedReturn = 0;
-        decimal totalInvestedSIPamount = 0;
+        double totalInvestedSIPamount = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            if (Session["customerVo"]!=null)
-             customerVo = (CustomerVo)Session["customerVo"];
-             advisorVo = (AdvisorVo)Session["advisorVo"];
-          
+            if (Session["customerVo"] != null)
+                customerVo = (CustomerVo)Session["customerVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+
             if (Request.QueryString["goalId"] != null)
             {
                 goalId = int.Parse(Request.QueryString["goalId"].ToString());
@@ -46,22 +46,20 @@ namespace WealthERP.FP
                 goalId = int.Parse(Request.QueryString["GoalId"].ToString());
             }
             if (!IsPostBack)
-            {               
-                
+            {
+
             }
             BindExistingFundingScheme();
             BindMonthlySIPFundingScheme();
-            CalculateweightedReturn();
             ShowGoalDetails(goalId);
-            BindddlModelPortfolioGoalSchemes();
-          
+            BindddlModelPortfolioGoalSchemes();            
         }
-
-        protected void ShowGoalDetails(int goalId)
+      protected void ShowGoalDetails(int goalId)
         {
 
             if (goalPlanningVo != null)
             {
+                CalculateweightedReturn();
                 if (goalPlanningVo.GoalName != null)
                     txtGoalName.Text = goalPlanningVo.GoalName.Trim();
                 if (goalPlanningVo.GoalProfileDate != DateTime.MinValue)
@@ -72,22 +70,24 @@ namespace WealthERP.FP
                 txtBalanceTenor.Text = (goalPlanningVo.GoalYear - DateTime.Now.Year).ToString();
                 //txtMonthlyContribution.Text = string.Empty;
                 //txtAmountInvested.Text = goalPlanningVo.CurrInvestementForGoal.ToString();
-                txtValueOfCurrentGoal.Text = string.Empty;
-                txtReturnsXIRR.Text = string.Empty;
+              
                 txtCostAtBeginning.Text = String.Format("{0:n2}", Math.Round(goalPlanningVo.CostOfGoalToday, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                txtEstmdTimeToReachGoal.Text = string.Empty;
+               
                 //txtProjectedValueOnGoalDate.Text = string.Empty;
-                txtProjectedGap.Text = string.Empty;
-                txtAdditionalInvestmentsRequired.Text = string.Empty;
-                txtAdditionalInvestments.Text = string.Empty;
+            
+               
                 double totalMFFundingInvestedAmount = 0;
                 double totalMFSIPFunding = 0;
                 double totalMFCurrentValue = 0;
                 double totalMFProjectedAmount = 0;
+                double totalMFSIPProjectedAmount = 0;
 
                 foreach (DataRow dr in dtCustomerGoalFunding.Rows)
                 {
-                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
+                    if (dr["InvestedAmount"].ToString() != "")
+                        totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
+                    else
+                        totalMFFundingInvestedAmount = 0;
                     if (dr["CurrentValue"].ToString() != "")
                     {
                         totalMFCurrentValue = totalMFCurrentValue + double.Parse(dr["CurrentValue"].ToString());
@@ -108,29 +108,64 @@ namespace WealthERP.FP
                 foreach (DataRow dr in dtCustomerSIPGoalFunding.Rows)
                 {
                     totalMFSIPFunding = totalMFSIPFunding + double.Parse(dr["SIPInvestedAmount"].ToString());
+                    if(dr["SIPProjectedAmount"].ToString()!="")
+                    totalMFSIPProjectedAmount = totalMFSIPProjectedAmount + double.Parse(dr["SIPProjectedAmount"].ToString());
                 }
+                totalMFProjectedAmount = totalMFSIPProjectedAmount + totalMFProjectedAmount;
                 txtAmountInvested.Text = String.Format("{0:n2}", Math.Round(totalMFFundingInvestedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                if (txtAmountInvested.Text == "")
+                {
+                    txtAmountInvested.Text = "0";
+                }
                 txtMonthlyContribution.Text = String.Format("{0:n2}", Math.Round(totalMFSIPFunding, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                if (txtMonthlyContribution.Text == "")
+                {
+                    txtMonthlyContribution.Text = "0";
+                }
                 txtProjectedValueOnGoalDate.Text = String.Format("{0:n2}", Math.Round(totalMFProjectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                if (txtProjectedValueOnGoalDate.Text == "")
+                {
+                    txtProjectedValueOnGoalDate.Text = "0";
+                }
                 txtValueOfCurrentGoal.Text = String.Format("{0:n2}", Math.Round(totalMFCurrentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                if (txtValueOfCurrentGoal.Text == "")
+                {
+                    txtValueOfCurrentGoal.Text = "0";
+                }
                 if (dtCustomerGoalFunding.Rows.Count > 0)
                 {
-                    double returns = double.Parse((weightedReturn / 100).ToString());
-                    double remainingTime = customerGoalPlanningBo.NPER(returns, 0, -double.Parse(totalMFCurrentValue.ToString()), double.Parse(totalMFProjectedAmount.ToString()), 0);
-                    int year = 0;
-                    double month = 0;
-                    year = (int)remainingTime;
-                    month = remainingTime - year;
-                    month = Math.Round((month * 12), 0);
-                    txtEstmdTimeToReachGoal.Text = year + "-" + "Years" + "" + month + "-" + "Months";
-                    double addInvestmentReq=(totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday) / remainingTime;
-                    txtAdditionalInvestments.Text = String.Format("{0:n2}", Math.Round(addInvestmentReq, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                    txtAdditionalInvestmentsRequired.Text = String.Format("{0:n2}", Math.Round((addInvestmentReq / 12), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    if (totalMFCurrentValue != 0)
+                    {
+                        double returns = double.Parse((weightedReturn / 100).ToString());
+                        double remainingTime = customerGoalPlanningBo.NPER(returns, 0, -double.Parse(totalMFCurrentValue.ToString()), double.Parse(totalMFProjectedAmount.ToString()), 0);
+                        int year = 0;
+                        double month = 0;
+                        year = (int)remainingTime;
+                        month = remainingTime - year;
+                        month = Math.Round((month * 12), 0);
+                        txtEstmdTimeToReachGoal.Text = year + "-" + "Years" + "" + month + "-" + "Months";
+                        double addInvestmentReq = Math.Abs((totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday) / remainingTime);
+                        txtAdditionalInvestments.Text = String.Format("{0:n2}", Math.Round(addInvestmentReq, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        txtAdditionalInvestmentsRequired.Text = String.Format("{0:n2}", Math.Round((addInvestmentReq / 12), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    }
                 }
                 txtReturnsXIRR.Text = Math.Round(weightedReturn, 2).ToString();
                 if (txtGoalAmount.Text != "")
                 {
                     txtProjectedGap.Text = String.Format("{0:n2}", Math.Round((totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                }
+                if (txtAdditionalInvestments.Text == "")
+                {
+                    txtAdditionalInvestments.Text = "0";
+                }
+                if (txtAdditionalInvestmentsRequired.Text == "")
+                {
+                    txtAdditionalInvestmentsRequired.Text = "0";
+                }
+                if (txtEstmdTimeToReachGoal.Text == "")
+                {
+                    txtEstmdTimeToReachGoal.Text = "0";
                 }
             }
             //SetControlsReadOnly();
@@ -436,7 +471,7 @@ namespace WealthERP.FP
         }
         protected void BindMonthlySIPFundingScheme()
         {
-
+            
 
             DataTable dtCustomerGoalFundingSIPDetails = new DataTable();
             dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
@@ -447,10 +482,16 @@ namespace WealthERP.FP
             dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSIPamount");
             dtCustomerGoalFundingSIPDetails.Columns.Add("OtherGoalAllocation");
             dtCustomerGoalFundingSIPDetails.Columns.Add("AvailableAllocation");
+            dtCustomerGoalFundingSIPDetails.Columns.Add("SIPProjectedAmount");
             DataRow drCustomerSIPGoalFundingDetails;
-
+            decimal currentAllocation = 0;
+            double equityAllocation = 0;
+            double debtAllocation = 0;
+            double assumptionValue = 0;
+            int schemePlanCode = 0;
             
             DataRow[] drtotalSIPamount;
+            DataRow[] drreturnHybridCommodity;
            
             
             dsSIPInvestment = customerGoalPlanningBo.GetSIPInvestmentDetails(customerVo.CustomerId, goalId);
@@ -459,7 +500,43 @@ namespace WealthERP.FP
 
             foreach (DataRow dr in dsSIPInvestment.Tables[0].Rows)
             {
+                if (dr["PASP_SchemePlanCode"].ToString() != "")
+                {
+                    schemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                }
+                if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "Debt")
+                {
+                    assumptionValue = customerAssumptionVo.ReturnOnDebt / 100;
+
+                }
+                else if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "Equity")
+                {
+                    assumptionValue = customerAssumptionVo.ReturnOnEquity / 100;
+                }
+                else
+                {
+                    drreturnHybridCommodity = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
+                    if (drreturnHybridCommodity.Count() > 0)
+                    {
+                        foreach (DataRow drhyCo in drreturnHybridCommodity)
+                        {
+                            if (drhyCo["WAC_AssetClassificationCode"].ToString() == "Equity")
+                            {
+                                equityAllocation = double.Parse(drhyCo["WACPISSCA_PercentageAllocation"].ToString());
+                            }
+                            if (drhyCo["WAC_AssetClassificationCode"].ToString() == "Debt")
+                            {
+                                debtAllocation = double.Parse(drhyCo["WACPISSCA_PercentageAllocation"].ToString());
+                            }
+
+                        }
+                    }
+                    assumptionValue = ((equityAllocation / 100) * customerAssumptionVo.ReturnOnEquity + (debtAllocation / 100) * customerAssumptionVo.ReturnOnDebt) / 100;
+
+                }
                 int sipId = int.Parse(dr["CMFSS_SystematicSetupId"].ToString());
+               
+
                 foreach (DataRow drTotalSIPInvestment in dsSIPInvestment.Tables[1].Rows)
                 {
                     drtotalSIPamount = dsSIPInvestment.Tables[1].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
@@ -467,109 +544,118 @@ namespace WealthERP.FP
                     {
                         foreach (DataRow drtotalSIPAmount in drtotalSIPamount)
                         {
-                            totalInvestedSIPamount = decimal.Parse(drtotalSIPAmount["TotalInvestedAmount"].ToString());
+                            totalInvestedSIPamount = double.Parse(drtotalSIPAmount["TotalInvestedAmount"].ToString());
                         }
                     }
 
                     else
                         totalInvestedSIPamount = 0;
                 }
+                DateTime sipEndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
+                DateTime sipStartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
+                int goalYear = int.Parse(dr["CG_GoalYear"].ToString());
+                DateTime now = DateTime.Now;
+                int remainingYear = 0;
+                double noOfPayments = 0;
+                double interestrate = 0;
+                double valueTillDate = 0;
+                double projectedAmount = 0;
+                string frequencyCode = dr["XF_FrequencyCode"].ToString();
+                interestrate = CalculateValuebasedOnFrequency(frequencyCode, assumptionValue);
+                if (sipEndDate.Year < goalYear)
+                {
+                    if(sipStartDate.Year<now.Year)
+                    {
+                    remainingYear = sipEndDate.Year - now.Year;
+                    }
+                    else
+                    {
+                         remainingYear = sipEndDate.Year -sipStartDate.Year;
+                    }
+                    noOfPayments    = CalculateValuebasedOnFrequency(frequencyCode, remainingYear);
+                    if (totalInvestedSIPamount != 0)
+                        valueTillDate = customerGoalPlanningBo.FutureValue(interestrate, noOfPayments, -totalInvestedSIPamount, 0, 0);
+                    else
+                        valueTillDate = 0;
+                    remainingYear = goalYear - sipEndDate.Year;
+                    if (valueTillDate != 0)
+                        projectedAmount = valueTillDate + customerGoalPlanningBo.FutureValue(assumptionValue, remainingYear, -valueTillDate, 0, 0);
+                    else
+                        projectedAmount = 0;
+                   
+                }
+                if (sipEndDate.Year > goalYear)
+                {
+                    if(sipStartDate.Year<now.Year)
+                    {
+                    remainingYear=goalYear-now.Year;
+                    }
+                    else
+                    {
+                        remainingYear = goalYear - sipStartDate.Year;
+                    }
+                    noOfPayments = CalculateValuebasedOnFrequency(frequencyCode, remainingYear);
+                    projectedAmount = valueTillDate + customerGoalPlanningBo.FutureValue(interestrate, noOfPayments, -totalInvestedSIPamount, 0, 0);
+                }
+
                 drCustomerSIPGoalFundingDetails = dtCustomerGoalFundingSIPDetails.NewRow();
                 drCustomerSIPGoalFundingDetails["GoalId"] = dr["CG_GoalId"].ToString();
                 drCustomerSIPGoalFundingDetails["SIPId"] = dr["CMFSS_SystematicSetupId"].ToString();
                 drCustomerSIPGoalFundingDetails["SchemeCode"] = dr["PASP_SchemePlanCode"].ToString();
                 drCustomerSIPGoalFundingDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
-                drCustomerSIPGoalFundingDetails["SIPInvestedAmount"] = dr["InvestedAmount"].ToString();
-                drCustomerSIPGoalFundingDetails["OtherGoalAllocation"] = (totalInvestedSIPamount - decimal.Parse(dr["InvestedAmount"].ToString())).ToString();
-                drCustomerSIPGoalFundingDetails["AvailableAllocation"] = (decimal.Parse(dr["CMFSS_Amount"].ToString()) - totalInvestedSIPamount).ToString();
-                drCustomerSIPGoalFundingDetails["TotalSIPamount"] = dr["CMFSS_Amount"].ToString();
+                drCustomerSIPGoalFundingDetails["SIPInvestedAmount"] = String.Format("{0:n2}", Math.Round(decimal.Parse(dr["InvestedAmount"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerSIPGoalFundingDetails["OtherGoalAllocation"] = String.Format("{0:n2}", Math.Round((totalInvestedSIPamount - double.Parse(dr["InvestedAmount"].ToString())),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerSIPGoalFundingDetails["AvailableAllocation"] = String.Format("{0:n2}", Math.Round((double.Parse(dr["CMFSS_Amount"].ToString()) - totalInvestedSIPamount),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerSIPGoalFundingDetails["TotalSIPamount"] =String.Format("{0:n2}", Math.Round(double.Parse(dr["CMFSS_Amount"].ToString()),0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                drCustomerSIPGoalFundingDetails["SIPProjectedAmount"] = String.Format("{0:n2}", Math.Round(projectedAmount, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                 dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerSIPGoalFundingDetails);
             }
             dtCustomerSIPGoalFunding = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataSource = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataBind();
-            //ShowGoalDetails(goalId);
-            //DataTable dtCustomerGoalFundingSIPDetails = new DataTable();
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeCode");
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("SchemeName");
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("SIPAmount");
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("TotalSIPamount");
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("OtherGoalAllocation");
-            //DataRow drCustomerSIPGoalFundingDetails;
-            //int schemePlanCode = 0;
-            //decimal totalSIPamount = 0;
-            //decimal totalAllocatedAmount = 0;
-            //DataRow[] drtotalSIPamount;
-            //DataRow[] drtotalAllocatedAmount;
-            //dtCustomerGoalFundingSIPDetails.Columns.Add("AvailableAllocation");
-            //dsSIPInvestment = customerGoalPlanningBo.GetSIPInvestmentDetails(customerVo.CustomerId, goalId);
-            //foreach (DataRow dr in dsSIPInvestment.Tables[0].Rows)
-            //{
-            //    schemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-            //    drtotalSIPamount = dsSIPInvestment.Tables[1].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
-            //    if (drtotalSIPamount.Count() > 0)
-            //    {
-            //        foreach (DataRow drtotalSIPAmount in drtotalSIPamount)
-            //        {
-            //            totalSIPamount = decimal.Parse(drtotalSIPAmount["SIPAmount"].ToString());
-            //        }
-            //    }
-
-            //    else
-            //        totalSIPamount = 0;
-
-            //    drtotalAllocatedAmount = dsSIPInvestment.Tables[2].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
-            //    if (drtotalAllocatedAmount.Count() > 0)
-            //    {
-            //        foreach (DataRow drtotalAllocatedamount in drtotalAllocatedAmount)
-            //        {
-            //            totalAllocatedAmount = decimal.Parse(drtotalAllocatedamount["totalAllocation"].ToString());
-            //        }
-            //    }
-
-            //    else
-            //        totalAllocatedAmount = 0;
-
-
-            //    drCustomerSIPGoalFundingDetails = dtCustomerGoalFundingSIPDetails.NewRow();
-            //    drCustomerSIPGoalFundingDetails["GoalId"] = dr["CG_GoalId"].ToString();
-            //    drCustomerSIPGoalFundingDetails["SchemeCode"] = dr["PASP_SchemePlanCode"].ToString();
-            //    drCustomerSIPGoalFundingDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
-            //    drCustomerSIPGoalFundingDetails["SIPAmount"] = dr["CEMFSSTGA_AllocationAmt"].ToString();
-            //    drCustomerSIPGoalFundingDetails["OtherGoalAllocation"] = (totalAllocatedAmount - decimal.Parse(dr["CEMFSSTGA_AllocationAmt"].ToString())).ToString();
-            //    drCustomerSIPGoalFundingDetails["AvailableAllocation"] = (totalSIPamount - totalAllocatedAmount).ToString();
-            //    drCustomerSIPGoalFundingDetails["TotalSIPamount"] = totalSIPamount.ToString();
-            //    dtCustomerGoalFundingSIPDetails.Rows.Add(drCustomerSIPGoalFundingDetails);
-            //}
-            //dtCustomerSIPGoalFunding = dtCustomerGoalFundingSIPDetails;
-            //RadGrid2.DataSource = dtCustomerGoalFundingSIPDetails;
-            //RadGrid2.DataBind();
+            ShowGoalDetails(goalId);
         }
+
+        public double CalculateValuebasedOnFrequency(string frequencyCode, double assumptionValue)
+        {
+            switch (frequencyCode)
+            {
+                case "AM":
+                    break;
+                case "DA":
+                    assumptionValue = assumptionValue / 365;
+                    break;
+                case "FN":
+                    assumptionValue = assumptionValue / 24;
+                    break;
+                case "HY":
+                    assumptionValue = assumptionValue / 2; ;
+                    break;
+                case "MN":
+                    assumptionValue = assumptionValue / 12; ;
+
+                    break;
+                case "NA":
+
+                    break;
+                case "QT":
+                    assumptionValue = assumptionValue / 4;
+                    break;
+                case "WK":
+                    assumptionValue = assumptionValue / 52;
+                    break;
+                case "YR":
+                    assumptionValue = assumptionValue;
+
+                    break;
+            }
+
+            return assumptionValue;
+        }
+
        protected void BindExistingFundingScheme()
         {
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("SchemeName");
-            //dt.Columns.Add("AllocationPercent");
-            //dt.Columns.Add("InvestedAmount");
-            //dt.Columns.Add("Units");
-            //dt.Columns.Add("CurrentValue");
-            //dt.Columns.Add("ReturnsXIRR");
-            //dt.Columns.Add("ProjectedAmount");
-
-            //DataRow dr = dt.NewRow();
-            //dr["SchemeName"] = "Birla Sun Life";
-            //dr["AllocationPercent"] = "50";
-            //dr["InvestedAmount"] = "50000";
-            //dr["Units"] = "60";
-            //dr["CurrentValue"] = "100000";
-            //dr["ReturnsXIRR"] = "12.78";
-            //dr["ProjectedAmount"] = "1000000";
-
-            //dt.Rows.Add(dr);
-            //RadGrid1.DataSource = dt;
-            //RadGrid1.DataBind();
-            goalPlanningVo = customerGoalPlanningBo.GetGoalDetails(goalId);
+           goalPlanningVo = customerGoalPlanningBo.GetGoalDetails(goalId);
            bool isHavingAssumption;
            customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(customerVo.CustomerId, advisorVo.advisorId, out isHavingAssumption);
             DataTable dtCustomerGoalFundingDetails = new DataTable();
@@ -592,10 +678,8 @@ namespace WealthERP.FP
             DataRow[] drExistingInvestmentGoalId=new DataRow[10];
             DataRow[] drExistingInvestmentSchemePlanId;
             DataRow[] drExistingInvestmentCurrentAllocation;
-            DataRow[] drExistingInvestmentAssumptionValue;
             DataRow[] drExistingInvestmentReturnHybridCommodity;
             int schemePlanCode = 0;
-           string assumptionId="";
            double assumptionValue = 0;
            double futureCost=0;
            double requiredAfter = 0;
@@ -729,7 +813,7 @@ namespace WealthERP.FP
             RadGrid1.DataSource = dtCustomerGoalFundingDetails;
             RadGrid1.DataBind();
 
-           
+            ShowGoalDetails(goalId);
 
 
 
@@ -746,9 +830,7 @@ namespace WealthERP.FP
                HtmlTableRow trSchemeDDL = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeDDL");
                HtmlTableRow trSchemeTextBox = (HtmlTableRow)gridEditFormItem.FindControl("trSchemeTextBox");
                if (e.Item.RowIndex == -1)
-               {
-                 
-                   
+               {              
                    //TextBox txt = (TextBox)gridEditFormItem.FindControl("txtUnits");
                    //txt.Visible = false;
                    BindDDLSchemeAllocated(dropDownList);
@@ -904,6 +986,35 @@ namespace WealthERP.FP
             }
          }
 
+        protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
+        {
+            try
+            {
+                int schemeCode = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
+                customerGoalPlanningBo.DeleteFundedScheme(schemeCode,goalId);
+                BindExistingFundingScheme();
+            }
+            catch (Exception ex)
+            {
+                RadGrid1.Controls.Add(new LiteralControl("Unable to Delete the Record. Reason: " + ex.Message));
+                e.Canceled = true;
+            }
+        }
+
+        protected void RadGrid2_DeleteCommand(object source, GridCommandEventArgs e)
+        {
+            try
+            {
+                int sipId = Convert.ToInt32(RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SIPId"].ToString());
+                customerGoalPlanningBo.DeleteSIPFundedScheme(sipId, goalId);
+                BindMonthlySIPFundingScheme();
+            }
+            catch (Exception ex)
+            {
+                RadGrid1.Controls.Add(new LiteralControl("Unable to Delete the Record. Reason: " + ex.Message));
+                e.Canceled = true;
+            }
+        }   
         protected void CalculateweightedReturn()
         {
             decimal equityAmount = 0;
@@ -914,20 +1025,25 @@ namespace WealthERP.FP
             double debtAllocation=0;
             int schemePlanCode=0;
              weightedReturn = 0;
-            double hybridCommodityAllocation;
+             decimal investedAmount = 0;
             DataRow[] drExistingInvestmentReturnHybridCommodity;
             if (dtCustomerGoalFunding.Rows.Count > 0)
             {
                 foreach (DataRow dr in dtCustomerGoalFunding.Rows)
                 {
+                    if (dr["InvestedAmount"].ToString() != "")
+                    {
+                        investedAmount = decimal.Parse(dr["InvestedAmount"].ToString());
+                    }
+
                     schemePlanCode = int.Parse(dr["SchemeCode"].ToString());
                     if (dr["Category"].ToString() == "Equity")
                     {
-                        equityAmount = equityAmount + decimal.Parse(dr["InvestedAmount"].ToString());
+                        equityAmount = equityAmount + investedAmount;
                     }
                     else if (dr["Category"].ToString() == "Debt")
                     {
-                        debtAmount = debtAmount + decimal.Parse(dr["InvestedAmount"].ToString());
+                        debtAmount = debtAmount + investedAmount;
                     }
                     else
                     {
@@ -940,14 +1056,14 @@ namespace WealthERP.FP
                                 if (drReturnHybridCommodity["WAC_AssetClassificationCode"].ToString() == "Equity")
                                 {
                                     equityAllocation = double.Parse(drReturnHybridCommodity["WACPISSCA_PercentageAllocation"].ToString());
-                                    equityAmount = equityAmount + (decimal.Parse(dr["InvestedAmount"].ToString()) * decimal.Parse(equityAllocation.ToString())) / 100;
+                                    equityAmount = equityAmount + (investedAmount * decimal.Parse(equityAllocation.ToString())) / 100;
                                     debtAmount = debtAmount + (decimal.Parse(dr["InvestedAmount"].ToString()) * (100 - decimal.Parse(equityAllocation.ToString()))) / 100;
                                 }
                                 if (drReturnHybridCommodity["WAC_AssetClassificationCode"].ToString() == "Debt")
                                 {
                                     debtAllocation = double.Parse(drReturnHybridCommodity["WACPISSCA_PercentageAllocation"].ToString());
-                                    debtAmount = debtAmount + (decimal.Parse(dr["InvestedAmount"].ToString()) * decimal.Parse(debtAllocation.ToString())) / 100;
-                                    equityAmount = equityAmount + (decimal.Parse(dr["InvestedAmount"].ToString()) * (100 - decimal.Parse(debtAllocation.ToString()))) / 100;
+                                    debtAmount = debtAmount + (investedAmount * decimal.Parse(debtAllocation.ToString())) / 100;
+                                    equityAmount = equityAmount + (investedAmount * (100 - decimal.Parse(debtAllocation.ToString()))) / 100;
 
                                 }
 
@@ -956,7 +1072,14 @@ namespace WealthERP.FP
                     }
                     totalInvestedAmount = equityAmount + debtAmount + hybridCommodityAmount;
                 }
-                weightedReturn = (equityAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnEquity.ToString()) + (debtAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnDebt.ToString());
+                if (totalInvestedAmount != 0)
+                {
+                    weightedReturn = (equityAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnEquity.ToString()) + (debtAmount / totalInvestedAmount) * decimal.Parse(customerAssumptionVo.ReturnOnDebt.ToString());
+                }
+                else
+                {
+                    weightedReturn = 0;
+                }
             }
          }
 
@@ -1011,3 +1134,4 @@ namespace WealthERP.FP
         
      }
  }
+

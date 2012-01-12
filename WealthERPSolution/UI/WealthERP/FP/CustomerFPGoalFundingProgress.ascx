@@ -1,28 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerFPGoalFundingProgress.ascx.cs" Inherits="WealthERP.FP.CustomerFPGoalFundingProgress" %>
-<%--<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>--%>
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register TagPrefix="qsf" Namespace="Telerik" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
-<%--<%@ Register TagPrefix="telerik" TagName="Header" Src="~/Common/Header.ascx" %>
-<%@ Register TagPrefix="telerik" TagName="HeadTag" Src="~/Common/HeadTag.ascx" %>
-<%@ Register TagPrefix="telerik" TagName="Footer" Src="~/Common/Footer.ascx" %>--%>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
-<%--<script type="text/javascript">
-    function SetPopUpId() {
-
-        document.getElementById("<%= GoalMappingPopUp.ClientID %>").style.visibility = 'hidden';
-
-        var mpu = document.getElementById("<%=mdlPopupSlabCalculate.ClientID %>").value;
-        mpu.hide();
-//        $find('mdlPopupSlabCalculate_ModalPopupExtender').hide();
-        alert('hi');
-        document.getElementById("<%= mdlPopupSlabCalculate.ClientID %>").setAttribute("BackgroundCssClass", "hdnModalPopupId"); 
-    }
-
-</script>--%>
-
 
 <script type="text/javascript">
     function ShowPopup() {
@@ -36,7 +19,7 @@
                     hiddenField = form.elements[i].id.replace("chkId", "hdnchkBx");
                     hiddenFieldValues = document.getElementById(hiddenField).value;
                     var splittedValues = hiddenFieldValues.split("-");
-                   
+
                 }
             }
         }
@@ -281,27 +264,25 @@
     </td>
     </tr>
    </table>
+   </asp:Panel>
    <br />
-   <table>
-   <tr>
-   <td>
+  
    
     <asp:Panel runat="server" ID="pnlDocuments">
-     <table ID="tblDocuments" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
+   <table ID="tblDocuments" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
      <tr class="EditFormHeader">
                             <td colspan="2" style="font-size: small">
                                 <b>MF Investment Funding</b>
                             </td>
                         </tr>
-     <tr>
-     <td>
+                        </table>
       <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None" Width="100%"
         AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound" OnInsertCommand="RadGrid1_ItemInserted"
+        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound" OnDeleteCommand="RadGrid1_DeleteCommand"  OnInsertCommand="RadGrid1_ItemInserted"
         OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
         OnPreRender="RadGrid1_PreRender">
-        <MasterTableView CommandItemDisplay="Top" DataKeyNames="SchemeCode,OtherGoalAllocation">
+        <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" DataKeyNames="SchemeCode,OtherGoalAllocation">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>
@@ -320,10 +301,12 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="ProjectedAmount" HeaderText="Projected amount in goal year(Rs)" DataField="ProjectedAmount" DataFormatString="{0:n2}">
                 </telerik:GridBoundColumn>
+                 <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="column">
+                </telerik:GridButtonColumn>
                 <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>--%>
             </Columns>
-            <EditFormSettings EditFormType="Template">
+          <EditFormSettings EditFormType="Template">
                 <FormTemplate>
                     <table id="Table2" cellspacing="2" cellpadding="1" width="100%" border="0" rules="none"
                         style="border-collapse: collapse; background: white;">
@@ -446,34 +429,31 @@
             </EditFormSettings>
         </MasterTableView>
         <ClientSettings>
-            <ClientEvents OnRowDblClick="RowDblClick" />
+        
         </ClientSettings>
     </telerik:RadGrid>
-     </td>
-     </tr>
-     </table>
+
     </asp:Panel>
     
     <hr />
   
    <asp:Panel runat="server" ID="Panel2">
-     <table ID="Table1" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
+   <table ID="Table1" runat="server" Style="border: solid 1px #CCC" Width="100%" rules="rows">
         <tr class="EditFormHeader">
                             <td colspan="2" style="font-size: small">
                                 <b>Monthly SIP MF Funding</b>
                             </td>
-                             <td runat="server" align="right">
+                             <td id="Td1" runat="server" align="right">
      <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
      </td>
                         </tr>
-     <tr>
-     <td colspan="3">
+                        </table>
       <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
         AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid2_ItemDataBound" OnInsertCommand="RadGrid2_ItemInserted"
+        AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid2_ItemDataBound" OnInsertCommand="RadGrid2_ItemInserted" OnDeleteCommand="RadGrid2_DeleteCommand"
         OnItemCommand="RadGrid2_ItemCommand" >
-        <MasterTableView CommandItemDisplay="Top" DataKeyNames="SIPId,TotalSIPamount">
+        <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" DataKeyNames="SIPId,TotalSIPamount">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>
@@ -481,12 +461,17 @@
                     <%--<HeaderStyle ForeColor="Silver"></HeaderStyle>--%>
                    <%-- <ItemStyle ForeColor="Gray" />--%>
                 </telerik:GridBoundColumn>
-                  <telerik:GridBoundColumn UniqueName="AvailableAllocation" HeaderText="SIP Amount Available(Rs)" DataField="AvailableAllocation">
+                  <telerik:GridBoundColumn UniqueName="AvailableAllocation" HeaderText="SIP Amount Available" DataField="AvailableAllocation">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="SIPInvestedAmount" HeaderText="SIP Amount Invested(Rs)" DataField="SIPInvestedAmount">
+                <telerik:GridBoundColumn UniqueName="SIPInvestedAmount" HeaderText="SIP Amount Invested" DataField="SIPInvestedAmount">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn UniqueName="SIPProjectedAmount" HeaderText="SIP Projected Amount" DataField="SIPProjectedAmount">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>
+                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="column">
+                </telerik:GridButtonColumn>
                
                 <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>--%>
@@ -583,22 +568,9 @@
             </EditFormSettings>
         </MasterTableView>
         <ClientSettings>
-            <ClientEvents OnRowDblClick="RowDblClick" />
         </ClientSettings>
     </telerik:RadGrid>
-     </td>
   
-     </tr>
-     </table>
-    </asp:Panel>
-    <cc1:CollapsiblePanelExtender ID="CollapsiblePanelExtender2" runat="server" TargetControlID="pnlDocuments"
-         ExpandControlID="pnlDocumentsHeader" CollapseControlID="pnlDocumentsHeader" ImageControlID="imgApplicationEntry"
-         ExpandedImage="~/Images/arrow_double_up_7.gif" CollapsedImage="~/Images/arrow_double_down_7.gif"
-         Collapsed="false" SuppressPostBack="true">
-   </cc1:CollapsiblePanelExtender>
-   </td>
-   </tr>
-   </table>
     </asp:Panel>
      
    
@@ -671,6 +643,3 @@
  </telerik:RadPageView>
        
  </telerik:RadMultiPage>
-
-
-<asp:HiddenField ID="hdnModalPopupId" runat="server" />
