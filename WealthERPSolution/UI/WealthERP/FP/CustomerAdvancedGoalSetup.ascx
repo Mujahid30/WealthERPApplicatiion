@@ -191,9 +191,9 @@
                                     </telerik:RadComboBoxItem>        
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/ChildMarraiageGoal.png" Text="Child Marriage" Value="MR" runat="server">        
                                     </telerik:RadComboBoxItem>        
-                                    <telerik:RadComboBoxItem ImageUrl="~/Images/OtherGoal.png" Text="Other" Value="OT" runat="server">        
+                                    <telerik:RadComboBoxItem ImageUrl="~/Images/OtherGoal.jpg" Text="Other" Value="OT" runat="server">        
                                     </telerik:RadComboBoxItem>   
-                                    <telerik:RadComboBoxItem ImageUrl="~/Images/RetirementGoal.png" Text="Retirement" Value="RT" runat="server">        
+                                    <telerik:RadComboBoxItem ImageUrl="~/Images/RetirementGoal.jpg" Text="Retirement" Value="RT" runat="server">        
                                     </telerik:RadComboBoxItem>       
                                           
                                        
