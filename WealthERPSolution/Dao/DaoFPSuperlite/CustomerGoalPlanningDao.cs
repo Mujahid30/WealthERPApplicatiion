@@ -116,6 +116,11 @@ namespace DaoFPSuperlite
                     db.AddInParameter(createCustomerGoalProfileCmd, "@AssociateId", DbType.Int32, GoalPlanningVo.AssociateId);
                 }
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ROIEarned", DbType.Double, GoalPlanningVo.ROIEarned);
+                if (GoalPlanningVo.IsFundFromAsset==true)
+                    db.AddInParameter(createCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 1);
+                else
+                    db.AddInParameter(createCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16,0);
+
                 db.AddInParameter(createCustomerGoalProfileCmd, "@CurrentInvestment", DbType.Double, GoalPlanningVo.CurrInvestementForGoal);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@ExpectedROI", DbType.Double, GoalPlanningVo.ExpectedROI);
                 db.AddInParameter(createCustomerGoalProfileCmd, "@IsActive", DbType.Int16, GoalPlanningVo.IsActice);
