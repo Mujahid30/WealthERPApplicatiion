@@ -16,7 +16,7 @@
         <telerik:RadTab runat="server" Text="Attach Scheme" 
             Value="ActiveScheme" TabIndex="0" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="View Hystory Schemes"
+        <telerik:RadTab runat="server" Text="View History Schemes"
             Value="HistoryScheme" TabIndex="1" Selected="True">
         </telerik:RadTab>        
     </Tabs>
@@ -28,7 +28,8 @@
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td>
-            <asp:Label ID="lblAttatchScheme" runat="server" CssClass="HeaderTextSmall" Text="Attatch Scheme to Portfolio"></asp:Label>
+            <asp:Label ID="lblAttatchScheme" runat="server" CssClass="HeaderTextBig" Text="Attatch Scheme to Portfolio"></asp:Label>
+            <hr />
         </td>
     </tr>
           
@@ -44,9 +45,6 @@
     </tr>
 </table>
 <table id="tblSelectddl" runat="server" class="TableBackground" width="40%">
-<tr>
-    <td><br /></td>
-</tr>
 <tr>
     <td class="leftField">
         <asp:Label ID="lblSelectModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio:"></asp:Label>
@@ -102,7 +100,7 @@
                     <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
          
-                <%--<telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Archive" UniqueName="Archive" ConfirmText="Are you sure you want to Archive the Scheme?"  
+                <%--<telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Archive" UniqueName="EditCommandColumn1" ConfirmText="Are you sure you want to Archive the Scheme?"  
                 ShowInEditForm="true" ImageUrl="../Images/Telerik/Delete.gif" Text="Archive" >
                 </telerik:GridButtonColumn>--%>
                 
@@ -347,7 +345,7 @@
                 <asp:Series Name="Series"></asp:Series>
             </Series>            
             <ChartAreas>
-                <asp:ChartArea BackColor="#EBEFF9" Name="ChartArea1"></asp:ChartArea>
+                <asp:ChartArea BackColor="Transparent" Name="ChartArea1"></asp:ChartArea>
             </ChartAreas>
          </asp:Chart>
         
@@ -360,7 +358,7 @@
             </Series>
             
             <ChartAreas>
-                <asp:ChartArea BackColor="#EBEFF9" Name="ChartArea1"></asp:ChartArea>
+                <asp:ChartArea BackColor="Transparent" Name="ChartArea1"></asp:ChartArea>
             </ChartAreas>
          </asp:Chart>
     </td>
@@ -378,7 +376,8 @@
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td>
-            <asp:Label ID="Label4" runat="server" CssClass="HeaderTextSmall" Text="Archived Schemes"></asp:Label>
+            <asp:Label ID="Label4" runat="server" CssClass="HeaderTextBig" Text="Archived Schemes"></asp:Label>
+            <hr />
         </td>
     </tr>          
 </table>
