@@ -99,6 +99,7 @@ namespace WealthERP.OPS
                  ShowHideFields(1);
                 ShowTransactionType(4);
                 btnSubmit.Visible = true;
+                
                 btnUpdate.Visible = false;
                 BindBankName();
                 if (operationVo != null)
@@ -135,6 +136,7 @@ namespace WealthERP.OPS
             //{
             //    //SetEditViewMode(false);
             //}
+            btnAddMore.Visible = false;
             orderNumber = operationBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
             txtOrderDate.Text = DateTime.Now.ToShortDateString();
@@ -422,7 +424,12 @@ namespace WealthERP.OPS
                         ddlFrequencySIP.Enabled = false;
                         ddlFrequencySIP.SelectedValue = operationVo.FrequencyCode;
                         txtstartDateSIP.Enabled = false;
-                        txtstartDateSIP.Text = operationVo.StartDate.ToShortDateString();
+                        if (operationVo.StartDate != DateTime.MinValue)
+                            txtstartDateSIP.Text = operationVo.StartDate.ToShortDateString();
+                        else if (!string.IsNullOrEmpty(operationVo.StartDate.ToShortDateString().Trim()))
+                            txtstartDateSIP.Text = operationVo.StartDate.ToShortDateString();
+                        else
+                            txtstartDateSIP.Text = "dd/mm/yyyy";
                         txtendDateSIP.Text = operationVo.EndDate.ToShortDateString();
                     }
                     else if (ddltransType.SelectedValue == "SWB")
@@ -1090,8 +1097,8 @@ namespace WealthERP.OPS
                 operationVo.AddrLine1 = txtCorrAdrLine1.Text;
             else
                 operationVo.AddrLine1 = "";
-            if (!string.IsNullOrEmpty(txtCorrAdrLine2.Text.ToString().Trim()))
-                operationVo.AddrLine2 = txtCorrAdrLine2.Text.ToString().Trim();
+            if (txtCorrAdrLine2.Text != "" || txtCorrAdrLine2.Text!=null)
+                operationVo.AddrLine2 = txtCorrAdrLine2.Text;
             else
                 operationVo.AddrLine2 = "";
             if (!string.IsNullOrEmpty(txtCorrAdrLine3.Text.ToString().Trim()))
@@ -1155,6 +1162,7 @@ namespace WealthERP.OPS
             txtOrderDate.Text = "";
             btnUpdate.Visible = false;
             lnkBtnEdit.Visible = false;
+            btnAddMore.Visible = true;
            
 
             //msgRecordStatus.Visible = true;
@@ -1747,7 +1755,7 @@ namespace WealthERP.OPS
                 operationVo.ChequeNumber = txtPaymentNumber.Text;
             else
                 operationVo.ChequeNumber = "";
-            if (!string.IsNullOrEmpty(txtPaymentInstDate.Text.ToString().Trim()) || txtPaymentInstDate.Text != "dd/MM/yyyy")
+            if (txtPaymentInstDate.Text != "dd/MM/yyyy")
                 operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.Text);
             else
                 operationVo.PaymentDate = DateTime.MinValue;
@@ -1776,8 +1784,8 @@ namespace WealthERP.OPS
                 operationVo.AddrLine3 = txtCorrAdrLine3.Text;
             else
                 operationVo.AddrLine3 = "";
-            if (!string.IsNullOrEmpty(txtLivingSince.Text.ToString().Trim()) || txtLivingSince.Text != "dd/mm/yyyy")
-                operationVo.LivingSince = DateTime.Parse(txtLivingSince.Text);
+             if (txtLivingSince.Text != "dd/mm/yyyy")
+                operationVo.LivingSince = DateTime.MinValue;
             else
                 operationVo.LivingSince = DateTime.MinValue;
             if (!string.IsNullOrEmpty(txtCorrAdrCity.Text.ToString().Trim()))
@@ -1872,6 +1880,7 @@ namespace WealthERP.OPS
 
         protected void btnAddMore_Click(object sender, EventArgs e)
         {
+            btnSubmit.Visible = false;
             operationVo.CustomerId = int.Parse(txtCustomerId.Value);
             operationVo.CustomerName = txtCustomerName.Text;
             operationVo.BMName = lblGetBranch.Text;
