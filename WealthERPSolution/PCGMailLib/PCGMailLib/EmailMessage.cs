@@ -294,15 +294,17 @@ namespace PCGMailLib
             if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
             {
                 emailContent = ReadTemplate("ResetPassword.html");
+                emailContent = emailContent.Replace("[ORGANIZATION]", "Wealtherp");
             }
             else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
             {
                 emailContent = ReadTemplate("MT_ResetPassword.html");
+                emailContent = emailContent.Replace("[ORGANIZATION]", "MoneyTouch");
             }
             
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
-            emailContent = emailContent.Replace("[Name]", name);
+            emailContent = emailContent.Replace("[CUSTOMER_NAME]", name);
 
             AssignMailSettings(EmailTypes.ResetPassword, emailContent);
 
