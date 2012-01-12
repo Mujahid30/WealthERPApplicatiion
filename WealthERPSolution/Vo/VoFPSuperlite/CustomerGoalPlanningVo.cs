@@ -50,6 +50,13 @@ namespace VoFPSuperlite
         private string G_FPCalculationBasis;
         private int G_CustomerAge;
 
+        private bool G_IsFundFromAsset;
+
+        public bool IsFundFromAsset
+        {
+            get { return G_IsFundFromAsset; }
+            set { G_IsFundFromAsset = value; }
+        }
         public int CustomerAge
         {
             get { return G_CustomerAge; }
@@ -406,6 +413,71 @@ namespace VoFPSuperlite
             set { C_IsRiskProfileComplete = value; }
         }
 
+    }
+
+
+    public class CustomerGoalFundingProgressVo
+    {
+        private double GFP_MonthlyContribution;
+        private double GFP_AmountInvestedTillDate;
+        private double GFP_GoalCurrentValue;
+        private decimal GFP_ReturnsXIRR;
+        private string GFP_EstimatedTimeToAchiveGoal;
+        private double GFP_ProjectedValue;
+        private double GFP_ProjectedGapValue;
+        private double GFP_AdditionalMonthlyRequirement;
+
+        public double AdditionalMonthlyRequirement
+        {
+            get { return GFP_AdditionalMonthlyRequirement; }
+            set { GFP_AdditionalMonthlyRequirement = value; }
+        }
+
+        public double ProjectedGapValue
+        {
+            get { return GFP_ProjectedGapValue; }
+            set { GFP_ProjectedGapValue = value; }
+        }
+
+        public double ProjectedValue
+        {
+            get { return GFP_ProjectedValue; }
+            set { GFP_ProjectedValue = value; }
+        }
+
+        public string GEstimatedTimeToAchiveGoal
+        {
+            get { return GFP_EstimatedTimeToAchiveGoal; }
+            set { GFP_EstimatedTimeToAchiveGoal = value; }
+        }
+
+
+        public decimal ReturnsXIRR
+        {
+            get { return GFP_ReturnsXIRR; }
+            set { GFP_ReturnsXIRR = value; }
+        }
+
+
+        public double GoalCurrentValue
+        {
+            get { return GFP_GoalCurrentValue; }
+            set { GFP_GoalCurrentValue = value; }
+        }
+        
+        public double AmountInvestedTillDate
+        {
+            get { return GFP_AmountInvestedTillDate; }
+            set { GFP_AmountInvestedTillDate = value; }
+        }
+
+        
+        public double MonthlyContribution
+        {
+            get { return GFP_MonthlyContribution; }
+            set { GFP_MonthlyContribution = value; }
+        }
+ 
     }
 
 
