@@ -288,6 +288,18 @@ namespace WealthERP.FP
                 {
                     imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
                 }
+                else if (lblGoalCode.Text.Trim() == "MR")
+                {
+                    imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
+                }
+                else if (lblGoalCode.Text.Trim() == "OT")
+                {
+                    imgGoalImage.ImageUrl = "~/Images/OtherGoal.jpg";
+                }
+                else if (lblGoalCode.Text.Trim() == "RT")
+                {
+                    imgGoalImage.ImageUrl = "~/Images/RetirementGoal.jpg";
+                }
                 lblGoalCode.Visible = false;
 
             }
