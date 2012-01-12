@@ -44,9 +44,15 @@ namespace VoCustomerGoalProfiling
 
         private double G_CurrentGoalValue;
         private double G_GoalCompletionPercent;
+        private bool G_IsFundFromAsset;
+
+        public bool IsFundFromAsset
+        {
+            get { return G_IsFundFromAsset; }
+            set { G_IsFundFromAsset = value; }
+        }
 
         
-
         public int CustomerGoalId
         {
             get { return G_CustomerGoalId; }
