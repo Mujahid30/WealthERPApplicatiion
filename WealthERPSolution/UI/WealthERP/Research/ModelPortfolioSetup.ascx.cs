@@ -52,6 +52,7 @@ namespace WealthERP.Research
             dtVariant.Columns.Add("XAMP_MinTimeHorizon");
             dtVariant.Columns.Add("XAMP_MaxTimeHorizon");
             dtVariant.Columns.Add("XAMP_Description");
+            dtVariant.Columns.Add("XAMP_CreatedOn");
             dtVariant.Columns.Add("Allocation");
 
             dtVariant.Columns.Add("Cash");
@@ -83,6 +84,7 @@ namespace WealthERP.Research
                 drVariant["XAMP_MinTimeHorizon"] = dr["XAMP_MinTimeHorizon"].ToString();
                 drVariant["XAMP_MaxTimeHorizon"] = dr["XAMP_MaxTimeHorizon"].ToString();
                 drVariant["XAMP_Description"] = dr["XAMP_Description"].ToString();
+                drVariant["XAMP_CreatedOn"] = dr["XAMP_CreatedOn"].ToString();
                 drVariant["Allocation"] = dr["Allocation"].ToString();
 
                 drVariant["MinYear"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) / 12;
@@ -238,7 +240,7 @@ namespace WealthERP.Research
                     modelPortfolioVo.MinAUM = Convert.ToDouble(txtboxMinAUM.Text);
                     modelPortfolioVo.MaxAUM = Convert.ToDouble(txtboxMaxAUM.Text);
                     modelPortfolioVo.MinAge = Convert.ToInt32(txtboxMinAge.Text);
-                    modelPortfolioVo.MaxAge = Convert.ToInt32(txtboxMaxAUM.Text);
+                    modelPortfolioVo.MaxAge = Convert.ToInt32(txtboxMaxAge.Text);
                     modelPortfolioVo.MinTimeHorizon = minTimeHorizon;
                     modelPortfolioVo.MaxTimeHorizon = maxTimeHorizon;
                     modelPortfolioVo.VariantDescription = txtboxVariantdescription.Text;
@@ -437,6 +439,17 @@ namespace WealthERP.Research
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
             DataSet dsAdviserRiskClass = new DataSet();
+            if (e.Item is GridCommandItem)
+            {
+                GridCommandItem cmditm = (GridCommandItem)e.Item;
+                //to hide AddNewRecord button
+                //cmditm.FindControl("InitInsertButton").Visible = false;//hide the text
+                //cmditm.FindControl("AddNewRecordButton").Visible = false;//hide the image
+
+                //to hide Refresh button
+                cmditm.FindControl("RefreshButton").Visible = false;//hide the text
+                cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
+            }    
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 int adviserId = advisorVo.advisorId;
