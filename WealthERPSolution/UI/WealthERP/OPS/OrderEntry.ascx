@@ -303,7 +303,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
               Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
               ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
               <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
-               CssClass="rfvPCG" ErrorMessage="<br />Please select a Application receive Date" Display="Dynamic"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
   </td>
   <td align="right">
@@ -323,7 +323,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
    <td valign="top">
  <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
-               CssClass="rfvPCG" ErrorMessage="<br />Please select a Application number" Display="Dynamic"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select an Application number" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
   </td>
 <td align="right" valign="top"> 
@@ -439,7 +439,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
  <asp:Label ID="lblFutureDate" runat="server" Text="Select Future Date: "  CssClass="FieldName"></asp:Label>
  </td>
  <td>
-   <asp:TextBox ID="txtFutureDate" runat="server" CssClass="txtField"></asp:TextBox>
+   <asp:TextBox ID="txtFutureDate" runat="server" CssClass="txtField"></asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtFutureDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -529,7 +529,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                                     Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                                     ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                                    <asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than Order Date"
+                                    <asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
                             Type="Date" ControlToValidate="txtPaymentInstDate" ControlToCompare="txtOrderDate" Operator="LessThanEqual"
                             CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
 </td>
@@ -856,12 +856,13 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <tr id="trBtnSubmit" runat="server">
 <td  align="left">
 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" ValidationGroup="MFSubmit"/>
-<asp:Button ID="btnUpdate" runat="server" Text="Submit" CssClass="PCGButton"  ValidationGroup="MFSubmit" onclick="btnUpdate_Click"/>
+<asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
+        CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
+
 </td>
 
 <td colspan="2">
-<asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
-        CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
+<asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"  ValidationGroup="MFSubmit" onclick="btnUpdate_Click"/>
 </td>
 </tr>
 </table>

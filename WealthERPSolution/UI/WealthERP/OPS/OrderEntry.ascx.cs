@@ -66,7 +66,7 @@ namespace WealthERP.OPS
             //customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             //customerId = customerVo.CustomerId;
             int bmID = rmVo.RMId;
-            btnUpdate.Visible = false;
+            
             //if (Session["operationVo"] != null)
             //{
             //    operationVo = (OperationVo)Session["operationVo"];
@@ -98,7 +98,8 @@ namespace WealthERP.OPS
                 BindFrequency();
                  ShowHideFields(1);
                 ShowTransactionType(4);
-                btnSubmit.Visible = false;
+                btnSubmit.Visible = true;
+                btnUpdate.Visible = false;
                 BindBankName();
                 if (operationVo != null)
                 {
@@ -312,22 +313,40 @@ namespace WealthERP.OPS
                     ddlAmcSchemeList.SelectedValue = operationVo.SchemePlanCode.ToString();
                     hdnSchemeCode.Value = operationVo.SchemePlanCode.ToString();
                     portfolioId = operationVo.portfolioId;
-                    BindFolioNumber(0);
-                    if (operationVo.accountid != 0)
-                        ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                    if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
+                    {
+                        BindFolioNumber(0);
+                        if (operationVo.accountid != 0)
+                            ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                        else
+                            ddlFolioNumber.SelectedValue = "";
+                    }
                     else
-                        ddlFolioNumber.SelectedValue = "";
+                    {
+                        BindFolioNumber(0);
+                        if (operationVo.accountid != 0)
+                            ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                        else
+                            ddlFolioNumber.SelectedValue = "";
+                    }
                     txtReceivedDate.Enabled = false;
                     txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
                     txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
-                    ddlOrderPendingReason.SelectedValue =operationVo.StatusReasonCode;
-                    if (operationVo.StatusReasonCode == "OMEX" || operationVo.StatusReasonCode == "OMCN")
+
+                    if (operationVo.StatusCode == "OMEX" || operationVo.StatusCode == "OMIP")
+                    {
+                        lblOrderPendingReason.Visible = false;
                         ddlOrderPendingReason.Visible = false;
+                    }
                     else
+                    {
+                        lblOrderPendingReason.Visible = true;
                         ddlOrderStatus.SelectedValue = operationVo.StatusCode;
+                    }
+                    ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
                     txtFutureDate.Text =operationVo.FutureExecutionDate.ToShortDateString();
                     if (operationVo.IsImmediate == 1)
                         rbtnImmediate.Checked = true;
@@ -346,7 +365,10 @@ namespace WealthERP.OPS
                     
                     ddlPaymentMode.SelectedValue= operationVo.PaymentMode;
                     txtPaymentNumber.Text = operationVo.ChequeNumber;
-                    txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                    if (operationVo.PaymentDate != DateTime.MinValue)
+                        txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                    else
+                        txtPaymentInstDate.Text = "dd/MM/yyyy";
                     ddlBankName.SelectedItem.Text = operationVo.BankName;
                     txtBranchName.Text =operationVo.BranchName;
                     //lblGetAvailableAmount.Text = ;
@@ -357,7 +379,11 @@ namespace WealthERP.OPS
                     txtCorrAdrLine1.Text = operationVo.AddrLine1;
                     txtCorrAdrLine2.Text = operationVo.AddrLine2;
                     txtCorrAdrLine3.Text = operationVo.AddrLine3;
-                    txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                    if (operationVo.LivingSince != DateTime.MinValue)
+                        txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                    else
+                        txtLivingSince.Text = "dd/mm/yyyy";
+                    //txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
                     txtCorrAdrCity.Text = operationVo.City;
                     if(!string.IsNullOrEmpty(operationVo.State.ToString().Trim()))
                         ddlCorrAdrState.SelectedValue = operationVo.State;
@@ -366,6 +392,7 @@ namespace WealthERP.OPS
                     btnUpdate.Visible = true;
                     trReportButtons.Visible = true;
                     btnAddCustomer.Visible = false;
+                    btnAddMore.Visible = false;
                 }
             }
 
@@ -471,26 +498,41 @@ namespace WealthERP.OPS
                     ddlAmcSchemeList.SelectedValue = operationVo.SchemePlanCode.ToString();
                     hdnSchemeCode.Value = operationVo.SchemePlanCode.ToString();
                     portfolioId = operationVo.portfolioId;
-                    BindFolioNumber(0);
-                    if (operationVo.accountid != 0)
-                        ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                    if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
+                    {
+                        BindFolioNumber(0);
+                        if (operationVo.accountid != 0)
+                            ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                        else
+                            ddlFolioNumber.SelectedValue = "";
+                    }
                     else
-                        ddlFolioNumber.SelectedValue = "";
+                    {
+                        BindFolioNumber(0);
+                        if (operationVo.accountid != 0)
+                            ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                        else
+                            ddlFolioNumber.SelectedValue = "";
+                    }
                     txtReceivedDate.Enabled = false;
                     txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
                     txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
-                    ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
-                    if (operationVo.StatusCode == "OMEX" || operationVo.StatusCode == "OMCN")
+                    
+                    if (operationVo.StatusCode == "OMEX" || operationVo.StatusCode == "OMIP")
+                    {
+                        lblOrderPendingReason.Visible = false;
                         ddlOrderPendingReason.Visible = false;
+                    }
                     else
                     {
-                        ddlOrderPendingReason.Visible = true ;
+                        lblOrderPendingReason.Visible = true;
+                        ddlOrderPendingReason.Visible = true;
                         ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
                     }
-                    ddlOrderStatus.SelectedValue = operationVo.StatusCode;
+                    ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
                     if (operationVo.StatusCode == "OMEX")
                         lnkBtnEdit.Visible = false;
                     txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
@@ -511,7 +553,10 @@ namespace WealthERP.OPS
                     
                     ddlPaymentMode.SelectedValue = operationVo.PaymentMode;
                     txtPaymentNumber.Text = operationVo.ChequeNumber;
-                    txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                    if (operationVo.PaymentDate != DateTime.MinValue)
+                        txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                    else
+                        txtPaymentInstDate.Text = "dd/mm/yyyy";
                     ddlBankName.SelectedItem.Text = operationVo.BankName;
                     txtBranchName.Text = operationVo.BranchName;
                     //lblGetAvailableAmount.Text = ;
@@ -521,14 +566,17 @@ namespace WealthERP.OPS
                     txtCorrAdrLine1.Text = operationVo.AddrLine1;
                     txtCorrAdrLine2.Text = operationVo.AddrLine2;
                     txtCorrAdrLine3.Text = operationVo.AddrLine3;
-                    txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                    if (operationVo.LivingSince != DateTime.MinValue)
+                        txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                    else
+                        txtLivingSince.Text = "dd/mm/yyyy";
                     txtCorrAdrCity.Text = operationVo.City;
                     ddlCorrAdrState.SelectedValue = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
 
                     Session["operationVo"] = operationVo;
                     btnSubmit.Visible = false;
-                    btnUpdate.Visible = true;
+                    btnUpdate.Visible = false;
                     trReportButtons.Visible = true;
                     btnAddCustomer.Visible = false;
                 }
@@ -1043,7 +1091,7 @@ namespace WealthERP.OPS
             else
                 operationVo.AddrLine1 = "";
             if (!string.IsNullOrEmpty(txtCorrAdrLine2.Text.ToString().Trim()))
-                operationVo.AddrLine2 = txtCorrAdrLine2.Text;
+                operationVo.AddrLine2 = txtCorrAdrLine2.Text.ToString().Trim();
             else
                 operationVo.AddrLine2 = "";
             if (!string.IsNullOrEmpty(txtCorrAdrLine3.Text.ToString().Trim()))
@@ -1095,55 +1143,18 @@ namespace WealthERP.OPS
                 operationVo.EndDate = DateTime.MinValue;
 
             operationBo.CreateMFOrderTracking(operationVo);
-            btnSubmit.Enabled = false;
-            btnUpdate.Enabled = false;
             trReportButtons.Visible = true;
             msgRecordStatus.Visible = true;
 
-            txtCustomerName.Enabled = false;
-            ddltransType.Enabled = false;
-            txtReceivedDate.Enabled = false;
-            txtApplicationNumber.Enabled = false;
-            ddlAMCList.Enabled = false;
-            ddlCategory.Enabled = false;
-            ddlAmcSchemeList.Enabled = false;
-            ddlPortfolio.Enabled = false;
-            ddlFolioNumber.Enabled = false;
-            txtOrderDate.Enabled = false;
-            lblGetOrderNo.Enabled = false;
-            ddlOrderPendingReason.Enabled = false;
-            ddlOrderStatus.Enabled = false;
-            txtFutureDate.Enabled = false;
-            txtFutureTrigger.Enabled = false;
-            txtAmount.Enabled = false;
-            ddlPaymentMode.Enabled = false;
-            txtPaymentNumber.Enabled = false;
-            txtPaymentInstDate.Enabled = false;
-            ddlBankName.Enabled = false;
-            txtBranchName.Enabled = false;
-            lblGetAvailableAmount.Enabled = false;
-            lblGetAvailableUnits.Enabled = false;
-            ddlSchemeSwitch.Enabled = false;
-            txtCorrAdrLine1.Enabled = false;
-            txtCorrAdrLine2.Enabled = false;
-            txtCorrAdrLine3.Enabled = false;
-            txtLivingSince.Enabled = false;
-            txtCorrAdrCity.Enabled = false;
-            ddlCorrAdrState.Enabled = false;
-            txtCorrAdrPinCode.Enabled = false;
-            ddlCorrAdrCountry.Enabled = false;
-
-            rbtAmount.Enabled = false;
-            txtNewAmount.Enabled = false;
-            
-            ddlFrequencySTP.Enabled = false;
-            ddlFrequencySIP.Enabled = false;
-            txtendDateSIP.Enabled = false;
-            txtendDateSTP.Enabled = false;
-            txtstartDateSIP.Enabled = false;
-            txtstartDateSTP.Enabled = false;
-
-            btnSubmit.Visible = false;
+            txtCustomerName.Text = "";
+            lblGetBranch.Text = "";
+            lblGetRM.Text = "";
+            lblgetPan.Text = "";
+            CleanAllFields();
+            lblGetOrderNo.Text = "";
+            txtOrderDate.Text = "";
+            btnUpdate.Visible = false;
+            lnkBtnEdit.Visible = false;
            
 
             //msgRecordStatus.Visible = true;
@@ -1659,7 +1670,7 @@ namespace WealthERP.OPS
             {
                 string statuscode = "";
                 statuscode = ddlOrderStatus.SelectedValue;
-                if (ddlOrderStatus.SelectedValue == "OMPD")
+                if (ddlOrderStatus.SelectedValue == "OMPD" || ddlOrderStatus.SelectedValue == "OMRJ" || ddlOrderStatus.SelectedValue == "OMCN")
                 {
                     lblOrderPendingReason.Visible = true;
                     ddlOrderPendingReason.Visible = true;
@@ -1670,6 +1681,7 @@ namespace WealthERP.OPS
                     ddlOrderPendingReason.Visible = false;
                     lblOrderPendingReason.Visible = false;
                 }
+                
             }
         }
 
@@ -1735,7 +1747,7 @@ namespace WealthERP.OPS
                 operationVo.ChequeNumber = txtPaymentNumber.Text;
             else
                 operationVo.ChequeNumber = "";
-            if (!string.IsNullOrEmpty(txtPaymentInstDate.Text.ToString().Trim()))
+            if (!string.IsNullOrEmpty(txtPaymentInstDate.Text.ToString().Trim()) || txtPaymentInstDate.Text != "dd/MM/yyyy")
                 operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.Text);
             else
                 operationVo.PaymentDate = DateTime.MinValue;
@@ -1764,7 +1776,7 @@ namespace WealthERP.OPS
                 operationVo.AddrLine3 = txtCorrAdrLine3.Text;
             else
                 operationVo.AddrLine3 = "";
-            if (!string.IsNullOrEmpty(txtLivingSince.Text.ToString().Trim()))
+            if (!string.IsNullOrEmpty(txtLivingSince.Text.ToString().Trim()) || txtLivingSince.Text != "dd/mm/yyyy")
                 operationVo.LivingSince = DateTime.Parse(txtLivingSince.Text);
             else
                 operationVo.LivingSince = DateTime.MinValue;
@@ -2000,7 +2012,10 @@ namespace WealthERP.OPS
             lblGetRM.Text = "";
             lblgetPan.Text = "";
             CleanAllFields();
+            lblGetOrderNo.Text = "";
+            txtOrderDate.Text = "";
             btnUpdate.Visible = false;
+            lnkBtnEdit.Visible = false;
 
         }
 
