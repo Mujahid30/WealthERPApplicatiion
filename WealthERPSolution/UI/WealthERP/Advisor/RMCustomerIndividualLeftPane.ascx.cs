@@ -999,13 +999,13 @@ namespace WealthERP.Advisor
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalFunding','login')", true);
                 //}
-                else if (e.Item.Value == "Goal_Planning")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
-                }
+                //else if (e.Item.Value == "Goal_Planning")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('AddCustomerFinancialPlanningGoalSetup','login')", true);
+                //}
                 else if (e.Item.Value == "Goal_Setup")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerFPGoalSetup','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanning", "loadcontrol('CustomerAdvancedGoalSetup','login')", true);
                 }
                 else if (e.Item.Value == "Goal_List")
                 {
