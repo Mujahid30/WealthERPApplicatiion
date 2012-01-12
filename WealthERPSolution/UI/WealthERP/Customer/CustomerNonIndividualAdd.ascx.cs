@@ -223,7 +223,7 @@ namespace WealthERP.Customer
                         customerVo.Adr1Line3 = txtCorrAdrLine3.Text.ToString();
                         customerVo.Adr1PinCode = int.Parse(txtCorrAdrPinCode.Text.ToString());
                         customerVo.Adr1City = txtCorrAdrCity.Text.ToString();
-                        customerVo.Adr1State = ddlCorrAdrState.SelectedItem.Value.ToString();
+                        customerVo.Adr1State = ddlCorrAdrState.SelectedItem.Text.ToString();
                         customerVo.Adr1Country = ddlCorrAdrCountry.SelectedItem.Value.ToString();
                         if (chkCorrPerm.Checked)
                         {
