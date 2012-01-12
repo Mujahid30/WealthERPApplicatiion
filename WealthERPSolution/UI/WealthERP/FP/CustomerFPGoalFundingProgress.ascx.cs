@@ -515,7 +515,7 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    drreturnHybridCommodity = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
+                    drreturnHybridCommodity = dsSIPInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
                     if (drreturnHybridCommodity.Count() > 0)
                     {
                         foreach (DataRow drhyCo in drreturnHybridCommodity)
