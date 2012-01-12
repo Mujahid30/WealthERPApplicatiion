@@ -63,6 +63,17 @@ namespace WealthERP.Research
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
             DataSet dsRiskClass = new DataSet();
+            if (e.Item is GridCommandItem)
+            {
+                GridCommandItem cmditm = (GridCommandItem)e.Item;
+                //to hide AddNewRecord button
+                //cmditm.FindControl("InitInsertButton").Visible = false;//hide the text
+                //cmditm.FindControl("AddNewRecordButton").Visible = false;//hide the image
+
+                //to hide Refresh button
+                cmditm.FindControl("RefreshButton").Visible = false;//hide the text
+                cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
+            }    
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 GridEditFormItem editform = (GridEditFormItem)e.Item;

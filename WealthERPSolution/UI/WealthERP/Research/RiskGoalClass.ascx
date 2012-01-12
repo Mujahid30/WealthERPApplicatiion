@@ -39,8 +39,8 @@
              AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false" 
              OnItemDataBound="RadGrid1_ItemDataBound" OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand"
              OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" 
-             AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode">
-        <MasterTableView CommandItemDisplay="Top" DataKeyNames="XRC_RiskClassCode" EditMode="PopUp">
+             AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode" Width="100%">
+        <MasterTableView CommandItemDisplay="Top" DataKeyNames="XRC_RiskClassCode" EditMode="PopUp" CssClass ="TableBackground" Width="100%">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>
