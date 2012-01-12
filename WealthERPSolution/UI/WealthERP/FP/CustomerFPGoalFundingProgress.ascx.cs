@@ -629,10 +629,10 @@ namespace WealthERP.FP
                     assumptionValue = assumptionValue / 24;
                     break;
                 case "HY":
-                    assumptionValue = assumptionValue / 2; ;
+                    assumptionValue = assumptionValue / 2; 
                     break;
                 case "MN":
-                    assumptionValue = assumptionValue / 12; ;
+                    assumptionValue = assumptionValue / 12; 
 
                     break;
                 case "NA":
@@ -645,8 +645,6 @@ namespace WealthERP.FP
                     assumptionValue = assumptionValue / 52;
                     break;
                 case "YR":
-                    assumptionValue = assumptionValue;
-
                     break;
             }
 
