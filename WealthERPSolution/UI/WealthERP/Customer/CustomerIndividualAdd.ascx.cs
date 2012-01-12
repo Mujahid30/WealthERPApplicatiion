@@ -268,7 +268,7 @@ namespace WealthERP.Customer
                     customerVo.Adr1Line3 = txtCorrAdrLine3.Text.ToString().Trim();
                     customerVo.Adr1PinCode = (txtCorrAdrPinCode.Text.ToString().Trim() != "") ? Int32.Parse(txtCorrAdrPinCode.Text.ToString().Trim()) : 0;
                     customerVo.Adr1City = txtCorrAdrCity.Text.ToString().Trim();
-                    customerVo.Adr1State = ddlCorrAdrState.SelectedValue.ToString().Trim();
+                    customerVo.Adr1State = ddlCorrAdrState.SelectedItem.Text.ToString().Trim();
                     customerVo.Adr1Country = ddlCorrAdrCountry.SelectedValue.ToString().Trim();
                     customerVo.OfcAdrLine1 = txtOfcAdrLine1.Text.ToString().Trim();
                     customerVo.OfcAdrLine2 = txtOfcAdrLine2.Text.ToString().Trim();
