@@ -279,10 +279,10 @@ namespace WealthERP.Research
 
                     modelPortfolioVo.PortfolioName = txtboxPortfolioName.Text;
                     modelPortfolioVo.RiskClassCode = ddl.SelectedValue;
-                    modelPortfolioVo.MinAUM = Convert.ToDouble(txtboxMinAUM.Text);
-                    modelPortfolioVo.MaxAUM = Convert.ToDouble(txtboxMaxAUM.Text);
-                    modelPortfolioVo.MinAge = Convert.ToInt32(txtboxMinAge.Text);
-                    modelPortfolioVo.MaxAge = Convert.ToInt32(txtboxMaxAge.Text);
+                    modelPortfolioVo.MinAUM = varMinAUM;
+                    modelPortfolioVo.MaxAUM = varMaxAUM;
+                    modelPortfolioVo.MinAge = varMinAge;
+                    modelPortfolioVo.MaxAge = varMaxAge;
                     modelPortfolioVo.MinTimeHorizon = minTimeHorizon;
                     modelPortfolioVo.MaxTimeHorizon = maxTimeHorizon;
                     modelPortfolioVo.VariantDescription = txtboxVariantdescription.Text;

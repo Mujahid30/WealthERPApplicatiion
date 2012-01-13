@@ -260,19 +260,21 @@ namespace WealthERP.Research
                     {
                         DataRow drOptionsRow = dtOptionsTemp.NewRow();
 
-                        drOptionsRow["QOM_Weightage"] = drOptions.Field<int>("QOM_Weightage");
-
-                        if (i == 1)
+                        if (drOptions["QOM_Weightage"].ToString() != "")
                         {
-                            tempMin = drOptions.Field<int>("QOM_Weightage");
-                            tempMax = drOptions.Field<int>("QOM_Weightage");
+                            drOptionsRow["QOM_Weightage"] = drOptions.Field<int>("QOM_Weightage");
+
+                            if (i == 1)
+                            {
+                                tempMin = drOptions.Field<int>("QOM_Weightage");
+                                tempMax = drOptions.Field<int>("QOM_Weightage");
+                            }
+                            if (tempMin > drOptions.Field<int>("QOM_Weightage"))
+                                tempMin = drOptions.Field<int>("QOM_Weightage");
+
+                            if (tempMax < drOptions.Field<int>("QOM_Weightage"))
+                                tempMax = drOptions.Field<int>("QOM_Weightage");
                         }
-                        if (tempMin > drOptions.Field<int>("QOM_Weightage"))
-                            tempMin = drOptions.Field<int>("QOM_Weightage");
-
-                        if(tempMax < drOptions.Field<int>("QOM_Weightage"))
-                            tempMax = drOptions.Field<int>("QOM_Weightage");
-
                         i = i + 1;
 
                     }
@@ -280,6 +282,8 @@ namespace WealthERP.Research
                     maxScore = maxScore + tempMax;
                 }
                 lblMinScore.Text = minScore.ToString();
+                ViewState["MinScore"] = minScore;
+                ViewState["MaxScore"] = maxScore;
                 lblMaxScore.Text = maxScore.ToString();
             }
         }
@@ -454,6 +458,8 @@ namespace WealthERP.Research
             {
                 decimal lowerLimit = 0;
                 decimal upperLimit = 0;
+                int minScore;
+                int maxScore;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
                 TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerLimit");
@@ -464,10 +470,13 @@ namespace WealthERP.Research
                 DataTable dtTemp = (DataTable)Session["Data"];
                 string classCode = (dtTemp.Rows[index]["XRC_RiskClassCode"].ToString());
 
+                minScore = int.Parse(ViewState["MinScore"].ToString());
+                maxScore = int.Parse(ViewState["MaxScore"].ToString());
+
                 if (index != 0)
                 {
                     if (lowerLimit != (Convert.ToInt32(dtTemp.Rows[index - 1]["WRPR_RiskScoreUpperLimit"].ToString()) + 1))
-                    {
+                    {  
                         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
                     }
                     else
