@@ -264,7 +264,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
         <asp:ListItem Text="Redemption" Value="Sel"></asp:ListItem>
         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
         <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
-        <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
+        <asp:ListItem Text="STP" Value="STB"></asp:ListItem>
         <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
         <asp:ListItem Text="Change Of Address Form" Value="CAF"></asp:ListItem>
         <%--<asp:ListItem Text="Change Of Bank Details" Value="Change_Of_Bank_Details"></asp:ListItem>--%>

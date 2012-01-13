@@ -73,6 +73,16 @@ namespace WealthERP.OPS
             //}
             if (!IsPostBack)
             {
+                if (Request.QueryString["CustomerId"] != null)
+                {
+                    customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
+                    customerVo = customerBo.GetCustomer(customerId);
+                    txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
+                    lblGetBranch.Text = customerVo.BranchName;
+                    lblGetRM.Text = customerVo.RMName;
+                    lblgetPan.Text = customerVo.PANNum;
+                    BindPortfolioDropdown(customerId);
+                }
                 trReportButtons.Visible = false;
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
@@ -249,7 +259,7 @@ namespace WealthERP.OPS
                         trSell3.Visible = true;
 
                     }
-                    else if (ddltransType.SelectedValue == "STP")
+                    else if (ddltransType.SelectedValue == "STB")
                     {
                         ShowTransactionType(2);
                         trfrequencySTP.Visible = true;
@@ -356,7 +366,7 @@ namespace WealthERP.OPS
                         rbtnFuture.Checked = false;
                     txtFutureTrigger.Text = operationVo.FutureTriggerCondition;
                     txtAmount.Text = operationVo.Amount.ToString();
-                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                     {
                         txtNewAmount.Text = operationVo.Amount.ToString();
                         //lblGetAvailableAmount.Text = operationVo.Amount.ToString();
@@ -438,7 +448,7 @@ namespace WealthERP.OPS
                         trSell3.Visible = true;
 
                     }
-                    else if (ddltransType.SelectedValue == "STP")
+                    else if (ddltransType.SelectedValue == "STB")
                     {
                         ShowTransactionType(2);
                         trfrequencySTP.Visible = true;
@@ -549,7 +559,7 @@ namespace WealthERP.OPS
                         rbtnFuture.Checked = false;
                     txtFutureTrigger.Text = operationVo.FutureTriggerCondition;
                     txtAmount.Text = operationVo.Amount.ToString();
-                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                     {
                         txtNewAmount.Text = operationVo.Amount.ToString();
                         lblAvailableAmount.Visible = false;
@@ -1056,7 +1066,7 @@ namespace WealthERP.OPS
             else
                 operationVo.Amount = 0;
 
-            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
             {
                 if (!string.IsNullOrEmpty((txtNewAmount.Text).ToString().Trim()))
                     operationVo.Amount = double.Parse(txtNewAmount.Text);
@@ -1258,7 +1268,7 @@ namespace WealthERP.OPS
                         trSIPDate.Visible = false;
                     }
                 }
-                else if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                else if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                 {
                     ShowTransactionType(2);
                     if (ddltransType.SelectedValue == "SWB")
@@ -1268,7 +1278,7 @@ namespace WealthERP.OPS
                         trfrequencySTP.Visible = false;
                         trDateSTP.Visible = false;
                     }
-                    else if (ddltransType.SelectedValue == "STP")
+                    else if (ddltransType.SelectedValue == "STB")
                     {
                         trSell3.Visible = true;
                         trfrequencySTP.Visible = true;
@@ -1565,7 +1575,7 @@ namespace WealthERP.OPS
 
         protected void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('CustomerType','login');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('CustomerType','page=Entry');", true);
         }
 
         //protected void ddlAssetType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1602,7 +1612,7 @@ namespace WealthERP.OPS
             if (ddlAMCList.SelectedIndex != 0)
             {
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
-                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "CAF")
+                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "CAF")
                 {
                     BindScheme(0);
                     BindFolioNumber(0);
@@ -1637,7 +1647,7 @@ namespace WealthERP.OPS
                 hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
                 categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
                 ddlCategory.SelectedValue = categoryCode;
-                if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                 {
                     DataSet dsGetAmountUnits;
                     DataTable dtGetAmountUnits;
@@ -1645,7 +1655,7 @@ namespace WealthERP.OPS
                     dtGetAmountUnits=dsGetAmountUnits.Tables[0];
                     lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
                     lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
-                    if ((ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                    if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
                     {
                         BindSchemeSwitch();
                     }
@@ -1918,7 +1928,7 @@ namespace WealthERP.OPS
             else
                 operationVo.Amount = 0;
 
-            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STP" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+            if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
             {
                 if (!string.IsNullOrEmpty((txtNewAmount.Text).ToString().Trim()))
                     operationVo.Amount = double.Parse(txtNewAmount.Text);
