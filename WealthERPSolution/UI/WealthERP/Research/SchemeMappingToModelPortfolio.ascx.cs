@@ -305,12 +305,11 @@ namespace WealthERP.Research
             else if (e.CommandName == "Update")
             {
                 try
-                {
-                    int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
-                    
+                {                    
                     modelPortfolioVo.ArchiveReason = Convert.ToInt32(dropdownArchive.SelectedValue);
                     //modelPortfolioBo.DeleteSchemeFromModelPortfolio(modelId, advisorVo.advisorId);
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                    int modelId = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
                     DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
                     foreach (DataRow dr in drrow)
                     {
