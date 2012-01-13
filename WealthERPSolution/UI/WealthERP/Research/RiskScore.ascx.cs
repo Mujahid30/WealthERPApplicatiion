@@ -412,6 +412,8 @@ namespace WealthERP.Research
                 upperLimit = Convert.ToDecimal(txtUpper.Text);
                 int index = e.Item.ItemIndex;
                 DataTable dtTemp = (DataTable)Session["Data"];
+                string classCode = (dtTemp.Rows[index]["XRC_RiskClassCode"].ToString());
+
                 if (index != 0)
                 {
                     if (lowerLimit != (Convert.ToInt32(dtTemp.Rows[index - 1]["WRPR_RiskScoreUpperLimit"].ToString()) + 1))
@@ -420,13 +422,15 @@ namespace WealthERP.Research
                     }
                     else
                     {
-                        adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                        adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                        BindAdviserAssumptions();
                         RadGrid1.Rebind();
                     }
                 }
                 else
                 {
-                    adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                    adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);                    
+                    BindAdviserAssumptions();
                     RadGrid1.Rebind();
                 }
             }
@@ -439,41 +443,41 @@ namespace WealthERP.Research
 
         protected void RadGrid1_InsertCommand(object source, GridCommandEventArgs e)
         {
-            try
-            {
-                decimal lowerLimit = 0;
-                decimal upperLimit = 0;
-                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
-                TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerLimit");
-                TextBox txtUpper = (TextBox)e.Item.FindControl("txtUpperLimit");
-                lowerLimit = Convert.ToDecimal(txtLower.Text);
-                upperLimit = Convert.ToDecimal(txtUpper.Text);
-                adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                RadGrid1.Rebind();
-            }
-            catch (Exception ex)
-            {
-                RadGrid1.Controls.Add(new LiteralControl("Unable to insert Employee. Reason: " + ex.Message));
-                e.Canceled = true;
-            }
+            //try
+            //{
+            //    decimal lowerLimit = 0;
+            //    decimal upperLimit = 0;
+            //    GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+            //    DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
+            //    TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerLimit");
+            //    TextBox txtUpper = (TextBox)e.Item.FindControl("txtUpperLimit");
+            //    lowerLimit = Convert.ToDecimal(txtLower.Text);
+            //    upperLimit = Convert.ToDecimal(txtUpper.Text);
+            //    adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+            //    RadGrid1.Rebind();
+            //}
+            //catch (Exception ex)
+            //{
+            //    RadGrid1.Controls.Add(new LiteralControl("Unable to insert Employee. Reason: " + ex.Message));
+            //    e.Canceled = true;
+            //}
         }
 
         protected void RadGrid1_DeleteCommand(object source, GridCommandEventArgs e)
         {
-            try
-            {
-                //GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                string riskClassCode = RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XRC_RiskClassCode"].ToString();
-                adviserFPConfigurationBo.DeleteRiskClassScore(riskClassCode, adviserVo.advisorId);
-                BindAdviserAssumptions();
-                RadGrid1.Rebind();
-            }
-            catch (Exception ex)
-            {
-                RadGrid1.Controls.Add(new LiteralControl("Unable to delete Employee. Reason: " + ex.Message));
-                e.Canceled = true;
-            }
+            //try
+            //{
+            //    //GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+            //    string riskClassCode = RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XRC_RiskClassCode"].ToString();
+            //    adviserFPConfigurationBo.DeleteRiskClassScore(riskClassCode, adviserVo.advisorId);
+            //    BindAdviserAssumptions();
+            //    RadGrid1.Rebind();
+            //}
+            //catch (Exception ex)
+            //{
+            //    RadGrid1.Controls.Add(new LiteralControl("Unable to delete Employee. Reason: " + ex.Message));
+            //    e.Canceled = true;
+            //}
         }
 
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
