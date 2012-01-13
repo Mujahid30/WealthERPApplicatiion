@@ -398,7 +398,7 @@ namespace WealthERP.OPS
                     //txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
                     txtCorrAdrCity.Text = operationVo.City;
                     if(!string.IsNullOrEmpty(operationVo.State.ToString().Trim()))
-                        ddlCorrAdrState.SelectedValue = operationVo.State;
+                        ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
                     btnSubmit.Visible = false;
                     btnUpdate.Visible = true;
@@ -588,7 +588,7 @@ namespace WealthERP.OPS
                     else
                         txtLivingSince.Text = "dd/mm/yyyy";
                     txtCorrAdrCity.Text = operationVo.City;
-                    ddlCorrAdrState.SelectedValue = operationVo.State;
+                    ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
 
                     Session["operationVo"] = operationVo;
@@ -1124,7 +1124,7 @@ namespace WealthERP.OPS
             else
                 operationVo.City = "";
             if (ddlCorrAdrState.SelectedIndex != 0)
-                operationVo.State = ddlCorrAdrState.SelectedValue;
+                operationVo.State = ddlCorrAdrState.SelectedItem.Text;
             else
                 operationVo.State = "";
             if (!string.IsNullOrEmpty(txtCorrAdrPinCode.Text.ToString().Trim()))
@@ -1226,6 +1226,15 @@ namespace WealthERP.OPS
             txtendDateSIP.Text = "";
             txtstartDateSTP.Text = "";
             txtendDateSTP.Text = "";
+
+            lblGetLine1.Text = "";
+            lblGetLine2.Text = "";
+            lblGetline3.Text = "";
+            lblGetLivingSince.Text = "";
+            lblgetCity.Text = "";
+            lblGetstate.Text = "";
+            lblGetPin.Text = "";
+            lblGetCountry.Text = "";
 
             txtNewAmount.Text = "";
 
@@ -1334,7 +1343,7 @@ namespace WealthERP.OPS
                 }
 
                 btnSubmit.Visible = true;
-                btnAddMore.Visible = true;
+                //btnAddMore.Visible = true;
             }
         }
 
@@ -1803,7 +1812,7 @@ namespace WealthERP.OPS
             else
                 operationVo.City = "";
             if (ddlCorrAdrState.SelectedIndex != 0)
-                operationVo.State = ddlCorrAdrState.SelectedValue;
+                operationVo.State = ddlCorrAdrState.SelectedItem.Text;
             else
                 operationVo.State = "";
             if (!string.IsNullOrEmpty(txtCorrAdrPinCode.Text.ToString().Trim()))
@@ -1986,7 +1995,7 @@ namespace WealthERP.OPS
             else
                 operationVo.City = "";
             if (ddlCorrAdrState.SelectedIndex != 0)
-                operationVo.State = ddlCorrAdrState.SelectedValue;
+                operationVo.State = ddlCorrAdrState.SelectedItem.Text;
             else
                 operationVo.State = "";
             if (!string.IsNullOrEmpty(txtCorrAdrPinCode.Text.ToString().Trim()))
