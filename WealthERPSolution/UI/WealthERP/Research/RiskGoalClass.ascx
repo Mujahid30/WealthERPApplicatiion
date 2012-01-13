@@ -40,9 +40,11 @@
              OnItemDataBound="RadGrid1_ItemDataBound" OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand"
              OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" 
              AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode" Width="100%">
-        <MasterTableView CommandItemDisplay="Top" DataKeyNames="XRC_RiskClassCode" EditMode="PopUp" CssClass ="TableBackground" Width="100%">
+        <MasterTableView CommandItemDisplay="Top" DataKeyNames="XRC_RiskClassCode" EditMode="PopUp" CssClass ="TableBackground"
+         TableLayout="Fixed" Width="100%">
             <Columns>
-                <telerik:GridEditCommandColumn>
+                <telerik:GridEditCommandColumn HeaderText="Edit">
+                    <HeaderStyle Width="10%"/>                     
                 </telerik:GridEditCommandColumn>
                 <%--<telerik:GridBoundColumn UniqueName="RiskClass" HeaderText="Risk Class" DataField="RiskClass">
                     <HeaderStyle Width="60px"></HeaderStyle>
@@ -53,17 +55,25 @@
                 </telerik:GridBoundColumn>--%>
                
                 <telerik:GridBoundColumn UniqueName="XRC_RiskClass" HeaderText="Class" DataField="XRC_RiskClass">
+                    <HeaderStyle Width="15%"/>
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn UniqueName="ARC_RiskText" HeaderText="Description" DataField="ARC_RiskText">
+                <telerik:GridBoundColumn UniqueName="ARC_RiskText" HeaderText="Description" DataField="ARC_RiskText">
+                    <HeaderStyle Width="65%" /> 
                 </telerik:GridBoundColumn>
-                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?" UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" HeaderText="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Class?" UniqueName="column">
+                    <HeaderStyle Width="10%" /> 
                 </telerik:GridButtonColumn>
             </Columns>
             
-            <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" PopUpSettings-Modal="true" 
+            <EditFormSettings  InsertCaption="Add new Class" FormTableStyle-HorizontalAlign="Center" PopUpSettings-Modal="true" 
             PopUpSettings-ZIndex="10" CaptionDataField="XRC_RiskClassCode" EditFormType="Template">
+            
+            <FormMainTableStyle GridLines="None" Width="100%"/>
+            <FormTableStyle Width="100%"/>
+            <FormStyle Width="100%"></FormStyle>
+
                 <FormTemplate>
-                    <table id="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">                        
+                    <table id="Table1">                        
                         <tr id="trRiskCodeddl" runat="server">
                             <td class="leftField">
                                 <asp:Label ID="lblPickClass" runat="server" Text="Pick a Risk/Goal class :" CssClass="FieldName"></asp:Label>
@@ -103,6 +113,7 @@
                         </tr>
                     </table>
                 </FormTemplate>
+                
             </EditFormSettings>
         </MasterTableView>
         <ClientSettings>
