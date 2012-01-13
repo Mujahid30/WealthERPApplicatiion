@@ -77,13 +77,12 @@ namespace BoResearch
             }
             return dt;
         }
-        public DataTable InsertUpdateRiskClassScore(string classCode, decimal lowerText, decimal upperText, int advisorId, int userId)
+        public void UpdateRiskClassScore(string classCode, decimal lowerText, decimal upperText, int advisorId, int userId)
         {
-            DataTable dt;
             AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
             try
             {
-                dt = adviserFPConfigurationDao.InsertUpdateRiskClassScore(classCode, lowerText, upperText, advisorId, userId);
+                adviserFPConfigurationDao.UpdateRiskClassScore(classCode, lowerText, upperText, advisorId, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -102,7 +101,6 @@ namespace BoResearch
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dt;
         }
         public void DeleteRiskClassScore(string classCode, int advisorId)
         {

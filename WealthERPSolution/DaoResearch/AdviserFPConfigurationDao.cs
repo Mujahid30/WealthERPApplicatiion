@@ -104,30 +104,25 @@ namespace DaoResearch
             return dt;
         }
 
-        public DataTable InsertUpdateRiskClassScore(string classCode, decimal lowerText, decimal upperText, int advisorId, int userId)
+        public void UpdateRiskClassScore(string classCode, decimal lowerText, decimal upperText, int advisorId, int userId)
         {
             Database db;
-            DataTable dt;
             DbCommand cmdScoreRange;
-            DataSet dsScoreRange = null;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdScoreRange = db.GetStoredProcCommand("SP_InsertUpdateRiskClassScore");
+                cmdScoreRange = db.GetStoredProcCommand("SP_UpdateRiskClassScore");
                 db.AddInParameter(cmdScoreRange, "@riskCode", DbType.String, classCode);
                 db.AddInParameter(cmdScoreRange, "@lowerLimit", DbType.Int32, lowerText);
                 db.AddInParameter(cmdScoreRange, "@upperLimit", DbType.Int32, upperText);
                 db.AddInParameter(cmdScoreRange, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(cmdScoreRange, "@userId", DbType.Int32, userId);
-                dsScoreRange = db.ExecuteDataSet(cmdScoreRange);
-                dt = dsScoreRange.Tables[0];
-
+                db.ExecuteDataSet(cmdScoreRange);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return dt;
         }
 
         public void DeleteRiskClassScore(string classCode, int advisorId)
