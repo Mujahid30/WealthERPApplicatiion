@@ -38,6 +38,8 @@ namespace WealthERP.FP
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
 
+            tblModelPortFolioDropDown.Visible = true;
+            msgRecordStatus.Visible = false;
             if (Request.QueryString["goalId"] != null)
             {
                 goalId = int.Parse(Request.QueryString["goalId"].ToString());
@@ -726,6 +728,7 @@ namespace WealthERP.FP
             dtCustomerGoalFundingDetails.Columns.Add("ProjectedAmount");
             DataRow drCustomerGoalFundingDetails;
             dtCustomerGoalFundingDetails.Columns.Add("AvailableAllocation");
+            dtCustomerGoalFundingDetails.Columns.Add("ReturnsXIRR");
            
                 dsExistingInvestment = customerGoalPlanningBo.GetExistingInvestmentDetails(customerVo.CustomerId, goalId);
            
@@ -818,6 +821,8 @@ namespace WealthERP.FP
                             drCustomerGoalFundingDetails["AllocationEntry"] = drSchemeId["allocatedPercentage"].ToString();
                             drCustomerGoalFundingDetails["AvailableAllocation"] = 100 - decimal.Parse(drSchemeId["allocatedPercentage"].ToString());
                             drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
+                            drCustomerGoalFundingDetails["ReturnsXIRR"] = Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()))), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                
                             if (currentValue != 0)
                             {
                                 futureCost = Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
@@ -848,6 +853,7 @@ namespace WealthERP.FP
                     drCustomerGoalFundingDetails["AvailableAllocation"] = "100";
                     drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
                     drCustomerGoalFundingDetails["OtherGoalAllocation"] = "0";
+                    drCustomerGoalFundingDetails["ReturnsXIRR"] = Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()))), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                     if (currentValue != 0)
                     {
                         futureCost = Math.Abs(customerGoalPlanningBo.FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
@@ -1154,16 +1160,22 @@ namespace WealthERP.FP
             //    if (modelportfolioCode == 7)
             //    {
 
-                    if (dsModelPortFolioSchemeDetails.Tables[1].Rows.Count > 0)
-                    {
-                        ddlModelPortFolio.DataSource = dsModelPortFolioSchemeDetails.Tables[1];
-                        ddlModelPortFolio.DataTextField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioName"].ToString();
-                        ddlModelPortFolio.DataValueField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioCode"].ToString();
-                        ddlModelPortFolio.DataBind();
-                        modelPortfolioId = int.Parse(dsModelPortFolioSchemeDetails.Tables[1].Rows[0]["XAMP_ModelPortfolioCode"].ToString());
-                        BindModelPortFolioSchemes(modelPortfolioId);
-                       
-                    }
+            if (dsModelPortFolioSchemeDetails.Tables[1].Rows.Count > 0)
+            {                
+                ddlModelPortFolio.DataSource = dsModelPortFolioSchemeDetails.Tables[1];
+                ddlModelPortFolio.DataTextField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioName"].ToString();
+                ddlModelPortFolio.DataValueField = dsModelPortFolioSchemeDetails.Tables[1].Columns["XAMP_ModelPortfolioCode"].ToString();
+                ddlModelPortFolio.DataBind();
+                modelPortfolioId = int.Parse(dsModelPortFolioSchemeDetails.Tables[1].Rows[0]["XAMP_ModelPortfolioCode"].ToString());
+                BindModelPortFolioSchemes(modelPortfolioId);
+
+            }
+            else
+            {
+                tblModelPortFolioDropDown.Visible = false;
+                msgRecordStatus.Visible = true;
+
+            }
 
             //    }
             //}

@@ -32,15 +32,6 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label headertitle;
         
         /// <summary>
-        /// msgRecordStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
-        
-        /// <summary>
         /// RadTabStripFPGoalDetails control.
         /// </summary>
         /// <remarks>
@@ -95,6 +86,24 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtGoalName;
         
         /// <summary>
+        /// imgGoalImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgGoalImage;
+        
+        /// <summary>
+        /// spanGoalType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanGoalType;
+        
+        /// <summary>
         /// lblGoalStatus control.
         /// </summary>
         /// <remarks>
@@ -102,6 +111,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGoalStatus;
+        
+        /// <summary>
+        /// imgGoalFundIndicator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgGoalFundIndicator;
         
         /// <summary>
         /// lblStartDate control.
@@ -482,6 +500,24 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel Panel4;
         
         /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
+        /// tblModelPortFolioDropDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblModelPortFolioDropDown;
+        
+        /// <summary>
         /// lblModelPortfolio control.
         /// </summary>
         /// <remarks>
@@ -516,24 +552,5 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid RadGrid3;
-
-        // <summary>
-        /// imgGoalImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgGoalImage;
-
-         // <summary>
-        /// imgGoalFundIndicator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgGoalFundIndicator;
-        
     }
 }
