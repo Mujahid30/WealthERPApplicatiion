@@ -173,8 +173,10 @@ namespace WealthERP.FP
                             drGoalProfile["ProjectedGapValue"] = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedGapValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                             if (customerGoalFundingProgressVo.ProjectedGapValue > 0)
                                 drGoalProfile["IsGoalBehind"] = "No";
-                            else
+                            else if (customerGoalFundingProgressVo.ProjectedGapValue < 0)
                                 drGoalProfile["IsGoalBehind"] = "Yes";
+                            else
+                                drGoalProfile["IsGoalBehind"] = "NA";
 
                         }
                         else
@@ -610,11 +612,13 @@ namespace WealthERP.FP
             string goalId = "";
             string goalCatagory = "";
             string goalAction = "";
+            string goalCode = string.Empty;
 
             ddlAction = (RadComboBox)sender;
             gvGoal = (GridViewRow)ddlAction.NamingContainer;
             selectedRow = gvGoal.RowIndex;
             goalId = gvGoalList.DataKeys[selectedRow].Values["GoalId"].ToString();
+            goalCode = gvGoalList.DataKeys[selectedRow].Values["GoalCode"].ToString();
             hdndeleteId.Value = goalId;
             //goalCatagory = gvGoalList.DataKeys[selectedRow].Values["GoalCategory"].ToString();
             goalAction = ddlAction.SelectedValue.ToString();
@@ -624,7 +628,7 @@ namespace WealthERP.FP
             }
             else if (ddlAction.SelectedValue == "Fund")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "&GoalCode=" + goalCode + "');", true);
             }
             else if (ddlAction.SelectedValue == "Delete")
             {
