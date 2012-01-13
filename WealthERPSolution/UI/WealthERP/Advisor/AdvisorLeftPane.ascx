@@ -498,36 +498,36 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Research" Value="Research" >
                                 <Items>
-                                 <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left" Text="Research Dashboard" Value="Research_Dashboard">                                                
+                                 <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">                                                
                                  </telerik:RadPanelItem>
                                  
-                                 <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left" Text="Configure" Value="Configure">
+                                 <telerik:RadPanelItem runat="server" Text="Configure" Value="Configure">
                                  <Items>
-                                  <telerik:RadPanelItem runat="server" Text="Risk/Goal Classes" ImageUrl="~/Images/new.gif" Value="RiskGoal_Classes">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Risk/Goal Classes" Value="RiskGoal_Classes">                                                
                                   </telerik:RadPanelItem>
                                   
-                                  <telerik:RadPanelItem runat="server" Text="Risk Score" ImageUrl="~/Images/new.gif" Value="Risk_Score">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Risk Score" Value="Risk_Score">                                                
                                   </telerik:RadPanelItem>
                                   
-                                  <telerik:RadPanelItem runat="server" Text="Goal Score" ImageUrl="~/Images/new.gif" Value="Goal_Score" Visible="false">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Goal Score" Value="Goal_Score" Visible="false">                                                
                                   </telerik:RadPanelItem>
                                   
-                                  <telerik:RadPanelItem runat="server" Text="Asset Mapping" ImageUrl="~/Images/new.gif" Value="Asset_Mapping">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Asset Mapping" Value="Asset_Mapping">                                                
                                   </telerik:RadPanelItem>
                                   
-                                  <telerik:RadPanelItem runat="server" Text="Assumptions" ImageUrl="~/Images/new.gif" Value="Assumptions">                                                
+                                  <telerik:RadPanelItem runat="server" Text="Assumptions" Value="Assumptions">                                                
                                   </telerik:RadPanelItem>
                                   
                                  </Items> 
                                                                                 
                                  </telerik:RadPanelItem>
                                  
-                                  <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left" Text="Models" Value="Reference_Data">
+                                  <telerik:RadPanelItem runat="server" Text="Models" Value="Reference_Data">
                                         <Items>                                          
                                          
-                                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Asset Allocation" Value="Asset_Allocation">                                                
+                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation" Value="Asset_Allocation">                                                
                                              </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="MF Investment" Value="MF_Investment">
+                                             <telerik:RadPanelItem runat="server" Text="MF Investment" Value="MF_Investment">
                                              </telerik:RadPanelItem>
                                          
                                         </Items>
