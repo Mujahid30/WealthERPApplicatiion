@@ -10,6 +10,7 @@ using System.Data;
 using Telerik.Web.UI;
 using BoCustomerRiskProfiling;
 using VoCustomerRiskProfiling;
+using System.Web.UI.HtmlControls;
 
 namespace WealthERP.Research
 {
@@ -355,6 +356,7 @@ namespace WealthERP.Research
                 drRiskScore["WRPR_RiskScoreUpperLimit"] = dr["WRPR_RiskScoreUpperLimit"].ToString();
                 dtRiskScore.Rows.Add(drRiskScore);
             }
+            Session["Data"] = dtRiskScore;
             RadGrid1.DataSource = dtRiskScore;
             RadGrid1.DataBind();
         }
@@ -389,12 +391,29 @@ namespace WealthERP.Research
                 decimal upperLimit = 0;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
-                TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerrLimit");
+                TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerLimit");
                 TextBox txtUpper = (TextBox)e.Item.FindControl("txtUpperLimit");
                 lowerLimit = Convert.ToDecimal(txtLower.Text);
                 upperLimit = Convert.ToDecimal(txtUpper.Text);
-                adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                RadGrid1.Rebind();
+                int index = e.Item.ItemIndex;
+                DataTable dtTemp = (DataTable)Session["Data"];
+                if (index != 0)
+                {
+                    if (lowerLimit != (Convert.ToInt32(dtTemp.Rows[index - 1]["WRPR_RiskScoreUpperLimit"].ToString()) + 1))
+                    {
+                        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                    }
+                    else
+                    {
+                        adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                        RadGrid1.Rebind();
+                    }
+                }
+                else
+                {
+                    adviserFPConfigurationBo.InsertUpdateRiskClassScore(ddl.SelectedValue, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                    RadGrid1.Rebind();
+                }
             }
             catch (Exception ex)
             {
@@ -411,7 +430,7 @@ namespace WealthERP.Research
                 decimal upperLimit = 0;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
-                TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerrLimit");
+                TextBox txtLower = (TextBox)e.Item.FindControl("txtLowerLimit");
                 TextBox txtUpper = (TextBox)e.Item.FindControl("txtUpperLimit");
                 lowerLimit = Convert.ToDecimal(txtLower.Text);
                 upperLimit = Convert.ToDecimal(txtUpper.Text);
@@ -482,16 +501,29 @@ namespace WealthERP.Research
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
                 DropDownList ddl = (DropDownList)editform.FindControl("ddlPickRiskClass");
                 int adviserId = adviserVo.advisorId;
+                HtmlTableRow trPickClassDdl = (HtmlTableRow)editform.FindControl("trPickClassDdl");
+                HtmlTableRow trRisktextBox = (HtmlTableRow)editform.FindControl("trRisktextBox");
 
-                dsGlobal = riskprofilebo.GetAdviserRiskClasses(adviserId);
-                if (dsGlobal.Tables[0].Rows.Count > 0)
+                if (e.Item.RowIndex == -1)
                 {
-                    ddl.DataSource = dsGlobal.Tables[0];
-                    ddl.DataValueField = dsGlobal.Tables[0].Columns["XRC_RiskClassCode"].ToString();
-                    ddl.DataTextField = dsGlobal.Tables[0].Columns["XRC_RiskClass"].ToString();
-                    ddl.DataBind();
+                    //trPickClassDdl.Visible = true;
+                    trRisktextBox.Visible = false;
+
+                    //dsGlobal = riskprofilebo.GetAdviserRiskClasses(adviserId);
+                    //if (dsGlobal.Tables[0].Rows.Count > 0)
+                    //{
+                    //    ddl.DataSource = dsGlobal.Tables[0];
+                    //    ddl.DataValueField = dsGlobal.Tables[0].Columns["XRC_RiskClassCode"].ToString();
+                    //    ddl.DataTextField = dsGlobal.Tables[0].Columns["XRC_RiskClass"].ToString();
+                    //    ddl.DataBind();
+                    //}
+                    //ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
                 }
-                ddl.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
+                else
+                {
+                    trPickClassDdl.Visible = false;
+                    trRisktextBox.Visible = true;
+                }
             }
         }
 

@@ -184,17 +184,11 @@
 
 </script>
 
-<%--Code for risk score validation By Bhoopendra--%>
-<%--<script type="text/javascript">
-
-    function some() {
-        var prevtxt = document.getElementByID('ctrl_RiskScore_RadGrid1_ctl00_ctl05_txtUpperLimit').value;
-        var currenttxt = document.getElementByID('ctrl_RiskScore_RadGrid1_ctl00_ctl07_txtUpperLimit').value;
-        if (prevtxt != currenttxt + 1) {
-            alert('Please fill ');
-        }
+<script type="text/javascript">
+    function showmessage() {
+        alert('Risk Score Lower Limit is not proper');
     }
-</script>--%>
+</script>
 
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager> 
@@ -215,7 +209,6 @@
 <telerik:RadMultiPage ID="RiskScoreCalculationId" EnableViewState="true" runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView1" runat="server">
 <asp:Panel ID="pnlRiskScore" runat="server">
-
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td>
@@ -232,8 +225,8 @@
             <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
             AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False" Skin="Telerik"
             ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="False"  OnItemDataBound="RadGrid1_ItemDataBound"
-        OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
-         OnItemCommand="RadGrid1_ItemCommand" OnPreRender="RadGrid1_PreRender" AllowAutomaticUpdates="False" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode">            
+            OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
+            OnItemCommand="RadGrid1_ItemCommand" OnPreRender="RadGrid1_PreRender" AllowAutomaticUpdates="False" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode">            
             <MasterTableView EditMode="PopUp" DataKeyNames="XRC_RiskClassCode">
                 <Columns>
                     <telerik:GridEditCommandColumn>
@@ -249,13 +242,13 @@
                      <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
                     </telerik:GridButtonColumn>--%>
                 </Columns>
-                <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
+                <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
                 PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode: {0}"
                 EditFormType="Template">
                 <%--CaptionDataField="CPA_Value"--%>
                     <FormTemplate>
                         <table id="Table1" cellspacing="1" cellpadding="1" width="250" border="0">                        
-                        <tr>
+                        <tr id="trPickClassDdl" runat="server">
                             <td>
                                 <asp:Label ID="lblPickClass" runat="server" Text="Pick a Risk class :" CssClass="FieldName"></asp:Label>
                             </td>
@@ -264,12 +257,22 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
+                        <tr id="trRisktextBox" runat="server">
+                            <td class="leftField">
+                            <asp:Label ID="lblRisk" runat="server" Text="Pick a Risk class :" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:TextBox ID="txtRiskClass" CssClass="txtField" ReadOnly="true" Text='<%# Bind( "XRC_RiskClass") %>' runat="server">
+                                </asp:TextBox>
+                            </td>
+                        </tr>
+                        
                          <tr>
                             <td>
-                                <asp:Label ID="lblLowerrLimit" runat="server" Text="Lowerr Limit :" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblLowerLimit" runat="server" Text="Lower Limit :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtLowerrLimit" Text='<%# Bind( "WRPR_RiskScoreLowerLimit") %>' runat="server">
+                                <asp:TextBox ID="txtLowerLimit" Text='<%# Bind( "WRPR_RiskScoreLowerLimit") %>' runat="server">
                                 </asp:TextBox>
                             </td>
                         </tr> 
@@ -305,7 +308,7 @@
                 </telerik:RadGrid>  
         </td>
     </tr>
-</table>   
+</table>     
 </asp:Panel>
 </telerik:RadPageView>
     
