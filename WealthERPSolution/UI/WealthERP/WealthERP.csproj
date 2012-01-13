@@ -4925,6 +4925,7 @@
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.gif" />
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.png" />
     <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\BoFPSuperlite.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
     <Content Include="bin\BoOps.dll" />
@@ -5185,6 +5186,7 @@
     <Content Include="Images\nologo.png" />
     <Content Include="Images\NotApplicable.png" />
     <Content Include="Images\OtherGoal.jpg" />
+    <Content Include="Images\OtherGoal.png" />
     <Content Include="Images\PersonalDetails.png" />
     <Content Include="Images\Portfolios.jpg" />
     <Content Include="Images\Print.gif" />
@@ -5197,6 +5199,7 @@
     <Content Include="Images\RedDownArrow.png" />
     <Content Include="Images\redStatus.png" />
     <Content Include="Images\RetirementGoal.jpg" />
+    <Content Include="Images\RetirementGoal.png" />
     <Content Include="Images\RiskProtection.png" />
     <Content Include="Images\SCBFPImage.jpg" />
     <Content Include="Images\ScreenInfo.png" />
