@@ -35,6 +35,7 @@ namespace WealthERP.Customer
         DataTable dtCustomerSubType = new DataTable();
         string assetInterest;
         string path;
+        string page = string.Empty;
         int bmID;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -46,6 +47,11 @@ namespace WealthERP.Customer
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 bmID = rmVo.RMId;
+                if (Request.QueryString["page"] != null)
+                {
+                    page = Request.QueryString["page"];
+                    btnCustomerProfile.Visible = false;
+                }
                 if (!IsPostBack)
                 {
                     lblPanDuplicate.Visible = false;
@@ -56,6 +62,7 @@ namespace WealthERP.Customer
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
                     BindSubTypeDropDown();
+                    
                 }
 
             }
@@ -419,7 +426,13 @@ namespace WealthERP.Customer
                         familyVo.CustomerId = customerIds[1];
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
+                        
+                        if (page == "Entry")
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
+                        }
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                     }
 
                 }
