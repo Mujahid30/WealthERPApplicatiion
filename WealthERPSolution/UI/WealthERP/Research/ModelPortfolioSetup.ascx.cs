@@ -213,7 +213,7 @@ namespace WealthERP.Research
                 }
                 if (txtboxMaxTimeHorizonYear.Text != "")
                 {
-                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim();
+                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
                 }
                 if (txtboxMaxTimeHorizonMonth.Text != "")
                 {
@@ -425,7 +425,7 @@ namespace WealthERP.Research
                 }
                 if (txtboxMaxTimeHorizonYear.Text != "")
                 {
-                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim();
+                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
                 }
                 if (txtboxMaxTimeHorizonMonth.Text != "")
                 {
