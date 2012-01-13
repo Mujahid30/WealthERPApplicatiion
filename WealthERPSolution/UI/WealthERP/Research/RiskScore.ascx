@@ -449,7 +449,7 @@
         </td>
     </tr>
 </table>
-<table style="width:75%">
+<table style="width:100%">
     <tr>
         <td>
         </td>
@@ -459,15 +459,22 @@
             ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="False"  OnItemDataBound="RadGrid1_ItemDataBound"
             OnInsertCommand="RadGrid1_InsertCommand" OnUpdateCommand="RadGrid1_UpdateCommand" OnDeleteCommand="RadGrid1_DeleteCommand"
             OnItemCommand="RadGrid1_ItemCommand" OnPreRender="RadGrid1_PreRender" AllowAutomaticUpdates="False" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode">            
-            <MasterTableView EditMode="PopUp" DataKeyNames="XRC_RiskClassCode">
+            <MasterTableView EditMode="PopUp" DataKeyNames="XRC_RiskClassCode" TableLayout="Fixed" Width="100%">
                 <Columns>
-                    <telerik:GridEditCommandColumn>
+                    <telerik:GridEditCommandColumn HeaderText="Edit">
+                    <HeaderStyle Width="20%"/> 
                     </telerik:GridEditCommandColumn>
+                    
                     <telerik:GridBoundColumn UniqueName="XRC_RiskClass" HeaderText="Risk Class" DataField="XRC_RiskClass" >
-                    </telerik:GridBoundColumn>                  
+                    <HeaderStyle Width="30%"/> 
+                    </telerik:GridBoundColumn> 
+                                     
                     <telerik:GridBoundColumn UniqueName="WRPR_RiskScoreLowerLimit" HeaderText="Lower Limit" DataField="WRPR_RiskScoreLowerLimit" >
+                    <HeaderStyle Width="25%"/> 
                     </telerik:GridBoundColumn>
+                    
                      <telerik:GridBoundColumn UniqueName="WRPR_RiskScoreUpperLimit" HeaderText="Upper Limit" DataField="WRPR_RiskScoreUpperLimit" >
+                     <HeaderStyle Width="25%"/> 
                     </telerik:GridBoundColumn>
                     <%--<telerik:GridBoundColumn UniqueName="CPA_Value" HeaderText="Value" DataField="CPA_Value" >
                     </telerik:GridBoundColumn>--%>
