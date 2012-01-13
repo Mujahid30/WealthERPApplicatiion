@@ -682,23 +682,18 @@ namespace WealthERP.Uploads
             uploadsCommonBo = new UploadCommonBo();
             CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
             bool camsSIPCommonStagingChk = false;
-            bool standardSIPCommonStagingChk = false;
             bool camsSIPCommonStagingToWERP = false;
             bool updateProcessLog = false;
-          
+            string packagePath;
 
 
             processlogVo = uploadsCommonBo.GetProcessLogInfo(UploadProcessId);
 
-            string packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
             
             camsSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
             processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
-                                        //************standard transaction reprocessing Start***************\\
 
-            standardSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "WPT");
-            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "WPT");
-                                        //************standard transaction reprocessing end***************\\
             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
             if (camsSIPCommonStagingChk)
             {
@@ -712,11 +707,7 @@ namespace WealthERP.Uploads
                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "CA");                   
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                 }
-            }
-            else if (standardSIPCommonStagingChk)
-            {
-
-            }
+            }            
             return blResult;
         }
       
