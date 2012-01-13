@@ -398,25 +398,25 @@ namespace WealthERP.Reports
 
         private void DisplayReport(OrderTransactionSlipVo report)
         {
-                string folio=string.Empty;
-                string amcName = string.Empty;
-                string schemeName = string.Empty;
-                string panNo = string.Empty;
-                string CustomerName = string.Empty;
-                string ChequeNo = string.Empty;
-                DateTime chequeDate = DateTime.MinValue;
-                double amount = 0.0;
-                double unit = 0.0;
-                DateTime startDate = DateTime.MinValue;
-                DateTime endDate = DateTime.MinValue;
-                string bankName = string.Empty;
-                string branchName = string.Empty;
-                string address = string.Empty;
-                string city = string.Empty;
-                string state = string.Empty;
-                string country = string.Empty;
-                string schemeSwitchName = string.Empty;
-                long pinNo = 0;
+                //string folio=string.Empty;
+                //string amcName = string.Empty;
+                //string schemeName = string.Empty;
+                //string panNo = string.Empty;
+                //string CustomerName = string.Empty;
+                //string ChequeNo = string.Empty;
+                //DateTime chequeDate = DateTime.MinValue;
+                //double amount = 0.0;
+                //double unit = 0.0;
+                //DateTime startDate = DateTime.MinValue;
+                //DateTime endDate = DateTime.MinValue;
+                //string bankName = string.Empty;
+                //string branchName = string.Empty;
+                //string address = string.Empty;
+                //string city = string.Empty;
+                //string state = string.Empty;
+                //string country = string.Empty;
+                //string schemeSwitchName = string.Empty;
+                //long pinNo = 0;
                 //OperationBo operationBo = new OperationBo();
                 MFReportsBo mfReportBo = new MFReportsBo();
                 report = (OrderTransactionSlipVo)Session["reportParams"];
