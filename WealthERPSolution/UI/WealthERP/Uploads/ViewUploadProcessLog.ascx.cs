@@ -939,27 +939,13 @@ namespace WealthERP.Uploads
 
                         #region Standard Transaction + Folio Insertion
                         else if (filetypeId == 6)
-                        {
-                            if (extracttype == "MFT")
-                            {
-                                bool blDeutcheAMCUpdated = uploadsCommonBo.UpdateAMCForFolioReprocess(processID, "Standard");
-                            }
-
+                        {                            
                             if (extracttype == "MFT")
                             {
                                 //common profile checks
                                 bool CommonTransChecks = false;
                                 string packagePath;
-                                packagePath= Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                                CommonTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
-                                
-                                if (CommonTransChecks)
-                                {
-                                    // Insert Customer Details into WERP Tables
-                                    bool deutscheProCreateCustomerResult = standardProfileUploadBo.StdInsertCustomerDetails(adviserVo.advisorId, processID, rmVo.RMId, processlogVo.BranchId, xmlPath, out countCustCreated);
-                                    if (deutscheProCreateCustomerResult)
-                                    {
-                                        //Create new Bank Accounts
+                              
                                         packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
                                         CommonTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
                                         if (CommonTransChecks)
@@ -976,8 +962,7 @@ namespace WealthERP.Uploads
                                         }
                                     }
                                 }
-                            }                           
-                        }
+                       
                         #endregion
 
 
