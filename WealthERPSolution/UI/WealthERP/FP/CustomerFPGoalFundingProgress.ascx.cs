@@ -30,11 +30,12 @@ namespace WealthERP.FP
         DataSet dsModelPortFolioSchemeDetails = new DataSet();
         decimal weightedReturn = 0;
         double totalInvestedSIPamount = 0;
+        string goalCode = string.Empty;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
-            if (Session["customerVo"] != null)
-                customerVo = (CustomerVo)Session["customerVo"];
+            SessionBo.CheckSession();           
+            customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
 
             if (Request.QueryString["goalId"] != null)
@@ -45,16 +46,71 @@ namespace WealthERP.FP
             {
                 goalId = int.Parse(Request.QueryString["GoalId"].ToString());
             }
+            if (Request.QueryString["GoalId"] != null)
+            {
+                goalCode =Request.QueryString["GoalCode"].ToString();
+            }
             if (!IsPostBack)
             {
-
+               
             }
             BindExistingFundingScheme();
             BindMonthlySIPFundingScheme();
             ShowGoalDetails(goalId);
-            BindddlModelPortfolioGoalSchemes();            
+            BindddlModelPortfolioGoalSchemes();
+            SetGoalProgressImage(goalCode);
         }
-      protected void ShowGoalDetails(int goalId)
+        private void SetGoalProgressImage(string goalCode)
+        {
+            switch (goalCode)
+            {
+                case "BH":
+                    {
+                        imgGoalImage.ImageUrl = "~/Images/HomeGoal.png";
+                        break;
+                    }
+                case "ED":
+                    {
+                        imgGoalImage.ImageUrl = "~/Images/EducationGoal.png";
+                        break;
+                    }
+                case "MR":
+                    {
+                        imgGoalImage.ImageUrl = "~/Images/ChildMarraiageGoal.png";
+                        break;
+                    }
+                case "OT":
+                    {
+                        imgGoalImage.ImageUrl = "~/Images/OtherGoal.jpg";
+                        break;
+                    }
+                case "RT":
+                    {
+                        imgGoalImage.ImageUrl = "~/Images/RetirementGoal.jpg";
+                        break;
+                    }
+            }
+
+            if (Convert.ToDouble(txtProjectedGap.Text.Trim()) > 0)
+            {
+
+                imgGoalFundIndicator.ImageUrl = "~/Images/GoalUP.png"; 
+
+            }
+            else if (Convert.ToDouble(txtProjectedGap.Text.Trim()) < 0)
+            {
+
+                imgGoalFundIndicator.ImageUrl = "~/Images/GoalDown.png";
+
+            }
+            else
+            {
+                imgGoalFundIndicator.ImageUrl = "~/Images/NotApplicable.png";
+ 
+            }
+
+        }
+        protected void ShowGoalDetails(int goalId)
         {
 
             if (goalPlanningVo != null)

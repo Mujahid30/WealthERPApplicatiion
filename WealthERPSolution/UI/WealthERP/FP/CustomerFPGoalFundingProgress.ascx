@@ -125,11 +125,21 @@
      <asp:Label id="lblGoalName" Text="Goal:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
-     <asp:TextBox ID="txtGoalName" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+     <asp:TextBox ID="txtGoalName" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>     
     </td>
-    <td colspan="4">
-     <asp:Label id="lblGoalStatus" Text="" CssClass="FieldName" runat="server"></asp:Label>
+    <td class="leftField" valign="middle">
+    <asp:Image ID="imgGoalImage" ImageAlign="Left" runat="server" />
+    <span id="spanGoalType" class="spnRequiredField" runat="server">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+    
+    <asp:Label id="lblGoalStatus" Text="Is Goal Deficiency?:" CssClass="FieldName" runat="server"></asp:Label>
     </td>
+    <td class="rightField">
+     <asp:Image ID="imgGoalFundIndicator" ImageAlign="Left" runat="server" />
+    </td>
+    
+    <td colspan="2" >     
+    </td>
+     
     </tr>
    <%-- ****************************************************************************--%>
     <tr>
