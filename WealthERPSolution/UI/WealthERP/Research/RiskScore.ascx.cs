@@ -68,7 +68,8 @@ namespace WealthERP.Research
             DataRow drBindAdviserQuestionsAndOptions = null;
 
             dsGetAdviserQuestions = adviserFPConfigurationBo.GetAdviserMaintainedRiskProfileQuestionAndOptions(adviserVo.advisorId);
-
+            DataTable dtDistinctQuestionID = dsGetAdviserQuestions.Tables[0].DefaultView.ToTable(true, "QM_QuestionId");
+            GetRiskScore(dtDistinctQuestionID, dsGetAdviserQuestions);
             if (FromWhere == "")
             {
                 if (dsGetAdviserQuestions.Tables.Count > 0)
@@ -78,76 +79,76 @@ namespace WealthERP.Research
                         int RiskQuestionId = 0;
                         int QuestionSerialNo = 1;
 
-                        int rowCount = 0;
-                        int minScore = 0;
-                        int maxScore = 0;
-                        int index = 1;
-                        
-                        
-                        foreach (DataRow drQuestions in dsGetAdviserQuestions.Tables[0].Rows)
+                        foreach (DataRow drQuestions in dtDistinctQuestionID.Rows)
                         {
-                            if (RiskQuestionId != Convert.ToInt32(drQuestions["QM_QuestionId"].ToString()))
+
+                            RiskQuestionId = Convert.ToInt32(drQuestions["QM_QuestionId"].ToString());
+
+                            DataRow[] drQuestionOptions = dsGetAdviserQuestions.Tables[0].Select("QM_QuestionId=" + RiskQuestionId);
+
+                            drBindAdviserQuestionsAndOptions = dtBindAdviserQuestionsOptions.NewRow();
+
+                            int OptionSerialNo = 1;
+
+                            foreach (DataRow drOptions in drQuestionOptions)
                             {
-                                RiskQuestionId = Convert.ToInt32(drQuestions["QM_QuestionId"].ToString());
+                                if (drBindAdviserQuestionsAndOptions["QM_QuestionID"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionID"] = drOptions["QM_QuestionId"];
 
-                                DataRow[] drQuestionOptions = dsGetAdviserQuestions.Tables[0].Select("QM_QuestionId=" + RiskQuestionId);
+                                if (drBindAdviserQuestionsAndOptions["QM_Question"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_Question"] = QuestionSerialNo.ToString() + "." + " " + drOptions["QM_Question"];
 
-                                drBindAdviserQuestionsAndOptions = dtBindAdviserQuestionsOptions.NewRow();
+                                if (drBindAdviserQuestionsAndOptions["QOM_OptionId"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_OptionId"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_OptionId"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
-                                int OptionSerialNo = 1;
-
-                                rowCount = drQuestionOptions.Length;
-
-                                foreach (DataRow drOptions in drQuestionOptions)
-                                {
-                                    if (index == 1)
-                                        minScore += int.Parse(drOptions["QOM_Weightage"].ToString());
-
-                                    if (drBindAdviserQuestionsAndOptions["QM_QuestionID"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionID"] = drOptions["QM_QuestionId"];
-
-                                    if (drBindAdviserQuestionsAndOptions["QM_Question"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_Question"] = QuestionSerialNo.ToString() + "." + " " + drOptions["QM_Question"];
-
-                                    if (drBindAdviserQuestionsAndOptions["QOM_OptionId"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QOM_OptionId"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_OptionId"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
-
-                                    // Option Inserting..
-                                    if (drBindAdviserQuestionsAndOptions["QM_QuestionOption1"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption1"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                // Option Inserting..
+                                if (drBindAdviserQuestionsAndOptions["QM_QuestionOption1"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption1"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
-                                    else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption2"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption2"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption2"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption2"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
-                                    else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption3"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption3"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption3"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption3"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
-                                    else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption4"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption4"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption4"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption4"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
-                                    else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption5"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption5"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption5"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption5"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
 
-                                    else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption6"].ToString() == "")
-                                        drBindAdviserQuestionsAndOptions["QM_QuestionOption6"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
+                                else if (drBindAdviserQuestionsAndOptions["QM_QuestionOption6"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QM_QuestionOption6"] = OptionSerialNo.ToString() + "." + " " + drOptions["QOM_Option"] + " " + "{" + drOptions["QOM_Weightage"] + "}";
 
-                                    OptionSerialNo = OptionSerialNo + 1;
-                                    index = index + 1;
-                                    
-                                    if(index == rowCount)
-                                        maxScore += int.Parse(drOptions["QOM_Weightage"].ToString());
- 
-                                }
-                                dtBindAdviserQuestionsOptions.Rows.Add(drBindAdviserQuestionsAndOptions);
-                                QuestionSerialNo = QuestionSerialNo + 1;
+
+                                if (drBindAdviserQuestionsAndOptions["QOM_Weightage1"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage1"] = drOptions["QOM_Weightage"];
+
+                                else if (drBindAdviserQuestionsAndOptions["QOM_Weightage2"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage2"] = drOptions["QOM_Weightage"];
+
+                                else if (drBindAdviserQuestionsAndOptions["QOM_Weightage3"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage3"] = drOptions["QOM_Weightage"];
+
+                                else if (drBindAdviserQuestionsAndOptions["QOM_Weightage4"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage4"] = drOptions["QOM_Weightage"];
+
+                                else if (drBindAdviserQuestionsAndOptions["QOM_Weightage5"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage5"] = drOptions["QOM_Weightage"];
+
+                                else if (drBindAdviserQuestionsAndOptions["QOM_Weightage6"].ToString() == "")
+                                    drBindAdviserQuestionsAndOptions["QOM_Weightage6"] = drOptions["QOM_Weightage"];
+
+                                OptionSerialNo = OptionSerialNo + 1;
                             }
-                            
-                        }     
+                            dtBindAdviserQuestionsOptions.Rows.Add(drBindAdviserQuestionsAndOptions);
+                            QuestionSerialNo = QuestionSerialNo + 1;
+                        }
                     }
                 }
                 if (dtBindAdviserQuestionsOptions.Rows.Count > 0)
@@ -229,8 +230,57 @@ namespace WealthERP.Research
                     }
                 }
                 FillFormToUpdate(drBindAdviserQuestionsAndOptions);
-                
+            }
+        }
 
+        private void GetRiskScore(DataTable dtDistinctQuestionID, DataSet dsGetAdviserQuestions)
+        {
+            int minScore = 0;
+            int maxScore = 0;
+            
+            int QuestionID = 0;
+
+            if (dtDistinctQuestionID.Rows.Count != 0)
+            {
+                foreach (DataRow dr in dtDistinctQuestionID.Rows)
+                {
+                    int tempMin = 0;
+                    int tempMax = 0;
+                    DataTable dtOptionsTemp = new DataTable();
+
+                    dtOptionsTemp.Columns.Add("QOM_Weightage");
+
+                    QuestionID = int.Parse(dr["QM_QuestionID"].ToString());
+                   
+                    DataRow[] drQuestionOptions = dsGetAdviserQuestions.Tables[1].Select("QM_QuestionId=" + QuestionID);
+                    
+                    int i = 1;
+                    
+                    foreach (DataRow drOptions in drQuestionOptions)
+                    {
+                        DataRow drOptionsRow = dtOptionsTemp.NewRow();
+
+                        drOptionsRow["QOM_Weightage"] = drOptions.Field<int>("QOM_Weightage");
+
+                        if (i == 1)
+                        {
+                            tempMin = drOptions.Field<int>("QOM_Weightage");
+                            tempMax = drOptions.Field<int>("QOM_Weightage");
+                        }
+                        if (tempMin > drOptions.Field<int>("QOM_Weightage"))
+                            tempMin = drOptions.Field<int>("QOM_Weightage");
+
+                        if(tempMax < drOptions.Field<int>("QOM_Weightage"))
+                            tempMax = drOptions.Field<int>("QOM_Weightage");
+
+                        i = i + 1;
+
+                    }
+                    minScore = minScore + tempMin;
+                    maxScore = maxScore + tempMax;
+                }
+                lblMinScore.Text = minScore.ToString();
+                lblMaxScore.Text = maxScore.ToString();
             }
         }
 

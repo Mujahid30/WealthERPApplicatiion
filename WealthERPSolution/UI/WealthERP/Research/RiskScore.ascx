@@ -568,12 +568,28 @@
         
     </tr>
     <tr>
+        <td align="left">
+            
+            <label id="lblshowMinScroe" class="cmbField" >Current Min Riskscore: </label>
+            &nbsp;
+            <asp:Label ID="lblMinScore"  runat="server" Text="" CssClass="cmbField" ></asp:Label> 
+            
+            &nbsp;&nbsp;
+            
+            <label id="lblshowMaxScore" class="cmbField" >Current Max Riskscore: </label>
+            &nbsp;
+            <asp:Label ID="lblMaxScore"  runat="server" Text="" CssClass="cmbField" ></asp:Label>
+            
+        </td>
+    </tr>
+    <tr>
         <td align="right">
             <asp:Button ID="btnAddQuestions" runat="server" CssClass="PCGMediumButton" Text="AddQuestions" 
                 onclick="btnAddQuestions_Click" />
         </td>
     </tr>
-    
+        </table>
+        <table>
     <tr runat="server" id="trAdviserQuestionDisplay">
         <td>
             <asp:Panel ID="mainpnl" runat="server" Width="100%" ScrollBars="Vertical">
