@@ -184,7 +184,7 @@ namespace VoOps
         public string AddrLine2
         {
             get { return m_AddrLine2; }
-            set { m_AddrLine3 = value; }
+            set { m_AddrLine2 = value; }
         }
         public string AddrLine3
         {
