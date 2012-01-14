@@ -93,10 +93,11 @@ namespace DaoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo GoalPlanningVo,out int goalId)
         {
             Database db;
             DbCommand createCustomerGoalProfileCmd;
+            goalId = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -150,7 +151,13 @@ namespace DaoFPSuperlite
                     db.AddInParameter(createCustomerGoalProfileCmd, "@CorpsLeftBehind", DbType.Double, GoalPlanningVo.CorpusLeftBehind);
                 }
 
+                db.AddOutParameter(createCustomerGoalProfileCmd, "@GoalId", DbType.Int32, 10000);
+                                
                 db.ExecuteNonQuery(createCustomerGoalProfileCmd);
+
+                Object objGoalId = db.GetParameterValue(createCustomerGoalProfileCmd, "@GoalId");
+                if (objGoalId != DBNull.Value)
+                    goalId = (int)db.GetParameterValue(createCustomerGoalProfileCmd, "@GoalId");
 
 
             }
@@ -224,6 +231,10 @@ namespace DaoFPSuperlite
                 db.AddInParameter(updateCustomerGoalProfileCmd, "@Priority", DbType.String, GoalPlanningVo.Priority);
                 if (!string.IsNullOrEmpty(GoalPlanningVo.Frequency))
                     db.AddInParameter(updateCustomerGoalProfileCmd, "@FrequencyId", DbType.Int16, int.Parse(GoalPlanningVo.Frequency));
+                if (GoalPlanningVo.IsFundFromAsset == true)
+                    db.AddInParameter(updateCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 1);
+                else
+                    db.AddInParameter(updateCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 0);
 
                 db.ExecuteNonQuery(updateCustomerGoalProfileCmd);
 
