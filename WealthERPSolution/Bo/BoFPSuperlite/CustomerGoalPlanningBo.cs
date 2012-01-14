@@ -88,14 +88,14 @@ namespace BoFPSuperlite
         }
 
 
-        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo,CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal)
+        public void CreateCustomerGoalPlanning(CustomerGoalPlanningVo goalPlanningVo,CustomerAssumptionVo customerAssumptionVo, int UserId, bool updateGoal,out int goalId)
         {
             
             try
             {
                 CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
                //customerAssumptionVo = customerGoalPlanningDao.GetAllCustomerAssumption(UserId, goalPlanningVo.GoalYear, out isHavingAssumption);
-               
+                goalId = 0;
 
                     if (goalPlanningVo.Goalcode != "RT")
                         goalPlanningVo = CalculateGoalProfile(goalPlanningVo, customerAssumptionVo);
@@ -103,10 +103,14 @@ namespace BoFPSuperlite
                         goalPlanningVo = CalculateGoalProfileRT(goalPlanningVo, customerAssumptionVo);
 
                     if (updateGoal)
+                    {
                         customerGoalPlanningDao.UpdateCustomerGoalProfile(goalPlanningVo);
+                        goalId = goalPlanningVo.GoalId;
+                    }
                     else
-                        customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo);
-               
+                        customerGoalPlanningDao.CreateCustomerGoalPlanning(goalPlanningVo, out goalId);
+
+                   
                
 
             }
@@ -145,17 +149,17 @@ namespace BoFPSuperlite
             double rateOfReturn = 0;
             double inflationValues = 0;
             string goal = string.Empty;
-            double InflationPercent = 8;
+            //double InflationPercent = 8;
             
             try
             {
                 costToday = goalPlanningVo.CostOfGoalToday;
                 // requiredAfter = GoalProfileVo.GoalYear;
                 requiredAfter = goalPlanningVo.GoalYear - DateTime.Today.Year;
-                //currentValue = goalPlanningVo.CurrInvestementForGoal;
-                //rateEarned = goalPlanningVo.ROIEarned / 100;
-                //rateOfReturn = goalPlanningVo.ExpectedROI / 100;
-                inflationValues = (Double)customerAssumptionVo.InflationPercent / 100;
+                currentValue = goalPlanningVo.CurrInvestementForGoal;
+                rateEarned = goalPlanningVo.ROIEarned / 100;
+                rateOfReturn = goalPlanningVo.ExpectedROI / 100;
+                inflationValues = (Double)goalPlanningVo.InflationPercent / 100;
 
                 
                 futureCost = Math.Abs(FutureValue(inflationValues, requiredAfter, 0, costToday, 0));
@@ -169,7 +173,6 @@ namespace BoFPSuperlite
 
                 requiredSavings = Math.Abs(PMT((rateOfReturn / 12), (requiredAfter * 12), 0, (futureCost - futureInvValue), 0));
                 goalPlanningVo.MonthlySavingsReq =Math.Round(requiredSavings,2);
-                goalPlanningVo.InflationPercent = (Double)InflationPercent;
                 goalPlanningVo.FutureValueOfCostToday =Math.Round((Double)futureCost,2);
 
                 return goalPlanningVo;
