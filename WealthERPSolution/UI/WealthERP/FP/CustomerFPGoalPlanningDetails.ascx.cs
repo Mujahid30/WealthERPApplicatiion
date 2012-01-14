@@ -74,10 +74,10 @@ namespace WealthERP.FP
             if (!Page.IsPostBack)
             {
                 GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
-                if (GoalProfileList.Count > 0)
+                if (GoalProfileList!=null)
                     BindGoalOutputGridView(GoalProfileList);
                 else
-                    trNoRecordFound.Visible = false;
+                    trNoRecordFound.Visible = true;
             }
            
         }

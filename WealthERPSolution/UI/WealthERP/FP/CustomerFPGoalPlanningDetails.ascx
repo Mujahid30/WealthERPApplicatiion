@@ -37,10 +37,10 @@
     </tr>
 </table>
 
-<table class="TableBackground" style="width: 100%">
+<table width="100%">
  <tr id="trNoRecordFound" runat="server" visible="false">
-        <td>
-         <div id="Div1" runat="server" class="Error" align="center" visible="false">
+        <td align="center">
+         <div id="Div1" runat="server" class="failure-msg" align="center">
                 No Records Found...
          </div>
            
