@@ -883,6 +883,7 @@ namespace WealthERP.Advisor
 
         protected void btnSaveAdd_Click(object sender, EventArgs e)
         {
+            int goalId=0;
             try
             {
                 SessionBo.CheckSession();
@@ -943,8 +944,8 @@ namespace WealthERP.Advisor
 
                 }
 
-               
-               customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false);
+
+                customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, ParentCustomerId, false,out goalId);
 
 
                 //Tab2ControlVisibility(0);

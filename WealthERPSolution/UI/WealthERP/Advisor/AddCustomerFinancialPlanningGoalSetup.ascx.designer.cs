@@ -1319,33 +1319,6 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblOtherGoalParagraph;
         
         /// <summary>
-        /// gvRetirement control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRetirement;
-        
-        /// <summary>
-        /// trRTParaGraph control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRTParaGraph;
-        
-        /// <summary>
-        /// lblRTParagraph control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRTParagraph;
-        
-        /// <summary>
         /// lblTotalText control.
         /// </summary>
         /// <remarks>
@@ -1380,6 +1353,33 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Deactive;
+        
+        /// <summary>
+        /// gvRetirement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvRetirement;
+        
+        /// <summary>
+        /// trRTParaGraph control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRTParaGraph;
+        
+        /// <summary>
+        /// lblRTParagraph control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRTParagraph;
         
         /// <summary>
         /// TabPanel1 control.
