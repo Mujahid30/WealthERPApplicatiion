@@ -162,10 +162,17 @@
                <hr />
                </td>
             </tr>
-            <tr>
+            <tr id="trSumbitSuccess" runat="server" visible="false">
                 <td align="center">
-                    <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                    <div id="msgRecordStatus" class="success-msg" align="center">
                         Record saved Successfully
+                    </div>
+                </td>
+            </tr>
+             <tr id="trUpdateSuccess" runat="server" visible="false">
+                <td align="center">
+                    <div id="Div1" class="success-msg" align="center">
+                        Record Updated Successfully
                     </div>
                 </td>
             </tr>
@@ -615,7 +622,7 @@
                     <td>
                         <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" CausesValidation="False"
                             OnClick="btnCancel_Click" OnClientClick="return validate()"/>
-                        <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGMediumButton" OnClick="btnSaveAdd_Click"
+                        <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGButton" OnClick="btnSaveAdd_Click"
                             Text="Save" ValidationGroup="btnSave" OnClientClick="return validate()" />
                         <%--<asp:Button ID="btnNext" runat="server" CssClass="PCGMediumButton" Text="Save & Next" OnClick="btnNext_Click"
                             ValidationGroup="btnSave"  OnClientClick="return validate()"/>--%>

@@ -31,6 +31,27 @@ namespace WealthERP.FP {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label headertitle;
         
+
+         /// <summary>
+        /// trUpdateSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        /// trSumbitSuccess
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trUpdateSuccess;
+
+        /// <summary>
+        /// trSumbitSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        /// trSumbitSuccess
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+
         /// <summary>
         /// msgRecordStatus control.
         /// </summary>
@@ -38,6 +59,7 @@ namespace WealthERP.FP {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        /// 
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
