@@ -407,6 +407,14 @@ namespace DaoCustomerGoalProfiling
  
                         
                         }
+                        if (dr["CG_IsFundFromAsset"] != null)
+                        {
+                            if (int.Parse(dr["CG_IsFundFromAsset"].ToString()) == 1)
+                            {
+                                GoalProfileVo.IsFundFromAsset = true;
+
+                            }
+                        }
                         //drGoalFundingDetails = new DataRow[dtGoalFund.Rows.Count];
                         //if (dtGoalFund.Rows.Count > 0)
                         //{
@@ -668,6 +676,12 @@ namespace DaoCustomerGoalProfiling
                         GoalProfileVo.CustomerApprovedOn = DateTime.Parse(dr["CG_CustomerApprovedOn"].ToString());
                     else
                         GoalProfileVo.CustomerApprovedOn = DateTime.MinValue;
+
+                    if (!string.IsNullOrEmpty(dr["CG_IsFundFromAsset"].ToString()))
+                    {
+                        if (Convert.ToInt16(dr["CG_IsFundFromAsset"].ToString()) == 1)
+                            GoalProfileVo.IsFundFromAsset = true;
+                    }
 
                    
                                         
