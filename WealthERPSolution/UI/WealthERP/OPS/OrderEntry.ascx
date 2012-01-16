@@ -302,9 +302,11 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
             <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
               Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
               ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
                CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+               <asp:CompareValidator ID="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate" CssClass="cvPCG"
+                ErrorMessage="<br />Application Received date must be less than or equal to Today" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
   </td>
   <td align="right">
 <asp:Label ID="Label7" runat="server" Text="Category: "  CssClass="FieldName"></asp:Label>
@@ -330,7 +332,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>  
-<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" style="width:300px;" AutoPostBack="true"
           onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
 </asp:DropDownList><span id="Span3" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
@@ -372,10 +374,11 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
             <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
               Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
               ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
                CssClass="rfvPCG" ErrorMessage="<br />Please select order date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator> 
-                  
+             <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate" CssClass="cvPCG"
+               ErrorMessage="<br />Order date should  be greater than or equal to Today" Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>     
   </td>
   <td align="right">
   <asp:Label ID="Label2" runat="server" Text="Portfolio: "  CssClass="FieldName"></asp:Label>
@@ -452,6 +455,8 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
               <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtFutureDate"
                CssClass="rfvPCG" ErrorMessage="<br />Please select Future Date" Display="Dynamic"
                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator> 
+               <asp:CompareValidator ID="cvFutureDate1" runat="server" ControlToValidate="txtFutureDate" CssClass="cvPCG"
+               ErrorMessage="<br />Future date should  be greater than or equal to Today" Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator> 
 </td>
 
 <td align="right">
@@ -623,12 +628,12 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   <asp:Label ID="Label16" runat="server" Text="Redeem/Switch: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>
-<asp:RadioButton ID="rbtAmount" Class="cmbField"  runat="server" AutoPostBack="true" GroupName="AmountUnit" Checked="True"  Text="Amount"/>
-<%--<asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server" AutoPostBack="true" GroupName="AmountUnit" Text="Units"/>--%>
+<asp:RadioButton ID="rbtAmount" Class="cmbField"  runat="server" GroupName="AmountUnit" Checked="True"  Text="Amount"/>
+<asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server"  GroupName="AmountUnit" Text="Units"/>
 </td>
 
  <td align="right">
-   <asp:Label ID="lblAmountUnits" runat="server" Text="Amount: "  CssClass="FieldName"></asp:Label>
+   <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Unit: "  CssClass="FieldName"></asp:Label>
   </td>
  <td>
  <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField"></asp:TextBox>
