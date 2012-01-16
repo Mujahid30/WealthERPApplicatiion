@@ -554,6 +554,10 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@EndDate", DbType.DateTime, operationVo.EndDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@EndDate", DbType.DateTime, DBNull.Value);
+                if(operationVo.Units!=0)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, operationVo.Units);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, DBNull.Value);
                  db.ExecuteNonQuery(createMFOrderTrackingCmd);
 
                 bResult = true;
@@ -632,10 +636,10 @@ namespace DaoOps
                     operationVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                     operationVo.OrderNumber =int.Parse( dr["CMOT_OrderNumber"].ToString());
                     operationVo.Amount = double.Parse(dr["CMOT_Amount"].ToString());
-                    if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
-                        operationVo.Units = double.Parse(dr["CMFNP_NetHoldings"].ToString());
-                    else
-                        operationVo.Units = 0;
+                    //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
+                    //    operationVo.Units = double.Parse(dr["CMFNP_NetHoldings"].ToString());
+                    //else
+                    //    operationVo.Units = 0;
                     operationVo.StatusCode = dr["XS_StatusCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["XSR_StatusReasonCode"].ToString()))
                         operationVo.StatusReasonCode = dr["XSR_StatusReasonCode"].ToString();
@@ -725,6 +729,11 @@ namespace DaoOps
                         operationVo.EndDate = DateTime.Parse(dr["CMOT_EndDate"].ToString());
                     else
                         operationVo.EndDate = DateTime.MinValue;
+
+                    if (!string.IsNullOrEmpty(dr["CMOT_Units"].ToString()))
+                        operationVo.Units = double.Parse(dr["CMOT_Units"].ToString());
+                    else
+                        operationVo.Units = 0;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -885,6 +894,11 @@ namespace DaoOps
                     db.AddInParameter(updateMFOrderTrackingCmd, "@EndDate", DbType.DateTime, operationVo.EndDate);
                 else
                     db.AddInParameter(updateMFOrderTrackingCmd, "@EndDate", DbType.DateTime, DBNull.Value);
+
+                if (operationVo.Units != 0)
+                    db.AddInParameter(updateMFOrderTrackingCmd, "@units", DbType.Double, operationVo.Units);
+                else
+                    db.AddInParameter(updateMFOrderTrackingCmd, "@units", DbType.Double, DBNull.Value);
 
                 db.ExecuteNonQuery(updateMFOrderTrackingCmd);
 
