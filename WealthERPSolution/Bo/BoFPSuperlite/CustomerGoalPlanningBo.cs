@@ -655,6 +655,7 @@ namespace BoFPSuperlite
             dtCustomerGoalFundingDetails.Columns.Add("ProjectedAmount");
             DataRow drCustomerGoalFundingDetails;
             dtCustomerGoalFundingDetails.Columns.Add("AvailableAllocation");
+            dtCustomerGoalFundingDetails.Columns.Add("AllocatedReturnsXIRR");
 
             dsExistingInvestment = customerGoalPlanningDao.GetExistingInvestmentDetails(customerId, goalId);
            //********************************8
@@ -675,6 +676,9 @@ namespace BoFPSuperlite
             decimal currentAllocation = 0;
             double equityAllocation = 0;
             double debtAllocation = 0;
+            decimal investedAmount = 0;
+            decimal totalInvestedAmount = 0;
+            decimal XIRR = 0;
 
             //foreach(DataRow drGoalId in dsExistingInvestment.Tables[1].Rows)
             //{
@@ -743,17 +747,28 @@ namespace BoFPSuperlite
                             drCustomerGoalFundingDetails["SchemeCode"] = drGoalExistingInvestments["PASP_SchemePlanCode"].ToString();
 
                             currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
-
+                            investedAmount = (decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
+                            totalInvestedAmount = totalInvestedAmount + investedAmount;
+                            XIRR = investedAmount / totalInvestedAmount;
                             drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
-                            drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                            drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drCustomerGoalFundingDetails["AllocationEntry"] = drSchemeId["allocatedPercentage"].ToString();
                             drCustomerGoalFundingDetails["AvailableAllocation"] = 100 - decimal.Parse(drSchemeId["allocatedPercentage"].ToString());
                             drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
+                            drCustomerGoalFundingDetails["ReturnsXIRR"] = Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()))), 2).ToString() : "0";
+                            if (drGoalExistingInvestments["CMFNP_XIRR"].ToString() != "" && drGoalExistingInvestments["CMFNP_XIRR"].ToString() != null)
+                            {
+                                drCustomerGoalFundingDetails["AllocatedReturnsXIRR"] = (Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) * XIRR).ToString();
+                            }
+                            else
+                            {
+                                drCustomerGoalFundingDetails["AllocatedReturnsXIRR"] = "0";
+                            }
                             if (currentValue != 0)
                             {
-                                futureCost = Math.Abs(FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
+                                futureCost = Math.Abs(FutureValue(assumptionValue, requiredAfter, 0, currentValue, 1));
                             }
                             else
                             {
@@ -775,15 +790,27 @@ namespace BoFPSuperlite
                     currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
                     drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
-                    drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                    investedAmount = (decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
+                    totalInvestedAmount = totalInvestedAmount + investedAmount;
+                    XIRR = investedAmount / totalInvestedAmount;
                     drCustomerGoalFundingDetails["AllocationEntry"] = "0";
                     drCustomerGoalFundingDetails["AvailableAllocation"] = "100";
                     drCustomerGoalFundingDetails["CurrentGoalAllocation"] = currentAllocation.ToString();
                     drCustomerGoalFundingDetails["OtherGoalAllocation"] = "0";
+                    drCustomerGoalFundingDetails["ReturnsXIRR"] = Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()))), 2).ToString() : "0";
+                    if (drGoalExistingInvestments["CMFNP_XIRR"].ToString() != "" && drGoalExistingInvestments["CMFNP_XIRR"].ToString() != null)
+                    {
+                        drCustomerGoalFundingDetails["AllocatedReturnsXIRR"] = (Decimal.Parse(drGoalExistingInvestments["CMFNP_XIRR"].ToString()) * XIRR).ToString();
+                    }
+                    else
+                    {
+                        drCustomerGoalFundingDetails["AllocatedReturnsXIRR"] = "0";
+                    }
                     if (currentValue != 0)
                     {
-                        futureCost = Math.Abs(FutureValue(assumptionValue, requiredAfter, 0, currentValue, 0));
+                        futureCost = Math.Abs(FutureValue(assumptionValue, requiredAfter, 0, currentValue, 1));
                     }
                     else
                     {
@@ -905,7 +932,7 @@ namespace BoFPSuperlite
                     {
                         remainingYear = sipEndDate.Year - sipStartDate.Year;
                     }
-                    noOfPayments = CalculateValuebasedOnFrequency(frequencyCode, remainingYear);
+                    noOfPayments = CalculateYearValuebasedOnFrequency(frequencyCode, remainingYear);
                     if (totalInvestedSIPamount != 0)
                         valueTillDate = FutureValue(interestrate, noOfPayments, -totalInvestedSIPamount, 0, 0);
                     else
@@ -927,7 +954,7 @@ namespace BoFPSuperlite
                     {
                         remainingYear = goalYear - sipStartDate.Year;
                     }
-                    noOfPayments = CalculateValuebasedOnFrequency(frequencyCode, remainingYear);
+                    noOfPayments = CalculateYearValuebasedOnFrequency(frequencyCode, remainingYear);
                     projectedAmount = valueTillDate + FutureValue(interestrate, noOfPayments, -totalInvestedSIPamount, 0, 0);
                 }
 
@@ -960,7 +987,7 @@ namespace BoFPSuperlite
                     assumptionValue = assumptionValue / 365;
                     break;
                 case "FN":
-                    assumptionValue = assumptionValue / 24;
+                    assumptionValue = assumptionValue / 26;
                     break;
                 case "HY":
                     assumptionValue = assumptionValue / 2;
@@ -1057,6 +1084,7 @@ namespace BoFPSuperlite
             double totalMFCurrentValue = 0;
             double totalMFProjectedAmount = 0;
             double totalMFSIPProjectedAmount = 0;
+            double totalXIRR = 0;
 
             dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment, out customerAssumptionVo,out goalPlanningVo);
             dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount, ref customerAssumptionVo);
@@ -1066,19 +1094,19 @@ namespace BoFPSuperlite
 
             foreach (DataRow dr in dtMFFundingDetails.Rows)
             {
+                if (dr["AllocatedReturnsXIRR"].ToString() != "")
+                {
+                    totalXIRR = totalXIRR + double.Parse(dr["AllocatedReturnsXIRR"].ToString());
+                }
                 if (dr["InvestedAmount"].ToString() != "")
                     totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
-                else
-                    totalMFFundingInvestedAmount = 0;
+               
 
                 if (dr["CurrentValue"].ToString() != "")
                 {
                     totalMFCurrentValue = totalMFCurrentValue + double.Parse(dr["CurrentValue"].ToString());
                 }
-                else
-                {
-                    totalMFCurrentValue = totalMFCurrentValue + 0;
-                }
+                
                 if (dr["ProjectedAmount"].ToString() != "")
                 {
                     totalMFProjectedAmount = totalMFProjectedAmount + double.Parse(dr["ProjectedAmount"].ToString());
@@ -1104,16 +1132,21 @@ namespace BoFPSuperlite
             {
                 if (totalMFCurrentValue != 0)
                 {
-                    double returns = double.Parse((customerGoalFundingProgressVo.ReturnsXIRR / 100).ToString());
-                    double remainingTime = NPER(returns, 0, -double.Parse(totalMFCurrentValue.ToString()), double.Parse(totalMFProjectedAmount.ToString()), 0);
+                    double returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
+                    double remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
                     int year = 0;
                     double month = 0;
                     year = (int)remainingTime;
                     month = remainingTime - year;
                     month = Math.Round((month * 12), 0);
                     customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + "-" + "Years" + "" + month + "-" + "Months";
-                    customerGoalFundingProgressVo.AdditionalMonthlyRequirement = ((totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday) / remainingTime) / 12;
+                    double addInvestmentReq = PMT(returns, (goalPlanningVo.GoalYear - DateTime.Now.Year), 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
+                    double addMonthlyInvestmentReq = PMT(returns / 12, (goalPlanningVo.GoalYear - DateTime.Now.Year) * 12, 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
+                    customerGoalFundingProgressVo.AdditionalYearlyRequirement = addInvestmentReq;
+                    customerGoalFundingProgressVo.AdditionalMonthlyRequirement = addMonthlyInvestmentReq;
                     customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
+                    customerGoalFundingProgressVo.ReturnsXIRR =Convert.ToDecimal(totalXIRR);
+                    
                 }
             }
 
@@ -1124,6 +1157,41 @@ namespace BoFPSuperlite
  
         }
 
+        public double CalculateYearValuebasedOnFrequency(string frequencyCode, double year)
+        {
+            switch (frequencyCode)
+            {
+                case "AM":
+                    break;
+                case "DA":
+                    year = year * 365;
+                    break;
+                case "FN":
+                    year = year * 26;
+                    break;
+                case "HY":
+                    year = year * 2;
+                    break;
+                case "MN":
+                    year = year * 12;
+
+                    break;
+                case "NA":
+
+                    break;
+                case "QT":
+                    year = year * 4;
+                    break;
+                case "WK":
+                    year = year * 52;
+                    break;
+                case "YR":
+                    break;
+            }
+
+            return year;
+
+        }
 
     }
 }
