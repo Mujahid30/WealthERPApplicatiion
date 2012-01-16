@@ -3195,6 +3195,10 @@ namespace WealthERP.Uploads
             {
                 Response.Redirect("Standard Upload Files/CustomerProfile.xlsx");
             }
+            else if (File6.Checked)
+            {
+                Response.Redirect("Standard Upload Files/SystematicStandard.xlsx");
+            }
             else if (AllFiles.Checked)
             {
                 Response.Redirect("Standard Upload Files/All Standard Upload Files.zip");
@@ -3282,6 +3286,10 @@ namespace WealthERP.Uploads
                 upload.Visible = true;
                 lbluploadtype.Visible = true;
                 ddlAction.Visible = true;
+            }
+            if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "WPT")
+            {
+                lnkbtnpup.Visible = true;
             }
 
         }

@@ -374,6 +374,9 @@
                 <asp:RadioButton ID="File5" Text="CustomerProfile" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
+                <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br />
                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
