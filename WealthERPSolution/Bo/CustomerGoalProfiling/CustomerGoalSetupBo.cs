@@ -11,7 +11,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoUser;
 using VoCustomerGoalProfiling;
 using DaoCustomerGoalProfiling;
-
+using Microsoft.VisualBasic;
 
 namespace BoCustomerGoalProfiling
 {
@@ -100,14 +100,14 @@ namespace BoCustomerGoalProfiling
         public double FutureValue(double rate, double nper, double pmt, double pv, int type)
         {
             double result = 0;
-            result = System.Numeric.Financial.Fv(rate, nper, pmt, pv, 0);
+            result = Financial.FV(rate, nper, pmt, pv, DueDate.BegOfPeriod);
             return result;
         }
 
         public double PMT(double rate, double nper, double pv, double fv, int type)
         {
             double result = 0;
-            result = System.Numeric.Financial.Pmt(rate, nper, pv, fv, 0);
+            result = Financial.Pmt(rate, nper, pv, fv, DueDate.BegOfPeriod);
             return result;
         }
 
