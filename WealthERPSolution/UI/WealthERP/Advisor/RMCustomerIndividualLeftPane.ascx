@@ -132,14 +132,15 @@
                                      </Items>
                                     </telerik:RadPanelItem>--%>
                                     <telerik:RadPanelItem runat="server" Text="Goal" Value="Goal_Planning">
+                                     <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Goal List" Value="Goal_List">
+                                            </telerik:RadPanelItem>
+                                    </Items>
                                     <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Goal" Value="Goal_Setup">
                                             </telerik:RadPanelItem>
                                     </Items>
-                                    <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Goal List" Value="Goal_List">
-                                            </telerik:RadPanelItem>
-                                    </Items>
+                                   
                                     </telerik:RadPanelItem>
                                     
                                      <telerik:RadPanelItem runat="server" Text="Analytics" Value="Analytics">
