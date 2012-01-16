@@ -162,32 +162,34 @@ namespace WealthERP.FP
                         CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
                         DataSet dsGoalFundingDetails;
                         customerGoalFundingProgressVo = goalPlanningBo.GetGoalFundingProgressDetails(goalProfileSetupVo.GoalId,customerVo.CustomerId,advisorVo.advisorId,out dsGoalFundingDetails);
-                       
-                        if (customerGoalFundingProgressVo!=null)
-                        {
-                            drGoalProfile["CurrentGoalValue"]=customerGoalFundingProgressVo.GoalCurrentValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.GoalCurrentValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            drGoalProfile["SIPAmount"]=customerGoalFundingProgressVo.MonthlyContribution != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.MonthlyContribution.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            drGoalProfile["ProjectedValue"]=customerGoalFundingProgressVo.ProjectedValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            drGoalProfile["AdditionalSavingReq"] = customerGoalFundingProgressVo.AdditionalMonthlyRequirement != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.AdditionalMonthlyRequirement.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            drGoalProfile["ProjectedValue"] = customerGoalFundingProgressVo.ProjectedValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            drGoalProfile["ProjectedGapValue"] = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedGapValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                            if (customerGoalFundingProgressVo.ProjectedGapValue > 0)
-                                drGoalProfile["IsGoalBehind"] = "No";
-                            else if (customerGoalFundingProgressVo.ProjectedGapValue < 0)
-                                drGoalProfile["IsGoalBehind"] = "Yes";
-                            else
-                                drGoalProfile["IsGoalBehind"] = "NA";
 
-                        }
-                        else
+                        if (customerGoalFundingProgressVo != null)
                         {
-                            drGoalProfile["CurrentGoalValue"]="N/A";
-                            drGoalProfile["SIPAmount"] = "N/A";
-                            drGoalProfile["ProjectedValue"] = "N/A";
-                            drGoalProfile["ProjectedGapValue"] = "N/A";
-                            drGoalProfile["AdditionalSavingReq"] = "N/A";
-                            drGoalProfile["IsGoalBehind"] = "NA";
- 
+                            if (goalProfileSetupVo.IsFundFromAsset == true)
+                            {
+                                drGoalProfile["CurrentGoalValue"] = customerGoalFundingProgressVo.GoalCurrentValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.GoalCurrentValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                drGoalProfile["SIPAmount"] = customerGoalFundingProgressVo.MonthlyContribution != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.MonthlyContribution.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                drGoalProfile["ProjectedValue"] = customerGoalFundingProgressVo.ProjectedValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                drGoalProfile["AdditionalSavingReq"] = customerGoalFundingProgressVo.AdditionalMonthlyRequirement != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.AdditionalMonthlyRequirement.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                drGoalProfile["ProjectedValue"] = customerGoalFundingProgressVo.ProjectedValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerGoalFundingProgressVo.ProjectedValue.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                drGoalProfile["ProjectedGapValue"] = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Math.Abs(customerGoalFundingProgressVo.ProjectedGapValue).ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                                
+                                if (customerGoalFundingProgressVo.ProjectedGapValue >= 0)
+                                    drGoalProfile["IsGoalBehind"] = "No";
+                                else if (customerGoalFundingProgressVo.ProjectedGapValue < 0)
+                                    drGoalProfile["IsGoalBehind"] = "Yes";
+                                
+                            }
+                            else
+                            {
+                                drGoalProfile["CurrentGoalValue"] = "N/A";
+                                drGoalProfile["SIPAmount"] = "N/A";
+                                drGoalProfile["ProjectedValue"] = "N/A";
+                                drGoalProfile["ProjectedGapValue"] = "N/A";
+                                drGoalProfile["AdditionalSavingReq"] = "N/A";
+                                drGoalProfile["IsGoalBehind"] = "N/A";
+
+                            }
                         }
 
                         
@@ -272,7 +274,7 @@ namespace WealthERP.FP
                     imgGoalFundIndicator.ImageUrl = "~/Images/GoalUP.png";
 
                 }
-                else if (lblGoalFundPercentage.Text.Trim() == "NA")
+                else if (lblGoalFundPercentage.Text.Trim() == "N/A")
                 {
                     imgGoalFundIndicator.ImageUrl = "~/Images/NotApplicable.png";
  
@@ -296,11 +298,11 @@ namespace WealthERP.FP
                 }
                 else if (lblGoalCode.Text.Trim() == "OT")
                 {
-                    imgGoalImage.ImageUrl = "~/Images/OtherGoal.jpg";
+                    imgGoalImage.ImageUrl = "~/Images/OtherGoal.png";
                 }
                 else if (lblGoalCode.Text.Trim() == "RT")
                 {
-                    imgGoalImage.ImageUrl = "~/Images/RetirementGoal.jpg";
+                    imgGoalImage.ImageUrl = "~/Images/RetirementGoal.png";
                 }
                 lblGoalCode.Visible = false;
 
@@ -613,12 +615,17 @@ namespace WealthERP.FP
             string goalCatagory = "";
             string goalAction = "";
             string goalCode = string.Empty;
+            bool isGoalFundFromAsset=false;
 
             ddlAction = (RadComboBox)sender;
             gvGoal = (GridViewRow)ddlAction.NamingContainer;
             selectedRow = gvGoal.RowIndex;
             goalId = gvGoalList.DataKeys[selectedRow].Values["GoalId"].ToString();
             goalCode = gvGoalList.DataKeys[selectedRow].Values["GoalCode"].ToString();
+            if (gvGoalList.DataKeys[selectedRow].Values["IsGoalBehind"].ToString() != "NA")
+            {
+                isGoalFundFromAsset = true;
+            }
             hdndeleteId.Value = goalId;
             //goalCatagory = gvGoalList.DataKeys[selectedRow].Values["GoalCategory"].ToString();
             goalAction = ddlAction.SelectedValue.ToString();
@@ -628,7 +635,14 @@ namespace WealthERP.FP
             }
             else if (ddlAction.SelectedValue == "Fund")
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "&GoalCode=" + goalCode + "');", true);
+                if (isGoalFundFromAsset == false)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not makred for MF Based Goal Planning.Edit the goal and Mark it');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "&GoalCode=" + goalCode + "');", true);
+                }
             }
             else if (ddlAction.SelectedValue == "Delete")
             {
@@ -637,15 +651,23 @@ namespace WealthERP.FP
 
         }
 
-    //    protected void hiddenassociation_Click(object sender, EventArgs e)
-    //    {
-    //        string val = Convert.ToString(hdnMsgValue.Value);
-    //        if (val == "1")
-    //        {
-    //            goalPlanningBo.DeleteCustomerGoalFunding(int.Parse(hdndeleteId.Value), customerVo.CustomerId);
-    //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPGoalPlanningDetails','login');", true);
-    //            msgRecordStatus.Visible = true; 
-    //        }
-    //    }
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                goalPlanningBo.DeleteCustomerGoalFunding(int.Parse(hdndeleteId.Value), customerVo.CustomerId);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerFPGoalPlanningDetails','login');", true);
+                trDeleteSuccess.Visible = true;
+
+                GoalProfileList = GoalSetupBo.GetCustomerGoalProfile(customerVo.CustomerId, 1, out investmentTotal, out surplusTotal, out investedAmountForAllGaol, out monthlySavingRequired);
+                if (GoalProfileList != null)
+                    BindGoalOutputGridView(GoalProfileList);
+                else
+                    trNoRecordFound.Visible = true;
+
+                
+            }
+        }
     }
 }

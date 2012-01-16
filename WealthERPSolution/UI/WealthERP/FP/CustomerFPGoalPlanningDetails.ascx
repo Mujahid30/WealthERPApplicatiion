@@ -25,9 +25,9 @@
     
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
  
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Planning"></asp:Label>
+<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal List"></asp:Label>
 <hr />
-<table width="100%">
+<table width="100%" cellpadding="0" cellspacing="0">
     <tr id="trDeleteSuccess" runat="server" visible="false">
         <td align="center">
             <div id="msgRecordStatus" runat="server" class="success-msg" align="center">
@@ -37,7 +37,7 @@
     </tr>
 </table>
 
-<table width="100%">
+<table width="100%" cellpadding="0" cellspacing="0">
  <tr id="trNoRecordFound" runat="server" visible="false">
         <td align="center">
          <div id="Div1" runat="server" class="failure-msg" align="center">
@@ -48,15 +48,15 @@
   </tr>
 <tr>
 <td>
-<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%" ScrollBars="Vertical">
+<asp:Panel ID="tbl" runat="server" class="Landscape" Width="100%"  Height="350px" ScrollBars="Vertical">
 
 <asp:GridView ID="gvGoalList" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" HorizontalAlign="Center"
-                CellPadding="4" EnableViewState="True" AllowPaging="True" ShowFooter="true"
-                CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode" OnRowDataBound="gvGoalList_RowDataBound">
+                CellPadding="4" EnableViewState="True" AllowPaging="false" ShowFooter="true"
+                CssClass="GridViewStyle" DataKeyNames="GoalId,GoalCode,IsGoalBehind" OnRowDataBound="gvGoalList_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+              <%--  <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle"/>--%>
                 <SelectedRowStyle CssClass="SelectedRowStyle" />
                 <HeaderStyle CssClass="HeaderStyle" Wrap="false"/>
                 <EditRowStyle CssClass="EditRowStyle" />
@@ -234,7 +234,7 @@
                 
                  <EditRowStyle CssClass="EditRowStyle" HorizontalAlign="Left" VerticalAlign="Top" />
                  <HeaderStyle CssClass="HeaderStyle" Wrap="true"/>
-                 <PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />
+                 <%--<PagerStyle CssClass="PagerStyle" HorizontalAlign="Center" />--%>
                  <RowStyle CssClass="RowStyle" />
                  <SelectedRowStyle CssClass="SelectedRowStyle" />
             </asp:GridView>
@@ -247,4 +247,4 @@
 <asp:HiddenField ID="hidRTSaveReq" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />
-<asp:Button ID="hiddenassociation" runat="server" BorderStyle="None" BackColor="Transparent" />
+<asp:Button ID="hiddenassociation" runat="server" BorderStyle="None" OnClick="hiddenassociation_Click" BackColor="Transparent" />
