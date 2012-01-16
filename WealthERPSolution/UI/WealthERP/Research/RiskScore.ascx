@@ -176,7 +176,7 @@
     function ShowOption7() {
       
         // First Set of validation....
-
+        
         var SetOnetxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage1.ClientID%>").value);
         var SetOnetxtOption = document.getElementById("<%=txtEnterOption2.ClientID%>").value;
         var SetOnetxtWtage = parseInt(document.getElementById("<%=txtEnterWeightage2.ClientID%>").value);

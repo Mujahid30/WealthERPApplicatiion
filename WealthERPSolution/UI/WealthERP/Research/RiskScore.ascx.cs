@@ -911,6 +911,20 @@ namespace WealthERP.Research
             tdback.Visible = true;
             tdEditForm.Visible = false;
             tdDelete.Visible = false;
+            trOptions2.Style.Add("visibility", "hidden");
+            trOptions3.Style.Add("visibility", "hidden");
+            trOptions4.Style.Add("visibility", "hidden");
+            trOptions5.Style.Add("visibility", "hidden");
+            trOptions6.Style.Add("visibility", "hidden");
+
+            btnAddOp2.Style.Add("visibility", "visible");
+            btnAddOption3.Style.Add("visibility", "hidden");
+            btnOpt4.Style.Add("visibility", "hidden");
+            btnOption5.Style.Add("visibility", "hidden");
+            btnOpt6.Style.Add("visibility", "hidden");
+
+            btnSubmit.Text = "Submit";
+            btnSubmitAndEnterNewQuestion.Text = "Submit & Add new question";
 
         }
 
