@@ -641,7 +641,7 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "&GoalCode=" + goalCode + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "');", true);
                 }
             }
             else if (ddlAction.SelectedValue == "Delete")
