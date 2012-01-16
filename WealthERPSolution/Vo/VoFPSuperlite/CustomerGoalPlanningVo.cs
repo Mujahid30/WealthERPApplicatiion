@@ -426,6 +426,14 @@ namespace VoFPSuperlite
         private double GFP_ProjectedValue;
         private double GFP_ProjectedGapValue;
         private double GFP_AdditionalMonthlyRequirement;
+        private double GFP_AdditionalYearlyRequirement;
+        private double GFP_WeightedReturn;
+
+        public double WeightedReturn
+        {
+            get { return GFP_WeightedReturn; }
+            set { GFP_WeightedReturn = value; }
+        }
 
         public double AdditionalMonthlyRequirement
         {
@@ -433,6 +441,11 @@ namespace VoFPSuperlite
             set { GFP_AdditionalMonthlyRequirement = value; }
         }
 
+        public double AdditionalYearlyRequirement
+        {
+            get { return GFP_AdditionalYearlyRequirement; }
+            set { GFP_AdditionalYearlyRequirement = value; }
+        }
         public double ProjectedGapValue
         {
             get { return GFP_ProjectedGapValue; }
