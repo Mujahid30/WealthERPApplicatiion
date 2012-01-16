@@ -2,17 +2,42 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager> 
 
-    <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
-    </telerik:RadScriptManager> 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+         $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+    
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td>
+    <td class="HeaderTextBig" colspan="2">
+        <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
             <asp:Label ID="lblAttatchScheme" runat="server" CssClass="HeaderTextBig" Text="SetUp ModelPortfolio"></asp:Label>            
             <hr />
         </td>
     </tr>
-          
+    <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Add, Edit & Delete the criteria for the Model Portfolio.
+                    <%--<br />
+                    2.Match orders to the receive transactions.--%>
+                </p>
+            </div>
+        </td>
+    </tr>   
 </table>
 
 <table id="tableGrid" runat="server" class="TableBackground" width="100%">
@@ -62,8 +87,8 @@
                 <%--<telerik:GridBoundColumn UniqueName="AssetClass" HeaderText="Asset Class" DataField="AssetClass">
                 </telerik:GridBoundColumn>--%>
                 
-                <telerik:GridBoundColumn UniqueName="Allocation" HeaderText="% Alloc" DataField="Allocation">
-                </telerik:GridBoundColumn>
+                <%--<telerik:GridBoundColumn UniqueName="Allocation" HeaderText="% Alloc" DataField="Allocation">
+                </telerik:GridBoundColumn>--%>
                 
                 <telerik:GridBoundColumn UniqueName="XAMP_ROR" HeaderText="ROR(%)" DataField="XAMP_ROR">
                 </telerik:GridBoundColumn>
@@ -77,7 +102,7 @@
                 <telerik:GridBoundColumn UniqueName="XAMP_CreatedOn" HeaderText="Created Date" DataField="XAMP_CreatedOn" DataFormatString="{0:M-dd-yyyy}">
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="DeleteColumn">
                 </telerik:GridButtonColumn>
             </Columns>
             <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center"

@@ -537,7 +537,17 @@ namespace WealthERP.Research
                 //to hide Refresh button
                 cmditm.FindControl("RefreshButton").Visible = false;//hide the text
                 cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
-            }    
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string modelPortfolio = dataItem["XAMP_ModelPortfolioName"].Text;
+
+                LinkButton button = dataItem["DeleteColumn"].Controls[0] as LinkButton;
+                button.Attributes["onclick"] = "return confirm('Are you sure you want to delete " +
+                modelPortfolio + "?')";
+            }
+
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 int adviserId = advisorVo.advisorId;

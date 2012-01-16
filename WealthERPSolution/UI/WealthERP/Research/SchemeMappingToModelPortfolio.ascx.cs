@@ -143,10 +143,12 @@ namespace WealthERP.Research
                     //tableGrid.Visible = false;
                 }
                 tableGrid.Visible = true;
+                tableNote.Visible = true;
             }
             else
             {
                 tableGrid.Visible = false;
+                tableNote.Visible = false;
                 tblSelectddl.Visible = true;
             }
         }
@@ -421,9 +423,13 @@ namespace WealthERP.Research
             DataTable dt = new DataTable();
             if (e.Item is GridDataItem)
             {
-                //GridDataItem item = (GridDataItem)e.Item;
-                //Button btn = (Button)item["EditCommandColumn1"].Controls[0];
-                //btn.Text = "Archive"; // changing Button Text
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string schemeName = dataItem["PASP_SchemePlanName"].Text;
+
+                LinkButton button = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
+                button.Attributes["onclick"] = "return confirm('Are you sure you want to Archive " +
+                schemeName + "?')";
+
             }
             if (e.Item is GridCommandItem)
             {
@@ -999,12 +1005,14 @@ namespace WealthERP.Research
                 else
                 {
                     tableGrid.Visible = true;
+                    tableNote.Visible = true;
                     tblSelectddl.Visible = true;
                 }              
             }
             else
             {
                 tableGrid.Visible = false;
+                tableNote.Visible = false;
                 tblSelectddl.Visible = true;
             }
         }

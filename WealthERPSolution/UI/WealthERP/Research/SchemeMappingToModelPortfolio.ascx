@@ -9,14 +9,28 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager> 
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+         $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="SchemeDetailsId" 
     SelectedIndex="0">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Attach Scheme" 
+        <telerik:RadTab runat="server" Text="Attach Schemes" 
             Value="ActiveScheme" TabIndex="0" Selected="True">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="View History Schemes"
+        <telerik:RadTab runat="server" Text="History"
             Value="HistoryScheme" TabIndex="1" Selected="True">
         </telerik:RadTab>        
     </Tabs>
@@ -26,13 +40,22 @@
 <telerik:RadPageView ID="RadPageView1" runat="server">
 <asp:Panel ID="pnlSchemeAttachment" runat="server">
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td>
-            <asp:Label ID="lblAttatchScheme" runat="server" CssClass="HeaderTextBig" Text="Attatch Scheme to Portfolio"></asp:Label>
-            <hr />
+    <td class="HeaderTextBig" colspan="2">
+        <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />            
         </td>
     </tr>
-          
+    <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Add, Edit & Delete MF schemes attached to the Model Portfolio.
+                    <%--<br />
+                    2.Match orders to the receive transactions.--%>
+                </p>
+            </div>
+        </td>
+    </tr>   
 </table>
 <table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
@@ -46,10 +69,10 @@
 </table>
 <table id="tblSelectddl" runat="server" class="TableBackground" width="40%">
 <tr>
-    <td class="leftField">
+    <td style="width:130px">
         <asp:Label ID="lblSelectModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio:"></asp:Label>
     </td> 
-    <td class="rightField">
+    <td>
         <asp:DropDownList ID="ddlSelectedMP" runat="server" CssClass="cmbField" 
             AutoPostBack="true" onselectedindexchanged="ddlSelectedMP_SelectedIndexChanged">
         </asp:DropDownList>
@@ -77,7 +100,7 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage" UniqueName="AMFMPD_AllocationPercentage">
+                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage (%)" UniqueName="AMFMPD_AllocationPercentage">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
@@ -85,7 +108,7 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn">
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:dd/MM/yyyy}" >
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
@@ -111,7 +134,7 @@
                     <asp:CheckBox ID="Chk" runat="server"/>
                 </ItemTemplate>
                 </telerik:GridTemplateColumn>--%>
-                <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn" CancelText="Cancel">                
+                <telerik:GridEditCommandColumn UpdateText="Update" EditText="Archive" UniqueName="EditCommandColumn" CancelText="Cancel">                
                     <HeaderStyle Width="85px"></HeaderStyle>
                 </telerik:GridEditCommandColumn>
                
@@ -364,6 +387,24 @@
     </td>
 </tr>    
 </table>
+<table id="tableNote" runat="server" style="width: 100%;" class="TableBackground">
+<tr>
+    <td style="width:20px">
+        <asp:Label ID="Label5" runat="server" CssClass="txtField" Text="Note:"></asp:Label>
+    </td>
+    <td>
+        <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="Note: The total weightage across the screen must be 100%."></asp:Label>
+    </td>
+</tr>
+<tr>
+    <td>
+        &nbsp;
+    </td>
+    <td>
+        <asp:Label ID="Label4" runat="server" CssClass="txtField" Text="Use Archive to remove an existing scheme & their weightage."></asp:Label>
+    </td>
+</tr>
+</table>
 <asp:HiddenField ID="hdnSubCategory" runat="server" />  
 <asp:HiddenField ID="hdnWeightage" runat="server" />  
 <asp:HiddenField ID="hdnTempId" runat="server" />
@@ -374,12 +415,22 @@
 <asp:Panel ID="pnlHystoryGrid" runat="server">
 
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td>
-            <asp:Label ID="Label4" runat="server" CssClass="HeaderTextBig" Text="Archived Schemes"></asp:Label>
-            <hr />
+    <td class="HeaderTextBig" colspan="2">
+        <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />            
         </td>
-    </tr>          
+    </tr>
+    <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    View past schemes in the Model Portfolio.
+                    <%--<br />
+                    2.Match orders to the receive transactions.--%>
+                </p>
+            </div>
+        </td>
+    </tr>   
 </table>
 <table>
     <tr>
@@ -394,7 +445,7 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage" UniqueName="AMFMPD_AllocationPercentage">
+                <telerik:GridBoundColumn  DataField="AMFMPD_AllocationPercentage"  HeaderText="Weightage (%)" UniqueName="AMFMPD_AllocationPercentage">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
@@ -402,11 +453,11 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
                 </telerik:GridBoundColumn>--%>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:d}" >
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:dd/MM/yyyy}" >
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"/>
                 </telerik:GridBoundColumn>                
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_RemovedOn"  HeaderText="End Date" UniqueName="AMFMPD_RemovedOn" DataFormatString="{0:d}" >
+                <telerik:GridBoundColumn  DataField="AMFMPD_RemovedOn"  HeaderText="End Date" UniqueName="AMFMPD_RemovedOn" DataFormatString="{0:dd/MM/yyyy}" >
                     <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 

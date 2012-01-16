@@ -8,12 +8,12 @@
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td>
-            <asp:Label ID="lblSetUpClass" runat="server" CssClass="HeaderTextBig" Text="selection of Risk or Goal class"></asp:Label>
+            <asp:Label ID="lblSetUpClass" runat="server" CssClass="HeaderTextBig" Text="Risk class"></asp:Label>
             <hr />
         </td>
     </tr>
 </table>
-<table>
+<%--<table>
     <tr>
         <td></td>
         <td class="leftField">
@@ -28,7 +28,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-</table>
+</table>--%>
     
 <table>
     <tr>
@@ -60,13 +60,13 @@
                 <telerik:GridBoundColumn UniqueName="ARC_RiskText" HeaderText="Description" DataField="ARC_RiskText">
                     <HeaderStyle Width="65%" /> 
                 </telerik:GridBoundColumn>
-                <telerik:GridButtonColumn CommandName="Delete" HeaderText="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Class?" UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" HeaderText="Delete" Text="Delete" UniqueName="DeleteColumn">
                     <HeaderStyle Width="10%" /> 
                 </telerik:GridButtonColumn>
             </Columns>
             
-            <EditFormSettings  InsertCaption="Add new Class" FormTableStyle-HorizontalAlign="Center" PopUpSettings-Modal="true" 
-            PopUpSettings-ZIndex="10" CaptionDataField="XRC_RiskClassCode" EditFormType="Template">
+            <EditFormSettings  InsertCaption="Add" CaptionFormatString="Edit" FormTableStyle-HorizontalAlign="Center" PopUpSettings-Modal="true" 
+            PopUpSettings-ZIndex="10" EditFormType="Template">
             
             <FormMainTableStyle GridLines="None" Width="100%"/>
             <FormTableStyle Width="100%"/>
@@ -76,7 +76,7 @@
                     <table id="Table1">                        
                         <tr id="trRiskCodeddl" runat="server">
                             <td class="leftField">
-                                <asp:Label ID="lblPickClass" runat="server" Text="Pick a Risk/Goal class :" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblPickClass" runat="server" Text="Pick a Risk class :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                <asp:DropDownList ID="ddlPickRiskClass" CssClass="cmbField" runat="server">                                    
@@ -85,7 +85,7 @@
                         </tr>
                         <tr id="trRiskGoaltextBox" runat="server">
                             <td class="leftField">
-                            <asp:Label ID="lblRiskGoal" runat="server" Text="Risk/Goal class :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblRiskGoal" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtRiskCode" CssClass="txtField" ReadOnly="true" Text='<%# Bind( "XRC_RiskClass") %>' runat="server">

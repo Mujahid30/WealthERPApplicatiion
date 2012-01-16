@@ -4,7 +4,7 @@
 <telerik:RadMultiPage ID="AdviserAssumptionsId" 
     EnableViewState="true" runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView2" runat="server">
-        <asp:Panel ID="pnlPreferences" runat="server">
+        <asp:Panel ID="pnlPreferences" runat="server" Width="100%" Height="200px">
         <br />
       <table width="100%" class="TableBackground">
         <tr>
@@ -31,13 +31,13 @@
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>                
-                <telerik:GridBoundColumn UniqueName="WA_AssumptionName" HeaderText="Assumption" DataField="WA_AssumptionName" >
+                <telerik:GridBoundColumn UniqueName="WA_AssumptionName" HeaderText="Assumption" DataField="WA_AsssumptionName" >
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="AA_Value" HeaderText="Value" DataField="AA_Value" >
              </telerik:GridBoundColumn>                
             </Columns>
             <EditFormSettings  InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
-            PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode"
+            PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit"
             CaptionDataField="AA_Value" EditFormType="Template">
                 <FormTemplate>
                     <table id="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">
@@ -70,8 +70,8 @@
                         <td>
                         <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                               ControlToValidate="txtAssumptionValue" CssClass="cvPCG" Display="Dynamic" 
-                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
-                              MinimumValue="0.0" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
+                              ErrorMessage="Please enter correct value" MaximumValue="100.00" 
+                              MinimumValue="-100.00" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
                         </td>
                        
                         </tr>                                           
@@ -80,7 +80,7 @@
                          <td></td>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                    runat="server" CssClass="PCGButton" OnClientClick="return Validate()" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    runat="server" CssClass="PCGButton" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>

@@ -35,10 +35,20 @@ namespace WealthERP.Research
             foreach (DataRow drStaticAssumption in dsAdviserAssumptions.Tables[0].Rows)
             {
                 drAssumption = dtAssumption.NewRow();
-                drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
-                drAssumption["AA_Value"] = drStaticAssumption["AA_Value"].ToString();
-                drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
-                dtAssumption.Rows.Add(drAssumption);
+                if (drStaticAssumption["WA_AssumptionId"].ToString() == "LE" || drStaticAssumption["WA_AssumptionId"].ToString() == "RA")
+                {
+                    drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
+                    drAssumption["AA_Value"] = Convert.ToInt32(drStaticAssumption["AA_Value"]);
+                    drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    dtAssumption.Rows.Add(drAssumption);
+                }
+                else
+                {
+                    drAssumption["WA_AssumptionName"] = drStaticAssumption["WA_AssumptionName"].ToString();
+                    drAssumption["AA_Value"] = drStaticAssumption["AA_Value"].ToString();
+                    drAssumption["WA_AssumptionId"] = drStaticAssumption["WA_AssumptionId"].ToString();
+                    dtAssumption.Rows.Add(drAssumption);
+                }
             }
             RadGrid1.DataSource = dtAssumption;
             RadGrid1.DataBind();

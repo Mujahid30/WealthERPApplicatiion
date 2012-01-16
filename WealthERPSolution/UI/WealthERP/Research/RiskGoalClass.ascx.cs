@@ -28,10 +28,14 @@ namespace WealthERP.Research
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            if (IsPostBack)
-            {
-                bindRadGrid1();
-            }
+            //if (IsPostBack)
+            //{
+                bindRadGrid1();                
+            //}
+            //if (!IsPostBack)
+            //{
+            //    RadGrid1.Visible = false;
+            //}
         }
 
         public void bindRadGrid1()
@@ -40,7 +44,12 @@ namespace WealthERP.Research
             
             ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
 
-            dtRiskClass = modelPortfolioBo.GetRiskGoalClassData(advisorVo.advisorId, Convert.ToInt16(ddlClassType.SelectedValue));
+            //dtRiskClass = modelPortfolioBo.GetRiskGoalClassData(advisorVo.advisorId, Convert.ToInt16(ddlClassType.SelectedValue));
+            /***********Here ! is hard coded for riskClasses
+             you can change it by binding the dropdown in future & make executable above commented line....Date(16/01/2012)
+             ***************/
+
+            dtRiskClass = modelPortfolioBo.GetRiskGoalClassData(advisorVo.advisorId, 1);
             DataTable dtClass = new DataTable();
             dtClass.Columns.Add("XRC_RiskClass");
             dtClass.Columns.Add("XRC_RiskClassCode");
@@ -73,7 +82,16 @@ namespace WealthERP.Research
                 //to hide Refresh button
                 cmditm.FindControl("RefreshButton").Visible = false;//hide the text
                 cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
-            }    
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string riskClassName = dataItem["XRC_RiskClass"].Text;
+
+                LinkButton button = dataItem["DeleteColumn"].Controls[0] as LinkButton;
+                button.Attributes["onclick"] = "return confirm('Are you sure you want to delete " +
+                riskClassName + "?')";
+            }
             if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
             {
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
@@ -86,7 +104,9 @@ namespace WealthERP.Research
                 {
                     trRiskCodeddl.Visible = true;
                     trRiskGoaltextBox.Visible = false;
-                    dsRiskClass = modelPortfolioBo.bindDdlPickRiskClass(adviserId, Convert.ToInt16(ddlClassType.SelectedValue));
+                    //dsRiskClass = modelPortfolioBo.bindDdlPickRiskClass(adviserId, Convert.ToInt16(ddlClassType.SelectedValue));
+
+                    dsRiskClass = modelPortfolioBo.bindDdlPickRiskClass(adviserId, 1);
                     if (dsRiskClass.Tables[0].Rows.Count > 0)
                     {
                         ddl.DataSource = dsRiskClass.Tables[0];
@@ -188,15 +208,15 @@ namespace WealthERP.Research
         protected void ddlClassType_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (ddlClassType.SelectedValue != "10")
-            {
-                bindRadGrid1();
-                RadGrid1.Visible = true;
-            }
-            else
-            {
-                RadGrid1.Visible = false;
-            }
+            //if (ddlClassType.SelectedValue != "Select")
+            //{
+            //    bindRadGrid1();
+            //    RadGrid1.Visible = true;
+            //}
+            //else
+            //{
+            //    RadGrid1.Visible = false;
+            //}
         }
     }
 }

@@ -481,12 +481,12 @@
                      <%--<telerik:GridButtonColumn CommandName="Delete" Text="Delete" UniqueName="column">
                     </telerik:GridButtonColumn>--%>
                 </Columns>
-                <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center" 
-                PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit Risk ClassCode: {0}"
+                <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" 
+                PopUpSettings-Modal="true" PopUpSettings-ZIndex="60" CaptionFormatString="Edit"
                 EditFormType="Template">
                 <%--CaptionDataField="CPA_Value"--%>
                     <FormTemplate>
-                        <table id="Table1" cellspacing="1" cellpadding="1" width="250" border="0">                        
+                        <table id="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">                        
                         <tr id="trPickClassDdl" runat="server">
                             <td>
                                 <asp:Label ID="lblPickClass" runat="server" Text="Pick a Risk class :" CssClass="FieldName"></asp:Label>
@@ -507,25 +507,23 @@
                         </tr>
                         
                          <tr>
-                            <td>
+                            <td class="leftField">
                                 <asp:Label ID="lblLowerLimit" runat="server" Text="Lower Limit :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtLowerLimit" Text='<%# Bind( "WRPR_RiskScoreLowerLimit") %>' runat="server">
+                                <asp:TextBox ID="txtLowerLimit" CssClass="txtField" Text='<%# Bind( "WRPR_RiskScoreLowerLimit") %>' runat="server">
                                 </asp:TextBox>
                             </td>
                         </tr> 
                         <tr>
-                            <td>
+                            <td class="leftField">
                                 <asp:Label ID="lblUpperLimit" runat="server" Text="Upper Limit :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtUpperLimit" Text='<%# Bind( "WRPR_RiskScoreUpperLimit") %>' runat="server">
+                                <asp:TextBox ID="txtUpperLimit" CssClass="txtField" Text='<%# Bind( "WRPR_RiskScoreUpperLimit") %>' runat="server">
                                 </asp:TextBox>
                             </td>
-                        </tr>                                           
-                    </table>
-                        <table style="width: 80%">
+                        </tr> 
                             <tr>
                                 <td align="right" colspan="2">
                                     <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'

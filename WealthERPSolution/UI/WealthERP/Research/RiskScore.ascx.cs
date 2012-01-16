@@ -473,24 +473,53 @@ namespace WealthERP.Research
                 minScore = int.Parse(ViewState["MinScore"].ToString());
                 maxScore = int.Parse(ViewState["MaxScore"].ToString());
 
-                if (index != 0)
+                int lastRow = dtTemp.Rows.Count;
+
+                if (lowerLimit <= upperLimit)
                 {
-                    if (lowerLimit != (Convert.ToInt32(dtTemp.Rows[index - 1]["WRPR_RiskScoreUpperLimit"].ToString()) + 1))
-                    {  
-                        ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                    if (index != 0)
+                    {
+                        if (lowerLimit != (Convert.ToInt32(dtTemp.Rows[index - 1]["WRPR_RiskScoreUpperLimit"].ToString()) + 1))
+                        {
+                            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                        }
+                        else if (index == (lastRow-1))
+                        {
+                            if (upperLimit != maxScore)
+                            {
+                                ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                            }
+                            else
+                            {
+                                adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                                BindAdviserAssumptions();
+                                RadGrid1.Rebind();
+                            }
+                        }                        
+                        else
+                        {
+                            adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                            BindAdviserAssumptions();
+                            RadGrid1.Rebind();
+                        }                        
                     }
                     else
                     {
-                        adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                        BindAdviserAssumptions();
-                        RadGrid1.Rebind();
+                        if (lowerLimit != minScore)
+                        {
+                            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                        }
+                        else
+                        {
+                            adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                            BindAdviserAssumptions();
+                            RadGrid1.Rebind();
+                        }
                     }
                 }
                 else
                 {
-                    adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);                    
-                    BindAdviserAssumptions();
-                    RadGrid1.Rebind();
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
                 }
             }
             catch (Exception ex)
