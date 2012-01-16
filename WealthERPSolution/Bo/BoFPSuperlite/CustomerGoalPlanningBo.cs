@@ -656,6 +656,8 @@ namespace BoFPSuperlite
             DataRow drCustomerGoalFundingDetails;
             dtCustomerGoalFundingDetails.Columns.Add("AvailableAllocation");
             dtCustomerGoalFundingDetails.Columns.Add("AllocatedReturnsXIRR");
+            dtCustomerGoalFundingDetails.Columns.Add("ReturnsXIRR");
+
 
             dsExistingInvestment = customerGoalPlanningDao.GetExistingInvestmentDetails(customerId, goalId);
            //********************************8
@@ -1128,12 +1130,17 @@ namespace BoFPSuperlite
             customerGoalFundingProgressVo.MonthlyContribution = totalMFSIPFunding;
             customerGoalFundingProgressVo.ProjectedValue = totalMFProjectedAmount;
             customerGoalFundingProgressVo.AmountInvestedTillDate = totalMFFundingInvestedAmount;
-            if (dtMFFundingDetails.Rows.Count > 0)
-            {
-                if (totalMFCurrentValue != 0)
-                {
-                    double returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
-                    double remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
+            //if (dtMFFundingDetails.Rows.Count > 0)
+            //{
+                //if (totalMFCurrentValue != 0)
+                //{
+            double returns = 0;
+            double remainingTime=0;
+            if (customerAssumptionVo.WeightedReturn!=0)
+            returns = double.Parse((customerAssumptionVo.WeightedReturn / 100).ToString());
+            if (totalMFProjectedAmount!=0)
+            remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
+
                     int year = 0;
                     double month = 0;
                     year = (int)remainingTime;
@@ -1147,8 +1154,8 @@ namespace BoFPSuperlite
                     customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
                     customerGoalFundingProgressVo.ReturnsXIRR =Convert.ToDecimal(totalXIRR);
                     
-                }
-            }
+                //}
+            //}
 
             dsGoalFundingDetails = new DataSet();
             dsGoalFundingDetails.Tables.Add(dtMFFundingDetails);
