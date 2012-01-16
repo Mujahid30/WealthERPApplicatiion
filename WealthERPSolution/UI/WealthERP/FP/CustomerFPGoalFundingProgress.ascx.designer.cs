@@ -23,15 +23,6 @@ namespace WealthERP.FP {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// headertitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label headertitle;
-        
-        /// <summary>
         /// RadTabStripFPGoalDetails control.
         /// </summary>
         /// <remarks>
@@ -500,13 +491,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel Panel4;
         
         /// <summary>
-        /// msgRecordStatus control.
+        /// lblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
         
         /// <summary>
         /// tblModelPortFolioDropDown control.

@@ -75,14 +75,6 @@
         }
     }
     </script>--%>
-
-
-
-      
-
-
-<asp:Label ID="headertitle" runat="server" CssClass="HeaderTextBig" Text="Goal Funding/Progress"></asp:Label>
-<br />
 <%--<telerik:RadToolBar ID="aplToolBar" runat="server" Skin="Telerik" EnableEmbeddedSkins="false" EnableShadows="true" EnableRoundedCorners="true"
     Width="100%">
     <Items>
@@ -262,7 +254,7 @@
     </tr>
     <tr>
     <td colspan="6">
-    <hr />
+   
     </td>
     </tr>
    </table>
@@ -274,7 +266,7 @@
    <table ID="tblDocuments" runat="server"  Width="100%">
        <tr>
                             <td colspan="2" class="HeaderTextSmall">
-                                <b>MF Investment Funding</b>
+                                <b>Fund from Existing MF Investments</b>
                             </td>
                         </tr>
                         </table>
@@ -284,7 +276,7 @@
         AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound" OnDeleteCommand="RadGrid1_DeleteCommand"  OnInsertCommand="RadGrid1_ItemInserted"
         OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
         OnPreRender="RadGrid1_PreRender">
-        <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" DataKeyNames="SchemeCode,OtherGoalAllocation">
+        <MasterTableView CommandItemDisplay="Top"  CommandItemSettings-ShowRefreshButton="false" DataKeyNames="SchemeCode,OtherGoalAllocation">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>
@@ -443,7 +435,7 @@
    <table ID="Table1" runat="server" Width="100%">
         <tr>
                             <td colspan="2" class="HeaderTextSmall">
-                                <b>Monthly SIP MF Funding</b>
+                                <b>Fund from Future MF Savings</b>
                             </td>
                              <td id="Td1" runat="server" align="right">
      <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
@@ -581,10 +573,8 @@
   <asp:Panel runat="server" ID="Panel4">
   <table width="100%">
     <tr>
-        <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center">
-                No Records Found
-            </div>
+        <td colspan="2">
+            <asp:Label ID="lblMsg" runat="server" CssClass="Error" Text="No Records Found"></asp:Label>
         </td>
     </tr>
 </table>

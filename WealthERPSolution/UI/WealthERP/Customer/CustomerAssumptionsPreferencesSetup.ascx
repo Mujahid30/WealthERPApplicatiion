@@ -21,7 +21,13 @@
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
     </telerik:RadScriptManager> 
     <br /> 
-    
+   <script type="text/javascript">
+
+       function HideStatusMsg() {
+           document.getElementById("<%=msgRecordStatus.ClientID%>").style.display = 'none';
+       }
+
+</script>   
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
@@ -168,6 +174,15 @@
  
  <telerik:RadPageView ID="RadPageView3" runat="server">
         <asp:Panel ID="Panel1" runat="server">
+         <table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center">
+               Records Saved Successfully
+            </div>
+        </td>
+    </tr>
+</table>
          <table>
             <tr>
             <td><br /></td>

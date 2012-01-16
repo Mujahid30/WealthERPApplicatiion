@@ -43,6 +43,7 @@ namespace WealthERP.Customer
             //dtAssumption.Rows.Add(drAssumption);
             //RadGrid1.DataSource = dtAssumption;
             //RadGrid1.DataBind();
+            msgRecordStatus.Visible = false;
             BindAllCustomerAssumptions();
             
             //DataTable dtBindDropDownassumption = new DataTable();
@@ -223,6 +224,7 @@ namespace WealthERP.Customer
             {
                 customerBo.InsertPlanPreferences(customerVo.CustomerId, 8, 4);
             }
+            msgRecordStatus.Visible = true;
 
         }
 
