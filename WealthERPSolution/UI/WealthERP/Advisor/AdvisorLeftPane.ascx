@@ -522,10 +522,10 @@
                                                                                 
                                  </telerik:RadPanelItem>
                                  
-                                  <telerik:RadPanelItem runat="server" Text="Models" Value="Reference_Data">
+                                  <telerik:RadPanelItem runat="server" Text="Model Portfolio" Value="Reference_Data">
                                         <Items>                                          
                                          
-                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation" Value="Asset_Allocation">                                                
+                                             <telerik:RadPanelItem runat="server" Text="Portfolio" Value="Asset_Allocation">                                                
                                              </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="MF Investment" Value="MF_Investment">
                                              </telerik:RadPanelItem>
