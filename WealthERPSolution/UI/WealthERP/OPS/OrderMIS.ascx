@@ -405,7 +405,7 @@
 <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
         onclick="btnGo_Click" />
 </td>
-<td colspan="2">&nbsp;&nbsp;</td>
+<td colspan="2">&nbsp;&nbsp;&nbsp;</td>
 <td colspan="2" align="left">
 
 </td>
@@ -455,27 +455,27 @@
                                         </ItemTemplate>                                      
                                      </asp:TemplateField>
                                      
-                                      <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                      <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                             </asp:BoundField>
                                             
                                      <asp:BoundField DataField="XS_Status" HeaderText="Status" ItemStyle-Wrap="false" >
-                                        <HeaderStyle HorizontalAlign="left" />
+                                        <HeaderStyle HorizontalAlign="Center" />
                                          <ItemStyle HorizontalAlign="left"></ItemStyle>
                                        </asp:BoundField> 
                                      
                                      <asp:BoundField DataField="Customer_Name" HeaderText="Customer" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
                                             
-                                      <asp:BoundField DataField="WMTT_TransactionClassificationCode" HeaderText="Trns Type" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
+                                      <asp:BoundField DataField="WMTT_TransactionClassificationCode" HeaderText="Trans Type" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="left"></ItemStyle>
                                       </asp:BoundField>
                                        
-                                            <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center">
+                                            <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left">
                                            <HeaderTemplate>
                                                <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type" ></asp:Label>                  
                                            </HeaderTemplate>
@@ -487,7 +487,7 @@
                                             </asp:TemplateField>
                                             
                                              <asp:BoundField DataField="CMFA_FolioNum" HeaderText="Folio" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme" ItemStyle-Wrap="false">
@@ -521,34 +521,39 @@
                                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                             </asp:BoundField>
                                             <asp:BoundField DataField="CMOT_ApplicationNumber" HeaderText="App Nbr" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="left"></ItemStyle>
                                             </asp:BoundField> 
                                             <asp:BoundField DataField="CMOT_Amount" HeaderText="Amount" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
+                                            <asp:BoundField DataField="CMOT_Units" HeaderText="Unit" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            
                                             <asp:BoundField DataField="XSR_StatusReason" HeaderText="Pending/Reject reason" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="left"></ItemStyle>
                                             </asp:BoundField>
                                             
                                                <asp:BoundField DataField="AB_BranchName" HeaderText="Branch" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>
                                             
                                              <asp:BoundField DataField="RM_Name" HeaderText="RM" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Left" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>
                                             </asp:BoundField>
-                                             <asp:BoundField DataField="CMFT_TransactionNumber" ItemStyle-Wrap="false" HeaderText="Trns Nbr">
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                             <asp:BoundField DataField="CMFT_TransactionNumber" HeaderStyle-Wrap="false"  ItemStyle-Wrap="false" HeaderText="Trans Nbr">
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
                                             
                                             <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Upload ProcessID" HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
                                             
@@ -562,16 +567,20 @@
                                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                             </asp:BoundField>--%>
                                                     
-                                            <asp:BoundField DataField="CMFT_TransactionDate" HeaderText="Trns Date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                            <asp:BoundField DataField="CMFT_TransactionDate" HeaderText="Trans Date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="center" />
                                                 <ItemStyle HorizontalAlign="center"></ItemStyle>
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="CMFT_Price" HeaderText="Price (Rs)" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CMFT_Price" HeaderText="Price (Rs)" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="CMFT_Units" HeaderText="Units" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
-                                                <HeaderStyle HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CMFT_Amount" HeaderText="Trans Amount" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="CMFT_Units" HeaderText="Trans Units" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" DataFormatString="{0:n}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>
                                             
