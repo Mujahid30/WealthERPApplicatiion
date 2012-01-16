@@ -44,6 +44,8 @@ namespace WealthERP.CustomerPortfolio
         int amcCode;
         int accountId;
         string categoryCode;
+
+        int flag = 0;
         //string categoryName;
         int transactionId;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
@@ -73,7 +75,7 @@ namespace WealthERP.CustomerPortfolio
                     BindAMC();
                     BindCategory();
                     BindScheme();
-                    BindFolioNumber();
+                    BindFolioNumber(0);
                     tdSchemeNameLabel.Visible = false;
                     tdSchemeNameValue.Visible = false;
                     tdSchemeToLabel.Visible = false;
@@ -93,6 +95,7 @@ namespace WealthERP.CustomerPortfolio
                     {
                         customerAccountsVo = (CustomerAccountsVo)Session[SessionContents.CustomerMFAccount];
                         ddlFolioNum.SelectedValue = customerAccountsVo.AccountId.ToString();
+                        //BindFolioNumber(1);
                     }
                     RestorePreviousState();
                 }
@@ -216,13 +219,13 @@ namespace WealthERP.CustomerPortfolio
         //    ddlFolioNum.DataBind();
         //    ddlFolioNum.Items.Insert(0, new ListItem("Select a Folio Number", "Select a Folio Number"));
         //}
-        private void BindFolioNumber()
+        private void BindFolioNumber(int flag)
         {
             DataSet dsgetfolioNo= new DataSet();
             DataTable dtgetfolioNo;
             try
             {
-                if (ddlAMC.SelectedIndex != 0)
+                if (flag != 0)
                 {
                     amcCode = int.Parse(ddlAMC.SelectedValue);
                     dsgetfolioNo = productMfBo.GetFolioNumber(portfolioId, amcCode, 1);
@@ -238,8 +241,9 @@ namespace WealthERP.CustomerPortfolio
                     ddlFolioNum.DataTextField =dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
                     ddlFolioNum.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolioNum.DataBind();
+                    ddlFolioNum.Items.Insert(0, new ListItem("Select", "Select"));
                 }
-                ddlFolioNum.Items.Insert(0, new ListItem("Select", "Select"));
+                
             }
             catch (BaseApplicationException Ex)
             {
@@ -277,7 +281,7 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString());
             Session[SessionContents.PortfolioId] = portfolioId;
-            BindFolioNumber();
+            BindFolioNumber(0);
 
         }
         protected void setVisibility()
@@ -878,6 +882,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlScheme.SelectedValue = hashtable["SchemeSearch"].ToString();
                 //txtSearchScheme.Text = hashtable["SchemeSearch"].ToString();
                 lblScheme.Text = hashtable["SchemeName"].ToString();
+                BindFolioNumber(1);
                 //txtSchemeCode.Value = hashtable["SchemeCode"].ToString();
                 ddlTransactionType.SelectedValue = hashtable["TransactionType"].ToString();
                 txtTransactionDate.Text = hashtable["TransactionDate"].ToString();
@@ -963,7 +968,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 amcCode = int.Parse(ddlAMC.SelectedValue);
                 BindScheme();
-                BindFolioNumber();
+                BindFolioNumber(1);
             }
         }
 
