@@ -597,23 +597,29 @@ namespace WealthERP.FP
             GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
             customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(customerVo.CustomerId, advisorVo.advisorId, out isHavingAssumption);
             goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(customerVo.CustomerId, goalId);
-            BtnSetVisiblity("View");
+            //BtnSetVisiblity("View");
             lblNote.Visible = false;
             //lblReqNote.Visible = false;
             trRequiedNote.Visible = false;
             //lblHeader.Text = "Goal Details";
             if (goalProfileSetupVo.IsFundFromAsset == true)
             {
+                rdoMFBasedGoalYes.Checked = true;
+                rdoMFBasedGoalNo.Checked = false;
                 trExistingInvestmentAllocated.Visible = false;
                 trReturnOnExistingInvestmentAll.Visible = false;
+                
 
             }
             else
             {
+                rdoMFBasedGoalNo.Checked = true;
+                rdoMFBasedGoalYes.Checked = false;
                 trExistingInvestmentAllocated.Visible = true;
                 trReturnOnExistingInvestmentAll.Visible = true;
 
             }
+
 
             switch (goalProfileSetupVo.Goalcode)
             {
@@ -1172,6 +1178,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtReturnOnNewInvestments.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
+                    if (!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
@@ -1220,6 +1227,7 @@ namespace WealthERP.FP
                 int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
                 ShowGoalDetails();
                 ControlSetVisiblity("View");
+                BtnSetVisiblity("View");
                 lblGoalbjective.Text = "Goal Objective :";
             }
         }

@@ -198,9 +198,9 @@
                                     </telerik:RadComboBoxItem>        
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/ChildMarraiageGoal.png" Text="Child Marriage" Value="MR" runat="server">        
                                     </telerik:RadComboBoxItem>        
-                                    <telerik:RadComboBoxItem ImageUrl="~/Images/OtherGoal.jpg" Text="Other" Value="OT" runat="server">        
+                                    <telerik:RadComboBoxItem ImageUrl="~/Images/OtherGoal.png" Text="Other" Value="OT" runat="server">        
                                     </telerik:RadComboBoxItem>   
-                                    <telerik:RadComboBoxItem ImageUrl="~/Images/RetirementGoal.jpg" Text="Retirement" Value="RT" runat="server">        
+                                    <telerik:RadComboBoxItem ImageUrl="~/Images/RetirementGoal.png" Text="Retirement" Value="RT" runat="server">        
                                     </telerik:RadComboBoxItem>       
                                           
                                        
@@ -628,7 +628,7 @@
                             ValidationGroup="btnSave"  OnClientClick="return validate()"/>--%>
                         <asp:Button ID="btnBackToAddMode" runat="server" CssClass="PCGButton" Text="AddNew"
                              ValidationGroup="btnSave" OnClick="btnBackToAddMode_Click"  OnClientClick="return validate()"/>
-                         <asp:Button ID="btnBackToView" runat="server" CssClass="PCGButton" Text="Back" OnClick="btnBackToView_Click"/>
+                         <asp:Button ID="btnBackToView" runat="server" CssClass="PCGMediumButton" Text="Back To View" OnClick="btnBackToView_Click"/>
                          <asp:Button ID="btnEdit" runat="server" CssClass="PCGButton" Text="Edit" OnClick="btnEdit_Click"/>
                         
                          <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click" OnClientClick="return validate()"/>
@@ -636,7 +636,7 @@
                         
                     </td>
                 </tr>
-                <tr>
+                <tr id="tdNote" runat="server">
                     <td>
                         <asp:Label ID="Label2" runat="server" CssClass="cmbField" style="font-size: small;" Text="Note :"></asp:Label>
                     </td>
