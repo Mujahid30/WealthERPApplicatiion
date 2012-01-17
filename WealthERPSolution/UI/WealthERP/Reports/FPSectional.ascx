@@ -7,6 +7,21 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     
 </asp:ScriptManager>
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#ctrl_FPSectional_btnViewReport').bubbletip($('#divView'), { deltaDirection: 'left' });
+    $('#ctrl_FPSectional_btnViewInPDF').bubbletip($('#divPdf'), { deltaDirection: 'left' });
+    $('#ctrl_FPSectional_btnViewInDOC').bubbletip($('#divDoc'), { deltaDirection: 'left' });
+    });
+</script>
 <script language="javascript" type="text/javascript">
 
     function CheckBoxListSelect() {
@@ -293,10 +308,24 @@
       <td style="width:60%" align="right">
         <asp:Button ID="btnViewReport" runat="server"  
      PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" />&nbsp;&nbsp;
+     <div id="divView" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report.
+                </p>
+            </div>
      <asp:Button ID="btnViewInPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
      PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" /> &nbsp;&nbsp;
+     <div id="divPdf" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report in PDF format.
+                </p>
+      </div>
       <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
-     PostBackUrl="~/Reports/Display.aspx?mail=4"  /> &nbsp;&nbsp;  
+     PostBackUrl="~/Reports/Display.aspx?mail=4"  /> &nbsp;&nbsp; 
+     <div id="divDoc" style="display: none;">
+                <p class="tip">
+                    Click here to view FP sectional report in word doc.</p>
+     </div> 
       </td>
       </tr>
       
