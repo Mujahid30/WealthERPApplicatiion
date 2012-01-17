@@ -446,13 +446,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.HtmlControls.HtmlTable Table1;
         
         /// <summary>
-        /// Td1 control.
+        /// RadGrid2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td1;
+        protected global::Telerik.Web.UI.RadGrid RadGrid2;
         
         /// <summary>
         /// btnSIPAdd control.
@@ -462,15 +462,6 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSIPAdd;
-        
-        /// <summary>
-        /// RadGrid2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid RadGrid2;
         
         /// <summary>
         /// RadPageView4 control.
@@ -491,13 +482,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Panel Panel4;
         
         /// <summary>
-        /// lblMsg control.
+        /// tblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        
+        /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
         
         /// <summary>
         /// tblModelPortFolioDropDown control.

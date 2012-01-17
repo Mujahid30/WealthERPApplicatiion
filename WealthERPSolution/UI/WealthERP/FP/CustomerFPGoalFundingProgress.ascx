@@ -437,9 +437,7 @@
                             <td colspan="2" class="HeaderTextSmall">
                                 <b>Fund from Future MF Savings</b>
                             </td>
-                             <td id="Td1" runat="server" align="right">
-     <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
-     </td>
+                             
                         </tr>
                         </table>
       <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
@@ -564,20 +562,28 @@
         <ClientSettings>
         </ClientSettings>
     </telerik:RadGrid>
-  
+  <table width="100%">
+  <tr>
+  <td align="right">
+   <asp:Button ID="btnSIPAdd" runat="server" CssClass="PCGButton" Text="Add SIP" OnClick="btnSIPAdd_OnClick" />
+  </td>
+ 
+  </tr>
+  </table>
     </asp:Panel>
      
    
  </telerik:RadPageView>
  <telerik:RadPageView ID="RadPageView4" runat="server">
   <asp:Panel runat="server" ID="Panel4">
-  <table width="100%">
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>
-        <td colspan="2">
-            <asp:Label ID="lblMsg" runat="server" CssClass="Error" Text="No Records Found"></asp:Label>
-        </td>
+    <td align="center">
+     <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
     </tr>
-</table>
+ </table>
         <table width="100%" runat="server" id="tblModelPortFolioDropDown">
                             <tr style="float: left">
                             <td>

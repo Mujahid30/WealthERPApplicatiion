@@ -39,16 +39,18 @@ namespace WealthERP.FP
             advisorVo = (AdvisorVo)Session["advisorVo"];
 
             tblModelPortFolioDropDown.Visible = true;
-            lblMsg.Visible = false;
+            tblMessage.Visible = false;
+            ErrorMessage.Visible = false;
+           
          
             if (Request.QueryString["GoalId"] != null)
             {
                 goalId = int.Parse(Request.QueryString["GoalId"].ToString());
-                ViewState["GoalId"] = goalId;
+               Session["GoalId"] = goalId;
             }
-            if (ViewState["GoalId"] != null)
+            if (Session["GoalId"] != null)
             {
-                goalId = (int)ViewState["GoalId"];
+                goalId = (int)Session["GoalId"];
             }
           
             if (!IsPostBack)
@@ -1229,7 +1231,9 @@ namespace WealthERP.FP
             else
             {
                 tblModelPortFolioDropDown.Visible = false;
-                lblMsg.Visible = true;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
 
             }
 
