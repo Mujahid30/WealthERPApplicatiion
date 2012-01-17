@@ -91,21 +91,21 @@
 ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
             <div id="div1" style="display: none;">
                 <p class="tip">
-                    Enter and view order details.
+                    Click here to view order details.
                 </p>
             </div>
 <asp:Button ID="btnViewInPDF" runat="server"  ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
      PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
      <div id="div2" style="display: none;">
                 <p class="tip">
-                    Enter and view order details.
+                   Click here to view order details in pdf format.
                 </p>
       </div>
 <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
      PostBackUrl="~/Reports/Display.aspx?mail=4" />
      <div id="div3" style="display: none;">
                 <p class="tip">
-                    Enter and view order details..</p>
+                    Click here to view order details in word doc.</p>
      </div>
 </td>
 </tr>
