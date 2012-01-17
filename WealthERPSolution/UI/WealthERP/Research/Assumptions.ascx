@@ -4,7 +4,7 @@
 <telerik:RadMultiPage ID="AdviserAssumptionsId" 
     EnableViewState="true" runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView2" runat="server">
-        <asp:Panel ID="pnlPreferences" runat="server" Width="100%" Height="200px">
+        <asp:Panel ID="pnlPreferences" runat="server">
         <br />
       <table width="100%" class="TableBackground">
         <tr>
@@ -26,12 +26,11 @@
         OnItemInserted="RadGrid1_ItemInserted" OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand"
         OnPreRender="RadGrid1_PreRender"  DataKeyNames="WA_AssumptionId"
         AllowAutomaticUpdates="False" HorizontalAlign="NotSet">
-        <MasterTableView CommandItemDisplay="None" DataKeyNames="WA_AssumptionId"
-         EditMode="PopUp">
+        <MasterTableView CommandItemDisplay="None" DataKeyNames="WA_AssumptionId" EditMode="PopUp">
             <Columns>
                 <telerik:GridEditCommandColumn>
                 </telerik:GridEditCommandColumn>                
-                <telerik:GridBoundColumn UniqueName="WA_AssumptionName" HeaderText="Assumption" DataField="WA_AsssumptionName" >
+                <telerik:GridBoundColumn UniqueName="WA_AssumptionName" HeaderText="Assumption" DataField="WA_AssumptionName" >
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="AA_Value" HeaderText="Value" DataField="AA_Value" >
              </telerik:GridBoundColumn>                
