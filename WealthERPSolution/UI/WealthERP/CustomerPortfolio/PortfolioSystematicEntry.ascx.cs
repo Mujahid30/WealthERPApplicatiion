@@ -1284,7 +1284,7 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = systematicSetupBo.GetPortFolioId(portfolio, customerVo.CustomerId);
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
             //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
-            
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
         }
 
         private void SaveCurrentPageState()

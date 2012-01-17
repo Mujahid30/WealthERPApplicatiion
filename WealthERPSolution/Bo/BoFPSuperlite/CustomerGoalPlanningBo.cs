@@ -1091,7 +1091,7 @@ namespace BoFPSuperlite
             dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment, out customerAssumptionVo,out goalPlanningVo);
             dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount, ref customerAssumptionVo);
 
-            customerGoalFundingProgressVo.ReturnsXIRR = CalculateweightedReturn(dtMFFundingDetails, dtExistingInvestment, customerAssumptionVo);
+            customerGoalFundingProgressVo.WeightedReturn =(double)CalculateweightedReturn(dtMFFundingDetails, dtExistingInvestment, customerAssumptionVo);
 
 
             foreach (DataRow dr in dtMFFundingDetails.Rows)
@@ -1136,8 +1136,8 @@ namespace BoFPSuperlite
                 //{
             double returns = 0;
             double remainingTime=0;
-            if (customerAssumptionVo.WeightedReturn!=0)
-            returns = double.Parse((customerAssumptionVo.WeightedReturn / 100).ToString());
+            if (customerGoalFundingProgressVo.WeightedReturn != 0)
+            returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
             if (totalMFProjectedAmount!=0)
             remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
 
