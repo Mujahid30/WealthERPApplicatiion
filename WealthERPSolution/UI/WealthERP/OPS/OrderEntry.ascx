@@ -281,7 +281,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <td align="left">
   <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
         onselectedindexchanged="ddlAMCList_SelectedIndexChanged">
-  </asp:DropDownList><span id="Span2" class="spnRequiredField">*</span>
+  </asp:DropDownList><span id="spnAMC" runat="server" class="spnRequiredField">*</span>
   <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select an AMC" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
 </td>
@@ -331,9 +331,9 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>  
-<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" style="width:300px;" AutoPostBack="true"
+<asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
           onselectedindexchanged="ddlAmcSchemeList_SelectedIndexChanged">
-</asp:DropDownList><span id="Span3" class="spnRequiredField">*</span>
+</asp:DropDownList><span id="spnScheme" runat="server" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   
