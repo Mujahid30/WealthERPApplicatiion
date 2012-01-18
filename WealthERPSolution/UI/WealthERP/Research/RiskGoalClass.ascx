@@ -83,6 +83,15 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlPickRiskClass"
+                                ErrorMessage="Please select a risk class" Display="Dynamic" runat="server" InitialValue="Select Risk Class"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
                         <tr id="trRiskGoaltextBox" runat="server">
                             <td class="leftField">
                             <asp:Label ID="lblRiskGoal" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
@@ -105,7 +114,7 @@
                         <tr>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" CssClass="PCGButton" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                    runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    runat="server" ValidationGroup="Button1" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'> 
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
