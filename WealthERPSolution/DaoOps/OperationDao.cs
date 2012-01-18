@@ -631,9 +631,14 @@ namespace DaoOps
                     operationVo.RMName = dr["RM_Name"].ToString();
                     operationVo.BMName = dr["AB_BranchName"].ToString();
                     operationVo.PanNo = dr["C_PANNum"].ToString();
-                    operationVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
-                    operationVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    operationVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
+                        operationVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
+                    else
+                        operationVo.Amccode =0;
+                    if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
+                        operationVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
+                        operationVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                     operationVo.OrderNumber =int.Parse( dr["CMOT_OrderNumber"].ToString());
                     operationVo.Amount = double.Parse(dr["CMOT_Amount"].ToString());
                     //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
