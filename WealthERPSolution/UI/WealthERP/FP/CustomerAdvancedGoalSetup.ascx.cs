@@ -1491,7 +1491,10 @@ namespace WealthERP.FP
                 {
                     customerGoalPlanningBo.UpdateSIPGoalAllocationAmount(decimal.Parse(txt.Text), sipId, goalId);
                     //BindMonthlySIPFundingScheme();
+                    GetGoalFundingProgress();
                     BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    
                 }
             }
             else
@@ -1564,7 +1567,9 @@ namespace WealthERP.FP
                     }
                     investedAmount = (acqCost * decimal.Parse(txt.Text)) / 100;
                     customerGoalPlanningBo.UpdateGoalAllocationPercentage(decimal.Parse(txt.Text), schemeplanId, goalId, investedAmount);
+                    GetGoalFundingProgress();
                     BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                 }
             }
             else
@@ -1611,7 +1616,7 @@ namespace WealthERP.FP
                 //BindddlModelPortfolioGoalSchemes();
                 //SetGoalProgressImage(goalPlanningVo.Goalcode);
             //}
-                if (e.CommandName == RadGrid.UpdateCommandName || e.CommandName == RadGrid.DeleteCommandName || e.CommandName == RadGrid.InitInsertCommandName)
+                if (e.CommandName == RadGrid.UpdateCommandName || e.CommandName == RadGrid.InitInsertCommandName)
                 {
                     ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
@@ -1665,7 +1670,7 @@ namespace WealthERP.FP
         {
             RadGrid2.DataSource = dtCustomerGoalFundingSIPDetails;
             RadGrid2.DataBind();
-            ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+            //ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
 
         }
 
@@ -1675,7 +1680,7 @@ namespace WealthERP.FP
             RadGrid1.DataSource = dtCustomerGoalFundingDetails;
             RadGrid1.DataBind();
 
-            ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+            //ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
 
         }
 
@@ -1800,7 +1805,7 @@ namespace WealthERP.FP
             if (allocationEntry + otherAllocation <= totalAllocation)
             {
                 customerGoalPlanningBo.UpdateSIPGoalAllocationAmount(allocationEntry, sipId, goalId);
-                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                //BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
             }
             else
             {
@@ -1829,7 +1834,7 @@ namespace WealthERP.FP
             if (allocationEntry + otherAllocation <= 100)
             {
                 customerGoalPlanningBo.UpdateGoalAllocationPercentage(allocationEntry, schemeId, goalId, investedAmount);
-                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                //BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
                 //BindExistingFundingScheme();
                 //ShowGoalDetails(goalId);
             }
@@ -1845,7 +1850,9 @@ namespace WealthERP.FP
             {
                 int schemeCode = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
                 customerGoalPlanningBo.DeleteFundedScheme(schemeCode, goalId);
+                GetGoalFundingProgress();
                 BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
             }
             catch (Exception ex)
             {
@@ -1860,7 +1867,9 @@ namespace WealthERP.FP
             {
                 int sipId = Convert.ToInt32(RadGrid2.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SIPId"].ToString());
                 customerGoalPlanningBo.DeleteSIPFundedScheme(sipId, goalId);
+                GetGoalFundingProgress();
                 BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
             }
             catch (Exception ex)
             {

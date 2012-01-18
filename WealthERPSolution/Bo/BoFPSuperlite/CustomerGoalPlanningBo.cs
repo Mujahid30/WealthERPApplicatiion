@@ -702,7 +702,7 @@ namespace BoFPSuperlite
             double remainingTime = 0;
             if (customerGoalFundingProgressVo.WeightedReturn != 0)
                 returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
-            if (totalMFProjectedAmount != 0)
+            if (totalMFProjectedAmount != 0 && returns !=0)
                 remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
 
             int year = 0;
