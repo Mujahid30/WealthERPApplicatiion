@@ -447,6 +447,19 @@
             <asp:Label ID="lblSetUpScore" runat="server" CssClass="HeaderTextBig" Text="Set up risk scores for the risk classes"></asp:Label>
             <hr />
         </td>
+    </tr>    
+    <tr>
+        <td align="left">
+            <label id="Label12" class="FieldName" >Current Min Riskscore: </label>
+            &nbsp;
+            <asp:TextBox ID="txtMinScore" CssClass="txtField" Enabled="false" ReadOnly="true" runat="server">
+            </asp:TextBox>
+            &nbsp;&nbsp;            
+            <label id="Label14" class="FieldName" >Current Max Riskscore: </label>
+            &nbsp;
+            <asp:TextBox ID="txtMaxScore" CssClass="txtField" Enabled="false" ReadOnly="true" runat="server">
+            </asp:TextBox>
+        </td>
     </tr>
 </table>
 <table style="width:100%">
