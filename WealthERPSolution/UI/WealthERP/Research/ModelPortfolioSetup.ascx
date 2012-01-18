@@ -50,10 +50,8 @@
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XAMP_ModelPortfolioCode">
         <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="XAMP_ModelPortfolioCode,XRC_RiskClassCode">
             <Columns>
-                 <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
-                    CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
-                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
-                    EditImageUrl="../Images/Telerik/Edit.gif">
+                 <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn" EditText="Edit"
+                    CancelText="Cancel">
                     <HeaderStyle Width="85px"></HeaderStyle>
                  </telerik:GridEditCommandColumn>
                                  
@@ -105,8 +103,8 @@
                 <telerik:GridButtonColumn CommandName="Delete" Text="Delete" ConfirmText="Are you sure you want to Remove this Record?"  UniqueName="DeleteColumn">
                 </telerik:GridButtonColumn>
             </Columns>
-            <EditFormSettings InsertCaption="Add new item" FormTableStyle-HorizontalAlign="Center"
-            PopUpSettings-Modal="true" PopUpSettings-ZIndex="20" EditFormType="Template">            
+            <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit" FormCaptionStyle-CssClass="TableBackground"
+            PopUpSettings-Modal="true" PopUpSettings-ZIndex="20" EditFormType="Template" FormCaptionStyle-Width="100%">            
                 <FormTemplate>
                     <table ID="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">                        
                         <tr id="trAddNamePortfolio" runat="server">
@@ -468,4 +466,3 @@
     </tr>
   --%>
 </table>
-  
