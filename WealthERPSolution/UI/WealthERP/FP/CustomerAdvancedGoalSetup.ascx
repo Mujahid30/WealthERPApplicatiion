@@ -158,7 +158,7 @@
   <telerik:RadTabStrip ID="RadTabStripFPGoalDetails" runat="server" EnableTheming="True" Skin="Telerik"
     EnableEmbeddedSkins="False" MultiPageID="CustomerFPGoalDetail">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Goal Add" Value="GoalAdd" TabIndex="0">
+        <telerik:RadTab runat="server" Text="Goal Add/View" Value="GoalAdd" TabIndex="0">
         </telerik:RadTab>  
         <telerik:RadTab runat="server" Text="Goal Funding/Progress" Value="Funding" TabIndex="1">
         </telerik:RadTab>  
@@ -174,8 +174,8 @@
 
     <telerik:RadPageView ID="RadPageView1" runat="server">
     
-      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-   <ContentTemplate>
+   <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+       <ContentTemplate>
 
         <table width="100%">
             <tr>
@@ -624,9 +624,13 @@
                     </td>
                 </tr>
                 
-            </table>
-         
-        <table class="TableBackground">
+            </table>               
+            
+     </ContentTemplate>
+   </asp:UpdatePanel>
+   
+   <asp:Panel ID="pnlButtonControls" runat="server">
+    <table class="TableBackground">
                 <tr id="trchkApprove" runat="server">
                     <td id="Td8" runat="server">
                         <asp:CheckBox ID="chkApprove" runat="server" CssClass="FieldName" Text=" Approved by Customer" />
@@ -677,15 +681,20 @@
                     </td>
                 </tr>
             </table>
-            
-            </ContentTemplate>
-   </asp:UpdatePanel>
+   </asp:Panel>
  
     </telerik:RadPageView>
 
 
     <telerik:RadPageView ID="RadPageView2" runat="server">
- 
+    <table width="100%">
+    <tr>
+               <td>
+               <asp:Label ID="lblFundingProgressHeading" runat="server" CssClass="HeaderTextBig" Text="Goal Fund/Progress"></asp:Label>
+               <hr />
+               </td>
+    </tr>
+    </table>
      <asp:Panel runat="server" ID="pnlNoRecordFoundGoalFundingProgress" width="100%" Visible="false">
       <table width="100%">
        <tr>
@@ -699,8 +708,8 @@
       </asp:Panel>
    
     
-     <asp:Panel ID="pnlFundingProgress" runat="server">
-    <br />
+    <asp:Panel ID="pnlFundingProgress" runat="server">
+    
     <table>
     <%--****************************************************************************--%>
     <tr>
@@ -1178,6 +1187,14 @@
   
     <telerik:RadPageView ID="RadPageView4" runat="server">
  
+   <table width="100%">
+    <tr>
+               <td>
+               <asp:Label ID="lblModelPortolioHeading" runat="server" CssClass="HeaderTextBig" Text="Model Portfolio"></asp:Label>
+               <hr />
+               </td>
+    </tr>
+    </table> 
      <asp:Panel runat="server" ID="pnlModelPortfolio">
     
         <%--<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">

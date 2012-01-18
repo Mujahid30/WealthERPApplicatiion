@@ -171,9 +171,11 @@ namespace WealthERP.FP
             //RadTab t1 = new RadTab();
             //RadMultiPage m1 = new RadMultiPage();
             //m1.SelectedIndex = t1.SelectedIndex;
-            if (goalAction == "View" || goalAction == "Edit")
+            if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
             {
-                RadTabStripFPGoalDetails.TabIndex = 0;
+                RadTabStripFPGoalDetails.SelectedIndex = 0;
+                RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+                CustomerFPGoalDetail.SelectedIndex = 0;
 
             }
             else if (goalAction == "Fund")
@@ -422,7 +424,7 @@ namespace WealthERP.FP
                     //SpanAboveROIReq.Visible = true;
                     SpanExpROI.Visible = true;
                     SpanROIFutureInvest.Visible = true;
-                    spanGoalType.Visible = true;
+                    spanGoalTypeGoalAdd.Visible = true;
                     spnInflation.Visible = true;
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
@@ -1027,12 +1029,28 @@ namespace WealthERP.FP
                 customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, false,out goalId);
 
                 //After Save Goal Is in View Mode
-                ViewState["ViewEditID"] = goalId;
+                Session["GoalId"] = goalId;
                 ShowGoalDetails();
                 ControlSetVisiblity("View");
                 BtnSetVisiblity("View");
                 trSumbitSuccess.Visible = true;
                 //TabContainer1.ActiveTabIndex = 0;
+
+                pnlModelPortfolio.Visible = true;
+                pnlModelPortfolioNoRecoredFound.Visible = false;
+
+                //GoalFunding and Progress
+                pnlFundingProgress.Visible = true;
+                pnlDocuments.Visible = true;
+                pnlMFFunding.Visible = true;
+                pnlNoRecordFoundGoalFundingProgress.Visible = false;
+                //After Goal add Funding & Progress page data reflect
+                GetGoalFundingProgress();
+                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                BindddlModelPortfolioGoalSchemes();
+                SetGoalProgressImage(goalPlanningVo.Goalcode);
 
             }
 
@@ -1196,7 +1214,7 @@ namespace WealthERP.FP
             try
             {
                 //Customer id select from AutoComplite TextBox Values
-                int GoalId = int.Parse(ViewState["ViewEditID"].ToString());
+                int GoalId = (int)Session["GoalId"];
 
                 customerGoalPlanningVo.GoalId = GoalId;
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
@@ -1262,11 +1280,18 @@ namespace WealthERP.FP
                 customerGoalPlanningBo.CreateCustomerGoalPlanning(customerGoalPlanningVo, customerAssumptionVo, customerVo.CustomerId, true, out goalId);
 
                 //After Save Goal Is in View Mode
-                ViewState["ViewEditID"] = goalId;
+                Session["GoalId"] = goalId;
                 ShowGoalDetails();
                 ControlSetVisiblity("View");
                 BtnSetVisiblity("View");
                 trUpdateSuccess.Visible = true;
+
+                GetGoalFundingProgress();
+                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                BindddlModelPortfolioGoalSchemes();
+                SetGoalProgressImage(goalPlanningVo.Goalcode);
                 
                
 
