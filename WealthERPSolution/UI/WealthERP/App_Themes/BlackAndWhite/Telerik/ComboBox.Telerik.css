@@ -102,7 +102,7 @@
 
 .RadComboBoxDropDown_Telerik
 {
-	background: #ffffff;
+	background: #D3D1D1;
 	border-color: #d1d1d1;
 	border-top-color: #8c8c8c;
 }
@@ -110,7 +110,7 @@
 .RadComboBoxDropDown_Telerik .rcbHeader,
 .RadComboBoxDropDown_Telerik .rcbFooter
 {
-	background-color: #f5f5f5;
+	background-color: #B2B2B2;
 	background-position: 0 -110px;
 }
 
@@ -131,7 +131,7 @@
 
 .RadComboBoxDropDown_Telerik .rcbHovered
 {
-	background: #dedede;
+	background: #A8A8A8;
 }
 
 .RadComboBoxDropDown_Telerik .rcbSeparator

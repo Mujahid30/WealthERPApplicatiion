@@ -208,7 +208,7 @@
 
  div.RadComboBoxDropDown_Telerik {
 
-	background-color: rgb(228, 219, 252);
+	background-color: #E4FCBF;
 
 }
 
@@ -218,7 +218,7 @@
 
 	background-repeat: repeat;
 
-	background-color: rgb(103, 74, 184);
+	background-color: #52B74B;
 
 	color: rgb(255, 255, 255);
 
@@ -226,7 +226,7 @@
 
  div.RadComboBoxDropDown_Telerik .rcbHovered {
 
-	background-color: rgb(154, 96, 212);
+	background-color: #94B264;
 
 	font-weight: bold;
 
