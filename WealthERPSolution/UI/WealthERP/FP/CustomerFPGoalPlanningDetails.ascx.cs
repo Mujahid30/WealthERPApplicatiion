@@ -86,6 +86,8 @@ namespace WealthERP.FP
         {
 
              DataTable dtGoalProfile = new DataTable();
+             DataSet dsExistingInvestment = new DataSet();
+             DataSet dsSIPInvestment=new DataSet();
 
             try
             {  
@@ -161,7 +163,7 @@ namespace WealthERP.FP
                         //drGoalProfile["CompletionPer"] = goalProfileSetupVo.GoalCompletionPercent.ToString();
                         CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
                         DataSet dsGoalFundingDetails;
-                        customerGoalFundingProgressVo = goalPlanningBo.GetGoalFundingProgressDetails(goalProfileSetupVo.GoalId,customerVo.CustomerId,advisorVo.advisorId,out dsGoalFundingDetails);
+                        customerGoalFundingProgressVo = goalPlanningBo.GetGoalFundingProgressDetails(goalProfileSetupVo.GoalId,customerVo.CustomerId,advisorVo.advisorId,out dsGoalFundingDetails,out dsExistingInvestment,out dsSIPInvestment, out goalPlanningVo);
 
                         if (customerGoalFundingProgressVo != null)
                         {
@@ -641,7 +643,8 @@ namespace WealthERP.FP
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + goalId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalSetUPPage", "loadcontrol('CustomerAdvancedGoalSetup','?GoalId=" + goalId + "&GoalAction=" + goalAction + "');", true);
                 }
             }
             else if (ddlAction.SelectedValue == "Delete")
