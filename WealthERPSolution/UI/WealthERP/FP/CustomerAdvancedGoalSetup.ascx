@@ -154,7 +154,9 @@
 </script>
 
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
- 
+ <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+      <ContentTemplate>
+
    <table width="100%">
             <tr>
                <td>
@@ -188,7 +190,7 @@
                        <%-- <asp:DropDownList ID="ddlGoalType" runat="server" AutoPostBack="True" CssClass="cmbField"
                               OnSelectedIndexChanged="ddlGoalType_SelectedIndexChanged">
                         </asp:DropDownList>--%>
-                         <telerik:radcombobox id="ddlGoalType" OnSelectedIndexChanged="ddlGoalType_OnSelectedIndexChange" CssClass="cmbField" runat="server" Width="150px"  EnableEmbeddedSkins=false skin="Telerik" allowcustomtext="true" AutoPostBack="true">    
+                         <telerik:radcombobox id="ddlGoalType" OnSelectedIndexChanged="ddlGoalType_OnSelectedIndexChange" CssClass="cmbField" runat="server" Width="150px" EnableEmbeddedSkins="false" skin="Telerik" allowcustomtext="true" AutoPostBack="true" CausesValidation="false" ValidationGroup="btnSave" onchange="Page_BlockSubmit = false;">    
                                 <Items>   
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">        
                                     </telerik:RadComboBoxItem>   
@@ -206,7 +208,9 @@
                                        
                                 </Items>
                         </telerik:radcombobox>
-                        <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>                      
+                        <span id="spanGoalType" class="spnRequiredField" runat="server">*</span>  
+                        <asp:RequiredFieldValidator ID="reqValQuestionType" runat="server" CssClass="rfvPCG" ErrorMessage="Select Goal Type" Text="Select Goal Type" Display="Dynamic" ValidationGroup="btnSave" ControlToValidate="ddlGoalType" InitialValue="Select">
+                        </asp:RequiredFieldValidator>                    
                     </td>
                 </tr>
                 
@@ -621,9 +625,9 @@
                 <tr>
                     <td>
                         <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" CausesValidation="False"
-                            OnClick="btnCancel_Click" OnClientClick="return validate()"/>
+                            OnClick="btnCancel_Click"/>
                         <asp:Button ID="btnSaveAdd" runat="server" CssClass="PCGButton" OnClick="btnSaveAdd_Click"
-                            Text="Save" ValidationGroup="btnSave" OnClientClick="return validate()" />
+                            Text="Save" ValidationGroup="btnSave"  />
                         <%--<asp:Button ID="btnNext" runat="server" CssClass="PCGMediumButton" Text="Save & Next" OnClick="btnNext_Click"
                             ValidationGroup="btnSave"  OnClientClick="return validate()"/>--%>
                         <asp:Button ID="btnBackToAddMode" runat="server" CssClass="PCGButton" Text="AddNew"
@@ -653,3 +657,6 @@
                     </td>
                 </tr>
             </table>
+            
+            </ContentTemplate>
+        </asp:UpdatePanel>
