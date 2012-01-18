@@ -108,8 +108,9 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:dd/MM/yyyy}" >
-                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataType="System.Date"
+                SortExpression="AMFMPD_AddedOn" DataFormatString="{0:d}" HtmlEncode="false">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"/>
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridBoundColumn  DataField="AMFMPD_SchemeDescription"  HeaderText="Description" UniqueName="AMFMPD_SchemeDescription">
@@ -361,6 +362,14 @@
 </table>
 <table class="TableBackground" id="tblPieChart" runat="server" width="100%">
 <tr>
+    <td>
+        <asp:Label ID="lblCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation category chart:"></asp:Label>
+    </td>
+    <td>
+        <asp:Label ID="lblSubCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation subcategory chart:"></asp:Label>
+    </td>
+</tr>
+<tr>
     <td style="width:"50%">
         <asp:Chart ID="ChartAsset" runat="server" BackColor="Transparent" 
             Height="250px" Width="450px">
@@ -437,7 +446,7 @@
         <td>
                
         <telerik:RadGrid ID="histryRadGrid" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
-            PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="False" AllowAutomaticDeletes="false" 
+            PageSize="20" AllowSorting="False" AutoGenerateColumns="False" ShowStatusBar="False" AllowAutomaticDeletes="false" 
             AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="100%">
         <MasterTableView>
             <Columns>                             
@@ -453,11 +462,13 @@
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"  />
                 </telerik:GridBoundColumn>--%>
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn" DataFormatString="{0:dd/MM/yyyy}" >
+                <telerik:GridBoundColumn  DataField="AMFMPD_AddedOn"  HeaderText="Started Date" UniqueName="AMFMPD_AddedOn"
+                SortExpression="AMFMPD_AddedOn" DataFormatString="{0:d}" HtmlEncode="False">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top"/>
                 </telerik:GridBoundColumn>                
                 
-                <telerik:GridBoundColumn  DataField="AMFMPD_RemovedOn"  HeaderText="End Date" UniqueName="AMFMPD_RemovedOn" DataFormatString="{0:dd/MM/yyyy}" >
+                <telerik:GridBoundColumn  DataField="AMFMPD_RemovedOn"  HeaderText="End Date" UniqueName="AMFMPD_RemovedOn" 
+                SortExpression="AMFMPD_RemovedOn" HtmlEncode="false">
                     <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 

@@ -72,6 +72,8 @@ namespace WealthERP.Research
 
                     Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                     //RadGrid1.DataSource = dt;
+                    lblCategoryChart.Visible = false;
+                    lblSubCategoryChart.Visible = false;
                 }
                 //tblPieChart.Visible = false;
             }
@@ -215,6 +217,9 @@ namespace WealthERP.Research
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dt.Rows[e.Item.ItemIndex].Delete();
                 Rebind();
+                tblPieChart.Visible = false;
+                lblCategoryChart.Visible = false;
+                lblSubCategoryChart.Visible = false;
             }
             catch (Exception ex)
             {
@@ -287,7 +292,8 @@ namespace WealthERP.Research
                 bindRadGrid1();
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
-                
+                bindAssetChart();
+                bindAssetChartOnSubCategory();
             }
             else if (e.CommandName == RadGrid.RebindGridCommandName && e.Item.OwnerTableView.IsItemInserted)
             {
@@ -324,7 +330,9 @@ namespace WealthERP.Research
                     //Session[SessionContents.FPS_AddProspect_DataTable] = dt;                    
                     RadGrid1.DataSource = dt;
                     RadGrid1.Rebind();
-
+                    tblPieChart.Visible = false;
+                    lblCategoryChart.Visible = false;
+                    lblSubCategoryChart.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -392,6 +400,8 @@ namespace WealthERP.Research
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];                
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
+                bindAssetChart();
+                bindAssetChartOnSubCategory();
             }
         }
 
@@ -429,6 +439,10 @@ namespace WealthERP.Research
                 LinkButton button = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
                 button.Attributes["onclick"] = "return confirm('Are you sure you want to Archive " +
                 schemeName + "?')";
+
+                //GridBoundColumn colDates =
+                //RadGrid1.Columns.FindByUniqueName("AMFMPD_AddedOn") as GridBoundColumn;
+                //colDates.DataFormatString = Convert.ToDateTime(dataItem["AMFMPD_AddedOn"].Text).ToString("MM/dd/yy");
 
             }
             if (e.Item is GridCommandItem)
@@ -753,11 +767,11 @@ namespace WealthERP.Research
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     ChartAsset.Legends.Add(legend);
-                    ChartAsset.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
-                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
-                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                    ChartAsset.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
-                    ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
+                    //ChartAsset.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
+                    //ChartAsset.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
+                    //ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                    //ChartAsset.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
+                    //ChartAsset.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
 
                     ChartArea chartArea1 = ChartAsset.ChartAreas[0];
 
@@ -815,11 +829,15 @@ namespace WealthERP.Research
                     ChartAsset.DataSource = dtAssetForGrid;
                     ChartAsset.DataBind();
                     ChartAsset.Visible = true;
+                    lblCategoryChart.Visible = true;
+                    lblSubCategoryChart.Visible = true;
                 }
                 else
                 {
                     ChartAsset.DataSource = null;
                     ChartAsset.Visible = false;
+                    lblCategoryChart.Visible = false;
+                    lblSubCategoryChart.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -857,11 +875,11 @@ namespace WealthERP.Research
                                                                           Color.Chocolate, Color.DeepPink, Color.Plum, Color.Violet, Color.Gainsboro, Color.Tomato, Color.Teal, Color.BlanchedAlmond, Color.Cornsilk};
 
                     Chart1.Legends.Add(legend);
-                    Chart1.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
-                    Chart1.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
-                    Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
-                    Chart1.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
-                    Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
+                    //Chart1.Legends["ChartAssetAllocationLegend"].Title = "Asset Allocation";
+                    //Chart1.Legends["ChartAssetAllocationLegend"].TitleAlignment = StringAlignment.Center;
+                    //Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparator = LegendSeparatorStyle.DoubleLine;
+                    //Chart1.Legends["ChartAssetAllocationLegend"].BackColor = Color.FloralWhite;
+                    //Chart1.Legends["ChartAssetAllocationLegend"].TitleSeparatorColor = Color.Black;
 
                     ChartArea chartArea1 = Chart1.ChartAreas[0];
 
@@ -918,11 +936,15 @@ namespace WealthERP.Research
                     Chart1.DataSource = dtAssetForGrid;
                     Chart1.DataBind();
                     Chart1.Visible = true;
+                    lblCategoryChart.Visible = true;
+                    lblSubCategoryChart.Visible = true;
                 }
                 else
                 {
                     Chart1.DataSource = null;
                     Chart1.Visible = false;
+                    lblCategoryChart.Visible = false;
+                    lblSubCategoryChart.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
