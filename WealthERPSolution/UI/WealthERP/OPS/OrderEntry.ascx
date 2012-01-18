@@ -21,7 +21,6 @@
     $('#ctrl_OrderEntry_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
     });
 </script>
-
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
@@ -151,7 +150,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <tr>
 <td colspan="4">
 <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit" 
-        onclick="lnkBtnEdit_Click" ></asp:LinkButton>
+        onclick="lnkBtnEdit_Click"  ></asp:LinkButton>
 </td>
 </tr>
 <tr>

@@ -57,6 +57,9 @@ namespace WealthERP.OPS
         {
             SessionBo.CheckSession();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+            orderNumber = operationBo.GetOrderNumber();
+                orderNumber = orderNumber + 1;
+            
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (Request.QueryString["action"] != null)
@@ -68,20 +71,10 @@ namespace WealthERP.OPS
             if (Session["operationVo"] != null)
             {
                 operationVo = (OperationVo)Session["operationVo"];
-            }
-            if (operationVo.OrderNumber != 0)
-            {
                 txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
                 lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
             }
-            else
-            {
-                orderNumber = operationBo.GetOrderNumber();
-                orderNumber = orderNumber + 1;
-                txtOrderDate.Text = DateTime.Now.ToShortDateString();
-                lblGetOrderNo.Text = orderNumber.ToString();
-            }
-
+           
             
 
             msgRecordStatus.Visible = false;
@@ -89,10 +82,9 @@ namespace WealthERP.OPS
             //customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             //customerId = customerVo.CustomerId;
             int bmID = rmVo.RMId;
-
-            cvAppRcvDate.ValueToCompare = DateTime.Now.ToShortDateString();
-            cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
-            cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString(); 
+            btnAddMore.Visible = false;
+            lnkBtnEdit.Visible = false;
+            
 
             if (!IsPostBack)
             {
@@ -129,9 +121,12 @@ namespace WealthERP.OPS
                  ShowHideFields(1);
                 ShowTransactionType(4);
                 btnSubmit.Visible = true;
-                
+                cvAppRcvDate.ValueToCompare = DateTime.Now.ToShortDateString();
+                cvOrderDate.ValueToCompare = DateTime.MinValue.ToShortDateString();
+                cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString();
                 btnUpdate.Visible = false;
                 BindBankName();
+                 
                 if (operationVo != null)
                 {
                     if (ViewForm == "View")
@@ -146,14 +141,21 @@ namespace WealthERP.OPS
                     {
                         SetControls("Entry", operationVo);
                     }
+                    else
+                    {
+                        cvAppRcvDate.ValueToCompare = DateTime.Now.ToShortDateString();
+                        cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
+                        cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString();
+                    }
                 }
                 else
                 {
                     SetControls("Entry", operationVo);
+                    
                 }
 
             }
-            btnAddMore.Visible = false;
+           
             
 
         }
@@ -245,6 +247,9 @@ namespace WealthERP.OPS
                     lblGetRM.Text = operationVo.RMName;
                     lblgetPan.Text = operationVo.PanNo;
                     ddltransType.SelectedValue = operationVo.TransactionCode;
+                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    
+                    lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     hdnType.Value = operationVo.TransactionCode;
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
                         ShowTransactionType(1);
@@ -331,11 +336,11 @@ namespace WealthERP.OPS
                     portfolioId = operationVo.portfolioId;
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
-                        BindFolioNumber(0);
+                        //BindFolioNumber(0);
                         if (operationVo.accountid != 0)
                             ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
-                        else
-                            ddlFolioNumber.SelectedValue = "";
+                        //else
+                        //    ddlFolioNumber.SelectedValue = "";
                     }
                     else
                     {
@@ -448,6 +453,8 @@ namespace WealthERP.OPS
                     lblgetPan.Text = operationVo.PanNo;
                     ddltransType.Enabled = false;
                     ddltransType.SelectedValue = operationVo.TransactionCode;
+                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     hdnType.Value = operationVo.TransactionCode;
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
                         ShowTransactionType(1);
@@ -542,11 +549,11 @@ namespace WealthERP.OPS
                     portfolioId = operationVo.portfolioId;
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
-                        BindFolioNumber(0);
-                        if (operationVo.accountid != 0)
-                            ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
-                        else
-                            ddlFolioNumber.SelectedValue = "";
+                        //BindFolioNumber(0);
+                        //if (operationVo.accountid != 0)
+                        //    ddlFolioNumber.SelectedValue = operationVo.accountid.ToString();
+                        //else
+                        //    ddlFolioNumber.SelectedValue = "";
                     }
                     else
                     {
@@ -642,6 +649,7 @@ namespace WealthERP.OPS
                     btnUpdate.Visible = false;
                     trReportButtons.Visible = true;
                     btnAddCustomer.Visible = false;
+                    lnkBtnEdit.Visible = true;
                 }
             }
         }
@@ -1027,7 +1035,7 @@ namespace WealthERP.OPS
                 txtFutureTrigger.Enabled = true;
                 ddlOrderStatus.Enabled = true;
                 ddlOrderPendingReason.Enabled = true;
-                txtOrderDate.Enabled = true;
+                txtOrderDate.Enabled = false;
 
                 txtAmount.Enabled = true;
                 ddlPaymentMode.Enabled = true;
@@ -1682,7 +1690,7 @@ namespace WealthERP.OPS
             if (ddlAMCList.SelectedIndex != 0)
             {
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
-                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "CAF")
+                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "CAF")
                 {
                     BindScheme(0);
                     BindFolioNumber(0);
