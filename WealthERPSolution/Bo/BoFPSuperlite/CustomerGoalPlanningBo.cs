@@ -631,12 +631,109 @@ namespace BoFPSuperlite
             }
         }
 
-        public DataTable GetGoalMFFundingDetails(int goalId, int customerId, int advisorId, out DataTable dtExistingInvestment, out CustomerAssumptionVo customerAssumptionVo, out CustomerGoalPlanningVo goalPlanningVo)
+        public CustomerGoalFundingProgressVo GetGoalFundingProgressDetails(int goalId, int customerId, int advisorId, out DataSet dsGoalFundingDetails,out DataSet dsExistingInvestment,out DataSet dsSIPInvestment, out CustomerGoalPlanningVo goalPlanningVo)
+        {
+
+            CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
+            //CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
+            CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
+            DataTable dtMFFundingDetails = new DataTable();
+            DataTable dtSIPFundingDetails = new DataTable();
+            double totalInvestedSIPamount = 0;
+            DataTable dtExistingInvestment = new DataTable();
+
+            //DataSet dsExistingInvestment = new DataSet();
+            //DataSet dsSIPInvestment = new DataSet();
+
+            double totalMFFundingInvestedAmount = 0;
+            double totalMFSIPFunding = 0;
+            double totalMFCurrentValue = 0;
+            double totalMFProjectedAmount = 0;
+            double totalMFSIPProjectedAmount = 0;
+            double totalXIRR = 0;
+
+            dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment,out dsExistingInvestment, out customerAssumptionVo, out goalPlanningVo);
+            dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount,out dsSIPInvestment, ref customerAssumptionVo);
+
+            customerGoalFundingProgressVo.WeightedReturn = (double)CalculateweightedReturn(dtMFFundingDetails, dtExistingInvestment, customerAssumptionVo);
+
+
+            foreach (DataRow dr in dtMFFundingDetails.Rows)
+            {
+                if (dr["AllocatedReturnsXIRR"].ToString() != "")
+                {
+                    totalXIRR = totalXIRR + double.Parse(dr["AllocatedReturnsXIRR"].ToString());
+                }
+                if (dr["InvestedAmount"].ToString() != "")
+                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
+
+
+                if (dr["CurrentValue"].ToString() != "")
+                {
+                    totalMFCurrentValue = totalMFCurrentValue + double.Parse(dr["CurrentValue"].ToString());
+                }
+
+                if (dr["ProjectedAmount"].ToString() != "")
+                {
+                    totalMFProjectedAmount = totalMFProjectedAmount + double.Parse(dr["ProjectedAmount"].ToString());
+                }
+                else
+                {
+                    totalMFProjectedAmount = totalMFProjectedAmount + 0;
+                }
+            }
+            foreach (DataRow dr in dtSIPFundingDetails.Rows)
+            {
+                totalMFSIPFunding = totalMFSIPFunding + double.Parse(dr["SIPInvestedAmount"].ToString());
+                if (dr["SIPProjectedAmount"].ToString() != "")
+                    totalMFSIPProjectedAmount = totalMFSIPProjectedAmount + double.Parse(dr["SIPProjectedAmount"].ToString());
+            }
+            totalMFProjectedAmount = totalMFSIPProjectedAmount + totalMFProjectedAmount;
+
+            customerGoalFundingProgressVo.GoalCurrentValue = totalMFCurrentValue;
+            customerGoalFundingProgressVo.MonthlyContribution = totalMFSIPFunding;
+            customerGoalFundingProgressVo.ProjectedValue = totalMFProjectedAmount;
+            customerGoalFundingProgressVo.AmountInvestedTillDate = totalMFFundingInvestedAmount;
+            //if (dtMFFundingDetails.Rows.Count > 0)
+            //{
+            //if (totalMFCurrentValue != 0)
+            //{
+            double returns = 0;
+            double remainingTime = 0;
+            if (customerGoalFundingProgressVo.WeightedReturn != 0)
+                returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
+            if (totalMFProjectedAmount != 0)
+                remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
+
+            int year = 0;
+            double month = 0;
+            year = (int)remainingTime;
+            month = remainingTime - year;
+            month = Math.Round((month * 12), 0);
+            customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + "-" + "Years" + "" + month + "-" + "Months";
+            double addInvestmentReq = PMT(returns, (goalPlanningVo.GoalYear - DateTime.Now.Year), 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
+            double addMonthlyInvestmentReq = PMT(returns / 12, (goalPlanningVo.GoalYear - DateTime.Now.Year) * 12, 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
+            customerGoalFundingProgressVo.AdditionalYearlyRequirement = addInvestmentReq;
+            customerGoalFundingProgressVo.AdditionalMonthlyRequirement = addMonthlyInvestmentReq;
+            customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
+            customerGoalFundingProgressVo.ReturnsXIRR = Convert.ToDecimal(totalXIRR);
+
+            //}
+            //}
+
+            dsGoalFundingDetails = new DataSet();
+            dsGoalFundingDetails.Tables.Add(dtMFFundingDetails);
+            dsGoalFundingDetails.Tables.Add(dtSIPFundingDetails);
+            return customerGoalFundingProgressVo;
+
+        }
+
+        public DataTable GetGoalMFFundingDetails(int goalId, int customerId, int advisorId, out DataTable dtExistingInvestment,out DataSet dsExistingInvestment, out CustomerAssumptionVo customerAssumptionVo, out CustomerGoalPlanningVo goalPlanningVo)
         {
 
             CustomerGoalPlanningDao customerGoalPlanningDao = new CustomerGoalPlanningDao();
             //CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
-            DataSet dsExistingInvestment = new DataSet();
+            //DataSet dsExistingInvestment = new DataSet();
 
             goalPlanningVo = customerGoalPlanningDao.GetGoalDetails(goalId);
             bool isHavingAssumption;
@@ -831,11 +928,11 @@ namespace BoFPSuperlite
         }
 
 
-        public DataTable GetGoalSIPFunding(int goalId, int customerId, out double totalInvestedSIPamount, ref CustomerAssumptionVo customerAssumptionVo)
+        public DataTable GetGoalSIPFunding(int goalId, int customerId, out double totalInvestedSIPamount, out DataSet dsSIPInvestment, ref CustomerAssumptionVo customerAssumptionVo)
         {
 
             totalInvestedSIPamount = 0;
-            DataSet dsSIPInvestment=new DataSet();
+            //DataSet dsSIPInvestment=new DataSet();
             DataTable dtCustomerGoalFundingSIPDetails = new DataTable();
             dtCustomerGoalFundingSIPDetails.Columns.Add("GoalId");
             dtCustomerGoalFundingSIPDetails.Columns.Add("SIPId");
@@ -1069,100 +1166,7 @@ namespace BoFPSuperlite
             }
             return weightedReturn;
         }
-
-        public CustomerGoalFundingProgressVo GetGoalFundingProgressDetails(int goalId, int customerId, int advisorId, out DataSet dsGoalFundingDetails)
-        {
-            
-            CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
-            CustomerGoalPlanningVo goalPlanningVo = new CustomerGoalPlanningVo();
-            CustomerAssumptionVo customerAssumptionVo = new CustomerAssumptionVo();
-            DataTable dtMFFundingDetails = new DataTable();
-            DataTable dtSIPFundingDetails = new DataTable();
-            double totalInvestedSIPamount = 0;
-            DataTable dtExistingInvestment = new DataTable();
-
-            double totalMFFundingInvestedAmount = 0;
-            double totalMFSIPFunding = 0;
-            double totalMFCurrentValue = 0;
-            double totalMFProjectedAmount = 0;
-            double totalMFSIPProjectedAmount = 0;
-            double totalXIRR = 0;
-
-            dtMFFundingDetails = GetGoalMFFundingDetails(goalId, customerId, advisorId, out dtExistingInvestment, out customerAssumptionVo,out goalPlanningVo);
-            dtSIPFundingDetails = GetGoalSIPFunding(goalId, customerId, out totalInvestedSIPamount, ref customerAssumptionVo);
-
-            customerGoalFundingProgressVo.WeightedReturn =(double)CalculateweightedReturn(dtMFFundingDetails, dtExistingInvestment, customerAssumptionVo);
-
-
-            foreach (DataRow dr in dtMFFundingDetails.Rows)
-            {
-                if (dr["AllocatedReturnsXIRR"].ToString() != "")
-                {
-                    totalXIRR = totalXIRR + double.Parse(dr["AllocatedReturnsXIRR"].ToString());
-                }
-                if (dr["InvestedAmount"].ToString() != "")
-                    totalMFFundingInvestedAmount = totalMFFundingInvestedAmount + double.Parse(dr["InvestedAmount"].ToString());
-               
-
-                if (dr["CurrentValue"].ToString() != "")
-                {
-                    totalMFCurrentValue = totalMFCurrentValue + double.Parse(dr["CurrentValue"].ToString());
-                }
-                
-                if (dr["ProjectedAmount"].ToString() != "")
-                {
-                    totalMFProjectedAmount = totalMFProjectedAmount + double.Parse(dr["ProjectedAmount"].ToString());
-                }
-                else
-                {
-                    totalMFProjectedAmount = totalMFProjectedAmount + 0;
-                }
-            }
-            foreach (DataRow dr in dtSIPFundingDetails.Rows)
-            {
-                totalMFSIPFunding = totalMFSIPFunding + double.Parse(dr["SIPInvestedAmount"].ToString());
-                if (dr["SIPProjectedAmount"].ToString() != "")
-                    totalMFSIPProjectedAmount = totalMFSIPProjectedAmount + double.Parse(dr["SIPProjectedAmount"].ToString());
-            }
-            totalMFProjectedAmount = totalMFSIPProjectedAmount + totalMFProjectedAmount;
-
-            customerGoalFundingProgressVo.GoalCurrentValue = totalMFCurrentValue;
-            customerGoalFundingProgressVo.MonthlyContribution = totalMFSIPFunding;
-            customerGoalFundingProgressVo.ProjectedValue = totalMFProjectedAmount;
-            customerGoalFundingProgressVo.AmountInvestedTillDate = totalMFFundingInvestedAmount;
-            //if (dtMFFundingDetails.Rows.Count > 0)
-            //{
-                //if (totalMFCurrentValue != 0)
-                //{
-            double returns = 0;
-            double remainingTime=0;
-            if (customerGoalFundingProgressVo.WeightedReturn != 0)
-            returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
-            if (totalMFProjectedAmount!=0)
-            remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
-
-                    int year = 0;
-                    double month = 0;
-                    year = (int)remainingTime;
-                    month = remainingTime - year;
-                    month = Math.Round((month * 12), 0);
-                    customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + "-" + "Years" + "" + month + "-" + "Months";
-                    double addInvestmentReq = PMT(returns, (goalPlanningVo.GoalYear - DateTime.Now.Year), 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
-                    double addMonthlyInvestmentReq = PMT(returns / 12, (goalPlanningVo.GoalYear - DateTime.Now.Year) * 12, 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);
-                    customerGoalFundingProgressVo.AdditionalYearlyRequirement = addInvestmentReq;
-                    customerGoalFundingProgressVo.AdditionalMonthlyRequirement = addMonthlyInvestmentReq;
-                    customerGoalFundingProgressVo.ProjectedGapValue = totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday;
-                    customerGoalFundingProgressVo.ReturnsXIRR =Convert.ToDecimal(totalXIRR);
-                    
-                //}
-            //}
-
-            dsGoalFundingDetails = new DataSet();
-            dsGoalFundingDetails.Tables.Add(dtMFFundingDetails);
-            dsGoalFundingDetails.Tables.Add(dtSIPFundingDetails);
-            return customerGoalFundingProgressVo;
- 
-        }
+              
 
         public double CalculateYearValuebasedOnFrequency(string frequencyCode, double year)
         {
