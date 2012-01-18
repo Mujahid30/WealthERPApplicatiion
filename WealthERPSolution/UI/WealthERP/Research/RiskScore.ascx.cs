@@ -971,6 +971,12 @@ namespace WealthERP.Research
                 btnSubmit.Text = "Update";
                 ViewState["QuestionId"] = QuestionId;
                 Session["GetDataForQuestionOptions"] = dsGetAdviserQuestions;
+                Session["EditOrUpdate"] = "EditOrUpdate";
+
+                tblEditForm.Visible = true;
+                tdback.Visible = true;
+                tdEditForm.Visible = true;
+                tdDelete.Visible = true;
 
                 //SetControlsToEditOrUpdate();
             }
