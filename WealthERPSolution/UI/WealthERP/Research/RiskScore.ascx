@@ -409,8 +409,7 @@
             return false;
         }
         else {
-            document.getElementById("ctrl_RiskScore_hdnDeletemsgValue").value = 0;
-            return true;
+            return false;
         }
     }
 
@@ -697,8 +696,7 @@
         </td>
         <td runat="server" id="tdDelete">
             
-            <asp:Button ID="btnDeleteQuestions" CssClass="PCGLongButton" runat="server" Text="Delete Question" 
-                onclick="btnDeleteQuestions_Click" />
+            <asp:Button ID="btnDeleteQuestions" CssClass="PCGLongButton" OnClientClick="return DeleteConfirmation()" runat="server" Text="Delete Question" />
         </td>
     </tr>
 </table>
