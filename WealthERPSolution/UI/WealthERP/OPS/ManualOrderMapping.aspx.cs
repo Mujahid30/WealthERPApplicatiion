@@ -143,7 +143,7 @@ namespace WealthERP.OPS
                         if (isUpdate == true)
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','none');", true);
+                            
                         }
                         else
                         {
@@ -154,6 +154,7 @@ namespace WealthERP.OPS
                 }
 
             }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderMIS','none');", true);
       
         }
 

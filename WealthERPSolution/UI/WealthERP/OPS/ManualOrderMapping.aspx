@@ -3,6 +3,30 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#ctrl_ManualOrderMapping_btnSubmit').bubbletip($('#div1'), { deltaDirection: 'right' });
+    });
+</script>
+
 <script type="text/javascript" language="javascript">
 
     function CheckedOnlyOneRadioButton(spanChk) {
@@ -22,12 +46,6 @@
     }
 
 </script>
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
     <div>
     <table width="100%" class="TableBackground">
 <tr>
@@ -75,7 +93,7 @@ ShowFooter="True">
 <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderText="Map Transaction">
   <ItemTemplate>
   <%--<asp:CheckBox ID="chkMapTransaction" runat="server" />--%>
-  <asp:RadioButton  ID="rbtnMatch" runat="server" Checked="true" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
+  <asp:RadioButton  ID="rbtnMatch" runat="server" onclick="javascript:CheckedOnlyOneRadioButton(this);" />
   </ItemTemplate>
   <HeaderStyle Wrap="False" />
    <ItemStyle Wrap="False" />
@@ -211,6 +229,11 @@ ShowFooter="True">
 <td colspan="6" align="left">
 <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
         onclick="btnSubmit_Click" />
+        <div id="div1" style="display: none;">
+                <p class="tip">
+                    Please check a radio button.
+                </p>
+            </div>
 </td></tr>
 </table>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
