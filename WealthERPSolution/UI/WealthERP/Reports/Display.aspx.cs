@@ -89,7 +89,7 @@ namespace WealthERP.Reports
             {
                 if (Session["ReportType"] == null)
                 {
-                    if (Request.Form["ctrl_EquityReports$btnView"] != null)
+                    if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null)
                     {
                         return ReportType.EquityReports;
                     }
@@ -138,7 +138,7 @@ namespace WealthERP.Reports
                 if (Request.QueryString["mail"] == "1")
                     isMail = "1";
             }
-            if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null)
+            if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null)
             {
                 CurrentReportType = ReportType.EquityReports;
                 ctrlPrefix = "ctrl_EquityReports$";
@@ -2660,6 +2660,14 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                         }
                         else
                         {
@@ -2679,6 +2687,14 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
 
                         }
                         else
@@ -2702,6 +2718,14 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("DateRange", "Period: " + report.FromDate.ToShortDateString() + " to " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
 
                         }
                         else
@@ -2746,6 +2770,14 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                             AssignReportViewerProperties();
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                         }
                         else
                         {
@@ -2787,6 +2819,14 @@ namespace WealthERP.Reports
 
                             AssignReportViewerProperties();
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                         }
                         else
                         {
