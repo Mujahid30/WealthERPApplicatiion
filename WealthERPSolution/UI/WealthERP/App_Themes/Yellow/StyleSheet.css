@@ -32,7 +32,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
-    color: #16518A;
+    color: #4B4726;
     vertical-align: middle;
     text-align: right;
 }
@@ -55,7 +55,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #16518A;
+    color: #4B4726;
     width: 145px;
 }
 .txtLongAddField
@@ -89,7 +89,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #16518A;
+    color: #4B4726;
     width: 150px; /*margin-left: 0px;*/
 }
 
@@ -98,7 +98,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #16518A;
+    color: #4B4726;
     width: 250px; /*margin-left: 0px;*/
 }
 
@@ -133,7 +133,7 @@ div#MainDivLeft
 {
     
     font-size: small;
-    color: #2E175F;
+    color: #4B4726;
 }
 
 .SuccessMsg
@@ -319,7 +319,7 @@ div#MainDivLeft
 {
     background: url(Images/PCG_gradient_button1.jpeg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
-    color: White;
+    color: #4B4726;
     font-size: x-small;
     font-family: Verdana,Tahoma;
     height: 22px;
@@ -332,7 +332,7 @@ div#MainDivLeft
 {
     background: url(Images/PCG_gradient_button.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
-    color: White;
+    color: #4B4726;
     font-size: x-small;
     font-family: Verdana,Tahoma;
     height: 22px;
@@ -340,35 +340,12 @@ div#MainDivLeft
     cursor: pointer;
     background-color:#FFECA3;
 }
-.PCGLongButton
-{
-    background: url(Images/PCG_gradient_button_long.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: white;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
-    height: 22px;
-    width: 165px;
-    cursor: pointer;
-    background-color:#FCDA64;
-}
-.PCGHoverLongButton
-{
-    background: url(Images/PCG_gradient_button_long_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: White;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
-    height: 22px;
-    width: 165px;
-    cursor: pointer;
-    background-color:#FFECA3;
-}
+
 .PCGMediumButton
 {
     background: url(Images/PCG_gradient_button_medium.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
-    color: White;
+    color: #4B4726;
     font-size: x-small;
     font-family: Verdana,Tahoma;
     height: 22px;
@@ -380,7 +357,7 @@ div#MainDivLeft
 {
     background: url(Images/PCG_gradient_button_medium_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
-    color: White;
+    color: #4B4726;
     font-size: x-small;
     font-family: Verdana,Tahoma;
     height: 22px;
@@ -528,7 +505,7 @@ a.aBreadCrumbCurrent
     font-family: Verdana,Tahoma;
 	font-weight:normal;
 	font-size:x-small;
-	color:#16518A;
+	color:#4B4726;
 	width:100px;
 }
 
@@ -687,7 +664,7 @@ ul.tabbernav li.tabberactive a:hover
 }
  .ajax__tab_body
   {
-      background-color: #4B4726 !important;
+      background-color: #FFECA3 !important;
   }
   
   /* AutoComplete item */
@@ -744,25 +721,25 @@ ul.tabbernav li.tabberactive a:hover
     {
         border: solid #22AA22 1px;
         color: Black;
-        background: #6B9FBF url('images/success.png') no-repeat;
+        background: #FFECA3 url('images/success.png') no-repeat;
     }
     .failure-msg
     {
         border: solid #C49292 1px;
         color: Black;
-        background: #6B9FBF url('images/warning.png') no-repeat;
+        background: #FFECA3 url('images/warning.png') no-repeat;
     }
     .warning-msg
     {
         border: solid #E6D976 1px;
         color: Black;
-        background: #6B9FBF url('images/alert.png') no-repeat;
+        background: #FFECA3 url('images/alert.png') no-repeat;
     }
     .information-msg
     {
         border: solid #3460EC 1px;
         color: Black;
-        background: #6B9FBF  url('images/information.png') no-repeat;
+        background: #FFECA3  url('images/information.png') no-repeat;
     }
     .ExortPanelpopup
     {
@@ -783,7 +760,7 @@ ul.tabbernav li.tabberactive a:hover
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size:small;
-    color: #16518A;
+    color: #4B4726;
     width: 145px;
     width: 200px;
     padding-left: 5px;
@@ -793,6 +770,7 @@ ul.tabbernav li.tabberactive a:hover
     empty-cells:hide;
     cursor:pointer;
     line-height:3px;
+    background-color : #FFF8E0;
                 
     }
 
@@ -815,7 +793,7 @@ div.panel
     font-family: Verdana,Tahoma;
     font-size: small;
     font-weight: bold;
-    color:  #16518A;
+    color:  #4B4726;
     display: none;
     padding-bottom: 0;
     padding-top: 0;
@@ -840,7 +818,7 @@ p.tip
 /* Message Info */
 .MsgInfo
 {
-    color: #055187;
+    color: #4B4726;
     font-size: x-small;
     font-family: Verdana,Tahoma;
      font-weight: 500;
@@ -877,6 +855,44 @@ p.tip
     margin: 0px;
     padding: 0px;
     width: 383px;
+}
+
+.PCGLongButton
+{
+    background: url(Images/PCG_gradient_button_long.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: #4B4726;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 165px;
+    cursor: pointer;
+    background-color:#FCDA64;
+}
+.PCGHoverLongButton
+{
+    background: url(Images/PCG_gradient_button_long_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: White;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 165px;
+    cursor: pointer;
+    background-color:#FFECA3;
+}
+
+.PCGLongLongButton
+{
+    background: url(Images/PCG_gradient_button_long.jpg) left top; /*background-repeat: no-repeat;*/
+    font-weight: bolder;
+    color: #4B4726;
+    font-size: x-small;
+    font-family: Verdana,Tahoma;
+    height: 22px;
+    width: 220px;
+    cursor: pointer;
+    background-color:#FCDA64;
 }
 
 .Collapse_header

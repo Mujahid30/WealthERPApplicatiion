@@ -2,7 +2,7 @@
 
 table.RadCalendar_Telerik
 {
-	background:#fff;
+	background:#FFFFFF;
 	color:#333;
 	font:12px "segoe ui",arial,sans-serif;
 }
@@ -12,8 +12,8 @@ table.RadCalendar_Telerik
 .RadCalendar_Telerik .rcTitlebar
 {
 	border-color:#a7bac5;
-	border-bottom-color:#3c7fb1;
-	background:#a6d9f4 0 -800px repeat-x url('Calendar/sprite.gif');
+	border-bottom-color:#F2F257;
+	background:#FCD654 0 -800px repeat-x url('Calendar/sprite.gif');
 	color:#000;
 }
 
@@ -121,13 +121,13 @@ table.RadCalendar_Telerik
 
 .RadCalendar_Telerik .rcWeek .rcViewSel
 {
-	border-bottom-color:#fff;
+	border-bottom-color:#FFECA3;
 }
 
 .RadCalendar_Telerik .rcViewSel,
 .RadCalendar_Telerik .rcRow th
 {
-	background:#e7ebf6;
+	background:#FFECA3;
 }
 
 .RadCalendar_Telerik .rcRow th
@@ -191,7 +191,7 @@ table.RadCalendar_Telerik
 {
 	border-color:#131c24;
 	border-bottom-color:#052d41;
-	background:#4e96aa 0 -999px repeat-x url('Calendar/sprite.gif');
+	background:#EDE02F 0 -999px repeat-x url('Calendar/sprite.gif');
 	color:#fff;
 }
 
@@ -269,9 +269,9 @@ table.RadCalendar_Telerik
 
 .RadCalendarMultiView_Telerik .rcMain .rcTitle
 {
-	border-color:#3c7fb1;
+	border-color:#F1F742;
 	padding:3px 0 4px;
-	background:#a6d9f4 0 -800px repeat-x url('Calendar/sprite.gif');
+	background:#0C0C05 0 -800px repeat-x url('Calendar/sprite.gif');
 	color:#000;
 }
 
@@ -302,7 +302,7 @@ table.RadCalendarMonthView_Telerik
 
 .RadCalendarMonthView_Telerik .rcHover a
 {
-	border-color:#daf2fc;
+	border-color:#ffffff;
 }
 
 .RadCalendarMonthView_Telerik .rcSelected a
@@ -375,7 +375,7 @@ table.RadCalendarTimeView_Telerik
 {
 	border-bottom:1px solid #3c7fb1;
 	padding:3px 0;
-	background:#a6d9f4 0 -800px repeat-x url('Calendar/sprite.gif');
+	background:#A6D9F4 0 -800px repeat-x url('Calendar/sprite.gif');
 	color:#000;
 	line-height:18px;
 }
@@ -419,12 +419,14 @@ table.RadCalendarTimeView_Telerik td
 .RadPicker_Telerik .rcCalPopup,
 .RadPicker_Telerik .rcTimePopup
 {
+    background-color:#FCDE74;
 	background-image:url('Calendar/sprite.gif');
 }
 
 .RadPicker_Telerik .rcCalPopup,
 .RadPicker_Telerik a.rcDisabled.rcCalPopup:hover
 {
+    background-color:#FCDE74;
 	background-position:0 -2000px;
 }
 
@@ -432,6 +434,7 @@ table.RadCalendarTimeView_Telerik td
 .RadPicker_Telerik a.rcCalPopup:focus,
 .RadPicker_Telerik a.rcCalPopup:active
 {
+    background-color:#FCDE74;
 	background-position:0 -2050px;
 }
 
@@ -531,49 +534,95 @@ table.RadCalendarTimeView_Telerik td
 }
 
 
- table.RadCalendar_Telerik .rcTitlebar {
-	background-image: none;
-	background-color: rgb(18, 76, 117);
-}
- table.RadCalendar_Telerik .rcTitlebar .rcTitle {
-	color: rgb(255, 255, 255);
-	font-weight: bold;
-}
- table.RadCalendar_Telerik {
-	background-image: none;
-}
- table.RadCalendar_Telerik .rcTitlebar .rcFastPrev {
-	background-color: transparent;
-}
- table.RadCalendar_Telerik .rcWeek th {
-	background-color: rgb(163, 211, 245);
-}
- table.RadCalendar_Telerik .rcRow th {
-	background-color: rgb(163, 211, 245);
-	color: rgb(0, 0, 0);
-}
- table.RadCalendar_Telerik .rcMain .rcRow td {
-	background-color: rgb(178, 218, 247);
-}
- table.RadCalendar_Telerik .rcMain .rcRow td.rcHover a {
-	color: rgb(64, 125, 4);
-	font-weight: bold;
-}
- table.RadCalendar_Telerik .rcMain .rcRow .rcWeekend {
-	background-color: rgb(96, 180, 240);
-	font-weight: bold;
-}
- table.RadCalendar_Telerik .rcMain .rcRow .rcWeekend a {
-	font-weight: bold;
-}
- table.RadCalendar_Telerik .rcMain .rcRow .rcToday {
-	color: rgb(57, 70, 4);
-	font-weight: bold;
-}
- table.RadCalendar_Telerik .rcMain .rcRow .rcToday a {
-	color: rgb(57, 70, 4);
-	font-weight: bold;
-}
- table.RadCalendar_Telerik .rcMain .rcRow .rcOtherMonth {
-	background-color: rgb(166, 167, 168);
-}
+ table.RadCalendar_Telerik .rcTitlebar {
+
+	background-image: none;
+
+	background-color: #FCD64C;
+
+}
+
+ table.RadCalendar_Telerik .rcTitlebar .rcTitle {
+
+	color:#493C09;
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik {
+
+	background-image: none;
+
+}
+
+ table.RadCalendar_Telerik .rcTitlebar .rcFastPrev {
+
+	background-color: transparent;
+
+}
+
+ table.RadCalendar_Telerik .rcWeek th {
+
+	background-color: #FFF1C4;
+
+}
+
+ table.RadCalendar_Telerik .rcRow th {
+
+	background-color: #FFF1C4;
+
+	color: rgb(0, 0, 0);
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow td {
+
+	background-color: #FFF1C4;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow td.rcHover a {
+
+	color: #FCD64C;
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow .rcWeekend {
+
+	background-color: #FCDE74;
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow .rcWeekend a {
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow .rcToday {
+
+	color: rgb(57, 70, 4);
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow .rcToday a {
+
+	color: rgb(57, 70, 4);
+
+	font-weight: bold;
+
+}
+
+ table.RadCalendar_Telerik .rcMain .rcRow .rcOtherMonth {
+
+	background-color: #FFFED1;
+
+}
+

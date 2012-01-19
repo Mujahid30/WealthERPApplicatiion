@@ -226,7 +226,7 @@
 
 	background-image: none;
     
-	color: rgb(255, 255, 255);
+	color: #747157;
 
 }
 
@@ -234,7 +234,7 @@
 
 
 	background-image: none;
-	color: White;
+	color: #747157;
 
 	font-weight: bold;
 
@@ -252,7 +252,7 @@
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
 
     background-image: none !important;
-	color: rgb(255, 255, 255);
+	color: #747157;
 
 }
 
@@ -260,7 +260,7 @@
 
 	background-image: none;
 
-	background-color: rgb(160, 159, 159);
+	background-color: #747157;
 
 }
 
@@ -288,7 +288,7 @@
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpSelected {
 
 	background-image: none !important;
-	color: White;
+	color: #747157;
 	font-weight: bold;
 
 }
