@@ -236,6 +236,8 @@ namespace DaoFPSuperlite
                 else
                     db.AddInParameter(updateCustomerGoalProfileCmd, "@IsGoalFundFromAsset", DbType.Int16, 0);
 
+                db.AddInParameter(updateCustomerGoalProfileCmd, "@CorpsToBeLeftBehind", DbType.Double, GoalPlanningVo.CorpusLeftBehind);
+
                 db.ExecuteNonQuery(updateCustomerGoalProfileCmd);
 
             }
