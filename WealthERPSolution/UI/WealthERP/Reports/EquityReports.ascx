@@ -8,6 +8,22 @@
     </Services>
 </asp:ScriptManager>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#ctrl_EquityReports_btnView').bubbletip($('#div1'), { deltaDirection: 'left' });
+    $('#ctrl_EquityReports_btnViewInPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
+    $('#ctrl_EquityReports_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
+    });
+</script>
+
 <script type="text/javascript" language="javascript">
     function validate(type) {
 
@@ -81,8 +97,13 @@
         window.document.forms[0].target = '_blank';
         if (type == 'mail')
             window.document.forms[0].action = "/Reports/Display.aspx?mail=1";
+        else if (type == 'pdf')
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        else if(type=='doc')
+             window.document.forms[0].action = "/Reports/Display.aspx?mail=4"; 
         else
             window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
+        
         setTimeout(function() {
             window.document.forms[0].target = '';
             window.document.forms[0].action = "";
@@ -186,13 +207,39 @@
 </style>
 <table border="0" width="100%">
     <tr>
-        <td>
+        <td colspan="2">
             <asp:Label ID="Label7" runat="server" CssClass="HeaderTextSmall" Text="Equity Reports"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2" align="right">
+         <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
+                PostBackUrl="~/Reports/Display.aspx" CssClass="CrystalButton" />&nbsp;&nbsp;
+                <div id="div1" style="display: none;">
+                <p class="tip">
+                    Click here to view equity report.
+                </p>
+            </div>
+            <%--<asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
+                PostBackUrl="~/Reports/Display.aspx?mail=1" CssClass="PCGMediumButton" />--%>
+            <asp:Button ID="btnViewInPDF" runat="server"   OnClientClick="return validate('pdf')"
+                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton"  />&nbsp;&nbsp;
+                 <div id="div2" style="display: none;">
+                <p class="tip">
+                   Click here to view equity report in pdf format.
+                </p>
+      </div>
+            <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return validate('doc')"
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
+                    <div id="div3" style="display: none;">
+                <p class="tip">
+                    Click here to view equity report in word doc.</p>
+     </div>  
+    </td>
+    </tr>
+    <tr>
+        <td colspan="2">
             <%--   <asp:RadioButton ID="rdoGroup" runat="server" Text="Group" GroupName="customer" CssClass="Field"
                 Checked="true" onClick="DisplayCustomerSelection('GROUP')" />
             <asp:RadioButton ID="rdoIndividual" runat="server" Text="Individual" GroupName="customer"
@@ -360,14 +407,15 @@
                 </ajaxToolkit:TabPanel>
             </ajaxToolkit:TabContainer>
         </td>
+
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             <table border="0" width="100%" class="tblSection" cellspacing="10">
                 <tr>
                     <td colspan="2">
@@ -410,7 +458,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             <br />
             <table border="0" width="100%" class="tblSection" cellspacing="10">
                 <tr>
@@ -515,13 +563,8 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
-                PostBackUrl="~/Reports/Display.aspx" CssClass="PCGMediumButton" />
-            &nbsp;
-            <asp:Button ID="btnMail" runat="server" Text="Email Report" OnClientClick="return validate('mail')"
-                PostBackUrl="~/Reports/Display.aspx?mail=1" CssClass="PCGMediumButton" />
-            &nbsp;
+        <td colspan="2">
+             
         </td>
     </tr>
 </table>
