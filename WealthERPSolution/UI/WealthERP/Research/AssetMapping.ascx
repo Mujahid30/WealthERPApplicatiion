@@ -28,7 +28,7 @@
       </tr>
         <tr>        
         <td>
-        <div id="divScroll" runat="server" style="height:650px; overflow:scroll">
+        <div id="divScroll" runat="server" style="height:450px; overflow:scroll">
         <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
         AllowSorting="True" AutoGenerateColumns="False" Skin="Telerik"
         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="False"
