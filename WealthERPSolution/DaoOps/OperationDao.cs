@@ -542,7 +542,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@LivingSince", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createMFOrderTrackingCmd, "@IsExecuted ", DbType.Int16, operationVo.IsExecuted);
-                if (!string.IsNullOrEmpty(operationVo.FrequencyCode.ToString().Trim()))
+                if (operationVo.FrequencyCode != null && operationVo.FrequencyCode !="" )
                     db.AddInParameter(createMFOrderTrackingCmd, "@FrequencyCode", DbType.String, operationVo.FrequencyCode);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@FrequencyCode", DbType.String, DBNull.Value);
