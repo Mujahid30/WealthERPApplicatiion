@@ -45,6 +45,13 @@ namespace VoCustomerGoalProfiling
         private double G_CurrentGoalValue;
         private double G_GoalCompletionPercent;
         private bool G_IsFundFromAsset;
+        private double G_CorpsToBeLeftBehind;
+
+        public double CorpsToBeLeftBehind
+        {
+            get { return G_CorpsToBeLeftBehind; }
+            set { G_CorpsToBeLeftBehind = value; }
+        }
 
         public bool IsFundFromAsset
         {
