@@ -138,7 +138,7 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblPieChart;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblAllocation;
         /// <summary>
         /// lblCategoryChart control.
         /// </summary>
@@ -264,5 +264,10 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid histryRadGrid;
+
+        protected global::System.Web.UI.WebControls.TextBox txtDebt;
+        protected global::System.Web.UI.WebControls.TextBox txtEquity;
+        protected global::System.Web.UI.WebControls.TextBox txtCash;
+        protected global::System.Web.UI.WebControls.TextBox txtAlternate;
     }
 }

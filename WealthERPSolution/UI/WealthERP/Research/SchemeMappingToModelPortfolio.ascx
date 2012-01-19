@@ -67,17 +67,51 @@
         </td>
     </tr>
 </table>
-<table id="tblSelectddl" runat="server" class="TableBackground" width="40%">
-<tr>
-    <td style="width:130px">
-        <asp:Label ID="lblSelectModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio:"></asp:Label>
-    </td> 
-    <td>
-        <asp:DropDownList ID="ddlSelectedMP" runat="server" CssClass="cmbField" 
-            AutoPostBack="true" onselectedindexchanged="ddlSelectedMP_SelectedIndexChanged">
-        </asp:DropDownList>
-    </td>
-</tr>
+<table id="tblSelectddl" runat="server" class="TableBackground" width="50%">
+    <tr>
+        <td style="width:130Px">
+            <asp:Label ID="lblSelectModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio:"></asp:Label>
+        </td> 
+        <td class="rightField">
+            <asp:DropDownList ID="ddlSelectedMP" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlSelectedMP_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+</table>
+<table id="tblAllocation" runat="server" class="TableBackground" width="100%" visible="false">
+    <tr>    
+        <td class="leftField">
+            <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtDebt" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblEquity" runat="server" Text="Equity Alloc:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtEquity" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>        
+    <%--</tr>
+    <tr>--%>
+        <td class="leftField">
+            <asp:Label ID="lblCash" runat="server" Text="Cash Alloc:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtCash" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblAlternate" runat="server" Text="Alternate Alloc:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtAlternate" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+    </tr>
 </table>
 <table id="tableGrid" runat="server" class="TableBackground" width="100%">
 
@@ -91,9 +125,8 @@
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="AMFMPD_Id">
         <MasterTableView CommandItemDisplay="Top" DataKeyNames="AMFMPD_Id" EditMode="PopUp">
             <Columns>
-                <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" ConfirmText="Are you sure you want to delete the Scheme?"  ShowInEditForm="true"
-                ImageUrl="../Images/Telerik/Delete.gif"
-                Text="Delete" UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" ConfirmText="Are you sure you want to delete the Scheme?"  
+                ShowInEditForm="true" Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>
                 <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn"/>--%>               
                 <telerik:GridBoundColumn  DataField="PASP_SchemePlanName"  HeaderText="Name" UniqueName="PASP_SchemePlanName" >

@@ -155,6 +155,25 @@ namespace WealthERP.Research
             }
         }
 
+        public void getAllocationPercentageFromModelPortFolio()
+        {
+            DataTable dt;
+            dt = modelPortfolioBo.getAllocationPercentageFromModelPortFolio(Convert.ToInt32(ddlSelectedMP.SelectedValue));
+
+            if (dt.Rows.Count > 0)
+            {
+                DataRow[] drArrayAllocation;
+                drArrayAllocation = new DataRow[dt.Rows.Count];
+                drArrayAllocation = dt.Select("XAMP_ModelPortfolioCode=" + Convert.ToInt32(ddlSelectedMP.SelectedValue));
+
+                txtEquity.Text = drArrayAllocation[0][3].ToString();
+                txtDebt.Text = drArrayAllocation[1][3].ToString();
+                txtCash.Text = drArrayAllocation[2][3].ToString();
+                txtAlternate.Text = drArrayAllocation[3][3].ToString();
+            }
+
+        }
+
         protected void RadGrid1_DataBound(object sender, EventArgs e)
         {
 
@@ -623,6 +642,8 @@ namespace WealthERP.Research
             bindAssetChart();
             bindAssetChartOnSubCategory();
             tblPieChart.Visible = true;
+            getAllocationPercentageFromModelPortFolio();
+            tblAllocation.Visible = true;
         }
 
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
