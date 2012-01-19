@@ -682,6 +682,10 @@ namespace DaoCustomerGoalProfiling
                         if (Convert.ToInt16(dr["CG_IsFundFromAsset"].ToString()) == 1)
                             GoalProfileVo.IsFundFromAsset = true;
                     }
+                    if (!string.IsNullOrEmpty(dr["CG_CorpusLeftBehind"].ToString()))
+                    {
+                        GoalProfileVo.CorpsToBeLeftBehind = Convert.ToDouble(dr["CG_CorpusLeftBehind"].ToString());
+                    }
 
                    
                                         
