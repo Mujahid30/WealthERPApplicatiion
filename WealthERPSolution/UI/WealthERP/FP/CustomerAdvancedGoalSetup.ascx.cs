@@ -208,20 +208,43 @@ namespace WealthERP.FP
         {
             if (goalCode == "RT")
             {
-                trCustomerAge.Visible = true;
-                trSpouseAge.Visible = true;
-                trRetirementAge.Visible = true;
-                trCustomerEOL.Visible = true;
-                trSpouseEOL.Visible = true;
-                trPostRetirementReturns.Visible = true;
-                trReturnOnNewInvestments.Visible = true;
+                tdCustomerAge1.Visible = true;
+                tdCustomerAge2.Visible = true;
+
+                tdSpouseAge1.Visible = true;
+                tdSpouseAge2.Visible = true;
+
+                tdRetirementAge1.Visible = true;
+                tdRetirementAge2.Visible = true;
+
+                tdCustomerEOL1.Visible = true;
+                tdCustomerEOL2.Visible = true;
+
+                tdSpouseEOL1.Visible = true;
+                tdSpouseEOL2.Visible = true;
+
+                tdPostRetirementReturns1.Visible = true;
+                tdPostRetirementReturns2.Visible = true;
+
+                //trReturnOnNewInvestments.Visible = true;
                 trCorpusToBeLeftBehind.Visible = true;
+
+               
+                //*****************Blank Table Cell**********************
+                //tdMFBasedBlank.Visible = true;
+                tdExistingInvestBlank.Visible = true;
+                tdReturnOnExistingInvestBlank.Visible = true;
+                tdReturnOnFutureInvestBlank.Visible = true;
+                //tdROIFutureInvestBlank.Visible = true;
+                //tdReturnOnNewInvestBlank.Visible = true;
+                tdCorpusToBeLeftBehindBlank.Visible = true;
+                tdCommentBlank.Visible = true;
 
 
                 //trExistingInvestmentAllocated.Visible = false;
                 //trReturnOnExistingInvestmentAll.Visible = false;
-                trReturnOnFutureInvest.Visible = false;
-                trROIFutureInvestment.Visible = false;
+                //trReturnOnFutureInvest.Visible = false;
+                //trROIFutureInvestment.Visible = false;
 
                 txtCustomerAge.Text = customerAssumptionVo.CustomerAge.ToString();
                 txtSpouseAge.Text = customerAssumptionVo.SpouseAge.ToString();
@@ -229,24 +252,58 @@ namespace WealthERP.FP
                 txtCustomerEOL.Text = customerAssumptionVo.CustomerEOL.ToString();
                 txtSpouseEOL.Text = customerAssumptionVo.SpouseEOL.ToString();
                 txtPostRetirementReturns.Text = customerAssumptionVo.PostRetirementReturn.ToString();
-                txtReturnOnNewInvestments.Text = customerAssumptionVo.WeightedReturn.ToString();
+                //txtExpRateOfReturn.Text = customerAssumptionVo.WeightedReturn.ToString();
+
+                txtCustomerAge.Enabled = false;
+                txtSpouseAge.Enabled = false;
+                txtRetirementAge.Enabled = false;
+                txtCustomerEOL.Enabled = false;
+                txtSpouseEOL.Enabled = false;
+                txtPostRetirementReturns.Enabled = false;
 
             }
             else
             {
-                trCustomerAge.Visible = false;
-                trSpouseAge.Visible = false;
-                trRetirementAge.Visible = false;
-                trCustomerEOL.Visible = false;
-                trSpouseEOL.Visible = false;
-                trPostRetirementReturns.Visible = false;
-                trReturnOnNewInvestments.Visible = false;
+                tdCustomerAge1.Visible = false;
+                tdCustomerAge2.Visible = false;
+
+                tdSpouseAge1.Visible = false;
+                tdSpouseAge2.Visible = false;
+
+                tdRetirementAge1.Visible = false;
+                tdRetirementAge2.Visible = false;
+
+                tdCustomerEOL1.Visible = false;
+                tdCustomerEOL2.Visible = false;
+
+                tdSpouseEOL1.Visible = false;
+                tdSpouseEOL2.Visible = false;
+
+                tdPostRetirementReturns1.Visible = false;
+                tdPostRetirementReturns2.Visible = false;
+
+                //trReturnOnNewInvestments.Visible = false;
+
+                trCorpusToBeLeftBehind.Visible = false;
+
+                //*****************Blank Table Cell**********************
+                //tdMFBasedBlank.Visible = false;
+                tdExistingInvestBlank.Visible = false;
+                tdReturnOnExistingInvestBlank.Visible = false;
+                tdReturnOnFutureInvestBlank.Visible = false;
+                //tdROIFutureInvestBlank.Visible = false;
+                //tdReturnOnNewInvestBlank.Visible = false;
+                tdCorpusToBeLeftBehindBlank.Visible = false;
+                tdCommentBlank.Visible = false;
+
+
+                //trReturnOnNewInvestments.Visible = false;
                 trCorpusToBeLeftBehind.Visible = false;
 
 
                 //trExistingInvestmentAllocated.Visible = true;
                 //trReturnOnExistingInvestmentAll.Visible = true;
-                trReturnOnFutureInvest.Visible = true;
+                //trReturnOnFutureInvest.Visible = true;
                 //trROIFutureInvestment.Visible = true;
 
 
@@ -289,7 +346,7 @@ namespace WealthERP.FP
             //lblGoalDescription.Visible = false;
             //txtGoalDescription.Visible = false;
             //trGoalDesc.Visible = false;
-            RequiredFieldValidator6.Visible = false;
+            //RequiredFieldValidator6.Visible = false;
             //ddlPickChild.Visible = false;
             //lblPickChild.Visible = false;
             trPickChild.Visible = false;
@@ -304,14 +361,14 @@ namespace WealthERP.FP
 
             //lblApproveOn.Visible = false;
             trlblApproveOn.Visible = false;
-
+           
 
             //lblROIFutureInvest.Visible = false;
             //txtROIFutureInvest.Visible = false;
             //SpanROIFutureInvest.Visible = false;
             //RangeValidator2.Visible = false;
             //RequiredFieldValidator6.Visible = false;
-            trROIFutureInvestment.Visible = false;
+            //trROIFutureInvestment.Visible = false;
             //txtInflation.Text = ViewState["InflationPer"].ToString();
             btnEdit.Visible = false;
             btnUpdate.Visible = false;
@@ -333,7 +390,8 @@ namespace WealthERP.FP
                 txtAboveRateOfInterst.Enabled = false;
                 txtExpRateOfReturn.Enabled = false;
                 txtExpRateOfReturn.Enabled = false;
-                txtROIFutureInvest.Enabled = false;
+                //txtROIFutureInvest.Enabled = false;
+                txtCorpusToBeLeftBehind.Enabled = false;
                 txtInflation.Enabled = false;
                 txtComment.Enabled = false;
                 txtGoalDescription.Enabled = false;
@@ -346,11 +404,12 @@ namespace WealthERP.FP
                 //SpanCurrInPurReq.Visible = false;
                 //SpanAboveROIReq.Visible = false;
                 SpanExpROI.Visible = false;
-                SpanROIFutureInvest.Visible = false;
+                //SpanROIFutureInvest.Visible = false;
                 spanGoalTypeGoalAdd.Visible = false;
                 spnInflation.Visible = false;
                 SpanCurrInvestmentAllocated.Visible = false;
                 SpanReturnOnExistingInvestment.Visible = false;
+                spnCorpsToBeLeftBehind.Visible = false;
 
                 lblGoalbjective.Text = "Goal Type :";
                 lblPickChild.Text = "Child Name :";
@@ -376,12 +435,12 @@ namespace WealthERP.FP
                     txtAboveRateOfInterst.Enabled = true;
                     txtExpRateOfReturn.Enabled = true;
                     txtExpRateOfReturn.Enabled = true;
-                    txtROIFutureInvest.Enabled = true;
+                    //txtROIFutureInvest.Enabled = true;
                     txtInflation.Enabled = true;
                     txtComment.Enabled = true;
                     rdoMFBasedGoalYes.Enabled = true;
                     rdoMFBasedGoalNo.Enabled = true;
-
+                    txtCorpusToBeLeftBehind.Enabled = true;
 
                     //SpanPicCustomerReq.Visible = true;
                     SpanGoalDateReq.Visible = true;
@@ -390,11 +449,12 @@ namespace WealthERP.FP
                     //SpanCurrInPurReq.Visible = true;
                     //SpanAboveROIReq.Visible = true;
                     SpanExpROI.Visible = true;
-                    SpanROIFutureInvest.Visible = true;
+                    //SpanROIFutureInvest.Visible = true;
                     spanGoalTypeGoalAdd.Visible = true;
                     spnInflation.Visible = true;
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
+                    spnCorpsToBeLeftBehind.Visible = true;
 
                     lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
@@ -419,12 +479,12 @@ namespace WealthERP.FP
                     txtAboveRateOfInterst.Enabled = true;
                     txtExpRateOfReturn.Enabled = true;
                     txtExpRateOfReturn.Enabled = true;
-                    txtROIFutureInvest.Enabled = true;
+                    //txtROIFutureInvest.Enabled = true;
                     txtInflation.Enabled = true;
                     txtComment.Enabled = true;
                     rdoMFBasedGoalYes.Enabled = true;
                     rdoMFBasedGoalNo.Enabled = true;
-
+                    txtCorpusToBeLeftBehind.Enabled = true;
 
                     //SpanPicCustomerReq.Visible = true;
                     SpanGoalDateReq.Visible = true;
@@ -433,11 +493,12 @@ namespace WealthERP.FP
                     //SpanCurrInPurReq.Visible = true;
                     //SpanAboveROIReq.Visible = true;
                     SpanExpROI.Visible = true;
-                    SpanROIFutureInvest.Visible = true;
+                    //SpanROIFutureInvest.Visible = true;
                     spanGoalTypeGoalAdd.Visible = true;
                     spnInflation.Visible = true;
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
+                    spnCorpsToBeLeftBehind.Visible = true;
 
                     lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
@@ -503,6 +564,11 @@ namespace WealthERP.FP
                 trUpdateSuccess.Visible = false;
             if (trSumbitSuccess.Visible == true)
                 trSumbitSuccess.Visible = false;
+
+            txtCorpusToBeLeftBehind.Text = "0";
+            txtExpRateOfReturn.Text = "0";
+
+            
             if (action == "AddNew")
             {
                 //lblHeader.Text = "Goal Profile";
@@ -510,18 +576,18 @@ namespace WealthERP.FP
                 lblPickChild.Text = "Select a child for Goal planning :";
                 lblGoalCostToday.Text = "Goal Cost Today :";
                 ddlGoalType.SelectedIndex = 0;
-
+               
                 //trGoalDesc.Visible = false;
                 txtGoalDate.Text = DateTime.Now.ToShortDateString();
-
+                
                 trPickChild.Visible = false;
                 txtGoalCostToday.Text = "";
                 ddlGoalYear.SelectedIndex = 0;
                 txtCurrentInvestPurpose.Text = "0";
                 txtAboveRateOfInterst.Text = "0";
-                txtExpRateOfReturn.Text = "0";
+                //txtExpRateOfReturn.Text = "0";
                 txtInflation.Text = "0";
-                trROIFutureInvestment.Visible = false;
+                //trROIFutureInvestment.Visible = false;
                 txtComment.Text = "";
                 txtGoalDescription.Text = string.Empty;
                 //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
@@ -539,6 +605,28 @@ namespace WealthERP.FP
                 trExistingInvestmentAllocated.Visible=true;
                 trReturnOnExistingInvestmentAll.Visible = true;
                 rdoMFBasedGoalYes.Checked = false;
+
+                
+                trCorpusToBeLeftBehind.Visible = false;
+
+                tdCustomerAge1.Visible = false;
+                tdCustomerAge2.Visible = false;
+
+                tdSpouseAge1.Visible = false;
+                tdSpouseAge2.Visible = false;
+
+                tdRetirementAge1.Visible = false;
+                tdRetirementAge2.Visible = false;
+
+                tdCustomerEOL1.Visible = false;
+                tdCustomerEOL2.Visible = false;
+
+                tdSpouseEOL1.Visible = false;
+                tdSpouseEOL2.Visible = false;
+
+                tdPostRetirementReturns1.Visible = false;
+                tdPostRetirementReturns2.Visible = false;
+
                
             }
             else if (action=="Cancel")
@@ -555,9 +643,10 @@ namespace WealthERP.FP
                 txtCurrentInvestPurpose.Text = "0";
                 txtAboveRateOfInterst.Text = "0";
                 txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
-                trROIFutureInvestment.Visible = false;
-                txtROIFutureInvest.Text = "";
-
+                //trROIFutureInvestment.Visible = false;
+                //txtROIFutureInvest.Text = "";
+                if (txtCorpusToBeLeftBehind.Visible==true)
+                txtCorpusToBeLeftBehind.Text = "0";
                 txtComment.Text = "";
                 txtGoalDescription.Text = string.Empty;
                 //double ExpROI = (Double)GoalSetupBo.GetExpectedROI(int.Parse(Session["FP_UserID"].ToString()));
@@ -592,7 +681,7 @@ namespace WealthERP.FP
 
                     //trGoalDesc.Visible = false;
 
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
 
                     trPickChild.Visible = false;
 
@@ -613,7 +702,7 @@ namespace WealthERP.FP
                     //trGoalDesc.Visible = false;
 
 
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
@@ -638,7 +727,7 @@ namespace WealthERP.FP
                     txtAboveRateOfInterst.Text = "0";
 
 
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
 
                     BindPickChildDropDown(customerVo.CustomerId);
                     //TabContainer1.ActiveTabIndex = 0;
@@ -673,7 +762,7 @@ namespace WealthERP.FP
                     lblGoalCostToday.Text = "Goal Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
 
                     //TabContainer1.ActiveTabIndex = 0;
 
@@ -729,7 +818,7 @@ namespace WealthERP.FP
                     //lblROIFutureInvest.Visible = false;
                     //txtROIFutureInvest.Visible = false;
                     //RequiredFieldValidator6.Visible = false;
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
 
                     //lblPickChild.Visible = false;
                     //ddlPickChild.Visible = false;
@@ -776,7 +865,7 @@ namespace WealthERP.FP
                     //lblROIFutureInvest.Visible = false;
                     //txtROIFutureInvest.Visible = false;
                     //RequiredFieldValidator6.Visible = false;
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     BindPickChildDropDown(customerVo.CustomerId);
@@ -822,7 +911,7 @@ namespace WealthERP.FP
                     //lblROIFutureInvest.Visible = false;
                     //txtROIFutureInvest.Visible = false;
                     //RequiredFieldValidator6.Visible = false;
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     //ListItem lstPickChild2 = new ListItem(goalProfileSetupVo.ChildName);
@@ -869,7 +958,7 @@ namespace WealthERP.FP
                     //lblROIFutureInvest.Visible = false;
                     //txtROIFutureInvest.Visible = false;
                     //RequiredFieldValidator6.Visible = false;
-                    trROIFutureInvestment.Visible = false;
+                    //trROIFutureInvestment.Visible = false;
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     BindPickChildDropDown(customerVo.CustomerId);
@@ -912,10 +1001,10 @@ namespace WealthERP.FP
                     //lblROIFutureInvest.Visible = true;
                     //txtROIFutureInvest.Visible = true;
                     //RequiredFieldValidator6.Visible = true;
-                    trROIFutureInvestment.Visible = true;
+                    //trROIFutureInvestment.Visible = true;
 
                     lblGoalYear.Text = "Goal Year :";
-                    lblGoalCostToday.Text = "Annual Requirment Today :";
+                    lblGoalCostToday.Text = "Monthly Requirment Today :";
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
@@ -924,8 +1013,11 @@ namespace WealthERP.FP
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
-                    txtROIFutureInvest.Text = goalProfileSetupVo.RateofInterestOnFture.ToString();
+                    //txtROIFutureInvest.Text = goalProfileSetupVo.RateofInterestOnFture.ToString();
                     txtComment.Text = goalProfileSetupVo.Comments;
+                    if (goalProfileSetupVo.CorpsToBeLeftBehind != 0)
+                        txtCorpusToBeLeftBehind.Text = goalProfileSetupVo.CorpsToBeLeftBehind.ToString();
+
                     if (goalProfileSetupVo.CustomerApprovedOn != DateTime.MinValue)
                     {
                         //lblApproveOn.Visible = true;
@@ -1049,7 +1141,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
-                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtReturnOnNewInvestments.Text);
+                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
@@ -1167,7 +1259,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
-                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtReturnOnNewInvestments.Text);
+                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
@@ -1251,9 +1343,9 @@ namespace WealthERP.FP
             try
             {
                 //Customer id select from AutoComplite TextBox Values
-                int GoalId = (int)Session["GoalId"];
+                //int GoalId = (int)Session["GoalId"];
 
-                customerGoalPlanningVo.GoalId = GoalId;
+                customerGoalPlanningVo.GoalId = goalId;
                 customerGoalPlanningVo.CustomerId = customerVo.CustomerId;
                 customerGoalPlanningVo.Goalcode = ddlGoalType.SelectedValue.ToString();
                 customerGoalPlanningVo.CostOfGoalToday = double.Parse(txtGoalCostToday.Text.Trim());
@@ -1277,7 +1369,7 @@ namespace WealthERP.FP
 
                 if (!string.IsNullOrEmpty(txtAboveRateOfInterst.Text.Trim()))
                     customerGoalPlanningVo.ROIEarned = double.Parse(txtAboveRateOfInterst.Text.Trim());
-                customerGoalPlanningVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text);
+                customerGoalPlanningVo.ExpectedROI = double.Parse(txtExpRateOfReturn.Text.Trim());
                 if (!string.IsNullOrEmpty(txtInflation.Text))
                 {
                     customerGoalPlanningVo.InflationPercent = double.Parse(txtInflation.Text);
@@ -1305,7 +1397,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
-                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtReturnOnNewInvestments.Text);
+                    customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
                     if (!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))

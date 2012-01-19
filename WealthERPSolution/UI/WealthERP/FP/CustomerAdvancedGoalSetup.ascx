@@ -21,92 +21,6 @@
        
     }
 
-
-
-
-
-
-    //
-    function SetROI() {
-        if (document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value > 0)
-            document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value = "8.5";
-
-    };
-
-
-    function validate() {        
-        var goalCost = document.getElementById("<%=txtGoalCostToday.ClientID %>").value;
-        var RetirementCorps = "-";
-        if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") != null)
-            RetirementCorps = document.getElementById("<%=txtROIFutureInvest.ClientID %>").value;
-
-
-
-//        if (parseInt(CurrentInvestPurpose) == 0 && parseInt(aboveRateOfInterest) > 0) {
-//            alert("Fill correct investment amount")
-//            return false;
-        //        }
-        if (document.getElementById('<%=ddlGoalType.ClientID %>').value == "0") {
-            alert("Please Select a Goal")
-            document.getElementById('<%=ddlGoalType.ClientID %>').focus();
-            return false;
-        }
-
-//        if (document.getElementById("<%=txtROIFutureInvest.ClientID %>") == "") {
-//            alert("Retirement Corpus(%) cannot be empty.")
-//            return false;
-//        }
-
-        if (document.getElementById('<%=txtInflation.ClientID %>').value == "") {
-            alert("Inflation(%) cannot be empty.")
-            document.getElementById('<%=txtInflation.ClientID %>').focus();
-            return false;
-        }
-
-        if ((document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').value == "0") && (document.getElementById('<%=txtAboveRateOfInterst.ClientID %>').value > "0")) {
-            alert("You can not expect return when your existing allocated amount is not sufficient");
-            document.getElementById('<%=txtCurrentInvestPurpose.ClientID %>').focus();
-            return false;
-        }
-
-        if (document.getElementById('<%=txtExpRateOfReturn.ClientID %>').value == "") {
-            alert("Expected Rate of Return on new investment(%) cannot be empty.")
-            document.getElementById('<%=txtExpRateOfReturn.ClientID %>').focus();
-            return false;
-        }
-
-        if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "") {
-            alert("Cost today cannot be empty.")
-            document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
-            return false;
-        }
-        else if (document.getElementById('<%=txtGoalCostToday.ClientID %>').value == "0") {
-            alert("Cost today cannot be 0.")
-            document.getElementById('<%=txtGoalCostToday.ClientID %>').focus();
-            return false;
-        }
-        if (RetirementCorps == "") {
-
-            alert("Retirement Corpus(%) cannot be empty.")
-            return false;
-        }
-        else if (parseInt(RetirementCorps) == 0) {
-            alert("Return on retirement corpus(%) should be greater than 0 ")
-            return false;
-        }
-
-
-
-
-        if (goalCost == "") {
-            document.getElementById("<%=txtGoalCostToday.ClientID %>").focus();
-            alert("Please enter Goal Cost Today");
-            return false;
-        }
-        else
-            return true;
-
-    }
  
     function checkDate(sender, args) {
 
@@ -123,34 +37,7 @@
         }
     };
 
-
-
-    function onCALShown() {
-        var cal = $find("calendar1");
-
-        //Setting the default mode to month
-
-        cal._switchMode("years", true);
-
-
-        //Iterate every month Item and attach click event to it
-
-    };
-
-    //Numeric Test
-    function IsNumeric() //  check for valid numeric strings
-    {
-        alert("here");
-        var Stringvalue = document.getElementById("<%= txtGoalCostToday.ClientID %>").value;
-        if (!/\D/.test(Stringvalue)) return true; //IF NUMBER
-        else if (/^\d+\.\d+$/.test(Stringvalue)) return true; //IF A DECIMAL NUMBER HAVING AN INTEGER ON EITHER SIDE OF THE DOT(.)
-        alert("Warning! - Must be a Number or Numeric value");
-    };
-   
-   
-    
-    
-    
+  
 </script>
 
  <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
@@ -232,6 +119,20 @@
                         <asp:RequiredFieldValidator ID="reqValQuestionType" runat="server" CssClass="rfvPCG" ErrorMessage="Select Goal Type" Text="Select Goal Type" Display="Dynamic" ValidationGroup="btnSave" ControlToValidate="ddlGoalType" InitialValue="Select">
                         </asp:RequiredFieldValidator>                    
                     </td>
+                    
+                    <td class="leftField" id="tdCustomerAge1" runat="server">
+                        <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Customer Age :"></asp:Label>
+                    </td>
+                    <td class="rightField" id="tdCustomerAge2" runat="server">
+                        <asp:TextBox ID="txtCustomerAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span8" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator12"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
+                            MinimumValue="18" MaximumValue="150" ControlToValidate="txtCustomerAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator16" runat="server" ControlToValidate="txtCustomerAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 
                 <tr>
@@ -247,6 +148,20 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtGoalDate"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please select a Date"></asp:RequiredFieldValidator>
                     </td>
+                    
+                    <td class="leftField" id="tdSpouseAge1" runat="server">
+                        <asp:Label ID="lblSpouseAge" runat="server" CssClass="FieldName" Text="Spouse Age :"></asp:Label>
+                    </td>
+                    <td class="rightField" id="tdSpouseAge2" runat="server">
+                        <asp:TextBox ID="txtSpouseAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                        <span id="Span7" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator11"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
+                            MinimumValue="0" MaximumValue="150" ControlToValidate="txtSpouseAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator15" runat="server" ControlToValidate="txtSpouseAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
                 </tr>
                 
                 <tr id="trGoalDesc" runat="server">
@@ -255,6 +170,20 @@
                     </td>
                     <td id="Td333444" class="rightField" runat="server">
                         <asp:TextBox ID="txtGoalDescription" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    
+                    <td class="leftField" id="tdRetirementAge1" runat="server">
+                        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Retirement Age :"></asp:Label>
+                    </td>
+                    <td class="rightField" id="tdRetirementAge2" runat="server">
+                        <asp:TextBox ID="txtRetirementAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField" ></asp:TextBox>
+                        <span id="Span6" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator10"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 65"
+                            MinimumValue="30" MaximumValue="65" ControlToValidate="txtRetirementAge" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtRetirementAge"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 
@@ -266,6 +195,11 @@
                         <asp:DropDownList ID="ddlPickChild" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
+                    
+                    <td id="tdPickChildBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                   </td>
+                  
                 </tr>
                 
                 <tr>
@@ -287,6 +221,21 @@
                             ControlToValidate="txtGoalCostToday" runat="server"></asp:RangeValidator>
                          
                     </td>
+                    
+                    <td class="leftField" id="tdCustomerEOL1" runat="server">
+                        <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Customer EOL :"></asp:Label>
+                    </td>
+                    <td class="rightField" id="tdCustomerEOL2" runat="server">
+                        <asp:TextBox ID="txtCustomerEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField" ></asp:TextBox>
+                        <span id="Span5" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator9"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
+                            MinimumValue="30" MaximumValue="150" ControlToValidate="txtCustomerEOL" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCustomerEOL"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                   
                 </tr>
                 
                 <tr>
@@ -363,6 +312,21 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlGoalYear"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please Select Goal Year"></asp:RequiredFieldValidator>
                     </td>
+                    
+                    <td class="leftField" id="tdSpouseEOL1" runat="server">
+                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
+                    </td>
+                    <td class="rightField"  id="tdSpouseEOL2" runat="server">
+                        <asp:TextBox ID="txtSpouseEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField" ></asp:TextBox>
+                        <span id="Span4" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <asp:RangeValidator ID="RangeValidator8"  Display="Dynamic" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
+                            MinimumValue="0" MaximumValue="150" ControlToValidate="txtSpouseEOL" 
+                            runat="server"></asp:RangeValidator>
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtSpouseEOL"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
+                    </td>
+                  
                 </tr>
                 
                 <tr>                
@@ -370,14 +334,33 @@
                 <asp:Label ID="lblUseMFBasedGoal" runat="server" CssClass="FieldName" Text="Use MF Based Goal Planning:"></asp:Label>
                 </td>                
                   <td class="rightField">
-                <asp:RadioButton ID="rdoMFBasedGoalYes" Text="Yes" runat="server" GroupName="YesNo" 
-                        Class="cmbField" 
-                        oncheckedchanged="rdoMFBasedGoalYes_CheckedChanged"  AutoPostBack="True"/>              
-                <asp:RadioButton ID="rdoMFBasedGoalNo" Text="No" runat="server" GroupName="YesNo"  
-                        Class="cmbField" Checked="True"
-                        oncheckedchanged="rdoMFBasedGoalNo_CheckedChanged"  AutoPostBack="True"/>  
+                    <asp:RadioButton ID="rdoMFBasedGoalYes" Text="Yes" runat="server" GroupName="YesNo" 
+                            Class="cmbField" 
+                            oncheckedchanged="rdoMFBasedGoalYes_CheckedChanged"  AutoPostBack="True"/>              
+                    <asp:RadioButton ID="rdoMFBasedGoalNo" Text="No" runat="server" GroupName="YesNo"  
+                            Class="cmbField" Checked="True"
+                            oncheckedchanged="rdoMFBasedGoalNo_CheckedChanged"  AutoPostBack="True"/>  
                 
                 </td>
+                
+                  <td class="leftField" id="tdPostRetirementReturns1" runat="server">
+                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Post Retirement Returns(%) :"></asp:Label>
+                    </td>
+                  <td class="rightField"  id="tdPostRetirementReturns2" runat="server">
+                        <asp:TextBox ID="txtPostRetirementReturns" runat="server" AutoCompleteType="Disabled" CssClass="txtField" ></asp:TextBox>
+                        <span id="Span1" class="spnRequiredField" runat="server" visible="false">*</span>                           
+                        <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" TargetControlID="txtPostRetirementReturns"
+                                            FilterType="Custom, Numbers" ValidChars=".">
+                        </ajaxToolkit:FilteredTextBoxExtender>
+                        <asp:RangeValidator ID="RangeValidator5"  Display="Dynamic" CssClass="rfvPCG"
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
+                            MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtPostRetirementReturns" 
+                            runat="server"></asp:RangeValidator>
+                            
+                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPostRetirementReturns"
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                 
                 </tr>
                 
                 <tr id="trExistingInvestmentAllocated" runat="server">
@@ -393,6 +376,10 @@
                         <span id="SpanCurrInvestmentAllocated" class="spnRequiredField" runat="server">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCurrentInvestPurpose"
                             CssClass="txtField" ValidationGroup="btnSave" ErrorMessage="Please enter some amount"></asp:RequiredFieldValidator>
+                    </td>
+                    
+                    <td id="tdExistingInvestBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
                     </td>
                 </tr>                              
                 
@@ -412,6 +399,10 @@
                             ControlToValidate="txtAboveRateOfInterst" runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4"    Display="Dynamic" runat="server" ControlToValidate="txtAboveRateOfInterst"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                    
+                    <td id="tdReturnOnExistingInvestBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
                     </td>
                 </tr>
                 
@@ -433,9 +424,13 @@
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtExpRateOfReturn"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
+                    
+                    <td id="tdReturnOnFutureInvestBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                    </td>
                 </tr>
                 
-                <tr id="trROIFutureInvestment" runat="server">
+                <%--<tr id="trROIFutureInvestment" runat="server">
                     <td id="Td6" class="leftField" runat="server">
                         <asp:Label ID="lblROIFutureInvest" runat="server" CssClass="FieldName" Text="Return on retirement corpus(%) :"></asp:Label>
                     </td>
@@ -455,87 +450,13 @@
                             runat="server"></asp:RangeValidator>
                       
                     </td>
-                </tr>               
+                    
+                    <td id="tdROIFutureInvestBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                    </td>
+                </tr> --%>              
                 
-                <tr id="trCustomerAge" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Customer Age :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtCustomerAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span8" class="spnRequiredField" runat="server">*</span>                           
-                        <asp:RangeValidator ID="RangeValidator12"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
-                            MinimumValue="18" MaximumValue="150" ControlToValidate="txtCustomerAge" 
-                            runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator16" runat="server" ControlToValidate="txtCustomerAge"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                
-                <tr id="trSpouseAge" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="lblSpouseAge" runat="server" CssClass="FieldName" Text="Spouse Age :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtSpouseAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span7" class="spnRequiredField" runat="server">*</span>                           
-                        <asp:RangeValidator ID="RangeValidator11"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 18 to 150"
-                            MinimumValue="0" MaximumValue="150" ControlToValidate="txtSpouseAge" 
-                            runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator15" runat="server" ControlToValidate="txtSpouseAge"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                
-                <tr id="trRetirementAge" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Retirement Age :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtRetirementAge" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span6" class="spnRequiredField" runat="server">*</span>                           
-                        <asp:RangeValidator ID="RangeValidator10"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 65"
-                            MinimumValue="30" MaximumValue="65" ControlToValidate="txtRetirementAge" 
-                            runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtRetirementAge"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                
-                <tr id="trCustomerEOL" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Customer EOL :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtCustomerEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span5" class="spnRequiredField" runat="server">*</span>                           
-                        <asp:RangeValidator ID="RangeValidator9"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
-                            MinimumValue="30" MaximumValue="150" ControlToValidate="txtCustomerEOL" 
-                            runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator13" runat="server" ControlToValidate="txtCustomerEOL"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                
-                <tr id="trSpouseEOL" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Spouse EOL :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtSpouseEOL" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span4" class="spnRequiredField" runat="server">*</span>                           
-                        <asp:RangeValidator ID="RangeValidator8"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should be between 30 to 150"
-                            MinimumValue="0" MaximumValue="150" ControlToValidate="txtSpouseEOL" 
-                            runat="server"></asp:RangeValidator>
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtSpouseEOL"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr>
+               
                 
                 <tr>
                     <td class="leftField">
@@ -552,29 +473,14 @@
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
+                    
+                    <td id="tdInflationBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                    </td>
                 </tr>                                
                
-                <tr id="trPostRetirementReturns" runat="server">
-                    <td class="leftField">
-                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Post Retirement Returns(%) :"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtPostRetirementReturns" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span1" class="spnRequiredField" runat="server">*</span>                           
-                        <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" Enabled="True" TargetControlID="txtPostRetirementReturns"
-                                            FilterType="Custom, Numbers" ValidChars=".">
-                        </ajaxToolkit:FilteredTextBoxExtender>
-                        <asp:RangeValidator ID="RangeValidator5"  Display="Dynamic" CssClass="rfvPCG"
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 100"
-                            MinimumValue="0.000000001" MaximumValue="100" ControlToValidate="txtPostRetirementReturns" 
-                            runat="server"></asp:RangeValidator>
-                            
-                        <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtPostRetirementReturns"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
-                    </td>
-                </tr> 
-                
-                <tr id="trReturnOnNewInvestments" runat="server">
+                               
+                <%--<tr id="trReturnOnNewInvestments" runat="server">
                     <td class="leftField">
                         <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Return On New Investments(%) :"></asp:Label>
                     </td>
@@ -592,7 +498,11 @@
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtReturnOnNewInvestments"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
                     </td>
-                </tr> 
+                    
+                    <td id="tdReturnOnNewInvestBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                    </td>
+                </tr> --%>
                 
                 <tr id="trCorpusToBeLeftBehind" runat="server">
                     <td class="leftField">
@@ -600,16 +510,20 @@
                     </td>
                     <td class="rightField">
                         <asp:TextBox ID="txtCorpusToBeLeftBehind" runat="server" AutoCompleteType="Disabled" CssClass="txtField"></asp:TextBox>
-                        <span id="Span3" class="spnRequiredField" runat="server">*</span>                           
+                        <span id="spnCorpsToBeLeftBehind" class="spnRequiredField" runat="server">*</span>                           
                         <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" Enabled="True" TargetControlID="txtCorpusToBeLeftBehind"
                                             FilterType="Custom, Numbers" ValidChars=".">
                         </ajaxToolkit:FilteredTextBoxExtender>
                         <asp:RangeValidator ID="RangeValidator7"  Display="Dynamic" CssClass="rfvPCG"
                             SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be in between 0 and 9999999999"
-                            MinimumValue="0" MaximumValue="9999999999" ControlToValidate="txtReturnOnNewInvestments" 
+                            MinimumValue="0" MaximumValue="9999999999" ControlToValidate="txtCorpusToBeLeftBehind" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtCorpusToBeLeftBehind"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                    </td>
+                    
+                    <td id="tdCorpusToBeLeftBehindBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
                     </td>
                 </tr> 
                 
@@ -621,6 +535,12 @@
                         <asp:TextBox ID="txtComment" runat="server" AutoCompleteType="Disabled" CssClass="txtField"
                             TextMode="MultiLine" ></asp:TextBox>
                     </td>
+                    
+                    <td id="tdCommentBlank" runat="server" colspan="2">
+                     &nbsp;&nbsp;&nbsp
+                    </td>
+                    
+                    
                 </tr>
                 
             </table>               

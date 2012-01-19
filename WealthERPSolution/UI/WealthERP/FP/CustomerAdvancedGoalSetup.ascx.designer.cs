@@ -644,13 +644,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
         
         /// <summary>
-        /// trCustomerAge control.
+        /// tdCustomerAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerAge;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAge1;
+
+        /// <summary>
+        /// tdCustomerAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerAge2;
         
         /// <summary>
         /// Label3 control.
@@ -698,13 +707,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator16;
         
         /// <summary>
-        /// trSpouseAge control.
+        /// tdSpouseAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSpouseAge;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSpouseAge1;
+
+        /// <summary>
+        /// tdSpouseAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSpouseAge2;
         
         /// <summary>
         /// lblSpouseAge control.
@@ -752,13 +770,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator15;
         
         /// <summary>
-        /// trRetirementAge control.
+        /// tdRetirementAge1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRetirementAge;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRetirementAge1;
+
+        // <summary>
+        /// tdRetirementAge2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdRetirementAge2;
         
         /// <summary>
         /// Label5 control.
@@ -806,13 +833,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator14;
         
         /// <summary>
-        /// trCustomerEOL control.
+        /// tdCustomerEOL1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCustomerEOL;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerEOL1;
+
+        /// <summary>
+        /// tdCustomerEOL2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCustomerEOL2;
         
         /// <summary>
         /// Label6 control.
@@ -860,13 +896,23 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator13;
         
         /// <summary>
-        /// trSpouseEOL control.
+        /// tdSpouseEOL1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSpouseEOL;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSpouseEOL1;
+
+        /// <summary>
+        /// tdSpouseEOL2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdSpouseEOL2;
+        
         
         /// <summary>
         /// Label7 control.
@@ -959,13 +1005,22 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
         
         /// <summary>
-        /// trPostRetirementReturns control.
+        /// tdPostRetirementReturns1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPostRetirementReturns;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdPostRetirementReturns1;
+
+        /// <summary>
+        /// tdPostRetirementReturns2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdPostRetirementReturns2;
         
         /// <summary>
         /// Label8 control.
@@ -1848,5 +1903,88 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlModelPortfolioNoRecoredFound;
+
+
+        /// <summary>
+        /// tdPickChildBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdPickChildBlank;
+
+        /// <summary>
+        /// tdExistingInvestBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdExistingInvestBlank;
+
+        /// <summary>
+        /// tdReturnOnExistingInvestBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdReturnOnExistingInvestBlank;
+
+        /// <summary>
+        /// tdReturnOnFutureInvestBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdReturnOnFutureInvestBlank;
+
+        /// <summary>
+        /// tdROIFutureInvestBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdROIFutureInvestBlank;
+
+        /// <summary>
+        /// tdReturnOnNewInvestBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdReturnOnNewInvestBlank;
+
+        /// <summary>
+        /// tdCorpusToBeLeftBehindBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCorpusToBeLeftBehindBlank;
+
+        /// <summary>
+        /// tdCommentBlank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdCommentBlank;
+
+        /// <summary>
+        /// spnCorpsToBeLeftBehind control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnCorpsToBeLeftBehind;
+
     }
 }
