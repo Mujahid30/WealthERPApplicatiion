@@ -722,7 +722,7 @@
     <asp:Image ID="imgGoalImage" ImageAlign="Left" runat="server" />
     <span id="span9" class="spnRequiredField" runat="server">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
     
-    <asp:Label id="lblGoalStatus" Text="Is Goal Deficiency?:" CssClass="FieldName" runat="server"></asp:Label>
+    <asp:Label id="lblGoalStatus" Text="Goal Achievable ?:" CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
      <asp:Image ID="imgGoalFundIndicator" ImageAlign="Left" runat="server" />
