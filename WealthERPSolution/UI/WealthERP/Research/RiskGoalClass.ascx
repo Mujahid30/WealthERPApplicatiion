@@ -36,7 +36,7 @@
         </td>
         <td>
              <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" PageSize="20" 
-             AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false" 
+             AllowSorting="False" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false" 
              OnItemDataBound="RadGrid1_ItemDataBound" OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand"
              OnInsertCommand="RadGrid1_InsertCommand" OnDeleteCommand="RadGrid1_DeleteCommand" 
              AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XRC_RiskClassCode" Width="100%">
