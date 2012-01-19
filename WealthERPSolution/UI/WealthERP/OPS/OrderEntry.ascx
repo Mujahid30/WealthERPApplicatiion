@@ -146,6 +146,15 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
         </td>
        </tr>
        </table>
+        <table width="100%">
+        <tr>
+        <td align="center">
+            <div id="msgUpdate" runat="server" class="success-msg" align="center" visible="false">
+                Order updated Successfully
+            </div>
+        </td>
+       </tr>
+       </table>
 <table width="100%">
 <tr>
 <td colspan="4">
@@ -154,11 +163,11 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 </td>
 </tr>
 <tr>
-  <td align="right" valign="top">
+  <td align="right" valign="top" width="20%">
 <asp:Label ID="lblAssetType" runat="server" Text="Asset Type: "  CssClass="FieldName"></asp:Label><br />
-<asp:Label ID="lblBranch" runat="server" Text="Branch: "  CssClass="FieldName"></asp:Label>
+
 </td>
-  <td valign="top">
+  <td valign="top" width="20%">
   <asp:Label ID="lblShowAssetType" runat="server" Text="Mutual Fund"  CssClass="FieldName"></asp:Label><br />
 <%--    <asp:DropDownList ID="ddlAssetType" runat="server" CssClass="cmbField" 
           AutoPostBack="true" onselectedindexchanged="ddlAssetType_SelectedIndexChanged">
@@ -169,32 +178,19 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
         <asp:ListItem Text="Loan Application" Value="Loan Application"></asp:ListItem>
         <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
      </asp:DropDownList>--%>
-     <asp:Label ID="lblGetBranch" runat="server" Text=""  CssClass="FieldName"></asp:Label>
+     
   </td>
   <td align="right" valign="top">
   <asp:Label ID="lblCustomer" runat="server" Text="Customer: "  CssClass="FieldName"></asp:Label>
   </td>
   <td align="left">
-    <%--
-   <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" 
-          AutoPostBack="true"  AutoComplete="Off"></asp:TextBox>
-           <asp:RequiredFieldValidator ID="rvcustomerName" ControlToValidate="txtCustomerName"
-                                         CssClass="rfvPCG" ErrorMessage="<br />Please select a customer" Display="Dynamic"
-                                            runat="server" InitialValue="" ValidationGroup="MFSubmit">
-                                  </asp:RequiredFieldValidator>
-     <cc1:TextBoxWatermarkExtender ID="txtCustomerName_water" TargetControlID="txtCustomerName" WatermarkText="Enter few chars of Customer"
-     runat="server" EnableViewState="false">
-     </cc1:TextBoxWatermarkExtender>
-     <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
-     TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-     MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
-      CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-     CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-     UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" Enabled="True"  />
-     <span style='font-size: 10px; font-weight: normal' class='FieldName'><br />
-     Enter few characters of Customer. </span>--%>
      <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off" AutoPostBack="True">
-     </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
+     </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" 
+          CssClass="PCGMediumButton" CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','M');"
+                
+          onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','M');" 
+          onclick="btnAddCustomer_Click" /> 
      <ajaxToolkit:AutoCompleteExtender ID="txtCustomerName_autoCompleteExtender" runat="server"
      TargetControlID="txtCustomerName" ServiceMethod="GetCustomerName" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
      MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
@@ -209,24 +205,14 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
        CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
       
     </td>
-    <td>
-    <asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" 
-          CssClass="PCGMediumButton" CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','M');"
-                
-          onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','M');" 
-          onclick="btnAddCustomer_Click" />   
-    </td>
 </tr>
 <tr>
- 
-  <td align="right">
-  <asp:Label ID="lblPan" runat="server" Text="PAN No: "  CssClass="FieldName"></asp:Label>
-  <%-- <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" 
-          onselectedindexchanged="ddlBranch_SelectedIndexChanged"></asp:DropDownList>--%>
-  </td>
-  <td>
-  <asp:Label ID="lblgetPan" runat="server" Text=""  CssClass="FieldName"></asp:Label>
-  </td>
+ <td align="right" width="20%">
+ <asp:Label ID="lblBranch" runat="server" Text="Branch: "  CssClass="FieldName"></asp:Label>
+ </td>
+<td width="20%">
+<asp:Label ID="lblGetBranch" runat="server" Text=""  CssClass="FieldName"></asp:Label>
+</td>
   <td align="right">
   <asp:Label ID="lblRM" runat="server" Text="RM: "  CssClass="FieldName"></asp:Label>
   </td>
@@ -236,11 +222,13 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   </td>
 </tr>
 <tr>
-<td align="right">
-  
+  <td align="right" width="20%">
+  <asp:Label ID="lblPan" runat="server" Text="PAN No: "  CssClass="FieldName"></asp:Label>
+  <%-- <asp:DropDownList ID="ddlBranch" runat="server" CssClass="cmbField" 
+          onselectedindexchanged="ddlBranch_SelectedIndexChanged"></asp:DropDownList>--%>
   </td>
-   <td>
-  
+  <td width="20%">
+  <asp:Label ID="lblgetPan" runat="server" Text=""  CssClass="FieldName"></asp:Label>
   </td>
   <td colspan="2"></td>
 </tr>
@@ -358,7 +346,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 </tr>
 
 <tr id="trSectionTwo6" runat="server">
-  <td align="right">
+  <td align="right" valign="top">
   <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: "  CssClass="FieldName"></asp:Label>
   </td>
   <td>

@@ -154,7 +154,7 @@ namespace WealthERP.OPS
                 }
 
             }
-           
+            msgUpdate.Visible = false;
             
 
         }
@@ -589,6 +589,7 @@ namespace WealthERP.OPS
                     txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     ddlOrderStatus.SelectedValue = operationVo.StatusCode;
+                    BindRejectStatus(operationVo.StatusCode);
                     if (operationVo.StatusCode == "OMEX" || operationVo.StatusCode == "OMIP")
                     {
                         lblOrderPendingReason.Visible = false;
@@ -778,7 +779,7 @@ namespace WealthERP.OPS
                 {
                     amcCode = int.Parse(ddlAMCList.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
-                    if (txtCustomerId.Value == "")
+                    if (Sflag == 0)
                         dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0);
                     else
                         dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
@@ -1262,6 +1263,7 @@ namespace WealthERP.OPS
             CleanAllFields();
             lblGetOrderNo.Text = "";
             txtOrderDate.Text = "";
+            btnSubmit.Visible = false;
             btnUpdate.Visible = false;
             lnkBtnEdit.Visible = false;
             btnAddMore.Visible = true;
@@ -1964,6 +1966,7 @@ namespace WealthERP.OPS
             operationVo.Country = ddlCorrAdrCountry.SelectedValue;
 
             operationBo.UpdateOrderTracking(operationVo);
+            msgUpdate.Visible = true;
             btnSubmit.Enabled = false;
             btnUpdate.Enabled = true;
             trReportButtons.Visible = true;
