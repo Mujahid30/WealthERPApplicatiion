@@ -88,10 +88,12 @@ namespace WealthERP.FP
                 if (Request.QueryString["goalAction"] != null)
                     goalAction = Request.QueryString["goalAction"];
                 Session["GoalId"] = goalId;
+                Session["GoalAction"] = goalAction;
                 if (Session["GoalId"] != null)
                 {
                     goalId = (int)Session["GoalId"];
                 }  
+
 
                 if (goalId == 0 && string.IsNullOrEmpty(goalAction.Trim()))
                 {
@@ -161,6 +163,9 @@ namespace WealthERP.FP
             if (Session["GoalId"] != null)
                 goalId = (int)Session["GoalId"];
 
+            if(Session["GoalAction"]!=null)
+                goalAction=(string)Session["GoalAction"];
+
             //if(ViewState["ViewEditID"]!=null)
             //    goalId=Convert.ToInt32(ViewState["ViewEditID"].ToString());
 
@@ -171,6 +176,29 @@ namespace WealthERP.FP
             //RadTab t1 = new RadTab();
             //RadMultiPage m1 = new RadMultiPage();
             //m1.SelectedIndex = t1.SelectedIndex;
+            //if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
+            //{
+            //    RadTabStripFPGoalDetails.SelectedIndex = 0;
+            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            //    CustomerFPGoalDetail.SelectedIndex = 0;
+
+            //}
+            //else if (goalAction == "Fund")
+            //{
+            //    //RadTabStripFPGoalDetails.TabIndex = 1;
+            //    RadTabStripFPGoalDetails.SelectedIndex = 1;
+            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
+            //    CustomerFPGoalDetail.SelectedIndex = 1;
+                
+            //    //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
+            //}
+            TabSelectionBasedOnGoalAction();
+
+
+        }
+
+        protected void TabSelectionBasedOnGoalAction()
+        {
             if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
             {
                 RadTabStripFPGoalDetails.SelectedIndex = 0;
@@ -184,10 +212,9 @@ namespace WealthERP.FP
                 RadTabStripFPGoalDetails.SelectedIndex = 1;
                 RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
                 CustomerFPGoalDetail.SelectedIndex = 1;
-                
-                //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
-            }
 
+               //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
+            }
         }
 
  //***********************GOAL FUNDING AND PROGRESS SECTION******************************//
@@ -380,7 +407,7 @@ namespace WealthERP.FP
                     //SpanAboveROIReq.Visible = true;
                     SpanExpROI.Visible = true;
                     SpanROIFutureInvest.Visible = true;
-                    spanGoalType.Visible = true;
+                    spanGoalTypeGoalAdd.Visible = true;
                     spnInflation.Visible = true;
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
@@ -697,6 +724,7 @@ namespace WealthERP.FP
 
             }
 
+            txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
 
             switch (goalProfileSetupVo.Goalcode)
             {
@@ -855,8 +883,7 @@ namespace WealthERP.FP
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     BindPickChildDropDown(customerVo.CustomerId);
                     ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
-                    ddlPickChild.Enabled = false;
-                    txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
+                    ddlPickChild.Enabled = false;                    
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
