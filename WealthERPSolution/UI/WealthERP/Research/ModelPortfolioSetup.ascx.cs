@@ -489,7 +489,7 @@ namespace WealthERP.Research
                     modelPortfolioVo.ROR = RORPer;
                     modelPortfolioVo.RiskPercentage = riskPer;
 
-                    modelPortfolioBo.CreateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
+                    modelPortfolioBo.UpdateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
                     bindRadGrid1();                    
                 }
                 else
@@ -557,7 +557,7 @@ namespace WealthERP.Research
                 TextBox txtPortfolioName = (TextBox)editform.FindControl("txtPortfolioName");
                 HtmlTableRow trRiskClassDdl = (HtmlTableRow)editform.FindControl("trRiskClassDdl");
                 HtmlTableRow trRiskClassTxt = (HtmlTableRow)editform.FindControl("trRiskClassTxt");
-                HtmlTableRow trAddNamePortfolio = (HtmlTableRow)editform.FindControl("trAddNamePortfolio");
+                //HtmlTableRow trAddNamePortfolio = (HtmlTableRow)editform.FindControl("trAddNamePortfolio");
                 //HtmlTableRow trEditNamePortfolio = (HtmlTableRow)editform.FindControl("trEditNamePortfolio");
                 
                 if (e.Item.RowIndex == -1)
@@ -581,7 +581,7 @@ namespace WealthERP.Research
                 {
                     trRiskClassDdl.Visible = false;
                     trRiskClassTxt.Visible = true;
-                    txtNamePortfolio.Enabled = false;
+                    //txtNamePortfolio.Enabled = false;
                     //txtPortfolioName.Enabled = false;
                     //trAddNamePortfolio.Visible = true;
                     //trEditNamePortfolio.Visible = true;

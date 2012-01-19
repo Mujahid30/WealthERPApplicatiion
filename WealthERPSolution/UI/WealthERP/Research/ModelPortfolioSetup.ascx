@@ -122,7 +122,7 @@
                             </asp:RequiredFieldValidator>
                             </td>
                         </tr>
-                        <tr id="trEditNamePortfolio" runat="server" visible="false">
+                        <%--<tr id="trEditNamePortfolio" runat="server" visible="false">
                             <td class="leftField">
                                 <asp:Label ID="lblPortfolioName" runat="server" Text="Portfolio Name :" CssClass="FieldName"></asp:Label>
                             </td>
@@ -130,7 +130,7 @@
                                 <asp:TextBox ID="txtPortfolioName" CssClass="txtField" Text='<%# Bind( "XAMP_ModelPortfolioName") %>' runat="server">
                                 </asp:TextBox>                               
                             </td>
-                        </tr>  
+                        </tr> --%> 
                         <tr id="trRiskClassDdl" runat="server">
                             <td class="leftField">
                                 <asp:Label ID="lblPickClass" runat="server" Text="Risk/Goal class :" CssClass="FieldName"></asp:Label>

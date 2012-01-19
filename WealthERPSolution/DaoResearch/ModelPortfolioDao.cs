@@ -779,6 +779,59 @@ namespace DaoResearch
             return bResult;
         }
 
+        public bool UpdateVariantAssetPortfolio(ModelPortfolioVo modelPortfolioVo, int adviserId, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand AttachedVariantCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AttachedVariantCmd = db.GetStoredProcCommand("SP_UpdateVariantAssetToModelPortfolio");
+                db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(AttachedVariantCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);
+                db.AddInParameter(AttachedVariantCmd, "@PortfolioName", DbType.String, modelPortfolioVo.PortfolioName);
+                db.AddInParameter(AttachedVariantCmd, "@MinAge", DbType.Int32, modelPortfolioVo.MinAge);
+                db.AddInParameter(AttachedVariantCmd, "@MaxAge", DbType.Int32, modelPortfolioVo.MaxAge);
+                db.AddInParameter(AttachedVariantCmd, "@MinTimeHorizon", DbType.Int32, modelPortfolioVo.MinTimeHorizon);
+                db.AddInParameter(AttachedVariantCmd, "@MaxTimeHorizon", DbType.Int32, modelPortfolioVo.MaxTimeHorizon);
+                db.AddInParameter(AttachedVariantCmd, "@MinAUM", DbType.Double, modelPortfolioVo.MinAUM);
+                db.AddInParameter(AttachedVariantCmd, "@MaxAUM", DbType.Double, modelPortfolioVo.MaxAUM);
+                db.AddInParameter(AttachedVariantCmd, "@VariantDescription", DbType.String, modelPortfolioVo.VariantDescription);
+                db.AddInParameter(AttachedVariantCmd, "@RiskClassCode", DbType.String, modelPortfolioVo.RiskClassCode);
+
+                db.AddInParameter(AttachedVariantCmd, "@CashAllocation", DbType.Decimal, modelPortfolioVo.CashAllocation);
+                db.AddInParameter(AttachedVariantCmd, "@DebtAllocation", DbType.Decimal, modelPortfolioVo.DebtAllocation);
+                db.AddInParameter(AttachedVariantCmd, "@EquityAllocation", DbType.Decimal, modelPortfolioVo.EquityAllocation);
+                db.AddInParameter(AttachedVariantCmd, "@AlternateAllocation", DbType.Decimal, modelPortfolioVo.AlternateAllocation);
+
+                db.AddInParameter(AttachedVariantCmd, "@ROR", DbType.Decimal, modelPortfolioVo.ROR);
+                db.AddInParameter(AttachedVariantCmd, "@RiskPercentage", DbType.Decimal, modelPortfolioVo.RiskPercentage);
+
+                db.AddInParameter(AttachedVariantCmd, "@userId", DbType.Int32, userId);
+                if (db.ExecuteNonQuery(AttachedVariantCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioDao.cs:UpdateVariantAssetPortfolio()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
         public DataSet GetVariantAssetPortfolioDetails(int advisorId)
         {            
             DataSet ds;

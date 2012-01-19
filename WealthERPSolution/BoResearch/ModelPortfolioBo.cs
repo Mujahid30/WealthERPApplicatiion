@@ -596,6 +596,37 @@ namespace BoResearch
             return bResult;
         }
 
+        public bool UpdateVariantAssetPortfolio(ModelPortfolioVo modelPortfolioVo, int adviserId, int userId)
+        {
+            bool bResult = false;
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+                bResult = modelPortfolioDao.UpdateVariantAssetPortfolio(modelPortfolioVo, adviserId, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioBo.cs:UpdateVariantAssetPortfolio()");
+
+                object[] objects = new object[2];
+                objects[0] = modelPortfolioVo;
+                objects[1] = adviserId;
+                objects[2] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }        
 
         public DataSet GetVariantAssetPortfolioDetails(int advisorId)
         {
