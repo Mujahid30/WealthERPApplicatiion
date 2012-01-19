@@ -365,12 +365,11 @@
                     </td>
                 </tr>
                 
-                <tr>
-                <td class="leftField">
+                <tr>                
+                  <td class="leftField">
                 <asp:Label ID="lblUseMFBasedGoal" runat="server" CssClass="FieldName" Text="Use MF Based Goal Planning:"></asp:Label>
-                </td>
-                
-                <td class="rightField">
+                </td>                
+                  <td class="rightField">
                 <asp:RadioButton ID="rdoMFBasedGoalYes" Text="Yes" runat="server" GroupName="YesNo" 
                         Class="cmbField" 
                         oncheckedchanged="rdoMFBasedGoalYes_CheckedChanged"  AutoPostBack="True"/>              

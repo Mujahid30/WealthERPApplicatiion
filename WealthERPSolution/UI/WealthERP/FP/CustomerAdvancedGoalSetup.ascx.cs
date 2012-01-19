@@ -172,26 +172,7 @@ namespace WealthERP.FP
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
-
-            //RadTab t1 = new RadTab();
-            //RadMultiPage m1 = new RadMultiPage();
-            //m1.SelectedIndex = t1.SelectedIndex;
-            //if (goalAction == "View" || goalAction == "Edit" || string.IsNullOrEmpty(goalAction.Trim()))
-            //{
-            //    RadTabStripFPGoalDetails.SelectedIndex = 0;
-            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-            //    CustomerFPGoalDetail.SelectedIndex = 0;
-
-            //}
-            //else if (goalAction == "Fund")
-            //{
-            //    //RadTabStripFPGoalDetails.TabIndex = 1;
-            //    RadTabStripFPGoalDetails.SelectedIndex = 1;
-            //    RadTabStripFPGoalDetails.SelectedTab.Enabled = true;
-            //    CustomerFPGoalDetail.SelectedIndex = 1;
-                
-            //    //RadTabStripFPGoalDetails.SelectedTab = RadTabStripFPGoalDetails.Tabs[1];
-            //}
+            //Current Tab Selection Retain            
             TabSelectionBasedOnGoalAction();
 
 
@@ -374,6 +355,9 @@ namespace WealthERP.FP
                 lblGoalbjective.Text = "Goal Type :";
                 lblPickChild.Text = "Child Name :";
 
+                lblNoteHeading.Visible = false;
+                lblNote.Visible = false;
+                trRequiedNote.Visible = false;
 
 
             }
@@ -412,9 +396,8 @@ namespace WealthERP.FP
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
 
-                    //lblHeader.Visible = true;
+                    lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
-                    //lblReqNote.Visible = true;
                     trRequiedNote.Visible = true;
                     //lblHeader.Text = "Goal Profile ";
                     //lblPickCustomer.Text = "Pick a Customer :";
@@ -456,9 +439,8 @@ namespace WealthERP.FP
                     SpanCurrInvestmentAllocated.Visible = true;
                     SpanReturnOnExistingInvestment.Visible = true;
 
-                    //lblHeader.Visible = true;
+                    lblNoteHeading.Visible = true;
                     lblNote.Visible = true;
-                    //lblReqNote.Visible = true;
                     trRequiedNote.Visible = true;
                     //lblHeader.Text = "Goal Profile ";
                     //lblPickCustomer.Text = "Pick a Customer :";
@@ -517,6 +499,10 @@ namespace WealthERP.FP
 
         public void SetPageLoadState(string action)
         {
+            if (trUpdateSuccess.Visible == true)
+                trUpdateSuccess.Visible = false;
+            if (trSumbitSuccess.Visible == true)
+                trSumbitSuccess.Visible = false;
             if (action == "AddNew")
             {
                 //lblHeader.Text = "Goal Profile";
@@ -544,12 +530,16 @@ namespace WealthERP.FP
                 chkApprove.Checked = false;
                 trlblApproveOn.Visible = false;
                 trchkApprove.Visible = true;
-                //lblHeader.Visible = true;
+
+                lblNoteHeading.Visible = true;
                 lblNote.Visible = true;
                 trRequiedNote.Visible = true;
 
-
-
+                rdoMFBasedGoalNo.Checked = true;
+                trExistingInvestmentAllocated.Visible=true;
+                trReturnOnExistingInvestmentAll.Visible = true;
+                rdoMFBasedGoalYes.Checked = false;
+               
             }
             else if (action=="Cancel")
             {
@@ -702,9 +692,10 @@ namespace WealthERP.FP
             customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(customerVo.CustomerId, advisorVo.advisorId, out isHavingAssumption);
             goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(customerVo.CustomerId, goalId);
             //BtnSetVisiblity("View");
-            lblNote.Visible = false;
-            //lblReqNote.Visible = false;
+            lblNoteHeading.Visible = false;
+            lblNote.Visible = false;            
             trRequiedNote.Visible = false;
+
             //lblHeader.Text = "Goal Details";
             if (goalProfileSetupVo.IsFundFromAsset == true)
             {
@@ -965,6 +956,8 @@ namespace WealthERP.FP
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             SetPageLoadState("Cancel");
+            goalAction = "Edit";
+            Session["GoalAction"] = goalAction;
             
         }
 
@@ -974,7 +967,18 @@ namespace WealthERP.FP
             BtnSetVisiblity("Add");
             ControlSetVisiblity("Add");
             SetPageLoadState("AddNew");
+            goalAction = "Add";
+            Session["GoalAction"] = goalAction;
+            
+            //Add Goal State
+            pnlModelPortfolio.Visible = false;
+            pnlModelPortfolioNoRecoredFound.Visible = true;
 
+            //GoalFunding and Progress
+            pnlFundingProgress.Visible = false;
+            pnlDocuments.Visible = false;
+            pnlMFFunding.Visible = false;
+            pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
         }
 
@@ -1079,6 +1083,9 @@ namespace WealthERP.FP
                 BindddlModelPortfolioGoalSchemes();
                 SetGoalProgressImage(goalPlanningVo.Goalcode);
 
+                goalAction = "View";
+                Session["GoalAction"] = goalAction;
+             
             }
 
             catch (BaseApplicationException Ex)
@@ -1234,6 +1241,9 @@ namespace WealthERP.FP
             if (chkApprove.Enabled == false)
                 chkApprove.Enabled = true;
 
+            goalAction = "Edit";
+            Session["GoalAction"] = goalAction;
+
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -1319,8 +1329,9 @@ namespace WealthERP.FP
                 ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                 BindddlModelPortfolioGoalSchemes();
                 SetGoalProgressImage(goalPlanningVo.Goalcode);
-                
-               
+
+                goalAction = "View";
+                Session["GoalAction"] = goalAction;
 
 
             }
@@ -1357,6 +1368,8 @@ namespace WealthERP.FP
                 BtnSetVisiblity("View");
                 lblGoalbjective.Text = "Goal Objective :";
             }
+            goalAction = "View";
+            Session["GoalAction"] = goalAction;
         }
 
         protected void rdoMFBasedGoalNo_CheckedChanged(object sender, EventArgs e)
@@ -1632,6 +1645,7 @@ namespace WealthERP.FP
 
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
+
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
@@ -1674,6 +1688,9 @@ namespace WealthERP.FP
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
                 }
 
+                goalAction = "Fund";
+                Session["GoalAction"] = goalAction;
+                
 
         }
 
@@ -1706,6 +1723,9 @@ namespace WealthERP.FP
                 ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                 SetGoalProgressImage(goalPlanningVo.Goalcode);
             }
+
+            goalAction = "Fund";
+            Session["GoalAction"] = goalAction;
 
         }
 
