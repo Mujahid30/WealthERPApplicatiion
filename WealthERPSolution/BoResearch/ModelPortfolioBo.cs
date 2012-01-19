@@ -207,6 +207,38 @@ namespace BoResearch
             return dtAttachedScheme;
         }
 
+
+        public DataTable getAllocationPercentageFromModelPortFolio(int modelPortfolioCode)
+        {
+            DataTable dtAttachedScheme;
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+                dtAttachedScheme = modelPortfolioDao.getAllocationPercentageFromModelPortFolio(modelPortfolioCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ModelPortfolioBo.cs:getAllocationPercentageFromModelPortFolio()");
+
+                object[] objects = new object[1];
+                objects[0] = modelPortfolioCode;
+                //objects[1] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAttachedScheme;
+        }
+
         public void DeleteModelPortfolioRecords(int AMPTBValueId)
         {
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
