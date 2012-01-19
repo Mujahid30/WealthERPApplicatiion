@@ -62,7 +62,7 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                   <asp:TemplateField HeaderText="Action">
+                   <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">
                         <ItemTemplate>
                            <%-- <asp:DropDownList ID="ddlAction" CssClass="cmbField" AutoPostBack="true" runat="server">
                             <asp:ListItem>Select</asp:ListItem>
@@ -72,7 +72,7 @@
                             <asp:ListItem>Delete</asp:ListItem>
                             </asp:DropDownList>--%>
                            
-                         <telerik:radcombobox id="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange" CssClass="cmbField" runat="server" EnableEmbeddedSkins=false skin="Telerik" allowcustomtext="true" Width="130px" AutoPostBack="true">    
+                         <telerik:radcombobox id="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange" CssClass="cmbField" runat="server" EnableEmbeddedSkins=false skin="Telerik" allowcustomtext="true" Width="120px" AutoPostBack="true">    
                                 <Items>   
                                     <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">        
                                     </telerik:RadComboBoxItem>       
@@ -91,7 +91,7 @@
                         </ItemTemplate>
                      </asp:TemplateField>
                     
-                   <asp:TemplateField HeaderText="Goal" HeaderStyle-HorizontalAlign="Center">
+                   <asp:TemplateField HeaderText="Goal" HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="60Px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%--<asp:LinkButton ID="lnkGoalType" runat="server" CssClass="cmbField" 
                                             OnClick="lnkGoalType_Click" Text='<%# Eval("GoalName") %>'>
@@ -103,12 +103,12 @@
                                     </ItemTemplate>
                                       <FooterTemplate>
                                         <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
-                                            ForeColor="White" Text=" Total  =  Rs.">
+                                            ForeColor="White" Text="Total =">
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>   
                                 
-                   <asp:TemplateField HeaderText="Year" HeaderStyle-HorizontalAlign="Center">
+                   <asp:TemplateField HeaderText="Target Year" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblGoalYear" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("GoalYear") %>'>
@@ -145,6 +145,20 @@
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         <asp:Label ID="lblCostTodayTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
+                     </asp:TemplateField>
+                     
+                         
+                   <asp:TemplateField HeaderText="Monthly Req." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblMonthlyReq" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("SavingRequired")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblTotalMonthlySavingReq" runat="server" CssClass="Field" Font-Bold="true" 
                                             ForeColor="White" Text="">
                                         </asp:Label>
                                     </FooterTemplate>
