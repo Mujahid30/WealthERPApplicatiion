@@ -686,7 +686,7 @@
 
 	background-image: none;
 
-	background-color: rgb(173, 146, 249);
+	background-color:#FCD23C;
 
 }
 
@@ -712,7 +712,7 @@
 
  div.RadGrid_Telerik .rgFilterRow td {
 
-	background-color: rgb(171, 146, 244);
+	background-color: #FCD64C;
 
 }
 
@@ -742,7 +742,7 @@
 
  div.RadGrid_Telerik .rgPager {
 
-	background-color: rgb(173, 146, 249);
+	background-color: #FCD23C;
 
 }
 
