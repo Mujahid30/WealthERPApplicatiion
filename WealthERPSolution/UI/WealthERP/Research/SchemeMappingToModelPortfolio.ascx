@@ -435,7 +435,7 @@
         <asp:Label ID="Label5" runat="server" CssClass="txtField" Text="Note:"></asp:Label>
     </td>
     <td>
-        <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="Note: The total weightage across the screen must be 100%."></asp:Label>
+        <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="1. The total weightage across the screen must be 100%."></asp:Label>
     </td>
 </tr>
 <tr>
@@ -443,7 +443,7 @@
         &nbsp;
     </td>
     <td>
-        <asp:Label ID="Label4" runat="server" CssClass="txtField" Text="Use Archive to remove an existing scheme & their weightage."></asp:Label>
+        <asp:Label ID="Label4" runat="server" CssClass="txtField" Text="2. Use Archive to remove an existing scheme & their weightage."></asp:Label>
     </td>
 </tr>
 </table>
