@@ -421,12 +421,18 @@
         </td>
  </tr>
 </table>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 <asp:Panel ID="tbgvMIS" runat="server" class="Landscape" Width="100%" Height="80%"  ScrollBars="Both">
 <table width="100%">
   <tr>
-    <td>
-  &nbsp;
-  </td>
+
     <td>
         <asp:GridView ID="gvMIS" CssClass="GridViewStyle" 
         DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate"  
@@ -601,9 +607,13 @@
   </tr>
   
   <tr>
-  <td colspan="3">
-
-  </td>
+    <td>
+    <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton" 
+        onclick="btnSync_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Button ID="btnMannualMatch"  runat="server" Text="Manual Match" CssClass="PCGMediumButton"
+             onclick="btnMannualMatch_Click" />
+    </td>
+    <td></td>
   </tr>
                              
 </table>
@@ -618,28 +628,14 @@
 </table>
   <table width="50%">
   <tr> 
-    <td>
-    <asp:Button ID="btnSync" runat="server" Text="Auto Match" CssClass="PCGMediumButton" 
-        onclick="btnSync_Click" />
-    </td>
-     <td> 
-    <asp:Button ID="btnMannualMatch"  runat="server" Text="Manual Match" CssClass="PCGMediumButton"
-             onclick="btnMannualMatch_Click" />
-    </td>
+
 <%--    <td> 
     <asp:Button ID="btnSubmit" CssClass="PCGButton" runat="server" Text="Submit" onclick="btnSubmit_Click" />
     </td>--%>
     
   </tr> 
 </table>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
-    <tr>
-    <td align="center">
-    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-    </div>
-    </td>
-    </tr>
- </table>
+
 <asp:HiddenField id="hdnBranchId" runat="server"/>
 <asp:HiddenField id="hdnRMId" runat="server"/>
 <%--<asp:HiddenField id="hdnAssetType" runat="server"/>

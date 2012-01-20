@@ -347,6 +347,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
         
         /// <summary>
+        /// tblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        
+        /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        
+        /// <summary>
         /// tbgvMIS control.
         /// </summary>
         /// <remarks>
@@ -363,24 +381,6 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMIS;
-        
-        /// <summary>
-        /// tblPager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblPager;
-        
-        /// <summary>
-        /// mypager control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.Pager mypager;
         
         /// <summary>
         /// btnSync control.
@@ -401,22 +401,22 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnMannualMatch;
         
         /// <summary>
-        /// tblMessage control.
+        /// tblPager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblPager;
         
         /// <summary>
-        /// ErrorMessage control.
+        /// mypager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        protected global::WealthERP.Pager mypager;
         
         /// <summary>
         /// hdnBranchId control.
