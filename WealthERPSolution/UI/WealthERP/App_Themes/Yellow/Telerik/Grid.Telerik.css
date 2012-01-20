@@ -147,7 +147,7 @@
 
 .RadGrid_Telerik .rgEditRow
 {
-	background:#96cfee 0 -4900px repeat-x url('Grid/sprite.gif');
+	background:#FCDA5C 0 -4900px repeat-x url('Grid/sprite.gif');
 }
 *+html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#96cfee}
 * html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#96cfee}
@@ -165,8 +165,8 @@
 
 .RadGrid_Telerik .rgSelectedRow td
 {
-	background-color: #8361E8 !important;
-	color: White !important;
+	background-color: #FCD64C !important;
+	color: Black !important;
      font-weight: bold !important;
 }
 
@@ -528,7 +528,7 @@
 
 .RadGrid_Telerik thead .rgCommandCell
 {
-	border-bottom:1px solid #3c7fb1;
+	border-bottom:1px solid #FCD23C;
 }
 
 .RadGrid_Telerik tfoot .rgCommandCell,
@@ -547,7 +547,7 @@
 .RadGrid_Telerik .rgCommandTable
 {
 	border:1px solid;
-	border-color:#b2ccd8 #75a4b7 #95c3ce;
+	border-color:#FCDA5C #75a4b7 #95c3ce;
 }
 
 .RadGrid_Telerik .rgCommandRow a

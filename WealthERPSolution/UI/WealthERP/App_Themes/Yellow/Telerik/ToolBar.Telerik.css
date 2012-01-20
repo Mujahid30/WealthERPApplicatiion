@@ -19,6 +19,11 @@
 	float: left;
 }
 
+.RadToolBar .rtbText
+{
+    color:#4B4726;
+}
+
 .RadToolBar_Telerik .rtbOuter
 {
 	border: 1px solid #141d24;
