@@ -256,7 +256,7 @@ namespace DaoResearch
             return dtModelPortfolio;
         }
 
-        public void DeleteSchemeFromModelPortfolio(int AMFMPD_Id, int adviserId)
+        public void DeleteSchemeFromModelPortfolio(int modelPortfolioCode, int adviserId)
         {
             Database db;
             DbCommand deleteRecordsCmd;
@@ -264,7 +264,7 @@ namespace DaoResearch
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteRecordsCmd = db.GetStoredProcCommand("SP_DeleteSchemeToModelPortfolio");
-                db.AddInParameter(deleteRecordsCmd, "@amfmpd_Id", DbType.Int32, AMFMPD_Id);
+                db.AddInParameter(deleteRecordsCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
                 db.AddInParameter(deleteRecordsCmd, "@adviserId", DbType.Int32, adviserId);
                 db.ExecuteDataSet(deleteRecordsCmd);
             }

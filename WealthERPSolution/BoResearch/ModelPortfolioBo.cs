@@ -325,12 +325,12 @@ namespace BoResearch
             return bResult;
         }
 
-        public void DeleteSchemeFromModelPortfolio(int AMFMPD_Id, int adviserId)
+        public void DeleteSchemeFromModelPortfolio(int modelPortfolioCode, int adviserId)
         {
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                modelPortfolioDao.DeleteSchemeFromModelPortfolio(AMFMPD_Id, adviserId);
+                modelPortfolioDao.DeleteSchemeFromModelPortfolio(modelPortfolioCode, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
