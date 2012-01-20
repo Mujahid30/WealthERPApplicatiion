@@ -703,7 +703,7 @@ namespace BoFPSuperlite
             if (customerGoalFundingProgressVo.WeightedReturn != 0)
                 returns = double.Parse((customerGoalFundingProgressVo.WeightedReturn / 100).ToString());
             if (totalMFProjectedAmount != 0 && returns !=0)
-                remainingTime = NPER(returns, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
+                remainingTime = NPER(goalPlanningVo.ExpectedROI /100, 0, -double.Parse(totalMFProjectedAmount.ToString()), goalPlanningVo.FutureValueOfCostToday, 1);
 
             int year = 0;
             double month = 0;
@@ -786,6 +786,25 @@ namespace BoFPSuperlite
             foreach (DataRow drGoalExistingInvestments in dsExistingInvestment.Tables[0].Rows)
             {
                 schemePlanCode = int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString());
+                drExistingInvestmentCurrentAllocation = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
+               
+                if (drExistingInvestmentCurrentAllocation.Count() > 0)
+                {
+                    foreach (DataRow dr in drExistingInvestmentCurrentAllocation)
+                    {
+                        currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
+                    }
+                }
+
+                else
+                    currentAllocation = 0;
+                if(int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString()) == schemePlanCode)
+                totalInvestedAmount = totalInvestedAmount+(decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
+            }
+
+            foreach (DataRow drGoalExistingInvestments in dsExistingInvestment.Tables[0].Rows)
+            {
+                schemePlanCode = int.Parse(drGoalExistingInvestments["PASP_SchemePlanCode"].ToString());
                 drCustomerGoalFundingDetails = dtCustomerGoalFundingDetails.NewRow();
                 drExistingInvestmentSchemePlanId = dsExistingInvestment.Tables[2].Select("PASP_SchemePlanCode=" + schemePlanCode.ToString());
 
@@ -847,7 +866,7 @@ namespace BoFPSuperlite
 
                             currentValue = (double.Parse((decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation).ToString())) / 100;
                             investedAmount = (decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
-                            totalInvestedAmount = totalInvestedAmount + investedAmount;
+                            
                             XIRR = investedAmount / totalInvestedAmount;
                             drCustomerGoalFundingDetails["InvestedAmount"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             //drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString();
@@ -892,7 +911,7 @@ namespace BoFPSuperlite
                     drCustomerGoalFundingDetails["Units"] = String.Format("{0:n2}", Math.Round(Decimal.Parse(drGoalExistingInvestments["CMFNP_NetHoldings"].ToString()), 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     drCustomerGoalFundingDetails["CurrentValue"] = String.Format("{0:n2}", Math.Round(((Decimal.Parse(drGoalExistingInvestments["CMFNP_CurrentValue"].ToString()) * currentAllocation) / 100), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                     investedAmount = (decimal.Parse(drGoalExistingInvestments["CMFNP_AcqCostExclDivReinvst"].ToString()) * currentAllocation) / 100;
-                    totalInvestedAmount = totalInvestedAmount + investedAmount;
+                    
                     XIRR = investedAmount / totalInvestedAmount;
                     drCustomerGoalFundingDetails["AllocationEntry"] = "0";
                     drCustomerGoalFundingDetails["AvailableAllocation"] = "100";
