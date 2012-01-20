@@ -132,6 +132,17 @@
         </td>
     </tr>
 </table>
+<table style="width: 100%;" class="TableBackground">
+<tr>
+    <td style="width:20px">
+        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Note:"></asp:Label>
+    </td>
+    <td>
+        <asp:Label ID="lblCaption" runat="server" CssClass="FieldName" 
+        Text="Please be aware, any changes you make here will impact existing risk profile & goal planning you have done for the customer."></asp:Label>
+    </td>
+</tr>
+</table>
 
 
     
