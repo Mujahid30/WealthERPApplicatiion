@@ -214,7 +214,7 @@
     </tr>
     <tr>
         <td colspan="2" align="right">
-         <asp:Button ID="btnView" runat="server" Text="View Report" OnClientClick="return validate('')"
+         <asp:Button ID="btnView" runat="server"  OnClientClick="return validate('')"
                 PostBackUrl="~/Reports/Display.aspx" CssClass="CrystalButton" />&nbsp;&nbsp;
                 <div id="div1" style="display: none;">
                 <p class="tip">
