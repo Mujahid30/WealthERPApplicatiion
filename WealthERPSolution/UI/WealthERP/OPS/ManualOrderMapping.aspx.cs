@@ -91,11 +91,15 @@ namespace WealthERP.OPS
                 btnSubmit.Visible = true;
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
+                hlClose.Visible = true;
+                imgBubble.Visible = true;
             }
             else
             {
                 gvMannualMatch.Visible = false;
                 btnSubmit.Visible=false;
+                hlClose.Visible = false;
+                imgBubble.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";

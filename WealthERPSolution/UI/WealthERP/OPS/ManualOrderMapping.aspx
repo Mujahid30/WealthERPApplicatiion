@@ -23,9 +23,19 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#ctrl_ManualOrderMapping_btnSubmit').bubbletip($('#div1'), { deltaDirection: 'right' });
+    $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
     });
 </script>
+
+<%--<script>
+function ClosePopUp(){
+
+    window.close();
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.reload();
+    }
+}
+</script>--%>
 
 <script type="text/javascript" language="javascript">
 
@@ -226,15 +236,21 @@ ShowFooter="True">
 </td>
 </tr>
 <tr>
-<td colspan="6" align="left">
+<td align="left">
 <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton"  Text="Submit" 
         onclick="btnSubmit_Click" />
+        <img id="imgBubble" runat="server" src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
         <div id="div1" style="display: none;">
                 <p class="tip">
-                    Please check a radio button.
+                    Please check a radio button then press submit.
                 </p>
             </div>
-</td></tr>
+</td>
+<td colspan="5">
+<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
+<%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>--%>
+</td>
+</tr>
 </table>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>

@@ -59,6 +59,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
+        /// imgBubble control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgBubble;
+        
+        /// <summary>
+        /// hlClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlClose;
+        
+        /// <summary>
         /// tblMessage control.
         /// </summary>
         /// <remarks>
