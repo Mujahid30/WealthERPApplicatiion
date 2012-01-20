@@ -152,7 +152,7 @@
                             </td>
                             <td class="rightField">
                                <asp:TextBox ID="txtPickRiskClass" CssClass="txtField" Text='<%# Bind( "XRC_RiskClass") %>' Enabled="false" runat="server">
-                                </asp:TextBox>     
+                                </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
                             </td>
                         </tr>
                         
@@ -167,7 +167,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtDebt" runat="server" Text='<%# Bind( "Debt") %>' CssClass="txtField">
-                                </asp:TextBox>
+                                </asp:TextBox><span id="Span2" class="spnRequiredField">*</span>
                             </td>
                             <td>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtDebt"
@@ -187,7 +187,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtEquity" runat="server" Text='<%# Bind( "Equity") %>' CssClass="txtField">
-                                </asp:TextBox>
+                                </asp:TextBox><span id="Span3" class="spnRequiredField">*</span>
                             </td>
                             <td>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtEquity"
@@ -207,7 +207,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtCash" runat="server" Text='<%# Bind( "Cash") %>' CssClass="txtField">
-                                </asp:TextBox>
+                                </asp:TextBox><span id="Span4" class="spnRequiredField">*</span>
                             </td>
                             <td>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCash"
@@ -227,7 +227,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox ID="txtAlternate" runat="server" Text='<%# Bind( "Alternate") %>' CssClass="txtField">
-                                </asp:TextBox>
+                                </asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
                             </td>
                             <td>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtAlternate"
