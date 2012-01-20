@@ -1079,13 +1079,16 @@ namespace WealthERP.Admin
 
         protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int amcCode = int.Parse(ddlAmcCode.SelectedValue);
             if (ddlAmcCode.SelectedIndex != 0)
             {
-                LoadAllSchemeList(amcCode);
+                int amcCode = int.Parse(ddlAmcCode.SelectedValue);
+                if (ddlAmcCode.SelectedIndex != 0)
+                {
+                    LoadAllSchemeList(amcCode);
+                }
+                else
+                    ddlSchemeList.SelectedItem.Text = "";
             }
-            else
-                ddlSchemeList.SelectedItem.Text = "";
         }
         protected void ddlNAVCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
