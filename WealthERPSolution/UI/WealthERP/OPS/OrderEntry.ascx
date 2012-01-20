@@ -848,7 +848,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <tr id="trBtnSubmit" runat="server">
 <td  align="left">
 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" ValidationGroup="MFSubmit"/>
-<asp:Button ID="btnAddMore" runat="server" Text="AddMore" ValidationGroup="MFSubmit"
+<asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
         CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
 
 </td>
