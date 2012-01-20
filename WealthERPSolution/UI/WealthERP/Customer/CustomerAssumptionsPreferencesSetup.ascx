@@ -187,7 +187,7 @@
             <tr>
             <td><br /></td>
             </tr>
-                <tr>
+                <tr runat="server" visible="false">
                 <td></td>
    <td>
 <asp:CheckBox ID="chkMapping" runat="server" CssClass="cmbField" Text="Goal funding from MF Investments" />

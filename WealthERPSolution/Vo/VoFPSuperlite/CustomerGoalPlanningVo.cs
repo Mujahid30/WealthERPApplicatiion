@@ -428,6 +428,13 @@ namespace VoFPSuperlite
         private double GFP_AdditionalMonthlyRequirement;
         private double GFP_AdditionalYearlyRequirement;
         private double GFP_WeightedReturn;
+        private double GFP_ProjectedEndYear;
+
+        public double ProjectedEndYear
+        {
+            get { return GFP_ProjectedEndYear; }
+            set { GFP_ProjectedEndYear = value; }
+        }
 
         public double WeightedReturn
         {

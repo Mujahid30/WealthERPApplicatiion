@@ -1570,11 +1570,23 @@ namespace WealthERP.FP
                 txtEstmdTimeToReachGoal.Text = customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal != "" ? customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal : "0";
                 txtReturnsXIRR.Text = customerGoalFundingProgressVo.ReturnsXIRR != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ReturnsXIRR, 2).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtValueOfCurrentGoal.Text = customerGoalFundingProgressVo.GoalCurrentValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.GoalCurrentValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                
                 txtProjectedGap.Text = customerGoalFundingProgressVo.ProjectedGapValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedGapValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                if (double.Parse(txtProjectedGap.Text) < 0)
+                {
+                    txtProjectedGap.ForeColor = System.Drawing.Color.Red;
+                    txtEstmdTimeToReachGoal.ForeColor = System.Drawing.Color.Red;
+                }
+                else
+                {
+                    txtProjectedGap.ForeColor = System.Drawing.Color.Green;
+                    txtEstmdTimeToReachGoal.ForeColor = System.Drawing.Color.Green;
+                }
                 txtProjectedValueOnGoalDate.Text = customerGoalFundingProgressVo.ProjectedValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestmentsRequired.Text = customerGoalFundingProgressVo.AdditionalMonthlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalMonthlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestments.Text = customerGoalFundingProgressVo.AdditionalYearlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalYearlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-
+                txtProjectedCompleteYear.Text = customerGoalFundingProgressVo.ProjectedEndYear.ToString();
+             
             }
 
 

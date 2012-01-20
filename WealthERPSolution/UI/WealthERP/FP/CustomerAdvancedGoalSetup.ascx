@@ -648,9 +648,12 @@
      <asp:Image ID="imgGoalFundIndicator" ImageAlign="Left" runat="server" />
     </td>
     
-    <td colspan="2" >     
+   <td class="leftField">
+     <asp:Label id="lblReturnsXIRR" Text="Returns (XIRR)(%):"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
-     
+    <td class="rightField">
+     <asp:TextBox ID="txtReturnsXIRR" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+    </td>
     </tr>
    <%-- ****************************************************************************--%>
     <tr>
@@ -667,17 +670,23 @@
     <td class="rightField">
      <asp:TextBox ID="txtTargetDate" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
     </td>
-    
-    <td class="leftField">
-     <asp:Label id="lblGoalAmount" Text="Goal Amount:"  CssClass="FieldName" runat="server"></asp:Label>
+     <td class="leftField">
+     <asp:Label id="lblProjectedCompleteYear" Text="Likely Tareget Date:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
-     <asp:TextBox ID="txtGoalAmount" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-    </td>     
+     <asp:TextBox ID="txtProjectedCompleteYear" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+    </td>   
+     
     </tr>
      <%-- ****************************************************************************--%>
-    <tr>
+      <tr>
     <td class="leftField">
+     <asp:Label id="lblEstmdTimeToReachGoal" Text="Estmd Time To Reach Goal:"  CssClass="FieldName" runat="server"></asp:Label>
+     </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtEstmdTimeToReachGoal" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+     </td>
+       <td class="leftField">
      <asp:Label id="lblTenureCompleted" Text="Tenure Completed (Years):"  CssClass="FieldName" runat="server"></asp:Label>
      </td>
     <td class="rightField">
@@ -690,35 +699,30 @@
     <td class="rightField">
      <asp:TextBox ID="txtBalanceTenor" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
     </td>
+      </tr>
+     
+ 
+     <%-- ****************************************************************************--%>
+      
+    <tr>
+      <td class="leftField">
+     <asp:Label id="lblProjectedValueOnGoalDate" Text="Proj. Value On Goal Date:"  CssClass="FieldName" runat="server"></asp:Label>
+    </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtProjectedValueOnGoalDate" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+    </td>
     
+    <td class="leftField">
+     <asp:Label id="lblProjectedGap" Text="Projected Gap:"  CssClass="FieldName" runat="server"></asp:Label>
+    </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtProjectedGap" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+    </td> 
     <td class="leftField">
      <asp:Label id="lblMonthlyContribution" Text="Monthly Contribution:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
      <asp:TextBox ID="txtMonthlyContribution" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-    </td>    
-    </tr>
-     <%-- ****************************************************************************--%>
-    <tr>
-    <td class="leftField">
-     <asp:Label id="lblAmountInvestedTillDate" Text="Amount Invested Till Date:"  CssClass="FieldName" runat="server"></asp:Label>
-     </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtAmountInvested" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-     </td>
-     
-    <td class="leftField">
-     <asp:Label id="lblValueOfCurrentGoal" Text="Value of Current Goal:"  CssClass="FieldName" runat="server"></asp:Label>
-    </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtValueOfCurrentGoal" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-    </td>
-    
-    <td class="leftField">
-     <asp:Label id="lblReturnsXIRR" Text="Returns (XIRR)(%):"  CssClass="FieldName" runat="server"></asp:Label>
-    </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtReturnsXIRR" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
     </td>    
     </tr>
     <%-- ****************************************************************************--%>
@@ -730,53 +734,48 @@
      <asp:TextBox ID="txtCostAtBeginning" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
      </td>
      
-    <td class="leftField" colspan="4">
-     <asp:Label id="Label11" Text=""  CssClass="FieldName" runat="server"></asp:Label>
+    <td class="leftField">
+     <asp:Label id="lblGoalAmount" Text="Goal Amount:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtGoalAmount" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+    </td> 
+    <td class="leftField">
+     <asp:Label id="lblAmountInvestedTillDate" Text="Amount Invested Till Date:"  CssClass="FieldName" runat="server"></asp:Label>
+     </td>
+    <td class="rightField">
+     <asp:TextBox ID="txtAmountInvested" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+     </td>
      
     </tr>
     <%-- ****************************************************************************--%>
-    <tr>
-    <td class="leftField">
-     <asp:Label id="lblEstmdTimeToReachGoal" Text="Estmd Time To Reach Goal:"  CssClass="FieldName" runat="server"></asp:Label>
-     </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtEstmdTimeToReachGoal" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-     </td>
-     
-    <td class="leftField">
-     <asp:Label id="lblProjectedValueOnGoalDate" Text="Projected Value On Goal Date:"  CssClass="FieldName" runat="server"></asp:Label>
+      <tr>
+      <td class="leftField">
+     <asp:Label id="lblValueOfCurrentGoal" Text="Value of Current Goal:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
-     <asp:TextBox ID="txtProjectedValueOnGoalDate" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+     <asp:TextBox ID="txtValueOfCurrentGoal" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
     </td>
-    
-    <td class="leftField">
-     <asp:Label id="lblProjectedGap" Text="Projected Gap:"  CssClass="FieldName" runat="server"></asp:Label>
-    </td>
-    <td class="rightField">
-     <asp:TextBox ID="txtProjectedGap" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-    </td>    
-    </tr>
-    <%-- ****************************************************************************--%>
-    <tr>
-    <td class="leftField">
-     <asp:Label id="lblAdditionalInvestmentsRequired" Text="Additional Investments Req(Per Month):"  CssClass="FieldName" runat="server"></asp:Label>
+      <td class="leftField">
+     <asp:Label id="lblAdditionalInvestmentsRequired" Text="Additional Invest. Req/Month:"  CssClass="FieldName" runat="server"></asp:Label>
      </td>
     <td class="rightField">
      <asp:TextBox ID="txtAdditionalInvestmentsRequired" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
      </td>
      
     <td class="leftField">
-     <asp:Label id="lblAdditionalInvestments" Text="Additional Investments Req(Per Year):"  CssClass="FieldName" runat="server"></asp:Label>
+     <asp:Label id="lblAdditionalInvestments" Text="Additional Invest. Req/Year:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
      <asp:TextBox ID="txtAdditionalInvestments" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
-    </td>
+    </td>  
+       
+    </tr>
+    <%-- ****************************************************************************--%>
+    <tr>
+ 
     
-    <td class="leftField" colspan="2">
-     <asp:Label id="Label12" Text=""  CssClass="FieldName" runat="server"></asp:Label>
-    </td>
+     
         
     </tr>
     <tr>
@@ -877,6 +876,16 @@
                                             <asp:TextBox ID="txtUnits" runat="server" CssClass="txtField" Text='<%# Bind("Units") %>'  Enabled="false" TabIndex="2" >
                                             </asp:TextBox>
                                         </td>
+                                        
+                                         <td align="right">
+                                        <asp:Label id="Label11" Text="Amount Available:" CssClass="FieldName" runat="server">
+                                        </asp:Label>
+                                            
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtAmtAvailable" runat="server" CssClass="txtField" Text='<%# Bind("AvailableAmount") %>'  Enabled="false" TabIndex="2" >
+                                            </asp:TextBox>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td align="right">
@@ -885,6 +894,14 @@
                                         </td>
                                         <td>
                                             <asp:TextBox ID="txtCurrentValue" CssClass="txtField" runat="server" Text='<%# Bind("CurrentValue") %>'  Enabled="false" TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
+                                         <td align="right">
+                                          <asp:Label id="Label2" Text="Amount Marked for the Goal:" CssClass="FieldName" runat="server">
+                                        </asp:Label> 
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtInvestedAmt" CssClass="txtField" runat="server" Text='<%# Bind("InvestedAmount") %>'  Enabled="false" TabIndex="3">
                                             </asp:TextBox>
                                         </td>
                                     </tr>      
@@ -897,18 +914,17 @@
                                             <asp:TextBox ID="TextBox1" runat="server" CssClass="txtField" Enabled="false" Text='<%# Bind("AllocationEntry") %>' TabIndex="3">
                                             </asp:TextBox>
                                         </td>
-                                    </tr>  
-                                    <tr>
-                                        <td align="right">
+                                         <td align="right">
                                         <asp:Label id="Label17" Text="Current Goal Allocation(%):" CssClass="FieldName" runat="server" Enabled="false">
                                         </asp:Label>
                                           
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3" > 
+                                            <asp:TextBox ID="TextBox4" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3" > 
                                             </asp:TextBox>
                                         </td>
-                                    </tr> 
+                                    </tr>  
+                                   
                                     <tr>
                                         <td align="right">
                                          <asp:Label id="Label18" Text="Other Goal Allocation(%):" CssClass="FieldName" runat="server">
@@ -918,17 +934,16 @@
                                             <asp:TextBox ID="txtSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'  Enabled="false" TabIndex="1">
                                             </asp:TextBox>
                                         </td>
-                                    </tr>
-                                    <tr>
                                         <td align="right">
                                          <asp:Label id="Label19" Text="Available Allocation(%):" CssClass="FieldName" runat="server">
                                         </asp:Label>  
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("AvailableAllocation") %>' TabIndex="1">
+                                            <asp:TextBox ID="TextBox5" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("AvailableAllocation") %>' TabIndex="1">
                                             </asp:TextBox>
                                         </td>
-                                    </tr>                                
+                                    </tr>
+                                                                
                                 </table>
                             </td>
                             <td>
@@ -1034,11 +1049,20 @@
                                         </asp:Label>
                                            
                                         </td>
+                                         <td align="right">
+                                        <asp:Label id="Label26" Text="SIP Frequecny:" CssClass="FieldName" runat="server" Enabled="false">
+                                        </asp:Label>
+                                          
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtSIPFrequency" runat="server" CssClass="txtField" Text='<%# Bind("SIPFrequecny") %>' TabIndex="3">
+                                            </asp:TextBox>
+                                        </td>
                                     </tr>                                  
                                       
                                     <tr>
                                         <td align="right">
-                                        <asp:Label id="Label22" Text="Current Goal Allocation:" CssClass="FieldName" runat="server" Enabled="false">
+                                        <asp:Label id="Label22" Text="Current Goal Invested Amount:" CssClass="FieldName" runat="server" Enabled="false">
                                         </asp:Label>
                                           
                                         </td>
@@ -1046,17 +1070,15 @@
                                             <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>' TabIndex="3">
                                             </asp:TextBox>
                                         </td>
-                                    </tr> 
-                                    <tr>
                                         <td align="right">
-                                         <asp:Label id="Label23" Text="Other Goal Allocation:" CssClass="FieldName" runat="server">
+                                         <asp:Label id="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
                                         </asp:Label> 
                                         </td>
                                         <td>
                                             <asp:TextBox ID="txtOtherSchemeAllocationPer" CssClass="txtField" runat="server" Text='<%# Bind("OtherGoalAllocation") %>'  Enabled="false" TabIndex="1">
                                             </asp:TextBox>
                                         </td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td align="right">
                                          <asp:Label id="Label24" Text="Available Amount:" CssClass="FieldName" runat="server">
@@ -1064,6 +1086,32 @@
                                         </td>
                                         <td>
                                             <asp:TextBox ID="TextBox2" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("AvailableAllocation") %>' TabIndex="1">
+                                            </asp:TextBox>
+                                        </td>
+                                         <td align="right">
+                                         <asp:Label id="Label4" Text="Total SIP Amount:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtTotalSIPAmount" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("TotalSIPamount") %>' TabIndex="1">
+                                            </asp:TextBox>
+                                        </td>
+                                    </tr> 
+                                     <tr>
+                                        <td align="right">
+                                         <asp:Label id="Label12" Text="SIP Start Date:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtSIPStartDate" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("SIPStartDate") %>' TabIndex="1">
+                                            </asp:TextBox>
+                                        </td>
+                                         <td align="right">
+                                         <asp:Label id="Label25" Text="SIP End Date:" CssClass="FieldName" runat="server">
+                                        </asp:Label>  
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtSIPEndDate" runat="server" CssClass="txtField"  Enabled="false" Text='<%# Bind("SIPEndDate") %>' TabIndex="1">
                                             </asp:TextBox>
                                         </td>
                                     </tr>                                
