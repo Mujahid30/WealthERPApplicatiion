@@ -141,7 +141,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: small;
-    color: #16518A;
+    color: #FCD23C;
 }
 
 .Message
@@ -721,25 +721,25 @@ ul.tabbernav li.tabberactive a:hover
     {
         border: solid #22AA22 1px;
         color: Black;
-        background: #FFECA3 url('images/success.png') no-repeat;
+        background: #FCD23C url('images/success.png') no-repeat;
     }
     .failure-msg
     {
         border: solid #C49292 1px;
         color: Black;
-        background: #FFECA3 url('images/warning.png') no-repeat;
+        background: #FCD23C url('images/warning.png') no-repeat;
     }
     .warning-msg
     {
         border: solid #E6D976 1px;
         color: Black;
-        background: #FFECA3 url('images/alert.png') no-repeat;
+        background: #FCD23C url('images/alert.png') no-repeat;
     }
     .information-msg
     {
         border: solid #3460EC 1px;
         color: Black;
-        background: #FFECA3  url('images/information.png') no-repeat;
+        background: #FCD23C  url('images/information.png') no-repeat;
     }
     .ExortPanelpopup
     {
