@@ -81,7 +81,7 @@
 </table>
 <table id="tblAllocation" runat="server" class="TableBackground" width="100%" visible="false">
     <tr>    
-        <td class="leftField">
+        <td class="leftField" style="width:130Px">
             <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
@@ -432,10 +432,10 @@
 <table id="tableNote" runat="server" style="width: 100%;" class="TableBackground">
 <tr>
     <td style="width:20px">
-        <asp:Label ID="Label5" runat="server" CssClass="txtField" Text="Note:"></asp:Label>
+        <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Note:"></asp:Label>
     </td>
     <td>
-        <asp:Label ID="lblCaption" runat="server" CssClass="txtField" Text="1. The total weightage across the screen must be 100%."></asp:Label>
+        <asp:Label ID="lblCaption" runat="server" CssClass="FieldName" Text="1. The total weightage across the screen must be 100%."></asp:Label>
     </td>
 </tr>
 <tr>
@@ -443,7 +443,7 @@
         &nbsp;
     </td>
     <td>
-        <asp:Label ID="Label4" runat="server" CssClass="txtField" Text="2. Use Archive to remove an existing scheme & their weightage."></asp:Label>
+        <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="2. Use Archive to remove an existing scheme & their weightage."></asp:Label>
     </td>
 </tr>
 </table>

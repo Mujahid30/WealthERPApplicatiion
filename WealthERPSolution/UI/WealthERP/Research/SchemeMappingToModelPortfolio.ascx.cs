@@ -235,6 +235,7 @@ namespace WealthERP.Research
             {                
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 dt.Rows[e.Item.ItemIndex].Delete();
+
                 Rebind();
                 tblPieChart.Visible = false;
                 lblCategoryChart.Visible = false;
@@ -337,14 +338,18 @@ namespace WealthERP.Research
                     //modelPortfolioBo.DeleteSchemeFromModelPortfolio(modelId, advisorVo.advisorId);
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                     int modelId = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
-                    DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
-                    foreach (DataRow dr in drrow)
-                    {
-                        dr["AMFMPD_IsActive"] = 0;
-                        dr["XAR_ArchiveReason"] = modelPortfolioVo.ArchiveReason;
-                    }
+                    int xarId = modelPortfolioVo.ArchiveReason;
+                    modelPortfolioBo.ArchiveSchemeFromModelPortfolio(modelId, xarId);
+
+                    dt.Rows[e.Item.ItemIndex].Delete();
+                    //DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
+                    //foreach (DataRow dr in drrow)
+                    //{
+                    //    dr["AMFMPD_IsActive"] = 0;
+                    //    dr["XAR_ArchiveReason"] = modelPortfolioVo.ArchiveReason;
+                    //}
                    
-                    dt.AcceptChanges();
+                    //dt.AcceptChanges();
 
                     //Session[SessionContents.FPS_AddProspect_DataTable] = dt;                    
                     RadGrid1.DataSource = dt;
@@ -643,7 +648,10 @@ namespace WealthERP.Research
             bindAssetChartOnSubCategory();
             tblPieChart.Visible = true;
             getAllocationPercentageFromModelPortFolio();
+            if(ddlSelectedMP.SelectedValue != "0")
             tblAllocation.Visible = true;
+            else
+                tblAllocation.Visible = false;
         }
 
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
@@ -723,6 +731,8 @@ namespace WealthERP.Research
             }
             if (sum == 100)
             {
+                modelPortfolioBo.DeleteSchemeFromModelPortfolio(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
+
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (dr["XAR_ArchiveReason"].ToString() == "")
