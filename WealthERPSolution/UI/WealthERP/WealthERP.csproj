@@ -3312,6 +3312,7 @@
     <Content Include="App_Themes\BlackAndWhite\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\BlackAndWhite\Images\CrystalIcon.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\down arrow.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\Export_Excel.png" />
     <Content Include="App_Themes\BlackAndWhite\Images\Export_Pdf.gif" />
@@ -3535,6 +3536,7 @@
     <Content Include="App_Themes\Blue\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Blue\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Blue\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Blue\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Blue\Images\Export_Excel.png" />
     <Content Include="App_Themes\Blue\Images\Export_Pdf.gif" />
     <Content Include="App_Themes\Blue\Images\Export_Word.jpg" />
@@ -3765,6 +3767,7 @@
     <Content Include="App_Themes\Desert\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Desert\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Desert\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Desert\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Desert\Images\down arrow.png" />
     <Content Include="App_Themes\Desert\Images\Export_Excel.png" />
     <Content Include="App_Themes\Desert\Images\Export_Pdf.gif" />
@@ -4008,6 +4011,7 @@
     <Content Include="App_Themes\Green\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Green\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Green\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Green\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Green\Images\down arrow.png" />
     <Content Include="App_Themes\Green\Images\Export_Excel.png" />
     <Content Include="App_Themes\Green\Images\Export_Pdf.gif" />
@@ -4256,6 +4260,7 @@
     <Content Include="App_Themes\Maroon\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Maroon\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Maroon\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Maroon\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Maroon\Images\Export_Excel.png" />
     <Content Include="App_Themes\Maroon\Images\Export_Pdf.gif" />
     <Content Include="App_Themes\Maroon\Images\Export_Word.jpg" />
@@ -4495,6 +4500,7 @@
     <Content Include="App_Themes\Purple\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Purple\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Purple\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Purple\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Purple\Images\Export_Excel.png" />
     <Content Include="App_Themes\Purple\Images\Export_Pdf.gif" />
     <Content Include="App_Themes\Purple\Images\Export_Word.jpg" />
@@ -4724,6 +4730,7 @@
     <Content Include="App_Themes\Yellow\Images\comnav-arrowon.png" />
     <Content Include="App_Themes\Yellow\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\Yellow\Images\comnav-arrowover2.png" />
+    <Content Include="App_Themes\Yellow\Images\CrystalIcon.png" />
     <Content Include="App_Themes\Yellow\Images\Export_Excel.png" />
     <Content Include="App_Themes\Yellow\Images\Export_Pdf.gif" />
     <Content Include="App_Themes\Yellow\Images\Export_Word.jpg" />
@@ -4925,16 +4932,24 @@
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.gif" />
     <Content Include="App_Themes\Yellow\Telerik\Window\WindowVerticalSprites.png" />
     <Content Include="bin\AjaxControlToolkit.dll" />
+    <Content Include="bin\BoAdvisorProfiling.pdb" />
+    <Content Include="bin\BoCommon.pdb" />
     <Content Include="bin\BoFPSuperlite.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
     <Content Include="bin\BoOps.dll" />
     <Content Include="bin\BoOps.pdb" />
+    <Content Include="bin\BoReports.pdb" />
     <Content Include="bin\BoResearch.dll" />
     <Content Include="bin\BoResearch.pdb" />
+    <Content Include="bin\BoWerpAdmin.pdb" />
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
+    <Content Include="bin\DaoAdvisorProfiling.pdb" />
+    <Content Include="bin\DaoCommon.pdb" />
+    <Content Include="bin\DaoFPSuperlite.pdb" />
     <Content Include="bin\DaoOps.dll" />
     <Content Include="bin\DaoOps.pdb" />
+    <Content Include="bin\DaoReports.pdb" />
     <Content Include="bin\DaoResearch.dll" />
     <Content Include="bin\DaoResearch.pdb" />
     <Content Include="bin\Financial.dll" />
@@ -5133,6 +5148,7 @@
     <Content Include="Images\1044_prin.jpg" />
     <Content Include="Images\1044_South.jpg" />
     <Content Include="Images\1044_Southnd.jpg" />
+    <Content Include="Images\AddPlus.png" />
     <Content Include="Images\arrow_double_up_7.gif" />
     <Content Include="Images\birlasunlife.jpg" />
     <Content Include="Images\Black-sample.gif" />
