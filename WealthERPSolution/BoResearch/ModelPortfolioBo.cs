@@ -344,7 +344,7 @@ namespace BoResearch
                 FunctionInfo.Add("Method", "ModelPortfolioBo.cs:DeleteSchemeFromModelPortfolio()");
 
                 object[] objects = new object[1];
-                objects[0] = AMFMPD_Id;
+                objects[0] = modelPortfolioCode;
                 objects[1] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
