@@ -519,7 +519,7 @@
                             MinimumValue="0" MaximumValue="9999999999" ControlToValidate="txtCorpusToBeLeftBehind" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtCorpusToBeLeftBehind"
-                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
+                            CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some amount"></asp:RequiredFieldValidator>
                     </td>
                     
                     <td id="tdCorpusToBeLeftBehindBlank" runat="server" colspan="2">
@@ -578,7 +578,7 @@
                          <asp:Button ID="btnBackToView" runat="server" CssClass="PCGMediumButton" Text="Back To View" OnClick="btnBackToView_Click"/>
                          <asp:Button ID="btnEdit" runat="server" CssClass="PCGButton" Text="Edit" OnClick="btnEdit_Click"/>
                         
-                         <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click" OnClientClick="return validate()"/>
+                         <asp:Button ID="btnUpdate" runat="server" ValidationGroup="btnSave" CssClass="PCGButton" Text="Update" OnClick="btnUpdate_Click"/>
                         
                         
                     </td>

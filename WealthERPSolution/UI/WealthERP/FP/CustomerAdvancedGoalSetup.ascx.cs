@@ -742,7 +742,7 @@ namespace WealthERP.FP
                     //trROIFutureInvestment.Visible = true;
                     //txtROIFutureInvest.Text = "7";
                     lblGoalYear.Text = "Goal Year :";
-                    lblGoalCostToday.Text = "Monthly Requirment Today :";
+                    lblGoalCostToday.Text = "Monthly Requirement Today :";
                     //default  current investment and Rate of return of above to 0
                     //txtCurrentInvestPurpose.Text = "0";
                     //txtAboveRateOfInterst.Text = "0";
@@ -1004,7 +1004,7 @@ namespace WealthERP.FP
                     //trROIFutureInvestment.Visible = true;
 
                     lblGoalYear.Text = "Goal Year :";
-                    lblGoalCostToday.Text = "Monthly Requirment Today :";
+                    lblGoalCostToday.Text = "Monthly Requirement Today :";
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
