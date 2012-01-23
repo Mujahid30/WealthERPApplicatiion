@@ -916,5 +916,28 @@ namespace WealthERP.OPS
                 btnSync.Visible=true;
             }
         }
+
+        protected void gvMIS_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = 0;
+            if (e.CommandName == "ViewOrder")
+            {
+                try
+                {
+                    index = Convert.ToInt32(e.CommandArgument);
+                    //GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
+                    int orderId = Convert.ToInt32(gvMIS.DataKeys[index].Value.ToString());
+
+                    operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
+                    Session["operationVo"] = operationVo;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','action=View');", true);
+
+                }
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
+            }
+        }
     }
 }

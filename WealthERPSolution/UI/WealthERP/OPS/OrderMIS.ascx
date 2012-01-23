@@ -405,7 +405,7 @@
 <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
         onclick="btnGo_Click" />
 </td>
-<td colspan="2">&nbsp;&nbsp;&nbsp;</td>
+<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;</td>
 <td colspan="2" align="left">
 
 </td>
@@ -437,7 +437,8 @@
         <asp:GridView ID="gvMIS" CssClass="GridViewStyle" 
         DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate"  
         runat="server" AutoGenerateColumns="False"
-                                        ShowFooter="True" OnRowDataBound="gvMIS_RowDataBound">
+                                        ShowFooter="True" 
+            OnRowDataBound="gvMIS_RowDataBound" onrowcommand="gvMIS_RowCommand">
                                         <RowStyle CssClass="RowStyle" />
                                         <AlternatingRowStyle CssClass="AltRowStyle" />                                        
                                         <Columns>
@@ -454,12 +455,19 @@
                                             </HeaderTemplate>--%>
                                         </asp:TemplateField>                                 
                                             
-                                      <asp:TemplateField HeaderText="Number" HeaderStyle-HorizontalAlign="Right">
+                                   <%--   <asp:TemplateField HeaderText="Number" HeaderStyle-HorizontalAlign="Right">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="lnkOrderId" runat="server" CssClass="cmbField" Text='<%# Eval("CMOT_OrderNumber") %>' OnClick="lnkOrderId_Click">
+                                            <asp:LinkButton ID="lnkOrderId" runat="server" CssClass="cmbField" Text='<%# Eval("CMOT_OrderNumber").ToString() %>' OnClick="lnkOrderId_Click">
                                             </asp:LinkButton>
                                         </ItemTemplate>                                      
-                                     </asp:TemplateField>
+                                     </asp:TemplateField>--%>
+                                   <%--  
+                                     <asp:BoundField DataField="CMOT_OrderNumber" HeaderText="Number" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                            </asp:BoundField>--%>
+                                            
+                                        <asp:ButtonField DataTextField="CMOT_OrderNumber" CommandName="ViewOrder" ButtonType="Link"  HeaderText="Number" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" />  
                                      
                                       <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
                                                 <HeaderStyle HorizontalAlign="Center" />
