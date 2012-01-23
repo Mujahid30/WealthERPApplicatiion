@@ -11,6 +11,8 @@
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
 
+
+
 <script language="javascript" type="text/javascript">
 
     function DownloadScript() {
@@ -69,6 +71,8 @@
 <!--This script is used for Progress bar -->
 
 <script type="text/javascript">
+
+       
     function pageLoad() {
         InitDialogs();
         Loading(false);
@@ -327,7 +331,10 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Browse:"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:FileUpload ID="FileUpload" runat="server" Height="22px" />
+        <asp:FileUpload ID="FileUpload" runat="server" Height="22px"/>      
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="FileUpload" Runat="Server"  ValidationGroup="btn_Upload" ErrorMessage="Only .dbf, .xls and.xlsx File allowed" Display="Dynamic"
+                ValidationExpression="^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F))$" CssClass="rfvPCG"/>
+            <br />
             <asp:RequiredFieldValidator ID="FileUpload_RequiredFieldValidator" ControlToValidate="FileUpload"
                 ValidationGroup="btn_Upload" ErrorMessage="Please select a file for upload" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">

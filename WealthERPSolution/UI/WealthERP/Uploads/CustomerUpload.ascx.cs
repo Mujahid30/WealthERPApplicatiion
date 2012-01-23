@@ -77,6 +77,7 @@ namespace WealthERP.Uploads
         int portfolioId;
         int countCustCreated = 0;
         int countFolioCreated = 0;
+        int adviserId;
 
         string folioNum;
         string packagePath;
@@ -1395,13 +1396,13 @@ namespace WealthERP.Uploads
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                                                CommonTransChecks = uploadsCommonBo.InsertTransToWERP(UploadProcessId, packagePath, configPath);
+                                                CommonTransChecks = uploadsCommonBo.InsertMFStandardTransToWERP(UploadProcessId,adviserVo.advisorId, packagePath, configPath);
 
                                                 if (CommonTransChecks)
                                                 {
                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                     processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WP");
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeStandard);
                                                     processlogVo.EndTime = DateTime.Now;
                                                     processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "WP");
                                                     processlogVo.NoOfTransactionDuplicates = 0;
@@ -1442,7 +1443,7 @@ namespace WealthERP.Uploads
                                     else
                                         SecondStagingInsertionProgress = "Failure";
 
-                                    if (CommonTransChecks && standardTranWerpResult)
+                                    if (CommonTransChecks)
                                     {
                                         WERPInsertionProgress = "Done";
 
@@ -1450,10 +1451,10 @@ namespace WealthERP.Uploads
                                     else
                                         WERPInsertionProgress = "Failure";
 
-                                    if (standardTranWerpResult)
-                                        XtrnlInsertionProgress = "Done";
-                                    else
-                                        XtrnlInsertionProgress = "Failure";
+                                    //if (standardTranWerpResult)
+                                    //    XtrnlInsertionProgress = "Done";
+                                    //else
+                                    //    XtrnlInsertionProgress = "Failure";
 
                                     // Update Process Summary Text Boxes
                                     txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
