@@ -791,9 +791,9 @@ namespace WealthERP.Research
                     ChartAsset.DataSource = dtChartAsset.DefaultView;
                     ChartAsset.Series.Clear();
                     ChartAsset.Series.Add(AssetAllocation);
-                    ChartAsset.Series[0].XValueMember = "Category";
+                    ChartAsset.Series[0].XValueMember = "PAIC_AssetInstrumentCategoryName";
                     ChartAsset.Series[0].XValueType = ChartValueType.String;
-                    ChartAsset.Series[0].YValueMembers = "Weightage";
+                    ChartAsset.Series[0].YValueMembers = "AMFMPD_AllocationPercentage";
 
                     ChartAsset.Palette = ChartColorPalette.Pastel;
                     ChartAsset.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
@@ -839,22 +839,22 @@ namespace WealthERP.Research
 
                     DataRow drAsset;
                     DataTable dtAssetForGrid = new DataTable();
-                    dtAssetForGrid.Columns.Add("Category");
-                    dtAssetForGrid.Columns.Add("Weightage", System.Type.GetType("System.Decimal"));
+                    dtAssetForGrid.Columns.Add("PAIC_AssetInstrumentCategoryName");
+                    dtAssetForGrid.Columns.Add("AMFMPD_AllocationPercentage", System.Type.GetType("System.Decimal"));
 
                     dtAssetForGrid.Columns.Add("Percent", System.Type.GetType("System.Decimal"));
                     double WeightageSum = 0;
                     foreach (DataRow dr in dtChartAsset.Rows)
                     {
-                        WeightageSum = WeightageSum + double.Parse(dr["Weightage"].ToString());
+                        WeightageSum = WeightageSum + double.Parse(dr["AMFMPD_AllocationPercentage"].ToString());
                     }
 
                     foreach (DataRow dr in dtChartAsset.Rows)
                     {
                         drAsset = dtAssetForGrid.NewRow();
-                        drAsset["Category"] = dr["Category"];
-                        drAsset["Weightage"] = dr["Weightage"];
-                        drAsset["Percent"] = Math.Round(((double.Parse(dr["Weightage"].ToString()) / WeightageSum) * 100), 2);
+                        drAsset["PAIC_AssetInstrumentCategoryName"] = dr["PAIC_AssetInstrumentCategoryName"];
+                        drAsset["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"];
+                        drAsset["Percent"] = Math.Round(((double.Parse(dr["AMFMPD_AllocationPercentage"].ToString()) / WeightageSum) * 100), 2);
 
                         dtAssetForGrid.Rows.Add(drAsset);
                     }
@@ -899,9 +899,9 @@ namespace WealthERP.Research
                     Chart1.DataSource = dtChartAsset.DefaultView;
                     Chart1.Series.Clear();
                     Chart1.Series.Add(AssetAllocationSubCategory);
-                    Chart1.Series[0].XValueMember = "SubCategory";
+                    Chart1.Series[0].XValueMember = "PAISC_AssetInstrumentSubCategoryName";
                     Chart1.Series[0].XValueType = ChartValueType.String;
-                    Chart1.Series[0].YValueMembers = "Weightage";
+                    Chart1.Series[0].YValueMembers = "AMFMPD_AllocationPercentage";
 
                     Chart1.Palette = ChartColorPalette.Pastel;
                     Chart1.PaletteCustomColors = new Color[]{Color.LimeGreen, Color.Yellow, Color.LightBlue, Color.Purple, Color.Goldenrod, Color.Blue, Color.BurlyWood,
@@ -947,22 +947,22 @@ namespace WealthERP.Research
 
                     DataRow drAsset;
                     DataTable dtAssetForGrid = new DataTable();
-                    dtAssetForGrid.Columns.Add("SubCategory");
-                    dtAssetForGrid.Columns.Add("Weightage", System.Type.GetType("System.Decimal"));
+                    dtAssetForGrid.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+                    dtAssetForGrid.Columns.Add("AMFMPD_AllocationPercentage", System.Type.GetType("System.Decimal"));
 
                     dtAssetForGrid.Columns.Add("Percent", System.Type.GetType("System.Decimal"));
                     double WeightageSum = 0;
                     foreach (DataRow dr in dtChartAsset.Rows)
                     {
-                        WeightageSum = WeightageSum + double.Parse(dr["Weightage"].ToString());
+                        WeightageSum = WeightageSum + double.Parse(dr["AMFMPD_AllocationPercentage"].ToString());
                     }
 
                     foreach (DataRow dr in dtChartAsset.Rows)
                     {
                         drAsset = dtAssetForGrid.NewRow();
-                        drAsset["SubCategory"] = dr["SubCategory"];
-                        drAsset["Weightage"] = dr["Weightage"];
-                        drAsset["Percent"] = Math.Round(((double.Parse(dr["Weightage"].ToString()) / WeightageSum) * 100), 2);
+                        drAsset["PAISC_AssetInstrumentSubCategoryName"] = dr["PAISC_AssetInstrumentSubCategoryName"];
+                        drAsset["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"];
+                        drAsset["Percent"] = Math.Round(((double.Parse(dr["AMFMPD_AllocationPercentage"].ToString()) / WeightageSum) * 100), 2);
                         dtAssetForGrid.Rows.Add(drAsset);
                     }
 
