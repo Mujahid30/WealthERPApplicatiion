@@ -526,7 +526,8 @@ namespace WealthERP.Research
 
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            DataSet dsAdviserRiskClass = new DataSet();
+            //DataSet dsAdviserRiskClass = new DataSet();
+            DataTable dtDefaultRiskClass = new DataTable();
             if (e.Item is GridCommandItem)
             {
                 GridCommandItem cmditm = (GridCommandItem)e.Item;
@@ -567,12 +568,12 @@ namespace WealthERP.Research
                     //trAddNamePortfolio.Visible = true;
                     //trEditNamePortfolio.Visible = false;
 
-                    dsAdviserRiskClass = riskprofilebo.GetAdviserRiskClasses(adviserId);
-                    if (dsAdviserRiskClass.Tables[0].Rows.Count > 0)
+                    dtDefaultRiskClass = modelPortfolioBo.GetDefaultAdviserRiskClasses();
+                    if (dtDefaultRiskClass.Rows.Count > 0)
                     {
-                        ddlPickRiskClass.DataSource = dsAdviserRiskClass.Tables[0];
-                        ddlPickRiskClass.DataValueField = dsAdviserRiskClass.Tables[0].Columns["XRC_RiskClassCode"].ToString();
-                        ddlPickRiskClass.DataTextField = dsAdviserRiskClass.Tables[0].Columns["XRC_RiskClass"].ToString();
+                        ddlPickRiskClass.DataSource = dtDefaultRiskClass;
+                        ddlPickRiskClass.DataValueField = dtDefaultRiskClass.Columns["XRC_RiskClassCode"].ToString();
+                        ddlPickRiskClass.DataTextField = dtDefaultRiskClass.Columns["XRC_RiskClass"].ToString();
                         ddlPickRiskClass.DataBind();
                         ddlPickRiskClass.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Risk Class", "Select Risk Class"));
                     }                    

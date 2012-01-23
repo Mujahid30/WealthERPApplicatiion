@@ -18,6 +18,19 @@
          $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
+<%--<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+  <script type="text/javascript">
+      var popUp;
+      function PopUpShowing(sender, eventArgs) {
+          popUp = eventArgs.get_popUp();
+          var gridWidth = sender.get_element().offsetWidth;
+          var gridHeight = sender.get_element().offsetHeight;
+          var popUpWidth = popUp.style.width.substr(0, popUp.style.width.indexOf("px"));
+          var popUpHeight = popUp.style.height.substr(0, popUp.style.height.indexOf("px"));
+          popUp.style.left = ((gridWidth - popUpWidth) / 2 + sender.get_element().offsetLeft).toString() + "px";
+          popUp.style.top = ((gridHeight - popUpHeight) / 2 + sender.get_element().offsetTop).toString() + "px";
+      } 
+  </script>--%>
     
 <table class="TableBackground" style="width: 100%;">
     <td class="HeaderTextBig" colspan="2">
@@ -40,11 +53,11 @@
     </tr>   
 </table>
 
-<table id="tableGrid" runat="server" class="TableBackground" width="100%">
+<table id="tableGrid" runat="server" width="100%">
 <tr>
     <td>
      <telerik:RadGrid ID="RadGrid1" runat="server" Skin="Telerik" CssClass="RadGrid" GridLines="None" AllowPaging="True" 
-    PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" 
+    PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" Height="800px"
     AllowAutomaticInserts="false" OnItemDataBound="RadGrid1_ItemDataBound" OnDataBound="RadGrid1_DataBound" OnDeleteCommand="RadGrid1_DeleteCommand" 
     OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand" OnInsertCommand="RadGrid1_InsertCommand"    
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="XAMP_ModelPortfolioCode">
@@ -133,7 +146,7 @@
                         </tr> --%> 
                         <tr id="trRiskClassDdl" runat="server">
                             <td class="leftField">
-                                <asp:Label ID="lblPickClass" runat="server" Text="Risk/Goal class :" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblPickClass" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" >                                                         
@@ -148,7 +161,7 @@
                         </tr>
                         <tr id="trRiskClassTxt" runat="server">
                             <td class="leftField">
-                                <asp:Label ID="lblClass" runat="server" Text="Risk/Goal class :" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblClass" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
                                <asp:TextBox ID="txtPickRiskClass" CssClass="txtField" Text='<%# Bind( "XRC_RiskClass") %>' Enabled="false" runat="server">
