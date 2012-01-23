@@ -19,7 +19,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-         $(".flip").click(function() { $(".panel").slideToggle(); });
+        $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
 
@@ -180,13 +180,18 @@
                 <table id="tblMain" cellspacing="1" cellpadding="1" runat="server" width="100%" border="0">
                 <tr id="trDdlPickAMC" runat="server">
                     <td class="leftField">
-                        <asp:Label ID="lblPickAMC" runat="server" CssClass="FieldName" Text="Pick an AMC"></asp:Label>
+                        <asp:Label ID="lblPickAMC" runat="server" CssClass="FieldName" Text="Pick an AMC:"></asp:Label>
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" 
                             AutoPostBack="true" onselectedindexchanged="ddlAMC_SelectedIndexChanged">
-                        </asp:DropDownList>                        
-                    </td>  
+                        </asp:DropDownList><span id="Span1" class="spnRequiredField">*</span> 
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="Please Pick an AMC" InitialValue="Select AMC Code" 
+                            ControlToValidate="ddlAMC" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                   
                 </tr>
                 <tr id="trPickAMCtxt" runat="server">
                     <td class="leftField">
@@ -198,7 +203,7 @@
                 </tr>                
                 <tr id="trddlCategory" runat="server">
                     <td class="leftField">
-                        <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category"></asp:Label>
+                        <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
                     </td>
                     <td>                        
                        
@@ -222,7 +227,7 @@
                 </tr>
                 <tr id="divSubCategory" runat="server"  visible="false">
                      <td class="leftField">
-                        <asp:Label ID="lblSubCategory" runat="server" CssClass="FieldName" Text="Sub Category"></asp:Label>
+                        <asp:Label ID="lblSubCategory" runat="server" CssClass="FieldName" Text="Sub Category:"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="cmbField" 
@@ -242,11 +247,15 @@
                                 
                 <tr id="trddlScheme" runat="server">
                     <td class="leftField">
-                        <asp:Label ID="lblScheme" runat="server" CssClass="FieldName" Text="Scheme"></asp:Label>
+                        <asp:Label ID="lblScheme" runat="server" CssClass="FieldName" Text="Scheme:"></asp:Label>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>                                          
+                        </asp:DropDownList><span id="Span2" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Text="Please select a scheme" InitialValue="Select" 
+                            ControlToValidate="ddlScheme" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr id="trTxtScheme" runat="server">
@@ -259,10 +268,21 @@
                 </tr>
                 <tr id="trAddWeightage" runat="server">
                     <td class="leftField">
-                        <asp:Label ID="lblWeightage" runat="server" CssClass="FieldName" Text="Weightage(%)"></asp:Label>
+                        <asp:Label ID="lblWeightage" runat="server" CssClass="FieldName" Text="Weightage(%):"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtWeightage" runat="server" CssClass="txtField" Text='<%# Bind( "AMFMPD_AllocationPercentage") %>'></asp:TextBox>                       
+                        <asp:TextBox ID="txtWeightage" runat="server" CssClass="txtField" Text='<%# Bind( "AMFMPD_AllocationPercentage") %>'></asp:TextBox>
+                        <span id="Span3" class="spnRequiredField">*</span>
+                        
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtWeightage"
+                                ErrorMessage="Enter the Weightage" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                             
+                            <asp:RangeValidator ID="rvWeightage" runat="server" 
+                              ControlToValidate="txtWeightage" CssClass="cvPCG" Display="Dynamic" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                     </td>                   
                 </tr> 
                 <%--<tr id="trEditWeightage" runat="server">
@@ -297,12 +317,17 @@
                     </td>
                     <td class="rightField">                         
                         <asp:DropDownList ID="ddlArchive" runat="server" CssClass="cmbField"></asp:DropDownList>
+                        <span id="Span4" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Text="Please select an archive reason" InitialValue="0" 
+                            ControlToValidate="ddlArchive" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>             
                 <tr>
                     <td align="right" colspan="2">
-                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                         CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CssClass="PCGButton"
+                          runat="server" ValidationGroup="Button1" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                         </asp:Button>&nbsp;
                         <asp:Button ID="Button2" Text="Cancel" CssClass="PCGButton" runat="server" CausesValidation="False" CommandName="Cancel">
                         </asp:Button>

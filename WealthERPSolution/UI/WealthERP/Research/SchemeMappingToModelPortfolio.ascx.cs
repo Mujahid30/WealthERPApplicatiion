@@ -515,7 +515,8 @@ namespace WealthERP.Research
                 {
                     trDdlPickAMC.Visible = true;
                     trddlCategory.Visible = true;
-                    divSubCategory.Visible = true;
+                    //divSubCategory.Visible = true;
+                    //trSubCategory.Visible = true;
                     trddlScheme.Visible = true;
                     trPickAMCtxt.Visible = false;
                     trTxtCategory.Visible = false;
@@ -542,7 +543,8 @@ namespace WealthERP.Research
                 {
                     trDdlPickAMC.Visible = false;
                     trddlCategory.Visible = false;
-                    divSubCategory.Visible = false;
+                    //divSubCategory.Visible = false;
+                    //trSubCategory.Visible = false;
                     trddlScheme.Visible = false;
                     trPickAMCtxt.Visible = true;
                     trTxtCategory.Visible = true;
@@ -627,7 +629,7 @@ namespace WealthERP.Research
                     dropdownScheme.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
                     dropdownScheme.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
                     dropdownScheme.DataBind();
-                    dropdownScheme.Items.Insert(0, new ListItem("All Scheme", "0"));
+                    dropdownScheme.Items.Insert(0, new ListItem("Select", "Select"));
                 }
                 else
                 {
