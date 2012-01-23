@@ -4,14 +4,39 @@
 
     <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
     </telerik:RadScriptManager> 
-    <br /> 
+    
+    <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+         $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
 <table class="TableBackground" style="width: 100%;">
-    <tr>
-        <td>
-            <asp:Label ID="lblSetUpClass" runat="server" CssClass="HeaderTextBig" Text="Risk class"></asp:Label>
+    <td class="HeaderTextBig" colspan="2">
+        <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="lblSetUpClass" runat="server" CssClass="HeaderTextBig" Text="Risk class"></asp:Label>          
             <hr />
         </td>
     </tr>
+    <tr>
+        <td colspan="3">
+            <div class="panel">
+                <p>
+                    Add, edit & delete the risk class and their definition.
+                    <%--<br />
+                    2.Match orders to the receive transactions.--%>
+                </p>
+            </div>
+        </td>
+    </tr>   
 </table>
 <%--<table>
     <tr>
