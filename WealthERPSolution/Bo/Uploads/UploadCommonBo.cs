@@ -3399,7 +3399,64 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
+        //Insert transaction from Common Transaction staaging
+        public bool InsertMFStandardTransToWERP(int processId, int adviserId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            Microsoft.SqlServer.Dts.Runtime.Application App = new Microsoft.SqlServer.Dts.Runtime.Application();
+            try
+            {
+                Package camsTranPkg4 = App.LoadPackage(Packagepath, null);
+                camsTranPkg4.Variables["varProcessId"].Value = processId;
+                camsTranPkg4.Variables["varAdviserId"].Value = adviserId;
+                camsTranPkg4.ImportConfigurationFile(configPath);
+                DTSExecResult camsTranResult4 = camsTranPkg4.Execute();
+                if (camsTranResult4.ToString() == "Success")
+                {
+                    //To update the least trans date for the process.
+                    DataSet dsmindateval = new DataSet();
+                    UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+                    CustomerPortfolioBo customerportfoliobo = new CustomerPortfolioBo();
+                    bool valupdated = true;
+                    dsmindateval = uploadscommonDao.GetMinDateofUploadTrans(processId, "MF");
 
+                    if (dsmindateval.Tables[0].Rows.Count != 0)
+                    {
+                        DateTime LeastTransDate = DateTime.Parse(dsmindateval.Tables[0].Rows[0]["MinDate"].ToString());
+                        int AdvId = int.Parse(dsmindateval.Tables[0].Rows[0]["AdviserId"].ToString());
+                        valupdated = customerportfoliobo.UpdateAdviserDailyEODLogRevaluateForTransaction(AdvId, "MF", LeastTransDate);
+                    }
+
+
+                    if (valupdated)
+                    {
+                        IsProcessComplete = true;
+                    }
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertTransDetails()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
 
 
         //Insert transaction from Common Transaction staaging
