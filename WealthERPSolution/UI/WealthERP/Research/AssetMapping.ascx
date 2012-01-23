@@ -6,11 +6,11 @@
     EnableViewState="true" runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView1" runat="server">
         <asp:Panel ID="pnlAssetMapping" runat="server">
-        <br />
+        
       <table width="100%" class="TableBackground">
         <tr>
                 <td class="HeaderCell">
-                    <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Asset Mapping"></asp:Label>
+                    <asp:Label ID="lblView" runat="server" CssClass="HeaderTextBig" Text="Product asset classification"></asp:Label>
                     <hr />
                 </td>
             </tr>
@@ -19,7 +19,7 @@
       <table style="width:75%">
       <tr>
         <td>
-            <asp:Label ID="lblAssetMapping" runat="server" CssClass="FieldName" Text="Asset classification to financial product mapping"></asp:Label>
+            <asp:Label ID="lblAssetMapping" runat="server" CssClass="FieldName" Text="Financial product asset classification"></asp:Label>
             
         </td>
       </tr>
