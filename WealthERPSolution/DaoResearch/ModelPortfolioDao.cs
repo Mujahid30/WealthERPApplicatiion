@@ -256,6 +256,27 @@ namespace DaoResearch
             return dtModelPortfolio;
         }
 
+        public DataTable GetDefaultAdviserRiskClasses()
+        {
+            DataTable dtModelPortfolio;
+            DataSet dsModelPortFolio;
+            Database db;
+            DbCommand modelPortfolioCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                modelPortfolioCmd = db.GetStoredProcCommand("SP_GetDefaultAdviserRiskClass");
+                //db.AddInParameter(modelPortfolioCmd, "@adviserId", DbType.Int32, adviserId);
+                dsModelPortFolio = db.ExecuteDataSet(modelPortfolioCmd);
+                dtModelPortfolio = dsModelPortFolio.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtModelPortfolio;
+        }
+
         public void DeleteSchemeFromModelPortfolio(int modelPortfolioCode, int adviserId)
         {
             Database db;

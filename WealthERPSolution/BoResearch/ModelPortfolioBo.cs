@@ -447,6 +447,20 @@ namespace BoResearch
             return dtAttachedScheme;
         }
 
+        public DataTable GetDefaultAdviserRiskClasses()
+        {
+            DataTable dtAttachedScheme;
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+                dtAttachedScheme = modelPortfolioDao.GetDefaultAdviserRiskClasses();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtAttachedScheme;
+        }
 
         public void ArchiveSchemeFromModelPortfolio(int AMFMPD_Id, int xarId)
         {
