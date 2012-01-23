@@ -636,7 +636,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public int GetAccountIdAccordingToFolio(string folioNo)
+        public int GetAccountIdAccordingToFolio(string folioNo,int portfolioId)
         {
             int accountId = 0;
             Database db;
@@ -647,6 +647,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAccountIdcmd = db.GetStoredProcCommand("SP_GetAccountIdAccodingToFolio");
                 db.AddInParameter(getAccountIdcmd, "@folioNo", DbType.String, folioNo);
+                db.AddInParameter(getAccountIdcmd, "@portfolioId", DbType.Int32, portfolioId);
                 dsgetAccountId = db.ExecuteDataSet(getAccountIdcmd);
                 accountId = int.Parse(dsgetAccountId.Tables[0].Rows[0]["CMFA_AccountId"].ToString());
             }

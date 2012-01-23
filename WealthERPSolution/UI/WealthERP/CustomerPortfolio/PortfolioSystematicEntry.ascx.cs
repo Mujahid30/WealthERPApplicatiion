@@ -914,7 +914,7 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.Portfolio = ddlportfolio.SelectedItem.Value;
             systematicSetupVo.Folio= ddlFolioNumber.SelectedItem.Text;
 
-            folioAccountId = systematicSetupBo.GetAccountIdAccodingToFolio(systematicSetupVo.Folio);
+            folioAccountId = systematicSetupBo.GetAccountIdAccodingToFolio(systematicSetupVo.Folio,int.Parse(systematicSetupVo.Portfolio));
             systematicSetupVo.AccountId = folioAccountId;
 
             //else
@@ -1134,7 +1134,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (Request.QueryString["GoalId"] != null)
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerFPGoalFundingProgress','?prevPage=PortfolioSystematicEntry');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerFPGoalFundingProgress','?GoalId=" + fundGoalId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('CustomerAdvancedGoalSetup','?GoalId=" + fundGoalId + "&goalAction=" + "Fund" + "');", true);
                 }
                 else
                 {

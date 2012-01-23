@@ -306,12 +306,12 @@ namespace BoCustomerPortfolio
             return dsGetCalenderSummaryView;
         }
 
-        public int GetAccountIdAccodingToFolio(string folioNo)
+        public int GetAccountIdAccodingToFolio(string folioNo,int portfolioId)
         {
             int accountId = 0;
             try
             {
-                accountId = systematicSetupDao.GetAccountIdAccordingToFolio(folioNo);
+                accountId = systematicSetupDao.GetAccountIdAccordingToFolio(folioNo, portfolioId);
             }
             catch (BaseApplicationException Ex)
             {

@@ -198,7 +198,7 @@ namespace WealthERP.FP
             }
         }
 
- //***********************GOAL FUNDING AND PROGRESS SECTION******************************//
+//***********************GOAL FUNDING AND PROGRESS SECTION******************************//
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
         #region Goal Add View Edit(First Tab)
@@ -1607,73 +1607,80 @@ namespace WealthERP.FP
             GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
             DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickSIPScheme");
             TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
-            int sipId = int.Parse(ddl.SelectedValue);
-
-            DataRow[] drSIPId;
-            DataRow[] drSIPInvestmentPlanId;
-            DataRow[] drSIPCurrentInvestment;
-            DataRow[] drTotalSIPamount;
-            drSIPId = dsGoalFundingDetails.Tables[1].Select("SIPId=" + sipId.ToString());
-            drSIPCurrentInvestment = dsSIPInvestment.Tables[0].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
-
-            drTotalSIPamount = dsSIPInvestment.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
-
-            if (drTotalSIPamount.Count() > 0)
+            if (!string.IsNullOrEmpty(ddl.SelectedValue))
             {
-                foreach (DataRow dr in drTotalSIPamount)
+                int sipId = int.Parse(ddl.SelectedValue);
+
+                DataRow[] drSIPId;
+                DataRow[] drSIPInvestmentPlanId;
+                DataRow[] drSIPCurrentInvestment;
+                DataRow[] drTotalSIPamount;
+                drSIPId = dsGoalFundingDetails.Tables[1].Select("SIPId=" + sipId.ToString());
+                drSIPCurrentInvestment = dsSIPInvestment.Tables[0].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
+
+                drTotalSIPamount = dsSIPInvestment.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
+
+                if (drTotalSIPamount.Count() > 0)
                 {
-                    totalSIPAmount = decimal.Parse(dr["CMFSS_Amount"].ToString());
+                    foreach (DataRow dr in drTotalSIPamount)
+                    {
+                        totalSIPAmount = decimal.Parse(dr["CMFSS_Amount"].ToString());
+                    }
                 }
-            }
 
-            else
-                totalSIPAmount = 0;
-
+                else
+                    totalSIPAmount = 0;
 
 
-            if (drSIPCurrentInvestment.Count() > 0)
-            {
-                foreach (DataRow dr in drSIPCurrentInvestment)
+
+                if (drSIPCurrentInvestment.Count() > 0)
                 {
-                    currentAllocation = decimal.Parse(dr["InvestedAmount"].ToString());
+                    foreach (DataRow dr in drSIPCurrentInvestment)
+                    {
+                        currentAllocation = decimal.Parse(dr["InvestedAmount"].ToString());
+                    }
                 }
-            }
 
-            else
-                currentAllocation = 0;
+                else
+                    currentAllocation = 0;
 
-            if (drSIPId.Count() > 0)
-            {
-                foreach (DataRow drSipId in drSIPId)
+                if (drSIPId.Count() > 0)
                 {
-                    totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSipId["SIPInvestedAmount"].ToString()) - currentAllocation;
+                    foreach (DataRow drSipId in drSIPId)
+                    {
+                        totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSipId["SIPInvestedAmount"].ToString()) - currentAllocation;
+                    }
                 }
-            }
 
-            if (!string.IsNullOrEmpty(txt.Text))
-            {
-                if ((decimal.Parse(txt.Text) + totalOtherAllocation) > totalSIPAmount)
+                if (!string.IsNullOrEmpty(txt.Text))
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have less available amount');", true);
+                    if ((decimal.Parse(txt.Text) + totalOtherAllocation) > totalSIPAmount)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have less available amount');", true);
+                    }
+                    else
+                    {
+                        customerGoalPlanningBo.UpdateSIPGoalAllocationAmount(decimal.Parse(txt.Text), sipId, goalId);
+                        //BindMonthlySIPFundingScheme();
+                        GetGoalFundingProgress();
+                        BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                        ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+
+                    }
                 }
                 else
                 {
-                    customerGoalPlanningBo.UpdateSIPGoalAllocationAmount(decimal.Parse(txt.Text), sipId, goalId);
-                    //BindMonthlySIPFundingScheme();
-                    GetGoalFundingProgress();
-                    BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
-                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                    
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
                 }
+
+
+
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any scheme');", true);
+
             }
-
-
-
-
         }
 
         protected void RadGrid1_ItemInserted(object source, GridCommandEventArgs e)
@@ -1682,68 +1689,75 @@ namespace WealthERP.FP
             decimal currentAllocation = 0;
             GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
             DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickScheme");
-            TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
-            int schemeplanId = int.Parse(ddl.SelectedValue);
-            DataRow[] drExistingInvestmentSchemePlanId;
-            DataRow[] drExistingInvestmentCurrentAllocation;
-            DataRow[] drSchemePlanId;
-            //expression ="SchemeCode="+schemeplanId.ToString();
-            //dtCustomerGoalFundingDetails.DefaultView.RowFilter = expression;
-            drSchemePlanId = dsGoalFundingDetails.Tables[0].Select("SchemeCode=" + schemeplanId.ToString());
-
-            drExistingInvestmentSchemePlanId = dsExistingInvestment.Tables[2].Select("PASP_SchemePlanCode=" + schemeplanId.ToString());
-
-            drExistingInvestmentCurrentAllocation = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemeplanId.ToString());
-
-            if (drExistingInvestmentCurrentAllocation.Count() > 0)
+            TextBox txt = (TextBox)e.Item.FindControl("TextBox4");
+            if (ddl.SelectedValue != "")
             {
-                foreach (DataRow dr in drExistingInvestmentCurrentAllocation)
+                int schemeplanId = int.Parse(ddl.SelectedValue);
+                DataRow[] drExistingInvestmentSchemePlanId;
+                DataRow[] drExistingInvestmentCurrentAllocation;
+                DataRow[] drSchemePlanId;
+                //expression ="SchemeCode="+schemeplanId.ToString();
+                //dtCustomerGoalFundingDetails.DefaultView.RowFilter = expression;
+                drSchemePlanId = dsGoalFundingDetails.Tables[0].Select("SchemeCode=" + schemeplanId.ToString());
+
+                drExistingInvestmentSchemePlanId = dsExistingInvestment.Tables[2].Select("PASP_SchemePlanCode=" + schemeplanId.ToString());
+
+                drExistingInvestmentCurrentAllocation = dsExistingInvestment.Tables[3].Select("PASP_SchemePlanCode=" + schemeplanId.ToString());
+
+                if (drExistingInvestmentCurrentAllocation.Count() > 0)
                 {
-                    currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
+                    foreach (DataRow dr in drExistingInvestmentCurrentAllocation)
+                    {
+                        currentAllocation = decimal.Parse(dr["allocatedPercentage"].ToString());
+                    }
                 }
-            }
 
-            else
-                currentAllocation = 0;
+                else
+                    currentAllocation = 0;
 
-            if (drExistingInvestmentSchemePlanId.Count() > 0)
-            {
-                foreach (DataRow drSchemeId in drExistingInvestmentSchemePlanId)
+                if (drExistingInvestmentSchemePlanId.Count() > 0)
                 {
-                    totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation;
+                    foreach (DataRow drSchemeId in drExistingInvestmentSchemePlanId)
+                    {
+                        totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSchemeId["allocatedPercentage"].ToString()) - currentAllocation;
+                    }
                 }
-            }
 
-            if (!string.IsNullOrEmpty(txt.Text))
-            {
-                if ((decimal.Parse(txt.Text) + totalOtherAllocation) > 100)
+                if (!string.IsNullOrEmpty(txt.Text))
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Allocation exceeding 100%');", true);
+                    if ((decimal.Parse(txt.Text) + totalOtherAllocation) > 100)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Allocation exceeding 100%');", true);
+                    }
+                    else
+                    {
+                        decimal investedAmount = 0;
+                        decimal acqCost = 0;
+                        foreach (DataRow dr in dsExistingInvestment.Tables[6].Rows)
+                        {
+                            if (dr["PASP_SchemePlanCode"].ToString() == schemeplanId.ToString())
+                            {
+                                acqCost = decimal.Parse(dr["CMFNP_AcqCostExclDivReinvst"].ToString());
+                                break;
+
+                            }
+
+                        }
+                        investedAmount = (acqCost * decimal.Parse(txt.Text)) / 100;
+                        customerGoalPlanningBo.UpdateGoalAllocationPercentage(decimal.Parse(txt.Text), schemeplanId, goalId, investedAmount);
+                        GetGoalFundingProgress();
+                        BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                        ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    }
                 }
                 else
                 {
-                    decimal investedAmount = 0;
-                    decimal acqCost = 0;
-                    foreach (DataRow dr in dsExistingInvestment.Tables[6].Rows)
-                    {
-                        if (dr["PASP_SchemePlanCode"].ToString() == schemeplanId.ToString())
-                        {
-                            acqCost = decimal.Parse(dr["CMFNP_AcqCostExclDivReinvst"].ToString());
-                            break;
-
-                        }
-
-                    }
-                    investedAmount = (acqCost * decimal.Parse(txt.Text)) / 100;
-                    customerGoalPlanningBo.UpdateGoalAllocationPercentage(decimal.Parse(txt.Text), schemeplanId, goalId, investedAmount);
-                    GetGoalFundingProgress();
-                    BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
-                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
                 }
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill the allocation');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have not selected any scheme');", true);
             }
         }
 
@@ -1769,9 +1783,9 @@ namespace WealthERP.FP
             //}
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
-
+                GetGoalFundingProgress();
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                TextBox txt = (TextBox)e.Item.FindControl("TextBox3");
+                TextBox txt = (TextBox)e.Item.FindControl("TextBox4");
                 decimal allocationEntry = decimal.Parse(txt.Text);
                 int schemePlanId = int.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString());
                 decimal OtherGoalAllocation = decimal.Parse(RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["OtherGoalAllocation"].ToString());
@@ -1779,21 +1793,24 @@ namespace WealthERP.FP
             }
             //if (e.CommandName == RadGrid.EditCommandName || e.CommandName == RadGrid.CancelCommandName || e.CommandName == RadGrid.UpdateCommandName)
             //{
+            if (e.CommandName != RadGrid.UpdateCommandName)
+            {
                 GetGoalFundingProgress();
-                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
-                //BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
-                //ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                //BindddlModelPortfolioGoalSchemes();
-                //SetGoalProgressImage(goalPlanningVo.Goalcode);
+            }
+            BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+            //BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+            //ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+            //BindddlModelPortfolioGoalSchemes();
+            //SetGoalProgressImage(goalPlanningVo.Goalcode);
             //}
-                if (e.CommandName == RadGrid.UpdateCommandName || e.CommandName == RadGrid.InitInsertCommandName)
-                {
-                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                    SetGoalProgressImage(goalPlanningVo.Goalcode);
-                }
+            if (e.CommandName == RadGrid.UpdateCommandName || e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                SetGoalProgressImage(goalPlanningVo.Goalcode);
+            }
 
-                goalAction = "Fund";
-                Session["GoalAction"] = goalAction;
+            goalAction = "Fund";
+            Session["GoalAction"] = goalAction;
                 
 
         }

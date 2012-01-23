@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="qsf" Namespace="Telerik" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 
 
@@ -922,6 +923,9 @@
                                         <td>
                                             <asp:TextBox ID="TextBox4" runat="server" CssClass="txtField" Text='<%# Bind("CurrentGoalAllocation") %>' TabIndex="3" > 
                                             </asp:TextBox>
+                                             <cc1:TextBoxWatermarkExtender ID="TextBox4_TextBoxWatermarkExtender" runat="server"
+                                               Enabled="True" TargetControlID="TextBox4" WatermarkText="Please enter here..">
+                                               </cc1:TextBoxWatermarkExtender>
                                         </td>
                                     </tr>  
                                    
@@ -1069,6 +1073,9 @@
                                         <td>
                                             <asp:TextBox ID="TextBox3" runat="server" CssClass="txtField" Text='<%# Bind("SIPInvestedAmount") %>' TabIndex="3">
                                             </asp:TextBox>
+                                             <cc1:TextBoxWatermarkExtender ID="TextBox3_TextBoxWatermarkExtender" runat="server"
+                                               Enabled="True" TargetControlID="TextBox3" WatermarkText="Please enter SIP Amt.">
+                                               </cc1:TextBoxWatermarkExtender>
                                         </td>
                                         <td align="right">
                                          <asp:Label id="Label23" Text="Other Goal Invested Amount:" CssClass="FieldName" runat="server">
