@@ -81,7 +81,7 @@ namespace WealthERP.OPS
             //customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
             //customerId = customerVo.CustomerId;
             int bmID = rmVo.RMId;
-            btnAddMore.Visible = false;
+            
             lnkBtnEdit.Visible = false;
             
 
@@ -104,7 +104,7 @@ namespace WealthERP.OPS
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
 
                 }
-                
+                btnAddMore.Visible = true;
                 trSectionTwo10.Visible = false;
                 //trFutureTrigger.Visible = false;
                 //ShowHideFields(0);
@@ -131,10 +131,12 @@ namespace WealthERP.OPS
                     if (ViewForm == "View")
                     {
                         SetControls("View", operationVo);
+                        btnAddMore.Visible = false;
                     }
                     else if (ViewForm == "Edit")
                     {
                         SetControls("Edit", operationVo);
+                        btnAddMore.Visible = false;
                     }
                     else if (ViewForm == "entry")
                     {
@@ -391,12 +393,17 @@ namespace WealthERP.OPS
                         lblOrderPendingReason.Visible = true; ddlOrderPendingReason.Visible = true;
                         ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
                     }
-                    
-                    txtFutureDate.Text =operationVo.FutureExecutionDate.ToShortDateString();
+                    if (operationVo.FutureExecutionDate != DateTime.MinValue)
+                        txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
+                    else
+                        txtFutureDate.Text = "";
                     if (operationVo.IsImmediate == 1)
                         rbtnImmediate.Checked = true;
                     else
-                        rbtnFuture.Checked = false;
+                    {
+                        rbtnFuture.Checked = true;
+                        trSectionTwo10.Visible = true;
+                    }
                     txtFutureTrigger.Text = operationVo.FutureTriggerCondition;
                     txtAmount.Text = operationVo.Amount.ToString();
                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -634,11 +641,18 @@ namespace WealthERP.OPS
                         lnkBtnEdit.Visible = false;
                     else
                         lnkBtnEdit.Visible = true;
-                    txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
+
                     if (operationVo.IsImmediate == 1)
                         rbtnImmediate.Checked = true;
                     else
-                        rbtnFuture.Checked = false;
+                    {
+                        rbtnFuture.Checked = true;
+                        trSectionTwo10.Visible = true;
+                    }
+                    if (operationVo.FutureExecutionDate != DateTime.MinValue)
+                        txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
+                    else
+                        txtFutureDate.Text = "";
                     txtFutureTrigger.Text = operationVo.FutureTriggerCondition;
                     txtAmount.Text = operationVo.Amount.ToString();
                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -1405,7 +1419,7 @@ namespace WealthERP.OPS
                         //BindSchemeSwitch();
                         trSell3.Visible = true;
                         trfrequencySTP.Visible = false;
-                        trDateSTP.Visible = true;
+                        trDateSTP.Visible = false;
                     }
                     else if (ddltransType.SelectedValue == "STB")
                     {
@@ -1767,12 +1781,15 @@ namespace WealthERP.OPS
         {
             if (ddlCategory.SelectedIndex != 0)
             {
-                amcCode = int.Parse(ddlAMCList.SelectedValue);
-                categoryCode = ddlCategory.SelectedValue;
-                if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
-                    BindScheme(0);
-                else
-                    BindScheme(1);
+                if (ddlAMCList.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlAMCList.SelectedValue);
+                    categoryCode = ddlCategory.SelectedValue;
+                    if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
+                        BindScheme(0);
+                    else
+                        BindScheme(1);
+                }
             }
         }
 
@@ -1786,15 +1803,18 @@ namespace WealthERP.OPS
                 ddlCategory.SelectedValue = categoryCode;
                 if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                 {
-                    DataSet dsGetAmountUnits;
-                    DataTable dtGetAmountUnits;
-                    dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode,int.Parse(txtCustomerId.Value));
-                    dtGetAmountUnits=dsGetAmountUnits.Tables[0];
-                    lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
-                    lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
-                    if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                    if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     {
-                        BindSchemeSwitch();
+                        DataSet dsGetAmountUnits;
+                        DataTable dtGetAmountUnits;
+                        dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
+                        dtGetAmountUnits = dsGetAmountUnits.Tables[0];
+                        lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
+                        lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
+                        if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                        {
+                            BindSchemeSwitch();
+                        }
                     }
                 }
             }
@@ -1880,7 +1900,7 @@ namespace WealthERP.OPS
                 operationVo.IsImmediate = 1;
             else
                 operationVo.IsImmediate = 0;
-            if (txtFutureDate.Text!=DateTime.MinValue.ToString())
+            if (!string.IsNullOrEmpty(txtFutureDate.Text.ToString().Trim()))
                 operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.Text);
             else
                 operationVo.FutureExecutionDate = DateTime.MinValue;
