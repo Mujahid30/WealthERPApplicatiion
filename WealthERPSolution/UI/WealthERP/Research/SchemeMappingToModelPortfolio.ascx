@@ -82,14 +82,14 @@
 <table id="tblAllocation" runat="server" class="TableBackground" width="100%" visible="false">
     <tr>    
         <td class="leftField" style="width:130Px">
-            <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc(%):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtDebt" runat="server" Enabled="false" CssClass="txtField">
             </asp:TextBox>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblEquity" runat="server" Text="Equity Alloc:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblEquity" runat="server" Text="Equity Alloc(%):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtEquity" runat="server" Enabled="false" CssClass="txtField">
@@ -98,14 +98,14 @@
     <%--</tr>
     <tr>--%>
         <td class="leftField">
-            <asp:Label ID="lblCash" runat="server" Text="Cash Alloc:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblCash" runat="server" Text="Cash Alloc(%):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCash" runat="server" Enabled="false" CssClass="txtField">
             </asp:TextBox>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblAlternate" runat="server" Text="Alternate Alloc:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAlternate" runat="server" Text="Alternate Alloc(%):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtAlternate" runat="server" Enabled="false" CssClass="txtField">
@@ -421,10 +421,10 @@
 <table class="TableBackground" id="tblPieChart" runat="server" width="100%">
 <tr>
     <td>
-        <asp:Label ID="lblCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation category chart:"></asp:Label>
+        <asp:Label ID="lblCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation category-wise:"></asp:Label>
     </td>
     <td>
-        <asp:Label ID="lblSubCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation subcategory chart:"></asp:Label>
+        <asp:Label ID="lblSubCategoryChart" runat="server" CssClass="HeaderTextSmall" Text="Asset allocation subcategory-wise:"></asp:Label>
     </td>
 </tr>
 <tr>
