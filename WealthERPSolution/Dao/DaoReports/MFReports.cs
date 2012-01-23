@@ -483,61 +483,64 @@ namespace DaoReports
 
             try
             {
-             String[] portfolioIds = reports.PortfolioIds.Split(',');
-             if (portfolioIds.Count()>=1)
-                //String[] portfolioIds = reports.PortfolioIds.Split(',');
-                //if (portfolioIds.Count() > 1)
+                if (!string.IsNullOrEmpty(reports.PortfolioIds.ToString().Trim()))
                 {
-                    foreach (string strPortfoliioId in portfolioIds)
+                    String[] portfolioIds = reports.PortfolioIds.Split(',');
+                    if (portfolioIds.Count() >= 1)
+                    //String[] portfolioIds = reports.PortfolioIds.Split(',');
+                    //if (portfolioIds.Count() > 1)
                     {
-                        mfPortfolioVoList = new List<MFPortfolioVo>();
-                        Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
-                        DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
-                        DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
-                        mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
-                        if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
+                        foreach (string strPortfoliioId in portfolioIds)
                         {
-                            foreach (MFPortfolioVo mFPortfolioVo in mfPortfolioVoList)
+                            mfPortfolioVoList = new List<MFPortfolioVo>();
+                            Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
+                            DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
+                            DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
+                            mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
+                            if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
                             {
-                                foreach (MFPortfolioTransactionVo mFPortfolioTransaction in mFPortfolioVo.MFPortfolioTransactionVoList)
+                                foreach (MFPortfolioVo mFPortfolioVo in mfPortfolioVoList)
                                 {
-                                    if (mFPortfolioTransaction.Closed == true && mFPortfolioTransaction.SellDate > reports.FromDate && mFPortfolioTransaction.SellDate < reports.ToDate)
+                                    foreach (MFPortfolioTransactionVo mFPortfolioTransaction in mFPortfolioVo.MFPortfolioTransactionVoList)
                                     {
-                                        DataRow drCapitalGainDetails = dtCapitalGainDetails.NewRow();
+                                        if (mFPortfolioTransaction.Closed == true && mFPortfolioTransaction.SellDate > reports.FromDate && mFPortfolioTransaction.SellDate < reports.ToDate)
+                                        {
+                                            DataRow drCapitalGainDetails = dtCapitalGainDetails.NewRow();
 
-                                        drCapitalGainDetails["CustomerName"] = drPortfolioCustomer["C_FirstName"].ToString();
-                                        drCapitalGainDetails["CustomerId"] = mFPortfolioVo.CustomerId;
-                                        if (drPortfolioCustomer["CP_PortfolioName"] != null)
-                                            drCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
-                                        drCapitalGainDetails["PortfolioId"] = portfoliioId;
+                                            drCapitalGainDetails["CustomerName"] = drPortfolioCustomer["C_FirstName"].ToString();
+                                            drCapitalGainDetails["CustomerId"] = mFPortfolioVo.CustomerId;
+                                            if (drPortfolioCustomer["CP_PortfolioName"] != null)
+                                                drCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
+                                            drCapitalGainDetails["PortfolioId"] = portfoliioId;
 
-                                        drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                            drCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
 
-                                        drCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
-                                        drCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
-                                        drCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
+                                            drCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
+                                            drCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
+                                            drCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
 
-                                        drCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
+                                            drCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
 
-                                        drCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
-                                        drCapitalGainDetails["PurchaseAmount"] = mFPortfolioTransaction.CostOfAcquisition;
+                                            drCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
+                                            drCapitalGainDetails["PurchaseAmount"] = mFPortfolioTransaction.CostOfAcquisition;
 
-                                        drCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
-                                        drCapitalGainDetails["SchemePlanCode"] = mFPortfolioVo.MFCode;
-                                        drCapitalGainDetails["SchemePlanName"] = mFPortfolioVo.SchemePlan;
+                                            drCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
+                                            drCapitalGainDetails["SchemePlanCode"] = mFPortfolioVo.MFCode;
+                                            drCapitalGainDetails["SchemePlanName"] = mFPortfolioVo.SchemePlan;
 
-                                        drCapitalGainDetails["STCGTax"] = mFPortfolioTransaction.STCGTax;
-                                        drCapitalGainDetails["LTCGTax"] = mFPortfolioTransaction.LTCGTax;
-                                        drCapitalGainDetails["Category"] = mFPortfolioVo.Category;
+                                            drCapitalGainDetails["STCGTax"] = mFPortfolioTransaction.STCGTax;
+                                            drCapitalGainDetails["LTCGTax"] = mFPortfolioTransaction.LTCGTax;
+                                            drCapitalGainDetails["Category"] = mFPortfolioVo.Category;
 
-                                        dtCapitalGainDetails.Rows.Add(drCapitalGainDetails);
+                                            dtCapitalGainDetails.Rows.Add(drCapitalGainDetails);
+                                        }
                                     }
                                 }
                             }
+
                         }
 
                     }
-
                 }
             }
             catch (Exception ex)
@@ -593,64 +596,66 @@ namespace DaoReports
 
             try
             {
-
-             String[] portfolioIds = reports.PortfolioIds.Split(',');
-             if (portfolioIds.Count()>=1)
-              {
-                foreach (string strPortfoliioId in portfolioIds)
+                if (!string.IsNullOrEmpty(reports.PortfolioIds.ToString().Trim()))
                 {
-                    mfPortfolioVoList = new List<MFPortfolioVo>();
-                    Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
-                    DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
-                    DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
-                    mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
-                    if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
+                    String[] portfolioIds = reports.PortfolioIds.Split(',');
+                    if (portfolioIds.Count() >= 1)
                     {
-                        foreach (MFPortfolioVo mFPortfolioVo in mfPortfolioVoList)
+                        foreach (string strPortfoliioId in portfolioIds)
                         {
-                            foreach (MFPortfolioTransactionVo mFPortfolioTransaction in mFPortfolioVo.MFPortfolioTransactionVoList)
+                            mfPortfolioVoList = new List<MFPortfolioVo>();
+                            Int32 portfoliioId = Convert.ToInt32(strPortfoliioId);
+                            DataSet dsPortfolioCustomer = portfolioBo.GetCustomerPortfolioDetails(portfoliioId);
+                            DataRow drPortfolioCustomer = dsPortfolioCustomer.Tables[0].Rows[0];
+                            mfPortfolioVoList = customerPortfolioBo.GetCustomerMFPortfolio(int.Parse(drPortfolioCustomer["C_CustomerId"].ToString()), portfoliioId, reports.ToDate, "", "", "");
+                            if (mfPortfolioVoList != null && mfPortfolioVoList.Count > 0)
                             {
-                                if (mFPortfolioTransaction.Closed == false &&  mFPortfolioTransaction.BuyDate < reports.ToDate)
+                                foreach (MFPortfolioVo mFPortfolioVo in mfPortfolioVoList)
                                 {
-                                    DataRow drEligibleCapitalGainDetails = dtEligibleCapitalGainDetails.NewRow();
+                                    foreach (MFPortfolioTransactionVo mFPortfolioTransaction in mFPortfolioVo.MFPortfolioTransactionVoList)
+                                    {
+                                        if (mFPortfolioTransaction.Closed == false && mFPortfolioTransaction.BuyDate < reports.ToDate)
+                                        {
+                                            DataRow drEligibleCapitalGainDetails = dtEligibleCapitalGainDetails.NewRow();
 
-                                    drEligibleCapitalGainDetails["CustomerName"] = drPortfolioCustomer["C_FirstName"].ToString();
-                                    drEligibleCapitalGainDetails["CustomerId"] = mFPortfolioVo.CustomerId;
-                                    if (drPortfolioCustomer["CP_PortfolioName"] != null)
-                                        drEligibleCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
-                                    drEligibleCapitalGainDetails["PortfolioId"] = portfoliioId;
+                                            drEligibleCapitalGainDetails["CustomerName"] = drPortfolioCustomer["C_FirstName"].ToString();
+                                            drEligibleCapitalGainDetails["CustomerId"] = mFPortfolioVo.CustomerId;
+                                            if (drPortfolioCustomer["CP_PortfolioName"] != null)
+                                                drEligibleCapitalGainDetails["PortfolioName"] = drPortfolioCustomer["CP_PortfolioName"].ToString();
+                                            drEligibleCapitalGainDetails["PortfolioId"] = portfoliioId;
 
-                                    //drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
-                                    drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.STCGTax + mFPortfolioTransaction.LTCGTax;
-                                    drEligibleCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
-                                    drEligibleCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
-                                    drEligibleCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
+                                            //drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.RealizedProfitLoss;
+                                            drEligibleCapitalGainDetails["GainOrLoss"] = mFPortfolioTransaction.STCGTax + mFPortfolioTransaction.LTCGTax;
+                                            drEligibleCapitalGainDetails["Units"] = mFPortfolioTransaction.BuyQuantity;
+                                            drEligibleCapitalGainDetails["RedDate"] = mFPortfolioTransaction.SellDate.ToShortDateString();
+                                            drEligibleCapitalGainDetails["RedAmount"] = mFPortfolioTransaction.NetSalesProceed;
 
-                                    drEligibleCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
+                                            drEligibleCapitalGainDetails["DaysInvestedFor"] = mFPortfolioTransaction.AgeOfInvestment;
 
-                                    drEligibleCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
-                                    drEligibleCapitalGainDetails["PurchaseAmount"] = mFPortfolioTransaction.CostOfAcquisition;
+                                            drEligibleCapitalGainDetails["PurchaseDate"] = mFPortfolioTransaction.BuyDate.ToShortDateString();
+                                            drEligibleCapitalGainDetails["PurchaseAmount"] = mFPortfolioTransaction.CostOfAcquisition;
 
-                                    drEligibleCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
-                                    drEligibleCapitalGainDetails["SchemePlanCode"] = mFPortfolioVo.MFCode;
-                                    drEligibleCapitalGainDetails["SchemePlanName"] = mFPortfolioVo.SchemePlan;
+                                            drEligibleCapitalGainDetails["FolioNum"] = mFPortfolioVo.Folio;
+                                            drEligibleCapitalGainDetails["SchemePlanCode"] = mFPortfolioVo.MFCode;
+                                            drEligibleCapitalGainDetails["SchemePlanName"] = mFPortfolioVo.SchemePlan;
 
-                                    drEligibleCapitalGainDetails["STCGTax"] = mFPortfolioTransaction.STCGTax;
-                                    drEligibleCapitalGainDetails["LTCGTax"] = mFPortfolioTransaction.LTCGTax;
-                                    drEligibleCapitalGainDetails["Category"] = mFPortfolioVo.Category;
+                                            drEligibleCapitalGainDetails["STCGTax"] = mFPortfolioTransaction.STCGTax;
+                                            drEligibleCapitalGainDetails["LTCGTax"] = mFPortfolioTransaction.LTCGTax;
+                                            drEligibleCapitalGainDetails["Category"] = mFPortfolioVo.Category;
 
-                                    drEligibleCapitalGainDetails["CurrNAV"] = mFPortfolioTransaction.CurrentNAV;
-                                    drEligibleCapitalGainDetails["CurrVALUE"] = mFPortfolioTransaction.CurrentValue;
+                                            drEligibleCapitalGainDetails["CurrNAV"] = mFPortfolioTransaction.CurrentNAV;
+                                            drEligibleCapitalGainDetails["CurrVALUE"] = mFPortfolioTransaction.CurrentValue;
 
 
-                                    dtEligibleCapitalGainDetails.Rows.Add(drEligibleCapitalGainDetails);
+                                            dtEligibleCapitalGainDetails.Rows.Add(drEligibleCapitalGainDetails);
+                                        }
+                                    }
                                 }
                             }
+
                         }
                     }
-
                 }
-              }
             }
             catch (Exception ex)
             {
