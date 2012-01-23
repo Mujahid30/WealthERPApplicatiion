@@ -24,6 +24,7 @@ namespace WealthERP.Uploads
         RejectedRecordsBo rejectedRecordsBo;
         UploadCommonBo uploadsCommonBo;
         WerpUploadsBo werpUploadBo;
+        StandardProfileUploadBo standardProfileUploadBo;
 
         DataSet dsRejectedRecords;
 
@@ -767,7 +768,7 @@ namespace WealthERP.Uploads
 
             //CAMS and KARVY Reprocess 
             string packagePath = Server.MapPath("\\UploadPackages\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\MFTransactionCommonUploadPackage\\ChecksCommonUploadPackage.dtsx");
-            
+            bool CommonStdTransChecks = false;
             bool CommonTransChecks = false;
             if (fileTypeId == 1)
             {
@@ -790,8 +791,11 @@ namespace WealthERP.Uploads
                 //***reprocess for folioandTrnx
             else if (fileTypeId == 6)
             {
-                    string packagePathForStandard = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                    CommonTransChecks = uploadsCommonBo.TransCommonChecks(adviserVo.advisorId, ProcessId, packagePath, configPath, "WP", "Standard");               
+                standardProfileUploadBo = new StandardProfileUploadBo();
+                string stdPackagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
+                CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(ProcessId, adviserVo.advisorId, stdPackagePath, configPath);
+                
+
             }
 
             else if (fileTypeId == 3)
@@ -845,6 +849,17 @@ namespace WealthERP.Uploads
                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, "SU");
                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                 }
+            }
+            else if (CommonStdTransChecks)
+            {
+                processlogVo.IsInsertionToWERPComplete = 1;
+                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(ProcessId, "WP");
+                processlogVo.EndTime = DateTime.Now;
+               
+                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(ProcessId, Contants.UploadExternalTypeStandard);
+
+                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+               
             }
             return blResult;
         }
