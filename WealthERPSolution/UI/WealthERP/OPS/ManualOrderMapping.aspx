@@ -2,41 +2,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-</asp:ScriptManager>
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-    $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
-    });
-</script>
-
-<%--<script>
-function ClosePopUp(){
-
-    window.close();
-    if (window.opener && !window.opener.closed) {
-        window.opener.location.reload();
-    }
-}
-</script>--%>
-
 <script type="text/javascript" language="javascript">
 
     function CheckedOnlyOneRadioButton(spanChk) {
@@ -56,6 +21,40 @@ function ClosePopUp(){
     }
 
 </script>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.ScreenTip1').bubbletip($('#div1'), { deltaDirection: 'right' });
+    });
+</script>
+
+<%--<script>
+function ClosePopUp(){
+
+    window.close();
+    if (window.opener && !window.opener.closed) {
+        window.opener.location.reload();
+    }
+}
+</script>--%>
+
+
     <div>
     <table width="100%" class="TableBackground">
 <tr>
@@ -247,7 +246,7 @@ ShowFooter="True">
             </div>
 </td>
 <td colspan="5">
-<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
+<%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>--%>
 <%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>--%>
 </td>
 </tr>

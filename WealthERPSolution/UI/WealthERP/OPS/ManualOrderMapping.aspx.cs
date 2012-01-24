@@ -17,6 +17,7 @@ namespace WealthERP.OPS
        int Ids;
        int scheme;
        int accountId;
+       int customerId;
        string type;
        double amount;
        DateTime orderDate;
@@ -56,10 +57,14 @@ namespace WealthERP.OPS
             {
                 orderDate = Convert.ToDateTime(Request.QueryString["OrderDate"]);
             }
+            if (Request.QueryString["Customerid"] != null)
+            {
+                customerId = Convert.ToInt32(Request.QueryString["Customerid"]);
+            }
             
             if (!IsPostBack)
             {
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate);
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId);
                 //if (Session["GridView"] != null)
                 //    dtOrderRecon = (DataTable)Session["GridView"];
                 //if (Request.QueryString["result"] != null)
@@ -67,13 +72,13 @@ namespace WealthERP.OPS
              } 
         }
 
-        private void BindMannualMatchGrid(int scheme,int accountId,string type,double amount,DateTime orderDate)
+        private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId)
         {
             //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate);
+            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
@@ -91,14 +96,14 @@ namespace WealthERP.OPS
                 btnSubmit.Visible = true;
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
-                hlClose.Visible = true;
+                //hlClose.Visible = true;
                 imgBubble.Visible = true;
             }
             else
             {
                 gvMannualMatch.Visible = false;
                 btnSubmit.Visible=false;
-                hlClose.Visible = false;
+                //hlClose.Visible = false;
                 imgBubble.Visible = false;
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
@@ -120,7 +125,7 @@ namespace WealthERP.OPS
             if (count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate); ;
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId); ;
             }
             else
             {
