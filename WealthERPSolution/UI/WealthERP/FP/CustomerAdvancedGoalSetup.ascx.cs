@@ -227,7 +227,10 @@ namespace WealthERP.FP
                 tdPostRetirementReturns2.Visible = true;
 
                 //trReturnOnNewInvestments.Visible = true;
-                trCorpusToBeLeftBehind.Visible = true;
+                if (customerAssumptionVo.IsCorpusToBeLeftBehind == true)
+                    trCorpusToBeLeftBehind.Visible = true;
+                else
+                    trCorpusToBeLeftBehind.Visible = false;
 
                
                 //*****************Blank Table Cell**********************
@@ -746,9 +749,9 @@ namespace WealthERP.FP
                     //default  current investment and Rate of return of above to 0
                     //txtCurrentInvestPurpose.Text = "0";
                     //txtAboveRateOfInterst.Text = "0";
-
-
+                    
                     //TabContainer1.ActiveTabIndex = 0;
+                   
                     break;
                 case "OT":
 

@@ -420,7 +420,7 @@
                                         </ajaxToolkit:FilteredTextBoxExtender>
                          <asp:RangeValidator Display="Dynamic" ID="RangeValidator3" 
                             SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" 
+                            MinimumValue="4" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtExpRateOfReturn"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
@@ -468,8 +468,8 @@
                             CssClass="txtField" ></asp:TextBox>
                             <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
                             <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value should not be more than 100"
-                            MinimumValue="0" MaximumValue="100" ControlToValidate="txtInflation" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Inflation value should not less than 4"
+                            MinimumValue="4" MaximumValue="100" ControlToValidate="txtInflation" 
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator  Display="Dynamic" ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtInflation"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
