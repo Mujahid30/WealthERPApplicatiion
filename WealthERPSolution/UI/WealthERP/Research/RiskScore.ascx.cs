@@ -44,8 +44,7 @@ namespace WealthERP.Research
                 GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
             }
             Page.RegisterStartupScript("load", "<script> DisableAllValidations();</script>");
-            txtMinScore.Text = ViewState["MinScore"].ToString();
-            txtMaxScore.Text = ViewState["MaxScore"].ToString();
+            
         }
 
         private void GetAndBindAdviserQuestionsAndAnswers(int QuestionId, string FromWhere)
@@ -287,6 +286,9 @@ namespace WealthERP.Research
                 ViewState["MinScore"] = minScore;
                 ViewState["MaxScore"] = maxScore;
                 lblMaxScore.Text = maxScore.ToString();
+
+                txtMinScore.Text = ViewState["MinScore"].ToString();
+                txtMaxScore.Text = ViewState["MaxScore"].ToString();
             }
         }
 

@@ -2,11 +2,24 @@
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+
 <script type="text/javascript">
 
     function DisableAllValidations() {
 
-   
+        
         ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), false);
         ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), false);
         ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), false);
@@ -56,17 +69,23 @@
        
         var txtOption = document.getElementById("<%=txtEnterOption1.ClientID%>").value;
         var txtWtage = parseInt(document.getElementById("<%=txtEnterWeightage1.ClientID%>").value);
-
+        
         if ((txtOption != "") && (txtWtage != "")) {
-            if (isNaN(txtWtage)) {
 
+            if (isNaN(txtWtage)) {
+               
+                return false;
+            }
+            else if ((txtWtage < 0) || (txtWtage > 10)) {
+            
+                return false;
             }
             else {
                 document.getElementById("<%=trOptions2.ClientID%>").style.visibility = "visible";
                 document.getElementById("<%=btnAddOption3.ClientID%>").style.visibility = "visible";
 
                 return false;
-                  
+
             }
         }
     }
@@ -83,6 +102,28 @@
         if ((txtOption != "") && (txtWtage != "")) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
+                ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+
+                document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "hidden";
+                document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "hidden";
+            
+                return false;
+            }
+            else if ((txtWtage < 0) || (txtWtage > 10)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+
+                
+            
+                return false;
             }
             else {
                 document.getElementById("<%=trOptions3.ClientID%>").style.visibility = "visible";
@@ -108,6 +149,23 @@
 
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
+                ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+            
+                return false;
+            }
+            else if ((txtWtage < 0) || (txtWtage > 10)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+            
+                return false;
             }
             else {
 
@@ -136,6 +194,25 @@
         if ((txtOption != "") && (txtWtage != "")) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
+                ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+            
+                return false;
+            }
+            else if ((txtWtage < 0) || (txtWtage > 10)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+
+                
+            
+                return false;
             }
             else {
                 document.getElementById("<%=trOptions5.ClientID%>").style.visibility = "visible";
@@ -162,6 +239,23 @@
         if ((txtOption != "") && (txtWtage != "")) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
+                ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+            
+                return false;
+            }
+            else if ((txtWtage < 0) || (txtWtage > 10)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+
+                return false;
             }
             else {
                 document.getElementById("<%=trOptions6.ClientID%>").style.visibility = "visible";
@@ -174,8 +268,40 @@
     }
 
     function ShowOption7() {
-      
+    
         // First Set of validation....
+
+        var SetVeryOnetxtOption = document.getElementById("<%=txtEnterOption1.ClientID%>").value;
+        var SetVeryOnetxtWtage = parseInt(document.getElementById("<%=txtEnterWeightage1.ClientID%>").value);
+
+
+        if ((SetVeryOnetxtOption == "") || (document.getElementById("<%=txtEnterWeightage1.ClientID%>").value == "")) {
+
+                ValidatorEnable(document.getElementById("<%=compareInt1.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator1.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOp1.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt1.ClientID%>"), true);
+
+                document.getElementById("<%=reqOp1.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqWt1.ClientID%>").style.visibility = "visible";
+
+                return false;
+            }
+            else if ((SetVeryOnetxtOption != "") && (document.getElementById("<%=txtEnterWeightage1.ClientID%>").value != "")) {
+
+            if (isNaN(SetVeryOnetxtWtage)) {
+                    return false;
+                }
+                else if ((SetVeryOnetxtWtage < 0) || (SetVeryOnetxtWtage > 10)) {
+                    return false;
+                }
+
+            }
+
+
+
+            // Second Set of validation....
+        
         
         var SetOnetxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage1.ClientID%>").value);
         var SetOnetxtOption = document.getElementById("<%=txtEnterOption2.ClientID%>").value;
@@ -198,9 +324,29 @@
             }
             else if ((SetOnetxtOption != "") && (document.getElementById("<%=txtEnterWeightage2.ClientID%>").value != "")) {
 
-                if ((isNaN(SetOnetxtWtage)) || (SetOnetxtPreviousWtage > SetOnetxtWtage)) {
+            if ((isNaN(SetOnetxtWtage)) || (SetOnetxtPreviousWtage > SetOnetxtWtage)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+            
+                document.getElementById("<%=reqOpt2.ClientID%>").style.visibility = "visible";
+                document.getElementById("<%=reqWt2.ClientID%>").style.visibility = "visible";
                     return false;
                 }
+                else if ((SetOnetxtWtage < 0) || (SetOnetxtWtage > 10)) {
+
+                ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+                
+                    return false;
+                }
+                
             }
         }
         else {
@@ -209,7 +355,7 @@
         }
 
 
-        // Second Set of validation....
+        // Third Set of validation....
 
         var SetSecondtxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage2.ClientID%>").value);
         var SetSecondtxtOption = document.getElementById("<%=txtEnterOption3.ClientID%>").value;
@@ -231,7 +377,24 @@
             }
             else if ((SetSecondtxtOption != "") && (document.getElementById("<%=txtEnterWeightage3.ClientID%>").value != "")) {
 
-                if ((isNaN(SetSecondtxtWtage)) || (SetSecondtxtPreviousWtage > SetSecondtxtWtage)) {
+            if ((isNaN(SetSecondtxtWtage)) || (SetSecondtxtPreviousWtage > SetSecondtxtWtage)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+                
+                    return false;
+                }
+                else if ((SetSecondtxtWtage < 0) || (SetSecondtxtWtage > 10)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+                
                     return false;
                 }
             }
@@ -241,7 +404,7 @@
         }
 
 
-        // Third Set of validation....
+        // Fourth Set of validation....
 
         var SetThirdtxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage3.ClientID%>").value);
         var SetThirdtxtOption = document.getElementById("<%=txtEnterOption4.ClientID%>").value;
@@ -264,7 +427,24 @@
             }
             else if ((SetThirdtxtOption != "") && (document.getElementById("<%=txtEnterWeightage4.ClientID%>").value != "")) {
 
-                if ((isNaN(SetThirdtxtWtage)) || (SetThirdtxtPreviousWtage > SetThirdtxtWtage)) {
+            if ((isNaN(SetThirdtxtWtage)) || (SetThirdtxtPreviousWtage > SetThirdtxtWtage)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+                
+                    return false;
+                }
+                else if ((SetThirdtxtWtage < 0) || (SetThirdtxtWtage > 10)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+                
                     return false;
                 }
             }
@@ -274,7 +454,7 @@
         }
 
 
-        // Fourth Set of validation....
+        // Fifth Set of validation....
 
         var SetFourthtxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage4.ClientID%>").value);
         var SetFourthtxtOption = document.getElementById("<%=txtEnterOption5.ClientID%>").value;
@@ -296,7 +476,24 @@
             }
             else if ((SetFourthtxtOption != "") && (document.getElementById("<%=txtEnterWeightage5.ClientID%>").value != "")) {
 
-                if ((isNaN(SetFourthtxtWtage)) || (SetFourthtxtPreviousWtage > SetFourthtxtWtage)) {
+            if ((isNaN(SetFourthtxtWtage)) || (SetFourthtxtPreviousWtage > SetFourthtxtWtage)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+                
+                    return false;
+                }
+                else if ((SetFourthtxtWtage < 0) || (SetFourthtxtWtage > 10)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+                
                     return false;
                 }
             }
@@ -306,7 +503,7 @@
         }
 
 
-        // Fifth Set of validation....
+        // Sixth Set of validation....
 
         var SetFifthtxtPreviousWtage = parseInt(document.getElementById("<%=txtEnterWeightage5.ClientID%>").value);
         var SetFifthtxtOption = document.getElementById("<%=txtEnterOption6.ClientID%>").value;
@@ -328,7 +525,24 @@
             }
             else if ((SetFifthtxtOption != "") && (document.getElementById("<%=txtEnterWeightage6.ClientID%>").value != "")) {
 
-                if ((isNaN(SetFifthtxtWtage)) || (SetFifthtxtPreviousWtage > SetFifthtxtWtage)) {
+            if ((isNaN(SetFifthtxtWtage)) || (SetFifthtxtPreviousWtage > SetFifthtxtWtage)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt6AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt6.ClientID%>"), true);
+                
+                    return false;
+                }
+                else if ((SetFifthtxtWtage < 0) || (SetFifthtxtWtage > 10)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt6AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt6.ClientID%>"), true);
+                
                     return false;
                 }
             }
@@ -338,7 +552,7 @@
         }
 
 
-        // Sixth Set of validation....
+        // Seventh Set of validation....
 
         var SetSixthtxtOption = document.getElementById("<%=txtEnterOption6.ClientID%>").value;
         var SetSixthtxtWtage = parseInt(document.getElementById("<%=txtEnterWeightage6.ClientID%>").value);
@@ -358,7 +572,24 @@
             }
             else if ((SetSixthtxtOption != "") && (document.getElementById("<%=txtEnterWeightage6.ClientID%>").value != "")) {
 
-                if ((isNaN(SetSixthtxtWtage))) {
+            if ((isNaN(SetSixthtxtWtage))) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt6AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt6.ClientID%>"), true);
+                
+                    return false;
+                }
+                else if ((SetSixthtxtWtage < 0) || (SetSixthtxtWtage > 10)) {
+
+                    ValidatorEnable(document.getElementById("<%=compareWt6AndWt5.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=compareCheckInt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=RangeValidator6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqOpt6.ClientID%>"), true);
+                    ValidatorEnable(document.getElementById("<%=reqWt6.ClientID%>"), true);
+                
                     return false;
                 }
             }
@@ -381,6 +612,9 @@
         for (var i = 0; i < children1.length; i++) {
             children1[i].disabled = true;
         };
+
+        document.getElementById('ctrl_RiskScore_btnSubmitAndEnterNewQuestion').style.visibility = "hidden";
+        document.getElementById('ctrl_RiskScore_btnSubmit').style.visibility = "hidden";
     }
 
     function EnableMaintananceFormControls() {
@@ -396,6 +630,9 @@
         for (var i = 0; i < children1.length; i++) {
             children1[i].disabled = false;
         };
+
+        document.getElementById('ctrl_RiskScore_btnSubmitAndEnterNewQuestion').style.visibility = "visible";
+        document.getElementById('ctrl_RiskScore_btnSubmit').style.visibility = "visible";
     }
 
     function DeleteConfirmation() {
@@ -677,14 +914,33 @@
     
 </asp:Panel>
 <asp:Panel ID="pnlMaintanceFormTitle" runat="server">
-<table id="MaintanceFormTitle" runat="server" width="100%">
+<table width="100%" id="MaintanceFormTitle" runat="server" class="TableBackground">
+    <tr>
+        <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="Label10" runat="server" CssClass="HeaderTextBig" Text="Set Risk Questions and scores."></asp:Label>
+            <hr />
+        </td>
+    </tr>
+     <tr>
+        <td colspan="3">
+            <div class="panel" style="font-size: small">
+                <p style="font-size: smaller; text-decoration: underline;">Rules for adding Option Weightage:</p> 
+                <p style="font-size: smaller">1) Weightage must be between 0 and 10.</p> 
+                <p style="font-size: smaller">2) Weightage must be in increasing order.</p> 
+            </div>
+        </td>
+    </tr>
+</table>
+<%--<table id="MaintanceFormTitle" runat="server" width="100%">
     <tr>
         <td class="HeaderTextBig">
             <asp:Label ID="Label9" runat="server" CssClass="HeaderTextBig" Text="Set Risk Questions and scores."></asp:Label>
                 <hr />
         </td>
     </tr>
-</table>
+</table>--%>
 <table runat="server" id="tblEditForm" width="30%">
     <tr>
         <td runat="server" id="tdback">
