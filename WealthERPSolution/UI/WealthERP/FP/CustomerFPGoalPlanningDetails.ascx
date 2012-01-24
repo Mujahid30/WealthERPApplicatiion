@@ -103,7 +103,7 @@
                                     </ItemTemplate>
                                       <FooterTemplate>
                                         <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
-                                            ForeColor="White" Text="Total =">
+                                            ForeColor="White" Text="Total:">
                                         </asp:Label>
                                     </FooterTemplate>
                                 </asp:TemplateField>   
@@ -150,37 +150,76 @@
                                     </FooterTemplate>
                      </asp:TemplateField>
                      
+                   <asp:TemplateField HeaderText="Lumpsum Investment Req." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLumpsumInvestment" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("LumpsumInvestment")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate> 
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblLumpsumInvestmentTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>                                  
+                     </asp:TemplateField> 
                          
                    <asp:TemplateField HeaderText="Monthly Req." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
                                         <asp:Label ID="lblMonthlyReq" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("SavingRequired")%>'>
                                         </asp:Label>
-                                    </ItemTemplate>
+                                    </ItemTemplate>                                    
                                     <FooterTemplate>
-                                        <asp:Label ID="lblTotalMonthlySavingReq" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblMonthlySavingReqTotal" runat="server" CssClass="Field" Font-Bold="true" 
                                             ForeColor="White" Text="">
                                         </asp:Label>
-                                    </FooterTemplate>
+                                    </FooterTemplate>  
                      </asp:TemplateField>
-                                
-                   <asp:TemplateField HeaderText="Value Of Investment" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                     
+                    <asp:TemplateField HeaderText="Invested Value" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                 
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblAllocatedAmountToWardsGoal" runat="server" CssClass="cmbField" 
+                                            Text='<%#Eval("AllocatedAmountToWardsGoal")%>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                     <FooterTemplate>
+                                        <asp:Label ID="lblAllocAmountToWardsGoalTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>  
+                                    
+                   </asp:TemplateField>
+                   
+                   <asp:TemplateField HeaderText="Current Value Of Investment" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                   
                                     <ItemTemplate>
                                         <asp:Label ID="lblCurrentGoalValue" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("CurrentGoalValue")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblCurrentGoalValueTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
                                     
-                                </asp:TemplateField>
+                   </asp:TemplateField>
                                 
                    <asp:TemplateField HeaderText="Monthly SIP Contribution" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                   
                                     <ItemTemplate>
                                         <asp:Label ID="lblValueOfInvestment" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("SIPAmount")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
+                                     <FooterTemplate>
+                                        <asp:Label ID="lblSIPAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
                                     
-                                </asp:TemplateField>
+                   </asp:TemplateField>
                                 
                    <asp:TemplateField HeaderText="Projected Value On Goal Date" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -188,8 +227,13 @@
                                             Text='<%#Eval("ProjectedValue")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblProjectedValueTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>
                                     
-                                </asp:TemplateField>
+                   </asp:TemplateField>
                                 
                    <asp:TemplateField HeaderText="Additional Saving Req." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                     <ItemTemplate>
@@ -197,7 +241,11 @@
                                             Text='<%#Eval("AdditionalSavingReq")%>'>
                                         </asp:Label>
                                     </ItemTemplate>
-                                    
+                                    <FooterTemplate>
+                                        <asp:Label ID="lblAdditionalSavingReqTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                                        </asp:Label>
+                                    </FooterTemplate>                                    
                                 </asp:TemplateField>   
                        
                    <asp:TemplateField HeaderText="IsActive" HeaderStyle-HorizontalAlign="Center" Visible="false">
@@ -222,22 +270,26 @@
                                             CssClass="cmbField" Font-Bold="true" ForeColor="White" Text="No Active Goals">
                                          </asp:Label>
                                     </HeaderTemplate>
-                                </asp:TemplateField>
+                     </asp:TemplateField>
                     
                                                
                    <asp:TemplateField HeaderText="Projected Gap Value" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
-                      <ItemTemplate>
-                            <asp:Label ID="lblProjectedGapValue" runat="server" CssClass="cmbField" 
+                          <ItemTemplate>
+                             <asp:Label ID="lblProjectedGapValue" runat="server" CssClass="cmbField" 
                                             Text='<%#Eval("ProjectedGapValue")%>'>
-                            </asp:Label>
-                       </ItemTemplate>
+                              </asp:Label>
+                          </ItemTemplate>
+                          <FooterTemplate>
+                             <asp:Label ID="lblProjectedGapValueTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
+                                            ForeColor="White" Text="">
+                             </asp:Label>
+                          </FooterTemplate>  
                                     
                    </asp:TemplateField>   
                        
                    <asp:TemplateField HeaderText="Progress Indicator" ItemStyle-HorizontalAlign="Center">
                           <ItemTemplate>  
-                             <asp:Label ID="lblIsGoalGap" runat="server" CssClass="cmbField" 
-                                            Text='<%#Eval("IsGoalBehind") %>'>
+                             <asp:Label ID="lblIsGoalGap" runat="server" CssClass="cmbField" Text='<%#Eval("IsGoalBehind") %>'>
                              </asp:Label>                       
                                 <asp:Image ID="imgGoalFundGap" ImageAlign="Middle" runat="server" />
                           </ItemTemplate>
