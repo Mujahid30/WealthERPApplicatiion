@@ -204,7 +204,7 @@ namespace DaoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(int scheme,int accountId, string type,double amount,DateTime orderDate)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -218,6 +218,7 @@ namespace DaoOps
                 db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
                 db.AddInParameter(getMannualMatchcmd, "@amount", DbType.Double, amount);
                 db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)
