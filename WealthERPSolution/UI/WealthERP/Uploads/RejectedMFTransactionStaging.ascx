@@ -390,7 +390,7 @@
                 <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton" Text="Insert Probable Duplicate Records"
                 OnClick="btnProbableInsert_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
                 <asp:Button ID="btnProbableDuplicateDelete" runat="server" CssClass="PCGLongLongButton" Text="Delete Probable Duplicate Records"
-                OnClick="btnProbableDelete_Click" OnClientClick="return ShowPopupProbableInsert_Delete()" />
+                OnClick="btnProbableDelete_Click" Visible="false" OnClientClick="return ShowPopupProbableInsert_Delete()" />
         </td>
     </tr>
     <tr id="trMessage" runat="server" visible="false">
