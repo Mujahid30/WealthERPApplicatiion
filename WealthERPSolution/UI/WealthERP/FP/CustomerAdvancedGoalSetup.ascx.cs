@@ -231,6 +231,11 @@ namespace WealthERP.FP
                     trCorpusToBeLeftBehind.Visible = true;
                 else
                     trCorpusToBeLeftBehind.Visible = false;
+                if (customerAssumptionVo.CustomerAge < customerAssumptionVo.RetirementAge)
+                {
+                    ddlGoalYear.SelectedValue = (DateTime.Now.Year + (customerAssumptionVo.RetirementAge - customerAssumptionVo.CustomerAge)).ToString();
+                    ddlGoalYear.Enabled = false;
+                }
 
                
                 //*****************Blank Table Cell**********************
@@ -674,6 +679,7 @@ namespace WealthERP.FP
             txtGoalDescription.Text = string.Empty;
             txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
             txtExpRateOfReturn.Text = customerAssumptionVo.WeightedReturn.ToString();
+            txtAboveRateOfInterst.Text = customerAssumptionVo.WeightedReturn.ToString();
 
             switch (ddlGoalType.SelectedValue.ToString())
             {
@@ -690,7 +696,7 @@ namespace WealthERP.FP
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
+                    //txtAboveRateOfInterst.Text = "0";
                     //TabContainer1.ActiveTabIndex = 0;
 
                     break;
@@ -709,7 +715,7 @@ namespace WealthERP.FP
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
+                    //txtAboveRateOfInterst.Text = "0";
 
 
                     BindPickChildDropDown(customerVo.CustomerId);
@@ -727,7 +733,7 @@ namespace WealthERP.FP
 
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
+                    //txtAboveRateOfInterst.Text = "0";
 
 
                     //trROIFutureInvestment.Visible = false;
@@ -747,7 +753,7 @@ namespace WealthERP.FP
                     lblGoalYear.Text = "Goal Year :";
                     lblGoalCostToday.Text = "Monthly Requirement Today :";
                     //default  current investment and Rate of return of above to 0
-                    //txtCurrentInvestPurpose.Text = "0";
+                    txtCurrentInvestPurpose.Text = "0";
                     //txtAboveRateOfInterst.Text = "0";
                     
                     //TabContainer1.ActiveTabIndex = 0;
@@ -761,7 +767,7 @@ namespace WealthERP.FP
                     //trGoalDesc.Visible = true;
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
-                    txtAboveRateOfInterst.Text = "0";
+                    //txtAboveRateOfInterst.Text = "0";
                     lblGoalCostToday.Text = "Goal Cost Today :";
                     lblGoalYear.Text = "Goal Year :";
 

@@ -419,8 +419,8 @@
                                             FilterType="Custom, Numbers" ValidChars=".">
                                         </ajaxToolkit:FilteredTextBoxExtender>
                          <asp:RangeValidator Display="Dynamic" ID="RangeValidator3" 
-                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should not be more than 100"
-                            MinimumValue="4" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" 
+                            SetFocusOnError="True" Type="Double" ErrorMessage="Value  should be between 4 to 100"
+                            MinimumValue="4" MaximumValue="100" ControlToValidate="txtExpRateOfReturn" ValidationGroup="btnSave"
                             runat="server"></asp:RangeValidator>
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtExpRateOfReturn"
                             CssClass="rfvPCG" ValidationGroup="btnSave" ErrorMessage="Please enter some % value"></asp:RequiredFieldValidator>
