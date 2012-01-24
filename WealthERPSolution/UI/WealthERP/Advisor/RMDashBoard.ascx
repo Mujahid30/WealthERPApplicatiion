@@ -78,6 +78,20 @@
                 </tr>
                 <tr>
                     <td class="rightField">
+                        <asp:Label ID="lblMFCommodityLabel" runat="server" CssClass="FieldName" Text="MF-Commodity:"></asp:Label>
+                    </td>
+                    <td class="leftField">
+                        <asp:Label ID="lblMFCommodityValue" runat="server" CssClass="Field" Text="0"></asp:Label>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="rightField">
                         <asp:Label ID="lblMFOthers" runat="server" CssClass="FieldName" Text="MF-Others:"></asp:Label>
                     </td>
                     <td class="leftField">

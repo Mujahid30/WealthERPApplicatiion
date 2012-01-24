@@ -130,6 +130,20 @@ namespace WealthERP.Advisor
                             total += double.Parse(dr["AggrGSCurrentValue"].ToString());
                         }
                     }
+                    if (dr["AssetType"].ToString() == "MF-CO")
+                    {
+                        if (dr["AggrGSCurrentValue"].ToString() == "")
+                        {
+                            lblMFCommodityValue.Text = "0";
+
+                        }
+                        else
+                        {
+                            lblMFCommodityValue.Text = String.Format("{0:N}", decimal.Parse(dr["AggrGSCurrentValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                            total += double.Parse(dr["AggrGSCurrentValue"].ToString());
+                        }
+                    }
 
                 }
                 BindCustomerAlerts();
