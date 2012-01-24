@@ -935,36 +935,59 @@ namespace WealthERP.Uploads
                         }
                         #endregion
 
-                            //****gobinda transaction and folio****\\
+                            //****gobinda's MF STANDARD TRNX AND FOLIO****\\
 
                         #region Standard Transaction + Folio Insertion
                         else if (filetypeId == 6)
-                        {                            
-                            if (extracttype == "MFT")
+                        {
+
+                            bool CommonStdTransChecks;
+                            standardProfileUploadBo = new StandardProfileUploadBo();
+                            string stdPackagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
+                            CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, stdPackagePath, configPath);
+                
+                            if (CommonStdTransChecks)
                             {
-                                //common profile checks
-                                bool CommonTransChecks = false;
-                                string packagePath;
-                              
-                                        packagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
-                                        CommonTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, packagePath, configPath);
-                                        if (CommonTransChecks)
-                                        {
-                                            processlogVo.IsInsertionToWERPComplete = 1;
-                                            processlogVo.EndTime = DateTime.Now;
-                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadProfileRejectCount(processID, "WP");
-                                            processlogVo.NoOfCustomerInserted = processlogVo.NoOfCustomerInserted + countCustCreated;
-                                            processlogVo.NoOfCustomerDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfCustomerInserted - processlogVo.NoOfRejectedRecords;
-                                            processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(processID, "WP");
-                                            blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                            if (blResult)
-                                                stdProCommonDeleteResult = standardProfileUploadBo.StdDeleteCommonStaging(processID);
-                                        }
-                                    }
-                                }
+                                processlogVo.IsInsertionToWERPComplete = 1;
+                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WP");
+                                processlogVo.EndTime = DateTime.Now;
+
+                                processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, Contants.UploadExternalTypeStandard);
+
+                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);                               
+                            }           
+                        }
                        
                         #endregion
 
+                            //-----------gobinda's SYSTEMATIC STANDARD-------------\\
+
+                        #region STANDARD SYSTEMATIC
+                        else if (filetypeId == 26)
+                        {
+                            bool standardSIPCommonStagingChk = false;
+                            bool standardSIPCommonStagingToWERP = false;
+                            bool updateProcessLog = false;
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                            standardSIPCommonStagingChk = camsUploadsBo.CamsSIPCommonStagingChk(processID, packagePath, configPath, "WPT");
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "WPT");
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (standardSIPCommonStagingChk)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingToWERP.dtsx");
+                                standardSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
+
+                                if (standardSIPCommonStagingToWERP)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "WPT");
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }
+                        }
+
+                        #endregion
 
                         #region CAMS SYSTEMATIC
                         //CAMS SYSTEMATIC 
