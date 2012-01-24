@@ -566,7 +566,7 @@ namespace DaoResearch
             return dtAttachedScheme;
         }
 
-        public DataTable GetSchemeAssetAllocation(ModelPortfolioVo modelPortfolioVo, int adviserId)
+        public DataTable GetSchemeAssetAllocation(string schemePlanCode)
         {
             DataTable dtSchemeAsset;
             DataSet dsSchemeAsset;
@@ -576,8 +576,9 @@ namespace DaoResearch
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 SchemeAssetCmd = db.GetStoredProcCommand("SP_AttachedSchemeAssetAllocation");
-                db.AddInParameter(SchemeAssetCmd, "@adviserId", DbType.Int32, adviserId);
-                db.AddInParameter(SchemeAssetCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);
+                //db.AddInParameter(SchemeAssetCmd, "@adviserId", DbType.Int32, adviserId);
+                //db.AddInParameter(SchemeAssetCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);
+                db.AddInParameter(SchemeAssetCmd, "@schemePlanCode", DbType.String, schemePlanCode);
                 dsSchemeAsset = db.ExecuteDataSet(SchemeAssetCmd);
                 dtSchemeAsset = dsSchemeAsset.Tables[0];
             }
@@ -591,7 +592,7 @@ namespace DaoResearch
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetSchemeAssetAllocation()");
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = schemePlanCode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

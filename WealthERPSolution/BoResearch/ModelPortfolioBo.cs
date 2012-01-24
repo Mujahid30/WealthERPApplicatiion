@@ -354,13 +354,13 @@ namespace BoResearch
             }
         }
 
-        public DataTable GetSchemeAssetAllocation(ModelPortfolioVo modelPortfolioVo, int adviserId)
+        public DataTable GetSchemeAssetAllocation(string schemePlanCode)
         {
             DataTable dtAttachedScheme;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dtAttachedScheme = modelPortfolioDao.GetSchemeAssetAllocation(modelPortfolioVo, adviserId);
+                dtAttachedScheme = modelPortfolioDao.GetSchemeAssetAllocation(schemePlanCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -373,8 +373,8 @@ namespace BoResearch
                 FunctionInfo.Add("Method", "ModelPortfolioBo.cs:GetSchemeAssetAllocation()");
 
                 object[] objects = new object[1];
-                objects[0] = modelPortfolioVo;
-                objects[1] = adviserId;
+                objects[0] = schemePlanCode;
+                //objects[1] = adviserId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
