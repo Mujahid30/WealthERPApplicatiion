@@ -84,7 +84,7 @@ namespace WealthERP.Research
                 drVariant["XAMP_MinTimeHorizon"] = dr["XAMP_MinTimeHorizon"].ToString();
                 drVariant["XAMP_MaxTimeHorizon"] = dr["XAMP_MaxTimeHorizon"].ToString();
                 drVariant["XAMP_Description"] = dr["XAMP_Description"].ToString();
-                drVariant["XAMP_CreatedOn"] = dr["XAMP_CreatedOn"].ToString();
+                drVariant["XAMP_CreatedOn"] = DateTime.Parse(dr["XAMP_CreatedOn"].ToString()).ToShortDateString();
                 drVariant["Allocation"] = dr["Allocation"].ToString();
 
                 drVariant["MinYear"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) / 12;
