@@ -91,7 +91,7 @@
             </Columns>
             
             <EditFormSettings  InsertCaption="Add" CaptionFormatString="Edit" FormTableStyle-HorizontalAlign="Center" PopUpSettings-Modal="true" 
-            PopUpSettings-ZIndex="10" EditFormType="Template">
+            PopUpSettings-ZIndex="10" EditFormType="Template" PopUpSettings-Height="170px">
             
             <FormMainTableStyle GridLines="None" Width="100%"/>
             <FormTableStyle Width="100%"/>
@@ -106,17 +106,12 @@
                             <td class="rightField">
                                <asp:DropDownList ID="ddlPickRiskClass" CssClass="cmbField" runat="server">                                    
                                 </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlPickRiskClass"
-                                ErrorMessage="Please select a risk class" Display="Dynamic" runat="server" InitialValue="Select Risk Class"
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlPickRiskClass"
+                                ErrorMessage="Select a risk class" Display="Dynamic" runat="server" InitialValue="Select Risk Class"
                                 CssClass="rfvPCG" ValidationGroup="Button1">
-                            </asp:RequiredFieldValidator>
+                                </asp:RequiredFieldValidator>
                             </td>
-                        </tr>
+                        </tr>                        
                         <tr id="trRiskGoaltextBox" runat="server">
                             <td class="leftField">
                             <asp:Label ID="lblRiskGoal" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
