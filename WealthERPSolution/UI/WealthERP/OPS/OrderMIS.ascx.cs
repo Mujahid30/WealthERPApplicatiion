@@ -876,6 +876,7 @@ namespace WealthERP.OPS
                 int PortfolioId = 0;
                 int SchemeCode = 0;
                 int accountId = 0;
+                int CustomerId = 0;
                 double Amount = 0.0;
                 string TrxType = string.Empty;
                 DateTime OrderDate = DateTime.MinValue;
@@ -884,7 +885,7 @@ namespace WealthERP.OPS
                     if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
                     {
                         OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
-                        //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                        CustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["C_CustomerId"].ToString());
                         //PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
                         SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
                         if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFA_AccountId"].ToString().Trim()))
@@ -894,7 +895,7 @@ namespace WealthERP.OPS
                         TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
                         OrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_OrderDate"].ToString());
-                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
                     }
 
                 }
