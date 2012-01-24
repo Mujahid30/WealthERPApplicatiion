@@ -23,7 +23,7 @@ namespace WealthERP.Research {
         protected global::Telerik.Web.UI.RadScriptManager RadScriptManager1;
         
         /// <summary>
-        /// CustomerAssumptionsPreferencesSetupId control.
+        /// AdviserAssumptionsId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

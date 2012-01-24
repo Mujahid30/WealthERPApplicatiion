@@ -78,7 +78,10 @@ namespace WealthERP.Research
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
                 TextBox txt = (TextBox)e.Item.FindControl("txtAssumptionValue");
-                value = decimal.Parse(txt.Text);
+                if (txt.Text != "")
+                    value = decimal.Parse(txt.Text);
+                else
+                    value = 0;
                 string assumptionId = (RadGrid1.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WA_AssumptionId"].ToString());
                 adviserFPConfigurationBo.UpdateAdviserAssumptions(adviserVo.advisorId, value, assumptionId);
                 BindAdviserAssumptions();

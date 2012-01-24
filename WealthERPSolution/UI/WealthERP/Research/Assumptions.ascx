@@ -5,7 +5,6 @@
     EnableViewState="true" runat="server" SelectedIndex="0">
 <telerik:RadPageView ID="RadPageView2" runat="server">
         <asp:Panel ID="pnlPreferences" runat="server">
-        <br />
       <table width="100%" class="TableBackground">
         <tr>
                 <td class="HeaderCell">
