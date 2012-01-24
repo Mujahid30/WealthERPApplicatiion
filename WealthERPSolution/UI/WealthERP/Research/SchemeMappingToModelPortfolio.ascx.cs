@@ -69,6 +69,7 @@ namespace WealthERP.Research
                     dt.Columns.Add("PAIC_AssetInstrumentCategoryName");
                     dt.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dt.Columns.Add("AMFMPD_IsActive");
+                    dt.Columns.Add("Flag");
 
                     Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                     //RadGrid1.DataSource = dt;
@@ -85,25 +86,27 @@ namespace WealthERP.Research
         {
             DataTable dtRiskClass = new DataTable();
             DataTable dtClass = new DataTable();
+
+            dtClass.Columns.Add("PASP_SchemePlanName");
+            dtClass.Columns.Add("PASP_SchemePlanCode");
+            dtClass.Columns.Add("AMFMPD_AllocationPercentage");
+            dtClass.Columns.Add("AMFMPD_AddedOn");
+            dtClass.Columns.Add("AMFMPD_SchemeDescription");
+            dtClass.Columns.Add("AMFMPD_Id");
+            dtClass.Columns.Add("AMFMPD_RemovedOn");
+            dtClass.Columns.Add("XAR_ArchiveReason");
+            dtClass.Columns.Add("PA_AMCName");
+            dtClass.Columns.Add("PAIC_AssetInstrumentCategoryName");
+            dtClass.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
+            dtClass.Columns.Add("AMFMPD_IsActive");
+            dtClass.Columns.Add("Flag");
             if (ddlSelectedMP.SelectedValue != "0" && ddlSelectedMP.SelectedValue != "")
             {
                 //modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
                 dtRiskClass = modelPortfolioBo.GetAttachedSchemeDetails(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
-
+                
                 if (dtRiskClass.Rows.Count > 0)
                 {
-                    dtClass.Columns.Add("PASP_SchemePlanName");
-                    dtClass.Columns.Add("PASP_SchemePlanCode");
-                    dtClass.Columns.Add("AMFMPD_AllocationPercentage");
-                    dtClass.Columns.Add("AMFMPD_AddedOn");
-                    dtClass.Columns.Add("AMFMPD_SchemeDescription");
-                    dtClass.Columns.Add("AMFMPD_Id");
-                    dtClass.Columns.Add("AMFMPD_RemovedOn");
-                    dtClass.Columns.Add("XAR_ArchiveReason");
-                    dtClass.Columns.Add("PA_AMCName");
-                    dtClass.Columns.Add("PAIC_AssetInstrumentCategoryName");
-                    dtClass.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
-                    dtClass.Columns.Add("AMFMPD_IsActive");
 
                     DataRow drRiskClass;
                     foreach (DataRow dr in dtRiskClass.Rows)
@@ -112,7 +115,7 @@ namespace WealthERP.Research
                         drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
                         drRiskClass["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                         drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
-                        drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
+                        drRiskClass["AMFMPD_AddedOn"] =DateTime.Parse(dr["AMFMPD_AddedOn"].ToString()).ToShortDateString();
                         drRiskClass["AMFMPD_Id"] = dr["AMFMPD_Id"].ToString();
                         drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
                         drRiskClass["PA_AMCName"] = dr["PA_AMCName"].ToString();
@@ -120,7 +123,7 @@ namespace WealthERP.Research
                         drRiskClass["PAISC_AssetInstrumentSubCategoryName"] = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
                         drRiskClass["AMFMPD_IsActive"] = dr["AMFMPD_IsActive"].ToString();
                         drRiskClass["XAR_ArchiveReason"] = dr["XAR_ArchiveReason"].ToString();
-
+                        drRiskClass["Flag"] = dr["Flag"].ToString();
                         dtClass.Rows.Add(drRiskClass);
                     }
                     Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
@@ -128,6 +131,7 @@ namespace WealthERP.Research
                     RadGrid1.DataSourceID = String.Empty;
                     RadGrid1.DataBind();
                 }
+                   
                 else
                 {
                     //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
@@ -144,6 +148,9 @@ namespace WealthERP.Research
                     }
                     //tableGrid.Visible = false;
                 }
+                Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
+                //if(dtClass.Rows.Count != 0)
+                //Session[SessionContents.FPS_AddProspect_DataTable] = dtClass;
                 tableGrid.Visible = true;
                 tableNote.Visible = true;
             }
@@ -237,9 +244,10 @@ namespace WealthERP.Research
                 dt.Rows[e.Item.ItemIndex].Delete();
 
                 Rebind();
-                tblPieChart.Visible = false;
-                lblCategoryChart.Visible = false;
-                lblSubCategoryChart.Visible = false;
+                bindAssetChart();
+                //tblPieChart.Visible = false;
+                //lblCategoryChart.Visible = false;
+                //lblSubCategoryChart.Visible = false;
             }
             catch (Exception ex)
             {
@@ -309,7 +317,7 @@ namespace WealthERP.Research
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
             {
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
-                bindRadGrid1();
+                //bindRadGrid1();
                 RadGrid1.DataSource = dt;
                 RadGrid1.Rebind();
                 bindAssetChart();
@@ -339,24 +347,27 @@ namespace WealthERP.Research
                     dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                     int modelId = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["AMFMPD_Id"].ToString());
                     int xarId = modelPortfolioVo.ArchiveReason;
-                    modelPortfolioBo.ArchiveSchemeFromModelPortfolio(modelId, xarId);
+                    //modelPortfolioBo.ArchiveSchemeFromModelPortfolio(modelId, xarId);
 
-                    dt.Rows[e.Item.ItemIndex].Delete();
-                    //DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
-                    //foreach (DataRow dr in drrow)
-                    //{
-                    //    dr["AMFMPD_IsActive"] = 0;
-                    //    dr["XAR_ArchiveReason"] = modelPortfolioVo.ArchiveReason;
-                    //}
-                   
-                    //dt.AcceptChanges();
+                    //dt.Rows[e.Item.ItemIndex].Delete();
 
-                    //Session[SessionContents.FPS_AddProspect_DataTable] = dt;                    
+                    DataRow[] drrow = dt.Select("AMFMPD_Id=" + modelId + "");
+                    foreach (DataRow dr in drrow)
+                    {
+                        dr["AMFMPD_IsActive"] = 0;
+                        dr["XAR_ArchiveReason"] = modelPortfolioVo.ArchiveReason;
+                    }
+
+                    dt.AcceptChanges();
+
+                                       
                     RadGrid1.DataSource = dt;
                     RadGrid1.Rebind();
-                    tblPieChart.Visible = false;
-                    lblCategoryChart.Visible = false;
-                    lblSubCategoryChart.Visible = false;
+                    Session[SessionContents.FPS_AddProspect_DataTable] = dt;
+                    bindAssetChart();
+                    //tblPieChart.Visible = false;
+                    //lblCategoryChart.Visible = false;
+                    //lblSubCategoryChart.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -402,12 +413,13 @@ namespace WealthERP.Research
                     dr["PAISC_AssetInstrumentSubCategoryName"] = dropdownSubCategory.SelectedItem;
                     dr["AMFMPD_IsActive"] = 1;
                     dr["XAR_ArchiveReason"] = string.Empty;
-
+                    dr["Flag"] = "UI";
                     dt.Rows.Add(dr);
 
                     //Session[SessionContents.FPS_AddProspect_DataTable] = dt;
                     RadGrid1.DataSource = dt;
                     RadGrid1.Rebind();
+                    bindAssetChart();
                 }
                 catch (Exception ex)
                 {
@@ -461,8 +473,41 @@ namespace WealthERP.Research
                 string schemeName = dataItem["PASP_SchemePlanName"].Text;
 
                 LinkButton button = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
-                button.Attributes["onclick"] = "return confirm('Are you sure you want to Archive " +
-                schemeName + "?')";
+                LinkButton buttonDelete = dataItem["column"].Controls[0] as LinkButton;
+                //button.Attributes["onclick"] = "return confirm('Are you sure you want to Archive " +
+                //schemeName + "?')";
+
+               string isActive = dataItem["AMFMPD_IsActive"].Text;
+               if (isActive == "0")
+               {
+                   dataItem["EditCommandColumn"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["PASP_SchemePlanName"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["AMFMPD_AllocationPercentage"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["AMFMPD_AddedOn"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["AMFMPD_SchemeDescription"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["column"].BackColor = System.Drawing.Color.LightGray;
+                   dataItem["EditCommandColumn"].Text = "Marked for Archive";
+                   //button.Attributes["onclick"] = "return alert('You can not Archive this scheme')";
+                   
+               }
+                 string flag = dataItem["Flag"].Text;
+                 if (flag == "UI")
+                 {
+
+                     dataItem["EditCommandColumn"].Enabled = false;
+                     button.Enabled = false;
+                     button.Attributes["onclick"] = "return alert('You can not Archive this scheme')";
+                     buttonDelete.Attributes["onclick"] = "return confirm('Are you sure you want to delete the Scheme?')";
+                     //dataItem["EditCommandColumn"].BackColor = System.Drawing.Color.Green;
+                 }
+                 else
+                 {
+                     dataItem["column"].Enabled = false;
+                     buttonDelete.Attributes["onclick"] = "return alert('You can not Delete this scheme')";
+                     button.Attributes["onclick"] = "return confirm('Are you sure you want to Archive " +
+                     schemeName + "?')";
+                 }
+                //dataItem["AMFMPD_IsActive"].BackColor = System.Drawing.Color.Red;
 
                 //GridBoundColumn colDates =
                 //RadGrid1.Columns.FindByUniqueName("AMFMPD_AddedOn") as GridBoundColumn;
@@ -643,6 +688,7 @@ namespace WealthERP.Research
 
         protected void ddlSelectedMP_SelectedIndexChanged(object sender, EventArgs e)
         {
+           // Session.Remove(SessionContents.FPS_AddProspect_DataTable);
             bindRadGrid1();
             bindHistryRadGrid();
             //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
@@ -726,18 +772,21 @@ namespace WealthERP.Research
             
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr["XAR_ArchiveReason"].ToString() == "")
+                if (dr["AMFMPD_IsActive"].ToString() == "1")
                 {
                     sum += Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"].ToString());
                 }
             }
             if (sum == 100)
             {
-                modelPortfolioBo.DeleteSchemeFromModelPortfolio(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
+                //modelPortfolioBo.DeleteSchemeFromModelPortfolio(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    if (dr["XAR_ArchiveReason"].ToString() == "")
+                    if (dr["Flag"].ToString() == "D")
+                    {
+                    }
+                    if (dr["Flag"].ToString() == "UI")
                     {
                         modelPortfolioVo.Weightage = Convert.ToDecimal(dr["AMFMPD_AllocationPercentage"]);
                         modelPortfolioVo.SchemeDescription = dr["AMFMPD_SchemeDescription"].ToString();
@@ -747,7 +796,7 @@ namespace WealthERP.Research
                         //modelPortfolioVo.ArchiveReason = 0;
                         modelPortfolioBo.AttachSchemeToPortfolio(modelPortfolioVo, advisorVo.advisorId, IsActiveFlag);
                     }
-                    else 
+                    else if (dr["AMFMPD_IsActive"].ToString() == "0")
                     {
                         Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
                         int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[item.ItemIndex]["AMFMPD_Id"].ToString());
@@ -771,6 +820,21 @@ namespace WealthERP.Research
             RadGrid1.Rebind();
         }
 
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            bindRadGrid1();
+            bindHistryRadGrid();
+            //Session.Remove(SessionContents.FPS_AddProspect_DataTable);
+            bindAssetChart();
+            bindAssetChartOnSubCategory();
+            tblPieChart.Visible = true;
+            getAllocationPercentageFromModelPortFolio();
+            if (ddlSelectedMP.SelectedValue != "0")
+                tblAllocation.Visible = true;
+            else
+                tblAllocation.Visible = false;
+        }
+
         protected void bindAssetChart()
         {
             Series AssetAllocation = new Series("Asset");
@@ -779,8 +843,79 @@ namespace WealthERP.Research
                 ModelPortfolioBo modelPortfolioBo = new ModelPortfolioBo();
                 modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
                 DataTable dtChartAsset = new DataTable();
-                dtChartAsset = modelPortfolioBo.GetSchemeAssetAllocation(modelPortfolioVo, advisorVo.advisorId);
+                DataRow[] drAllocation;
+                //dtChartAsset = modelPortfolioBo.GetSchemeAssetAllocation(modelPortfolioVo, advisorVo.advisorId);
+                dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
+                string schemePlanCode = "";
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        schemePlanCode = schemePlanCode + "~" + dr["PASP_SchemePlanCode"].ToString();
 
+                    }
+                    DataTable dtSchemeCategory = new DataTable();
+                    dtSchemeCategory = modelPortfolioBo.GetSchemeAssetAllocation(schemePlanCode);
+                    double allocationPercentage = 0;
+                    double eqAllocation = 0;
+                    double dtAllocation = 0;
+                    double coAllocation = 0;
+                    double hyAllocation = 0;
+                    foreach (DataRow dr in dtSchemeCategory.Rows)
+                    {
+
+                        int schemeId = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+
+                        drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
+                        foreach (DataRow drall in drAllocation)
+                        {
+                            allocationPercentage = double.Parse(drall["AMFMPD_AllocationPercentage"].ToString());
+                        }
+
+                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                        {
+                            dtAllocation = dtAllocation + allocationPercentage;
+                        }
+                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+                        {
+                            eqAllocation = eqAllocation + allocationPercentage;
+                        }
+                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY")
+                        {
+                            hyAllocation = hyAllocation + allocationPercentage;
+                        }
+                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFCO")
+                        {
+                            coAllocation = coAllocation + allocationPercentage;
+                        }
+                    }
+
+                    dtChartAsset.Columns.Add("PAIC_AssetInstrumentCategoryName");
+                    dtChartAsset.Columns.Add("AMFMPD_AllocationPercentage");
+                    DataRow drRiskClass;
+                    drRiskClass = dtChartAsset.NewRow();
+                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Equity";
+                    drRiskClass["AMFMPD_AllocationPercentage"] = eqAllocation;
+                    dtChartAsset.Rows.Add(drRiskClass);
+                    drRiskClass = dtChartAsset.NewRow();
+                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Debt";
+                    drRiskClass["AMFMPD_AllocationPercentage"] = dtAllocation;
+                    dtChartAsset.Rows.Add(drRiskClass);
+                    drRiskClass = dtChartAsset.NewRow();
+                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Hybrid";
+                    drRiskClass["AMFMPD_AllocationPercentage"] = hyAllocation;
+                    dtChartAsset.Rows.Add(drRiskClass);
+                    drRiskClass = dtChartAsset.NewRow();
+                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Commodities";
+                    drRiskClass["AMFMPD_AllocationPercentage"] = coAllocation;
+                    dtChartAsset.Rows.Add(drRiskClass);
+
+                }
+
+
+
+
+        
                 Legend legend = new Legend("ChartAssetAllocationLegend");
                 legend.Enabled = true;
 
@@ -1047,8 +1182,8 @@ namespace WealthERP.Research
                         drRiskClass = dtClass.NewRow();
                         drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
                         drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
-                        drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
-                        drRiskClass["AMFMPD_RemovedOn"] = dr["AMFMPD_RemovedOn"].ToString();
+                        drRiskClass["AMFMPD_AddedOn"] = DateTime.Parse(dr["AMFMPD_AddedOn"].ToString()).ToShortDateString();
+                        drRiskClass["AMFMPD_RemovedOn"] = DateTime.Parse(dr["AMFMPD_RemovedOn"].ToString()).ToShortDateString();
                         drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
                         drRiskClass["XAR_ArchiveReason"] = dr["XAR_ArchiveReason"].ToString();
                         dtClass.Rows.Add(drRiskClass);

@@ -121,12 +121,11 @@
     PageSize="20" AllowSorting="True" AutoGenerateColumns="False" ShowStatusBar="true" AllowAutomaticDeletes="false" 
     AllowAutomaticInserts="false" OnItemDataBound="RadGrid1_ItemDataBound" OnDataBound="RadGrid1_DataBound" 
     OnUpdateCommand="RadGrid1_UpdateCommand"  OnItemCommand="RadGrid1_ItemCommand" OnInsertCommand="RadGrid1_InsertCommand"
-    OnPreRender="RadGrid1_PreRender" OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated" 
+    OnPreRender="RadGrid1_PreRender" OnDeleteCommand="RadGrid1_DeleteCommand" OnItemCreated="RadGrid1_ItemCreated"
     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="AMFMPD_Id">
         <MasterTableView CommandItemDisplay="Top" DataKeyNames="AMFMPD_Id" EditMode="PopUp">
             <Columns>
-                <telerik:GridButtonColumn CommandName="Delete" ConfirmText="Are you sure you want to delete the Scheme?"  
-                ShowInEditForm="true" Text="Delete" UniqueName="column">
+                <telerik:GridButtonColumn CommandName="Delete" ShowInEditForm="true" Text="Delete" UniqueName="column">
                 </telerik:GridButtonColumn>
                 <%--<telerik:GridClientSelectColumn UniqueName="SelectColumn"/>--%>               
                 <telerik:GridBoundColumn  DataField="PASP_SchemePlanName"  HeaderText="Name" UniqueName="PASP_SchemePlanName" >
@@ -149,6 +148,13 @@
                 <telerik:GridBoundColumn  DataField="AMFMPD_SchemeDescription"  HeaderText="Description" UniqueName="AMFMPD_SchemeDescription">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn  DataField="AMFMPD_IsActive"  HeaderText="AMFMPD_IsActive" UniqueName="AMFMPD_IsActive" Visible="false">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                 <telerik:GridBoundColumn  DataField="Flag"  HeaderText="Flag" UniqueName="Flag" Visible="false">
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+              
                 <%--<telerik:GridBoundColumn  DataField="EndDate"  HeaderText="End Date" UniqueName="EndDate">
                     <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -366,6 +372,8 @@
     </tr>
     <tr>
     <td>
+        <asp:Button ID="btnCancel" runat="server" CssClass="PCGButton" Text="Cancel" 
+            onclick="btnCancel_Click"/>
         <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" 
             onclick="btnSubmit_Click"/>
         <%--<asp:Button ID="btnArchive" runat="server" Text="Archive" CssClass="PCGButton" 

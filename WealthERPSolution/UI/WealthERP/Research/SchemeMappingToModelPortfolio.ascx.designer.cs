@@ -104,6 +104,87 @@ namespace WealthERP.Research {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectedMP;
         
         /// <summary>
+        /// tblAllocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblAllocation;
+        
+        /// <summary>
+        /// lblDebt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDebt;
+        
+        /// <summary>
+        /// txtDebt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDebt;
+        
+        /// <summary>
+        /// lblEquity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEquity;
+        
+        /// <summary>
+        /// txtEquity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEquity;
+        
+        /// <summary>
+        /// lblCash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCash;
+        
+        /// <summary>
+        /// txtCash control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCash;
+        
+        /// <summary>
+        /// lblAlternate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlternate;
+        
+        /// <summary>
+        /// txtAlternate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAlternate;
+        
+        /// <summary>
         /// tableGrid control.
         /// </summary>
         /// <remarks>
@@ -122,6 +203,15 @@ namespace WealthERP.Research {
         protected global::Telerik.Web.UI.RadGrid RadGrid1;
         
         /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
         /// btnSubmit control.
         /// </summary>
         /// <remarks>
@@ -138,7 +228,7 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblPieChart;
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblAllocation;
+        
         /// <summary>
         /// lblCategoryChart control.
         /// </summary>
@@ -264,10 +354,5 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid histryRadGrid;
-
-        protected global::System.Web.UI.WebControls.TextBox txtDebt;
-        protected global::System.Web.UI.WebControls.TextBox txtEquity;
-        protected global::System.Web.UI.WebControls.TextBox txtCash;
-        protected global::System.Web.UI.WebControls.TextBox txtAlternate;
     }
 }
