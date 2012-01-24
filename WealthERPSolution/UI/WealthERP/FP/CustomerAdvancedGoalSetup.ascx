@@ -682,7 +682,7 @@
      <%-- ****************************************************************************--%>
       <tr>
     <td class="leftField">
-     <asp:Label id="lblEstmdTimeToReachGoal" Text="Estmd Time To Reach Goal:"  CssClass="FieldName" runat="server"></asp:Label>
+     <asp:Label id="lblEstmdTimeToReachGoal" Text="Time Gap from Target Date:"  CssClass="FieldName" runat="server"></asp:Label>
      </td>
     <td class="rightField">
      <asp:TextBox ID="txtEstmdTimeToReachGoal" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
@@ -1059,7 +1059,7 @@
                                           
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtSIPFrequency" runat="server" CssClass="txtField" Text='<%# Bind("SIPFrequecny") %>' TabIndex="3">
+                                            <asp:TextBox ID="txtSIPFrequency" runat="server" Enabled="false" CssClass="txtField" Text='<%# Bind("SIPFrequecny") %>' TabIndex="3">
                                             </asp:TextBox>
                                         </td>
                                     </tr>                                  
