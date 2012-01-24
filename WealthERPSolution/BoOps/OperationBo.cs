@@ -156,12 +156,12 @@ namespace BoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId)
         {
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate);
+                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId);
             }
             catch (BaseApplicationException Ex)
             {
