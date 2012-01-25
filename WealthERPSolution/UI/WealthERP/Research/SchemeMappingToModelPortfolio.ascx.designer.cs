@@ -354,5 +354,15 @@ namespace WealthERP.Research {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid histryRadGrid;
+        protected global::System.Web.UI.WebControls.TextBox txtEquitySelected;
+        protected global::System.Web.UI.WebControls.TextBox txtDebtSelected;
+        protected global::System.Web.UI.WebControls.TextBox txtCashSelected;
+        protected global::System.Web.UI.WebControls.TextBox txtAlternateSelected;
+
+        protected global::System.Web.UI.WebControls.TextBox txtEquityGap;
+        protected global::System.Web.UI.WebControls.TextBox txtDebtGap;
+        protected global::System.Web.UI.WebControls.TextBox txtCashGap;
+        protected global::System.Web.UI.WebControls.TextBox txtAlternateGap;
+
     }
 }

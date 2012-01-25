@@ -38,6 +38,9 @@ namespace WealthERP.Research
         DataRow dr;
 
 
+        double eqAllocation = 0;
+        double dtAllocation = 0;
+
         string categoryCode;
         int amcCode = 0;
         string subCategory = "All";
@@ -178,7 +181,22 @@ namespace WealthERP.Research
                 txtCash.Text = drArrayAllocation[2][3].ToString();
                 txtAlternate.Text = drArrayAllocation[3][3].ToString();
             }
+            if (txtEquitySelected.Text != "")
+                txtEquitySelected.Text = Convert.ToInt32(eqAllocation).ToString();
+            else
+                txtEquitySelected.Text = "0";
+            if (txtDebtSelected.Text != "")
+                txtDebtSelected.Text = Convert.ToInt32(dtAllocation).ToString();
+            else
+                txtDebtSelected.Text = "0";
 
+            txtCashSelected.Text = "0";
+            txtAlternateSelected.Text = "0";
+
+            txtEquityGap.Text = Convert.ToInt32(double.Parse(txtEquity.Text) - double.Parse(txtEquitySelected.Text)).ToString();
+            txtDebtGap.Text = Convert.ToInt32(double.Parse(txtDebt.Text) - double.Parse(txtDebtSelected.Text)).ToString();
+            txtCashGap.Text = Convert.ToInt32(double.Parse(txtCashSelected.Text) - double.Parse(txtCash.Text)).ToString();
+            txtAlternateGap.Text = Convert.ToInt32(double.Parse(txtAlternate.Text) - double.Parse(txtAlternateSelected.Text)).ToString();
         }
 
         protected void RadGrid1_DataBound(object sender, EventArgs e)
@@ -247,7 +265,7 @@ namespace WealthERP.Research
                 bindAssetChart();
                 //tblPieChart.Visible = false;
                 //lblCategoryChart.Visible = false;
-                //lblSubCategoryChart.Visible = false;
+                lblSubCategoryChart.Visible = false;
             }
             catch (Exception ex)
             {
@@ -367,7 +385,7 @@ namespace WealthERP.Research
                     bindAssetChart();
                     //tblPieChart.Visible = false;
                     //lblCategoryChart.Visible = false;
-                    //lblSubCategoryChart.Visible = false;
+                    lblSubCategoryChart.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -420,6 +438,7 @@ namespace WealthERP.Research
                     RadGrid1.DataSource = dt;
                     RadGrid1.Rebind();
                     bindAssetChart();
+                    lblSubCategoryChart.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -696,10 +715,16 @@ namespace WealthERP.Research
             bindAssetChartOnSubCategory();
             tblPieChart.Visible = true;
             getAllocationPercentageFromModelPortFolio();
-            if(ddlSelectedMP.SelectedValue != "0")
-            tblAllocation.Visible = true;
+            if (ddlSelectedMP.SelectedValue != "0")
+            {
+                tblAllocation.Visible = true;
+                tblPieChart.Visible = true;
+            }
             else
+            {
                 tblAllocation.Visible = false;
+                tblPieChart.Visible = false;
+            }
         }
 
         protected void ddlAMC_SelectedIndexChanged(object sender, EventArgs e)
@@ -851,14 +876,15 @@ namespace WealthERP.Research
                 {
                     foreach (DataRow dr in dt.Rows)
                     {
-                        schemePlanCode = schemePlanCode + "~" + dr["PASP_SchemePlanCode"].ToString();
+                        if (int.Parse(dr["AMFMPD_IsActive"].ToString()) == 1)
+                        {
+                            schemePlanCode = schemePlanCode + "~" + dr["PASP_SchemePlanCode"].ToString();
+                        }
 
                     }
                     DataTable dtSchemeCategory = new DataTable();
                     dtSchemeCategory = modelPortfolioBo.GetSchemeAssetAllocation(schemePlanCode);
                     double allocationPercentage = 0;
-                    double eqAllocation = 0;
-                    double dtAllocation = 0;
                     double coAllocation = 0;
                     double hyAllocation = 0;
                     double percentageAllocation = 0;
@@ -870,75 +896,76 @@ namespace WealthERP.Research
 
                         int schemeId = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                         percentageAllocation = double.Parse(dr["WACPISSCA_PercentageAllocation"].ToString());
-                        assetClassificationCode =dr["WAC_AssetClassificationCode"].ToString();
+                        assetClassificationCode = dr["WAC_AssetClassificationCode"].ToString();
                         category = dr["Category"].ToString();
                         drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
                         foreach (DataRow drAll in drAllocation)
                         {
                             allocationPercentage = double.Parse(drAll["AMFMPD_AllocationPercentage"].ToString());
-                        }
-                        if (category == "Debt")
-                        {
-                            dtAllocation = dtAllocation + allocationPercentage;
-                        }
 
-                        else if (category == "Equity")
-                        {
-                            eqAllocation = eqAllocation + allocationPercentage;
-                        }
-
-                        else if (category == "Hybrid")
-                        {
-                            if (assetClassificationCode == "Equity")
+                            if (category == "Debt")
                             {
-                                eqAllocation = eqAllocation + (allocationPercentage* percentageAllocation) / 100;
+                                dtAllocation = dtAllocation + allocationPercentage;
                             }
-                            if (assetClassificationCode == "Debt")
-                            {
-                                dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
-                            }                           
-                        }
 
-                        if (category == "Commodity")
-                        {
-                            if (assetClassificationCode == "Equity")
+                            else if (category == "Equity")
                             {
-                                eqAllocation = eqAllocation + (allocationPercentage * percentageAllocation) / 100;
+                                eqAllocation = eqAllocation + allocationPercentage;
                             }
-                            if (assetClassificationCode == "Debt")
+
+                            else if (category == "Hybrid")
                             {
-                                dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
-                            }   
+                                if (assetClassificationCode == "Equity")
+                                {
+                                    eqAllocation = eqAllocation + (allocationPercentage * percentageAllocation) / 100;
+                                }
+                                if (assetClassificationCode == "Debt")
+                                {
+                                    dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
+                                }
+                            }
+
+                            if (category == "Commodity")
+                            {
+                                if (assetClassificationCode == "Equity")
+                                {
+                                    eqAllocation = eqAllocation + (allocationPercentage * percentageAllocation) / 100;
+                                }
+                                if (assetClassificationCode == "Debt")
+                                {
+                                    dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
+                                }
+                            }
+
+
+                            //drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
+                            //foreach (DataRow drall in drAllocation)
+                            //{
+                            //    allocationPercentage = double.Parse(drall["AMFMPD_AllocationPercentage"].ToString());
+                            //}
+
+                            //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                            //{
+                            //    dtAllocation = dtAllocation + allocationPercentage;
+                            //}
+                            //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+                            //{
+                            //    eqAllocation = eqAllocation + allocationPercentage;
+                            //}
+                            //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY")
+                            //{
+                            //    hyAllocation = hyAllocation + allocationPercentage;
+                            //}
+                            //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFCO")
+                            //{
+                            //    coAllocation = coAllocation + allocationPercentage;
+                            //}
                         }
-
-                        //totalAllocation = dtAllocation + eqAllocation;
-
-                        //dtAllocation = (dtAllocation / totalAllocation) * 100;
-                        //eqAllocation = (eqAllocation / totalAllocation) * 100;
-                        //drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
-                        //foreach (DataRow drall in drAllocation)
-                        //{
-                        //    allocationPercentage = double.Parse(drall["AMFMPD_AllocationPercentage"].ToString());
-                        //}
-
-                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
-                        //{
-                        //    dtAllocation = dtAllocation + allocationPercentage;
-                        //}
-                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
-                        //{
-                        //    eqAllocation = eqAllocation + allocationPercentage;
-                        //}
-                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY")
-                        //{
-                        //    hyAllocation = hyAllocation + allocationPercentage;
-                        //}
-                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFCO")
-                        //{
-                        //    coAllocation = coAllocation + allocationPercentage;
-                        //}
                     }
+                    totalAllocation = dtAllocation + eqAllocation;
 
+                    dtAllocation = (dtAllocation / totalAllocation) * 100;
+                    eqAllocation = (eqAllocation / totalAllocation) * 100;
                     dtChartAsset.Columns.Add("PAIC_AssetInstrumentCategoryName");
                     dtChartAsset.Columns.Add("AMFMPD_AllocationPercentage");
                     DataRow drRiskClass;

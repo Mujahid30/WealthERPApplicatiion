@@ -69,7 +69,7 @@
 </table>
 <table id="tblSelectddl" runat="server" class="TableBackground" width="50%">
     <tr>
-        <td style="width:130Px">
+        <td style="width:135Px" class="leftField">
             <asp:Label ID="lblSelectModelPortfolio" runat="server" CssClass="FieldName" Text="Select Model Portfolio:"></asp:Label>
         </td> 
         <td class="rightField">
@@ -80,35 +80,83 @@
     </tr>
 </table>
 <table id="tblAllocation" runat="server" class="TableBackground" width="100%" visible="false">
-    <tr>    
-        <td class="leftField" style="width:130Px">
-            <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc(%):" CssClass="FieldName"></asp:Label>
+    <tr> 
+        <td style="width:135Px" class="leftField">
+            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text=""></asp:Label>
+        </td>  
+        <td align="left">
+            <asp:Label ID="lblEquity" runat="server" Text="Equity Alloc(%)" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td align="left">
+            <asp:Label ID="lblDebt" runat="server" Text="Debt Alloc(%)" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:Label ID="lblCash" runat="server" Text="Cash Alloc(%)" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:Label ID="lblAlternate" runat="server" Text="Alternate Alloc(%)" CssClass="FieldName"></asp:Label>
+        </td>        
+    </tr>
+    <tr>
+        <td style="width:20%" class="leftField">
+            <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Defined:"></asp:Label>
+        </td>
+        <td align="left" style="width:135Px">
+            <asp:TextBox ID="txtEquity" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left" style="width:135Px">
             <asp:TextBox ID="txtDebt" runat="server" Enabled="false" CssClass="txtField">
             </asp:TextBox>
         </td>
-        <td class="leftField">
-            <asp:Label ID="lblEquity" runat="server" Text="Equity Alloc(%):" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtEquity" runat="server" Enabled="false" CssClass="txtField">
-            </asp:TextBox>
-        </td>        
-    <%--</tr>
-    <tr>--%>
-        <td class="leftField">
-            <asp:Label ID="lblCash" runat="server" Text="Cash Alloc(%):" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
+        <td align="left" style="width:135Px">
             <asp:TextBox ID="txtCash" runat="server" Enabled="false" CssClass="txtField">
             </asp:TextBox>
         </td>
-        <td class="leftField">
-            <asp:Label ID="lblAlternate" runat="server" Text="Alternate Alloc(%):" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
+        <td align="left" style="width:135Px">
             <asp:TextBox ID="txtAlternate" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:130Px" class="leftField">
+            <asp:Label ID="lblSelectedSchemes" runat="server" CssClass="FieldName" Text="Selected Schemes:"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtEquitySelected" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtDebtSelected" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtCashSelected" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtAlternateSelected" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:130Px" class="leftField">
+            <asp:Label ID="lblGap" runat="server" CssClass="FieldName" Text="Gap:"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtEquityGap" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtDebtGap" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtCashGap" runat="server" Enabled="false" CssClass="txtField">
+            </asp:TextBox>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtAlternateGap" runat="server" Enabled="false" CssClass="txtField">
             </asp:TextBox>
         </td>
     </tr>
