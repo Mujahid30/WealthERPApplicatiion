@@ -4,10 +4,10 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<script type="text/javascript">
+<script>
     function ShowPopup() {
         var form = document.forms[0];
-        var transactionId = "";
+        var folioId = "";
         var count = 0
         for (var i = 0; i < form.elements.length; i++) {
             if (form.elements[i].type == 'checkbox') {
@@ -17,24 +17,24 @@
                     hiddenFieldValues = document.getElementById(hiddenField).value;
                     var splittedValues = hiddenFieldValues.split("-");
                     if (count == 1) {
-                        transactionId = splittedValues[0];                    
+                        folioId = splittedValues[0];
                     }
                     else {
-                        transactionId = transactionId + "~" + splittedValues[0];
+                        folioId = folioId + "~" + splittedValues[0];
                     }
                     RejectReasonCode = splittedValues[1];
                 }
             }
-        }        
-//        if (count > 1) {
-//            alert("You can select only one record at a time.")
-//            return false;
-//        }
+        }
+        //        if (count > 1) {
+        //            alert("You can select only one record at a time.")
+        //            return false;
+        //        }
         if (count == 0) {
             alert("Please select one record.")
             return false;
         }
-        window.open('Uploads/MapToCustomers.aspx?id=' + transactionId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
+        window.open('Uploads/MapToCustomers.aspx?Folioid=' + folioId + '', 'mywindow', 'width=550,height=450,scrollbars=yes,location=no')
         return true;
     }
 </script>
@@ -147,8 +147,8 @@
                         </asp:TemplateField>
                       
                         <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />--%>
-                        <%--<asp:BoundField DataField="InvName" HeaderText="Name" SortExpression="InvName"/>
-                       --%> <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
+                        <%--<asp:BoundField DataField="WERPCUstomerName" HeaderText="WERP Name" SortExpression="WERPCUstomerName" />--%>
+                        <%--<asp:BoundField DataField="CustomerExists" HeaderText="Is Customer Existing" />--%>
                         <%--<asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblCustomerExists" runat="server" Text="Is Customer Existing"></asp:Label>
@@ -159,7 +159,7 @@
                                 <asp:Label ID="lblCustomerExistsHeader" runat="server" Text='<%# Eval("CustomerExists").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>--%>
-                        <asp:TemplateField SortExpression="WERPInvName" >
+                        <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
                                 <%--<asp:TextBox ID="txtNameSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_RejectedCAMSProfile_btnGridSearch');" />--%>
@@ -246,7 +246,7 @@
         BorderStyle="None" BackColor="Transparent" />
     <asp:HiddenField ID="hdnRecordCount" runat="server" />
     <asp:HiddenField ID="hdnCurrentPage" runat="server" />
-    <asp:HiddenField ID="hdnSortProcessID" runat="server" Value="WERPInvName ASC" />
+    <asp:HiddenField ID="hdnSortProcessID" runat="server" Value="WERPCUstomerName ASC" />
     <asp:HiddenField ID="hdnPANFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
