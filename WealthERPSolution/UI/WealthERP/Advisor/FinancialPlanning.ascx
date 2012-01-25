@@ -8,6 +8,24 @@
     }
 </style>
 
+<script type="text/javascript">
+    function DeleteConfirmation() {
+
+        var bool = window.confirm('Are you sure you want to delete this Question?');
+
+        if (bool) {
+            document.getElementById("ctrl_FinancialPlanning_hdnDeletemsgValue").value = 1;
+            document.getElementById("ctrl_FinancialPlanning_hiddenDeleteQuestion").click();
+
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+</script>
+
 <script id="myScript" language="javascript" type="text/javascript">
     function message(score, rclass) {
         alert(score + rclass);
@@ -114,7 +132,7 @@
     <tr>
         <td>
             <ajaxToolkit:TabContainer ID="tabRiskProfilingAndAssetAllocation" runat="server"
-                ActiveTabIndex="2" Width="100%" Style="visibility: visible;">
+                ActiveTabIndex="0" Width="100%" Style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" 
                     HeaderText="Risk Profiling">
                     <HeaderTemplate>
@@ -122,6 +140,14 @@
                     </HeaderTemplate>
                     <ContentTemplate>
                         <table runat="server" id="tblPickOptions" style="text-align: left;" width="100%">
+                            <tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnDeleteRiskProfile" runat="server" OnClientClick="return DeleteConfirmation()" Text="Remove Risk profile" CssClass="PCGMediumButton" CausesValidation="false" />
+                                </td>
+                            </tr>
                             <tr align="left" runat="server">
                                 <td runat="server" style="float: left">
                                     <br />
@@ -513,3 +539,7 @@
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnDeletemsgValue" runat="server" />
+<div style="visibility: hidden">
+    <asp:Button ID="hiddenDeleteQuestion" runat="server" onclick="hiddenDeleteQuestion_Click" BorderStyle="None" BackColor="Transparent" /> 
+</div>

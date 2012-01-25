@@ -50,6 +50,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.HtmlControls.HtmlTable tblPickOptions;
         
         /// <summary>
+        /// btnDeleteRiskProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteRiskProfile;
+        
+        /// <summary>
         /// lblPickWhat control.
         /// </summary>
         /// <remarks>
@@ -507,5 +516,23 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidGoalCount;
+        
+        /// <summary>
+        /// hdnDeletemsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDeletemsgValue;
+        
+        /// <summary>
+        /// hiddenDeleteQuestion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenDeleteQuestion;
     }
 }

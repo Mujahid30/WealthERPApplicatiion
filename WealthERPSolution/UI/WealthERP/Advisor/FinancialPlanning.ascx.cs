@@ -248,6 +248,7 @@ namespace WealthERP.Advisor
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
                     if (dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString() != "")
                     {
+                        btnDeleteRiskProfile.Visible = true;
                         if (dsGetCustomerRiskProfile.Tables[1].Rows.Count > 0)
                         {
                             divQuestionAnswers.Visible = true;
@@ -334,6 +335,7 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
+                        btnDeleteRiskProfile.Visible = false;
                         divQuestionAnswers.Visible = false;
                         tblPickRiskClass.Visible = false;
                         btnSubmitRisk.Visible = false;
@@ -812,6 +814,7 @@ namespace WealthERP.Advisor
 
                     riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
                     dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                    btnDeleteRiskProfile.Visible = true;
                 }
                 else
                 {
@@ -1517,6 +1520,7 @@ namespace WealthERP.Advisor
                 lblRClass.Text = ddlPickRiskClass.SelectedItem.ToString();
 
                 riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, 0, DateTime.Now, riskCode, rmvo, 1, customerVo.Dob);
+                btnDeleteRiskProfile.Visible = true;
             }
             else
             {
@@ -1710,6 +1714,33 @@ namespace WealthERP.Advisor
                 RadGrid1.DataBind();
             }
             
+        }
+
+        protected void hiddenDeleteQuestion_Click(object sender, EventArgs e)
+        {
+            bool bDeleteStatus = false;
+            AdviserFPConfigurationBo adviserFPConfigurationBo = new AdviserFPConfigurationBo();
+            try
+            {
+                bDeleteStatus = adviserFPConfigurationBo.DeleteAdviserRiskProfile(advisorVo.advisorId, customerVo.CustomerId);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('FinancialPlanning','none');", true);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "FinancialPlanning.ascx:hiddenDeleteQuestion_Click()");
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }
