@@ -539,7 +539,7 @@
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridBoundColumn  DataField="XAR_ArchiveReason"  HeaderText="ArchiveReason" UniqueName="XAR_ArchiveReason">
-                    <ItemStyle Width="" HorizontalAlign="right"  Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridBoundColumn  DataField="AMFMPD_SchemeDescription"  HeaderText="Description" UniqueName="AMFMPD_SchemeDescription">

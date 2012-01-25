@@ -757,7 +757,7 @@ namespace WealthERP.Research
                 dropdownSubCategory.DataBind();
                 dropdownSubCategory.Items.Insert(0, new ListItem("All", "All"));
             }
-            //LoadAllSchemeNAV();
+         LoadAllSchemeNAV();
         }
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -861,33 +861,82 @@ namespace WealthERP.Research
                     double dtAllocation = 0;
                     double coAllocation = 0;
                     double hyAllocation = 0;
+                    double percentageAllocation = 0;
+                    string assetClassificationCode;
+                    string category;
+                    double totalAllocation;
                     foreach (DataRow dr in dtSchemeCategory.Rows)
                     {
 
                         int schemeId = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-
+                        percentageAllocation = double.Parse(dr["WACPISSCA_PercentageAllocation"].ToString());
+                        assetClassificationCode =dr["WAC_AssetClassificationCode"].ToString();
+                        category = dr["Category"].ToString();
                         drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
-                        foreach (DataRow drall in drAllocation)
+                        foreach (DataRow drAll in drAllocation)
                         {
-                            allocationPercentage = double.Parse(drall["AMFMPD_AllocationPercentage"].ToString());
+                            allocationPercentage = double.Parse(drAll["AMFMPD_AllocationPercentage"].ToString());
                         }
-
-                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                        if (category == "Debt")
                         {
                             dtAllocation = dtAllocation + allocationPercentage;
                         }
-                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+
+                        else if (category == "Equity")
                         {
                             eqAllocation = eqAllocation + allocationPercentage;
                         }
-                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY")
+
+                        else if (category == "Hybrid")
                         {
-                            hyAllocation = hyAllocation + allocationPercentage;
+                            if (assetClassificationCode == "Equity")
+                            {
+                                eqAllocation = eqAllocation + (allocationPercentage* percentageAllocation) / 100;
+                            }
+                            if (assetClassificationCode == "Debt")
+                            {
+                                dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
+                            }                           
                         }
-                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFCO")
+
+                        if (category == "Commodity")
                         {
-                            coAllocation = coAllocation + allocationPercentage;
+                            if (assetClassificationCode == "Equity")
+                            {
+                                eqAllocation = eqAllocation + (allocationPercentage * percentageAllocation) / 100;
+                            }
+                            if (assetClassificationCode == "Debt")
+                            {
+                                dtAllocation = dtAllocation + (allocationPercentage * percentageAllocation) / 100;
+                            }   
                         }
+
+                        //totalAllocation = dtAllocation + eqAllocation;
+
+                        //dtAllocation = (dtAllocation / totalAllocation) * 100;
+                        //eqAllocation = (eqAllocation / totalAllocation) * 100;
+                        //drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
+                        //foreach (DataRow drall in drAllocation)
+                        //{
+                        //    allocationPercentage = double.Parse(drall["AMFMPD_AllocationPercentage"].ToString());
+                        //}
+
+                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFDT")
+                        //{
+                        //    dtAllocation = dtAllocation + allocationPercentage;
+                        //}
+                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFEQ")
+                        //{
+                        //    eqAllocation = eqAllocation + allocationPercentage;
+                        //}
+                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFHY")
+                        //{
+                        //    hyAllocation = hyAllocation + allocationPercentage;
+                        //}
+                        //if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "MFCO")
+                        //{
+                        //    coAllocation = coAllocation + allocationPercentage;
+                        //}
                     }
 
                     dtChartAsset.Columns.Add("PAIC_AssetInstrumentCategoryName");
@@ -900,14 +949,6 @@ namespace WealthERP.Research
                     drRiskClass = dtChartAsset.NewRow();
                     drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Debt";
                     drRiskClass["AMFMPD_AllocationPercentage"] = dtAllocation;
-                    dtChartAsset.Rows.Add(drRiskClass);
-                    drRiskClass = dtChartAsset.NewRow();
-                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Hybrid";
-                    drRiskClass["AMFMPD_AllocationPercentage"] = hyAllocation;
-                    dtChartAsset.Rows.Add(drRiskClass);
-                    drRiskClass = dtChartAsset.NewRow();
-                    drRiskClass["PAIC_AssetInstrumentCategoryName"] = "Commodities";
-                    drRiskClass["AMFMPD_AllocationPercentage"] = coAllocation;
                     dtChartAsset.Rows.Add(drRiskClass);
 
                 }
