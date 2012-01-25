@@ -1595,6 +1595,10 @@ namespace WealthERP.FP
                 txtProjectedValueOnGoalDate.Text = customerGoalFundingProgressVo.ProjectedValue != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.ProjectedValue, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestmentsRequired.Text = customerGoalFundingProgressVo.AdditionalMonthlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalMonthlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                 txtAdditionalInvestments.Text = customerGoalFundingProgressVo.AdditionalYearlyRequirement != 0 ? String.Format("{0:n2}", Math.Round(customerGoalFundingProgressVo.AdditionalYearlyRequirement, 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                if (customerGoalFundingProgressVo.ProjectedEndYear < goalPlanningVo.GoalProfileDate.Year)
+                {
+                    customerGoalFundingProgressVo.ProjectedEndYear = goalPlanningVo.GoalProfileDate.Year;
+                }                
                 txtProjectedCompleteYear.Text = customerGoalFundingProgressVo.ProjectedEndYear.ToString();
              
             }

@@ -720,7 +720,7 @@ namespace BoFPSuperlite
             year = (int)remainingTime;
             month = remainingTime - year;
             month = Math.Round((month * 12), 0);
-            customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + " " + "Years" +" "+ "-"+" " + month + " " + "Months";
+            customerGoalFundingProgressVo.GEstimatedTimeToAchiveGoal = year + " " + "Years" +" "+ "/"+" " + month + " " + "Months";
             if ((goalPlanningVo.GoalYear - DateTime.Now.Year) != 0 && goalPlanningVo.ExpectedROI != 0)
             {
                 double addInvestmentReq = PMT(goalPlanningVo.ExpectedROI / 100, (goalPlanningVo.GoalYear - DateTime.Now.Year), 0, (totalMFProjectedAmount - goalPlanningVo.FutureValueOfCostToday), 1);

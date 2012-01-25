@@ -672,7 +672,7 @@
      <asp:TextBox ID="txtTargetDate" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
     </td>
      <td class="leftField">
-     <asp:Label id="lblProjectedCompleteYear" Text="Likely Tareget Date:"  CssClass="FieldName" runat="server"></asp:Label>
+     <asp:Label id="lblProjectedCompleteYear" Text="Likely Target Date:"  CssClass="FieldName" runat="server"></asp:Label>
     </td>
     <td class="rightField">
      <asp:TextBox ID="txtProjectedCompleteYear" runat="server" Text="" CssClass="txtField" ReadOnly="true"></asp:TextBox>
