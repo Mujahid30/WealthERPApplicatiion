@@ -21,7 +21,7 @@ namespace DaoResearch
         {
             Database db;
             DbCommand cmdAMCList;
-            DataTable dtAMCList;
+            DataTable dtAMCList = new DataTable();
             DataSet dsAMCList = null;
             try
             {
@@ -42,7 +42,7 @@ namespace DaoResearch
         {
             Database db;
             DbCommand cmdModelPortfolioName;
-            DataTable dtModelPortfolioName;
+            DataTable dtModelPortfolioName = new DataTable();
             DataSet dsModelPortfolioName = null;
             try
             {
@@ -105,7 +105,7 @@ namespace DaoResearch
         {
             Database db;
             DbCommand cmdBasisList;
-            DataTable dtBasisList;
+            DataTable dtBasisList = new DataTable();
             DataSet dsBasisList = null;
             try
             {
@@ -127,7 +127,7 @@ namespace DaoResearch
         {
             Database db;
             DbCommand cmdArchiveReason;
-            DataTable dtArchiveReason;
+            DataTable dtArchiveReason = new DataTable();
             DataSet dsArchiveReason = null;
             try
             {
@@ -224,7 +224,7 @@ namespace DaoResearch
 
         public DataTable GetModelportfolioDetails(int adviserId)
         {
-            DataTable dtModelPortfolio;
+            DataTable dtModelPortfolio = new DataTable();
             DataSet dsModelPortFolio;
             Database db;
             DbCommand modelPortfolioCmd;
@@ -258,7 +258,7 @@ namespace DaoResearch
 
         public DataTable GetDefaultAdviserRiskClasses()
         {
-            DataTable dtModelPortfolio;
+            DataTable dtModelPortfolio = new DataTable();
             DataSet dsModelPortFolio;
             Database db;
             DbCommand modelPortfolioCmd;
@@ -428,7 +428,7 @@ namespace DaoResearch
 
         public DataTable GetAttachedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             DataSet dsAttachedScheme;
             Database db;
             DbCommand AttachedSchemeCmd;
@@ -464,7 +464,7 @@ namespace DaoResearch
 
         public DataTable getAllocationPercentageFromModelPortFolio(int modelPortfolioCode)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             DataSet dsAttachedScheme;
             Database db;
             DbCommand AttachedSchemeCmd;
@@ -532,7 +532,7 @@ namespace DaoResearch
 
         public DataTable GetArchivedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             DataSet dsAttachedScheme;
             Database db;
             DbCommand AttachedSchemeCmd;
@@ -568,7 +568,7 @@ namespace DaoResearch
 
         public DataTable GetSchemeAssetAllocation(string schemePlanCode)
         {
-            DataTable dtSchemeAsset;
+            DataTable dtSchemeAsset = new DataTable();
             DataSet dsSchemeAsset;
             Database db;
             DbCommand SchemeAssetCmd;
@@ -604,7 +604,7 @@ namespace DaoResearch
 
         public DataTable SchemeAssetChartOnSubCategory(ModelPortfolioVo modelPortfolioVo, int adviserId)
         {
-            DataTable dtSchemeAsset;
+            DataTable dtSchemeAsset = new DataTable();
             DataSet dsSchemeAsset;
             Database db;
             DbCommand SchemeAssetCmd;
@@ -639,7 +639,7 @@ namespace DaoResearch
 
         public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
-            DataTable dtRiskClass;
+            DataTable dtRiskClass = new DataTable();
             DataSet dsRiskClass;
             Database db;
             DbCommand RiskClassCmd;
@@ -679,7 +679,7 @@ namespace DaoResearch
 
         public DataTable InsertUpdateRiskGoalClass(string value, string Text, int advisorId)
         {
-            DataTable dtRiskClass;
+            DataTable dtRiskClass = new DataTable();
             DataSet dsRiskClass;
             Database db;
             DbCommand RiskClassCmd;

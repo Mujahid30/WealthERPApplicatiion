@@ -148,7 +148,7 @@ namespace BoResearch
 
         public DataTable GetModelportfolioDetails(int adviserId)
         {
-            DataTable dtModelPortFolio;
+            DataTable dtModelPortFolio = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -178,7 +178,7 @@ namespace BoResearch
 
         public DataTable GetAttachedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -210,7 +210,7 @@ namespace BoResearch
 
         public DataTable getAllocationPercentageFromModelPortFolio(int modelPortfolioCode)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -356,7 +356,7 @@ namespace BoResearch
 
         public DataTable GetSchemeAssetAllocation(string schemePlanCode)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -386,7 +386,7 @@ namespace BoResearch
 
         public DataTable SchemeAssetChartOnSubCategory(ModelPortfolioVo modelPortfolioVo, int adviserId)
         {
-            DataTable dtSchemeAssetChart;
+            DataTable dtSchemeAssetChart = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -419,7 +419,7 @@ namespace BoResearch
 
         public DataTable GetArchivedSchemeDetails(int modelPortfolioCode, int adviserId)
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -449,7 +449,7 @@ namespace BoResearch
 
         public DataTable GetDefaultAdviserRiskClasses()
         {
-            DataTable dtAttachedScheme;
+            DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -493,7 +493,7 @@ namespace BoResearch
         
         public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
-            DataTable dt;
+            DataTable dt = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -523,7 +523,7 @@ namespace BoResearch
 
         public DataTable InsertUpdateRiskGoalClass(string value, string Text, int advisorId)
         {
-            DataTable dt;
+            DataTable dt = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
@@ -676,7 +676,7 @@ namespace BoResearch
 
         public DataSet GetVariantAssetPortfolioDetails(int advisorId)
         {
-            DataSet ds;
+            DataSet ds = new DataSet();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
