@@ -346,6 +346,67 @@ namespace BoResearch
             }
             return bResult;
         }
+
+
+        public bool CheckAdviserRiskProfileDependency(int AdviserID)
+        {
+            bool bResult = false;
+            AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
+            try
+            {
+                bResult = adviserFPConfigurationDao.CheckAdviserRiskProfileDependency(AdviserID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserFPConfigurationBo.cs:CheckAdviserRiskProfileDependency()");
+                object[] objects = new object[2];
+                objects[0] = AdviserID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+
+        public bool DeleteAdviserRiskProfile(int adviserId, int CustomerID)
+        {
+            bool bResult = false;
+            AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
+            try
+            {
+                bResult = adviserFPConfigurationDao.DeleteAdviserRiskProfile(adviserId, CustomerID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteAdviserRiskProfile(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }
 
