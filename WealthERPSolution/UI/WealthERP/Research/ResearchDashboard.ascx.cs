@@ -8,6 +8,7 @@ using WealthERP.Base;
 using VoUser;
 using System.Data;
 using BoResearch;
+using Telerik.Web.UI;
 
 namespace WealthERP.Research
 {
@@ -46,6 +47,16 @@ namespace WealthERP.Research
             RadGrid1.DataSource = dtVariant;
             RadGrid1.DataSourceID = String.Empty;
             RadGrid1.DataBind();
+        }
+
+        protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                HyperLink link = (HyperLink)dataItem["XAMP_ModelPortfolioName"].Controls[0];
+                ((e.Item as GridDataItem)["XAMP_ModelPortfolioName"].Controls[0] as HyperLink).Attributes["onclick"] = "loadcontrol('ModelPortfolioSetup', 'none')";                
+            }
         }
     }
 }
