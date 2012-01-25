@@ -87,10 +87,15 @@ namespace WealthERP.Research
                 drVariant["XAMP_CreatedOn"] = DateTime.Parse(dr["XAMP_CreatedOn"].ToString()).ToShortDateString();
                 drVariant["Allocation"] = dr["Allocation"].ToString();
 
+                //drVariant["MinYear"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) / 12;
+                //drVariant["MinMonth"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) % 12;
+                //drVariant["MaxYear"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString()) / 12;
+                //drVariant["MaxMonth"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString()) % 12;
+
                 drVariant["MinYear"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) / 12;
-                drVariant["MinMonth"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString()) % 12;
+                drVariant["MinMonth"] = Convert.ToInt32(dr["XAMP_MinTimeHorizon"].ToString());
                 drVariant["MaxYear"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString()) / 12;
-                drVariant["MaxMonth"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString()) % 12;
+                drVariant["MaxMonth"] = Convert.ToInt32(dr["XAMP_MaxTimeHorizon"].ToString());
 
                 drArrayAllocation = new DataRow[dsVariantDetails.Tables[2].Rows.Count];
                 drArrayAllocation = dsVariantDetails.Tables[1].Select("XAMP_ModelPortfolioCode="+dr["XAMP_ModelPortfolioCode"].ToString());
@@ -199,29 +204,32 @@ namespace WealthERP.Research
                             }
                     }
                 }
-                int VarMinYear = 0;
+                //int VarMinYear = 0;
                 int VarMinMonth = 0;
                 int VarMaxMonth = 0;
-                int VarMaxYear = 0;
-                if (txtboxMinTimeHorizonYear.Text != "")
-                {
-                    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
-                }
+                //int VarMaxYear = 0;
+                //if (txtboxMinTimeHorizonYear.Text != "")
+                //{
+                //    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
+                //}
                 if (txtboxMinTimeHorizonMonth.Text != "")
                 {
                     VarMinMonth = Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
                 }
-                if (txtboxMaxTimeHorizonYear.Text != "")
-                {
-                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
-                }
+                //if (txtboxMaxTimeHorizonYear.Text != "")
+                //{
+                //    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
+                //}
                 if (txtboxMaxTimeHorizonMonth.Text != "")
                 {
                     VarMaxMonth = Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
                 }
 
-                minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
-                maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+                //minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
+                //maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+
+                minTimeHorizon =  VarMinMonth;
+                maxTimeHorizon =  VarMaxMonth;
 
                 double varMinAUM = 0;
                 double varMaxAUM = 0;
@@ -411,29 +419,32 @@ namespace WealthERP.Research
                             }
                     }
                 }
-                int VarMinYear = 0;
+                //int VarMinYear = 0;
                 int VarMinMonth = 0;
                 int VarMaxMonth = 0;
-                int VarMaxYear = 0;
-                if (txtboxMinTimeHorizonYear.Text != "")
-                {
-                    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
-                }
+                //int VarMaxYear = 0;
+                //if (txtboxMinTimeHorizonYear.Text != "")
+                //{
+                //    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
+                //}
                 if (txtboxMinTimeHorizonMonth.Text != "")
                 {
                     VarMinMonth = Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
                 }
-                if (txtboxMaxTimeHorizonYear.Text != "")
-                {
-                    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
-                }
+                //if (txtboxMaxTimeHorizonYear.Text != "")
+                //{
+                //    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
+                //}
                 if (txtboxMaxTimeHorizonMonth.Text != "")
                 {
                     VarMaxMonth = Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
                 }
 
-                minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
-                maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+                //minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
+                //maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+
+                minTimeHorizon = VarMinMonth;
+                maxTimeHorizon = VarMaxMonth;
 
                 //minTimeHorizon = (Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
                 //maxTimeHorizon = (Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());

@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ModelPortfolioSetup.ascx.cs" Inherits="WealthERP.Research.ModelPortfolioSetup" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager> 
 
@@ -69,16 +69,16 @@
                     <HeaderStyle Width="85px"></HeaderStyle>
                  </telerik:GridEditCommandColumn>
                                  
-                <telerik:GridBoundColumn UniqueName="XAMP_ModelPortfolioName" HeaderText="Variant" DataField="XAMP_ModelPortfolioName">
+                <telerik:GridBoundColumn UniqueName="XAMP_ModelPortfolioName" HeaderText="Model Portfolio" DataField="XAMP_ModelPortfolioName">
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridBoundColumn UniqueName="XRC_RiskClass" HeaderText="Risk Class" DataField="XRC_RiskClass">
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn UniqueName="XAMP_MinAUM" HeaderText="Min AUM" DataField="XAMP_MinAUM">
+                <telerik:GridBoundColumn UniqueName="XAMP_MinAUM" HeaderText="Min Investment" DataField="XAMP_MinAUM">
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn UniqueName="XAMP_MaxAUM" HeaderText="Max AUM" DataField="XAMP_MaxAUM">
+                <telerik:GridBoundColumn UniqueName="XAMP_MaxAUM" HeaderText="Max Investment" DataField="XAMP_MaxAUM">
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridBoundColumn UniqueName="XAMP_MinAge" HeaderText="Min Age" DataField="XAMP_MinAge">
@@ -120,7 +120,7 @@
             </Columns>
             <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit" FormCaptionStyle-CssClass="TableBackground"
             PopUpSettings-Modal="true" PopUpSettings-ZIndex="20" EditFormType="Template" FormCaptionStyle-Width="100%" 
-            PopUpSettings-Height="360px" PopUpSettings-Width="800px">            
+            PopUpSettings-Height="400px" PopUpSettings-Width="800px">            
                 <FormTemplate>
                     <table>
                       <tr id="trAddNamePortfolio" runat="server">
@@ -175,16 +175,16 @@
                       <tr>
                         <td></td>
                         <td align="center">
-                            <asp:Label ID="lblDebt" runat="server" Text="Debt :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblDebt" runat="server" Text="Debt(%)" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblEquity" runat="server" Text="Equity :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblEquity" runat="server" Text="Equity(%)" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblCash" runat="server" Text="Cash :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblCash" runat="server" Text="Cash(%)" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblAlternate" runat="server" Text="Alternate :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblAlternate" runat="server" Text="Alternate(%)" CssClass="FieldName"></asp:Label>
                         </td>
                       </tr>
                       
@@ -256,10 +256,10 @@
                       <tr>
                         <td></td>
                         <td align="center">
-                            <asp:Label ID="lblMin" runat="server" Text="Minimum:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblMin" runat="server" Text="Minimum" CssClass="FieldName"></asp:Label>
                         </td>
                         <td align="center">
-                            <asp:Label ID="lblMax" runat="server" Text="Maximum:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblMax" runat="server" Text="Maximum" CssClass="FieldName"></asp:Label>
                         </td>    
                       </tr>
                       <tr>
@@ -268,12 +268,16 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAUM" runat="server" Text='<%# Bind( "XAMP_MinAUM") %>' CssClass="txtField">
-                            </asp:TextBox>
+                            </asp:TextBox><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMinAUM" controltovalidate="txtMinAUM" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid min amount" />
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxAUM" runat="server" Text='<%# Bind( "XAMP_MaxAUM") %>' CssClass="txtField">
-                            </asp:TextBox>
-                        </td>    
+                            </asp:TextBox><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMaxAUM" controltovalidate="txtMaxAUM" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max amount" />
+                        </td>
                       </tr>
                       <tr>
                         <td class="leftField">
@@ -281,48 +285,75 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAge" runat="server" Text='<%# Bind( "XAMP_MinAge") %>' CssClass="txtField">
-                            </asp:TextBox>
+                            </asp:TextBox><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMinAge" controltovalidate="txtMinAge" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1"  errormessage="Invalid min age" />
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
-                            </asp:TextBox>
-                        </td>    
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td align="center">
-                            <asp:Label ID="lblMinTimeHorizonYear" runat="server" Text="Minimum Year:" CssClass="FieldName"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblMinTimeHorizonMonth" runat="server" Text="Minimum month:" CssClass="FieldName"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblMaxTimeHorizonYear" runat="server" Text="Maximum Year:" CssClass="FieldName"></asp:Label>
-                        </td>
-                        <td align="center">
-                            <asp:Label ID="lblMaxTimeHorizonMonth" runat="server" Text="Maximum month :" CssClass="FieldName"></asp:Label>
+                            </asp:TextBox><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMaxAge" controltovalidate="txtMaxAge" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max age" />
                         </td>
                       </tr>
-                      <tr>
+                      <%--<tr>
                         <td></td>
+                        <td align="center">
+                            <asp:Label ID="lblMinTimeHorizonYear" runat="server" Text="Minimum year" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblMinTimeHorizonMonth" runat="server" Text="Minimum month" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblMaxTimeHorizonYear" runat="server" Text="Maximum year" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td align="center">
+                            <asp:Label ID="lblMaxTimeHorizonMonth" runat="server" Text="Maximum month" CssClass="FieldName"></asp:Label>
+                        </td>
+                      </tr>--%>
+                      <%--<tr>
+                        <td class="leftField">
+                            <asp:Label ID="lblTimeHorizon" runat="server" Text="Time Horizon (Year):" CssClass="FieldName"></asp:Label>
+                        </td>
                         <td>
                             <asp:TextBox ID="txtMinTimeHorizonYear" runat="server"  Text='<%# Bind( "MinYear") %>' CssClass="txtField">
                             </asp:TextBox>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" Text='<%# Bind( "MinMonth") %>' CssClass="txtField">
-                            </asp:TextBox>
-                        </td>
-                        <td>
-                            <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" Text='<%# Bind( "MaxMonth") %>' CssClass="txtField">
-                            </asp:TextBox>
+                            <cc1:TextBoxWatermarkExtender ID="txtMinTimeHorizonYear_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtMinTimeHorizonYear" WatermarkText="Minimum year">
+                            </cc1:TextBoxWatermarkExtender>
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxTimeHorizonYear" runat="server" Text='<%# Bind( "MaxYear") %>' CssClass="txtField">
                             </asp:TextBox>
-                        </td>        
+                            <cc1:TextBoxWatermarkExtender ID="txtMaxTimeHorizonYear_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtMaxTimeHorizonYear" WatermarkText="Maximum year">
+                            </cc1:TextBoxWatermarkExtender>
+                        </td>
+                      </tr>--%>
+                      <tr>
+                        <td class="leftField">
+                            <asp:Label ID="Label1" runat="server" Text="Time Horizon:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        
+                        <td>
+                            <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" Text='<%# Bind( "MinMonth") %>' CssClass="txtField">
+                            </asp:TextBox>
+                            <cc1:TextBoxWatermarkExtender ID="txtMinTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtMinTimeHorizonMonth" WatermarkText="month">
+                            </cc1:TextBoxWatermarkExtender><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMinMonth" controltovalidate="txtMinTimeHorizonMonth" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid time" />
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" Text='<%# Bind( "MaxMonth") %>' CssClass="txtField">
+                            </asp:TextBox>
+                            <cc1:TextBoxWatermarkExtender ID="txtMaxTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
+                                TargetControlID="txtMaxTimeHorizonMonth" WatermarkText="Month">
+                            </cc1:TextBoxWatermarkExtender><br />
+                            <asp:RegularExpressionValidator runat="server" id="rexMaxMonth" controltovalidate="txtMaxTimeHorizonMonth" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid time" />
+                        </td>
                       </tr>
-                      
                       <tr>
                             <td align="right" colspan="2">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' ValidationGroup="Button1"
