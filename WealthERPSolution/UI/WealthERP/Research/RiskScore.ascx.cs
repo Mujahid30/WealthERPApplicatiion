@@ -640,6 +640,7 @@ namespace WealthERP.Research
 
         protected void btnSubmitAndEnterNewQuestion_Click(object sender, EventArgs e)
         {
+            bool bRiskDependency = false;
             int questionId = 0;
             bool updateQuestionStatus = false;
             bool updateOptionStatus = false;
@@ -650,65 +651,73 @@ namespace WealthERP.Research
             adviserDRQVo.Question = dtParameter.Tables[0].Rows[0]["QM_Question"].ToString();
             adviserDRQVo.Purpose = "RiskProfile";
 
-            if (btnSubmitAndEnterNewQuestion.Text == "Submit & Add new question")
+            bRiskDependency = adviserFPConfigurationBo.CheckAdviserRiskProfileDependency(adviserVo.advisorId);
+
+            if (bRiskDependency == false)
             {
-
-                questionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestions(adviserDRQVo);
-
-                adviserDRQVo.QuestionId = questionId;
-
-                for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                if (btnSubmitAndEnterNewQuestion.Text == "Submit & Add new question")
                 {
-                    if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
-                        adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
+                    questionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestions(adviserDRQVo);
 
-                    if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
-                        adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
+                    adviserDRQVo.QuestionId = questionId;
 
-                    optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-                }
-            }
-            else if (btnSubmitAndEnterNewQuestion.Text == "Update & Add new question")
-            {
-                DataSet dsGetDataForOptions = new DataSet();
-                DataRow[] drOptionId = null;
-                adviserDRQVo.QuestionId = Convert.ToInt32(ViewState["QuestionId"].ToString());
-                updateQuestionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestions(adviserDRQVo);
+                    for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                    {
+                        if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
+                            adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
 
-                if (Session["GetDataForQuestionOptions"] != "")
-                {
-                    dsGetDataForOptions = (DataSet)Session["GetDataForQuestionOptions"];
+                        if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
+                            adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
 
-                    drOptionId = dsGetDataForOptions.Tables[0].Select("QM_QuestionId=" + adviserDRQVo.QuestionId);
-                }
-                int checkInsertOrUpdate = 0;
-                checkInsertOrUpdate = drOptionId.Length;
-
-                for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
-                {
-                    if (checkInsertOrUpdate != 0)
-                        adviserDRQVo.OptionId = Convert.ToInt32(drOptionId[i]["QOM_OptionId"].ToString());
-                    else
-                        adviserDRQVo.OptionId = 0;
-                    
-
-                    if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
-                        adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
-
-                    if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
-                        adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
-
-                    if(adviserDRQVo.OptionId != 0)
-                        updateOptionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-                    else
                         optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-
-                    if(checkInsertOrUpdate != 0)
-                        checkInsertOrUpdate = checkInsertOrUpdate - 1;
-
+                    }
                 }
+                else if (btnSubmitAndEnterNewQuestion.Text == "Update & Add new question")
+                {
+                    DataSet dsGetDataForOptions = new DataSet();
+                    DataRow[] drOptionId = null;
+                    adviserDRQVo.QuestionId = Convert.ToInt32(ViewState["QuestionId"].ToString());
+                    updateQuestionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestions(adviserDRQVo);
+
+                    if (Session["GetDataForQuestionOptions"] != "")
+                    {
+                        dsGetDataForOptions = (DataSet)Session["GetDataForQuestionOptions"];
+
+                        drOptionId = dsGetDataForOptions.Tables[0].Select("QM_QuestionId=" + adviserDRQVo.QuestionId);
+                    }
+                    int checkInsertOrUpdate = 0;
+                    checkInsertOrUpdate = drOptionId.Length;
+
+                    for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                    {
+                        if (checkInsertOrUpdate != 0)
+                            adviserDRQVo.OptionId = Convert.ToInt32(drOptionId[i]["QOM_OptionId"].ToString());
+                        else
+                            adviserDRQVo.OptionId = 0;
+
+
+                        if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
+                            adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
+
+                        if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
+                            adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
+
+                        if (adviserDRQVo.OptionId != 0)
+                            updateOptionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
+                        else
+                            optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
+
+                        if (checkInsertOrUpdate != 0)
+                            checkInsertOrUpdate = checkInsertOrUpdate - 1;
+
+                    }
+                }
+                SetUpNewQuestionsAndOptions();
             }
-            SetUpNewQuestionsAndOptions();
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Warning! Dependency found..!! Please remove any existing customers risk profile..');", true);
+            }
         }
 
         private DataSet SetDataTable()
@@ -813,6 +822,7 @@ namespace WealthERP.Research
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            bool bRiskDependency = false;
             int questionId = 0;
             bool updateQuestionStatus = false;
             bool updateOptionStatus = false;
@@ -823,68 +833,77 @@ namespace WealthERP.Research
             adviserDRQVo.Question = dtParameter.Tables[0].Rows[0]["QM_Question"].ToString();
             adviserDRQVo.Purpose = "RiskProfile";
 
-            if (btnSubmit.Text == "Submit")
+            bRiskDependency = adviserFPConfigurationBo.CheckAdviserRiskProfileDependency(adviserVo.advisorId);
+
+            if (bRiskDependency == false)
             {
-
-                questionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestions(adviserDRQVo);
-
-                adviserDRQVo.QuestionId = questionId;
-
-                for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                if (btnSubmit.Text == "Submit")
                 {
-                    if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
-                        adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
 
-                    if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
-                        adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
+                    questionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestions(adviserDRQVo);
 
-                    optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-                }
-            }
-            else if (btnSubmit.Text == "Update")
-            {
-                DataSet dsGetDataForOptions = new DataSet();
-                DataRow[] drOptionId = null;
-                adviserDRQVo.QuestionId = Convert.ToInt32(ViewState["QuestionId"].ToString());
-                updateQuestionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestions(adviserDRQVo);
+                    adviserDRQVo.QuestionId = questionId;
 
-                if (Session["GetDataForQuestionOptions"] != "")
-                {
-                    dsGetDataForOptions = (DataSet)Session["GetDataForQuestionOptions"];
+                    for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                    {
+                        if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
+                            adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
 
-                    drOptionId = dsGetDataForOptions.Tables[0].Select("QM_QuestionId=" + adviserDRQVo.QuestionId);
-                }
-                int checkInsertOrUpdate = 0;
-                checkInsertOrUpdate = drOptionId.Length;
-                for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
-                {
-                    if (checkInsertOrUpdate != 0)
-                        adviserDRQVo.OptionId = Convert.ToInt32(drOptionId[i]["QOM_OptionId"].ToString());
-                    else
-                        adviserDRQVo.OptionId = 0;
+                        if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
+                            adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
 
-
-                    if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
-                        adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
-
-                    if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
-                        adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
-
-                    if (adviserDRQVo.OptionId != 0)
-                        updateOptionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-                    else
                         optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
-
-                    if (checkInsertOrUpdate != 0)
-                        checkInsertOrUpdate = checkInsertOrUpdate - 1;
-
+                    }
                 }
+                else if (btnSubmit.Text == "Update")
+                {
+                    DataSet dsGetDataForOptions = new DataSet();
+                    DataRow[] drOptionId = null;
+                    adviserDRQVo.QuestionId = Convert.ToInt32(ViewState["QuestionId"].ToString());
+                    updateQuestionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestions(adviserDRQVo);
+
+                    if (Session["GetDataForQuestionOptions"] != "")
+                    {
+                        dsGetDataForOptions = (DataSet)Session["GetDataForQuestionOptions"];
+
+                        drOptionId = dsGetDataForOptions.Tables[0].Select("QM_QuestionId=" + adviserDRQVo.QuestionId);
+                    }
+                    int checkInsertOrUpdate = 0;
+                    checkInsertOrUpdate = drOptionId.Length;
+                    for (int i = 0; i <= dtParameter.Tables[1].Rows.Count - 1; i++)
+                    {
+                        if (checkInsertOrUpdate != 0)
+                            adviserDRQVo.OptionId = Convert.ToInt32(drOptionId[i]["QOM_OptionId"].ToString());
+                        else
+                            adviserDRQVo.OptionId = 0;
+
+
+                        if (dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString() != "")
+                            adviserDRQVo.Option = dtParameter.Tables[1].Rows[i]["QM_QuestionOption"].ToString();
+
+                        if (dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString() != "")
+                            adviserDRQVo.Weightage = int.Parse(dtParameter.Tables[1].Rows[i]["QOM_Weightage"].ToString());
+
+                        if (adviserDRQVo.OptionId != 0)
+                            updateOptionStatus = adviserFPConfigurationBo.UpdateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
+                        else
+                            optionId = adviserFPConfigurationBo.CreateAdvisorDynamicRiskQuestionsOptions(adviserDRQVo);
+
+                        if (checkInsertOrUpdate != 0)
+                            checkInsertOrUpdate = checkInsertOrUpdate - 1;
+
+                    }
+                }
+                pnlAdviserQuestionsDisplay.Visible = true;
+                pnlAdviserQuestionsMaintanance.Visible = false;
+                MaintanceFormTitle.Visible = false;
+                pnlMaintanceFormTitle.Visible = false;
+                GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
             }
-            pnlAdviserQuestionsDisplay.Visible = true;
-            pnlAdviserQuestionsMaintanance.Visible = false;
-            MaintanceFormTitle.Visible = false;
-            pnlMaintanceFormTitle.Visible = false;
-            GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Warning! Dependency found..!! Please remove any existing customers risk profile..');", true);
+            }
         }
 
         public void SetParameterForQuestions()
