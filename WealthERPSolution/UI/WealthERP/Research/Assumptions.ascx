@@ -40,16 +40,10 @@
                 <FormTemplate>
                     <table id="Table1" cellspacing="1" cellpadding="1" width="100%" border="0">
                         <tr>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
                             <td align="right">
                                 <asp:Label ID="lblPickAssumptions" runat="server" Text="Assumptions:" CssClass="FieldName"></asp:Label>
                             </td>
-                            <td>
+                            <td align="left">
                                <asp:TextBox ID="txtAssumptions" runat="server" Text='<%# Bind( "WA_AssumptionName") %>' CssClass="txtField" Enabled="false"></asp:TextBox>
                             </td>
                         </tr>
@@ -59,34 +53,29 @@
                             </td>
                             <td>
                                 <asp:TextBox ID="txtAssumptionValue"  runat="server" CssClass="txtField" Text='<%# Bind( "AA_Value") %>'>
-                                </asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                         <td>
-                        </td>
-                        <td>
-                        <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
+                                </asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
+                                
+                                <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                               ControlToValidate="txtAssumptionValue" CssClass="cvPCG" Display="Dynamic" 
                               ErrorMessage="Please enter correct value" MaximumValue="100.00" 
                               MinimumValue="-100.00" Type="Double" ValidationGroup="vgbtnSubmit"></asp:RangeValidator>
-                        </td>
-                       
-                        </tr>                                           
+                            
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtAssumptionValue"
+                                ErrorMessage="Enter the Value" Display="Dynamic" runat="server"
+                                CssClass="rfvPCG" ValidationGroup="vgbtnSubmit">
+                            </asp:RequiredFieldValidator>
+                            </td>
+                        </tr>
                     
                         <tr>
-                         <td></td>
-                            <td align="right" colspan="2">
+                        <td></td>
+                            <td align="right">
                                 <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                     runat="server" CssClass="PCGButton" ValidationGroup="vgbtnSubmit" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
                             </td>
-                           
-                        </tr>
-                        <tr>
-                        <td></td>
                         </tr>
                     </table>
                 </FormTemplate>
