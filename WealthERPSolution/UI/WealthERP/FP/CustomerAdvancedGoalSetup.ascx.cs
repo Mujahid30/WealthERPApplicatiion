@@ -1153,6 +1153,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
+                    if(!string.IsNullOrEmpty(txtCorpusToBeLeftBehind.Text.Trim()))
                     customerGoalPlanningVo.CorpusLeftBehind = Convert.ToInt64(txtCorpusToBeLeftBehind.Text);
 
                 }
