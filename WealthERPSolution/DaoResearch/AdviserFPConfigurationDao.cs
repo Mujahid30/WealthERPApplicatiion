@@ -453,6 +453,91 @@ namespace DaoResearch
             return bResult;
         }
 
+
+        public bool CheckAdviserRiskProfileDependency(int AdviserID)
+        {
+            bool bResult = false;
+            int count = 0;
+            Database db;
+            DbCommand CheckRiskProfileCmd;
+            DataSet dsCheckRiskProfile = new DataSet();
+            try
+            {
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckRiskProfileCmd = db.GetStoredProcCommand("SP_CheckDependencyONRiskProfile");
+
+                db.AddInParameter(CheckRiskProfileCmd, "@A_AdviserID", DbType.Int32, AdviserID);
+                db.AddOutParameter(CheckRiskProfileCmd, "@Count", DbType.Int32, 50);
+                dsCheckRiskProfile = db.ExecuteDataSet(CheckRiskProfileCmd);
+
+                count = Int32.Parse(db.GetParameterValue(CheckRiskProfileCmd, "@Count").ToString());
+
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdviserFPConfigurationDao.cs:CheckAdviserRiskProfileDependency()");
+                object[] objects = new object[2];
+                objects[0] = AdviserID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+
+
+        public bool DeleteAdviserRiskProfile(int adviserId, int CustomerID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteAdviserRiskProfileCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteAdviserRiskProfileCmd = db.GetStoredProcCommand("SP_DeleteCustomerRiskProfile");
+                db.AddInParameter(deleteAdviserRiskProfileCmd, "@A_AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(deleteAdviserRiskProfileCmd, "@C_CustomerId", DbType.Int32, CustomerID);
+
+                if (db.ExecuteNonQuery(deleteAdviserRiskProfileCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)");
+
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                //objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
     }
 }
 
