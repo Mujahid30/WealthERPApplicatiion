@@ -145,9 +145,14 @@ namespace WealthERP.Research
         { 
             try
             {
+                bool dependancy = false;
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 String riskCode = dataItem.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                modelPortfolioBo.DeleteRiskClass(riskCode, advisorVo.advisorId);
+                dependancy = modelPortfolioBo.DeleteRiskClass(riskCode, advisorVo.advisorId);                
+                if (dependancy == true)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Warning! Dependency found..!! Please remove any existing customers risk profile..');", true);
+                }
                 bindRadGrid1();
             }
             catch (Exception ex)
@@ -206,8 +211,7 @@ namespace WealthERP.Research
         }
 
         protected void ddlClassType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+        {            
             //if (ddlClassType.SelectedValue != "Select")
             //{
             //    bindRadGrid1();
