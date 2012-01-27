@@ -664,7 +664,10 @@ namespace BoReports
                     {
                         if (tempLower == 0 && tempUpper != 0)
                         {
-                            strRatioRangeOne = "<" + (tempUpper+1).ToString();
+                            if (Convert.ToInt16(dr["WFFR_RatioId"].ToString())==5)
+                                strRatioRangeOne = "<=" + (tempUpper+1).ToString();
+                            else
+                                strRatioRangeOne = "<" + (tempUpper + 1).ToString();
 
                         }
                         //else if (tempLower != 0 && tempUpper != 0)
