@@ -276,9 +276,11 @@ namespace WealthERP.Advisor
 
 
                             BindRiskClasses();
-                            if (dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString() != "")
-                                ddlPickRiskClass.SelectedValue = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
-
+                            if (dsGetCustomerRiskProfile.Tables[0].Rows.Count > 0)
+                            {
+                                if (dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString() != "")
+                                    ddlPickRiskClass.SelectedValue = dsGetCustomerRiskProfile.Tables[0].Rows[0]["XRC_RiskClassCode"].ToString();
+                            }
                             divQuestionAnswers.Visible = false;
                             tblRiskScore.Visible = false;
                             //rbtnAnsQuestions.Checked = false;
@@ -832,6 +834,8 @@ namespace WealthERP.Advisor
                 // Adding Risk response to question
                 //
                 //====================================
+                int count = 0;
+
                 for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
                 {
                     dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
@@ -844,9 +848,35 @@ namespace WealthERP.Advisor
 
                         if (rbtnQAns != null && rbtnQAns.Checked)
                         {
-                            riskprofilebo.AddCustomerResponseToQuestion(int.Parse(dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), int.Parse(dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_OptionId"].ToString()), rmvo);
+                            count++;
+                            //riskprofilebo.AddCustomerResponseToQuestion(int.Parse(dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), int.Parse(dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_OptionId"].ToString()), rmvo);
                         }
                     }
+                }
+                if (dsGetRiskProfileQuestion.Tables[0].Rows.Count == count)
+                {
+                    for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
+                    {
+                        dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
+                        for (int j = 0; j < dsGetRiskProfileQuestionOption.Tables[0].Rows.Count; j++)
+                        {
+
+                            tempRID = "rbtnQ" + (i + 1) + "A" + (j + 1);
+
+                            RadioButton rbtnQAns = (RadioButton)tabRiskProfiling.FindControl(tempRID);
+
+                            if (rbtnQAns != null && rbtnQAns.Checked)
+                            {
+                                //count++;
+                                riskprofilebo.AddCustomerResponseToQuestion(int.Parse(dsGetRiskProfileId.Tables[0].Rows[0]["CRP_RiskProfileId"].ToString()), int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), int.Parse(dsGetRiskProfileQuestionOption.Tables[0].Rows[j]["QOM_OptionId"].ToString()), rmvo);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please give ans. for all the question.');", true);
+
                 }
                 tblRiskScore.Focus();
 

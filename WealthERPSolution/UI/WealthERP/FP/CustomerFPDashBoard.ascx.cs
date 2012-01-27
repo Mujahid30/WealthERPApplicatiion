@@ -580,7 +580,10 @@ namespace WealthERP.Customer
                         }
                         else if (dr["WAC_AssetClassification"].ToString() == "Equity")
                         {
-                            equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
+                            if (dr["WAAR_Adjustment"].ToString() != "")
+                            {
+                                equityAdjustment = double.Parse(dr["WAAR_Adjustment"].ToString());
+                            }
                         }
                     }
                     equitycalc = double.Parse(((100 - double.Parse(age.ToString())) / 100).ToString());
