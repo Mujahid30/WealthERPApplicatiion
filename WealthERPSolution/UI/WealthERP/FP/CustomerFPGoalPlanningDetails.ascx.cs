@@ -636,7 +636,7 @@ namespace WealthERP.FP
             selectedRow = gvGoal.RowIndex;
             goalId = gvGoalList.DataKeys[selectedRow].Values["GoalId"].ToString();
             goalCode = gvGoalList.DataKeys[selectedRow].Values["GoalCode"].ToString();
-            if (gvGoalList.DataKeys[selectedRow].Values["IsGoalBehind"].ToString() != "NA")
+            if (gvGoalList.DataKeys[selectedRow].Values["IsGoalBehind"].ToString() != "N/A")
             {
                 isGoalFundFromAsset = true;
             }
@@ -651,7 +651,7 @@ namespace WealthERP.FP
             {
                 if (isGoalFundFromAsset == false)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not makred for MF Based Goal Planning.Edit the goal and Mark it');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not makred for MF Based Goal Planning.Edit the goal and mark it first');", true);
                 }
                 else
                 {
@@ -679,7 +679,11 @@ namespace WealthERP.FP
                 if (GoalProfileList != null)
                     BindGoalOutputGridView(GoalProfileList);
                 else
+                {
+                    
                     trNoRecordFound.Visible = true;
+                    gvGoalList.Visible = false;
+                }
 
                 
             }
