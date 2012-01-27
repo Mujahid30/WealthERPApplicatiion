@@ -898,7 +898,7 @@ namespace WealthERP.Research
                         percentageAllocation = double.Parse(dr["WACPISSCA_PercentageAllocation"].ToString());
                         assetClassificationCode = dr["WAC_AssetClassificationCode"].ToString();
                         category = dr["Category"].ToString();
-                        drAllocation = dt.Select("PASP_SchemePlanCode=" + schemeId.ToString());
+                        drAllocation = dt.Select("PASP_SchemePlanCode='" + schemeId.ToString()+"'");
                         foreach (DataRow drAll in drAllocation)
                         {
                             allocationPercentage = double.Parse(drAll["AMFMPD_AllocationPercentage"].ToString());
