@@ -244,7 +244,7 @@ namespace DaoCustomerProfiling
                     {
                         customerVo.IsActive = 0;
                     }
-                    if (dr["C_AlertViaSMS"] == null)
+                    if (dr["C_AlertViaSMS"] == null || dr["C_AlertViaSMS"].ToString() =="")
                     {
 
                         customerVo.ViaSMS = 0;
@@ -256,7 +256,7 @@ namespace DaoCustomerProfiling
 
 
                     }
-                    if (dr["C_AlertViaEmail"] == null)
+                    if (dr["C_AlertViaEmail"] == null || dr["C_AlertViaEmail"].ToString() == "")
                     {
                         customerVo.AlertViaEmail = 0;
 
@@ -268,7 +268,7 @@ namespace DaoCustomerProfiling
 
                     }
 
-                    if (dr["C_IsProspect"] == null)
+                    if (dr["C_IsProspect"] == null || dr["C_IsProspect"].ToString() == "")
                     {
                         customerVo.IsProspect = 0;
 
