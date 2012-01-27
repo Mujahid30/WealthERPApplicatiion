@@ -77,8 +77,9 @@ namespace WealthERP.Research
                 drVariant["XAMP_ModelPortfolioName"] = dr["XAMP_ModelPortfolioName"].ToString();
                 drVariant["XRC_RiskClass"] = dr["XRC_RiskClass"].ToString();
                 drVariant["XRC_RiskClassCode"] = dr["XRC_RiskClassCode"].ToString();
-                drVariant["XAMP_MinAUM"] = dr["XAMP_MinAUM"].ToString();
-                drVariant["XAMP_MaxAUM"] = dr["XAMP_MaxAUM"].ToString();
+                drVariant["XAMP_MinAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MinAUM"].ToString()), 0).ToString();
+                drVariant["XAMP_MaxAUM"] = Math.Round(Decimal.Parse(dr["XAMP_MaxAUM"].ToString()), 0).ToString();
+                    //dr["XAMP_MaxAUM"].ToString();
                 drVariant["XAMP_MinAge"] = dr["XAMP_MinAge"].ToString();
                 drVariant["XAMP_MaxAge"] = dr["XAMP_MaxAge"].ToString();
                 drVariant["XAMP_MinTimeHorizon"] = dr["XAMP_MinTimeHorizon"].ToString();
@@ -308,7 +309,7 @@ namespace WealthERP.Research
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Total asset allocation should be 100%');", true);
                 }
             }
             
@@ -579,7 +580,7 @@ namespace WealthERP.Research
                     //trAddNamePortfolio.Visible = true;
                     //trEditNamePortfolio.Visible = false;
 
-                    dtDefaultRiskClass = modelPortfolioBo.GetDefaultAdviserRiskClasses();
+                    dtDefaultRiskClass = modelPortfolioBo.GetDefaultAdviserRiskClasses(advisorVo.advisorId);
                     if (dtDefaultRiskClass.Rows.Count > 0)
                     {
                         ddlPickRiskClass.DataSource = dtDefaultRiskClass;

@@ -1075,6 +1075,7 @@ namespace WealthERP.Research
                     lblCategoryChart.Visible = false;
                     lblSubCategoryChart.Visible = false;
                 }
+                getAllocationPercentageFromModelPortFolio();
             }
             catch (BaseApplicationException Ex)
             {

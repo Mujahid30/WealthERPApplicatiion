@@ -268,14 +268,21 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAUM" runat="server" Text='<%# Bind( "XAMP_MinAUM") %>' CssClass="txtField">
-                            </asp:TextBox><br />
-                            <asp:RegularExpressionValidator runat="server" id="rexMinAUM" controltovalidate="txtMinAUM" validationexpression="^\d+$" 
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid min amount" />
+                            </asp:TextBox>                            
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxAUM" runat="server" Text='<%# Bind( "XAMP_MaxAUM") %>' CssClass="txtField">
-                            </asp:TextBox><br />
-                            <asp:RegularExpressionValidator runat="server" id="rexMaxAUM" controltovalidate="txtMaxAUM" validationexpression="^\d+$" 
+                            </asp:TextBox>                           
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                            <asp:RegularExpressionValidator runat="server" id="rexMinAUM" controltovalidate="txtMinAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid min amount" />
+                        </td>
+                        <td>
+                            <asp:RegularExpressionValidator runat="server" id="rexMaxAUM" controltovalidate="txtMaxAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max amount" />
                         </td>
                       </tr>
@@ -285,13 +292,20 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAge" runat="server" Text='<%# Bind( "XAMP_MinAge") %>' CssClass="txtField">
-                            </asp:TextBox><br />
+                            </asp:TextBox>                            
+                        </td>
+                        <td>
+                            <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
+                            </asp:TextBox>                            
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMinAge" controltovalidate="txtMinAge" validationexpression="^\d+$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1"  errormessage="Invalid min age" />
                         </td>
                         <td>
-                            <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
-                            </asp:TextBox><br />
                             <asp:RegularExpressionValidator runat="server" id="rexMaxAge" controltovalidate="txtMaxAge" validationexpression="^\d+$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max age" />
                         </td>
@@ -340,16 +354,23 @@
                             </asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtMinTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
                                 TargetControlID="txtMinTimeHorizonMonth" WatermarkText="month">
-                            </cc1:TextBoxWatermarkExtender><br />
-                            <asp:RegularExpressionValidator runat="server" id="rexMinMonth" controltovalidate="txtMinTimeHorizonMonth" validationexpression="^\d+$" 
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid time" />
+                            </cc1:TextBoxWatermarkExtender>                            
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" Text='<%# Bind( "MaxMonth") %>' CssClass="txtField">
                             </asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtMaxTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
                                 TargetControlID="txtMaxTimeHorizonMonth" WatermarkText="Month">
-                            </cc1:TextBoxWatermarkExtender><br />
+                            </cc1:TextBoxWatermarkExtender>                            
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                            <asp:RegularExpressionValidator runat="server" id="rexMinMonth" controltovalidate="txtMinTimeHorizonMonth" validationexpression="^\d+$" 
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid time" />
+                        </td>
+                        <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMaxMonth" controltovalidate="txtMaxTimeHorizonMonth" validationexpression="^\d+$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid time" />
                         </td>
