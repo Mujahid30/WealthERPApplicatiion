@@ -805,37 +805,7 @@ namespace WealthERP.Advisor
                     }
 
                 }
-                if (customerVo.Dob != DateTime.MinValue)
-                {
-                    lblRiskProfileDate.Visible = true;
-                    lblRiskProfileDate.Text = DateTime.Now.ToShortDateString();
-                    tblRiskScore.Visible = true;
-                    lblRScore.Visible = true;
-                    lblRClass.Visible = true;
-                    lblRScore.Text = rScore.ToString();
-
-                    riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
-                    dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
-                    btnDeleteRiskProfile.Visible = true;
-                }
-                else
-                {
-                    lblRiskProfileDate.Visible = false;
-                    tblRiskScore.Visible = false;
-                    lblRScore.Visible = false;
-                    lblRClass.Visible = false;
-
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
-                    return;
-                }
-
-                //====================================
-                //
-                // Adding Risk response to question
-                //
-                //====================================
                 int count = 0;
-
                 for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
                 {
                     dsGetRiskProfileQuestionOption = riskprofilebo.GetQuestionOption(int.Parse(dsGetRiskProfileQuestion.Tables[0].Rows[i]["QM_QuestionId"].ToString()), advisorVo.advisorId);
@@ -853,6 +823,41 @@ namespace WealthERP.Advisor
                         }
                     }
                 }
+                if (customerVo.Dob != DateTime.MinValue)
+                {
+                    if (dsGetRiskProfileQuestion.Tables[0].Rows.Count == count)
+                    {
+                        lblRiskProfileDate.Visible = true;
+                        lblRiskProfileDate.Text = DateTime.Now.ToShortDateString();
+                        tblRiskScore.Visible = true;
+                        lblRScore.Visible = true;
+                        lblRClass.Visible = true;
+                        lblRScore.Text = rScore.ToString();
+
+                        riskprofilebo.AddCustomerRiskProfileDetails(advisorVo.advisorId, customerId, rScore, DateTime.Now, riskCode, rmvo, 0, customerVo.Dob);
+                        dsGetRiskProfileId = riskprofilebo.GetRpId(customerId);
+                        btnDeleteRiskProfile.Visible = true;
+                    }
+                }
+                else
+                {
+                    lblRiskProfileDate.Visible = false;
+                    tblRiskScore.Visible = false;
+                    lblRScore.Visible = false;
+                    lblRClass.Visible = false;
+
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill DOB to create Risk profile.');", true);
+                    return;
+                }
+
+                //====================================
+                //
+                // Adding Risk response to question
+                //
+                //====================================
+             
+
+               
                 if (dsGetRiskProfileQuestion.Tables[0].Rows.Count == count)
                 {
                     for (int i = 0; i < dsGetRiskProfileQuestion.Tables[0].Rows.Count; i++)
@@ -877,21 +882,22 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please give ans. for all the question.');", true);
 
-                }
-                tblRiskScore.Focus();
 
-                if (hidGoalCount.Value != "" && hidGoalCount.Value != "0")
-                    GoalSetupBo.SetCustomerAllGoalDeActive(customerId);
+                    tblRiskScore.Focus();
+
+                    if (hidGoalCount.Value != "" && hidGoalCount.Value != "0")
+                        GoalSetupBo.SetCustomerAllGoalDeActive(customerId);
 
 
-                LoadAssetAllocation(riskCode);
-                //AddToAssetAllocation();
-                tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
-                if (customerId != 0 && age != 0)
-                {
-                    if (trCustomerAssetText.Visible == false)
-                        trCustomerAssetText.Visible = true;
-                    lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                    LoadAssetAllocation(riskCode);
+                    //AddToAssetAllocation();
+                    tabRiskProfilingAndAssetAllocation.ActiveTabIndex = 1;
+                    if (customerId != 0 && age != 0)
+                    {
+                        if (trCustomerAssetText.Visible == false)
+                            trCustomerAssetText.Visible = true;
+                        lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
+                    }
                 }
                 HideModelPortFolioTab();
             }
