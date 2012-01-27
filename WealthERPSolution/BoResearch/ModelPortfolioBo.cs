@@ -447,13 +447,13 @@ namespace BoResearch
             return dtAttachedScheme;
         }
 
-        public DataTable GetDefaultAdviserRiskClasses()
+        public DataTable GetDefaultAdviserRiskClasses(int adviserId)
         {
             DataTable dtAttachedScheme = new DataTable();
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                dtAttachedScheme = modelPortfolioDao.GetDefaultAdviserRiskClasses();
+                dtAttachedScheme = modelPortfolioDao.GetDefaultAdviserRiskClasses(adviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -552,12 +552,13 @@ namespace BoResearch
             return dt;
         }
 
-        public void DeleteRiskClass(string riskCode, int advisorId)
+        public bool DeleteRiskClass(string riskCode, int advisorId)
         {
+            bool bResult = false;
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-                modelPortfolioDao.DeleteRiskClass(riskCode, advisorId);
+                bResult = modelPortfolioDao.DeleteRiskClass(riskCode, advisorId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -579,6 +580,7 @@ namespace BoResearch
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return bResult;
         }
 
         public DataSet bindDdlPickRiskClass(int adviserId, int isRiskClass)
@@ -748,6 +750,21 @@ namespace BoResearch
             return dsModelPortFolioSchemeDetails;
            
         }
+
+        //public DataTable GetRiskClassText(string riskClassCode)
+        //{
+        //    DataTable dt = new DataTable();
+        //    ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+        //    try
+        //    {
+        //        dt = modelPortfolioDao.GetRiskClassText(riskClassCode);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    return dt;
+        //}
     
     }
 }

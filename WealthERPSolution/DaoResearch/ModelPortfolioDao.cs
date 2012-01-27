@@ -256,7 +256,7 @@ namespace DaoResearch
             return dtModelPortfolio;
         }
 
-        public DataTable GetDefaultAdviserRiskClasses()
+        public DataTable GetDefaultAdviserRiskClasses(int adviserId)
         {
             DataTable dtModelPortfolio = new DataTable();
             DataSet dsModelPortFolio;
@@ -266,7 +266,7 @@ namespace DaoResearch
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 modelPortfolioCmd = db.GetStoredProcCommand("SP_GetDefaultAdviserRiskClass");
-                //db.AddInParameter(modelPortfolioCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(modelPortfolioCmd, "@adviserId", DbType.Int32, adviserId);
                 dsModelPortFolio = db.ExecuteDataSet(modelPortfolioCmd);
                 dtModelPortfolio = dsModelPortFolio.Tables[0];
             }
@@ -716,17 +716,21 @@ namespace DaoResearch
             return dtRiskClass;
         }
 
-        public void DeleteRiskClass(string riskCode, int advisorId)
+        public bool DeleteRiskClass(string riskCode, int advisorId)
         {
             Database db;
             DbCommand deleteRecordsCmd;
+            int affectedRecords = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteRecordsCmd = db.GetStoredProcCommand("SP_DeleteRiskGoalClass");
                 db.AddInParameter(deleteRecordsCmd, "@classCode", DbType.String, riskCode);
-                db.AddInParameter(deleteRecordsCmd, "@adviserId", DbType.Int32, advisorId); 
-                db.ExecuteDataSet(deleteRecordsCmd);
+                db.AddInParameter(deleteRecordsCmd, "@adviserId", DbType.Int32, advisorId);
+                db.AddOutParameter(deleteRecordsCmd, "@Count", DbType.Int16, 0);
+
+                if (db.ExecuteNonQuery(deleteRecordsCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(deleteRecordsCmd, "@Count").ToString());               
             }
             catch (BaseApplicationException Ex)
             {
@@ -747,6 +751,10 @@ namespace DaoResearch
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            if (affectedRecords > 0)
+                return true;
+            else
+                return false;
         }
 
         public DataSet bindDdlPickRiskClass(int adviserId, int isRiskClass)
@@ -978,5 +986,39 @@ namespace DaoResearch
             }
             return dsModelPortFolioSchemeDetails;
         }
+
+        //public DataTable GetRiskClassText(string riskClassCode)
+        //{
+        //    DataTable dt = new DataTable();
+        //    DataSet dsSchemeAsset;
+        //    Database db;
+        //    DbCommand Cmd;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        Cmd = db.GetStoredProcCommand("SP_GetRiskClassText");
+        //        db.AddInParameter(Cmd, "@riskClassCode", DbType.String, riskClassCode);
+        //        dsSchemeAsset = db.ExecuteDataSet(Cmd);
+        //        dt = dsSchemeAsset.Tables[0];
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetRiskClassText()");
+        //        object[] objects = new object[1];
+        //        objects[0] = riskClassCode;
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return dt;
+        //}
     }
 }
