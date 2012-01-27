@@ -195,7 +195,7 @@ namespace WealthERP.Research
 
             txtEquityGap.Text = Convert.ToInt32(double.Parse(txtEquity.Text) - double.Parse(txtEquitySelected.Text)).ToString();
             txtDebtGap.Text = Convert.ToInt32(double.Parse(txtDebt.Text) - double.Parse(txtDebtSelected.Text)).ToString();
-            txtCashGap.Text = Convert.ToInt32(double.Parse(txtCashSelected.Text) - double.Parse(txtCash.Text)).ToString();
+            txtCashGap.Text = Convert.ToInt32(double.Parse(txtCash.Text) - double.Parse(txtCashSelected.Text)).ToString();
             txtAlternateGap.Text = Convert.ToInt32(double.Parse(txtAlternate.Text) - double.Parse(txtAlternateSelected.Text)).ToString();
         }
 
