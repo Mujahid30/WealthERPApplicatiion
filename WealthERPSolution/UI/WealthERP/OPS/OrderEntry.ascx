@@ -623,7 +623,12 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
    <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Unit: "  CssClass="FieldName"></asp:Label>
   </td>
  <td>
- <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField"></asp:TextBox>
+ <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField"></asp:TextBox><span id="Span2" class="spnRequiredField">*</span>
+ <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtNewAmount"
+               CssClass="rfvPCG" ErrorMessage="<br />Please select Amount/Unit" Display="Dynamic"
+               runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>  
+  <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtNewAmount" runat="server" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+   Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
  </td>
 
 </tr>
