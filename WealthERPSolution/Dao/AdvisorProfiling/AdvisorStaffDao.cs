@@ -769,6 +769,7 @@ namespace DaoAdvisorProfiling
                 getAdvisorStaffCmd = db.GetStoredProcCommand("SP_GetAdviserStaffDetailsByRMId");
                 db.AddInParameter(getAdvisorStaffCmd, "@AR_RMId", DbType.Int32, rmId);
                 getAdvisorStaffDs = db.ExecuteDataSet(getAdvisorStaffCmd);
+
                 if (getAdvisorStaffDs.Tables[0].Rows.Count > 0)
                 {
                     // table = getAdvisorStaffDs.Tables["AdviserRM"];
@@ -778,10 +779,16 @@ namespace DaoAdvisorProfiling
                     rmVo.FirstName = dr["AR_FirstName"].ToString();
                     if (dr["AR_MiddleName"] != DBNull.Value)
                         rmVo.MiddleName = dr["AR_MiddleName"].ToString();
+                    else
+                        rmVo.MiddleName = string.Empty;
                     if (dr["AR_LastName"] != DBNull.Value)
                         rmVo.LastName = dr["AR_LastName"].ToString();
-                    //if (dr["AR_StaffCode"] != DBNull.Value)
-                    //    rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                    else
+                        rmVo.LastName = string.Empty;
+                    if (dr["AR_StaffCode"] != DBNull.Value)
+                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                    else
+                        rmVo.StaffCode = string.Empty;
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
                         rmVo.OfficePhoneDirectNumber = int.Parse(dr["AR_OfficePhoneDirect"].ToString());
                     if (dr["AR_OfficePhoneDirectISD"] != DBNull.Value)
@@ -810,8 +817,22 @@ namespace DaoAdvisorProfiling
                         rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
                     if (dr["AR_Email"] != DBNull.Value)
                         rmVo.Email = dr["AR_Email"].ToString();
+                    else
+                        rmVo.Email = string.Empty;
                     if (dr["AR_JobFunction"] != DBNull.Value)
                         rmVo.RMRole = dr["AR_JobFunction"].ToString();
+                    else
+                        rmVo.RMRole = string.Empty;
+
+                    if (dr["RoleList"] != DBNull.Value)
+                        rmVo.RMRoleList = dr["RoleList"].ToString();
+                    else
+                        rmVo.RMRoleList = string.Empty;
+
+                    if (!string.IsNullOrEmpty(dr["BranchList"].ToString().Trim()))
+                        rmVo.BranchList = dr["BranchList"].ToString();
+                    else
+                        rmVo.BranchList = string.Empty;
 
                     if (dr["AR_IsExternalStaff"] != DBNull.Value && dr["AR_IsExternalStaff"].ToString() != "")
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
@@ -823,11 +844,13 @@ namespace DaoAdvisorProfiling
                     else
                         rmVo.CTC = 0;
 
-                    if (dr["A_AdviserId"].ToString() != "")
+                    if (dr["A_AdviserId"] != DBNull.Value)
                         rmVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
                     else
                         rmVo.AdviserId = 0;
-                }
+                }               
+                
+                
             }
             catch (BaseApplicationException Ex)
             {
