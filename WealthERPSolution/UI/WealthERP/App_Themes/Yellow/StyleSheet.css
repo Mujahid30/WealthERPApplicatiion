@@ -42,7 +42,7 @@ div#MainDivLeft
     font-weight: normal;
     font-size: x-small;
     vertical-align: middle;
-    color: #4B4726;
+    color: #4B4726;        
 }
 .lblChooseBranch
 {
@@ -664,7 +664,7 @@ ul.tabbernav li.tabberactive a:hover
 }
  .ajax__tab_body
   {
-      background-color: #FFECA3 !important;
+      background-color: #FFFFFF !important;
   }
   
   /* AutoComplete item */
