@@ -237,5 +237,5 @@
         </td>
     </tr>
 </table>
-<asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+<asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" />
 <asp:HiddenField ID="hdnUplFileName" runat="server" />
