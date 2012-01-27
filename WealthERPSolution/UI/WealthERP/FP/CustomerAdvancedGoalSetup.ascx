@@ -467,7 +467,7 @@
                         <asp:TextBox ID="txtInflation" runat="server" AutoCompleteType="Disabled" 
                             CssClass="txtField" ></asp:TextBox>
                             <span id="spnInflation" class="spnRequiredField" runat="server">*</span>                           
-                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" 
+                            <asp:RangeValidator ID="RangeValidator4"  Display="Dynamic" class="spnRequiredField"
                             SetFocusOnError="True" Type="Double" ErrorMessage="Inflation value should not less than 4"
                             MinimumValue="4" MaximumValue="100" ControlToValidate="txtInflation" 
                             runat="server"></asp:RangeValidator>
@@ -597,9 +597,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblNote" runat="server" CssClass="cmbField" style="font-size: small;" Text="2)Expected rate of return is defaulted as per your risk assessment.If risk profile is not complete default risk profile will be 'MODERATE'."></asp:Label>
+                        <asp:Label ID="lblNote" runat="server" CssClass="cmbField" style="font-size: small;" Text="2)Expected rate of return as per your risk assessment.If risk profile is not complete, please complete risk profile for return calculation."></asp:Label>
                     </td>
                 </tr>
+                 
             </table>
    </asp:Panel>
  

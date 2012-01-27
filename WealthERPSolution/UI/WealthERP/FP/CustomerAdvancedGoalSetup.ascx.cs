@@ -107,7 +107,7 @@ namespace WealthERP.FP
 
                     if (customerAssumptionVo.IsRiskProfileComplete == false)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please first complete Risk Profile');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please be aware that riskprofile doesn't exist for the customer!!');", true);
                     }
                     ControlShowHideBasedOnGoal(customerAssumptionVo, "OT");
                     //BindGoalObjTypeDropDown();
@@ -129,7 +129,7 @@ namespace WealthERP.FP
                     }
  
                 }
-                if (goalId == 0)
+                if (goalId == 0 || goalProfileSetupVo.IsFundFromAsset==false)
                 {
                     //RadPageView2.Visible = false;
 
@@ -594,7 +594,10 @@ namespace WealthERP.FP
                 txtCurrentInvestPurpose.Text = "0";
                 txtAboveRateOfInterst.Text = "0";
                 //txtExpRateOfReturn.Text = "0";
-                txtInflation.Text = "0";
+                if (customerAssumptionVo != null)
+                    txtInflation.Text = customerAssumptionVo.InflationPercent.ToString();
+                else
+                    txtInflation.Text = "4";
                 //trROIFutureInvestment.Visible = false;
                 txtComment.Text = "";
                 txtGoalDescription.Text = string.Empty;
@@ -786,7 +789,7 @@ namespace WealthERP.FP
 
         protected void ShowGoalDetails()
         {
-            GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
+            //GoalProfileSetupVo goalProfileSetupVo = new GoalProfileSetupVo();
             customerAssumptionVo = customerGoalPlanningBo.GetCustomerAssumptions(customerVo.CustomerId, advisorVo.advisorId, out isHavingAssumption);
             goalProfileSetupVo = GoalSetupBo.GetCustomerGoal(customerVo.CustomerId, goalId);
             //BtnSetVisiblity("View");
@@ -1178,12 +1181,26 @@ namespace WealthERP.FP
                 pnlMFFunding.Visible = true;
                 pnlNoRecordFoundGoalFundingProgress.Visible = false;
                 //After Goal add Funding & Progress page data reflect
-                GetGoalFundingProgress();
-                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
-                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
-                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                BindddlModelPortfolioGoalSchemes();
-                SetGoalProgressImage(goalPlanningVo.Goalcode);
+                if (customerGoalPlanningVo.IsFundFromAsset == true)
+                {
+                    GetGoalFundingProgress();
+                    BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                    BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    BindddlModelPortfolioGoalSchemes();
+                    SetGoalProgressImage(goalPlanningVo.Goalcode);
+                }
+                else
+                {
+                    pnlModelPortfolio.Visible = false;
+                    pnlModelPortfolioNoRecoredFound.Visible = true;
+
+                    //GoalFunding and Progress
+                    pnlFundingProgress.Visible = false;
+                    pnlDocuments.Visible = false;
+                    pnlMFFunding.Visible = false;
+                    pnlNoRecordFoundGoalFundingProgress.Visible = true;
+                }
 
                 goalAction = "View";
                 Session["GoalAction"] = goalAction;
@@ -1425,16 +1442,27 @@ namespace WealthERP.FP
                 BtnSetVisiblity("View");
                 trUpdateSuccess.Visible = true;
 
-                GetGoalFundingProgress();
-                BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
-                BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
-                ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
-                BindddlModelPortfolioGoalSchemes();
-                SetGoalProgressImage(goalPlanningVo.Goalcode);
+               if (customerGoalPlanningVo.IsFundFromAsset == true)
+               {
+                    GetGoalFundingProgress();
+                    BindExistingFundingScheme(dsGoalFundingDetails.Tables[0]);
+                    BindMonthlySIPFundingScheme(dsGoalFundingDetails.Tables[1]);
+                    ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
+                    BindddlModelPortfolioGoalSchemes();
+                    SetGoalProgressImage(goalPlanningVo.Goalcode);
+               }else
+               {
+                    pnlModelPortfolio.Visible = false;
+                    pnlModelPortfolioNoRecoredFound.Visible = true;
+                    //GoalFunding and Progress
+                    pnlFundingProgress.Visible = false;
+                    pnlDocuments.Visible = false;
+                    pnlMFFunding.Visible = false;
+                    pnlNoRecordFoundGoalFundingProgress.Visible = true;
 
+               }
                 goalAction = "View";
                 Session["GoalAction"] = goalAction;
-
 
             }
 
