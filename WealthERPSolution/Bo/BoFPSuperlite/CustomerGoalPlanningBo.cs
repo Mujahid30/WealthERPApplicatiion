@@ -220,7 +220,7 @@ namespace BoFPSuperlite
                 else
                     futureValueOfCurrentInvestment = Math.Abs(FutureValue(goalPlanningVo.ROIEarned / 100, yearsLeftForRetirement, 0, goalPlanningVo.CurrInvestementForGoal, 1));
 
-                amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -goalPlanningVo.CostOfGoalToday, 1);
+                amountAfterFirstMonthRetirement = FutureValue(customerAssumptionVo.InflationPercent / 100, yearsLeftForRetirement, 0, -(goalPlanningVo.CostOfGoalToday*12), 1);
                 if (customerAssumptionVo.SpouseAge != 0 && customerAssumptionVo.SpouseEOL!=0)
                     spouseLifeAfterCustomerRet = customerAssumptionVo.SpouseEOL - customerAssumptionVo.RetirementAge + (customerAssumptionVo.CustomerAge - customerAssumptionVo.SpouseAge);
                 else
@@ -231,9 +231,9 @@ namespace BoFPSuperlite
                 if (goalPlanningVo.CorpusLeftBehind == 0)
                 {
                     if (spouseLifeAfterCustomerRet > 0)
-                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, spouseLifeAfterCustomerRet * 12, -amountAfterFirstMonthRetirement, 0, 1);
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 100, spouseLifeAfterCustomerRet, -amountAfterFirstMonthRetirement, 0, 1);
                     else
-                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 1200, -(spouseLifeAfterCustomerRet * 12), -amountAfterFirstMonthRetirement, 0, 1);
+                        corpusReqAtTimeOfRetirement = PV(adjustedInfluation / 100, -spouseLifeAfterCustomerRet, -amountAfterFirstMonthRetirement, 0, 1);
                 }
                 else
                 {
@@ -244,7 +244,7 @@ namespace BoFPSuperlite
 
                 }
                 amountToBeSavedPerMonth = PMT(customerAssumptionVo.ReturnOnNewInvestment / 1200, yearsLeftForRetirement * 12, 0, -(corpusReqAtTimeOfRetirement - futureValueOfCurrentInvestment), 1);
-                goalPlanningVo.FutureValueOfCostToday = Math.Round(amountAfterFirstMonthRetirement);
+                goalPlanningVo.FutureValueOfCostToday = Math.Round(corpusReqAtTimeOfRetirement);
                 goalPlanningVo.MonthlySavingsReq = Math.Round(amountToBeSavedPerMonth,2);
                 //goalPlanningVo.CorpusLeftBehind = customerAssumptionVo.CorpusToBeLeftBehind;
                 goalPlanningVo.GoalYear = goalPlanningVo.GoalYear;
@@ -288,7 +288,7 @@ namespace BoFPSuperlite
         /// <param name="fv">Future value.</param>
         /// <param name="type">Indicates when payments are due. 0 = end of period, 1 = beginning of period.</param>
         /// <returns>The Present Value</returns>
-        public static double PV(double rate, double nper, double pmt, double fv, double type)
+        public double PV(double rate, double nper, double pmt, double fv, double type)
         {
             if (rate == 0.0)
                 return (-fv - (pmt * nper));
