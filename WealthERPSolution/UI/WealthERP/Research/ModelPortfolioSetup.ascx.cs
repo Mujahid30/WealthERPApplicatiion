@@ -307,10 +307,10 @@ namespace WealthERP.Research
                     modelPortfolioBo.CreateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
                     bindRadGrid1();
                 }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Total asset allocation should be 100%');", true);
-                }
+                //else
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Total asset allocation should be 100%');", true);
+                //}
             }
             
             catch (Exception ex)
@@ -504,10 +504,10 @@ namespace WealthERP.Research
                     modelPortfolioBo.UpdateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
                     bindRadGrid1();                    
                 }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
-                }
+                //else
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
+                //}
             }
             catch (Exception ex)
             {
@@ -519,7 +519,8 @@ namespace WealthERP.Research
         protected void RadGrid1_ItemCommand(object source, GridCommandEventArgs e)
         {
             if (e.CommandName == RadGrid.InitInsertCommandName) //"Add new" button clicked
-            {                
+            {
+                hdnButtonText.Value = "Insert";
             }
             else if (e.CommandName == RadGrid.RebindGridCommandName && e.Item.OwnerTableView.IsItemInserted)
             {
@@ -527,12 +528,16 @@ namespace WealthERP.Research
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {                
-            }            
+            }
+            else if (e.CommandName == "Edit")
+            {
+                hdnButtonText.Value = "Edit";
+            }
             else
             {
                 GridEditCommandColumn editColumn = (GridEditCommandColumn)RadGrid1.MasterTableView.GetColumn("EditCommandColumn");
                 if (!editColumn.Visible)
-                    editColumn.Visible = true;                
+                    editColumn.Visible = true;
             }
         }
 

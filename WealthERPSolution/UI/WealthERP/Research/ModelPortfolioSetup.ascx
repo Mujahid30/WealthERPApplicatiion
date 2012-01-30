@@ -14,9 +14,45 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+    function SumValidate() {
+           
+        var btnText = document.getElementById("<%=hdnButtonText.ClientID %>").value;        
+        var equity = 0;
+        var debt = 0;
+        var cash = 0;
+        var alternate = 0;
+        var sum = 0;
+        if (btnText == "Edit") {        
+            equity = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtEquity').value;
+            cash = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtCash').value;
+            alternate = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtAlternate').value;
+            debt = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtDebt').value;
+
+            sum = parseFloat(equity) + parseFloat(cash) + parseFloat(alternate) + parseFloat(debt);
+        }        
+        if (btnText == "Insert") {
+            equity = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtEquity').value;
+            cash = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtCash').value;
+            alternate = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtAlternate').value;
+            debt = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtDebt').value;
+
+            sum = parseFloat(equity) + parseFloat(cash) + parseFloat(alternate) + parseFloat(debt);
+        }  
+        if (sum == 100) {
+            return true;
+        }
+        else {
+            alert('Total allocation should be 100%');       
+            return false;           
+        }
+    }
+
+</script>
+
+<script type="text/javascript">
     $(document).ready(function() {
          $(".flip").click(function() { $(".panel").slideToggle(); });
-    });
+     });    
 </script>
 <%--<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
   <script type="text/javascript">
@@ -251,6 +287,12 @@
                               ControlToValidate="txtAlternate" CssClass="cvPCG" Display="Dynamic" 
                               ErrorMessage="Enter value less than 100" MaximumValue="99.9" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
+                              
+                              
+                            <%-- <asp:CustomValidator id="CustomValidator1" runat=server ControlToValidate = "txtDebt"
+                                  ValidationGroup="Button1" ErrorMessage = "Allocation sum must be 100%!" Display="Dynamic"
+                                  ClientValidationFunction="validateLength" >
+                             </asp:CustomValidator>--%>
                         </td>
                       </tr>
                       <tr>
@@ -377,13 +419,14 @@
                       </tr>
                       <tr>
                             <td align="right" colspan="2">
-                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' ValidationGroup="Button1"
-                                  CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' ValidationGroup="Button1" 
+                                  CssClass="PCGButton"   runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>' OnClientClick="return SumValidate();">
                                 </asp:Button>&nbsp;
                                 <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
                                 </asp:Button>
                             </td>
-                            <td></td>
+                            <td>
+                            </td>
                         </tr>
                       </table>
                 </FormTemplate>
@@ -406,3 +449,5 @@
     </tr>
   --%>
 </table>
+
+<asp:HiddenField ID="hdnButtonText" runat="server" />
