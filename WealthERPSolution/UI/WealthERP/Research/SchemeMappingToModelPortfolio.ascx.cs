@@ -792,7 +792,9 @@ namespace WealthERP.Research
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            int modelId = 0;
             decimal sum = 0;
+            int i = -1;
             dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
             
             foreach (DataRow dr in dt.Rows)
@@ -808,6 +810,7 @@ namespace WealthERP.Research
 
                 foreach (DataRow dr in dt.Rows)
                 {
+                    i++;
                     if (dr["Flag"].ToString() == "D")
                     {
                     }
@@ -823,8 +826,11 @@ namespace WealthERP.Research
                     }
                     else if (dr["AMFMPD_IsActive"].ToString() == "0")
                     {
-                        Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[0];
-                        int modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[item.ItemIndex]["AMFMPD_Id"].ToString());
+                       
+
+                        Telerik.Web.UI.GridDataItem item = (GridDataItem)RadGrid1.MasterTableView.Items[i];
+
+                         modelId = Convert.ToInt32(RadGrid1.MasterTableView.DataKeyValues[item.ItemIndex]["AMFMPD_Id"].ToString());
                         int xarId = int.Parse(dr["XAR_ArchiveReason"].ToString());
                             //Convert.ToInt32(dropdownArchive.SelectedIndex);
                             //modelPortfolioVo.ArchiveReason;
@@ -1229,22 +1235,23 @@ namespace WealthERP.Research
 
         public void bindHistryRadGrid()
         {
+            histryRadGrid.Visible = true;
             DataTable dtRiskClass = new DataTable();
             DataTable dtClass = new DataTable();
+            dtClass.Columns.Add("PASP_SchemePlanName");
+            dtClass.Columns.Add("AMFMPD_AddedOn");
+            dtClass.Columns.Add("AMFMPD_RemovedOn");
+            dtClass.Columns.Add("AMFMPD_AllocationPercentage");
+            dtClass.Columns.Add("AMFMPD_SchemeDescription");
+            dtClass.Columns.Add("XAR_ArchiveReason");
+
             if (ddlSelectedMP.SelectedValue != "0" && ddlSelectedMP.SelectedValue != "")
             {
                 //modelPortfolioVo.ModelPortfolioCode = Convert.ToInt32(ddlSelectedMP.SelectedValue);
                 dtRiskClass = modelPortfolioBo.GetArchivedSchemeDetails(Convert.ToInt32(ddlSelectedMP.SelectedValue), advisorVo.advisorId);
 
                 if (dtRiskClass.Rows.Count > 0)
-                {
-                    dtClass.Columns.Add("PASP_SchemePlanName");
-                    dtClass.Columns.Add("AMFMPD_AddedOn");
-                    dtClass.Columns.Add("AMFMPD_RemovedOn");
-                    dtClass.Columns.Add("AMFMPD_AllocationPercentage");
-                    dtClass.Columns.Add("AMFMPD_SchemeDescription");
-                    dtClass.Columns.Add("XAR_ArchiveReason");
-
+                {                  
                     DataRow drRiskClass;
                     foreach (DataRow dr in dtRiskClass.Rows)
                     {
@@ -1256,17 +1263,20 @@ namespace WealthERP.Research
                         drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
                         drRiskClass["XAR_ArchiveReason"] = dr["XAR_ArchiveReason"].ToString();
                         dtClass.Rows.Add(drRiskClass);
-                    }                    
+
+                    }
                     histryRadGrid.DataSource = dtClass;
                     histryRadGrid.DataSourceID = String.Empty;
                     histryRadGrid.DataBind();
+                    pnlNoRecoredFound.Visible = false;
                 }
                 else
                 {
-                    tableGrid.Visible = true;
+                    histryRadGrid.Visible = false;
                     tableNote.Visible = true;
                     tblSelectddl.Visible = true;
-                }              
+                    pnlNoRecoredFound.Visible = true;
+                }                
             }
             else
             {

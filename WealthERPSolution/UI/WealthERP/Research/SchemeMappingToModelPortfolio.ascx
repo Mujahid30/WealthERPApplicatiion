@@ -604,6 +604,18 @@
     </tr>
 </table>
 </asp:Panel>
+<asp:Panel runat="server" ID="pnlNoRecoredFound" width="100%" Visible="false">
+<table width="100%">
+       <tr>
+                <td align="center">
+                    <div id="Div3" class="failure-msg" align="center">
+                        No Record Found
+                    </div>
+                </td>
+            </tr>
+      </table>
+      
+</asp:Panel>
 </telerik:RadPageView>
 
 </telerik:RadMultiPage>
