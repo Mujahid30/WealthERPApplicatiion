@@ -639,7 +639,9 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   </td>
    <td align="left">
    <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbField" >
-   </asp:DropDownList>
+   </asp:DropDownList><span id="Span3" runat="server" class="spnRequiredField">*</span>
+<asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSchemeSwitch" CssClass="cvPCG" Display="Dynamic" 
+   ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
    </td>
 <td colspan="2">
 </td>

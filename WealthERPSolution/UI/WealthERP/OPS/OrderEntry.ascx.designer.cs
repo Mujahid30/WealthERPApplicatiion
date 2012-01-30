@@ -1247,6 +1247,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.DropDownList ddlSchemeSwitch;
         
         /// <summary>
+        /// Span3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span3;
+        
+        /// <summary>
+        /// CompareValidator10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator10;
+        
+        /// <summary>
         /// trfrequencySTP control.
         /// </summary>
         /// <remarks>
