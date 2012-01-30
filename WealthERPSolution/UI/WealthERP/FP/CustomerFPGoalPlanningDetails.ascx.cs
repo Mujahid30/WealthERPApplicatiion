@@ -141,7 +141,7 @@ namespace WealthERP.FP
                         drGoalProfile["GoalCode"] = goalProfileSetupVo.Goalcode;
                         drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
                         drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
-                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CostOfGoalToday.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday*12).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
                         drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         allocAmountToWardsGoalTotal += goalProfileSetupVo.CurrInvestementForGoal;
@@ -170,7 +170,7 @@ namespace WealthERP.FP
                         CustomerGoalFundingProgressVo customerGoalFundingProgressVo = new CustomerGoalFundingProgressVo();
                         DataSet dsGoalFundingDetails;
                         customerGoalFundingProgressVo = goalPlanningBo.GetGoalFundingProgressDetails(goalProfileSetupVo.GoalId,customerVo.CustomerId,advisorVo.advisorId,out dsGoalFundingDetails,out dsExistingInvestment,out dsSIPInvestment, out goalPlanningVo);
-                        lumpsumInvestment = goalPlanningBo.FutureValue(goalProfileSetupVo.ExpectedROI / 100, goalProfileSetupVo.GoalYear - DateTime.Now.Year, 0, -goalProfileSetupVo.FutureValueOfCostToday,1);
+                        lumpsumInvestment = goalPlanningBo.PV(goalProfileSetupVo.ExpectedROI / 100, goalProfileSetupVo.GoalYear - DateTime.Now.Year, 0, -goalProfileSetupVo.FutureValueOfCostToday, 1);
                         drGoalProfile["LumpsumInvestment"] = lumpsumInvestment != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", lumpsumInvestment.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                         lumpsumInvestmentTotal += lumpsumInvestment;
                         if (customerGoalFundingProgressVo != null)

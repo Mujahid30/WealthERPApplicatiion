@@ -305,8 +305,28 @@
                  <SelectedRowStyle CssClass="SelectedRowStyle" />
             </asp:GridView>
  
+  
  </asp:Panel>
 </td>
+</tr>
+
+<tr>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+</tr>
+
+<tr id="tdNote" runat="server">
+      <td>
+       <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" style="font-size: small;" Text="Note :"></asp:Label>
+     </td>
+</tr>
+<tr>
+  <td id="Td2" class="tdRequiredText" runat="server">
+   <asp:Label ID="trRequiedNote" CssClass="cmbField" style="font-size: small;" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>                       
+  </td>
 </tr>
 
 </table>
