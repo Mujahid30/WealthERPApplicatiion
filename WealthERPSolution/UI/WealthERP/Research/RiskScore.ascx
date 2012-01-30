@@ -69,15 +69,15 @@
        
         var txtOption = document.getElementById("<%=txtEnterOption1.ClientID%>").value;
         var txtWtage = parseInt(document.getElementById("<%=txtEnterWeightage1.ClientID%>").value);
-        
-        if ((txtOption != "") && (txtWtage != "")) {
+
+        if ((txtOption != "") && (txtWtage != 0)) {
 
             if (isNaN(txtWtage)) {
-               
+                
                 return false;
             }
-            else if ((txtWtage < 0) || (txtWtage > 10)) {
-            
+            else if ((txtWtage < 1) || (txtWtage > 10)) {
+
                 return false;
             }
             else {
@@ -87,6 +87,9 @@
                 return false;
 
             }
+        }
+        else {
+            return false;
         }
     }
 
@@ -99,7 +102,7 @@
         document.getElementById("<%=reqOpt2.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt2.ClientID%>").style.visibility = "visible";
 
-        if ((txtOption != "") && (txtWtage != "")) {
+        if ((txtOption != "") && (txtWtage != 0)) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
@@ -110,10 +113,21 @@
 
                 document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "hidden";
                 document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "hidden";
-            
+
                 return false;
             }
-            else if ((txtWtage < 0) || (txtWtage > 10)) {
+            else if (txtPreviousWtage == txtWtage) {
+                ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+
+
+
+            return false;
+            }
+            else if ((txtWtage < 1) || (txtWtage > 10)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
@@ -121,8 +135,8 @@
                 ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
 
-                
-            
+
+
                 return false;
             }
             else {
@@ -133,6 +147,14 @@
 
                 return false;
             }
+        }
+        else {
+            ValidatorEnable(document.getElementById("<%=compareWt1AndWt2.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=compareCheckInt2.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=RangeValidator2.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqOpt2.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqWt2.ClientID%>"), true);
+            return false;
         }
     }
 
@@ -145,7 +167,7 @@
         document.getElementById("<%=reqOpt3.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt3.ClientID%>").style.visibility = "visible";
 
-        if ((txtOption != "") && (txtWtage != "")) {
+        if ((txtOption != "") && (txtWtage != 0)) {
 
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
@@ -154,17 +176,26 @@
                 ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
-            
+
                 return false;
             }
-            else if ((txtWtage < 0) || (txtWtage > 10)) {
+            else if (txtPreviousWtage == txtWtage) {
+                ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+
+                return false;
+            }
+            else if ((txtWtage < 1) || (txtWtage > 10)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
-            
+
                 return false;
             }
             else {
@@ -176,7 +207,15 @@
 
                 return false;
             }
-           
+
+        }
+        else {
+            ValidatorEnable(document.getElementById("<%=compareWt2AndWt3.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=compareCheckInt3.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=RangeValidator3.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqOpt3.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqWt3.ClientID%>"), true);
+            return false;
         }
     }
 
@@ -190,8 +229,8 @@
         document.getElementById("<%=reqOpt4.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt4.ClientID%>").style.visibility = "visible";
 
-     
-        if ((txtOption != "") && (txtWtage != "")) {
+
+        if ((txtOption != "") && (txtWtage != 0)) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
@@ -199,10 +238,19 @@
                 ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
-            
+
                 return false;
             }
-            else if ((txtWtage < 0) || (txtWtage > 10)) {
+            else if (txtPreviousWtage == txtWtage) {
+            ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+
+                return false;
+            }
+            else if ((txtWtage < 1) || (txtWtage > 10)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
@@ -210,8 +258,8 @@
                 ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
 
-                
-            
+
+
                 return false;
             }
             else {
@@ -222,7 +270,15 @@
 
                 return false;
             }
-           
+
+        }
+        else {
+            ValidatorEnable(document.getElementById("<%=compareWt3AndWt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=compareCheckInt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=RangeValidator4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqOpt4.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqWt4.ClientID%>"), true);
+            return false;
         }
     }
 
@@ -236,7 +292,7 @@
         document.getElementById("<%=reqOpt5.ClientID%>").style.visibility = "visible";
         document.getElementById("<%=reqWt5.ClientID%>").style.visibility = "visible";
 
-        if ((txtOption != "") && (txtWtage != "")) {
+        if ((txtOption != "") && (txtWtage != 0)) {
             if ((isNaN(txtWtage)) || (txtPreviousWtage > txtWtage)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
@@ -244,10 +300,19 @@
                 ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
-            
+
                 return false;
             }
-            else if ((txtWtage < 0) || (txtWtage > 10)) {
+            else if (txtPreviousWtage == txtWtage) {
+                ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+                ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+
+                return false;
+            }
+            else if ((txtWtage < 1) || (txtWtage > 10)) {
 
                 ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
                 ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
@@ -264,6 +329,14 @@
 
                 return false;
             }
+        }
+        else {
+            ValidatorEnable(document.getElementById("<%=compareWt4AndWt5.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=compareCheckInt5.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=RangeValidator5.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqOpt5.ClientID%>"), true);
+            ValidatorEnable(document.getElementById("<%=reqWt5.ClientID%>"), true);
+            return false;
         }
     }
 
@@ -1014,8 +1087,8 @@
                     ControlToValidate="txtEnterWeightage1" ErrorMessage="Please Enter Numeric Value!" />
                    
                     <asp:RangeValidator ID="RangeValidator1" ValidationGroup="ValidateQuestionOptions" CssClass="FieldName" Display="Dynamic" runat="server" Type="Integer" 
-                    MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage1" 
-                    ErrorMessage="Weightage must be between 0 and 10!" />
+                    MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage1" 
+                    ErrorMessage="Weightage must be between 1 and 10!" />
                     
                     <asp:RequiredFieldValidator runat="server" ID="reqOp1" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption1" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                     
@@ -1044,8 +1117,8 @@
                         ControlToValidate="txtEnterWeightage2" ErrorMessage="Please Enter Numeric Value!" />
                    
                     <asp:RangeValidator ID="RangeValidator2" ValidationGroup="ValidateQuestionOptions" runat="server" CssClass="FieldName" Type="Integer" Display="Dynamic" 
-                    MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage2" 
-                    ErrorMessage="Weightage must be between 0 and 10!" />
+                    MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage2" 
+                    ErrorMessage="Weightage must be between 1 and 10!" />
                     
                     <asp:RequiredFieldValidator runat="server" ID="reqOpt2" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption2" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                     
@@ -1073,8 +1146,8 @@
                         ControlToValidate="txtEnterWeightage3" ErrorMessage="Please Enter Numeric Value!" />
                    
                     <asp:RangeValidator ID="RangeValidator3" runat="server" ValidationGroup="ValidateQuestionOptions" CssClass="FieldName" Type="Integer" 
-                        MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage3" Display="Dynamic"
-                        ErrorMessage="Weightage must be between 0 and 10!" />
+                        MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage3" Display="Dynamic"
+                        ErrorMessage="Weightage must be between 1 and 10!" />
                         
                     <asp:RequiredFieldValidator runat="server" ID="reqOpt3" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption3" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                     
@@ -1103,8 +1176,8 @@
                   
                 
                     <asp:RangeValidator ID="RangeValidator4" ValidationGroup="ValidateQuestionOptions" CssClass="FieldName" runat="server" Type="Integer" 
-                    MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage4" Display="Dynamic"
-                    ErrorMessage="Weightage must be between 0 and 10!" />
+                    MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage4" Display="Dynamic"
+                    ErrorMessage="Weightage must be between 1 and 10!" />
                     
                     <asp:RequiredFieldValidator runat="server" ID="reqOpt4" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption4" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                      
@@ -1132,8 +1205,8 @@
                         ControlToValidate="txtEnterWeightage5" ErrorMessage="Please Enter Numeric Value!" />
                       
                     <asp:RangeValidator ID="RangeValidator5" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" runat="server" Type="Integer" 
-                    MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage5" Display="Dynamic"
-                    ErrorMessage="Weightage must be between 0 and 10!" />
+                    MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage5" Display="Dynamic"
+                    ErrorMessage="Weightage must be between 1 and 10!" />
                     
                     <asp:RequiredFieldValidator runat="server" ID="reqOpt5" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption5" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                     
@@ -1162,8 +1235,8 @@
                         ControlToValidate="txtEnterWeightage6" ErrorMessage="Please Enter Numeric Value!" />
                         
                     <asp:RangeValidator CssClass="FieldName" ID="RangeValidator6" ValidationGroup="ValidateQuestionOptions" runat="server" Type="Integer" 
-                    MinimumValue="0" MaximumValue="10" ControlToValidate="txtEnterWeightage6" Display="Dynamic"
-                    ErrorMessage="Weightage must be between 0 and 10!" />
+                    MinimumValue="1" MaximumValue="10" ControlToValidate="txtEnterWeightage6" Display="Dynamic"
+                    ErrorMessage="Weightage must be between 1 and 10!" />
                     
                     <asp:RequiredFieldValidator runat="server" ID="reqOpt6" CssClass="FieldName" ValidationGroup="ValidateQuestionOptions" ControlToValidate="txtEnterOption6" Display="Dynamic" ErrorMessage="Please Enter the Option!" />
                     
