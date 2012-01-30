@@ -141,7 +141,10 @@ namespace WealthERP.FP
                         drGoalProfile["GoalCode"] = goalProfileSetupVo.Goalcode;
                         drGoalProfile["GoalName"] = goalProfileSetupVo.GoalName.ToString();
                         drGoalProfile["ChildName"] = goalProfileSetupVo.ChildName.ToString();
-                        drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday*12).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                        if (drGoalProfile["GoalCode"].ToString()=="RT")
+                            drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday*12).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
+                        else
+                            drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
                         drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         allocAmountToWardsGoalTotal += goalProfileSetupVo.CurrInvestementForGoal;
@@ -242,7 +245,7 @@ namespace WealthERP.FP
                     lblProjectedValueTotal.Text = projectedValueTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", projectedValueTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                     lblAdditionalSavingReqTotal.Text = additionalSavingReqTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", additionalSavingReqTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
                     lblAdditionalSavingReqTotal.Text = additionalSavingReqTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", additionalSavingReqTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
-                    lblProjectedGapValueTotal.Text = projectedGapValueTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", projectedGapValueTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";                
+                    lblProjectedGapValueTotal.Text = projectedGapValueTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", Math.Abs(projectedGapValueTotal).ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";                
 
                     return 1;
                 

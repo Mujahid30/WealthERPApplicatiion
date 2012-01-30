@@ -102,7 +102,7 @@
                                         
                                     </ItemTemplate>
                                       <FooterTemplate>
-                                        <asp:Label ID="lblTotalText" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblTotalText" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="Total:">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -123,7 +123,7 @@
                                         </asp:Label>
                                     </ItemTemplate>  
                                      <FooterTemplate>
-                                        <asp:Label ID="lblGoalAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblGoalAmountTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="">
                                         </asp:Label>
                                     </FooterTemplate>                                 
@@ -144,7 +144,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblCostTodayTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblCostTodayTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -157,7 +157,7 @@
                                         </asp:Label>
                                     </ItemTemplate> 
                                     <FooterTemplate>
-                                        <asp:Label ID="lblLumpsumInvestmentTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblLumpsumInvestmentTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                             Text="">
                                         </asp:Label>
                                     </FooterTemplate>                                  
@@ -170,7 +170,7 @@
                                         </asp:Label>
                                     </ItemTemplate>                                    
                                     <FooterTemplate>
-                                        <asp:Label ID="lblMonthlySavingReqTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblMonthlySavingReqTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                             Text="">
                                         </asp:Label>
                                     </FooterTemplate>  
@@ -184,7 +184,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                      <FooterTemplate>
-                                        <asp:Label ID="lblAllocAmountToWardsGoalTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblAllocAmountToWardsGoalTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                             Text="">
                                         </asp:Label>
                                     </FooterTemplate>  
@@ -199,7 +199,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblCurrentGoalValueTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblCurrentGoalValueTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -214,7 +214,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                      <FooterTemplate>
-                                        <asp:Label ID="lblSIPAmountTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblSIPAmountTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -228,7 +228,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblProjectedValueTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblProjectedValueTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                              Text="">
                                         </asp:Label>
                                     </FooterTemplate>
@@ -242,7 +242,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <asp:Label ID="lblAdditionalSavingReqTotal" runat="server" CssClass="Field" Font-Bold="true" 
+                                        <asp:Label ID="lblAdditionalSavingReqTotal" runat="server" CssClass="HeaderStyle" Font-Bold="true" 
                                             Text="">
                                         </asp:Label>
                                     </FooterTemplate>                                    
@@ -318,14 +318,15 @@
 </td>
 </tr>
 
-<tr id="tdNote" runat="server">
+<tr id="trNote1" runat="server">
       <td>
-       <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" style="font-size: small;" Text="Note :"></asp:Label>
+       <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" Text="Note :"></asp:Label>
      </td>
 </tr>
-<tr>
-  <td id="Td2" class="tdRequiredText" runat="server">
-   <asp:Label ID="trRequiedNote" CssClass="cmbField" style="font-size: small;" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>                       
+
+<tr id="trNote2" runat="server">
+  <td >
+   <asp:Label ID="trRequiedNote" CssClass="cmbField" runat="server" Text="1)For retirement 'Cost At Start' is the required annual cost at today value."></asp:Label>                       
   </td>
 </tr>
 
