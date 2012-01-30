@@ -125,7 +125,7 @@ namespace WealthERP.OPS
             if (count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId); ;
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId);
             }
             else
             {
@@ -152,11 +152,11 @@ namespace WealthERP.OPS
                         if (isUpdate == true)
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Matched successfully');", true);
-                            
+                            return;
                         }
                         else
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match mannually');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match manually');", true);
                         }
                     }
 

@@ -64,6 +64,14 @@ function ClosePopUp(){
         </td>
 </tr>
 </table>
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+    <tr>
+    <td align="center">
+    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+    </div>
+    </td>
+    </tr>
+ </table>
 
 <table width="100%">
 <%--<tr>
@@ -245,20 +253,13 @@ ShowFooter="True">
                 </p>
             </div>
 </td>
-<td colspan="5">
-<%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>--%>
+<td colspan="5" align="right">
+<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="javascript:window.close();return false;"><br />Close Window</asp:HyperLink>
 <%--<asp:HyperLink ID="hlClose" runat="server" class="maroon" NavigateUrl="#" onClick="return ClosePopUp()"><br />Close Window</asp:HyperLink>--%>
 </td>
 </tr>
 </table>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
-    <tr>
-    <td align="center">
-    <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-    </div>
-    </td>
-    </tr>
- </table>
+
     </div>
     </form>
 </body>

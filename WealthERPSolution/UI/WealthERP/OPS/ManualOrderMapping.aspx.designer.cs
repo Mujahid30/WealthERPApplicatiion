@@ -41,6 +41,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
+        /// tblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        
+        /// <summary>
+        /// ErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        
+        /// <summary>
         /// gvMannualMatch control.
         /// </summary>
         /// <remarks>
@@ -68,21 +86,12 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.HtmlControls.HtmlImage imgBubble;
         
         /// <summary>
-        /// tblMessage control.
+        /// hlClose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
-        
-        /// <summary>
-        /// ErrorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
+        protected global::System.Web.UI.WebControls.HyperLink hlClose;
     }
 }
