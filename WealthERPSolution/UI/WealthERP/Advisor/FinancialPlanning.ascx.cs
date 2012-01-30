@@ -881,7 +881,7 @@ namespace WealthERP.Advisor
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please give ans. for all the question.');", true);
-
+                }
 
                     tblRiskScore.Focus();
 
@@ -898,7 +898,7 @@ namespace WealthERP.Advisor
                             trCustomerAssetText.Visible = true;
                         lblCustomerParagraph.Text = riskprofilebo.GetAssetAllocationText(customerId);
                     }
-                }
+                
                 HideModelPortFolioTab();
             }
 
