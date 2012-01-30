@@ -164,7 +164,7 @@ namespace PCGMailLib
             }
             emailContent = emailContent.Replace("[LOGIN-ID]", loginId);
             emailContent = emailContent.Replace("[PASSWORD]", password);
-            emailContent = emailContent.Replace("[Name]", name);
+            emailContent = emailContent.Replace("[CUSTOMER_NAME]", name);
 
             AssignMailSettings(EmailTypes.AdviserRegistration, emailContent);
 
