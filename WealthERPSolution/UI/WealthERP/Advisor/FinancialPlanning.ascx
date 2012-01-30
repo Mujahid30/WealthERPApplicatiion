@@ -11,7 +11,7 @@
 <script type="text/javascript">
     function DeleteConfirmation() {
 
-        var bool = window.confirm('Are you sure you want to delete this Question?');
+        var bool = window.confirm('Are you sure you want to delete your Risk profile?');
 
         if (bool) {
             document.getElementById("ctrl_FinancialPlanning_hdnDeletemsgValue").value = 1;
