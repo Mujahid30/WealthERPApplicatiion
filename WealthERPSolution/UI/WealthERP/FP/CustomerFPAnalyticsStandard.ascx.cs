@@ -1387,6 +1387,7 @@ namespace WealthERP.FP
                     string rangeThree;
                     decimal ratioValue;
                     int indicator;
+                    int ratioId;
                     foreach (DataRow dr in dtCustomerFPRatio.Rows)
                     {
                         
@@ -1395,8 +1396,8 @@ namespace WealthERP.FP
                         rangeTwo = dr["RatioRangeTwo"].ToString();
                         rangeThree = dr["RatioRangeThree"].ToString();
                         ratioValue=decimal.Parse(dr["RatioValue"].ToString());
-
-                        indicator=ColorforRepFinancialHealth(rangeone, rangeTwo, rangeThree, ratioValue);
+                        ratioId = int.Parse(dr["RatioId"].ToString());
+                        indicator = ColorforRepFinancialHealth(rangeone, rangeTwo, rangeThree, ratioValue, ratioId);
 
                         drFinancialHealth["RatioName"] = dr["RatioName"];
                         drFinancialHealth["RatioPunchLine"] = dr["RatioPunchLine"];
@@ -1424,7 +1425,7 @@ namespace WealthERP.FP
             }
         }
 
-        public int ColorforRepFinancialHealth(string rangeone, string rangeTwo, string rangeThree, decimal value)
+        public int ColorforRepFinancialHealth(string rangeone, string rangeTwo, string rangeThree, decimal value, int ratioId)
         {
             int rangeoneUpper=0;
             int rangeTwoLower=0;
@@ -1433,8 +1434,15 @@ namespace WealthERP.FP
 
             //string strData = rangeone;
 
-            rangeoneUpper =int.Parse(rangeone.Substring(1));
-            string[] ratioMiddleRange = rangeTwo.Split('-');
+            if (ratioId != 5)
+            {
+                rangeoneUpper = int.Parse(rangeone.Substring(1));
+            }
+            else
+            {
+                rangeoneUpper = int.Parse(rangeone.Substring(2));
+            }
+                string[] ratioMiddleRange = rangeTwo.Split('-');
             rangeTwoLower = int.Parse(ratioMiddleRange[0]);
             rangeTwoUpper = int.Parse(ratioMiddleRange[1]);
             rangeThreeLower = int.Parse(rangeThree.Substring(1));
