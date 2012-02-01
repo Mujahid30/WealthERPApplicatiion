@@ -133,6 +133,7 @@ namespace WealthERP.Admin
             }
 
             BindSelectAMCDropdown();
+            BindMFFundPerformance();
         }
 
 
@@ -840,6 +841,29 @@ namespace WealthERP.Admin
             //}
             gvMFFundPerformance.Visible = true;
         }
+
+        //protected void gvMFFundPerformance_ItemDataBound(object sender, GridItemEventArgs e)
+        //{            
+        //    if (e.Item is GridCommandItem)
+        //    {
+        //        GridCommandItem cmditm = (GridCommandItem)e.Item;
+        //        //to hide AddNewRecord button
+        //        //cmditm.FindControl("InitInsertButton").Visible = false;//hide the text
+        //        //cmditm.FindControl("AddNewRecordButton").Visible = false;//hide the image
+
+        //        //to hide Refresh button
+        //        //cmditm.FindControl("RefreshButton").Visible = false;//hide the text
+        //        //cmditm.FindControl("RebindGridButton").Visible = false;//hide the image
+        //    }
+        //}
+
+        protected void RadGrid1_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            if (e.CommandName == Telerik.Web.UI.RadGrid.ExportToExcelCommandName || e.CommandName == Telerik.Web.UI.RadGrid.ExportToCsvCommandName)
+            {
+                gvMFFundPerformance.ExportSettings.ExportOnlyData = true;
+            }
+        }        
 
         protected void btnViewFactsheet_Click(object sender, EventArgs e)
         {

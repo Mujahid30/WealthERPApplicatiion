@@ -540,17 +540,17 @@
                             </td>
                             <td class="rightField">
                                 <asp:DropDownList ID="ddlCondition" runat="server" CssClass="cmbField">
-                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="Less than 30%" Value="&lt;-30"></asp:ListItem>
-                                <asp:ListItem Text="Less than 20%" Value="&lt;-20"></asp:ListItem>
-                                <asp:ListItem Text="Less than 10%" Value="&lt;-10"></asp:ListItem>             
-                                <asp:ListItem Text="Less than 5%" Value="&lt;-5"></asp:ListItem>                                                             
-                                <asp:ListItem Text="Loser(-ve return)" Value="&lt;0"></asp:ListItem>
-                                <asp:ListItem Text="Gainer(+ve return)" Value="&gt;0"></asp:ListItem>
-                                <asp:ListItem Text="Above 5%" Value="&gt;5"></asp:ListItem>  
-                                <asp:ListItem Text="Above 10%" Value="&gt;10"></asp:ListItem> 
+                                <asp:ListItem Text="Select" Value="0"></asp:ListItem>                                
+                                <asp:ListItem Text="Above 30%" Value="&gt;30"></asp:ListItem>
                                 <asp:ListItem Text="Above 20%" Value="&gt;20"></asp:ListItem>
-                                <asp:ListItem Text="Above 30%" Value="&gt;30"></asp:ListItem>       
+                                <asp:ListItem Text="Above 10%" Value="&gt;10"></asp:ListItem> 
+                                <asp:ListItem Text="Above 5%" Value="&gt;5"></asp:ListItem>
+                                <asp:ListItem Text="Gainer(+ve return)" Value="&gt;0"></asp:ListItem>
+                                <asp:ListItem Text="Loser(-ve return)" Value="&lt;0"></asp:ListItem>
+                                <asp:ListItem Text="Less than 5%" Value="&lt;-5"></asp:ListItem>
+                                <asp:ListItem Text="Less than 10%" Value="&lt;-10"></asp:ListItem>                                 
+                                <asp:ListItem Text="Less than 20%" Value="&lt;-20"></asp:ListItem>
+                                <asp:ListItem Text="Less than 30%" Value="&lt;-30"></asp:ListItem>                                                                       
                                 </asp:DropDownList>
                                 
                                 <span id="Span2" class="spnRequiredField">*</span>
@@ -654,13 +654,25 @@
             style="overflow-x:auto;overflow-y:hidden;width:100%;padding: 0 0 20px 0">
 
                    <telerik:RadGrid ID="gvMFFundPerformance" runat="server" 
-                        AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
-                        AllowSorting="false" AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
+                        AllowAutomaticInserts="false" AllowPaging="True" 
+                        AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false" OnItemCommand="RadGrid1_ItemCommand"
                         GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" 
                         Skin="Telerik" Width="100%">
                     <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
-                    <mastertableview allowmulticolumnsorting="True" autogeneratecolumns="false" 
+                    <mastertableview allowmulticolumnsorting="true" autogeneratecolumns="false" CommandItemDisplay="Top"
                         width="99%">
+                        <%-- <ExportSettings HideStructureColumns="true" />--%>
+                        <CommandItemTemplate>
+                            <table class="rcCommandTable" width="100%">
+                                <td>
+                                    <asp:Button ID="Button1" runat="server" Text=" " ToolTip="Export To CSV" CssClass="rgExpCSV" CommandName="ExportToCSV" />
+                                    <asp:Button ID="Button2" runat="server" Text=" " ToolTip="Export To Excel" CssClass="rgExpXLS" CommandName="ExportToExcel" />
+                                </td>                                
+                            </table>
+                        </CommandItemTemplate>
+                        
+                        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                            ShowExportToCsvButton="true" />
                         <Columns>
                         <telerik:GridBoundColumn DataField="SchemeName" HeaderText="Scheme Name" 
                                 UniqueName="SchemeName">
@@ -671,13 +683,13 @@
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
                         
-                        <telerik:GridBoundColumn DataField="LaunchDate" DataFormatString="{0:d}" 
+                        <telerik:GridBoundColumn DataField="LaunchDate" DataFormatString="{0:d}"
                                 HeaderText="Launch Date" UniqueName="LaunchDate">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn DataField="ClosingDate" DataFormatString="{0:d}" 
-                                HeaderText="Closing Date" UniqueName="ClosingDate">
+                                HeaderText="As On Date" UniqueName="ClosingDate">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         
@@ -750,7 +762,7 @@
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="PB" DataFormatString="{0:0.00}" HeaderText="PB" 
+                        <telerik:GridBoundColumn DataField="PB" DataFormatString="{0:0.00}" HeaderText="PB"
                                 UniqueName="PB">
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
