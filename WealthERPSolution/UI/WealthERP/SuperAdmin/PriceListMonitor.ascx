@@ -108,7 +108,7 @@
     <script type="text/javascript">
 
         function WindowPopup() {
-            window.open("http://www.ncdex.com/Market_Data/Spot_price.aspx", "myWindow",
+            window.open("http://www.ncdex.com/MarketData/SpotPrice.aspx", "myWindow",
     "status = 1, height = 500, width = 500, resizable = 0, scrollbars=1")
         }
     </script>
