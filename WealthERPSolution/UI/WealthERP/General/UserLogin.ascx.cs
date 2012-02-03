@@ -256,7 +256,7 @@ namespace WealthERP.General
 
                                 if (count == 3)
                                 {
-                                    if (roleList.Contains("Admin") && (roleList.Contains("RM") && roleList.Contains("BM")))
+                                    if (roleList.Contains("Admin") && ( (roleList.Contains("RM") && roleList.Contains("BM")) || (roleList.Contains("Research") && roleList.Contains("BM")) || (roleList.Contains("Research") && roleList.Contains("RM"))))
                                     {
                                         advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                         Session["advisorBranchVo"] = advisorBranchVo;
@@ -277,14 +277,38 @@ namespace WealthERP.General
                                         }
                                         Session["S_CurrentUserRole"] = "Admin";
                                     }
-                                    if (roleList.Contains("Admin") && (roleList.Contains("RM") && roleList.Contains("Research")))
+                                    if (roleList.Contains("RM") && roleList.Contains("BM") && roleList.Contains("Research"))
                                     {
-
+                                        advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
+                                        Session["advisorBranchVo"] = advisorBranchVo;
+                                        //login user role Type
+                                        Session["S_CurrentUserRole"] = "BM";
+                                        branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                        Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                        //RM Theme Will be same as Advisor Theme
+                                        userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                        Session["Theme"] = strUserTheme;
+                                        Session["refreshTheme"] = true;
+                                        dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");
+                                        if (dspotentialHomePage.Tables[0].Rows.Count > 0)
+                                            potentialHomePage = dspotentialHomePage.Tables[0].Rows[0][0].ToString();
+                                        if (potentialHomePage == "BM Home")
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeejuywerw", "loadcontrol('BMDashBoard','login');", true);
+                                        else
+                                        {
+                                            Session["Customer"] = "Customer";
+                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('BMCustomer','login');", true);
+                                        }
+ 
                                     }
-                                    if (roleList.Contains("Admin") && (roleList.Contains("BM") && roleList.Contains("Research")))
-                                    {
+                                    //if (roleList.Contains("Admin") && (roleList.Contains("RM") && roleList.Contains("Research")))
+                                    //{
 
-                                    }
+                                    //}
+                                    //if (roleList.Contains("Admin") && (roleList.Contains("BM") && roleList.Contains("Research")))
+                                    //{
+
+                                    //}
                                 }
                                 if (count == 2)
                                 {
