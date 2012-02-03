@@ -55,10 +55,10 @@ namespace BoWerpAdmin
             AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
             advisormaintanencedao.UpdateMessageBroadcast(BroadcastMessageId, IsActive);
         }
-        public void MessageBroadcastSendMessage(string BroadcastMessage, DateTime Broadcasttime, DateTime ExpiryDate)
+        public void MessageBroadcastSendMessage(string BroadcastMessage, DateTime Broadcasttime, DateTime ExpiryDate, string gvAdviserIds)
         {
             AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
-            advisormaintanencedao.MessageBroadcastSendMessage(BroadcastMessage, Broadcasttime, ExpiryDate);
+            advisormaintanencedao.MessageBroadcastSendMessage(BroadcastMessage, Broadcasttime, ExpiryDate, gvAdviserIds);
         }
 
         public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression, string filterExpression,string ifaNameSearch)
