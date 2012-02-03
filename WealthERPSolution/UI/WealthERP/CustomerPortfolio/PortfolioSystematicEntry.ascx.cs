@@ -46,8 +46,7 @@ namespace WealthERP.CustomerPortfolio
         string PageRecon = string.Empty;
         int fundGoalId = 0;
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
+        {          
               
             // Check Querystring to see if its an Edit/View/Entry
 
@@ -73,6 +72,27 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 customerAccountsVo = (CustomerAccountsVo)Session[SessionContents.CustomerMFAccount];
 
+                //if (Request.QueryString["FolioNumberGoal"] != null)
+                //{
+                //    folioId = Request.QueryString["FolioNumberGoal"];
+                //    if (Session["Action"] != null)
+                //    {
+                //        Manage = Session["Action"].ToString();
+                //        //Manage = "entry";
+                //    }
+                //    if (Manage == "edit")
+                //    {
+                //        MaintainPageStateForControls();
+                //        SetControlsForFolioAdd(Manage);
+                //    }
+                //    else if (Manage == "entry")
+                //    {
+
+                //        SetControlsForFolioAdd(Manage);
+                //        MaintainPageStateForControls();
+
+                //    }
+                //}
                 if (Request.QueryString["FromPage"] == "CustomerMFAccountAdd" && Request.QueryString["FolioNumber"] != null)
                 {  
                     folioId = Request.QueryString["FolioNumber"];
@@ -1284,7 +1304,14 @@ namespace WealthERP.CustomerPortfolio
             portfolioId = systematicSetupBo.GetPortFolioId(portfolio, customerVo.CustomerId);
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerMFAccountAdd','?FromSysPage=PortfolioSystematicEntry');", true);
             //Response.Redirect("ControlHost.aspx?pageid=CustomerMFAccountAdd&FromPage=" + "PortfolioSystematicEntry" + "&PortFolioId=" +  portfolioId +  , false);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
+           
+            if(Request.QueryString["GoalId"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccountAdd", "loadcontrol('CustomerMFAccountAdd','?GoalId=" + fundGoalId + "&PortFolioIdgoal=" + portfolioId + "');", true);
+            }
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerMFAccount", "loadcontrol('CustomerMFAccountAdd','?PortFolioId=" + portfolioId + "  ');", true);
+
         }
 
         private void SaveCurrentPageState()

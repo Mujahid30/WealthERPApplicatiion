@@ -42,7 +42,7 @@ namespace WealthERP.CustomerPortfolio
         PortfolioBo portfolioBo = new PortfolioBo();
         string path;
         string action;
-
+        int fundGoalId = 0;
 
         [WebMethod]
         public void CheckTradeNoMFAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
@@ -63,7 +63,12 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 trJointHolders.Visible = false;
                 trJointHoldersGrid.Visible = false;
-
+                if (Request.QueryString["GoalId"] != null)
+                {
+                    fundGoalId = int.Parse(Request.QueryString["GoalId"].ToString());
+                    portfolioId = int.Parse(Request.QueryString["PortFolioIdgoal"].ToString());
+                    Session[SessionContents.PortfolioId] = portfolioId;
+                }
 
                 if (!IsPostBack)
                 {
@@ -103,6 +108,8 @@ namespace WealthERP.CustomerPortfolio
                         portfolioId = int.Parse(Request.QueryString["PortFolioId"].ToString());
                         Session[SessionContents.PortfolioId] = portfolioId;
                     }
+                   
+
 
                     //pra..
                     BindPortfolioDropDown();
@@ -613,6 +620,10 @@ namespace WealthERP.CustomerPortfolio
                     //Response.Redirect("ControlHost.aspx?pageid=PortfolioSystematicEntry&Folionumber=" + customerAccountsVo.AccountNum + "", false);
                     //string action = "Edit";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry&Folionumber", "loadcontrol('PortfolioSystematicEntry','?FolioNumber=" + accountId + "&FromPage=" + "CustomerMFAccountAdd" + "');", true);
+                }
+                else if (Request.QueryString["GoalId"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PortfolioSystematicEntry&Folionumber", "loadcontrol('PortfolioSystematicEntry','?FolioNumber=" + accountId + "&FromPage=" + "CustomerMFAccountAdd" + "&GoalId=" + fundGoalId + "');", true);
                 }
                 else
                 {
