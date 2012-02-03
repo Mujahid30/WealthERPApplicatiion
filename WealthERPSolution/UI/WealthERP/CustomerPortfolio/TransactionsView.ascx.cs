@@ -1188,6 +1188,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     l.Text = (gv.Controls[i] as LinkButton).Text;
                     gv.Controls.Remove(gv.Controls[i]);
+                    gv.Controls.AddAt(i,l);
                 }
                 else if (gv.Controls[i].GetType() == typeof(DropDownList))
                 {
