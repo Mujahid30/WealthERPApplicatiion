@@ -1273,4 +1273,8 @@
     <value>Admin//TransactBusinessOnlineLinks.ascx</value>
     <comment>Admin//TransactBusinessOnlineLinks.ascx</comment>
   </data>
+  <data name="SuperAdminGoalSIPFundingSync" xml:space="preserve">
+    <value>SuperAdmin//SuperAdminGoalSIPFundingSync.ascx</value>
+    <comment>SuperAdmin//SuperAdminGoalSIPFundingSync.ascx</comment>
+  </data>
 </root>

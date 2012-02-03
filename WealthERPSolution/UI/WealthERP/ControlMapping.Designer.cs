@@ -2248,6 +2248,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//SuperAdminGoalSIPFundingSync.ascx.
+        /// </summary>
+        internal static string SuperAdminGoalSIPFundingSync {
+            get {
+                return ResourceManager.GetString("SuperAdminGoalSIPFundingSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//SuperAdminLeftPane.ascx.
         /// </summary>
         internal static string SuperAdminLeftPane {

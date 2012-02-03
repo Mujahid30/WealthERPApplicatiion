@@ -2607,6 +2607,13 @@
     <Compile Include="SuperAdmin\SuperAdminConfiguration.ascx.designer.cs">
       <DependentUpon>SuperAdminConfiguration.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\SuperAdminGoalSIPFundingSync.ascx.cs">
+      <DependentUpon>SuperAdminGoalSIPFundingSync.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\SuperAdminGoalSIPFundingSync.ascx.designer.cs">
+      <DependentUpon>SuperAdminGoalSIPFundingSync.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\SuperAdminLeftPane.ascx.cs">
       <DependentUpon>SuperAdminLeftPane.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5310,12 +5317,15 @@
     <Content Include="SuperAdmin\PriceListMonitor.ascx" />
     <Content Include="SuperAdmin\Subscription.ascx" />
     <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
+    <Content Include="SuperAdmin\SuperAdminGoalSIPFundingSync.ascx" />
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
     <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
+    <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.sln" />
+    <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.dtproj.user" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardMFTransactionUploads.sln" />
     <Content Include="UploadPackages\StandardMFTransactionUploads\StandardProfileUploadPackageNew\StandardMFTransactionUploads.dtproj.user" />
     <Content Include="UploadPackages\StandardSIPTransactionsUpload\StandardSIPTransactionsUpload.sln" />
@@ -6164,6 +6174,20 @@
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToOdinNSEXtrnlTransaction.dtsx" />
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSETransactionStagingToWerpEquityTransactionTable.dtsx" />
     <None Include="UploadPackages\OdinNSEUploadPackage\UploadOdinNSEXtrnlTransactionInputToOdinNSEXtrnlTransactionStaging.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadStandardTransactionCommonStagingCheck.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadStandardTransactionCommonStagingToWERP.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadStandardTransactionStagingCheck.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadSystematicTransationInputToStaging.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\bin\UploadSystematicTransationXMLToInput.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.database" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.dtproj" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionCommonStagingCheck.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionCommonStagingToWERP.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionStagingCheck.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadStandardTransactionStagingtoCommonStaging.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationInputToStaging.dtsx" />
+    <None Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\UploadSystematicTransationXMLToInput.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadsCommonFolioChecksInFolioStaging.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\bin\UploadStdFolioFromFolioStagingToWerpTable.dtsx" />
     <None Include="UploadPackages\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew\StandardFolioUploadPackageNew.database" />
