@@ -456,7 +456,7 @@ namespace WealthERP.Advisor
             string[] RoleListArray =rmVo.RMRoleList.Split(new char[] { ',' });
             foreach (string Role in RoleListArray)
             {
-                if(Role=="RM" ||Role=="BM")
+                if ((Role=="RM" || Role=="BM") || (Role == "Research"))
                 {
                     ChklistRMBM.Items.FindByText(Role).Selected=true;
                 }
@@ -626,7 +626,7 @@ namespace WealthERP.Advisor
                     }
                     else
                     {
-                        bool RMBMRole = false;
+                        bool RMBMResearchRole = false;
                         string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
                         foreach (ListItem Items in ChklistRMBM.Items)
                         {
@@ -637,21 +637,21 @@ namespace WealthERP.Advisor
                                 {
                                     if (Role == "RM")
                                     {
-                                        RMBMRole = true;
+                                        RMBMResearchRole = true;
                                     }
                                 }
                                 // Create Role Association for RM
-                                if (RMBMRole == false && Items.Selected == true)
+                                if (RMBMResearchRole == false && Items.Selected == true)
                                 {
                                     userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
                                 }
-                                else if (RMBMRole == true && Items.Selected == false)
+                                else if (RMBMResearchRole == true && Items.Selected == false)
                                 {
 
                                     userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
 
                                 }
-                                RMBMRole = false;
+                                RMBMResearchRole = false;
                             }
                             else if (Items.Text == "BM")
                             {
@@ -659,15 +659,15 @@ namespace WealthERP.Advisor
                                 {
                                     if (Role == "BM")
                                     {
-                                        RMBMRole = true;
+                                        RMBMResearchRole = true;
                                     }
                                 }
                                 // Create Role Association for BM
-                                if (RMBMRole == false && Items.Selected == true)
+                                if (RMBMResearchRole == false && Items.Selected == true)
                                 {
                                     userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
                                 }
-                                else if (RMBMRole == true && Items.Selected == false)
+                                else if (RMBMResearchRole == true && Items.Selected == false)
                                 {
                                     branchHead = advisorBranchBo.CheckBranchHead(rmVo.RMId, 0);
                                     if (branchHead == 0)
@@ -680,8 +680,29 @@ namespace WealthERP.Advisor
                                     }
                                 }
 
-                                RMBMRole = false;
+                                RMBMResearchRole = false;
 
+                            }
+                            else if (Items.Text == "Research")
+                            {
+                                foreach (string Role in RoleListArray)
+                                {
+                                    if (Role == "Research")
+                                    {
+                                        RMBMResearchRole = true;
+                                    }
+                                    // Create Role Association for Research
+                                    if (RMBMResearchRole == false && Items.Selected == true)
+                                    {
+                                        userBo.CreateRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                    }
+                                    else if (RMBMResearchRole == true && Items.Selected == false)
+                                    {
+                                        userBo.DeleteRoleAssociation(rmVo.UserId, Int16.Parse(Items.Value.ToString()));
+                                    }
+
+                                    RMBMResearchRole = false;
+                                }
                             }
 
                         }

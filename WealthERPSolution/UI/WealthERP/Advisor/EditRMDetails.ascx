@@ -205,7 +205,7 @@
                 ondatabound="ChklistRMBM_DataBound">
                  <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1002">BM</asp:ListItem>
-               
+                <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
              <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField"/>
             &nbsp;<span id="Span4" class="spnRequiredField">*</span>
