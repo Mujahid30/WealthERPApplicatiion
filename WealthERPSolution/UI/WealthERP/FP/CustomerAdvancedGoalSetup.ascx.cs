@@ -126,6 +126,10 @@ namespace WealthERP.FP
                     {
                         ControlSetVisiblity("Edit");
                         BtnSetVisiblity("Edit");
+                        if (goalProfileSetupVo.Goalcode == "RT")
+                            ddlGoalYear.Enabled = false;
+                        else
+                            ddlGoalYear.Enabled = true;
                     }
  
                 }
@@ -307,7 +311,8 @@ namespace WealthERP.FP
 
                 //trReturnOnNewInvestments.Visible = false;
                 trCorpusToBeLeftBehind.Visible = false;
-
+                ddlGoalYear.Enabled = true;
+                ddlGoalYear.SelectedIndex = 0;
 
                 //trExistingInvestmentAllocated.Visible = true;
                 //trReturnOnExistingInvestmentAll.Visible = true;
@@ -339,10 +344,18 @@ namespace WealthERP.FP
         private void BindPickChildDropDown(int CustomerId)
         {
             DataSet ds = GoalSetupBo.GetCustomerAssociationDetails(CustomerId);
-            ddlPickChild.DataSource = ds;
-            ddlPickChild.DataValueField = ds.Tables[0].Columns["CA_AssociationId"].ToString();
-            ddlPickChild.DataTextField = ds.Tables[0].Columns["ChildName"].ToString();
-            ddlPickChild.DataBind();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                ddlPickChild.DataSource = ds;
+                ddlPickChild.DataValueField = ds.Tables[0].Columns["CA_AssociationId"].ToString();
+                ddlPickChild.DataTextField = ds.Tables[0].Columns["ChildName"].ToString();
+                ddlPickChild.DataBind();
+            }
+            else
+            {
+                ddlPickChild.DataSource = null;
+                ddlPickChild.DataBind();
+            }
             ddlPickChild.Items.Insert(0, new ListItem("Select a Child", "0"));
             ddlPickChild.SelectedIndex = 0;
 
@@ -757,9 +770,14 @@ namespace WealthERP.FP
                     lblGoalCostToday.Text = "Monthly Requirement Today :";
                     //default  current investment and Rate of return of above to 0
                     txtCurrentInvestPurpose.Text = "0";
-                    //txtAboveRateOfInterst.Text = "0";
-                    
+                    //txtAboveRateOfInterst.Text = "0";                    
                     //TabContainer1.ActiveTabIndex = 0;
+                    if (customerAssumptionVo.CustomerAge == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Customer age required for retirement calculation, Update DOB first in customer profile');", true);
+                        ddlGoalType.SelectedIndex = 0;
+                        return;
+                    }
                    
                     break;
                 case "OT":
@@ -816,7 +834,7 @@ namespace WealthERP.FP
 
             }
 
-            txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;
+            txtGoalDescription.Text = goalProfileSetupVo.GoalDescription;          
 
             switch (goalProfileSetupVo.Goalcode)
             {
@@ -839,7 +857,7 @@ namespace WealthERP.FP
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
-                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
@@ -885,7 +903,7 @@ namespace WealthERP.FP
                     ddlPickChild.Enabled = false;
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     ddlPickChild.Enabled = false;
-                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
@@ -933,7 +951,7 @@ namespace WealthERP.FP
                     ddlPickChild.Enabled = false;
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
-                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
                     txtExpRateOfReturn.Text = goalProfileSetupVo.ExpectedROI.ToString();
@@ -977,7 +995,7 @@ namespace WealthERP.FP
                     ddlPickChild.SelectedValue = goalProfileSetupVo.AssociateId.ToString();
                     ddlPickChild.Enabled = false;                    
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
@@ -1020,7 +1038,7 @@ namespace WealthERP.FP
                     ddlGoalType.SelectedValue = goalProfileSetupVo.Goalcode;
                     txtGoalDate.Text = goalProfileSetupVo.GoalDate.ToShortDateString();
                     txtGoalCostToday.Text = goalProfileSetupVo.CostOfGoalToday.ToString();
-                    ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
+                    //ddlGoalYear.Text = goalProfileSetupVo.GoalYear.ToString();
                     txtInflation.Text = goalProfileSetupVo.InflationPercent.ToString();
                     txtCurrentInvestPurpose.Text = goalProfileSetupVo.CurrInvestementForGoal.ToString();
                     txtAboveRateOfInterst.Text = goalProfileSetupVo.ROIEarned.ToString();
@@ -1054,6 +1072,8 @@ namespace WealthERP.FP
                     break;
             }
             ControlShowHideBasedOnGoal(customerAssumptionVo, goalProfileSetupVo.Goalcode.ToString());
+            if (int.Parse(ddlGoalYear.Items[0].ToString()) <= goalProfileSetupVo.GoalYear)
+                ddlGoalYear.SelectedValue = goalProfileSetupVo.GoalYear.ToString();
 
         }
 
@@ -1360,6 +1380,11 @@ namespace WealthERP.FP
             if (chkApprove.Enabled == false)
                 chkApprove.Enabled = true;
 
+            if (ddlGoalType.SelectedValue == "RT")
+                ddlGoalYear.Enabled = false;
+            else
+                ddlGoalYear.Enabled = true;
+           
             goalAction = "Edit";
             Session["GoalAction"] = goalAction;
 
@@ -1450,6 +1475,12 @@ namespace WealthERP.FP
                     ShowGoalDetails(customerGoalFundingProgressVo, goalPlanningVo);
                     BindddlModelPortfolioGoalSchemes();
                     SetGoalProgressImage(goalPlanningVo.Goalcode);
+                    pnlModelPortfolio.Visible = true;
+                    pnlFundingProgress.Visible = true;
+                    pnlDocuments.Visible = true;
+                    pnlMFFunding.Visible = true;
+                    //pnlModelPortfolioNoRecoredFound.Visible = false;
+                    pnlNoRecordFoundGoalFundingProgress.Visible = false;
                }else
                {
                     pnlModelPortfolio.Visible = false;
