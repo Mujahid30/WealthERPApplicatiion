@@ -145,7 +145,10 @@ namespace WealthERP.FP
                             drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday*12).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         else
                             drGoalProfile["CostToday"] = goalProfileSetupVo.CostOfGoalToday != 0 ? String.Format("{0:n2}", (goalProfileSetupVo.CostOfGoalToday).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
-                        costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
+                        if (goalProfileSetupVo.Goalcode=="RT")
+                          costTodayTotal += (goalProfileSetupVo.CostOfGoalToday*12);
+                        else
+                         costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
                         drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         allocAmountToWardsGoalTotal += goalProfileSetupVo.CurrInvestementForGoal;
                         drGoalProfile["SavingRequired"] = goalProfileSetupVo.MonthlySavingsReq != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
@@ -654,7 +657,7 @@ namespace WealthERP.FP
             {
                 if (isGoalFundFromAsset == false)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not makred for MF Based Goal Planning.Edit the goal and mark it first');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Goal is not marked for MF Based Goal Planning.Edit the goal and mark it first');", true);
                 }
                 else
                 {
