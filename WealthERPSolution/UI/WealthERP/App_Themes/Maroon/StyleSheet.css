@@ -988,4 +988,24 @@ p.tip
     cursor: pointer;
 }
 
+
+.accountLock
+{
+    border: solid #22AA22 1px;
+    color: Black;
+    background: #DEB7B7 url('images/AccountLock.jpg') no-repeat;
+}
+
+.accountLock
+{
+    margin: 25px 0;
+    padding: 15px 60px;
+    position: relative;
+    -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+    font-size: 14px;
+    width: 900px;
+    height:118px;
+    z-index: -1;
+}
+
 /* End */
