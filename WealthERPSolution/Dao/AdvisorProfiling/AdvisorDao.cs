@@ -454,6 +454,8 @@ namespace DaoAdvisorProfiling
                     advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
                     if (dr["A_AdviserLogo"] != DBNull.Value)
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
+                    if (!string.IsNullOrEmpty(dr["A_IsActive"].ToString().Trim()))
+                        advisorVo.IsActive = Convert.ToInt16(dr["A_IsActive"].ToString());
                 }
 
 
