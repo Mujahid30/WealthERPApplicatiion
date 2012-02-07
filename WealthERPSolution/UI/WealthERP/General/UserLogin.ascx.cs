@@ -132,6 +132,8 @@ namespace WealthERP.General
                         {
                             customerVo = customerBo.GetCustomerInfo(userVo.UserId);
                             advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
+                            
+
                         }
 
                         Session["advisorVo"] = advisorVo;
@@ -190,8 +192,8 @@ namespace WealthERP.General
                             }
                         }
                         
-                        Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
-                        advisorVo = (AdvisorVo)Session["advisorVo"];
+                        //Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+                        //advisorVo = (AdvisorVo)Session["advisorVo"];
 
                         if (advisorVo.IsActive == 1)
                         {
