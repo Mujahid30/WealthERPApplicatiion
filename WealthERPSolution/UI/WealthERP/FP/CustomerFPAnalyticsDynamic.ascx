@@ -22,19 +22,13 @@
             
             <tr id="trSumbitSuccess" runat="server">
                 <td align="center">
-                   <div id="msgRecordStatus" class="accountLock" align="center">                        
-                   <b>Sorry, your account is restricted, Please contact Customer Care for further assistance</b>
-                    <br />
-                    ~~~~~Customer Care Contact Details~~~~~
-                    <br />
-                    Vijay N Shenoy
-                    <br />
-                    Ampsys Consulting Pvt.Ltd.
-                    <br />
-                    Ph: 080 - 32429514.
-                    <br />
-                    Mob: +91 9663305249.
-                    <br />                    
+                   <div id="msgRecordStatus" class="accountLock" align="center">
+                   <br />
+                   <br />
+                                       
+                   <b>Your account access has been temporarily disabled.</b>      
+                   <br />
+                    Please contact <b>+91 99001 66306</b> for further details                             
                    </div>
                 </td>
             </tr>
