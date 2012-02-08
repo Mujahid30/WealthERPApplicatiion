@@ -2484,7 +2484,8 @@
     <XMLExternalSourceFileType XESFT_FileTypeId="27" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="CA" WUXFT_XMLFileTypeId="20" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="28" XESFT_AssetGroup="MF" XESFT_FileType="Profile" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="21" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="29" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="25" Deleted="False" />
-    <XMLExternalSourceFileType XESFT_FileTypeId="30" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="WPT" WUXFT_XMLFileTypeId="26" Deleted="False" />    
+    <XMLExternalSourceFileType XESFT_FileTypeId="30" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="WPT" WUXFT_XMLFileTypeId="26" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="31" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="27" Deleted="False" />
   </Upload_Fileype>
 
   <WERPPortfolioTypes>
