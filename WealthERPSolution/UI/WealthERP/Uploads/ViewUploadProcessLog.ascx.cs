@@ -288,7 +288,7 @@ namespace WealthERP.Uploads
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
-                    else if (filetypeId == 20||filetypeId==26)
+                    else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27)
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID  + "');", true);
                     }
@@ -989,6 +989,8 @@ namespace WealthERP.Uploads
 
                         #endregion
 
+                        
+
                         #region CAMS SYSTEMATIC
                         //CAMS SYSTEMATIC 
                         if (filetypeId == 20)
@@ -1100,6 +1102,37 @@ namespace WealthERP.Uploads
 
                         }
                         #endregion
+
+                        //-----------gobinda's KARVY STANDARD-------------\\
+                        #region KARVY SYSTEMATIC
+                        else if (filetypeId == 27)
+                        {
+                            bool karvySIPCommonStagingChk = false;
+                            bool karvySIPCommonStagingToWERP = false;
+                            bool updateProcessLog = false;
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                            karvySIPCommonStagingChk = camsUploadsBo.KarvySIPCommonStagingChk(processID, packagePath, configPath, "KA");
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "KA");
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (karvySIPCommonStagingChk)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionCommonStagingToWERP.dtsx");
+                                karvySIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
+
+                                if (karvySIPCommonStagingToWERP)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "KA");
+                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);                                    
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }
+
+                        }
+
+                        #endregion
+
 
                         #region Sundaram Profile
                         // Call WERP Insertion Logic
