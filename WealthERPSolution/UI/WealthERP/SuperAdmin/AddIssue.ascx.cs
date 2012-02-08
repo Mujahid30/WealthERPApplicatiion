@@ -86,6 +86,11 @@ namespace WealthERP.SuperAdmin
                 btnDEVSubmit.Visible = false;
                 btnDevUpdate.Visible = false;
             }            
+            else if(txtComments.Text=="")
+            {
+                level2ControlDisable();
+                level3ControlDisable();
+            }
         }
 
         public void QueryStringSelection()

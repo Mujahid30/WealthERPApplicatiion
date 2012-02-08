@@ -73,5 +73,11 @@ namespace WealthERP.SuperAdmin
             gvCSIssueTracker.DataSource = ds;
             gvCSIssueTracker.DataBind();
         }
+
+        public void ConfigureExport()
+        {
+           // gvCSIssueTracker.ExportSettings.IgnorePaging = chkExportAll.Checked;
+        }
+
     }
 }

@@ -215,7 +215,7 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.SystematicType = dr["XSTT_SystematicType"].ToString();
                         systematicSetupVo.SystematicTypeCode = dr["XSTT_SystematicTypeCode"].ToString();
                         systematicSetupVo.StartDate = DateTime.Parse(dr["CMFSS_StartDate"].ToString());
-                        systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());
+                        systematicSetupVo.EndDate = DateTime.Parse(dr["CMFSS_EndDate"].ToString());                        
                         systematicSetupVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
                         systematicSetupVo.Amount = double.Parse(dr["CMFSS_Amount"].ToString());
                         systematicSetupVo.IsManual = int.Parse(dr["CMFSS_IsManual"].ToString());

@@ -1529,5 +1529,238 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
+
+        //--------------------------Start SIP KARVY Uploads---------------------------------\\
+        public bool KarvySIPInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package standardProPkg1 = App.LoadPackage(Packagepath, null);
+                standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                standardProPkg1.Variables["varProcessId"].Value = processId;
+                standardProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult1 = standardProPkg1.Execute();
+                if (karvyProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToInputProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KarvySIPInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KarvySIPProcessDataInStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+
+
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
+                if (karvyTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool KarvySIPStagingToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KarvySIPCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+
+        public bool KarvySIPCommonStagingToWERP(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        //-------------------------End SIP KARVY Uploads---------------------------------\\
+
     }
 }
