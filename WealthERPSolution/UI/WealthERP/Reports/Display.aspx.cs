@@ -97,7 +97,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.MFReports;
                     }
-                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null)
+                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnViewInPDF"] != null || Request.Form["ctrl_PortfolioReports$btnViewInDOC"] != null)
                     {
                         return ReportType.PortfolioReports;
                     }
@@ -145,7 +145,10 @@ namespace WealthERP.Reports
             }
 
             //if (Request.Form["ctrl_MFReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$btnEMailReport"] != null)
-            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerExportToPDF"] != null)
+            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != null 
+                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewReport"] != null
+                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerExportToPDF"] != null || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewInDOC"] != null
+                || Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnCustomerViewInDOC"] != null)
             {
                 CurrentReportType = ReportType.MFReports;
                 if (Request.QueryString["Mail"] == "1")
@@ -159,7 +162,7 @@ namespace WealthERP.Reports
                 }
 
             }
-            if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnMail"] != null)
+            if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnMail"] != null || Request.Form["ctrl_PortfolioReports$btnViewInPDF"] != null || Request.Form["ctrl_PortfolioReports$btnViewInDOC"] != null)
             {
                 CurrentReportType = ReportType.PortfolioReports;
                 ctrlPrefix = "ctrl_PortfolioReports$";
@@ -2484,6 +2487,14 @@ namespace WealthERP.Reports
                             CrystalReportViewer1.HasCrystalLogo = false;
                             //AssignReportViewerProperties();
                             lblClosingBalanceNote.Visible = false;
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                         }
                         else
                         {
@@ -2516,6 +2527,14 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
                                 lblClosingBalanceNote.Visible = false;
+                                if (Request.QueryString["mail"] == "2")
+                                {
+                                    ExportInPDF();
+                                }
+                                if (Request.QueryString["mail"] == "4")
+                                {
+                                    ExportInDOC();
+                                }
                             }
                             else
                             {
@@ -2541,6 +2560,14 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
                                 lblClosingBalanceNote.Visible = false;
+                                if (Request.QueryString["mail"] == "2")
+                                {
+                                    ExportInPDF();
+                                }
+                                if (Request.QueryString["mail"] == "4")
+                                {
+                                    ExportInDOC();
+                                }
                             }
                             else
                             {
@@ -2582,6 +2609,14 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
                                 lblClosingBalanceNote.Visible = false;
+                                if (Request.QueryString["mail"] == "2")
+                                {
+                                    ExportInPDF();
+                                }
+                                if (Request.QueryString["mail"] == "4")
+                                {
+                                    ExportInDOC();
+                                }
                             }
                             else
                             {
@@ -2608,6 +2643,14 @@ namespace WealthERP.Reports
                                 CrystalReportViewer1.EnableDrillDown = true;
                                 CrystalReportViewer1.HasCrystalLogo = false;
                                 lblClosingBalanceNote.Visible = false;
+                                if (Request.QueryString["mail"] == "2")
+                                {
+                                    ExportInPDF();
+                                }
+                                if (Request.QueryString["mail"] == "4")
+                                {
+                                    ExportInDOC();
+                                }
                             }
                             else
                             {
@@ -2900,6 +2943,10 @@ namespace WealthERP.Reports
                                 ExportInPDF();
 
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
 
                         }
@@ -2927,6 +2974,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
@@ -2961,6 +3012,10 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
@@ -2987,6 +3042,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
@@ -3030,6 +3089,10 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
@@ -3057,6 +3120,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
@@ -3087,6 +3154,10 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
@@ -3115,6 +3186,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
@@ -3146,6 +3221,10 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
@@ -3171,6 +3250,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
@@ -3199,6 +3282,10 @@ namespace WealthERP.Reports
                             {
                                 ExportInPDF();
                             }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
                             lblClosingBalanceNote.Visible = false;
                         }
                         else
@@ -3225,6 +3312,10 @@ namespace WealthERP.Reports
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
                             }
                             lblClosingBalanceNote.Visible = false;
                         }
