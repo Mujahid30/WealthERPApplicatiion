@@ -7,6 +7,24 @@
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnViewReport').bubbletip($('#div1'), { deltaDirection: 'left' });
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnExportToPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnCustomerViewReport').bubbletip($('#div4'), { deltaDirection: 'left' });
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnCustomerExportToPDF').bubbletip($('#div5'), { deltaDirection: 'left' });
+    $('#ctrl_MFReports_tabViewAndEmailReports_tabpnlViewReports_btnCustomerViewInDOC').bubbletip($('#div6'), { deltaDirection: 'left' });  
+    });
+</script>
 
 <script type="text/javascript" language="javascript">
 
@@ -208,6 +226,8 @@
         else if (type == 'pdf') {
             window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
         }
+        else if (type == 'doc')
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4"; 
         else {
             window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
         }
@@ -240,7 +260,8 @@
             }
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
-        } else {
+        }
+        else if (type == 'doc') {
         dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
         if (dateType == 'PERIOD') {
             dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
@@ -250,7 +271,19 @@
             }
         }
         window.document.forms[0].target = '_blank';
-        window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
+        }
+        else {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
         }
        
        setTimeout(function() {
@@ -613,6 +646,56 @@
                                         <tr>
                                             <td width="100%">
                                                 <table width="100%">
+                                                    <tr id="trAdminRM" runat="server">
+        <td colspan="2" align="right">
+         <asp:Button ID="btnViewReport" runat="server"  OnClientClick="return validate('')"
+         PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                <div id="div1" style="display: none;">
+                <p class="tip">
+                    Click here to view Portfolio report.
+                </p>
+            </div>
+           
+            <asp:Button ID="btnExportToPDF" runat="server"  OnClientClick="return validate('pdf')"
+             PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                 <div id="div2" style="display: none;">
+                <p class="tip">
+                   Click here to view MF report in pdf format.
+                </p>
+      </div>
+            <asp:Button ID="btnViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return validate('doc')"
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
+                    <div id="div3" style="display: none;">
+                <p class="tip">
+                    Click here to view MF report in word doc.</p>
+     </div>  
+    </td>
+    </tr>
+    <tr id="trCustomer" runat="server">
+        <td colspan="2" align="right">
+         <asp:Button ID="btnCustomerViewReport" runat="server"  OnClientClick="return CustomerValidate('view')"
+         PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                <div id="div4" style="display: none;">
+                <p class="tip">
+                    Click here to view MF report.
+                </p>
+            </div>
+           
+            <asp:Button ID="btnCustomerExportToPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
+             PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                 <div id="div5" style="display: none;">
+                <p class="tip">
+                   Click here to view MF report in pdf format.
+                </p>
+      </div>
+            <asp:Button ID="btnCustomerViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
+                    <div id="div6" style="display: none;">
+                <p class="tip">
+                    Click here to view MF report in word doc.</p>
+     </div>  
+    </td>
+    </tr>
                                                     <tr id="trCustomerName" runat="server">
                                                         <td runat="server" colspan="2">
                                                             <asp:Label ID="lblCustomerName" CssClass="HeaderTextSmall" runat="server"></asp:Label>
@@ -886,7 +969,7 @@
                                                             </table>
                                                         </td>
                                                     </tr>
-                                                    <tr id="trAdminRM" runat="server">
+                                                    <%--<tr id="trAdminRM" runat="server">
                                                         <td class="style1" runat="server">
                                                             <asp:Button ID="btnViewReport" runat="server" Text="View Report" OnClientClick="return validate('')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
@@ -895,10 +978,10 @@
                                                             <asp:Button ID="btnExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return validate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
-                                                    </tr>
+                                                    </tr>--%>
                                                     
                                                     
-                                                     <tr id="trCustomer" runat="server">
+                                                    <%-- <tr id="trCustomer" runat="server">
                                                         <td class="style1" runat="server">
                                                             <asp:Button ID="btnCustomerViewReport" runat="server" Text="View Report" OnClientClick="return CustomerValidate('view')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="PCGMediumButton" ValidationGroup="btnView" />&nbsp;&nbsp;
@@ -907,7 +990,7 @@
                                                             <asp:Button ID="btnCustomerExportToPDF" runat="server" Text="Export To PDF" OnClientClick="return CustomerValidate('pdf')"
                                                                 PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PCGMediumButton" />&nbsp;&nbsp;
                                                         </td>
-                                                    </tr>
+                                                    </tr>--%>
                                                 </table>
                                             </td>
                                         </tr>
