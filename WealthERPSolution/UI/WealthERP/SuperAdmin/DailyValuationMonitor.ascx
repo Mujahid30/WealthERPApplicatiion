@@ -51,11 +51,13 @@
 </td>
 <td>
 <asp:DropDownList ID="ddlAction" runat="server"  AutoPostBack="true" 
-        CssClass="cmbField" >
+        CssClass="cmbField" 
+        onselectedindexchanged="ddlAction_SelectedIndexChanged" >
 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
 <asp:ListItem Text="Adviser Valuation" Value="AumMis"></asp:ListItem>
 <asp:ListItem Text="Duplicates" Value="DuplicateMis"></asp:ListItem>
 <asp:ListItem Text="MF Rejects" Value="mfRejects"></asp:ListItem>
+<asp:ListItem Text="NAV Change" Value="NAVChange"></asp:ListItem>
 </asp:DropDownList>
 <span id="Span7" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="cmpamc" runat="server" ErrorMessage="<br />Please select an Action"
@@ -64,7 +66,7 @@
 </td>
 </tr>
 
-<tr>
+<tr id="trRadioDatePeriod" runat="server">
 <td class="style1" colspan="2">
             <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
                 runat="server" GroupName="Date"  />
@@ -133,7 +135,29 @@
             CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-  <tr><td>&nbsp;</td></tr>
+  <tr id="trDate" runat="server">
+  <td valign="top"><asp:Label ID="lblDate" runat="server" Width="80"  CssClass="FieldName">Select Date:</asp:Label></td>
+  <td>
+  <asp:TextBox ID="txtDate" runat="server" style="vertical-align: middle" Width="150" CssClass="txtField"></asp:TextBox>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="MFSubmit">
+            </asp:RequiredFieldValidator>
+             <asp:CompareValidator ID="CVDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+            <asp:CompareValidator ID="cvSelectDate" runat="server" ControlToValidate="txtDate" CssClass="cvPCG" 
+               ErrorMessage="<br />Date should not be  greater than  Today date" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
+  </td>
+  </tr>
     </table>
                         
                         
@@ -432,7 +456,43 @@
 </asp:Panel>
 </td>
 </tr>
+<tr>
+<td>
 
+<table width="60%">
+<tr>
+ <td  class="leftField" align="right" >
+            <asp:Label ID="lblNAVCount" class="Field" runat="server"></asp:Label>
+            <asp:Label ID="lblNAVTotal" class="Field" runat="server"></asp:Label>
+</td>
+</tr>
+<tr>
+<td>
+<asp:GridView ID="gvNavChange" runat="server" AutoGenerateColumns="False"  AllowSorting="True" 
+                CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%" 
+                 ShowFooter="True">
+                <FooterStyle CssClass="FooterStyle"  />
+                <RowStyle CssClass="RowStyle" />
+                <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <Columns>
+                     <asp:BoundField DataField="SchemeCode" HeaderText="Scheme Code" ItemStyle-HorizontalAlign="right" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                     <asp:BoundField DataField="SchemeName" HeaderText="Scheme Name" ItemStyle-HorizontalAlign="left" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                     <asp:BoundField DataField="CurrentNAV" HeaderText="Current NAV(AsOn)" ItemStyle-HorizontalAlign="right"  ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                     <asp:BoundField DataField="PreviousNAV" HeaderText="Previous Day NAV" ItemStyle-HorizontalAlign="right" ItemStyle-Wrap="false" HeaderStyle-Wrap="false" />
+                     <asp:BoundField DataField="PercentChange" HeaderText="Percentage ChangeNAV" ItemStyle-HorizontalAlign="right" ItemStyle-Wrap="false" 
+                     DataFormatString="{0:n2}"  HeaderStyle-Wrap="false" />
+                </Columns>
+                </asp:GridView>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
 </table>
 
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
@@ -459,8 +519,6 @@
  </tr>
 
 </table>
-
-
  <table width="50%">
  <tr style="width:100%">
     <td colspan="3">
@@ -491,11 +549,26 @@
  </tr>
 
 </table>
+ <table width="60%">
+ <tr style="width:100%">
+    <td colspan="3">
+        <table width="100%">
+            <tr id="trPagerNAV" runat="server" width="100%" >
+                <td align="right">
+                    <Pager:Pager ID="myPagerNAV" runat="server"></Pager:Pager>
+                </td>
+               
+            </tr>
+        </table>
+    </td>
+ </tr>
+
+</table>
 <table>
 <tr>
 <td>
-<asp:Button id="btnSyncSIPToGoal" runat="server" CssClass="PCGButton" Text="Sync" 
-        onclick="btnSyncSIPToGoal_Click" />
+<%--<asp:Button id="btnSyncSIPToGoal" runat="server" CssClass="PCGButton" Text="Sync" 
+        onclick="btnSyncSIPToGoal_Click" />--%>
 </td>
 </tr>
 </table>
@@ -507,6 +580,7 @@
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnSchemeNameFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnSelectDate" runat="server"/>
 
 <asp:HiddenField ID="hdnAdviserNameAUMFilter" runat="server" Visible="false" />
 

@@ -51,6 +51,10 @@ namespace WealthERP.SuperAdmin
                pgrReject.EnableViewState = true;
                base.OnInit(e);
 
+               ((Pager)myPagerNAV).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+               myPagerNAV.EnableViewState = true;
+               base.OnInit(e);
+
            }
            catch (BaseApplicationException Ex)
            {
@@ -88,7 +92,10 @@ namespace WealthERP.SuperAdmin
                {
                    this.BindMFRejectedGrid();
                }
-
+               else if (ddlAction.SelectedValue == "NAVChange")
+               {
+                   this.BindNAVPercentageChange();
+               }
              
            }
 
@@ -114,6 +121,7 @@ namespace WealthERP.SuperAdmin
         {
             btnGo.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             tblMessage.Visible = false;
+            cvSelectDate.ValueToCompare = DateTime.Now.ToShortDateString();
             if (!Page.IsPostBack)
             {
                 trRange.Visible = true;
@@ -134,9 +142,13 @@ namespace WealthERP.SuperAdmin
                 trpagerDuplicate.Visible = false;
                 trmypagerAUM.Visible = false;
                 trPagerReject.Visible = false;
+                trPagerNAV.Visible = false;
                 lblRejectCount.Visible = false;
                 lblRejectTotal.Visible = false;
+                lblNAVCount.Visible = false;
+                lblNAVTotal.Visible = false;
                 hidDateType.Value = "DATE_RANGE";
+                trDate.Visible = false;
                 pnlReject.Visible = false;
                 BindPeriodDropDown();
             }
@@ -181,6 +193,7 @@ namespace WealthERP.SuperAdmin
            CalculateDateRange(out dtFrom, out dtTo);
            hdnFromDate.Value = dtFrom.ToString();
            hdnToDate.Value = dtTo.ToString();
+           hdnSelectDate.Value = txtDate.Text;
            if (ddlAction.SelectedValue == "DuplicateMis")
            {
                BindDuplicateGrid();
@@ -198,7 +211,99 @@ namespace WealthERP.SuperAdmin
                btnDelete.Visible = false;
                btnDeleteAll.Visible = false;
            }
+           else if (ddlAction.SelectedValue == "NAVChange")
+           {
+               BindNAVPercentageChange();
+               btnDelete.Visible = false;
+               btnDeleteAll.Visible = false;
+           }
            
+       }
+
+       private void BindNAVPercentageChange()
+       {
+           DataSet dsGetNAV;
+           DataTable dtGetNAV;
+           dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(hdnSelectDate.Value),myPagerNAV.CurrentPage,out count );
+           dtGetNAV = dsGetNAV.Tables[0];
+           try
+           {
+               if (dtGetNAV.Rows.Count > 0)
+               {
+                   DataTable dtGetNAVPercentageDetails = new DataTable();
+                   dtGetNAVPercentageDetails.Columns.Add("SchemeCode");
+                   dtGetNAVPercentageDetails.Columns.Add("SchemeName");
+                   dtGetNAVPercentageDetails.Columns.Add("CurrentNAV");
+                   dtGetNAVPercentageDetails.Columns.Add("PreviousNAV");
+                   dtGetNAVPercentageDetails.Columns.Add("PercentChange");
+
+                   DataRow drGetNAVPercentageDetails;
+
+                   foreach (DataRow dr in dtGetNAV.Rows)
+                   {
+                       drGetNAVPercentageDetails = dtGetNAVPercentageDetails.NewRow();
+
+                       drGetNAVPercentageDetails["SchemeCode"] = dr["SchemeCode"].ToString();
+                       drGetNAVPercentageDetails["SchemeName"] = dr["PASP_SchemePlanName"].ToString();
+                       drGetNAVPercentageDetails["CurrentNAV"] = dr["Todays_NAV"].ToString();
+                       drGetNAVPercentageDetails["PreviousNAV"] = dr["lastday_Nav"].ToString();
+                       drGetNAVPercentageDetails["PercentChange"] = double.Parse(dr["PerDiff"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                       dtGetNAVPercentageDetails.Rows.Add(drGetNAVPercentageDetails);
+                   }
+                   lblNAVTotal.Text = hdnRecordCount.Value = count.ToString();
+                   gvNavChange.DataSource = dtGetNAVPercentageDetails;
+                   gvNavChange.DataBind();
+                   gvNavChange.Visible = true;
+                   this.GetPageCountNAV();
+                   lblNAVCount.Visible = true;
+                   lblNAVTotal.Visible = true;
+                   gvDuplicateCheck.Visible = false;
+                   lblCurrentPage.Visible = false;
+                   lblTotalRows.Visible = false;
+                   lblPage.Visible = false;
+                   lblTotalPage.Visible = false;
+                   trpagerDuplicate.Visible = false;
+                   trmypagerAUM.Visible = false;
+                   btnDelete.Visible = false;
+                   btnDeleteAll.Visible = false;
+                   gvMFRejectedDetails.Visible = false;
+                   trPagerNAV.Visible = true;
+
+               }
+               else
+               {
+                   gvNavChange.Visible = false;
+                   tblMessage.Visible = true;
+                   ErrorMessage.Visible = true;
+                   ErrorMessage.InnerText = "No Records Found...!";
+                   gvDuplicateCheck.Visible = false;
+                   gvAumMis.Visible = false;
+                   lblCurrentPage.Visible = false;
+                   lblTotalRows.Visible = false;
+                   lblPage.Visible = false;
+                   lblTotalPage.Visible = false;
+                   trpagerDuplicate.Visible = false;
+                   trmypagerAUM.Visible = false;
+                   btnDelete.Visible = false;
+                   btnDeleteAll.Visible = false;
+                   gvMFRejectedDetails.Visible = false;
+                   trPagerReject.Visible = false;
+                   lblRejectCount.Visible = false;
+                   lblRejectTotal.Visible = false;
+                   pnlReject.Visible = false;
+                   lblNAVCount.Visible = false;
+                   lblNAVTotal.Visible = false;
+                   trPagerNAV.Visible = false;
+               }
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               throw Ex;
+           }
        }
         /// <summary>
         ///  To Get All adviser's total AUM
@@ -246,9 +351,13 @@ namespace WealthERP.SuperAdmin
                }
                this.GetPageCountAUM();
                trPagerReject.Visible = false;
+               trPagerNAV.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
                pnlReject.Visible = false;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
            }
            else
            {
@@ -266,10 +375,14 @@ namespace WealthERP.SuperAdmin
                btnDelete.Visible = false;
                btnDeleteAll.Visible = false;
                gvMFRejectedDetails.Visible = false;
+               trPagerNAV.Visible = false;
                trPagerReject.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
                pnlReject.Visible = false;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
            }
        }
 
@@ -335,9 +448,13 @@ namespace WealthERP.SuperAdmin
                btnDeleteAll.Visible = true;
                gvMFRejectedDetails.Visible = false;
                trPagerReject.Visible = false;
+               trPagerNAV.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
                pnlReject.Visible = false;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
            }
            else
            {
@@ -356,9 +473,13 @@ namespace WealthERP.SuperAdmin
                btnDelete.Visible = false;
                btnDeleteAll.Visible = false;
                trPagerReject.Visible = false;
+               trPagerNAV.Visible = false;
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
                pnlReject.Visible = false;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
            }
        }
 
@@ -715,6 +836,10 @@ namespace WealthERP.SuperAdmin
                lblRejectCount.Visible = true;
                lblRejectTotal.Visible = true;
                pnlReject.Visible = true;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
+               trPagerNAV.Visible = false;
 
                if (hdnRejectReasonFilter.Value != "")
                {
@@ -750,6 +875,10 @@ namespace WealthERP.SuperAdmin
                lblRejectCount.Visible = false;
                lblRejectTotal.Visible = false;
                pnlReject.Visible = false;
+               gvNavChange.Visible = false;
+               lblNAVCount.Visible = false;
+               lblNAVTotal.Visible = false;
+               trPagerNAV.Visible = false;
            }
 
           
@@ -1007,10 +1136,10 @@ namespace WealthERP.SuperAdmin
            }
        }
 
-       protected void btnSyncSIPToGoal_Click(object sender, EventArgs e)
-       {
-           superAdminOpsBo.SyncSIPtoGoal();
-       }
+       //protected void btnSyncSIPToGoal_Click(object sender, EventArgs e)
+       //{
+       //    superAdminOpsBo.SyncSIPtoGoal();
+       //}
 
        protected void btnDeleteAll_Click(object sender, EventArgs e)
        {
@@ -1026,5 +1155,78 @@ namespace WealthERP.SuperAdmin
        //        tblMessage.Visible = false;
        //    }
        //}
+       private void GetPageCountNAV()
+       {
+           string upperlimit = null;
+           int rowCount = 0;
+           int ratio = 0;
+           string lowerlimit = null;
+           string PageRecords = null;
+           try
+           {
+               if (hdnRecordCount.Value.ToString() != "")
+                   rowCount = Convert.ToInt32(hdnRecordCount.Value);
+               if (rowCount > 0)
+               {
+                   ratio = rowCount / 10;
+                   myPagerNAV.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+                   myPagerNAV.Set_Page(myPagerNAV.CurrentPage, myPagerNAV.PageCount);
+                   if (((myPagerNAV.CurrentPage - 1) * 10) != 0)
+                       lowerlimit = (((myPagerNAV.CurrentPage - 1) * 10) + 1).ToString();
+                   else
+                       lowerlimit = "1";
+                   upperlimit = (myPagerNAV.CurrentPage * 10).ToString();
+                   if (myPagerNAV.CurrentPage == myPagerNAV.PageCount)
+                       upperlimit = hdnRecordCount.Value;
+                   PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                   lblNAVCount.Text = PageRecords;
+                   hdnCurrentPage.Value = myPagerNAV.CurrentPage.ToString();
+               }
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+
+               FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
+
+               object[] objects = new object[5];
+               objects[0] = upperlimit;
+               objects[1] = rowCount;
+               objects[2] = ratio;
+               objects[3] = lowerlimit;
+               objects[4] = PageRecords;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
+       }
+
+       protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+       {
+           if (ddlAction.SelectedIndex != 0)
+           {
+               if (ddlAction.SelectedValue == "NAVChange")
+               {
+                   trRadioDatePeriod.Visible = false;
+                   trDate.Visible = true;
+                   txtDate.Text = DateTime.Now.ToShortDateString();
+                   trRange.Visible = false;
+                   trPeriod.Visible = false;
+               }
+               else
+               {
+                   trRadioDatePeriod.Visible = true;
+                   trRange.Visible = true;
+                   trPeriod.Visible = false;
+                   trDate.Visible = false;
+               }
+           }
+       }
     }
 }
