@@ -1816,5 +1816,22 @@ namespace BoCustomerPortfolio
             return blResult;
         }
 
+
+        public bool CancelEquityTransaction(EQTransactionVo eqTransactionVo, int userId)
+        {
+            bool bResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                bResult = customerTransactionDao.CancelEquityTransaction(eqTransactionVo, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
