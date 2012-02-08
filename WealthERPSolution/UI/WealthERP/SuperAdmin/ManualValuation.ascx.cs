@@ -459,6 +459,10 @@ namespace WealthERP.SuperAdmin
                                     if (cnt == customerList.Count)
                                     {
                                         UpdateAdviserEODLog("EQ", 1, LogId);
+                                        if (Cache[adviserId.ToString()] != null && valuationDate == DateTime.Today)
+                                        {
+                                            Cache.Remove(adviserId.ToString());
+                                        }
                                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Equity Valuation done...!');", true);
 
                                     }
@@ -526,6 +530,10 @@ namespace WealthERP.SuperAdmin
                                             if (cnt == customerList.Count)
                                             {
                                                 UpdateAdviserEODLog("MF", 1, LogId);
+                                                if (Cache[adviserId.ToString()] != null && valuationDate == DateTime.Today)
+                                                {
+                                                    Cache.Remove(adviserId.ToString());
+                                                }
                                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
                                             }
                                             else

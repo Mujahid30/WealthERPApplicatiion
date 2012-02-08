@@ -3,7 +3,8 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <%@ Register src="../General/Pager.ascx" tagname="Pager" tagprefix="Pager" %>
-
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
 <table style="width: 100%;" class="TableBackground">
     <%--<tr>
         <td class="HeaderCell" colspan="3">
@@ -29,7 +30,7 @@
     </tr>
     <tr>
         <td align="left">
-            <asp:GridView ID="gvrAdminBranchPerform" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+            <%--<asp:GridView ID="gvrAdminBranchPerform" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="Branch Id" EnableViewState="false" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" OnRowDataBound="gvrAdminBranchPerform_RowDataBound">
                 <FooterStyle CssClass="FooterStyle" />
@@ -56,7 +57,57 @@
                     </asp:BoundField>
                     <asp:BoundField DataField="NoOfCustomers" HeaderText="No. of Customers" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
-            </asp:GridView>
+            </asp:GridView>--%>
+            
+               <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" 
+                        AllowAutomaticInserts="false" AllowPaging="True" 
+                        AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
+                        GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" 
+                        Skin="Telerik" Width="100%">
+                    <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
+                    <mastertableview allowmulticolumnsorting="true" autogeneratecolumns="false" CommandItemDisplay="None"
+                        width="99%">
+                        <Columns>
+                        <telerik:GridBoundColumn DataField="Branch Name" HeaderText="Branch Name" 
+                                UniqueName="Branch Name" FooterText="Total:" FooterStyle-HorizontalAlign="Left">
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                     
+                        <telerik:GridBoundColumn DataField="Branch Code"
+                                HeaderText="Branch Code" UniqueName="Branch Code">
+                            <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn Aggregate="Sum"  DataField="Equity" DataType="System.Decimal" DataFormatString="{0:n2}"
+                                HeaderText="Equity (Rs)" UniqueName="Equity"  FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn  Aggregate="Sum" DataField="MF" DataType="System.Decimal" DataFormatString="{0:n2}"
+                                HeaderText="MF (Rs)" UniqueName="MF"  FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Insurance" DataType="System.Decimal" DataFormatString="{0:n2}"
+                                HeaderText="Insurance (Rs)" UniqueName="Insurance"  FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfCustomers" DataType="System.Int32" DataFormatString="{0:0}"
+                                HeaderText="No. of Customers" UniqueName="NoOfCustomers" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
+                        </telerik:GridBoundColumn>                  
+                                                                                      
+                    </Columns>
+                    
+                    </mastertableview>
+                    <clientsettings>
+                        <%--<Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true">
+                        </Scrolling>--%>
+                        <selecting allowrowselect="True" enabledragtoselectrows="True" />                           
+                        <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
+                    </clientsettings>
+                    </telerik:RadGrid>            
         </td>
         <td align="left">
             &nbsp;
@@ -72,7 +123,7 @@
     </tr>
     <tr>
         <td colspan="2">
-                        <Pager:Pager ID="mypager" runat="server" />
+                       <%-- <Pager:Pager ID="mypager" runat="server" />--%>
         </td>
     </tr>
     <tr>

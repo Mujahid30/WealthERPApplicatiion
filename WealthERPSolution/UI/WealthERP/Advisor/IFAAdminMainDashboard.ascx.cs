@@ -39,6 +39,7 @@ namespace WealthERP.Advisor
             {
                 SessionBo.CheckSession();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
+                LoadAdminDashBoardDataInCaching();
                 LoadAdminBranchPerformance();
                 LoadBranchPerfomanceChart();
                 LoadRMPerformanceChart();
@@ -79,6 +80,8 @@ namespace WealthERP.Advisor
         /// <summary>
         /// Modified this function to add a new column(No. of customers) to the Branch AUM grid 
         /// </summary>
+        /// 
+      
         private void LoadAdminBranchPerformance()
         {
             List<AdvisorBranchVo> branchList = new List<AdvisorBranchVo>();
@@ -92,8 +95,20 @@ namespace WealthERP.Advisor
             total = 0;
             try
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, mypager.CurrentPage,out total);
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+                //Cache.Insert(advisorVo.advisorId.ToString(),
+
+               // ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);
+               //Cache.Insert(advisorVo.advisorId.ToString(),
+                //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+                if (Cache[advisorVo.advisorId.ToString()] == null)
+                {
+                    LoadAdminDashBoardDataInCaching();
+                }
+                else
+                {
+                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
+                }
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     lblGT.Visible = true;
@@ -104,10 +119,10 @@ namespace WealthERP.Advisor
                     dt.Columns.Add("Branch Name");
                     dt.Columns.Add("Branch Code");
                     //dt.Columns.Add("Equity");
-                    dt.Columns.Add("Equity");
-                    dt.Columns.Add("MF");
-                    dt.Columns.Add("Insurance");
-                    dt.Columns.Add("NoOfCustomers");
+                    dt.Columns.Add("Equity", typeof(Decimal));
+                    dt.Columns.Add("MF", typeof(Decimal));
+                    dt.Columns.Add("Insurance", typeof(Decimal));
+                    dt.Columns.Add("NoOfCustomers", typeof(Int32));
                     //dt.Columns.Add(new DataColumn("Equity", typeof(decimal)));
                     //dt.Columns.Add(new DataColumn("MF", typeof(decimal)));
                     //dt.Columns.Add(new DataColumn("Insurance", typeof(decimal)));
@@ -123,7 +138,7 @@ namespace WealthERP.Advisor
                             dr[3] = "0";
                         else
                         {
-                            dr[3] = decimal.Parse(drResult["EquityAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            dr[3] = decimal.Parse(drResult["EquityAggr"].ToString());
 
                         }
                         eqTotal = eqTotal + Convert.ToDecimal(drResult["EquityAggr"].ToString());
@@ -131,13 +146,13 @@ namespace WealthERP.Advisor
                         if (Convert.ToDecimal(drResult["MFAggr"].ToString()) == 0)
                             dr[4] = "0";
                         else
-                            dr[4] = decimal.Parse(drResult["MFAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            dr[4] = decimal.Parse(drResult["MFAggr"].ToString());
                         mfTotal = mfTotal + Convert.ToDecimal(drResult["MFAggr"].ToString());
 
                         if (Convert.ToDecimal(drResult["InsuranceAggr"].ToString()) == 0)
                             dr[5] = "0";
                         else
-                            dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString());
                         insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
 
 
@@ -151,7 +166,18 @@ namespace WealthERP.Advisor
                     gvrAdminBranchPerform.DataSource = dt;
                     gvrAdminBranchPerform.DataBind();
                     gvrAdminBranchPerform.Visible = true;
-                    GetPageCount();
+                    //Label lblEquityTotal = (Label)gvrAdminBranchPerform.FooterRow.FindControl("lblEquityTotal");
+                    //Label lblMFTotal = (Label)gvrAdminBranchPerform.FooterRow.FindControl("lblMFTotal");
+                    //Label lblInsuranceTotal = (Label)gvrAdminBranchPerform.FooterRow.FindControl("lblInsuranceTotal");
+                    //Label lblNoOfCustomersTotal = (Label)gvrAdminBranchPerform.FooterRow.FindControl("lblNoOfCustomersTotal");
+                    //lblEquityTotal.Text = eqTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", eqTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    //lblMFTotal.Text = mfTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", mfTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    //lblInsuranceTotal.Text = insuranceTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", insuranceTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                    //lblNoOfCustomersTotal.Text = customerTotal != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", customerTotal.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
+                 
+                    
+                    lblGT.Text = Math.Round(double.Parse(String.Format("{0:n2}",ds.Tables[1].Rows[0]["Total"].ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    //GetPageCount();
                 }
                 else
                 {
@@ -182,104 +208,104 @@ namespace WealthERP.Advisor
 
         }
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    try
+        //    {
 
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //        ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypager.EnableViewState = true;
+        //        base.OnInit(e);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.LoadAdminBranchPerformance();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[1];
-                objects[0] = mypager.CurrentPage;
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GetPageCount();
+        //        this.LoadAdminBranchPerformance();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[1];
+        //        objects[0] = mypager.CurrentPage;
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //private void GetPageCount()
+        //{
+        //    string upperlimit = null;
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = null;
+        //    string PageRecords = null;
+        //    try
+        //    {
+        //        rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        ratio = rowCount / 10;
+        //        mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //        mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //        lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+        //        upperlimit = (mypager.CurrentPage * 10).ToString();
+        //        if (mypager.CurrentPage == mypager.PageCount)
+        //            upperlimit = hdnRecordCount.Value;
+        //        PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //        lblCurrentPage.Text = PageRecords;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:GetPageCount()");
+        //        FunctionInfo.Add("Method", "IFAAdminMainDashboard.ascx.cs:GetPageCount()");
 
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[0] = rowCount;
-                objects[0] = ratio;
-                objects[0] = lowerlimit;
-                objects[0] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[0] = rowCount;
+        //        objects[0] = ratio;
+        //        objects[0] = lowerlimit;
+        //        objects[0] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
         private void LoadBranchPerfomanceChart()
         {
@@ -292,8 +318,18 @@ namespace WealthERP.Advisor
             int Count = 0;
             try
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, 0,out total);
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+                //ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, 0,out total);
+                //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+
+                if (Cache[advisorVo.advisorId.ToString()] == null)
+                {
+                    LoadAdminDashBoardDataInCaching();
+                }
+                else
+                {
+                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
+                }
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataSet branchPerformanceDs = new DataSet();
@@ -311,13 +347,18 @@ namespace WealthERP.Advisor
                         dr[1] = drResult["AB_BranchCode"].ToString();
                         tempEq = Math.Round(Convert.ToDouble(drResult["EquityAggr"].ToString()), 2);
                         tempIns = Math.Round(Convert.ToDouble(drResult["MFAggr"].ToString()), 2);
-                        tempMf = Math.Round(Convert.ToDouble(drResult["InsuranceAggr"].ToString()), 2);
-                        if (tempEq == 0 && tempIns == 0 && tempMf == 0)
-                            j = j + 1;
+                        tempMf = Math.Round(Convert.ToDouble(drResult["InsuranceAggr"].ToString()), 2);                     
                         dr[2] = Math.Round((tempEq + tempIns + tempMf), 2).ToString();
-                        dt.Rows.Add(dr);
-
-                    }
+                        if (tempEq == 0 && tempIns == 0 && tempMf == 0)
+                        {
+                            j = j + 1;
+                        }
+                        if (tempEq + tempIns + tempMf != 0)
+                        {
+                            dt.Rows.Add(dr);
+                        }                
+                            
+                  }
                     branchPerformanceDs.Tables.Add(dt);
 
                     if (j != ds.Tables[0].Rows.Count)
@@ -349,7 +390,7 @@ namespace WealthERP.Advisor
                         ChartBranchPerformance.DataSource = null;
                         ChartBranchPerformance.Visible = false;
                         lblBranchPerformChart.Visible = false;
-                        GetPageCount();
+                        //GetPageCount();
                     }
                 }
                 else
@@ -396,12 +437,19 @@ namespace WealthERP.Advisor
                 Legend legend = new Legend("RMPerformanceLegend");
                 legend.Enabled = true;
 
-                ds = assetBo.GetAdvisorRM_All_AssetAgr(advisorVo.advisorId);
-
-                if (ds.Tables[0].Rows.Count > 0)
+                //ds = assetBo.GetAdvisorRM_All_AssetAgr(advisorVo.advisorId);
+                if (Cache[advisorVo.advisorId.ToString()] == null)
                 {
-                    string[] XValues = new string[ds.Tables[0].Rows.Count];
-                    double[] YValues = new double[ds.Tables[0].Rows.Count];
+                    LoadAdminDashBoardDataInCaching();
+                }
+                else
+                {
+                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
+                }
+                if (ds.Tables[2].Rows.Count > 0)
+                {
+                    string[] XValues = new string[ds.Tables[2].Rows.Count];
+                    double[] YValues = new double[ds.Tables[2].Rows.Count];
                     DataSet RMPerformanceDs = new DataSet();
                     int j = 0;
                     DataRow drResult;
@@ -409,10 +457,10 @@ namespace WealthERP.Advisor
                     DataTable dt = new DataTable();
                     dt.Columns.Add("RMName");
                     dt.Columns.Add("AggregateValue");
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    for (int i = 0; i < ds.Tables[2].Rows.Count; i++)
                     {
                         dr = dt.NewRow();
-                        drResult = ds.Tables[0].Rows[i];
+                        drResult = ds.Tables[2].Rows[i];
                         dr[0] = drResult["AR_FirstName"].ToString() + drResult["AR_LastName"].ToString();
                         tempAggr = Math.Round(Convert.ToDouble(drResult["result"].ToString()), 2);
                         if (tempAggr == 0)
@@ -423,7 +471,7 @@ namespace WealthERP.Advisor
                     }
                     RMPerformanceDs.Tables.Add(dt);
 
-                    if (j != ds.Tables[0].Rows.Count)
+                    if (j != ds.Tables[2].Rows.Count)
                     {
 
                         // LoadChart            
@@ -543,6 +591,18 @@ namespace WealthERP.Advisor
 
             }
             lblGT.Text = total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+        }
+
+        protected void LoadAdminDashBoardDataInCaching()
+        {
+            //Cache.Remove(advisorVo.advisorId.ToString());
+            if (Cache[advisorVo.advisorId.ToString()] == null)
+            {
+                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);              
+                Cache.Insert(advisorVo.advisorId.ToString(), ds, null, DateTime.Now.AddMinutes(10*60),TimeSpan.Zero);
+            }
+
+
         }
     }
 }
