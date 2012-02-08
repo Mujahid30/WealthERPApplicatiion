@@ -261,20 +261,21 @@ namespace BoSuperAdmin
                 throw (Ex);
             }
         }
-        public void SyncSIPtoGoal()
+        public bool SyncSIPtoGoal(int adviserId)
         {
 
             DataSet dsGetAum;
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            bool affectedRecords;
             try
             {
-                superAdminOpsDao.SyncSIPtoGoal();
+                affectedRecords = superAdminOpsDao.SyncSIPtoGoal(adviserId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
-
+            return affectedRecords;
         }
 
         public DataTable GetAdviserValuationStatus(string assetType, DateTime valuationDate)
@@ -307,6 +308,19 @@ namespace BoSuperAdmin
             }
         }
 
+        public DataTable GetAdviserListHavingSIPGoalFunding()
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            try
+            {
+                DataTable dtAdviserList = superAdminOpsDao.GetAdviserListHavingSIPGoalFunding();
+                return dtAdviserList;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }           
+        }
 
         public DataSet GetNAVPercentage(DateTime navDate, int currentPage, out int count)
         {

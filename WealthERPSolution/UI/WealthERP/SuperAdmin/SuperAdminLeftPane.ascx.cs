@@ -86,6 +86,10 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('PriceListMonitor', 'none')", true);
                 }
+                else if (e.Item.Value == "GoalFunding_Sync")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('SuperAdminGoalSIPFundingSync', 'none')", true);
+                }
                 else if (e.Item.Value == "IssueTracker")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewIssuseDetails', 'none')", true);
