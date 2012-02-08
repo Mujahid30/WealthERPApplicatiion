@@ -3255,6 +3255,71 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+        public bool CancelEquityTransaction(EQTransactionVo eqTransactionVo, int userId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CancelEQTrnxCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CancelEQTrnxCmd = db.GetStoredProcCommand("SP_CancelEquityTransaction");
+                db.AddInParameter(CancelEQTrnxCmd, "@EqTransId", DbType.Int32, eqTransactionVo.TransactionId);
+                db.AddInParameter(CancelEQTrnxCmd, "@CETA_AccountId", DbType.Int32, eqTransactionVo.AccountId);
+                db.AddInParameter(CancelEQTrnxCmd, "@PEM_ScripCode", DbType.String, eqTransactionVo.ScripCode);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeNum", DbType.Int64, eqTransactionVo.TradeNum);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_OrderNum", DbType.Int64, eqTransactionVo.OrderNum);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_BuySell", DbType.String, eqTransactionVo.BuySell);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSpeculative", DbType.Int16, eqTransactionVo.IsSpeculative);
+                db.AddInParameter(CancelEQTrnxCmd, "@XE_ExchangeCode", DbType.String, eqTransactionVo.Exchange);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeDate", DbType.DateTime, eqTransactionVo.TradeDate);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_Rate", DbType.Decimal, eqTransactionVo.Rate);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_Quantity", DbType.Decimal, eqTransactionVo.Quantity);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_Brokerage", DbType.Decimal, eqTransactionVo.Brokerage);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_ServiceTax", DbType.Decimal, eqTransactionVo.ServiceTax);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_EducationCess", DbType.Decimal, eqTransactionVo.EducationCess);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_STT", DbType.Decimal, eqTransactionVo.STT);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_OtherCharges", DbType.Decimal, eqTransactionVo.OtherCharges);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_RateInclBrokerage", DbType.Decimal, eqTransactionVo.RateInclBrokerage);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_TradeTotal", DbType.Decimal, eqTransactionVo.TradeTotal);
+                db.AddInParameter(CancelEQTrnxCmd, "@XB_BrokerCode", DbType.String, eqTransactionVo.BrokerCode);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSplit", DbType.Int16, eqTransactionVo.IsSplit);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_SplitCustEqTransId", DbType.Int32, eqTransactionVo.SplitTransactionId);
+                //db.AddInParameter(CancelEQTrnxCmd, "@XES_SourceCode", DbType.String, eqTransactionVo.SourceCode);
+                db.AddInParameter(CancelEQTrnxCmd, "@WETT_TransactionCode", DbType.Int16, eqTransactionVo.TransactionCode);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_IsSourceManual", DbType.Int16, eqTransactionVo.IsSourceManual);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_ModifiedBy", DbType.String, userId);
+                db.AddInParameter(CancelEQTrnxCmd, "@CET_CreatedBy", DbType.String, userId);
+
+                if (db.ExecuteNonQuery(CancelEQTrnxCmd) != 0)
+
+                    bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CancelMFTransaction(MFTransactionVo mfTransactionVo,int userId)");
+
+
+                object[] objects = new object[2];
+                objects[0] = eqTransactionVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
        
     }
 }
