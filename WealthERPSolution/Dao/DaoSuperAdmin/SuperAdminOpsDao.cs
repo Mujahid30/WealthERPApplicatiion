@@ -489,6 +489,27 @@ namespace DaoSuperAdmin
 
            return dsAdviserList.Tables[0];
        }
+       public DataSet GetNAVPercentage(DateTime navDate, int currentPage, out int count)
+       {
+           DataSet dsGetNAVPer;
+           Database db;
+           DbCommand getNAVPercmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               getNAVPercmd = db.GetStoredProcCommand("SP_GetNAVChangePercentage");
+               db.AddInParameter(getNAVPercmd, "@navDateToday", DbType.DateTime, navDate);
+               db.AddInParameter(getNAVPercmd, "@currentPage", DbType.Int32, currentPage);
+               db.AddOutParameter(getNAVPercmd, "@Count", DbType.Int32, 0);
+               dsGetNAVPer = db.ExecuteDataSet(getNAVPercmd);
+               count = (int)db.GetParameterValue(getNAVPercmd, "@Count");
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return dsGetNAVPer;
+       }
        
     }
 }
