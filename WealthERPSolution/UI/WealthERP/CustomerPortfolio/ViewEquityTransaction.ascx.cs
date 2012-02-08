@@ -56,6 +56,7 @@ namespace WealthERP.CustomerPortfolio
                 {
                     LoadViewField();
                 }
+                btnCancel.Visible = false;
             }
             catch (BaseApplicationException ex)
             {
@@ -328,6 +329,7 @@ namespace WealthERP.CustomerPortfolio
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
             SetViewFields(0);
+            btnCancel.Visible = true;
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -550,6 +552,24 @@ namespace WealthERP.CustomerPortfolio
                 txtOtherCharge.Text = Math.Round(otherCharges, 4).ToString();
 
                 Calculate();
+            }
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+            int userId = ((UserVo)Session["userVo"]).UserId;
+            try
+            {
+                if (eqTransactionVo != null)
+                    customerTransactionBo.CancelEquityTransaction(eqTransactionVo, userId);
+                btnCancel.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityTransactionsView','none');", true);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
             }
         }
     }

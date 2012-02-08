@@ -289,12 +289,19 @@
                 </td>
             </tr>
             <tr>
-                <td class="SubmitCell" colspan="2">
+                <td class="SubmitCell">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton"                    
                         OnClick="btnSubmit_Click" />
                         
                         <%-- onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_ViewEquityTransaction__btnSubmit','S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewEquityTransaction__btnSubmit','S');" --%>
+                </td>
+                <td>
+                <asp:Button ID="btnCancel" runat="server" 
+                Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" CausesValidation="True"
+                 
+                        OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')" 
+                        onclick="btnCancel_Click"/>
                 </td>
             </tr>
         </table>
