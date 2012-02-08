@@ -307,5 +307,21 @@ namespace BoSuperAdmin
             }
         }
 
+
+        public DataSet GetNAVPercentage(DateTime navDate, int currentPage, out int count)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            DataSet dsGetNAVPer;
+            try
+            {
+                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate, currentPage, out count);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetNAVPer;
+        }
     }
 }
