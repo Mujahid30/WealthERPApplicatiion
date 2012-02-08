@@ -331,6 +331,7 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictMFSystematic = new Dictionary<string, string>();
             //genDictMFSystematic.Add("Standard", "WP");
             genDictMFSystematic.Add("CAMS", "CA");
+            genDictMFSystematic.Add("KARVY", "KA");
             genDictMFSystematic.Add("STANDARD", "WPT");
             return genDictMFSystematic;
         }
@@ -1469,6 +1470,138 @@ namespace WealthERP.Uploads
 
 
                             #endregion MF Standard Transaction Upload
+
+
+
+                                //****************Systematic Uploads KARVY**************\\
+                                //*********gobinda Uploads KARVY**************\\
+
+                                #region MF Systematic KARVY Upload
+                                //MF KARVY Systematic Upload
+                                else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == "KA")
+                                {
+                                    bool updateProcessLog = false;
+                                    //bool camsSIPWerpResult = false;
+                                    //bool CommonTransChecks = false;
+                                    bool karvySIPCommonStagingChk = false;
+                                    bool karvySIPStagingToCommonStaging = false;
+                                    bool karvySIPInputResult = false;
+                                    bool karvySIPCommonStaging = false;
+                                    bool karvySIPStagingCheckResult = false;
+                                    bool karvySIPStagingResult = false;
+                                    bool karvySIPCommonStagingToWERP = false;
+
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadSystematicTransationXMLToInput.dtsx");
+                                    karvySIPInputResult = camsUploadsBo.KarvySIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                                    if (karvySIPInputResult)
+                                    {
+                                        processlogVo.IsInsertionToInputComplete = 1;
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadSystematicTransationInputToStaging.dtsx");
+                                        karvySIPStagingResult = camsUploadsBo.KarvySIPInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                        if (karvySIPStagingResult)
+                                        {
+                                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                            packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingtoCommonStaging.dtsx");
+                                            karvySIPStagingCheckResult = camsUploadsBo.KarvySIPProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
+                                            if (karvySIPStagingCheckResult)
+                                            {
+
+
+
+                                                //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
+                                                //karvySIPStagingToCommonStaging = camsUploadsBo.KarvySIPStagingToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                //processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                //processlogVo.EndTime = DateTime.Now;
+                                                //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                                                karvySIPCommonStagingChk = camsUploadsBo.KarvySIPCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                if (karvySIPCommonStagingChk)
+                                                {
+                                                    packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionCommonStagingToWERP.dtsx");
+                                                    karvySIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(UploadProcessId, packagePath, configPath);
+
+                                                    if (karvySIPCommonStagingToWERP)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "KA");
+                                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        // Update Process Progress Monitoring Text Boxes
+                                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (karvySIPInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (karvySIPStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (karvySIPCommonStagingChk)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (karvySIPCommonStagingChk && karvySIPCommonStagingToWERP)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (karvySIPCommonStagingToWERP)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
+                                }
+                                #endregion MF Standard Systematic Upload
+
 
 
                                 //****************Systematic Uploads**************\\
@@ -3730,7 +3863,54 @@ namespace WealthERP.Uploads
                 }
                 #endregion
 
-                
+
+                //--------Gobinda KRAVY Uploads---------\\
+
+                #region Systematic KARVY
+                else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == "KA")
+                {
+                    if (extension == "xls" || extension == "xlsx")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(27);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(27);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
+                        //{
+                        //    if(dr["PERIODICIT"].ToString()=="SM")
+                        //    {
+                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
+                        //    }
+
+                        //}
+
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", Contants.UploadFileTypeSystematic);
+                    }
+                    else
+                    {
+                        //ValidationProgress = "Failure";
+                    }
+                }
+                #endregion
+
+
 
 
             //------------Shantanu--------------------------------
@@ -5247,7 +5427,7 @@ namespace WealthERP.Uploads
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processid + "&filetypeid=" + filetype + "');", true);
             }
-            else if (filetype == 20 || filetype == 26)
+            else if (filetype == 20 || filetype == 26||filetype==27)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processid + "');", true);
             }   
