@@ -5157,6 +5157,7 @@
     <Content Include="Images\1044_Southnd.jpg" />
     <Content Include="Images\AddPlus.png" />
     <Content Include="Images\arrow_double_up_7.gif" />
+    <Content Include="Images\bg-menu-main.png" />
     <Content Include="Images\birlasunlife.jpg" />
     <Content Include="Images\Black-sample.gif" />
     <Content Include="Images\blue-sample.gif" />
@@ -5164,12 +5165,16 @@
     <Content Include="Images\collapse.png" />
     <Content Include="Images\collapseDown arrow.png" />
     <Content Include="Images\collapseRight arrow.png" />
+    <Content Include="Images\collapse_blue.jpg" />
     <Content Include="Images\CrystalIcon.png" />
+    <Content Include="Images\csv.png" />
     <Content Include="Images\DeleteRecord.png" />
     <Content Include="Images\desert-sample.gif" />
     <Content Include="Images\DetailedView.png" />
     <Content Include="Images\EducationGoal.png" />
+    <Content Include="Images\expand_blue.jpg" />
     <Content Include="Images\Expense.png" />
+    <Content Include="Images\exporttoword.jpg" />
     <Content Include="Images\Export_Excel.png" />
     <Content Include="Images\Export_Pdf.gif" />
     <Content Include="Images\Export_Word.jpg" />
@@ -5261,6 +5266,7 @@
     <Content Include="Images\Wait.gif" />
     <Content Include="Images\WealthERP_logo.png" />
     <Content Include="Images\werplogo.jpg" />
+    <Content Include="Images\word.png" />
     <Content Include="LookUps\Questions.xml" />
     <Content Include="MarketDataDownloadFiles\AMFIData.txt" />
     <Content Include="MarketDataDownloadFiles\AMFIData.xml" />
@@ -5299,6 +5305,8 @@
     <Content Include="Research\RiskScore.ascx" />
     <Content Include="Research\SchemeMappingToModelPortfolio.ascx" />
     <Content Include="Scripts\Dashboard.js" />
+    <Content Include="Scripts\jquery-1.2.6-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.2.6.js" />
     <Content Include="Scripts\jquery-1.3.1.min.js" />
     <Content Include="Scripts\jquery-1.4.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.7.2.custom.min.js" />
