@@ -65,6 +65,7 @@ namespace WealthERP.SuperAdmin
             BindDDLCustomerPriority();
             if (!IsPostBack)
             {
+                HideCloseDate();
                 BindDDLTypes(issueTypeId);
                 BindDDLAdviser(adviserId);
                 BindDDLRoleList(dtIssueTrackerDetails);
@@ -1175,9 +1176,29 @@ namespace WealthERP.SuperAdmin
             }
             public void SetToFirstLevel(Object sender, EventArgs e)
             {
-
+                if(ddlIssueStatus.SelectedValue.Equals("3"))
+                {
+                ShowCloseDate();
                 ddlReportFromCS.SelectedItem.Value.Equals("10");
+                }
+                else if (ddlIssueStatus.SelectedValue.Equals("2"))
+                {
+                    HideCloseDate();
+                    //ddlReportFromCS.SelectedItem.Value.Equals("10");
+                }
                
             }
+            public void HideCloseDate()
+            {
+                lblSolveDate.Visible = false;
+                dtSolveDate.Visible = false;
+            }
+
+            public void ShowCloseDate()
+            {
+                lblSolveDate.Visible = true;
+                dtSolveDate.Visible = true;
+            }
+
         }
     }

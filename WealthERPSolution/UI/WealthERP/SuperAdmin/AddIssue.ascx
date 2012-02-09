@@ -297,8 +297,8 @@
                             <asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ErrorMessage="Enter Your Name" Display="Dynamic" ControlToValidate="txtReportedBy" ValidationGroup="vgBtnSubmit"></asp:RequiredFieldValidator>
                             </td>
                              <td class="leftField"><asp:Label class="FieldName" runat="server" ID="lblChkCSClose" Text="Status :"></asp:Label></td>
-                <td class="rightField"><asp:DropDownList OnSelectedIndexChanged="SetToFirstLevel" AutoPostBack="true" runat="server" ID="ddlIssueStatus" 
-                        CssClass="cmbField" >
+                <td class="rightField"><asp:DropDownList OnSelectedIndexChanged="SetToFirstLevel" runat="server" ID="ddlIssueStatus" 
+                        CssClass="cmbField" AutoPostBack="true" >
                     <asp:ListItem>Select</asp:ListItem>
                     <asp:ListItem>Open</asp:ListItem>
                     <asp:ListItem>Close</asp:ListItem>
