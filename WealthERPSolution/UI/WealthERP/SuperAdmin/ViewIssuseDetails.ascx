@@ -215,9 +215,14 @@
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="true" VerticalAlign="Top" />
                         </telerik:GridBoundColumn> 
                          
-                        <telerik:GridBoundColumn  DataField="CSI_ReportedDate" HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
+                         
+                         
+                        <telerik:GridDateTimeColumn  DataField="CSI_ReportedDate" AllowFiltering="true" HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
+                            <FilterTemplate>
+                                <telerik:RadDatePicker ID="calFilter" runat="server"></telerik:RadDatePicker>
+                            </FilterTemplate>
+                        </telerik:GridDateTimeColumn> 
                         
                         <telerik:GridBoundColumn  DataField="UR_RoleName" AllowFiltering="false"  HeaderText="Role Name" UniqueName="RoleName">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
@@ -239,9 +244,12 @@
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn> 
                         
-                        <telerik:GridBoundColumn  HeaderText="Closed Date" DataField="CSI_ResolvedDate" UniqueName="ResolvedDate" DataFormatString="{0:d}">
+                        <telerik:GridDateTimeColumn  HeaderText="Closed Date" DataField="CSI_ResolvedDate" UniqueName="ResolvedDate" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
+                            <FilterTemplate>
+                                <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                            </FilterTemplate>
+                        </telerik:GridDateTimeColumn> 
                         
                         <telerik:GridBoundColumn  HeaderText="status" AllowFiltering="true" DataField="XMLCSS_Name" UniqueName="status">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />

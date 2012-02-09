@@ -37,6 +37,7 @@ namespace WealthERP.SuperAdmin
         {
           
             csIssueGridViewBind();
+            gvCSIssueTracker_Init(sender,e);
         }
 
         public void csIssueGridViewBind()
@@ -77,6 +78,23 @@ namespace WealthERP.SuperAdmin
         public void ConfigureExport()
         {
            // gvCSIssueTracker.ExportSettings.IgnorePaging = chkExportAll.Checked;
+        }
+
+        protected void gvCSIssueTracker_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = gvCSIssueTracker.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
         }
 
     }

@@ -41,6 +41,51 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Label lblPriceMonitoring;
         
         /// <summary>
+        /// chkExportAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkExportAll;
+        
+        /// <summary>
+        /// btnViewInExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInExcel;
+        
+        /// <summary>
+        /// btnViewInWord control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInWord;
+        
+        /// <summary>
+        /// btnViewInPdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInPdf;
+        
+        /// <summary>
+        /// btnViewInCSV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInCSV;
+        
+        /// <summary>
         /// txtSearch control.
         /// </summary>
         /// <remarks>
