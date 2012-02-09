@@ -56,7 +56,7 @@
     <tr>
         <td align="center">
             <div class="success-msg" id="SuccessMessage" runat="server" visible="false" align="center">
-                Message sent to all Advisors Successfully...
+                Message sent to Selected Advisors Successfully...
             </div>
         </td>
     </tr>
