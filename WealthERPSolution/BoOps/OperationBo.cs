@@ -156,12 +156,12 @@ namespace BoOps
             return dsOrderMIS;
         }
 
-        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId)
+        public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
         {
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId);
+                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId,schemeSwitch);
             }
             catch (BaseApplicationException Ex)
             {
@@ -172,12 +172,13 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:GetOrderMannualMatch()");
-                object[] objects = new object[5];
+                object[] objects = new object[6];
                 objects[0] = scheme;
                 objects[1] = accountId;
                 objects[2] = type;
                 objects[3] = amount;
                 objects[4] = orderDate;
+                objects[5] = schemeSwitch;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
