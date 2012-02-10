@@ -1133,8 +1133,16 @@ namespace WealthERP.Admin
                 ddlSchemeList.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlSchemeList.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlSchemeList.DataBind();
+                ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
             }
-            ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
+            else
+            {
+                ddlSchemeList.Items.Clear();
+                ddlSchemeList.DataSource = null;
+                ddlSchemeList.DataBind();
+                ddlSchemeList.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            
         }
         protected void ddYear_SelectedIndexChanged(object sender, EventArgs e)
         {
