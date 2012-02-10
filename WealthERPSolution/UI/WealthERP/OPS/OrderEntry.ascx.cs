@@ -91,6 +91,7 @@ namespace WealthERP.OPS
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
                     customerVo = customerBo.GetCustomer(customerId);
+                    hdnCustomerId.Value = customerVo.CustomerId.ToString();
                     txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
                     lblGetBranch.Text = customerVo.BranchName;
                     lblGetRM.Text = customerVo.RMName;
