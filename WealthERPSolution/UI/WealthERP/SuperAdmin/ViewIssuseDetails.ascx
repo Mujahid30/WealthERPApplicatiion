@@ -105,7 +105,6 @@
     });
 </script>
 
-
 <table width="1012px">
     <tr>
     <td class="HeaderCell">
@@ -120,7 +119,7 @@
     </table>
         
    
-   <div> 
+   <%--<div> 
         <div id="ContainerPanel" class="ContainerPanel">
         <div id="header" class="collapsePanelHeader"> 
             <div id="dvHeaderText" class="HeaderContent">More Export Options</div>
@@ -132,29 +131,25 @@
                        
             <br />
             <br />
-            <asp:Button ID="btnViewInExcel" CssClass="DOCButton" PostBackUrl="../Images/Export_Excel.png" 
-            runat="server"></asp:Button>&nbsp&nbsp&nbsp
+            <asp:Button ID="btnViewInExcel" CssClass="ExcelButton" runat="server"></asp:Button>&nbsp&nbsp&nbsp
             <div id="div1" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in Excel format.
                 </p>
             </div>
-            <asp:Button ID="btnViewInWord" CssClass="DOCButton" PostBackUrl="../Images/Export_Excel.png" 
-            runat="server"></asp:Button>&nbsp&nbsp&nbsp
+            <asp:Button ID="btnViewInWord" CssClass="DOCButton" runat="server"></asp:Button>&nbsp&nbsp&nbsp
             <div id="div2" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in Word format.
                 </p>
             </div>
-            <asp:Button ID="btnViewInPdf" CssClass="PDFButton" PostBackUrl="../Images/Export_Excel.png" 
-            runat="server"></asp:Button>&nbsp&nbsp&nbsp
+            <asp:Button ID="btnViewInPdf" CssClass="PDFButton" runat="server"></asp:Button>&nbsp&nbsp&nbsp
             <div id="div3" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in Pdf format.
                 </p>
             </div>
-            <asp:Button ID="btnViewInCSV" CssClass="DOCButton" PostBackUrl="../Images/Export_Excel.png" 
-            runat="server"></asp:Button>  
+            <asp:Button ID="btnViewInCSV" CssClass="CSVButton" runat="server"></asp:Button>  
             <div id="div4" style="display: none;">
                 <p class="tip">
                     Click here to view equity report in CSV format.
@@ -165,7 +160,7 @@
         </div>
     </div>          
     
-    </div>
+    </div>--%>
    
     
  <table class="TableBackground" width="100%">

@@ -542,7 +542,7 @@ namespace DaoSuperAdmin
             try
             {
                 db.AddInParameter(getCSIssueDataAccordingToCSIdCmd, "@CSI_id", DbType.String, csId);
-                db.AddInParameter(getCSIssueDataAccordingToCSIdCmd, "@XMLCSL_Name", DbType.String, 1);
+               //db.AddInParameter(getCSIssueDataAccordingToCSIdCmd, "@XMLCSL_Name", DbType.String, 1);
                 ds = db.ExecuteDataSet(getCSIssueDataAccordingToCSIdCmd);
                 return ds;
             }
@@ -1091,11 +1091,17 @@ namespace DaoSuperAdmin
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedBy", DbType.String, superAdminCSIssueTrackerVo.CSILA_RepliedBy);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate ", DbType.DateTime, superAdminCSIssueTrackerVo.CSILA_RepliedDate);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Version",DbType.Int32 ,DBNull.Value);
-                j = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
 
+                db.AddOutParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id", DbType.Int32, 1);
+
+                j = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
+                int csilaId = Convert.ToChar(db.GetParameterValue(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id"));
+                
                 db.AddInParameter(cmdCloseIssue, "@CSI_id ", DbType.Int32, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(cmdCloseIssue, "@CSI_ResolvedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ResolvedDate);
-                db.AddInParameter(cmdCloseIssue, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code); 
+                db.AddInParameter(cmdCloseIssue, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(cmdCloseIssue, "@CSILA_Id", DbType.String, csilaId);
+
                 i = db.ExecuteNonQuery(cmdCloseIssue);
             }
             catch (Exception ex)
@@ -1198,11 +1204,16 @@ namespace DaoSuperAdmin
                     db.AddInParameter(insertIssueLevelCmd, "@CSILA_RepliedDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(insertIssueLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
                 db.AddInParameter(insertIssueLevelCmd, "@CSILA_Version", DbType.String, DBNull.Value);
+                db.AddOutParameter(insertIssueLevelCmd, "@CSILA_Id", DbType.Int32, 1);
 
                 k = db.ExecuteNonQuery(insertIssueLevelCmd);
 
+                int csilaId = Convert.ToChar(db.GetParameterValue(insertIssueLevelCmd, "@CSILA_Id"));
+
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, csId);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+
 
                 l = db.ExecuteNonQuery(InsertIntoCSIssueActiveLevelCmd);
 
@@ -1241,9 +1252,12 @@ namespace DaoSuperAdmin
                     db.AddInParameter(insertIssueLevelCmd, "@CSILA_RepliedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ReportedDate);
                 db.AddInParameter(insertIssueLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
                 db.AddInParameter(insertIssueLevelCmd, "@CSILA_Version", DbType.String, superAdminCSIssueTrackerVo.CSILA_Version);
+                db.AddOutParameter(insertIssueLevelCmd, "@CSILA_Id", DbType.Int32, 1);
 
                 k = db.ExecuteNonQuery(insertIssueLevelCmd);
+                int csilaId = Convert.ToChar(db.GetParameterValue(insertIssueLevelCmd, "@CSILA_Id"));
 
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
 
@@ -1284,11 +1298,13 @@ namespace DaoSuperAdmin
                     db.AddInParameter(insertIssueLevelCmd, "@CSILA_RepliedDate", DbType.DateTime, superAdminCSIssueTrackerVo.CSI_ReportedDate);
                 db.AddInParameter(insertIssueLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
                 db.AddInParameter(insertIssueLevelCmd, "@CSILA_Version", DbType.String, DBNull.Value);
-
+                db.AddOutParameter(insertIssueLevelCmd, "@CSILA_Id", DbType.Int32, 1);
                 k = db.ExecuteNonQuery(insertIssueLevelCmd);
 
+                int csilaId = Convert.ToChar(db.GetParameterValue(insertIssueLevelCmd, "@CSILA_Id"));
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
 
                 l = db.ExecuteNonQuery(InsertIntoCSIssueActiveLevelCmd);
 
@@ -1324,10 +1340,15 @@ namespace DaoSuperAdmin
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedBy", DbType.String, superAdminCSIssueTrackerVo.CSILA_RepliedBy);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate ", DbType.DateTime, superAdminCSIssueTrackerVo.CSILA_RepliedDate);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Version", DbType.Int32,DBNull.Value);
+                db.AddOutParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id", DbType.Int32, 1);
+
+
                 i = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
 
+                int csilaId = Convert.ToChar(db.GetParameterValue(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id"));
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
 
                 j = db.ExecuteNonQuery(InsertIntoCSIssueActiveLevelCmd);
 
@@ -1364,10 +1385,15 @@ namespace DaoSuperAdmin
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedBy", DbType.String, superAdminCSIssueTrackerVo.CSILA_RepliedBy);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate ", DbType.DateTime, superAdminCSIssueTrackerVo.CSILA_RepliedDate);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Version", DbType.String, superAdminCSIssueTrackerVo.CSILA_Version);
+                db.AddOutParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id", DbType.Int32, 1);
+                
                 i = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
+
+                int csilaId = Convert.ToChar(db.GetParameterValue(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id"));
 
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
 
                 j = db.ExecuteNonQuery(InsertIntoCSIssueActiveLevelCmd);
 
@@ -1405,11 +1431,17 @@ namespace DaoSuperAdmin
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedBy", DbType.String, superAdminCSIssueTrackerVo.CSILA_RepliedBy);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_RepliedDate ", DbType.DateTime, superAdminCSIssueTrackerVo.CSILA_RepliedDate);
                 db.AddInParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Version", DbType.String, superAdminCSIssueTrackerVo.CSILA_Version);
+
+                db.AddOutParameter(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id", DbType.Int32, 1);
                 i = db.ExecuteNonQuery(cmdUpdateCSIssueLevelAssociationCSDetails);
+
+                int csilaId = Convert.ToChar(db.GetParameterValue(cmdUpdateCSIssueLevelAssociationCSDetails, "@CSILA_Id"));
 
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSI_id", DbType.String, superAdminCSIssueTrackerVo.CSI_id);
                 db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@XMLCSL_Code", DbType.Int32, superAdminCSIssueTrackerVo.XMLCSL_Code);
 
+                db.AddInParameter(InsertIntoCSIssueActiveLevelCmd, "@CSILA_Id", DbType.String, csilaId);
+                
                 j = db.ExecuteNonQuery(InsertIntoCSIssueActiveLevelCmd);
 
 

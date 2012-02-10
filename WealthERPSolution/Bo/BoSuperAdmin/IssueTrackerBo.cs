@@ -30,9 +30,21 @@ namespace BoSuperAdmin
            {
                return superAdmincsissueTrackerDao.InsertcsissueTrackerDetails(csIssueTrackerVO);
            }
-           catch(Exception ex)
+           catch (BaseApplicationException ex)
            {
                throw ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+               object[] objects = new object[0];
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
            }
        }
 
@@ -43,9 +55,21 @@ namespace BoSuperAdmin
            {
                return superAdmincsissueTrackerDao.InsertIntoCSIssueLevel1ToLevel1(csIssueTrackerVO);
            }
-           catch(Exception ex)
+           catch (BaseApplicationException ex)
            {
                throw ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+               object[] objects = new object[0];
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
            }
        }
 
@@ -56,9 +80,21 @@ namespace BoSuperAdmin
            {
                return superAdmincsissueTrackerDao.InsertIntoCSIssueLevel2ToAnyLevel(csIssueTrackerVO);
            }
-           catch(Exception ex)
+           catch (BaseApplicationException ex)
            {
                throw ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+               object[] objects = new object[0];
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
            }
        }
 
@@ -69,9 +105,21 @@ namespace BoSuperAdmin
            {
                return superAdmincsissueTrackerDao.InsertIntoCSIssueLevel3ToAnyLevel(csIssueTrackerVO);
            }
-           catch(Exception ex)
+           catch (BaseApplicationException ex)
            {
                throw ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+               object[] objects = new object[0];
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
            }
        }
 
@@ -355,9 +403,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.getCSIssueDetails();
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -373,9 +433,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.getCSIssueDataAccordingToCSId(csId );
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -390,9 +462,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.GetAdviserPhoneNOandEmailidAccordingToAdviserName(strOrgName);
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         } 
 
@@ -407,9 +491,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.GetQACSIssueDataAccordingToCSId(csId );
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -425,9 +521,20 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.GetDEVCSIssueDataAccordingToCSId(csId);
             }
-            catch
+            catch(BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -437,9 +544,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.GetSearchDetails(strSearch);
             }
-            catch
+            catch(BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -454,9 +573,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.InsertQAData(superAdminCSIssueTrackerVo);
             }
-            catch
+            catch(BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -467,9 +598,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.InsertQADataLevel2(superAdminCSIssueTrackerVo);
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         /// <summary>
@@ -486,9 +629,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.InsertQADataLevel3(superAdminCSIssueTrackerVo);
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         
@@ -503,9 +658,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.InsertDEVData(superAdminCSIssueTrackerVo);
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -515,9 +682,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.InsertDEVDataLevel2Send(superAdminCSIssueTrackerVo);
             }
-            catch
+            catch (BaseApplicationException ex)
             {
-                throw;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         
@@ -550,10 +729,22 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationDEVDetails(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
-            }            
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }     
         }
 
         /// <summary>
@@ -567,10 +758,22 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationCSDetails(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
-            }            
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }           
         }
 
         public int UpdateCSIssueLevelAssociationLevel1ToAnyLevel(IssueTrackerVo superAdminCSIssueTrackerVo)
@@ -579,10 +782,22 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationLevel1ToAnyLevel(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
-            }            
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }           
         }
 
         public int UpdateCSIssueLevelAssociationLevel2ToAnyLevel(IssueTrackerVo superAdminCSIssueTrackerVo)
@@ -591,9 +806,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationLevel2ToAnyLevel(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }            
         }
 
@@ -603,9 +830,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationLevel3ToAnyLevel(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }            
         }
 
@@ -615,9 +854,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationDEVDetailsLevel3(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }            
         }
 
@@ -627,9 +878,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationDEVDetailsLevel2(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }            
         }
          
@@ -640,9 +903,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationCSDetailsLevel2(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }            
         }
         /// <summary>
@@ -656,10 +931,22 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.UpdateCSIssueLevelAssociationQADetails(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
-            }            
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }           
         }
         /// <summary>
         /// 
@@ -672,9 +959,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.CloseIssue(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 
@@ -684,9 +983,21 @@ namespace BoSuperAdmin
             {
                 return superAdmincsissueTrackerDao.CloseIssueOnLevel1(superAdminCSIssueTrackerVo);
             }
-            catch (BaseApplicationException Ex)
+            catch (BaseApplicationException ex)
             {
-                throw Ex;
+                throw ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddIssue.ascx.cs:OnInit()");
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
     }

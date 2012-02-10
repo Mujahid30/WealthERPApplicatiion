@@ -35,9 +35,12 @@ namespace WealthERP.SuperAdmin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          
-            csIssueGridViewBind();
-            gvCSIssueTracker_Init(sender,e);
+            if (!IsPostBack)
+            {
+                csIssueGridViewBind();
+                gvCSIssueTracker_Init(sender, e);
+            }
+           // btnSearch_Click(sender, e);
         }
 
         public void csIssueGridViewBind()
@@ -70,7 +73,7 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSILA_Comments = strSearch.ToString();
             superAdminCSIssueTrackerVo.CSILA_RepliedBy = strSearch.ToString();
             superAdminCSIssueTrackerVo.CSILA_RepliedBy= strSearch.ToString();
-            DataSet ds = superAdminOpsBo.GetSearchDetails(strSearch);
+            DataSet ds = superAdminOpsBo.GetSearchDetails(strSearch);            
             gvCSIssueTracker.DataSource = ds;
             gvCSIssueTracker.DataBind();
         }
@@ -86,7 +89,7 @@ namespace WealthERP.SuperAdmin
             int i = 0;
             while (i < menu.Items.Count)
             {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
                 {
                     i++;
                 }
