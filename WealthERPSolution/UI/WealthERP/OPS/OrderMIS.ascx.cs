@@ -878,6 +878,7 @@ namespace WealthERP.OPS
                 int accountId = 0;
                 int CustomerId = 0;
                 double Amount = 0.0;
+                int schemeCodeSwitch = 0;
                 string TrxType = string.Empty;
                 DateTime OrderDate = DateTime.MinValue;
                 foreach (GridViewRow gvRow1 in gvMIS.Rows)
@@ -895,7 +896,11 @@ namespace WealthERP.OPS
                         TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
                         OrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_OrderDate"].ToString());
-                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                        if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanSwitch"].ToString()))
+                            schemeCodeSwitch = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanSwitch"].ToString());
+                        else
+                            schemeCodeSwitch = 0;
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
                     }
 
                 }
