@@ -18,6 +18,7 @@ namespace WealthERP.OPS
        int scheme;
        int accountId;
        int customerId;
+       int schemeSwitch;
        string type;
        double amount;
        DateTime orderDate;
@@ -61,10 +62,14 @@ namespace WealthERP.OPS
             {
                 customerId = Convert.ToInt32(Request.QueryString["Customerid"]);
             }
+            if (Request.QueryString["SchemeSwitch"] != null)
+            {
+                schemeSwitch = Convert.ToInt32(Request.QueryString["SchemeSwitch"]);
+            }
             
             if (!IsPostBack)
             {
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId);
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
                 //if (Session["GridView"] != null)
                 //    dtOrderRecon = (DataTable)Session["GridView"];
                 //if (Request.QueryString["result"] != null)
@@ -72,13 +77,13 @@ namespace WealthERP.OPS
              } 
         }
 
-        private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId)
+        private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
         {
             //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId);
+            dsOrderMannualMatch = operationBo.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
@@ -125,7 +130,7 @@ namespace WealthERP.OPS
             if (count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId);
+                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
             }
             else
             {
