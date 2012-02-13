@@ -61,11 +61,12 @@ namespace WealthERP.SuperAdmin
             BindDDLLevel();
             
             BindDDLStatus();
-                        
+            SetToFirstLevel(sender,e);           
+ 
             BindDDLCustomerPriority();
             if (!IsPostBack)
             {
-                HideCloseDate();
+                //HideCloseDate();
                 BindDDLTypes(issueTypeId);
                 BindDDLAdviser(adviserId);
                 BindDDLRoleList(dtIssueTrackerDetails);
@@ -107,12 +108,14 @@ namespace WealthERP.SuperAdmin
                 strStatus = Request.QueryString["strStatus"].ToString();
                 if (strStatus == "Closed ")
                 {
+                    dtSolveDate.Visible = true;
                     System.Drawing.Color color = System.Drawing.Color.FromArgb(34 - 139 - 34);
                     lblTypes.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
                     lblOpenClose.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
                 }
                 else if(strStatus=="Open ")
                 {
+                    dtSolveDate.Visible = false;
                     System.Drawing.Color color = System.Drawing.Color.FromArgb(34 - 139 - 34);
                     lblTypes.Attributes.Add("style", "text-decoration:blink; color: Red");
                     lblOpenClose.Attributes.Add("style", "text-decoration:blink; color: Red");
@@ -221,7 +224,12 @@ namespace WealthERP.SuperAdmin
                 CsLevelDataInsertion();
                 QaLevelDataInsertion();
                 DevLevelDataInsertion();
-                dtSolveDate.Enabled = false;
+                if (ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString() != "")
+                {
+                    dtSolveDate.Enabled = false;
+                    lblSolveDate.Visible = true;
+                    dtSolveDate.Visible = true;
+                }
             }
             else
             {
@@ -277,9 +285,13 @@ namespace WealthERP.SuperAdmin
                 ddlIssueStatus.SelectedValue = ds.Tables[0].Rows[0]["XMLCSS_Code"].ToString();
                 txtVersionReadOnly.Text = ds.Tables[0].Rows[0]["CSILA_Version"].ToString();
                 if (ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString().Equals(""))
-                    dtSolveDate.SelectedDate = DateTime.Now;//wfh
+                    dtSolveDate.Visible = false;
                 else
                     dtSolveDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString());
+                //if (dtSolveDate.SelectedDate != DateTime.MinValue)
+                //{
+                //    dtSolveDate.Visible = true;
+                //}
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = true;
             }
@@ -668,11 +680,18 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSILA_Comments = txtComments.Text;
             superAdminCSIssueTrackerVo.CSI_Atuhor = txtReportedBy.Text;
             superAdminCSIssueTrackerVo.CSI_ReportedDate = txtReportedDate.SelectedDate.Value;
-            if (dtSolveDate.SelectedDate != null)
-                superAdminCSIssueTrackerVo.CSI_ResolvedDate = dtSolveDate.SelectedDate.Value;
-            else
-
+            if (dtSolveDate.Visible == false)
+            {
                 superAdminCSIssueTrackerVo.CSI_ResolvedDate = DateTime.MinValue;
+            }
+            else
+            {
+                if (dtSolveDate.SelectedDate != null)
+                    superAdminCSIssueTrackerVo.CSI_ResolvedDate = dtSolveDate.SelectedDate.Value;
+                else
+
+                    superAdminCSIssueTrackerVo.CSI_ResolvedDate = DateTime.MinValue;
+            }
             superAdminCSIssueTrackerVo.XMLCSL_Code = int.Parse(ddlReportFromCS.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCSP_Code = int.Parse(ddlPriority.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCSS_Code = int.Parse(ddlIssueStatus.SelectedValue);
@@ -1176,15 +1195,16 @@ namespace WealthERP.SuperAdmin
             }
             public void SetToFirstLevel(Object sender, EventArgs e)
             {
-                if(ddlIssueStatus.SelectedValue.Equals("3"))
-                {
-                ShowCloseDate();
-                ddlReportFromCS.SelectedItem.Value.Equals("10");
-                }
-                else if (ddlIssueStatus.SelectedValue.Equals("2"))
+                if(ddlIssueStatus.SelectedValue.Equals("2"))
                 {
                     HideCloseDate();
                     //ddlReportFromCS.SelectedItem.Value.Equals("10");
+                }
+                else if (ddlIssueStatus.SelectedValue.Equals("3"))
+                {
+                    
+                    ShowCloseDate();
+                    ddlReportFromCS.SelectedItem.Value.Equals("10");
                 }
                
             }
@@ -1198,6 +1218,7 @@ namespace WealthERP.SuperAdmin
             {
                 lblSolveDate.Visible = true;
                 dtSolveDate.Visible = true;
+                dtSolveDate.SelectedDate = DateTime.Now;
             }
 
         }
