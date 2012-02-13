@@ -32,6 +32,8 @@ namespace WealthERP.SuperAdmin
         IssueTrackerBo superAdminOpsBo = new IssueTrackerBo();
         LinkButton lnkIssueCode;
         string strCsId;
+        string strSearch = null;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -68,7 +70,7 @@ namespace WealthERP.SuperAdmin
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            string strSearch = null;
+            
             strSearch = "%" + txtSearch.Text +"%";
             superAdminCSIssueTrackerVo.CSILA_Comments = strSearch.ToString();
             superAdminCSIssueTrackerVo.CSILA_RepliedBy = strSearch.ToString();
@@ -100,5 +102,15 @@ namespace WealthERP.SuperAdmin
             }
         }
 
+        protected void gvCSIssueTracker_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet ds = superAdminOpsBo.GetSearchDetails(strSearch);
+            gvCSIssueTracker.DataSource = ds;
+            gvCSIssueTracker.DataBind();
+
+            gvCSIssueTracker.VirtualItemCount = ds.Tables[0].Rows.Count;
+            gvCSIssueTracker.DataSource = ds;
+
+        }
     }
 }
