@@ -190,7 +190,7 @@ namespace DaoWerpAdmin
                 dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@IsActive", DbType.Int16, 1);
                 dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@Createdby", DbType.Int32, 10000);
                 dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@Modifiedby", DbType.Int32, 10000);
-                //dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@gvAdviserIds", DbType.String, gvAdviserIds);
+                dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@gvAdviserIds", DbType.String, gvAdviserIds);
                 dbMessageBroadcast.ExecuteNonQuery(CmdMessageBroadcast);
 
             }

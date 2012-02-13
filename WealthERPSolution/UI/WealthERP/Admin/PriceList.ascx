@@ -305,7 +305,48 @@
                 </td>
             </tr>
         </table>
-        <table style="width: 100%">
+        
+       <table>
+        <tr id="trgrMfView">
+        <td>
+            <telerik:RadGrid OnNeedDataSource="gvMFRecord_OnNeedDataSource" ID="gvMFRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
+                    AllowAutomaticInserts="false">
+                   
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
+                     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
+                      <Columns>                         
+                        <telerik:GridBoundColumn DataField="SchemePlanCode" AllowFiltering="false"  HeaderText="Scheme Plan Code" UniqueName="SchemePlanCode" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="SchemePlanName" AllowFiltering="false"  HeaderText="Scheme Plan Name" UniqueName="SchemePlanName" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="NetAssetValue" AllowFiltering="false"  HeaderText="Net AssetValue" UniqueName="NetAssetValue" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="RepurchasePrice" AllowFiltering="false"  HeaderText="Repurchase Price" UniqueName="RepurchasePrice" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="SalePrice" AllowFiltering="false"  HeaderText="Sale Price" UniqueName="SalePrice" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="PostDate" AllowFiltering="false"  HeaderText="NAV Date" UniqueName="NAVDate" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>  
+                    </Columns>
+                    </MasterTableView>
+                    <ClientSettings>                       
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                    </telerik:RadGrid>
+        </td>
+    </tr>
+</table>
+        
+        <%--<table style="width: 100%">
             <tr id="trgrMfView" runat="server">
                 <td>
                     <asp:GridView ID="gvMFRecord" runat="server" AutoGenerateColumns="False" 
@@ -318,13 +359,13 @@
                         <EditRowStyle CssClass="EditRowStyle" />
                         <AlternatingRowStyle CssClass="AltRowStyle" />
                         <Columns>
-                            <%--<asp:BoundField DataField="SchemePlanName" HeaderText="Scheme Plan Name" SortExpression="PASP_SchemePlanName" />--%>
+                           <asp:BoundField DataField="SchemePlanName" HeaderText="Scheme Plan Name" SortExpression="PASP_SchemePlanName" />
                             <asp:BoundField DataField="SchemePlanCode" HeaderText="Scheme Plan Code" />
                             <asp:TemplateField>
                                 <HeaderTemplate>
                                     <asp:Label ID="lblName" runat="server" align="center" Text="Scheme Plan Name"></asp:Label>
                                     <br />
-                                   <%-- <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_AdminPriceList_btnSearch');" />--%>
+                                  <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="txtField" onkeydown="return JSdoPostback(event,'ctrl_AdminPriceList_btnSearch');" />
                                 </HeaderTemplate>
                             
                                 <ItemTemplate>
@@ -337,7 +378,7 @@
                             <asp:BoundField DataField="RepurchasePrice" HeaderText="Repurchase Price" />
                             <asp:BoundField DataField="SalePrice" HeaderText="Sale Price" />
                             <asp:BoundField DataField="PostDate" HeaderText="NAV Date" />
-                            <%--<asp:BoundField DataField="Date" HeaderText="Date" />--%>
+                            <asp:BoundField DataField="Date" HeaderText="Date" />
                         </Columns>
                     
                     </asp:GridView>
@@ -385,7 +426,7 @@
                 <td>
                 </td>
             </tr>
-        </table>
+        </table>--%>
     </div>
     <div id="DivEquity" runat="server" style="display: none">
         <table style="width: 100%">
@@ -1490,3 +1531,42 @@
         BackColor="Transparent" />
           <asp:HiddenField ID="hdnassetType" runat="server" />
 </div>
+<%--<table>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvNAVPriceList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
+                    AllowAutomaticInserts="false">
+                   
+                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
+                     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
+                      <Columns>                         
+                        <telerik:GridBoundColumn DataField="SchemePlanCode" AllowFiltering="false"  HeaderText="Scheme Plan Code" UniqueName="SchemePlanCode" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="SchemePlanName" AllowFiltering="false"  HeaderText="Scheme Plan Name" UniqueName="SchemePlanName" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="NetAssetValue" AllowFiltering="false"  HeaderText="Net AssetValue" UniqueName="NetAssetValue" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="RepurchasePrice" AllowFiltering="false"  HeaderText="Repurchase Price" UniqueName="RepurchasePrice" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="SalePrice" AllowFiltering="false"  HeaderText="Sale Price" UniqueName="SalePrice" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="PostDate" AllowFiltering="false"  HeaderText="NAV Date" UniqueName="NAVDate" >
+                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                        </telerik:GridBoundColumn>  
+                    </Columns>
+                    </MasterTableView>
+                    <ClientSettings>                       
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                    </telerik:RadGrid>
+        </td>
+    </tr>
+</table>--%>

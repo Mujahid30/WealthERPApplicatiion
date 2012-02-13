@@ -18,7 +18,7 @@ namespace DaoWerpAdmin
     public class PriceDao
     {
 
-        public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             DataSet ds;
             Database db;
@@ -31,7 +31,7 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@EndDate", DbType.DateTime, EndDate);
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
@@ -59,7 +59,7 @@ namespace DaoWerpAdmin
         }
 
 
-        public DataSet GetEquitySnapshot(string Flag, String Search, int CurrentPage)
+        public DataSet GetEquitySnapshot(string Flag, String Search)
         {
             DataSet ds;
             Database db;
@@ -70,7 +70,7 @@ namespace DaoWerpAdmin
                 Cmd = db.GetStoredProcCommand("SP_GetProductEquityPriceHistorySnapshot");
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
@@ -94,7 +94,7 @@ namespace DaoWerpAdmin
         }
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode)
         {
 
             DataSet ds;
@@ -106,7 +106,7 @@ namespace DaoWerpAdmin
                 Cmd = db.GetStoredProcCommand("SP_GetProductAMFIPriceHistorySnapshot");
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
                 db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
                 db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
@@ -134,7 +134,7 @@ namespace DaoWerpAdmin
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
         }
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode)
         {
 
             DataSet ds;
@@ -148,7 +148,7 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@EndDate", DbType.DateTime, EndDate);
                 db.AddInParameter(Cmd, "@Search", DbType.String, Search);
                 db.AddInParameter(Cmd, "@Flag", DbType.String, Flag);
-                db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(Cmd, "CurrentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
                 db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
                 db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);

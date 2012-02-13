@@ -16,10 +16,10 @@ namespace BoWerpAdmin
     public class PriceBo
     {
 
-        public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage)
+        public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetEquityRecord(Flag, StartDate, EndDate, Search, CurrentPage);
+            return PriceObj.GetEquityRecord(Flag, StartDate, EndDate, Search);
 
         }
 
@@ -31,10 +31,10 @@ namespace BoWerpAdmin
         }
 
 
-        public DataSet GetEquitySnapshot(string Flag, String Search, int CurrentPage)
+        public DataSet GetEquitySnapshot(string Flag, String Search)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetEquitySnapshot(Flag, Search, CurrentPage);
+            return PriceObj.GetEquitySnapshot(Flag, Search);
 
         }
 
@@ -47,10 +47,10 @@ namespace BoWerpAdmin
 
 
 
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, CurrentPage, amfiCode, schemeCode,selectAllCode);
+            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, amfiCode, schemeCode,selectAllCode);
 
         }
 
@@ -64,10 +64,10 @@ namespace BoWerpAdmin
 
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFISnapshot(Flag, Search, CurrentPage,amfiCode,schemeCode,selectAllCode);
+            return PriceObj.GetAMFISnapshot(Flag, Search,amfiCode,schemeCode,selectAllCode);
 
         }
 
