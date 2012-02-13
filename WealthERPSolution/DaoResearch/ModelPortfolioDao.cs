@@ -1020,5 +1020,29 @@ namespace DaoResearch
         //    }
         //    return dt;
         //}
+
+        public bool ResetAdviserRiskScore(int adviserId)
+        {
+            int affectedRecords = 0;
+            Database db;
+            DbCommand resetRecordsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                resetRecordsCmd = db.GetStoredProcCommand("SP_ResetRiskScore");
+                db.AddInParameter(resetRecordsCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddOutParameter(resetRecordsCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(resetRecordsCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(resetRecordsCmd, "@IsSuccess").ToString());         
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            if (affectedRecords > 0)
+                return true;
+            else
+                return false;
+        }
     }
 }

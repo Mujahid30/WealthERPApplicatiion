@@ -765,6 +765,21 @@ namespace BoResearch
         //    }
         //    return dt;
         //}
-    
+
+        public bool ResetAdviserRiskScore(int adviserId)
+        {
+            bool result;
+            DataTable dt = new DataTable();
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
+            try
+            {
+               result=modelPortfolioDao.ResetAdviserRiskScore(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 }

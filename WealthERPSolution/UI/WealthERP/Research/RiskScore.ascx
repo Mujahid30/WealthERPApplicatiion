@@ -727,7 +727,13 @@
 
 <script type="text/javascript">
     function showmessage() {
-        alert('Risk Score Lower Limit is not proper');
+        alert('Risk Score is not proper');
+    }
+</script>
+
+<script type="text/javascript">
+    function showAlertmessage() {
+        alert('Min Score and Max Score is not covered');
     }
 </script>
 
@@ -866,6 +872,18 @@
                     
                 </telerik:RadGrid>  
         </td>
+    </tr>
+    <tr>
+    <td>
+    </td>
+    <td>
+      <asp:Button ID="btnSubmitRiskScore" CssClass="PCGLongButton" Text="Submit" 
+            runat="server" onclick="btnSubmitRiskScore_Click"> </asp:Button>
+   
+      
+      <asp:Button ID="btnRiskScoreReset" CssClass="PCGLongButton" Text="Reset Score" 
+            runat="server" onclick="btnRiskScoreReset_Click"> </asp:Button>
+     </td>
     </tr>
 </table>     
 </asp:Panel>

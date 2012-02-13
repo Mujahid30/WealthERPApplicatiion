@@ -35,16 +35,17 @@ namespace WealthERP.Research
         protected void Page_Load(object sender, EventArgs e)
         {
             adviserVo = (AdvisorVo)Session["AdvisorVo"];
-            BindAdviserAssumptions();
+           
             if (!IsPostBack)
             {
                 pnlAdviserQuestionsDisplay.Visible = true;
                 pnlAdviserQuestionsMaintanance.Visible = false;
                 pnlMaintanceFormTitle.Visible = false;
                 GetAndBindAdviserQuestionsAndAnswers(0, string.Empty);
+                BindAdviserAssumptions();
             }
             Page.RegisterStartupScript("load", "<script> DisableAllValidations();</script>");
-            
+            BindAdviserRiskScoreGrid();
         }
 
         private void GetAndBindAdviserQuestionsAndAnswers(int QuestionId, string FromWhere)
@@ -487,7 +488,8 @@ namespace WealthERP.Research
                         {
                             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
                         }
-                        else if (index == (lastRow-1))
+
+                        else if (index == (lastRow - 1))
                         {
                             if (upperLimit != maxScore)
                             {
@@ -495,36 +497,84 @@ namespace WealthERP.Research
                             }
                             else
                             {
-                                adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                                BindAdviserAssumptions();
-                                RadGrid1.Rebind();
+                                //adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                                //BindAdviserAssumptions();
+                                //RadGrid1.Rebind();
+
+                                foreach (DataRow dr in dtTemp.Rows)
+                                {
+                                    if (dr["XRC_RiskClassCode"].ToString() == classCode)
+                                    {
+                                        dr["WRPR_RiskScoreLowerLimit"] = lowerLimit.ToString();
+                                        dr["WRPR_RiskScoreUpperLimit"] = upperLimit.ToString();
+                                    }
+                                }
+
                             }
-                        }                        
+                        }
                         else
                         {
-                            adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                            BindAdviserAssumptions();
-                            RadGrid1.Rebind();
-                        }                        
+                            //adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                            //BindAdviserAssumptions();
+                            //RadGrid1.Rebind();
+                            if ((Convert.ToInt32(dtTemp.Rows[index + 1]["WRPR_RiskScoreLowerLimit"].ToString())) != 0)
+                            {
+                                if (upperLimit != (Convert.ToInt32(dtTemp.Rows[index + 1]["WRPR_RiskScoreUpperLimit"].ToString()) - 1))
+                                {
+                                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                                }
+                            }
+                            else
+                            {
+                                foreach (DataRow dr in dtTemp.Rows)
+                                {
+                                    if (dr["XRC_RiskClassCode"].ToString() == classCode)
+                                    {
+                                        dr["WRPR_RiskScoreLowerLimit"] = lowerLimit.ToString();
+                                        dr["WRPR_RiskScoreUpperLimit"] = upperLimit.ToString();
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        if (lowerLimit != minScore)
+                        if (lowerLimit != minScore || upperLimit > maxScore)
                         {
                             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
                         }
-                        else
-                        {
-                            adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
-                            BindAdviserAssumptions();
-                            RadGrid1.Rebind();
+                        else   if ((Convert.ToInt32(dtTemp.Rows[index + 1]["WRPR_RiskScoreLowerLimit"].ToString())) != 0)
+                            {
+                                if (upperLimit != (Convert.ToInt32(dtTemp.Rows[index + 1]["WRPR_RiskScoreLowerLimit"].ToString()) - 1))
+                                {
+                                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
+                                }
+                            }
+                            else
+                            {
+                                foreach (DataRow dr in dtTemp.Rows)
+                                {
+                                    if (dr["XRC_RiskClassCode"].ToString() == classCode)
+                                    {
+                                        dr["WRPR_RiskScoreLowerLimit"] = lowerLimit.ToString();
+                                        dr["WRPR_RiskScoreUpperLimit"] = upperLimit.ToString();
+                                    }
+
+                                }
+                            }
+                            //adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                            //BindAdviserAssumptions();
+                            //RadGrid1.Rebind();
                         }
-                    }
+                 
+                   
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showmessage();", true);
                 }
+                //Session["RiskClassScore"] = dtTemp;
+                Session["Data"]=dtTemp;
             }
             catch (Exception ex)
             {
@@ -1119,6 +1169,85 @@ namespace WealthERP.Research
             pnlMaintanceFormTitle.Visible = false;
             pnlAdviserQuestionsMaintanance.Visible = false;
             pnlAdviserQuestionsDisplay.Visible = true;
+        }
+
+        protected void btnSubmitRiskScore_Click(object sender, EventArgs e)
+        {
+            DataTable dtRiskClassScore = new DataTable();
+            if (Session["Data"] != null)
+            {
+                dtRiskClassScore = (DataTable)Session["Data"];
+                string classCode;
+                int minScore = 0, MaxScore = 0;
+                int minAccountLevel = int.MaxValue;
+                int maxAccountLevel = int.MinValue; 
+                int minRiskScoreByQuestion = int.Parse(txtMinScore.Text);
+                int maxRiskScoreByQuestion = int.Parse(txtMaxScore.Text);
+                foreach (DataRow drRiskClassScore in dtRiskClassScore.Rows)
+                {
+                    // minScore1 = double.Parse(drRiskClassScore["WRPR_RiskScoreLowerLimit"].ToString());
+                   int minRiskScore = int.Parse(drRiskClassScore["WRPR_RiskScoreLowerLimit"].ToString());
+                   int maxRiskScore = int.Parse(drRiskClassScore["WRPR_RiskScoreUpperLimit"].ToString());
+                   minAccountLevel = Math.Min(minAccountLevel, minRiskScore);
+                   maxAccountLevel = Math.Max(maxAccountLevel, maxRiskScore);
+                }
+                if (minAccountLevel == minRiskScoreByQuestion && maxAccountLevel == maxRiskScoreByQuestion)
+                {
+                    foreach (DataRow dr in dtRiskClassScore.Rows)
+                    {
+                        classCode = dr["XRC_RiskClassCode"].ToString();
+                        int lowerLimit = int.Parse(dr["WRPR_RiskScoreLowerLimit"].ToString());
+                        int upperLimit = int.Parse(dr["WRPR_RiskScoreUpperLimit"].ToString());
+                        adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
+                        BindAdviserAssumptions();
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been inserted successfully');", true);
+                    }
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:showAlertmessage();", true);
+                }
+            }
+        }
+        public void BindAdviserRiskScoreGrid()
+        {
+            if (Session["Data"] != null)
+            {
+                DataTable dtRiskScore = (DataTable)Session["Data"];
+                RadGrid1.DataSource = dtRiskScore;
+                RadGrid1.DataBind();
+            }
+            else
+            {
+                BindAdviserAssumptions();
+            }
+        }
+
+        protected void btnRiskScoreReset_Click(object sender, EventArgs e)
+        {
+            bool result;
+            if (Session["Data"] != null)
+            {
+                DataTable dtRiskScore = (DataTable)Session["Data"];
+                int minAccountLevel = int.MaxValue;               
+                foreach (DataRow drRiskClassScore in dtRiskScore.Rows)
+                {
+                    // minScore1 = double.Parse(drRiskClassScore["WRPR_RiskScoreLowerLimit"].ToString());
+                    int minRiskScore = int.Parse(drRiskClassScore["WRPR_RiskScoreUpperLimit"].ToString());                    
+                    minAccountLevel = Math.Min(minAccountLevel, minRiskScore);                    
+                }
+                if (minAccountLevel != 0)
+                {
+                    result = modelPortfolioBo.ResetAdviserRiskScore(adviserVo.advisorId);
+                    if (result)
+                    {
+                        // Success Message
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been reset to Zero');", true);
+                    }
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been reset to Zero');", true);
+                BindAdviserAssumptions();
+            }
         }
     }
 }
