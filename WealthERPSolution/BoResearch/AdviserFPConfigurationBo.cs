@@ -407,6 +407,21 @@ namespace BoResearch
             }
             return bResult;
         }
+
+        public DataTable GetMaxMinAge(int adviserId, string riskClass)
+        {
+            DataTable dtGetMaxMinAge;
+            AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
+            try
+            {
+                dtGetMaxMinAge = adviserFPConfigurationDao.GetMaxMinAge(adviserId, riskClass);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+             return dtGetMaxMinAge;
+        }
     }
 }
 
