@@ -70,6 +70,7 @@
 </telerik:RadCodeBlock>--%>
     
 <table class="TableBackground" style="width: 100%;">
+<tr>
     <td class="HeaderTextBig" colspan="2">
         <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
@@ -156,7 +157,7 @@
             </Columns>
             <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit" FormCaptionStyle-CssClass="TableBackground"
             PopUpSettings-Modal="true" PopUpSettings-ZIndex="20" EditFormType="Template" FormCaptionStyle-Width="100%" 
-            PopUpSettings-Height="400px" PopUpSettings-Width="800px">            
+            PopUpSettings-Height="500px" PopUpSettings-Width="900px">            
                 <FormTemplate>
                     <table>
                       <tr id="trAddNamePortfolio" runat="server">
@@ -334,11 +335,24 @@
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAge" runat="server" Text='<%# Bind( "XAMP_MinAge") %>' CssClass="txtField">
-                            </asp:TextBox>                            
+                            </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="rfvMinAge" ControlToValidate="txtMinAge"
+                            ErrorMessage="<br />Please enter the Minimum age" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator> 
+                                    <asp:CompareValidator ID="cv2MinAge" runat="server"  ErrorMessage="<br />Age should be greater than or equal to 20"
+                            ControlToValidate="txtMinAge" ValueToCompare="20" Operator="GreaterThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>                           
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
-                            </asp:TextBox>                            
+                            </asp:TextBox><span id="Span8" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="rfvMaxAge" ControlToValidate="txtMaxAge"
+                            ErrorMessage="<br />Please enter the maximum age" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator>
+                            
+                            <asp:CompareValidator ID="cv2MaxAge" runat="server" ErrorMessage="<br />Max age should be greater than min age" Type="Integer"
+                             ControlToValidate="txtMaxAge" ControlToCompare="txtMinAge" Operator="GreaterThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>                              
                         </td>
                       </tr>
                       <tr>
