@@ -542,7 +542,10 @@ namespace WealthERP.Customer
                 }
                 else
                 {
-                    GetAssetAllocation();
+                    //GetAssetAllocation();
+                    lblChartErrorDisplay.Visible = true;
+                    lblChartErrorDisplay.Text = "Model Portfolio is not set for your age!";
+                    ChartRecomonedAsset.Visible = false;
                 }
             }
             else
