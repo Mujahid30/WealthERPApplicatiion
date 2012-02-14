@@ -307,7 +307,7 @@
         </table>
         
        <table>
-        <tr id="trgrMfView">
+        <tr>
         <td>
             <telerik:RadGrid OnNeedDataSource="gvMFRecord_OnNeedDataSource" ID="gvMFRecord" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -333,7 +333,7 @@
                         <telerik:GridBoundColumn DataField="SalePrice" AllowFiltering="false"  HeaderText="Sale Price" UniqueName="SalePrice" >
                             <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PostDate" AllowFiltering="false"  HeaderText="NAV Date" UniqueName="NAVDate" >
+                        <telerik:GridBoundColumn DataFormatString={0:d} DataField="PostDate" AllowFiltering="false"  HeaderText="NAV Date" UniqueName="NAVDate" >
                             <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
                         </telerik:GridBoundColumn>  
                     </Columns>
