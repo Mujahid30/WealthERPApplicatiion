@@ -1834,12 +1834,20 @@ namespace BoCustomerPortfolio
 
                         mfPortfolioVoList[i].CurrentValue = Math.Round(currentValue, 5);
                         if (notionalProfitLoss != 0)
-                            mfPortfolioVoList[i].UnRealizedPNL = mfPortfolioVoList[i].CurrentValue - mfPortfolioVoList[i].AcqCostExclDivReinvst;
+                        {
+                            //MJ Request Change in 5.5 Release
+                            //mfPortfolioVoList[i].UnRealizedPNL = mfPortfolioVoList[i].CurrentValue - mfPortfolioVoList[i].AcqCostExclDivReinvst;
+                            mfPortfolioVoList[i].UnRealizedPNL = Math.Round(currentValue - acqCostExclDivReinvst, 5);
+                        }
                         else
                             mfPortfolioVoList[i].UnRealizedPNL = 0;
                         //Formula Chnaged As per Vivek & KM Requirement
                         //mfPortfolioVoList[i].TotalPNL = Math.Round(realizedSalesProceed - costOfSales + currentValue - acqCostExclDivReinvst + dividendIncome, 5);
-                        mfPortfolioVoList[i].TotalPNL = Math.Round((realizedSalesProceed - costOfSales + dividendPayout) + mfPortfolioVoList[i].UnRealizedPNL + dividendreinvested, 5);
+                        //mfPortfolioVoList[i].TotalPNL = Math.Round((realizedSalesProceed - costOfSales + dividendPayout) + mfPortfolioVoList[i].UnRealizedPNL + dividendreinvested, 5);
+                        //MJ Request Change-RE-5.5
+                        mfPortfolioVoList[i].TotalPNL = Math.Round((mfPortfolioVoList[i].RealizedPNL + mfPortfolioVoList[i].UnRealizedPNL+dividendPayout), 5);
+
+
                         mfPortfolioVoList[i].RealizedSalesProceed = Math.Round(realizedSalesProceed, 5);
                         mfPortfolioVoList[i].SalesQuantity = Math.Round(salesQuantity, 5);
                         mfPortfolioVoList[i].CostOfSales = Math.Round(costOfSales, 5);
