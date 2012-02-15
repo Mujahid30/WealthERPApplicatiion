@@ -42,7 +42,7 @@ namespace WealthERP.SuperAdmin
                 csIssueGridViewBind();
                 gvCSIssueTracker_Init(sender, e);
             }
-           // btnSearch_Click(sender, e);
+            btnSearch_Click(sender, e);
         }
 
         public void csIssueGridViewBind()
