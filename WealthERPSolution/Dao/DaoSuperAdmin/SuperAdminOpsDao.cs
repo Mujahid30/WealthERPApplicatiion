@@ -447,12 +447,11 @@ namespace DaoSuperAdmin
            {
                db = DatabaseFactory.CreateDatabase("wealtherp");
                syncSIPtoGoalCmd = db.GetStoredProcCommand("SP_SyncSIPToGoalAllocation");
-               db.AddInParameter(syncSIPtoGoalCmd, "@AdviserId", DbType.String, adviserId);
+               db.AddInParameter(syncSIPtoGoalCmd, "@AdviserId", DbType.Int32, adviserId);
                db.AddOutParameter(syncSIPtoGoalCmd, "@IsSuccess", DbType.Int16, 0);
                if (db.ExecuteNonQuery(syncSIPtoGoalCmd) != 0)
                    affectedRecords = int.Parse(db.GetParameterValue(syncSIPtoGoalCmd, "@IsSuccess").ToString());
-               syncSIPtoGoalCmd.CommandTimeout = 60 * 60;
-               db.ExecuteNonQuery(syncSIPtoGoalCmd);
+              
            }
            catch (BaseApplicationException Ex)
            {
