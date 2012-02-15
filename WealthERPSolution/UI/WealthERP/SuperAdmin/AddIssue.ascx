@@ -55,14 +55,17 @@
         </td>
         <td class="rightField">
             <asp:DropDownList CssClass="cmbField" ID="ddlAdviser" runat="server" 
-                onselectedindexchanged="ddlAdviser_SelectedIndexChanged" AutoPostBack="true">
+                onselectedindexchanged="ddlAdviser_SelectedIndexChanged" AutoPostBack="true" ValidationGroup="vgBtnSubmitTemp" onchange="Page_BlockSubmit = false;">
             </asp:DropDownList>
             <span class="spnRequiredField">*</span>
-             <br />     
-            <asp:CompareValidator ID="ddlAdviser_CompareValidator" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlAdviser"
+             <br />   
+             <asp:RequiredFieldValidator ID="reqddlAdviser" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an Advisor"
+              Text="Please select an Advisor" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlAdviser" InitialValue="0">
+             </asp:RequiredFieldValidator>  
+           <%-- <asp:CompareValidator ID="ddlAdviser_CompareValidator" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlAdviser"
                 ErrorMessage="Please select an Advisor" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG">
-            </asp:CompareValidator>
+            </asp:CompareValidator>--%>
         </td>
         <td class="leftField"> 
             
@@ -90,7 +93,7 @@
             <asp:TextBox CssClass="txtField" ID="txtCustomerName" runat="server"></asp:TextBox>
             <span class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator Display="Dynamic" runat="server" ErrorMessage="Please Enter Contact Person" ValidationGroup="vgBtnSubmit" ControlToValidate="txtCustomerName" CssClass="cvPCG"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator Display="Dynamic" runat="server" ErrorMessage="Please Enter Contact Person" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="txtCustomerName" CssClass="cvPCG"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField">  
             <asp:Label ID="Label3" class="FieldName" Text="Phone :" runat="server" />
@@ -113,18 +116,23 @@
                  runat="server" ></asp:Label></td>
          <td class="rightField"><asp:Label ID="lblTypes" Font-Bold="true" CssClass="blinkColors" runat="server"></asp:Label></td>
     </tr>
-    
+    <asp:UpdatePanel EnableViewState="true" runat="server">
+    <ContentTemplate>
     <tr>
         <td class="leftField"><asp:Label class="FieldName" runat="server" Text="Select Functionality :" ID="lblRole"></asp:Label></td>
         <td class="rightField"><asp:DropDownList CssClass="cmbField" runat="server" 
                 ID="ddlRole" AutoPostBack="true" 
                 onselectedindexchanged="ddlRole_SelectedIndexChanged"></asp:DropDownList>
                 <span class="spnRequiredField">*</span>
-                <br />     
+                <br />    
+                <asp:RequiredFieldValidator ID="ddlRole_RequiredFieldValidator" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Role"
+                 Text="Select Goal Type" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlRole" InitialValue="0">
+             </asp:RequiredFieldValidator> 
+              <%--   
             <asp:CompareValidator ID="CompareValidator1" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlRole"
                 ErrorMessage="Please select a Role" Operator="NotEqual" ValueToCompare="Select User Role"
                 Display="Dynamic" CssClass="cvPCG">
-            </asp:CompareValidator>
+            </asp:CompareValidator>--%>
         </td>
         <td class="leftField"></td>
         <td class="rightField">
@@ -133,11 +141,14 @@
                 onselectedindexchanged="ddlTreeNode_SelectedIndexChanged">
                 </asp:DropDownList>
                 <span class="spnRequiredField">*</span>
-                <br />     
-            <asp:CompareValidator ID="CompareValidator2" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlTreeNode"
+                <br />    
+                <asp:RequiredFieldValidator ID="ddlTreeNode_RequiredFieldValidator" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Tree Node"
+                 Text="Please select a Tree Node" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlTreeNode" InitialValue="0">
+             </asp:RequiredFieldValidator>  
+           <%-- <asp:CompareValidator ID="CompareValidator2" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlTreeNode"
                 ErrorMessage="Please select a Tree Node" Operator="NotEqual" ValueToCompare="Select Tree Node"
                 Display="Dynamic" CssClass="cvPCG">
-            </asp:CompareValidator>
+            </asp:CompareValidator>--%>
                 
         </td>
         <td class="leftField"></td>
@@ -160,6 +171,8 @@
                 </asp:CompareValidator>--%>
         </td>
     </tr>
+    </ContentTemplate>
+    </asp:UpdatePanel>
 </table>
    
 <table id="tblAdvisorSecondPanel">
@@ -171,7 +184,11 @@
             ></asp:TextBox>
             <span style="vertical-align:top" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator CssClass="cvPCG" Display="Dynamic" ControlToValidate="txtDescription" ErrorMessage="Enter The Description" ValidationGroup="vgBtnSubmit" runat="server"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="txtDescription_RequiredFieldValidator" runat="server" CssClass="rfvPCG" ErrorMessage="Enter The Description"
+                 Text="Enter The Description" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="txtDescription" InitialValue="0">
+             </asp:RequiredFieldValidator> 
+            <%--<asp:RequiredFieldValidator CssClass="cvPCG" Display="Dynamic" ControlToValidate="txtDescription"
+             ErrorMessage="Enter The Description" ValidationGroup="vgBtnSubmit" runat="server"></asp:RequiredFieldValidator>--%>
             </td> 
               
 </tr>
@@ -206,7 +223,7 @@
                  </telerik:RadDatePicker>
                  <span class="spnRequiredField">*</span>
                  <br />
-                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmit" runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic" ControlToValidate="txtReportedDate"></asp:RequiredFieldValidator>
+                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp" runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic" ControlToValidate="txtReportedDate"></asp:RequiredFieldValidator>
                  
                     </td>
                 <td><asp:Label ID="lblSolveDate" runat="server" Text="Closed Date" class="FieldName"></asp:Label></td>
@@ -230,11 +247,14 @@
     <td class="rightField"><asp:DropDownList CssClass="cmbField" ID="ddlIssueType" runat="server">
         </asp:DropDownList>
         <span class="spnRequiredField">*</span>
-        <br />     
-            <asp:CompareValidator ID="CompareValidator5" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlIssueType"
+        <br />   
+          <asp:RequiredFieldValidator ID="ddlIssueType_RequiredFieldValidator" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an Issue Type"
+                 Text="Please select an Issue Type" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlIssueType" InitialValue="0">
+             </asp:RequiredFieldValidator> 
+           <%-- <asp:CompareValidator ID="CompareValidator5" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlIssueType"
                 ErrorMessage="Please select an Issue Type" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG">
-            </asp:CompareValidator>    
+            </asp:CompareValidator>--%>    
     </td>
     <td class="leftField"><asp:Label class="FieldName" ID="lblReportedVia" Text="Reported Via:" runat="server"></asp:Label></td>
     <td class="rightField"><asp:DropDownList CssClass="cmbField" ID="ddlReportedBy" runat="server">
@@ -246,11 +266,14 @@
         <asp:ListItem>Others</asp:ListItem>
         </asp:DropDownList>
         <span class="spnRequiredField">*</span>
-        <br />     
-            <asp:CompareValidator ID="CompareValidator6" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlReportedBy"
+        <br /> 
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG" ErrorMessage="Please select Reported Via"
+                 Text="Please select Reported Via" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlReportedBy" InitialValue="Select">
+             </asp:RequiredFieldValidator>     
+            <%--<asp:CompareValidator ID="CompareValidator6" ValidationGroup="vgBtnSubmit" runat="server" ControlToValidate="ddlReportedBy"
                 ErrorMessage="Please select Reported Via" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG">
-            </asp:CompareValidator>     
+            </asp:CompareValidator> --%>    
     </td>
         <td  class="leftField"><asp:Label class="FieldName" ID="Label8" Text="Priority :" runat="server"></asp:Label></td>
         <td  class="rightField">    
@@ -285,7 +308,7 @@
                 <td ><asp:TextBox CssClass="txtField" ID="txtComments" runat="server" TextMode="MultiLine"  Width="300px" Height="100px"></asp:TextBox>
                 <span style="vertical-align:top" class="spnRequiredField">*</span>
                 <br />
-                <asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ControlToValidate="txtComments" ErrorMessage="Enter Your Comments" ValidationGroup="vgBtnSubmit"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ControlToValidate="txtComments" ErrorMessage="Enter Your Comments" ValidationGroup="vgBtnSubmitTemp"></asp:RequiredFieldValidator>
                 </td>
                 <td valign="top">
                     <table>
@@ -294,7 +317,11 @@
                             <td><asp:TextBox CssClass="txtField" ID="txtReportedBy" runat="server"></asp:TextBox>
                             <span class="spnRequiredField">*</span>
                             <br />
-                            <asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ErrorMessage="Enter Your Name" Display="Dynamic" ControlToValidate="txtReportedBy" ValidationGroup="vgBtnSubmit"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG" ErrorMessage="Enter Your Name"
+                 Text="Enter Your Name" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ControlToValidate="txtReportedBy">
+             </asp:RequiredFieldValidator> 
+                            <%--<asp:RequiredFieldValidator runat="server" CssClass="cvPCG" ErrorMessage="Enter Your Name" Display="Dynamic" 
+                            ControlToValidate="txtReportedBy" ValidationGroup="vgBtnSubmit"></asp:RequiredFieldValidator>--%>
                             </td>
                              <td class="leftField"><asp:Label class="FieldName" runat="server" ID="lblChkCSClose" Text="Status :"></asp:Label></td>
                 <td class="rightField"><asp:DropDownList OnSelectedIndexChanged="SetToFirstLevel" runat="server" ID="ddlIssueStatus" 
@@ -325,11 +352,11 @@
                <td></td><td></td>
                 <td>
                             <asp:Button ID="btnSubmit" runat="server" Text="Submit"  
-                                CssClass="PCGButton" onclick="btnSubmit_Click" ValidationGroup="vgBtnSubmit"/>
+                                CssClass="PCGButton" onclick="btnSubmit_Click" ValidationGroup="vgBtnSubmitTemp"/>
                             </td>
                 <td>
                             <asp:Button ID="btnUpdate" runat="server" Text="Update"  
-                                CssClass="PCGButton" onclick="btnUpdate_Click" ValidationGroup="vgBtnSubmit"/>        
+                                CssClass="PCGButton" onclick="btnUpdate_Click" ValidationGroup="vgBtnSubmitTemp"/>        
                         </td>
             </tr>
         </table>

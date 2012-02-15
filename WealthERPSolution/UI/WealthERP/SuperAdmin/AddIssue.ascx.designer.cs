@@ -68,13 +68,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
         
         /// <summary>
-        /// ddlAdviser_CompareValidator control.
+        /// reqddlAdviser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator ddlAdviser_CompareValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator reqddlAdviser;
         
         /// <summary>
         /// lblAdviserPhoneNumber control.
@@ -221,13 +221,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.DropDownList ddlRole;
         
         /// <summary>
-        /// CompareValidator1 control.
+        /// ddlRole_RequiredFieldValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ddlRole_RequiredFieldValidator;
         
         /// <summary>
         /// ddlTreeNode control.
@@ -239,13 +239,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.DropDownList ddlTreeNode;
         
         /// <summary>
-        /// CompareValidator2 control.
+        /// ddlTreeNode_RequiredFieldValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ddlTreeNode_RequiredFieldValidator;
         
         /// <summary>
         /// ddlSubNode control.
@@ -282,6 +282,15 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        
+        /// <summary>
+        /// txtDescription_RequiredFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator txtDescription_RequiredFieldValidator;
         
         /// <summary>
         /// lblIssueNo control.
@@ -401,13 +410,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
         
         /// <summary>
-        /// CompareValidator5 control.
+        /// ddlIssueType_RequiredFieldValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ddlIssueType_RequiredFieldValidator;
         
         /// <summary>
         /// lblReportedVia control.
@@ -428,13 +437,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.DropDownList ddlReportedBy;
         
         /// <summary>
-        /// CompareValidator6 control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// Label8 control.
@@ -516,6 +525,15 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReportedBy;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// lblChkCSClose control.

@@ -43,6 +43,8 @@ namespace WealthERP.SuperAdmin
         DateTime strCloseDate;
         int strCsId;
         DataSet dsTreeNode = new DataSet();
+        string xmlPath;
+        DataTable dtXML = new DataTable();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -523,12 +525,12 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.DataTextField = "Key";
                     ddlAdviser.DataValueField = "Value";
                     ddlAdviser.DataBind();
-                    ddlAdviser.Items.Insert(0, new ListItem("Select", "Select"));
+                    ddlAdviser.Items.Insert(0, new ListItem("Select", "0"));
                 }                
             }
             else
             {
-                ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
 
@@ -551,7 +553,7 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.DataValueField = "Value";
                     ddlAdviser.DataBind();
                     ddlAdviser.SelectedIndex = 0;
-                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
                 
             }
@@ -576,7 +578,7 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.DataValueField = "Value";
                     ddlAdviser.DataBind();
                     ddlAdviser.SelectedIndex = 0;
-                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
                 
             }
@@ -601,7 +603,7 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.DataValueField = "Value";
                     ddlAdviser.DataBind();
                     ddlAdviser.SelectedIndex = 0;
-                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                    ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
                 
             }
@@ -619,7 +621,7 @@ namespace WealthERP.SuperAdmin
                     ddlRole.DataTextField = dtRoleDropDown.Columns["UR_RoleName"].ToString();
                     ddlRole.DataBind();
                 }
-                ddlRole.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select User Role", "Select User Role"));
+                ddlRole.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select User Role", "0"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -645,18 +647,19 @@ namespace WealthERP.SuperAdmin
                     ddlIssueType.DataTextField = "Key";
                     ddlIssueType.DataValueField = "Value";
                     ddlIssueType.DataBind();
-                    ddlIssueType.Items.Insert(0, new ListItem("Select", "Select"));
+                    ddlIssueType.Items.Insert(0, new ListItem("Select", "0"));
                 }
             }
             else
             {
-                ddlIssueType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+                ddlIssueType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
             }
         }
 
         
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            //Page.Validate("vgBtnSubmit");
             int result = 0;
             int statusResult = 0;
             superAdminCSIssueTrackerVo.A_AdviserId=int.Parse(ddlAdviser.SelectedValue);
@@ -856,9 +859,18 @@ namespace WealthERP.SuperAdmin
             if (ddlSubNode.SelectedIndex != 0)
             {
                 roleId = int.Parse(ddlRole.SelectedValue);
-                treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
-                treeSubSubNodeId = int.Parse(ddlSubNode.SelectedValue);
-                TreeSubSubNodeDropdown(roleId, treeSubNodeId, treeSubSubNodeId);
+                if (roleId == 1006)
+                {
+                    treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
+                    treeSubNodeId = int.Parse(ddlSubNode.SelectedValue);
+                    SuperadminTreeSubSubNodeDropdown(roleId, treeSubNodeId, treeSubSubNodeId);
+                }
+                else
+                {
+                    treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
+                    treeSubSubNodeId = int.Parse(ddlSubNode.SelectedValue);
+                    TreeSubSubNodeDropdown(roleId, treeSubNodeId, treeSubSubNodeId);
+                }
             }
             else
             {
@@ -866,6 +878,53 @@ namespace WealthERP.SuperAdmin
             }
 
         }
+
+
+        public void SuperadminTreeSubSubNodeDropdown(int roleId, int treeSubNodeId, int treeSubSubNodeId)
+        {
+            DataSet ds = new DataSet();
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            dtXML = XMLBo.GetSuperAdminTreeSubSubNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            DataTable dtSubNodeDetails = new DataTable();
+            dtSubNodeDetails.Columns.Add("TreeSubSubNodeId");
+            dtSubNodeDetails.Columns.Add("TreeSubSubNodetext");
+            DataRow drSubNode;
+            try
+            {
+                int count = dtXML.Rows.Count;
+                DataRow[] drSubNodeDetails;
+                if (dtXML.Rows.Count > 0)
+                {
+                    drSubNodeDetails = dtXML.Select("TreeSubNodeCode =" + treeSubNodeId.ToString());
+
+                    foreach (DataRow dr in drSubNodeDetails)
+                    {
+                        drSubNode = dtSubNodeDetails.NewRow();
+                        drSubNode["TreeSubSubNodeId"] = dr["TreeSubSubNodeCode"].ToString();
+                        drSubNode["TreeSubSubNodetext"] = dr["TreeSubSubNodetext"].ToString();
+                        dtSubNodeDetails.Rows.Add(drSubNode);
+                    }
+                    ddlSubSubNode.DataSource = dtSubNodeDetails;
+                    ddlSubSubNode.DataValueField = dtSubNodeDetails.Columns["TreeSubSubNodeId"].ToString();
+                    ddlSubSubNode.DataTextField = dtSubNodeDetails.Columns["TreeSubSubNodetext"].ToString();
+                    ddlSubSubNode.DataBind();
+                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "0"));
+
+
+                }
+                else
+                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
 
         private void TreeSubSubNodeDropdown(int roleId,int treeSubNodeId,int treeSubSubNodeId)
         {
@@ -881,12 +940,12 @@ namespace WealthERP.SuperAdmin
                     ddlSubSubNode.DataValueField = dtTreeSubSubNode.Columns["WTSSN_TreeSubSubNodeId"].ToString();
                     ddlSubSubNode.DataTextField = dtTreeSubSubNode.Columns["WTSSN_TreeSubSubNodeText"].ToString();
                     ddlSubSubNode.DataBind();
-                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubSubNode", "Select Tree SubSubNode"));
+                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubSubNode", "0"));
                 }
                 else
                 {
                     ddlSubSubNode.Items.Clear();
-                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubSubNode", "Select Tree SubSubNode"));
+                    ddlSubSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubSubNode", "0"));
                 }
 
             }
@@ -900,8 +959,15 @@ namespace WealthERP.SuperAdmin
         {            
             if (ddlRole.SelectedIndex != 0)
             {
-                roleId = int.Parse(ddlRole.SelectedValue);
-                TreeNodeDropdown(roleId);
+                roleId = int.Parse(ddlRole.SelectedValue);                
+                if (roleId == 1006)
+                {
+                    SuperAdminTreeNodeDropdown(roleId);
+                }
+                else
+                {
+                    TreeNodeDropdown(roleId);
+                }
             }
             else
             {
@@ -910,7 +976,35 @@ namespace WealthERP.SuperAdmin
 
         }
 
+        public void SuperAdminTreeNodeDropdown(int roleId)
+        {
+            DataSet ds=new DataSet();
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            try
+            {
+                if (dtXML.Rows.Count > 0)
+                {
+                    ddlTreeNode.DataSource = dtXML;
+                    ddlTreeNode.DataValueField = dtXML.Columns["TreeNodeCode"].ToString();
+                    ddlTreeNode.DataTextField = dtXML.Columns["TreeNodeText"].ToString();
+                    ddlTreeNode.DataBind();
+                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
+                }
+                else
+                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+     
 
         private void TreeNodeDropdown(int roleId)
         {
@@ -926,10 +1020,10 @@ namespace WealthERP.SuperAdmin
                     ddlTreeNode.DataValueField = dtTreeNode.Columns["WTN_TreeNodeId"].ToString();
                     ddlTreeNode.DataTextField = dtTreeNode.Columns["WTN_TreeNodeText"].ToString();
                     ddlTreeNode.DataBind();
-                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "Select Tree Node"));
+                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
                 }
                 else
-                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "Select Tree Node"));
+                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
 
             }
             catch (BaseApplicationException Ex)
@@ -952,12 +1046,12 @@ namespace WealthERP.SuperAdmin
                     ddlSubNode.DataValueField = dtTreeSubNode.Columns["WTSN_TreeSubNodeId"].ToString();
                     ddlSubNode.DataTextField = dtTreeSubNode.Columns["WTSN_TreeSubNodeText"].ToString();
                     ddlSubNode.DataBind();
-                    ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "Select Tree SubNode"));
+                    ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "0"));
                 }
                 else
                 {
                     ddlSubNode.Items.Clear();
-                    ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "Select Tree SubNode"));
+                    ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "0"));
                 }
 
             }
@@ -973,13 +1067,66 @@ namespace WealthERP.SuperAdmin
             if (ddlTreeNode.SelectedIndex!= 0)
             {
                 roleId = int.Parse(ddlRole.SelectedValue);
-                treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
-                TreeSubNodeDropdown(roleId, treeSubNodeId);
+                if (roleId == 1006)
+                {
+                    treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
+                    SuperadminTreeSubNodeDropdown(roleId, treeSubNodeId);
+                }
+                else
+                {
+                    treeSubNodeId = int.Parse(ddlTreeNode.SelectedValue);
+                    TreeSubNodeDropdown(roleId, treeSubNodeId);
+                }
             }
             else
             {
                 ddlTreeNode.SelectedIndex = 0;
             }           
+        }
+
+        public void SuperadminTreeSubNodeDropdown(int roleId, int treeSubNodeId)
+        {
+            DataSet ds = new DataSet();
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            dtXML = XMLBo.GetSuperAdminTreeSubNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            DataTable dtSubNodeDetails = new DataTable();
+            dtSubNodeDetails.Columns.Add("TreeSubNodeId");
+            dtSubNodeDetails.Columns.Add("TreeSubNodetext");
+            DataRow drSubNode;
+            try
+            {
+                int count=dtXML.Rows.Count;
+                DataRow[] drSubNodeDetails;
+                if (dtXML.Rows.Count > 0)
+                {
+                    drSubNodeDetails = dtXML.Select("TreeNodeCode =" + treeSubNodeId.ToString());
+
+                    foreach (DataRow dr in drSubNodeDetails)
+                    {
+                        drSubNode=dtSubNodeDetails.NewRow();
+                        drSubNode["TreeSubNodeId"] = dr["TreeSubNodeCode"].ToString();
+                        drSubNode["TreeSubNodetext"] = dr["TreeSubNodeText"].ToString();
+                        dtSubNodeDetails.Rows.Add(drSubNode);
+                    }
+                    ddlSubNode.DataSource = dtSubNodeDetails;
+                    ddlSubNode.DataValueField = dtSubNodeDetails.Columns["TreeSubNodeId"].ToString();
+                    ddlSubNode.DataTextField = dtSubNodeDetails.Columns["TreeSubNodetext"].ToString();
+                    ddlSubNode.DataBind();
+                    ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "0"));
+
+                   
+                }
+                else
+                    ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
         }
 
         protected void ddlAdviser_SelectedIndexChanged(object sender, EventArgs e)
@@ -1212,12 +1359,14 @@ namespace WealthERP.SuperAdmin
             {
                 lblSolveDate.Visible = false;
                 dtSolveDate.Visible = false;
+                dtSolveDate.Enabled = false;
             }
 
             public void ShowCloseDate()
             {
                 lblSolveDate.Visible = true;
                 dtSolveDate.Visible = true;
+                dtSolveDate.Enabled = false;
                 dtSolveDate.SelectedDate = DateTime.Now;
             }
 
