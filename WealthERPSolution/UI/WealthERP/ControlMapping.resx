@@ -1277,4 +1277,8 @@
     <value>SuperAdmin//SuperAdminGoalSIPFundingSync.ascx</value>
     <comment>SuperAdmin//SuperAdminGoalSIPFundingSync.ascx</comment>
   </data>
+  <data name="AccountDeactive" xml:space="preserve">
+    <value>General//AccountDeactive.ascx</value>
+    <comment>General//AccountDeactive.ascx</comment>
+  </data>
 </root>

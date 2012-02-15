@@ -61,6 +61,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General//AccountDeactive.ascx.
+        /// </summary>
+        internal static string AccountDeactive {
+            get {
+                return ResourceManager.GetString("AccountDeactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//AddBankDetails.ascx.
         /// </summary>
         internal static string AddBankDetails {

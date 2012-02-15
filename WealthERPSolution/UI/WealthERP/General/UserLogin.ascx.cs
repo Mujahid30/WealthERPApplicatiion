@@ -634,7 +634,7 @@ namespace WealthERP.General
                             Session["Theme"] = "Maroon";
                             Session["refreshTheme"] = true;
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
-                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderwjhh", "loadcontrol('CustomerFPAnalyticsDynamic','login');", true);
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsderwjhh", "loadcontrol('AccountDeactive','login');", true);
                         }
                         
                     }

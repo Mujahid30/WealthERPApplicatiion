@@ -2078,6 +2078,13 @@
     <Compile Include="FP\ProspectList.ascx.designer.cs">
       <DependentUpon>ProspectList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="General\AccountDeactive.ascx.cs">
+      <DependentUpon>AccountDeactive.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\AccountDeactive.ascx.designer.cs">
+      <DependentUpon>AccountDeactive.ascx</DependentUpon>
+    </Compile>
     <Compile Include="General\AdvisorHeader.ascx.cs">
       <DependentUpon>AdvisorHeader.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5139,6 +5146,7 @@
     <Content Include="FusionCharts\VLED.swf" />
     <Content Include="FusionCharts\Waterfall.swf" />
     <Content Include="FusionCharts\Waterfall2D.swf" />
+    <Content Include="General\AccountDeactive.ascx" />
     <Content Include="General\Calculators.ascx" />
     <Content Include="General\Dashboard.ascx" />
     <Content Include="General\SetTheme.ascx" />
