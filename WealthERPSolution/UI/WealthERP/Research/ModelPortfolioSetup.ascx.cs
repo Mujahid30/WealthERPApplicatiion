@@ -383,6 +383,8 @@ namespace WealthERP.Research
                 DataSet ds = adviserFPConfigurationBo.GetAdviserAssumptions(advisorVo.advisorId);
                 GridEditFormItem item = (GridEditFormItem)e.Item;
                 string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
+                int code = Convert.ToInt32(item.GetDataKeyValue("XAMP_ModelPortfolioCode"));
+
                 DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
                 TextBox txtboxPortfolioName = (TextBox)e.Item.FindControl("txtNamePortfolio");
                 TextBox txtboxMinAUM = (TextBox)e.Item.FindControl("txtMinAUM");
@@ -400,7 +402,7 @@ namespace WealthERP.Research
                 TextBox txtboxDebtAllocation = (TextBox)e.Item.FindControl("txtDebt");
                 TextBox txtboxEquityAllocation = (TextBox)e.Item.FindControl("txtEquity");
 
-                DataTable dtGetMaxminAge = adviserFPConfigurationBo.GetMaxMinAge(advisorVo.advisorId, riskCode);
+                DataTable dtGetMaxminAge = adviserFPConfigurationBo.GetMaxMinAgeModelPortFolio(advisorVo.advisorId, riskCode,code);
                 //int minAge = Convert.ToInt16(dtGetMaxminAge.Rows[0]["MinAge"].ToString());
                 //int maxAge = Convert.ToInt16(dtGetMaxminAge.Rows[0]["MaxAge"].ToString());
                 //int getminAge = int.Parse(txtboxMinAge.Text);
@@ -542,9 +544,7 @@ namespace WealthERP.Research
 
 
                     if (allocation == 100)
-                    {
-
-                        int code = Convert.ToInt32(item.GetDataKeyValue("XAMP_ModelPortfolioCode"));
+                    {                     
 
                         modelPortfolioVo.ModelPortfolioCode = code;
                         modelPortfolioVo.PortfolioName = txtboxPortfolioName.Text;

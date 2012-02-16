@@ -560,6 +560,29 @@ namespace DaoResearch
             }
             return dtGetMaxMinAge;
         }
+        public DataTable GetMaxMinAgeModelPortFolio(int adviserId, string riskClass, int modelPortfolioCode)
+        {
+            DataSet dsGetMaxMinAge;
+            DataTable dtGetMaxMinAge;
+            DbCommand getMaxMinAgeCmd;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMaxMinAgeCmd = db.GetStoredProcCommand("SP_GetMaxMinAgeModelPortFolio");
+                db.AddInParameter(getMaxMinAgeCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getMaxMinAgeCmd, "@riskClass", DbType.String, riskClass);
+                db.AddInParameter(getMaxMinAgeCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
+                dsGetMaxMinAge = db.ExecuteDataSet(getMaxMinAgeCmd);
+                dtGetMaxMinAge = dsGetMaxMinAge.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtGetMaxMinAge;
+        }
+        
     }
 }
 
