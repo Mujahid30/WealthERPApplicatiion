@@ -244,58 +244,143 @@ namespace WealthERP.SuperAdmin
             
         }
 
+      
+
         public void CsLevelDataInsertion()
         {
             DataSet ds = superAdminOpsBo.getCSIssueDataAccordingToCSId(strCsId);
+            int treeNodeId=0;
+            //int treeSubNodeId = 0;
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            DataRow[] drXmlTreeNode;
+
+            foreach (DataRow drMain in ds.Tables[0].Rows)
+            {
+                if (drMain["UR_RoleName"].ToString() == "Super Admin")
+                {
+                    treeNodeId = int.Parse(drMain["WTN_TreeNodeId"].ToString());
+                    drXmlTreeNode = dtXML.Select("TreeNodeCode=" + treeNodeId.ToString());
+
+                    foreach (DataRow dr in drXmlTreeNode)
+                    {
+                        drMain["WTN_TreeNodeText"] = dr["TreeNodeText"].ToString();
+                    }
+                }
+            }
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                ddlAdviser.SelectedValue = ds.Tables[0].Rows[0]["A_AdviserId"].ToString();
-                AdviserPhoneNo.Text = ds.Tables[0].Rows[0]["A_Phone1Number"].ToString();
-                AdviserEmail.Text = ds.Tables[0].Rows[0]["A_Email"].ToString();
-                txtCustomerName.Text = ds.Tables[0].Rows[0]["CSI_ContactPerson"].ToString();
-                txtCustomerPhone.Text = ds.Tables[0].Rows[0]["CSI_Phone"].ToString();
-                txtCustomerEmail.Text = ds.Tables[0].Rows[0]["CSI_Email"].ToString();
-                ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleName"].ToString();
-                ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleId"].ToString();
-                if (ddlRole.SelectedValue != "Select User Role")
+                if (ds.Tables[0].Rows[0]["UR_RoleName"].ToString() == "Super Admin")
+                {
+                    DataTable dtSubNodeDetails = new DataTable();
+                    ddlAdviser.SelectedValue = ds.Tables[0].Rows[0]["A_AdviserId"].ToString();
+                    AdviserPhoneNo.Text = ds.Tables[0].Rows[0]["A_Phone1Number"].ToString();
+                    AdviserEmail.Text = ds.Tables[0].Rows[0]["A_Email"].ToString();
+                    txtCustomerName.Text = ds.Tables[0].Rows[0]["CSI_ContactPerson"].ToString();
+                    txtCustomerPhone.Text = ds.Tables[0].Rows[0]["CSI_Phone"].ToString();
+                    txtCustomerEmail.Text = ds.Tables[0].Rows[0]["CSI_Email"].ToString();
+                    //ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleName"].ToString();
+                    ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleId"].ToString();
 
-                    TreeNodeDropdown(int.Parse(ddlRole.SelectedValue));
-                ddlTreeNode.SelectedValue = ds.Tables[0].Rows[0]["WTN_TreeNodeId"].ToString();
+                    if (ddlRole.SelectedValue != "Select User Role")
+                    {
+                        roleId = int.Parse(ddlRole.SelectedValue);
+                        SuperAdminTreeNodeDropdown(roleId);
+                    }
+                    ddlTreeNode.SelectedValue = ds.Tables[0].Rows[0]["WTN_TreeNodeId"].ToString();
+                    
 
-                if (ddlTreeNode.SelectedValue != "Select Tree Node")
-
-                    TreeSubNodeDropdown(int.Parse(ddlRole.SelectedValue), int.Parse(ddlTreeNode.SelectedValue));
-                ddlSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSN_TreeSubNodeId"].ToString();
-
-                if (ddlSubNode.SelectedValue != "Select Tree SubNode")
-
-                    TreeSubSubNodeDropdown(int.Parse(ddlRole.SelectedValue), int.Parse(ddlTreeNode.SelectedValue), int.Parse(ddlSubNode.SelectedValue));
-                ddlSubSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSSN_TreeSubSubNodeId"].ToString();
-
-                txtDescription.Text = ds.Tables[0].Rows[0]["CSI_CustomerDescription"].ToString();
-                txtIssueCode.Text = ds.Tables[0].Rows[0]["CSI_Code"].ToString();
-                txtIssueDate.Text = ds.Tables[0].Rows[0]["CSI_issueAddedDate"].ToString();
-                ddlIssueType.SelectedValue = ds.Tables[0].Rows[0]["XMLCST_Code"].ToString();
-                ddlReportedBy.SelectedValue = ds.Tables[0].Rows[0]["CSI_reportedVia"].ToString();
-                ddlCustomerPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLACSP_Code"].ToString();
-                txtComments.Text = ds.Tables[0].Rows[0]["CSILA_Comments"].ToString();
-                txtReportedBy.Text = ds.Tables[0].Rows[0]["CSI_Atuhor"].ToString();
-                txtReportedDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ReportedDate"].ToString());
-                ddlReportFromCS.SelectedValue = ds.Tables[0].Rows[0]["XMLCSL_Code"].ToString();
-                ddlPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLCSP_Code"].ToString();
-                ddlIssueStatus.SelectedValue = ds.Tables[0].Rows[0]["XMLCSS_Code"].ToString();
-                txtVersionReadOnly.Text = ds.Tables[0].Rows[0]["CSILA_Version"].ToString();
-                if (ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString().Equals(""))
-                    dtSolveDate.Visible = false;
+                    if (ddlTreeNode.SelectedValue != "Select Tree Node")
+                    {                        
+                        SuperadminTreeSubNodeDropdown(roleId, treeNodeId);
+                    }
+                    ddlSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSN_TreeSubNodeId"].ToString();
+                      
+                    if (ddlSubNode.SelectedValue != "Select Tree SubNode")
+                    {
+                        int treeSubNodeId = int.Parse((ddlSubNode.SelectedValue).ToString());                
+                        SuperadminTreeSubSubNodeDropdown(roleId, treeNodeId, treeSubNodeId);
+                    }
+                    ddlSubSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSSN_TreeSubSubNodeId"].ToString();
+                    
+                    
+                    txtDescription.Text = ds.Tables[0].Rows[0]["CSI_CustomerDescription"].ToString();
+                    txtIssueCode.Text = ds.Tables[0].Rows[0]["CSI_Code"].ToString();
+                    txtIssueDate.Text = ds.Tables[0].Rows[0]["CSI_issueAddedDate"].ToString();
+                    ddlIssueType.SelectedValue = ds.Tables[0].Rows[0]["XMLCST_Code"].ToString();
+                    ddlReportedBy.SelectedValue = ds.Tables[0].Rows[0]["CSI_reportedVia"].ToString();
+                    ddlCustomerPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLACSP_Code"].ToString();
+                    txtComments.Text = ds.Tables[0].Rows[0]["CSILA_Comments"].ToString();
+                    txtReportedBy.Text = ds.Tables[0].Rows[0]["CSI_Atuhor"].ToString();
+                    txtReportedDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ReportedDate"].ToString());
+                    ddlReportFromCS.SelectedValue = ds.Tables[0].Rows[0]["XMLCSL_Code"].ToString();
+                    ddlPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLCSP_Code"].ToString();
+                    ddlIssueStatus.SelectedValue = ds.Tables[0].Rows[0]["XMLCSS_Code"].ToString();
+                    txtVersionReadOnly.Text = ds.Tables[0].Rows[0]["CSILA_Version"].ToString();
+                    if (ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString().Equals(""))
+                        dtSolveDate.Visible = false;
+                    else
+                        dtSolveDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString());
+                    //if (dtSolveDate.SelectedDate != DateTime.MinValue)
+                    //{
+                    //    dtSolveDate.Visible = true;
+                    //}
+                    btnSubmit.Visible = false;
+                    btnUpdate.Visible = true;
+                }
                 else
-                    dtSolveDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString());
-                //if (dtSolveDate.SelectedDate != DateTime.MinValue)
-                //{
-                //    dtSolveDate.Visible = true;
-                //}
-                btnSubmit.Visible = false;
-                btnUpdate.Visible = true;
+                {
+                    ddlAdviser.SelectedValue = ds.Tables[0].Rows[0]["A_AdviserId"].ToString();
+                    AdviserPhoneNo.Text = ds.Tables[0].Rows[0]["A_Phone1Number"].ToString();
+                    AdviserEmail.Text = ds.Tables[0].Rows[0]["A_Email"].ToString();
+                    txtCustomerName.Text = ds.Tables[0].Rows[0]["CSI_ContactPerson"].ToString();
+                    txtCustomerPhone.Text = ds.Tables[0].Rows[0]["CSI_Phone"].ToString();
+                    txtCustomerEmail.Text = ds.Tables[0].Rows[0]["CSI_Email"].ToString();
+                    ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleName"].ToString();
+                    ddlRole.SelectedValue = ds.Tables[0].Rows[0]["UR_RoleId"].ToString();
+                    if (ddlRole.SelectedValue != "Select User Role")
+
+                        TreeNodeDropdown(int.Parse(ddlRole.SelectedValue));
+                    ddlTreeNode.SelectedValue = ds.Tables[0].Rows[0]["WTN_TreeNodeId"].ToString();
+
+                    if (ddlTreeNode.SelectedValue != "Select Tree Node")
+
+                        TreeSubNodeDropdown(int.Parse(ddlRole.SelectedValue), int.Parse(ddlTreeNode.SelectedValue));
+                    ddlSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSN_TreeSubNodeId"].ToString();
+
+                    if (ddlSubNode.SelectedValue != "Select Tree SubNode")
+
+                        TreeSubSubNodeDropdown(int.Parse(ddlRole.SelectedValue), int.Parse(ddlTreeNode.SelectedValue), int.Parse(ddlSubNode.SelectedValue));
+                    ddlSubSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSSN_TreeSubSubNodeId"].ToString();
+
+                    txtDescription.Text = ds.Tables[0].Rows[0]["CSI_CustomerDescription"].ToString();
+                    txtIssueCode.Text = ds.Tables[0].Rows[0]["CSI_Code"].ToString();
+                    txtIssueDate.Text = ds.Tables[0].Rows[0]["CSI_issueAddedDate"].ToString();
+                    ddlIssueType.SelectedValue = ds.Tables[0].Rows[0]["XMLCST_Code"].ToString();
+                    ddlReportedBy.SelectedValue = ds.Tables[0].Rows[0]["CSI_reportedVia"].ToString();
+                    ddlCustomerPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLACSP_Code"].ToString();
+                    txtComments.Text = ds.Tables[0].Rows[0]["CSILA_Comments"].ToString();
+                    txtReportedBy.Text = ds.Tables[0].Rows[0]["CSI_Atuhor"].ToString();
+                    txtReportedDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ReportedDate"].ToString());
+                    ddlReportFromCS.SelectedValue = ds.Tables[0].Rows[0]["XMLCSL_Code"].ToString();
+                    ddlPriority.SelectedValue = ds.Tables[0].Rows[0]["XMLCSP_Code"].ToString();
+                    ddlIssueStatus.SelectedValue = ds.Tables[0].Rows[0]["XMLCSS_Code"].ToString();
+                    txtVersionReadOnly.Text = ds.Tables[0].Rows[0]["CSILA_Version"].ToString();
+                    if (ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString().Equals(""))
+                        dtSolveDate.Visible = false;
+                    else
+                        dtSolveDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0]["CSI_ResolvedDate"].ToString());
+                    //if (dtSolveDate.SelectedDate != DateTime.MinValue)
+                    //{
+                    //    dtSolveDate.Visible = true;
+                    //}
+                    btnSubmit.Visible = false;
+                    btnUpdate.Visible = true;
+                }
             }
             else
             {
@@ -898,7 +983,7 @@ namespace WealthERP.SuperAdmin
                 DataRow[] drSubNodeDetails;
                 if (dtXML.Rows.Count > 0)
                 {
-                    drSubNodeDetails = dtXML.Select("TreeSubNodeCode =" + treeSubNodeId.ToString());
+                    drSubNodeDetails = dtXML.Select("TreeSubNodeCode =" + treeSubSubNodeId.ToString());
 
                     foreach (DataRow dr in drSubNodeDetails)
                     {

@@ -33,7 +33,8 @@ namespace WealthERP.SuperAdmin
         LinkButton lnkIssueCode;
         string strCsId;
         string strSearch = null;
-
+        int roleId = 1006;
+        string roleName = "Super Admin";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,8 +50,31 @@ namespace WealthERP.SuperAdmin
         { 
             DataSet ds = superAdminOpsBo.getCSIssueDetails();
             gvCSIssueTracker.DataSource = ds;
-            gvCSIssueTracker.DataBind();
-        }
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            DataRow[] drXmlTreeNode;
+            
+                foreach (DataRow drMain in ds.Tables[0].Rows)
+                {
+                    if(drMain["UR_RoleName"].ToString() == "Super Admin")
+                    {
+                        int treeNodeId=int.Parse(drMain["WTN_TreeNodeId"].ToString());
+                        drXmlTreeNode=dtXML.Select("TreeNodeCode=" + treeNodeId.ToString());
+
+                        foreach(DataRow dr in drXmlTreeNode)
+                        {
+                            drMain["WTN_TreeNodeText"]=dr["TreeNodeText"].ToString();
+                        }
+                    }
+                }
+                gvCSIssueTracker.DataSource = ds;
+                gvCSIssueTracker.DataBind();
+            }
+           
+     
 
         protected void lnkCSIssue_Click(object sender, EventArgs e)
         {
@@ -77,6 +101,28 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSILA_RepliedBy= strSearch.ToString();
             DataSet ds = superAdminOpsBo.GetSearchDetails(strSearch);            
             gvCSIssueTracker.DataSource = ds;
+
+            DataSet dsColumnNames = new DataSet();
+            DataSet dsWerpColumnNames = new DataSet();
+            string xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            DataTable dtXML = XMLBo.GetSuperAdminTreeNodes(xmlPath);
+            DataTable dtSuperAdminTreeNode = new DataTable();
+            DataRow[] drXmlTreeNode;
+
+            foreach (DataRow drMain in ds.Tables[0].Rows)
+            {
+                if (drMain["UR_RoleName"].ToString() == "Super Admin")
+                {
+                    int treeNodeId = int.Parse(drMain["WTN_TreeNodeId"].ToString());
+                    drXmlTreeNode = dtXML.Select("TreeNodeCode=" + treeNodeId.ToString());
+
+                    foreach (DataRow dr in drXmlTreeNode)
+                    {
+                        drMain["WTN_TreeNodeText"] = dr["TreeNodeText"].ToString();
+                    }
+                }
+            }
+
             gvCSIssueTracker.DataBind();
         }
 
