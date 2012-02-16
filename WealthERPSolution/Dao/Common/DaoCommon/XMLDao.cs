@@ -45,6 +45,63 @@ namespace DaoCommon
 
         }
 
+        public static DataTable GetSuperAdminTreeSubNodes(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["TreeSubNode"];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dt;
+        }
+
+        public static DataTable GetSuperAdminTreeNodes(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["TreeNode"];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+      
+            return dt;
+        }
+
+        public static DataTable GetSuperAdminTreeSubSubNodes(string path)
+        {
+            DataSet ds;
+            DataTable dt;
+            try
+            {
+                ds = new DataSet();
+                ds.ReadXml(path);
+                dt = ds.Tables["TreeSubSubNode"];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+      
+            return dt;
+        }
+
         public static DataTable GetBusinessType(string path)
         {
             DataSet ds;
