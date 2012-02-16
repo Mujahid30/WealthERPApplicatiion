@@ -807,6 +807,7 @@ namespace WealthERP.Advisor
                      Session["FPDataSet"] = null;
                     if(Session["UserType"] != null)
                      Session["UserType"] = null;
+                    Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         dspotentialHomePage = advisorBo.GetUserPotentialHomepages(advisorVo.advisorId, "BM");
