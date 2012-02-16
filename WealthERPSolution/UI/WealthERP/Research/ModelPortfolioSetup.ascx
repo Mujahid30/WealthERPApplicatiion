@@ -253,7 +253,7 @@
                             </asp:RequiredFieldValidator>
                             <asp:RangeValidator ID="rvAssumptionValue" runat="server" 
                             ControlToValidate="txtDebt" CssClass="cvPCG" Display="Dynamic" 
-                            ErrorMessage="Enter value less than 100" MaximumValue="99.9" 
+                            ErrorMessage="Enter value less than 100" MaximumValue="100" 
                             MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                         </td>
                         <td>
@@ -264,7 +264,7 @@
                              
                             <asp:RangeValidator ID="RangeValidator1" runat="server" 
                               ControlToValidate="txtEquity" CssClass="cvPCG" Display="Dynamic" 
-                              ErrorMessage="Enter value less than 100" MaximumValue="99.9" 
+                              ErrorMessage="Enter value less than 100" MaximumValue="100" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                         </td>
                         <td>
@@ -275,7 +275,7 @@
                              
                             <asp:RangeValidator ID="RangeValidator2" runat="server" 
                               ControlToValidate="txtCash" CssClass="cvPCG" Display="Dynamic" 
-                              ErrorMessage="Enter value less than 100" MaximumValue="99.9" 
+                              ErrorMessage="Enter value less than 100" MaximumValue="100" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                         </td>
                         <td>
@@ -286,7 +286,7 @@
                              
                             <asp:RangeValidator ID="RangeValidator3" runat="server" 
                               ControlToValidate="txtAlternate" CssClass="cvPCG" Display="Dynamic" 
-                              ErrorMessage="Enter value less than 100" MaximumValue="99.9" 
+                              ErrorMessage="Enter value less than 100" MaximumValue="100" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                               
                               
@@ -339,9 +339,10 @@
                             <asp:RequiredFieldValidator ID="rfvMinAge" ControlToValidate="txtMinAge"
                             ErrorMessage="<br />Please enter the Minimum age" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator> 
-                                    <asp:CompareValidator ID="cv2MinAge" runat="server"  ErrorMessage="<br />Age should be greater than or equal to 20"
+                            <asp:RangeValidator ID="rvMinAge" CssClass="cvPCG" runat="server" ValidationGroup="Button1" ErrorMessage="<br />Age should be greater than or equal to 20" ControlToValidate="txtMinAge" MinimumValue="20" MaximumValue="150" Display="Dynamic" Type="Double"></asp:RangeValidator>
+                                    <%--<asp:CompareValidator ID="cv2MinAge" runat="server"  ErrorMessage="<br />Age should be greater than or equal to 20"
                             ControlToValidate="txtMinAge" ValueToCompare="20" Operator="GreaterThanEqual"
-                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>                           
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator> --%>                          
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">

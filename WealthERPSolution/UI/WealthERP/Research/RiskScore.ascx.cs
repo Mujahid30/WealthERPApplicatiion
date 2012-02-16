@@ -1245,7 +1245,7 @@ namespace WealthERP.Research
                         //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been reset to Zero');", true);
                     }
                 }
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been reset to Zero');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Risk Score has been reset to Zero');", true);
                 BindAdviserAssumptions();
             }
         }

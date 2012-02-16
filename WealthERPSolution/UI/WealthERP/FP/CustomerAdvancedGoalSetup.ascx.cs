@@ -1692,7 +1692,7 @@ namespace WealthERP.FP
                 drSIPCurrentInvestment = dsSIPInvestment.Tables[0].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
 
                 drTotalSIPamount = dsSIPInvestment.Tables[2].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
-
+                drSIPInvestmentPlanId = dsSIPInvestment.Tables[1].Select("CMFSS_SystematicSetupId=" + sipId.ToString());
                 if (drTotalSIPamount.Count() > 0)
                 {
                     foreach (DataRow dr in drTotalSIPamount)
@@ -1724,6 +1724,14 @@ namespace WealthERP.FP
                         totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSipId["SIPInvestedAmount"].ToString()) - currentAllocation;
                     }
                 }
+
+                if (drSIPInvestmentPlanId.Count() > 0)
+                {
+                    foreach (DataRow drSipInvestmentPlan in drSIPInvestmentPlanId)
+                    {
+                        totalOtherAllocation = totalOtherAllocation + decimal.Parse(drSipInvestmentPlan["TotalInvestedAmount"].ToString()) - currentAllocation;
+                    }
+                } 
 
                 if (!string.IsNullOrEmpty(txt.Text))
                 {

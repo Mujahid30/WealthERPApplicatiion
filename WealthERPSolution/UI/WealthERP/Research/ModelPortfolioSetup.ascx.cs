@@ -524,7 +524,8 @@ namespace WealthERP.Research
                 decimal allocation = 0;
                 decimal riskPer = 0;
                 DataSet ds = adviserFPConfigurationBo.GetAdviserAssumptions(advisorVo.advisorId);
-
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
                 DropDownList ddl = (DropDownList)e.Item.FindControl("ddlPickRiskClass");
                 TextBox txtboxPortfolioName = (TextBox)e.Item.FindControl("txtNamePortfolio");
                 TextBox txtboxMinAUM = (TextBox)e.Item.FindControl("txtMinAUM");
@@ -543,150 +544,303 @@ namespace WealthERP.Research
                 TextBox txtboxEquityAllocation = (TextBox)e.Item.FindControl("txtEquity");
 
 
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                DataTable dtGetMaxminAge = adviserFPConfigurationBo.GetMaxMinAge(advisorVo.advisorId, riskCode);
+                int minAge = Convert.ToInt16(dtGetMaxminAge.Rows[0]["MinAge"].ToString());
+                int maxAge = Convert.ToInt16(dtGetMaxminAge.Rows[0]["MaxAge"].ToString());
+
+                if (int.Parse(txtboxMinAge.Text) > maxAge)
                 {
-                    switch (dr["WA_AssumptionId"].ToString())
+                    foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        case "AR":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
-                                    RORPer = (RORPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "CR":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
-                                    RORPer = (RORPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "DR":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
-                                    RORPer = (RORPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "ER":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
-                                    RORPer = (RORPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
+                        switch (dr["WA_AssumptionId"].ToString())
+                        {
+                            case "AR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "CR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "DR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "ER":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
 
 
-                        case "RIA":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
-                                    riskPer = (riskPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "RIC":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
-                                    riskPer = (riskPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "RID":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
-                                    riskPer = (riskPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
-                        case "RIE":
-                            {
-                                if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
-                                    riskPer = (riskPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
-                                break;
-                            }
+                            case "RIA":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RIC":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RID":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RIE":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                        }
+                    }
+                    //int VarMinYear = 0;
+                    int VarMinMonth = 0;
+                    int VarMaxMonth = 0;
+                    //int VarMaxYear = 0;
+                    //if (txtboxMinTimeHorizonYear.Text != "")
+                    //{
+                    //    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
+                    //}
+                    if (txtboxMinTimeHorizonMonth.Text != "")
+                    {
+                        VarMinMonth = Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
+                    }
+                    //if (txtboxMaxTimeHorizonYear.Text != "")
+                    //{
+                    //    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
+                    //}
+                    if (txtboxMaxTimeHorizonMonth.Text != "")
+                    {
+                        VarMaxMonth = Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
+                    }
+
+                    //minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
+                    //maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+
+                    minTimeHorizon = VarMinMonth;
+                    maxTimeHorizon = VarMaxMonth;
+
+                    //minTimeHorizon = (Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
+                    //maxTimeHorizon = (Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
+
+                    allocation = Convert.ToDecimal((txtboxCashAllocation.Text.Trim())) + Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim())
+                                + Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) + Convert.ToDecimal(txtboxEquityAllocation.Text.Trim());
+
+                    double varMinAUM = 0;
+                    double varMaxAUM = 0;
+                    int varMinAge = 0;
+                    int varMaxAge = 0;
+
+                    if (txtboxMinAUM.Text != "")
+                    {
+                        varMinAUM = Convert.ToDouble(txtboxMinAUM.Text.Trim());
+                    }
+                    if (txtboxMaxAUM.Text != "")
+                    {
+                        varMaxAUM = Convert.ToDouble(txtboxMaxAUM.Text.Trim());
+                    }
+                    if (txtboxMinAge.Text != "")
+                    {
+                        varMinAge = Convert.ToInt32(txtboxMinAge.Text.Trim());
+                    }
+                    if (txtboxMaxAge.Text != "")
+                    {
+                        varMaxAge = Convert.ToInt32(txtboxMaxAge.Text.Trim());
+                    }
+
+
+                    if (allocation == 100)
+                    {
+
+                        int code = Convert.ToInt32(item.GetDataKeyValue("XAMP_ModelPortfolioCode"));
+
+                        modelPortfolioVo.ModelPortfolioCode = code;
+                        modelPortfolioVo.PortfolioName = txtboxPortfolioName.Text;
+                        modelPortfolioVo.RiskClassCode = riskCode;
+                        modelPortfolioVo.MinAUM = varMinAUM;
+                        modelPortfolioVo.MaxAUM = varMaxAUM;
+                        modelPortfolioVo.MinAge = varMinAge;
+                        modelPortfolioVo.MaxAge = varMaxAge;
+                        modelPortfolioVo.MinTimeHorizon = minTimeHorizon;
+                        modelPortfolioVo.MaxTimeHorizon = maxTimeHorizon;
+                        modelPortfolioVo.VariantDescription = txtboxVariantdescription.Text;
+
+                        modelPortfolioVo.AlternateAllocation = Convert.ToDecimal(txtboxAlternateAllocation.Text);
+                        modelPortfolioVo.DebtAllocation = Convert.ToDecimal(txtboxDebtAllocation.Text);
+                        modelPortfolioVo.EquityAllocation = Convert.ToDecimal(txtboxEquityAllocation.Text);
+                        modelPortfolioVo.CashAllocation = Convert.ToDecimal(txtboxCashAllocation.Text);
+
+                        modelPortfolioVo.ROR = RORPer;
+                        modelPortfolioVo.RiskPercentage = riskPer;
+
+                        modelPortfolioBo.UpdateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
+                        bindRadGrid1();
+                    }
+                    //else
+                    //{
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
+                    //}
+                }
+                else if (int.Parse(txtboxMaxAge.Text) < minAge)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        switch (dr["WA_AssumptionId"].ToString())
+                        {
+                            case "AR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "CR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "DR":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "ER":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
+                                        RORPer = (RORPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+
+
+                            case "RIA":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxAlternateAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RIC":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxCashAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxCashAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RID":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxDebtAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                            case "RIE":
+                                {
+                                    if (!string.IsNullOrEmpty(txtboxEquityAllocation.Text.Trim()))
+                                        riskPer = (riskPer + (Convert.ToDecimal(txtboxEquityAllocation.Text.Trim()) * Convert.ToDecimal((dr["AA_Value"].ToString()))) / 100);
+                                    break;
+                                }
+                        }
+                    }
+                    //int VarMinYear = 0;
+                    int VarMinMonth = 0;
+                    int VarMaxMonth = 0;
+                    //int VarMaxYear = 0;
+                    //if (txtboxMinTimeHorizonYear.Text != "")
+                    //{
+                    //    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
+                    //}
+                    if (txtboxMinTimeHorizonMonth.Text != "")
+                    {
+                        VarMinMonth = Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
+                    }
+                    //if (txtboxMaxTimeHorizonYear.Text != "")
+                    //{
+                    //    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
+                    //}
+                    if (txtboxMaxTimeHorizonMonth.Text != "")
+                    {
+                        VarMaxMonth = Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
+                    }
+
+                    //minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
+                    //maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
+
+                    minTimeHorizon = VarMinMonth;
+                    maxTimeHorizon = VarMaxMonth;
+
+                    //minTimeHorizon = (Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
+                    //maxTimeHorizon = (Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
+
+                    allocation = Convert.ToDecimal((txtboxCashAllocation.Text.Trim())) + Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim())
+                                + Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) + Convert.ToDecimal(txtboxEquityAllocation.Text.Trim());
+
+                    double varMinAUM = 0;
+                    double varMaxAUM = 0;
+                    int varMinAge = 0;
+                    int varMaxAge = 0;
+
+                    if (txtboxMinAUM.Text != "")
+                    {
+                        varMinAUM = Convert.ToDouble(txtboxMinAUM.Text.Trim());
+                    }
+                    if (txtboxMaxAUM.Text != "")
+                    {
+                        varMaxAUM = Convert.ToDouble(txtboxMaxAUM.Text.Trim());
+                    }
+                    if (txtboxMinAge.Text != "")
+                    {
+                        varMinAge = Convert.ToInt32(txtboxMinAge.Text.Trim());
+                    }
+                    if (txtboxMaxAge.Text != "")
+                    {
+                        varMaxAge = Convert.ToInt32(txtboxMaxAge.Text.Trim());
+                    }
+
+
+                    if (allocation == 100)
+                    {
+
+                        int code = Convert.ToInt32(item.GetDataKeyValue("XAMP_ModelPortfolioCode"));
+
+                        modelPortfolioVo.ModelPortfolioCode = code;
+                        modelPortfolioVo.PortfolioName = txtboxPortfolioName.Text;
+                        modelPortfolioVo.RiskClassCode = riskCode;
+                        modelPortfolioVo.MinAUM = varMinAUM;
+                        modelPortfolioVo.MaxAUM = varMaxAUM;
+                        modelPortfolioVo.MinAge = varMinAge;
+                        modelPortfolioVo.MaxAge = varMaxAge;
+                        modelPortfolioVo.MinTimeHorizon = minTimeHorizon;
+                        modelPortfolioVo.MaxTimeHorizon = maxTimeHorizon;
+                        modelPortfolioVo.VariantDescription = txtboxVariantdescription.Text;
+
+                        modelPortfolioVo.AlternateAllocation = Convert.ToDecimal(txtboxAlternateAllocation.Text);
+                        modelPortfolioVo.DebtAllocation = Convert.ToDecimal(txtboxDebtAllocation.Text);
+                        modelPortfolioVo.EquityAllocation = Convert.ToDecimal(txtboxEquityAllocation.Text);
+                        modelPortfolioVo.CashAllocation = Convert.ToDecimal(txtboxCashAllocation.Text);
+
+                        modelPortfolioVo.ROR = RORPer;
+                        modelPortfolioVo.RiskPercentage = riskPer;
+
+                        modelPortfolioBo.UpdateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
+                        bindRadGrid1();
                     }
                 }
-                //int VarMinYear = 0;
-                int VarMinMonth = 0;
-                int VarMaxMonth = 0;
-                //int VarMaxYear = 0;
-                //if (txtboxMinTimeHorizonYear.Text != "")
-                //{
-                //    VarMinYear = Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim());
-                //}
-                if (txtboxMinTimeHorizonMonth.Text != "")
+                else
                 {
-                    VarMinMonth = Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid Age selection');", true);
+                    return;
                 }
-                //if (txtboxMaxTimeHorizonYear.Text != "")
-                //{
-                //    VarMaxYear = Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim());
-                //}
-                if (txtboxMaxTimeHorizonMonth.Text != "")
-                {
-                    VarMaxMonth = Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
-                }
-
-                //minTimeHorizon = (VarMinYear * 12) + VarMinMonth;
-                //maxTimeHorizon = (VarMaxYear * 12) + VarMaxMonth;
-
-                minTimeHorizon = VarMinMonth;
-                maxTimeHorizon = VarMaxMonth;
-
-                //minTimeHorizon = (Convert.ToInt32(txtboxMinTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMinTimeHorizonMonth.Text.Trim());
-                //maxTimeHorizon = (Convert.ToInt32(txtboxMaxTimeHorizonYear.Text.Trim()) * 12) + Convert.ToInt32(txtboxMaxTimeHorizonMonth.Text.Trim());
-
-                allocation = Convert.ToDecimal((txtboxCashAllocation.Text.Trim())) + Convert.ToDecimal(txtboxAlternateAllocation.Text.Trim())
-                            + Convert.ToDecimal(txtboxDebtAllocation.Text.Trim()) + Convert.ToDecimal(txtboxEquityAllocation.Text.Trim());
-
-                double varMinAUM = 0;
-                double varMaxAUM = 0;
-                int varMinAge = 0;
-                int varMaxAge = 0;
-
-                if (txtboxMinAUM.Text != "")
-                {
-                    varMinAUM = Convert.ToDouble(txtboxMinAUM.Text.Trim());
-                }
-                if (txtboxMaxAUM.Text != "")
-                {
-                    varMaxAUM = Convert.ToDouble(txtboxMaxAUM.Text.Trim());
-                }
-                if (txtboxMinAge.Text != "")
-                {
-                    varMinAge = Convert.ToInt32(txtboxMinAge.Text.Trim());
-                }
-                if (txtboxMaxAge.Text != "")
-                {
-                    varMaxAge = Convert.ToInt32(txtboxMaxAge.Text.Trim());
-                }
-
-
-                if (allocation == 100)
-                {
-                    GridEditFormItem item = (GridEditFormItem)e.Item; 
-                    string riskCode = item.GetDataKeyValue("XRC_RiskClassCode").ToString();
-                    int code = Convert.ToInt32(item.GetDataKeyValue("XAMP_ModelPortfolioCode"));
-
-                    modelPortfolioVo.ModelPortfolioCode = code;
-                    modelPortfolioVo.PortfolioName = txtboxPortfolioName.Text;
-                    modelPortfolioVo.RiskClassCode = riskCode;
-                    modelPortfolioVo.MinAUM = varMinAUM;
-                    modelPortfolioVo.MaxAUM = varMaxAUM;
-                    modelPortfolioVo.MinAge = varMinAge;
-                    modelPortfolioVo.MaxAge = varMaxAge;
-                    modelPortfolioVo.MinTimeHorizon = minTimeHorizon;
-                    modelPortfolioVo.MaxTimeHorizon = maxTimeHorizon;
-                    modelPortfolioVo.VariantDescription = txtboxVariantdescription.Text;
-
-                    modelPortfolioVo.AlternateAllocation = Convert.ToDecimal(txtboxAlternateAllocation.Text);
-                    modelPortfolioVo.DebtAllocation = Convert.ToDecimal(txtboxDebtAllocation.Text);
-                    modelPortfolioVo.EquityAllocation = Convert.ToDecimal(txtboxEquityAllocation.Text);
-                    modelPortfolioVo.CashAllocation = Convert.ToDecimal(txtboxCashAllocation.Text);
-
-                    modelPortfolioVo.ROR = RORPer;
-                    modelPortfolioVo.RiskPercentage = riskPer;
-
-                    modelPortfolioBo.UpdateVariantAssetPortfolio(modelPortfolioVo, advisorVo.advisorId, advisorVo.UserId);
-                    bindRadGrid1();                    
-                }
-                //else
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You dont have enough amount');", true);
-                //}
             }
             catch (Exception ex)
             {

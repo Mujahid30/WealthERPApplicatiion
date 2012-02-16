@@ -335,7 +335,7 @@
                              
                             <asp:RangeValidator ID="rvWeightage" runat="server" 
                               ControlToValidate="txtWeightage" CssClass="cvPCG" Display="Dynamic" 
-                              ErrorMessage="Please enter value less than 100" MaximumValue="99.9" 
+                              ErrorMessage="Please enter value less than 100" MaximumValue="100" 
                               MinimumValue="0.0" Type="Double" ValidationGroup="Button1"></asp:RangeValidator>
                     </td>                   
                 </tr> 
