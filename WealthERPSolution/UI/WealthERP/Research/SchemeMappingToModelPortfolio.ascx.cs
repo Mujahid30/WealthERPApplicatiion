@@ -842,11 +842,15 @@ namespace WealthERP.Research
                 bindRadGrid1();
                 bindHistryRadGrid();
                 tblPieChart.Visible = true;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record has been saved succesfully');", true);
+              
             }
             else
             {
+                bindAssetChart();
+                bindAssetChartOnSubCategory();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Weightage must be 100');", true);
-                tblPieChart.Visible = false;
+                tblPieChart.Visible = true;
             }           
             RadGrid1.Rebind();
         }
