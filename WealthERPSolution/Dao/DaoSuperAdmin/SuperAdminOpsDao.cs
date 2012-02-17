@@ -509,6 +509,7 @@ namespace DaoSuperAdmin
                db.AddInParameter(getNAVPercmd, "@navDateToday", DbType.DateTime, navDate);
                db.AddInParameter(getNAVPercmd, "@currentPage", DbType.Int32, currentPage);
                db.AddOutParameter(getNAVPercmd, "@Count", DbType.Int32, 0);
+               getNAVPercmd.CommandTimeout = 60 * 60;
                dsGetNAVPer = db.ExecuteDataSet(getNAVPercmd);
                count = (int)db.GetParameterValue(getNAVPercmd, "@Count");
            }
