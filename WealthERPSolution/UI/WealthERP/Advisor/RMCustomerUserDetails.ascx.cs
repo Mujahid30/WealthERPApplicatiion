@@ -18,6 +18,8 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using BoCommon;
 using VoAdvisorProfiling;
+using System.Web.UI.HtmlControls;
+using System.IO;
 
 namespace WealthERP.Advisor
 {
@@ -38,6 +40,7 @@ namespace WealthERP.Advisor
         string statusMessage = string.Empty;
         AdvisorVo advisorVo = new AdvisorVo();
         OneWayEncryption encryption;
+        bool GridViewCultureFlag = true;
 
         private SortDirection GridViewSortDirection
         {
@@ -201,6 +204,13 @@ namespace WealthERP.Advisor
                 AdvisorVo advisorVo = new AdvisorVo();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
+                Random r = new Random();
+                encryption = new OneWayEncryption();
+
+                string password = r.Next(20000, 100000).ToString();
+                string hassedPassword;
+                string saltValue;
+
                 int Count = 0;
 
                 customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "","0", out genDictParent, out genDictRM, out genDicReassigntRM);
@@ -225,6 +235,15 @@ namespace WealthERP.Advisor
                         userId = customerVo.UserId;
                         userVo = new UserVo();
                         userVo = userBo.GetUserDetails(userId);
+                        //userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
+
+                        userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
+                        encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                        userVo.Password = hassedPassword;
+                        userVo.PasswordSaltValue = saltValue;
+                        userVo.OriginalPassword = password;
+                        userVo.IsTempPassword = 1;
+                        userBo.UpdateUser(userVo);
 
                         drRMCustomerUser[0] = userVo.UserId.ToString();
                         drRMCustomerUser[1] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -693,5 +712,201 @@ namespace WealthERP.Advisor
             }
                 
         }
+        //---Code To Export to Excell-----
+        protected void imgBtnExport1_Click(object sender, ImageClickEventArgs e)
+        {
+            hdnDownloadFormat.Value = "excel";
+            gvCustomerslExport();
+        }
+        private void gvCustomerslExport()
+        {
+            gvCustomers.Columns[0].Visible = false;
+            gvCustomers.HeaderRow.Visible = true;
+            GridViewCultureFlag = false;
+            BindGrid();
+            GridViewCultureFlag = true;
+            ExportGridView(hdnDownloadFormat.Value.ToString());
+            //PrepareGridViewForExport(gvCustomers);
+            //ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvCustomers);
+        }
+        private void ExportGridView(string Filetype)
+        {
+            // float ReportTextSize = 7;
+            {
+                HtmlForm frm = new HtmlForm();
+                frm.Controls.Clear();
+                frm.Attributes["runat"] = "server";
+                if (Filetype.ToLower() == "print")
+                {
+                    GridView_Print();
+                }
+
+                else if (Filetype.ToLower() == "excel")
+                {
+                    
+                    Response.ClearContent();
+                    Response.ContentType = "application/ms-excel";
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+                    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
+                    Response.Output.Write("Advisor Name : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write(userVo.FirstName + userVo.LastName);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("<tr><td>");
+                    Response.Output.Write("Customer Name  : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("<tr><td>");
+                    Response.Output.Write("Contact Person  : ");
+                    Response.Output.Write("</td>");
+                    Response.Output.Write("<td>");
+                    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
+                    Response.Output.Write("</td></tr><tr><td>");
+                    Response.Output.Write("Date : ");
+                    Response.Output.Write("</td><td>");
+                    System.DateTime tDate1 = System.DateTime.Now;
+                    Response.Output.Write(tDate1);
+                    Response.Output.Write("</td></tr>");
+                    Response.Output.Write("</tbody></table>");
+
+
+                    PrepareGridViewForExport(gvCustomers);
+
+                    if (gvCustomers.HeaderRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.HeaderRow);
+
+                    }
+                    foreach (GridViewRow row in gvCustomers.Rows)
+                    {
+
+                        PrepareControlForExport(row);
+
+                    }
+                    if (gvCustomers.FooterRow != null)
+                    {
+                        PrepareControlForExport(gvCustomers.FooterRow);
+
+                    }
+
+
+                    gvCustomers.Parent.Controls.Add(frm);
+                    frm.Controls.Add(gvCustomers);
+                    frm.RenderControl(htw);
+
+                    Response.Write(sw.ToString());
+                    Response.End();
+
+
+                }
+
+
+            }
+
+        }
+        private void GridView_Print()
+        {
+            gvCustomers.Columns[0].Visible = false;
+            //gvMFTransactions.Columns[1].Visible = false;
+          
+                BindGrid();
+
+            PrepareGridViewForExport(gvCustomers);
+            if (gvCustomers.HeaderRow != null)
+            {
+                PrepareControlForExport(gvCustomers.HeaderRow);
+            }
+            foreach (GridViewRow row in gvCustomers.Rows)
+            {
+                PrepareControlForExport(row);
+            }
+            if (gvCustomers.FooterRow != null)
+            {
+                PrepareControlForExport(gvCustomers.FooterRow);
+            }
+
+
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMMultipleTransactionView_tbl','ctrl_RMMultipleTransactionView_btnPrintGrid');", true);
+
+        }
+        private void PrepareGridViewForExport(Control gv)
+        {
+            LinkButton lb = new LinkButton();
+            Literal l = new Literal();
+            string name = String.Empty;
+            for (int i = 0; i < gv.Controls.Count; i++)
+            {
+                if (gv.Controls[i].GetType() == typeof(LinkButton))
+                {
+                    l.Text = (gv.Controls[i] as LinkButton).Text;
+                    gv.Controls.Remove(gv.Controls[i]);
+                }
+                else if (gv.Controls[i].GetType() == typeof(DropDownList))
+                {
+                    l.Text = (gv.Controls[i] as DropDownList).SelectedItem.Text;
+                    gv.Controls.Remove(gv.Controls[i]);
+                }
+                else if (gv.Controls[i].GetType() == typeof(CheckBox))
+                {
+                    l.Text = (gv.Controls[i] as CheckBox).Checked ? "True" : "False";
+                    gv.Controls.Remove(gv.Controls[i]);
+                }
+                else if (gv.Controls[i].GetType() == typeof(TextBox))
+                {
+                    l.Text = (gv.Controls[i] as TextBox).Text;
+                    gv.Controls.Remove(gv.Controls[i]);
+                }
+                if (gv.Controls[i].HasControls())
+                {
+                    PrepareGridViewForExport(gv.Controls[i]);
+                }
+
+            }
+
+        }
+        private static void PrepareControlForExport(Control control)
+        {
+            for (int i = 0; i < control.Controls.Count; i++)
+            {
+                Control current = control.Controls[i];
+                if (current is LinkButton)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
+                }
+                else if (current is ImageButton)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
+                }
+                else if (current is HyperLink)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
+                }
+                else if (current is DropDownList)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedValue.ToString()));
+                }
+                else if (current is CheckBox)
+                {
+                    control.Controls.Remove(current);
+                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
+                }
+
+                if (current.HasControls())
+                {
+                    PrepareControlForExport(current);
+                }
+            }
+        }
+ 
     }
 }

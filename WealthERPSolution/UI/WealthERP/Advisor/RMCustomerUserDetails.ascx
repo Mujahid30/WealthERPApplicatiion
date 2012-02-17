@@ -120,8 +120,10 @@
 
 <table style="width: 100%;" class="TableBackground">
     <tr>
-    <td>
-    
+    <td align="right">
+    <%--<asp:ImageButton ID="imgBtnExport1" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport1_Click" style="width: 20px" />--%>
     </td>
     </tr>
 
@@ -254,3 +256,5 @@
 <asp:HiddenField ID="hdnSort" runat="server" Value="C_FirstName ASC" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
+
+<asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
