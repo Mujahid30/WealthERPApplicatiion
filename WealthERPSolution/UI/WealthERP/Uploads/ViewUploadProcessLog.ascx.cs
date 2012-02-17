@@ -1022,6 +1022,36 @@ namespace WealthERP.Uploads
                         }
                         #endregion
 
+                        //-----------gobinda's KARVY STANDARD-------------\\
+                        #region KARVY SYSTEMATIC
+                        else if (filetypeId == 27)
+                        {
+                            bool karvySIPCommonStagingChk = false;
+                            bool karvySIPCommonStagingToWERP = false;
+                            bool updateProcessLog = false;
+                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                            karvySIPCommonStagingChk = camsUploadsBo.KarvySIPCommonStagingChk(processID, packagePath, configPath, "KA");
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "KA");
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (karvySIPCommonStagingChk)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionCommonStagingToWERP.dtsx");
+                                karvySIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(processID, packagePath, configPath);
+
+                                if (karvySIPCommonStagingToWERP)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "KA");
+                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }
+
+                        }
+
+                        #endregion
+
                     }
 
 
@@ -3879,6 +3909,20 @@ namespace WealthERP.Uploads
 
                 }
                 else if (extracttype == "")
+                {   // Check if Combination Upload
+
+                    trUploadedCustomers.Visible = true;
+                    trUploadedFolios.Visible = true;
+                    trUploadedTransactions.Visible = true;
+                    trRejectedRecords.Visible = true;
+
+                    txtUploadedCustomers.Text = processlogVo.NoOfCustomerInserted.ToString();
+                    txtUploadedFolios.Text = processlogVo.NoOfAccountsInserted.ToString();
+                    txtUploadedTransactions.Text = processlogVo.NoOfTransactionInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                }
+
+                else if (extracttype == "SS")
                 {   // Check if Combination Upload
 
                     trUploadedCustomers.Visible = true;

@@ -1515,7 +1515,7 @@ namespace WealthERP.Uploads
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                             packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingtoCommonStaging.dtsx");
-                                            karvySIPStagingCheckResult = camsUploadsBo.KarvySIPProcessDataInStagingTrans(UploadProcessId, packagePath, configPath);
+                                            karvySIPStagingCheckResult = camsUploadsBo.KarvySIPProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
                                             if (karvySIPStagingCheckResult)
                                             {
 
@@ -1523,9 +1523,9 @@ namespace WealthERP.Uploads
 
                                                 //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
                                                 //karvySIPStagingToCommonStaging = camsUploadsBo.KarvySIPStagingToCommonStaging(UploadProcessId, packagePath, configPath);
-                                                //processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                //processlogVo.EndTime = DateTime.Now;
-                                                //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
                                                 karvySIPCommonStagingChk = camsUploadsBo.KarvySIPCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");

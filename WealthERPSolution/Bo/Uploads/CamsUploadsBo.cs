@@ -1605,17 +1605,14 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool KarvySIPProcessDataInStagingTrans(int processId, string Packagepath, string configPath)
+        public bool KarvySIPProcessDataInStagingTrans(int adviserId,int processId, string Packagepath, string configPath)
         {
             bool IsProcessComplete = false;
             try
             {
-
-
-
                 Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
-
                 standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.Variables["varAdviserId"].Value = adviserId;
                 standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
                 if (karvyTranResult3.ToString() == "Success")
