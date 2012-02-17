@@ -946,7 +946,7 @@ namespace WealthERP.CustomerPortfolio
             systematicSetupVo.EndDate = DateTime.Parse(txtEndDate.Text);
             systematicSetupVo.Period = int.Parse(txtPeriod.Text.ToString());
             systematicSetupVo.IsManual = 1;
-            if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()))
+            if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()) && txtSipChequeDate.Text != "dd/mm/yyyy")
                 systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
             else
                 systematicSetupVo.SipChequeDate = DateTime.MinValue;
@@ -975,7 +975,7 @@ namespace WealthERP.CustomerPortfolio
             }
             if (systematicSetupVo.SystematicTypeCode == "SIP")
             {
-                if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()))
+                if (!string.IsNullOrEmpty(txtSipChequeDate.Text.ToString().Trim()) && txtSipChequeDate.Text != "dd/mm/yyyy")
                     systematicSetupVo.SipChequeDate = DateTime.Parse(txtSipChequeDate.Text.ToString());
                 if (!string.IsNullOrEmpty(txtSipChecqueNo.Text.ToString().Trim()))
                     systematicSetupVo.SipChequeNo = Int64.Parse(txtSipChecqueNo.Text.ToString());

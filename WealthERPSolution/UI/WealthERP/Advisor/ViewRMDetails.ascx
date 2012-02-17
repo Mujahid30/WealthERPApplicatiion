@@ -75,7 +75,8 @@
            <asp:CheckBoxList ID="ChklistRMBM" runat="server" CausesValidation="True"
                 RepeatDirection="Horizontal" CssClass="cmbField" RepeatLayout="Flow" Enabled="false">
                  <asp:ListItem Value="1001">RM</asp:ListItem>
-           <asp:ListItem Value="1002">BM</asp:ListItem>               
+           <asp:ListItem Value="1002">BM</asp:ListItem>  
+            <asp:ListItem Value="1005">Research</asp:ListItem>             
           </asp:CheckBoxList>
           <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004" Enabled="false" />&nbsp;
         </td>

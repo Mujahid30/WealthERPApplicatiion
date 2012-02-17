@@ -410,6 +410,7 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.Folio = mfSystematicTransactionReportVoList[rowId].FolioNum;
                 systematicSetupVo.SchemePlanCode = mfSystematicTransactionReportVoList[rowId].SchemePlanCode;
                 systematicSetupVo.SchemePlan = mfSystematicTransactionReportVoList[rowId].SchemePlanName;
+                systematicSetupVo.Portfolio = mfSystematicTransactionReportVoList[rowId].PortfolioId.ToString();
                 systematicSetupVo.SystematicTypeCode = mfSystematicTransactionReportVoList[rowId].OriginalTransactionType;
                 Session["customerVo"] = customerBo.GetCustomer(mfSystematicTransactionReportVoList[rowId].CustomerId);
                 Session["systematicSetupVo"] = systematicSetupVo;

@@ -308,7 +308,7 @@ namespace WealthERP.Advisor
                     string[] RoleListArray = rmVo.RMRoleList.Split(new char[] { ',' });
                     foreach (string Role in RoleListArray)
                     {
-                        if (Role == "RM" || Role == "BM")
+                        if ((Role == "RM" || Role == "BM") || (Role == "Research"))
                         {
                             ChklistRMBM.Items.FindByText(Role).Selected = true;
                         }
