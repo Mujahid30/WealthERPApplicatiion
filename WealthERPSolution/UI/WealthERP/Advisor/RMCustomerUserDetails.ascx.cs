@@ -18,8 +18,6 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using BoCommon;
 using VoAdvisorProfiling;
-using System.Web.UI.HtmlControls;
-using System.IO;
 
 namespace WealthERP.Advisor
 {
@@ -40,7 +38,6 @@ namespace WealthERP.Advisor
         string statusMessage = string.Empty;
         AdvisorVo advisorVo = new AdvisorVo();
         OneWayEncryption encryption;
-        bool GridViewCultureFlag = true;
 
         private SortDirection GridViewSortDirection
         {
@@ -65,7 +62,7 @@ namespace WealthERP.Advisor
                 {
                     this.BindGrid();
                 }
-                
+
                 advisorUserVo = (UserVo)Session[SessionContents.UserVo];
 
                 //**************************lblStatusMsg.Text = string.Empty;
@@ -92,8 +89,8 @@ namespace WealthERP.Advisor
         protected override void OnInit(EventArgs e)
         {
             try
-            {               
-                
+            {
+
                 ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
                 mypager.EnableViewState = true;
                 base.OnInit(e);
@@ -204,16 +201,9 @@ namespace WealthERP.Advisor
                 AdvisorVo advisorVo = new AdvisorVo();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
-                Random r = new Random();
-                encryption = new OneWayEncryption();
-
-                string password = r.Next(20000, 100000).ToString();
-                string hassedPassword;
-                string saltValue;
-
                 int Count = 0;
 
-                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "","0", out genDictParent, out genDictRM, out genDicReassigntRM);
+                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "0", out genDictParent, out genDictRM, out genDicReassigntRM);
                 lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 if (customerUserList != null)
@@ -235,15 +225,6 @@ namespace WealthERP.Advisor
                         userId = customerVo.UserId;
                         userVo = new UserVo();
                         userVo = userBo.GetUserDetails(userId);
-                        //userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
-
-                        userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
-                        encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
-                        userVo.Password = hassedPassword;
-                        userVo.PasswordSaltValue = saltValue;
-                        userVo.OriginalPassword = password;
-                        userVo.IsTempPassword = 1;
-                        userBo.UpdateUser(userVo);
 
                         drRMCustomerUser[0] = userVo.UserId.ToString();
                         drRMCustomerUser[1] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -269,9 +250,9 @@ namespace WealthERP.Advisor
 
                     if (trPagger.Visible == false)
                         trPagger.Visible = true;
-                    
+
                     this.GetPageCount();
-                  
+
 
                     if (btnGenerate.Visible == false)
                         btnGenerate.Visible = true;
@@ -285,7 +266,7 @@ namespace WealthERP.Advisor
                     //lblCurrentPage.Visible = false;
                     //lblTotalRows.Visible = false;
                     //tblPager.Visible = false;
-                   // lblMsg.Visible = true;
+                    // lblMsg.Visible = true;
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     SuccessMsg.Visible = false;
@@ -365,7 +346,7 @@ namespace WealthERP.Advisor
         {
             int Count = 0;
             bool loginReset = false;
-            encryption=new OneWayEncryption();
+            encryption = new OneWayEncryption();
             try
             {
                 foreach (GridViewRow gvr in this.gvCustomers.Rows)
@@ -378,7 +359,7 @@ namespace WealthERP.Advisor
                 if (Count == 0)
                 {
                     //lblMailSent.Text = "Please select the Customer..!";
-                   //********************* lblStatusMsg.Text = "Please select the Customer";
+                    //********************* lblStatusMsg.Text = "Please select the Customer";
                     //lblMailSent.Visible = true;
                 }
                 else
@@ -419,20 +400,20 @@ namespace WealthERP.Advisor
                             //
                             //string EmailPath = Server.MapPath(ConfigurationManager.AppSettings["EmailPath"].ToString());
                             //email.SendCustomerLoginPassMail(advisorUserVo.Email, userVo.Email, advisorUserVo.LastName, userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName, userVo.LoginId, password, EmailPath);
-                            SendMail(userVo,false);
-                            
+                            SendMail(userVo, false);
+
 
                         }
                     }
-                   
-                   //*********************** lblStatusMsg.Text = statusMessage;
+
+                    //*********************** lblStatusMsg.Text = statusMessage;
                     //lblMailSent.Visible = true;
                     //tblMessage.Visible = true;
                     //SuccessMsg.Visible = true;
                     //SuccessMsg.InnerText = statusMessage;
-                    if (loginReset==true)
+                    if (loginReset == true)
                     {
-                        mypager.CurrentPage=int.Parse(hdnCurrentPage.Value.ToString());
+                        mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
                         BindGrid();
                     }
                 }
@@ -461,12 +442,12 @@ namespace WealthERP.Advisor
             }
         }
 
-        private bool SendMail(UserVo userVo,bool isNewLogin)
+        private bool SendMail(UserVo userVo, bool isNewLogin)
         {
             Emailer emailer = new Emailer();
-            EmailMessage email = new EmailMessage();           
+            EmailMessage email = new EmailMessage();
             advisorVo = (AdvisorVo)Session["advisorVo"];
-           
+
             bool isMailSent = false;
             bool isEmailIdBlank = false;
             try
@@ -534,7 +515,7 @@ namespace WealthERP.Advisor
                         ErrorMessage.Visible = true;
                         ErrorMessage.InnerText = statusMessage;
                         SuccessMsg.Visible = false;
-                       
+
                     }
                     else
                     {
@@ -546,7 +527,7 @@ namespace WealthERP.Advisor
                     }
 
                 }
-                    
+
                 else if (isMailSent)
                 {
                     if (string.IsNullOrEmpty(statusMessage))
@@ -572,12 +553,12 @@ namespace WealthERP.Advisor
                         ErrorMessage.Visible = false;
                         SuccessMsg.InnerText = statusMessage;
                         SuccessMsg.Visible = true;
- 
+
                     }
-                }                    
+                }
                 else
                 {
-                    statusMessage = "An error occurred while sending mail .. " ;
+                    statusMessage = "An error occurred while sending mail .. ";
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = statusMessage;
@@ -632,28 +613,28 @@ namespace WealthERP.Advisor
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "An error occurred while reseting password.";
-                    
+
                 }
             }
             else if (e.CommandName == "GenerateLogin")
             {
-                int userId =int.Parse(e.CommandArgument.ToString());
+                int userId = int.Parse(e.CommandArgument.ToString());
                 string password = r.Next(20000, 100000).ToString();
                 string hassedPassword;
                 string saltValue;
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
                 userVo = userBo.GetUserDetails(userId);
-                
+
                 if (string.IsNullOrEmpty(userVo.LoginId))
-                {                    
-                    userVo.LoginId ="Cu" + r.Next(100000, 999999).ToString();
+                {
+                    userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
                     encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
                     userVo.Password = hassedPassword;
                     userVo.PasswordSaltValue = saltValue;
                     userVo.OriginalPassword = password;
                     userVo.IsTempPassword = 1;
                     userBo.UpdateUser(userVo);
-                                        
+
                 }
                 SendMail(userVo, true);
 
@@ -694,14 +675,14 @@ namespace WealthERP.Advisor
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                Label lblLoginId = e.Row.FindControl("lblLoginId") as Label;                
+                Label lblLoginId = e.Row.FindControl("lblLoginId") as Label;
                 LinkButton lblGenerateLogin = e.Row.FindControl("lnkGenerateLogin") as LinkButton;
-                LinkButton lnkResetPassword = e.Row.FindControl("lnkResetPassword") as LinkButton;                
+                LinkButton lnkResetPassword = e.Row.FindControl("lnkResetPassword") as LinkButton;
                 CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
                 if (!string.IsNullOrEmpty(lblLoginId.Text.Trim()))
                 {
                     lblGenerateLogin.Visible = false;
-                    
+
                 }
                 else
                 {
@@ -710,203 +691,7 @@ namespace WealthERP.Advisor
                     lnkResetPassword.Visible = false;
                 }
             }
-                
-        }
-        //---Code To Export to Excell-----
-        protected void imgBtnExport1_Click(object sender, ImageClickEventArgs e)
-        {
-            hdnDownloadFormat.Value = "excel";
-            gvCustomerslExport();
-        }
-        private void gvCustomerslExport()
-        {
-            gvCustomers.Columns[0].Visible = false;
-            gvCustomers.HeaderRow.Visible = true;
-            GridViewCultureFlag = false;
-            BindGrid();
-            GridViewCultureFlag = true;
-            ExportGridView(hdnDownloadFormat.Value.ToString());
-            //PrepareGridViewForExport(gvCustomers);
-            //ExportGridView(hdnDownloadFormat.Value.ToString(), "MFPortfolioNotional", gvCustomers);
-        }
-        private void ExportGridView(string Filetype)
-        {
-            // float ReportTextSize = 7;
-            {
-                HtmlForm frm = new HtmlForm();
-                frm.Controls.Clear();
-                frm.Attributes["runat"] = "server";
-                if (Filetype.ToLower() == "print")
-                {
-                    GridView_Print();
-                }
-
-                else if (Filetype.ToLower() == "excel")
-                {
-                    
-                    Response.ClearContent();
-                    Response.ContentType = "application/ms-excel";
-                    StringWriter sw = new StringWriter();
-                    HtmlTextWriter htw = new HtmlTextWriter(sw);
-
-                    Response.Output.Write("<table border=\"0\"><tbody><caption><FONT FACE=\"ARIAL\"  SIZE=\"4\">");
-                    Response.Output.Write("Advisor Name : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(userVo.FirstName + userVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Customer Name  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(customerVo.FirstName + customerVo.MiddleName + customerVo.LastName);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("<tr><td>");
-                    Response.Output.Write("Contact Person  : ");
-                    Response.Output.Write("</td>");
-                    Response.Output.Write("<td>");
-                    Response.Output.Write(rmVo.FirstName + rmVo.MiddleName + rmVo.LastName);
-                    Response.Output.Write("</td></tr><tr><td>");
-                    Response.Output.Write("Date : ");
-                    Response.Output.Write("</td><td>");
-                    System.DateTime tDate1 = System.DateTime.Now;
-                    Response.Output.Write(tDate1);
-                    Response.Output.Write("</td></tr>");
-                    Response.Output.Write("</tbody></table>");
-
-
-                    PrepareGridViewForExport(gvCustomers);
-
-                    if (gvCustomers.HeaderRow != null)
-                    {
-                        PrepareControlForExport(gvCustomers.HeaderRow);
-
-                    }
-                    foreach (GridViewRow row in gvCustomers.Rows)
-                    {
-
-                        PrepareControlForExport(row);
-
-                    }
-                    if (gvCustomers.FooterRow != null)
-                    {
-                        PrepareControlForExport(gvCustomers.FooterRow);
-
-                    }
-
-
-                    gvCustomers.Parent.Controls.Add(frm);
-                    frm.Controls.Add(gvCustomers);
-                    frm.RenderControl(htw);
-
-                    Response.Write(sw.ToString());
-                    Response.End();
-
-
-                }
-
-
-            }
 
         }
-        private void GridView_Print()
-        {
-            gvCustomers.Columns[0].Visible = false;
-            //gvMFTransactions.Columns[1].Visible = false;
-          
-                BindGrid();
-
-            PrepareGridViewForExport(gvCustomers);
-            if (gvCustomers.HeaderRow != null)
-            {
-                PrepareControlForExport(gvCustomers.HeaderRow);
-            }
-            foreach (GridViewRow row in gvCustomers.Rows)
-            {
-                PrepareControlForExport(row);
-            }
-            if (gvCustomers.FooterRow != null)
-            {
-                PrepareControlForExport(gvCustomers.FooterRow);
-            }
-
-
-
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "Print_Click('ctrl_RMMultipleTransactionView_tbl','ctrl_RMMultipleTransactionView_btnPrintGrid');", true);
-
-        }
-        private void PrepareGridViewForExport(Control gv)
-        {
-            LinkButton lb = new LinkButton();
-            Literal l = new Literal();
-            string name = String.Empty;
-            for (int i = 0; i < gv.Controls.Count; i++)
-            {
-                if (gv.Controls[i].GetType() == typeof(LinkButton))
-                {
-                    l.Text = (gv.Controls[i] as LinkButton).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(DropDownList))
-                {
-                    l.Text = (gv.Controls[i] as DropDownList).SelectedItem.Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(CheckBox))
-                {
-                    l.Text = (gv.Controls[i] as CheckBox).Checked ? "True" : "False";
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                else if (gv.Controls[i].GetType() == typeof(TextBox))
-                {
-                    l.Text = (gv.Controls[i] as TextBox).Text;
-                    gv.Controls.Remove(gv.Controls[i]);
-                }
-                if (gv.Controls[i].HasControls())
-                {
-                    PrepareGridViewForExport(gv.Controls[i]);
-                }
-
-            }
-
-        }
-        private static void PrepareControlForExport(Control control)
-        {
-            for (int i = 0; i < control.Controls.Count; i++)
-            {
-                Control current = control.Controls[i];
-                if (current is LinkButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as LinkButton).Text));
-                }
-                else if (current is ImageButton)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as ImageButton).AlternateText));
-                }
-                else if (current is HyperLink)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as HyperLink).Text));
-                }
-                else if (current is DropDownList)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as DropDownList).SelectedValue.ToString()));
-                }
-                else if (current is CheckBox)
-                {
-                    control.Controls.Remove(current);
-                    control.Controls.AddAt(i, new LiteralControl((current as CheckBox).Checked ? "True" : "False"));
-                }
-
-                if (current.HasControls())
-                {
-                    PrepareControlForExport(current);
-                }
-            }
-        }
- 
     }
 }
