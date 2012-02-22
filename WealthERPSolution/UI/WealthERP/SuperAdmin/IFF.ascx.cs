@@ -23,6 +23,7 @@ using BoWerpAdmin;
 using BoCustomerProfiling;
 using VoAdvisorProfiling;
 using BoCustomerPortfolio;
+using Telerik.Web.UI;
 
 namespace WealthERP.SuperAdmin
 {
@@ -53,36 +54,36 @@ namespace WealthERP.SuperAdmin
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         protected override void OnInit(EventArgs e)
         {
-            try
-            {
+            //try
+            //{
 
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+            //    ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+            //    mypager.EnableViewState = true;
+            //    base.OnInit(e);
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
+            //    object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
         }
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
             try
             {
-                GetPageCount();
+                //GetPageCount();
                 this.BindGrid();
             }
             catch (BaseApplicationException Ex)
@@ -207,11 +208,12 @@ namespace WealthERP.SuperAdmin
         {
             //string rm = "";
             SessionBo.CheckSession();
+            gvAdvisorList_Init(sender, e);
             try
             {
                 if (!IsPostBack)
                 {
-                    mypager.CurrentPage = 1;
+                    //mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
                 //if (Session["RM"] != null)
@@ -252,7 +254,8 @@ namespace WealthERP.SuperAdmin
             try
             {
 
-                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression,Convert.ToString(hidIFA.Value.Trim()));
+                //advisorvolist = advisormaintanancebo.GetAdviserListWithPager(mypager.CurrentPage, out count, hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
+                advisorvolist = advisormaintanancebo.GetAdviserListWithPager(hdnSort.Value, filterexpression, Convert.ToString(hidIFA.Value.Trim()));
                 Session["IFFAdvisorVoList"] = advisorvolist;
                 lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (advisorvolist.Count != 0)
@@ -458,7 +461,7 @@ namespace WealthERP.SuperAdmin
                 {
                     gvAdvisorList.DataSource = null;
                     gvAdvisorList.DataBind();
-                    DivPager.Visible = false;
+                    //DivPager.Visible = false;
                     lblCurrentPage.Visible = false;
                     lblTotalRows.Visible = false;
                     ErrorMessage.Visible = true;
@@ -670,15 +673,15 @@ namespace WealthERP.SuperAdmin
         private DropDownList GetCategoryDDL()
         {
             DropDownList ddl = new DropDownList();
-            if (gvAdvisorList.HeaderRow != null)
-            {
-                if ((DropDownList)gvAdvisorList.HeaderRow.FindControl("ddlCategory") != null)
-                {
-                    ddl = (DropDownList)gvAdvisorList.HeaderRow.FindControl("ddlCategory");
-                }
-            }
-            else
-                ddl = null;
+            //if (gvAdvisorList.HeaderRow != null)
+            //{
+            //    if ((DropDownList)gvAdvisorList.HeaderRow.FindControl("ddlCategory") != null)
+            //    {
+            //        ddl = (DropDownList)gvAdvisorList.HeaderRow.FindControl("ddlCategory");
+            //    }
+            //}
+            //else
+            ddl = null;
 
             return ddl;
         }
@@ -723,13 +726,19 @@ namespace WealthERP.SuperAdmin
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+           
+
+            int selectedRow = 0;
             string menu;
             try
             {
-                DropDownList MyDropDownList = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                userId = int.Parse(gvAdvisorList.DataKeys[selectedRow].Value.ToString());
+                DropDownList MyDropDownList = (DropDownList)sender;                
+                GridDataItem gdi = (GridDataItem)MyDropDownList.NamingContainer;
+                //GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
+                selectedRow = gdi.ItemIndex + 1;
+                userId = int.Parse((gvAdvisorList.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
+                //int selectedRow = gvr.RowIndex;
+                //userId = int.Parse(gvAdvisorList.MasterTableView.DataKeyValues[selectedRow].Values.ToString());
                 //Session["userId"] = userId;
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["rmVo"] = rmVo;
@@ -1063,19 +1072,34 @@ namespace WealthERP.SuperAdmin
         private TextBox GetIFATextBox()
         {
             TextBox txt = new TextBox();
-            if (gvAdvisorList.HeaderRow != null)
-            {
-                if ((TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch") != null)
-                {
-                    txt = (TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch");
-                }
-            }
-            else
-                txt = null;
+        //    if (gvAdvisorList.HeaderRow != null)
+        //    {
+        //        if ((TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch") != null)
+        //        {
+        //            txt = (TextBox)gvAdvisorList.HeaderRow.FindControl("txtIFFSearch");
+        //        }
+        //    }
+        //    else
+            txt = null;
 
             return txt;
         }
 
-
+        protected void gvAdvisorList_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = gvAdvisorList.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
     }
 }
