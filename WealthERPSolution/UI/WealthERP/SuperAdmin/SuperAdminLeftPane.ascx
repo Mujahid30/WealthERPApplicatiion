@@ -50,5 +50,22 @@
                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
+        
+         <telerik:RadPanelItem Text="Messages">
+            <Items>
+            
+            
+                <telerik:RadPanelItem Text="Compose" Value="MsgCompose">
+                </telerik:RadPanelItem>                
+                
+                <%--<telerik:RadPanelItem Text="Inbox" Value="MsgInbox">
+                </telerik:RadPanelItem>--%>
+                                
+                <telerik:RadPanelItem Text="Outbox" Value="MsgOutbox">
+                </telerik:RadPanelItem>
+                
+            </Items>
+            
+        </telerik:RadPanelItem>
     </Items>
 </telerik:RadPanelBar>

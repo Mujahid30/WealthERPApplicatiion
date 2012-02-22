@@ -98,6 +98,18 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddIssue', 'none')", true);
                 }
+                else if (e.Item.Value == "MsgCompose")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MessageCompose', 'none')", true);
+                }
+                else if (e.Item.Value == "MsgInbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MessageInbox', 'none')", true);
+                }
+                else if (e.Item.Value == "MsgOutbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MessageOutbox', 'none')", true);
+                }
 
             }
             catch (BaseApplicationException Ex)

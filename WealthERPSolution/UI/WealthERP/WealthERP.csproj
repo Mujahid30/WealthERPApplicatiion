@@ -2228,6 +2228,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Messages\MessageCompose.ascx.cs">
+      <DependentUpon>MessageCompose.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Messages\MessageCompose.ascx.designer.cs">
+      <DependentUpon>MessageCompose.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\MessageInbox.ascx.cs">
+      <DependentUpon>MessageInbox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Messages\MessageInbox.ascx.designer.cs">
+      <DependentUpon>MessageInbox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\MessageOutbox.ascx.cs">
+      <DependentUpon>MessageOutbox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
+      <DependentUpon>MessageOutbox.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\ManualOrderMapping.aspx.cs">
       <DependentUpon>ManualOrderMapping.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5282,6 +5303,9 @@
     <Content Include="MarketDataDownloadFiles\BseEquitiesFiltered.txt" />
     <Content Include="MarketDataDownloadFiles\NseEquities.txt" />
     <Content Include="MarketDataDownloadFiles\NseEquitiesFiltered.txt" />
+    <Content Include="Messages\MessageCompose.ascx" />
+    <Content Include="Messages\MessageInbox.ascx" />
+    <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
     <Content Include="OPS\OrderEntry.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />

@@ -1281,4 +1281,16 @@
     <value>General//AccountDeactive.ascx</value>
     <comment>General//AccountDeactive.ascx</comment>
   </data>
+  <data name="MessageCompose" xml:space="preserve">
+    <value>Messages//MessageCompose.ascx</value>
+    <comment>Messages//MessageCompose.ascx</comment>
+  </data>
+  <data name="MessageInbox" xml:space="preserve">
+    <value>Messages//MessageInbox.ascx</value>
+    <comment>Messages//MessageInbox.ascx</comment>
+  </data>
+  <data name="MessageOutbox" xml:space="preserve">
+    <value>Messages//MessageOutbox.ascx</value>
+    <comment>Messages//MessageOutbox.ascx</comment>
+  </data>
 </root>

@@ -1528,6 +1528,33 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Messages//MessageCompose.ascx.
+        /// </summary>
+        internal static string MessageCompose {
+            get {
+                return ResourceManager.GetString("MessageCompose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages//MessageInbox.ascx.
+        /// </summary>
+        internal static string MessageInbox {
+            get {
+                return ResourceManager.GetString("MessageInbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages//MessageOutbox.ascx.
+        /// </summary>
+        internal static string MessageOutbox {
+            get {
+                return ResourceManager.GetString("MessageOutbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//MFManualMultipleTran.ascx.
         /// </summary>
         internal static string MFManualMultipleTran {
