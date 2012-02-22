@@ -61,14 +61,14 @@ namespace BoWerpAdmin
             advisormaintanencedao.MessageBroadcastSendMessage(BroadcastMessage, Broadcasttime, ExpiryDate, gvAdviserIds);
         }
 
-        public List<AdvisorVo> GetAdviserListWithPager(int CurrentPage, out int Count, string SortExpression, string filterExpression,string ifaNameSearch)
+        public List<AdvisorVo> GetAdviserListWithPager(string SortExpression, string filterExpression,string ifaNameSearch)
         {
 
             List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
             AdviserMaintenanceDao adviserMaintenanceDao = new AdviserMaintenanceDao();
             try
             {
-                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(CurrentPage, out Count, SortExpression, filterExpression,ifaNameSearch);
+                adviserVoList = adviserMaintenanceDao.GetAdviserListWithPager(SortExpression, filterExpression,ifaNameSearch);
             }
             catch (BaseApplicationException Ex)
             {
