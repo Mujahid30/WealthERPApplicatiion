@@ -293,7 +293,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(operationVo.CustomerId);
                         ddlPortfolio.SelectedValue = operationVo.portfolioId.ToString();
                         BindScheme(0);
-                        ddlAmcSchemeList.SelectedValue = operationVo.SchemePlanCode.ToString();
+                        ddlAmcSchemeList.SelectedItem.Value= operationVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = operationVo.SchemePlanCode.ToString();
                         
                     }
@@ -596,7 +596,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(operationVo.CustomerId);
                         ddlPortfolio.SelectedValue = operationVo.portfolioId.ToString();
                         BindScheme(0);
-                        ddlAmcSchemeList.SelectedValue = operationVo.SchemePlanCode.ToString();
+                        ddlAmcSchemeList.SelectedItem.Value = operationVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = operationVo.SchemePlanCode.ToString();
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = operationVo.SchemePlanSwitch.ToString();
