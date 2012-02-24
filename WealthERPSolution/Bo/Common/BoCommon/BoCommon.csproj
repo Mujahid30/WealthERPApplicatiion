@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +62,7 @@
     <Compile Include="EmailSMSBo.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="GetDifferenceInTables.cs" />
+    <Compile Include="MessageBo.cs" />
     <Compile Include="OneWayEncryption.cs" />
     <Compile Include="REadExternalFileBO.cs" />
     <Compile Include="SessionBo.cs" />
