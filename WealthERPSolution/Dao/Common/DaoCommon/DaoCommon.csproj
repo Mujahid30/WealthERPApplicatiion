@@ -75,10 +75,12 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailSMSDao.cs" />
+    <Compile Include="MessageDao.cs" />
     <Compile Include="XMLDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
