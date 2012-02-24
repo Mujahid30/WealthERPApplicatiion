@@ -3250,6 +3250,10 @@
       <Project>{5A775261-8919-4080-81AA-545763D709DB}</Project>
       <Name>VoUser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoCommon\VoCommon.csproj">
+      <Project>{57BD0A78-1CA9-4DA8-ADB6-FFC3E9FC7581}</Project>
+      <Name>VoCommon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Vo\VoEmailSMS\VoEmailSMS.csproj">
       <Project>{63F55269-2303-4902-9AEE-DD71DB00675D}</Project>
       <Name>VoEmailSMS</Name>
