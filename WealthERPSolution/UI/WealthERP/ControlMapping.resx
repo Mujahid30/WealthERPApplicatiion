@@ -1293,4 +1293,36 @@
     <value>Messages//MessageOutbox.ascx</value>
     <comment>Messages//MessageOutbox.ascx</comment>
   </data>
+  <data name="AdviserUploadsSA" xml:space="preserve">
+    <value>SuperAdmin//AdviserUploads.ascx</value>
+    <comment>SuperAdmin//AdviserUploads.ascx</comment>
+  </data>
+  <data name="RejectedEquityTransactionStagingSA" xml:space="preserve">
+    <value>SuperAdmin//RejectedEquityTransactionStaging.ascx</value>
+    <comment>SuperAdmin//RejectedEquityTransactionStaging.ascx</comment>
+  </data>
+  <data name="RejectedMFFolioStagingSA" xml:space="preserve">
+    <value>SuperAdmin/RejectedMFFolioStaging.ascx</value>
+    <comment>SuperAdmin/RejectedMFFolioStaging.ascx</comment>
+  </data>
+  <data name="RejectedMFTransactionStagingSA" xml:space="preserve">
+    <value>SuperAdmin//RejectedMFTransactionStaging.ascx</value>
+    <comment>SuperAdmin//RejectedMFTransactionStaging.ascx</comment>
+  </data>
+  <data name="RejectedSystematicTransactionStagingSA" xml:space="preserve">
+    <value>SuperAdmin//RejectedSystematicTransactionStaging.ascx</value>
+    <comment>SuperAdmin//RejectedSystematicTransactionStaging.ascx</comment>
+  </data>
+  <data name="RejectedTradeAccountStagingSA" xml:space="preserve">
+    <value>SuperAdmin//RejectedTradeAccountStaging.ascx</value>
+    <comment>SuperAdmin//RejectedTradeAccountStaging.ascx</comment>
+  </data>
+  <data name="RejectedWERPProfileSA" xml:space="preserve">
+    <value>SuperAdmin//RejectedWERPProfile.ascx</value>
+    <comment>SuperAdmin//RejectedWERPProfile.ascx</comment>
+  </data>
+  <data name="ViewUploadHistorySA" xml:space="preserve">
+    <value>SuperAdmin//ViewUploadHistory.ascx</value>
+    <comment>SuperAdmin//ViewUploadHistory.ascx</comment>
+  </data>
 </root>

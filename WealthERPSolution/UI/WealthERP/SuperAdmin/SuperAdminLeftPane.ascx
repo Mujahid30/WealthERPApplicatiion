@@ -38,6 +38,24 @@
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Sync For SIP Goal Funding" Value="GoalFunding_Sync">
                 </telerik:RadPanelItem>
+                <telerik:RadPanelItem Text="Uploads" Value="Uploads">
+                <Items>
+                 <telerik:RadPanelItem Text="Uploads History" Value="Uploads_History">
+                </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View Profile Exceptions" Value="View_Profile_Exceptions">
+                </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View Transaction Exceptions" Value="View_Transactions_Exceptions">
+                </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View MF Folio Exceptions" Value="View_MFFolio_Exceptions">
+                </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View EQ Trade A/c Exceptions" Value="View_EQ_TRADE_Account">
+                </telerik:RadPanelItem>
+                 <telerik:RadPanelItem Text="View EQ Transaction Exceptions" Value="View_EQ_Transaction">
+                </telerik:RadPanelItem>
+                <telerik:RadPanelItem Text="View Systematic Transaction Exceptions" Value="View_Systematic_Transaction">
+                </telerik:RadPanelItem>
+                </Items>
+                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
         <telerik:RadPanelItem Text="Issue Tracker">

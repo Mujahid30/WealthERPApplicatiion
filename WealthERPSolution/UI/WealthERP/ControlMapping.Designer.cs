@@ -322,6 +322,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//AdviserUploads.ascx.
+        /// </summary>
+        internal static string AdviserUploadsSA {
+            get {
+                return ResourceManager.GetString("AdviserUploadsSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UserManagement//AdvisorBMDashBoard.ascx.
         /// </summary>
         internal static string AdvisorBMDashBoard {
@@ -1915,6 +1924,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//RejectedEquityTransactionStaging.ascx.
+        /// </summary>
+        internal static string RejectedEquityTransactionStagingSA {
+            get {
+                return ResourceManager.GetString("RejectedEquityTransactionStagingSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//RejectedFoliosTransactionUpload.ascx.
         /// </summary>
         internal static string RejectedFoliosUploads {
@@ -1951,11 +1969,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin/RejectedMFFolioStaging.ascx.
+        /// </summary>
+        internal static string RejectedMFFolioStagingSA {
+            get {
+                return ResourceManager.GetString("RejectedMFFolioStagingSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//RejectedMFTransactionStaging.ascx.
         /// </summary>
         internal static string RejectedMFTransactionStaging {
             get {
                 return ResourceManager.GetString("RejectedMFTransactionStaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//RejectedMFTransactionStaging.ascx.
+        /// </summary>
+        internal static string RejectedMFTransactionStagingSA {
+            get {
+                return ResourceManager.GetString("RejectedMFTransactionStagingSA", resourceCulture);
             }
         }
         
@@ -1969,6 +2005,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//RejectedSystematicTransactionStaging.ascx.
+        /// </summary>
+        internal static string RejectedSystematicTransactionStagingSA {
+            get {
+                return ResourceManager.GetString("RejectedSystematicTransactionStagingSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//RejectedTradeAccountStaging.ascx.
         /// </summary>
         internal static string RejectedTradeAccountStaging {
@@ -1978,11 +2023,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//RejectedTradeAccountStaging.ascx.
+        /// </summary>
+        internal static string RejectedTradeAccountStagingSA {
+            get {
+                return ResourceManager.GetString("RejectedTradeAccountStagingSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//RejectedWERPProfile.ascx.
         /// </summary>
         internal static string RejectedWERPProfile {
             get {
                 return ResourceManager.GetString("RejectedWERPProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//RejectedWERPProfile.ascx.
+        /// </summary>
+        internal static string RejectedWERPProfileSA {
+            get {
+                return ResourceManager.GetString("RejectedWERPProfileSA", resourceCulture);
             }
         }
         
@@ -2685,6 +2748,15 @@ namespace WealthERP {
         internal static string ViewRMDetails {
             get {
                 return ResourceManager.GetString("ViewRMDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//ViewUploadHistory.ascx.
+        /// </summary>
+        internal static string ViewUploadHistorySA {
+            get {
+                return ResourceManager.GetString("ViewUploadHistorySA", resourceCulture);
             }
         }
         

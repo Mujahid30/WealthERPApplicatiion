@@ -110,6 +110,41 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MessageOutbox', 'none')", true);
                 }
+                else if (e.Item.Value == "Uploads")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserUploadsSA', 'none')", true);
+                }
+                else if (e.Item.Value == "Uploads_History")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewUploadHistorySA', 'none')", true);
+                }
+                else if (e.Item.Value == "View_Profile_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfileSA', 'none')", true);
+                }
+                else if (e.Item.Value == "View_Transactions_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStagingSA', 'none')", true);
+                }
+                else if (e.Item.Value == "View_MFFolio_Exceptions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedMFFolioStagingSA', 'none')", true);
+                }
+                else if (e.Item.Value == "View_EQ_TRADE_Account")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedTradeAccountStagingSA', 'none')", true);
+                }
+
+                else if (e.Item.Value == "View_EQ_Transaction")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA', 'none')", true);
+                }
+
+                else if (e.Item.Value == "View_Systematic_Transaction")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStagingSA', 'none')", true);
+                }       
+
 
             }
             catch (BaseApplicationException Ex)

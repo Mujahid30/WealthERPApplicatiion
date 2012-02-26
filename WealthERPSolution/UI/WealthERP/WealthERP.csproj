@@ -2579,6 +2579,13 @@
     <Compile Include="SuperAdmin\AddIssue.ascx.designer.cs">
       <DependentUpon>AddIssue.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\AdviserUploads.ascx.cs">
+      <DependentUpon>AdviserUploads.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\AdviserUploads.ascx.designer.cs">
+      <DependentUpon>AdviserUploads.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\DailyValuationMonitor.ascx.cs">
       <DependentUpon>DailyValuationMonitor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2621,6 +2628,48 @@
     <Compile Include="SuperAdmin\PriceListMonitor.ascx.designer.cs">
       <DependentUpon>PriceListMonitor.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\RejectedEquityTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedEquityTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedEquityTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedEquityTransactionStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedMFFolioStaging.ascx.cs">
+      <DependentUpon>RejectedMFFolioStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedMFFolioStaging.ascx.designer.cs">
+      <DependentUpon>RejectedMFFolioStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedMFTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedMFTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedMFTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedMFTransactionStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedSystematicTransactionStaging.ascx.cs">
+      <DependentUpon>RejectedSystematicTransactionStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedSystematicTransactionStaging.ascx.designer.cs">
+      <DependentUpon>RejectedSystematicTransactionStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedTradeAccountStaging.ascx.cs">
+      <DependentUpon>RejectedTradeAccountStaging.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedTradeAccountStaging.ascx.designer.cs">
+      <DependentUpon>RejectedTradeAccountStaging.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedWERPProfile.ascx.cs">
+      <DependentUpon>RejectedWERPProfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\RejectedWERPProfile.ascx.designer.cs">
+      <DependentUpon>RejectedWERPProfile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\Subscription.ascx.cs">
       <DependentUpon>Subscription.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2662,6 +2711,13 @@
     </Compile>
     <Compile Include="SuperAdmin\ViewIssuseDetails.ascx.designer.cs">
       <DependentUpon>ViewIssuseDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SuperAdmin\ViewUploadHistory.ascx.cs">
+      <DependentUpon>ViewUploadHistory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\ViewUploadHistory.ascx.designer.cs">
+      <DependentUpon>ViewUploadHistory.ascx</DependentUpon>
     </Compile>
     <Compile Include="Uploads\CAMSProfileFolioInputRejects.ascx.cs">
       <DependentUpon>CAMSProfileFolioInputRejects.ascx</DependentUpon>
@@ -5353,18 +5409,26 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
     <Content Include="SuperAdmin\AddIssue.ascx" />
+    <Content Include="SuperAdmin\AdviserUploads.ascx" />
     <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />
     <Content Include="SuperAdmin\IFF.ascx" />
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\IFFUserManagement.ascx" />
     <Content Include="SuperAdmin\ManualValuation.ascx" />
     <Content Include="SuperAdmin\PriceListMonitor.ascx" />
+    <Content Include="SuperAdmin\RejectedEquityTransactionStaging.ascx" />
+    <Content Include="SuperAdmin\RejectedMFFolioStaging.ascx" />
+    <Content Include="SuperAdmin\RejectedMFTransactionStaging.ascx" />
+    <Content Include="SuperAdmin\RejectedSystematicTransactionStaging.ascx" />
+    <Content Include="SuperAdmin\RejectedTradeAccountStaging.ascx" />
+    <Content Include="SuperAdmin\RejectedWERPProfile.ascx" />
     <Content Include="SuperAdmin\Subscription.ascx" />
     <Content Include="SuperAdmin\SuperAdminConfiguration.ascx" />
     <Content Include="SuperAdmin\SuperAdminGoalSIPFundingSync.ascx" />
     <Content Include="SuperAdmin\SuperAdminLeftPane.ascx" />
     <Content Include="SuperAdmin\SuperAdminMessageBroadcast.ascx" />
     <Content Include="SuperAdmin\ViewIssuseDetails.ascx" />
+    <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
@@ -6350,7 +6414,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52064</DevelopmentServerPort>
+          <DevelopmentServerPort>62417</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
