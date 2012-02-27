@@ -677,11 +677,10 @@ namespace WealthERP.CustomerPortfolio
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
                     msgRecordStatus.Visible = true;
                     cleanAllFields();
-                 int adviserId=advisorVo.advisorId;
-
-                 if (Cache[adviserId.ToString()] != null)
+                
+                 if (Cache[advisorVo.advisorId.ToString()] != null)
                     {
-                        Cache.Remove(adviserId.ToString());
+                        Cache.Remove(advisorVo.advisorId.ToString());
                     }
                  
                    
