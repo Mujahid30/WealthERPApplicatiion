@@ -245,7 +245,7 @@ namespace DaoWerpAdmin
             }
 
         }
-        public DataSet GetMessageBroadcast()
+        public DataSet GetMessageBroadcast(int advisorId)
         {
             DataSet dsMessageBroadcast;
             Database dbMessageBroadcast;
@@ -253,8 +253,8 @@ namespace DaoWerpAdmin
             try
             {
                 dbMessageBroadcast = DatabaseFactory.CreateDatabase("wealtherp");
-
                 CmdMessageBroadcast = dbMessageBroadcast.GetStoredProcCommand("SP_GetMessageBroadcastMessage");
+                dbMessageBroadcast.AddInParameter(CmdMessageBroadcast, "@advisorId", DbType.Int32, advisorId);
                 dsMessageBroadcast = dbMessageBroadcast.ExecuteDataSet(CmdMessageBroadcast);
             }
             catch (BaseApplicationException Ex)

@@ -313,7 +313,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
                     AllowAutomaticInserts="false">
-                   
+                   <ExportSettings ExportOnlyData="true" HideStructureColumns="true"></ExportSettings>
                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
                      <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
@@ -691,8 +691,8 @@
         <%--<table>
             <tr>
                 <td>--%>
-                <div 
-            style="overflow-x:auto;overflow-y:hidden;width:100%;padding: 0 0 20px 0">
+              <%--  <div 
+            style="overflow-x:auto;overflow-y:hidden;width:100%;padding: 0 0 20px 0">--%>
 
                    <telerik:RadGrid ID="gvMFFundPerformance" runat="server" 
                         AllowAutomaticInserts="false" AllowPaging="True" 
@@ -836,7 +836,7 @@
                         <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
                     </clientsettings>
                     </telerik:RadGrid>
-                </div>
+                <%--</div>--%>
                 <%--</td>
             </tr>
         </table>--%></asp:Panel>

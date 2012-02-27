@@ -443,6 +443,7 @@ namespace WealthERP.Admin
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         gvMFRecord.Visible = true;
+                        gvMFRecord.CurrentPageIndex = 0;
                         gvMFRecord.DataSource = ds.Tables[0]; ;
                         gvMFRecord.DataBind();
                         //DivMF.Style.Add("display", "visible");

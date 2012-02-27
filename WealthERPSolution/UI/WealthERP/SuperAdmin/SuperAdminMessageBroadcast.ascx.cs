@@ -27,7 +27,9 @@ namespace WealthERP.SuperAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast();
+            AdvisorVo AdvisorVo=new AdvisorVo(); 
+            int advisorId =AdvisorVo.advisorId;
+            DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast(advisorId);
             if (dsMessage != null && dsMessage.Tables[0].Rows.Count > 0)
             {
                 MessageBroadcast.Visible = true;

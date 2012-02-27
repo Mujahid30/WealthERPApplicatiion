@@ -8,6 +8,21 @@
 <telerik:RadScriptManager  Runat="server">
 </telerik:RadScriptManager>
 
+   <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+            <AjaxSettings>
+                <telerik:AjaxSetting AjaxControlID="RadGrid1">
+                    <UpdatedControls>
+                        <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
+                    </UpdatedControls>
+                </telerik:AjaxSetting>
+                <telerik:AjaxSetting AjaxControlID="clrFilters">
+                    <UpdatedControls>
+                        <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
+                        <telerik:AjaxUpdatedControl ControlID="clrFilters" />
+                    </UpdatedControls>
+                </telerik:AjaxSetting>
+            </AjaxSettings>
+   </telerik:RadAjaxManager>
 
 
 
@@ -34,21 +49,28 @@
             <asp:Label ID="Label1" runat="server" Text="RM List" CssClass="HeaderTextBig"></asp:Label>
         </td>
     </tr>--%>
-    <tr align="center">
+    <%--<tr align="center">
         <td colspan="2" class="leftField" align="right">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
 </table>
 <%--<asp:Panel ID="pnlIFFGrid" runat="server" Width="100%" ScrollBars="Vertical,horizontal">--%>
 <table class="TableBackground" width="100%">
+<tr align="left">
+<td>
+    <asp:Button ID="btnExportFilteredData" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" Text="Export All Filtered Data" runat="server" />
+</td>
+</tr>
     <tr>
         <td>
-            <telerik:RadGrid ID="gvAdvisorList" runat="server" GridLines="None" AutoGenerateColumns="False"
+            <telerik:RadGrid 
+             ID="gvAdvisorList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
-                    AllowAutomaticInserts="false">
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvAdvisorList_OnNeedDataSource">
+                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"></ExportSettings>
                 <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
                 <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
@@ -122,6 +144,9 @@
                     </Columns>
                 </MasterTableView>
             </telerik:RadGrid>
+            <br />
+            <%--<asp:Button ID="clrFilters" runat="server" Text="Clear filters" CssClass="button"
+            OnClick="clrFilters_Click"></asp:Button>--%>
         </td>
     </tr>
 </table>

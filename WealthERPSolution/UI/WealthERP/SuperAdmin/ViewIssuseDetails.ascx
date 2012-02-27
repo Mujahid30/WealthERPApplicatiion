@@ -179,13 +179,18 @@
         </table>
     </td>
  </tr>
+ <tr>
+    <td>
+        <asp:Button runat="server" Text="Export filtered data to Excel" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" ID="btnExportFilteredData" />
+    </td>
+ </tr>
     <tr>
         <td>   
                    <telerik:RadGrid ID="gvCSIssueTracker" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
-                    AllowAutomaticInserts="false">
-                   
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
+                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"></ExportSettings>
                     <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
                      <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
@@ -212,7 +217,7 @@
                          
                          
                          
-                        <telerik:GridDateTimeColumn  DataField="CSI_ReportedDate" AllowFiltering="true" HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
+                        <telerik:GridDateTimeColumn  DataField="CSI_ReportedDate" SortExpression="CSI_ReportedDate" AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                             <FilterTemplate>
                                 <telerik:RadDatePicker ID="calFilter" runat="server"></telerik:RadDatePicker>
@@ -246,7 +251,7 @@
                             </FilterTemplate>
                         </telerik:GridDateTimeColumn> 
                         
-                        <telerik:GridBoundColumn  HeaderText="status" AllowFiltering="true" DataField="XMLCSS_Name" UniqueName="status">
+                        <telerik:GridBoundColumn  HeaderText="status" SortExpression="XMLCSS_Name" CurrentFilterFunction="Contains" AutoPostBackOnFilter="false" AllowFiltering="true" DataField="XMLCSS_Name" UniqueName="status">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn> 
                         

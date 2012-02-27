@@ -44,10 +44,10 @@ namespace BoWerpAdmin
         }
 
 
-        public DataSet GetMessageBroadcast()
+        public DataSet GetMessageBroadcast(int advisorId)
         {
             AdviserMaintenanceDao advisormaintanencedao = new AdviserMaintenanceDao();
-            DataSet dsGetMessageBroadcast = advisormaintanencedao.GetMessageBroadcast();
+            DataSet dsGetMessageBroadcast = advisormaintanencedao.GetMessageBroadcast(advisorId);
             return dsGetMessageBroadcast;
         }
         public void UpdateMessageBroadcast(int BroadcastMessageId, Int16 IsActive)

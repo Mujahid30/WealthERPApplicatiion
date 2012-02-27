@@ -42,9 +42,19 @@ namespace WealthERP.SuperAdmin
             {
                 csIssueGridViewBind();
                 gvCSIssueTracker_Init(sender, e);
-            }
-            btnSearch_Click(sender, e);
+            }           
         }
+
+        public void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
+            gvCSIssueTracker.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCSIssueTracker.MasterTableView.ExportToExcel();
+        } 
 
         public void csIssueGridViewBind()
         { 
@@ -150,12 +160,12 @@ namespace WealthERP.SuperAdmin
 
         protected void gvCSIssueTracker_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = superAdminOpsBo.GetSearchDetails(strSearch);
+            DataSet ds = superAdminOpsBo.getCSIssueDetails();
             gvCSIssueTracker.DataSource = ds;
-            gvCSIssueTracker.DataBind();
+            //gvCSIssueTracker.DataBind();
 
-            gvCSIssueTracker.VirtualItemCount = ds.Tables[0].Rows.Count;
-            gvCSIssueTracker.DataSource = ds;
+            //gvCSIssueTracker.VirtualItemCount = ds.Tables[0].Rows.Count;
+            //gvCSIssueTracker.DataSource = ds;
 
         }
     }
