@@ -1325,4 +1325,8 @@
     <value>SuperAdmin//ViewUploadHistory.ascx</value>
     <comment>SuperAdmin//ViewUploadHistory.ascx</comment>
   </data>
+  <data name="TrailCommisionTransactionRejects" xml:space="preserve">
+    <value>Uploads//TrailCommisionTransactionRejects.ascx</value>
+    <comment>Uploads//TrailCommisionTransactionRejects.ascx</comment>
+  </data>
 </root>

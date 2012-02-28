@@ -2852,6 +2852,13 @@
     <Compile Include="Uploads\TempletonTransInputRejects.ascx.designer.cs">
       <DependentUpon>TempletonTransInputRejects.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\TrailCommisionTransactionRejects.ascx.cs">
+      <DependentUpon>TrailCommisionTransactionRejects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\TrailCommisionTransactionRejects.ascx.designer.cs">
+      <DependentUpon>TrailCommisionTransactionRejects.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\ViewUploadProcessLog.ascx.cs">
       <DependentUpon>ViewUploadProcessLog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5457,6 +5464,7 @@
     <Content Include="Uploads\StandardProfileInputRejects.ascx" />
     <Content Include="Uploads\TempletonProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\TempletonTransInputRejects.ascx" />
+    <Content Include="Uploads\TrailCommisionTransactionRejects.ascx" />
     <Content Include="YUI\build\animation\animation-debug.js" />
     <Content Include="YUI\build\animation\animation-min.js" />
     <Content Include="YUI\build\animation\animation.js" />

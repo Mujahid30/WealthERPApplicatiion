@@ -2392,6 +2392,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploads//TrailCommisionTransactionRejects.ascx.
+        /// </summary>
+        internal static string TrailCommisionTransactionRejects {
+            get {
+                return ResourceManager.GetString("TrailCommisionTransactionRejects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin//TransactBusinessOnlineLinks.ascx.
         /// </summary>
         internal static string TransactBusinessOnlineLinks {
