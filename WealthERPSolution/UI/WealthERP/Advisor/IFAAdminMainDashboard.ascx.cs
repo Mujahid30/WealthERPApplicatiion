@@ -43,8 +43,8 @@ namespace WealthERP.Advisor
                 LoadAdminBranchPerformance();
                 LoadBranchPerfomanceChart();
                 LoadRMPerformanceChart();
-
-                DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast();
+             
+                DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast(advisorVo.advisorId);
                 if (dsMessage != null && dsMessage.Tables[0].Rows.Count > 0)
                 {
                     MessageReceived.Visible = true;
