@@ -15,6 +15,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using System.Net.Mail;
 using PCGMailLib;
+using System.IO;
 
 namespace WealthERP.Advisor
 {
@@ -1040,7 +1041,9 @@ namespace WealthERP.Advisor
         {
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
-
+            string logoPath = string.Empty;
+           
+             
             string userName = rmUserVo.FirstName + " " + rmUserVo.MiddleName + " " + rmUserVo.LastName;
             if(chkOps.Checked == true)
                 email.GetAdviserRMAccountMail("Ops" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
@@ -1049,12 +1052,59 @@ namespace WealthERP.Advisor
             else
                 email.GetAdviserRMAccountMail("rm" + Session["userId"].ToString(), rmUserVo.OriginalPassword, userName);
             
+          
+
             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
+            email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
+            
+            email.Body = email.Body.Replace("[NAME]", userName);
             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+            email.Body = email.Body.Replace("[WEBSITE]", advisorVo.Website.Trim());
+            email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
+            email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
+            email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
+            email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
+            email.Body = email.Body.Replace("[PATH]", advisorVo.LogoPath.Trim());
+
+            System.Net.Mail.AlternateView htmlView;
+            System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
+            //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
+            htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
+            //Add image to HTML version
+            if (advisorVo != null)
+                logoPath = "~/Images/" + advisorVo.LogoPath;
+            if (!File.Exists(Server.MapPath(logoPath)))
+                logoPath = "~/Images/spacer.png";
+            //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+            System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
+            imageResource.ContentId = "HDIImage";
+            htmlView.LinkedResources.Add(imageResource);
+            //Add two views to message.
+            email.AlternateViews.Add(plainTextView);
+            email.AlternateViews.Add(htmlView);
             email.To.Add(rmUserVo.Email);
 
+            //AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
+            //AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(advisorVo.advisorId);
+            //if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
+            //{
+            //    emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
+
+            //    if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
+            //        emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
+            //    emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
+            //    emailer.smtpServer = adviserStaffSMTPVo.HostServer;
+            //    emailer.smtpUserName = adviserStaffSMTPVo.Email;
+
+            //    if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
+            //    {
+            //        email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+            //    }
+            //}
+
+
             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
-            AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(advisorVo.advisorId);
+            AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(((RMVo)Session["rmVo"]).RMId);
             if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
             {
                 emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
@@ -1067,7 +1117,15 @@ namespace WealthERP.Advisor
 
                 if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
                 {
-                    email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+                    if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+                    {
+                        email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+                    }
+                    else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+                    {
+                        email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+                    }
+
                 }
             }
             bool isMailSent = emailer.SendMail(email);
