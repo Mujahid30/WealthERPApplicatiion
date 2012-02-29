@@ -3220,6 +3220,7 @@ namespace DaoCustomerPortfolio
 
                 db.AddInParameter(DeleteTradeAccountCmd, "@MFFolio_AccId", DbType.Int32, FolioId);
                 db.AddOutParameter(DeleteTradeAccountCmd, "@CountFlag", DbType.Int32, 50);
+                DeleteTradeAccountCmd.CommandTimeout = 60 * 60;
                 dsDeleteTradeAccount =  db.ExecuteDataSet(DeleteTradeAccountCmd);
 
                 Object objFromDate = db.GetParameterValue(DeleteTradeAccountCmd, "@CountFlag");
