@@ -18,6 +18,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Configuration;
 using BoCommon;
 using VoAdvisorProfiling;
+using System.IO;
 
 namespace WealthERP.Advisor
 {
@@ -447,7 +448,7 @@ namespace WealthERP.Advisor
             Emailer emailer = new Emailer();
             EmailMessage email = new EmailMessage();
             advisorVo = (AdvisorVo)Session["advisorVo"];
-
+            string logoPath = string.Empty;
             bool isMailSent = false;
             bool isEmailIdBlank = false;
             try
@@ -478,6 +479,32 @@ namespace WealthERP.Advisor
                     email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
                     email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
                     email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
+                    email.Body = email.Body.Replace("[WEBSITE]", advisorVo.Website.Trim());
+                    email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
+                    email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
+                    email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
+                    email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
+                    email.Body = email.Body.Replace("[PATH]", advisorVo.LogoPath.Trim());
+
+                    System.Net.Mail.AlternateView htmlView;
+                    System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
+                    //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
+                    htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
+                    //Add image to HTML version
+                    if (advisorVo != null)
+                        logoPath = "~/Images/" + advisorVo.LogoPath;
+                    if (!File.Exists(Server.MapPath(logoPath)))
+                        logoPath = "~/Images/spacer.png";
+                    //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+                    System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
+                    imageResource.ContentId = "HDIImage";
+                    htmlView.LinkedResources.Add(imageResource);
+                    //Add two views to message.
+                    email.AlternateViews.Add(plainTextView);
+                    email.AlternateViews.Add(htmlView);
+                    //Send message
+                    //System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient();
+
                     //Assign SMTP Credentials if configured.
                     if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
                     {

@@ -17,6 +17,7 @@ using BoCommon;
 using WealthERP.Base;
 using VoHostConfig;
 using System.Configuration;
+using System.IO;
 
 namespace WealthERP.Advisor
 {
@@ -419,8 +420,8 @@ namespace WealthERP.Advisor
         {
             int selectedRecords = 0;
             string statusMessage = string.Empty;
-            advisorVo=(AdvisorVo)Session["advisorVo"];            
-
+            advisorVo=(AdvisorVo)Session["advisorVo"];
+            string logoPath = string.Empty;
             if (Page.IsValid)
             {
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
@@ -455,8 +456,31 @@ namespace WealthERP.Advisor
                             email.GetResetPasswordMail(userVo.LoginId, password, userName);
                             email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
                             email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
-                            email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+                            //email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
                             email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
+                            email.Body = email.Body.Replace("[WEBSITE]", advisorVo.Website.Trim());
+                            email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
+                            email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
+                            email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
+                            email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
+                            email.Body = email.Body.Replace("[PATH]", advisorVo.LogoPath.Trim());
+
+                            System.Net.Mail.AlternateView htmlView;
+                            System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
+                            //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
+                            htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
+                            //Add image to HTML version
+                            if (advisorVo != null)
+                                logoPath = "~/Images/" + advisorVo.LogoPath;
+                            if (!File.Exists(Server.MapPath(logoPath)))
+                                logoPath = "~/Images/spacer.png";
+                            //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+                            System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
+                            imageResource.ContentId = "HDIImage";
+                            htmlView.LinkedResources.Add(imageResource);
+                            //Add two views to message.
+                            email.AlternateViews.Add(plainTextView);
+                            email.AlternateViews.Add(htmlView);
                             
                             email.To.Add(userVo.Email);
 

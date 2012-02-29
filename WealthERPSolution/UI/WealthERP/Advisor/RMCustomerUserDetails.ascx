@@ -191,7 +191,7 @@
                            <asp:Label ID="lblLoginId" runat="server" Text='<%# Eval("Login Id").ToString() %>'></asp:Label>
                            
                           <asp:LinkButton ID="lnkGenerateLogin" runat="server" CausesValidation="false" CommandName="GenerateLogin"
-                                Text='Generate Login' CommandArgument='<%# Eval("UserId") %>'>
+                                Text='Generate & Send Login Details' CommandArgument='<%# Eval("UserId") %>'>
                           </asp:LinkButton>
                           
                         </ItemTemplate>
