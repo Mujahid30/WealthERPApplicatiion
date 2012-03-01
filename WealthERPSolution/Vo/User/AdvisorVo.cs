@@ -50,6 +50,7 @@ namespace VoUser
         private Int16 s_IsDependent;
         private Int16 s_IsIPEnable;
         private Int16 s_IsOpsEnable;
+        private string m_DomainName;        
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
 
       
@@ -285,6 +286,13 @@ namespace VoUser
             get { return s_IsActive; }
             set { s_IsActive = value; }
         }
+
+        public string DomainName
+        {
+            get { return m_DomainName; }
+            set { m_DomainName = value; }
+        }
+
         #endregion Properties
 
 
