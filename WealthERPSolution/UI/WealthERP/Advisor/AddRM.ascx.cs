@@ -1064,12 +1064,12 @@ namespace WealthERP.Advisor
             email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
             email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
             email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
-            email.Body = email.Body.Replace("[PATH]", advisorVo.LogoPath.Trim());
+            email.Body = email.Body.Replace("[LOGO]", "<img src='cid:HDIImage'>");
 
             System.Net.Mail.AlternateView htmlView;
             System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
             //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
-            htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p><img src='cid:HDIImage'></body></html>", null, "text/html");
+            htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p></body></html>", null, "text/html");
             //Add image to HTML version
             if (advisorVo != null)
                 logoPath = "~/Images/" + advisorVo.LogoPath;
