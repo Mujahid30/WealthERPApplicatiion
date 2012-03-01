@@ -8,6 +8,10 @@ using BoUser;
 using VoEmailSMS;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections;
+
+
+
 
 namespace DaoAdvisorProfiling
 {
@@ -1397,7 +1401,10 @@ namespace DaoAdvisorProfiling
                         advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
                     if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
-
+                    if (!string.IsNullOrEmpty(dr["A_DomainName"].ToString()))
+                        advisorVo.DomainName = dr["A_DomainName"].ToString();
+                    else
+                        advisorVo.DomainName = string.Empty;
                     advisorVo.IsIPEnable = Convert.ToInt16(dr["A_isIPEnable"].ToString());
                     advisorVo.IsOpsEnable = Convert.ToInt16(dr["A_IsOpsEnable"].ToString());
                 }
@@ -2276,6 +2283,54 @@ namespace DaoAdvisorProfiling
 
             return adviserOTALink;
         }
+
+        /// <summary>
+        ///Getting Adviser Theme for login widget 
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> GetAdviserLogInWidgetDetails(int adviserId)
+        {
+            Database db;
+            DbCommand GetAdviserDetails;
+            DataSet dsGetAdviserDetails;
+            Dictionary<string, string> advisorLoginWidgetDetails = new Dictionary<string, string>();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserDetails = db.GetStoredProcCommand("SP_GetAdviserLoginWidgetDeatils");
+                db.AddInParameter(GetAdviserDetails, "@AdviserId", DbType.Int32, adviserId);
+                dsGetAdviserDetails = db.ExecuteDataSet(GetAdviserDetails);
+                if (dsGetAdviserDetails != null && dsGetAdviserDetails.Tables[0].Rows.Count > 0)
+                {
+                    advisorLoginWidgetDetails.Add("DomainName", dsGetAdviserDetails.Tables[0].Rows[0]["A_DomainName"].ToString().Trim());
+                    advisorLoginWidgetDetails.Add("IsActive", dsGetAdviserDetails.Tables[0].Rows[0]["A_IsActive"].ToString().Trim());
+                    advisorLoginWidgetDetails.Add("Theme", dsGetAdviserDetails.Tables[0].Rows[0]["U_Theme"].ToString().Trim());
+                }
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdviserLogInWidgetDetails(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return advisorLoginWidgetDetails;
+
+        }
+
     }
 }
 
