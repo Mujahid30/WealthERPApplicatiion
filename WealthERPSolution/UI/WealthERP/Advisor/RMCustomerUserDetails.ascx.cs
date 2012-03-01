@@ -492,7 +492,7 @@ namespace WealthERP.Advisor
                     email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
                     email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
 
-                    email.Body = email.Body.Replace("[LOGO]", "<img src='cid:HDIImage'>");
+                    email.Body = email.Body.Replace("[LOGO]", "<img src='cid:HDIImage' alt='Logo'>");
 
                     System.Net.Mail.AlternateView htmlView;
                     System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
