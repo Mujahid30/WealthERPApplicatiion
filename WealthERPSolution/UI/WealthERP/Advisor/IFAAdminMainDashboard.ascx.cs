@@ -104,11 +104,7 @@ namespace WealthERP.Advisor
                 {
                     LoadAdminDashBoardDataInCaching();
                 }
-                else
-                {
-                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
-                }
-
+                
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     lblGT.Visible = true;
@@ -314,7 +310,7 @@ namespace WealthERP.Advisor
             DataSet dsAssetChart = new DataSet();
             Series seriesAssets = new Series("BranchPerformance");
             AssetBo assetsBo = new AssetBo();
-            DataSet ds = null;
+            //DataSet ds = null;
             int Count = 0;
             try
             {
@@ -325,11 +321,7 @@ namespace WealthERP.Advisor
                 {
                     LoadAdminDashBoardDataInCaching();
                 }
-                else
-                {
-                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
-                }
-
+                
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataSet branchPerformanceDs = new DataSet();
@@ -343,8 +335,15 @@ namespace WealthERP.Advisor
                     {
                         dr = dt.NewRow();
                         drResult = ds.Tables[0].Rows[i];
-                        dr[0] = drResult["AB_BranchName"].ToString();
-                        dr[1] = drResult["AB_BranchCode"].ToString();
+                        if (!string.IsNullOrEmpty(drResult["AB_BranchName"].ToString().Trim()))
+                            dr[0] = drResult["AB_BranchName"].ToString();
+                        else
+                            dr[0] = string.Empty;
+
+                        if (!string.IsNullOrEmpty(drResult["AB_BranchCode"].ToString().Trim()))
+                            dr[1] = drResult["AB_BranchCode"].ToString();
+                        else
+                            dr[1] = string.Empty;
                         tempEq = Math.Round(Convert.ToDouble(drResult["EquityAggr"].ToString()), 2);
                         tempIns = Math.Round(Convert.ToDouble(drResult["MFAggr"].ToString()), 2);
                         tempMf = Math.Round(Convert.ToDouble(drResult["InsuranceAggr"].ToString()), 2);                     
@@ -429,7 +428,7 @@ namespace WealthERP.Advisor
             double tempAggr = 0;
             AssetBo assetsBo = new AssetBo();
             DataSet dsAssetChart = new DataSet();
-            DataSet ds = null;
+            //DataSet ds = null;
             try
             {
 
@@ -442,10 +441,7 @@ namespace WealthERP.Advisor
                 {
                     LoadAdminDashBoardDataInCaching();
                 }
-                else
-                {
-                    ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
-                }
+                
                 if (ds.Tables[2].Rows.Count > 0)
                 {
                     string[] XValues = new string[ds.Tables[2].Rows.Count];
@@ -595,10 +591,17 @@ namespace WealthERP.Advisor
 
         protected void LoadAdminDashBoardDataInCaching()
         {
+            double totalEquity = 0;
+            double totalMF = 0;
             //Cache.Remove(advisorVo.advisorId.ToString());
             if (Cache[advisorVo.advisorId.ToString()] == null)
             {
-                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);              
+                ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);
+
+                totalEquity = double.Parse(ds.Tables[0].Compute("SUM(EquityAggr)", String.Empty).ToString());
+
+                totalMF = double.Parse(ds.Tables[0].Compute("SUM(MFAggr)", String.Empty).ToString());
+                if ((totalEquity != 0 && totalMF == 0) || (totalEquity == 0 && totalMF != 0) || (totalEquity != 0 && totalMF != 0))
                 Cache.Insert(advisorVo.advisorId.ToString(), ds, null, DateTime.Now.AddMinutes(10*60),TimeSpan.Zero);
             }
 
