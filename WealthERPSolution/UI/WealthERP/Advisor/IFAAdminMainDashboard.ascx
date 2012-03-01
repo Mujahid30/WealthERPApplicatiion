@@ -1,35 +1,42 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IFAAdminMainDashboard.ascx.cs" 
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IFAAdminMainDashboard.ascx.cs"
     Inherits="WealthERP.Advisor.IFAAdminMainDashboard" %>
 <%@ Register Assembly="System.Web.DataVisualization, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
-<%@ Register src="../General/Pager.ascx" tagname="Pager" tagprefix="Pager" %>
+<%@ Register Src="../General/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
-<table style="width: 100%;" class="TableBackground">
+<table style="width: 100%;" padding-top="1px" class="TableBackground" cellspacing="0"
+    cellpadding="0">
+    <tr>
+        <td align="left">
+            <asp:Label ID="Label1" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall">
+            </asp:Label>
+        </td>
+        <td align="right">
+            <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
+                OnClick="imgRefresh_Click" />
+        </td>
+    </tr>
+    <tr style="height: 2px">
+        <td colspan="2" style="height: 2px">
+            <hr style="height: 1px; line-height: 1px;" />
+        </td>
+    </tr>
+</table>
+<table style="width: 100%;" padding-top="0" class="TableBackground">
     <%--<tr>
         <td class="HeaderCell" colspan="3">
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Advisor Dashboard"></asp:Label>
         </td>
     </tr>--%>
-    <tr>
-        <td align="center" colspan="2">
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td align="left" colspan="2">
-            <asp:Label ID="Label1" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-      <tr>
+    <%--  <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
-        <td align="left">
+        <td align="left" colspan="2" style="padding-left:2px;padding-right:2px">
             <%--<asp:GridView ID="gvrAdminBranchPerform" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="Branch Id" EnableViewState="false" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" OnRowDataBound="gvrAdminBranchPerform_RowDataBound">
@@ -58,59 +65,48 @@
                     <asp:BoundField DataField="NoOfCustomers" HeaderText="No. of Customers" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
                 </Columns>
             </asp:GridView>--%>
-            
-               <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" 
-                        AllowAutomaticInserts="false" AllowPaging="True" 
-                        AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
-                        GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" 
-                        Skin="Telerik" Width="100%">
-                    <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
-                    <mastertableview allowmulticolumnsorting="true" autogeneratecolumns="false" CommandItemDisplay="None"
-                        width="99%">
-                        <Columns>
-                        <telerik:GridBoundColumn DataField="Branch Name" HeaderText="Branch Name" 
-                                UniqueName="Branch Name" FooterText="Total:" FooterStyle-HorizontalAlign="Left">
+            <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" AllowAutomaticInserts="false"
+                AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
+                GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" Skin="Telerik"
+                Width="100%">
+                <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
+                <MasterTableView AllowMultiColumnSorting="true" AutoGenerateColumns="false" CommandItemDisplay="None"
+                    Width="100%">
+                    <Columns>
+                        <telerik:GridBoundColumn DataField="Branch Name" HeaderText="Branch Name" UniqueName="Branch Name"
+                            FooterText="Total:" FooterStyle-HorizontalAlign="Left">
                             <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                     
-                        <telerik:GridBoundColumn DataField="Branch Code"
-                                HeaderText="Branch Code" UniqueName="Branch Code">
+                        <telerik:GridBoundColumn DataField="Branch Code" HeaderText="Branch Code" UniqueName="Branch Code">
                             <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn Aggregate="Sum"  DataField="Equity" DataType="System.Decimal" DataFormatString="{0:n2}"
-                                HeaderText="Equity (Rs)" UniqueName="Equity"  FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Equity" DataType="System.Decimal"
+                            DataFormatString="{0:n2}" HeaderText="Equity (Rs)" UniqueName="Equity" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn  Aggregate="Sum" DataField="MF" DataType="System.Decimal" DataFormatString="{0:n2}"
-                                HeaderText="MF (Rs)" UniqueName="MF"  FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="MF" DataType="System.Decimal"
+                            DataFormatString="{0:n2}" HeaderText="MF (Rs)" UniqueName="MF" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Insurance" DataType="System.Decimal" DataFormatString="{0:n2}"
-                                HeaderText="Insurance (Rs)" UniqueName="Insurance"  FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Insurance" DataType="System.Decimal"
+                            DataFormatString="{0:n2}" HeaderText="Insurance (Rs)" UniqueName="Insurance"
+                            FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfCustomers" DataType="System.Int32" DataFormatString="{0:0}"
-                                HeaderText="No. of Customers" UniqueName="NoOfCustomers" FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfCustomers" DataType="System.Int32"
+                            DataFormatString="{0:0}" HeaderText="No. of Customers" UniqueName="NoOfCustomers"
+                            FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="right" VerticalAlign="Top" Width="" Wrap="false" />
-                        </telerik:GridBoundColumn>                  
-                                                                                      
+                        </telerik:GridBoundColumn>
                     </Columns>
-                    
-                    </mastertableview>
-                    <clientsettings>
-                        <%--<Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true">
+                </MasterTableView>
+                <ClientSettings>
+                    <%--<Scrolling AllowScroll="false" UseStaticHeaders="True" SaveScrollPosition="true">
                         </Scrolling>--%>
-                        <selecting allowrowselect="True" enabledragtoselectrows="True" />                           
-                        <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
-                    </clientsettings>
-                    </telerik:RadGrid>            
-        </td>
-        <td align="left">
-            &nbsp;
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    <%-- <Resizing AllowColumnResize="True"></Resizing>--%>
+                </ClientSettings>
+            </telerik:RadGrid>
         </td>
     </tr>
     <tr>
@@ -123,13 +119,13 @@
     </tr>
     <tr>
         <td colspan="2">
-                       <%-- <Pager:Pager ID="mypager" runat="server" />--%>
+            <%-- <Pager:Pager ID="mypager" runat="server" />--%>
         </td>
     </tr>
     <tr>
         <td colspan="2">
             &nbsp;
-        <asp:HiddenField ID="hdnRecordCount" runat="server" />
+            <asp:HiddenField ID="hdnRecordCount" runat="server" />
         </td>
     </tr>
 </table>
@@ -146,22 +142,21 @@
     </tr>
     <tr>
         <td align="left">
-            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="Transparent" 
-                Width="400px" Height="200px">
+            <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="Transparent" Width="400px"
+                Height="200px">
                 <Series>
                     <asp:Series Name="Series1">
                     </asp:Series>
                 </Series>
                 <ChartAreas>
                     <asp:ChartArea BackColor="#EBEFF9" Name="ChartArea1">
-                    
                     </asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
         </td>
         <td style="float: right;">
-            <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="#F1EDED"
-                Height="300px" Width="450px">
+            <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="#F1EDED" Height="300px"
+                Width="450px">
                 <Series>
                     <asp:Series Name="Series1" XValueMember="Branch Code" YValueMembers="Aggr">
                     </asp:Series>
@@ -183,11 +178,14 @@
     </tr>
 </table>
 <table width="100%">
-<tr><td align="center">
-<div class="information-msg" id="MessageReceived" runat="server" visible="false" align="center">
-<br />
-    <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
-    <br />
-</div>
-</td></tr>
+    <tr>
+        <td align="center">
+            <div class="information-msg" id="MessageReceived" runat="server" visible="false"
+                align="center">
+                <br />
+                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
+                <br />
+            </div>
+        </td>
+    </tr>
 </table>

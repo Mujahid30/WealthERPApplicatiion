@@ -32,22 +32,13 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// lblCurrentPage control.
+        /// imgRefresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-        
-        /// <summary>
-        /// lblTotalRows control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalRows;
+        protected global::System.Web.UI.WebControls.ImageButton imgRefresh;
         
         /// <summary>
         /// gvrAdminBranchPerform control.

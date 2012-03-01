@@ -37,24 +37,20 @@ namespace WealthERP.Advisor
         {
             try
             {
+
                 SessionBo.CheckSession();
                 advisorVo = (AdvisorVo)Session["advisorVo"];
-                LoadAdminDashBoardDataInCaching();
-                LoadAdminBranchPerformance();
-                LoadBranchPerfomanceChart();
-                LoadRMPerformanceChart();
-             
-                DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast(advisorVo.advisorId);
-                if (dsMessage != null && dsMessage.Tables[0].Rows.Count > 0)
+
+                if (!IsPostBack)
                 {
-                    MessageReceived.Visible = true;
-                    if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() != "")
-                    {
-                        DateTime dtMessageDate = DateTime.Parse(dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessageDate"].ToString());
-                        lblSuperAdmnMessage.Text = "Message from SuperAdmin:" + dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() + Environment.NewLine + " Sent on:" + dtMessageDate.ToString();
-                        //lblSuperAdmnMessage.Text+="\n Sent on:"+
-                    }
+                    LoadAdminDashBoardDataInCaching();
+                    LoadAdminBranchPerformance();
+                    LoadBranchPerfomanceChart();
+                    LoadRMPerformanceChart();
+                    ShowMessageBroadcast();
+                   
                 }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -602,9 +598,42 @@ namespace WealthERP.Advisor
 
                 totalMF = double.Parse(ds.Tables[0].Compute("SUM(MFAggr)", String.Empty).ToString());
                 if ((totalEquity != 0 && totalMF == 0) || (totalEquity == 0 && totalMF != 0) || (totalEquity != 0 && totalMF != 0))
-                Cache.Insert(advisorVo.advisorId.ToString(), ds, null, DateTime.Now.AddMinutes(10*60),TimeSpan.Zero);
+                    Cache.Insert(advisorVo.advisorId.ToString(), ds, null, DateTime.Now.AddMinutes(10 * 60), TimeSpan.Zero);
+            }
+            else
+            {
+                ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
+ 
             }
 
+
+        }
+
+        protected void ShowMessageBroadcast()
+        {
+            DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast(advisorVo.advisorId);
+            if (dsMessage != null && dsMessage.Tables[0].Rows.Count > 0)
+            {
+                MessageReceived.Visible = true;
+                if (dsMessage.Tables[0].Rows[0]["ABM_IsActive"].ToString() == "1" && dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() != "")
+                {
+                    DateTime dtMessageDate = DateTime.Parse(dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessageDate"].ToString());
+                    lblSuperAdmnMessage.Text = "Message from SuperAdmin:" + dsMessage.Tables[0].Rows[0]["ABM_BroadCastMessage"].ToString() + Environment.NewLine + " Sent on:" + dtMessageDate.ToString();
+                    //lblSuperAdmnMessage.Text+="\n Sent on:"+
+                }
+            }
+ 
+        }
+
+        protected void imgRefresh_Click(object sender, ImageClickEventArgs e)
+        {
+            Cache.Remove(advisorVo.advisorId.ToString());
+
+            LoadAdminDashBoardDataInCaching();
+            LoadAdminBranchPerformance();
+            LoadBranchPerfomanceChart();
+            LoadRMPerformanceChart();
+            ShowMessageBroadcast();
 
         }
     }
