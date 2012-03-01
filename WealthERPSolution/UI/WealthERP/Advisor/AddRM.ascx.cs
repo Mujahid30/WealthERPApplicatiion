@@ -1059,7 +1059,14 @@ namespace WealthERP.Advisor
             
             email.Body = email.Body.Replace("[NAME]", userName);
             email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
-            email.Body = email.Body.Replace("[WEBSITE]", advisorVo.Website.Trim());
+            if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+            {
+                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
+            }
+            else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Citrus")
+            {
+                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
+            }
             email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
             email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
             email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
