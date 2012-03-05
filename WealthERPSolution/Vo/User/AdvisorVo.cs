@@ -50,6 +50,7 @@ namespace VoUser
         private Int16 s_IsDependent;
         private Int16 s_IsIPEnable;
         private Int16 s_IsOpsEnable;
+        private float s_VaultSize;
         private string m_DomainName;        
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
 
@@ -249,6 +250,12 @@ namespace VoUser
         {
             get { return s_IsOpsEnable; }
             set { s_IsOpsEnable = value; }
+        }
+
+        public float VaultSize
+        {
+            get { return s_VaultSize; }
+            set { s_VaultSize = value; }
         }
 
         public string LOBAssetGroup

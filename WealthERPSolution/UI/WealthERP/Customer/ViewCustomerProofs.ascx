@@ -1,91 +1,279 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewCustomerProofs.ascx.cs"
     Inherits="WealthERP.Customer.ViewCustomerProofs" %>
     <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+    
+<%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
 
-<script language="javascript" type="text/javascript">
-    function showmessage() {
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
 
-        var bool = window.confirm('Are you sure you want to delete this record?');
-        if (bool) {
-            document.getElementById("ctrl_ViewCustomerProofs_hdnMsgValue").value = 1;
-            document.getElementById("ctrl_ViewCustomerProofs_hiddenDelete").click();
-            return false;
+<script src="../Scripts/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.quickZoom.1.0.js" type="text/javascript"></script>
+<link href="../CSS/quickZoom.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        function validateRadUpload1(source, arguments) {
+            arguments.IsValid = $find('<%= radUploadProof.ClientID %>').validateExtensions();
         }
-        else {
-            document.getElementById("ctrl_ViewCustomerProofs_hdnMsgValue").value = 0;
-            document.getElementById("ctrl_ViewCustomerProofs_hiddenDelete").click();
-            return true;
-        }
-    }
-   
-</script>
+    </script>
 
-<table class="TableBackground" width="100%">
- <tr>
-        <td colspan="2">
-            <asp:Label ID="Label1" runat="server" Text="Proof" CssClass="HeaderTextBig"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Label ID="lblMsg" runat="server" Text="No Records Found..!" CssClass="Error"></asp:Label>
-        </td>
-    </tr>
-      <tr align="center">
-        <td colspan="2" class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:GridView ID="gvCustomerProofs" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ProofCode"
-                CssClass="GridViewStyle" AllowSorting="True" ShowFooter="true">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.quickZoom li').quickZoom({
+                zoom: 3,
+                speedIn: 500,
+                speedOut: 400,
+                easeIn: 'easeOutBack',
+                titleInSpeed: 100
+            });
+            $('.customClass li').quickZoom({
+                zoom: 1,
+                speedIn: 500,
+                speedOut: 200,
+                easeIn: 'easeOutBack',
+                titleInSpeed: 140,
+                sqThumb: true
+            });
+        });
+     </script>
+		
+		<style type="text/css">
+			.customClass {width:340px; margin:0 auto;}
+			.customClass li {
+					list-style:none;
+					margin:0; padding:0;
+					float:left;
+					margin:10px;
+					position:relative;
+			}
+			.customClass li, .customClass li img {
+				width:110px; height:110px; position:relative;
+			}
+			h1 {text-align:center; font-family:helvetica;}
+			
+		</style>  
+		
+		<script language="javascript" type="text/javascript">
+
+		    function showDeleteConfirmAlert() {
+
+		        var bool = window.confirm('Are you sure you want to delete this proof ?');
+
+		        if (bool) {
+		            document.getElementById("ctrl_ViewCustomerProofs_hdnMsgValue").value = 1;
+		            document.getElementById("ctrl_ViewCustomerProofs_hdnbtnDelete").click();
+
+		            return false;
+		        }
+		        else {
+		            document.getElementById("ctrl_ViewCustomerProofs_hdnMsgValue").value = 0;
+		            document.getElementById("ctrl_ViewCustomerProofs_hdnbtnDelete").click();
+
+		            return true;
+		        }
+		    }
+    
+    </script>
+
+
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
+
+<telerik:RadTabStrip ID="radPOCProof" runat="server" EnableTheming="True" Skin="Telerik" MultiPageID="multiPageView" EnableEmbeddedSkins="false">
+    <Tabs>
+        <telerik:RadTab runat="server" Text="Proof Upload" Value="Proof_Upload" TabIndex="0">
+        </telerik:RadTab>
+        <telerik:RadTab runat="server" Text="Proof View" Value="Proof_View" TabIndex="1" >
+        </telerik:RadTab>        
+    </Tabs>
+</telerik:RadTabStrip>
+
+<telerik:RadMultiPage ID="multiPageView" runat="server" SelectedIndex="0">
+<telerik:RadPageView ID="pageProofAdd" runat="server">
+    <asp:Panel ID="pnlProofAdd" runat="server">
+        <table width="100%">
+                <tr>
+                    <td>
+                        <label class="HeaderTextBig">Customer proof Upload</label>
+                        <hr />
+                    </td>
+                </tr>
+            </table>
+        <table id="tblproofAdd" width="100%">
+            <tr>
+                <td align="right">
+                    <label class="cmbField">Proof Type: </label>
+                </td>
+                <td align="left">
+                    <asp:DropDownList ID="ddlProofType" runat="server" AutoPostBack="true" onselectedindexchanged="ddlProofType_SelectedIndexChanged" CssClass="cmbField" ></asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <label class="cmbField">Proof: </label>
+                </td>
+                <td align="left">
+                    <asp:DropDownList ID="ddlProof" AutoPostBack="false" runat="server" CssClass="cmbField" ></asp:DropDownList>
+                </td>
+                
+            </tr>
+             <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <%--<tr>
+                <td align="right">
+                    <label class="cmbField">Purpose: </label>
+                </td>
+                <td align="left">
+                    <asp:ListBox ID="lstProofPurpose" CssClass="cmbField" runat="server" SelectionMode="Multiple"></asp:ListBox>
+                </td>
+            </tr>--%>
+             <%--<tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>--%>
+            <tr>
+                <td align="right">
+                    <label class="cmbField">Proof Copy type: </label>
+                </td>
+                <td align="left">
+                    <asp:DropDownList ID="ddlProofCopyType" runat="server" AutoPostBack="false" CssClass="cmbField" ></asp:DropDownList>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td align="right"  style="vertical-align: middle">
+                    <label class="cmbField">Upload: </label>
+                </td>
+                <td align="left" style="vertical-align: middle">
+                    <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
+                    <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="false"></telerik:RadUpload>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                
+                <td align="right" >
+                   <asp:Button ID="btnSubmit" Text="Submit" runat="server" CssClass="PCGButton" 
+                        onclick="btnSubmit_Click" />
+                        
+                      
+                </td>
+                <td align="left">
+                    <asp:Button ID="btnSubmitAdd" Text="Submit & Add More" runat="server" 
+                        CssClass="PCGMediumButton" onclick="btnSubmitAdd_Click" />
+                        
+                        <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete" 
+                        onclick="btnDelete_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                
+                </td>
+                <td>
+                      <asp:CustomValidator ID="Customvalidator1" Font-Bold="true" Font-Size="X-Small" ErrorMessage="Sorry invalid file..!!!" ForeColor="Red" runat="server" 
+                            Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+</telerik:RadPageView>
+
+<telerik:RadPageView ID="pageProofView" runat="server">
+   <asp:Panel ID="pnlUploadView" runat="server">
+        <table width="100%">
+            <tr>
+                <td>
+                    <label class="HeaderTextBig">Customer proof</label>
+                    <hr />
+                </td>
+            </tr>
+        </table>
+        <table id="tblUploadView" width="100%">
+            <tr>
+                <td>
+                    <asp:Repeater ID="repProofImages" OnItemDataBound="repProofImages_ItemDataBound" OnItemCommand="repProofImages_ItemCommand" runat="server" >
+                        <HeaderTemplate>
+                             <table width="100%">
+                                <tr>
+                                    <th align="center" style="text-decoration: underline" class="HeaderText">Proof type</th>
+                                    <th align="center" style="text-decoration: underline" class="HeaderText">Proof</th>
+                                    <th align="center" style="text-decoration: underline" class="HeaderText">Copy type</th>
+                                    <th align="center" style="text-decoration: underline" class="HeaderText">Proof</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                        </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:CheckBox ID="chkBx" runat="server" />
+                                <tr>
+                                    <td align="center">
+                                        <asp:Label ID="lblProofType" runat="server" CssClass="cmbField" Text='<%# Eval("ProofType").ToString() %>'></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                        <asp:Label ID="lblProof" runat="server" CssClass="cmbField" Text='<%# Eval("ProofName").ToString() %>'></asp:Label>
+                                    </td>
+                                    <td align="center">
+                                        <asp:Label ID="lblProofCopy" runat="server" CssClass="cmbField" Text='<%# Eval("ProofCopyType").ToString() %>'></asp:Label>
+                                    </td>
+                                    
+                                    <td align="center" style="border: 0; float: left" runat="server" id="tdProofImages">
+                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
+                                    </td>
+                                    
+                                    <td align="center">
+                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail" CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
+                                    </td>
+                                    <td align="center">
+                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="LinkButtons" CommandName="Print proof" CommandArgument='<%# Eval("ProofUploadId") %>' Text="Print"></asp:LinkButton>
+                                    </td>
+                                    <td align="center">
+                                        <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof" CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
+                                    </td>
+                                </tr>
                         </ItemTemplate>
+                        
+                        <SeparatorTemplate>
+                            <tr>
+                                <td colspan="7"><hr /></td>
+                            </tr>
+                        </SeparatorTemplate>
+                        
                         <FooterTemplate>
-                            <asp:Button ID="btnDelete" runat="server" CssClass="ButtonField" OnClick="btnDelete_Click"
-                                Text="Delete" />
+                        </table>
                         </FooterTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Proof Name" HeaderText="Proof Name" />
-                    <asp:BoundField DataField="Proof Category" HeaderText="Proof Category" />
-                </Columns>
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-            </asp:GridView>
-        </td>
-    </tr>
-     <tr>
-        <td>
-            <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
-                BorderStyle="None" BackColor="Transparent" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:HiddenField ID="hdnMsgValue" runat="server" />
-        </td>
-    </tr>
-</table>
-<div id="DivPager" runat="server">
-    <table style="width: 100%">
-        <tr id="trPager" runat="server">
-            <td>
-                <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-            </td>
-        </tr>
-    </table>
+                    </asp:Repeater>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+</telerik:RadPageView>
+
+
+</telerik:RadMultiPage>
+
+<div style="visibility: hidden">
+    <asp:HiddenField ID="hdnMsgValue" runat="server" />
+    <asp:Button ID="hdnbtnDelete" runat="server" BorderColor="Transparent" BackColor="Transparent" onclick="hdnbtnDelete_Click" />
 </div>
-<asp:HiddenField ID="hdnCount" runat="server" />
-<asp:HiddenField ID="hdnCurrentPage" runat="server" />
+
+

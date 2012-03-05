@@ -3798,5 +3798,372 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+
+        public DataTable GetCustomerProofTypes()
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerProofTypes;
+            DataSet dsCustomerProofTypes;
+            DataTable dtCustomerProofTypes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerProofTypes = db.GetStoredProcCommand("SP_GetCustomerProofTypes");
+
+                dsCustomerProofTypes = db.ExecuteDataSet(cmdGetCustomerProofTypes);
+                dtCustomerProofTypes = dsCustomerProofTypes.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerProofTypes;
+        }
+
+
+        public DataTable GetCustomerProofsForTypes(int proofTypeCode)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerProofsForTypes;
+            DataSet dsCustomerProofsForTypes;
+            DataTable dtCustomerProofsForTypes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerProofsForTypes = db.GetStoredProcCommand("SP_GetCustomerProofsForProofTypes");
+
+                db.AddInParameter(cmdGetCustomerProofsForTypes, "@XPRTProofTypeCode", DbType.Int32, proofTypeCode);
+
+                dsCustomerProofsForTypes = db.ExecuteDataSet(cmdGetCustomerProofsForTypes);
+                dtCustomerProofsForTypes = dsCustomerProofsForTypes.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerProofsForTypes;
+        }
+
+        public DataTable GetCustomerProofPurpose()
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerProofPurpose;
+            DataSet dsGetCustomerProofPurpose;
+            DataTable dtGetCustomerProofPurpose;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerProofPurpose = db.GetStoredProcCommand("SP_GetCustomerProofPurposes");
+
+                dsGetCustomerProofPurpose = db.ExecuteDataSet(cmdGetCustomerProofPurpose);
+                dtGetCustomerProofPurpose = dsGetCustomerProofPurpose.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerProofPurpose;
+        }
+
+
+        public DataTable GetCustomerProofCopy()
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerProofCopy;
+            DataSet dsGetCustomerProofCopy;
+            DataTable dtGetCustomerProofCopy;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerProofCopy = db.GetStoredProcCommand("SP_GetCustomerProofCopy");
+
+                dsGetCustomerProofCopy = db.ExecuteDataSet(cmdGetCustomerProofCopy);
+                dtGetCustomerProofCopy = dsGetCustomerProofCopy.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerProofCopy;
+        }
+
+        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, out int ProofUploadId)
+        {
+            bool bStatus = false;
+            Database db;
+            DbCommand cmdInsertPlanPreferences;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertPlanPreferences = db.GetStoredProcCommand("SP_CreateCustomerUploadedProofs");
+                db.AddInParameter(cmdInsertPlanPreferences, "@CustomerID", DbType.Int32, CPUVo.CustomerId);
+                db.AddInParameter(cmdInsertPlanPreferences, "@XPRT_ProofTypeCode", DbType.Int32, CPUVo.ProofTypeCode);
+                db.AddInParameter(cmdInsertPlanPreferences, "@XP_ProofCode", DbType.Int32, CPUVo.ProofCode);
+                db.AddInParameter(cmdInsertPlanPreferences, "@XPCT_ProofCopyTypeCode", DbType.String, CPUVo.ProofCopyTypeCode);
+                db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
+
+                db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, 0);
+
+
+                if (db.ExecuteNonQuery(cmdInsertPlanPreferences) != 0)
+                    bStatus = true;
+
+                ProofUploadId = Convert.ToInt32(db.GetParameterValue(cmdInsertPlanPreferences, "@CPU_ProofUploadId").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bStatus;
+        }
+
+
+        public DataTable GetCustomerUploadedProofs(int customerId, int proofId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerUploadedProofs;
+            DataSet dsGetCustomerUploadedProofs;
+            DataTable dtGetCustomerUploadedProofs = new DataTable();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerUploadedProofs = db.GetStoredProcCommand("SP_GetCustomerUploadedProofs");
+
+                db.AddInParameter(cmdGetCustomerUploadedProofs, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(cmdGetCustomerUploadedProofs, "@CPU_ProofUploadId", DbType.Int32, proofId);
+
+                dsGetCustomerUploadedProofs = db.ExecuteDataSet(cmdGetCustomerUploadedProofs);
+                if (dsGetCustomerUploadedProofs.Tables.Count != 0)
+                    dtGetCustomerUploadedProofs = dsGetCustomerUploadedProofs.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerUploadedProofs(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerUploadedProofs;
+        }
+
+        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteCustomerProofCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteCustomerProofCmd = db.GetStoredProcCommand("SP_DeleteCustomerUploadedProofs");
+                db.AddInParameter(deleteCustomerProofCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(deleteCustomerProofCmd, "@CPU_ProofUploadId", DbType.Int32, proofUploadID);
+                if (db.ExecuteNonQuery(deleteCustomerProofCmd) != 0)
+                    bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:DeleteCustomerUploadedProofs()");
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                //objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public bool CreateCustomersProofPurposes(int ProofUploadedID, string PurposeCode)
+        {
+            bool bStatus = false;
+            Database db;
+            DbCommand cmdInsertPlanPreferences;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertPlanPreferences = db.GetStoredProcCommand("SP_CreateCustomerProofPurposes");
+                db.AddInParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, ProofUploadedID);
+                db.AddInParameter(cmdInsertPlanPreferences, "@CPP_PurposeCode", DbType.String, PurposeCode);
+
+                db.AddOutParameter(cmdInsertPlanPreferences, "@CPP_ProofPurposeID", DbType.Int32, 0);
+
+
+                if (db.ExecuteNonQuery(cmdInsertPlanPreferences) != 0)
+                    bStatus = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:CreateCustomersProofPurposes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bStatus;
+        }
+
+        public DataTable GetCustomerUploadedProofPurposes(int proofId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerUploadedProofs;
+            DataSet dsGetCustomerUploadedProofPurpose;
+            DataTable dtGetCustomerUploadedProofPurpose = new DataTable();
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerUploadedProofs = db.GetStoredProcCommand("SP_GetCustomerUploadedProofPurposes");
+
+                db.AddInParameter(cmdGetCustomerUploadedProofs, "@CPP_ProofPurposeId", DbType.Int32, proofId);
+
+                dsGetCustomerUploadedProofPurpose = db.ExecuteDataSet(cmdGetCustomerUploadedProofs);
+                if (dsGetCustomerUploadedProofPurpose.Tables.Count != 0)
+                    dtGetCustomerUploadedProofPurpose = dsGetCustomerUploadedProofPurpose.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerUploadedProofs(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerUploadedProofPurpose;
+        }
     }
 }

@@ -563,4 +563,53 @@ namespace VoUser
         #endregion Properties
 
     }
+
+    public class CustomerProofUploadsVO
+    {
+        #region Fields
+        private int m_CustomerId;
+        private int m_ProofTypeCode;
+        private int m_ProofCode;
+        private string m_ProofPurpose;
+        private string m_ProofCopyTypeCode;
+        private string m_ProofImage;
+
+        #endregion Fields
+
+
+        #region Properties
+        public int CustomerId
+        {
+            get { return m_CustomerId; }
+            set { m_CustomerId = value; }
+        }
+        public int ProofTypeCode
+        {
+            get { return m_ProofTypeCode; }
+            set { m_ProofTypeCode = value; }
+        }
+        public int ProofCode
+        {
+            get { return m_ProofCode; }
+            set { m_ProofCode = value; }
+        }
+        public string ProofPurpose
+        {
+            get { return m_ProofPurpose; }
+            set { m_ProofPurpose = value; }
+        }
+
+        public string ProofCopyTypeCode
+        {
+            get { return m_ProofCopyTypeCode; }
+            set { m_ProofCopyTypeCode = value; }
+        }
+
+        public string ProofImage
+        {
+            get { return m_ProofImage; }
+            set { m_ProofImage = value; }
+        }
+        #endregion Properties
+    }
 }

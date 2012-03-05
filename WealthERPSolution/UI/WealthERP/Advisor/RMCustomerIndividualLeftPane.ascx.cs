@@ -950,12 +950,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Proof")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
                 else if (e.Item.Value == "Add Proof")
                 {
-                    Session["FlagProof"] = 1;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProofsAdd", "loadcontrol('CustomerProofsAdd','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
                 else if (e.Item.Value == "Financial Planning")
                 {

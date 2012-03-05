@@ -1401,6 +1401,10 @@ namespace DaoAdvisorProfiling
                         advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
                     if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
                         advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
+
+                    if (dr["A_VaultSize(in MB)"] != null && dr["A_VaultSize(in MB)"].ToString() != "")
+                        advisorVo.VaultSize = float.Parse(dr["A_VaultSize(in MB)"].ToString());
+
                     if (!string.IsNullOrEmpty(dr["A_DomainName"].ToString()))
                         advisorVo.DomainName = dr["A_DomainName"].ToString();
                     else

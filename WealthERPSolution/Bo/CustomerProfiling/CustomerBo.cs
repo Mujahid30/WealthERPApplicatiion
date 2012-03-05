@@ -1983,5 +1983,285 @@ namespace BoCustomerProfiling
             }
             return bResult;
         }
+
+
+        // added by Vinayak Patil
+
+        public DataTable GetCustomerProofTypes()
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerProofs = new DataTable();
+            try
+            {
+                dtCustomerProofs = customerDao.GetCustomerProofTypes();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetPerticularBranchsAllGroupCustomers()");
+
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtCustomerProofs;
+        }
+
+        public DataTable GetCustomerProofsForTypes(int proofTypeCode)
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerProofs = new DataTable();
+            try
+            {
+                dtCustomerProofs = customerDao.GetCustomerProofsForTypes(proofTypeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetPerticularBranchsAllGroupCustomers()");
+
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerProofs;
+        }
+
+        public DataTable GetCustomerProofPurpose()
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerProofPurpose = new DataTable();
+            try
+            {
+                dtCustomerProofPurpose = customerDao.GetCustomerProofPurpose();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetPerticularBranchsAllGroupCustomers()");
+
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtCustomerProofPurpose;
+        }
+
+        public DataTable GetCustomerProofCopy()
+        {
+            CustomerDao customerDao = new CustomerDao();
+            DataTable dtCustomerProofCopy = new DataTable();
+            try
+            {
+                dtCustomerProofCopy = customerDao.GetCustomerProofCopy();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetPerticularBranchsAllGroupCustomers()");
+
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtCustomerProofCopy;
+        }
+
+
+        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, out int ProofUploadId)
+        {
+            bool bStatus = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                bStatus = customerDao.CreateCustomersProofUploads(CPUVo, out ProofUploadId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProofTypes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bStatus;
+        }
+
+
+        public DataTable GetCustomerUploadedProofs(int customerId, int proofId)
+        {
+            DataTable dtGetCustomerUploadedProofs = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+
+            try
+            {
+                dtGetCustomerUploadedProofs = customerDao.GetCustomerUploadedProofs(customerId, proofId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerUploadedProofs(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerUploadedProofs;
+        }
+
+        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID)
+        {
+            bool bResult = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                bResult = customerDao.DeleteCustomerUploadedProofs(customerId, proofUploadID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:DeleteCustomerUploadedProofs()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public bool CreateCustomersProofPurposes(int ProofUploadedID, string PurposeCode)
+        {
+            bool bStatus = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                bStatus = customerDao.CreateCustomersProofPurposes(ProofUploadedID, PurposeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:CreateCustomersProofPurposes()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bStatus;
+        }
+
+        public DataTable GetCustomerUploadedProofPurposes(int proofId)
+        {
+            DataTable dtGetCustomerUploadedProofPurposes = new DataTable();
+            CustomerDao customerDao = new CustomerDao();
+
+            try
+            {
+                dtGetCustomerUploadedProofPurposes = customerDao.GetCustomerUploadedProofPurposes(proofId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerUploadedProofPurposes(int customerId)");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtGetCustomerUploadedProofPurposes;
+        }
     }
 }
