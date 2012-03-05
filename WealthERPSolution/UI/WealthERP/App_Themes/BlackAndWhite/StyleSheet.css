@@ -742,7 +742,7 @@ ul.tabbernav li.tabberactive a:hover
         -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
         font-size: 14px;
         width: 600px;
-        Z-Index:-1;
+        /*Z-Index:-1;*/
         text-align: center;
     }
     .success-msg
