@@ -215,8 +215,42 @@ namespace WealthERP.Advisor
                     RadPanelBar5.FindItemByValue("Reference_Data").Selected = true;
                 }
 
-            }
+                //
+                // Code to display inbox/message links based on main role
+                // 
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                {
+                    /* Compose, Inbox, Outbox Visible only in admin pane */
+                    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
+                    RadPanelBar3.FindItemByValue("Message").Visible = false; // BM Bar
+                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                {
+                    /* Compose, Inbox, Outbox Visible only in bm pane */
+                    RadPanelBar2.FindItemByValue("Message").Visible = false; // RM Bar
+                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                {
+                    /* Inbox Visible only in rm pane */
+                    RadPanelBar5.FindItemByValue("Message").Visible = false; // Research Bar
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "research")
+                {
+                    /* Inbox Visible only in research pane */
 
+                }
+                //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                //{
+                //    /* None visible as of now */
+                //}
+                //else
+                //{
+                //    /* None visible for customer as of now */
+                //}
+
+            }
         }
 
         //protected void Page_PreRender(object sender, EventArgs e)
@@ -799,6 +833,18 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','login');", true);
                 }
+                else if (e.Item.Value == "Compose")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
+                }
+                else if (e.Item.Value == "Inbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
+                }
+                else if (e.Item.Value == "Outbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -818,6 +864,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
         protected void RadPanelBar2_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
@@ -955,6 +1002,10 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EquityReports", "loadcontrol('EquityReports','login');", true);
                 }
+                else if (e.Item.Value == "Inbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -974,6 +1025,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
         protected void RadPanelBar3_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
@@ -1026,6 +1078,18 @@ namespace WealthERP.Advisor
                 //    Session["UserType"] = "bm";
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','login');", true);
                 //}
+                else if (e.Item.Value == "Compose")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
+                }
+                else if (e.Item.Value == "Inbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
+                }
+                else if (e.Item.Value == "Outbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1045,6 +1109,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
         protected void RadPanelBar4_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
@@ -1918,6 +1983,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF_Investment")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeMappingToModelPortfolio','login');", true);
+                }
+                else if (e.Item.Value == "Inbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
                 }
 
             }
