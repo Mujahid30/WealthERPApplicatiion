@@ -2148,6 +2148,13 @@
     <Compile Include="General\Header.ascx.designer.cs">
       <DependentUpon>Header.ascx</DependentUpon>
     </Compile>
+    <Compile Include="General\ImageServe.aspx.cs">
+      <DependentUpon>ImageServe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\ImageServe.aspx.designer.cs">
+      <DependentUpon>ImageServe.aspx</DependentUpon>
+    </Compile>
     <Compile Include="General\LeftPanel_Links.ascx.cs">
       <DependentUpon>LeftPanel_Links.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5237,6 +5244,7 @@
     <Content Include="General\AccountDeactive.ascx" />
     <Content Include="General\Calculators.ascx" />
     <Content Include="General\Dashboard.ascx" />
+    <Content Include="General\ImageServe.aspx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
@@ -5349,6 +5357,8 @@
     <Content Include="Images\Telerik\FP\Liabilities.gif" />
     <Content Include="Images\Telerik\FP\LifeInsurance.gif" />
     <Content Include="Images\Telerik\FP\Summary.gif" />
+    <Content Include="Images\Telerik\mailNewIcon.png" />
+    <Content Include="Images\Telerik\mailOpenIcon.png" />
     <Content Include="Images\Telerik\Synchronize.png" />
     <Content Include="Images\Telerik\Update.gif" />
     <Content Include="Images\Telerik\View.gif" />
@@ -6406,6 +6416,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="FusionChartXMLFiles\" />
     <Folder Include="Reports\App_LocalResources\" />
+    <Folder Include="TempCustomerProof\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
