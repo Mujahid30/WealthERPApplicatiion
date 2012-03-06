@@ -153,6 +153,7 @@
                     <telerik:RadComboBoxItem Text="Maroon" Value="Maroon" ImageUrl="../Images/red-sample.gif" />
                     <telerik:RadComboBoxItem Text="Purple" Value="Purple" ImageUrl="../Images/purple-sample.gif" />
                     <telerik:RadComboBoxItem Text="Blue" Value="Blue" ImageUrl="../Images/blue-sample.gif" />
+                    <telerik:RadComboBoxItem Text="Yellow" Value="Yellow" ImageUrl="../Images/Yellow-Sample.gif" />
                 </Items>
             </telerik:RadComboBox>
         </td>
