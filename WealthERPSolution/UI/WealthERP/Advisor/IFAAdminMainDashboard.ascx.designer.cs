@@ -50,6 +50,15 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadGrid gvrAdminBranchPerform;
         
         /// <summary>
+        /// lblNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNote;
+        
+        /// <summary>
         /// lblGTT control.
         /// </summary>
         /// <remarks>

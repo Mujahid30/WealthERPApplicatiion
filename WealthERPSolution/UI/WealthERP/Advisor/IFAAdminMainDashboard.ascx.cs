@@ -86,9 +86,8 @@ namespace WealthERP.Advisor
             DataTable dt = new DataTable();
             DataRow drResult = null;
             DataRow dr = null;
-            int Count = 0;
-            mfTotal = 0;
-            total = 0;
+
+            dt=CreateBranchPerformanceTable();
             try
             {
                 //Cache.Insert(advisorVo.advisorId.ToString(),
@@ -96,63 +95,9 @@ namespace WealthERP.Advisor
                // ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);
                //Cache.Insert(advisorVo.advisorId.ToString(),
                 //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-                if (Cache[advisorVo.advisorId.ToString()] == null)
-                {
-                    LoadAdminDashBoardDataInCaching();
-                }
-                
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    lblGT.Visible = true;
-                    lblGTT.Visible = true;
-
-
-                    dt.Columns.Add("Branch Id");
-                    dt.Columns.Add("Branch Name");
-                    dt.Columns.Add("Branch Code");
-                    //dt.Columns.Add("Equity");
-                    dt.Columns.Add("Equity", typeof(Decimal));
-                    dt.Columns.Add("MF", typeof(Decimal));
-                    dt.Columns.Add("Insurance", typeof(Decimal));
-                    dt.Columns.Add("NoOfCustomers", typeof(Int32));
-                    //dt.Columns.Add(new DataColumn("Equity", typeof(decimal)));
-                    //dt.Columns.Add(new DataColumn("MF", typeof(decimal)));
-                    //dt.Columns.Add(new DataColumn("Insurance", typeof(decimal)));
-
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        dr = dt.NewRow();
-                        drResult = ds.Tables[0].Rows[i];
-                        dr[0] = drResult["A_AdviserId"].ToString();
-                        dr[1] = drResult["AB_BranchName"].ToString();
-                        dr[2] = drResult["AB_BranchCode"].ToString();
-                        if (Convert.ToDecimal(drResult["EquityAggr"].ToString()) == 0)
-                            dr[3] = "0";
-                        else
-                        {
-                            dr[3] = decimal.Parse(drResult["EquityAggr"].ToString());
-
-                        }
-                        eqTotal = eqTotal + Convert.ToDecimal(drResult["EquityAggr"].ToString());
-
-                        if (Convert.ToDecimal(drResult["MFAggr"].ToString()) == 0)
-                            dr[4] = "0";
-                        else
-                            dr[4] = decimal.Parse(drResult["MFAggr"].ToString());
-                        mfTotal = mfTotal + Convert.ToDecimal(drResult["MFAggr"].ToString());
-
-                        if (Convert.ToDecimal(drResult["InsuranceAggr"].ToString()) == 0)
-                            dr[5] = "0";
-                        else
-                            dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString());
-                        insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
-
-
-                        dr[6] = drResult["NoOfCustomers"].ToString();
-                        customerTotal= customerTotal+ Int32.Parse(drResult["NoOfCustomers"].ToString());
-
-                        dt.Rows.Add(dr);
-                    }
+               
+               if(dt.Rows.Count>0)
+               {
 
 
                     gvrAdminBranchPerform.DataSource = dt;
@@ -313,11 +258,7 @@ namespace WealthERP.Advisor
                 //ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId, out Count, 0,out total);
                 //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
-                if (Cache[advisorVo.advisorId.ToString()] == null)
-                {
-                    LoadAdminDashBoardDataInCaching();
-                }
-                
+                                
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataSet branchPerformanceDs = new DataSet();
@@ -609,6 +550,71 @@ namespace WealthERP.Advisor
 
         }
 
+     public DataTable CreateBranchPerformanceTable()
+        {
+            DataTable dtBMPerformance = new DataTable();
+            DataRow drResult = null;
+            DataRow dr = null;
+           
+
+                dtBMPerformance.Columns.Add("Branch Id");
+                dtBMPerformance.Columns.Add("Branch Name");
+                dtBMPerformance.Columns.Add("Branch Code");
+                //dt.Columns.Add("Equity");
+                dtBMPerformance.Columns.Add("Equity", typeof(Decimal));
+                dtBMPerformance.Columns.Add("MF", typeof(Decimal));
+                dtBMPerformance.Columns.Add("Insurance", typeof(Decimal));
+                dtBMPerformance.Columns.Add("NoOfCustomers", typeof(Int32));
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    lblGT.Visible = true;
+                    lblGTT.Visible = true;
+
+                    //dt.Columns.Add(new DataColumn("Equity", typeof(decimal)));
+                    //dt.Columns.Add(new DataColumn("MF", typeof(decimal)));
+                    //dt.Columns.Add(new DataColumn("Insurance", typeof(decimal)));
+
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        dr = dtBMPerformance.NewRow();
+                        drResult = ds.Tables[0].Rows[i];
+                        dr[0] = drResult["A_AdviserId"].ToString();
+                        dr[1] = drResult["AB_BranchName"].ToString();
+                        dr[2] = drResult["AB_BranchCode"].ToString();
+                        if (Convert.ToDecimal(drResult["EquityAggr"].ToString()) == 0)
+                            dr[3] = "0";
+                        else
+                        {
+                            dr[3] = decimal.Parse(drResult["EquityAggr"].ToString());
+
+                        }
+                        eqTotal = eqTotal + Convert.ToDecimal(drResult["EquityAggr"].ToString());
+
+                        if (Convert.ToDecimal(drResult["MFAggr"].ToString()) == 0)
+                            dr[4] = "0";
+                        else
+                            dr[4] = decimal.Parse(drResult["MFAggr"].ToString());
+                        mfTotal = mfTotal + Convert.ToDecimal(drResult["MFAggr"].ToString());
+
+                        if (Convert.ToDecimal(drResult["InsuranceAggr"].ToString()) == 0)
+                            dr[5] = "0";
+                        else
+                            dr[5] = decimal.Parse(drResult["InsuranceAggr"].ToString());
+                        insuranceTotal = insuranceTotal + Convert.ToDecimal(drResult["InsuranceAggr"].ToString());
+
+
+                        dr[6] = drResult["NoOfCustomers"].ToString();
+                        customerTotal = customerTotal + Int32.Parse(drResult["NoOfCustomers"].ToString());
+
+                        dtBMPerformance.Rows.Add(dr);
+                    }
+                }
+
+            return dtBMPerformance;
+ 
+        }
+
         protected void ShowMessageBroadcast()
         {
             DataSet dsMessage = advisermaintanencebo.GetMessageBroadcast(advisorVo.advisorId);
@@ -627,6 +633,7 @@ namespace WealthERP.Advisor
 
         protected void imgRefresh_Click(object sender, ImageClickEventArgs e)
         {
+            if (Cache[advisorVo.advisorId.ToString()]!=null)
             Cache.Remove(advisorVo.advisorId.ToString());
 
             LoadAdminDashBoardDataInCaching();
@@ -636,5 +643,22 @@ namespace WealthERP.Advisor
             ShowMessageBroadcast();
 
         }
+
+       
+        protected void gvrAdminBranchPerform_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtBranchPerformance = new DataTable();
+            LoadAdminDashBoardDataInCaching();
+
+            dtBranchPerformance = CreateBranchPerformanceTable();
+            gvrAdminBranchPerform.DataSource = dtBranchPerformance;
+
+            LoadBranchPerfomanceChart();
+            LoadRMPerformanceChart();
+            ShowMessageBroadcast();
+
+
+        }
+        
     }
 }

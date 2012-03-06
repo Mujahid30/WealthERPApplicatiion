@@ -14,7 +14,7 @@
         </td>
         <td align="right">
             <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
-                OnClick="imgRefresh_Click" />
+                OnClick="imgRefresh_Click" ToolTip="If you finding the data is not in sync,click here to get updated data"/>
         </td>
     </tr>
     <tr style="height: 2px">
@@ -36,7 +36,7 @@
         </td>
     </tr>--%>
     <tr>
-        <td align="left" colspan="2" style="padding-left:2px;padding-right:2px">
+        <td align="left" colspan="2" style="padding-left: 2px; padding-right: 2px">
             <%--<asp:GridView ID="gvrAdminBranchPerform" runat="server" AllowSorting="True" AutoGenerateColumns="False"
                 CellPadding="4" DataKeyNames="Branch Id" EnableViewState="false" AllowPaging="True" ShowFooter="true"
                 CssClass="GridViewStyle" OnRowDataBound="gvrAdminBranchPerform_RowDataBound">
@@ -68,7 +68,7 @@
             <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" AllowAutomaticInserts="false"
                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
                 GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" Skin="Telerik"
-                Width="100%">
+                Width="100%" onneeddatasource="gvrAdminBranchPerform_NeedDataSource" >
                 <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
                 <MasterTableView AllowMultiColumnSorting="true" AutoGenerateColumns="false" CommandItemDisplay="None"
                     Width="100%">
@@ -110,10 +110,12 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2">
-            &nbsp;
+        <td align="left">
+        <asp:Label ID="lblNote" Text="Note:If you are finding the data is not in sync please click on Refresh" runat="server" CssClass="FieldName">
+        </asp:Label>
+        </td>
+        <td align="right">
             <asp:Label ID="lblGTT" runat="server" CssClass="FieldName" Text="Grand Total (Rs):"></asp:Label>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="lblGT" runat="server" CssClass="Field" Text="Label"></asp:Label>
         </td>
     </tr>
@@ -129,7 +131,7 @@
         </td>
     </tr>
 </table>
-<table style="width: 100%;">
+<table style="width: 100%;" cellpadding="0" cellspacing="0">
     <tr>
         <td align="left">
             <asp:Label ID="lblRMPerformChart" runat="server" Text="RM AUM" CssClass="HeaderTextSmall"></asp:Label>
@@ -141,7 +143,7 @@
         </td>
     </tr>
     <tr>
-        <td align="left">
+        <td align="left" style="padding-left: 2px; padding-right: 2px">
             <asp:Chart ID="ChartRMPerformance" runat="server" BackColor="Transparent" Width="400px"
                 Height="200px">
                 <Series>
@@ -154,7 +156,7 @@
                 </ChartAreas>
             </asp:Chart>
         </td>
-        <td style="float: right;">
+        <td style="float: right;" style="padding-left: 2px; padding-right: 2px">
             <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="#F1EDED" Height="300px"
                 Width="450px">
                 <Series>
