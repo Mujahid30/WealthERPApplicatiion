@@ -159,6 +159,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdvisorBranchAggregateValueCmd = db.GetStoredProcCommand("SP_GetAdvisorBranchEQ_MF_IN_CurrentAggr");
                 db.AddInParameter(getAdvisorBranchAggregateValueCmd, "@A_AdviserId", DbType.Int16, advisorId);
+                getAdvisorBranchAggregateValueCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getAdvisorBranchAggregateValueCmd);              
             }
             catch (BaseApplicationException Ex)
