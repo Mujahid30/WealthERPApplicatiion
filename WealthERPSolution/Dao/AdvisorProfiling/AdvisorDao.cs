@@ -460,6 +460,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
                     if (!string.IsNullOrEmpty(dr["A_IsActive"].ToString().Trim()))
                         advisorVo.IsActive = Convert.ToInt16(dr["A_IsActive"].ToString());
+                    if (!string.IsNullOrEmpty(dr["U_Theme"].ToString().Trim()))
+                        advisorVo.theme = Convert.ToString(dr["U_Theme"]).Trim();
                 }
 
 
@@ -1411,6 +1413,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.DomainName = string.Empty;
                     advisorVo.IsIPEnable = Convert.ToInt16(dr["A_isIPEnable"].ToString());
                     advisorVo.IsOpsEnable = Convert.ToInt16(dr["A_IsOpsEnable"].ToString());
+                    if (!string.IsNullOrEmpty(dr["U_Theme"].ToString().Trim()))
+                        advisorVo.theme = Convert.ToString(dr["U_Theme"]).Trim();
                 }
 
 
