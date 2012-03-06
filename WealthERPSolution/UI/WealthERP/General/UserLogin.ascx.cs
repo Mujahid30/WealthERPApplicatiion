@@ -30,10 +30,61 @@ namespace WealthERP.General
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         string strUserTheme;
         string currentPageUrl;
+        int userId = 0;
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            UserVo userVo = new UserVo();
+            UserBo userBo = new UserBo();
+            AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+            AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+            AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
+            RMVo rmVo = new RMVo();
+            AdvisorBo advisorBo = new AdvisorBo();
+            AdvisorVo advisorVo = new AdvisorVo();
+            CustomerBo customerBo = new CustomerBo();
+            CustomerVo customerVo = new CustomerVo();
+            if (Request.QueryString["UserId"] != null)
+            {
+                userId = int.Parse(Encryption.Decrypt(Request.QueryString["UserId"].ToString()));
+                userVo = userBo.GetUserDetails(userId);
+                Session["UserVo"] = userVo;
+                AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
+                if (userVo != null)
+                {
+                    if (userVo.UserType != "Customer")
+                        advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+
+                    else
+                    {
+                        customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+                        advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
+
+                    }
+                }
+
+                Session["advisorVo"] = advisorVo;
+                if (!string.IsNullOrEmpty(advisorVo.theme))
+                {
+                    //Page.Theme = advisorVo.theme.ToString();
+                    Session["Theme"] = advisorVo.theme.ToString();
+                    Session["refreshTheme"] = true;
+                }
+                else
+                {
+                    Page.Theme = "Maroon";
+                    Session["Theme"] = "Maroon";
+                    Session["refreshTheme"] = true;
+
+                }
+
+                SetUser(userId,userVo,advisorVo,customerVo);
+            }
+
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int userId = 0;
+            
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             if (!IsPostBack)
             {
@@ -78,11 +129,7 @@ namespace WealthERP.General
                     trAdvisorLogo.Visible = false;
                 }
 
-                if (Request.QueryString["UserId"] != null)
-                {
-                    userId = int.Parse(Encryption.Decrypt(Request.QueryString["UserId"].ToString()));
-                    SetUser(userId);
-                }
+                
             }
             //btnSignIn.Attributes.Add("OnClick", "loadImage()");
         }
@@ -99,6 +146,7 @@ namespace WealthERP.General
             AdvisorVo advisorVo = new AdvisorVo();
             CustomerBo customerBo = new CustomerBo();
             CustomerVo customerVo = new CustomerVo();
+
             List<string> roleList = new List<string>();
             string sourcePath = "";
             string branchLogoSourcePath = "";
@@ -759,18 +807,18 @@ namespace WealthERP.General
             }
         }
 
-        public void SetUser(int userId)
+        public void SetUser(int userId, UserVo userVo, AdvisorVo advisorVo,CustomerVo customerVo)
         {
-            UserVo userVo = new UserVo();
+            //UserVo userVo = new UserVo();
             UserBo userBo = new UserBo();
             AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
             RMVo rmVo = new RMVo();
             AdvisorBo advisorBo = new AdvisorBo();
-            AdvisorVo advisorVo = new AdvisorVo();
+            //AdvisorVo advisorVo = new AdvisorVo();
             CustomerBo customerBo = new CustomerBo();
-            CustomerVo customerVo = new CustomerVo();
+            //CustomerVo customerVo = new CustomerVo();
             List<string> roleList = new List<string>();
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
@@ -780,24 +828,25 @@ namespace WealthERP.General
             string branchLogoSourcePath = "";
             int count;
             bool isGrpHead = false;
-            userVo = userBo.GetUserDetails(userId);
-            Session["UserVo"] = userVo;
-            AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
+            //userId = 52877;
+            //userVo = userBo.GetUserDetails(userId);
+            //Session["UserVo"] = userVo;
+            //AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
 
-            if (Session[SessionContents.SAC_HostGeneralDetails] != null)
-            {
-                generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
-                if (userVo.theme != null)
-                {
-                    Session["Theme"] = userVo.theme.ToString();
-                    Session["refreshTheme"] = true;
-                }
-                else
-                {
-                    Session["Theme"] = generalconfigurationvo.DefaultTheme;
-                    Session["refreshTheme"] = true;
-                }
-            }
+            //if (Session[SessionContents.SAC_HostGeneralDetails] != null)
+            //{
+            //    generalconfigurationvo = (GeneralConfigurationVo)Session[SessionContents.SAC_HostGeneralDetails];
+            //    if (userVo.theme != null)
+            //    {
+            //        Session["Theme"] = userVo.theme.ToString();
+            //        Session["refreshTheme"] = true;
+            //    }
+            //    else
+            //    {
+            //        Session["Theme"] = generalconfigurationvo.DefaultTheme;
+            //        Session["refreshTheme"] = true;
+            //    }
+            //}
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
             //if (userVo.theme != null)
             //{
@@ -809,8 +858,35 @@ namespace WealthERP.General
             //    Session["Theme"] = "Maroon";
             //    Session["refreshTheme"] = true;
             //}
-            Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
-            advisorVo = (AdvisorVo)Session["advisorVo"];
+
+            //if (userVo != null)
+            //{
+            //    if (userVo.UserType != "Customer")
+            //        advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+
+            //    else
+            //    {
+            //        customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+            //        advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
+
+            //    }
+            //}
+
+            //Session["advisorVo"] = advisorVo;
+            //if (!string.IsNullOrEmpty(advisorVo.theme))
+            //{
+            //    Session["Theme"] = advisorVo.theme.ToString();
+            //    Session["refreshTheme"] = true;
+            //}
+            //else
+            //{
+            //    Session["Theme"] = "Maroon";
+            //    Session["refreshTheme"] = true;
+ 
+            //}
+
+            //Session["advisorVo"] = advisorBo.GetAdvisorUser(userVo.UserId);
+            //advisorVo = (AdvisorVo)Session["advisorVo"];
 
             if (advisorVo.IsActive == 1)
             {
