@@ -179,7 +179,10 @@ namespace DaoUser
                         userVo.theme = dr["U_Theme"].ToString();
                     if (dr["U_PwdSaltValue"] != null)
                         userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString();
+                    if(dr["U_IsTempPassword"] != null)
+                        userVo.IsTempPassword = Convert.ToInt16(dr["U_IsTempPassword"].ToString());
                 }
+
             }
 
 
