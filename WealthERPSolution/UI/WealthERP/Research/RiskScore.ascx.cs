@@ -1200,7 +1200,7 @@ namespace WealthERP.Research
                         int upperLimit = int.Parse(dr["WRPR_RiskScoreUpperLimit"].ToString());
                         adviserFPConfigurationBo.UpdateRiskClassScore(classCode, lowerLimit, upperLimit, adviserVo.advisorId, adviserVo.UserId);
                         BindAdviserAssumptions();
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Goal Score has been inserted successfully');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Risk Score has been inserted successfully');", true);
                     }
                 }
                 else
