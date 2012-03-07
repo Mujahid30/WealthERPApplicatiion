@@ -2486,6 +2486,11 @@
     <XMLExternalSourceFileType XESFT_FileTypeId="29" XESFT_AssetGroup="MF" XESFT_FileType="Transaction" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="25" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="30" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="WPT" WUXFT_XMLFileTypeId="26" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="31" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="27" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="32" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="TN" WUXFT_XMLFileTypeId="28" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="33" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="CA" WUXFT_XMLFileTypeId="29" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="34" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="30" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="35" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="DT" WUXFT_XMLFileTypeId="31" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="36" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="32" Deleted="False" />
   </Upload_Fileype>
 
   <WERPPortfolioTypes>
