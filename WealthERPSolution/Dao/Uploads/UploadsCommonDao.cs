@@ -581,7 +581,7 @@ namespace DaoUploads
             return count;
         }
 
-        
+
         //Get the count for number of transactions that are rejected for an Upload into WERP
         public int GetTransUploadRejectCount(int processID, string assetType)
         {
@@ -599,7 +599,7 @@ namespace DaoUploads
                 db.AddInParameter(getCount, "@assetType", DbType.String, assetType);
                 db.AddOutParameter(getCount, "@TotalRejectedRecords", DbType.Int32, 5000);
                 db.ExecuteNonQuery(getCount);
-                count  = Convert.ToInt32(db.GetParameterValue(getCount, "@TotalRejectedRecords"));
+                count = Convert.ToInt32(db.GetParameterValue(getCount, "@TotalRejectedRecords"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -623,6 +623,51 @@ namespace DaoUploads
             }
             return count;
         }
+
+
+        //Get the count for number of TRAIL transactions that are rejected for an Upload into WERP
+        public int GetTransUploadRejectCountForTrail(int processID, string assetType)
+        {
+            int count = 0;
+
+            Database db;
+            DbCommand getCount;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetCommonTrailCommissionUploadRejectCount");
+                
+                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+                db.AddInParameter(getCount, "@assetType", DbType.String, assetType);
+                db.AddOutParameter(getCount, "@TotalRejectedRecords", DbType.Int32, 5000);
+                db.ExecuteNonQuery(getCount);
+                count = Convert.ToInt32(db.GetParameterValue(getCount, "@TotalRejectedRecords"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetTransUploadRejectCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+                objects[1] = assetType;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
+
 
         //Get the count for number of profiles that are rejected for a Profile Upload 
         public int GetProfileUploadRejectCount(int processID, string source)
@@ -3584,6 +3629,39 @@ namespace DaoUploads
             return dsSIPRejectedDetails;
         }
 
+        public void DeleteMFTrailTransactionStaging(int StagingID)
+        {
+            Database db;
+            DbCommand deletetransactions;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deletetransactions = db.GetStoredProcCommand("SP_DeleteStagingTrailTransaction");
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.ExecuteDataSet(deletetransactions);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
         public void DeleteMFSIPTransactionStaging(int StagingID)
         {
             Database db;
@@ -3617,5 +3695,46 @@ namespace DaoUploads
             }
         }
 
+        /// <summary>
+        /// Function to get all the trail reject record details
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="processId"></param>
+        /// <returns></returns>
+        public DataSet GetTrailCommissionRejectRejectDetails(int adviserId,int processId)
+        {
+            Database db;
+            DbCommand cmdGetTrailRejectDetails;
+            DataSet dsTrailRejectRecords =null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetTrailRejectDetails = db.GetStoredProcCommand("SP_GetTrailCommissionRejectDetail");
+                db.AddInParameter(cmdGetTrailRejectDetails, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetTrailRejectDetails, "@processId", DbType.Int32, processId);
+                dsTrailRejectRecords=db.ExecuteDataSet(cmdGetTrailRejectDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:DeleteMFSIPTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                objects[1] = processId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTrailRejectRecords;
+        }
     }
 }
