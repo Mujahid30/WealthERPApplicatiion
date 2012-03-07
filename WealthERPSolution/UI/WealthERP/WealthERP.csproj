@@ -5448,6 +5448,8 @@
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload.sln" />
+    <Content Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.dtproj.user" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
     <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.sln" />
     <Content Include="UploadPackages\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads\SipKarvyUploads.dtproj.user" />
@@ -6262,6 +6264,10 @@
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerp.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerpEQTranTable.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx" />
+    <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeInputToFixedIncomeNetPosition.dtsx" />
+    <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.database" />
+    <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.dtproj" />
+    <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeXMLtoInput.dtsx" />
     <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationKarvyFileToXtrnlCombinationInput.dtsx" />
     <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationXtrnlStagingToWerpTransactionTable.dtsx" />
     <None Include="UploadPackages\KarvyCombinationUploadPackage\UploadCombinationXtrnlStagingToXtrnlProfile.dtsx" />
