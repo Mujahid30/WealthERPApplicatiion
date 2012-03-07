@@ -339,7 +339,7 @@
                             <asp:RequiredFieldValidator ID="rfvMinAge" ControlToValidate="txtMinAge"
                             ErrorMessage="<br />Please enter the Minimum age" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator> 
-                            <asp:RangeValidator ID="rvMinAge" CssClass="cvPCG" runat="server" ValidationGroup="Button1" ErrorMessage="<br />Age should be greater than or equal to 20" ControlToValidate="txtMinAge" MinimumValue="20" MaximumValue="150" Display="Dynamic" Type="Double"></asp:RangeValidator>
+                            <asp:RangeValidator ID="rvMinAge" CssClass="cvPCG" runat="server" ValidationGroup="Button1" ErrorMessage="<br />Age should lie between the range of 1 and 150" ControlToValidate="txtMinAge" MinimumValue="1" MaximumValue="150" Display="Dynamic" Type="Double"></asp:RangeValidator>
                                     <%--<asp:CompareValidator ID="cv2MinAge" runat="server"  ErrorMessage="<br />Age should be greater than or equal to 20"
                             ControlToValidate="txtMinAge" ValueToCompare="20" Operator="GreaterThanEqual"
                             CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator> --%>                          
