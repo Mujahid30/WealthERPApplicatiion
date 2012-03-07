@@ -106,7 +106,6 @@
         btn.click();
     }
 </script>
-
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -188,6 +187,7 @@
                <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
+                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
