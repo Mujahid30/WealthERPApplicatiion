@@ -246,14 +246,17 @@ namespace WealthERP.Uploads
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.ManageRejects)
                 {
+                    if ((filetypeId == 28) || (filetypeId == 29))
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommissionTransactionRejects','processId=" + processID + "');", true);
+                    }
 
-
-                    if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
+                    else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
                         filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId==21)
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
-                    }
+                    }                    
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile)
@@ -1052,6 +1055,84 @@ namespace WealthERP.Uploads
 
                         #endregion
 
+                        //-----------gobinda's Trail Commission Templeton-------------\\
+                        #region Trail Commission
+                        else if (filetypeId == 28)
+                        {
+                            AdvisorVo advisorVo = new AdvisorVo();
+                            uploadsCommonBo = new UploadCommonBo();
+                            //CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
+                            bool TempletonTrailCommonStagingChk = false;
+                            bool TempletonTrailCommonStagingToSetUp = false;
+                            bool updateProcessLog = false;
+                            string packagePath;
+
+
+                            processlogVo = uploadsCommonBo.GetProcessLogInfo(processID);
+
+                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\callOnReprocess.dtsx");
+
+                            TempletonTrailCommonStagingChk = uploadsCommonBo.TrailCommissionCommonStagingCheck(adviserVo.advisorId, processID, packagePath, configPath);
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "TN");
+
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (TempletonTrailCommonStagingChk)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "TN");
+
+                                if (TempletonTrailCommonStagingToSetUp)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "TN");
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }                            
+
+                        }
+
+                        #endregion
+
+                        //-----------gobinda's Trail Commission CAMS-------------\\
+                        #region Trail Commission
+                        else if (filetypeId == 29)
+                        {
+                            AdvisorVo advisorVo = new AdvisorVo();
+                            uploadsCommonBo = new UploadCommonBo();
+                            //CamsUploadsBo camsUploadsBo = new CamsUploadsBo();
+                            bool TempletonTrailCommonStagingChk = false;
+                            bool TempletonTrailCommonStagingToSetUp = false;
+                            bool updateProcessLog = false;
+                            string packagePath;
+
+
+                            processlogVo = uploadsCommonBo.GetProcessLogInfo(processID);
+
+                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\callOnReprocess.dtsx");
+
+                            TempletonTrailCommonStagingChk = uploadsCommonBo.TrailCommissionCommonStagingCheck(adviserVo.advisorId, processID, packagePath, configPath);
+                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(processID, "TN");
+
+                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            if (TempletonTrailCommonStagingChk)
+                            {
+                                packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "CA");
+
+                                if (TempletonTrailCommonStagingToSetUp)
+                                {
+                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                    processlogVo.EndTime = DateTime.Now;
+                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "CA");
+                                    blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                }
+                            }
+
+                        }
+
+                        #endregion
+
                     }
 
 
@@ -1239,6 +1320,7 @@ namespace WealthERP.Uploads
 
                         }
                         #endregion
+                        
 
 
                         #region Standard Equity Trade Account Common Staging Insertion
@@ -3925,6 +4007,19 @@ namespace WealthERP.Uploads
                 else if (extracttype == "SS")
                 {   // Check if Combination Upload
 
+                    trUploadedCustomers.Visible = true;
+                    trUploadedFolios.Visible = true;
+                    trUploadedTransactions.Visible = true;
+                    trRejectedRecords.Visible = true;
+
+                    txtUploadedCustomers.Text = processlogVo.NoOfCustomerInserted.ToString();
+                    txtUploadedFolios.Text = processlogVo.NoOfAccountsInserted.ToString();
+                    txtUploadedTransactions.Text = processlogVo.NoOfTransactionInserted.ToString();
+                    txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+                }
+
+                else if (extracttype == "TRAIL")
+                {
                     trUploadedCustomers.Visible = true;
                     trUploadedFolios.Visible = true;
                     trUploadedTransactions.Visible = true;
