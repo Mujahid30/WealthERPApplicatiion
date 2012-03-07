@@ -24,7 +24,7 @@ namespace BoUploads
         //To retrieve all fieldnames for a type of file used for upload. These fields are used to map column names of 
         //of the file uploaded with fields that must actually be thee for the type of uploaded file
 
-
+        
         public DataSet GetColumnNames(int XMLFileTypeId)
         {
             DataSet dsColumnNames = new DataSet();
@@ -372,6 +372,40 @@ namespace BoUploads
             try
             {
                 count = uploadDAO.GetTransUploadRejectCount(processID, assetType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetTransUploadRejectCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+                objects[1] = assetType;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
+
+
+        public int GetTransUploadRejectCountForTrail(int processID, string assetType)
+        {
+            int count = 0;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                count = uploadDAO.GetTransUploadRejectCountForTrail(processID, assetType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -4209,6 +4243,46 @@ namespace BoUploads
 
         }
 
+        public bool TrailCommissionCommonStagingCheck(int advisorId, int processId, string Packagepath, string configPath)
+        {
+            Microsoft.SqlServer.Dts.Runtime.Application App = new Microsoft.SqlServer.Dts.Runtime.Application();
+            bool IsProcessComplete = false;
+            try
+            {
+                Package camsProPkg2 = App.LoadPackage(Packagepath, null);
+                camsProPkg2.Variables["varAdviserId"].Value = advisorId;
+                camsProPkg2.Variables["varProcessId"].Value = processId;
+                //camsProPkg2.Variables["varUploadtypeFullName"].Value = UploadTypeShortForm;
+                camsProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult camsProResult2 = camsProPkg2.Execute();
+                if (camsProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = advisorId;
+                objects[1] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
         public void DeleteMFSIPTransactionStaging(int StagingID)
         {
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
@@ -4235,6 +4309,63 @@ namespace BoUploads
                 throw exBase;
             }
         }
-        
+
+        public void DeleteMFTrailTransactionStaging(int StagingID)
+        {
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                uploadDAO.DeleteMFTrailTransactionStaging(StagingID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteMFSIPTransactionStaging()");
+
+                object[] objects = new object[1];
+                objects[0] = StagingID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        public DataSet GetTrailCommissionRejectRejectDetails(int advisorId, int processId)
+        {
+            DataSet dsTrailRejectRecords = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                dsTrailRejectRecords = uploadDAO.GetTrailCommissionRejectRejectDetails(advisorId, processId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetTrailCommissionRejectRejectDetails()");
+
+                object[] objects = new object[2];
+
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTrailRejectRecords;
+        }        
     }
 }
