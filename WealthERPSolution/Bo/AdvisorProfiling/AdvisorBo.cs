@@ -10,6 +10,7 @@ using DaoAdvisorProfiling;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoEmailSMS;
+using System.Collections;
 
 
 namespace BoAdvisorProfiling
@@ -1462,6 +1463,42 @@ namespace BoAdvisorProfiling
 
             }
             return adviserOTALink;
+        }
+
+        /// <summary>
+        /// Get Theme name for the adviser for login widget
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public Dictionary<string, string> GetAdviserLogInWidGetDetails(int adviserId)
+        {
+
+            Dictionary<string, string> advisorLoginWidgetDetails = new Dictionary<string, string>();
+            AdvisorDao adviserDao = new AdvisorDao();
+            try
+            {
+                advisorLoginWidgetDetails = adviserDao.GetAdviserLogInWidgetDetails(adviserId);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAdviserLogInWidGetDetails(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return advisorLoginWidgetDetails;
+
         }
 
 
