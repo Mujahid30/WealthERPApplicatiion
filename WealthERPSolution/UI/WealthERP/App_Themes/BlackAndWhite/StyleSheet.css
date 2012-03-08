@@ -966,6 +966,21 @@ p.tip
     cursor: pointer;
 }
 
+.dvInbox
+{
+    padding: 20px 0 0 10px;
+    width: 870px;
+    height: 500px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: #000000;
+    -webkit-box-shadow: #B3A6AF 4px 4px 4px;
+    -moz-box-shadow: #B3A6AF 4px 4px 4px;
+    box-shadow: #B3A6AF 4px 4px 4px;
+    
+    }
+
 /* End */
 
 
