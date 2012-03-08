@@ -12,8 +12,31 @@
 <link href="../CSS/quickZoom.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
+
+        function HideValidations() {
+            document.getElementById("<%= cmpProofType.ClientID %>").style.visibility = 'hidden';
+            document.getElementById("<%= cmpProof.ClientID %>").style.visibility = 'hidden';
+            document.getElementById("<%= cmpProofCopyType.ClientID %>").style.visibility = 'hidden';
+        }
+
+        function ShowValidations() {
+            document.getElementById("<%= cmpProofType.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= cmpProof.ClientID %>").style.visibility = 'visible';
+            document.getElementById("<%= cmpProofCopyType.ClientID %>").style.visibility = 'visible';
+        }
+    
         function validateRadUpload1(source, arguments) {
             arguments.IsValid = $find('<%= radUploadProof.ClientID %>').validateExtensions();
+
+            var upload = $find("<%= radUploadProof.ClientID %>");
+            var inputs = upload.getFileInputs();
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value == '') {
+                    arguments.IsValid = false;
+                    return false;
+                }
+            }
+            
         }
     </script>
 
@@ -83,9 +106,9 @@
 
 <telerik:RadTabStrip ID="radPOCProof" runat="server" EnableTheming="True" Skin="Telerik" MultiPageID="multiPageView" EnableEmbeddedSkins="false">
     <Tabs>
-        <telerik:RadTab runat="server" Text="Proof Upload" Value="Proof_Upload" TabIndex="0">
+        <telerik:RadTab runat="server" Text="Proof Upload" onclick="ShowValidations();" Value="Proof_Upload" TabIndex="0">
         </telerik:RadTab>
-        <telerik:RadTab runat="server" Text="Proof View" Value="Proof_View" TabIndex="1" >
+        <telerik:RadTab runat="server" Text="Proof View" onclick="HideValidations();" Value="Proof_View" TabIndex="1" >
         </telerik:RadTab>        
     </Tabs>
 </telerik:RadTabStrip>
@@ -108,6 +131,10 @@
                 </td>
                 <td align="left">
                     <asp:DropDownList ID="ddlProofType" runat="server" AutoPostBack="true" onselectedindexchanged="ddlProofType_SelectedIndexChanged" CssClass="cmbField" ></asp:DropDownList>
+                    <asp:CompareValidator ID="cmpProofType" ValidationGroup="VaultValidations" runat="server"
+                        ControlToValidate="ddlProofType" ErrorMessage="Please select a Proof type"
+                        Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                    </asp:CompareValidator>
                 </td>
             </tr>
             <tr>
@@ -121,6 +148,10 @@
                 </td>
                 <td align="left">
                     <asp:DropDownList ID="ddlProof" AutoPostBack="false" runat="server" CssClass="cmbField" ></asp:DropDownList>
+                    <asp:CompareValidator ID="cmpProof" runat="server" ValidationGroup="VaultValidations"
+                        ControlToValidate="ddlProof" ErrorMessage="Please select a Proof"
+                        Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                    </asp:CompareValidator>
                 </td>
                 
             </tr>
@@ -148,6 +179,10 @@
                 </td>
                 <td align="left">
                     <asp:DropDownList ID="ddlProofCopyType" runat="server" AutoPostBack="false" CssClass="cmbField" ></asp:DropDownList>
+                    <asp:CompareValidator ID="cmpProofCopyType" runat="server" ValidationGroup="VaultValidations"
+                        ControlToValidate="ddlProofCopyType" ErrorMessage="Please select a Proof copy type"
+                        Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                    </asp:CompareValidator>
                 </td>
             </tr>
              <tr>
@@ -161,7 +196,8 @@
                 </td>
                 <td align="left" style="vertical-align: middle">
                     <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
-                    <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="false"></telerik:RadUpload>
+                    <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="false"></telerik:RadUpload>  
+                    <asp:Label ID="lblFileUploaded" runat="server" CssClass="cmbField" Text=""></asp:Label>
                 </td>
             </tr>
              <tr>
@@ -172,13 +208,13 @@
             <tr>
                 
                 <td align="right" >
-                   <asp:Button ID="btnSubmit" Text="Submit" runat="server" CssClass="PCGButton" 
+                   <asp:Button ID="btnSubmit" ValidationGroup="VaultValidations" Text="Submit" runat="server" CssClass="PCGButton" 
                         onclick="btnSubmit_Click" />
                         
                       
                 </td>
                 <td align="left">
-                    <asp:Button ID="btnSubmitAdd" Text="Submit & Add More" runat="server" 
+                    <asp:Button ID="btnSubmitAdd" ValidationGroup="VaultValidations" Text="Submit & Add More" runat="server" 
                         CssClass="PCGMediumButton" onclick="btnSubmitAdd_Click" />
                         
                         <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete" 
@@ -190,7 +226,7 @@
                 
                 </td>
                 <td>
-                      <asp:CustomValidator ID="Customvalidator1" Font-Bold="true" Font-Size="X-Small" ErrorMessage="Sorry invalid file..!!!" ForeColor="Red" runat="server" 
+                      <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true" Font-Size="X-Small" ErrorMessage="Empty / Invalid File..!!!" ForeColor="Red" runat="server" 
                             Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>
                 </td>
             </tr>
@@ -251,7 +287,7 @@
                                     </td>
                                 </tr>
                         </ItemTemplate>
-                        
+                       
                         <SeparatorTemplate>
                             <tr>
                                 <td colspan="7"><hr /></td>

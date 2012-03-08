@@ -3959,7 +3959,7 @@ namespace DaoCustomerProfiling
             return dtGetCustomerProofCopy;
         }
 
-        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, out int ProofUploadId)
+        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, int ProofUploadId)
         {
             bool bStatus = false;
             Database db;
@@ -3974,8 +3974,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertPlanPreferences, "@XPCT_ProofCopyTypeCode", DbType.String, CPUVo.ProofCopyTypeCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
 
-                db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, 0);
-
+                db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, ProofUploadId);
 
                 if (db.ExecuteNonQuery(cmdInsertPlanPreferences) != 0)
                     bStatus = true;

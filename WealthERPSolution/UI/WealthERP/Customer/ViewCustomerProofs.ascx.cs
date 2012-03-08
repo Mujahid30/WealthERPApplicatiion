@@ -46,6 +46,7 @@ namespace WealthERP.Customer
         int custBankAccId;
         int customerId;
         AdvisorVo adviserVo = new AdvisorVo();
+        System.Guid guid = System.Guid.NewGuid();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -64,7 +65,7 @@ namespace WealthERP.Customer
 
                 LoadImages();
                 btnDelete.Visible = false;
-
+                lblFileUploaded.Visible = false;
             }
         }
 
@@ -94,7 +95,10 @@ namespace WealthERP.Customer
                 ddlProofCopyType.DataTextField = dtProofCopy.Columns["XPCT_ProofCopyType"].ToString();
                 ddlProofCopyType.DataBind();
             }
-            ddlProofCopyType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            if (!IsPostBack)
+            {
+                ddlProofCopyType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            }
         }
 
         //private void BindProofPurposeList()
@@ -154,6 +158,7 @@ namespace WealthERP.Customer
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            
             FileStream outputStream = null;
             Session["Button"] = "Submit";
             customerVo = (CustomerVo)Session["CustomerVo"];
@@ -170,12 +175,8 @@ namespace WealthERP.Customer
             }
             else
             {
-                path = Server.MapPath("TempCustomerProof") + "\\";
+                path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "" + "\\";
             }
-
-
-
-            //string Temppath = "~/CustomerProofImages/advisor_"+rmVo.AdviserId+"";
 
             UploadedFile file = radUploadProof.UploadedFiles[0];
 
@@ -183,11 +184,7 @@ namespace WealthERP.Customer
             PermissionSet ps = new PermissionSet(PermissionState.None);
             ps.AddPermission(fp);
 
-
-
             string extension = file.GetExtension();
-
-
 
             float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576;
 
@@ -208,20 +205,19 @@ namespace WealthERP.Customer
                     byte[] bytes = new byte[l];
                     f.InputStream.Read(bytes, 0, l);
 
-                    imageUploadPath = customerVo.CustomerId + "_" + f.GetName();
+                    imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
                     if (extension != ".pdf")
                         UploadImage(path, f, imageUploadPath);
                     else
                     {
-                        //outputStream = new FileStream(path + "\\" + imageUploadPath, FileMode.Create, FileAccess.Write);
                         f.SaveAs(path + "\\" + imageUploadPath);
                     }
                 }
+                
                 CPUVo.CustomerId = customerVo.CustomerId;
                 CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
                 CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
                 CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-                //path = path.Replace("\\", "\\");
                 CPUVo.ProofImage = path + "\\" + imageUploadPath;
                 CreateDBReferrenceForProofUploads(CPUVo);
 
@@ -237,21 +233,23 @@ namespace WealthERP.Customer
         {
             int proofUploadID = 0;
             bool bStatus = false;
-            //bool bProofPurposeStatus = false;
-            if (CPUVo != null)
+
+            if (btnSubmit.Text == "Submit")
             {
-                bStatus = customerBo.CreateCustomersProofUploads(CPUVo, out proofUploadID);
-                //if((proofUploadID != 0) && (bStatus == true))
-                //{
-                //    foreach (ListItem item in lstProofPurpose.Items)
-                //    {
-                //        if (item.Selected)
-                //        {
-                //            bProofPurposeStatus = customerBo.CreateCustomersProofPurposes(proofUploadID, item.Value);
-                //        }
-                //    }
-                //}
+                if (CPUVo != null)
+                {
+                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID);
+                }
             }
+            else if (btnSubmit.Text == "Update")
+            {
+                proofUploadID = Convert.ToInt32(Session["ProofID"].ToString());
+                if (CPUVo != null)
+                {
+                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID);
+                }
+            }
+            
         }
 
         private void UploadImage(string path, UploadedFile f, string imageUploadPath)
@@ -523,7 +521,8 @@ namespace WealthERP.Customer
             DataTable dtPurposes = new DataTable();
             string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
             Session["ImagePath"] = imageAttachmentPath;
-
+            lblFileUploaded.Visible = true;
+            lblFileUploaded.Text = Path.GetFileName(imageAttachmentPath);
 
             if (e.CommandName == "Send Mail")
             {
@@ -532,11 +531,20 @@ namespace WealthERP.Customer
             }
             if (e.CommandName == "Print proof")
             {
-                PrintProof(imageAttachmentPath);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof Image printing is done successfully..!');", true);
+                int printerCount = PrinterSettings.InstalledPrinters.Count;
+                if (printerCount != 0)
+                {
+                    PrintProof(imageAttachmentPath);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof Image printing is done successfully..!');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No printers available..!');", true);
+                }
             }
             if (e.CommandName == "Edit proof")
             {
+                DataTable dtTempProofBind = new DataTable();
                 radPOCProof.SelectedIndex = 0;
                 multiPageView.SelectedIndex = 0;
                 btnDelete.Visible = true;
@@ -544,27 +552,23 @@ namespace WealthERP.Customer
                 btnSubmitAdd.Visible = false;
 
                 BindProofTypeDP();
-                //BindProofPurposeList();
                 BindProofCopy();
 
-                //dtPurposes = customerBo.GetCustomerUploadedProofPurposes(ProofUploadId);
+                ddlProofType.SelectedValue = dtGetPerticularProofs.Rows[0]["XPRT_ProofTypeCode"].ToString();
 
-                //foreach (DataRow drItems in dtPurposes.Rows)
-                //{
-                //    foreach (ListItem item in lstProofPurpose.Items)
-                //    {
-                //        if (item.Text == drItems["WPP_ProofPurpose"].ToString())
-                //        {
-                //            item.Selected = true;
-                //        }
-                //    }
-                //}
+                if (ddlProofType.SelectedValue != "")
+                    dtTempProofBind = customerBo.GetCustomerProofsForTypes(Convert.ToInt32(ddlProofType.SelectedValue));
 
-                ddlProofType.SelectedItem.Text = dtGetPerticularProofs.Rows[0]["XPRT_ProofType"].ToString();
-                ddlProof.SelectedItem.Text = dtGetPerticularProofs.Rows[0]["XP_ProofName"].ToString();
-                ddlProofCopyType.SelectedItem.Text = dtGetPerticularProofs.Rows[0]["XPCT_ProofCopyType"].ToString();
-                radUploadProof.Enabled = false;
+                if (dtTempProofBind.Rows.Count > 0)
+                {
+                    ddlProof.DataSource = dtTempProofBind;
+                    ddlProof.DataValueField = dtTempProofBind.Columns["XP_ProofCode"].ToString();
+                    ddlProof.DataTextField = dtTempProofBind.Columns["XP_ProofName"].ToString();
+                    ddlProof.DataBind();
+                }
 
+                ddlProof.SelectedValue = dtGetPerticularProofs.Rows[0]["XP_ProofCode"].ToString();
+                ddlProofCopyType.SelectedValue = dtGetPerticularProofs.Rows[0]["XPCT_ProofCopyTypeCode"].ToString();
             }
 
             string path = "";
@@ -615,7 +619,12 @@ namespace WealthERP.Customer
             inline.ContentDisposition.Inline = true;
             email.Attachments.Add(inline);
             email.Subject = "Customer proof uploads";
-            email.Body = "Customer: " + customerVo.FirstName + customerVo.MiddleName + customerVo.LastName + " Proof uploads";
+            email.Body = "Dear " + customerVo.FirstName + customerVo.MiddleName + customerVo.LastName + ""
+                          + "<br />"
+                          + "<br />"
+                          + "<br />"
+                          + "Please find attached Proof.";
+            email.IsBodyHtml = true;
             email.To.Add(customerVo.Email);
 
             AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
@@ -707,7 +716,7 @@ namespace WealthERP.Customer
             {
                 control = "<ul class=\"quickZoom\">"
                            + "<li style=\"text-align: center; float: left;\">"
-                           + "<img src=\"~/General/ImageServe.aspx?Path=" + proofPath + "\" style=\"float: left;\" alt=\"Pdf file\" />"
+                           + "<img src=\"../General/ImageServe.aspx?Path=" + proofPath + "\" style=\"float: left;\" alt=\"Pdf file\" />"
                            + "</li>"
                            + "</ul>"
                            + "<br />"
@@ -726,6 +735,11 @@ namespace WealthERP.Customer
                 control = "<a href=\"../TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + fileName + "\" target=\"_blank\" class=\"LinkButtons\" >" + fileName + "</a>";
             }
             return control;
+        }
+
+        private void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs e)
+        {
+            e.IsValid = (radUploadProof.InvalidFiles.Count == 0);
         }
     }
 }

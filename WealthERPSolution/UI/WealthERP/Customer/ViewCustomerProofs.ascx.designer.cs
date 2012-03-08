@@ -68,6 +68,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.DropDownList ddlProofType;
         
         /// <summary>
+        /// cmpProofType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpProofType;
+        
+        /// <summary>
         /// ddlProof control.
         /// </summary>
         /// <remarks>
@@ -75,6 +84,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProof;
+        
+        /// <summary>
+        /// cmpProof control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpProof;
         
         /// <summary>
         /// ddlProofCopyType control.
@@ -86,6 +104,15 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.WebControls.DropDownList ddlProofCopyType;
         
         /// <summary>
+        /// cmpProofCopyType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpProofCopyType;
+        
+        /// <summary>
         /// radUploadProof control.
         /// </summary>
         /// <remarks>
@@ -93,6 +120,15 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadUpload radUploadProof;
+        
+        /// <summary>
+        /// lblFileUploaded control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileUploaded;
         
         /// <summary>
         /// btnSubmit control.
