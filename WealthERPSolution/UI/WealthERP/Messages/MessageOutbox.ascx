@@ -31,9 +31,7 @@
                 </AjaxSettings>
             </telerik:RadAjaxManager>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
-            <div style="padding: 20px 0 0 10px; width: 870px; height: 500px; -webkit-border-radius: 15px;
-                -moz-border-radius: 15px; border-radius: 15px; background-color: #8E2D32; -webkit-box-shadow: #B3A6AF 4px 4px 4px;
-                -moz-box-shadow: #B3A6AF 4px 4px 4px; box-shadow: #B3A6AF 4px 4px 4px; background-color: #8E2D32;">
+            <div id="dv" class="dvInbox">
                 <telerik:RadGrid ID="RadGridOutbox" runat="server" Width="860px" Height="220px" PageSize="6"
                     AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="False"
                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
@@ -53,7 +51,6 @@
                                 DataField="SentOn" DataFormatString="{0:d}">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Message" DataField="Message" Visible="false" />
                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read">
                             </telerik:GridButtonColumn>
                         </Columns>
@@ -77,21 +74,21 @@
                         </tr>
                         <tr>
                             <td class="rightField">
-                                <asp:Label ID="lblRecipients" runat="server" Text="To:" CssClass="FieldName">
-                                </asp:Label>
-                            </td>
-                            <td class="rightField">
-                                <asp:Label ID="lblRecipientsContent" runat="server" Text="" CssClass="Field">
-                                </asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="rightField">
                                 <asp:Label ID="lblSent" runat="server" Text="Sent:" CssClass="FieldName">
                                 </asp:Label>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="lblSentContent" runat="server" Text="" CssClass="Field">
+                                </asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rightField">
+                                <asp:Label ID="lblRecipients" runat="server" Text="To:" CssClass="FieldName">
+                                </asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:Label ID="lblRecipientsContent" runat="server" Text="" CssClass="Field">
                                 </asp:Label>
                             </td>
                         </tr>

@@ -131,24 +131,6 @@ namespace WealthERP.Messages {
         protected global::System.Web.UI.WebControls.Label lblSubjectContent;
         
         /// <summary>
-        /// lblRecipients control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecipients;
-        
-        /// <summary>
-        /// lblRecipientsContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRecipientsContent;
-        
-        /// <summary>
         /// lblSent control.
         /// </summary>
         /// <remarks>
@@ -165,6 +147,24 @@ namespace WealthERP.Messages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSentContent;
+        
+        /// <summary>
+        /// lblRecipients control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecipients;
+        
+        /// <summary>
+        /// lblRecipientsContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecipientsContent;
         
         /// <summary>
         /// lblMessageContent control.

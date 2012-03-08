@@ -2,21 +2,22 @@
     Inherits="WealthERP.Messages.MessageInbox" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <!-- custom head section -->
-<style type="text/css">
+<%--<style type="text/css">
     .RadGrid th input
     {
         margin-top: 0;
         margin-bottom: 0;
         height: 12px;
     }
-</style>
-<%--<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+</style>--%>
+<telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
 
     <script type="text/javascript">
         function checkAllBoxes() {
             //get total number of rows in the gridview and do whatever
             //you want with it..just grabbing it just cause
-            var grid = $find("<%=RadGrid1.ClientID %>");
+            var grid = $find("ctrl_MessageInbox_RadGrid1");
+            alert(grid);
             var MasterTable = grid.get_masterTableView();
             var Rows = MasterTable.get_dataItems();
             //debugger;
@@ -30,8 +31,7 @@
         }
     </script>
 
-</telerik:RadCodeBlock>--%>
-
+</telerik:RadScriptBlock>
 <!-- end of custom head section -->
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <table width="100%" class="TableBackground">
@@ -52,7 +52,7 @@
     </tr>
     <tr id="trContent" runat="server">
         <td>
-            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1">
+            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1" EnablePageHeadUpdate="false">
                 <AjaxSettings>
                     <telerik:AjaxSetting AjaxControlID="RadGrid1">
                         <UpdatedControls>
@@ -63,10 +63,8 @@
                 </AjaxSettings>
             </telerik:RadAjaxManager>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
-            <div style="padding: 20px 0 0 10px; width: 870px; height: 500px; -webkit-border-radius: 15px;
-                -moz-border-radius: 15px; border-radius: 15px; background-color: #8E2D32; -webkit-box-shadow: #B3A6AF 4px 4px 4px;
-                -moz-box-shadow: #B3A6AF 4px 4px 4px; box-shadow: #B3A6AF 4px 4px 4px; background-color: #8E2D32;">
-                <telerik:RadGrid ID="RadGrid1" runat="server" Width="860px" Height="220px" PageSize="6"
+            <div id="dv" class="dvInbox">
+                <telerik:RadGrid ID="RadGrid1" runat="server" Width="860px" Height="250px" PageSize="6"
                     AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="False"
                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                     OnItemCommand="RadGrid1_ItemCommand" EnableViewState="true" OnNeedDataSource="RadGrid1_NeedDataSource"
@@ -74,38 +72,27 @@
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <MasterTableView DataKeyNames="MR_MessageRecipientId" ShowFooter="true">
                         <Columns>
-                            <%--<telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
+                            <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
                                 <HeaderTemplate>
                                     <input type="checkbox" id="hdrCheckBox" onclick="checkAllBoxes()" />
                                 </HeaderTemplate>
-                                <ItemStyle HorizontalAlign="Center" Height="35px"></ItemStyle>
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkbxRow" runat="server" />
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" ForeColor="White" />
                                 </FooterTemplate>
-                            </telerik:GridTemplateColumn>--%>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle Width="30px"></HeaderStyle>
-                                <ItemStyle HorizontalAlign="Center" Height="35px"></ItemStyle>
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 <ItemTemplate>
                                     <img src='<%# Boolean.Parse(DataBinder.Eval(Container.DataItem, "IsReadByUser").ToString())? "../Images/Telerik/mailOpenIcon.png":"../Images/Telerik/mailNewIcon.png" %>'
-                                        style="margin-bottom: 10px; margin-left: 2px" alt="MailIcon" />
+                                        alt="MailIcon" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <%--<telerik:GridTemplateColumn UniqueName="FromSubject" GroupByExpression="From Group By From"
-                                SortExpression="From" HeaderText="From / Subject">
-                                <ItemStyle Height="35px"></ItemStyle>
-                                <ItemTemplate>
-                                    <%# DataBinder.Eval(Container.DataItem, "Sender") %>
-                                    <br />
-                                    <div class="MailSubject">
-                                        <%# DataBinder.Eval(Container.DataItem, "Subject") %>
-                                    </div>
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>--%>
                             <telerik:GridBoundColumn UniqueName="From" HeaderText="From" DataField="Sender">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">
@@ -114,7 +101,6 @@
                                 DataField="SentOn" DataFormatString="{0:d}">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Message" DataField="Message" Visible="false" />
                             <telerik:GridBoundColumn UniqueName="ReadByUser" DataField="IsReadByUser" Visible="false" />
                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read">
                             </telerik:GridButtonColumn>
@@ -126,7 +112,7 @@
                 </telerik:RadGrid>
                 <hr style="width: 860px; float: left;" />
                 <br />
-                <asp:Panel ID="pnlMessage" runat="server" ScrollBars="Auto" Height="220px" Width="850px"
+                <asp:Panel ID="pnlMessage" runat="server" ScrollBars="Auto" Height="200px" Width="850px"
                     BackColor="White" Style="padding: 20px 0 0 10px;">
                     <br />
                     <table id="tblMessageHeaders" runat="server" visible="false">
@@ -142,21 +128,21 @@
                         </tr>
                         <tr>
                             <td class="leftField">
-                                <asp:Label ID="lblSender" runat="server" Text="Sender:" CssClass="FieldName">
-                                </asp:Label>
-                            </td>
-                            <td class="rightField">
-                                <asp:Label ID="lblSenderContent" runat="server" Text="" CssClass="Field">
-                                </asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="leftField">
                                 <asp:Label ID="lblSent" runat="server" Text="Received:" CssClass="FieldName">
                                 </asp:Label>
                             </td>
                             <td class="rightField">
                                 <asp:Label ID="lblSentContent" runat="server" Text="" CssClass="Field">
+                                </asp:Label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblSender" runat="server" Text="Sender:" CssClass="FieldName">
+                                </asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <asp:Label ID="lblSenderContent" runat="server" Text="" CssClass="Field">
                                 </asp:Label>
                             </td>
                         </tr>

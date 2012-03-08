@@ -14,6 +14,15 @@ namespace WealthERP.Messages {
     public partial class MessageInbox {
         
         /// <summary>
+        /// RadScriptBlock1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadScriptBlock RadScriptBlock1;
+        
+        /// <summary>
         /// RadScriptManager1 control.
         /// </summary>
         /// <remarks>
@@ -131,24 +140,6 @@ namespace WealthERP.Messages {
         protected global::System.Web.UI.WebControls.Label lblSubjectContent;
         
         /// <summary>
-        /// lblSender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSender;
-        
-        /// <summary>
-        /// lblSenderContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSenderContent;
-        
-        /// <summary>
         /// lblSent control.
         /// </summary>
         /// <remarks>
@@ -165,6 +156,24 @@ namespace WealthERP.Messages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSentContent;
+        
+        /// <summary>
+        /// lblSender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSender;
+        
+        /// <summary>
+        /// lblSenderContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSenderContent;
         
         /// <summary>
         /// lblMessageContent control.

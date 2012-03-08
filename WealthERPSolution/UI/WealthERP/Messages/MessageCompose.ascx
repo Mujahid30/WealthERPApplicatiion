@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="ajaxList" Namespace="DanLudwig.Controls.Web" Assembly="DanLudwig.Controls.AspAjax.ListBox" %>
 
 <script language="javascript" type="text/javascript">
-    function CheckBoxListSelect(cbControl,source) {
+    function CheckBoxListSelect(cbControl, source) {
         var chkBoxList = document.getElementById(cbControl);
         var chkBoxAll = document.getElementById(source);
         var chkBoxCount = chkBoxList.getElementsByTagName("input");
@@ -34,7 +34,7 @@
             <span id="span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvSubject" runat="server"
                 ControlToValidate="txtSubject" ErrorMessage="<br/>Enter Message Subject" ValidationGroup="main"
-                Display="Dynamic"></asp:RequiredFieldValidator>
+                CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -47,7 +47,7 @@
             <span id="span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvMessage" runat="server"
                 ControlToValidate="txtMessage" ErrorMessage="<br/>Enter Message Body" ValidationGroup="main"
-                Display="Dynamic"></asp:RequiredFieldValidator>
+                CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -55,7 +55,8 @@
             <asp:Label ID="lblStaffRole" Text="Select Staff Role:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:CheckBox ID="chkbxAll" CssClass="cmbField" runat="server" Text="All" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')" OnCheckedChanged="ChkBxRoleList_SelectedIndexChanged" AutoPostBack="true"/>
+            <asp:CheckBox ID="chkbxAll" CssClass="cmbField" runat="server" Text="All" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
+                OnCheckedChanged="ChkBxRoleList_SelectedIndexChanged" AutoPostBack="true" />
             <asp:CheckBoxList ID="ChkBxRoleList" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
                 CssClass="cmbField" RepeatLayout="Flow" OnSelectedIndexChanged="ChkBxRoleList_SelectedIndexChanged"
                 AutoPostBack="true">
@@ -147,7 +148,7 @@
         </td>
         <td>
             <asp:Button ID="btnSend" runat="server" OnClick="btnSend_Click" Text="Send" CssClass="PCGButton"
-                OnClientClick="GetSelectedUsers()" ValidationGroup="main" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MessageCompose_btnSend', 'S');"
+                ValidationGroup="main" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MessageCompose_btnSend', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MessageCompose_btnSend', 'S');" />
         </td>
     </tr>

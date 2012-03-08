@@ -34,6 +34,7 @@ namespace WealthERP.Messages
                 RadGridOutbox.DataSource = dsInbox.Tables[0];
                 trContent.Visible = true;
                 trNoRecords.Visible = false;
+                ViewState["dsOutbox"] = dsInbox;
             }
             else
             {
@@ -48,17 +49,29 @@ namespace WealthERP.Messages
             if (e.CommandName == "Read")
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
+                string strKeyValue = dataItem.GetDataKeyValue("M_MessageId").ToString();
 
                 /*
                  * check if the message has alreaDY been read by user. If yes, then do not update DB.
                  * Else if not read then update DB flag.
                  */
                 tblMessageHeaders.Visible = true;
-                lblMessageContent.Text = dataItem["Message"].Text;
-                lblRecipientsContent.Text = dataItem["To"].Text;
-                lblSubjectContent.Text = dataItem["Subject"].Text;
-                lblSentContent.Text = dataItem["Sent"].Text;
-
+                DataSet dsOutbox = (DataSet)ViewState["dsOutbox"];
+                foreach (DataRow dr in dsOutbox.Tables[0].Rows)
+                {
+                    if (dr["M_MessageId"].ToString() == strKeyValue)
+                    {
+                        string strMessage = dr["Message"].ToString();
+                        string result = string.Empty;
+                        for (int i = 0; i < strMessage.Length; i++)
+                            result += (i % 100 == 0 && i != 0) ? (strMessage[i].ToString() + "<br/>") : strMessage[i].ToString();
+                        lblMessageContent.Text = result;
+                        lblRecipientsContent.Text = dr["Recipients"].ToString();
+                        lblSubjectContent.Text = dr["Subject"].ToString();
+                        lblSentContent.Text = dataItem["Sent"].Text;
+                        break;
+                    }
+                }
             }
         }
 
@@ -71,6 +84,18 @@ namespace WealthERP.Messages
 
                 Label lblPageSize = (Label)e.Item.FindControl("ChangePageSizeLabel");
                 lblPageSize.Text = "";
+            }
+            else if (e.Item is GridDataItem)
+            {
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
+                if (dataBoundItem["Subject"].Text.Length > 75)
+                {
+                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 75) + ".....";
+                }
+                if (dataBoundItem["To"].Text.Length > 30)
+                {
+                    dataBoundItem["To"].Text = dataBoundItem["To"].Text.Substring(0, 30) + ".....";
+                }
             }
         }
     }

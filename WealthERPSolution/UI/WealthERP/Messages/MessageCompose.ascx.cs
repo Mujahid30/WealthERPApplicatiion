@@ -238,57 +238,51 @@ namespace WealthERP.Messages
 
         protected void btnSend_Click(object sender, EventArgs e)
         {
-            DataSet dsUsers = new DataSet();
-            string strUsersXML = string.Empty;
-            bool blResult = false;
-            DataTable dtUsers = new DataTable();
-            dtUsers.Columns.Add("RecipientId");
-            DataRow drUsers;
-            MessageBo msgBo = new MessageBo();
-            MessageVo msgVo = new MessageVo();
-            string strLinksEncodedMessage = FindLinksInText(txtMessage.Text.Trim());
-
-            // Add selected users into a dataset and retrieve the xml version of the dataset
-            if (LBSelectedUser.Items.Count != 0)
+            if (Page.IsValid)
             {
-                foreach (ListItem listItem in LBSelectedUser.Items)
+                DataSet dsUsers = new DataSet();
+                string strUsersXML = string.Empty;
+                bool blResult = false;
+                DataTable dtUsers = new DataTable();
+                dtUsers.Columns.Add("RecipientId");
+                DataRow drUsers;
+                MessageBo msgBo = new MessageBo();
+                MessageVo msgVo = new MessageVo();
+                string strLinksEncodedMessage = FindLinksInText(txtMessage.Text.Trim());
+
+                // Add selected users into a dataset and retrieve the xml version of the dataset
+                if (LBSelectedUser.Items.Count != 0)
                 {
-                    drUsers = dtUsers.NewRow();
-                    drUsers[0] = listItem.Value.ToString();
-                    dtUsers.Rows.Add(drUsers);
+                    foreach (ListItem listItem in LBSelectedUser.Items)
+                    {
+                        drUsers = dtUsers.NewRow();
+                        drUsers[0] = listItem.Value.ToString();
+                        dtUsers.Rows.Add(drUsers);
+                    }
+                    dtUsers.TableName = "Table";
+                    dsUsers.Tables.Add(dtUsers);
+                    dsUsers.DataSetName = "Recipients";
+
+                    // Adding details into MessageVo
+                    msgVo.UserId = userId;
+                    msgVo.Subject = txtSubject.Text.Trim();
+                    msgVo.Message = strLinksEncodedMessage;
+                    msgVo.strXMLRecipientIds = dsUsers.GetXml().ToString();
+
+                    if (msgBo.InsertComposedMessage(msgVo))
+                        blResult = true;
                 }
-                dtUsers.TableName = "Table";
-                dsUsers.Tables.Add(dtUsers);
-                dsUsers.DataSetName = "Recipients";
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select recipients!');", true);
+                }
 
-                // Adding details into MessageVo
-                msgVo.UserId = userId;
-                msgVo.Subject = txtSubject.Text.Trim();
-                msgVo.Message = strLinksEncodedMessage;
-                msgVo.strXMLRecipientIds = dsUsers.GetXml().ToString();
-
-                if (msgBo.InsertComposedMessage(msgVo))
-                    blResult = true;
+                if (blResult)
+                {
+                    ClearFields();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Message sent successfully!');", true);
+                }
             }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select recipients!');", true);
-            }
-
-            if (blResult)
-            {
-                ClearFields();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Message sent successfully!');", true);
-            }
-
-            
-
-
-            //foreach (LinkItem i in LinkFinder.Find(txtMessage.Text.Trim()))
-            //{
-            //    string txt = i.Text;
-            //    string href = i.Href;
-            //}
         }
 
         private string FindLinksInText(string txt)

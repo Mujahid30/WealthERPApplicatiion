@@ -21,6 +21,7 @@ namespace WealthERP.Messages
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
+            //ScriptManager.RegisterStartupScript(Page, typeof(Page),
         }
 
         protected void RadGrid1_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -35,6 +36,7 @@ namespace WealthERP.Messages
                 RadGrid1.DataSource = dsInbox.Tables[0];
                 trContent.Visible = true;
                 trNoRecords.Visible = false;
+                ViewState["dsInbox"] = dsInbox;
             }
             else
             {
@@ -50,21 +52,34 @@ namespace WealthERP.Messages
             if (e.CommandName == "Read")
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
+                string strKeyValue = dataItem.GetDataKeyValue("MR_MessageRecipientId").ToString();
 
                 /*
                  * check if the message has alreaDY been read by user. If yes, then do not update DB.
                  * Else if not read then update DB flag.
                  */
                 tblMessageHeaders.Visible = true;
-                lblMessageContent.Text = dataItem["Message"].Text;
-                lblSenderContent.Text = dataItem["From"].Text;
-                lblSubjectContent.Text = dataItem["Subject"].Text;
-                lblSentContent.Text = dataItem["Received"].Text;
+                DataSet dsInbox = (DataSet)ViewState["dsInbox"];
+                foreach (DataRow dr in dsInbox.Tables[0].Rows)
+                {
+                    if (dr["MR_MessageRecipientId"].ToString() == strKeyValue)
+                    {
+                        string strMessage = dr["Message"].ToString();
+                        string result = string.Empty;
+                        for (int i = 0; i < strMessage.Length; i++)
+                            result += (i % 100 == 0 && i != 0) ? (strMessage[i].ToString() + "<br/>") : strMessage[i].ToString();
+                        lblMessageContent.Text = result;
+                        lblSenderContent.Text = dr["Sender"].ToString();
+                        lblSubjectContent.Text = dr["Subject"].ToString();
+                        lblSentContent.Text = dataItem["Received"].Text;
+                        break;
+                    }
+                }
 
                 if (!Boolean.Parse(dataItem["ReadByUser"].Text))
                 {
                     // If message is read first time, update DB that the message is read.
-                    Int64 intRecipientId = Int64.Parse(dataItem.GetDataKeyValue("MR_MessageRecipientId").ToString());
+                    Int64 intRecipientId = Int64.Parse(strKeyValue);
                     bool blResult = false;
                     // update DB with read flag
                     msgBo = new MessageBo();
@@ -95,12 +110,22 @@ namespace WealthERP.Messages
                 if (chkBxHeader != null)
                     chkBxHeader.Attributes.Add("onclick", "javascript:checkAllBoxes()");
             }
+            else if (e.Item is GridDataItem)
+            {
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
+                if (dataBoundItem["Subject"].Text.Length > 75)
+                {
+                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 75) + ".....";
+                }
+                if (dataBoundItem["Received"].Text.Length > 30)
+                {
+                    dataBoundItem["Received"].Text = dataBoundItem["Received"].Text.Substring(0, 30) + ".....";
+                }
+            }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-
-
  
         }
 
