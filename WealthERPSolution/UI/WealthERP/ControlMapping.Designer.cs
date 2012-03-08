@@ -1519,6 +1519,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin//ManageRepository.ascx.
+        /// </summary>
+        internal static string ManageRepository {
+            get {
+                return ResourceManager.GetString("ManageRepository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//ManualValuation.ascx.
         /// </summary>
         internal static string ManualValuation {
@@ -2739,6 +2748,15 @@ namespace WealthERP {
         internal static string ViewPensionDetails {
             get {
                 return ResourceManager.GetString("ViewPensionDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin//ViewRepository.ascx.
+        /// </summary>
+        internal static string ViewRepository {
+            get {
+                return ResourceManager.GetString("ViewRepository", resourceCulture);
             }
         }
         

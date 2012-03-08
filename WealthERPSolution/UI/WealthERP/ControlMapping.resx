@@ -1329,4 +1329,12 @@
     <value>Uploads//TrailCommisionTransactionRejects.ascx</value>
     <comment>Uploads//TrailCommisionTransactionRejects.ascx</comment>
   </data>
+  <data name="ManageRepository" xml:space="preserve">
+    <value>Admin//ManageRepository.ascx</value>
+    <comment>Admin//ManageRepository.ascx</comment>
+  </data>
+  <data name="ViewRepository" xml:space="preserve">
+    <value>Admin//ViewRepository.ascx</value>
+    <comment>Admin//ViewRepository.ascx</comment>
+  </data>
 </root>

@@ -482,6 +482,13 @@
     <Compile Include="Admin\Maintenance.ascx.designer.cs">
       <DependentUpon>Maintenance.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ManageRepository.ascx.cs">
+      <DependentUpon>ManageRepository.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageRepository.ascx.designer.cs">
+      <DependentUpon>ManageRepository.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Mapping.ascx.cs">
       <DependentUpon>Mapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -530,6 +537,13 @@
     </Compile>
     <Compile Include="Admin\UploadRejects.ascx.designer.cs">
       <DependentUpon>UploadRejects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewRepository.ascx.cs">
+      <DependentUpon>ViewRepository.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewRepository.ascx.designer.cs">
+      <DependentUpon>ViewRepository.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\WERPAdminDownloadProcessLog.ascx.cs">
       <DependentUpon>WERPAdminDownloadProcessLog.ascx</DependentUpon>
@@ -3352,10 +3366,12 @@
   <ItemGroup>
     <Content Include="Admin\GoldPriceList.ascx" />
     <Content Include="Admin\InfoLinks.ascx" />
+    <Content Include="Admin\ManageRepository.ascx" />
     <Content Include="Admin\MarketData.ascx" />
     <Content Include="Admin\TransactBusinessOnlineLinks.ascx" />
     <Content Include="Admin\UploadProcessLog.ascx" />
     <Content Include="Admin\UploadRejects.ascx" />
+    <Content Include="Admin\ViewRepository.ascx" />
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
     <Content Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx" />
     <Content Include="Advisor\AddRM.ascx" />
