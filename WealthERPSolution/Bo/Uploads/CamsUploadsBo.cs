@@ -2222,5 +2222,465 @@ namespace BoUploads
         //-------------------------End CAMS Trail Commission Uploads---------------------------------\\
 
 
+        //--------------------------KARVY Trail Commission Uploads---------------------------------\\
+        public bool KARVYTrailCommissionInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package standardProPkg1 = App.LoadPackage(Packagepath, null);
+                standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                standardProPkg1.Variables["varProcessId"].Value = processId;
+                standardProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult1 = standardProPkg1.Execute();
+                if (karvyProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToInputProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KARVYTrailCommissionInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KARVYTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.Variables["varAdvisorId"].Value = adviserId;
+                //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
+                if (karvyTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool KARVYTrailCommissionStagingToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool KARVYTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+
+        public bool KARVYTrailCommissionCommonStagingToWERP(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        //-------------------------End KARVY Trail Commission Uploads---------------------------------\\
+
+        //--------------------------Deutsche Trail Commission Uploads---------------------------------\\
+        public bool DeutscheTrailCommissionInsertToInputTrans(int processId, string Packagepath, string XMLFilepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+
+            try
+            {
+                Package standardProPkg1 = App.LoadPackage(Packagepath, null);
+                standardProPkg1.Variables["varXMLFilePath"].Value = XMLFilepath;
+                standardProPkg1.Variables["varProcessId"].Value = processId;
+                standardProPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult1 = standardProPkg1.Execute();
+                if (karvyProResult1.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToInputProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = Packagepath;
+                objects[1] = XMLFilepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool DeutscheTrailCommissionInsertToStagingTrans(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool DeutscheTrailCommissionProcessDataInStagingTrans(int adviserId, int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+                standardTranPkg3.Variables["varAdvisorId"].Value = adviserId;
+                //standardTranPkg3.Variables["varUploadtypeFullName"].Value = varUploadtypeFullName;
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult karvyTranResult3 = standardTranPkg3.Execute();
+                if (karvyTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool DeutscheTrailCommissionStagingToCommonStaging(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+        public bool DeutscheTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+
+                Package standardProPkg2 = App.LoadPackage(Packagepath, null);
+                standardProPkg2.Variables["varProcessId"].Value = processId;
+                standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.ImportConfigurationFile(configPath);
+                DTSExecResult karvyProResult2 = standardProPkg2.Execute();
+                if (karvyProResult2.ToString() == "Success")
+                    IsProcessComplete = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSInsertToStagingProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+
+        public bool DeutscheTrailCommissionCommonStagingToWERP(int processId, string Packagepath, string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(Packagepath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = processId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:CAMSProcessDataInStagingTrans()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[2] = Packagepath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        //-------------------------End Deutsche Trail Commission Uploads---------------------------------\\
+
     }
 }
