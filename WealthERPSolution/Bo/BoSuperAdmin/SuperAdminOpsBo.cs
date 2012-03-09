@@ -337,5 +337,33 @@ namespace BoSuperAdmin
             }
             return dsGetNAVPer;
         }
+        public DataTable BindAdviserForUpload()
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            try
+            {
+                DataTable dtAdviserList = superAdminOpsDao.BindAdviserForUpload();
+                return dtAdviserList;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public DataSet GetAdviserRmDetails(int adviserId)
+        {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+            DataSet dsAdviserRMDetails = new DataSet();
+            try
+            {
+                dsAdviserRMDetails = superAdminOpsDao.GetAdviserRmDetails(adviserId);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAdviserRMDetails;
+        }
     }
 }
