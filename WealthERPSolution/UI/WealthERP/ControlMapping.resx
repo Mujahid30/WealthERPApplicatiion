@@ -1337,4 +1337,8 @@
     <value>Admin//ViewRepository.ascx</value>
     <comment>Admin//ViewRepository.ascx</comment>
   </data>
+  <data name="BondsOrderEntry" xml:space="preserve">
+    <value>OPS//BondsOrderEntry.ascx</value>
+    <comment>OPS//BondsOrderEntry.ascx</comment>
+  </data>
 </root>

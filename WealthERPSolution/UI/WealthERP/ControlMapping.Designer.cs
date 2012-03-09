@@ -574,6 +574,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//BondsOrderEntry.ascx.
+        /// </summary>
+        internal static string BondsOrderEntry {
+            get {
+                return ResourceManager.GetString("BondsOrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//BranchDetails.ascx.
         /// </summary>
         internal static string BranchDetails {
