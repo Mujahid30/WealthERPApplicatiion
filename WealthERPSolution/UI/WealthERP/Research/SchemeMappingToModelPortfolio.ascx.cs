@@ -974,8 +974,16 @@ namespace WealthERP.Research
                     }
                     totalAllocation = dtAllocation + eqAllocation;
 
-                    dtAllocation = (dtAllocation / totalAllocation) * 100;
-                    eqAllocation = (eqAllocation / totalAllocation) * 100;
+                    if (totalAllocation == 0)
+                    {
+                        dtAllocation = 0;
+                        eqAllocation = 0;
+                    }
+                    else
+                    {
+                        dtAllocation = (dtAllocation / totalAllocation) * 100;
+                        eqAllocation = (eqAllocation / totalAllocation) * 100;
+                    }
                     dtChartAsset.Columns.Add("PAIC_AssetInstrumentCategoryName");
                     dtChartAsset.Columns.Add("AMFMPD_AllocationPercentage");
                     DataRow drRiskClass;
@@ -1067,7 +1075,10 @@ namespace WealthERP.Research
                         drAsset = dtAssetForGrid.NewRow();
                         drAsset["PAIC_AssetInstrumentCategoryName"] = dr["PAIC_AssetInstrumentCategoryName"];
                         drAsset["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"];
-                        drAsset["Percent"] = Math.Round(((double.Parse(dr["AMFMPD_AllocationPercentage"].ToString()) / WeightageSum) * 100), 2);
+                        if (WeightageSum == 0)
+                            drAsset["Percent"] = 0;
+                        else
+                            drAsset["Percent"] = Math.Round(((double.Parse(dr["AMFMPD_AllocationPercentage"].ToString()) / WeightageSum) * 100), 2);
 
                         dtAssetForGrid.Rows.Add(drAsset);
                     }
