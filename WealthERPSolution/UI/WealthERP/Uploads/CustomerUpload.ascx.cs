@@ -1874,6 +1874,274 @@ namespace WealthERP.Uploads
 
 
 
+                                //****************KARVY Trail Commission Uploads**************\\
+                                //*********gobinda Uploads KARVY Trail Commission**************\\
+
+                                #region MF KARVY Trail Commission Upload
+                                //MF KARVY Trail Commission Upload
+                                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "KARVY")
+                                {
+                                    bool updateProcessLog = false;
+                                    bool KARVYTrailCommonStagingChk = false;
+                                    bool KARVYTrailStagingToCommonStaging = false;
+                                    bool KARVYTrailInputResult = false;
+                                    bool KARVYTrailCommonStaging = false;
+                                    bool KARVYTrailStagingCheckResult = false;
+                                    bool KARVYTrailStagingResult = false;
+                                    bool KARVYTrailCommonStagingToWERP = false;
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmlToKarvyInput.dtsx");
+                                    KARVYTrailInputResult = camsUploadsBo.KARVYTrailCommissionInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                                    if (KARVYTrailInputResult)
+                                    {
+                                        processlogVo.IsInsertionToInputComplete = 1;
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToKarvyStaging.dtsx");
+                                        KARVYTrailStagingResult = camsUploadsBo.KARVYTrailCommissionInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                        if (KARVYTrailStagingResult)
+                                        {
+                                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToKarvyCommonStaging.dtsx");
+                                            KARVYTrailStagingCheckResult = camsUploadsBo.KARVYTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            if (KARVYTrailStagingCheckResult)
+                                            {
+                                                //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
+                                                //karvySIPStagingToCommonStaging = camsUploadsBo.KarvySIPStagingToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                //if (TempletonTrailStagingCheckResult)
+                                                //{
+                                                packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                KARVYTrailCommonStagingChk = camsUploadsBo.KARVYTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //TempletonTrailCommonStagingToWERP = camsUploadsBo.TempletonTrailCommissionCommonStagingToWERP(UploadProcessId, packagePath, configPath);
+
+                                                if (KARVYTrailCommonStagingChk)
+                                                {
+                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "KA");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCountForTrail(UploadProcessId, "KA");
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "KA");
+                                                    processlogVo.NoOfTransactionDuplicates = 0;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    //processlogVo.IsInsertionToWERPComplete = 1;
+                                                    //processlogVo.EndTime = DateTime.Now;
+                                                    //processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "TN");
+                                                    //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                }
+                                                //}
+                                            }
+                                        }
+
+                                        // Update Process Progress Monitoring Text Boxes
+                                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (KARVYTrailInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (KARVYTrailStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (KARVYTrailCommonStagingChk)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (KARVYTrailCommonStagingChk && KARVYTrailCommonStagingToWERP)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (KARVYTrailCommonStagingToWERP)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
+                                }
+                                #endregion MF KARVY Trail Commission Upload
+
+
+
+                                //****************Deutsche Trail Commission Uploads**************\\
+                                //*********gobinda Uploads Deutsche Trail Commission**************\\
+
+                                #region MF Deutsche Trail Commission Upload
+                                //MF Deutsche Trail Commission Upload
+                                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Deutsche")
+                                {
+                                    bool updateProcessLog = false;
+                                    bool DeutscheTrailCommonStagingChk = false;
+                                    bool DeutscheTrailStagingToCommonStaging = false;
+                                    bool DeutscheTrailInputResult = false;
+                                    bool DeutscheTrailCommonStaging = false;
+                                    bool DeutscheTrailStagingCheckResult = false;
+                                    bool DeutscheTrailStagingResult = false;
+                                    bool DeutscheTrailCommonStagingToWERP = false;
+
+                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmlToKarvyInput.dtsx");
+                                    DeutscheTrailInputResult = camsUploadsBo.DeutscheTrailCommissionInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                                    if (DeutscheTrailInputResult)
+                                    {
+                                        processlogVo.IsInsertionToInputComplete = 1;
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                        processlogVo.IsInsertionToXtrnlComplete = 1;
+                                        processlogVo.EndTime = DateTime.Now;
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToKarvyStaging.dtsx");
+                                        DeutscheTrailStagingResult = camsUploadsBo.DeutscheTrailCommissionInsertToStagingTrans(UploadProcessId, packagePath, configPath);
+                                        if (DeutscheTrailStagingResult)
+                                        {
+                                            processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToKarvyCommonStaging.dtsx");
+                                            DeutscheTrailStagingCheckResult = camsUploadsBo.DeutscheTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
+                                            if (DeutscheTrailStagingCheckResult)
+                                            {
+                                                //packagePath = Server.MapPath("\\UploadPackages\\SipKarvyUploads\\SipKarvyUploads\\SipKarvyUploads\\UploadStandardTransactionStagingCheck.dtsx");
+                                                //karvySIPStagingToCommonStaging = camsUploadsBo.KarvySIPStagingToCommonStaging(UploadProcessId, packagePath, configPath);
+                                                processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                //if (TempletonTrailStagingCheckResult)
+                                                //{
+                                                packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
+                                                DeutscheTrailCommonStagingChk = camsUploadsBo.DeutscheTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                //TempletonTrailCommonStagingToWERP = camsUploadsBo.TempletonTrailCommissionCommonStagingToWERP(UploadProcessId, packagePath, configPath);
+
+                                                if (DeutscheTrailCommonStagingChk)
+                                                {
+                                                    processlogVo.IsInsertionToWERPComplete = 1;
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "KA");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCountForTrail(UploadProcessId, "KA");
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "KA");
+                                                    processlogVo.NoOfTransactionDuplicates = 0;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    //processlogVo.IsInsertionToWERPComplete = 1;
+                                                    //processlogVo.EndTime = DateTime.Now;
+                                                    //processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "TN");
+                                                    //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                }
+                                                //}
+                                            }
+                                        }
+
+                                        // Update Process Progress Monitoring Text Boxes
+                                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (DeutscheTrailInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (DeutscheTrailStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (DeutscheTrailCommonStagingChk)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (DeutscheTrailCommonStagingChk && DeutscheTrailCommonStagingToWERP)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (DeutscheTrailCommonStagingToWERP)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
+                                }
+                                #endregion MF Deutsche Trail Commission Upload
+
+
+
                                 //****************Systematic Uploads**************\\
                         //********************Shantanu**********************\\
 
@@ -4228,6 +4496,98 @@ namespace WealthERP.Uploads
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", "TrailCommission");
+                    }
+                    else
+                    {
+                        //ValidationProgress = "Failure";
+                    }
+                }
+                #endregion
+
+
+                //**************Gobinda Trail Comission For KARVY***********************
+                #region Trail Commision for KARVY
+                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "KARVY")
+                {
+                    if (extension == "xls" || extension == "xlsx" || extension=="dbf")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\KARVYTrailCommission.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(30);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(30);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
+                        //{
+                        //    if(dr["PERIODICIT"].ToString()=="SM")
+                        //    {
+                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
+                        //    }
+
+                        //}
+
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", "TrailCommission");
+                    }
+                    else
+                    {
+                        //ValidationProgress = "Failure";
+                    }
+                }
+                #endregion
+
+
+                //**************Gobinda Trail Comission For DEUTSCHE***********************
+                #region Trail Commision for Deutsche
+                else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Deutsche")
+                {
+                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\DeutscheTrailCommission.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(31);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(31);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+
+                        //foreach(DataRow dr in dsXML.Tables[0].Rows)
+                        //{
+                        //    if(dr["PERIODICIT"].ToString()=="SM")
+                        //    {
+                        //        string[] toPERIOD = (dr["PERIOD_DAY"].ToString()).Split(new char[] { ',' });
+                        //    }
+
+                        //}
+
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "DT", "TrailCommission");
                     }
                     else
                     {
