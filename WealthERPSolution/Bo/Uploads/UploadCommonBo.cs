@@ -4309,6 +4309,231 @@ namespace BoUploads
                 throw exBase;
             }
         }
+        public DataSet GetUploadProcessLogSuperAdmin(int CurrentPage, out int Count, string SortExpression)
+        {
+            DataSet getProcessLogDs;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                getProcessLogDs = uploadDAO.GetUploadProcessLogSuperAdmin(CurrentPage, out Count, SortExpression);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonBO.cs:GetUploadProcessLogSuperAdmin()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getProcessLogDs;
+        }
+        public DataSet GetWERPUploadProcessId()
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetWERPUploadProcessId();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetWERPUploadProcessIdForAdviser()");
+                object[] objects = new object[1];              
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetSuperAdminUploadDistinctProcessIdForAdviser()
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetSuperAdminUploadDistinctProcessIdForAdviser();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminUploadDistinctProcessIdForAdviser()");
+
+                object[] objects = new object[1];
+                
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetSuperAdminEquityTradeAccountStagingProcessId()
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetSuperAdminEquityTradeAccountStagingProcessId();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTradeAccountStagingProcessId()");
+                object[] objects = new object[1];
+             
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetSuperAdminEquityTransactionStagingProcessId()
+        {
+            DataSet ds = new DataSet();
+            UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+            try
+            {
+                ds = uploadscommonDao.GetSuperAdminEquityTransactionStagingProcessId();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTransactionStagingProcessId()");
+                object[] objects = new object[1];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        //public DataSet GetSuperAdminEquityTransactionStagingProcessId()
+        //{
+        //    DataSet ds = new DataSet();
+        //    UploadsCommonDao uploadscommonDao = new UploadsCommonDao();
+        //    try
+        //    {
+        //        ds = uploadscommonDao.GetSuperAdminEquityTransactionStagingProcessId();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminEquityTransactionStagingProcessId()");
+        //        object[] objects = new object[1];
+                
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return ds;
+        //}
+
+        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        {
+            DataSet dsSIPRejectedDetails = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                dsSIPRejectedDetails = uploadDAO.GetSuperAdminRejectedSIPRecords(CurrentPage, out Count, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, schemeNameFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminRejectedSIPRecords()");
+
+                object[] objects = new object[2];
+
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsSIPRejectedDetails;
+        }
+
+        public DataSet GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser()
+        {
+            DataSet dsSIPRejectedData = new DataSet();
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+            try
+            {
+                dsSIPRejectedData = uploadDAO.GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetSuperAdminSIPUploadRejectDistinctProcessIdForAdviser()");
+
+                object[] objects = new object[2];
+
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsSIPRejectedData;
+
+        }
 
         public void DeleteMFTrailTransactionStaging(int StagingID)
         {
