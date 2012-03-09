@@ -1131,8 +1131,201 @@ namespace BoUploads
             }
             return affectedRecords;
         }
-        
 
+        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        {
+            DataSet dsWERPRejectedProfiles;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsWERPRejectedProfiles = rejecetedRecords.getSuperAdminWERPRejectedProfile(processId, CurrentPage, out  Count, SortExpression, PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:getSuperAdminWERPRejectedProfile()");
+
+                object[] objects = new object[9];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = PANFilter;
+                objects[4] = RejectReasonFilter;
+                objects[5] = CustomerNameFilter;
+                objects[6] = BrokerFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsWERPRejectedProfiles;
+        }
+
+        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        {
+            DataSet dsWERPRejectedTransactions;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminUploadRejectsMFTransactionStaging(CurrentPage, out Count, SortExpression, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, sourceTypeFilter, schemeNameFilter);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetSuperAdminUploadRejectsMFTransactionStaging()");
+
+                object[] objects = new object[10];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = RejectReasonFilter;
+                objects[4] = fileNameFilter;
+                objects[5] = FolioFilter;
+                objects[6] = TransactionTypeFilter;
+                objects[7] = investorNameFileter;
+                objects[8] = sourceTypeFilter;
+                objects[9] = schemeNameFilter;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsWERPRejectedTransactions;
+        }
+
+        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        {
+            DataSet dsCAMSRejectedProfiles;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsCAMSRejectedProfiles = rejecetedRecords.getSuperAdminMFRejectedFolios(processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:getSuperAdminMFRejectedFolios()");
+
+                object[] objects = new object[9];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = IsRejectedFilter;
+                objects[4] = PANFilter;
+                objects[5] = RejectReasonFilter;
+                objects[6] = NameFilter;
+                objects[7] = FolioFilter;
+                //objects[8] = DoesCustExistFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsCAMSRejectedProfiles;
+        }
+
+        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter)
+        {
+            DataSet dsWERPRejectedTransactions;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminRejectedTradeAccountStaging(processId, CurrentPage, out Count, SortExpression, TradeAccountNumFilter, RejectReasonFilter, PanFilter);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetSuperAdminRejectedTradeAccountStaging()");
+
+                object[] objects = new object[6];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = TradeAccountNumFilter;
+                objects[4] = RejectReasonFilter;
+                objects[5] = PanFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsWERPRejectedTransactions;
+        }
+        public DataSet GetSuperAdminRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
+           string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
+        {
+            DataSet dsWERPRejectedTransactions;
+            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+            try
+            {
+                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminRejectedEquityTransactionsStaging(processId, CurrentPage, out Count,
+             SortExpression, RejectReasonFilter, PanNumberFilter, ScripFilter, ExchangeFilter, TransactionTypeFilter);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:GetSuperAdminRejectedEquityTransactionsStaging()");
+
+                object[] objects = new object[6];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = RejectReasonFilter;
+                objects[4] = PanNumberFilter;
+                objects[5] = ScripFilter;
+                objects[6] = ExchangeFilter;
+                objects[7] = TransactionTypeFilter;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsWERPRejectedTransactions;
+        }
     }
 
     
