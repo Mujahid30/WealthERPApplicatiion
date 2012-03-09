@@ -1559,6 +1559,339 @@ namespace DaoUploads
             else
                 return false;
         }
-        
+        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        {
+            DataSet dsGetWERPRejectedProfiles;
+            Database db;
+            DbCommand getWERPRejectedProfilesCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getWERPRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetSuperAdminWERPUploadRejectsProfile");
+              
+                if (processId != 0)
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@processId", DbType.Int32, DBNull.Value);
+
+                db.AddInParameter(getWERPRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(getWERPRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
+
+                if (PANFilter != "")
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@panNumberFilter", DbType.String, PANFilter);
+
+                if (CustomerNameFilter != "")
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@customerNameFilter", DbType.String, CustomerNameFilter);
+
+                if (BrokerFilter != "")
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@brokerCodeFilter", DbType.String, BrokerFilter);
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getWERPRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                dsGetWERPRejectedProfiles = db.ExecuteDataSet(getWERPRejectedProfilesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getWERPRejectedProfiles()");
+
+                object[] objects = new object[9];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = PANFilter;
+                objects[4] = RejectReasonFilter;
+                objects[5] = CustomerNameFilter;
+                objects[6] = BrokerFilter;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            Count = Int32.Parse(dsGetWERPRejectedProfiles.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetWERPRejectedProfiles;
+        }
+
+        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        {
+            DataSet dsGetMFRejectedTransactions;
+            Database db;
+            DbCommand getMFRejectedTransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsMFTransactionStaging");
+                db.AddInParameter(getMFRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(getMFRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);            
+
+                if (processId != 0)
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                if (fileNameFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@fileNameFilter", DbType.String, fileNameFilter);
+
+                if (FolioFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@folioFilter", DbType.String, FolioFilter);
+
+                if (TransactionTypeFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+
+                if (investorNameFileter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@investorNameFileter", DbType.String, investorNameFileter);
+
+                if (sourceTypeFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@sourceTypeFilter", DbType.String, sourceTypeFilter);
+
+                if (schemeNameFilter != "")
+                    db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
+                dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetSuperAdminUploadRejectsMFTransactionStaging()");
+
+                object[] objects = new object[10];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = RejectReasonFilter;
+                objects[4] = fileNameFilter;
+                objects[5] = FolioFilter;
+                objects[6] = TransactionTypeFilter;
+                objects[7] = investorNameFileter;
+                objects[8] = sourceTypeFilter;
+                objects[9] = schemeNameFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            Count = Int32.Parse(dsGetMFRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetMFRejectedTransactions;
+        }
+        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        {
+            DataSet dsGetCAMSRejectedProfiles;
+            Database db;
+            DbCommand getCAMSRejectedProfilesCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCAMSRejectedProfilesCmd = db.GetStoredProcCommand("SP_GetSuperAdminMFUploadRejectsFolios");
+             
+                db.AddInParameter(getCAMSRejectedProfilesCmd, "@processId", DbType.Int32, processId);
+                db.AddInParameter(getCAMSRejectedProfilesCmd, "@currentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(getCAMSRejectedProfilesCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                if (IsRejectedFilter != "")
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, IsRejectedFilter);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isRejectedFilter", DbType.String, DBNull.Value);
+                if (PANFilter != "")
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, PANFilter);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@panFilter", DbType.String, DBNull.Value);
+                if (FolioFilter != "")
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, FolioFilter);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@folioFilter", DbType.String, DBNull.Value);
+                if (NameFilter != "")
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, NameFilter);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@nameFilter", DbType.String, DBNull.Value);
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+                else
+                    db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, DBNull.Value);
+                //if (DoesCustExistFilter != "")
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DoesCustExistFilter);
+                //else
+                //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
+
+                dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getSuperAdminMFRejectedFolios()");
+
+                object[] objects = new object[9];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = IsRejectedFilter;
+                objects[4] = PANFilter;
+                objects[5] = RejectReasonFilter;
+                objects[6] = NameFilter;
+                objects[7] = FolioFilter;
+                //objects[8] = DoesCustExistFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            Count = Int32.Parse(dsGetCAMSRejectedProfiles.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetCAMSRejectedProfiles;
+        }
+
+        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
+        {
+            DataSet dsGetWERPRejectedTransactions;
+            Database db;
+            DbCommand getWERPRejectedTransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsEquityTradeAccountStaging");
+              
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+                if (processId != 0)
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                else
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
+
+                if (TradeAccountNumFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@TradeAccountNumber", DbType.String, TradeAccountNumFilter);
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@RejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                if (PANFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@PANNum", DbType.String, PANFilter);
+
+                dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetSuperAdminRejectedTradeAccountStaging()");
+
+                object[] objects = new object[6];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = TradeAccountNumFilter;
+                objects[4] = RejectReasonFilter;
+                objects[5] = PANFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            Count = Int32.Parse(dsGetWERPRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetWERPRejectedTransactions;
+        }
+        public DataSet GetSuperAdminRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
+          string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
+        {
+            DataSet dsGetWERPRejectedTransactions;
+            Database db;
+            DbCommand getWERPRejectedTransactionsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getWERPRejectedTransactionsCmd = db.GetStoredProcCommand("SP_GetSuperAdminUploadRejectsEquityTransactionStaging");
+               
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@processId", DbType.Int32, processId);
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@currentPage", DbType.Int32, CurrentPage);
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@processIdSortOrder", DbType.String, SortExpression);
+
+
+
+                if (RejectReasonFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                if (PanNumberFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@panNumberFilter", DbType.String, PanNumberFilter);
+
+                if (ScripFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@scripFilter", DbType.String, ScripFilter);
+
+                if (ExchangeFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@exchangeFilter", DbType.String, ExchangeFilter);
+
+                if (TransactionTypeFilter != "")
+                    db.AddInParameter(getWERPRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
+
+
+                dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:GetSuperAdminRejectedEquityTransactionsStaging()");
+
+                object[] objects = new object[6];
+                objects[0] = processId;
+                objects[1] = CurrentPage;
+                objects[2] = SortExpression;
+                objects[3] = RejectReasonFilter;
+                objects[4] = PanNumberFilter;
+                objects[5] = ScripFilter;
+                objects[6] = ExchangeFilter;
+                objects[7] = TransactionTypeFilter;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            Count = Int32.Parse(dsGetWERPRejectedTransactions.Tables[1].Rows[0]["CNT"].ToString());
+
+            return dsGetWERPRejectedTransactions;
+        }
+
+       
     }
 }
