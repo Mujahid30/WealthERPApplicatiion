@@ -1341,4 +1341,8 @@
     <value>OPS//BondsOrderEntry.ascx</value>
     <comment>OPS//BondsOrderEntry.ascx</comment>
   </data>
+  <data name="LifeInsuranceOrderEntry" xml:space="preserve">
+    <value>OPS//LifeInsuranceOrderEntry.ascx</value>
+    <comment>OPS//LifeInsuranceOrderEntry.ascx</comment>
+  </data>
 </root>

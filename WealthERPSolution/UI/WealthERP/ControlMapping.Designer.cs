@@ -1474,6 +1474,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//LifeInsuranceOrderEntry.ascx.
+        /// </summary>
+        internal static string LifeInsuranceOrderEntry {
+            get {
+                return ResourceManager.GetString("LifeInsuranceOrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//LoanProcessTracking.ascx.
         /// </summary>
         internal static string LoanProcessTracking {
