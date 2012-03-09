@@ -32,6 +32,13 @@ namespace VoUploads
         private int m_ModifiedBy;
         private string m_ExtractTypeCode;
         private int m_BranchId;
+        private int m_RmId;
+
+        public int RmId
+        {
+            get { return m_RmId; }
+            set { m_RmId = value; }
+        }
         
         #endregion Fields
 
