@@ -536,5 +536,41 @@ namespace DaoSuperAdmin
            }
            return dsAdviserListHavingSIPGoalFunding.Tables[0]; ;
        }
+
+       public DataTable BindAdviserForUpload()
+       {
+           DataSet dsBindAdviserForUpload = new DataSet();
+           Database db;
+           DbCommand AdviserListcmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               AdviserListcmd = db.GetStoredProcCommand("SP_GetAllAdvisers");
+               dsBindAdviserForUpload = db.ExecuteDataSet(AdviserListcmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return dsBindAdviserForUpload.Tables[0];
+       }
+       public DataSet GetAdviserRmDetails(int adviserId)
+       {
+           DataSet dsAdviserRmDetails = new DataSet();
+           Database db;
+           DbCommand AdviserRmDetailscmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               AdviserRmDetailscmd = db.GetStoredProcCommand("SP_GetAdviserRmDetails");
+               db.AddInParameter(AdviserRmDetailscmd, "@AdviserId", DbType.Int32, adviserId);
+               dsAdviserRmDetails = db.ExecuteDataSet(AdviserRmDetailscmd);
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return dsAdviserRmDetails;
+       }
     }
 }
