@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="EmailSMSDao.cs" />
     <Compile Include="MessageDao.cs" />
+    <Compile Include="RepositoryDao.cs" />
     <Compile Include="XMLDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
