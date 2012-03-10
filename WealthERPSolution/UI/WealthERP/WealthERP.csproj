@@ -6731,6 +6731,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="FusionChartXMLFiles\" />
     <Folder Include="Reports\App_LocalResources\" />
+    <Folder Include="Repository\" />
     <Folder Include="TempCustomerProof\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
