@@ -65,6 +65,7 @@
     <Compile Include="MessageBo.cs" />
     <Compile Include="OneWayEncryption.cs" />
     <Compile Include="REadExternalFileBO.cs" />
+    <Compile Include="RepositoryBo.cs" />
     <Compile Include="SessionBo.cs" />
     <Compile Include="XMLBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
