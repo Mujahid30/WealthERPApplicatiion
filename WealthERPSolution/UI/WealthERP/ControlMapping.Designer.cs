@@ -142,6 +142,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SubBroker//AddSubBroker.ascx.
+        /// </summary>
+        internal static string AddSubBroker {
+            get {
+                return ResourceManager.GetString("AddSubBroker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin//Download.ascx.
         /// </summary>
         internal static string AdminDownload {

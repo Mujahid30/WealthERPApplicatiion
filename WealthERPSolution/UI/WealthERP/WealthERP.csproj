@@ -2607,6 +2607,13 @@
     <Compile Include="SessionExpired.aspx.designer.cs">
       <DependentUpon>SessionExpired.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SubBroker\AddSubBroker.ascx.cs">
+      <DependentUpon>AddSubBroker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubBroker\AddSubBroker.ascx.designer.cs">
+      <DependentUpon>AddSubBroker.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\AddIssue.ascx.cs">
       <DependentUpon>AddIssue.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5701,6 +5708,7 @@
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="SessionExpired.aspx" />
+    <Content Include="SubBroker\AddSubBroker.ascx" />
     <Content Include="SuperAdmin\AddIssue.ascx" />
     <Content Include="SuperAdmin\AdviserUploads.ascx" />
     <Content Include="SuperAdmin\DailyValuationMonitor.ascx" />

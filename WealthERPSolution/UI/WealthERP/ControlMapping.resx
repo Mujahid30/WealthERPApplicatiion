@@ -1345,4 +1345,8 @@
     <value>OPS//LifeInsuranceOrderEntry.ascx</value>
     <comment>OPS//LifeInsuranceOrderEntry.ascx</comment>
   </data>
+  <data name="AddSubBroker" xml:space="preserve">
+    <value>SubBroker//AddSubBroker.ascx</value>
+    <comment>SubBroker//AddSubBroker.ascx</comment>
+  </data>
 </root>
