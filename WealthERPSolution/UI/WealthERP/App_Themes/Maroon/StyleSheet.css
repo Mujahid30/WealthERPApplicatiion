@@ -1041,3 +1041,17 @@ p.tip
     }
 
 /* End */
+.divSectionHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;   
+    background-color:#F3BABA;
+    color:#8E2D32;
+    font-weight:bold;
+    height:20px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    
+}
