@@ -1838,6 +1838,7 @@ namespace WealthERP.OPS
                 hyperLinkFillablePdfForm.Visible = true;
                 hyperLinkFillablePdfForm.NavigateUrl = "~/FillablePDFForms/" + FileName;
                 hyperLinkFillablePdfForm.Text = "(" + FileName+" )";
+                Session["FileName"] = FileName;
             }
             else
             {
@@ -2303,154 +2304,170 @@ namespace WealthERP.OPS
 
         protected void btnGeneratePDF_Click(object sender, EventArgs e)
         {
-            string pdfTemplate = @"H:\WERP_FinalWorkSpace_05March2012\UI\WealthERP\FillablePDFForms\FranklinInfotechFund(G)_SIP.pdf";
-            string newFile = @"H:\PDFForms\FranklinInfotechFund(G)_SIP.pdf";
-            PdfReader pdfReader = new PdfReader(pdfTemplate);
-            PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(
-                        newFile, FileMode.Create));
-
-            AcroFields pdfFormFields = pdfStamper.AcroFields;
-            // set form pdfFormFields
-
-            // The first worksheet and W-4 form
-            if(lblGetBranch.Text != "")
-                pdfFormFields.SetField("WERP_BRANCH", lblGetBranch.Text);
-
-            if (txtCustomerName.Text != "")
-                pdfFormFields.SetField("WERP_ACCHOLDER", txtCustomerName.Text);
-
-            if(txtCustomerName.Text != "")
-                pdfFormFields.SetField("WERP_INVESTORNAME", txtCustomerName.Text);
-
-            if (ddlFolioNumber.SelectedValue != "")
-                pdfFormFields.SetField("WERP_FOLIO", ddlFolioNumber.SelectedValue);
-
-            if(ddlAmcSchemeList.SelectedItem.Text != "")
-                pdfFormFields.SetField("WERP_SCHEME", ddlAmcSchemeList.SelectedItem.Text);
-
-            if(txtReceivedDate.Text != "")
-                pdfFormFields.SetField("WERP_DATE", DateTime.Parse(txtReceivedDate.Text).ToShortDateString());
-
-            if(txtstartDateSIP.Text != "")
-                pdfFormFields.SetField("WERP_ECSFROM", DateTime.Parse(txtstartDateSIP.Text).ToShortDateString());
-
-            if(txtendDateSIP.Text != "")
-                pdfFormFields.SetField("WERP_ECSTO", DateTime.Parse(txtendDateSIP.Text).ToShortDateString());
-
-            if(lblgetPan.Text != "")
-                pdfFormFields.SetField("WERP_PAN", lblgetPan.Text);
-
-            if(ddlCategory.SelectedValue != "")
-                pdfFormFields.SetField("WERP_PLAN", ddlCategory.SelectedValue);
-
-            if(txtPaymentInstDate.Text != "")
-                pdfFormFields.SetField("WERP_SIPCHQDATE", DateTime.Parse(txtPaymentInstDate.Text).ToShortDateString());
-
-            if(ddlBankName.SelectedValue != "")
-                pdfFormFields.SetField("WERP_BANKNAME", ddlBankName.SelectedValue);
-
-            if (txtAmount.Text != "")
-                pdfFormFields.SetField("WERP_SIPAMOUNT", txtAmount.Text);
-
-            if (ddlFrequencySIP.SelectedIndex != 0)
+            string newFile = "";
+            string InputFilePath = Server.MapPath("FillablePDFForms");
+            string OutPutFilePath = System.Configuration.ConfigurationManager.AppSettings["OutPutFillablePDFFiles"];
+            if (Session["FileName"] != null)
             {
-                switch (ddlFrequencySIP.SelectedValue)
+                string pdfTemplate = @InputFilePath + "\\" + Session["FileName"].ToString();
+                if (Directory.Exists(OutPutFilePath))
                 {
-                    case "DA":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_Daily", "Yes");
-                            break;
-                        }
-                    case "FN":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_FortNightly", "Yes");
-                            break;
-                        }
-                    case "HY":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_HalfYearly", "Yes");
-                            break;
-                        }
-                    case "MN":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_Monthly", "Yes");
-                            break;
-                        }
-                    case "QT":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_Quarterly", "Yes");
-                            break;
-                        }
-                    case "WK":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_Weekly", "Yes");
-                            break;
-                        }
-                    case "YR":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_Yearly", "Yes");
-                            break;
-                        }
-                    case "AM":
-                        {
-                            pdfFormFields.SetField("WERP_SIPFrequency_AtMaturity", "Yes");
-                            break;
-                        }
+                    if(!File.Exists(OutPutFilePath + "\\" + Session["FileName"].ToString()))
+                        File.Create(OutPutFilePath + "\\" + Session["FileName"].ToString());
+
+                    newFile = @OutPutFilePath + Session["FileName"].ToString();
+                    Session["OutPutFilePath"] = newFile;
                 }
+               
+                PdfReader pdfReader = new PdfReader(pdfTemplate);
+                PdfStamper pdfStamper = new PdfStamper(pdfReader, new FileStream(
+                            newFile, FileMode.Create));
+
+                AcroFields pdfFormFields = pdfStamper.AcroFields;
+                
+                // The first worksheet and W-4 form
+                if (lblGetBranch.Text != "")
+                    pdfFormFields.SetField("WERP_BRANCH", lblGetBranch.Text);
+
+                if (txtCustomerName.Text != "")
+                    pdfFormFields.SetField("WERP_ACCHOLDER", txtCustomerName.Text);
+
+                if (txtCustomerName.Text != "")
+                    pdfFormFields.SetField("WERP_INVESTORNAME", txtCustomerName.Text);
+
+                if (ddlFolioNumber.SelectedValue != "")
+                    pdfFormFields.SetField("WERP_FOLIO", ddlFolioNumber.SelectedValue);
+
+                if (ddlAmcSchemeList.SelectedItem.Text != "")
+                    pdfFormFields.SetField("WERP_SCHEME", ddlAmcSchemeList.SelectedItem.Text);
+
+                if (txtReceivedDate.Text != "")
+                    pdfFormFields.SetField("WERP_DATE", DateTime.Parse(txtReceivedDate.Text).ToShortDateString());
+
+                if (txtstartDateSIP.Text != "")
+                    pdfFormFields.SetField("WERP_ECSFROM", DateTime.Parse(txtstartDateSIP.Text).ToShortDateString());
+
+                if (txtendDateSIP.Text != "")
+                    pdfFormFields.SetField("WERP_ECSTO", DateTime.Parse(txtendDateSIP.Text).ToShortDateString());
+
+                if (lblgetPan.Text != "")
+                    pdfFormFields.SetField("WERP_PAN", lblgetPan.Text);
+
+                if (ddlCategory.SelectedValue != "")
+                    pdfFormFields.SetField("WERP_PLAN", ddlCategory.SelectedValue);
+
+                if (txtPaymentInstDate.Text != "")
+                    pdfFormFields.SetField("WERP_SIPCHQDATE", DateTime.Parse(txtPaymentInstDate.Text).ToShortDateString());
+
+                if (ddlBankName.SelectedValue != "")
+                    pdfFormFields.SetField("WERP_BANKNAME", ddlBankName.SelectedValue);
+
+                if (txtAmount.Text != "")
+                    pdfFormFields.SetField("WERP_SIPAMOUNT", txtAmount.Text);
+
+                if (ddlFrequencySIP.SelectedIndex != 0)
+                {
+                    switch (ddlFrequencySIP.SelectedValue)
+                    {
+                        case "DA":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_Daily", "Yes");
+                                break;
+                            }
+                        case "FN":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_FortNightly", "Yes");
+                                break;
+                            }
+                        case "HY":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_HalfYearly", "Yes");
+                                break;
+                            }
+                        case "MN":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_Monthly", "Yes");
+                                break;
+                            }
+                        case "QT":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_Quarterly", "Yes");
+                                break;
+                            }
+                        case "WK":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_Weekly", "Yes");
+                                break;
+                            }
+                        case "YR":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_Yearly", "Yes");
+                                break;
+                            }
+                        case "AM":
+                            {
+                                pdfFormFields.SetField("WERP_SIPFrequency_AtMaturity", "Yes");
+                                break;
+                            }
+                    }
+                }
+                //pdfFormFields.SetField("WERP_ACCTYPE1", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_ACCTYPE2", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_ACCTYPE3", txtScheme.Text);
+
+
+
+                //pdfFormFields.SetField("WERP_OPTION", txtScheme.Text);
+
+                //pdfFormFields.SetField("WERP_SIGN2", txtScheme.Text);
+
+
+                //pdfFormFields.SetField("WERP_INVSIGN1", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_SIPCHQNO", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_MICR", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_SIGNINV3", txtScheme.Text);
+
+                //pdfFormFields.SetField("WERP_SIGNINV3", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_SIGN1", txtScheme.Text);
+
+                //pdfFormFields.SetField("WERP_SIGN3", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_SIPACCNO", txtScheme.Text);
+                //pdfFormFields.SetField("WERP_SIGNINV2", txtScheme.Text);
+
+
+                //// The form's checkboxes
+
+                //pdfFormFields.SetField("Radio Button7", "Yes");
+                //pdfFormFields.SetField("RADD1", "Yes");
+                //pdfFormFields.SetField("RADD1", "Yes");
+                //pdfFormFields.SetField("RADD1", "Yes");
+                //pdfFormFields.SetField("RADD2", "Yes");
+                //pdfFormFields.SetField("RADD3", "Yes");
+                //pdfFormFields.SetField("Radio Button9", "Yes");
+
+
+                //// report by reading values from completed PDF
+                //string sTmp = pdfFormFields.GetField("SCHEME") + "Application form filled successfully for " + pdfFormFields.GetField("FOLIO") + " ";
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + sTmp + "');", true);
+
+                // flatten the form to remove editting options, set it to false
+                // to leave the form open to subsequent manual edits
+                pdfStamper.FormFlattening = false;
+
+                // close the pdf
+                pdfStamper.Close();
+
+                OpenPdfFile();
             }
-            //pdfFormFields.SetField("WERP_ACCTYPE1", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_ACCTYPE2", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_ACCTYPE3", txtScheme.Text);
-            
-           
-            
-            //pdfFormFields.SetField("WERP_OPTION", txtScheme.Text);
-            
-            //pdfFormFields.SetField("WERP_SIGN2", txtScheme.Text);
-            
-            
-            //pdfFormFields.SetField("WERP_INVSIGN1", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_SIPCHQNO", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_MICR", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_SIGNINV3", txtScheme.Text);
-            
-            //pdfFormFields.SetField("WERP_SIGNINV3", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_SIGN1", txtScheme.Text);
-            
-            //pdfFormFields.SetField("WERP_SIGN3", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_SIPACCNO", txtScheme.Text);
-            //pdfFormFields.SetField("WERP_SIGNINV2", txtScheme.Text);
-            
-
-            //// The form's checkboxes
-
-            //pdfFormFields.SetField("Radio Button7", "Yes");
-            //pdfFormFields.SetField("RADD1", "Yes");
-            //pdfFormFields.SetField("RADD1", "Yes");
-            //pdfFormFields.SetField("RADD1", "Yes");
-            //pdfFormFields.SetField("RADD2", "Yes");
-            //pdfFormFields.SetField("RADD3", "Yes");
-            //pdfFormFields.SetField("Radio Button9", "Yes");
-
-
-            //// report by reading values from completed PDF
-            //string sTmp = pdfFormFields.GetField("SCHEME") + "Application form filled successfully for " + pdfFormFields.GetField("FOLIO") + " ";
-
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + sTmp + "');", true);
-
-            // flatten the form to remove editting options, set it to false
-            // to leave the form open to subsequent manual edits
-            pdfStamper.FormFlattening = false;
-
-            // close the pdf
-            pdfStamper.Close();
-
-            OpenPdfFile();
         }
 
         private void OpenPdfFile()
         {
-            System.Diagnostics.Process.Start(@"H:\PDFForms\FranklinInfotechFund(G)_SIP.pdf");
+            if (Session["OutPutFilePath"] != null)
+            {
+                System.Diagnostics.Process.Start(@Session["OutPutFilePath"].ToString());
+            }
         }
 
     }
