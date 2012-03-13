@@ -484,7 +484,34 @@ namespace BoOps
             return Result;
         }
 
+        public DataTable CheckPDFFormAvailabilty(string transactionType, int schemeCode)
+        {
+            DataTable dtPdfForms = new DataTable();
 
+            try
+            {
+                dtPdfForms = operationDao.CheckPDFFormAvailabilty(transactionType, schemeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:CheckPDFFormAvailabilty(string transactionType, int schemeCode)");
+                object[] objects = new object[5];
+                objects[0] = transactionType;
+                objects[1] = schemeCode;
 
-   }
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtPdfForms;
+        }
+    }
 }

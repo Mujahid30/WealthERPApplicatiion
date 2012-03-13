@@ -966,5 +966,52 @@ namespace DaoOps
             else
                 return status=false;
         }
+
+        /// <summary>
+        /// Added to check PDF Form Availabilty
+        /// </summary>
+        /// <param name="transactionType"></param>
+        /// <param name="SchemeName"></param>
+        /// <returns></returns>
+        public DataTable CheckPDFFormAvailabilty(string transactionType, int schemeCode)
+        {
+            Database db;
+            DataSet dsPdfForms = new DataSet();
+            DataTable dtPdfForms = new DataTable();
+            DbCommand CheckPDFFormAvailabiltyCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CheckPDFFormAvailabiltyCmd = db.GetStoredProcCommand("SP_CheckFillablePDFFormAvailability");
+                db.AddInParameter(CheckPDFFormAvailabiltyCmd, "@PDF_TransactionType", DbType.String, transactionType);
+                db.AddInParameter(CheckPDFFormAvailabiltyCmd, "@PASP_SchemePlanCode", DbType.Int32, schemeCode);
+                CheckPDFFormAvailabiltyCmd.CommandTimeout = 60 * 60;
+                dsPdfForms = db.ExecuteDataSet(CheckPDFFormAvailabiltyCmd);
+                if (dsPdfForms.Tables.Count > 0)
+                    dtPdfForms = dsPdfForms.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:CheckPDFFormAvailabilty(string transactionType, string SchemeName)");
+                object[] objects = new object[3];
+                objects[0] = transactionType;
+                objects[1] = schemeCode;
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtPdfForms;
+            
+        }
     }
 }
