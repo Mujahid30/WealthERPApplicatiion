@@ -83,7 +83,7 @@
 <table width="100%">
 <tr>
 <td width="30%">
-<asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry"></asp:Label>
+<asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="MF Order Entry"></asp:Label>
 </td>
 <td id="trReportButtons" runat="server" width="70%"  align="right">
 <asp:Button ID="btnViewReport" runat="server"  PostBackUrl="~/Reports/Display.aspx?mail=0" CssClass="CrystalButton" 
@@ -324,6 +324,8 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 </asp:DropDownList><span id="spnScheme" runat="server" class="spnRequiredField">*</span>
 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList" CssClass="cvPCG" Display="Dynamic" 
    ErrorMessage="<br />Please select a scheme" Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+   
+   <asp:HyperLink ID="hyperLinkFillablePdfForm" runat="server" NavigateUrl="" Text="" CssClass="LinkButtons" ></asp:HyperLink>
   
    
   </td>
@@ -831,7 +833,7 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
                             </td>
    </tr>
    
- <tr id="trAddress10" runat="server">
+                        <tr id="trAddress10" runat="server">
                             <td class="leftField">
                                 <asp:Label ID="lblAdrPinCode" CssClass="FieldName" runat="server" Text="Pin Code:"></asp:Label>
                             </td>
@@ -848,15 +850,18 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
                                 <asp:DropDownList ID="ddlCorrAdrCountry" runat="server" CssClass="cmbField">
                                     <asp:ListItem Text="India" Value="India" Selected="True"></asp:ListItem>
                                 </asp:DropDownList>
-                            </td>
-  </tr>
+                            </td> 
+                        </tr>
    
 
 <tr id="trBtnSubmit" runat="server">
-<td  align="left">
+<td  align="left" colspan="3">
 <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_OnClick" ValidationGroup="MFSubmit"/>
 <asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
         CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
+
+ <asp:Button ID="btnGeneratePDF" runat="server" Text="Generate PDF" 
+        CssClass="PCGMediumButton" onclick="btnGeneratePDF_Click" />
 
 </td>
 
