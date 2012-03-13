@@ -6174,7 +6174,7 @@ namespace WealthERP.Uploads
             //}
             else if (filetype == 28||filetype==29)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommissionTransactionRejects','processId=" + processid + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processid + "');", true);
             }
         }
 

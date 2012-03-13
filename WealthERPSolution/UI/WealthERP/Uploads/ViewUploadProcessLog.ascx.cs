@@ -248,7 +248,7 @@ namespace WealthERP.Uploads
                 {
                     if ((filetypeId == 28) || (filetypeId == 29))
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommissionTransactionRejects','processId=" + processID + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processID + "');", true);
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
