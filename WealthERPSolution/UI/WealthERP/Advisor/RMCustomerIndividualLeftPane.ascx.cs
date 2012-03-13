@@ -952,7 +952,7 @@ namespace WealthERP.Advisor
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
-                else if (e.Item.Value == "Add Proof")
+                else if (e.Item.Value == "View/Upload Images")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
