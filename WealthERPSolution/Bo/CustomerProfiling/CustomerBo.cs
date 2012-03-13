@@ -2115,13 +2115,13 @@ namespace BoCustomerProfiling
         }
 
 
-        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, int ProofUploadId)
+        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, int ProofUploadId, string createOrUpdate)
         {
             bool bStatus = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bStatus = customerDao.CreateCustomersProofUploads(CPUVo, ProofUploadId);
+                bStatus = customerDao.CreateCustomersProofUploads(CPUVo, ProofUploadId, createOrUpdate);
             }
             catch (BaseApplicationException Ex)
             {

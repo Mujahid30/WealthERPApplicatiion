@@ -3959,7 +3959,7 @@ namespace DaoCustomerProfiling
             return dtGetCustomerProofCopy;
         }
 
-        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, int ProofUploadId)
+        public bool CreateCustomersProofUploads(CustomerProofUploadsVO CPUVo, int ProofUploadId, string createOrUpdate)
         {
             bool bStatus = false;
             Database db;
@@ -3973,13 +3973,16 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertPlanPreferences, "@XP_ProofCode", DbType.Int32, CPUVo.ProofCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@XPCT_ProofCopyTypeCode", DbType.String, CPUVo.ProofCopyTypeCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
+                db.AddInParameter(cmdInsertPlanPreferences, "@ProofID", DbType.Int32, ProofUploadId);
 
-                db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, ProofUploadId);
+
+                db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, 0);
 
                 if (db.ExecuteNonQuery(cmdInsertPlanPreferences) != 0)
                     bStatus = true;
 
-                ProofUploadId = Convert.ToInt32(db.GetParameterValue(cmdInsertPlanPreferences, "@CPU_ProofUploadId").ToString());
+                if(createOrUpdate == "Submit")
+                    ProofUploadId = Convert.ToInt32(db.GetParameterValue(cmdInsertPlanPreferences, "@CPU_ProofUploadId").ToString());
             }
             catch (BaseApplicationException Ex)
             {
