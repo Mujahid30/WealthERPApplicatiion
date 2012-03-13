@@ -158,11 +158,10 @@ namespace WealthERP.Customer
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            
+            string UploadedFileName = "";
             FileStream outputStream = null;
             Session["Button"] = "Submit";
             customerVo = (CustomerVo)Session["CustomerVo"];
-            //H:/CustomerProofImages/advisor_1088/38186_Icard.jpg
             string Temppath = System.Configuration.ConfigurationManager.AppSettings["UploadCustomerProofImages"];
 
             if (Directory.Exists(Temppath))
@@ -178,75 +177,113 @@ namespace WealthERP.Customer
                 path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "" + "\\";
             }
 
-            UploadedFile file = radUploadProof.UploadedFiles[0];
+            if (Session["ImagePath"] != null)
+                UploadedFileName = Path.GetFileName(Session["ImagePath"].ToString());
 
-            FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
-            PermissionSet ps = new PermissionSet(PermissionState.None);
-            ps.AddPermission(fp);
-
-            string extension = file.GetExtension();
-
-            float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576;
-
-            float DirSize = 0;
-            DirectoryInfo[] DI = new DirectoryInfo(path).GetDirectories("*.*", SearchOption.AllDirectories);
-            FileInfo[] FI = new DirectoryInfo(path).GetFiles("*.*", SearchOption.AllDirectories);
-            foreach (FileInfo F1 in FI)
+            if (radUploadProof.UploadedFiles.Count != 0)
             {
-                DirSize += F1.Length;
-            }
-            //Converting in Mega bytes
-            DirSize = DirSize / 1048576;
-            if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
-            {
-                foreach (UploadedFile f in radUploadProof.UploadedFiles)
+                UploadedFile file = radUploadProof.UploadedFiles[0];
+
+                FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
+                PermissionSet ps = new PermissionSet(PermissionState.None);
+                ps.AddPermission(fp);
+
+                string extension = file.GetExtension();
+
+                float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576;
+
+                float DirSize = 0;
+                DirectoryInfo[] DI = new DirectoryInfo(path).GetDirectories("*.*", SearchOption.AllDirectories);
+                FileInfo[] FI = new DirectoryInfo(path).GetFiles("*.*", SearchOption.AllDirectories);
+                foreach (FileInfo F1 in FI)
                 {
-                    int l = (int)f.InputStream.Length;
-                    byte[] bytes = new byte[l];
-                    f.InputStream.Read(bytes, 0, l);
-
-                    imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
-                    if (extension != ".pdf")
-                        UploadImage(path, f, imageUploadPath);
-                    else
-                    {
-                        f.SaveAs(path + "\\" + imageUploadPath);
-                    }
+                    DirSize += F1.Length;
                 }
-                
-                CPUVo.CustomerId = customerVo.CustomerId;
-                CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
-                CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
-                CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-                CPUVo.ProofImage = path + "\\" + imageUploadPath;
-                CreateDBReferrenceForProofUploads(CPUVo);
+                //Converting in Mega bytes
+                DirSize = DirSize / 1048576;
 
-                LoadImages();
+                
+
+                FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
+                float alreadyUploadedFileSize = fi.Length;
+                alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
+
+                DirSize = DirSize - alreadyUploadedFileSize;
+
+                if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
+                {
+                    foreach (UploadedFile f in radUploadProof.UploadedFiles)
+                    {
+                        int l = (int)f.InputStream.Length;
+                        byte[] bytes = new byte[l];
+                        f.InputStream.Read(bytes, 0, l);
+
+                        imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
+                        if (btnSubmit.Text == "Submit")
+                        {
+                            if (extension != ".pdf")
+                            {
+                                UploadImage(path, f, imageUploadPath);
+                            }
+                            else
+                            {
+                                f.SaveAs(path + "\\" + imageUploadPath);
+                            }
+                        }
+                        else
+                        {
+                            if (extension != ".pdf")
+                            {
+                                File.Delete(path + UploadedFileName);
+                                f.SaveAs(path + "\\" + imageUploadPath);
+                            }
+                            else
+                            {
+                                f.SaveAs(path + "\\" + imageUploadPath);
+                            }
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable limit..!');", true);
+                }
             }
+            CPUVo.CustomerId = customerVo.CustomerId;
+            CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
+            CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
+            CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
+            if(imageUploadPath == "")
+                CPUVo.ProofImage = path + "\\" + UploadedFileName;
             else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable limit..!');", true);
-            }
+                CPUVo.ProofImage = path + "\\" + imageUploadPath;
+            CreateDBReferrenceForProofUploads(CPUVo);
+
+            LoadImages();
         }
 
         private void CreateDBReferrenceForProofUploads(CustomerProofUploadsVO CPUVo)
         {
+            string createOrUpdate = "";
             int proofUploadID = 0;
             bool bStatus = false;
 
             if (btnSubmit.Text == "Submit")
             {
+                createOrUpdate = "Submit";
                 if (CPUVo != null)
                 {
-                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID);
+                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
                 }
             }
             else if (btnSubmit.Text == "Update")
             {
+                createOrUpdate = "Update";
                 proofUploadID = Convert.ToInt32(Session["ProofID"].ToString());
                 if (CPUVo != null)
                 {
-                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID);
+                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
                 }
             }
             

@@ -28,14 +28,19 @@
         function validateRadUpload1(source, arguments) {
             arguments.IsValid = $find('<%= radUploadProof.ClientID %>').validateExtensions();
 
-            var upload = $find("<%= radUploadProof.ClientID %>");
-            var inputs = upload.getFileInputs();
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].value == '') {
-                    arguments.IsValid = false;
-                    return false;
+            var btnText = document.getElementById('ctrl_ViewCustomerProofs_btnSubmit');
+           
+            if (btnText.value != 'Update') {
+                var upload = $find("<%= radUploadProof.ClientID %>");
+                var inputs = upload.getFileInputs();
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].value == '') {
+                        arguments.IsValid = false;
+                        return false;
+                    }
                 }
             }
+            
             
         }
     </script>
