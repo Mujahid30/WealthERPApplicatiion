@@ -53,7 +53,7 @@ namespace WealthERP.SuperAdmin
             {
                 filter.Visible = false;
             }
-            gvCSIssueTracker.MasterTableView.ExportToExcel();
+            gvCSIssueTracker.MasterTableView.ExportToCSV();
         } 
 
         public void csIssueGridViewBind()

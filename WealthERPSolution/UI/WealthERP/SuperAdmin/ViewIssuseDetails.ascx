@@ -190,7 +190,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
                     AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
-                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"></ExportSettings>
+                    <ExportSettings HideStructureColumns="true"></ExportSettings>
                     <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
                      <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
