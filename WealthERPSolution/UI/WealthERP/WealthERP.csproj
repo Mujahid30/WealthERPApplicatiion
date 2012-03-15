@@ -2312,6 +2312,13 @@
     <Compile Include="OPS\OrderRecon.ascx.designer.cs">
       <DependentUpon>OrderRecon.ascx</DependentUpon>
     </Compile>
+    <Compile Include="PopUp.aspx.cs">
+      <DependentUpon>PopUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PopUp.aspx.designer.cs">
+      <DependentUpon>PopUp.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Advisor\RMProfile.ascx.cs">
       <DependentUpon>RMProfile.ascx</DependentUpon>
@@ -5670,6 +5677,7 @@
     <Content Include="OPS\OrderEntry.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />
     <Content Include="OPS\OrderRecon.ascx" />
+    <Content Include="PopUp.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
