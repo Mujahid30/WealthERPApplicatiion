@@ -10,7 +10,7 @@
         height: 12px;
     }
 </style>--%>
-<telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+<%--<telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
 
     <script type="text/javascript">
         function checkAllBoxes() {
@@ -31,7 +31,7 @@
         }
     </script>
 
-</telerik:RadScriptBlock>
+</telerik:RadScriptBlock>--%>
 <!-- end of custom head section -->
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <table width="100%" class="TableBackground">
@@ -72,7 +72,7 @@
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <MasterTableView DataKeyNames="MR_MessageRecipientId" ShowFooter="true">
                         <Columns>
-                            <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
+                            <%--<telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
                                 <HeaderTemplate>
                                     <input type="checkbox" id="hdrCheckBox" onclick="checkAllBoxes()" />
@@ -84,7 +84,7 @@
                                 <FooterTemplate>
                                     <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" ForeColor="White" />
                                 </FooterTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn>--%>
                             <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle Width="30px"></HeaderStyle>
                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
@@ -106,9 +106,6 @@
                             </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>
-                    <%--<ClientSettings EnablePostBackOnRowClick="true">
-                        <Selecting AllowRowSelect="True"></Selecting>
-                    </ClientSettings>--%>
                 </telerik:RadGrid>
                 <hr style="width: 860px; float: left;" />
                 <br />
