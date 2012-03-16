@@ -86,15 +86,6 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadPanelBar RadPanelBar5;
         
         /// <summary>
-        /// RadPnlBrMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadPanelBar RadPnlBrMessage;
-        
-        /// <summary>
         /// txtFindRM control.
         /// </summary>
         /// <remarks>

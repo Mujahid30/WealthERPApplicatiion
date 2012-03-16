@@ -232,6 +232,18 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Content" Value="Content">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
+                                                <Items>
+                                                    <%--<telerik:RadPanelItem runat="server" Text="View Repository" Value="ViewRepository">
+                                                    </telerik:RadPanelItem>--%>
+                                                    <telerik:RadPanelItem runat="server" Text="Manage Repository" Value="ManageRepository">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
                         </Items>
@@ -326,7 +338,11 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -560,11 +576,11 @@
                         </Items>
                         <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
-                    <%--<telerik:RadPanelBar ID="RadPnlBrMessage" Style="vertical-align: middle;" runat="server"
+                    <%--<telerik:RadPanelBar ID="RadPnlBrRepository" Style="vertical-align: middle;" runat="server"
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
-                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPnlBrMessage_ItemClick">
+                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPnlBrRepository_ItemClick">
                         <Items>
-                            <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
+                            <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Content" Value="Message">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                     </telerik:RadPanelItem>

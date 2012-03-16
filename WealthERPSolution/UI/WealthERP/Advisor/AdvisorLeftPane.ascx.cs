@@ -845,6 +845,14 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
                 }
+                else if (e.Item.Value == "ViewRepository")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
+                }
+                else if (e.Item.Value == "ManageRepository")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1005,6 +1013,14 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Inbox")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
+                }
+                else if (e.Item.Value == "Compose")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
+                }
+                else if (e.Item.Value == "Outbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
                 }
             }
             catch (BaseApplicationException Ex)
