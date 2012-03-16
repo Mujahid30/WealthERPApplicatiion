@@ -91,11 +91,22 @@ namespace WealthERP.Messages
                         }
                     }
                 }
-                //else if (userVo.RoleList.Contains(strUserRoleRM) && !(userVo.RoleList.Contains(strUserRoleResearch)))
-                //{
-                //    // Advisor RM logged in
+                else if (userVo.RoleList.Contains(strUserRoleRM))
+                {
+                    // Advisor RM logged in
+                    chkbxAll.Visible = false;
 
-                //}
+                    for (int i = 0; i < ChkBxRoleList.Items.Count; i++)
+                    {
+                        int currentItem = Int32.Parse(ChkBxRoleList.Items[i].Value.ToString());
+                        if (currentItem != 1003)
+                        {
+                            // Remove Advisor & BM checkbox
+                            ChkBxRoleList.Items.RemoveAt(i);
+                            --i;
+                        }
+                    }
+                }
             }
         }
 
@@ -310,55 +321,5 @@ namespace WealthERP.Messages
             LBUser.Items.Clear();
             LBSelectedUser.Items.Clear();
         }
-
-        //public struct LinkItem
-        //{
-        //    public string Href;
-        //    public string Text;
-
-        //    public override string ToString()
-        //    {
-        //        return Href + "\n\t" + Text;
-        //    }
-        //}
-
-        //static class LinkFinder
-        //{
-        //    public static List<LinkItem> Find(string file)
-        //    {
-        //        List<LinkItem> list = new List<LinkItem>();
-
-        //        // 1.
-        //        // Find all matches in file.
-        //        MatchCollection m1 = Regex.Matches(file, @"(<a.*?>.*?</a>)",
-        //            RegexOptions.Singleline);
-
-        //        // 2.
-        //        // Loop over each match.
-        //        foreach (Match m in m1)
-        //        {
-        //            string value = m.Groups[1].Value;
-        //            LinkItem i = new LinkItem();
-
-        //            // 3.
-        //            // Get href attribute.
-        //            Match m2 = Regex.Match(value, @"href=\""(.*?)\""",
-        //            RegexOptions.Singleline);
-        //            if (m2.Success)
-        //            {
-        //                i.Href = m2.Groups[1].Value;
-        //            }
-
-        //            // 4.
-        //            // Remove inner tags from text.
-        //            string t = Regex.Replace(value, @"\s*<.*?>\s*", "",
-        //            RegexOptions.Singleline);
-        //            i.Text = t;
-
-        //            list.Add(i);
-        //        }
-        //        return list;
-        //    }
-        //}
     }
 }

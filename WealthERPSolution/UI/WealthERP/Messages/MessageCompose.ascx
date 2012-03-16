@@ -65,7 +65,7 @@
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
-                <%--<asp:ListItem Value="1004">Ops</asp:ListItem>--%>
+                <asp:ListItem Value="1003">Customer</asp:ListItem>
             </asp:CheckBoxList>
         </td>
     </tr>
