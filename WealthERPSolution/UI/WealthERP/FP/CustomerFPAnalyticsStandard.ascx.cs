@@ -1525,10 +1525,10 @@ namespace WealthERP.FP
 
                     drGEGapAnalysis = dtGEGapAnalysis.NewRow();
                     drGEGapAnalysis["GEAssetCategory"] = "Recommended Cover";
-                    if (totalAnnualIncome > 50000)
+                    if (totalAnnualIncome >= 500000)
                     {
-                        drGEGapAnalysis["GEAssetValues"] = 50000;
-                        recomndCover = 50000;
+                        drGEGapAnalysis["GEAssetValues"] = 500000;
+                        recomndCover = 500000;
                     }
                     else
                     {
