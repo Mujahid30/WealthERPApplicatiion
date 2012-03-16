@@ -12,7 +12,7 @@
     <%-- <link href="CSS/ControlsStyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
-       
+
     <script src="/Scripts/jquery.js" type="text/javascript"></script>
 
     <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
@@ -154,9 +154,9 @@
                                 <%--background-color: #D1E1F7"--%>
                                 <td colspan="3" valign="top" class="TDBackground" style="padding: 0px;">
                                     <table id="imgPlaceholders" width="100%">
-                                        <tr style="height:55px" valign="middle">
+                                        <tr style="height: 55px" valign="middle">
                                             <td align="left" width="33%">
-                                                <img id="imgLeftPlaceHolder" runat="server"/>
+                                                <img id="imgLeftPlaceHolder" runat="server" />
                                             </td>
                                             <td align="center" width="33%">
                                                 <img id="imgCenterPlaceholder" runat="server" height="50" width="180" />
@@ -166,34 +166,33 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="0" cellspacing="0">
+                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="0"
+                                        cellspacing="0">
                                         <tr>
                                             <td id="tdSettings" style="vertical-align: baseline" runat="server">
                                                 <a id="LinkButtonUserSettings" onclick="javascript:loadcontrol('UserSettings','none'); return false;"
-                                                    class="LinkButtons" style="text-decoration: none" href="#">Settings</a>
-                                                    &nbsp;
+                                                    class="LinkButtons" style="text-decoration: none" href="#">Settings</a> &nbsp;
                                             </td>
                                             <td id="tdSignIn" runat="server">
                                                 <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
-                                                    CssClass="LinkButtons" style="text-decoration: none"></asp:LinkButton>
-                                                    &nbsp;
-                                            </td>
-                                            <td id="tdDemo" visible="true" runat="server">
-                                                <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none" target="_blank">Demo</a>  
+                                                    CssClass="LinkButtons" Style="text-decoration: none"></asp:LinkButton>
                                                 &nbsp;
                                             </td>
+                                            <td id="tdDemo" visible="true" runat="server">
+                                                <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none"
+                                                    target="_blank">Demo</a> &nbsp;
+                                            </td>
                                             <td id="tdHelp" runat="server">
-                                                <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" style="text-decoration: none" class="LinkButtons" target="_blank">
-                                                    Help</a>
-                                                    &nbsp;
+                                                <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" style="text-decoration: none"
+                                                    class="LinkButtons" target="_blank">Help</a> &nbsp;
                                             </td>
                                             <td id="tdSignOut" runat="server">
-                                                <asp:LinkButton ID="lblSignOut" runat="server" Text="" style="text-decoration: none" OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
+                                                <asp:LinkButton ID="lblSignOut" runat="server" Text="" Style="text-decoration: none"
+                                                    OnClientClick="javascript:logoutloadcontrol('UserLogout','~/Images/logo.jpg','~/Images/logo.jpg'); return false"
                                                     CssClass="LinkButtons"></asp:LinkButton>
                                             </td>
                                         </tr>
                                     </table>
-                                    
                                 </td>
                             </tr>
                             <%-- <tr>
@@ -262,7 +261,7 @@
                                             </tr>
                                         </table>
                                     </div>--%>
-                                    <div id="AdvisorHeader" style="height: auto; width: 78%; float: left; display: none;"
+                                    <div id="AdvisorHeader" style="height: auto; width: 88%; float: left; display: none;"
                                         runat="server">
                                         <table width="100%">
                                             <tr>
@@ -282,18 +281,20 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" ImageUrl="~/Images/new.gif" Text="Market Data"
-                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" ImageUrl="~/Images/new.gif"
+                                                                Text="Market Data" Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
+                                                            </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                                
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');" ImageUrl="~/Images/new.gif" Text="Transact/Business online"
-                                                              Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                              
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" ImageUrl="~/Images/new.gif" Text="Info links"
-                                                              Value="Info links" ></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
+                                                                ImageUrl="~/Images/new.gif" Text="Transact/Business online" Value="Transact/Business online"
+                                                                SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" ImageUrl="~/Images/new.gif"
+                                                                Text="Info links" Value="Info links" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
+                                                                Value="Repository"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -639,14 +640,14 @@
         </asp:UpdateProgress>
     </div>
     </form>
-      <table align="center" style="display: none;">
+    <table align="center" style="display: none;">
         <tr>
             <td>
-                <div id='LoadImage' >
+                <div id='LoadImage'>
                     <table align="center">
                         <tr>
                             <td>
-                                <img src="../Images/loadingGIF.gif"/>
+                                <img src="../Images/loadingGIF.gif" />
                             </td>
                         </tr>
                     </table>
