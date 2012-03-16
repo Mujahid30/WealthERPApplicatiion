@@ -8,7 +8,7 @@
     function callSearch(searchtype) {
         var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
         var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
-        if (userRole == 'RM') 
+        if (userRole == 'RM')
             loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
         else if (userRole == 'Adviser')
             loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
@@ -35,8 +35,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text=""
-                        runat="server"></asp:Label>
+                    <asp:Label ID="lblClientInfo" CssClass="HeaderTextSmall" Text="" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -69,7 +68,7 @@
                 </td>
             </tr>
         </table>
-        <table style="valign: top; width:100%;">
+        <table style="valign: top; width: 100%;">
             <tr>
                 <td>
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
@@ -109,19 +108,20 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                           <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
+                            <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left" Text="Assumptions & Preferences" Value="Preferences">
+                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left"
+                                        Text="Assumptions & Preferences" Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Risk Profile and Asset Allocation" Value="Risk profile and asset allocation">
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="Projections" Value="Projections" Visible="false">
+                                    <telerik:RadPanelItem runat="server" Text="Projections" Value="Projections" Visible="false">
                                     </telerik:RadPanelItem>
-                                   <%-- <telerik:RadPanelItem runat="server" Text="Advanced Goal Planning" Value="Goal_Planning">
+                                    <%-- <telerik:RadPanelItem runat="server" Text="Advanced Goal Planning" Value="Goal_Planning">
                                      <Items>
                                             <telerik:RadPanelItem runat="server" Text="Goal Setup" Value="Goal Setup">
                                             </telerik:RadPanelItem>
@@ -132,26 +132,23 @@
                                      </Items>
                                     </telerik:RadPanelItem>--%>
                                     <telerik:RadPanelItem runat="server" Text="Goal" Value="Goal_Planning">
-                                     <Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="Goal List" Value="Goal_List">
                                             </telerik:RadPanelItem>
-                                    </Items>
-                                    <Items>
+                                        </Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Goal" Value="Goal_Setup">
                                             </telerik:RadPanelItem>
-                                    </Items>
-                                   
+                                        </Items>
                                     </telerik:RadPanelItem>
-                                    
-                                     <telerik:RadPanelItem runat="server" Text="Analytics" Value="Analytics">
-                                     <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Analytics" Value="Analytics">
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="Standard" Value="Standard">
                                             </telerik:RadPanelItem>
-                                     </Items>                                    
+                                        </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-
                             <telerik:RadPanelItem runat="server" Text="Portfolio Dashboard" Value="Portfolio Dashboard">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity">
@@ -273,6 +270,12 @@
                                     <telerik:RadPanelItem runat="server" Text="Insurance Alerts" Value="Insurance Alerts">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Equity Alerts" Value="Equity Alerts">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>

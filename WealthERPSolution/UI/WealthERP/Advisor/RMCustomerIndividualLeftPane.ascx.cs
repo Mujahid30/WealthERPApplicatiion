@@ -1200,6 +1200,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerEQAlerts", "loadcontrol('CustomerEQAlerts','none');", true);
                 }
+                else if (e.Item.Value.ToLower() == "inbox")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true); 
+                }
             }
             catch (BaseApplicationException Ex)
             {
