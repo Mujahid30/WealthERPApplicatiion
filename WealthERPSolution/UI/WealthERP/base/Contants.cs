@@ -151,6 +151,7 @@ namespace WealthERP.Base
         public const string UploadFileTypeId = "S_UploadFileTypeID";
         public const string LogoPath = "S_LogoPath";
         public const string BranchLogoPath = "S_BranchLogoPath";
+        public const string RepositoryVo = "S_RepositoryVo";
 
         public const string ProcessLogVo = "S_ProcessLogVo";
         public const string LoanProposalDataSet = "S_LoanProposalDataSet";
