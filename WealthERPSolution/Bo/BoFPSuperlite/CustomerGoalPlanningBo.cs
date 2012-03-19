@@ -1273,5 +1273,62 @@ namespace BoFPSuperlite
 
         }
 
+        public double GetLoanOutstandingForLiabilities(string frequencyCode, double loanAmount, DateTime startDate, DateTime endDate, int paymentOption, double installmentAmount, double noOfInstallments, double rate)
+        {
+            double outstandingLoanAmount = 0;
+            DateTime currentDate = DateTime.Today;
+            TimeSpan tsDateDiff = new TimeSpan();
+            //int noOfRemainingInstallments = 0;
+            double months = 0;
+            int frequencyCount = 0;
+
+            if (paymentOption == 1)
+            {
+                outstandingLoanAmount = loanAmount;
+            }
+            else
+            {
+                if (startDate <= currentDate && currentDate <= endDate)
+                {
+                    tsDateDiff = currentDate.Subtract(startDate);
+                    months = tsDateDiff.Days / 30.4375;
+
+                    switch (frequencyCode)
+                    {
+                        case "MN":
+                            //noOfRemainingInstallments = noOfInstallments - months;
+                            frequencyCount = 12;
+                            break;
+                        case "QT":
+                            //noOfRemainingInstallments = noOfInstallments - (months / 3);
+                            frequencyCount = 4;
+                            months = months / 3;
+                            break;
+
+                        case "HY":
+                            //noOfRemainingInstallments = noOfInstallments - (months / 6);
+                            frequencyCount = 2;
+                            months = months / 6;
+                            break;
+
+                        case "YR":
+                            //noOfRemainingInstallments = noOfInstallments - (months / 12);
+                            frequencyCount = 1;
+                            months = months / 12;
+                            break;
+                    }
+
+                    double noOfIns = 0;
+                    noOfIns = frequencyCount;
+                    double effectiveRate = (Math.Pow((1 + (rate / 100) / noOfIns), noOfIns)) - 1;
+                    double effectiveRatePerPeriod = Math.Pow(1 + effectiveRate, 1 / noOfIns) - 1;
+
+                    //outstandingLoanAmount = Financial.IPmt(
+                    outstandingLoanAmount = Financial.IPmt(effectiveRatePerPeriod, Math.Round(months,0)+2 , noOfInstallments, -loanAmount, 0, DueDate.EndOfPeriod) / effectiveRatePerPeriod;
+                }
+            }
+            return outstandingLoanAmount;
+        }
+
     }
 }
