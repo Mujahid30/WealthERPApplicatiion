@@ -17,6 +17,7 @@ using BoCustomerPortfolio;
 using BoCalculator;
 using WealthERP.Base;
 using System.Collections;
+using BoFPSuperlite;
 
 
 namespace WealthERP.CustomerPortfolio
@@ -42,6 +43,7 @@ namespace WealthERP.CustomerPortfolio
         RMVo rmVo = new RMVo();
         float CB_Share = 0;
         CustomerFamilyVo familyVo;
+        CustomerGoalPlanningBo customerGoalPlanningBo = new CustomerGoalPlanningBo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -1295,7 +1297,8 @@ namespace WealthERP.CustomerPortfolio
                 lumpSumAmount = Math.Abs(System.Numeric.Financial.Fv((interestRate / 100) / frequencyCount, numberOfInstallments, 0, loanAmount, 0));
                 txtLumpsumRepaymentAmount.Text = Math.Round(lumpSumAmount, 4).ToString();
                 if (ddlPaymentOption.SelectedValue == "1")
-                    txtLoanOutstandingAmount.Text = Math.Round((calculator.GetLoanOutstanding(ddlCompoundFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), lumpSumAmount, numberOfInstallments)), 4).ToString();
+                    //txtLoanOutstandingAmount.Text = Math.Round((calculator.GetLoanOutstanding(ddlCompoundFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), lumpSumAmount, numberOfInstallments)), 4).ToString();
+                    txtLoanOutstandingAmount.Text = Math.Round((customerGoalPlanningBo.GetLoanOutstandingForLiabilities(ddlCompoundFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), lumpSumAmount, numberOfInstallments, interestRate)), 4).ToString();
             }
         }
         public void CalculateInstallmentAmount()
@@ -1349,7 +1352,11 @@ namespace WealthERP.CustomerPortfolio
                         break;
                 }
                 txtEMIAmount.Text = Math.Round(installmentAmount, 4).ToString();
-                txtLoanOutstandingAmount.Text = Math.Round((calculator.GetLoanOutstanding(ddlEMIFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), installmentAmount, numberOfInstallments)), 4).ToString();
+                //txtLoanOutstandingAmount.Text = Math.Round((calculator.GetLoanOutstanding(ddlEMIFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), installmentAmount, numberOfInstallments)), 4).ToString();
+
+                txtLoanOutstandingAmount.Text = Math.Round((customerGoalPlanningBo.GetLoanOutstandingForLiabilities(ddlEMIFrequency.SelectedValue.ToString(), loanAmount, startDate, endDate, int.Parse(ddlPaymentOption.SelectedValue.ToString()), installmentAmount, numberOfInstallments, interestRate)), 4).ToString();
+                
+
 
             }
         }
