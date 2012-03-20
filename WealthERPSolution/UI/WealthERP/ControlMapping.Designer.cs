@@ -1555,6 +1555,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin//ManageRepositoryCategory.ascx.
+        /// </summary>
+        internal static string ManageRepositoryCategory {
+            get {
+                return ResourceManager.GetString("ManageRepositoryCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//ManualValuation.ascx.
         /// </summary>
         internal static string ManualValuation {

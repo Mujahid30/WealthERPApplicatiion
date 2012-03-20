@@ -1353,4 +1353,8 @@
     <value>BusinessMIS//MultiProductMIS.ascx</value>
     <comment>BusinessMIS//MultiProductMIS.ascx</comment>
   </data>
+  <data name="ManageRepositoryCategory" xml:space="preserve">
+    <value>Admin//ManageRepositoryCategory.ascx</value>
+    <comment>Admin//ManageRepositoryCategory.ascx</comment>
+  </data>
 </root>
