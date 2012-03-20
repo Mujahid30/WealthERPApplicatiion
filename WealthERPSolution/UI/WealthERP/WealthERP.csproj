@@ -1179,6 +1179,13 @@
     <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
+    <Compile Include="BusinessMIS\MultiProductMIS.ascx.cs">
+      <DependentUpon>MultiProductMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\MultiProductMIS.ascx.designer.cs">
+      <DependentUpon>MultiProductMIS.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ControlHost.aspx.cs">
       <DependentUpon>ControlHost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5371,6 +5378,7 @@
     <Content Include="bin\VoResearch.pdb" />
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />

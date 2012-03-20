@@ -1349,4 +1349,8 @@
     <value>SubBroker//AddSubBroker.ascx</value>
     <comment>SubBroker//AddSubBroker.ascx</comment>
   </data>
+  <data name="MultiProductMIS" xml:space="preserve">
+    <value>BusinessMIS//MultiProductMIS.ascx</value>
+    <comment>BusinessMIS//MultiProductMIS.ascx</comment>
+  </data>
 </root>

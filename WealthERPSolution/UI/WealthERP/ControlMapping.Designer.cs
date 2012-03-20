@@ -1645,6 +1645,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MultiProductMIS.ascx.
+        /// </summary>
+        internal static string MultiProductMIS {
+            get {
+                return ResourceManager.GetString("MultiProductMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//NewDPAccountEntry.ascx.
         /// </summary>
         internal static string NewDPAccountEntry {
