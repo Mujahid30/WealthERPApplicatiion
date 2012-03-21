@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F117CAF2-598C-4D96-831B-BD108DE402C5}</ProjectGuid>
+    <ProjectGuid>{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DaoValuation</RootNamespace>
-    <AssemblyName>DaoValuation</AssemblyName>
+    <RootNamespace>VoValuation</RootNamespace>
+    <AssemblyName>VoValuation</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MFEngineDao.cs" />
+    <Compile Include="MFEngineBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

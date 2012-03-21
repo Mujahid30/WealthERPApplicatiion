@@ -3225,6 +3225,10 @@
       <Project>{D34F58BD-27F2-4C13-82E0-1A694CEAA430}</Project>
       <Name>BoUser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Bo\VoValuation\BoValuation.csproj">
+      <Project>{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}</Project>
+      <Name>BoValuation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj">
       <Project>{B3A976E6-D981-4E80-8E59-92197CFB43B8}</Project>
       <Name>DaoAdvisorProfiling</Name>
@@ -3284,6 +3288,10 @@
     <ProjectReference Include="..\..\Dao\DaoSuperAdmin\DaoSuperAdmin.csproj">
       <Project>{865642DC-3F87-4784-BCF1-8CCC89CB0BBC}</Project>
       <Name>DaoSuperAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dao\DaoValuation\DaoValuation.csproj">
+      <Project>{F117CAF2-598C-4D96-831B-BD108DE402C5}</Project>
+      <Name>DaoValuation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dao\DaoWerpAdmin\DaoWerpAdmin.csproj">
       <Project>{1D5C78A2-C1EA-477B-BAA2-7264A3BAB647}</Project>
@@ -3400,6 +3408,10 @@
     <ProjectReference Include="..\..\Vo\VoSuperAdmin\VoSuperAdmin.csproj">
       <Project>{1DBDE460-D9A9-462A-84DE-A5C73D3C7D05}</Project>
       <Name>VoSuperAdmin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Vo\VoValuation\VoValuation.csproj">
+      <Project>{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}</Project>
+      <Name>VoValuation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Vo\VoWerpAdmin\VoWerpAdmin.csproj">
       <Project>{E391CECB-4D6C-4FC4-8C88-1BF3C6367BE9}</Project>

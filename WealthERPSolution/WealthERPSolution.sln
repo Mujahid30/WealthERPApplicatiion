@@ -210,11 +210,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoCommon", "Vo\VoCommon\VoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoValuation", "Dao\DaoValuation\DaoValuation.csproj", "{F117CAF2-598C-4D96-831B-BD108DE402C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoValuation", "Bo\VoValuation\VoValuation.csproj", "{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoValuation", "Bo\VoValuation\BoValuation.csproj", "{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoValuation", "Vo\VoValuation\VoValuation.csproj", "{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 85
+		SccNumberOfProjects = 86
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -538,10 +540,14 @@ Global
 		SccProjectTopLevelParentUniqueName83 = WealthERPSolution.sln
 		SccProjectName83 = Dao/DaoValuation
 		SccLocalPath83 = Dao\\DaoValuation
-		SccProjectUniqueName84 = Bo\\VoValuation\\VoValuation.csproj
+		SccProjectUniqueName84 = Bo\\VoValuation\\BoValuation.csproj
 		SccProjectTopLevelParentUniqueName84 = WealthERPSolution.sln
 		SccProjectName84 = Bo/VoValuation
 		SccLocalPath84 = Bo\\VoValuation
+		SccProjectUniqueName85 = Vo\\VoValuation\\VoValuation.csproj
+		SccProjectTopLevelParentUniqueName85 = WealthERPSolution.sln
+		SccProjectName85 = Vo/VoValuation
+		SccLocalPath85 = Vo\\VoValuation
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -888,6 +894,10 @@ Global
 		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -964,6 +974,7 @@ Global
 		{E91F7952-B03D-4E80-8722-F54961A101B5} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
 		{690CB1D4-3B93-48D2-AE69-2B365D6D1DEE} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
 		{57BD0A78-1CA9-4DA8-ADB6-FFC3E9FC7581} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
+		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
 		{4FD5B7DC-0CBA-41A6-82F9-6D14BE2F44C0} = {87F12C18-A4A6-4CD8-AD61-2598571DF999}
 	EndGlobalSection
 EndGlobal
