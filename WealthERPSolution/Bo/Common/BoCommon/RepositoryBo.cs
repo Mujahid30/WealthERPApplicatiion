@@ -41,14 +41,14 @@ namespace BoCommon
             return ds;
         }
 
-        public DataSet GetRepositoryCategory()
+        public DataSet GetRepositoryCategory(int intAdviserId)
         {
             RepositoryDao repoDao = new RepositoryDao();
             DataSet ds = new DataSet();
 
             try
             {
-                ds = repoDao.GetRepositoryCategory();
+                ds = repoDao.GetRepositoryCategory(intAdviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -58,9 +58,9 @@ namespace BoCommon
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RepositoryBo.cs:GetRepositoryCategory()");
+                FunctionInfo.Add("Method", "RepositoryBo.cs:GetRepositoryCategory(int intAdviserId)");
                 object[] objects = new object[1];
-                objects[0] = "";
+                objects[0] = intAdviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -183,5 +183,37 @@ namespace BoCommon
 
             return blResult;
         }
+
+        public bool UpdateRepositoryCategoryNames(int intAdviserId, string strCategoryNames, string strCategoryRoles, int intUserId)
+        {
+            RepositoryDao repoDao = new RepositoryDao();
+            bool blResult = false;
+
+            try
+            {
+                blResult = repoDao.UpdateRepositoryCategoryNames(intAdviserId, strCategoryNames, strCategoryRoles, intUserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryBo.cs:UpdateRepositoryCategoryNames(int intAdviserId, string strCategoryNames, int intUserId)");
+                object[] objects = new object[3];
+                objects[0] = intAdviserId;
+                objects[1] = strCategoryNames;
+                objects[2] = intUserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return blResult;
+        }
+        
     }
 }
