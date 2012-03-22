@@ -2,8 +2,7 @@
 {
     font-family: Verdana,Tahoma; /*background-color: rgb(226,226,226);*/ /*color: rgb(0,0,0);*/
     text-align: left; /* for IE */
-     margin:0px;
-     
+    margin: 0px;
 }
 
 div#wrapper
@@ -82,7 +81,6 @@ div#MainDivLeft
     font-size: x-small;
     color: #16518A;
     width: 500px;
-    
 }
 .cmbField
 {
@@ -131,7 +129,6 @@ div#MainDivLeft
 
 .UploadDateLbl
 {
-    
     font-size: small;
     color: #2E175F;
 }
@@ -147,7 +144,7 @@ div#MainDivLeft
 .Message
 {
     background-color: White;
-    text-align:left;
+    text-align: left;
 }
 
 .SubTitle
@@ -174,7 +171,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
-    color: #055187;/*#16518A;*/
+    color: #055187; /*#16518A;*/
 }
 .HeaderDateText
 {
@@ -194,11 +191,11 @@ div#MainDivLeft
 .TableBackground
 {
     /* background-color: #F1F9FC; */
-    background-color: #F2FAFD; 
+    background-color: #F2FAFD;
 }
 .TDBackground
 {
-    background-color: #F2FAFD; 
+    background-color: #F2FAFD;
 }
 .DivScroll
 {
@@ -208,8 +205,8 @@ div#MainDivLeft
 }
 .PCGRedBcknd
 {
-     /* background-color: #055187; */
-     background: url(Images/testSCBbackground.gif) repeat-x;
+    /* background-color: #055187; */
+    background: url(Images/testSCBbackground.gif) repeat-x;
 }
 .PCGRedText
 {
@@ -228,8 +225,7 @@ div#MainDivLeft
 }
 .level1
 {
-    color: White;
-   /* background-color: #055187; */
+    color: White; /* background-color: #055187; */
     font-variant: small-caps;
     font-size: small;
     font-family: Verdana,Tahoma;
@@ -237,7 +233,7 @@ div#MainDivLeft
     border-bottom: solid 4px Transparent;
     border-top: solid 4px Transparent;
     border-left: solid 3px Transparent;
-    border-right: solid 4px Transparent; 
+    border-right: solid 4px Transparent;
 }
 .level2
 {
@@ -250,7 +246,7 @@ div#MainDivLeft
     border-bottom: solid 4px Transparent;
     border-top: solid 4px Transparent;
     border-left: solid 3px Transparent;
-    border-right: solid 4px Transparent; 
+    border-right: solid 4px Transparent;
 }
 
 .level3
@@ -264,7 +260,7 @@ div#MainDivLeft
     border-bottom: solid 4px Transparent;
     border-top: solid 4px Transparent;
     border-left: solid 3px Transparent;
-    border-right: solid 4px Transparent; 
+    border-right: solid 4px Transparent;
 }
 
 .hoverstyle
@@ -469,7 +465,7 @@ a.aBreadCrumbCurrent
 
 .SearchButton
 {
-	background: url(Images/Search_Image_1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
+    background: url(Images/Search_Image_1.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
     font-weight: bolder;
     color: White;
     font-size: x-small;
@@ -531,20 +527,20 @@ a.aBreadCrumbCurrent
 {
     background-color: #AFD4ED;
     font-family: Verdana,Tahoma;
-	font-weight:normal;
-	font-size:x-small;
-	color:#16518A;
-	width:100px;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 100px;
 }
 
 .GridViewCmbField
 {
-    font-family:Verdana,tahoma;
-	font-weight:normal;
-	font-size:x-small;
-	color:#16518A;
-	width:100px;
-	background-color: #AFD4ED;
+    font-family: Verdana,tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #16518A;
+    width: 100px;
+    background-color: #AFD4ED;
 }
 
 .GridViewCmbFieldforBM
@@ -556,32 +552,30 @@ a.aBreadCrumbCurrent
 
 .HeaderTextSmall
 {
-	font-family:Arial;
-	font-weight:bold;
-	font-size:small;
-	/*color:#993434;*/
-	color:#055187;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: small; /*color:#993434;*/
+    color: #055187;
 }
 .HeaderTextSmaller
 {
-	font-family:Arial;
-	font-weight:bold;
-	font-size:8pt;
-	/*color:#993434;*/
-	color:#055187;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 8pt; /*color:#993434;*/
+    color: #055187;
 }
 .ButtonField
 {
-    color:Black;
-    font-family:Verdana,tahoma;
-    font-size:x-small;
-    font-weight:bold;
+    color: Black;
+    font-family: Verdana,tahoma;
+    font-size: x-small;
+    font-weight: bold;
     height: 26px;
 }
 
 .TableBackground
 {
-	background-color:#F1F9FC;
+    background-color: #F1F9FC;
 }
 .modalBackground
 {
@@ -597,7 +591,8 @@ a.aBreadCrumbCurrent
     display: none;
 }
 .tabber
-{    height: 496px;
+{
+    height: 496px;
     width: 650px;
 }
 .tabberlive
@@ -619,12 +614,12 @@ ul.tabbernav li
 }
 ul.tabbernav li a
 {
- padding:2px;
- margin-left: 2px;
- border: 1px solid #778;
- border-bottom: none;
- background: #DDE;
- text-decoration: none;
+    padding: 2px;
+    margin-left: 2px;
+    border: 1px solid #778;
+    border-bottom: none;
+    background: #DDE;
+    text-decoration: none;
 }
 ul.tabbernav li a:link
 {
@@ -638,23 +633,19 @@ ul.tabbernav li a:visited
 ul.tabbernav li a:hover
 {
     color: #000;
- background-color: #83A7BF;
- border-color: #227;
-
+    background-color: #83A7BF;
+    border-color: #227;
 }
 ul.tabbernav li.tabberactive a
 {
     background-color: #fff;
- border-bottom: 1px solid #fff;
-
+    border-bottom: 1px solid #fff;
 }
 ul.tabbernav li.tabberactive a:hover
 {
     color: #000;
- background: white;
- border-bottom: 1px solid white;
-
-    
+    background: white;
+    border-bottom: 1px solid white;
 }
 .tabberlive .tabbertab
 {
@@ -685,41 +676,39 @@ ul.tabbernav li.tabberactive a:hover
     height: 200px;
     overflow: auto;
 }
-.yellow-box {
-    background-color:#FFFFE5;
-    border:1px solid #F5E082;
-    padding:10px;
+.yellow-box
+{
+    background-color: #FFFFE5;
+    border: 1px solid #F5E082;
+    padding: 10px;
 }
- .ajax__tab_body
-  {
-      background-color: #F2FAFD !important;
-  }
-  
-  /* AutoComplete item */
+.ajax__tab_body
+{
+    background-color: #F2FAFD !important;
+}
+
+/* AutoComplete item */
 .AutoCompleteExtender_CompletionList
 {
-    background-color : #F1F9FC;
-	color : #16518A;
-	padding:1px;
-	overflow-x: auto;
-	overflow-y: scroll;
+    background-color: #F1F9FC;
+    color: #16518A;
+    padding: 1px;
+    overflow-x: auto;
+    overflow-y: scroll;
     max-height: 200px;
-     
-    margin : 0px !important; 
-    cursor : 'default'; 
-    padding-left : 15px;
-    
-    border-width : thin; 
-	border-style : solid;  
-	border-color : Scrollbar; 
-	visibility:hidden;
+    margin: 0px !important;
+    cursor: 'default';
+    padding-left: 15px;
+    border-width: thin;
+    border-style: solid;
+    border-color: Scrollbar;
+    visibility: hidden;
 }
 
 /*AutoComplete flyout */
 .AutoCompleteExtender_CompletionListItem
 {
-    
-    background-color : #F1F9FC;
+    background-color: #F1F9FC;
     font-size: small;
     text-align: left;
     max-height: 200px;
@@ -729,65 +718,61 @@ ul.tabbernav li.tabberactive a:hover
 .AutoCompleteExtender_HighlightedItem
 {
     background-color: #3267C3;
-	color: White;
+    color: White;
     font-size: small;
     font-weight: bold;
-} 
+}
 
 .success-msg, .failure-msg, .warning-msg, .information-msg
-    {
-        margin: 25px 0;        
-        padding: 15px 60px;
-        position:relative;      
-        -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
-        font-size: 14px;
-        width: 600px;
-        /*Z-Index:-1;*/
-        text-align: center;
-    }
-    .success-msg
-    {
-        border: solid #22AA22 1px;
-        color: Black;
-        background: #6B9FBF url('images/success.png') no-repeat;
-    }
-    .failure-msg
-    {
-        border: solid #C49292 1px;
-        color: Black;
-        background: #6B9FBF url('images/warning.png') no-repeat;
-    }
-    .warning-msg
-    {
-        border: solid #E6D976 1px;
-        color: Black;
-        background: #6B9FBF url('images/alert.png') no-repeat;
-    }
-    .information-msg
-    {
-        border: solid #3460EC 1px;
-        color: Black;
-        background: #6B9FBF  url('images/information.png') no-repeat;
-    }
-    .ExortPanelpopup
-    {
-         
-     Width: 208px;
-     Height: 112px;
-     background-color: Wheat;  
-     font-weight: bold;
-     color :Black;
-     border: #523C7D 5px;
-     border-style: outset;
-     
-    }
-    
-   .DemoListBox
-    {
-                
+{
+    margin: 25px 0;
+    padding: 15px 60px;
+    position: relative;
+    -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+    font-size: 14px;
+    width: 600px; /*Z-Index:-1;*/
+    text-align: center;
+}
+.success-msg
+{
+    border: solid #22AA22 1px;
+    color: Black;
+    background: #6B9FBF url('images/success.png') no-repeat;
+}
+.failure-msg
+{
+    border: solid #C49292 1px;
+    color: Black;
+    background: #6B9FBF url('images/warning.png') no-repeat;
+}
+.warning-msg
+{
+    border: solid #E6D976 1px;
+    color: Black;
+    background: #6B9FBF url('images/alert.png') no-repeat;
+}
+.information-msg
+{
+    border: solid #3460EC 1px;
+    color: Black;
+    background: #6B9FBF url('images/information.png') no-repeat;
+}
+.ExortPanelpopup
+{
+    width: 208px;
+    height: 112px;
+    background-color: Wheat;
+    font-weight: bold;
+    color: Black;
+    border: #523C7D 5px;
+    border-style: outset;
+}
+
+.DemoListBox
+{
     font-family: Verdana,Tahoma;
     font-weight: normal;
-    font-size:small;
+    font-size: small;
     color: #16518A;
     width: 145px;
     width: 200px;
@@ -795,23 +780,22 @@ ul.tabbernav li.tabberactive a:hover
     padding-top: 5px;
     padding-bottom: 5px;
     border: solid 1px #16518A;
-    empty-cells:hide;
-    cursor:pointer;
-    line-height:3px;
-                
-    }
+    empty-cells: hide;
+    cursor: pointer;
+    line-height: 3px;
+}
 
-    
+
 
 /* ..For Screen Info.. */
 
-div.panel,div.flip
+div.panel, div.flip
 {
-margin:0px;
-padding:5px;
-background-color: #F2FAFD;
-border-bottom: solid 1.5px Black;
-font-size: x-small;
+    margin: 0px;
+    padding: 5px;
+    background-color: #F2FAFD;
+    border-bottom: solid 1.5px Black;
+    font-size: x-small;
 }
 div.panel
 {
@@ -820,11 +804,10 @@ div.panel
     font-family: Verdana,Tahoma;
     font-size: small;
     font-weight: bold;
-    color:  #16518A;
+    color: #16518A;
     display: none;
     padding-bottom: 0;
     padding-top: 0;
-   
 }
 
 /* End  */
@@ -833,13 +816,13 @@ div.panel
 
 p.tip
 {
-    color: #055187;    
+    color: #055187;
     font-family: Verdana,Tahoma;
-	font-size: x-small;
-	margin: 0px;
-	padding: 5px;
-	}
-	
+    font-size: x-small;
+    margin: 0px;
+    padding: 5px;
+}
+
 /* End */
 
 /* Message Info */
@@ -848,9 +831,8 @@ p.tip
     color: #055187;
     font-size: x-small;
     font-family: Verdana,Tahoma;
-     font-weight: 500;
-    
-} 
+    font-weight: 500;
+}
 
 /* End */
 
@@ -858,22 +840,23 @@ p.tip
 
 .ModelPup
 {
-    
     font-size: small;
     background-color: #F5DEB4;
     border: Solid 1px Black;
     border-left: Solid 5px #DDBDBE;
-    border-top:  Solid 5px #DDBDBE; 
-    border-bottom: Solid 5px #501411; 
-    border-right: Solid 5px #501411; 
+    border-top: Solid 5px #DDBDBE;
+    border-bottom: Solid 5px #501411;
+    border-right: Solid 5px #501411;
     -moz-border-radius: 1em;
     -webkit-box-shadow: 18px 15px 13px rgba(0,0,0,0.6);
     padding-bottom: 10px;
     padding-top: 10px;
     padding-left: 50px;
     width: 250px;
-    position: absolute; z-index: 100001; left: 280px; top: 35px !important; 
-    
+    position: absolute;
+    z-index: 100001;
+    left: 280px;
+    top: 35px !important;
 }
 
 /* For expand Collapse header*/
@@ -890,22 +873,19 @@ p.tip
     cursor: pointer;
     position: relative;
     background: url(Images/testSCBbackground.gif) repeat-x;
-    margin:1px;
-    
+    margin: 1px;
     font-family: Verdana,Tahoma;
     font-weight: bold;
-    font-size:x-small;
+    font-size: x-small;
     color: #FFFFFF;
     vertical-align: middle;
     text-align: left;
-    height:15px;
-    
+    height: 15px;
 }
 
-.Collapse_body 
+.Collapse_body
 {
     padding: 5px 10px 15px;
-    
 }
 
 .Collapse_headerView
@@ -914,19 +894,18 @@ p.tip
     cursor: pointer;
     position: relative;
     background: url(Images/testSCBbackground.gif) repeat-x;
-    margin:1px;
-    
+    margin: 1px;
     font-family: Verdana,Tahoma;
     font-weight: bold;
-    font-size:x-small;
+    font-size: x-small;
     color: #FFFFFF;
     vertical-align: middle;
     text-align: left;
-    height:15px;
+    height: 15px;
 }
 .PDFButton
 {
-    background: url(Images/Export_Pdf.gif) no-repeat left top; 
+    background: url(Images/Export_Pdf.gif) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -934,7 +913,7 @@ p.tip
 }
 .DOCButton
 {
-    background: url(Images/Export_Word.jpg) no-repeat left top; 
+    background: url(Images/Export_Word.jpg) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -942,7 +921,7 @@ p.tip
 }
 .ExcelButton
 {
-    background: url(Images/Export_Excel.png) no-repeat left top; 
+    background: url(Images/Export_Excel.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -950,15 +929,15 @@ p.tip
 }
 .CSVButton
 {
-    background: url(Images/csv.png) no-repeat left top; 
+    background: url(Images/csv.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
-    cursor: pointer;   
+    cursor: pointer;
 }
 .CrystalButton
 {
-    background: url(Images/CrystalIcon.png) no-repeat left top; 
+    background: url(Images/CrystalIcon.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -977,8 +956,14 @@ p.tip
     -webkit-box-shadow: #B3A6AF 4px 4px 4px;
     -moz-box-shadow: #B3A6AF 4px 4px 4px;
     box-shadow: #B3A6AF 4px 4px 4px;
-    
-    }
+}
+
+.trHeader
+{
+    background-color: #16518A;
+}
+
+
 
 
 /* End */
