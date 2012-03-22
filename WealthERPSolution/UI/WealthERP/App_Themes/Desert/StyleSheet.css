@@ -30,7 +30,6 @@ div#MainDivLeft
 
 .FieldName
 {
-   
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: x-small;
@@ -612,7 +611,6 @@ a.aBreadCrumbCurrent
 {
     height: 496px;
     width: 650px;
-    
 }
 .tabberlive
 {
@@ -652,7 +650,6 @@ ul.tabbernav li a:visited
 ul.tabbernav li a:hover
 {
     color: #000;
-    
     border-color: #227;
     background-color: #FFFFFF;
 }
@@ -750,8 +747,7 @@ ul.tabbernav li.tabberactive a:hover
     position: relative;
     -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
     font-size: 14px;
-    width: 600px;
-    /*z-index: -1;*/
+    width: 600px; /*z-index: -1;*/
 }
 .success-msg
 {
@@ -912,7 +908,7 @@ p.tip
 }
 .MainFrame
 {
-    padding: 0px !important; 
+    padding: 0px !important;
     width: 100% !important;
 }
 
@@ -930,22 +926,19 @@ p.tip
     cursor: pointer;
     position: relative;
     background: url(Images/testSCBbackground.gif) repeat-x;
-    margin:1px;
-    
+    margin: 1px;
     font-family: Verdana,Tahoma;
     font-weight: bold;
-    font-size:x-small;
+    font-size: x-small;
     color: #FFFFFF;
     vertical-align: middle;
     text-align: left;
-    height:15px;
-    
+    height: 15px;
 }
 
-.Collapse_body 
+.Collapse_body
 {
     padding: 5px 10px 15px;
-    
 }
 
 .Collapse_headerView
@@ -954,19 +947,18 @@ p.tip
     cursor: pointer;
     position: relative;
     background: url(Images/testSCBbackground.gif) repeat-x;
-    margin:1px;
-    
+    margin: 1px;
     font-family: Verdana,Tahoma;
     font-weight: bold;
-    font-size:x-small;
+    font-size: x-small;
     color: #FFFFFF;
     vertical-align: middle;
     text-align: left;
-    height:15px;
+    height: 15px;
 }
 .PDFButton
 {
-    background: url(Images/Export_Pdf.gif) no-repeat left top; 
+    background: url(Images/Export_Pdf.gif) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -974,7 +966,7 @@ p.tip
 }
 .DOCButton
 {
-    background: url(Images/Export_Word.jpg) no-repeat left top; 
+    background: url(Images/Export_Word.jpg) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -982,7 +974,7 @@ p.tip
 }
 .ExcelButton
 {
-    background: url(Images/Export_Excel.png) no-repeat left top; 
+    background: url(Images/Export_Excel.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -990,15 +982,15 @@ p.tip
 }
 .CSVButton
 {
-    background: url(Images/csv.png) no-repeat left top; 
+    background: url(Images/csv.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
-    cursor: pointer;   
+    cursor: pointer;
 }
 .CrystalButton
 {
-    background: url(Images/CrystalIcon.png) no-repeat left top; 
+    background: url(Images/CrystalIcon.png) no-repeat left top;
     color: White;
     height: 22px;
     width: 22px;
@@ -1017,7 +1009,11 @@ p.tip
     -webkit-box-shadow: #B3A6AF 4px 4px 4px;
     -moz-box-shadow: #B3A6AF 4px 4px 4px;
     box-shadow: #B3A6AF 4px 4px 4px;
-    
-    }
+}
+
+.trHeader
+{
+    background-color: #8A0408;
+}
 
 /* End */
