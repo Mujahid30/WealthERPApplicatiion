@@ -63,6 +63,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Setup IP pool" Value="Setup IP pool">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Manage Repository Category" Value="ManageRepositoryCategory">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
                                             </telerik:RadPanelItem>
                                         </Items>
