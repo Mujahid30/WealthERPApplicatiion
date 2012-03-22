@@ -39,24 +39,34 @@ namespace WealthERP.Admin
             StringBuilder sbRoleList = new StringBuilder();
 
             // creating comma separated roleId list so that we can reuse the function which separates comma separated role list
-            foreach (string str in userVo.RoleList)
+            if (userVo.RoleList != null)
             {
-                string strRoleId = string.Empty;
-                if (str.ToLower() == "admin")
-                    strRoleId = "1000";
-                else if (str.ToLower() == "rm")
-                    strRoleId = "1001";
-                else if (str.ToLower() == "bm")
-                    strRoleId = "1002";
-                else if (str.ToLower() == "research")
-                    strRoleId = "1005";
-                else if (str.ToLower() == "ops")
-                    strRoleId = "1004";
-                else if (str.ToLower() == "customer")
-                    strRoleId = "1003";
+                foreach (string str in userVo.RoleList)
+                {
+                    string strRoleId = string.Empty;
+                    if (str.ToLower() == "admin")
+                        strRoleId = "1000";
+                    else if (str.ToLower() == "rm")
+                        strRoleId = "1001";
+                    else if (str.ToLower() == "bm")
+                        strRoleId = "1002";
+                    else if (str.ToLower() == "research")
+                        strRoleId = "1005";
+                    else if (str.ToLower() == "ops")
+                        strRoleId = "1004";
+                    else if (str.ToLower() == "customer")
+                        strRoleId = "1003";
+                    sbRoleList.Append(strRoleId);
+                    sbRoleList.Append(",");
+                }
+            }
+            else if (userVo.UserType.ToLower() == "customer")
+            {
+                string strRoleId = "1003";
                 sbRoleList.Append(strRoleId);
                 sbRoleList.Append(",");
             }
+
             sbRoleList.Remove(sbRoleList.Length - 1, 1);
 
             ds = repoBo.GetRepositoryView(userVo.UserId, sbRoleList.ToString());
@@ -75,7 +85,7 @@ namespace WealthERP.Admin
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    if (dr["XRC_RepositoryCategoryCode"].ToString() != strPrevDataRowCategory)
+                    if (dr["ARC_RepositoryCategoryCode"].ToString() != strPrevDataRowCategory)
                     {
                         blNewCategory = true;
                     }
@@ -89,16 +99,15 @@ namespace WealthERP.Admin
                         blNewCategory = false;
 
                         // store the new Category
-                        strPrevDataRowCategory = dr["XRC_RepositoryCategoryCode"].ToString();
+                        strPrevDataRowCategory = dr["ARC_RepositoryCategoryCode"].ToString();
 
                         // Give the Category Name as the header
                         Label ctrlLabel = (Label)FindControl("lblCategory" + count);
                         if (ctrlLabel != null)
                         {
                             ctrlLabel.Visible = true;
-                            ctrlLabel.Text = dr["XRC_RepositoryCategory"].ToString();
+                            ctrlLabel.Text = dr["ARC_RepositoryCategory"].ToString();
                         }
-
                     }
 
                     ListBox ctrlLstBx = (ListBox)FindControl("ListBox" + count);
@@ -129,7 +138,6 @@ namespace WealthERP.Admin
                 // Display no items on display
                 trNoRecords.Visible = true;
             }
-
         }
 
         protected void ListBox_SelectedIndexChanged(object sender, EventArgs e)
