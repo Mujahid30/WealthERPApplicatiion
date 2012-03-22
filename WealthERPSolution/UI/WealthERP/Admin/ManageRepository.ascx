@@ -158,7 +158,7 @@
                                             <telerik:GridBoundColumn UniqueName="Description" HeaderText="Description" DataField="AR_Description"
                                                 AllowFiltering="false">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="XRC_RepositoryCategory"
+                                            <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="ARC_RepositoryCategory"
                                                 AllowFiltering="true" CurrentFilterFunction="Contains">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridTemplateColumn UniqueName="Path" HeaderText="File/Link" AllowFiltering="false">

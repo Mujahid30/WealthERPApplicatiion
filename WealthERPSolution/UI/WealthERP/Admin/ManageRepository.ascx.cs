@@ -25,6 +25,8 @@ namespace WealthERP.Admin
         string fileExtension = string.Empty;
         string strUpdate = "Update";
         DataSet ds;
+        string strRepositoryCategoryTextField = "ARC_RepositoryCategory";
+        string strRepositoryCategoryValueField = "ARC_RepositoryCategoryCode";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,14 +55,14 @@ namespace WealthERP.Admin
         {
             repoBo = new RepositoryBo();
             ds = new DataSet();
-            ds = repoBo.GetRepositoryCategory();
+            ds = repoBo.GetRepositoryCategory(advisorVo.advisorId);
 
             if (ds.Tables[0].Rows.Count > 0)
             {
                 // Bind Category DDL for Manage Tab
                 ddlRCategory.DataSource = ds.Tables[0];
-                ddlRCategory.DataTextField = "XRC_RepositoryCategory";
-                ddlRCategory.DataValueField = "XRC_RepositoryCategoryCode";
+                ddlRCategory.DataTextField = strRepositoryCategoryTextField;
+                ddlRCategory.DataValueField = strRepositoryCategoryValueField;
                 ddlRCategory.DataBind();
                 ddlRCategory.Items.Insert(0, new ListItem("Select a Category", "Select a Category"));
             }
@@ -120,34 +122,51 @@ namespace WealthERP.Admin
 
                 try
                 {
-                    // Check if directory for advisor exists, and if not then create a new directoty
-                    if (!Directory.Exists(strRepositoryPath))
+                    // Put this part under a transaction scope
+                    using (TransactionScope scope = new TransactionScope())
                     {
-                        Directory.CreateDirectory(strRepositoryPath);
+                        // Reading File Upload Control
+                        UploadedFile file = radUploadRepoItem.UploadedFiles[0];
+                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+
+                        if (fileSize < 2)
+                        {
+                            // If upload file size is less than 2 MB then upload
+
+                            // Check if directory for advisor exists, and if not then create a new directoty
+                            if (!Directory.Exists(strRepositoryPath))
+                            {
+                                Directory.CreateDirectory(strRepositoryPath);
+                            }
+
+                            strGuid = Guid.NewGuid().ToString();
+
+                            fileExtension = file.GetExtension();
+                            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
+                            //FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
+                            //PermissionSet ps = new PermissionSet(PermissionState.None);
+                            //ps.AddPermission(fp);
+
+                            // Save adviser repository file in the path
+                            file.SaveAs(strRepositoryPath + "\\" + newFileName);
+
+                            repoVo.AdviserId = advisorVo.advisorId;
+                            repoVo.CategoryCode = ddlRCategory.SelectedValue;
+                            repoVo.Description = txtDescription.Text.Trim();
+                            repoVo.HeadingText = txtHeadingText.Text.Trim();
+                            repoVo.IsFile = true;
+                            repoVo.Link = newFileName;
+
+                            blResult = repoBo.AddRepositoryItem(repoVo);
+
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
+                        }
+
+                        scope.Complete();
                     }
-
-                    strGuid = Guid.NewGuid().ToString();
-
-                    // Reading File Upload Control
-                    UploadedFile file = radUploadRepoItem.UploadedFiles[0];
-                    fileExtension = file.GetExtension();
-                    string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
-                    //FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
-                    //PermissionSet ps = new PermissionSet(PermissionState.None);
-                    //ps.AddPermission(fp);
-
-                    // Save adviser repository file in the path
-                    file.SaveAs(strRepositoryPath + "\\" + newFileName);
-
-                    repoVo.AdviserId = advisorVo.advisorId;
-                    repoVo.CategoryCode = ddlRCategory.SelectedValue;
-                    repoVo.Description = txtDescription.Text.Trim();
-                    repoVo.HeadingText = txtHeadingText.Text.Trim();
-                    repoVo.IsFile = true;
-                    repoVo.Link = newFileName;
-
-                    blResult = repoBo.AddRepositoryItem(repoVo);
-
                 }
                 catch (Exception ex)
                 {
@@ -202,40 +221,50 @@ namespace WealthERP.Admin
                 else
                 {
                     // delete existing file and update new file
-                    
+
                     // Put this part under a transaction scope
                     using (TransactionScope scope = new TransactionScope())
                     {
                         /* Perform transactional work here */
 
                         UploadedFile file = radUploadRepoItem.UploadedFiles[0];
+                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
 
-                        // Get the Repository Path in solution
-                        strRepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"].ToString();
-                        string strFilePath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\" + repoVo.Link;
-
-                        // Delete file if it exists
-                        if (File.Exists(strFilePath))
+                        if (fileSize < 2)
                         {
-                            File.Delete(strFilePath);
+                            // If file size is less than 2 MB then upload
+
+                            // Get the Repository Path in solution
+                            strRepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"].ToString();
+                            string strFilePath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\" + repoVo.Link;
+
+                            // Delete file if it exists
+                            if (File.Exists(strFilePath))
+                            {
+                                File.Delete(strFilePath);
+                            }
+
+                            // Add new file
+                            strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
+                            strGuid = Guid.NewGuid().ToString();
+
+                            // Reading File Upload Control
+                            fileExtension = file.GetExtension();
+                            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
+
+                            // Save adviser repository file in the path
+                            file.SaveAs(strRepositoryPath + "\\" + newFileName);
+
+                            // Update the DB with new details
+                            repoVo.Description = txtDescription.Text.Trim();
+                            repoVo.HeadingText = txtHeadingText.Text.Trim();
+                            repoVo.Link = newFileName;
+                            blResult = repoBo.UpdateRepositoryItem(repoVo);
                         }
-
-                        // Add new file
-                        strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
-                        strGuid = Guid.NewGuid().ToString();
-
-                        // Reading File Upload Control
-                        fileExtension = file.GetExtension();
-                        string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
-
-                        // Save adviser repository file in the path
-                        file.SaveAs(strRepositoryPath + "\\" + newFileName);
-
-                        // Update the DB with new details
-                        repoVo.Description = txtDescription.Text.Trim();
-                        repoVo.HeadingText = txtHeadingText.Text.Trim();
-                        repoVo.Link = newFileName;
-                        blResult = repoBo.UpdateRepositoryItem(repoVo);
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
+                        }
 
                         scope.Complete();
                     }
