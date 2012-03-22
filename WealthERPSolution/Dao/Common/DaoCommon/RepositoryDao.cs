@@ -46,7 +46,7 @@ namespace DaoCommon
             return ds;
         }
 
-        public DataSet GetRepositoryCategory()
+        public DataSet GetRepositoryCategory(int intAdviserId)
         {
             Database db;
             DbCommand cmdGetRepositoryCategory;
@@ -56,6 +56,7 @@ namespace DaoCommon
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetRepositoryCategory = db.GetStoredProcCommand("sproc_Repository_GetRepositoryCategory");
+                db.AddInParameter(cmdGetRepositoryCategory, "@adviserId", DbType.Int32, intAdviserId);
                 ds = db.ExecuteDataSet(cmdGetRepositoryCategory);
             }
             catch (BaseApplicationException Ex)
@@ -66,9 +67,9 @@ namespace DaoCommon
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RepositoryDao.cs:GetRepositoryCategory()");
+                FunctionInfo.Add("Method", "RepositoryDao.cs:GetRepositoryCategory(int intAdviserId)");
                 object[] objects = new object[1];
-                objects[0] = "";
+                objects[0] = intAdviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -165,7 +166,7 @@ namespace DaoCommon
                 {
                     repoVo.RepositoryId = intRepositoryId;
                     repoVo.AdviserId = Int32.Parse(ds.Tables[0].Rows[0]["A_AdviserId"].ToString());
-                    repoVo.CategoryCode = ds.Tables[0].Rows[0]["XRC_RepositoryCategoryCode"].ToString();
+                    repoVo.CategoryCode = ds.Tables[0].Rows[0]["ARC_RepositoryCategoryCode"].ToString();
                     repoVo.Description = ds.Tables[0].Rows[0]["AR_Description"].ToString();
                     repoVo.HeadingText = ds.Tables[0].Rows[0]["AR_HeadingText"].ToString();
                     repoVo.IsFile = Boolean.Parse(ds.Tables[0].Rows[0]["AR_IsFile"].ToString());
@@ -226,6 +227,44 @@ namespace DaoCommon
                 FunctionInfo.Add("Method", "RepositoryDao.cs:UpdateRepositoryItem(RepositoryVo repoVo)");
                 object[] objects = new object[1];
                 objects[0] = repoVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
+
+        public bool UpdateRepositoryCategoryNames(int intAdviserId, string strCategoryNames, string strCategoryRoles, int intUserId)
+        {
+            Database db;
+            DbCommand cmdUpdateRepositoryCategoryNames;
+            bool blResult = false;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateRepositoryCategoryNames = db.GetStoredProcCommand("sproc_Repository_UpdateRepositoryCategoryNames");
+                db.AddInParameter(cmdUpdateRepositoryCategoryNames, "@adviserId", DbType.Int32, intAdviserId);
+                db.AddInParameter(cmdUpdateRepositoryCategoryNames, "@strCategoryNames", DbType.String, strCategoryNames);
+                db.AddInParameter(cmdUpdateRepositoryCategoryNames, "@strCategoryRoles", DbType.String, strCategoryRoles);
+                db.AddInParameter(cmdUpdateRepositoryCategoryNames, "@userId", DbType.Int32, intUserId);
+                db.ExecuteNonQuery(cmdUpdateRepositoryCategoryNames);
+                blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryDao.cs:UpdateRepositoryCategoryNames(int intAdviserId, string strCategoryNames, int intUserId)");
+                object[] objects = new object[3];
+                objects[0] = intAdviserId;
+                objects[1] = strCategoryNames;
+                objects[3] = intUserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
