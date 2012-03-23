@@ -38,11 +38,23 @@
                     OnItemCommand="RadGridOutbox_ItemCommand" EnableViewState="true" OnNeedDataSource="RadGridOutbox_NeedDataSource"
                     OnItemDataBound="RadGridOutbox_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                    <MasterTableView DataKeyNames="M_MessageId">
+                    <MasterTableView DataKeyNames="M_MessageId" ShowFooter="true">
                         <Columns>
-                            <%--<telerik:GridClientSelectColumn Reorderable="False" UniqueName="ClientSelectColumn">
-                                <HeaderStyle Width="30px"></HeaderStyle>
-                            </telerik:GridClientSelectColumn>--%>
+                            <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
+                                <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
+                                <HeaderTemplate>
+                                    <asp:CheckBox ID="hdrCheckBox" runat="server" OnCheckedChanged="hdrCheckBox_CheckedChanged"
+                                        AutoPostBack="true" />
+                                </HeaderTemplate>
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkbxRow" runat="server" />
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
+                                        ForeColor="White" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="To" HeaderText="To" DataField="Recipients">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">

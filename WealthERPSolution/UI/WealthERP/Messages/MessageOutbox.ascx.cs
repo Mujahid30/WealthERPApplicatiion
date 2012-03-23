@@ -98,5 +98,74 @@ namespace WealthERP.Messages
                 }
             }
         }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            bool blAnyChecked = false;
+            bool blResult = false;
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("IsDeleted");
+            DataRow drDelete;
+
+            foreach (GridDataItem item in RadGridOutbox.Items)
+            {
+                CheckBox chkbxRow = (CheckBox)item.FindControl("chkbxRow");
+                if (chkbxRow != null)
+                {
+                    if (chkbxRow.Checked)
+                    {
+                        // Update flag for validation message [select atleast one to delete]
+                        blAnyChecked = true;
+
+                        drDelete = dt.NewRow();
+                        string strKeyValue = item.GetDataKeyValue("M_MessageId").ToString();
+                        drDelete[0] = strKeyValue;
+                        drDelete[1] = chkbxRow.Checked.ToString().ToLower();
+                        dt.Rows.Add(drDelete);
+                    }
+                }
+            }
+            dt.TableName = "Table";
+            ds.Tables.Add(dt);
+            ds.DataSetName = "Deleted";
+
+            if (blAnyChecked)
+            {
+                msgBo = new MessageBo();
+                blResult = msgBo.DeleteMessages(ds.GetXml().ToString(), 0);
+
+                if (blResult)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages deleted successfully!');", true);
+                    RadGridOutbox.Rebind();
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages could not be deleted!');", true);
+                    RadGridOutbox.Rebind();
+                }
+            }
+            else
+            {
+                // Display validation message that atleast one checkbox should be checked
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a message!');", true);
+            }
+        }
+
+        protected void hdrCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in RadGridOutbox.Items)
+            {
+                CheckBox hdrCheckBx = (CheckBox)sender;
+                CheckBox chkbxRow = (CheckBox)item.FindControl("chkbxRow");
+                if (hdrCheckBx != null && chkbxRow != null)
+                {
+                    chkbxRow.Checked = hdrCheckBx.Checked;
+                }
+            }
+        }
+
     }
 }
