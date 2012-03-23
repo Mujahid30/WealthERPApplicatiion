@@ -160,5 +160,40 @@ namespace BoCommon
             }
             return ds;
         }
+
+        /// <summary>
+        /// Deletes the Messages and returns a boolean value indicating the success or failure
+        /// </summary>
+        /// <param name="strDeletedMessages">Contains the XML Dataset string of the deleted messages</param>
+        /// <param name="intIsInbox">If 1 then inbox records will be deleted. If 0 then outbox records will be deleted</param>
+        /// <returns>boolean</returns>
+        public bool DeleteMessages(string strDeletedMessages, Int16 intIsInbox)
+        {
+            MessageDao messageDao = new MessageDao();
+            bool blResult = false;
+
+            try
+            {
+                blResult = messageDao.DeleteMessages(strDeletedMessages, intIsInbox);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageBo.cs:DeleteMessages(string strDeletedMessages, Int16 intIsInbox)");
+                object[] objects = new object[2];
+                objects[0] = strDeletedMessages;
+                objects[1] = intIsInbox;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
     }
 }
