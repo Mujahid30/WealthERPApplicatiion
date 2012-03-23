@@ -22,7 +22,6 @@ namespace DaoCommon
         /// <returns></returns>
         public DataSet GetUserListSpecificToRole(string strCurrentUserRole, int intUserId, string strRoleList)
         {
-            MessageDao messageDao = new MessageDao();
             Database db;
             DbCommand cmdGetUserListSpecificToRole;
             DataSet ds = null;
@@ -64,7 +63,6 @@ namespace DaoCommon
         /// <returns></returns>
         public bool InsertComposedMessage(MessageVo messageVo)
         {
-            MessageDao messageDao = new MessageDao();
             Database db;
             DbCommand cmdAddMessage;
             bool blResult = false;
@@ -107,7 +105,6 @@ namespace DaoCommon
         /// <returns></returns>
         public DataSet GetInboxRecords(int intUserId)
         {
-            MessageDao messageDao = new MessageDao();
             Database db;
             DbCommand cmdGetInbox;
             DataSet ds = null;
@@ -145,7 +142,6 @@ namespace DaoCommon
         /// <returns></returns>
         public bool UpdateMessageReadFlag(long intRecipientId)
         {
-            MessageDao messageDao = new MessageDao();
             Database db;
             DbCommand cmdAddMessage;
             bool blResult = false;
@@ -185,7 +181,6 @@ namespace DaoCommon
         /// <returns></returns>
         public DataSet GetOutboxRecords(int intUserId)
         {
-            MessageDao messageDao = new MessageDao();
             Database db;
             DbCommand cmdGetOutbox;
             DataSet ds = null;
@@ -216,5 +211,45 @@ namespace DaoCommon
             return ds;
         }
 
+        /// <summary>
+        /// Deletes the Messages and returns a boolean value indicating the success or failure
+        /// </summary>
+        /// <param name="strDeletedMessages">Contains the XML Dataset string of the deleted messages</param>
+        /// <param name="intIsInbox">If 1 then inbox records will be deleted. If 0 then outbox records will be deleted</param>
+        /// <returns>boolean</returns>
+        public bool DeleteMessages(string strDeletedMessages, Int16 intIsInbox)
+        {
+            Database db;
+            DbCommand cmdDeleteInboxMessages;
+            bool blResult = false;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdDeleteInboxMessages = db.GetStoredProcCommand("sproc_Message_DeleteMessages");
+                db.AddInParameter(cmdDeleteInboxMessages, "@strDeletedMessages", DbType.String, strDeletedMessages);
+                db.AddInParameter(cmdDeleteInboxMessages, "@IsInbox", DbType.Int16, intIsInbox);
+                db.ExecuteNonQuery(cmdDeleteInboxMessages);
+                blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageDao.cs:DeleteMessages(string strDeletedMessages, Int16 intIsInbox)");
+                object[] objects = new object[2];
+                objects[0] = strDeletedMessages;
+                objects[1] = intIsInbox;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
     }
 }
