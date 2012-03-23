@@ -10,28 +10,37 @@
         height: 12px;
     }
 </style>--%>
-<%--<telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+    <%--<script type="text/javascript">
 
-    <script type="text/javascript">
+        function pageLoad() {
+
+            var grid = $find('<%=RadGrid1.ClientID %>');
+            var grid2 = document.getElementById("<%=RadGrid1.ClientID %>");
+            alert(grid);
+            alert(grid2);
+
+        }
+
         function checkAllBoxes() {
+            //            $(document).ready(function() {
             //get total number of rows in the gridview and do whatever
             //you want with it..just grabbing it just cause
-            var grid = $find("ctrl_MessageInbox_RadGrid1");
-            alert(grid);
+
             var MasterTable = grid.get_masterTableView();
             var Rows = MasterTable.get_dataItems();
             //debugger;
             var totalRows = Rows.length;
             var hdrChkBx = document.getElementById("hdrCheckBox");
-            
+
             for (var i = 0; i < totalRows; i++) {
                 var chkbx = Rows[i].findElement("chkbxRow");
                 chkbx.checked = hdrChkBx.checked;
             }
         }
-    </script>
-
-</telerik:RadScriptBlock>--%>
+        
+    </script>--%>
+</telerik:RadCodeBlock>
 <!-- end of custom head section -->
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <table width="100%" class="TableBackground">
@@ -52,7 +61,7 @@
     </tr>
     <tr id="trContent" runat="server">
         <td>
-            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1" EnablePageHeadUpdate="false">
+            <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server" DefaultLoadingPanelID="RadAjaxLoadingPanel1">
                 <AjaxSettings>
                     <telerik:AjaxSetting AjaxControlID="RadGrid1">
                         <UpdatedControls>
@@ -72,19 +81,21 @@
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <MasterTableView DataKeyNames="MR_MessageRecipientId" ShowFooter="true">
                         <Columns>
-                            <%--<telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
+                            <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
                                 <HeaderTemplate>
-                                    <input type="checkbox" id="hdrCheckBox" onclick="checkAllBoxes()" />
+                                    <asp:CheckBox ID="hdrCheckBox" runat="server" OnCheckedChanged="hdrCheckBox_CheckedChanged"
+                                        AutoPostBack="true" />
                                 </HeaderTemplate>
                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="chkbxRow" runat="server" />
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" ForeColor="White" />
+                                    <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
+                                        ForeColor="White" />
                                 </FooterTemplate>
-                            </telerik:GridTemplateColumn>--%>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle Width="30px"></HeaderStyle>
                                 <ItemStyle HorizontalAlign="Center"></ItemStyle>
