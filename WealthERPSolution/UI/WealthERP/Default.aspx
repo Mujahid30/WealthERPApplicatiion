@@ -281,19 +281,18 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" ImageUrl="~/Images/new.gif"
-                                                                Text="Market Data" Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
-                                                            </asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
                                                                 Value="Interest Calculator" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
-                                                                ImageUrl="~/Images/new.gif" Text="Transact/Business online" Value="Transact/Business online"
+                                                                Text="Transact/Business online <img id='img1' src='/Images/new.gif'/>" Value="Transact/Business online"
                                                                 SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" ImageUrl="~/Images/new.gif"
-                                                                Text="Info links" Value="Info links" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links <img id='img1' src='/Images/new.gif'/>"
+                                                                Value="Info links" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository <img id='img1' src='/Images/new.gif'/>"
                                                                 Value="Repository"></asp:MenuItem>
                                                         </Items>
                                                     </asp:Menu>
