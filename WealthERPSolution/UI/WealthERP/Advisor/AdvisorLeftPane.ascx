@@ -224,7 +224,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>
@@ -234,7 +234,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Content" Value="Content">
+                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                                 <Items>
@@ -540,7 +540,7 @@
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPanelBar5_ItemClick">
                         <Items>
-                            <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Research"
+                            <telerik:RadPanelItem runat="server" Text="Research <img id='img1' src='/Images/new.gif'/>"
                                 Value="Research">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">
