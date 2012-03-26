@@ -934,6 +934,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CustomerPortfolio//CustomerMutualFundPortfolioNPView.ascx.
+        /// </summary>
+        internal static string CustomerMutualFundPortfolioNPView {
+            get {
+                return ResourceManager.GetString("CustomerMutualFundPortfolioNPView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerNonIndividualAdd.ascx.
         /// </summary>
         internal static string CustomerNonIndividualAdd {
@@ -957,6 +966,15 @@ namespace WealthERP {
         internal static string CustomerNonIndividualLeftPane {
             get {
                 return ResourceManager.GetString("CustomerNonIndividualLeftPane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OPS//CustomerOrderList.ascx.
+        /// </summary>
+        internal static string CustomerOrderList {
+            get {
+                return ResourceManager.GetString("CustomerOrderList", resourceCulture);
             }
         }
         

@@ -1281,6 +1281,13 @@
     <Compile Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx.designer.cs">
       <DependentUpon>CustomerMFSystematicTransactionReport.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMutualFundPortfolioNPView.ascx.cs">
+      <DependentUpon>CustomerMutualFundPortfolioNPView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\CustomerMutualFundPortfolioNPView.ascx.designer.cs">
+      <DependentUpon>CustomerMutualFundPortfolioNPView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="CustomerPortfolio\CustomerPortfolio.ascx.cs">
       <DependentUpon>CustomerPortfolio.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2291,6 +2298,13 @@
     </Compile>
     <Compile Include="OPS\BondsOrderEntry.ascx.designer.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OPS\CustomerOrderList.ascx.cs">
+      <DependentUpon>CustomerOrderList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\CustomerOrderList.ascx.designer.cs">
+      <DependentUpon>CustomerOrderList.ascx</DependentUpon>
     </Compile>
     <Compile Include="OPS\LifeInsuranceOrderEntry.ascx.cs">
       <DependentUpon>LifeInsuranceOrderEntry.ascx</DependentUpon>
@@ -5405,6 +5419,7 @@
     <Content Include="CustomerPortfolio\CustomerEQAccountView.ascx" />
     <Content Include="CustomerPortfolio\CustomerMFFolioView.ascx" />
     <Content Include="CustomerPortfolio\CustomerMFSystematicTransactionReport.ascx" />
+    <Content Include="CustomerPortfolio\CustomerMutualFundPortfolioNPView.ascx" />
     <Content Include="CustomerPortfolio\CustomerPortfolioSetup.ascx" />
     <Content Include="CustomerPortfolio\LiabilitiesMaintenanceForm.ascx" />
     <Content Include="CustomerPortfolio\LiabilityView.ascx" />
@@ -5701,6 +5716,7 @@
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
+    <Content Include="OPS\CustomerOrderList.ascx" />
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
     <Content Include="OPS\OrderEntry.ascx" />
