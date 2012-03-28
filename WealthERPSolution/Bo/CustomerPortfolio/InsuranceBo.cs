@@ -1340,5 +1340,107 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
+
+        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        {
+            InsuranceDao insuaranceDao = new InsuranceDao();
+            DataSet dsAllProductMIS;
+            try
+            {
+                dsAllProductMIS = insuaranceDao.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetAllProductMIS()");
+
+                object[] objects = new object[6];
+                objects[0] = advisorId;
+                objects[1] = branchId;
+                objects[2] = rmId;
+                objects[3] = branchHeadId;
+                objects[4] = customerId;
+                objects[5] = isGroup;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsAllProductMIS;
+        }
+
+        public DataSet GetFixedincomeMISDetails(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        {
+            InsuranceDao insuaranceDao = new InsuranceDao();
+            DataSet dsFixedIncome;
+            try
+            {
+                dsFixedIncome = insuaranceDao.GetFixedincomeMISDetails(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetFixedincomeMISDetails()");
+
+                object[] objects = new object[6];
+                objects[0] = advisorId;
+                objects[1] = branchId;
+                objects[2] = rmId;
+                objects[3] = branchHeadId;
+                objects[4] = customerId;
+                objects[5] = isGroup;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFixedIncome;
+        }
+
+        public DataSet GetMultiProductMISInsuranceDetails(int advisorId, int branchId, int branchHeadId, int rmId, int customerId, string asset, int isGroup)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = insuranceDao.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetMultiProductMISInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
     }
 }

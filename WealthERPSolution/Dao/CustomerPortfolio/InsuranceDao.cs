@@ -1961,6 +1961,187 @@ namespace DaoCustomerPortfolio
             return insuranceCustDetails;
         }
 
+        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        {
+            Database db;
+            DbCommand getAllProductMISCmd;
+            DataSet dsAllProductMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAllProductMISCmd = db.GetStoredProcCommand("SP_GetAllProductMIS");
+                if (advisorId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@advisorId", DbType.Int32, advisorId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@advisorId", DbType.Int32, DBNull.Value);
+                if (branchId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@branchId", DbType.Int32, branchId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@branchId", DbType.Int32, DBNull.Value);
+                if (rmId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@rmId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@rmId", DbType.Int32, DBNull.Value);
+                if (branchHeadId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@branchHeadId", DbType.Int32, DBNull.Value);
+                if (customerId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, customerId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, DBNull.Value);
+                if (isGroup != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, isGroup);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
+                getAllProductMISCmd.CommandTimeout = 60 * 60;
+                dsAllProductMIS = db.ExecuteDataSet(getAllProductMISCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetAllProductMIS()");
+
+                object[] objects = new object[6];
+                objects[0] = advisorId;
+                objects[1] = branchId;
+                objects[2] = rmId;
+                objects[3] = branchHeadId;
+                objects[4] = customerId;
+                objects[5] = isGroup;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAllProductMIS;
+        }
+
+        public DataSet GetFixedincomeMISDetails(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        {
+            Database db;
+            DbCommand GetFixedincomeMISCmd;
+            DataSet dsFixedincomeMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetFixedincomeMISCmd = db.GetStoredProcCommand("SP_GetFixedincomeMISDetails");
+                if (advisorId != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@advisorId", DbType.Int32, advisorId);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@advisorId", DbType.Int32, DBNull.Value);
+                if (branchId != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@branchId", DbType.Int32, branchId);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@branchId", DbType.Int32, DBNull.Value);
+                if (rmId != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@rmId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@rmId", DbType.Int32, DBNull.Value);
+                if (branchHeadId != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@branchHeadId", DbType.Int32, DBNull.Value);
+                if (customerId != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@customerId", DbType.Int32, customerId);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@customerId", DbType.Int32, DBNull.Value);
+                if (isGroup != 0)
+                    db.AddInParameter(GetFixedincomeMISCmd, "@isGroup", DbType.Int32, isGroup);
+                else
+                    db.AddInParameter(GetFixedincomeMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
+                dsFixedincomeMIS = db.ExecuteDataSet(GetFixedincomeMISCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetAllProductMIS()");
+
+                object[] objects = new object[6];
+                objects[0] = advisorId;
+                objects[1] = branchId;
+                objects[2] = rmId;
+                objects[3] = branchHeadId;
+                objects[4] = customerId;
+                objects[5] = isGroup;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsFixedincomeMIS;
+        }
+
+        public DataSet GetMultiProductMISInsuranceDetails(int advisorId, int branchId, int branchHeadId, int rmId, int customerId, string asset, int isGroup)
+        {
+            Database db;
+            DbCommand getGrpInsuranceDetails;
+            DataSet insuranceGrpDetails = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGrpInsuranceDetails = db.GetStoredProcCommand("SP_MultiProductMIS_GetInsuranceDetails");
+                if (advisorId != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@advisorId", DbType.Int32, advisorId);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@advisorId", DbType.Int32, DBNull.Value);
+                if (branchId != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@BranchId", DbType.Int32, branchId);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@BranchId", DbType.Int32, DBNull.Value);
+                if (rmId != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@RMId", DbType.Int32, rmId);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@RMId", DbType.Int32, DBNull.Value);
+                if (customerId != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@CustomerId", DbType.Int32, customerId);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@CustomerId", DbType.Int32, DBNull.Value);
+                if (branchHeadId != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@branchHeadId", DbType.Int32, branchHeadId);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@branchHeadId", DbType.Int32, DBNull.Value);
+                if (isGroup != 0)
+                    db.AddInParameter(getGrpInsuranceDetails, "@isGroup", DbType.Int32, isGroup);
+                else
+                    db.AddInParameter(getGrpInsuranceDetails, "@isGroup", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getGrpInsuranceDetails, "@Asset", DbType.String, asset);
+                insuranceGrpDetails = db.ExecuteDataSet(getGrpInsuranceDetails);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetMultiProductMISInsuranceDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return insuranceGrpDetails;
+        }
+
 
     }
 
