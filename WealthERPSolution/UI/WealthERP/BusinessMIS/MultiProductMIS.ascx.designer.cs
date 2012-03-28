@@ -86,13 +86,13 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Label lblGrpOrInd;
         
         /// <summary>
-        /// ddlCustomerType control.
+        /// ddlSelectCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectCustomer;
         
         /// <summary>
         /// lblSelectTypeOfCustomer control.
@@ -104,13 +104,13 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Label lblSelectTypeOfCustomer;
         
         /// <summary>
-        /// ddlSelectCustomer control.
+        /// ddlCustomerType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSelectCustomer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCustomerType;
         
         /// <summary>
         /// lblselectCustomer control.
@@ -192,6 +192,51 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnInvestmentMIS;
+        
+        /// <summary>
+        /// lblErrorMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMsg;
+        
+        /// <summary>
+        /// rgvMultiProductMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgvMultiProductMIS;
+        
+        /// <summary>
+        /// rgvFixedIncomeMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgvFixedIncomeMIS;
+        
+        /// <summary>
+        /// rgvGeneralInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgvGeneralInsurance;
+        
+        /// <summary>
+        /// rgvLifeInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid rgvLifeInsurance;
         
         /// <summary>
         /// hdnCustomerId control.
