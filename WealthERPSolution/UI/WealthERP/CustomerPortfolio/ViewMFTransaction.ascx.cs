@@ -335,5 +335,38 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+            int userId = ((UserVo)Session["userVo"]).UserId;
+            try
+            {
+                if (mfTransactionVo != null)
+                    customerTransactionBo.DeleteMFTransaction(mfTransactionVo);
+                btnCancel.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionsView','none');", true);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewMFTransaction.ascx:btnCancel_Click(object sender, EventArgs e)");
+                object[] objects = new object[1];
+                objects[0] = mfTransactionVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
     }
 }
