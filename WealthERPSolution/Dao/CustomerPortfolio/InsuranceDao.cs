@@ -1990,10 +1990,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, customerId);
                 else
                     db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, DBNull.Value);
-                if (isGroup != 0)
+                //if (isGroup != 0)
                     db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, isGroup);
-                else
-                    db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
                 getAllProductMISCmd.CommandTimeout = 60 * 60;
                 dsAllProductMIS = db.ExecuteDataSet(getAllProductMISCmd);
             }
@@ -2052,10 +2052,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(GetFixedincomeMISCmd, "@customerId", DbType.Int32, customerId);
                 else
                     db.AddInParameter(GetFixedincomeMISCmd, "@customerId", DbType.Int32, DBNull.Value);
-                if (isGroup != 0)
+                //if (isGroup != 0)
                     db.AddInParameter(GetFixedincomeMISCmd, "@isGroup", DbType.Int32, isGroup);
-                else
-                    db.AddInParameter(GetFixedincomeMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(GetFixedincomeMISCmd, "@isGroup", DbType.Int32, DBNull.Value);
                 dsFixedincomeMIS = db.ExecuteDataSet(GetFixedincomeMISCmd);
             }
             catch (BaseApplicationException Ex)
@@ -2093,7 +2093,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getGrpInsuranceDetails = db.GetStoredProcCommand("SP_MultiProductMIS_GetInsuranceDetails");
+                getGrpInsuranceDetails = db.GetStoredProcCommand("SP_GetInsuranceDetailsMIS");
                 if (advisorId != 0)
                     db.AddInParameter(getGrpInsuranceDetails, "@advisorId", DbType.Int32, advisorId);
                 else
@@ -2114,10 +2114,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getGrpInsuranceDetails, "@branchHeadId", DbType.Int32, branchHeadId);
                 else
                     db.AddInParameter(getGrpInsuranceDetails, "@branchHeadId", DbType.Int32, DBNull.Value);
-                if (isGroup != 0)
+                //if (isGroup != 0)
                     db.AddInParameter(getGrpInsuranceDetails, "@isGroup", DbType.Int32, isGroup);
-                else
-                    db.AddInParameter(getGrpInsuranceDetails, "@isGroup", DbType.Int32, DBNull.Value);
+                //else
+                //    db.AddInParameter(getGrpInsuranceDetails, "@isGroup", DbType.Int32, DBNull.Value);
                 db.AddInParameter(getGrpInsuranceDetails, "@Asset", DbType.String, asset);
                 insuranceGrpDetails = db.ExecuteDataSet(getGrpInsuranceDetails);
             }
