@@ -87,6 +87,7 @@
     <Compile Include="LoanSchemeInterestVo.cs" />
     <Compile Include="MFPortfolioBuyTransactionVo.cs" />
     <Compile Include="MFPortfolioDivPayoutTransactionVo.cs" />
+    <Compile Include="MFPortfolioNetPositionVo.cs" />
     <Compile Include="MFPortfolioSellTransactionVo.cs" />
     <Compile Include="MFPortfolioTransactionVo.cs" />
     <Compile Include="MFPortfolioVo.cs" />
