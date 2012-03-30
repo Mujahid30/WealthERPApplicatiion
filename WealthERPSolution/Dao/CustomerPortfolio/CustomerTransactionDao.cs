@@ -2069,6 +2069,47 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
+
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand DeleteMFTransactionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DeleteMFTransactionCmd = db.GetStoredProcCommand("SP_DeleteMFTransaction");
+
+                db.AddInParameter(DeleteMFTransactionCmd, "@cmftTransactionId", DbType.Int32, mfTransactionVo.TransactionId);
+
+                db.ExecuteNonQuery(DeleteMFTransactionCmd);
+                bResult = true;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:CancelMFTransaction(MFTransactionVo mfTransactionVo,int userId)");
+
+
+                object[] objects = new object[2];
+                objects[0] = mfTransactionVo;
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
         public bool CancelMFTransaction(MFTransactionVo mfTransactionVo, int userId)
         {
             bool bResult = false;
