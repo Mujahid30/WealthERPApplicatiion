@@ -1286,6 +1286,40 @@ namespace BoCustomerPortfolio
             return bResult;
         }
 
+        public bool DeleteMFTransaction(MFTransactionVo mfTransactionVo)
+        {
+            bool bResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                bResult = customerTransactionDao.DeleteMFTransaction(mfTransactionVo);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:CancelMFTransaction(MFTransactionVo mfTransactionVo, int userId)");
+
+
+                object[] objects = new object[2];
+                objects[0] = mfTransactionVo;
+                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
         #endregion MF Transactions
 
         #region Multiple MF Transaction
