@@ -284,12 +284,14 @@ namespace WealthERP.BusinessMIS
             rgvGeneralInsurance.Visible = false;
             rgvLifeInsurance.Visible = false;
             rgvMultiProductMIS.Visible = false;
+            lblMISType.Visible = false;
         }
 
         protected void ddlCustomerType_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtIndividualCustomer.Text = string.Empty;
-            hdnIndividualOrGroup.Value = ddlCustomerType.SelectedItem.Value;           
+            hdnIndividualOrGroup.Value = ddlCustomerType.SelectedItem.Value;
+            rquiredFieldValidatorIndivudialCustomer.Visible = true;
             if (ddlCustomerType.SelectedItem.Value == "0")
             {
                 customerType = "GROUP";
@@ -433,6 +435,10 @@ namespace WealthERP.BusinessMIS
                 lblselectCustomer.Visible = true;
                 rquiredFieldValidatorIndivudialCustomer.Visible = true;
 
+                //if (ddlCustomerType.SelectedIndex != 0)
+                //{
+                //    rquiredFieldValidatorIndivudialCustomer.Visible = true;
+                //}
                 ViewState["GroupHeadCustomers"] = null;
                 ViewState["IndividualCustomers"] = null;
                 ddlCustomerType.SelectedIndex = 0;
@@ -802,10 +808,10 @@ namespace WealthERP.BusinessMIS
 
         
 
-        public void BindAssetInvestments()
+        public void bindRadGrid_rgvMultiProductMIS()
         {
             int tempCustId = 0;
-            int i = 0;            
+            int tempID = 0;
             try
             {
                 SetParametersforDifferentRoles();
@@ -819,8 +825,10 @@ namespace WealthERP.BusinessMIS
                 }
                 else
                 {
-                    
                     lblErrorMsg.Visible = false;
+                    lblMISType.Text = "Multi-Product MIS";
+                    lblMISType.Visible = true;
+
                     dtGrpAssetNetHoldings.Columns.Add("Customer_Name");
                     dtGrpAssetNetHoldings.Columns.Add("Equity", typeof(double));
                     dtGrpAssetNetHoldings.Columns.Add("Mutual_Fund", typeof(double));
@@ -835,91 +843,148 @@ namespace WealthERP.BusinessMIS
                     //dtGrpAssetNetHoldings.Columns.Add("Assets_Total");
                     //dtGrpAssetNetHoldings.Columns.Add("Liabilities_Total");
                     //dtGrpAssetNetHoldings.Columns.Add("Net_Worth");
-                    dtGrpAssetNetHoldings.Columns.Add("CustomerId");
+                    dtGrpAssetNetHoldings.Columns.Add("C_CustomerId");
                     //dtGrpAssetNetHoldings.Columns.Add("CustomerType");
 
-                    foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].Rows)
-                    {
+                        foreach (DataRow dr in dsGrpAssetNetHoldings.Tables[0].Rows)
+                        {
+                            //tempCustId = int.Parse(dr["C_CustomerId"].ToString());
+                           
+                                if (int.Parse(dr["C_CustomerId"].ToString()) != tempID)
+                                {
+                                    tempID = int.Parse(dr["C_CustomerId"].ToString());
+                                    drNetHoldings = dtGrpAssetNetHoldings.NewRow();
 
+                                    drNetHoldings["C_CustomerId"] = dr["C_CustomerId"].ToString();
+                                    drNetHoldings["Equity"] = 0.00;
+                                    drNetHoldings["Mutual_Fund"] = 0.00;
+                                    drNetHoldings["Fixed_Income"] = 0.00;
+                                    drNetHoldings["Government_Savings"] = 0.00;
+                                    drNetHoldings["Property"] = 0.00;
+                                    drNetHoldings["Pension_and_Gratuity"] = 0.00;
+                                    drNetHoldings["Personal_Assets"] = 0.00;
+                                    drNetHoldings["Gold_Assets"] = 0.00;
+                                    drNetHoldings["Collectibles"] = 0.00;
+                                    drNetHoldings["Cash_and_Savings"] = 0.00;
+                                    //drNetHoldings[11] = dr["PAG_AssetGroupCode"].ToString(); 
 
-                        drNetHoldings = dtGrpAssetNetHoldings.NewRow();
+                                    drNetHoldings[0] = dr["Customer_Name"].ToString();
+                                    if (dr["AssetType"].ToString() == "DE")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Equity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Equity"] = "N/A";
 
-                        drNetHoldings["Equity"] = 0.00;
-                        drNetHoldings["Mutual_Fund"] = 0.00;
-                        drNetHoldings["Fixed_Income"] = 0.00;
-                        drNetHoldings["Government_Savings"] = 0.00;
-                        drNetHoldings["Property"] = 0.00;
-                        drNetHoldings["Pension_and_Gratuity"] = 0.00;
-                        drNetHoldings["Personal_Assets"] = 0.00;
-                        drNetHoldings["Gold_Assets"] = 0.00;
-                        drNetHoldings["Collectibles"] = 0.00;
-                        drNetHoldings["Cash_and_Savings"] = 0.00;
-                        //drNetHoldings[11] = dr["PAG_AssetGroupCode"].ToString(); 
-                                           
-                        drNetHoldings[0] = dr["Customer_Name"].ToString();
-                        if (dr["AssetType"].ToString() == "DE")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Equity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Equity"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "MF")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Mutual_Fund"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Mutual_Fund"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "FI")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Fixed_Income"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Fixed_Income"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "GS")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Government_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Government_Savings"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PR")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Property"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Property"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PG")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Pension_and_Gratuity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Pension_and_Gratuity"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PI")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Personal_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Personal_Assets"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "GD")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Gold_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Gold_Assets"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "CL")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Collectibles"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Collectibles"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "CS")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Cash_and_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Cash_and_Savings"] = "N/A";
 
-                        else if (dr["AssetType"].ToString() == "MF")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Mutual_Fund"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Mutual_Fund"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "FI")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Fixed_Income"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Fixed_Income"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "GS")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Government_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Government_Savings"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "PR")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Property"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Property"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "PG")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Pension_and_Gratuity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Pension_and_Gratuity"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "PI")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Personal_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Personal_Assets"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "GD")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Gold_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Gold_Assets"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "CL")
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Collectibles"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Collectibles"] = "N/A";
-                        else if (dr["AssetType"].ToString() == "CS") 
-                            if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
-                                drNetHoldings["Cash_and_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                            else
-                                drNetHoldings["Cash_and_Savings"] = "N/A";
+                                    dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);
+                                }
+                                else
+                                {
+                                    //drNetHoldings["C_CustomerId"] = dr["C_CustomerId"].ToString();
 
-                        //for (i = 1; i <= 10; i++)
-                        //{
-                        //    if (drNetHoldings[i].ToString() == "")
-                        //        drNetHoldings[i] = "0.00";
-                        //}
+                                    //drNetHoldings[0] = dr["Customer_Name"].ToString();
+                                    if (dr["AssetType"].ToString() == "DE")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Equity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Equity"] = "N/A";
 
-                            dtGrpAssetNetHoldings.Rows.Add(drNetHoldings);                         
+                                    else if (dr["AssetType"].ToString() == "MF")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Mutual_Fund"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Mutual_Fund"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "FI")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Fixed_Income"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                       else
+                                            drNetHoldings["Fixed_Income"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "GS")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Government_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Government_Savings"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PR")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Property"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Property"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PG")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Pension_and_Gratuity"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Pension_and_Gratuity"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "PI")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Personal_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Personal_Assets"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "GD")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Gold_Assets"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Gold_Assets"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "CL")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Collectibles"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Collectibles"] = "N/A";
+                                    else if (dr["AssetType"].ToString() == "CS")
+                                        if (dr["CFPAGD_WERPManagedValue"].ToString() != "")
+                                            drNetHoldings["Cash_and_Savings"] = String.Format("{0:n2}", double.Parse(dr["CFPAGD_WERPManagedValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                                        else
+                                            drNetHoldings["Cash_and_Savings"] = "N/A";
+                                }       
                     }
-                    rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
-                    rgvMultiProductMIS.DataBind();
-                    rgvMultiProductMIS.Visible = true;
+                        rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
+                        rgvMultiProductMIS.DataBind();
+                        rgvMultiProductMIS.Visible = true;
+                        ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -930,7 +995,7 @@ namespace WealthERP.BusinessMIS
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:BindAssetInvestments()");
+                FunctionInfo.Add("Method", "AdvisorRMCustIndiDashboard.ascx:bindRadGrid_rgvMultiProductMIS()");
                 object[] objects = new object[2];
                 objects[0] = portfolioId;
                 objects[1] = dsGrpAssetNetHoldings;
@@ -1043,12 +1108,15 @@ namespace WealthERP.BusinessMIS
                 else
                 {
                     lblErrorMsg.Visible = false;
+                    lblMISType.Text = "Fixed Income MIS";
+                    lblMISType.Visible = true;
+
                     dtFIMIS.Columns.Add("Customer_Name");
                     dtFIMIS.Columns.Add("PAIC_AssetInstrumentCategoryName");
                     dtFIMIS.Columns.Add("CFINP_Name");
                     dtFIMIS.Columns.Add("CFINP_PurchaseDate");
                     dtFIMIS.Columns.Add("CFINP_MaturityDate");
-                    dtFIMIS.Columns.Add("CFINP_SubsequentDepositAmount", typeof(double));
+                    dtFIMIS.Columns.Add("CFINP_PrincipalAmount", typeof(double));
                     dtFIMIS.Columns.Add("CFINP_InterestRate");
                     dtFIMIS.Columns.Add("CFINP_CurrentValue", typeof(double));
                     dtFIMIS.Columns.Add("CFINP_MaturityValue",typeof(double));
@@ -1079,7 +1147,7 @@ namespace WealthERP.BusinessMIS
                             drFIMIS["CFINP_MaturityDate"] = "N/A";
 
 
-                        drFIMIS["CFINP_SubsequentDepositAmount"] = dr["CFINP_PrincipalAmount"].ToString();
+                        drFIMIS["CFINP_PrincipalAmount"] = dr["CFINP_PrincipalAmount"].ToString();
                         drFIMIS["CFINP_InterestRate"] = dr["CFINP_InterestRate"].ToString();
                         drFIMIS["CFINP_CurrentValue"] = dr["CFINP_CurrentValue"].ToString();
                         drFIMIS["CFINP_MaturityValue"] = dr["CFINP_MaturityValue"].ToString();
@@ -1089,6 +1157,7 @@ namespace WealthERP.BusinessMIS
                     rgvFixedIncomeMIS.DataSource = dtFIMIS;
                     rgvFixedIncomeMIS.DataBind();
                     rgvFixedIncomeMIS.Visible = true;
+                    ViewState["FixedIncomeMIS"] = dtFIMIS;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1147,7 +1216,7 @@ namespace WealthERP.BusinessMIS
             rgvGeneralInsurance.Visible = false;
             rgvLifeInsurance.Visible = false;
             rgvMultiProductMIS.Visible = true;
-            BindAssetInvestments();           
+            bindRadGrid_rgvMultiProductMIS();           
         }     
 
         protected void lnkBtnInvestmentMIS_Click(object sender, EventArgs e)
@@ -1203,6 +1272,8 @@ namespace WealthERP.BusinessMIS
                 else
                 {
                     lblErrorMsg.Visible = false;
+                    lblMISType.Text = "Life Insurance MIS";
+                    lblMISType.Visible = true;
 
                     dtLifeInsDetails.Columns.Add("CustomerName");
                     dtLifeInsDetails.Columns.Add("PolicyIssuerName");
@@ -1241,6 +1312,7 @@ namespace WealthERP.BusinessMIS
                     rgvLifeInsurance.DataSource = dtLifeInsDetails;
                     rgvLifeInsurance.DataBind();
                     rgvLifeInsurance.Visible = true;
+                    ViewState["LifeInsuranceMIS"] = dtLifeInsDetails;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1292,6 +1364,8 @@ namespace WealthERP.BusinessMIS
                 else
                 {
                     lblErrorMsg.Visible = false;
+                    lblMISType.Text = "General Insurance MIS";
+                    lblMISType.Visible = true;
 
                     dtGenInsDetails.Columns.Add("CustomerName");
                     dtGenInsDetails.Columns.Add("PolicyIssuerName");
@@ -1328,6 +1402,7 @@ namespace WealthERP.BusinessMIS
                     rgvGeneralInsurance.DataSource = dtGenInsDetails;
                     rgvGeneralInsurance.DataBind();
                     rgvGeneralInsurance.Visible = true;
+                    ViewState["GeneralInsuranceMIS"] = dtGenInsDetails;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1353,26 +1428,53 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvFixedIncomeMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = insuranceBo.GetFixedincomeMISDetails(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
-            rgvFixedIncomeMIS.DataSource = ds;
+            //SetParametersforDifferentRoles();
+            //DataSet ds = insuranceBo.GetFixedincomeMISDetails(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+            DataTable dt = new DataTable();
+            if (ViewState["FixedIncomeMIS"] != null)
+            {
+                dt = (DataTable)ViewState["FixedIncomeMIS"];
+                rgvFixedIncomeMIS.DataSource = dt;
+            }
         }
 
         protected void rgvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
-            rgvGeneralInsurance.DataSource = ds;
+            //SetParametersforDifferentRoles();
+            //asset = "General Insurance";
+            //DataSet ds = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
+            DataTable dt = new DataTable();
+            if (ViewState["GeneralInsuranceMIS"] != null)
+            {
+                dt = (DataTable)ViewState["GeneralInsuranceMIS"];
+                rgvGeneralInsurance.DataSource = dt;
+            }
         }
 
         protected void rgvLifeInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
-            rgvLifeInsurance.DataSource = ds;
+            //SetParametersforDifferentRoles();
+            //asset = "LifeInsurance";
+            //DataSet ds = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
+            //rgvLifeInsurance.DataSource = ds;
+            DataTable dt = new DataTable();
+            if (ViewState["LifeInsuranceMIS"] != null)
+            {
+                dt = (DataTable)ViewState["LifeInsuranceMIS"];
+                rgvLifeInsurance.DataSource = dt;
+            }
         }
 
         protected void rgvMultiProductMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            DataSet ds = insuranceBo.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
-            rgvMultiProductMIS.DataSource = ds;
+            //SetParametersforDifferentRoles();
+            DataTable dt = new DataTable();
+           // DataSet ds = insuranceBo.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+            if (ViewState["MultiProductMIS"] != null)
+            {
+                dt = (DataTable)ViewState["MultiProductMIS"];
+                rgvMultiProductMIS.DataSource = dt;
+            }
         }
     }
 }

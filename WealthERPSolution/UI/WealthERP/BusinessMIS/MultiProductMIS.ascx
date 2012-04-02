@@ -131,11 +131,20 @@
     <asp:LinkButton ID="lnkBtnGeneralInsuranceMIS" Text="General Insurance" CssClass="LinkButtons"
         runat="server" OnClick="lnkBtnGeneralInsuranceMIS_OnClick"></asp:LinkButton>
     <span>|</span>
-    <asp:LinkButton ID="lnkBtnInvestmentMIS" Text="Fixed Income MIS" CssClass="LinkButtons"
+    <asp:LinkButton ID="lnkBtnInvestmentMIS" Text="Fixed Income" CssClass="LinkButtons"
         runat="server" onclick="lnkBtnInvestmentMIS_Click"></asp:LinkButton>
 </div>
-<div class="divSectionHeading" style="vertical-align: text-bottom">
+
+<div id="myoutercontainer" class="divSectionHeading">
 </div>
+
+<table class="TableBackground" width="100%">
+    <tr>
+        <td>
+            <asp:Label ID="lblMISType" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+</table>
 
 
 <table class="TableBackground" width="100%">
@@ -144,11 +153,11 @@
             <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
-                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CustomerId"
+                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId"
                 EnableEmbeddedSkins="false" Width="100%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>                
-                <MasterTableView DataKeyNames="CustomerId" Width="100%" AllowMultiColumnSorting="True"
+                <MasterTableView DataKeyNames="C_CustomerId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
                     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
@@ -248,8 +257,8 @@
                             DataField="CFINP_MaturityDate"  HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_SubsequentDepositAmount" HeaderText="Deposit Amount" Aggregate="Sum"
-                         DataField="CFINP_SubsequentDepositAmount" DataFormatString="{0:n2}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                        <telerik:GridBoundColumn UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
+                         DataField="CFINP_PrincipalAmount" DataFormatString="{0:n2}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CFINP_InterestRate" HeaderText="Interest Rate"
