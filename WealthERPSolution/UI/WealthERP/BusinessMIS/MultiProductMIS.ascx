@@ -12,6 +12,11 @@
         //alert(document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value());
         return false;
     };
+
+//    function ClearText() {
+//        alert(document.getElementById("<%= txtIndividualCustomer.ClientID %>").value);
+//        document.getElementById('ctrl_MultiProductMIS_txtIndividualCustomer').value = ""; 
+//    };
 </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
@@ -22,7 +27,6 @@
         font-size: 13px;
         margin-bottom: 10px;
         padding: 5px 7px;
-        border: solid 1px;
     }
 </style>
 <table style="width: 100%;">
@@ -107,11 +111,11 @@
                 ServicePath="~/CustomerPortfolio/AutoComplete.asmx" MinimumPrefixLength="1" EnableCaching="False"
                 CompletionSetCount="5" CompletionInterval="100" CompletionListCssClass="AutoCompleteExtender_CompletionList"
                 CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                UseContextKey="True" DelimiterCharacters="" OnClientItemSelected="GetCustomerId"
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="rquiredFieldValidatorIndivudialCustomer" Display="Dynamic"
                 ControlToValidate="txtIndividualCustomer" CssClass="rfvPCG" ErrorMessage="<br />Please select the customer"
-                runat="server" ValidationGroup="btnGo">
+                runat="server" ValidationGroup="CustomerValidation">
             </asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 35%">
@@ -123,35 +127,46 @@
 <div class="fk-lres-header" style="margin-left: 10%; padding-bottom: 5px; width: 43%;
     text-align: center">
     <asp:LinkButton ID="lnkBtnMultiProductMIS" Text="Multi-Product" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnMultiProductMIS_Click"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnMultiProductMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnLifeInsuranceMIS" Text="LifeInsurance" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnLifeInsuranceMIS_OnClick"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnLifeInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnGeneralInsuranceMIS" Text="General Insurance" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnGeneralInsuranceMIS_OnClick"></asp:LinkButton>
+        runat="server" OnClick="lnkBtnGeneralInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
     <span>|</span>
     <asp:LinkButton ID="lnkBtnInvestmentMIS" Text="Fixed Income" CssClass="LinkButtons"
-        runat="server" onclick="lnkBtnInvestmentMIS_Click"></asp:LinkButton>
+        runat="server" onclick="lnkBtnInvestmentMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
 </div>
 
-<div id="myoutercontainer" class="divSectionHeading">
-</div>
+
 
 <table class="TableBackground" width="100%">
-    <tr>
+<tr>
+    <td>
+        <div class="divSectionHeading" style="vertical-align: text-bottom">
+        <asp:Label ID="lblMISType" runat="server" CssClass="LinkButtons"></asp:Label>    
+        </div>
+    </td>
+</tr>
+    <tr id="trMISType" runat="server">
         <td>
-            <asp:Label ID="lblMISType" runat="server" CssClass="FieldName"></asp:Label>
+                    
+        </td>
+    </tr>
+    <tr id="trWrongCustomer" runat="server">
+        <td align="center">
+            <asp:Label ID="lblWrongCustomer" runat="server" CssClass="failure-msg" Visible="false"></asp:Label>
         </td>
     </tr>
 </table>
 
 
 <table class="TableBackground" width="100%">
-    <tr>
+    <tr id="trMultiProduct" runat="server">
         <td>
             <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
-                GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
+                GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId"
                 EnableEmbeddedSkins="false" Width="100%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
@@ -222,10 +237,10 @@
             
         </td>
     </tr>
-    <tr>
+    <tr id="trFixedIncome" runat="server">
         <td>
             <telerik:RadGrid ID="rgvFixedIncomeMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
-                GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
+                GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="100%"
                 DataKeyNames="CustomerId" EnableEmbeddedSkins="false" OnNeedDataSource="rgvFixedIncomeMIS_OnNeedDataSource">
@@ -282,7 +297,7 @@
             </telerik:RadGrid>
         </td>
     </tr>
-    <tr>
+    <tr id="trGeneralInsurance" runat="server">
         <td>
             <telerik:RadGrid ID="rgvGeneralInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -340,7 +355,7 @@
             </telerik:RadGrid>
         </td>
     </tr>
-    <tr>
+    <tr id="trLifeInsurance" runat="server">
         <td>
             <telerik:RadGrid ID="rgvLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
