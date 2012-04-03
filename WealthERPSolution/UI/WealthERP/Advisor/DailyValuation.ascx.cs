@@ -13,6 +13,7 @@ using System.Text;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
 {
@@ -23,6 +24,8 @@ namespace WealthERP.Advisor
         AdvisorBo advisorBo = new AdvisorBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         UserVo userVo = null;
+        CustomerVo customerVo = new CustomerVo();
+        List<CustomerVo> customerList = null;
         static string assetGroup = "";
         //CustomerPortfolioVo customerPortfolioVo = null;
         //List<EQPortfolioVo> eqPortfolioList = null;
@@ -42,10 +45,10 @@ namespace WealthERP.Advisor
             {
                 trMf.Visible = false;
                 trEquity.Visible = false;
-                trHeader.Visible = false;
-             
+                trHeader.Visible = false;              
+                trFPSync.Visible = false;
+                btnFPSync.Visible = false;        
                 trNote.Visible = false;
-               
                 trValuation.Visible = false;
                 trSubmitButton.Visible = false;
 
@@ -55,27 +58,27 @@ namespace WealthERP.Advisor
         }
 
 
-        protected void rbtnEquity_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbtnEquity.Checked)
-            {
-                trMf.Visible = false;
-                trEquity.Visible = true;
-             
-                trValuation.Visible = true;
-                trSubmitButton.Visible = true;
-               
-                trNote.Visible = true;
-                trHeader.Visible = true;
-                ddTradeYear.Items.Clear();
-                ddTradeMonth.Items.Clear();
-                PopulateEQTradeYear();
-                PopulateEQTradeMonth();
-            }
+        //protected void rbtnEquity_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (rbtnEquity.Checked)
+        //    {
+        //        trMf.Visible = false;
+        //        trEquity.Visible = true;
+
+        //        trValuation.Visible = true;
+        //        trSubmitButton.Visible = true;
+
+        //        trNote.Visible = true;
+        //        trHeader.Visible = true;
+        //        ddTradeYear.Items.Clear();
+        //        ddTradeMonth.Items.Clear();
+        //        PopulateEQTradeYear();
+        //        PopulateEQTradeMonth();
+        //    }
 
 
-            GetTradeDate();
-        }
+        //    GetTradeDate();
+        //}
 
         private void PopulateEQTradeYear()
         {
@@ -90,28 +93,28 @@ namespace WealthERP.Advisor
             //ddTradeYear.SelectedIndex = ds.Tables[0].Rows.Count - 1;
             //ddTradeYear.Items.Insert(0, "Select Trade Year");
         }
-       
-
-        protected void rbtnMF_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbtnMF.Checked)
-            {
-                trMf.Visible = true;
-              
-                trValuation.Visible = true;
-                trSubmitButton.Visible = true;
-               
-                trNote.Visible = true;
-                trHeader.Visible = true;
-                trEquity.Visible = false;
-                PopulateMFTradeDate();
-                PopulateMFTradeMonth();
-                assetGroup = "MF";
-            }
-            GetTradeDate();
 
 
-        }
+        //protected void rbtnMF_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (rbtnMF.Checked)
+        //    {
+        //        trMf.Visible = true;
+
+        //        trValuation.Visible = true;
+        //        trSubmitButton.Visible = true;
+
+        //        trNote.Visible = true;
+        //        trHeader.Visible = true;
+        //        trEquity.Visible = false;
+        //        PopulateMFTradeDate();
+        //        PopulateMFTradeMonth();
+        //        assetGroup = "MF";
+        //    }
+        //    GetTradeDate();
+
+
+        //}
 
         private void PopulateMFTradeDate()
         {
@@ -125,12 +128,12 @@ namespace WealthERP.Advisor
             ddTradeMFYear.DataValueField = ds.Tables[0].Columns["TradeYear"].ToString();
             ddTradeMFYear.DataBind();
             ddTradeMFYear.SelectedValue = DateTime.Now.Year.ToString();
-           // ddTradeMFYear.SelectedIndex = ds.Tables[0].Rows.Count - 1;
+            // ddTradeMFYear.SelectedIndex = ds.Tables[0].Rows.Count - 1;
 
 
         }
 
-       
+
 
         private int CreateAdviserEODLog(string p, DateTime dt)
         {
@@ -299,13 +302,13 @@ namespace WealthERP.Advisor
             try
             {
                 GetLatestValuationDate();
-                if (rbtnEquity.Checked)
+                if (ddlValuationTypes.SelectedValue == "EQ")
                 {
                     assetGroup = "EQ";
                     hdnMsgValue.Value = "1";
                     dsAdviserValuationDate = customerPortfolioBo.GetAdviserValuationDate(advisorVo.advisorId, assetGroup, int.Parse(ddTradeMonth.SelectedValue.ToString()), int.Parse(ddTradeYear.SelectedItem.Value.ToString()));
                 }
-                if (rbtnMF.Checked)
+                if (ddlValuationTypes.SelectedValue == "MF")
                 {
                     assetGroup = "MF";
                     hdnMsgValue.Value = "1";
@@ -365,8 +368,8 @@ namespace WealthERP.Advisor
                 {
                     MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorVo.advisorId, "MF").ToString());
                 }
-               
-                
+
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -405,7 +408,7 @@ namespace WealthERP.Advisor
                 {
 
 
-                    if (rbtnEquity.Checked)
+                    if (ddlValuationTypes.SelectedValue == "EQ")
                     {
 
                         if (ddTradeMonth.SelectedValue != "" && ddTradeYear.SelectedValue != "")
@@ -422,11 +425,11 @@ namespace WealthERP.Advisor
                                         dt = DateTime.Parse(dsAdviserValuationDate.Tables[0].Rows[i][0].ToString());
                                         if (status == "Pending. Changes Found" || status == "Completed")
                                         {
-                                            customerPortfolioBo.DeleteAdviserEODLog(advisorVo.advisorId,"EQ",dt,0);
+                                            customerPortfolioBo.DeleteAdviserEODLog(advisorVo.advisorId, "EQ", dt, 0);
                                         }
-                                       
-                                        
-                                        
+
+
+
                                         if (DateTime.Compare(dt, DateTime.Today) <= 0)
                                         {
 
@@ -447,7 +450,7 @@ namespace WealthERP.Advisor
                                                         {
                                                             for (int k = 0; k < customerPortfolioList.Count; k++)
                                                             {
-                                                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, string.Empty,string.Empty);
+                                                                eqPortfolioList = customerPortfolioBo.GetCustomerEquityPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, string.Empty, string.Empty);
                                                                 if (eqPortfolioList != null)
                                                                 {
 
@@ -516,13 +519,13 @@ namespace WealthERP.Advisor
                             {
                                 CheckBox checkBox = (CheckBox)gvr.FindControl("chkBx");
                                 status = gvr.Cells[2].Text.ToString();
-                                if (checkBox.Checked )
+                                if (checkBox.Checked)
                                 {
                                     dt = DateTime.Parse(dsAdviserValuationDate.Tables[0].Rows[i][0].ToString());
                                     if (status == "Pending. Changes Found" || status == "Completed")
-                                        {
-                                            customerPortfolioBo.DeleteAdviserEODLog(advisorVo.advisorId,"MF",dt,0);
-                                        }
+                                    {
+                                        customerPortfolioBo.DeleteAdviserEODLog(advisorVo.advisorId, "MF", dt, 0);
+                                    }
 
                                     if (DateTime.Compare(dt, DateTime.Today) <= 0)
                                     {
@@ -543,7 +546,7 @@ namespace WealthERP.Advisor
                                                     {
                                                         for (int k = 0; k < customerPortfolioList.Count; k++)
                                                         {
-                                                            mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, "", "","");
+                                                            mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, "", "", "");
 
 
                                                             if (mfPortfolioList != null)
@@ -736,33 +739,244 @@ namespace WealthERP.Advisor
                 {
                     chkBox.Checked = false;
                 }
-                    if (assetGroup == "MF")
+                if (assetGroup == "MF")
+                {
+                    if (e.Row.Cells[1].Text == MFValuationDate.ToShortDateString())
                     {
-                        if (e.Row.Cells[1].Text == MFValuationDate.ToShortDateString())
-                        {
-                           // e.Row.CssClass = "HighLightRowStyle";
-                        }
+                        // e.Row.CssClass = "HighLightRowStyle";
                     }
-                    else
+                }
+                else
+                {
+                    if (e.Row.Cells[1].Text == EQValuationDate.ToShortDateString())
                     {
-                        if (e.Row.Cells[1].Text == EQValuationDate.ToShortDateString())
-                        {
-                           // e.Row.CssClass = "HighLightRowStyle";
-                        }
+                        // e.Row.CssClass = "HighLightRowStyle";
                     }
                 }
             }
-        
+        }
+
 
         protected void Button1_Click(object sender, EventArgs e)
         {
 
 
-           
+
             string val = Convert.ToString(hdnMsgValue.Value);
             UpdateLOG(val, assetGroup);
         }
 
-       
+        protected void ddlValuationTypes_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlValuationTypes.SelectedValue == "Select")
+            {
+                trMf.Visible = false;
+                trEquity.Visible = false;
+                trHeader.Visible = false;
+                trFPSync.Visible = false;
+                btnFPSync.Visible = false;
+                trNote.Visible = false;
+                trValuation.Visible = false;
+                trSubmitButton.Visible = false;
+            }
+            else if (ddlValuationTypes.SelectedValue == "EQ")
+            {
+                trMf.Visible = false;
+                trEquity.Visible = true;
+                btnFPSync.Visible = false;
+                trValuation.Visible = true;
+                trSubmitButton.Visible = true;
+                trFPSync.Visible = false;
+                trNote.Visible = true;
+                trHeader.Visible = true;
+                ddTradeYear.Items.Clear();
+                ddTradeMonth.Items.Clear();
+                PopulateEQTradeYear();
+                PopulateEQTradeMonth();
+                GetTradeDate();
+            }
+            else if (ddlValuationTypes.SelectedValue == "MF")
+            {
+                trMf.Visible = true;
+                trFPSync.Visible = false;
+                btnFPSync.Visible = false;
+                trValuation.Visible = true;
+                trSubmitButton.Visible = true;
+
+                trNote.Visible = true;
+                trHeader.Visible = true;
+                trEquity.Visible = false;
+                PopulateMFTradeDate();
+                PopulateMFTradeMonth();
+                assetGroup = "MF";
+                GetTradeDate();
+               
+            }
+            else if (ddlValuationTypes.SelectedValue == "FP")
+            {
+                trMf.Visible = false;
+                trValuation.Visible = false;
+                trSubmitButton.Visible = false;
+                trFPSync.Visible = true;
+                btnFPSync.Visible = true;
+                trNote.Visible = true;
+                trHeader.Visible = false;
+                trEquity.Visible = false;
+                BindFPCustomerData();
+                
+            }
+        }
+
+        protected void BindFPCustomerData()
+        {
+            List<CustomerVo> customerList = new List<CustomerVo>();
+            customerList = advisorBo.GetAdviserAllCustomerList(advisorVo.advisorId);
+
+
+            if (customerList != null)
+            {
+                DataTable dtRMCustomer = new DataTable();
+                dtRMCustomer.Columns.Add("CustomerId");
+                dtRMCustomer.Columns.Add("UserId");
+                dtRMCustomer.Columns.Add("RMId");
+                dtRMCustomer.Columns.Add("Parent");
+                dtRMCustomer.Columns.Add("Cust_Comp_Name");
+                dtRMCustomer.Columns.Add("PAN Number");
+                dtRMCustomer.Columns.Add("Mobile Number");
+                dtRMCustomer.Columns.Add("Phone Number");
+                dtRMCustomer.Columns.Add("Email");
+                dtRMCustomer.Columns.Add("Address");
+                dtRMCustomer.Columns.Add("Area");
+                dtRMCustomer.Columns.Add("City");
+                dtRMCustomer.Columns.Add("Pincode");
+                dtRMCustomer.Columns.Add("Assigned RM");
+                dtRMCustomer.Columns.Add("IsActive");
+                dtRMCustomer.Columns.Add("IsProspect");
+                dtRMCustomer.Columns.Add("IsFPClient");
+
+                DataRow drRMCustomer;
+
+                for (int i = 0; i < customerList.Count; i++)
+                {
+                    drRMCustomer = dtRMCustomer.NewRow();
+                    customerVo = new CustomerVo();
+                    customerVo = customerList[i];
+                    drRMCustomer[0] = customerVo.CustomerId.ToString();
+                    drRMCustomer[1] = customerVo.UserId.ToString();
+                    drRMCustomer[2] = customerVo.RmId.ToString();
+
+                    if (customerVo.ParentCustomer != null)
+                    {
+                        drRMCustomer[3] = customerVo.ParentCustomer.ToString();
+                    }
+                    drRMCustomer[4] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+
+                    if (customerVo.PANNum != null)
+                        drRMCustomer[5] = customerVo.PANNum.ToString();
+                    else
+                        drRMCustomer[5] = "";
+                    drRMCustomer[6] = customerVo.Mobile1.ToString();
+                    drRMCustomer[7] = customerVo.ResISDCode.ToString() + "-" + customerVo.ResSTDCode.ToString() + "-" + customerVo.ResPhoneNum.ToString();
+                    drRMCustomer[8] = customerVo.Email.ToString();
+                    if (customerVo.Adr1City == null)
+                        customerVo.Adr1City = "";
+                    if (customerVo.Adr1Line1 == null)
+                        customerVo.Adr1Line1 = "";
+                    if (customerVo.Adr1Line2 == null)
+                        customerVo.Adr1Line2 = "";
+                    if (customerVo.Adr1Line3 == null)
+                        customerVo.Adr1Line3 = "";
+                    if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() == "")
+                    {
+                        drRMCustomer[9] = "-";
+                    }
+                    else if (customerVo.Adr1Line1.ToString() == "" && customerVo.Adr1Line2.ToString() != "")
+                    {
+                        drRMCustomer[9] = customerVo.Adr1Line2.ToString();
+                    }
+                    else if (customerVo.Adr1Line1.ToString() != "" && customerVo.Adr1Line2.ToString() == "")
+                    {
+                        drRMCustomer[9] = customerVo.Adr1Line1.ToString();
+                    }
+                    else
+                        drRMCustomer[9] = customerVo.Adr1Line1.ToString() + "," + customerVo.Adr1Line2.ToString();
+                    drRMCustomer[10] = customerVo.Adr1Line3.ToString();
+                    drRMCustomer[11] = customerVo.Adr1City.ToString();
+                    drRMCustomer[12] = customerVo.Adr1PinCode.ToString();
+                    if (customerVo.AssignedRM != null)
+                        drRMCustomer[13] = customerVo.AssignedRM.ToString();
+                    else
+                        drRMCustomer[13] = "-";
+                    if (customerVo.IsActive == 1)
+                    {
+                        drRMCustomer[14] = "Active";
+                    }
+                    else
+                    {
+                        drRMCustomer[14] = "In Active";
+
+                    }
+                    if (customerVo.IsProspect == 1)
+                    {
+                        drRMCustomer[15] = "Yes";
+                    }
+                    else
+                    {
+                        drRMCustomer[15] = "No";
+                    }
+                    if (customerVo.IsFPClient == 1)
+                    {
+                        drRMCustomer[16] = "Yes";
+                    }
+                    else
+                    {
+                        drRMCustomer[16] = "No";
+                    }
+                    dtRMCustomer.Rows.Add(drRMCustomer);
+                }
+                gvCustomerlist.DataSource = dtRMCustomer;
+                gvCustomerlist.DataBind();
+
+                if (Cache["FP"] == null)
+                {
+                    Cache.Insert("FP", dtRMCustomer);
+                }
+                else
+                {
+                    Cache.Remove("FP");
+                    Cache.Insert("FP", dtRMCustomer);
+                }
+            }
+        }
+
+
+        protected void gvCustomerlist_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            //if (Cache["FP"] == null)
+            //{
+            //    BindFPCustomerData();
+            //}
+            DataTable dtCustomerList = new DataTable();
+            dtCustomerList = (DataTable)Cache["FP"];
+            gvCustomerlist.DataSource = dtCustomerList;
+            //gvCustomerlist.DataBind();
+        }    
+
+        protected void FPSync_OnClick(object sender, EventArgs e)
+        {
+            string customerIds = "";
+            bool result = true;
+            foreach (GridDataItem item in gvCustomerlist.MasterTableView.Items)
+            {
+                CheckBox chkbx = (CheckBox)item["View"].FindControl("CheckBox1");
+                if (chkbx.Checked == true)
+                {
+                    customerIds = customerIds + Convert.ToString(item.GetDataKeyValue("CustomerId").ToString()) + ',';                    
+                }
+            }
+               result = advisorBo.UpdateAdviserFPBatch(customerIds,advisorVo.advisorId);
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Financial Valuation Done...');", true);
+
+        }
     }
 }

@@ -2338,7 +2338,40 @@ namespace DaoAdvisorProfiling
             return advisorLoginWidgetDetails;
 
         }
+        public bool UpdateAdviserFPBatch(string customerIds,int adviserId)
+        {
+            Database db;
+            DbCommand dbCustomerSync;
+           
+            bool result = true;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCustomerSync = db.GetStoredProcCommand("SP_UpdateAdviserFPBatch");
+                db.AddInParameter(dbCustomerSync, "@CustomerIds", DbType.String, customerIds);
 
+                db.AddInParameter(dbCustomerSync, "@AdviserId", DbType.Int32, adviserId);
+                db.ExecuteNonQuery(dbCustomerSync);                     
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:UpdateAdviserFPBatch(string customerIds)");
+                object[] objects = new object[1];
+                objects[0] = customerIds;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }       
     }
 }
 
