@@ -22,7 +22,7 @@ using System.Security;
 using System.Web.UI.HtmlControls;
 using System.Data;
 using System.Web;
-
+using System.Transactions;
 
 namespace WealthERP.Customer
 {
@@ -202,13 +202,15 @@ namespace WealthERP.Customer
                 //Converting in Mega bytes
                 DirSize = DirSize / 1048576;
 
-                
+                if (Session["ImagePath"] != null)
+                {
+                    // If Uploaded File Exists
+                    FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
+                    float alreadyUploadedFileSize = fi.Length;
+                    alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
 
-                FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
-                float alreadyUploadedFileSize = fi.Length;
-                alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
-
-                DirSize = DirSize - alreadyUploadedFileSize;
+                    DirSize = DirSize - alreadyUploadedFileSize;
+                }
 
                 if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
                 {
@@ -235,6 +237,18 @@ namespace WealthERP.Customer
                             if (extension != ".pdf")
                             {
                                 File.Delete(path + UploadedFileName);
+                                DataTable dtGetPerticularProofs = new DataTable();
+                                if (Session["ProofID"] != null)
+                                {
+                                    int ProofIdToDelete = Convert.ToInt32(Session["ProofID"].ToString());
+                                    dtGetPerticularProofs = GetUploadedImagePaths(ProofIdToDelete);
+                                    string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
+                                    if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete))
+                                    {
+                                        File.Delete(imageAttachmentPath);
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
+                                    }
+                                }
                                 f.SaveAs(path + "\\" + imageUploadPath);
                             }
                             else
@@ -243,7 +257,7 @@ namespace WealthERP.Customer
                             }
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -254,13 +268,14 @@ namespace WealthERP.Customer
             CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
             CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
             CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-            if(imageUploadPath == "")
+            if (imageUploadPath == "")
                 CPUVo.ProofImage = path + "\\" + UploadedFileName;
             else
                 CPUVo.ProofImage = path + "\\" + imageUploadPath;
             CreateDBReferrenceForProofUploads(CPUVo);
 
             LoadImages();
+            Session["ImagePath"] = null;
         }
 
         private void CreateDBReferrenceForProofUploads(CustomerProofUploadsVO CPUVo)
@@ -286,7 +301,7 @@ namespace WealthERP.Customer
                     bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
                 }
             }
-            
+
         }
 
         private void UploadImage(string path, UploadedFile f, string imageUploadPath)
@@ -438,6 +453,8 @@ namespace WealthERP.Customer
 
                     dtBindImages.Rows.Add(drBindImages);
                 }
+                #region ??? Code
+
                 if (dtBindImages.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dtBindImages.Rows)
@@ -449,6 +466,10 @@ namespace WealthERP.Customer
                         Session["FileExtension"] = extension;
                     }
                 }
+
+
+                #endregion
+
                 repProofImages.DataSource = dtBindImages;
                 repProofImages.DataBind();
 
@@ -739,6 +760,7 @@ namespace WealthERP.Customer
 
                 }
             }
+            Session["ImagePath"] = null;
         }
 
         protected void repProofImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
