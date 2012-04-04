@@ -3973,7 +3973,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertPlanPreferences, "@XP_ProofCode", DbType.Int32, CPUVo.ProofCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@XPCT_ProofCopyTypeCode", DbType.String, CPUVo.ProofCopyTypeCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
-                db.AddInParameter(cmdInsertPlanPreferences, "@ProofID", DbType.Int32, ProofUploadId);
+                //db.AddInParameter(cmdInsertPlanPreferences, "@ProofID", DbType.Int32, ProofUploadId);
 
 
                 db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, 0);
