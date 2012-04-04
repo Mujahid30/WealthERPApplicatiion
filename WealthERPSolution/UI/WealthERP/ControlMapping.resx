@@ -610,8 +610,8 @@
     <comment>Alerts//AlertServicesExecution.ascx</comment>
   </data>
   <data name="ViewMutualFundPortfolio" xml:space="preserve">
-    <value>CustomerPortfolio//ViewMutualFundPortfolio.ascx</value>
-    <comment>CustomerPortfolio//ViewMutualFundPortfolio.ascx</comment>
+    <value>CustomerPortfolio//CustomerMutualFundPortfolioNPView.ascx</value>
+    <comment>CustomerPortfolio//CustomerMutualFundPortfolioNPView.ascx</comment>
   </data>
   <data name="ViewMutualFundPortfolioTransactions" xml:space="preserve">
     <value>CustomerPortfolio//ViewMutualFundPortfolioTransactions.ascx</value>

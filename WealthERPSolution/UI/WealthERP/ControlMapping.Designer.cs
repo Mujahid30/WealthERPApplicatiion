@@ -2779,7 +2779,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CustomerPortfolio//ViewMutualFundPortfolio.ascx.
+        ///   Looks up a localized string similar to CustomerPortfolio//CustomerMutualFundPortfolioNPView.ascx.
         /// </summary>
         internal static string ViewMutualFundPortfolio {
             get {
