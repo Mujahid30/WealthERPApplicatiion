@@ -99,7 +99,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, tradeAccountFilter);
                 else
                     db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, DBNull.Value);
-                
+
                 dsGetEquityPortfolio = db.ExecuteDataSet(getEquityPortfolioCmd);
                 if (dsGetEquityPortfolio.Tables[0].Rows.Count > 0)
                 {
@@ -165,8 +165,8 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, ScripNameFilter);
                 else
                     db.AddInParameter(getEquityPortfolioCmd, "@scripNameFilter", DbType.String, DBNull.Value);
-               
-               db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, DBNull.Value);
+
+                db.AddInParameter(getEquityPortfolioCmd, "@TradeAccountNumber", DbType.String, DBNull.Value);
 
                 dsGetEquityPortfolio = db.ExecuteDataSet(getEquityPortfolioCmd);
                 if (dsGetEquityPortfolio.Tables[0].Rows.Count > 0)
@@ -446,7 +446,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_Speculativesalesproceeds", DbType.Decimal, eqPortfolioVo.SpeculativeRealizedSalesProceeds);
                 if (eqPortfolioVo.XIRR.ToString().Contains('+'))
                     eqPortfolioVo.XIRR = 0;
-                db.AddInParameter(createEquityNetPositionCmd, "@CENP_XIRR", DbType.Double, Math.Round(eqPortfolioVo.XIRR,5));
+                db.AddInParameter(createEquityNetPositionCmd, "@CENP_XIRR", DbType.Double, Math.Round(eqPortfolioVo.XIRR, 5));
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createEquityNetPositionCmd, "@CENP_ModifiedBy", DbType.Int32, userId);
                 db.AddOutParameter(createEquityNetPositionCmd, "CENP_EquityNPId", DbType.Int32, 5000);
@@ -610,10 +610,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getMFPortfolioCmd, "@folioSearch", DbType.String, FolioFilter);
                 else
                     db.AddInParameter(getMFPortfolioCmd, "@folioSearch", DbType.String, DBNull.Value);
-                if(categoryFilter!="")
+                if (categoryFilter != "")
                     db.AddInParameter(getMFPortfolioCmd, "@categorySearch", DbType.String, categoryFilter);
                 else
                     db.AddInParameter(getMFPortfolioCmd, "@categorySearch", DbType.String, DBNull.Value);
+
                 dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
 
                 if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
@@ -647,14 +648,12 @@ namespace DaoCustomerPortfolio
                 FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerPortfolio(int customerId)");
 
 
-                object[] objects = new object[5];
+                object[] objects = new object[3];
                 objects[0] = customerId;
                 objects[1] = portfolioId;
                 objects[2] = tradeDate;
-                objects[3] = SchemeNameFilter;
-                objects[4] = FolioFilter;
-
-
+                //objects[3] = SchemeNameFilter;
+                //objects[4] = FolioFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -665,7 +664,174 @@ namespace DaoCustomerPortfolio
             return mfPortfolioVoList;
         }
 
-        
+        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId)
+        {
+            List<MFPortfolioNetPositionVo> mfPortfolioNetPositionList = null;
+            MFPortfolioNetPositionVo mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
+            Database db;
+            DbCommand getMFPortfolioCmd;
+            DataSet dsGetMFPortfolio;
+            DataTable dtGetMFPortfolio;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFPortfolioCmd = db.GetStoredProcCommand("sproc_MF_GetCustomerMFNetposition");
+                db.AddInParameter(getMFPortfolioCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getMFPortfolioCmd, "@portfolioId", DbType.Int32, portfolioId);
+                dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
+
+                if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFPortfolio = dsGetMFPortfolio.Tables[0];
+                    mfPortfolioNetPositionList = new List<MFPortfolioNetPositionVo>();
+                    foreach (DataRow dr in dtGetMFPortfolio.Rows)
+                    {
+                        mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
+                        mfPortfNetPositionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        mfPortfNetPositionVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfPortfNetPositionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfPortfNetPositionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        mfPortfNetPositionVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfPortfNetPositionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfPortfNetPositionVo.MarketPrice = double.Parse(dr["CMFNP_MarketPrice"].ToString());
+                        mfPortfNetPositionVo.MFPortfolioId = int.Parse(dr["CMFNP_MFNPId"].ToString());
+
+                        if (dr["CMFNP_ValuationDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ValuationDate = DateTime.Parse(dr["CMFNP_ValuationDate"].ToString());
+
+                        if (dr["CMFNP_NetHoldings"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.NetHoldings = double.Parse(dr["CMFNP_NetHoldings"].ToString());
+
+                        if (dr["CMFNP_SalesQuantity"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.SalesQuantity = double.Parse(dr["CMFNP_SalesQuantity"].ToString());
+
+                        if (dr["CMFNP_RedeemedAmount"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.RedeemedAmount = double.Parse(dr["CMFNP_RedeemedAmount"].ToString());
+
+                        if (dr["CMFNP_InvestedCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.InvestedCost = double.Parse(dr["CMFNP_InvestedCost"].ToString());
+
+                        if (dr["CMFNP_CurrentValue"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.CurrentValue = double.Parse(dr["CMFNP_CurrentValue"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalPL = double.Parse(dr["CMFNP_RET_ALL_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllAbsReturn = double.Parse(dr["CMFNP_RET_ALL_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_TotalXIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalXIRR = double.Parse(dr["CMFNP_RET_ALL_TotalXIRR"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_DVRAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllDVRAmt = double.Parse(dr["CMFNP_RET_ALL_DVRAmt"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllDVPAmt = double.Parse(dr["CMFNP_RET_ALL_DVPAmt"].ToString());
+
+                        if (dr["RET_All_Price"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllPrice = double.Parse(dr["RET_All_Price"].ToString());
+
+                        if (dr["RET_All_TotalDividends"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalDividends = double.Parse(dr["RET_All_TotalDividends"].ToString());
+
+                        if (dr["RET_Realized_TotalDividends"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedTotalDividends = double.Parse(dr["RET_Realized_TotalDividends"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_AcqCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldAcqCost = double.Parse(dr["CMFNP_RET_Hold_AcqCost"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldTotalPL = double.Parse(dr["CMFNP_RET_Hold_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldAbsReturn = double.Parse(dr["CMFNP_RET_Hold_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_PurchaseUnit"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldPurchaseUnit = double.Parse(dr["CMFNP_RET_Hold_PurchaseUnit"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_DVRUnits"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldDVRUnits = double.Parse(dr["CMFNP_RET_Hold_DVRUnits"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldDVPAmt = double.Parse(dr["CMFNP_RET_Hold_DVPAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_XIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldXIRR = double.Parse(dr["CMFNP_RET_Hold_XIRR"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_InvestedCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedInvestedCost = double.Parse(dr["CMFNP_RET_Realized_InvestedCost"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedDVPAmt = double.Parse(dr["CMFNP_RET_Realized_DVPAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_DVRAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedDVRAmt = double.Parse(dr["CMFNP_RET_Realized_DVRAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedTotalPL = double.Parse(dr["CMFNP_RET_Realized_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedAbsReturn = double.Parse(dr["CMFNP_RET_Realized_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_XIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedXIRR = double.Parse(dr["CMFNP_RET_Realized_XIRR"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_PurchaseUnits"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldPurchaseUnits = double.Parse(dr["CMFNP_TAX_Hold_PurchaseUnits"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_BalanceAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldBalanceAmt = double.Parse(dr["CMFNP_TAX_Hold_BalanceAmt"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldTotalPL = double.Parse(dr["CMFNP_TAX_Hold_TotalPL"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_EligibleSTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldEligibleSTCG = double.Parse(dr["CMFNP_TAX_Hold_EligibleSTCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_EligibleLTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldEligibleLTCG = double.Parse(dr["CMFNP_TAX_Hold_EligibleLTCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedTotalPL = double.Parse(dr["CMFNP_TAX_Realized_TotalPL"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_AcqCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedAcqCost = double.Parse(dr["CMFNP_TAX_Realized_AcqCost"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_STCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedSTCG = double.Parse(dr["CMFNP_TAX_Realized_STCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_LTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedLTCG = double.Parse(dr["CMFNP_TAX_Realized_LTCG"].ToString());
+
+                        mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerPortfolio(int customerId)");
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return mfPortfolioNetPositionList;
+        }
+
         public List<DividendTaggingPortfolioVo> GetCustomerMFPortfolioDivTagging(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter, string categoryFilter)
         {
             List<DividendTaggingPortfolioVo> mfDivTaggingPortfolioVoList = null;
@@ -767,7 +933,7 @@ namespace DaoCustomerPortfolio
 
 
                 object[] objects = new object[1];
-                objects[0] = "Error in Getting Category code"; 
+                objects[0] = "Error in Getting Category code";
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -826,7 +992,7 @@ namespace DaoCustomerPortfolio
         }
         public DataTable GetCustomerType(int portfolioId)
         {
-            
+
             Database db;
             DbCommand GetCustomerTypeCmd;
             DataSet dsGetCustomerType;
@@ -865,7 +1031,7 @@ namespace DaoCustomerPortfolio
             }
             return dtGetCustomerType;
         }
-        public DataTable GetMFCapGainRate(string customerType,int IsSchemeEquity,DateTime tradeDate)
+        public DataTable GetMFCapGainRate(string customerType, int IsSchemeEquity, DateTime tradeDate)
         {
 
             Database db;
@@ -1043,7 +1209,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createMFNetPositionCmd, "@CMFNP_AcqCostExclDivReinvst", DbType.Double, mfPortfolioVo.AcqCostExclDivReinvst);
                 db.AddInParameter(createMFNetPositionCmd, "@CMFNP_STCG", DbType.Double, mfPortfolioVo.STCG);
                 db.AddInParameter(createMFNetPositionCmd, "@CMFNP_LTCG", DbType.Double, mfPortfolioVo.LTCG);
-                if( mfPortfolioVo.DateOfAcq!=null &&  mfPortfolioVo.DateOfAcq!=DateTime.MinValue)
+                if (mfPortfolioVo.DateOfAcq != null && mfPortfolioVo.DateOfAcq != DateTime.MinValue)
                     db.AddInParameter(createMFNetPositionCmd, "@CMFNP_DateOfAcq", DbType.DateTime, mfPortfolioVo.DateOfAcq);
                 else
                     db.AddInParameter(createMFNetPositionCmd, "@CMFNP_DateOfAcq", DbType.DateTime, DBNull.Value);
@@ -1051,7 +1217,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createMFNetPositionCmd, "@CMFNP_LTCGEligible", DbType.Double, mfPortfolioVo.LTCGEligible);
 
                 db.AddOutParameter(createMFNetPositionCmd, "CMFNP_MFNPId", DbType.Int32, 5000);
-               if (db.ExecuteNonQuery(createMFNetPositionCmd) != 0)
+                if (db.ExecuteNonQuery(createMFNetPositionCmd) != 0)
                     mfNPId = int.Parse(db.GetParameterValue(createMFNetPositionCmd, "CMFNP_MFNPId").ToString());
 
 
@@ -1107,13 +1273,13 @@ namespace DaoCustomerPortfolio
                 if (dsEQScripPrice.Tables[0].Rows.Count > 0)
                 {
                     dtdsEQScripPrice = dsEQScripPrice.Tables[0];
-                    
-                        foreach (DataRow dr in dtdsEQScripPrice.Rows)
-                        {
-                            if (!string.IsNullOrEmpty(dr["PESPH_ClosePrice"].ToString().Trim()))
-                             ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
-                        }
-                    
+
+                    foreach (DataRow dr in dtdsEQScripPrice.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(dr["PESPH_ClosePrice"].ToString().Trim()))
+                            ScripPlanNAV = float.Parse(dr["PESPH_ClosePrice"].ToString());
+                    }
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1848,12 +2014,51 @@ namespace DaoCustomerPortfolio
             return bCheckValuationForDate;
         }
 
+        public DateTime GetSchemeTransactionInitialBuyDate(int accountId, int schemeCode)
+        {
+            DateTime dt = new DateTime();
+            Database db;
+            DbCommand getTranBuyDate;
+            DataSet dsDate = new DataSet();
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTranBuyDate = db.GetStoredProcCommand("sproc_MF_GetSchemeTransactionInitialBuyDate");
+                db.AddInParameter(getTranBuyDate, "@accountId", DbType.Int32, accountId);
+                db.AddInParameter(getTranBuyDate, "@schemeCode", DbType.Int32, schemeCode);
+                //dt = DateTime.Parse(db.ExecuteScalar(getTranBuyDate).ToString());
+                dsDate = db.ExecuteDataSet(getTranBuyDate);
+                if (dsDate.Tables[0].Rows[0]["TranBuyDate"].ToString() != "")
+                {
+                    dt = DateTime.Parse(dsDate.Tables[0].Rows[0]["TranBuyDate"].ToString());
+                }
+                else
+                {
+                    dt = DateTime.MinValue;
+                }
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:CheckValuationDoneOrNotForThePickedDate()");
+                object[] objects = new object[2];
+                objects[0] = accountId;
+                objects[1] = schemeCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dt;
+        }
 
 
 
         #endregion
 
-       
+
     }
 }
