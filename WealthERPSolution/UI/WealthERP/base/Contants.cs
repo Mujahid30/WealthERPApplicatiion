@@ -182,6 +182,9 @@ namespace WealthERP.Base
 
         //===================================================================================================================================
         
+        // Session Contents for Valuation Date - Created on 27.03.2012, By: Joshan John
+        public const string ValuationDate = "ValuationDate";
+
     }
 
     public static class Resources
