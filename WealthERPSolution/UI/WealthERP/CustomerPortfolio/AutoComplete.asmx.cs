@@ -349,7 +349,7 @@ namespace WealthERP.CustomerPortfolio
             dtAllRMBranchIndividualCustomersName = customerBo.GetRMBranchIndividualCustomerNames(contextKey, prefixText);
             foreach (DataRow dr in dtAllRMBranchIndividualCustomersName.Rows)
             {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
                 allRMBranchNames.Add(item);
             }
             return allRMBranchNames.ToArray();
@@ -365,7 +365,7 @@ namespace WealthERP.CustomerPortfolio
             dtAllRMBranchGroupCustomersName = customerBo.GetRMBranchGroupCustomerNames(contextKey, prefixText);
             foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
             {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
                 allRMBranchNames.Add(item);
             }
             return allRMBranchNames.ToArray();
@@ -381,7 +381,7 @@ namespace WealthERP.CustomerPortfolio
             dtAllRMBranchGroupCustomersName = customerBo.GetPerticularBranchsAllIndividualCustomers(contextKey, prefixText);
             foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
             {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
                 allRMBranchNames.Add(item);
             }
             return allRMBranchNames.ToArray();
@@ -397,7 +397,7 @@ namespace WealthERP.CustomerPortfolio
             dtAllRMBranchGroupCustomersName = customerBo.GetPerticularBranchsAllGroupCustomers(contextKey, prefixText);
             foreach (DataRow dr in dtAllRMBranchGroupCustomersName.Rows)
             {
-                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_FirstName"].ToString());
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
                 allRMBranchNames.Add(item);
             }
             return allRMBranchNames.ToArray();
