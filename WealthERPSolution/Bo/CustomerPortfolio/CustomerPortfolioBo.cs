@@ -1605,7 +1605,7 @@ namespace BoCustomerPortfolio
             try
             {
 
-                mfPortfolioVoList = customerPortfolioDao.GetCustomerMFPortfolio(customerId, portfolioId, tradeDate, SchemeNameFilter, FolioFilter, categoryFilter);
+                mfPortfolioVoList = customerPortfolioDao.GetCustomerMFPortfolio(customerId, portfolioId, tradeDate, "", "", "");
                 if (mfPortfolioVoList != null)
                 {
                     for (int i = 0; i < mfPortfolioVoList.Count; i++)
@@ -1883,12 +1883,12 @@ namespace BoCustomerPortfolio
 
                 FunctionInfo.Add("Method", "CustomerPortfolioBo.cs:GetCustomerMFPortfolio(int customerId, int portfolioId, DateTime tradeDate, string SchemeNameFilter, string FolioFilter)");
 
-                object[] objects = new object[5];
+                object[] objects = new object[3];
                 objects[0] = customerId;
                 objects[1] = portfolioId;
                 objects[2] = tradeDate;
-                objects[3] = SchemeNameFilter;
-                objects[4] = FolioFilter;
+                //objects[3] = SchemeNameFilter;
+                //objects[4] = FolioFilter;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -3329,6 +3329,47 @@ namespace BoCustomerPortfolio
             return bResult;
 
         }
+
+        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId)
+        {
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            return customerPortfolioDao.GetCustomerMFNetPositions(customerId, portfolioId);
+        }
+
+        public DateTime GetSchemeTransactionInitialBuyDate(int intAccountId, int intSchemeCode)
+        {
+            DateTime dt = new DateTime();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            
+            try
+            {
+                dt = customerPortfolioDao.GetSchemeTransactionInitialBuyDate(intAccountId, intSchemeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioBo.cs:GetSchemeTransactionInitialBuyDate(int intAccountId, int intSchemeCode)");
+
+                object[] objects = new object[2];
+                objects[0] = intAccountId;
+                objects[1] = intSchemeCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dt;
+        }
+
+
         #endregion MF Portfolio Valuation
 
         #region Portfolio Label XIRR
