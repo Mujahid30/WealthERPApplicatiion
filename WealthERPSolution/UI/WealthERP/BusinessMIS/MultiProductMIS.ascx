@@ -53,7 +53,8 @@
             <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle">
+            <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Style="vertical-align: middle" onselectedindexchanged="ddlRM_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 35%">
@@ -301,7 +302,7 @@
         <td>
             <telerik:RadGrid ID="rgvGeneralInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvGeneralInsurance_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
@@ -359,7 +360,7 @@
         <td>
             <telerik:RadGrid ID="rgvLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvLifeInsurance_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
