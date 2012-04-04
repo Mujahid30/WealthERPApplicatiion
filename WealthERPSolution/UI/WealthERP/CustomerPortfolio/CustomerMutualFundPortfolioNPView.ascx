@@ -101,7 +101,7 @@
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn UniqueName="Scheme" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false">
@@ -119,7 +119,7 @@
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost">
+                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost" DataFormatString="{0:n2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV">
                                                         </telerik:GridBoundColumn>
@@ -127,7 +127,7 @@
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL" DataFormatString="{0:n2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return"
                                                             DataField="AbsoluteReturn">
@@ -456,3 +456,8 @@
         </td>
     </tr>
 </table>
+
+
+
+
+

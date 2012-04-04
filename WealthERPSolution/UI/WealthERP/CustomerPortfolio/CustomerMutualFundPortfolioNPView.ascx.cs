@@ -648,11 +648,11 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("PurchasedUnits");
             dtReturnsHoldings.Columns.Add("DVRUnits");
             dtReturnsHoldings.Columns.Add("OpenUnits");
-            dtReturnsHoldings.Columns.Add("InvestedCost");
+            dtReturnsHoldings.Columns.Add("InvestedCost", typeof(double));
             dtReturnsHoldings.Columns.Add("NAV");
             dtReturnsHoldings.Columns.Add("MarketValue");
             dtReturnsHoldings.Columns.Add("DVP");
-            dtReturnsHoldings.Columns.Add("TotalPL");
+            dtReturnsHoldings.Columns.Add("TotalPL", typeof(double));
             dtReturnsHoldings.Columns.Add("AbsoluteReturn");
             dtReturnsHoldings.Columns.Add("XIRR");
             dtReturnsHoldings.Columns.Add("AMCCode");
@@ -870,8 +870,8 @@ namespace WealthERP.CustomerPortfolio
 
                 #region Reusing Old Code
 
-                Session["Folio"] = dataItem["FolioNum"].ToString();
-                Session["Scheme"] = dataItem["Scheme"].ToString();
+                Session["Folio"] = dataItem["FolioNum"].Text;
+                Session["Scheme"] = dataItem["Scheme"].Text;
                 Hashtable ht = new Hashtable();
                 ht["From"] = strFromDate;
                 ht["To"] = strToDate;
@@ -927,8 +927,8 @@ namespace WealthERP.CustomerPortfolio
 
                 #region Reusing Old Code
 
-                Session["Folio"] = dataItem["FolioNum"].ToString();
-                Session["Scheme"] = dataItem["Scheme"].ToString();
+                Session["Folio"] = dataItem["FolioNum"].Text;
+                Session["Scheme"] = dataItem["Scheme"].Text;
                 Hashtable ht = new Hashtable();
                 ht["From"] = strFromDate;
                 ht["To"] = strToDate;
@@ -984,8 +984,8 @@ namespace WealthERP.CustomerPortfolio
 
                 #region Reusing Old Code
 
-                Session["Folio"] = dataItem["FolioNum"].ToString();
-                Session["Scheme"] = dataItem["Scheme"].ToString();
+                Session["Folio"] = dataItem["FolioNum"].Text;
+                Session["Scheme"] = dataItem["Scheme"].Text;
                 Hashtable ht = new Hashtable();
                 ht["From"] = strFromDate;
                 ht["To"] = strToDate;
@@ -1045,8 +1045,8 @@ namespace WealthERP.CustomerPortfolio
 
                 #region Reusing Old Code
 
-                Session["Folio"] = dataItem["FolioNum"].ToString();
-                Session["Scheme"] = dataItem["Scheme"].ToString();
+                Session["Folio"] = dataItem["FolioNum"].Text;
+                Session["Scheme"] = dataItem["Scheme"].Text;
                 Hashtable ht = new Hashtable();
                 ht["From"] = strFromDate;
                 ht["To"] = strToDate;
@@ -1102,8 +1102,8 @@ namespace WealthERP.CustomerPortfolio
 
                 #region Reusing Old Code
 
-                Session["Folio"] = dataItem["FolioNum"].ToString();
-                Session["Scheme"] = dataItem["Scheme"].ToString();
+                Session["Folio"] = dataItem["FolioNum"].Text;
+                Session["Scheme"] = dataItem["Scheme"].Text;
                 Hashtable ht = new Hashtable();
                 ht["From"] = strFromDate;
                 ht["To"] = strToDate;
