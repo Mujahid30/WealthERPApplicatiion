@@ -2511,6 +2511,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Reports\MFRealized.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFRealized.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MFRealizedDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MFRealizedDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\MFReports.ascx.cs">
       <DependentUpon>MFReports.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3116,6 +3127,10 @@
     <EmbeddedResource Include="Reports\MFPortfolioAnalytics.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MFPortfolioAnalytics.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MFRealized.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>MFRealized.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\MFReturns.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -5413,6 +5428,8 @@
     <Content Include="bin\VoResearch.pdb" />
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="bin\VoValuation.dll" />
+    <Content Include="bin\VoValuation.pdb" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
@@ -6415,6 +6432,17 @@
     </None>
     <None Include="Reports\MFOpenCloseTransactionReportDS.xss">
       <DependentUpon>MFOpenCloseTransactionReportDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFRealizedDS.xsc">
+      <DependentUpon>MFRealizedDS.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\MFRealizedDS.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MFRealizedDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Reports\MFRealizedDS.xss">
+      <DependentUpon>MFRealizedDS.xsd</DependentUpon>
     </None>
     <None Include="Reports\MFReportsDS.xsc">
       <DependentUpon>MFReportsDS.xsd</DependentUpon>
