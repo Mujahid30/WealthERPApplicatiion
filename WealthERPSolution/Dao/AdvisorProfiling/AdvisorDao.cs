@@ -446,6 +446,10 @@ namespace DaoAdvisorProfiling
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
                     if (dr["A_Phone2STD"] != null && dr["A_Phone2STD"].ToString() != "")
                     advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+
+                    if (dr["A_VaultSize(in MB)"] != null && dr["A_VaultSize(in MB)"].ToString() != "")
+                        advisorVo.VaultSize = float.Parse(dr["A_VaultSize(in MB)"].ToString());
+
                     if (dr["A_Phone1ISD"] != null && dr["A_Phone1ISD"].ToString() != "")
                     advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
                     if (dr["A_Phone2ISD"] != null && dr["A_Phone2ISD"].ToString() != "")
