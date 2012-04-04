@@ -139,6 +139,8 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="Status" />
+                    <asp:BoundField HeaderText="Adviser" DataField="A_OrgName" ItemStyle-Wrap="false"/>
+                    
                     <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Process Id" />
                     <asp:BoundField DataField="ADUL_FileName" HeaderText="Actual FileName" />
                     <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText = "File Type" />

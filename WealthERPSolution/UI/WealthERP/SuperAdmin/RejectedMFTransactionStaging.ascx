@@ -273,6 +273,18 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         
+                         <asp:TemplateField>
+                            <HeaderTemplate>
+                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser Org."></asp:Label>
+                               <%-- <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
+                                    runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                                </asp:DropDownList>--%>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAdviserOrg"  runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        
                         <asp:TemplateField HeaderStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblInvName" runat="server" Text="Investor Name"></asp:Label><br />
