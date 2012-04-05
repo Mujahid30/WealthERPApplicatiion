@@ -248,13 +248,13 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_ViewMFTransaction_btnSubmit', 'S');"
                 OnClick="btnSubmit_Click" />
         </td>
-        <td>                <asp:Button ID="btnCancel" runat="server" 
-                Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" CausesValidation="True"
-                onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')"/>
-        </td>
         <td>                <asp:Button ID="btnDelete" runat="server" 
                 Text="Delete Transaction" CssClass="PCGLongButton" CausesValidation="True"
                 onclick="btnDelete_Click" OnClientClick="javascript: return confirm('Are you sure you want to Delete the Transaction?')"/>
         </td>
+       <td>                <asp:Button ID="btnCancel" runat="server" 
+                Text="Cancel Transaction" CssClass="PCGLongButton" Visible="false" CausesValidation="True"
+                onclick="btnCancel_Click" OnClientClick="javascript: return confirm('Are you sure you want to cancel the Transaction?')"/>
+       </td>        
     </tr>
 </table>

@@ -52,6 +52,7 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+            btnCancel.Visible = false;
         }
 
         private void LoadViewFields()
