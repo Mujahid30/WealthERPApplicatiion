@@ -122,50 +122,59 @@ namespace WealthERP.Admin
 
                 try
                 {
-                    // Put this part under a transaction scope
-                    using (TransactionScope scope = new TransactionScope())
+
+                    // Reading File Upload Control
+                    if (radUploadRepoItem.UploadedFiles.Count != 0)
                     {
-                        // Reading File Upload Control
-                        UploadedFile file = radUploadRepoItem.UploadedFiles[0];
-                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
-
-                        if (fileSize < 2)
+                        // Put this part under a transaction scope
+                        using (TransactionScope scope = new TransactionScope())
                         {
-                            // If upload file size is less than 2 MB then upload
 
-                            // Check if directory for advisor exists, and if not then create a new directoty
-                            if (!Directory.Exists(strRepositoryPath))
+                            UploadedFile file = radUploadRepoItem.UploadedFiles[0];
+                            float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+
+                            if (fileSize < 2)
                             {
-                                Directory.CreateDirectory(strRepositoryPath);
+                                // If upload file size is less than 2 MB then upload
+
+                                // Check if directory for advisor exists, and if not then create a new directoty
+                                if (!Directory.Exists(strRepositoryPath))
+                                {
+                                    Directory.CreateDirectory(strRepositoryPath);
+                                }
+
+                                strGuid = Guid.NewGuid().ToString();
+
+                                fileExtension = file.GetExtension();
+                                string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
+                                //FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
+                                //PermissionSet ps = new PermissionSet(PermissionState.None);
+                                //ps.AddPermission(fp);
+
+                                // Save adviser repository file in the path
+                                file.SaveAs(strRepositoryPath + "\\" + newFileName);
+
+                                repoVo.AdviserId = advisorVo.advisorId;
+                                repoVo.CategoryCode = ddlRCategory.SelectedValue;
+                                repoVo.Description = txtDescription.Text.Trim();
+                                repoVo.HeadingText = txtHeadingText.Text.Trim();
+                                repoVo.IsFile = true;
+                                repoVo.Link = newFileName;
+
+                                blResult = repoBo.AddRepositoryItem(repoVo);
+
+                            }
+                            else
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
                             }
 
-                            strGuid = Guid.NewGuid().ToString();
-
-                            fileExtension = file.GetExtension();
-                            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
-                            //FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
-                            //PermissionSet ps = new PermissionSet(PermissionState.None);
-                            //ps.AddPermission(fp);
-
-                            // Save adviser repository file in the path
-                            file.SaveAs(strRepositoryPath + "\\" + newFileName);
-
-                            repoVo.AdviserId = advisorVo.advisorId;
-                            repoVo.CategoryCode = ddlRCategory.SelectedValue;
-                            repoVo.Description = txtDescription.Text.Trim();
-                            repoVo.HeadingText = txtHeadingText.Text.Trim();
-                            repoVo.IsFile = true;
-                            repoVo.Link = newFileName;
-
-                            blResult = repoBo.AddRepositoryItem(repoVo);
-
+                            scope.Complete();
                         }
-                        else
-                        {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
-                        }
-
-                        scope.Complete();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file');", true);
                     }
                 }
                 catch (Exception ex)
@@ -263,7 +272,7 @@ namespace WealthERP.Admin
                         }
                         else
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your repository file size exceeds the allowable 2 MB limit!');", true);
                         }
 
                         scope.Complete();
@@ -285,6 +294,7 @@ namespace WealthERP.Admin
                 rgRepositoryList.Rebind();
                 ClearFields();
                 rmpManageRepository.PageViews[1].Selected = true;
+                RadTabStrip1.TabIndex = 1;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Repository Item updated successfully!');", true);
             }
             else
@@ -296,6 +306,7 @@ namespace WealthERP.Admin
         private void ClearFields()
         {
             ddlRCategory.SelectedIndex = 0;
+            ddlRCategory.Enabled = ddlUploadDataType.Enabled = true;
             txtHeadingText.Text = String.Empty;
             ddlUploadDataType.SelectedIndex = 0;
             txtDescription.Text = String.Empty;
@@ -383,6 +394,7 @@ namespace WealthERP.Admin
 
             // Call script to load first tab
             rmpManageRepository.PageViews[0].Selected = true;
+            RadTabStrip1.TabIndex = 0;
             BindEditFields();
 
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
@@ -404,12 +416,15 @@ namespace WealthERP.Admin
             {
                 ddlUploadDataType.SelectedValue = "F";
                 trUpload.Visible = true;
+                trUploadedFileName.Visible = true;
+                lblUploadedFile.Text = repoVo.Link;
                 trOutsideLink.Visible = false;
             }
             else
             {
                 ddlUploadDataType.SelectedValue = "L";
                 trUpload.Visible = false;
+                trUploadedFileName.Visible = false;
                 trOutsideLink.Visible = true;
                 txtOutsideLink.Text = repoVo.Link;
             }

@@ -38,11 +38,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:ListBox ID="ListBox1" runat="server" Visible="false" Width="200px" Height="150px"
+                            <asp:ListBox ID="ListBox1" runat="server" Visible="false" Width="300px" Height="150px"
                                 OnSelectedIndexChanged="ListBox_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                         </td>
                         <td>
-                            <asp:ListBox ID="ListBox2" runat="server" Visible="false" Width="200px" Height="150px"
+                            <asp:ListBox ID="ListBox2" runat="server" Visible="false" Width="300px" Height="150px"
                                 OnSelectedIndexChanged="ListBox_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                         </td>
                     </tr>
@@ -61,11 +61,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:ListBox ID="ListBox3" runat="server" Visible="false" Width="200px" Height="150px"
+                            <asp:ListBox ID="ListBox3" runat="server" Visible="false" Width="300px" Height="150px"
                                 OnSelectedIndexChanged="ListBox_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                         </td>
                         <td>
-                            <asp:ListBox ID="ListBox4" runat="server" Visible="false" Width="200px" Height="150px"
+                            <asp:ListBox ID="ListBox4" runat="server" Visible="false" Width="300px" Height="150px"
                                 OnSelectedIndexChanged="ListBox_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                         </td>
                     </tr>

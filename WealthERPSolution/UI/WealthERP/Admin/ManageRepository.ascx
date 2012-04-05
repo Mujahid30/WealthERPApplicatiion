@@ -47,7 +47,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox CssClass="txtField" ID="txtHeadingText" runat="server" Width="300px"
-                                    MaxLength="200"></asp:TextBox>
+                                    MaxLength="50"></asp:TextBox>
                                 <span id="span2" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvHeadingText" runat="server"
                                     ControlToValidate="txtHeadingText" ErrorMessage="<br/>Enter Heading Text" ValidationGroup="btnAdd"
@@ -97,10 +97,18 @@
                                 <asp:Label ID="lblUpload" Text="Upload:" runat="server" CssClass="FieldName"></asp:Label>
                             </td>
                             <td colspan="3" class="rightField" style="vertical-align: middle">
-                                <span style="font-size: xx-small">(Allowed extensions are: .jpg,.doc,.xls,.png,.pdf,.txt)</span>
+                                <span style="font-size: xx-small">(Allowed extensions are: .doc,.xls,.pdf,.docx,.xlsx)</span>
                                 <telerik:RadUpload ID="radUploadRepoItem" runat="server" ControlObjectsVisibility="None"
-                                    AllowedFileExtensions=".jpg,.doc,.xls,.png,.pdf,.txt" Skin="Telerik" EnableEmbeddedSkins="false">
+                                    AllowedFileExtensions=".doc,.xls,.pdf,.docx,.xlsx" Skin="Telerik" EnableEmbeddedSkins="false">
                                 </telerik:RadUpload>
+                            </td>
+                        </tr>
+                        <tr id="trUploadedFileName" runat="server" visible="false">
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td colspan="3">
+                                <asp:Label ID="lblUploadedFile" runat="server" CssClass="Field"></asp:Label>
                             </td>
                         </tr>
                         <tr>

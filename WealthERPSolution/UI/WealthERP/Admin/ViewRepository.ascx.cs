@@ -149,29 +149,5 @@ namespace WealthERP.Admin
                     "pageloadscript", "window.open('" + RedirectUrl + "')", true);
         }
 
-        //protected void ListBox2_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    string RedirectUrl = ListBox2.SelectedValue;
-        //    ListBox2.SelectedIndex = -1;
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(),
-        //            "pageloadscript", "window.open('" + RedirectUrl + "')", true);
-        //}
-
-        //protected void ListBox3_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    string RedirectUrl = ListBox3.SelectedValue;
-        //    ListBox3.SelectedIndex = -1;
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(),
-        //            "pageloadscript", "window.open('" + RedirectUrl + "')", true);
-        //}
-
-        //protected void ListBox4_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    string RedirectUrl = ListBox4.SelectedValue;
-        //    ListBox4.SelectedIndex = -1;
-        //    Page.ClientScript.RegisterStartupScript(this.GetType(),
-        //            "pageloadscript", "window.open('" + RedirectUrl + "')", true);
-        //}
-
     }
 }

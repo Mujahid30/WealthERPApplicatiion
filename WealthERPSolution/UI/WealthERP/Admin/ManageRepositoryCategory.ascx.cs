@@ -164,7 +164,7 @@ namespace WealthERP.Admin
 
             if (blResult)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Repository", "alert('Category names updated successfully!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Repository", "alert('Category names and associated roles updated successfully!');", true);
                 BindCategories();
             }
             //}

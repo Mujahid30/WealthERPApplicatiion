@@ -221,6 +221,24 @@ namespace WealthERP.Admin {
         protected global::Telerik.Web.UI.RadUpload radUploadRepoItem;
         
         /// <summary>
+        /// trUploadedFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trUploadedFileName;
+        
+        /// <summary>
+        /// lblUploadedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUploadedFile;
+        
+        /// <summary>
         /// btnAdd control.
         /// </summary>
         /// <remarks>
