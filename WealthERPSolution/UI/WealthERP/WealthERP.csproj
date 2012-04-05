@@ -2385,6 +2385,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CapitalGainSummaryDS.Designer.cs" />
+    <Compile Include="Reports\ComprehensiveMFReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComprehensiveMFReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reports\CustomerInvestmentDetails.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -3055,6 +3061,10 @@
     <EmbeddedResource Include="Reports\CapitalGainSummary.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CapitalGainSummary1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ComprehensiveMFReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ComprehensiveMFReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\CustomerAssetAllocationDetails.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
