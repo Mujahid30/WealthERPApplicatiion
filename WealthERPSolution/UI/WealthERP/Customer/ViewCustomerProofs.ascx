@@ -318,17 +318,18 @@
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
                                     <td align="center">
-                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
+                                        <asp:LinkButton ID="lnkMail" PostBackUrl="~/Reports/Display.aspx?mail=2" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
-                                    </td>
-                                    <td align="center">
-                                        <asp:LinkButton ID="lnkPrint" runat="server" CssClass="LinkButtons" CommandName="Print proof"
-                                            CommandArgument='<%# Eval("ProofUploadId") %>' Text="Print"></asp:LinkButton>
                                     </td>
                                     <td align="center">
                                         <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
                                     </td>
+                                    <td align="center" visible="false">
+                                        <asp:LinkButton ID="lnkPrint" Visible="false" runat="server" CssClass="LinkButtons" CommandName="Print proof"
+                                            CommandArgument='<%# Eval("ProofUploadId") %>' Text="Print"></asp:LinkButton>
+                                    </td>
+                                    
                                 </tr>
                             </ItemTemplate>
                             <SeparatorTemplate>
