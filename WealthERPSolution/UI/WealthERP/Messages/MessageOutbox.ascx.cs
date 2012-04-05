@@ -94,7 +94,7 @@ namespace WealthERP.Messages
                 }
                 if (dataBoundItem["To"].Text.Length > 30)
                 {
-                    dataBoundItem["To"].Text = dataBoundItem["To"].Text.Substring(0, 30) + ".....";
+                    dataBoundItem["To"].Text = dataBoundItem["To"].Text.Substring(0, 20) + ".....";
                 }
             }
         }

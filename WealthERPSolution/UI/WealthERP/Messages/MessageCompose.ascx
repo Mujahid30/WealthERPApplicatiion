@@ -50,7 +50,7 @@
                 CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trSelectStaff" runat="server">
         <td class="leftField">
             <asp:Label ID="lblStaffRole" Text="Select Staff Role:" runat="server" CssClass="FieldName"></asp:Label>
         </td>

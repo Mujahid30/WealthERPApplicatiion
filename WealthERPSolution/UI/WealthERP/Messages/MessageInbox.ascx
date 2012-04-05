@@ -109,7 +109,7 @@
                             <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Received" SortExpression="Received" HeaderText="Received"
-                                DataField="SentOn" DataFormatString="{0:d}">
+                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="ReadByUser" DataField="IsReadByUser" Visible="false" />

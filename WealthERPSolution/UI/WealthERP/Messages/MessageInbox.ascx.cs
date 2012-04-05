@@ -113,7 +113,7 @@ namespace WealthERP.Messages
                 }
                 if (dataBoundItem["Received"].Text.Length > 30)
                 {
-                    dataBoundItem["Received"].Text = dataBoundItem["Received"].Text.Substring(0, 30) + ".....";
+                    dataBoundItem["Received"].Text = dataBoundItem["Received"].Text.Substring(0, 20) + ".....";
                 }
             }
         }
@@ -146,6 +146,7 @@ namespace WealthERP.Messages
                     }
                 }
             }
+
             dt.TableName = "Table";
             ds.Tables.Add(dt);
             ds.DataSetName = "Deleted";
@@ -157,13 +158,13 @@ namespace WealthERP.Messages
 
                 if (blResult)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages deleted successfully!');", true);
                     RadGrid1.Rebind();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages deleted successfully!');", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages could not be deleted!');", true);
                     RadGrid1.Rebind();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages could not be deleted!');", true);
                 }
             }
             else

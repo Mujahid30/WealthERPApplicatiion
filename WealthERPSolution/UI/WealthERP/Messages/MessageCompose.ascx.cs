@@ -25,19 +25,15 @@ namespace WealthERP.Messages
         string strUserRoleRM = "RM"; // Future use
         string strUserRoleResearch = "Research";
         string strUserRoleOps = "Ops";
-        string strCurrentUserRole;
         int userId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            if (Session[SessionContents.CurrentUserRole] != null)
-                strCurrentUserRole = Session[SessionContents.CurrentUserRole].ToString();
             userVo = (UserVo)Session[SessionContents.UserVo];
             userId = userVo.UserId;
             if (!IsPostBack)
             {
-                strCurrentUserRole = String.Empty;
                 RoleCheckboxAccessibility();
             }
         }
@@ -48,18 +44,21 @@ namespace WealthERP.Messages
             if (userVo.UserType.ToLower() == strUserTypeSuperAdmin)
             {
                 // super admin logs in
-                Session[SessionContents.CurrentUserRole] = "superadmin";
+                Session[SessionContents.CurrentUserRole] = strUserTypeSuperAdmin;
                 chkbxAll.Visible = false;
-                for (int i = 0; i < ChkBxRoleList.Items.Count; i++)
-                {
-                    int currentItem = Int32.Parse(ChkBxRoleList.Items[i].Value.ToString());
-                    if (currentItem != 1000)
-                    {
-                        // Remove all check boxes except Advisor checkbox
-                        ChkBxRoleList.Items.RemoveAt(i);
-                        --i;
-                    }
-                }
+                trSelectStaff.Visible = false;
+                BindUserList();
+
+                //for (int i = 0; i < ChkBxRoleList.Items.Count; i++)
+                //{
+                //    int currentItem = Int32.Parse(ChkBxRoleList.Items[i].Value.ToString());
+                //    if (currentItem != 1000)
+                //    {
+                //        // Remove all check boxes except Advisor checkbox
+                //        ChkBxRoleList.Items.RemoveAt(i);
+                //        --i;
+                //    }
+                //}
             }
             else if (userVo.UserType.ToLower() == strUserTypeAdvisor)
             {
@@ -69,7 +68,7 @@ namespace WealthERP.Messages
                     for (int i = 0; i < ChkBxRoleList.Items.Count; i++)
                     {
                         int currentItem = Int32.Parse(ChkBxRoleList.Items[i].Value.ToString());
-                        if (currentItem == 1000)
+                        if (currentItem == 1000 || currentItem == 1003)
                         {
                             // Remove Advisor checkbox
                             ChkBxRoleList.Items.RemoveAt(i);
@@ -83,7 +82,7 @@ namespace WealthERP.Messages
                     for (int i = 0; i < ChkBxRoleList.Items.Count; i++)
                     {
                         int currentItem = Int32.Parse(ChkBxRoleList.Items[i].Value.ToString());
-                        if (currentItem == 1000 || currentItem == 1002)
+                        if (currentItem == 1000 || currentItem == 1002 || currentItem == 1003)
                         {
                             // Remove Advisor & BM checkbox
                             ChkBxRoleList.Items.RemoveAt(i);
@@ -123,12 +122,23 @@ namespace WealthERP.Messages
         {
             // Check if any of the checkboxes are checked. If yes, bind. Else dont do anything
             bool blBindUsers = false;
-            foreach (ListItem li in ChkBxRoleList.Items)
+            StringBuilder sbRoleList = new StringBuilder();
+
+            if (Session[SessionContents.CurrentUserRole].ToString().Equals(strUserTypeSuperAdmin))
             {
-                if (li.Selected)
+                // If Superadmin, then bind all advisers by default
+                blBindUsers = true;
+                sbRoleList.Append("1000");
+            }
+            else
+            {
+                foreach (ListItem li in ChkBxRoleList.Items)
                 {
-                    blBindUsers = true;
-                    break;
+                    if (li.Selected)
+                    {
+                        blBindUsers = true;
+                        break;
+                    }
                 }
             }
 
@@ -136,22 +146,24 @@ namespace WealthERP.Messages
             {
                 MessageBo msgBo = new MessageBo();
                 DataTable dtUserList = new DataTable();
-                StringBuilder sbRoleList = new StringBuilder();
 
-                foreach (ListItem li in ChkBxRoleList.Items)
+                if (!Session[SessionContents.CurrentUserRole].ToString().Equals(strUserTypeSuperAdmin))
                 {
-                    if (li.Selected)
+                    foreach (ListItem li in ChkBxRoleList.Items)
                     {
-                        if (li.Value != "0")
+                        if (li.Selected)
                         {
-                            sbRoleList.Append(li.Value);
-                            sbRoleList.Append(",");
+                            if (li.Value != "0")
+                            {
+                                sbRoleList.Append(li.Value);
+                                sbRoleList.Append(",");
+                            }
                         }
                     }
+                    sbRoleList.Remove(sbRoleList.Length - 1, 1);
                 }
-                sbRoleList.Remove(sbRoleList.Length - 1, 1);
 
-                dtUserList = (msgBo.GetUserListSpecificToRole(strCurrentUserRole, userVo.UserId, sbRoleList.ToString())).Tables[0];
+                dtUserList = (msgBo.GetUserListSpecificToRole(Session[SessionContents.CurrentUserRole].ToString(), userVo.UserId, sbRoleList.ToString())).Tables[0];
 
                 if (dtUserList.Rows.Count > 0)
                 {

@@ -32,7 +32,7 @@
             </telerik:RadAjaxManager>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
             <div id="dv" class="dvInbox">
-                <telerik:RadGrid ID="RadGridOutbox" runat="server" Width="860px" Height="220px" PageSize="6"
+                <telerik:RadGrid ID="RadGridOutbox" runat="server" Width="860px" Height="250px" PageSize="6"
                     AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="False"
                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                     OnItemCommand="RadGridOutbox_ItemCommand" EnableViewState="true" OnNeedDataSource="RadGridOutbox_NeedDataSource"
@@ -60,7 +60,7 @@
                             <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Sent" SortExpression="Sent" HeaderText="Sent"
-                                DataField="SentOn" DataFormatString="{0:d}">
+                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read">
@@ -70,7 +70,7 @@
                 </telerik:RadGrid>
                 <hr style="width: 860px; float: left;" />
                 <br />
-                <asp:Panel ID="pnlOutboxMessage" runat="server" ScrollBars="Auto" Height="220px"
+                <asp:Panel ID="pnlOutboxMessage" runat="server" ScrollBars="Auto" Height="200px"
                     Width="850px" BackColor="White" Style="padding: 20px 0 0 10px;">
                     <br />
                     <table id="tblMessageHeaders" runat="server" visible="false" width="100%">
