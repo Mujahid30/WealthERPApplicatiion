@@ -3200,21 +3200,26 @@ namespace WealthERP.Reports
                         }
                         break;
                     case "COMPREHENSIVE":
-                        crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
-
+                        //crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
+                        crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
+                        
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
-                            crmain.Subreports["MFSchemePerformance"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[1]);
-                            crmain.Subreports["MFTopTenHoldings"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[2]);
-                            crmain.Subreports["MFTopTenSectors"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[5]);
+                            //crmain.Subreports["MFSchemePerformance"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[1]);
+                            //crmain.Subreports["MFTopTenHoldings"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[2]);
+                            //crmain.Subreports["MFTopTenSectors"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[5]);
 
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
+                            //crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            //crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            //AssignReportViewerProperties();
 
                             //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")
@@ -3263,6 +3268,35 @@ namespace WealthERP.Reports
                             lblClosingBalanceNote.Visible = false;
                         }
                         break;
+
+                    case "REALIZED_REPORT":
+                        crmain.Load(Server.MapPath("MFRealized.rpt"));
+                        DataTable dtMFRealized = mfReports.GetMFRealizedReport(report, advisorVo.advisorId);
+                        if (dtMFRealized.Rows.Count > 0)
+                        {
+                            crmain.SetDataSource(dtMFRealized);
+                            setLogo();
+                            crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
+                            AssignReportViewerProperties();
+                            if (Request.QueryString["mail"] == "2")
+                            {
+                                ExportInPDF();
+                            }
+                            if (Request.QueryString["mail"] == "4")
+                            {
+                                ExportInDOC();
+                            }
+                            lblClosingBalanceNote.Visible = false;
+                        }
+                        else
+                        {
+                            SetNoRecords();
+                            lblClosingBalanceNote.Visible = false;
+                        }
+                        break;
+
 
                     case "ELIGIBLE_CAPITAL_GAIN_DETAILS":
                         crmain.Load(Server.MapPath("EligibleCapitalGainsDetails.rpt"));
