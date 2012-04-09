@@ -809,6 +809,31 @@ namespace DaoReports
             }
             return dsgetOrderTransactionForm;
         }
+
+        public DataTable GetMFRealizedReport(MFReportVo reports, int adviserId)
+        {
+
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdRealizedReport;
+            DataSet dsRealizedReport;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdRealizedReport = db.GetStoredProcCommand("SP_RPT_GetMFRealised");
+                db.AddInParameter(cmdRealizedReport, "@PortfolioIds", DbType.String, reports.PortfolioIds); //35437
+                db.AddInParameter(cmdRealizedReport, "@FromDate", DbType.DateTime, reports.FromDate);
+
+                cmdRealizedReport.CommandTimeout = 60 * 60;
+                dsRealizedReport = db.ExecuteDataSet(cmdRealizedReport);
+                return dsRealizedReport.Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
         
 
     }
