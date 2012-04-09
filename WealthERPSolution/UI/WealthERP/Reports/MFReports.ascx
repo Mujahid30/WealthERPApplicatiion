@@ -398,6 +398,7 @@
         arr["DIVIDEND_SUMMARY"] = "DATE_RANGE";
         arr["CAPITAL_GAIN_SUMMARY"] = "DATE_RANGE";
         arr["CAPITAL_GAIN_DETAILS"] = "DATE_RANGE";
+        arr["REALIZED_REPORT"] = "AS_ON";
 
         var dropdown = document.getElementById("<%= ddlReportSubType.ClientID %>");
         selectedReport = dropdown.options[dropdown.selectedIndex].value
@@ -841,6 +842,7 @@
                                                                 <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
                                                                 <asp:ListItem Text="Eligible Capital Gain Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
                                                                 <asp:ListItem Text="Closing Balance Report" Value="TRANSACTION_REPORT_OPEN_CLOSE_BALANCE"></asp:ListItem>
+                                                                <asp:ListItem Text="Realized Report" Value="REALIZED_REPORT"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </td>
                                                     </tr>
