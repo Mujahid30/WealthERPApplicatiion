@@ -27,6 +27,8 @@ namespace WealthERP.Reports {
         
         private MFComprehensiveDataTable tableMFComprehensive;
         
+        private MFRealizedDataTable tableMFRealized;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -56,6 +58,9 @@ namespace WealthERP.Reports {
                 if ((ds.Tables["MFComprehensive"] != null)) {
                     base.Tables.Add(new MFComprehensiveDataTable(ds.Tables["MFComprehensive"]));
                 }
+                if ((ds.Tables["MFRealized"] != null)) {
+                    base.Tables.Add(new MFRealizedDataTable(ds.Tables["MFRealized"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -80,6 +85,15 @@ namespace WealthERP.Reports {
         public MFComprehensiveDataTable MFComprehensive {
             get {
                 return this.tableMFComprehensive;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public MFRealizedDataTable MFRealized {
+            get {
+                return this.tableMFRealized;
             }
         }
         
@@ -145,6 +159,9 @@ namespace WealthERP.Reports {
                 if ((ds.Tables["MFComprehensive"] != null)) {
                     base.Tables.Add(new MFComprehensiveDataTable(ds.Tables["MFComprehensive"]));
                 }
+                if ((ds.Tables["MFRealized"] != null)) {
+                    base.Tables.Add(new MFRealizedDataTable(ds.Tables["MFRealized"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -181,6 +198,12 @@ namespace WealthERP.Reports {
                     this.tableMFComprehensive.InitVars();
                 }
             }
+            this.tableMFRealized = ((MFRealizedDataTable)(base.Tables["MFRealized"]));
+            if ((initTable == true)) {
+                if ((this.tableMFRealized != null)) {
+                    this.tableMFRealized.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -192,10 +215,17 @@ namespace WealthERP.Reports {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableMFComprehensive = new MFComprehensiveDataTable();
             base.Tables.Add(this.tableMFComprehensive);
+            this.tableMFRealized = new MFRealizedDataTable();
+            base.Tables.Add(this.tableMFRealized);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializeMFComprehensive() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeMFRealized() {
             return false;
         }
         
@@ -253,6 +283,8 @@ namespace WealthERP.Reports {
         }
         
         public delegate void MFComprehensiveRowChangeEventHandler(object sender, MFComprehensiveRowChangeEvent e);
+        
+        public delegate void MFRealizedRowChangeEventHandler(object sender, MFRealizedRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -690,6 +722,411 @@ namespace WealthERP.Reports {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "MFComprehensiveDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class MFRealizedDataTable : global::System.Data.TypedTableBase<MFRealizedRow> {
+            
+            private global::System.Data.DataColumn columnPASP_SchemePlanCode;
+            
+            private global::System.Data.DataColumn columnScheme;
+            
+            private global::System.Data.DataColumn columnFolio;
+            
+            private global::System.Data.DataColumn columnCP_PortfolioId;
+            
+            private global::System.Data.DataColumn columnPortfolioName;
+            
+            private global::System.Data.DataColumn columnC_CustomerId;
+            
+            private global::System.Data.DataColumn columnCustomerName;
+            
+            private global::System.Data.DataColumn columnInvestedCost;
+            
+            private global::System.Data.DataColumn columnRedeemedAmount;
+            
+            private global::System.Data.DataColumn columnDVP;
+            
+            private global::System.Data.DataColumn columnPL;
+            
+            private global::System.Data.DataColumn columnAbsReturn;
+            
+            private global::System.Data.DataColumn columnXIRR;
+            
+            private global::System.Data.DataColumn columnPAIC_AssetInstrumentCategoryCode;
+            
+            private global::System.Data.DataColumn columnCategory;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedDataTable() {
+                this.TableName = "MFRealized";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal MFRealizedDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected MFRealizedDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PASP_SchemePlanCodeColumn {
+                get {
+                    return this.columnPASP_SchemePlanCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn SchemeColumn {
+                get {
+                    return this.columnScheme;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn FolioColumn {
+                get {
+                    return this.columnFolio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CP_PortfolioIdColumn {
+                get {
+                    return this.columnCP_PortfolioId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PortfolioNameColumn {
+                get {
+                    return this.columnPortfolioName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn C_CustomerIdColumn {
+                get {
+                    return this.columnC_CustomerId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CustomerNameColumn {
+                get {
+                    return this.columnCustomerName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn InvestedCostColumn {
+                get {
+                    return this.columnInvestedCost;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn RedeemedAmountColumn {
+                get {
+                    return this.columnRedeemedAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn DVPColumn {
+                get {
+                    return this.columnDVP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PLColumn {
+                get {
+                    return this.columnPL;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn AbsReturnColumn {
+                get {
+                    return this.columnAbsReturn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn XIRRColumn {
+                get {
+                    return this.columnXIRR;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PAIC_AssetInstrumentCategoryCodeColumn {
+                get {
+                    return this.columnPAIC_AssetInstrumentCategoryCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CategoryColumn {
+                get {
+                    return this.columnCategory;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedRow this[int index] {
+                get {
+                    return ((MFRealizedRow)(this.Rows[index]));
+                }
+            }
+            
+            public event MFRealizedRowChangeEventHandler MFRealizedRowChanging;
+            
+            public event MFRealizedRowChangeEventHandler MFRealizedRowChanged;
+            
+            public event MFRealizedRowChangeEventHandler MFRealizedRowDeleting;
+            
+            public event MFRealizedRowChangeEventHandler MFRealizedRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddMFRealizedRow(MFRealizedRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedRow AddMFRealizedRow(string PASP_SchemePlanCode, string Scheme, string Folio, string CP_PortfolioId, string PortfolioName, string C_CustomerId, string CustomerName, long InvestedCost, long RedeemedAmount, long DVP, long PL, long AbsReturn, long XIRR, string PAIC_AssetInstrumentCategoryCode, string Category) {
+                MFRealizedRow rowMFRealizedRow = ((MFRealizedRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        PASP_SchemePlanCode,
+                        Scheme,
+                        Folio,
+                        CP_PortfolioId,
+                        PortfolioName,
+                        C_CustomerId,
+                        CustomerName,
+                        InvestedCost,
+                        RedeemedAmount,
+                        DVP,
+                        PL,
+                        AbsReturn,
+                        XIRR,
+                        PAIC_AssetInstrumentCategoryCode,
+                        Category};
+                rowMFRealizedRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMFRealizedRow);
+                return rowMFRealizedRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override global::System.Data.DataTable Clone() {
+                MFRealizedDataTable cln = ((MFRealizedDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new MFRealizedDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnPASP_SchemePlanCode = base.Columns["PASP_SchemePlanCode"];
+                this.columnScheme = base.Columns["Scheme"];
+                this.columnFolio = base.Columns["Folio"];
+                this.columnCP_PortfolioId = base.Columns["CP_PortfolioId"];
+                this.columnPortfolioName = base.Columns["PortfolioName"];
+                this.columnC_CustomerId = base.Columns["C_CustomerId"];
+                this.columnCustomerName = base.Columns["CustomerName"];
+                this.columnInvestedCost = base.Columns["InvestedCost"];
+                this.columnRedeemedAmount = base.Columns["RedeemedAmount"];
+                this.columnDVP = base.Columns["DVP"];
+                this.columnPL = base.Columns["PL"];
+                this.columnAbsReturn = base.Columns["AbsReturn"];
+                this.columnXIRR = base.Columns["XIRR"];
+                this.columnPAIC_AssetInstrumentCategoryCode = base.Columns["PAIC_AssetInstrumentCategoryCode"];
+                this.columnCategory = base.Columns["Category"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnPASP_SchemePlanCode = new global::System.Data.DataColumn("PASP_SchemePlanCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPASP_SchemePlanCode);
+                this.columnScheme = new global::System.Data.DataColumn("Scheme", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnScheme);
+                this.columnFolio = new global::System.Data.DataColumn("Folio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFolio);
+                this.columnCP_PortfolioId = new global::System.Data.DataColumn("CP_PortfolioId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCP_PortfolioId);
+                this.columnPortfolioName = new global::System.Data.DataColumn("PortfolioName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPortfolioName);
+                this.columnC_CustomerId = new global::System.Data.DataColumn("C_CustomerId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnC_CustomerId);
+                this.columnCustomerName = new global::System.Data.DataColumn("CustomerName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCustomerName);
+                this.columnInvestedCost = new global::System.Data.DataColumn("InvestedCost", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnInvestedCost);
+                this.columnRedeemedAmount = new global::System.Data.DataColumn("RedeemedAmount", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRedeemedAmount);
+                this.columnDVP = new global::System.Data.DataColumn("DVP", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDVP);
+                this.columnPL = new global::System.Data.DataColumn("PL", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPL);
+                this.columnAbsReturn = new global::System.Data.DataColumn("AbsReturn", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAbsReturn);
+                this.columnXIRR = new global::System.Data.DataColumn("XIRR", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnXIRR);
+                this.columnPAIC_AssetInstrumentCategoryCode = new global::System.Data.DataColumn("PAIC_AssetInstrumentCategoryCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPAIC_AssetInstrumentCategoryCode);
+                this.columnCategory = new global::System.Data.DataColumn("Category", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategory);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedRow NewMFRealizedRow() {
+                return ((MFRealizedRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new MFRealizedRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override global::System.Type GetRowType() {
+                return typeof(MFRealizedRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.MFRealizedRowChanged != null)) {
+                    this.MFRealizedRowChanged(this, new MFRealizedRowChangeEvent(((MFRealizedRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.MFRealizedRowChanging != null)) {
+                    this.MFRealizedRowChanging(this, new MFRealizedRowChangeEvent(((MFRealizedRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.MFRealizedRowDeleted != null)) {
+                    this.MFRealizedRowDeleted(this, new MFRealizedRowChangeEvent(((MFRealizedRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.MFRealizedRowDeleting != null)) {
+                    this.MFRealizedRowDeleting(this, new MFRealizedRowChangeEvent(((MFRealizedRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveMFRealizedRow(MFRealizedRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MFRealizedDS ds = new MFRealizedDS();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "MFRealizedDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1222,6 +1659,397 @@ namespace WealthERP.Reports {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class MFRealizedRow : global::System.Data.DataRow {
+            
+            private MFRealizedDataTable tableMFRealized;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal MFRealizedRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableMFRealized = ((MFRealizedDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string PASP_SchemePlanCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.PASP_SchemePlanCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PASP_SchemePlanCode\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.PASP_SchemePlanCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Scheme {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.SchemeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Scheme\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.SchemeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Folio {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.FolioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Folio\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.FolioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string CP_PortfolioId {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.CP_PortfolioIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CP_PortfolioId\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.CP_PortfolioIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string PortfolioName {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.PortfolioNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PortfolioName\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.PortfolioNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string C_CustomerId {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.C_CustomerIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'C_CustomerId\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.C_CustomerIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string CustomerName {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.CustomerNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CustomerName\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.CustomerNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long InvestedCost {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.InvestedCostColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'InvestedCost\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.InvestedCostColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long RedeemedAmount {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.RedeemedAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'RedeemedAmount\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.RedeemedAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long DVP {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.DVPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DVP\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.DVPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long PL {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.PLColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PL\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.PLColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long AbsReturn {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.AbsReturnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AbsReturn\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.AbsReturnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public long XIRR {
+                get {
+                    try {
+                        return ((long)(this[this.tableMFRealized.XIRRColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'XIRR\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.XIRRColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string PAIC_AssetInstrumentCategoryCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.PAIC_AssetInstrumentCategoryCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PAIC_AssetInstrumentCategoryCode\' in table \'MFRealized\' is " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.PAIC_AssetInstrumentCategoryCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Category {
+                get {
+                    try {
+                        return ((string)(this[this.tableMFRealized.CategoryColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Category\' in table \'MFRealized\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMFRealized.CategoryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPASP_SchemePlanCodeNull() {
+                return this.IsNull(this.tableMFRealized.PASP_SchemePlanCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPASP_SchemePlanCodeNull() {
+                this[this.tableMFRealized.PASP_SchemePlanCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsSchemeNull() {
+                return this.IsNull(this.tableMFRealized.SchemeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetSchemeNull() {
+                this[this.tableMFRealized.SchemeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsFolioNull() {
+                return this.IsNull(this.tableMFRealized.FolioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetFolioNull() {
+                this[this.tableMFRealized.FolioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCP_PortfolioIdNull() {
+                return this.IsNull(this.tableMFRealized.CP_PortfolioIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCP_PortfolioIdNull() {
+                this[this.tableMFRealized.CP_PortfolioIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPortfolioNameNull() {
+                return this.IsNull(this.tableMFRealized.PortfolioNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPortfolioNameNull() {
+                this[this.tableMFRealized.PortfolioNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsC_CustomerIdNull() {
+                return this.IsNull(this.tableMFRealized.C_CustomerIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetC_CustomerIdNull() {
+                this[this.tableMFRealized.C_CustomerIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCustomerNameNull() {
+                return this.IsNull(this.tableMFRealized.CustomerNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCustomerNameNull() {
+                this[this.tableMFRealized.CustomerNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsInvestedCostNull() {
+                return this.IsNull(this.tableMFRealized.InvestedCostColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetInvestedCostNull() {
+                this[this.tableMFRealized.InvestedCostColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsRedeemedAmountNull() {
+                return this.IsNull(this.tableMFRealized.RedeemedAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetRedeemedAmountNull() {
+                this[this.tableMFRealized.RedeemedAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDVPNull() {
+                return this.IsNull(this.tableMFRealized.DVPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDVPNull() {
+                this[this.tableMFRealized.DVPColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPLNull() {
+                return this.IsNull(this.tableMFRealized.PLColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPLNull() {
+                this[this.tableMFRealized.PLColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAbsReturnNull() {
+                return this.IsNull(this.tableMFRealized.AbsReturnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAbsReturnNull() {
+                this[this.tableMFRealized.AbsReturnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsXIRRNull() {
+                return this.IsNull(this.tableMFRealized.XIRRColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetXIRRNull() {
+                this[this.tableMFRealized.XIRRColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPAIC_AssetInstrumentCategoryCodeNull() {
+                return this.IsNull(this.tableMFRealized.PAIC_AssetInstrumentCategoryCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPAIC_AssetInstrumentCategoryCodeNull() {
+                this[this.tableMFRealized.PAIC_AssetInstrumentCategoryCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCategoryNull() {
+                return this.IsNull(this.tableMFRealized.CategoryColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCategoryNull() {
+                this[this.tableMFRealized.CategoryColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
@@ -1239,6 +2067,37 @@ namespace WealthERP.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public MFComprehensiveRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class MFRealizedRowChangeEvent : global::System.EventArgs {
+            
+            private MFRealizedRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedRowChangeEvent(MFRealizedRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public MFRealizedRow Row {
                 get {
                     return this.eventRow;
                 }
