@@ -492,5 +492,11 @@ namespace BoReports
             }
             return dsTransactionSlip;
         }
+
+        public DataTable GetMFRealizedReport(MFReportVo report, int adviserId)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            return mfReports.GetMFRealizedReport(report, adviserId);
+        }
     }
 }
