@@ -393,5 +393,27 @@ namespace BoCustomerPortfolio
 
 
         }
+        public DataSet GetTransactionDetailFolioSchemeWise(string folio, int schemePlanCode, int customerId)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+            DataSet ds = new DataSet();
+
+            ds = portfolioDao.GetTransactionDetailFolioSchemeWise(folio, schemePlanCode, customerId);
+
+            return ds;
+
+        }
+        public DataSet GetBalancedDetailFolioSchemeWise(string folio, int schemePlanCode, int customerId, DateTime valuationDate)
+        {
+
+            PortfolioDao portfolioDao = new PortfolioDao();
+            DataSet ds = new DataSet();
+
+            ds = portfolioDao.GetBalancedDetailFolioSchemeWise(folio, schemePlanCode, customerId, valuationDate);
+
+            return ds;
+
+        }
     }
 }
