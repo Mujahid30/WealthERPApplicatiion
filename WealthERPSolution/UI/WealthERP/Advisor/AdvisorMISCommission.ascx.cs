@@ -25,8 +25,8 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using BoCommon;
 using System.Configuration;
-
-
+using Telerik.Web.UI;
+using VoUser;
 
 namespace WealthERP.Advisor
 {
@@ -39,155 +39,83 @@ namespace WealthERP.Advisor
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:OnInit()");
-                object[] objects = new object[0];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.BindCommissionMISGrig();
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[2];
-                objects[0] = mypager.CurrentPage;                
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        AdvisorVo advisorVo = new AdvisorVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //rbtnPickDate.Attributes.Add("onClick", "javascript:DisplayDates(value);");
-            //rbtnPickPeriod.Attributes.Add("onClick", "javascript:DisplayDates(value);");
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!Page.IsPostBack)
             {
-                hidDateType.Value = "DATE_RANGE";
                 BindPeriodDropDown();
+                RadioButtonClick(sender, e);
             }
-
-            trPager.Visible = false;
         }
-
         /// <summary>
         /// Binding Period Dropdown From Xml File
-        /// </summary>
-
+        /// </summary>        
         private void BindPeriodDropDown()
-        {
+        {            
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             DataTable dtPeriod;
             dtPeriod = XMLBo.GetDatePeriod(path);
-
             ddlPeriod.DataSource = dtPeriod;
             ddlPeriod.DataTextField = "PeriodType";
             ddlPeriod.DataValueField = "PeriodCode";
             ddlPeriod.DataBind();
-            ddlPeriod.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select a Period", "Select a Period"));
-            ddlPeriod.Items.RemoveAt(15);
+            ddlPeriod.Items.Insert(0, new RadComboBoxItem("Select a Period","0"));
+            ddlPeriod.Items.Remove(15);
         }
-        public void BindCommissionMISGrig()
+        public void BindCommissionMISGrid()
         {
             DataTable dtMIS;
+            //string misType = null;
+            //ddlMISType.SelectedValue = misType;
             userVo=(UserVo)Session["userVo"];
-            int count;
-           double sumTotal;
+            double sumTotal;
             if (hdnCurrentPage.Value.ToString() != "")
             {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
             }
-            dsMISCommission = advisorMISBo.GetMFMISCommission(userVo.UserId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), mypager.CurrentPage, out count, out sumTotal);
-            lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+            dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);            
             if (dsMISCommission.Tables[0].Rows.Count > 0)
             {
                 dtMIS = dsMISCommission.Tables[0];
-                gvCommissionMIS.DataSource = dtMIS;
-                gvCommissionMIS.DataBind();
-                gvCommissionMIS.Visible = true;
-                lblCurrentPage.Visible = true;
-                lblTotalRows.Visible = true;
+                string misType = hdnMISType.Value.ToString();                
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
-                trPager.Visible = true;
-
                 Label lblHeaderText = new Label();
-                lblHeaderText = (Label)gvCommissionMIS.HeaderRow.FindControl("lblHeaderText");
-                string misType = hdnMISType.Value.ToString();
+                GridBoundColumn ghItem = gvCommissionMIS.MasterTableView.Columns.FindByUniqueName("MISType") as GridBoundColumn;                
                 switch (misType)
                 {
                     case "Folio Wise":
-                        lblHeaderText.Text = "Folio Number";
+                        ghItem.HeaderText = "Folio Number";
                         break;
                     case "AMC Wise":
-                        lblHeaderText.Text = "AMC Name";
+                        ghItem.HeaderText = "AMC Name";
                         break;
                     case "Transaction_Wise":
-                        lblHeaderText.Text = "Transaction Classification Name";
+                        ghItem.HeaderText = "Transaction Classification Name";
                         break;
                     case "Category Wise":
-                        lblHeaderText.Text = "Category";
+                        ghItem.HeaderText = "Category";
                         break;
-
                     default:
-                        lblHeaderText.Text = "Folio Number";
+                        ghItem.HeaderText = "Folio Number";                        
                         break;
                 }
-
-                Label lblTotalText = (Label)gvCommissionMIS.FooterRow.FindControl("lblTotalValue");
-                lblTotalText.Text = lblTotalText.Text + " " + decimal.Parse(sumTotal.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")).ToString(); 
-                this.GetPageCount();
+                
+                gvCommissionMIS.DataSource = dtMIS;
+                gvCommissionMIS.CurrentPageIndex = 0;
+                gvCommissionMIS.DataBind();
+                gvCommissionMIS.Visible = true;
             }
             else
             {
-                gvCommissionMIS.Visible = false;
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
+                gvCommissionMIS.Visible = false;                
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                trPager.Visible = false;
-             
-            }
-           
+            }           
         }
-
-
         protected void btnView_Click(object sender, EventArgs e)
         {
             hdnMISType.Value = ddlMISType.SelectedValue.ToString();
@@ -195,20 +123,19 @@ namespace WealthERP.Advisor
             hdnFromDate.Value = dtFrom.ToString();
             hdnToDate.Value = dtTo.ToString();
             hdnRecordCount.Value = "1";
-            GetPageCount();
-            BindCommissionMISGrig();
+            BindCommissionMISGrid();
         }
         /// <summary>
         /// Get the From and To Date of reports
         /// </summary>
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
-            if (hidDateType.Value.ToString() == "DATE_RANGE")
+            if (rbtnPickDate.Checked)
             {
-                fromDate =DateTime.Parse(txtFromDate.Text);
-                toDate = DateTime.Parse(txtToDate.Text);
+                fromDate = DateTime.Parse((txtFromDate.SelectedDate.Value).ToString());
+                toDate = DateTime.Parse((txtToDate.SelectedDate.Value).ToString());
             }
-            else if (hidDateType.Value.ToString() == "PERIOD")
+            else if (rbtnPickPeriod.Checked)
             {
                 dtBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue.ToString(), out dtFrom, out dtTo);
                 fromDate = dtFrom;
@@ -219,61 +146,52 @@ namespace WealthERP.Advisor
                 fromDate = DateTime.MinValue;
                 toDate = DateTime.MinValue;
             }
-           
         }
-
-        private void GetPageCount()
+        
+        public void RadioButtonClick(object sender, EventArgs e)
         {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
+            if (rbtnPickPeriod.Checked)
             {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount /15;
-                    mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    if (((mypager.CurrentPage - 1) * 15) != 0)
-                        lowerlimit = (((mypager.CurrentPage - 1) * 15) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (mypager.CurrentPage * 15).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
+                lblPeriod.Visible = true;
+                ddlPeriod.Visible = true;
+                lblFromDate.Visible = false;
+                txtFromDate.Visible = false;
+                lblToDate.Visible = false;
+                txtToDate.Visible = false;
+                PickADateValidation.Visible = false;
+                PickAPeriodValidation.Visible = true;
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
-
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+            else if (rbtnPickDate.Checked)
+            {             
+                lblPeriod.Visible = false;
+                ddlPeriod.Visible = false;
+                lblFromDate.Visible = true;
+                txtFromDate.Visible = true;
+                lblToDate.Visible = true;
+                txtToDate.Visible = true;
+                PickAPeriodValidation.Visible = false;
+                PickADateValidation.Visible = true;
             }
         }
 
-     
+        public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
+        {
+            //userVo = (UserVo)Session["userVo"];
+            //double sumTotal;            
+            //if (hdnFromDate.Value == "" || hdnToDate.Value == "")
+            //{
+            //    hdnFromDate.Value = DateTime.Now.ToShortDateString();
+            //    hdnToDate.Value = DateTime.Now.ToShortDateString();
+            //}
+            
+            //dsMISCommission = advisorMISBo.GetMFMISCommission(userVo.UserId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);
+            
+            //gvCommissionMIS.DataSource = dsMISCommission;
+            
+            //if (dsMISCommission.Tables[0].Rows.Count ==0)
+            //{
+            //    gvCommissionMIS.Visible = false;
+            //}
+        }
     }
 }
