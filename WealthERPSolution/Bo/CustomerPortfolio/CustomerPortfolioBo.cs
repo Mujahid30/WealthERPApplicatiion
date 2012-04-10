@@ -3201,7 +3201,7 @@ namespace BoCustomerPortfolio
             CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
             try
             {
-                mfNPId = customerPortfolioDao.AddMutualFundNetPosition(mfPortfolioVo, userId);
+               // mfNPId = customerPortfolioDao.AddMutualFundNetPosition(mfPortfolioVo, userId);
             }
             catch (BaseApplicationException Ex)
             {
