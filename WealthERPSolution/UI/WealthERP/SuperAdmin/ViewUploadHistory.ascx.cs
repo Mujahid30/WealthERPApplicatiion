@@ -255,45 +255,45 @@ namespace WealthERP.SuperAdmin
                         filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId==21)
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfileSA','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile)
                        && (extracttype == "FO"))
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolioStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSTransaction || filetypeId == (int)Contants.UploadTypes.KarvyTransaction || filetypeId == (int)Contants.UploadTypes.TempletonTransaction ||
                        filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId==25||filetypeId==6)
                        && extracttype == "MFT")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
 
                     else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTradeAccount && extracttype == "TAO")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedTradeAccountStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedTradeAccountStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
                     else if (filetypeId == (int)Contants.UploadTypes.EquityStandardTransaction && extracttype == "ET")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
                     else if (filetypeId == (int)Contants.UploadTypes.IIFLTransaction && extracttype == "ET")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
                     else if (filetypeId == (int)Contants.UploadTypes.ODINTransaction && extracttype == "ET")
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
 
                     else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID  + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStagingSA','processId=" + processID + "');", true);
                     }
 
                 }

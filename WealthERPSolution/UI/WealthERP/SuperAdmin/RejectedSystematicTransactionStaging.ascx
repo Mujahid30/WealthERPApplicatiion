@@ -306,6 +306,17 @@
                                 <asp:Label ID="lblRejectReasonHeader"  runat="server" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                         <asp:TemplateField>
+                    <HeaderTemplate>
+                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser Org."></asp:Label>
+                               <%-- <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
+                                    runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                                </asp:DropDownList>--%>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAdviserOrg"  runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
