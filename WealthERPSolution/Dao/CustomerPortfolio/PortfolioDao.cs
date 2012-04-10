@@ -685,5 +685,54 @@ namespace DaoCustomerPortfolio
             
 
         }
+
+        public DataSet GetTransactionDetailFolioSchemeWise(string folio, int schemePlanCode, int customerId)
+        {
+            Database db;
+            DbCommand getCustomerTrasactionDetailsCmd;
+            DataSet dsTransactionDetaisl;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTrasactionDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerTransactionsDetailsFolioSchemeWise");
+                db.AddInParameter(getCustomerTrasactionDetailsCmd, "@folio", DbType.String, folio);
+                db.AddInParameter(getCustomerTrasactionDetailsCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(getCustomerTrasactionDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+
+                dsTransactionDetaisl = db.ExecuteDataSet(getCustomerTrasactionDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsTransactionDetaisl;
+
+
+        }
+
+        public DataSet GetBalancedDetailFolioSchemeWise(string folio, int schemePlanCode, int customerId, DateTime valuationDate)
+        {
+            Database db;
+            DbCommand getCustomerTrasactionBalancedDetailsCmd;
+            DataSet dsTransactionBalancedDetails;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTrasactionBalancedDetailsCmd = db.GetStoredProcCommand("SPROC_GetBalancedDetailFolioSchemeWise");
+                db.AddInParameter(getCustomerTrasactionBalancedDetailsCmd, "@folio", DbType.String, folio);
+                db.AddInParameter(getCustomerTrasactionBalancedDetailsCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(getCustomerTrasactionBalancedDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerTrasactionBalancedDetailsCmd, "@ValuationDate", DbType.DateTime, valuationDate);
+                dsTransactionBalancedDetails = db.ExecuteDataSet(getCustomerTrasactionBalancedDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsTransactionBalancedDetails;
+        }
     }
 }
