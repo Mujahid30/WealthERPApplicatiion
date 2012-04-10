@@ -27,6 +27,7 @@ namespace VoSuperAdmin
         public int IsDeActivated { get; set; }
         public DateTime DeActivationDate { get; set; }
         public int IsActive { get; set; }
+        public string FlavourCategory { get; set; }
 
     }
 }

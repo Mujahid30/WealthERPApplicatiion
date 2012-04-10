@@ -119,7 +119,8 @@ namespace DaoSuperAdmin
                 //db.AddInParameter(createAdviserSubscriptionCmd, "@AS_IsDeactivated", DbType.Int32, rmVo.OfficePhoneExtStd);
                 //db.AddInParameter(createAdviserSubscriptionCmd, "@AS_DeactivationDate", DbType.Int32, rmVo.OfficePhoneExtNumber);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_Comments", DbType.String, adviserSubscriptionVo.Comments);
-                db.AddInParameter(createAdviserSubscriptionCmd, "@WP_PlanId", DbType.String, adviserSubscriptionVo.PlanId);
+                db.AddInParameter(createAdviserSubscriptionCmd, "@WP_PlanId", DbType.String, 3);
+                db.AddInParameter(createAdviserSubscriptionCmd, "@WFC_FlavourCategoryCode", DbType.String, adviserSubscriptionVo.FlavourCategory);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_ModifiedBy", DbType.Int32, userId);
 

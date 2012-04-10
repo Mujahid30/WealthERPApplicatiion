@@ -12,10 +12,10 @@
    
     function alertOnBadSelection() {
 
-        var select = document.getElementById('<%=ddlPlan.ClientID %>');
+        var select = document.getElementById('<%=ddlFlavourCategory.ClientID %>');
         var status = false;
             if (select.options[select.selectedIndex].value == "Select") {
-                alert('Please select plan....');
+                alert('Please Select Category');
                 return false;
             }
             else {
@@ -31,7 +31,7 @@
                     return true;
                 }
                 else {                    
-                    alert('Please elect atleast one Module');
+                    alert('Please select atleast one Module');
                     return false;
                 }              
                 
@@ -199,7 +199,7 @@
                 </tr>
                 <tr>
                 <td></td>
-                <td><asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" CssClass="PCGMediumButton" OnClientClick="return alertOnBadSelection()" /></td>
+                <td><asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" CssClass="PCGMediumButton" OnClientClick="return alertOnBadSelection()"/></td>
                 </tr>
             </table>
         </td>
@@ -207,12 +207,18 @@
             <table>
                 <tr>
                     <td>
-                        <asp:Label ID="lblPlan" runat="server" CssClass="FieldName" Text="Plan : "></asp:Label>
+                        <asp:Label ID="lblFlavourCategory" runat="server" CssClass="FieldName" Text="Flavour Category: "></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlPlan" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPlan_SelectedIndexChanged"
+                        <asp:DropDownList ID="ddlFlavourCategory" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlFlavourCategory_SelectedIndexChanged"
                             AutoPostBack="true">
+                            <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                            <asp:ListItem Text="Advisory" Value="AD"></asp:ListItem>
+                             <asp:ListItem Text="All" Value="AL"></asp:ListItem>
+                            <asp:ListItem Text="Distribtion" Value="DT"></asp:ListItem>
+                            <asp:ListItem Text="Value Adds" Value="VA"></asp:ListItem>
                         </asp:DropDownList>
+                          
                     </td>
                 </tr>
                 <tr>
@@ -220,18 +226,13 @@
                         <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName">
                             <asp:ListItem Text="Mutual Funds" Value="1"></asp:ListItem>
                             <asp:ListItem Text="Equity" Value="2"></asp:ListItem>
-                            <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>
-                            <asp:ListItem Text="Fixed Income" Value="6"></asp:ListItem>
-                            <asp:ListItem Text="Govt Savings" Value="7"></asp:ListItem>
-                            <asp:ListItem Text="Liabilities" Value="5"></asp:ListItem>
                             <asp:ListItem Text="Financial Planning" Value="3"></asp:ListItem>
-                            <asp:ListItem Text="Pension and Gratuities" Value="8"></asp:ListItem>
-                            <asp:ListItem Text="Property" Value="9"></asp:ListItem>
-                            <asp:ListItem Text="Gold" Value="10"></asp:ListItem>
-                            <asp:ListItem Text="Cash & Savings" Value="11"></asp:ListItem>
-                            <asp:ListItem Text="Personal Assets" Value="12"></asp:ListItem>
-                            <asp:ListItem Text="Collectibles" Value="13"></asp:ListItem>
-                            <%--<asp:ListItem Text="SCB" Value="15"></asp:ListItem>--%>
+                            <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>                            
+                            <asp:ListItem Text="Liabilities" Value="5"></asp:ListItem>
+                            <asp:ListItem Text="Multi Asset" Value="6"></asp:ListItem>
+                            <asp:ListItem Text="Common" Value="7"></asp:ListItem>                            
+                            <asp:ListItem Text="Goal" Value="8"></asp:ListItem>
+                            <asp:ListItem Text="Risk Profile" Value="9"></asp:ListItem>                          
                         </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="cvmodulelist" 
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>
