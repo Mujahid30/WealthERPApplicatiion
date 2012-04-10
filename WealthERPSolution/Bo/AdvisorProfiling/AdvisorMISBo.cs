@@ -521,14 +521,14 @@ namespace BoAdvisorProfiling
    /// <param name="count"></param>
    /// <param name="sumTotal"></param>
    /// <returns></returns>
-        public DataSet GetMFMISCommission(int userId, string misType, DateTime dtFrom, DateTime dtTo,int currentPage,out int count,out double sumTotal)
+        public DataSet GetMFMISCommission(int adviserId, string misType, DateTime dtFrom, DateTime dtTo,out double sumTotal)
         {
            
             DataSet dsGetMISCommission = null;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsGetMISCommission = MISDao.GetMFMISCommission(userId, misType, dtFrom, dtTo, currentPage, out count, out sumTotal);               
+                dsGetMISCommission = MISDao.GetMFMISCommission(adviserId, misType, dtFrom, dtTo, out sumTotal);               
             }
             catch (BaseApplicationException Ex)
             {
@@ -542,7 +542,7 @@ namespace BoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorMFBo.cs:GetMFMISCommission()");
 
                 object[] objects = new object[5];
-                objects[0] = userId;
+                objects[0] = adviserId;
                 objects[1] = misType;
                 objects[2] = dtFrom;
                 objects[3] = dtTo;
