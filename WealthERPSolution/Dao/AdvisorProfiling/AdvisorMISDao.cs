@@ -746,7 +746,7 @@ namespace DaoAdvisorProfiling
         /// <param name="count"></param>
         /// <param name="sumToatal"></param>
         /// <returns></returns>
-        public DataSet GetMFMISCommission(int userId, string misType, DateTime dtFrom, DateTime dtTo,int currentPage, out int count,out double sumToatal)
+        public DataSet GetMFMISCommission(int adviserId, string misType, DateTime dtFrom, DateTime dtTo, out double sumToatal)
         {
             Database db;
             DbCommand getMISCommissionCmd;
@@ -757,19 +757,15 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMISCommissionCmd = db.GetStoredProcCommand("SP_GetMISCommission");
                 db.AddInParameter(getMISCommissionCmd, "@MISType", DbType.String, misType);
-                db.AddInParameter(getMISCommissionCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(getMISCommissionCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getMISCommissionCmd, "@FromDate", DbType.Date, dtFrom);
                 db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date,dtTo) ;
-                db.AddInParameter(getMISCommissionCmd, "@currentPage", DbType.Int32, currentPage);
-                db.AddOutParameter(getMISCommissionCmd, "@Count", DbType.Int32, 0);
                 db.AddOutParameter(getMISCommissionCmd, "@SumTotal", DbType.Double, 0);
                 dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
-                count = (int)db.GetParameterValue(getMISCommissionCmd, "@Count");
                 if (!string.IsNullOrEmpty(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString()))
                     sumToatal = double.Parse(db.GetParameterValue(getMISCommissionCmd, "@SumTotal").ToString());
                 else
                     sumToatal = 0;
-               
             }
             catch (BaseApplicationException Ex)
             {
@@ -783,7 +779,7 @@ namespace DaoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMFMISCommission()");
 
                 object[] objects = new object[5];
-                objects[0] = userId;
+                objects[0] = adviserId;
                 objects[1] = misType;         
                 objects[2] = dtFrom;
                 objects[3] = dtTo;
