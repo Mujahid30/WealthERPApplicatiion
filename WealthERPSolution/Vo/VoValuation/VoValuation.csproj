@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerPortfolioVo.cs" />
     <Compile Include="MFEngineVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

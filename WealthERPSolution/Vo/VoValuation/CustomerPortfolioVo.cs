@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VoValuation
+namespace VoCustomerPortfolio
 {
-    public class MFEngineVo
-    {
-
-    }
-
     public class CustomerPortfolioVo
     {
         #region Fields
 
-        private int m_PortfolioId;
-        private int m_CustomerId;
-        private int m_IsMainPortfolio;
-        private string m_PortfolioTypeCode;
+        private int m_PortfolioId;       
+        private int m_CustomerId;        
+        private int m_IsMainPortfolio;       
+        private string m_PortfolioTypeCode;        
         private string m_PMSIdentifier;
         private string m_PortfolioName;
 
-
+        
         #endregion Fields
 
 
@@ -59,5 +54,6 @@ namespace VoValuation
         }
 
         #endregion Properties
+
     }
 }
