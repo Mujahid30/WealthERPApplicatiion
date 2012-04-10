@@ -14,6 +14,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
 using Telerik.Web.UI;
+using BoValuation;
 
 namespace WealthERP.Advisor
 {
@@ -35,6 +36,8 @@ namespace WealthERP.Advisor
         static DataSet dsAdviserValuationDate = new DataSet();
         static DateTime EQValuationDate = new DateTime();
         static DateTime MFValuationDate = new DateTime();
+        BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -797,10 +800,12 @@ namespace WealthERP.Advisor
             }
             else if (ddlValuationTypes.SelectedValue == "MF")
             {
-                trMf.Visible = true;
+                //trMf.Visible = true;
+                trValuation.Visible = false;
+                Button1.Visible = false;
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;
-                trValuation.Visible = true;
+                //trValuation.Visible = true;
                 trSubmitButton.Visible = true;
 
                 trNote.Visible = true;
@@ -810,6 +815,16 @@ namespace WealthERP.Advisor
                 PopulateMFTradeMonth();
                 assetGroup = "MF";
                 GetTradeDate();
+                ddTradeMFYear.SelectedValue=DateTime.Now.Year.ToString();
+                ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
+                ddlTradeDay.Items.Add(DateTime.Now.Day.ToString());
+                ddlTradeDay.SelectedIndex = 0;
+
+                ddTradeMFYear.Enabled = false;
+                ddTradeMFMonth.Enabled = false;
+                ddlTradeDay.Enabled = false;
+
+
                
             }
             else if (ddlValuationTypes.SelectedValue == "FP")
@@ -976,6 +991,14 @@ namespace WealthERP.Advisor
             }
                result = advisorBo.UpdateAdviserFPBatch(customerIds,advisorVo.advisorId);
                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Financial Valuation Done...');", true);
+
+        }
+
+        protected void btnUpdateNewNetPosition_Click(object sender, EventArgs e)
+        {
+            MFEngineBo mfEngineBo = new MFEngineBo();
+            mfEngineBo.MFBalanceCreation(advisorVo.advisorId, 0, valuationFor);
+            mfEngineBo.MFNetPositionCreation(advisorVo.advisorId, 0, valuationFor, DateTime.Now);
 
         }
     }

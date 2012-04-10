@@ -196,6 +196,8 @@
             <asp:DropDownList ID="ddTradeMFMonth" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddTradeMFMonth_SelectedIndexChanged">
             </asp:DropDownList>
+            <asp:DropDownList ID="ddlTradeDay" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>
         </td>
     </tr>
     <tr id="trHeader" runat="server">
@@ -295,6 +297,7 @@
                 OnClick="Button1_Click" />
             <asp:Button ID="hiddenUpdateNetPosition" runat="server" OnClick="hiddenUpdateNetPosition_Click"
                 Text="" BorderStyle="None" BackColor="Transparent" />
+            <asp:Button ID="btnUpdateNewNetPosition" runat="server" Text="Update New NetPosition" CssClass="PCGLongButton" onclick="btnUpdateNewNetPosition_Click"/>
         </td>
     </tr>
     <tr id="trNote" runat="server">
