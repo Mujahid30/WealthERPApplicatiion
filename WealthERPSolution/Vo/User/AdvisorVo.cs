@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VoAdvisorProfiling;
+using VoSuperAdmin;
+
 namespace VoUser
 {
     /// <summary>
@@ -10,7 +12,6 @@ namespace VoUser
     /// </summary>
     public  class AdvisorVo:UserVo
     {
-
         #region Fields
         private int m_advisorId;       
         private string m_OrganizationName;
@@ -302,8 +303,7 @@ namespace VoUser
 
         #endregion Properties
 
-
-
+        public AdviserSubscriptionVo SubscriptionVo { get; set; }
     }
 
     public class AdviserIPVo
