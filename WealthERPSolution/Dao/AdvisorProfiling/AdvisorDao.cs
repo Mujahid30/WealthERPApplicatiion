@@ -2342,6 +2342,7 @@ namespace DaoAdvisorProfiling
             return advisorLoginWidgetDetails;
 
         }
+
         public bool UpdateAdviserFPBatch(string customerIds,int adviserId)
         {
             Database db;
@@ -2375,7 +2376,41 @@ namespace DaoAdvisorProfiling
                 throw exBase;
             }
             return result;
-        }       
+        }
+
+        public bool UpdateAdviserStorageBalance(int intAdviserId, float fStorageBal)
+        {
+            Database db;
+            DbCommand updateAdviserStorageBalanceCmd;
+
+            bool result = true;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateAdviserStorageBalanceCmd = db.GetStoredProcCommand("sproc_Adviser_UpdateAdviserStorageBalance");
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@adviserId", DbType.String, intAdviserId);
+                db.AddInParameter(updateAdviserStorageBalanceCmd, "@storageBalance", DbType.Double, fStorageBal);
+                db.ExecuteNonQuery(updateAdviserStorageBalanceCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:UpdateAdviserStorageBalance(int intAdviserId, float fStorageBal)");
+                object[] objects = new object[2];
+                objects[0] = intAdviserId;
+                objects[1] = fStorageBal;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
     }
 }
 
