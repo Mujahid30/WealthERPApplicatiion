@@ -107,6 +107,18 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.CurrentPageIndex = 0;
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
+
+                if (Cache["MIS"] == null)
+                {
+                    Cache.Insert("MIS", dtMIS);
+                }
+                else
+                {
+                    Cache.Remove("MIS");
+                    Cache.Insert("MIS", dtMIS);
+                }
+
+
             }
             else
             {
@@ -176,22 +188,10 @@ namespace WealthERP.Advisor
 
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
-            //userVo = (UserVo)Session["userVo"];
-            //double sumTotal;            
-            //if (hdnFromDate.Value == "" || hdnToDate.Value == "")
-            //{
-            //    hdnFromDate.Value = DateTime.Now.ToShortDateString();
-            //    hdnToDate.Value = DateTime.Now.ToShortDateString();
-            //}
-            
-            //dsMISCommission = advisorMISBo.GetMFMISCommission(userVo.UserId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);
-            
-            //gvCommissionMIS.DataSource = dsMISCommission;
-            
-            //if (dsMISCommission.Tables[0].Rows.Count ==0)
-            //{
-            //    gvCommissionMIS.Visible = false;
-            //}
+
+            DataTable dtMIS = new DataTable();
+            dtMIS = (DataTable)Cache["MIS"];
+            gvCommissionMIS.DataSource = dtMIS;
         }
     }
 }
