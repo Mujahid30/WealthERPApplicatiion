@@ -238,6 +238,13 @@
             
         </td>
     </tr>
+    <tr id="trLabelMessage" runat="server">
+        <td>
+            <asp:Label ID="lblMessage" runat="server" CssClass="FieldName"
+            Text="Note: The values on this screen include adjustmenet thus it will not match the values on other screens.">
+            </asp:Label>
+        </td>
+    </tr>
     <tr id="trFixedIncome" runat="server">
         <td>
             <telerik:RadGrid ID="rgvFixedIncomeMIS" runat="server" Skin="Telerik" CssClass="RadGrid"

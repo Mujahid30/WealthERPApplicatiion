@@ -248,6 +248,24 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid rgvMultiProductMIS;
         
         /// <summary>
+        /// trLabelMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trLabelMessage;
+        
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        
+        /// <summary>
         /// trFixedIncome control.
         /// </summary>
         /// <remarks>

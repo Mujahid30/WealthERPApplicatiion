@@ -277,6 +277,7 @@ namespace WealthERP.BusinessMIS
             //rgvGeneralInsurance.Visible = false;
             //rgvLifeInsurance.Visible = false;
             //rgvMultiProductMIS.Visible = false;
+            trLabelMessage.Visible = false;
             trMISType.Visible = false;
             trWrongCustomer.Visible = false;
             lblMISType.Visible = false;
@@ -650,6 +651,7 @@ namespace WealthERP.BusinessMIS
                         lblErrorMsg.Visible = true;
                         trMultiProduct.Visible = false;
                         lblMISType.Visible = false;
+                        trLabelMessage.Visible = false;
                         //rgvMultiProductMIS.Visible = false;
                     }
                     else
@@ -804,6 +806,7 @@ namespace WealthERP.BusinessMIS
                         rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
                         rgvMultiProductMIS.DataBind();
                         trMultiProduct.Visible = true;
+                        trLabelMessage.Visible = true;
                         //rgvMultiProductMIS.Visible = true;
                         ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;
                         //hdnCustomerId.Value = null;
@@ -812,6 +815,7 @@ namespace WealthERP.BusinessMIS
                 else
                 {
                     trMultiProduct.Visible = false;
+                    trLabelMessage.Visible = false;
                     trMISType.Visible = false;
                     trWrongCustomer.Visible = true;
                 }
@@ -1146,6 +1150,7 @@ namespace WealthERP.BusinessMIS
             trGeneralInsurance.Visible = false;
             trLifeInsurance.Visible = false;
             trMultiProduct.Visible = true;
+            trLabelMessage.Visible = true;
             bindRadGrid_rgvMultiProductMIS();
         } 
 
@@ -1155,6 +1160,7 @@ namespace WealthERP.BusinessMIS
             trGeneralInsurance.Visible = false;
             trLifeInsurance.Visible = false;
             trMultiProduct.Visible = false;
+            trLabelMessage.Visible = false;
             BindFixedincomeMIS();
         }
         
@@ -1164,6 +1170,7 @@ namespace WealthERP.BusinessMIS
             trGeneralInsurance.Visible = false;
             trLifeInsurance.Visible = true;
             trMultiProduct.Visible = false;
+            trLabelMessage.Visible = false;
             BindLifeInsuranceDetails();
         }
 
@@ -1173,6 +1180,7 @@ namespace WealthERP.BusinessMIS
             trGeneralInsurance.Visible = true;
             trLifeInsurance.Visible = false;
             trMultiProduct.Visible = false;
+            trLabelMessage.Visible = false;
             BindGeneralInsuranceDetails();
         }
 
