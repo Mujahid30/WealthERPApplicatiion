@@ -236,13 +236,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Content" Value="Content">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
-                                                <Items>
-                                                    <%--<telerik:RadPanelItem runat="server" Text="View Repository" Value="ViewRepository">
-                                                    </telerik:RadPanelItem>--%>
-                                                    <telerik:RadPanelItem runat="server" Text="Manage Repository" Value="ManageRepository">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
+                                            <telerik:RadPanelItem runat="server" Text="Manage Repository" Value="ManageRepository">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
