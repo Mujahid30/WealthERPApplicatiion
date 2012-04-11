@@ -1531,6 +1531,35 @@ namespace BoAdvisorProfiling
 
         }
         
+        public bool UpdateAdviserStorageBalance(int intAdviserId, float fStorageBal)
+        {
+            AdvisorDao adviserDao = new AdvisorDao();
+            bool result = true;
+            try
+            {
+                result = adviserDao.UpdateAdviserStorageBalance(intAdviserId, fStorageBal);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:UpdateAdviserStorageBalance(int intAdviserId, float fStorageBal)");
+                object[] objects = new object[2];
+                objects[0] = intAdviserId;
+                objects[1] = fStorageBal;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
 
     }
 }
