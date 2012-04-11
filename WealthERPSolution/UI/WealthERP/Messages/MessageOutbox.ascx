@@ -28,6 +28,12 @@
                             <telerik:AjaxUpdatedControl ControlID="pnlOutboxMessage" LoadingPanelID="RadAjaxLoadingPanel1" />
                         </UpdatedControls>
                     </telerik:AjaxSetting>
+                    <telerik:AjaxSetting AjaxControlID="btnDelete">
+                        <UpdatedControls>
+                            <telerik:AjaxUpdatedControl ControlID="RadGridOutbox" LoadingPanelID="RadAjaxLoadingPanel1" />
+                            <telerik:AjaxUpdatedControl ControlID="pnlOutboxMessage" LoadingPanelID="RadAjaxLoadingPanel1" />
+                        </UpdatedControls>
+                    </telerik:AjaxSetting>
                 </AjaxSettings>
             </telerik:RadAjaxManager>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />

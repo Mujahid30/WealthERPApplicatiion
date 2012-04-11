@@ -69,6 +69,7 @@ namespace WealthERP.Messages
                         lblRecipientsContent.Text = dr["Recipients"].ToString();
                         lblSubjectContent.Text = dr["Subject"].ToString();
                         lblSentContent.Text = dataItem["Sent"].Text;
+                        ViewState["ReadMessRecpId"] = strKeyValue;
                         break;
                     }
                 }
@@ -103,6 +104,7 @@ namespace WealthERP.Messages
         {
             bool blAnyChecked = false;
             bool blResult = false;
+            bool blClear = false;
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
             dt.Columns.Add("Id");
@@ -124,9 +126,19 @@ namespace WealthERP.Messages
                         drDelete[0] = strKeyValue;
                         drDelete[1] = chkbxRow.Checked.ToString().ToLower();
                         dt.Rows.Add(drDelete);
+
+                        if (ViewState["ReadMessRecpId"] != null)
+                        {
+                            string strKey = ViewState["ReadMessRecpId"].ToString();
+                            if (strKey.Equals(strKeyValue))
+                            {
+                                blClear = true;
+                            }
+                        }
                     }
                 }
             }
+
             dt.TableName = "Table";
             ds.Tables.Add(dt);
             ds.DataSetName = "Deleted";
@@ -138,13 +150,17 @@ namespace WealthERP.Messages
 
                 if (blResult)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages deleted successfully!');", true);
                     RadGridOutbox.Rebind();
+                    if (blClear)
+                    {
+                        ClearMessageContents();
+                    }
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages deleted successfully!');", true);
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages could not be deleted!');", true);
                     RadGridOutbox.Rebind();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Messages could not be deleted!');", true);
                 }
             }
             else
@@ -152,6 +168,15 @@ namespace WealthERP.Messages
                 // Display validation message that atleast one checkbox should be checked
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a message!');", true);
             }
+        }
+
+        private void ClearMessageContents()
+        {
+            lblMessageContent.Text = "";
+            lblRecipientsContent.Text = "";
+            lblSubjectContent.Text = "";
+            lblSentContent.Text = "";
+            tblMessageHeaders.Visible = false;
         }
 
         protected void hdrCheckBox_CheckedChanged(object sender, EventArgs e)
