@@ -31,6 +31,7 @@
             </td>
             <td>
                 <asp:TextBox CssClass="txtField" ID="txtCategory1" runat="server" MaxLength="30"></asp:TextBox>
+                <span id="span1" class="spnRequiredField">*</span>
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList1" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
@@ -44,6 +45,16 @@
                 </asp:CheckBoxList>
             </td>
         </tr>
+        <tr style="line-height:5px;">
+            <td>
+                &nbsp;
+            </td>
+            <td colspan="2">
+                <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvtxtCategory1" runat="server"
+                    ControlToValidate="txtCategory1" ErrorMessage="<br/>Enter Category Text" CssClass="cvPCG"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="lblCategory2" runat="server" CssClass="FieldName"></asp:Label>
@@ -51,6 +62,7 @@
             </td>
             <td>
                 <asp:TextBox CssClass="txtField" ID="txtCategory2" runat="server" MaxLength="30"></asp:TextBox>
+                <span id="span2" class="spnRequiredField">*</span>
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList2" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
@@ -64,6 +76,16 @@
                 </asp:CheckBoxList>
             </td>
         </tr>
+        <tr style="line-height:5px;">
+            <td>
+                &nbsp;
+            </td>
+            <td colspan="2">
+                <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvtxtCategory2" runat="server"
+                    ControlToValidate="txtCategory2" ErrorMessage="<br/>Enter Category Text" CssClass="cvPCG"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="lblCategory3" runat="server" CssClass="FieldName"></asp:Label>
@@ -71,6 +93,7 @@
             </td>
             <td>
                 <asp:TextBox CssClass="txtField" ID="txtCategory3" runat="server" MaxLength="30"></asp:TextBox>
+                <span id="span3" class="spnRequiredField">*</span>
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList3" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
@@ -84,6 +107,16 @@
                 </asp:CheckBoxList>
             </td>
         </tr>
+        <tr style="line-height:5px;">
+            <td>
+                &nbsp;
+            </td>
+            <td colspan="2">
+                <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvtxtCategory3" runat="server"
+                    ControlToValidate="txtCategory3" ErrorMessage="<br/>Enter Category Text" CssClass="cvPCG"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="lblCategory4" runat="server" CssClass="FieldName"></asp:Label>
@@ -91,6 +124,7 @@
             </td>
             <td>
                 <asp:TextBox CssClass="txtField" ID="txtCategory4" runat="server" MaxLength="30"></asp:TextBox>
+                <span id="span4" class="spnRequiredField">*</span>
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList4" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
@@ -104,9 +138,14 @@
                 </asp:CheckBoxList>
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
+        <tr style="line-height:5px;">
+            <td>
                 &nbsp;
+            </td>
+            <td colspan="2">
+                <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvtxtCategory4" runat="server"
+                    ControlToValidate="txtCategory4" ErrorMessage="<br/>Enter Category Text" CssClass="cvPCG"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>

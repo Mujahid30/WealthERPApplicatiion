@@ -95,6 +95,15 @@ namespace WealthERP.Admin {
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList1;
         
         /// <summary>
+        /// rfvtxtCategory1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtCategory1;
+        
+        /// <summary>
         /// lblCategory2 control.
         /// </summary>
         /// <remarks>
@@ -129,6 +138,15 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList2;
+        
+        /// <summary>
+        /// rfvtxtCategory2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtCategory2;
         
         /// <summary>
         /// lblCategory3 control.
@@ -167,6 +185,15 @@ namespace WealthERP.Admin {
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList3;
         
         /// <summary>
+        /// rfvtxtCategory3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtCategory3;
+        
+        /// <summary>
         /// lblCategory4 control.
         /// </summary>
         /// <remarks>
@@ -201,6 +228,15 @@ namespace WealthERP.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList CheckBoxList4;
+        
+        /// <summary>
+        /// rfvtxtCategory4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtCategory4;
         
         /// <summary>
         /// btnSubmit control.
