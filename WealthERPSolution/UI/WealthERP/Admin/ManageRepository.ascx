@@ -101,6 +101,10 @@
                                 <telerik:RadUpload ID="radUploadRepoItem" runat="server" ControlObjectsVisibility="None"
                                     AllowedFileExtensions=".doc,.xls,.pdf,.docx,.xlsx" Skin="Telerik" EnableEmbeddedSkins="false">
                                 </telerik:RadUpload>
+                                <asp:CustomValidator ID="Customvalidator1" runat="server" Display="Dynamic" ValidationGroup="btnAdd"
+                                    ClientValidationFunction="validateradUploadRepoItem">
+                                    <span class="cvPCG">Invalid extensions</span>
+                                </asp:CustomValidator>
                             </td>
                         </tr>
                         <tr id="trUploadedFileName" runat="server" visible="false">
@@ -195,3 +199,11 @@
         </table>
     </telerik:RadPageView>
 </telerik:RadMultiPage>
+
+<script type="text/javascript">
+    function validateradUploadRepoItem(source, arguments) {
+        arguments.IsValid = $find('<%= radUploadRepoItem.ClientID %>').validateExtensions();
+        return false;
+    }
+</script>
+

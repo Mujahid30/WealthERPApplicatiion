@@ -221,6 +221,15 @@ namespace WealthERP.Admin {
         protected global::Telerik.Web.UI.RadUpload radUploadRepoItem;
         
         /// <summary>
+        /// Customvalidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator Customvalidator1;
+        
+        /// <summary>
         /// trUploadedFileName control.
         /// </summary>
         /// <remarks>

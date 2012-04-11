@@ -174,7 +174,7 @@ namespace WealthERP.Admin
                     }
                     else
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file!');", true);
                     }
                 }
                 catch (Exception ex)
@@ -293,8 +293,8 @@ namespace WealthERP.Admin
                 Session[SessionContents.RepositoryVo] = null;
                 rgRepositoryList.Rebind();
                 ClearFields();
-                rmpManageRepository.PageViews[1].Selected = true;
-                RadTabStrip1.TabIndex = 1;
+                RadTabStrip1.SelectedIndex = 1;
+                rmpManageRepository.SelectedIndex = RadTabStrip1.SelectedTab.Index;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Repository Item updated successfully!');", true);
             }
             else
@@ -392,9 +392,14 @@ namespace WealthERP.Admin
             repoVo = repoBo.GetRepositoryItem(intKey);
             Session[SessionContents.RepositoryVo] = repoVo;
 
-            // Call script to load first tab
-            rmpManageRepository.PageViews[0].Selected = true;
-            RadTabStrip1.TabIndex = 0;
+            //// Call script to load first tab
+            //rmpManageRepository.PageViews[0].Selected = true;
+            //RadTabStrip1.TabIndex = 0;
+
+            RadTabStrip1.SelectedIndex = 0;
+            rmpManageRepository.SelectedIndex = RadTabStrip1.SelectedTab.Index;
+
+
             BindEditFields();
 
             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
