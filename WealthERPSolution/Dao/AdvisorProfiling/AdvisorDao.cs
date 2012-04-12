@@ -9,7 +9,7 @@ using VoEmailSMS;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections;
-
+using VoSuperAdmin;
 
 
 
@@ -466,6 +466,51 @@ namespace DaoAdvisorProfiling
                         advisorVo.IsActive = Convert.ToInt16(dr["A_IsActive"].ToString());
                     if (!string.IsNullOrEmpty(dr["U_Theme"].ToString().Trim()))
                         advisorVo.theme = Convert.ToString(dr["U_Theme"]).Trim();
+
+                    advisorVo.SubscriptionVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
+
+                    if (dr["AS_AdviserSubscriptionId"] != DBNull.Value && dr["AS_AdviserSubscriptionId"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SubscriptionId = int.Parse(dr["AS_AdviserSubscriptionId"].ToString());
+
+                    if (dr["AS_TrialStartDate"] != DBNull.Value && dr["AS_TrialStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialStartDate = DateTime.Parse(dr["AS_TrialStartDate"].ToString());
+
+                    if (dr["AS_TrialEndDate"] != DBNull.Value && dr["AS_TrialEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialEndDate = DateTime.Parse(dr["AS_TrialEndDate"].ToString());
+
+                    if (dr["AS_SubscriptionStartDate"] != DBNull.Value && dr["AS_SubscriptionStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StartDate = DateTime.Parse(dr["AS_SubscriptionStartDate"].ToString());
+
+                    if (dr["AS_SubscriptionEndDate"] != DBNull.Value && dr["AS_SubscriptionEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.EndDate = DateTime.Parse(dr["AS_SubscriptionEndDate"].ToString());
+
+                    if (dr["AS_SMSLicences"] != DBNull.Value && dr["AS_SMSLicences"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SmsBought = int.Parse(dr["AS_SMSLicences"].ToString());
+
+                    if (dr["AS_StorageSize"] != DBNull.Value && dr["AS_StorageSize"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageSize = float.Parse(dr["AS_StorageSize"].ToString());
+
+                    if (dr["AS_StorageBalance"] != DBNull.Value && dr["AS_StorageBalance"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageBalance = float.Parse(dr["AS_StorageBalance"].ToString());
+
+                    if (dr["AS_NoOfStaffWebLogins"] != DBNull.Value && dr["AS_NoOfStaffWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfStaffLogins = int.Parse(dr["AS_NoOfStaffWebLogins"].ToString());
+
+                    if (dr["AS_NoOfBranches"] != DBNull.Value && dr["AS_NoOfBranches"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfBranches = int.Parse(dr["AS_NoOfBranches"].ToString());
+
+                    if (dr["AS_NoOfCustomerWebLogins"] != DBNull.Value && dr["AS_NoOfCustomerWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfCustomerLogins = int.Parse(dr["AS_NoOfCustomerWebLogins"].ToString());
+
+                    if (dr["AS_IsDeactivated"] != DBNull.Value && dr["AS_IsDeactivated"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.IsDeActivated = int.Parse(dr["AS_IsDeactivated"].ToString());
+
+                    if (dr["AS_DeactivationDate"] != DBNull.Value && dr["AS_DeactivationDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.DeActivationDate = DateTime.Parse(dr["AS_DeactivationDate"].ToString());
+
+                    if (dr["AS_Comments"] != DBNull.Value && dr["AS_Comments"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.Comments = dr["AS_Comments"].ToString();
+
                 }
 
 
@@ -1419,9 +1464,52 @@ namespace DaoAdvisorProfiling
                     advisorVo.IsOpsEnable = Convert.ToInt16(dr["A_IsOpsEnable"].ToString());
                     if (!string.IsNullOrEmpty(dr["U_Theme"].ToString().Trim()))
                         advisorVo.theme = Convert.ToString(dr["U_Theme"]).Trim();
+
+                    advisorVo.SubscriptionVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
+
+                    if (dr["AS_AdviserSubscriptionId"] != DBNull.Value && dr["AS_AdviserSubscriptionId"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SubscriptionId = int.Parse(dr["AS_AdviserSubscriptionId"].ToString());
+
+                    if (dr["AS_TrialStartDate"] != DBNull.Value && dr["AS_TrialStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialStartDate = DateTime.Parse(dr["AS_TrialStartDate"].ToString());
+
+                    if (dr["AS_TrialEndDate"] != DBNull.Value && dr["AS_TrialEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialEndDate = DateTime.Parse(dr["AS_TrialEndDate"].ToString());
+
+                    if (dr["AS_SubscriptionStartDate"] != DBNull.Value && dr["AS_SubscriptionStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StartDate = DateTime.Parse(dr["AS_SubscriptionStartDate"].ToString());
+
+                    if (dr["AS_SubscriptionEndDate"] != DBNull.Value && dr["AS_SubscriptionEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.EndDate = DateTime.Parse(dr["AS_SubscriptionEndDate"].ToString());
+
+                    if (dr["AS_SMSLicences"] != DBNull.Value && dr["AS_SMSLicences"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SmsBought = int.Parse(dr["AS_SMSLicences"].ToString());
+
+                    if (dr["AS_StorageSize"] != DBNull.Value && dr["AS_StorageSize"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageSize = float.Parse(dr["AS_StorageSize"].ToString());
+
+                    if (dr["AS_StorageBalance"] != DBNull.Value && dr["AS_StorageBalance"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageBalance = float.Parse(dr["AS_StorageBalance"].ToString());
+
+                    if (dr["AS_NoOfStaffWebLogins"] != DBNull.Value && dr["AS_NoOfStaffWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfStaffLogins = int.Parse(dr["AS_NoOfStaffWebLogins"].ToString());
+
+                    if (dr["AS_NoOfBranches"] != DBNull.Value && dr["AS_NoOfBranches"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfBranches = int.Parse(dr["AS_NoOfBranches"].ToString());
+
+                    if (dr["AS_NoOfCustomerWebLogins"] != DBNull.Value && dr["AS_NoOfCustomerWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfCustomerLogins = int.Parse(dr["AS_NoOfCustomerWebLogins"].ToString());
+
+                    if (dr["AS_IsDeactivated"] != DBNull.Value && dr["AS_IsDeactivated"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.IsDeActivated = int.Parse(dr["AS_IsDeactivated"].ToString());
+
+                    if (dr["AS_DeactivationDate"] != DBNull.Value && dr["AS_DeactivationDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.DeActivationDate = DateTime.Parse(dr["AS_DeactivationDate"].ToString());
+
+                    if (dr["AS_Comments"] != DBNull.Value && dr["AS_Comments"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.Comments = dr["AS_Comments"].ToString();
+
                 }
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -1431,9 +1519,7 @@ namespace DaoAdvisorProfiling
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdvisorUser()");
-
 
                 object[] objects = new object[1];
                 objects[0] = userId;
@@ -1442,7 +1528,6 @@ namespace DaoAdvisorProfiling
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
             return advisorVo;
         }
