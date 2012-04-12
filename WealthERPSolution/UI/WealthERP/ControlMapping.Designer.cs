@@ -853,6 +853,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//CustomerGeneralInsuranceOrder.ascx.
+        /// </summary>
+        internal static string CustomerGeneralInsuranceOrder {
+            get {
+                return ResourceManager.GetString("CustomerGeneralInsuranceOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerIncome.ascx.
         /// </summary>
         internal static string CustomerIncome {

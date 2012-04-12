@@ -1365,4 +1365,8 @@
     <value>OPS//CustomerOrderList.ascx</value>
     <comment>OPS//CustomerOrderList.ascx</comment>
   </data>
+  <data name="CustomerGeneralInsuranceOrder" xml:space="preserve">
+    <value>OPS//CustomerGeneralInsuranceOrder.ascx</value>
+    <comment>OPS//CustomerGeneralInsuranceOrder.ascx</comment>
+  </data>
 </root>

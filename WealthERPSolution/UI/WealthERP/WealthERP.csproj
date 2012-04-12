@@ -2299,6 +2299,13 @@
     <Compile Include="OPS\BondsOrderEntry.ascx.designer.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OPS\CustomerGeneralInsuranceOrder.ascx.cs">
+      <DependentUpon>CustomerGeneralInsuranceOrder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\CustomerGeneralInsuranceOrder.ascx.designer.cs">
+      <DependentUpon>CustomerGeneralInsuranceOrder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\CustomerOrderList.ascx.cs">
       <DependentUpon>CustomerOrderList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5438,7 +5445,6 @@
     <Content Include="bin\VoResearch.pdb" />
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
-    <Content Include="bin\VoValuation.dll" />
     <Content Include="bin\VoValuation.pdb" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
@@ -5743,6 +5749,7 @@
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
+    <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
