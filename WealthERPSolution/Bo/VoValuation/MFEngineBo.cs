@@ -809,10 +809,9 @@ namespace BoValuation
            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_AbsReturn", typeof(double));           
            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_TotalXIRR", typeof(double));  //2 nt req
            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVRAmt", typeof(double));   //3  done
+           
            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVPAmt", typeof(double));   //4  done
            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AcqCost", typeof(double));
-
-
            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_TotalPL", typeof(double));
            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AbsReturn", typeof(double));
            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_PurchaseUnit", typeof(double));
@@ -886,9 +885,12 @@ namespace BoValuation
              {
 
                  drMFNetPosition["CMFNP_MarketPrice"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
-                 drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0;
-                 drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0;
-                 drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;
+                 drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
+                 drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
+                 drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
+
+
+                 drMFNetPosition["CMFNP_RET_Realized_DVRAmt"] = 0;  // DVR will be always zero for Realised
 
                  drMFNetPosition["PASP_SchemePlanCode"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["PASP_SchemePlanCode"]));
                  drMFNetPosition["CMFA_AccountId"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["CMFA_AccountId"]));
@@ -898,12 +900,13 @@ namespace BoValuation
                  double.TryParse(Convert.ToString(sumObject), out returnInvestedCost);
 
                  drMFNetPosition["CMFNP_InvestedCost"] = returnInvestedCost;
+                 drMFNetPosition["CMFNP_TAX_Realized_AcqCost"] = returnInvestedCost;
 
                  sumObject = dtMFTransactionBalance.Compute("Sum(CMFT_Amount)", "WMTT_TransactionClassificationCode = 'SEL'");
                  double.TryParse(Convert.ToString(sumObject), out reedemedAmount);
 
                  drMFNetPosition["CMFNP_RedeemedAmount"] = reedemedAmount;
-
+                 drMFNetPosition["CMFNP_TAX_Realized_TotalPL"] = reedemedAmount - returnInvestedCost;
                  sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceTAX)", string.Empty);
                  double.TryParse(Convert.ToString(sumObject), out openUnits);
 
@@ -943,7 +946,7 @@ namespace BoValuation
 
                  drMFNetPosition["CMFNP_CurrentValue"] = currentValue;
 
-                 CMFNP_RET_ALL_TotalPL = currentValue + reedemedAmount - returnInvestedCost;
+                 CMFNP_RET_ALL_TotalPL = currentValue + reedemedAmount + DVPAmount - returnInvestedCost;
                  drMFNetPosition["CMFNP_RET_ALL_TotalPL"] = CMFNP_RET_ALL_TotalPL;
 
                  if (returnInvestedCost != 0)
@@ -960,8 +963,8 @@ namespace BoValuation
                  avgCost = Convert.ToDouble(lastRow["CMFTB_AvgCostBalRETURN"]);
 
                  CMFNP_RET_Hold_AcqCost = openUnits * avgCost;
-                 drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;
-                 returnHoldingTotalPL = currentValue - CMFNP_RET_Hold_AcqCost;
+                 drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
+                 returnHoldingTotalPL = currentValue + CMFTB_DivPayout - CMFNP_RET_Hold_AcqCost;
 
                  drMFNetPosition["CMFNP_RET_Hold_TotalPL"] = returnHoldingTotalPL;
 
@@ -973,7 +976,7 @@ namespace BoValuation
 
                  drMFNetPosition["CMFNP_RET_Realized_InvestedCost"] = returnRealisedInvestedCost;
 
-                 returnRealisedTotalPL = reedemedAmount - returnRealisedInvestedCost;
+                 returnRealisedTotalPL = reedemedAmount + CMFNP_RET_Realized_DVPAmt - returnRealisedInvestedCost;
                  drMFNetPosition["CMFNP_RET_Realized_TotalPL"] = returnRealisedTotalPL;
 
                  if (returnRealisedInvestedCost != 0)
@@ -987,10 +990,10 @@ namespace BoValuation
                  //valuationVo.TaxHoldingCurrentValue = valuationVo.ReturnOpenUnits * valuationVo.ReturnCurrentNAV;
                  //valuationVo.TaxHoldingUnrealisedPL = valuationVo.TaxHoldingCurrentValue - valuationVo.TaxHoldingAcqCost;
 
-                 sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceRETURN)", string.Empty);
+                 sumObject = dtMFTransactionBalance.Compute("Sum([CMFTB_UnitBalanceRETURN])", "WMTT_TransactionClassificationCode = 'BUY'");
                  double.TryParse(Convert.ToString(sumObject), out returnPurchaseUnits);
 
-                 drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion
+                 drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion  // Resolved
                  drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
 
                  sumObject = dtMFTransactionBalance.Compute("Sum(EligibleLTG)", string.Empty);
