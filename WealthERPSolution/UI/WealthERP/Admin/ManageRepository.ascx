@@ -153,7 +153,7 @@
                                 <telerik:RadGrid ID="rgRepositoryList" runat="server" Width="860px" Height="250px"
                                     PageSize="6" AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="false"
                                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                    OnItemCommand="rgRepositoryList_ItemCommand" EnableViewState="true" OnNeedDataSource="rgRepositoryList_NeedDataSource"
+                                    EnableViewState="true" OnNeedDataSource="rgRepositoryList_NeedDataSource"
                                     OnItemDataBound="rgRepositoryList_ItemDataBound" AllowFilteringByColumn="true">
                                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                     <MasterTableView DataKeyNames="AR_RepositoryId" ShowFooter="true">
