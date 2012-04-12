@@ -236,7 +236,7 @@
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn  DataField="XMLCST_Name" AllowFiltering="false" HeaderText="Issue Type" UniqueName="IssueType">
+                        <telerik:GridBoundColumn  DataField="XMLCST_Name" HeaderText="Issue Type" UniqueName="IssueType">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn> 
                         
