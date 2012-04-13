@@ -54,8 +54,7 @@ namespace VoUser
         private float s_VaultSize;
         private string m_DomainName;        
         private List<AdvisorLOBVo> advisorLOBVoList = new List<AdvisorLOBVo>();
-
-      
+        private AdviserSubscriptionVo advSubVo = new AdviserSubscriptionVo();
        
 
         #endregion Fields
@@ -301,9 +300,14 @@ namespace VoUser
             set { m_DomainName = value; }
         }
 
+        public AdviserSubscriptionVo SubscriptionVo
+        {
+            get { return advSubVo; }
+            set { advSubVo = value; }
+        }
+
         #endregion Properties
 
-        public AdviserSubscriptionVo SubscriptionVo { get; set; }
     }
 
     public class AdviserIPVo
