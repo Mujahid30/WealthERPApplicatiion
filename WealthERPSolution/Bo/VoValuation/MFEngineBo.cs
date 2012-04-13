@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-//using Microsoft.FSharp;
+using Microsoft.FSharp;
 using System.Numeric;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoValuation;
+
+
+
 //using VoValuation;
 
 namespace BoValuation
@@ -721,7 +724,8 @@ namespace BoValuation
                            foreach (int customerId in AdviserCustomers)
                            {
                                MFNetPositionCreation(customerId, 0, ValuationLabel.Customer,valuationDate);
-                               mfEngineDao.CreateCustomerMFNetPosition(commonId, valuationDate, dtCustomerMutualFundNetPosition);
+                               if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
+                                   mfEngineDao.CreateCustomerMFNetPosition(customerId, valuationDate, dtCustomerMutualFundNetPosition);
                                dtCustomerMutualFundNetPosition.Clear();  
 
                            }
@@ -779,7 +783,8 @@ namespace BoValuation
                        DataSet dsMFTransactionBalanceAndSellPair=new DataSet();
                        DataTable dtMFAccountSchemeNetPosition=new DataTable();
                        dsMFTransactionBalanceAndSellPair=mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId,schemePlanCode,valuationDate);
-                       dtMFAccountSchemeNetPosition=CreateMFNetPositionDataTable(dsMFTransactionBalanceAndSellPair);
+                       dtMFAccountSchemeNetPosition=CreateMFNetPositionDataTable(dsMFTransactionBalanceAndSellPair,valuationDate);
+                       if (dtMFAccountSchemeNetPosition.Rows.Count>0)
                        dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
                        dtMFAccountSchemeNetPosition.Clear();
                       
@@ -849,8 +854,8 @@ namespace BoValuation
        
        }
 
-         public DataTable CreateMFNetPositionDataTable(DataSet dsMFTransactionBalanceAndSellPair)      
-         {
+       public DataTable CreateMFNetPositionDataTable(DataSet dsMFTransactionBalanceAndSellPair, DateTime valuationDate)    
+        {
              DataTable dtMFNetPosition=new DataTable();
              DataTable dtMFTransactionBalance=new DataTable();
              DataTable dtMFTransactionSellPair=new DataTable();
@@ -881,14 +886,32 @@ namespace BoValuation
              double CMFTB_DivPayout=0;
              double CMFNP_RET_Realized_DVPAmt=0;
              double sellUnits = 0;
+             double[] currentValueXIRR;
+             DateTime[] tranDateXIRR;
+
+             currentValueXIRR = new double[dtMFTransactionBalance.Rows.Count+1];
+             tranDateXIRR = new DateTime[dtMFTransactionBalance.Rows.Count+1];
+
+             if (dtMFTransactionBalance.Rows.Count > 0)
+             {
+                 int i=0;
+                 foreach (DataRow drTransactionBalance in dtMFTransactionBalance.Rows)
+                 {
+                     currentValueXIRR[i] =double.Parse(drTransactionBalance["XIRR_ALL"].ToString());
+                     tranDateXIRR[i] = DateTime.Parse(drTransactionBalance["CMFT_TransactionDate"].ToString());
+                     i++;
+
+                 }
+             }
+
              if (dtMFTransactionBalance.Rows.Count > 0)
              {
 
                  drMFNetPosition["CMFNP_MarketPrice"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
                  drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
                  drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
-                 drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
-
+                 //drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
+                 drMFNetPosition["CMFNP_ValuationDate"] = valuationDate; 
 
                  drMFNetPosition["CMFNP_RET_Realized_DVRAmt"] = 0;  // DVR will be always zero for Realised
 
@@ -922,6 +945,12 @@ namespace BoValuation
 
                  drMFNetPosition["CMFNP_TAX_Hold_BalanceAmt"] = totalDiv;
                  currentValue = openUnits * Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
+
+                 //*********************************XIRR****************************************
+                 currentValueXIRR[(currentValueXIRR.Count())-1] = currentValue;
+                 tranDateXIRR[(currentValueXIRR.Count()) -1] = valuationDate;
+
+                 drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = CalculateXIRR(currentValueXIRR, tranDateXIRR);
 
                  drMFNetPosition["CMFNP_TAX_Hold_TotalPL"] = currentValue - totalDiv;
 
@@ -1024,6 +1053,28 @@ namespace BoValuation
              }
 
           return dtMFNetPosition;
+
+         }
+
+         public double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+         {
+
+             double result = 0;
+             try
+             {
+                 result = Financial.XIrr(values, date);
+                 //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
+                 if (Convert.ToInt64(result).ToString().Length > 3 || result.ToString().Contains("E") || result.ToString().Contains("e"))
+                 {
+                     result = 0;
+                 }
+                 return result;
+             }
+             catch (Exception ex)
+             {
+                 string e = ex.ToString();
+                 return result;
+             }
 
          }
 
