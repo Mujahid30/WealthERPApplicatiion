@@ -13,6 +13,12 @@
         return false;
     };
 
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
+
 //    function ClearText() {
 //        alert(document.getElementById("<%= txtIndividualCustomer.ClientID %>").value);
 //        document.getElementById('ctrl_MultiProductMIS_txtIndividualCustomer').value = ""; 
@@ -101,7 +107,7 @@
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
         </td>
-       <td align="left" width="10%">
+       <td align="left" width="10%" onkeypress="return keyPress(this, event)">
             <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
