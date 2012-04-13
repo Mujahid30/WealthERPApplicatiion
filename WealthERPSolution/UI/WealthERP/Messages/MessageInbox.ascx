@@ -104,16 +104,16 @@
                                         alt="MailIcon" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn UniqueName="From" HeaderText="From" DataField="Sender">
+                            <telerik:GridBoundColumn UniqueName="From" HeaderText="From" DataField="Sender" ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">
+                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject" ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Received" SortExpression="Received" HeaderText="Received"
-                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}">
+                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}" ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="ReadByUser" DataField="IsReadByUser" Visible="false" />
-                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read">
+                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read" ItemStyle-Wrap="false">
                             </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>

@@ -61,15 +61,15 @@
                                         ForeColor="White" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn UniqueName="To" HeaderText="To" DataField="Recipients">
+                            <telerik:GridBoundColumn UniqueName="To" HeaderText="To" DataField="Recipients" ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject">
+                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject" ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Sent" SortExpression="Sent" HeaderText="Sent"
-                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}">
+                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}"  ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read">
+                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read" ItemStyle-Wrap="false">
                             </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>
