@@ -3204,24 +3204,23 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
                         
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+
+                        //DataTable dtMFSchemePerformance = dsReturnsPortfolio.Tables["SchemeComprehensive"];
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
-                            //crmain.Subreports["MFSchemePerformance"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[1]);
-                            //crmain.Subreports["MFTopTenHoldings"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[2]);
-                            //crmain.Subreports["MFTopTenSectors"].Database.Tables[0].SetDataSource(dsReturnsPortfolio.Tables[5]);
+
+                            //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dtMFSchemePerformance);
+                            crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
+                            crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
+                            crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
 
                             setLogo();
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
-                            //crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            //crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
-                            //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
-                            //AssignReportViewerProperties();
-
-                            //For PDF View In Browser
+                           //For PDF View In Browser
                             if (Request.QueryString["mail"] == "2")
                             {
                                 ExportInPDF();
