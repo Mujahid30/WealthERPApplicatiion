@@ -64,13 +64,19 @@
         </td>
         
         <td id="tdSelectCusto" runat="server"  align="left" width="10%">
-         <asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
+        
+        <asp:DropDownList ID="ddlSelectCustomer" runat="server" CssClass="cmbField" Style="vertical-align: middle"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlSelectCustomer_SelectedIndexChanged">
+                <asp:ListItem Value="All Customer" Text="All Customer"></asp:ListItem>
+                <asp:ListItem Value="Pick Customer" Text="Pick Customer"></asp:ListItem>
+            </asp:DropDownList>
+         <%--<asp:RadioButton runat="server" ID="rdoAllCustomer" Text="All Customers" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" Checked="True" 
               oncheckedchanged="rdoAllCustomer_CheckedChanged" />
               <br />
               <asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" 
-              oncheckedchanged="rdoPickCustomer_CheckedChanged" />
+              oncheckedchanged="rdoPickCustomer_CheckedChanged" />--%>
         </td>
          
         <td align="right" width="10%">

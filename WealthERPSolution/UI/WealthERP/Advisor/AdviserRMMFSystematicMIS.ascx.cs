@@ -351,43 +351,80 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void rdoAllCustomer_CheckedChanged(object sender, EventArgs e)
+        //protected void rdoAllCustomer_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    ddlSelectCutomer.Visible = false;
+        //    lblSelectTypeOfCustomer.Visible = false;
+        //    txtIndividualCustomer.Visible = false;
+        //    lblselectCustomer.Visible = false;
+        //    rquiredFieldValidatorIndivudialCustomer.Visible = false;
+
+        //    ViewState["GroupHeadCustomers"] = null;
+        //    ViewState["IndividualCustomers"] = null;
+        //    //gvCalenderDetailView.Visible = false;
+        //    gvSystematicMIS.Visible = false;
+        //    tblMessage.Visible = true;
+        //    ErrorMessage.Visible = true;
+        //    ErrorMessage.InnerText = "No Records Found...!";
+
+        //}
+
+        //protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    ddlSelectCutomer.Visible = true;
+        //    lblSelectTypeOfCustomer.Visible = true;
+        //    txtIndividualCustomer.Visible = true;
+        //    txtIndividualCustomer.Text = string.Empty;
+        //    lblselectCustomer.Visible = true;
+        //    rquiredFieldValidatorIndivudialCustomer.Visible = true;
+        //    ViewState["GroupHeadCustomers"] = null;
+        //    ViewState["IndividualCustomers"] = null;
+        //    ddlSelectCutomer.SelectedIndex = 0;
+        //    //gvCalenderDetailView.Visible = false;
+        //    gvSystematicMIS.Visible = false;
+        //    tblMessage.Visible = true;
+        //    ErrorMessage.Visible = true;
+        //    ErrorMessage.InnerText = "No Records Found...!";
+
+
+
+        //}
+
+        protected void ddlSelectCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlSelectCutomer.Visible = false;
-            lblSelectTypeOfCustomer.Visible = false;
-            txtIndividualCustomer.Visible = false;
-            lblselectCustomer.Visible = false;
-            rquiredFieldValidatorIndivudialCustomer.Visible = false;
+            if (ddlSelectCustomer.SelectedItem.Value == "All Customer")
+            {
+                ddlSelectCutomer.Visible = false;
+                lblSelectTypeOfCustomer.Visible = false;
+                txtIndividualCustomer.Visible = false;
+                lblselectCustomer.Visible = false;
+                rquiredFieldValidatorIndivudialCustomer.Visible = false;
 
-            ViewState["GroupHeadCustomers"] = null;
-            ViewState["IndividualCustomers"] = null;
-            //gvCalenderDetailView.Visible = false;
-            gvSystematicMIS.Visible = false;
-            tblMessage.Visible = true;
-            ErrorMessage.Visible = true;
-            ErrorMessage.InnerText = "No Records Found...!";
-
-        }
-
-        protected void rdoPickCustomer_CheckedChanged(object sender, EventArgs e)
-        {
-            ddlSelectCutomer.Visible = true;
-            lblSelectTypeOfCustomer.Visible = true;
-            txtIndividualCustomer.Visible = true;
-            txtIndividualCustomer.Text = string.Empty;
-            lblselectCustomer.Visible = true;
-            rquiredFieldValidatorIndivudialCustomer.Visible = true;
-            ViewState["GroupHeadCustomers"] = null;
-            ViewState["IndividualCustomers"] = null;
-            ddlSelectCutomer.SelectedIndex = 0;
-            //gvCalenderDetailView.Visible = false;
-            gvSystematicMIS.Visible = false;
-            tblMessage.Visible = true;
-            ErrorMessage.Visible = true;
-            ErrorMessage.InnerText = "No Records Found...!";
-
-
-
+                ViewState["GroupHeadCustomers"] = null;
+                ViewState["IndividualCustomers"] = null;
+                //gvCalenderDetailView.Visible = false;
+                gvSystematicMIS.Visible = false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
+            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer")
+            {
+                ddlSelectCutomer.Visible = true;
+                lblSelectTypeOfCustomer.Visible = true;
+                txtIndividualCustomer.Visible = true;
+                txtIndividualCustomer.Text = string.Empty;
+                lblselectCustomer.Visible = true;
+                rquiredFieldValidatorIndivudialCustomer.Visible = true;
+                ViewState["GroupHeadCustomers"] = null;
+                ViewState["IndividualCustomers"] = null;
+                ddlSelectCutomer.SelectedIndex = 0;
+                //gvCalenderDetailView.Visible = false;
+                gvSystematicMIS.Visible = false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
         }
         /* Customer search for Group ang Individual*/
 
@@ -469,7 +506,7 @@ namespace WealthERP.Advisor
 
         private void SetParameter()
         {
-            if ((rdoAllCustomer.Checked == true) && (userType == "advisor"))
+            if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor"))
             {
                 hdnCustomerId.Value = "0";
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
@@ -502,13 +539,13 @@ namespace WealthERP.Advisor
                 }
 
             }
-            else if (rdoAllCustomer.Checked == true && userType == "rm")
+            else if (ddlSelectCustomer.SelectedItem.Value == "All Customer" && userType == "rm")
             {
                 hdnrmId.Value = rmVo.RMId.ToString();
                 hdnAll.Value = "0";
 
             }
-            else if (rdoAllCustomer.Checked == true && userType == "bm")
+            else if (ddlSelectCustomer.SelectedItem.Value == "All Customer" && userType == "bm")
             {
                 hdnCustomerId.Value = "0";
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
@@ -542,7 +579,7 @@ namespace WealthERP.Advisor
             }
 
 
-            if (rdoPickCustomer.Checked == true && userType == "advisor")
+            if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "advisor")
             {
 
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
@@ -574,13 +611,13 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "7";
                 }
             }
-            else if (rdoPickCustomer.Checked == true && userType == "rm")
+            else if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "rm")
             {
                 hdnAll.Value = "1";
             }
 
 
-            else if (rdoPickCustomer.Checked == true && userType == "bm")
+            else if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer" && userType == "bm")
             {
 
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
