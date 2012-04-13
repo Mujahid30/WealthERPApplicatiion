@@ -20,6 +20,12 @@ namespace WealthERP.SuperAdmin
             AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
             AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
             DataSet _dsGetSubscriptionDetails;
+
+            if (Session["storageBalance"] != "" && Session["storageBalance"] != null)
+            {
+                txtBalanceSize.Text =Convert.ToString(Session["storageBalance"]);
+
+            }
             if (!IsPostBack)
             {
                 // BindPlanDropdown();
@@ -27,6 +33,7 @@ namespace WealthERP.SuperAdmin
                 {
                     _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
                     Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
+                    
                     if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count > 0)
                     {
                         txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
@@ -34,6 +41,14 @@ namespace WealthERP.SuperAdmin
                         {
                             dpEndDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionEndDate"].ToString());
                         }
+                        double storageBalance=0;
+                        double storageSize=0;
+
+                        storageBalance = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
+                        storageSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageSize"].ToString());
+                        txtPaidSize.Text = Convert.ToString(storageSize);
+                        hdnStorageUsed.Value = Convert.ToString(storageSize - storageBalance);
+                        txtBalanceSize.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString();
                         txtNoOfBranches.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfBranches"].ToString();
                         txtNoOfCustomerLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfCustomerWebLogins"].ToString();
                         txtNoOfStaffLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString();
@@ -88,7 +103,7 @@ namespace WealthERP.SuperAdmin
                                 chkModules.Items[3].Enabled = false;
                                 chkModules.Items[4].Enabled = false;
                                 chkModules.Items[5].Enabled = false;
-                                chkModules.Items[6].Enabled = true;
+                             //   chkModules.Items[6].Enabled = true;
                                 chkModules.Items[7].Enabled = true;
                                 chkModules.Items[8].Enabled = true;
                             }
@@ -101,7 +116,7 @@ namespace WealthERP.SuperAdmin
                                 chkModules.Items[3].Enabled = true;
                                 chkModules.Items[4].Enabled = true;
                                 chkModules.Items[5].Enabled = true;
-                                chkModules.Items[6].Enabled = true;
+                               // chkModules.Items[6].Enabled = true;
                                 chkModules.Items[7].Enabled = false;
                                 chkModules.Items[8].Enabled = false;
 
@@ -117,7 +132,7 @@ namespace WealthERP.SuperAdmin
                                 chkModules.Items[3].Enabled = true;
                                 chkModules.Items[4].Enabled = true;
                                 chkModules.Items[5].Enabled = true;
-                                chkModules.Items[6].Enabled = true;
+                             //   chkModules.Items[6].Enabled = true;
                                 chkModules.Items[7].Enabled = true;
                                 chkModules.Items[8].Enabled = true;
                             }
@@ -130,7 +145,7 @@ namespace WealthERP.SuperAdmin
                                 chkModules.Items[3].Selected = false;
                                 chkModules.Items[4].Selected = false;
                                 chkModules.Items[5].Selected = false;
-                                chkModules.Items[6].Selected = false;
+                              //  chkModules.Items[6].Selected = false;
                                 chkModules.Items[7].Selected = false;
                                 chkModules.Items[8].Selected = false;
                             }
@@ -182,6 +197,10 @@ namespace WealthERP.SuperAdmin
             int _smsRemaining;
             int _smsSentTillDate;
             int _subscriptionId;
+            float _vaultBalanceSize;
+            float _vaultPaidSize;
+
+
             try
             {
                 if (Page.IsValid)
@@ -229,6 +248,15 @@ namespace WealthERP.SuperAdmin
                         if (int.TryParse(txtNoOfCustomerLogins.Text, out _noofcustomerlogins))
                         {
                             _advisersubscriptionvo.NoOfCustomerLogins = _noofcustomerlogins;
+                        }
+
+                        if (float.TryParse(txtPaidSize.Text, out _vaultPaidSize))
+                        {
+                            _advisersubscriptionvo.StorageSize = _vaultPaidSize;
+                        }
+                        if (float.TryParse(txtBalanceSize.Text, out _vaultBalanceSize))
+                        {
+                            _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
                         }
 
                         if (int.TryParse(txtSMSBought.Text, out _smsBought))
@@ -343,7 +371,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Enabled = false;
                 chkModules.Items[4].Enabled = false;
                 chkModules.Items[5].Enabled = false;
-                chkModules.Items[6].Enabled = true;
+               // chkModules.Items[6].Enabled = true;
                 chkModules.Items[7].Enabled = true;
                 chkModules.Items[8].Enabled = true;
 
@@ -353,7 +381,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Selected = false;
                 chkModules.Items[4].Selected = false;
                 chkModules.Items[5].Selected = false;
-                chkModules.Items[6].Selected = true;
+               // chkModules.Items[6].Selected = true;
                 chkModules.Items[7].Selected = true;
                 chkModules.Items[8].Selected = true;
                 
@@ -371,7 +399,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Enabled = true;
                 chkModules.Items[4].Enabled = true;
                 chkModules.Items[5].Enabled = true;
-                chkModules.Items[6].Enabled = true;
+              //  chkModules.Items[6].Enabled = true;
                 chkModules.Items[7].Enabled = false;
                 chkModules.Items[8].Enabled = false;
 
@@ -381,7 +409,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Selected = true;
                 chkModules.Items[4].Selected = true;
                 chkModules.Items[5].Selected = true;
-                chkModules.Items[6].Selected = true;
+                //chkModules.Items[6].Selected = true;
                 chkModules.Items[7].Selected = false;
                 chkModules.Items[8].Selected = false;
                 //plan 1000
@@ -396,7 +424,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Selected = false;
                 chkModules.Items[4].Selected = false;
                 chkModules.Items[5].Selected = false;
-                chkModules.Items[6].Selected = false;
+                //chkModules.Items[6].Selected = false;
                 chkModules.Items[7].Selected = false;
                 chkModules.Items[8].Selected = false;
                 //Custom Plan
@@ -412,7 +440,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Selected = false;
                 chkModules.Items[4].Selected = false;
                 chkModules.Items[5].Selected = false;
-                chkModules.Items[6].Selected = false;
+                //chkModules.Items[6].Selected = false;
                 chkModules.Items[7].Selected = false;
                 chkModules.Items[8].Selected = false;
             }
@@ -425,7 +453,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Enabled = true;
                 chkModules.Items[4].Enabled = true;
                 chkModules.Items[5].Enabled = true;
-                chkModules.Items[6].Enabled = true;
+               // chkModules.Items[6].Enabled = true;
                 chkModules.Items[7].Enabled = true;
                 chkModules.Items[8].Enabled = true;
 
@@ -435,10 +463,23 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[3].Selected = false;
                 chkModules.Items[4].Selected = false;
                 chkModules.Items[5].Selected = false;
-                chkModules.Items[6].Selected = false;
+              //  chkModules.Items[6].Selected = false;
                 chkModules.Items[7].Selected = false;
                 chkModules.Items[8].Selected = false;
             }
         }
+        //[System.Web.Services.WebMethod(EnableSession = true)]
+        //public static void AjaxSetBalanceStorage(string storageBalance)
+        //{
+        //    try
+        //    {
+        //        HttpContext.Current.Session["storageBalance"] = storageBalance;
+        //        //HttpContext.Current.Session["Sessionkey"] = key;
+        //        //HttpContext.Current.Session["Sessionvalue"] = value;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
     }
 }

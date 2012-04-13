@@ -8,12 +8,45 @@
 
 <script language="javascript" type="text/javascript" src="~/Scripts/JScript.js"></script>
 
+
+<script type="text/javascript" language="javascript">    
+   
+    function BalanceCalculate() {
+    
+//       var storageUsed = 0;
+        var storagePaid = 0;
+        var storageUsed=0;
+        var storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;        
+        storageBalance = document.getElementById('<%=txtBalanceSize.ClientID %>').value;
+        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;      
+        
+        if(storagePaid != null && storagePaid != "") {
+            document.getElementById('<%=txtBalanceSize.ClientID %>').value = parseFloat(storagePaid) - parseFloat(storageUsed);                     
+//            parent.PageMethods.AjaxSetSession(storageBalance);
+        }
+        
+        
+        //alert(document.getElementById('<%=hdnStorageBalance.ClientID %>').value);
+    
+    }
+</script>
 <script type="text/javascript" language="javascript">    
    
     function alertOnBadSelection() {
 
         var select = document.getElementById('<%=ddlFlavourCategory.ClientID %>');
         var status = false;
+        var storageUsed = 0;
+        var storagePaid = 0;
+        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>');
+        storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>');
+        
+        if(parseFloat(storagePaid) < parseFloat(storageUsed))
+        {
+            alert('Please free your space allocated');
+            return false;        
+        }
+        
             if (select.options[select.selectedIndex].value == "Select") {
                 alert('Please Select Category');
                 return false;
@@ -185,7 +218,24 @@
                         <asp:TextBox ID="txtSMSBought" runat="server" CssClass="txtField"></asp:TextBox>
                        
                     </td>
-                </tr>               
+                </tr>   
+               
+                 <tr>
+                    <td align="right">
+                        <asp:Label ID="lblPaidSize" runat="server" CssClass="FieldName" Text="Vault Paid Size:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtPaidSize" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
+                    </td>
+                </tr>  
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="lblBalanceSize" runat="server" CssClass="FieldName" Text="Vault Balance Storage:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtBalanceSize" runat="server" CssClass="txtField" EnableViewState="true" Enabled="false"></asp:TextBox>
+                    </td>
+                </tr>            
                
                 <tr>
                     <td valign="top" align="right">
@@ -204,6 +254,8 @@
             </table>
         </td>
         <td valign="top">
+        <asp:UpdatePanel runat="server" ID="uplPresentValue" UpdateMode="Conditional">
+                                        <ContentTemplate>
             <table>
                 <tr>
                     <td>
@@ -230,7 +282,7 @@
                             <asp:ListItem Text="Insurance" Value="4"></asp:ListItem>                            
                             <asp:ListItem Text="Liabilities" Value="5"></asp:ListItem>
                             <asp:ListItem Text="Multi Asset" Value="6"></asp:ListItem>
-                            <asp:ListItem Text="Common" Value="7"></asp:ListItem>                            
+                            <asp:ListItem Text="Common" Value="7" Enabled="false" Selected="True"></asp:ListItem>                            
                             <asp:ListItem Text="Goal" Value="8"></asp:ListItem>
                             <asp:ListItem Text="Risk Profile" Value="9"></asp:ListItem>                          
                         </asp:CheckBoxList>
@@ -239,8 +291,12 @@
                     </td>
                 </tr>
             </table>
+            </ContentTemplate>
+            </asp:UpdatePanel>
         </td>
     </tr>   
     
 </table>
 <asp:HiddenField ID="hdnSMSBought" runat="server" />
+<asp:HiddenField ID="hdnStorageUsed" runat="server" />
+<asp:HiddenField ID="hdnStorageBalance" runat="server" />

@@ -123,6 +123,9 @@ namespace DaoSuperAdmin
                 db.AddInParameter(createAdviserSubscriptionCmd, "@WFC_FlavourCategoryCode", DbType.String, adviserSubscriptionVo.FlavourCategory);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createAdviserSubscriptionCmd, "@AS_StorageSize", DbType.Double, adviserSubscriptionVo.StorageSize);
+                db.AddInParameter(createAdviserSubscriptionCmd, "@AS_StorageBalance", DbType.Double, adviserSubscriptionVo.StorageBalance);
+
 
                 db.AddOutParameter(createAdviserSubscriptionCmd, "@AS_AdviserSubscriptionId", DbType.Int32, 5000);
                 if (db.ExecuteNonQuery(createAdviserSubscriptionCmd) != 0)
