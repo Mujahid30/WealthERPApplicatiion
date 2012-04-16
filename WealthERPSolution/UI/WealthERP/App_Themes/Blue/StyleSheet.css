@@ -958,6 +958,21 @@ p.tip
     box-shadow: #B3A6AF 4px 4px 4px;
 }
 
+.divSectionHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;   
+    background-color:#A8BFCF;
+    color:#144E78;
+    font-weight:bold;
+    height:20px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    
+}
+
 .trHeader
 {
     background-color: #16518A;

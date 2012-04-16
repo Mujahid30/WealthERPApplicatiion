@@ -981,7 +981,22 @@ p.tip
     -moz-box-shadow: #B3A6AF 4px 4px 4px;
     box-shadow: #B3A6AF 4px 4px 4px;
     
-    }
+}
+
+.divSectionHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;   
+    background-color:#C7B5FA;
+    color:#351D78;
+    font-weight:bold;
+    height:20px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    
+}
 
 .trHeader
 {
