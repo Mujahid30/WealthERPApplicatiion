@@ -532,58 +532,73 @@ namespace WealthERP.Advisor
 
                                     if (DateTime.Compare(dt, DateTime.Today) <= 0)
                                     {
-                                        customerList = customerPortfolioBo.GetAdviserCustomerList_MF(advisorVo.advisorId);
-                                        if (customerList != null)
+
+                                        MFEngineBo mfEngineBo = new MFEngineBo();
+                                        mfEngineBo.MFBalanceCreation(advisorVo.advisorId, 0, valuationFor);
+
+                                        LogId = CreateAdviserEODLog("MF", dt);
+                                        mfEngineBo.MFNetPositionCreation(advisorVo.advisorId, 0, valuationFor, dt);
+                                        UpdateAdviserEODLog("MF", 1, LogId);
+                                        if (Cache[advisorVo.advisorId.ToString()] != null && dt == DateTime.Today)
                                         {
-
-                                            notNullcnt = notNullcnt + 1;
-                                            LogId = CreateAdviserEODLog("MF", dt);
-                                            if (LogId != 0)
-                                            {
-                                                cnt = 0;
-                                                for (int j = 0; j < customerList.Count; j++)
-                                                {
-                                                    customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList[j]);
-                                                    customerPortfolioBo.DeleteMutualFundNetPosition(customerList[j], dt);
-                                                    if (customerPortfolioList != null)
-                                                    {
-                                                        for (int k = 0; k < customerPortfolioList.Count; k++)
-                                                        {
-                                                            mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, "", "", "");
-
-
-                                                            if (mfPortfolioList != null)
-                                                            {
-
-                                                                customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, userVo.UserId);
-
-                                                            }
-                                                        }
-                                                    }
-
-
-                                                    cnt = cnt + 1;
-
-                                                }
-                                            }
-                                            if (cnt == customerList.Count)
-                                            {
-                                                UpdateAdviserEODLog("MF", 1, LogId);
-                                                if (Cache[advisorVo.advisorId.ToString()] != null && dt == DateTime.Today)
-                                                {
-                                                    Cache.Remove(advisorVo.advisorId.ToString());
-                                                }
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
-                                            }
-                                            else
-                                            {
-                                                UpdateAdviserEODLog("MF", 0, LogId);
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation not done...!');", true);
-                                            }
-
-                                            //  GetTradeDate();
-
+                                             Cache.Remove(advisorVo.advisorId.ToString());
                                         }
+                                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
+
+
+
+                                        //customerList = customerPortfolioBo.GetAdviserCustomerList_MF(advisorVo.advisorId);
+                                        //if (customerList != null)
+                                        //{
+
+                                        //    notNullcnt = notNullcnt + 1;
+                                        //    LogId = CreateAdviserEODLog("MF", dt);
+                                        //    if (LogId != 0)
+                                        //    {
+                                        //        cnt = 0;
+                                        //        for (int j = 0; j < customerList.Count; j++)
+                                        //        {
+                                        //            customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList[j]);
+                                        //            customerPortfolioBo.DeleteMutualFundNetPosition(customerList[j], dt);
+                                        //            if (customerPortfolioList != null)
+                                        //            {
+                                        //                for (int k = 0; k < customerPortfolioList.Count; k++)
+                                        //                {
+                                        //                    mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, dt, "", "", "");
+
+
+                                        //                    if (mfPortfolioList != null)
+                                        //                    {
+
+                                        //                        customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, userVo.UserId);
+
+                                        //                    }
+                                        //                }
+                                        //            }
+
+
+                                        //            cnt = cnt + 1;
+
+                                        //        }
+                                        //    }
+                                        //    if (cnt == customerList.Count)
+                                        //    {
+                                        //        UpdateAdviserEODLog("MF", 1, LogId);
+                                        //        if (Cache[advisorVo.advisorId.ToString()] != null && dt == DateTime.Today)
+                                        //        {
+                                        //            Cache.Remove(advisorVo.advisorId.ToString());
+                                        //        }
+                                        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        UpdateAdviserEODLog("MF", 0, LogId);
+                                        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation not done...!');", true);
+                                        //    }
+
+                                        //    //  GetTradeDate();
+
+                                        //}
 
                                     }
                                 }
@@ -762,9 +777,6 @@ namespace WealthERP.Advisor
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-
-
-
             string val = Convert.ToString(hdnMsgValue.Value);
             UpdateLOG(val, assetGroup);
         }
@@ -800,12 +812,12 @@ namespace WealthERP.Advisor
             }
             else if (ddlValuationTypes.SelectedValue == "MF")
             {
-                //trMf.Visible = true;
+                trMf.Visible = true;
                 trValuation.Visible = false;
-                Button1.Visible = false;
+                Button1.Visible = true;
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;
-                //trValuation.Visible = true;
+                trValuation.Visible = true;
                 trSubmitButton.Visible = true;
 
                 trNote.Visible = true;
@@ -815,14 +827,14 @@ namespace WealthERP.Advisor
                 PopulateMFTradeMonth();
                 assetGroup = "MF";
                 GetTradeDate();
-                ddTradeMFYear.SelectedValue=DateTime.Now.Year.ToString();
-                ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
-                ddlTradeDay.Items.Add(DateTime.Now.Day.ToString());
-                ddlTradeDay.SelectedIndex = 0;
+                //ddTradeMFYear.SelectedValue=DateTime.Now.Year.ToString();
+                //ddTradeMFMonth.SelectedValue = DateTime.Now.Month.ToString();
+                //ddlTradeDay.Items.Add(DateTime.Now.Day.ToString());
+                //ddlTradeDay.SelectedIndex = 0;
 
-                ddTradeMFYear.Enabled = false;
-                ddTradeMFMonth.Enabled = false;
-                ddlTradeDay.Enabled = false;
+                //ddTradeMFYear.Enabled = false;
+                //ddTradeMFMonth.Enabled = false;
+                //ddlTradeDay.Enabled = false;
 
 
                
@@ -994,12 +1006,6 @@ namespace WealthERP.Advisor
 
         }
 
-        protected void btnUpdateNewNetPosition_Click(object sender, EventArgs e)
-        {
-            MFEngineBo mfEngineBo = new MFEngineBo();
-            mfEngineBo.MFBalanceCreation(advisorVo.advisorId, 0, valuationFor);
-            mfEngineBo.MFNetPositionCreation(advisorVo.advisorId, 0, valuationFor, DateTime.Now);
-
-        }
+       
     }
 }
