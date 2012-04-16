@@ -2024,7 +2024,7 @@ namespace WealthERP.Uploads
                                     bool DeutscheTrailStagingResult = false;
                                     bool DeutscheTrailCommonStagingToWERP = false;
 
-                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmlToKarvyInput.dtsx");
+                                    packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xmlToDetscheInput.dtsx");
                                     DeutscheTrailInputResult = camsUploadsBo.DeutscheTrailCommissionInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
                                     if (DeutscheTrailInputResult)
                                     {
@@ -2038,7 +2038,7 @@ namespace WealthERP.Uploads
                                         updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
 
-                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToKarvyStaging.dtsx");
+                                        packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\xtrnlToDeutscheStaging.dtsx");
                                         DeutscheTrailStagingResult = camsUploadsBo.DeutscheTrailCommissionInsertToStagingTrans(UploadProcessId, packagePath, configPath);
                                         if (DeutscheTrailStagingResult)
                                         {
@@ -2046,7 +2046,7 @@ namespace WealthERP.Uploads
                                             processlogVo.EndTime = DateTime.Now;
                                             updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
-                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToKarvyCommonStaging.dtsx");
+                                            packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\stagingToDeutscheCommonStaging.dtsx");
                                             DeutscheTrailStagingCheckResult = camsUploadsBo.DeutscheTrailCommissionProcessDataInStagingTrans(adviserVo.advisorId, UploadProcessId, packagePath, configPath);
                                             if (DeutscheTrailStagingCheckResult)
                                             {
@@ -2060,8 +2060,8 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                DeutscheTrailCommonStagingChk = camsUploadsBo.DeutscheTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");
-                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
+                                                DeutscheTrailCommonStagingChk = camsUploadsBo.DeutscheTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "DT");
+                                                processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "DT");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
                                                 //TempletonTrailCommonStagingToWERP = camsUploadsBo.TempletonTrailCommissionCommonStagingToWERP(UploadProcessId, packagePath, configPath);
@@ -2069,10 +2069,10 @@ namespace WealthERP.Uploads
                                                 if (DeutscheTrailCommonStagingChk)
                                                 {
                                                     processlogVo.IsInsertionToWERPComplete = 1;
-                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "KA");
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCountForTrail(UploadProcessId, "KA");
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "DT");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCountForTrail(UploadProcessId, "DT");
                                                     processlogVo.EndTime = DateTime.Now;
-                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "KA");
+                                                    processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "DT");
                                                     processlogVo.NoOfTransactionDuplicates = 0;
                                                     updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -6172,7 +6172,7 @@ namespace WealthERP.Uploads
             //{
             //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processid + "');", true);
             //}
-            else if (filetype == 28||filetype==29)
+            else if (filetype == 28 || filetype == 29 || filetype == 30 || filetype == 31 || filetype == 32)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TrailCommisionTransactionRejects','processId=" + processid + "');", true);
             }
