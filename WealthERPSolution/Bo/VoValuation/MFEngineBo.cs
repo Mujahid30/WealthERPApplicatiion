@@ -228,7 +228,7 @@ namespace BoValuation
        }
 
 
-        #region BalanceCreation
+       #region BalanceCreation
 
        protected DataTable TransactionBalanceProcess(DataSet dsTransactionList)
        {
@@ -907,7 +907,7 @@ namespace BoValuation
              if (dtMFTransactionBalance.Rows.Count > 0)
              {
 
-                 drMFNetPosition["CMFNP_MarketPrice"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
+                 drMFNetPosition["CMFNP_MarketPrice"] = dtMFTransactionBalance.Rows[0]["NAV"];
                  drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
                  drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
                  //drMFNetPosition["CMFNP_RET_ALL_TotalXIRR"] = 0;  // XIRR 
@@ -1056,7 +1056,7 @@ namespace BoValuation
 
          }
 
-         public double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
+       public double CalculateXIRR(System.Collections.Generic.IEnumerable<double> values, System.Collections.Generic.IEnumerable<DateTime> date)
          {
 
              double result = 0;
