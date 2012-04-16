@@ -1059,7 +1059,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, panFilter);
                 else
                     db.AddInParameter(getCustomerListCmd, "@panFilter", DbType.String, DBNull.Value);
-
+                getCustomerListCmd.CommandTimeout = 60 * 60;
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
 
                 if (getCustomerDs.Tables[0].Rows.Count > 0)
