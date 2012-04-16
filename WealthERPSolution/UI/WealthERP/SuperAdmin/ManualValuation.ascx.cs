@@ -15,6 +15,7 @@ using System.Collections.Specialized;
 using BoCommon;
 using BoWerpAdmin;
 using BoSuperAdmin;
+using BoValuation;
 
 
 namespace WealthERP.SuperAdmin
@@ -34,6 +35,9 @@ namespace WealthERP.SuperAdmin
         static DataSet dsAdviserValuationDate = new DataSet();
         static DateTime EQValuationDate = new DateTime();
         static DateTime MFValuationDate = new DateTime();
+        BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -430,7 +434,7 @@ namespace WealthERP.SuperAdmin
                                 if (customerList != null)
                                 {
                                     notNullcnt = notNullcnt + 1;
-                                    LogId = CreateAdviserEODLog("EQ", valuationDate,adviserId);
+                                    LogId = CreateAdviserEODLog("EQ",valuationDate,adviserId);
                                     if (LogId != 0)
                                     {
                                         cnt = 0;
@@ -495,56 +499,72 @@ namespace WealthERP.SuperAdmin
                         customerPortfolioBo.DeleteAdviserEODLog(adviserId, "MF", valuationDate, 0);
                          if (DateTime.Compare(valuationDate, DateTime.Today) <= 1)
                             {
-                                  customerList = customerPortfolioBo.GetAdviserCustomerList_MF(adviserId);
-                                      if (customerList != null)
-                                        {
-                                            notNullcnt = notNullcnt + 1;
-                                            LogId = CreateAdviserEODLog("MF", valuationDate,adviserId);
-                                            if (LogId != 0)
-                                            {
-                                                cnt = 0;
-                                                for (int j = 0; j < customerList.Count; j++)
-                                                {
-                                                    customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList[j]);
-                                                    customerPortfolioBo.DeleteMutualFundNetPosition(customerList[j], valuationDate);
-                                                    if (customerPortfolioList != null)
-                                                    {
-                                                        for (int k = 0; k < customerPortfolioList.Count; k++)
-                                                        {
-                                                            mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, valuationDate, "", "", "");
 
 
-                                                            if (mfPortfolioList != null)
-                                                            {
-                                                                customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, userVo.UserId);
+                                MFEngineBo mfEngineBo = new MFEngineBo();
+                                mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
 
-                                                            }
-                                                        }
-                                                    }
+                                LogId = CreateAdviserEODLog("MF", valuationDate, adviserId);
+                                mfEngineBo.MFNetPositionCreation(adviserId, 0, valuationFor, valuationDate);
+                                UpdateAdviserEODLog("MF", 1, LogId);
+                                if (Cache[adviserId.ToString()] != null && dt == DateTime.Today)
+                                {
+                                    Cache.Remove(adviserId.ToString());
+                                }
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
+
+                                BindAdviserGrid("MF", valuationDate);
+
+                                  //customerList = customerPortfolioBo.GetAdviserCustomerList_MF(adviserId);
+                                  //    if (customerList != null)
+                                  //      {
+                                  //          notNullcnt = notNullcnt + 1;
+                                  //          LogId = CreateAdviserEODLog("MF", valuationDate,adviserId);
+                                  //          if (LogId != 0)
+                                  //          {
+                                  //              cnt = 0;
+                                  //              for (int j = 0; j < customerList.Count; j++)
+                                  //              {
+                                  //                  customerPortfolioList = portfolioBo.GetCustomerPortfolios(customerList[j]);
+                                  //                  customerPortfolioBo.DeleteMutualFundNetPosition(customerList[j], valuationDate);
+                                  //                  if (customerPortfolioList != null)
+                                  //                  {
+                                  //                      for (int k = 0; k < customerPortfolioList.Count; k++)
+                                  //                      {
+                                  //                          mfPortfolioList = customerPortfolioBo.GetCustomerMFPortfolio(customerList[j], customerPortfolioList[k].PortfolioId, valuationDate, "", "", "");
 
 
-                                                    cnt = cnt + 1;
+                                  //                          if (mfPortfolioList != null)
+                                  //                          {
+                                  //                              customerPortfolioBo.AddMutualFundNetPosition(mfPortfolioList, userVo.UserId);
 
-                                                }
-                                            }
-                                            if (cnt == customerList.Count)
-                                            {
-                                                UpdateAdviserEODLog("MF", 1, LogId);
-                                                if (Cache[adviserId.ToString()] != null && valuationDate == DateTime.Today)
-                                                {
-                                                    Cache.Remove(adviserId.ToString());
-                                                }
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
-                                            }
-                                            else
-                                            {
-                                                UpdateAdviserEODLog("MF", 0, LogId);
-                                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation not done...!');", true);
-                                            }
+                                  //                          }
+                                  //                      }
+                                  //                  }
 
-                                            //  GetTradeDate();
-                                            BindAdviserGrid("MF", valuationDate);
-                                        }
+
+                                  //                  cnt = cnt + 1;
+
+                                  //              }
+                                  //          }
+                                  //          if (cnt == customerList.Count)
+                                  //          {
+                                  //              UpdateAdviserEODLog("MF", 1, LogId);
+                                  //              if (Cache[adviserId.ToString()] != null && valuationDate == DateTime.Today)
+                                  //              {
+                                  //                  Cache.Remove(adviserId.ToString());
+                                  //              }
+                                  //              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation done...!');", true);
+                                  //          }
+                                  //          else
+                                  //          {
+                                  //              UpdateAdviserEODLog("MF", 0, LogId);
+                                  //              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('MF Valuation not done...!');", true);
+                                  //          }
+
+                                  //          //  GetTradeDate();
+                                  //          BindAdviserGrid("MF", valuationDate);
+                                  //      }
 
                                     }
                                
@@ -824,6 +844,42 @@ namespace WealthERP.SuperAdmin
             return gvAdviserIds;
 
         }
+
+        //private int CreateAdviserEODLog(string p, DateTime dt,int adviserId)
+        //{
+        //    int LogId = 0;
+
+        //    AdviserDailyLOGVo adviserDaliyLOGVo = new AdviserDailyLOGVo();
+        //    try
+        //    {
+        //        adviserDaliyLOGVo.AdviserId = adviserId;
+        //        adviserDaliyLOGVo.CreatedBy = userVo.UserId;
+        //        adviserDaliyLOGVo.StartTime = DateTime.Now;
+        //        adviserDaliyLOGVo.ProcessDate = dt;
+        //        adviserDaliyLOGVo.AssetGroup = p;
+        //        LogId = customerPortfolioBo.CreateAdviserEODLog(adviserDaliyLOGVo);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "DailyValuation.ascx.cs:CreateAdviserEODLog()");
+        //        object[] objects = new object[2];
+        //        objects[0] = p;
+        //        objects[1] = dt;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return LogId;
+        //}
+
 
        
 
