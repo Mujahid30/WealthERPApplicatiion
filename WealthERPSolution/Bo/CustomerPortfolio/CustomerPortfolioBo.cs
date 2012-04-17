@@ -3330,10 +3330,10 @@ namespace BoCustomerPortfolio
 
         }
 
-        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId)
+        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId, string strValuationDate)
         {
             CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
-            return customerPortfolioDao.GetCustomerMFNetPositions(customerId, portfolioId);
+            return customerPortfolioDao.GetCustomerMFNetPositions(customerId, portfolioId, strValuationDate);
         }
 
         public DateTime GetSchemeTransactionInitialBuyDate(int intAccountId, int intSchemeCode)
