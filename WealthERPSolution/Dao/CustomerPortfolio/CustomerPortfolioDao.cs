@@ -664,7 +664,7 @@ namespace DaoCustomerPortfolio
             return mfPortfolioVoList;
         }
 
-        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId)
+        public List<MFPortfolioNetPositionVo> GetCustomerMFNetPositions(int customerId, int portfolioId, string strValuationDate)
         {
             List<MFPortfolioNetPositionVo> mfPortfolioNetPositionList = null;
             MFPortfolioNetPositionVo mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
@@ -678,6 +678,7 @@ namespace DaoCustomerPortfolio
                 getMFPortfolioCmd = db.GetStoredProcCommand("sproc_MF_GetCustomerMFNetposition");
                 db.AddInParameter(getMFPortfolioCmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getMFPortfolioCmd, "@portfolioId", DbType.Int32, portfolioId);
+                db.AddInParameter(getMFPortfolioCmd, "@valuationDate", DbType.DateTime, DateTime.Parse(strValuationDate));
                 dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
 
                 if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
