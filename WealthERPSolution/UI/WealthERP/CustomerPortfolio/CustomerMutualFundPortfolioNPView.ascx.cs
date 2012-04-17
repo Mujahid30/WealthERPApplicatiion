@@ -54,6 +54,7 @@ namespace WealthERP.CustomerPortfolio
                 if (Session[SessionContents.ValuationDate] == null)
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                string strValuationDate = genDict[Constants.MFDate.ToString()].ToString();
                 txtPickDate.Text = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString()).ToShortDateString();
 
                 if (!IsPostBack)
@@ -61,7 +62,7 @@ namespace WealthERP.CustomerPortfolio
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     CalculatePortfolioXIRR(portfolioId);
-                    GetMFPortfolioList();
+                    GetMFPortfolioList(txtPickDate.Text);
                     SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
@@ -86,7 +87,7 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        private void GetMFPortfolioList()
+        private void GetMFPortfolioList(string strValuationDate)
         {
             intPortfolioListCount = 0;
 
@@ -94,7 +95,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
 
-                mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId);
+                mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId, strValuationDate);
                 Session["mfPortfolioList"] = mfPortfolioNetPositionList;
                 if (mfPortfolioNetPositionList != null)
                 {
