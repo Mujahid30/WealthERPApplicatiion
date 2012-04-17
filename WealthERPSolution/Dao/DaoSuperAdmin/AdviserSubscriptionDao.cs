@@ -126,6 +126,8 @@ namespace DaoSuperAdmin
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_StorageSize", DbType.Double, adviserSubscriptionVo.StorageSize);
                 db.AddInParameter(createAdviserSubscriptionCmd, "@AS_StorageBalance", DbType.Double, adviserSubscriptionVo.StorageBalance);
 
+                db.AddInParameter(createAdviserSubscriptionCmd, "@AS_StorageDefaultSize", DbType.Double, adviserSubscriptionVo.StorageDefaultSize);
+
 
                 db.AddOutParameter(createAdviserSubscriptionCmd, "@AS_AdviserSubscriptionId", DbType.Int32, 5000);
                 if (db.ExecuteNonQuery(createAdviserSubscriptionCmd) != 0)

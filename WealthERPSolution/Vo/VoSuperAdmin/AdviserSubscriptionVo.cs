@@ -30,6 +30,7 @@ namespace VoSuperAdmin
         public string FlavourCategory { get; set; }
         public float StorageBalance { get; set; }
         public float StorageSize { get; set; }
+        public float StorageDefaultSize { get; set; }
         
             
     }

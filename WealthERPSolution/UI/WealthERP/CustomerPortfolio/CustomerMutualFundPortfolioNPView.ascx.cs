@@ -483,7 +483,7 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioHoldings[7] = "0.00";
 
             if (mfVo.InvestedCost != 0)
-                drMFPortfolioHoldings[8] = mfVo.InvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                drMFPortfolioHoldings[8] = mfVo.ReturnsHoldAcqCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[8] = "0.00";
 

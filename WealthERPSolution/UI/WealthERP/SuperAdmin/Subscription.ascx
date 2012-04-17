@@ -15,15 +15,29 @@
     
 //       var storageUsed = 0;
         var storagePaid = 0;
-        var storageUsed=0;
-        var storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;        
+        var storageUsed = 0;
+        var storageDefault = 0;
+        var storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;
         storageBalance = document.getElementById('<%=txtBalanceSize.ClientID %>').value;
-        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;      
-        
-        if(storagePaid != null && storagePaid != "") {
-            document.getElementById('<%=txtBalanceSize.ClientID %>').value = parseFloat(storagePaid) - parseFloat(storageUsed);                     
-//            parent.PageMethods.AjaxSetSession(storageBalance);
+        storageDefault = document.getElementById('<%=txtDefaultStorage.ClientID %>').value;
+        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;
+       // alert(storageDefault);
+        if (storageDefault == null || storageDefault == "") {
+            storageDefault = 0;
+
         }
+        if (storagePaid == null || storagePaid == "") {
+            storagePaid = 0;
+
+        }
+        if (storageUsed == null || storageUsed == "") {
+            storageUsed = 0;
+
+        }
+       
+            document.getElementById('<%=txtBalanceSize.ClientID %>').value = parseFloat(storagePaid) + parseFloat(storageDefault) - parseFloat(storageUsed);                     
+//            parent.PageMethods.AjaxSetSession(storageBalance);
+       
         
         
         //alert(document.getElementById('<%=hdnStorageBalance.ClientID %>').value);
@@ -164,7 +178,7 @@
 
 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
 
-<DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy" EnableEmbeddedSkins="False"></DateInput>
+<DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy" EnableEmbeddedSkins="False"></DateInput>
                         </telerik:RadDatePicker>
                     </td>
                 </tr>
@@ -179,7 +193,7 @@
 
 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
 
-<DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy" EnableEmbeddedSkins="False"></DateInput>
+<DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy" EnableEmbeddedSkins="False"></DateInput>
                         </telerik:RadDatePicker>
                         <asp:CompareValidator ID="cvEndStart" runat="server" ControlToCompare="dpStartDate"
                             ControlToValidate="dpEndDate" Operator="GreaterThan" ErrorMessage="End Date should be greater than Start Date"
@@ -219,13 +233,27 @@
                        
                     </td>
                 </tr>   
-               
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="lblDefaultStorage" runat="server" CssClass="FieldName" Text="Vault Default Size(mb):"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtDefaultStorage" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ControlToValidate="txtDefaultStorage"
+                                     Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+
+                    </td>
+                </tr>  
+                <tr>
                  <tr>
                     <td align="right">
-                        <asp:Label ID="lblPaidSize" runat="server" CssClass="FieldName" Text="Vault Paid Size:"></asp:Label>
+                        <asp:Label ID="lblPaidSize" runat="server" CssClass="FieldName" Text="Vault Paid Size(mb):"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtPaidSize" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="FieldName" ControlToValidate="txtPaidSize"
+                                     Display="Dynamic" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+
                     </td>
                 </tr>  
                 <tr>
@@ -233,7 +261,7 @@
                         <asp:Label ID="lblBalanceSize" runat="server" CssClass="FieldName" Text="Vault Balance Storage:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtBalanceSize" runat="server" CssClass="txtField" EnableViewState="true" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="txtBalanceSize" runat="server" CssClass="txtField" ReadOnly="true"></asp:TextBox>
                     </td>
                 </tr>            
                
@@ -249,7 +277,7 @@
                 </tr>
                 <tr>
                 <td></td>
-                <td><asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" CssClass="PCGMediumButton" OnClientClick="return alertOnBadSelection()"/></td>
+                <td><asp:Button ID="btnSave" Text="Save" runat="server" OnClick="btnSave_Click" CssClass="PCGMediumButton" OnClientClick="return alertOnBadSelection()" ValidationGroup="btnSubmit"/></td>
                 </tr>
             </table>
         </td>

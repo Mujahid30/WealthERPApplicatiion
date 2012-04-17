@@ -13,145 +13,31 @@ namespace WealthERP.SuperAdmin
 {
     public partial class Subscription : System.Web.UI.UserControl
     {
+        DataSet _dsGetSubscriptionDetails;
+        AdvisorVo advisorVo = new AdvisorVo();
+        AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
+        AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            AdvisorVo advisorVo = (AdvisorVo)Session["advisorVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+          //  txtBalanceSize.Attributes.Add("disabled", "true");
+            
+           
 
-            AdviserSubscriptionBo _advisersubscriptionbo = new AdviserSubscriptionBo();
-            AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
-            DataSet _dsGetSubscriptionDetails;
+            //if (Session["storageBalance"] != "" && Session["storageBalance"] != null)
+            //{
+            //    txtBalanceSize.Text =Convert.ToString(Session["storageBalance"]);
 
-            if (Session["storageBalance"] != "" && Session["storageBalance"] != null)
-            {
-                txtBalanceSize.Text =Convert.ToString(Session["storageBalance"]);
-
-            }
+            //}
+           
             if (!IsPostBack)
             {
                 // BindPlanDropdown();
                 if (advisorVo != null)
                 {
-                    _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
-                    Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
-                    
-                    if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count > 0)
-                    {
-                        txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
-                        if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionEndDate"].ToString()))
-                        {
-                            dpEndDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionEndDate"].ToString());
-                        }
-                        double storageBalance=0;
-                        double storageSize=0;
-
-                        storageBalance = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
-                        storageSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageSize"].ToString());
-                        txtPaidSize.Text = Convert.ToString(storageSize);
-                        hdnStorageUsed.Value = Convert.ToString(storageSize - storageBalance);
-                        txtBalanceSize.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString();
-                        txtNoOfBranches.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfBranches"].ToString();
-                        txtNoOfCustomerLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfCustomerWebLogins"].ToString();
-                        txtNoOfStaffLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString();
-                        txtSMSBought.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SMSLicences"].ToString();
-                        if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionStartDate"].ToString()))
-                        {
-                            dpStartDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionStartDate"].ToString());
-                        }
-                        if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialEndDate"].ToString()))
-                        {
-                            dpTrialEndDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialEndDate"].ToString());
-                        }
-                        if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialStartDate"].ToString()))
-                        {
-                            dpTrialStartDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialStartDate"].ToString());
-                        }
-                        ddlFlavourCategory.SelectedValue = _dsGetSubscriptionDetails.Tables[0].Rows[0]["WFC_FlavourCategoryCode"].ToString();
-
-                        if (_dsGetSubscriptionDetails.Tables[1] != null)
-                        {
-                            //for (int i = 0; i < _dsGetSubscriptionDetails.Tables[1].Rows.Count; i++)
-                            //{
-                            //    for (int j = 0; j < chkModules.Items.Count; j++)
-                            //    {
-                            //        if (chkModules.Items[j].Value == _dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString())
-                            //        {
-                            //            chkModules.Items[j].Selected = true;
-                            //        }
-                            //        
-                            //    }
-                            //    //chkModules.SelectedItem.Value = _dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString();
-                            //}
-                            int flavourId;
-                            for (int i = 0; i < _dsGetSubscriptionDetails.Tables[1].Rows.Count; i++)
-                            {
-                                flavourId = Convert.ToInt32(_dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
-                                chkModules.Items[flavourId - 1].Selected = true;
-                            }
-                            //for (int j = 0; j < chkModules.Items.Count; j++)
-                            //{
-                            //    if (chkModules.Items[j].Selected == false)
-                            //    {
-                            //        chkModules.Items[j].Enabled = false;
-                            //    }
-                            //}
-                            if (ddlFlavourCategory.SelectedValue == "AD")
-                            {
-                                chkModules.Enabled = true;
-                                chkModules.Items[0].Enabled = false;
-                                chkModules.Items[1].Enabled = false;
-                                chkModules.Items[2].Enabled = true;
-                                chkModules.Items[3].Enabled = false;
-                                chkModules.Items[4].Enabled = false;
-                                chkModules.Items[5].Enabled = false;
-                             //   chkModules.Items[6].Enabled = true;
-                                chkModules.Items[7].Enabled = true;
-                                chkModules.Items[8].Enabled = true;
-                            }
-                            else if (ddlFlavourCategory.SelectedValue == "DT")
-                            {
-                                chkModules.Enabled = true;
-                                chkModules.Items[0].Enabled = true;
-                                chkModules.Items[1].Enabled = true;
-                                chkModules.Items[2].Enabled = false;
-                                chkModules.Items[3].Enabled = true;
-                                chkModules.Items[4].Enabled = true;
-                                chkModules.Items[5].Enabled = true;
-                               // chkModules.Items[6].Enabled = true;
-                                chkModules.Items[7].Enabled = false;
-                                chkModules.Items[8].Enabled = false;
-
-                                //plan 1000
-                                // SelectCheckList(2);
-                            }
-                            else if (ddlFlavourCategory.SelectedItem.Value == "AL")
-                            {
-                                chkModules.Enabled = true;
-                                chkModules.Items[0].Enabled = true;
-                                chkModules.Items[1].Enabled = true;
-                                chkModules.Items[2].Enabled = true;
-                                chkModules.Items[3].Enabled = true;
-                                chkModules.Items[4].Enabled = true;
-                                chkModules.Items[5].Enabled = true;
-                             //   chkModules.Items[6].Enabled = true;
-                                chkModules.Items[7].Enabled = true;
-                                chkModules.Items[8].Enabled = true;
-                            }
-                            else
-                            {
-                                chkModules.Enabled = false;
-                                chkModules.Items[0].Selected = false;
-                                chkModules.Items[1].Selected = false;
-                                chkModules.Items[2].Selected = false;
-                                chkModules.Items[3].Selected = false;
-                                chkModules.Items[4].Selected = false;
-                                chkModules.Items[5].Selected = false;
-                              //  chkModules.Items[6].Selected = false;
-                                chkModules.Items[7].Selected = false;
-                                chkModules.Items[8].Selected = false;
-                            }
-                        }
-                    }
-
+                    SetAdviserFlavourSubscription();
                 }
                 //if (ddlPlan.SelectedValue != "3")
                 //{
@@ -178,6 +64,139 @@ namespace WealthERP.SuperAdmin
         //    }
         //}
 
+       public void SetAdviserFlavourSubscription()
+        {
+            if (advisorVo != null)
+            {
+                _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
+                Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
+
+                if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count > 0)
+                {
+                    txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
+                    if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionEndDate"].ToString()))
+                    {
+                        dpEndDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionEndDate"].ToString());
+                    }
+                    double storageBalance = 0;
+                    double storagePaidSize = 0;
+                    double storageSize = 0;
+
+                    storageBalance = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
+                    storagePaidSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_PaidStorage"].ToString());
+                    storageSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageSize"].ToString());
+
+                    txtPaidSize.Text = Convert.ToString(storagePaidSize);
+                    hdnStorageUsed.Value = Convert.ToString(storageSize - storageBalance);
+                    txtDefaultStorage.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_DefaultStorage"].ToString();
+
+                    txtBalanceSize.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString();
+                    txtNoOfBranches.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfBranches"].ToString();
+                    txtNoOfCustomerLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfCustomerWebLogins"].ToString();
+                    txtNoOfStaffLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString();
+                    txtSMSBought.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SMSLicences"].ToString();
+                    if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionStartDate"].ToString()))
+                    {
+                        dpStartDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_SubscriptionStartDate"].ToString());
+                    }
+                    if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialEndDate"].ToString()))
+                    {
+                        dpTrialEndDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialEndDate"].ToString());
+                    }
+                    if (!string.IsNullOrEmpty(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialStartDate"].ToString()))
+                    {
+                        dpTrialStartDate.SelectedDate = DateTime.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_TrialStartDate"].ToString());
+                    }
+                    ddlFlavourCategory.SelectedValue = _dsGetSubscriptionDetails.Tables[0].Rows[0]["WFC_FlavourCategoryCode"].ToString();
+
+                    if (_dsGetSubscriptionDetails.Tables[1] != null)
+                    {
+                        //for (int i = 0; i < _dsGetSubscriptionDetails.Tables[1].Rows.Count; i++)
+                        //{
+                        //    for (int j = 0; j < chkModules.Items.Count; j++)
+                        //    {
+                        //        if (chkModules.Items[j].Value == _dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString())
+                        //        {
+                        //            chkModules.Items[j].Selected = true;
+                        //        }
+                        //        
+                        //    }
+                        //    //chkModules.SelectedItem.Value = _dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString();
+                        //}
+                        int flavourId;
+                        for (int i = 0; i < _dsGetSubscriptionDetails.Tables[1].Rows.Count; i++)
+                        {
+                            flavourId = Convert.ToInt32(_dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
+                            chkModules.Items[flavourId - 1].Selected = true;
+                        }
+                        //for (int j = 0; j < chkModules.Items.Count; j++)
+                        //{
+                        //    if (chkModules.Items[j].Selected == false)
+                        //    {
+                        //        chkModules.Items[j].Enabled = false;
+                        //    }
+                        //}
+                        if (ddlFlavourCategory.SelectedValue == "AD")
+                        {
+                            chkModules.Enabled = true;
+                            chkModules.Items[0].Enabled = false;
+                            chkModules.Items[1].Enabled = false;
+                            chkModules.Items[2].Enabled = true;
+                            chkModules.Items[3].Enabled = false;
+                            chkModules.Items[4].Enabled = false;
+                            chkModules.Items[5].Enabled = false;
+                            //   chkModules.Items[6].Enabled = true;
+                            chkModules.Items[7].Enabled = true;
+                            chkModules.Items[8].Enabled = true;
+                        }
+                        else if (ddlFlavourCategory.SelectedValue == "DT")
+                        {
+                            chkModules.Enabled = true;
+                            chkModules.Items[0].Enabled = true;
+                            chkModules.Items[1].Enabled = true;
+                            chkModules.Items[2].Enabled = false;
+                            chkModules.Items[3].Enabled = true;
+                            chkModules.Items[4].Enabled = true;
+                            chkModules.Items[5].Enabled = true;
+                            // chkModules.Items[6].Enabled = true;
+                            chkModules.Items[7].Enabled = false;
+                            chkModules.Items[8].Enabled = false;
+
+                            //plan 1000
+                            // SelectCheckList(2);
+                        }
+                        else if (ddlFlavourCategory.SelectedItem.Value == "AL")
+                        {
+                            chkModules.Enabled = true;
+                            chkModules.Items[0].Enabled = true;
+                            chkModules.Items[1].Enabled = true;
+                            chkModules.Items[2].Enabled = true;
+                            chkModules.Items[3].Enabled = true;
+                            chkModules.Items[4].Enabled = true;
+                            chkModules.Items[5].Enabled = true;
+                            //   chkModules.Items[6].Enabled = true;
+                            chkModules.Items[7].Enabled = true;
+                            chkModules.Items[8].Enabled = true;
+                        }
+                        else
+                        {
+                            chkModules.Enabled = false;
+                            chkModules.Items[0].Selected = false;
+                            chkModules.Items[1].Selected = false;
+                            chkModules.Items[2].Selected = false;
+                            chkModules.Items[3].Selected = false;
+                            chkModules.Items[4].Selected = false;
+                            chkModules.Items[5].Selected = false;
+                            //  chkModules.Items[6].Selected = false;
+                            chkModules.Items[7].Selected = false;
+                            chkModules.Items[8].Selected = false;
+                        }
+                    }
+                }
+
+            }
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             AdviserSubscriptionVo _advisersubscriptionvo = new AdviserSubscriptionVo();
@@ -199,8 +218,12 @@ namespace WealthERP.SuperAdmin
             int _subscriptionId;
             float _vaultBalanceSize;
             float _vaultPaidSize;
+            float _vaultDefaultSize;
 
+           // txtBalanceSize.Attributes.Add("readonly", "readonly");
+           // txtBalanceSize.Text = Server.HtmlEncode(Request.Form[txtBalanceSize.UniqueID]);
 
+           // txtBalanceSize.Attributes.Add("disabled", "false");
             try
             {
                 if (Page.IsValid)
@@ -254,11 +277,24 @@ namespace WealthERP.SuperAdmin
                         {
                             _advisersubscriptionvo.StorageSize = _vaultPaidSize;
                         }
-                        if (float.TryParse(txtBalanceSize.Text, out _vaultBalanceSize))
+                        //if (float.TryParse(txtBalanceSize.Text, out _vaultBalanceSize))
+                        //{
+                        //    _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
+                        //}
+                        if (float.TryParse(txtDefaultStorage.Text, out _vaultDefaultSize))
                         {
-                            _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
+                            _advisersubscriptionvo.StorageDefaultSize = _vaultDefaultSize;
                         }
 
+                        if (hdnStorageUsed.Value == null || hdnStorageUsed.Value == "")
+                        {
+                            hdnStorageUsed.Value = "0";
+
+                        }
+                        _vaultBalanceSize = _vaultPaidSize + _vaultDefaultSize - float.Parse(hdnStorageUsed.Value);
+                       
+                        _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
+                        
                         if (int.TryParse(txtSMSBought.Text, out _smsBought))
                         {
                             _advisersubscriptionvo.SmsBought = _smsBought;
@@ -278,9 +314,13 @@ namespace WealthERP.SuperAdmin
                             string flavourIds=GetFlavourIds();
                             _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
                             SettingsSavedMessage.Visible = true;
+                            SetAdviserFlavourSubscription();
                         }
+                        SetAdviserFlavourSubscription();
                     }
                 }
+
+               // txtBalanceSize.Attributes.Add("disabled", "true");
 
             }
             catch (Exception ex)
@@ -375,15 +415,15 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[7].Enabled = true;
                 chkModules.Items[8].Enabled = true;
 
-                chkModules.Items[0].Selected = false;
-                chkModules.Items[1].Selected = false;
-                chkModules.Items[2].Selected = true;
-                chkModules.Items[3].Selected = false;
-                chkModules.Items[4].Selected = false;
-                chkModules.Items[5].Selected = false;
-               // chkModules.Items[6].Selected = true;
-                chkModules.Items[7].Selected = true;
-                chkModules.Items[8].Selected = true;
+               // chkModules.Items[0].Selected = false;
+               // chkModules.Items[1].Selected = false;
+               // chkModules.Items[2].Selected = true;
+               // chkModules.Items[3].Selected = false;
+               // chkModules.Items[4].Selected = false;
+               // chkModules.Items[5].Selected = false;
+               //// chkModules.Items[6].Selected = true;
+               // chkModules.Items[7].Selected = true;
+               // chkModules.Items[8].Selected = true;
                 
                 
                 
@@ -403,30 +443,30 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[7].Enabled = false;
                 chkModules.Items[8].Enabled = false;
 
-                chkModules.Items[0].Selected = true;              
-                chkModules.Items[1].Selected = true;
-                chkModules.Items[2].Selected = false;
-                chkModules.Items[3].Selected = true;
-                chkModules.Items[4].Selected = true;
-                chkModules.Items[5].Selected = true;
-                //chkModules.Items[6].Selected = true;
-                chkModules.Items[7].Selected = false;
-                chkModules.Items[8].Selected = false;
+                //chkModules.Items[0].Selected = true;              
+                //chkModules.Items[1].Selected = true;
+                //chkModules.Items[2].Selected = false;
+                //chkModules.Items[3].Selected = true;
+                //chkModules.Items[4].Selected = true;
+                //chkModules.Items[5].Selected = true;
+                ////chkModules.Items[6].Selected = true;
+                //chkModules.Items[7].Selected = false;
+                //chkModules.Items[8].Selected = false;
                 //plan 1000
                // SelectCheckList(2);
             }
             else if (_ddl.SelectedItem.Value == "VA")
             {
                 chkModules.Enabled = false;
-                chkModules.Items[0].Selected = false;
-                chkModules.Items[1].Selected = false;
-                chkModules.Items[2].Selected = false;
-                chkModules.Items[3].Selected = false;
-                chkModules.Items[4].Selected = false;
-                chkModules.Items[5].Selected = false;
-                //chkModules.Items[6].Selected = false;
-                chkModules.Items[7].Selected = false;
-                chkModules.Items[8].Selected = false;
+                //chkModules.Items[0].Selected = false;
+                //chkModules.Items[1].Selected = false;
+                //chkModules.Items[2].Selected = false;
+                //chkModules.Items[3].Selected = false;
+                //chkModules.Items[4].Selected = false;
+                //chkModules.Items[5].Selected = false;
+                ////chkModules.Items[6].Selected = false;
+                //chkModules.Items[7].Selected = false;
+                //chkModules.Items[8].Selected = false;
                 //Custom Plan
               //  SelectCheckList(3);
 
@@ -434,15 +474,15 @@ namespace WealthERP.SuperAdmin
             else if (_ddl.SelectedItem.Value == "Select")
             {
                 chkModules.Enabled = false;
-                chkModules.Items[0].Selected = false;
-                chkModules.Items[1].Selected = false;
-                chkModules.Items[2].Selected = false;
-                chkModules.Items[3].Selected = false;
-                chkModules.Items[4].Selected = false;
-                chkModules.Items[5].Selected = false;
-                //chkModules.Items[6].Selected = false;
-                chkModules.Items[7].Selected = false;
-                chkModules.Items[8].Selected = false;
+                //chkModules.Items[0].Selected = false;
+                //chkModules.Items[1].Selected = false;
+                //chkModules.Items[2].Selected = false;
+                //chkModules.Items[3].Selected = false;
+                //chkModules.Items[4].Selected = false;
+                //chkModules.Items[5].Selected = false;
+                ////chkModules.Items[6].Selected = false;
+                //chkModules.Items[7].Selected = false;
+                //chkModules.Items[8].Selected = false;
             }
             else if (_ddl.SelectedItem.Value == "AL")
             {
@@ -457,16 +497,52 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[7].Enabled = true;
                 chkModules.Items[8].Enabled = true;
 
-                chkModules.Items[0].Selected = false;
-                chkModules.Items[1].Selected = false;
-                chkModules.Items[2].Selected = false;
-                chkModules.Items[3].Selected = false;
-                chkModules.Items[4].Selected = false;
-                chkModules.Items[5].Selected = false;
-              //  chkModules.Items[6].Selected = false;
-                chkModules.Items[7].Selected = false;
-                chkModules.Items[8].Selected = false;
+              //  chkModules.Items[0].Selected = false;
+              //  chkModules.Items[1].Selected = false;
+              //  chkModules.Items[2].Selected = false;
+              //  chkModules.Items[3].Selected = false;
+              //  chkModules.Items[4].Selected = false;
+              //  chkModules.Items[5].Selected = false;
+              ////  chkModules.Items[6].Selected = false;
+              //  chkModules.Items[7].Selected = false;
+              //  chkModules.Items[8].Selected = false;
             }
+
+            DataSet dsFlavourDetails = new DataSet();
+
+            dsFlavourDetails = (DataSet)Session["SubscriptionDetails"];
+
+            int flavourId;
+
+            chkModules.Items[0].Selected = false;
+            chkModules.Items[1].Selected = false;
+            chkModules.Items[2].Selected = false;
+            chkModules.Items[3].Selected = false;
+            chkModules.Items[4].Selected = false;
+            chkModules.Items[5].Selected = false;
+            //  chkModules.Items[6].Selected = false;
+            chkModules.Items[7].Selected = false;
+            chkModules.Items[8].Selected = false;
+
+            string flavourCategory="";
+            if (dsFlavourDetails.Tables[0].Rows.Count > 0)
+            {
+                flavourCategory = dsFlavourDetails.Tables[0].Rows[0]["WFC_FlavourCategoryCode"].ToString();
+            }
+            if (dsFlavourDetails.Tables[1].Rows.Count > 0)
+            {
+                if (flavourCategory == _ddl.SelectedItem.Value)
+                {
+                    for (int i = 0; i < dsFlavourDetails.Tables[1].Rows.Count; i++)
+                    {
+                        flavourId = Convert.ToInt32(dsFlavourDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
+                        chkModules.Items[flavourId - 1].Selected = true;
+                    }
+                }
+
+            }
+
+
         }
         //[System.Web.Services.WebMethod(EnableSession = true)]
         //public static void AjaxSetBalanceStorage(string storageBalance)

@@ -256,7 +256,7 @@
                                                         <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
                                                             DataField="TotalDividends">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="TotalPL" DataField="Total PL">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return"
                                                             DataField="AbsoluteReturn">
@@ -350,7 +350,7 @@
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Balance Amount" DataField="BalanceAmount">
+                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Invested Cost" DataField="BalanceAmount">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV">
                                                         </telerik:GridBoundColumn>
