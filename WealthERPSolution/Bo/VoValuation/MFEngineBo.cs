@@ -163,7 +163,10 @@ namespace BoValuation
                                 isMFTractionSellPairRecreate = true;
                                 dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess);
 
-                                if (dtMFTransactionBalance != null)
+                                dsTransactionBalanceReadyToProcess.Tables[0].TableName = "Transaction";
+                                //dsTransactionBalanceReadyToProcess.Tables[1].TableName = "Balance";
+
+                                if (dtMFTransactionBalance.TableName != "" )
                                 {
 
                                     DataColumn dcInsertUpdate = new DataColumn("CMFTB_InsertUpdate_Flag");
@@ -248,7 +251,7 @@ namespace BoValuation
            dtTransactionDetails.Columns.Add("WTS_TransactionStatusCode", typeof(Int16));
            dtTransactionDetails.Columns.Add("WMTT_TransactionClassificationCode", typeof(string));
 
-           dtTransactionDetails.Columns.Add("CMFTB_Id", typeof(Int32));           
+           dtTransactionDetails.Columns.Add("CMFTB_Id", typeof(Int32));
            dtTransactionDetails.Columns.Add("CMFTB_UnitBalanceTAX", typeof(double));
            dtTransactionDetails.Columns.Add("CMFTB_TotalCostBalanceTAX", typeof(double));
            dtTransactionDetails.Columns.Add("CMFTB_UnitBalanceRETURN", typeof(double));
@@ -272,298 +275,301 @@ namespace BoValuation
                    dtTransactionDetailsTemp = dsTransactionList.Tables["Balance"].Copy();
                }
            }
-           foreach (DataRow dr in dsTransactionList.Tables["Transaction"].Rows)
+           if (dsTransactionList.Tables["Transaction"].Rows.Count > 0)
            {
-               transactionType = dr["WMTT_TransactionClassificationCode"].ToString();
-               drTransactionDetails = dtTransactionDetails.NewRow();
-               TimeSpan span = new TimeSpan();
-
-               switch (transactionType)
+               foreach (DataRow dr in dsTransactionList.Tables["Transaction"].Rows)
                {
-                   case "BUY":
-                       drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
-                       drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                       drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
-                       drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
-                       drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
-                       drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
+                   transactionType = dr["WMTT_TransactionClassificationCode"].ToString();
+                   drTransactionDetails = dtTransactionDetails.NewRow();
+                   TimeSpan span = new TimeSpan();
 
-                       span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                       drTransactionDetails["CMFTB_Age"] = span.TotalDays;
+                   switch (transactionType)
+                   {
+                       case "BUY":
+                           drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                           drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
+                           drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
+                           drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
+                           drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
+                           drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
 
-                       drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()); ;
-                       drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFTB_DivPayout"] = 0;
-                       drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFTB_TotalCostBalRETURN"] = dr["CMFT_Amount"].ToString();
-                       drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
-                       drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
-                       dtTransactionDetails.Rows.Add(drTransactionDetails);
-                       dtTransactionDetailsTemp = dtTransactionDetails.Copy();
+                           span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                           drTransactionDetails["CMFTB_Age"] = span.TotalDays;
 
-                       break;
+                           drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()); ;
+                           drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFTB_DivPayout"] = 0;
+                           drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFTB_TotalCostBalRETURN"] = dr["CMFT_Amount"].ToString();
+                           drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
+                           drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
+                           dtTransactionDetails.Rows.Add(drTransactionDetails);
+                           dtTransactionDetailsTemp = dtTransactionDetails.Copy();
 
-                   case "DVR":
-                       double dvrUnits = 0;
-                       drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
-                       drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                       drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
+                           break;
 
-                       drTransactionDetails["CMFT_Price"] = Convert.ToString(dr["CMFT_Price"]);
-                       drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
-                       drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
-                       drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
-                       drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
-                       span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                       drTransactionDetails["CMFTB_Age"] = span.TotalDays;
+                       case "DVR":
+                           double dvrUnits = 0;
+                           drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                           drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
+                           drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
 
-                       drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                       dvrUnits = double.Parse(dr["CMFT_Units"].ToString());
-                       drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
-                       drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFTB_DivPayout"] = 0;
-                       drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
-                       drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
-                       dtTransactionDetails.Rows.Add(drTransactionDetails);
-                       if (dtTransactionDetails.Rows.Count > 1)
-                       {
-                           double sum = 0;                          
-                           double avgCostReturn = 0;
-                           double totalCostBalanceReturn = 0;
-                           double unitBalanceReturnOld = 0;
-                           int count1 = 0;
-                           double dvrUnitsContribution = 0;
-                           double totalCost = 0;
+                           drTransactionDetails["CMFT_Price"] = Convert.ToString(dr["CMFT_Price"]);
+                           drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
+                           drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
+                           drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
+                           drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
+                           span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                           drTransactionDetails["CMFTB_Age"] = span.TotalDays;
 
-                           DataRow[] drLastTransactionDetails;
-
-                           object sumObject;
-                           //sumObject= dtBalancedDetails.Compute("sum(" + "CMFT_Amount" + ")", "WMTT_TransactionClassificationCode = 'BUY'");
-
-                           sumObject = dtTransactionDetailsTemp.Compute("Sum([CMFTB_UnitBalanceRETURN])", string.Empty);
-                           double.TryParse(Convert.ToString(sumObject), out sum);
-
-                           sumObject = dtTransactionDetailsTemp.Compute("Sum([CMFTB_TotalCostBalRETURN])", string.Empty);
-                           double.TryParse(Convert.ToString(sumObject), out totalCost);
-
-
-                           //foreach (DataRow dr2 in dtTransactionDetailsTemp.Rows)
-                           //{
-                           //    sum = sum + double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString());
-                           //    totalCost = totalCost + double.Parse(dr2["CMFTB_TotalCostBalRETURN"].ToString());
-
-                           //}
-
-                           //avgCostReturn = costReturn / sum;
-
-                           dtTransactionDetails.DefaultView.RowFilter = expression;
-                           //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
-                           dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-                           dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };
-                           if (dtDefaultView.Rows.Count > 0)
+                           drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
+                           dvrUnits = double.Parse(dr["CMFT_Units"].ToString());
+                           drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
+                           drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFTB_DivPayout"] = 0;
+                           drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
+                           drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
+                           dtTransactionDetails.Rows.Add(drTransactionDetails);
+                           if (dtTransactionDetails.Rows.Count > 1)
                            {
-                               foreach (DataRow dr3 in dtDefaultView.Rows)
-                               {
-                                   count1++;
-                                   if (dr3["WMTT_TransactionClassificationCode"].ToString() != "SEL" && dr3["WMTT_TransactionClassificationCode"].ToString() != "DVP")
-                                   {
-                                       if (dr3["CMFTB_Id"].ToString() != null && dr3["CMFTB_Id"].ToString() != "")
-                                       {
-                                           dr3["CMFTB_InsertUpdate_Flag"] = 2;
-                                       }
-                                       if (count1 < dtDefaultView.Rows.Count)
-                                       {
-                                           drLastTransactionDetails = dtTransactionDetailsTemp.Select("CMFT_MFTransId=" + dr3["CMFT_MFTransId"].ToString());
+                               double sum = 0;
+                               double avgCostReturn = 0;
+                               double totalCostBalanceReturn = 0;
+                               double unitBalanceReturnOld = 0;
+                               int count1 = 0;
+                               double dvrUnitsContribution = 0;
+                               double totalCost = 0;
 
-                                           if (drLastTransactionDetails.Count() > 0)
-                                           {
-                                               foreach (DataRow dr1 in drLastTransactionDetails)
-                                               {
-                                                   totalCostBalanceReturn = double.Parse(dr1["CMFTB_TotalCostBalRETURN"].ToString());
-                                                   unitBalanceReturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
-                                               }
-                                           }
-                                           dvrUnitsContribution = dvrUnits * (unitBalanceReturnOld / sum);
-                                           avgCostReturn = totalCostBalanceReturn / (dvrUnitsContribution + double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()));
-                                           dr3["CMFTB_DVRUnitsAllocation_Share"] = unitBalanceReturnOld / sum;
-                                           dr3["CMFTB_DVRUnits_Contributed"] = dvrUnitsContribution;
-                                           dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
-                                           dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
-                                       }
-                                       else
-                                       {
-                                           double totalCostBalance = 0;
-                                           double avlCostDVR = 0;
-                                           foreach (DataRow dr4 in dtDefaultView.Rows)
-                                           {
-                                               totalCostBalance = totalCostBalance + double.Parse(dr4["CMFTB_TotalCostBalRETURN"].ToString());
-                                           }
-                                           avlCostDVR = totalCost - totalCostBalance;
-                                           dr3["CMFTB_TotalCostBalRETURN"] = avlCostDVR;
-                                           dr3["CMFTB_AvgCostBalRETURN"] = avlCostDVR / dvrUnits;
-                                           dr3["CMFTB_DVRUnitsAllocation_Share"] = 0;
-                                           dr3["CMFTB_DVRUnits_Contributed"] = 0;
-                                       }
-                                   }
+                               DataRow[] drLastTransactionDetails;
 
-                               }
-                               // dtTransactionDetails = dtTransactionDetails.DefaultView.Table.Copy();
-                               dtTransactionDetails.Merge(dtDefaultView, false);
-
-                           }
-                       }
-                       dtTransactionDetailsTemp = dtTransactionDetails.Copy();
-                       break;
-                   //case "DVR":
-                   //    drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
-                   //    drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                   //    drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
-                   //    drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
-                   //    drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
-                   //    drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
-                   //    drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
-                   //    drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
-
-                   //    span = navDate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                   //    drTransactionDetails["CMFTB_Age"] = span.TotalDays;
-
-                   //    drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                   //    drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(dr["CMFT_Units"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
-                   //    drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
-                   //    drTransactionDetails["CMFTB_DivPayout"] = 0;
-                   //    drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
-                   //    drTransactionDetails["CMFTB_TotalCostBalRETURN"] = dr["CMFT_Amount"].ToString();
-                   //    dtTransactionDetails.Rows.Add(drTransactionDetails);
-                   //    if (dtTransactionDetails.Rows.Count > 1)
-                   //    {
-                   //        double sum = 0;
-                   //        double costReturn = 0;
-                   //        double avgCostReturn = 0;
-                   //        int count1 = 0;
-                   //        foreach (DataRow dr2 in dtTransactionDetails.Rows)
-                   //        {
-                   //            sum = sum + double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString());
-                   //            count1++;
-                   //            if (count1 < dtTransactionDetails.Rows.Count)
-                   //            {
-                   //                costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
-                   //            }
-                   //        }
-
-                   //        avgCostReturn = costReturn / sum;
-                   //        foreach (DataRow dr3 in dtTransactionDetails.Rows)
-                   //        {
-                   //            dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
-                   //            dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
-
-                   //        }
-
-                   //    }
-
-                   //    break;
-                   case "DVP":
-                       double amount = double.Parse(dr["CMFT_Amount"].ToString());
-                       drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
-                       drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                       drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
-                       drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
-                       drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
-                       drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
-                       span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                       drTransactionDetails["CMFTB_Age"] = span.TotalDays;
-                       drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
-                       drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFTB_DivPayout"] = 0;
-                       drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
-                       drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
-                       dtTransactionDetails.Rows.Add(drTransactionDetails);
-
-                       dtTransactionDetails.DefaultView.RowFilter = expression;
-                       dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-                       if (dtDefaultView.Rows.Count > 1)
-                       {
-                           double sum = 0;
-                           int count1 = 0;
-
-                           //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
-                           if (dtDefaultView.Rows.Count > 0)
-                           {
                                object sumObject;
+                               //sumObject= dtBalancedDetails.Compute("sum(" + "CMFT_Amount" + ")", "WMTT_TransactionClassificationCode = 'BUY'");
 
-                               sumObject = dtDefaultView.Compute("Sum([CMFTB_UnitBalanceRETURN])", string.Empty);
+                               sumObject = dtTransactionDetailsTemp.Compute("Sum([CMFTB_UnitBalanceRETURN])", string.Empty);
                                double.TryParse(Convert.ToString(sumObject), out sum);
 
-                               //foreach (DataRow dr2 in dtDefaultView.Rows)
+                               sumObject = dtTransactionDetailsTemp.Compute("Sum([CMFTB_TotalCostBalRETURN])", string.Empty);
+                               double.TryParse(Convert.ToString(sumObject), out totalCost);
+
+
+                               //foreach (DataRow dr2 in dtTransactionDetailsTemp.Rows)
                                //{
                                //    sum = sum + double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString());
+                               //    totalCost = totalCost + double.Parse(dr2["CMFTB_TotalCostBalRETURN"].ToString());
 
                                //}
-                               foreach (DataRow dr1 in dtDefaultView.Rows)
+
+                               //avgCostReturn = costReturn / sum;
+
+                               dtTransactionDetails.DefaultView.RowFilter = expression;
+                               //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
+                               dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
+                               dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };
+                               if (dtDefaultView.Rows.Count > 0)
                                {
-                                   count1++;
-                                   if (dr1["CMFTB_Id"].ToString() != null && dr1["CMFTB_Id"].ToString() != "")
+                                   foreach (DataRow dr3 in dtDefaultView.Rows)
                                    {
-                                       dr1["CMFTB_InsertUpdate_Flag"] = 2;
+                                       count1++;
+                                       if (dr3["WMTT_TransactionClassificationCode"].ToString() != "SEL" && dr3["WMTT_TransactionClassificationCode"].ToString() != "DVP")
+                                       {
+                                           if (dr3["CMFTB_Id"].ToString() != null && dr3["CMFTB_Id"].ToString() != "")
+                                           {
+                                               dr3["CMFTB_InsertUpdate_Flag"] = 2;
+                                           }
+                                           if (count1 < dtDefaultView.Rows.Count)
+                                           {
+                                               drLastTransactionDetails = dtTransactionDetailsTemp.Select("CMFT_MFTransId=" + dr3["CMFT_MFTransId"].ToString());
+
+                                               if (drLastTransactionDetails.Count() > 0)
+                                               {
+                                                   foreach (DataRow dr1 in drLastTransactionDetails)
+                                                   {
+                                                       totalCostBalanceReturn = double.Parse(dr1["CMFTB_TotalCostBalRETURN"].ToString());
+                                                       unitBalanceReturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
+                                                   }
+                                               }
+                                               dvrUnitsContribution = dvrUnits * (unitBalanceReturnOld / sum);
+                                               avgCostReturn = totalCostBalanceReturn / (dvrUnitsContribution + double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()));
+                                               dr3["CMFTB_DVRUnitsAllocation_Share"] = unitBalanceReturnOld / sum;
+                                               dr3["CMFTB_DVRUnits_Contributed"] = dvrUnitsContribution;
+                                               dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
+                                               dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
+                                           }
+                                           else
+                                           {
+                                               double totalCostBalance = 0;
+                                               double avlCostDVR = 0;
+                                               foreach (DataRow dr4 in dtDefaultView.Rows)
+                                               {
+                                                   totalCostBalance = totalCostBalance + double.Parse(dr4["CMFTB_TotalCostBalRETURN"].ToString());
+                                               }
+                                               avlCostDVR = totalCost - totalCostBalance;
+                                               dr3["CMFTB_TotalCostBalRETURN"] = avlCostDVR;
+                                               dr3["CMFTB_AvgCostBalRETURN"] = avlCostDVR / dvrUnits;
+                                               dr3["CMFTB_DVRUnitsAllocation_Share"] = 0;
+                                               dr3["CMFTB_DVRUnits_Contributed"] = 0;
+                                           }
+                                       }
+
                                    }
-                                   if (dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR" || dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY")
-                                       dr1["CMFTB_DivPayout"] = (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount;
-                                       //costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
-                                  
+                                   // dtTransactionDetails = dtTransactionDetails.DefaultView.Table.Copy();
+                                   dtTransactionDetails.Merge(dtDefaultView, false);
 
                                }
                            }
+                           dtTransactionDetailsTemp = dtTransactionDetails.Copy();
+                           break;
+                       //case "DVR":
+                       //    drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                       //    drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
+                       //    drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
+                       //    drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
+                       //    drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
+                       //    drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
+                       //    drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
+                       //    drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
 
-                           dtTransactionDetails.Merge(dtDefaultView, false);
-                       }
+                       //    span = navDate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                       //    drTransactionDetails["CMFTB_Age"] = span.TotalDays;
 
-                       dtTransactionDetailsTemp = dtTransactionDetails.Copy();
-                       break;
+                       //    drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
+                       //    drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(dr["CMFT_Units"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
+                       //    drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
+                       //    drTransactionDetails["CMFTB_DivPayout"] = 0;
+                       //    drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
+                       //    drTransactionDetails["CMFTB_TotalCostBalRETURN"] = dr["CMFT_Amount"].ToString();
+                       //    dtTransactionDetails.Rows.Add(drTransactionDetails);
+                       //    if (dtTransactionDetails.Rows.Count > 1)
+                       //    {
+                       //        double sum = 0;
+                       //        double costReturn = 0;
+                       //        double avgCostReturn = 0;
+                       //        int count1 = 0;
+                       //        foreach (DataRow dr2 in dtTransactionDetails.Rows)
+                       //        {
+                       //            sum = sum + double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString());
+                       //            count1++;
+                       //            if (count1 < dtTransactionDetails.Rows.Count)
+                       //            {
+                       //                costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
+                       //            }
+                       //        }
 
-                   case "SEL":
-                       DataTable dtmodifiedDetails = new DataTable();
-                       drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
-                       drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                       drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
-                       drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
-                       drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
-                       drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
-                       drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
-                       drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
-                       span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
-                       drTransactionDetails["CMFTB_Age"] = span.TotalDays;
-                       drTransactionDetails["CMFTB_UnitBalanceTAX"] = 0;
-                       drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = 0;
-                       drTransactionDetails["CMFTB_UnitBalanceRETURN"] = 0;
-                       drTransactionDetails["CMFTB_DivPayout"] = 0;
-                       drTransactionDetails["CMFTB_AvgCostBalRETURN"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
-                       drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
-                       drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
-                       drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
-                       dtTransactionDetails.Rows.Add(drTransactionDetails);
-                       dtTransactionDetails.DefaultView.RowFilter = expression;
-                       dtDefaultView = dtTransactionDetails.DefaultView.ToTable();                      
-                       dtmodifiedDetails = GetTransactiondetailsAfterSell(dtDefaultView, double.Parse(dr["CMFT_Units"].ToString()), double.Parse(dr["CMFT_Price"].ToString()), int.Parse(dr["CMFT_MFTransId"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
-                       dtTransactionDetails.Merge(dtmodifiedDetails, false);
-                       dtTransactionDetailsTemp = dtTransactionDetails.Copy();
-                       break;
+                       //        avgCostReturn = costReturn / sum;
+                       //        foreach (DataRow dr3 in dtTransactionDetails.Rows)
+                       //        {
+                       //            dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
+                       //            dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
+
+                       //        }
+
+                       //    }
+
+                       //    break;
+                       case "DVP":
+                           double amount = double.Parse(dr["CMFT_Amount"].ToString());
+                           drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                           drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
+                           drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
+                           drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
+                           drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
+                           drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
+                           span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                           drTransactionDetails["CMFTB_Age"] = span.TotalDays;
+                           drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
+                           drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFTB_DivPayout"] = 0;
+                           drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
+                           drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
+                           dtTransactionDetails.Rows.Add(drTransactionDetails);
+
+                           dtTransactionDetails.DefaultView.RowFilter = expression;
+                           dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
+                           if (dtDefaultView.Rows.Count > 1)
+                           {
+                               double sum = 0;
+                               int count1 = 0;
+
+                               //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
+                               if (dtDefaultView.Rows.Count > 0)
+                               {
+                                   object sumObject;
+
+                                   sumObject = dtDefaultView.Compute("Sum([CMFTB_UnitBalanceRETURN])", string.Empty);
+                                   double.TryParse(Convert.ToString(sumObject), out sum);
+
+                                   //foreach (DataRow dr2 in dtDefaultView.Rows)
+                                   //{
+                                   //    sum = sum + double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString());
+
+                                   //}
+                                   foreach (DataRow dr1 in dtDefaultView.Rows)
+                                   {
+                                       count1++;
+                                       if (dr1["CMFTB_Id"].ToString() != null && dr1["CMFTB_Id"].ToString() != "")
+                                       {
+                                           dr1["CMFTB_InsertUpdate_Flag"] = 2;
+                                       }
+                                       if (dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR" || dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY")
+                                           dr1["CMFTB_DivPayout"] = (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount;
+                                       //costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
+
+
+                                   }
+                               }
+
+                               dtTransactionDetails.Merge(dtDefaultView, false);
+                           }
+
+                           dtTransactionDetailsTemp = dtTransactionDetails.Copy();
+                           break;
+
+                       case "SEL":
+                           DataTable dtmodifiedDetails = new DataTable();
+                           drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                           drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
+                           drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
+                           drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"].ToString();
+                           drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
+                           drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
+                           drTransactionDetails["CMFT_STT"] = dr["CMFT_STT"].ToString();
+                           drTransactionDetails["WTS_TransactionStatusCode"] = dr["WTS_TransactionStatusCode"].ToString();
+                           span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                           drTransactionDetails["CMFTB_Age"] = span.TotalDays;
+                           drTransactionDetails["CMFTB_UnitBalanceTAX"] = 0;
+                           drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = 0;
+                           drTransactionDetails["CMFTB_UnitBalanceRETURN"] = 0;
+                           drTransactionDetails["CMFTB_DivPayout"] = 0;
+                           drTransactionDetails["CMFTB_AvgCostBalRETURN"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnitsAllocation_Share"] = 0;
+                           drTransactionDetails["CMFTB_DVRUnits_Contributed"] = 0;
+                           drTransactionDetails["CMFTB_TotalCostBalRETURN"] = 0;
+                           drTransactionDetails["CMFTB_InsertUpdate_Flag"] = 1;
+                           dtTransactionDetails.Rows.Add(drTransactionDetails);
+                           dtTransactionDetails.DefaultView.RowFilter = expression;
+                           dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
+                           dtmodifiedDetails = GetTransactiondetailsAfterSell(dtDefaultView, double.Parse(dr["CMFT_Units"].ToString()), double.Parse(dr["CMFT_Price"].ToString()), int.Parse(dr["CMFT_MFTransId"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
+                           dtTransactionDetails.Merge(dtmodifiedDetails, false);
+                           dtTransactionDetailsTemp = dtTransactionDetails.Copy();
+                           break;
+                   }
                }
-           }        
-           return dtTransactionDetails;
 
+           }
+               return dtTransactionDetails;           
        }
 
        protected DataTable GetTransactiondetailsAfterSell(DataTable dt, double sellUnits, double sellPrice, int sellId, DateTime sellTransactiondate)
