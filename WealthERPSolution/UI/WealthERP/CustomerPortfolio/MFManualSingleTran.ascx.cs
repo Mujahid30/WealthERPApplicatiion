@@ -149,8 +149,15 @@ namespace WealthERP.CustomerPortfolio
                     ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                     ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                     ddlScheme.DataBind();
+                    ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
                 }
-                ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
+                 else
+                {
+                    ddlScheme.Items.Clear();
+                    ddlScheme.DataSource = null;
+                    ddlScheme.DataBind();
+                    ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -981,7 +988,10 @@ namespace WealthERP.CustomerPortfolio
         {
             if (ddlCategory.SelectedIndex != 0)
             {
-                amcCode = int.Parse(ddlAMC.SelectedValue);
+                if(ddlAMC.SelectedIndex !=0)
+                    amcCode = int.Parse(ddlAMC.SelectedValue);
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select AMC First');", true);
                 categoryCode = ddlCategory.SelectedValue;
                 BindScheme();
             }

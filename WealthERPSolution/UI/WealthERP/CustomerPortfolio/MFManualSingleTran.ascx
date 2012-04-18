@@ -167,8 +167,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                </td>
+                
                 <%--<td><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of Scheme Name.</span><br/>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSearchScheme"
@@ -179,13 +178,7 @@
                                   ValidationGroup="MFSubmit" ControlToValidate="txtSearchScheme" Operator="NotEqual"
                                   CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
                 </td>--%>
-            <tr>
-                <td>
-                    &nbsp;
-                </td>
-                <td>
-                </td>
-            </tr>
+
          <tr>
                 <td class="leftField">
                     <asp:Label ID="Label4" runat="server" Text="Folio Number :" CssClass="FieldName"></asp:Label>
@@ -235,21 +228,11 @@
             
             <%--From here there is lots of work to do--%>
             <tr>
-                <td colspan="2">
-                    &nbsp;
-                </td>
-            </tr>
-            <tr>
                 <td class="leftField" id="tdSchemeNameLabel" runat="server">
                     <asp:Label ID="lblSchemeName" runat="server" CssClass="FieldName" Text="Scheme Name :"></asp:Label>
                 </td>
                 <td class="rightField" id="tdSchemeNameValue" runat="server" colspan="3">
                     <asp:Label ID="lblScheme" runat="server" Text="Label" CssClass="Field"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    &nbsp;
                 </td>
             </tr>
             <tr>
