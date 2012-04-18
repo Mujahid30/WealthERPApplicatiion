@@ -956,6 +956,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
+                else if (e.Item.Value == "Order_Approval_List")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('CustomerOrderList','login')", true);
+                }
+
                 else if (e.Item.Value == "Financial Planning")
                 {
                     if (advisorVo.advisorId == 1157 && advisorVo.OrganizationName.Contains("Birla Money"))

@@ -108,6 +108,13 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Value="Order" Text="Order">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Order Approval List" Value="Order_Approval_List">
+                                    </telerik:RadPanelItem>
+                                                                     
+                                </Items>
+                            </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
