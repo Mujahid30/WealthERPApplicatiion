@@ -695,6 +695,7 @@ namespace DaoCustomerPortfolio
                         mfPortfNetPositionVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
                         mfPortfNetPositionVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfPortfNetPositionVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentSubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
                         mfPortfNetPositionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
                         mfPortfNetPositionVo.MarketPrice = double.Parse(dr["CMFNP_MarketPrice"].ToString());
                         mfPortfNetPositionVo.MFPortfolioId = int.Parse(dr["CMFNP_MFNPId"].ToString());

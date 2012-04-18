@@ -53,5 +53,6 @@ namespace VoCustomerPortfolio
         public double TaxRealizedAcqCost { get; set; }
         public double TaxRealizedSTCG { get; set; }
         public double TaxRealizedLTCG { get; set; }
+        public string AssetInstrumentSubCategoryName { get; set; }
     }
 }

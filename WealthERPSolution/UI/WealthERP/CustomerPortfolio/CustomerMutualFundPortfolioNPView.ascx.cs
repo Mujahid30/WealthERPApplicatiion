@@ -55,14 +55,14 @@ namespace WealthERP.CustomerPortfolio
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
                 string strValuationDate = genDict[Constants.MFDate.ToString()].ToString();
-                txtPickDate.Text = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString()).ToShortDateString();
+                lblPickDate.Text = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString()).ToShortDateString();
 
                 if (!IsPostBack)
                 {
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     CalculatePortfolioXIRR(portfolioId);
-                    GetMFPortfolioList(txtPickDate.Text);
+                    GetMFPortfolioList(lblPickDate.Text);
                     SetPanelVisibility(false, false);
                     trNoRecords.Visible = false;
                 }
@@ -379,6 +379,7 @@ namespace WealthERP.CustomerPortfolio
 
             drMFPortfolioRealized[13] = mfVo.AMCCode;
             drMFPortfolioRealized[14] = mfVo.SchemePlanCode;
+            drMFPortfolioRealized[15] = mfVo.AssetInstrumentSubCategoryName;
 
         }
 
@@ -457,6 +458,7 @@ namespace WealthERP.CustomerPortfolio
 
             drMFPortfolioAll[18] = mfVo.AMCCode;
             drMFPortfolioAll[19] = mfVo.SchemePlanCode;
+            drMFPortfolioAll[20] = mfVo.AssetInstrumentSubCategoryName;
         }
 
         private static void PopulateReturnsHoldDataTable(MFPortfolioNetPositionVo mfVo, DataRow drMFPortfolioHoldings)
@@ -520,6 +522,7 @@ namespace WealthERP.CustomerPortfolio
 
             drMFPortfolioHoldings[15] = mfVo.AMCCode;
             drMFPortfolioHoldings[16] = mfVo.SchemePlanCode;
+            drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -567,6 +570,7 @@ namespace WealthERP.CustomerPortfolio
 
             drTaxHoldings[12] = mfVo.AMCCode;
             drTaxHoldings[13] = mfVo.SchemePlanCode;
+            drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
 
         }
 
@@ -605,7 +609,7 @@ namespace WealthERP.CustomerPortfolio
 
             drTaxRealized[10] = mfVo.AMCCode;
             drTaxRealized[11] = mfVo.SchemePlanCode;
-
+            drTaxRealized[12] = mfVo.AssetInstrumentSubCategoryName;
         }
 
         private void ReturnsLabelVisibility(bool blVisibility)
@@ -658,6 +662,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("XIRR");
             dtReturnsHoldings.Columns.Add("AMCCode");
             dtReturnsHoldings.Columns.Add("SchemeCode");
+            dtReturnsHoldings.Columns.Add("SubCategoryName");
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -682,6 +687,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("TotalDividends");
             dtReturnsAll.Columns.Add("AMCCode");
             dtReturnsAll.Columns.Add("SchemeCode");
+            dtReturnsAll.Columns.Add("SubCategoryName");
         }
 
         private void ReturnsRealizedDataTableCreation(DataTable dtReturnsRealized)
@@ -701,6 +707,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("XIRR");
             dtReturnsRealized.Columns.Add("AMCCode");
             dtReturnsRealized.Columns.Add("SchemeCode");
+            dtReturnsRealized.Columns.Add("SubCategoryName");
         }
 
         private void TaxHoldingsDataTableCreation(DataTable dtTaxHoldings)
@@ -719,6 +726,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("EligibleLTCG");
             dtTaxHoldings.Columns.Add("AMCCode");
             dtTaxHoldings.Columns.Add("SchemeCode");
+            dtTaxHoldings.Columns.Add("SubCategoryName");
         }
 
         private void TaxRealizedDataTableCreation(DataTable dtTaxRealized)
@@ -735,6 +743,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("LTCG");
             dtTaxRealized.Columns.Add("AMCCode");
             dtTaxRealized.Columns.Add("SchemeCode");
+            dtTaxRealized.Columns.Add("SubCategoryName");
         }
 
         private void BindPerformaceChart()
@@ -1137,6 +1146,25 @@ namespace WealthERP.CustomerPortfolio
         }
 
         #endregion
+
+        protected void ddlDisplayType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDisplayType.SelectedIndex == 0)
+            {
+                SetPanelVisibility(false, false);
+            }
+            else if (ddlDisplayType.SelectedIndex == 1)
+            {
+                SetPanelVisibility(true, false);
+                BindReturnsGrid();
+                BindPerformaceChart();
+            }
+            else if (ddlDisplayType.SelectedIndex == 2)
+            {
+                SetPanelVisibility(false, true);
+                BindTaxGrid();
+            }
+        }
 
     }
 }

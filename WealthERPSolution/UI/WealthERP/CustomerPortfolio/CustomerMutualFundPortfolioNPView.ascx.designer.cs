@@ -32,6 +32,24 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblHeader;
         
         /// <summary>
+        /// lblDisplayType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDisplayType;
+        
+        /// <summary>
+        /// ddlDisplayType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDisplayType;
+        
+        /// <summary>
         /// lblPortfolio control.
         /// </summary>
         /// <remarks>
@@ -50,22 +68,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlPortfolio;
         
         /// <summary>
-        /// lnkReturns control.
+        /// lblDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkReturns;
-        
-        /// <summary>
-        /// lnkTax control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkTax;
+        protected global::System.Web.UI.WebControls.Label lblDate;
         
         /// <summary>
         /// lblPickDate control.
@@ -75,15 +84,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPickDate;
-        
-        /// <summary>
-        /// txtPickDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPickDate;
         
         /// <summary>
         /// lblPortfolioXIRR control.

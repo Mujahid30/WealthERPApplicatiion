@@ -22,13 +22,26 @@
 </table>
 <table style="width: 100%" class="TableBackground">
     <tr>
-        <td>
+        <td class="leftField" style="width: 10%">
+            <asp:Label ID="lblDisplayType" runat="server" CssClass="FieldName" Text="Display type:"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 15%">
+            <asp:DropDownList ID="ddlDisplayType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlDisplayType_SelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                <asp:ListItem Text="Returns" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Tax" Value="2"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 15%">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <td colspan="2">
+        <%-- <td colspan="2">
             <div id="div1" class="fk-lres-header" style="margin-left: 10%; padding-bottom: 5px;
                 text-align: center">
                 <asp:LinkButton ID="lnkReturns" Text="Returns" CssClass="LinkButtons" OnClick="lnkBtnReturns_Click"
@@ -37,17 +50,18 @@
                 <asp:LinkButton ID="lnkTax" Text="Tax" CssClass="LinkButtons" OnClick="lnkBtnTax_Click"
                     runat="server"></asp:LinkButton>
             </div>
+        </td>--%>
+        <td class="leftField" style="width: 10%">
+            <asp:Label ID="lblDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td>
-            <asp:Label ID="lblPickDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
+        <td class="rightField" style="width: 15%">
+            <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+            <%--<asp:TextBox ID="txtPickDate" runat="server" CssClass="cmbField" Enabled="false"></asp:TextBox>--%>
         </td>
-        <td>
-            <asp:TextBox ID="txtPickDate" runat="server" CssClass="cmbField" Enabled="false"></asp:TextBox>
-        </td>
-        <td>
+        <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR:" runat="server" CssClass="FieldName"> </asp:Label>
         </td>
-        <td>
+        <td class="rightField" style="width: 15%">
             <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
         </td>
     </tr>
@@ -92,12 +106,17 @@
                                             <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
                                             <telerik:RadGrid ID="rgHoldings" runat="server" Width="860px" Height="250px" PageSize="6"
-                                                AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
-                                                Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgHoldings_ItemCommand" EnableViewState="true">
+                                            AllowAutomaticDeletes="false" ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false" 
+                                            HorizontalAlign="NotSet" AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="false"
+                                            Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" ShowStatusBar="true"
+                                            OnItemCommand="rgHoldings_ItemCommand" EnableViewState="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                                                </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false">
+                                                    AutoGenerateColumns="false" >
+                                              <%--  <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
@@ -110,6 +129,8 @@
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
@@ -158,12 +179,18 @@
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                                                 OnItemCommand="rgAll_ItemCommand" EnableViewState="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                                <%--<ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                                                </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
                                                     AutoGenerateColumns="false">
+                                               <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false">
@@ -228,12 +255,18 @@
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                                                 OnItemCommand="rgRealized_ItemCommand" EnableViewState="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                                                </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false">
+                                                    AutoGenerateColumns="false" >
+                                           <%--     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false">
@@ -332,12 +365,18 @@
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                                                 OnItemCommand="rgTaxHoldings_ItemCommand" EnableViewState="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                              <%--  <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                                                </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false">
+                                                    AutoGenerateColumns="false" >
+                                                <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false">
@@ -386,12 +425,18 @@
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                                                 OnItemCommand="rgTaxRealized_ItemCommand" EnableViewState="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                                                </ExportSettings>--%>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false">
+                                                AutoGenerateColumns="false" >
+                                               <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" >/--%>
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false">
