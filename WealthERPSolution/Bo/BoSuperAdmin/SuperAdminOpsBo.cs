@@ -322,13 +322,13 @@ namespace BoSuperAdmin
             }           
         }
 
-        public DataSet GetNAVPercentage(DateTime navDate, int currentPage, out int count)
+        public DataSet GetNAVPercentage(DateTime navDate, double NavPer, int currentPage, out int count)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             DataSet dsGetNAVPer;
             try
             {
-                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate, currentPage, out count);
+                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate,NavPer, currentPage, out count);
 
             }
             catch (BaseApplicationException Ex)
