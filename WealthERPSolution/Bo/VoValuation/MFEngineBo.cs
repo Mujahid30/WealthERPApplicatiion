@@ -967,6 +967,7 @@ namespace BoValuation
              double CMFTB_DivPayout=0;
              double CMFNP_RET_Realized_DVPAmt=0;
              double sellUnits = 0;
+            // double returnHoldingInvestedAmount = 0;
              double[] currentValueXIRR;
              DateTime[] tranDateXIRR;
 
@@ -1003,7 +1004,11 @@ namespace BoValuation
                      drMFNetPosition["PASP_SchemePlanCode"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["PASP_SchemePlanCode"]));
                      drMFNetPosition["CMFA_AccountId"] = Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["CMFA_AccountId"]));
 
+
                      object sumObject;
+                     sumObject = dtMFTransactionBalance.Compute("Sum([InvestedCostReturnHolding])", string.Empty);
+                     double.TryParse(Convert.ToString(sumObject), out CMFNP_RET_Hold_AcqCost);                     
+                   
                      sumObject = dtMFTransactionBalance.Compute("Sum([CMFT_Amount])", "WMTT_TransactionClassificationCode = 'BUY'");
                      double.TryParse(Convert.ToString(sumObject), out returnInvestedCost);
 
@@ -1032,6 +1037,7 @@ namespace BoValuation
                      currentValue = openUnits * Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
 
                      //*********************************XIRR****************************************
+
                      currentValueXIRR[(currentValueXIRR.Count()) - 1] = currentValue;
                      tranDateXIRR[(currentValueXIRR.Count()) - 1] = valuationDate;
 
@@ -1076,8 +1082,9 @@ namespace BoValuation
 
                      avgCost = Convert.ToDouble(lastRow["CMFTB_AvgCostBalRETURN"]);
 
-                     CMFNP_RET_Hold_AcqCost = openUnits * avgCost;
-                     drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
+                     //CMFNP_RET_Hold_AcqCost = openUnits * avgCost;
+                     //drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
+
                      returnHoldingTotalPL = currentValue + CMFTB_DivPayout - CMFNP_RET_Hold_AcqCost;
 
                      drMFNetPosition["CMFNP_RET_Hold_TotalPL"] = returnHoldingTotalPL;
@@ -1184,16 +1191,5 @@ namespace BoValuation
 
          }
 
-
-
-
-
-
-       }
-       
-
-
-     
-
-    
+     } 
 }
