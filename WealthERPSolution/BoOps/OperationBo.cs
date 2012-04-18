@@ -513,5 +513,34 @@ namespace BoOps
 
             return dtPdfForms;
         }
+
+        public DataSet GetCustomerApprovalList(int customerId)
+        {
+            DataSet dsCustomerApprovallist = new DataSet();
+            try
+            {
+                dsCustomerApprovallist = operationDao.GetCustomerApprovalList(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerApprovallist;
+        }
+
+        public bool UpdateCustomerApprovalList(int gvOrderId)
+        {
+            bool Result = false;
+            try
+            {
+                Result = operationDao.UpdateCustomerApprovalList(gvOrderId,out Result);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return Result;
+        }
     }
 }
