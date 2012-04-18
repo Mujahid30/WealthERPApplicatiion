@@ -157,6 +157,12 @@
             <asp:CompareValidator ID="cvSelectDate" runat="server" ControlToValidate="txtDate" CssClass="cvPCG" 
                ErrorMessage="<br />Date should not be  greater than  Today date" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
   </td>
+  <td valign="top">
+  <asp:Label ID="lblPercentage" runat="server" width="50" CssClass="FieldName">Percent: </asp:Label>
+  </td>
+  <td valign="top">
+  <asp:TextBox ID="txtPercentage" runat="server" style="vertical-align: middle"  CssClass="txtField"></asp:TextBox>
+  </td>
   </tr>
     </table>
                         
