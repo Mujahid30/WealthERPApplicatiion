@@ -497,7 +497,7 @@ namespace DaoSuperAdmin
 
            return dsAdviserList.Tables[0];
        }
-       public DataSet GetNAVPercentage(DateTime navDate, int currentPage, out int count)
+       public DataSet GetNAVPercentage(DateTime navDate, double NavPer, int currentPage, out int count)
        {
            DataSet dsGetNAVPer;
            Database db;
@@ -508,6 +508,7 @@ namespace DaoSuperAdmin
                getNAVPercmd = db.GetStoredProcCommand("SP_GetNAVChangePercentage");
                db.AddInParameter(getNAVPercmd, "@navDateToday", DbType.DateTime, navDate);
                db.AddInParameter(getNAVPercmd, "@currentPage", DbType.Int32, currentPage);
+               db.AddInParameter(getNAVPercmd, "@navPercent", DbType.Double, NavPer);
                db.AddOutParameter(getNAVPercmd, "@Count", DbType.Int32, 0);
                getNAVPercmd.CommandTimeout = 60 * 60;
                dsGetNAVPer = db.ExecuteDataSet(getNAVPercmd);
