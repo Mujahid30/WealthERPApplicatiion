@@ -1013,5 +1013,50 @@ namespace DaoOps
             return dtPdfForms;
             
         }
+
+        public DataSet GetCustomerApprovalList(int customerId)
+        {
+            Database db;
+            DataSet dsCustomerApprovalList = new DataSet();
+            DbCommand CustomerApprovalListCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CustomerApprovalListCmd = db.GetStoredProcCommand("SP_GetCustomerApprovalList");
+                db.AddInParameter(CustomerApprovalListCmd, "@CustomerId", DbType.String, customerId);
+                dsCustomerApprovalList = db.ExecuteDataSet(CustomerApprovalListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsCustomerApprovalList;
+        }
+
+        public bool UpdateCustomerApprovalList(int gvOrderId, out bool status)
+        {
+            Database db;
+            int affectedRecords = 0;
+            DbCommand updateCustomerApprovalListCmd;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCustomerApprovalListCmd = db.GetStoredProcCommand("SP_ApprovedOrder");
+                db.AddInParameter(updateCustomerApprovalListCmd, "@mfOrderId", DbType.Int32, gvOrderId);
+                db.AddOutParameter(updateCustomerApprovalListCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateCustomerApprovalListCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateCustomerApprovalListCmd, "@IsSuccess").ToString());
+  
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
     }
 }
