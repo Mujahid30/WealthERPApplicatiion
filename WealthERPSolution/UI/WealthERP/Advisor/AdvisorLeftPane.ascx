@@ -236,7 +236,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Content" Value="Content">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Manage Repository" Value="ManageRepository">
+                                            <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -332,7 +332,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>
@@ -379,7 +379,7 @@
                                             </telerik:RadPanelItem>--%>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>
@@ -522,6 +522,16 @@
                                             <telerik:RadPanelItem runat="server" Text="MF" Value="MF Report">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Equity" Value="Equity Report">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
