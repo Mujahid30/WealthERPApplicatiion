@@ -30,7 +30,7 @@
             <asp:Label ID="lblSubject" Text="Subject:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox CssClass="txtField" ID="txtSubject" runat="server" Width="300px" MaxLength="200"></asp:TextBox>
+            <asp:TextBox CssClass="txtField" ID="txtSubject" runat="server" Width="300px" MaxLength="100"></asp:TextBox>
             <span id="span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvSubject" runat="server"
                 ControlToValidate="txtSubject" ErrorMessage="<br/>Enter Message Subject" ValidationGroup="main"
@@ -42,7 +42,7 @@
             <asp:Label ID="lblMessage" Text="Message:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox CssClass="txtField" ID="txtMessage" MaxLength="1000" runat="server"
+            <asp:TextBox CssClass="txtField" ID="txtMessage" MaxLength="2000" runat="server"
                 TextMode="MultiLine" Rows="3" Style="width: 300px"></asp:TextBox>
             <span id="span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvMessage" runat="server"
@@ -65,6 +65,7 @@
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1001">RM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
+                <asp:ListItem Value="1004">Ops</asp:ListItem>
                 <asp:ListItem Value="1003">Customer</asp:ListItem>
             </asp:CheckBoxList>
         </td>

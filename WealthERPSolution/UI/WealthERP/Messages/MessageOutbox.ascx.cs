@@ -62,10 +62,7 @@ namespace WealthERP.Messages
                     if (dr["M_MessageId"].ToString() == strKeyValue)
                     {
                         string strMessage = dr["Message"].ToString();
-                        string result = string.Empty;
-                        for (int i = 0; i < strMessage.Length; i++)
-                            result += (i % 100 == 0 && i != 0) ? (strMessage[i].ToString() + "<br/>") : strMessage[i].ToString();
-                        lblMessageContent.Text = result;
+                        lblMessageContent.Text = strMessage;
                         lblRecipientsContent.Text = dr["Recipients"].ToString();
                         lblSubjectContent.Text = dr["Subject"].ToString();
                         lblSentContent.Text = dataItem["Sent"].Text;
@@ -89,13 +86,13 @@ namespace WealthERP.Messages
             else if (e.Item is GridDataItem)
             {
                 GridDataItem dataBoundItem = e.Item as GridDataItem;
-                if (dataBoundItem["Subject"].Text.Length > 75)
+                if (dataBoundItem["Subject"].Text.Length > 50)
                 {
-                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 75) + ".....";
+                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 50) + "...";
                 }
                 if (dataBoundItem["To"].Text.Length > 30)
                 {
-                    dataBoundItem["To"].Text = dataBoundItem["To"].Text.Substring(0, 20) + ".....";
+                    dataBoundItem["To"].Text = dataBoundItem["To"].Text.Substring(0, 20) + "...";
                 }
             }
         }

@@ -1,47 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MessageInbox.ascx.cs"
     Inherits="WealthERP.Messages.MessageInbox" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<!-- custom head section -->
-<%--<style type="text/css">
-    .RadGrid th input
-    {
-        margin-top: 0;
-        margin-bottom: 0;
-        height: 12px;
-    }
-</style>--%>
-<telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
-    <%--<script type="text/javascript">
-
-        function pageLoad() {
-
-            var grid = $find('<%=RadGrid1.ClientID %>');
-            var grid2 = document.getElementById("<%=RadGrid1.ClientID %>");
-            alert(grid);
-            alert(grid2);
-
-        }
-
-        function checkAllBoxes() {
-            //            $(document).ready(function() {
-            //get total number of rows in the gridview and do whatever
-            //you want with it..just grabbing it just cause
-
-            var MasterTable = grid.get_masterTableView();
-            var Rows = MasterTable.get_dataItems();
-            //debugger;
-            var totalRows = Rows.length;
-            var hdrChkBx = document.getElementById("hdrCheckBox");
-
-            for (var i = 0; i < totalRows; i++) {
-                var chkbx = Rows[i].findElement("chkbxRow");
-                chkbx.checked = hdrChkBx.checked;
-            }
-        }
-        
-    </script>--%>
-</telerik:RadCodeBlock>
-<!-- end of custom head section -->
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 <table width="100%" class="TableBackground">
     <tr>
@@ -65,18 +24,19 @@
                 <AjaxSettings>
                     <telerik:AjaxSetting AjaxControlID="RadGrid1">
                         <UpdatedControls>
-                            <telerik:AjaxUpdatedControl ControlID="RadGrid1" />
-                            <telerik:AjaxUpdatedControl ControlID="pnlMessage" />
+                            <telerik:AjaxUpdatedControl ControlID="RadGrid1" LoadingPanelID="RadAjaxLoadingPanel1" />
+                            <telerik:AjaxUpdatedControl ControlID="pnlMessage" LoadingPanelID="RadAjaxLoadingPanel1" />
                         </UpdatedControls>
                     </telerik:AjaxSetting>
                 </AjaxSettings>
             </telerik:RadAjaxManager>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
+            <%-- IsSticky="true"--%>
             <div id="dv" class="dvInbox">
-                <telerik:RadGrid ID="RadGrid1" runat="server" Width="860px" Height="250px" PageSize="6"
+                <telerik:RadGrid ID="RadGrid1" runat="server" Width="860px" Height="230px" PageSize="5"
                     AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="False"
                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                    OnItemCommand="RadGrid1_ItemCommand" EnableViewState="true" OnNeedDataSource="RadGrid1_NeedDataSource"
+                    OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource"
                     OnItemDataBound="RadGrid1_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <MasterTableView DataKeyNames="MR_MessageRecipientId" ShowFooter="true">
@@ -104,22 +64,25 @@
                                         alt="MailIcon" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn UniqueName="From" HeaderText="From" DataField="Sender" ItemStyle-Wrap="false">
+                            <telerik:GridBoundColumn UniqueName="From" HeaderText="From" DataField="Sender" ItemStyle-Wrap="false"
+                                ItemStyle-Width="120px">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject" ItemStyle-Wrap="false">
+                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject"
+                                ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Received" SortExpression="Received" HeaderText="Received"
                                 DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}" ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="ReadByUser" DataField="IsReadByUser" Visible="false" />
-                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read" ItemStyle-Wrap="false">
+                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read"
+                                ItemStyle-Wrap="false" ItemStyle-Width="50px">
                             </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>
                 </telerik:RadGrid>
-                <hr style="width: 860px; float: left;" />
                 <br />
+                <hr style="width: 860px; float: left;" />
                 <asp:Panel ID="pnlMessage" runat="server" ScrollBars="Auto" Height="200px" Width="850px"
                     BackColor="White" Style="padding: 20px 0 0 10px;">
                     <br />

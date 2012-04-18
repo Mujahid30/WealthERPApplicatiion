@@ -28,17 +28,12 @@
                             <telerik:AjaxUpdatedControl ControlID="pnlOutboxMessage" LoadingPanelID="RadAjaxLoadingPanel1" />
                         </UpdatedControls>
                     </telerik:AjaxSetting>
-                    <telerik:AjaxSetting AjaxControlID="btnDelete">
-                        <UpdatedControls>
-                            <telerik:AjaxUpdatedControl ControlID="RadGridOutbox" LoadingPanelID="RadAjaxLoadingPanel1" />
-                            <telerik:AjaxUpdatedControl ControlID="pnlOutboxMessage" LoadingPanelID="RadAjaxLoadingPanel1" />
-                        </UpdatedControls>
-                    </telerik:AjaxSetting>
                 </AjaxSettings>
             </telerik:RadAjaxManager>
-            <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
+            <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007">
+            </telerik:RadAjaxLoadingPanel>
             <div id="dv" class="dvInbox">
-                <telerik:RadGrid ID="RadGridOutbox" runat="server" Width="860px" Height="250px" PageSize="6"
+                <telerik:RadGrid ID="RadGridOutbox" runat="server" Width="860px" Height="230px" PageSize="5"
                     AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="False"
                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
                     OnItemCommand="RadGridOutbox_ItemCommand" EnableViewState="true" OnNeedDataSource="RadGridOutbox_NeedDataSource"
@@ -61,21 +56,24 @@
                                         ForeColor="White" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn UniqueName="To" HeaderText="To" DataField="Recipients" ItemStyle-Wrap="false">
+                            <telerik:GridBoundColumn UniqueName="To" HeaderText="To" DataField="Recipients" ItemStyle-Wrap="false"
+                                ItemStyle-Width="120px">
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject" ItemStyle-Wrap="false">
+                            <telerik:GridBoundColumn UniqueName="Subject" HeaderText="Subject" DataField="Subject"
+                                ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Sent" SortExpression="Sent" HeaderText="Sent"
-                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}"  ItemStyle-Wrap="false">
+                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}" ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
-                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read" ItemStyle-Wrap="false">
+                            <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read"
+                                ItemStyle-Wrap="false" ItemStyle-Width="50px">
                             </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>
                 </telerik:RadGrid>
-                <hr style="width: 860px; float: left;" />
                 <br />
+                <hr style="width: 860px; float: left;" />
                 <asp:Panel ID="pnlOutboxMessage" runat="server" ScrollBars="Auto" Height="200px"
                     Width="850px" BackColor="White" Style="padding: 20px 0 0 10px;">
                     <br />

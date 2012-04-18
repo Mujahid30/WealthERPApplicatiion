@@ -63,10 +63,7 @@ namespace WealthERP.Messages
                     if (dr["MR_MessageRecipientId"].ToString() == strKeyValue)
                     {
                         string strMessage = dr["Message"].ToString();
-                        string result = string.Empty;
-                        for (int i = 0; i < strMessage.Length; i++)
-                            result += (i % 100 == 0 && i != 0) ? (strMessage[i].ToString() + "<br/>") : strMessage[i].ToString();
-                        lblMessageContent.Text = result;
+                        lblMessageContent.Text = strMessage;
                         lblSenderContent.Text = dr["Sender"].ToString();
                         lblSubjectContent.Text = dr["Subject"].ToString();
                         lblSentContent.Text = dataItem["Received"].Text;
@@ -93,6 +90,8 @@ namespace WealthERP.Messages
             }
         }
 
+        
+
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridPagerItem)
@@ -106,13 +105,13 @@ namespace WealthERP.Messages
             else if (e.Item is GridDataItem)
             {
                 GridDataItem dataBoundItem = e.Item as GridDataItem;
-                if (dataBoundItem["Subject"].Text.Length > 75)
+                if (dataBoundItem["Subject"].Text.Length > 50)
                 {
-                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 75) + ".....";
+                    dataBoundItem["Subject"].Text = dataBoundItem["Subject"].Text.Substring(0, 50) + "...";
                 }
                 if (dataBoundItem["Received"].Text.Length > 30)
                 {
-                    dataBoundItem["Received"].Text = dataBoundItem["Received"].Text.Substring(0, 20) + ".....";
+                    dataBoundItem["Received"].Text = dataBoundItem["Received"].Text.Substring(0, 20) + "...";
                 }
             }
         }
