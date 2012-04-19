@@ -210,9 +210,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoCommon", "Vo\VoCommon\VoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoValuation", "Dao\DaoValuation\DaoValuation.csproj", "{F117CAF2-598C-4D96-831B-BD108DE402C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoValuation", "Bo\VoValuation\BoValuation.csproj", "{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoValuation", "Vo\VoValuation\VoValuation.csproj", "{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoValuation", "Bo\BoValuation\BoValuation.csproj", "{189258F3-16C1-4384-83D4-B8038C04A391}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -540,14 +540,14 @@ Global
 		SccProjectTopLevelParentUniqueName83 = WealthERPSolution.sln
 		SccProjectName83 = Dao/DaoValuation
 		SccLocalPath83 = Dao\\DaoValuation
-		SccProjectUniqueName84 = Bo\\VoValuation\\BoValuation.csproj
+		SccProjectUniqueName84 = Vo\\VoValuation\\VoValuation.csproj
 		SccProjectTopLevelParentUniqueName84 = WealthERPSolution.sln
-		SccProjectName84 = Bo/VoValuation
-		SccLocalPath84 = Bo\\VoValuation
-		SccProjectUniqueName85 = Vo\\VoValuation\\VoValuation.csproj
+		SccProjectName84 = Vo/VoValuation
+		SccLocalPath84 = Vo\\VoValuation
+		SccProjectUniqueName85 = Bo\\BoValuation\\BoValuation.csproj
 		SccProjectTopLevelParentUniqueName85 = WealthERPSolution.sln
-		SccProjectName85 = Vo/VoValuation
-		SccLocalPath85 = Vo\\VoValuation
+		SccProjectName85 = Bo/BoValuation
+		SccLocalPath85 = Bo\\BoValuation
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -890,14 +890,14 @@ Global
 		{F117CAF2-598C-4D96-831B-BD108DE402C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F117CAF2-598C-4D96-831B-BD108DE402C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F117CAF2-598C-4D96-831B-BD108DE402C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCF814B4-B6E2-4C29-ABCA-8D293607CEF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{189258F3-16C1-4384-83D4-B8038C04A391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{189258F3-16C1-4384-83D4-B8038C04A391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -926,7 +926,7 @@ Global
 		{474120D8-F814-40FB-96F8-376B9480D925} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{A9708127-A676-48FD-9FD3-610B12740A41} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{CE5A655E-364A-41E9-94D3-DE042CCE001E} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
-		{A5667B42-B0C3-4BF9-BD98-25ADD7347B00} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
+		{189258F3-16C1-4384-83D4-B8038C04A391} = {6A34B4A9-F72E-4E8D-8DE0-50BDEF32E4A7}
 		{B3A976E6-D981-4E80-8E59-92197CFB43B8} = {237208AE-9476-44B0-B146-93E1B8C7C271}
 		{422A6051-72C2-42C1-BE26-C178B619C4F8} = {237208AE-9476-44B0-B146-93E1B8C7C271}
 		{48C6D1D8-F089-430E-A555-4F384199E912} = {237208AE-9476-44B0-B146-93E1B8C7C271}

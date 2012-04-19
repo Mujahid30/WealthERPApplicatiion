@@ -39,6 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="BoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -3278,10 +3279,6 @@
       <Project>{D34F58BD-27F2-4C13-82E0-1A694CEAA430}</Project>
       <Name>BoUser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Bo\VoValuation\BoValuation.csproj">
-      <Project>{A5667B42-B0C3-4BF9-BD98-25ADD7347B00}</Project>
-      <Name>BoValuation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Dao\AdvisorProfiling\DaoAdvisorProfiling.csproj">
       <Project>{B3A976E6-D981-4E80-8E59-92197CFB43B8}</Project>
       <Name>DaoAdvisorProfiling</Name>
@@ -5412,6 +5409,8 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\BoAdvisorProfiling.pdb" />
     <Content Include="bin\BoCommon.pdb" />
+    <Content Include="bin\BoCustomerRiskProfiling.dll" />
+    <Content Include="bin\BoCustomerRiskProfiling.pdb" />
     <Content Include="bin\BoFPSuperlite.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
