@@ -574,7 +574,7 @@ namespace WealthERP.General
                                             Session["Theme"] = strUserTheme;
                                             Session["refreshTheme"] = true;
 
-                                            Session["S_CurrentUserRole"] = "Admin";
+                                            Session[SessionContents.CurrentUserRole] = "Ops";
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('AdviserCustomer','login');", true);
 
                                         }
