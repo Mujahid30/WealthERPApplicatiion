@@ -1261,6 +1261,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString().ToLower() == "message")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
                     }
                 }
