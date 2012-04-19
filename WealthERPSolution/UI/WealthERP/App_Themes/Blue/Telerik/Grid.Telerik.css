@@ -405,7 +405,8 @@
 {
 	border:1px solid;
 	border-color:#eaedf6 #f2f5fa #9cb6c5;
-	background:#e6ebf5 0 -1900px repeat-x url('Grid/sprite.gif');
+	/*background:#e6ebf5 0 -1900px repeat-x url('Grid/sprite.gif');*/
+	background-color:#EDF4F7;
 }
 
 .RadGrid_Telerik .rgGroupPanel td
