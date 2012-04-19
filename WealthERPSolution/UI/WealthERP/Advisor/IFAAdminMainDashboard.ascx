@@ -12,13 +12,17 @@
             <asp:Label ID="Label1" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall">
             </asp:Label>
         </td>
+        <td>
+            <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false">
+            </asp:Label>
+        </td>
         <td align="right">
             <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
-                OnClick="imgRefresh_Click" ToolTip="If you finding the data is not in sync,click here to get updated data"/>
+                OnClick="imgRefresh_Click" ToolTip="If you finding the data is not in sync,click here to get updated data" />
         </td>
     </tr>
     <tr style="height: 2px">
-        <td colspan="2" style="height: 2px">
+        <td colspan="3" style="height: 2px">
             <hr style="height: 1px; line-height: 1px;" />
         </td>
     </tr>
@@ -68,7 +72,7 @@
             <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" AllowAutomaticInserts="false"
                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
                 GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" Skin="Telerik"
-                Width="100%" onneeddatasource="gvrAdminBranchPerform_NeedDataSource" >
+                Width="100%" OnNeedDataSource="gvrAdminBranchPerform_NeedDataSource">
                 <%--<PagerStyle Mode="NumericPages"></PagerStyle>--%>
                 <MasterTableView AllowMultiColumnSorting="true" AutoGenerateColumns="false" CommandItemDisplay="None"
                     Width="100%">
@@ -111,8 +115,9 @@
     </tr>
     <tr>
         <td align="left">
-        <asp:Label ID="lblNote" Text="Note:If you are finding the data is not in sync please click on Refresh" runat="server" CssClass="FieldName">
-        </asp:Label>
+            <asp:Label ID="lblNote" Text="Note:If you are finding the data is not in sync please click on Refresh"
+                runat="server" CssClass="FieldName">
+            </asp:Label>
         </td>
         <td align="right">
             <asp:Label ID="lblGTT" runat="server" CssClass="FieldName" Text="Grand Total (Rs):"></asp:Label>
