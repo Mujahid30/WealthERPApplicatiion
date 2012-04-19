@@ -251,5 +251,37 @@ namespace DaoCommon
             }
             return blResult;
         }
+
+        public int GetUnreadMessageCount(int intId)
+        {
+            Database db;
+            DbCommand cmdGetUnreadMessageCount;
+            int Id;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetUnreadMessageCount = db.GetStoredProcCommand("sproc_Message_GetUnreadMessageCount");
+                db.AddInParameter(cmdGetUnreadMessageCount, "@userId", DbType.Int32, intId);
+                Id = Int32.Parse(db.ExecuteScalar(cmdGetUnreadMessageCount).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageDao.cs:GetUnreadMessageCount(int intId)");
+                object[] objects = new object[1];
+                objects[0] = intId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Id;
+        }
     }
 }
