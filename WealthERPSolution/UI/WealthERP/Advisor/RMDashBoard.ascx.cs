@@ -30,6 +30,8 @@ namespace WealthERP.Advisor
         DataRow drCustomerAlerts;
         DataTable dtLoanProposal = new DataTable();
         LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
+        MessageBo msgBo;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -161,6 +163,7 @@ namespace WealthERP.Advisor
                 }
                 lblTotalValue.Text = String.Format("{0:N}", decimal.Parse(total.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))); 
                 //total.ToString("n2");
+                ShowUnreadMessageAlert();
             }
             catch (BaseApplicationException Ex)
             {
@@ -185,6 +188,22 @@ namespace WealthERP.Advisor
             }
            
 
+        }
+
+        private void ShowUnreadMessageAlert()
+        {
+            msgBo = new MessageBo();
+
+            // Get unread messages from the DB
+            int intCount = 0;
+            intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
+
+            // Store the messages in a label control
+            if (intCount > 0)
+            {
+                lblNewMessages.Visible = true;
+                lblNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+            }
         }
 
         public DataSet getCurrentValuesforRM(int RMId)

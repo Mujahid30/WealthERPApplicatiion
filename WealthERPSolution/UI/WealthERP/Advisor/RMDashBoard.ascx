@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMDashBoard.ascx.cs"
     Inherits="WealthERP.Advisor.RMDashBoard" %>
 <table style="width: 100%;" class="TableBackground">
-    <%--<tr>
-        <td class="HeaderCell" colspan="2">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="RM Dashboard"></asp:Label>
+    <tr>
+        <td colspan="2">
+            <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />
         </td>
-    </tr>--%>
+    </tr>
     <tr>
         <td colspan="2">
             &nbsp;
