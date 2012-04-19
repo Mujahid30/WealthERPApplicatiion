@@ -395,7 +395,7 @@
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
                 CssClass="PCGLongButton" OnClientClick="Loading(true);" />
             <asp:Button ID="btnMapFolios" runat="server" CssClass="PCGLongButton" Text="Map Folios"
-                OnClientClick="return ShowPopup()" />
+                OnClientClick="return ShowPopup()" Visible="false" />
             <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
                 <asp:Button ID="btnProbableDuplicateInsert" runat="server" CssClass="PCGLongLongButton" Text="Insert Probable Duplicate Records"

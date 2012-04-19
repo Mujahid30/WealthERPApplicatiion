@@ -224,7 +224,7 @@
                     CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedMFFolio_btnReprocess','L');"
                     onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedMFFolio_btnReprocess','L');" />
                 <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-                    OnClientClick="return ShowPopup()"/>
+                    OnClientClick="return ShowPopup()" Visible="false"/>
                 <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" 
                  OnClick="btnDelete_Click" Text="Delete Records" />
             </td>
