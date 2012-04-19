@@ -38,22 +38,18 @@ namespace WealthERP.UserManagement
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
         UserVo userVo = new UserVo();
-        
+        MessageBo msgBo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            UserVo userVo = new UserVo();
-            RMVo rmVo = new RMVo();     
-           
-            //userType = Session["UserType"].ToString().ToLower();
-          
+            
             int branchId;
-            userVo = (UserVo)Session["userVo"];
+            userVo = (UserVo)Session[SessionContents.UserVo];
             rmVo = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
             rmId = rmVo.RMId;
 
-            Session["rmVo"] = rmVo;
+            Session[SessionContents.RmVo] = rmVo;
             branchId = advisorBranchBo.GetBranchId(rmVo.RMId);
             advisorBranchVo = advisorBranchBo.GetBranch(branchId);
 
@@ -67,8 +63,26 @@ namespace WealthERP.UserManagement
                 bindChart(0, int.Parse(ddlBMBranch.SelectedValue.ToString()), 1);
             }
 
-            
+            // Show unread messages
+            ShowUnreadMessageAlert();
         }
+
+        private void ShowUnreadMessageAlert()
+        {
+            msgBo = new MessageBo();
+
+            // Get unread messages from the DB
+            int intCount = 0;
+            intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
+
+            // Store the messages in a label control
+            if (intCount > 0)
+            {
+                lblNewMessages.Visible = true;
+                lblNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+            }
+        }
+
         protected void lnkCustomer_Click(object sender, EventArgs e)
         {
             CustomerVo customerVo = new CustomerVo();
@@ -90,29 +104,6 @@ namespace WealthERP.UserManagement
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane.ascx", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
         }
-
-
-        //protected void lnkRMName_Click(object sender, EventArgs e)
-        //{
-
-        //    GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
-        //    AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
-            
-        //    int rowIndex = gvRow.RowIndex;
-        //    DataKey dk = gvRMCustNetworth.DataKeys[rowIndex];
-            
-        //    int rmId = System.Convert.ToInt32(dk.Value);
-        //    if (rmId != 0)
-        //    {
-        //        Session["BMDashBoardRMId"] = rmId;
-        //    }
-        //    //rmVo = adviserStaffBo.GetAdvisorStaffDetails(rmId);
-        //    Session[SessionContents.CurrentUserRole] = "RM";
-
-
-        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
-        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "AdvisorLeftPane", "loadlinks('AdvisorLeftPane','login');", true);
-        //}
 
         protected void BMDashBoardGrid_RowDataBound(object sender, GridViewRowEventArgs row)
         {
