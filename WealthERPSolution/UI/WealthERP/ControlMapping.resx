@@ -1369,4 +1369,8 @@
     <value>OPS//CustomerGeneralInsuranceOrder.ascx</value>
     <comment>OPS//CustomerGeneralInsuranceOrder.ascx</comment>
   </data>
+  <data name="MapToCustomerSA" xml:space="preserve">
+    <value>SuperAdmin//MapToCustomerSA.ascx</value>
+    <comment>SuperAdmin//MapToCustomerSA.ascx</comment>
+  </data>
 </root>

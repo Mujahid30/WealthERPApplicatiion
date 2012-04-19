@@ -1600,6 +1600,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SuperAdmin//MapToCustomerSA.ascx.
+        /// </summary>
+        internal static string MapToCustomerSA {
+            get {
+                return ResourceManager.GetString("MapToCustomerSA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin//MarketData.ascx.
         /// </summary>
         internal static string MarketData {

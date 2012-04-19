@@ -2723,6 +2723,13 @@
     <Compile Include="SuperAdmin\ManualValuation.ascx.designer.cs">
       <DependentUpon>ManualValuation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="SuperAdmin\MapToCustomerSA.ascx.cs">
+      <DependentUpon>MapToCustomerSA.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SuperAdmin\MapToCustomerSA.ascx.designer.cs">
+      <DependentUpon>MapToCustomerSA.ascx</DependentUpon>
+    </Compile>
     <Compile Include="SuperAdmin\PriceListMonitor.ascx.cs">
       <DependentUpon>PriceListMonitor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5803,6 +5810,7 @@
     <Content Include="SuperAdmin\IFFAdd.ascx" />
     <Content Include="SuperAdmin\IFFUserManagement.ascx" />
     <Content Include="SuperAdmin\ManualValuation.ascx" />
+    <Content Include="SuperAdmin\MapToCustomerSA.ascx" />
     <Content Include="SuperAdmin\PriceListMonitor.ascx" />
     <Content Include="SuperAdmin\RejectedEquityTransactionStaging.ascx" />
     <Content Include="SuperAdmin\RejectedMFFolioStaging.ascx" />
