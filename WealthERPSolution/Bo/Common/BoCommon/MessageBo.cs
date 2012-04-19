@@ -195,5 +195,37 @@ namespace BoCommon
             }
             return blResult;
         }
+
+        public int GetUnreadMessageCount(int intId)
+        {
+            MessageDao messageDao = new MessageDao();
+            int intUnreadMessageCount;
+
+            try
+            {
+                intUnreadMessageCount = messageDao.GetUnreadMessageCount(intId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageBo.cs:GetUnreadMessageCount(int intId)");
+                object[] objects = new object[1];
+                objects[0] = intId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return intUnreadMessageCount;
+        }
+
+
     }
 }
