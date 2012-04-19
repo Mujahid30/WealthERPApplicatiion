@@ -1083,7 +1083,7 @@ namespace BoValuation
                      avgCost = Convert.ToDouble(lastRow["CMFTB_AvgCostBalRETURN"]);
 
                      //CMFNP_RET_Hold_AcqCost = openUnits * avgCost;
-                     //drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
+                     drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
 
                      returnHoldingTotalPL = currentValue + CMFTB_DivPayout - CMFNP_RET_Hold_AcqCost;
 
