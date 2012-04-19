@@ -54,6 +54,7 @@ namespace WealthERP.Advisor
         double sum = 0;
         InsuranceVo insuranceVo = new InsuranceVo();
         CustomerAccountBo customerAccountsBo = new CustomerAccountBo();
+        MessageBo msgBo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -78,6 +79,8 @@ namespace WealthERP.Advisor
                 BindAssetCurrentValChart();
                 BindCustInsuranceDetails();
                 BindCustomerAlerts();
+                // Show unread messages
+                ShowUnreadMessageAlert();
             }
 
             catch (BaseApplicationException Ex)
@@ -112,6 +115,22 @@ namespace WealthERP.Advisor
 
             }
 
+        }
+
+        private void ShowUnreadMessageAlert()
+        {
+            msgBo = new MessageBo();
+
+            // Get unread messages from the DB
+            int intCount = 0;
+            intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
+
+            // Store the messages in a label control
+            if (intCount > 0)
+            {
+                lblNewMessages.Visible = true;
+                lblNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+            }
         }
 
         //function to populate the maturity dates in the grid
