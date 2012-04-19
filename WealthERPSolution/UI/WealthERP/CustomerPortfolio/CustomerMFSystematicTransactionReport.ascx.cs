@@ -12,15 +12,21 @@ using VoCustomerPortfolio;
 using BoCommon;
 using VoUser;
 using WealthERP.Base;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
     public partial class CustomerMFSystematicTransactionReport : System.Web.UI.UserControl
     {
+        DropDownList ddlTransactionType;
+        TextBox txtCustomerName;
+        TextBox txtSchemeName;
+
         string path = string.Empty;
         double systematicTotalAmount = 0;
         double originalAmountTotal = 0;
         private List<MFSystematicTransactionReportVo> mfSystematicTransactionReportVoList = new List<MFSystematicTransactionReportVo>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,6 +39,7 @@ namespace WealthERP.CustomerPortfolio
                 SetSystematicTransactions();
             }
         }
+
         private void BindPeriodDropDown()
         {
             DataTable dtPeriod;
@@ -43,6 +50,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPeriod.DataBind();
             ddlPeriod.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select a Period", "Select a Period"));
         }
+
         private void SetSystematicTransactions()
         {
             CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
@@ -60,24 +68,13 @@ namespace WealthERP.CustomerPortfolio
             originalAmountTotal = 0;
             portfolioType = ddlGroupPortfolioGroup.SelectedValue.ToString();
             viewType = ddlViewType.SelectedValue.ToString();
-            if (gvSystematicTransactions.HeaderRow != null)
-            {
-                customerNameSearch = ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtCustomerSearch")).Text;
-                schemeNameSearch = ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtSchemeSearch")).Text;
-                transType = ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType")).SelectedValue.ToString();
+            if (gvSystematicTransactions.Items != null)
+            {                
+                transType = hdnDdlTranTypeSelectedValue.Value;
+
                 if (transType == "Select")
                     transType = "";
             }
-
-            //if ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
-            //{
-                
-            //}
-
-            //if ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType") != null)
-            //{
-                
-            //}
 
             if (rbtnPickDate.Checked)
             {
@@ -86,12 +83,14 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
-                dateBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out fromDate,out toDate);
+                dateBo.CalculateFromToDatesUsingPeriod(ddlPeriod.SelectedValue, out fromDate, out toDate);
             }
 
             int adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
-            mfSystematicTransactionReportVoList = customerTransactionBo.GetMFSystematicTransactionsReport(adviserId, fromDate, toDate,customerNameSearch,schemeNameSearch,transType,portfolioType,out transactionTypeList);
+            mfSystematicTransactionReportVoList = customerTransactionBo.GetMFSystematicTransactionsReport(adviserId, fromDate, toDate, customerNameSearch, schemeNameSearch, transType, portfolioType, out transactionTypeList);
             ViewState["SystematicTransactionVoList"] = mfSystematicTransactionReportVoList;
+            ViewState["trntypelist"] = transactionTypeList;
+
             DataTable dtSystematicTransactionReport = new DataTable();
             DataRow drSystematicTransactionReport;
 
@@ -142,7 +141,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (viewType == "NAT" && (mfSystematicTransactionReportVoList[i].OriginalTransactionDate == DateTime.MinValue
                         || mfSystematicTransactionReportVoList[i].OriginalTransactionDate == null)
-                        && (mfSystematicTransactionReportVoList[i].OriginalTransactionType == ""||mfSystematicTransactionReportVoList[i].OriginalTransactionType ==null))
+                        && (mfSystematicTransactionReportVoList[i].OriginalTransactionType == "" || mfSystematicTransactionReportVoList[i].OriginalTransactionType == null))
                     {
                         drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
                         drSystematicTransactionReport[0] = mfSystematicTransactionReportVoList[i].CustomerName;
@@ -174,7 +173,7 @@ namespace WealthERP.CustomerPortfolio
                         originalAmountTotal = originalAmountTotal + mfSystematicTransactionReportVoList[i].OriginalTransactionAmount;
 
                     }
-                    else if (viewType == "NST" && (mfSystematicTransactionReportVoList[i].SystematicTransacionType == ""||mfSystematicTransactionReportVoList[i].SystematicTransacionType ==null)
+                    else if (viewType == "NST" && (mfSystematicTransactionReportVoList[i].SystematicTransacionType == "" || mfSystematicTransactionReportVoList[i].SystematicTransacionType == null)
                         && mfSystematicTransactionReportVoList[i].SystematicAmount == 0)
                     {
                         drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
@@ -213,30 +212,35 @@ namespace WealthERP.CustomerPortfolio
                 {
                     gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
                     gvSystematicTransactions.DataBind();
-                    
+
+                    ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
+
                     gvSystematicTransactions.Visible = true;
                     pnlSystematicTransactions.Visible = true;
-                    BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
+                    //BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
                 }
                 else
                 {
-                     drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
-                     drSystematicTransactionReport[0]="";
-                     drSystematicTransactionReport[1]="";
-                     drSystematicTransactionReport[2]="";
-                     drSystematicTransactionReport[3]="";
-                     drSystematicTransactionReport[4]="";
-                     drSystematicTransactionReport[5]="";
-                     drSystematicTransactionReport[6] = "";
-                     drSystematicTransactionReport[7] = "";
-                     drSystematicTransactionReport[8] = "";
-                     dtSystematicTransactionReport.Rows.Add(drSystematicTransactionReport);
+                    drSystematicTransactionReport = dtSystematicTransactionReport.NewRow();
+                    drSystematicTransactionReport[0] = "";
+                    drSystematicTransactionReport[1] = "";
+                    drSystematicTransactionReport[2] = "";
+                    drSystematicTransactionReport[3] = "";
+                    drSystematicTransactionReport[4] = "";
+                    drSystematicTransactionReport[5] = "";
+                    drSystematicTransactionReport[6] = "";
+                    drSystematicTransactionReport[7] = "";
+                    drSystematicTransactionReport[8] = "";
+                    dtSystematicTransactionReport.Rows.Add(drSystematicTransactionReport);
 
-                     gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
-                     gvSystematicTransactions.DataBind();
-                     gvSystematicTransactions.Visible = true;
-                     pnlSystematicTransactions.Visible = true;
-                     BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
+                    gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
+                    gvSystematicTransactions.DataBind();
+
+                    ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
+
+                    gvSystematicTransactions.Visible = true;
+                    pnlSystematicTransactions.Visible = true;
+                    //BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
                     trErrorMessage.Visible = true;
                 }
             }
@@ -255,38 +259,85 @@ namespace WealthERP.CustomerPortfolio
 
                 gvSystematicTransactions.DataSource = dtSystematicTransactionReport;
                 gvSystematicTransactions.DataBind();
+
+                ViewState["SystematicTransactions"] = dtSystematicTransactionReport;
+
                 gvSystematicTransactions.Visible = true;
                 pnlSystematicTransactions.Visible = true;
-                BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
+                //BindGridSearchBoxes(transactionTypeList, transType, customerNameSearch, schemeNameSearch);
                 trErrorMessage.Visible = true;
             }
         }
-        private void BindGridSearchBoxes(List<string> transTypeList, string transType, string customerSearch, string schemeSearch)
+
+        protected void gvSystematicTransactions_ItemCreated(object sender, GridItemEventArgs e)
         {
-            if (transTypeList != null)
+            if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem)
             {
-                for(int i =0;i<transTypeList.Count;i++)
+                CheckBox checkBox = (CheckBox)e.Item.FindControl("chkSystematicTransaction");
+            }
+        }
+
+        protected void gvSystematicTransactions_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridHeaderItem)
+            {
+                GridHeaderItem item = e.Item as GridHeaderItem;
+                ddlTransactionType = (DropDownList)item.FindControl("ddlTranType");
+                txtCustomerName = (TextBox)item.FindControl("txtCustomerSearch");
+                txtSchemeName = (TextBox)item.FindControl("txtSchemeSearch");
+
+                BindTranTypeDDL(ddlTransactionType);
+            }
+            if (e.Item.ItemType == GridItemType.Item || e.Item.ItemType == GridItemType.AlternatingItem)
+            {
+                CheckBox checkBox = (CheckBox)e.Item.FindControl("chkSystematicTransaction");
+                if (e.Item.Cells[7].Text == "-" && e.Item.Cells[8].Text == "-")
                 {
-                    ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType")).Items.Add(new ListItem(transTypeList[i], transTypeList[i]));
+                    checkBox.Visible = true;
                 }
             }
-            ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType")).Items.Add(new ListItem("Select", "Select"));
-            if (transType != "")
-                ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType")).SelectedValue = transType;
-            else
-                ((DropDownList)gvSystematicTransactions.HeaderRow.FindControl("ddlTranType")).SelectedValue = "Select";
+        }
 
-            if ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtCustomerSearch") != null)
+        protected void gvSystematicTransactions_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["SystematicTransactions"] != null)
             {
-               ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtCustomerSearch")).Text=customerSearch;
+                dt = (DataTable)ViewState["SystematicTransactions"];
+                gvSystematicTransactions.DataSource = dt;
             }
+        }
 
-            if ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtSchemeSearch") != null)
-            {
-                ((TextBox)gvSystematicTransactions.HeaderRow.FindControl("txtSchemeSearch")).Text = schemeSearch;
-            }
+        private void BindGridSearchBoxes(List<string> transTypeList, string transType, string customerSearch, string schemeSearch)
+        {
+
+            //if (transTypeList != null)
+            //{
+            //    for (int i = 0; i < transTypeList.Count; i++)
+            //    {
+            //        ddlTransactionType.Items.Add(new ListItem(transTypeList[i], transTypeList[i]));
+            //    }
+            //}
+
+            //ddlTransactionType.Items.Add(new ListItem("Select", "Select"));
+
+            //if (transType != "")
+            //    ddlTransactionType.SelectedValue = transType;
+            //else
+            //    ddlTransactionType.SelectedValue = "Select";
+
+            //if (txtCustomerName != null)
+            //{
+            //    txtCustomerName.Text = customerSearch;
+            //}
+
+            //if (txtSchemeName != null)
+            //{
+            //    txtSchemeName.Text = schemeSearch;
+            //}
 
         }
+
         protected void rbtnPickDate_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnPickDate.Checked)
@@ -300,36 +351,37 @@ namespace WealthERP.CustomerPortfolio
                 trPeriod.Visible = true;
             }
         }
+
         protected void chkSystematicTransaction_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (GridViewRow row in gvSystematicTransactions.Rows)
+            foreach (GridDataItem ItemGrid in gvSystematicTransactions.MasterTableView.Items)
             {
-                if (((CheckBox)row.FindControl("chkSystematicTransaction")) != (CheckBox)sender)
+                if (((CheckBox)ItemGrid.FindControl("chkSystematicTransaction")) != (CheckBox)sender)
                 {
-                    ((CheckBox)row.FindControl("chkSystematicTransaction")).Checked = false;
+                    ((CheckBox)ItemGrid.FindControl("chkSystematicTransaction")).Checked = false;
                 }
                 else
                 {
-                    if(((CheckBox)row.FindControl("chkSystematicTransaction")).Checked)
+                    if (((CheckBox)ItemGrid.FindControl("chkSystematicTransaction")).Checked)
                     {
-                        ((CheckBox)row.FindControl("chkSystematicTransaction")).Checked = true;
+                        ((CheckBox)ItemGrid.FindControl("chkSystematicTransaction")).Checked = true;
                         btnRegister.Visible = true;
                     }
                     else
                     {
-                        ((CheckBox)row.FindControl("chkSystematicTransaction")).Checked = false;
+                        ((CheckBox)ItemGrid.FindControl("chkSystematicTransaction")).Checked = false;
                         btnRegister.Visible = false;
                     }
                 }
             }
         }
+
         protected void rbtnPickPeriod_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnPickPeriod.Checked)
             {
                 trRange.Visible = false;
                 trPeriod.Visible = true;
-                
             }
             else
             {
@@ -356,15 +408,26 @@ namespace WealthERP.CustomerPortfolio
         {
             SetSystematicTransactions();
         }
+
         protected void ddlTranType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //string strTransactionType = string.Empty;
+            
+            GridHeaderItem headerItem = gvSystematicTransactions.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlTranType") as DropDownList;
+            if (ddl != null)
+            {
+                hdnDdlTranTypeSelectedValue.Value = ddl.SelectedValue;
+            }            
             SetSystematicTransactions();
+            hdnDdlTranTypeSelectedValue.Value = string.Empty;
         }
 
         protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetSystematicTransactions();
         }
+
         protected void gvSystematicTransactions_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Footer)
@@ -385,7 +448,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            int rowId=0;
+            int rowId = 0;
             bool isChecked = false;
             SystematicSetupVo systematicSetupVo = new SystematicSetupVo();
             CustomerBo customerBo = new CustomerBo();
@@ -393,11 +456,11 @@ namespace WealthERP.CustomerPortfolio
             {
                 mfSystematicTransactionReportVoList = (List<MFSystematicTransactionReportVo>)ViewState["SystematicTransactionVoList"];
             }
-            foreach (GridViewRow row in gvSystematicTransactions.Rows)
+            foreach (GridDataItem item in gvSystematicTransactions.MasterTableView.Items)
             {
-                if (((CheckBox)row.FindControl("chkSystematicTransaction")).Checked)
+                if (((CheckBox)item.FindControl("chkSystematicTransaction")).Checked)
                 {
-                    rowId = int.Parse(gvSystematicTransactions.DataKeys[row.RowIndex].Value.ToString());
+                    rowId = int.Parse(item.GetDataKeyValue("RowId").ToString());
                     isChecked = true;
                     break;
                 }
@@ -427,6 +490,24 @@ namespace WealthERP.CustomerPortfolio
         protected void btnGen_Click(object sender, EventArgs e)
         {
             SetSystematicTransactions();
+        }
+
+        private void BindTranTypeDDL(DropDownList ddl)
+        {
+            List<string> transTypeList = (List<string>)ViewState["trntypelist"];
+
+            ddl.Items.Add(new ListItem("Select", "Select"));
+            if (transTypeList != null)
+            {
+                for (int i = 0; i < transTypeList.Count; i++)
+                {
+                    ddl.Items.Add(new ListItem(transTypeList[i], transTypeList[i]));
+                }
+            }
+            if (hdnDdlTranTypeSelectedValue.Value != "")
+                ddl.SelectedValue = hdnDdlTranTypeSelectedValue.Value;
+            else
+                ddl.SelectedValue = "Select";
         }
     }
 }
