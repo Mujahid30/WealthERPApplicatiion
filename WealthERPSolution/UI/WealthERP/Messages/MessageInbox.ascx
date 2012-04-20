@@ -84,7 +84,7 @@
                 <br />
                 <hr style="width: 860px; float: left;" />
                 <asp:Panel ID="pnlMessage" runat="server" ScrollBars="Auto" Height="200px" Width="850px"
-                    BackColor="White" Style="padding: 20px 0 0 10px;">
+                    BackColor="White" Style="padding: 20px 0 0 10px; float:left;">
                     <br />
                     <table id="tblMessageHeaders" runat="server" visible="false">
                         <tr>
