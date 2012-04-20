@@ -161,7 +161,16 @@
   <asp:Label ID="lblPercentage" runat="server" width="50" CssClass="FieldName">Percent: </asp:Label>
   </td>
   <td valign="top">
-  <asp:TextBox ID="txtPercentage" runat="server" style="vertical-align: middle"  CssClass="txtField"></asp:TextBox>
+  <%--<asp:TextBox ID="txtPercentage" runat="server" style="vertical-align: middle"  CssClass="txtField"></asp:TextBox>--%>
+ <asp:DropDownList ID="ddlNavPer" runat="server" CssClass="cmbField"  >
+<asp:ListItem Text="Greater than 30%" Value="30"></asp:ListItem>
+<asp:ListItem Text="Greater than 20%" Value="20" Selected="True"></asp:ListItem>
+<asp:ListItem Text="Greater than 10%" Value="10"></asp:ListItem>
+<asp:ListItem Text="Greater than 5%" Value="5"></asp:ListItem>
+<asp:ListItem Text="Positive" Value="0.01"></asp:ListItem>
+<asp:ListItem Text="negative" Value="-0.001"></asp:ListItem>
+</asp:DropDownList>
+  
   </td>
   </tr>
     </table>

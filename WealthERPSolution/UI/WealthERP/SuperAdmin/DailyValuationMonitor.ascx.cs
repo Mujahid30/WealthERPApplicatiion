@@ -225,7 +225,7 @@ namespace WealthERP.SuperAdmin
            double NavPer;
            DataSet dsGetNAV;
            DataTable dtGetNAV;
-           NavPer = double.Parse(txtPercentage.Text);
+           NavPer = double.Parse(ddlNavPer.SelectedValue);
            dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(hdnSelectDate.Value), NavPer, myPagerNAV.CurrentPage, out count);
            dtGetNAV = dsGetNAV.Tables[0];
            try
@@ -1217,7 +1217,7 @@ namespace WealthERP.SuperAdmin
                {
                    trRadioDatePeriod.Visible = false;
                    trDate.Visible = true;
-                   txtPercentage.Text = "20";
+                   //txtPercentage.Text = "20";
                    txtDate.Text = DateTime.Now.ToShortDateString();
                    trRange.Visible = false;
                    trPeriod.Visible = false;
