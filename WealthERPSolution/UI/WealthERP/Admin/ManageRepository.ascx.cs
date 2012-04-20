@@ -113,39 +113,73 @@ namespace WealthERP.Admin
         {
             repoVo = new RepositoryVo();
             bool blResult = false;
-
-            #region File Type
+            bool blZeroBalance = false;
+            bool blFileSizeExceeded = false;
 
             if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
             {
-                // If the upload type is file
+                if (fStorageBalance > 0)
+                    blResult = AddFile(out blZeroBalance, out blFileSizeExceeded);
+                else
+                    blZeroBalance = true;
+            }
+            else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
+            {
+                blResult = AddLink();
+            }
 
-                // We need to see if the adviser has a folder in Repository folder
-                // Case 1: If not, then encode the adviser id and create a folder with the encoded id
-                // then create a folder for the repository category within the encoded folder
-                // then store the encoded adviserID + GUID + file name
 
-                // Case 2: If folder exists, check if the category folder exists. 
-                // If not then, create a folder with the category code and store the file as done above.
-                // If yes, then just store the file as done above.
-
-                // Once this is done, store the info in the DB with the file path.
-                strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
-                AdvisorBo advBo = new AdvisorBo();
-                repoBo = new RepositoryBo();
-
-                try
+            if (blZeroBalance)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+            else
+            {
+                if (blResult)
                 {
-                    // Reading File Upload Control
-                    if (radUploadRepoItem.UploadedFiles.Count != 0)
-                    {
-                        // Put this part under a transaction scope
-                        using (TransactionScope scope = new TransactionScope())
-                        {
-                            UploadedFile file = radUploadRepoItem.UploadedFiles[0];
-                            float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+                    ResetControls();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item added successfully!');", true);
+                }
+                else
+                {
+                    if (blFileSizeExceeded)
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Sorry your file size exceeds the allowable 2 MB limit!');", true);
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error adding repository item!');", true);
+                }
+            }
+        }
 
-                            if (fileSize < 2)   // If upload file size is less than 2 MB then upload
+        private bool AddFile(out bool blZeroBalance, out bool blFileSizeExceeded)
+        {
+            // If the upload type is file
+            // We need to see if the adviser has a folder in Repository folder
+            // Case 1: If not, then encode the adviser id and create a folder with the encoded id
+            // then create a folder for the repository category within the encoded folder
+            // then store the encoded adviserID + GUID + file name
+            // Case 2: If folder exists, check if the category folder exists. 
+            // If not then, create a folder with the category code and store the file as done above.
+            // If yes, then just store the file as done above.
+            // Once this is done, store the info in the DB with the file path.
+            strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
+            AdvisorBo advBo = new AdvisorBo();
+            repoBo = new RepositoryBo();
+            bool blResult = false;
+            blZeroBalance = false;
+            blFileSizeExceeded = false;
+
+            try
+            {
+                // Reading File Upload Control
+                if (radUploadRepoItem.UploadedFiles.Count != 0)
+                {
+                    // Put this part under a transaction scope
+                    using (TransactionScope scope1 = new TransactionScope())
+                    {
+                        UploadedFile file = radUploadRepoItem.UploadedFiles[0];
+                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+
+                        if (fStorageBalance >= fileSize)
+                        {
+                            if (fileSize <= 2)   // If upload file size is less than 2 MB then upload
                             {
                                 // Check if directory for advisor exists, and if not then create a new directoty
                                 if (!Directory.Exists(strRepositoryPath))
@@ -166,126 +200,169 @@ namespace WealthERP.Admin
 
                                 if (blResult)
                                 {
+                                    #region Refactor This Code
+
                                     // Once the adding of repository is a success, then update the balance storage in advisor subscription table
                                     fStorageBalance -= fileSize;
                                     advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
+                                    advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
+                                    Session[SessionContents.AdvisorVo] = advisorVo;
+
+                                    #endregion
                                 }
                             }
                             else
                             {
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your proof attachment size exceeds the allowable 2 MB limit..!');", true);
+                                blFileSizeExceeded = true;
                             }
-                            scope.Complete();   // Commit the transaction scope if no errors
                         }
+                        else
+                        {
+                            blZeroBalance = true;
+                        }
+
+                        scope1.Complete();   // Commit the transaction scope if no errors
                     }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file!');", true);
-                    }
                 }
-                catch (BaseApplicationException Ex)
+                else
                 {
-                    throw Ex;
-                }
-                catch (Exception Ex)
-                {
-                    object[] objects = new object[2];
-                    objects[0] = repoVo;
-                    objects[1] = repoBo;
-                    PageException(objects, Ex, "ManageRepository.ascx:AddClick()");
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a file to upload!');", true);
                 }
             }
-
-            #endregion
-
-            #region Link Type
-
-            else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
+            catch (BaseApplicationException Ex)
             {
-                // If the upload type is link 
-                repoVo.AdviserId = advisorVo.advisorId;
-                repoVo.CategoryCode = ddlRCategory.SelectedValue;
-                repoVo.Description = txtDescription.Text.Trim();
-                repoVo.HeadingText = txtHeadingText.Text.Trim();
-                repoVo.IsFile = false;
-                repoVo.Link = txtOutsideLink.Text.Trim();
-
-                blResult = AddUpdateRepositoryLink(blResult, Constants.Add.ToString(), repoVo);
+                throw Ex;
             }
-
-            #endregion
-
-            if (blResult)
+            catch (Exception Ex)
             {
-                ResetControls();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item added successfully!');", true);
+                object[] objects = new object[2];
+                objects[0] = repoVo;
+                objects[1] = repoBo;
+                PageException(objects, Ex, "ManageRepository.ascx:AddClick()");
             }
-            else
-            {
-                // Display error message
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error adding repository item!');", true);
-            }
+            return blResult;
+        }
+
+        private bool AddLink()
+        {
+            bool blResult = false;
+            // If the upload type is link 
+            repoVo.AdviserId = advisorVo.advisorId;
+            repoVo.CategoryCode = ddlRCategory.SelectedValue;
+            repoVo.Description = txtDescription.Text.Trim();
+            repoVo.HeadingText = txtHeadingText.Text.Trim();
+            repoVo.IsFile = false;
+            repoVo.Link = txtOutsideLink.Text.Trim();
+
+            blResult = AddUpdateRepositoryLink(blResult, Constants.Add.ToString(), repoVo);
+            return blResult;
         }
 
         private void UpdateClick()
         {
             repoVo = new RepositoryVo();
             bool blResult = false;
-
+            bool blZeroBalance = false;
+            bool blFileSizeExceeded = false;
             repoVo = (RepositoryVo)Session[SessionContents.RepositoryVo];
-
-            #region File Type
 
             if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
             {
-                repoBo = new RepositoryBo();
+                if (fStorageBalance > 0)
+                    blResult = UpdateFile(out blZeroBalance, out blFileSizeExceeded);
+                else
+                    blZeroBalance = true;
+            }
+            else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
+            {
+                blResult = UpdateLink();
+            }
 
-                try 
+            if (blResult)
+            {
+                Session[SessionContents.RepositoryVo] = null;
+                ResetControls();
+                // Change the tab
+                ChangeTelerikRadTab(1);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item updated successfully!');", true);
+            }
+            else
+            {
+                if (blZeroBalance)
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+                else if (blFileSizeExceeded)
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your repository file size exceeds the allowable 2 MB limit!');", true);
+                else
                 {
-                    // Reading File Upload Control
-                    int intUploadedFileCount = radUploadRepoItem.UploadedFiles.Count;
+                    // Display error message
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error updating repository item!');", true);
+                }
+            }
+        }
 
-                    if (intUploadedFileCount == 0)
-                    {
-                        // normal update
-                        repoVo.Description = txtDescription.Text.Trim();
-                        repoVo.HeadingText = txtHeadingText.Text.Trim();
-                        repoVo.Link = String.Empty;
-                        blResult = repoBo.UpdateRepositoryItem(repoVo);
-                    }
-                    else
-                    {
-                        // delete existing file and update new file
+        private bool UpdateFile(out bool blZeroBalance, out bool blFileSizeExceeded)
+        {
+            repoBo = new RepositoryBo();
+            bool blResult = false;
+            blZeroBalance = false;
+            blFileSizeExceeded = false;
 
-                        // Put this part under a transaction scope
-                        using (TransactionScope scope = new TransactionScope())
+            try
+            {
+                // Reading File Upload Control
+                int intUploadedFileCount = radUploadRepoItem.UploadedFiles.Count;
+
+                if (intUploadedFileCount == 0)
+                {
+                    // normal update
+                    repoVo.Description = txtDescription.Text.Trim();
+                    repoVo.HeadingText = txtHeadingText.Text.Trim();
+                    repoVo.Link = String.Empty;
+                    blResult = repoBo.UpdateRepositoryItem(repoVo);
+                }
+                else
+                {
+                    // delete existing file and update new file
+
+                    // Put this part under a transaction scope
+                    using (TransactionScope scope2 = new TransactionScope())
+                    {
+                        /* Perform transactional work here */
+
+                        UploadedFile file = radUploadRepoItem.UploadedFiles[0];
+                        float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+                        float oldFileSize = 0.0F;
+
+                        if (fileSize <= 2)
                         {
-                            /* Perform transactional work here */
+                            // If file size is less than 2 MB then upload
 
-                            UploadedFile file = radUploadRepoItem.UploadedFiles[0];
-                            float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
-                            float oldFileSize = 0.0F;
+                            // Get the Repository Path in solution
+                            string strFilePath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\" + repoVo.Link;
+                            float fStorageBalance = advisorVo.SubscriptionVo.StorageBalance;
+                            AdvisorBo advBo = new AdvisorBo();
 
-                            if (fileSize < 2)
+                            // Delete file if it exists
+                            if (File.Exists(strFilePath))
                             {
-                                // If file size is less than 2 MB then upload
+                                // Get the file size of the old file to calculate the balance storagee size
+                                FileInfo f = new FileInfo(strFilePath);
+                                long lSize = f.Length;
+                                oldFileSize = (lSize / (float)1048576);
 
-                                // Get the Repository Path in solution
-                                string strFilePath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\" + repoVo.Link;
-                                float fStorageBalance = advisorVo.SubscriptionVo.StorageBalance;
-                                AdvisorBo advBo = new AdvisorBo();
+                                float flRemainingBal = fStorageBalance + oldFileSize;
 
-                                // Delete file if it exists
-                                if (File.Exists(strFilePath))
+                                if (flRemainingBal >= fileSize)
                                 {
-                                    // Get the file size of the old file to calculate the balance storagee size
-                                    FileInfo f = new FileInfo(strFilePath);
-                                    long lSize = f.Length;
-                                    oldFileSize = (float)(lSize / 1048576);
-
                                     File.Delete(strFilePath);
                                 }
+                                else
+                                    blZeroBalance = true;
 
+                            }
+
+                            if (!blZeroBalance)
+                            {
                                 // Add new file
                                 strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
                                 strGuid = Guid.NewGuid().ToString();
@@ -302,62 +379,51 @@ namespace WealthERP.Admin
 
                                 if (blResult)
                                 {
+                                    #region Refactor This Code
+
                                     // Once updating the repository is a success, then update the balance storage in advisor subscription table
                                     fStorageBalance -= (fileSize - oldFileSize);
                                     advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
+                                    advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
+                                    Session[SessionContents.AdvisorVo] = advisorVo;
+
+                                    #endregion
                                 }
                             }
-                            else
-                            {
-                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your repository file size exceeds the allowable 2 MB limit!');", true);
-                            }
-
-                            scope.Complete();
                         }
+                        else
+                        {
+                            blFileSizeExceeded = true;
+                        }
+
+                        scope2.Complete();
                     }
                 }
-                catch (BaseApplicationException Ex)
-                {
-                    throw Ex;
-                }
-                catch (Exception Ex)
-                {
-                    object[] objects = new object[2];
-                    objects[0] = repoVo;
-                    objects[1] = repoBo;
-                    PageException(objects, Ex, "ManageRepository.ascx:UpdateClick()");
-                }
             }
-
-            #endregion
-
-            #region Link Type
-
-            else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
+            catch (BaseApplicationException Ex)
             {
-                // If the upload type is link 
-                repoVo.Description = txtDescription.Text.Trim();
-                repoVo.HeadingText = txtHeadingText.Text.Trim();
-                repoVo.Link = txtOutsideLink.Text.Trim();
-
-                blResult = AddUpdateRepositoryLink(blResult, Constants.Update.ToString(), repoVo);
+                throw Ex;
             }
-
-            #endregion
-
-            if (blResult)
+            catch (Exception Ex)
             {
-                Session[SessionContents.RepositoryVo] = null;
-                ResetControls();
-                // Change the tab
-                ChangeTelerikRadTab(1);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Repository Item updated successfully!');", true);
+                object[] objects = new object[2];
+                objects[0] = repoVo;
+                objects[1] = repoBo;
+                PageException(objects, Ex, "ManageRepository.ascx:UpdateClick()");
             }
-            else
-            {
-                // Display error message
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('Error updating repository item!');", true);
-            }
+            return blResult;
+        }
+
+        private bool UpdateLink()
+        {
+            bool blResult = false;
+            // If the upload type is link 
+            repoVo.Description = txtDescription.Text.Trim();
+            repoVo.HeadingText = txtHeadingText.Text.Trim();
+            repoVo.Link = txtOutsideLink.Text.Trim();
+
+            blResult = AddUpdateRepositoryLink(blResult, Constants.Update.ToString(), repoVo);
+            return blResult;
         }
 
         private bool AddUpdateRepositoryLink(bool blResult, string strAction, RepositoryVo repoVo)
@@ -405,7 +471,8 @@ namespace WealthERP.Admin
             rgRepositoryList.Rebind();
             ddlRCategory.SelectedIndex = ddlUploadDataType.SelectedIndex = 0;
             ddlRCategory.Enabled = ddlUploadDataType.Enabled = true;
-            txtHeadingText.Text = txtDescription.Text = txtOutsideLink.Text = String.Empty;
+            txtHeadingText.Text = txtDescription.Text = txtOutsideLink.Text = lblUploadedFile.Text = String.Empty;
+            trUpload.Visible = trUploadedFileName.Visible = false;
             btnAdd.Text = Constants.Add.ToString();
         }
 
@@ -428,11 +495,11 @@ namespace WealthERP.Admin
             }
         }
 
-        private void SetContentVisibility(bool blIsContentVisible)
+        private void SetContentVisibility(bool blState)
         {
-            lblNoRecords.Visible = !blIsContentVisible;
-            trNoRecords.Visible = !blIsContentVisible;
-            trContentVR.Visible = blIsContentVisible;
+            lblNoRecords.Visible = !blState;
+            trNoRecords.Visible = !blState;
+            trContentVR.Visible = blState;
         }
 
         protected void rgRepositoryList_ItemDataBound(object sender, GridItemEventArgs e)
@@ -440,18 +507,24 @@ namespace WealthERP.Admin
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataBoundItem = e.Item as GridDataItem;
+                
                 Label lbl = (Label)dataBoundItem.FindControl("lbl");
                 if (lbl != null)
                 {
                     if (lbl.Text.Length > 0)
                     {
                         // split the string
-                        string[] arrayStr = new string[3];
-                        arrayStr = lbl.Text.Split('_');
-                        int intArrLength = arrayStr.Length;
-                        string strFileName = arrayStr[intArrLength - 1];
+                        int intFirstIndex = lbl.Text.IndexOf('_');
+                        int intSecondIndex = lbl.Text.IndexOf('_', intFirstIndex+1);
+                        int intLength = lbl.Text.Length - (intSecondIndex+1);
+                        string strFileName = lbl.Text.Substring(intSecondIndex+1, intLength);
                         lbl.Text = strFileName;
                     }
+                }
+
+                if (dataBoundItem["Description"].Text.Length > 50)
+                {
+                    dataBoundItem["Description"].Text = dataBoundItem["Description"].Text.Substring(0, 50) + "...";
                 }
             }
         }
@@ -484,7 +557,7 @@ namespace WealthERP.Admin
             RepositoryBo repoBo = new RepositoryBo();
             repoVo = repoBo.GetRepositoryItem(intKey);
             Session[SessionContents.RepositoryVo] = repoVo;
-            
+
             // Change the tab
             ChangeTelerikRadTab(0);
 
@@ -522,7 +595,11 @@ namespace WealthERP.Admin
                 ddlUploadDataType.SelectedValue = Constants.F.ToString();
                 FileUploadVisibility(false, true);
                 trUploadedFileName.Visible = true;
-                lblUploadedFile.Text = repoVo.Link;
+                string[] strUplFile = new string[3];
+                strUplFile = repoVo.Link.Split('_');
+
+                // The 3rd item in the array is the actual file name
+                lblUploadedFile.Text = strUplFile[strUplFile.Length-1];
             }
             else
             {
@@ -533,6 +610,5 @@ namespace WealthERP.Admin
             }
             btnAdd.Text = Constants.Update.ToString();
         }
-
     }
 }

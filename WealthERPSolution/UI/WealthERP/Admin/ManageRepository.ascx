@@ -47,7 +47,7 @@
                             </td>
                             <td class="rightField">
                                 <asp:TextBox CssClass="txtField" ID="txtHeadingText" runat="server" Width="300px"
-                                    MaxLength="50"></asp:TextBox>
+                                    MaxLength="40"></asp:TextBox>
                                 <span id="span2" class="spnRequiredField">*</span>
                                 <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvHeadingText" runat="server"
                                     ControlToValidate="txtHeadingText" ErrorMessage="<br/>Enter Heading Text" ValidationGroup="btnAdd"
@@ -75,7 +75,7 @@
                                 <asp:Label ID="lblDescription" Text="Description:" runat="server" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightField">
-                                <asp:TextBox CssClass="txtField" ID="txtDescription" MaxLength="1000" runat="server"
+                                <asp:TextBox CssClass="txtField" ID="txtDescription" MaxLength="500" runat="server"
                                     TextMode="MultiLine" Rows="3" Style="width: 300px"></asp:TextBox>
                             </td>
                         </tr>
@@ -151,36 +151,35 @@
                         <tr>
                             <td colspan="2">
                                 <telerik:RadGrid ID="rgRepositoryList" runat="server" Width="860px" Height="250px"
-                                    PageSize="6" AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="false"
+                                    PageSize="6" AllowPaging="True" GridLines="None" AutoGenerateColumns="false"
                                     Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                    EnableViewState="true" OnNeedDataSource="rgRepositoryList_NeedDataSource"
-                                    OnItemDataBound="rgRepositoryList_ItemDataBound" AllowFilteringByColumn="true">
+                                    EnableViewState="true" OnNeedDataSource="rgRepositoryList_NeedDataSource" OnItemDataBound="rgRepositoryList_ItemDataBound"
+                                    AllowFilteringByColumn="true">
                                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                     <MasterTableView DataKeyNames="AR_RepositoryId" ShowFooter="true">
                                         <Columns>
-                                            <telerik:GridTemplateColumn UniqueName="HeadingText" HeaderText="Heading Text" AllowFiltering="false">
+                                            <telerik:GridTemplateColumn UniqueName="HeadingText" HeaderText="Heading Text" AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="lnkBtnFileName" runat="server" CssClass="CmbField" OnClick="lnkBtnFileNameClientListGrid_Click"
                                                         Text='<%# Eval("AR_HeadingText") %>'>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <%--<telerik:GridBoundColumn UniqueName="HeadingText" HeaderText="Heading Text" DataField="AR_HeadingText" AllowFiltering="false">
-                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn UniqueName="Description" HeaderText="Description" DataField="AR_Description"
-                                                AllowFiltering="false">
+                                                AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="ARC_RepositoryCategory"
-                                                AllowFiltering="true" CurrentFilterFunction="Contains">
+                                                AllowFiltering="true" CurrentFilterFunction="Contains" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridTemplateColumn UniqueName="Path" HeaderText="File/Link" AllowFiltering="false">
+                                            <telerik:GridTemplateColumn UniqueName="Path" HeaderText="File/Link" AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbl" Text='<%# Boolean.Parse(DataBinder.Eval(Container.DataItem, "AR_IsFile").ToString())? DataBinder.Eval(Container.DataItem, "AR_Filename").ToString():DataBinder.Eval(Container.DataItem, "AR_Link").ToString() %>'
                                                         runat="server"></asp:Label>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
-                                            <%--<telerik:GridButtonColumn ButtonType="LinkButton" Text="Edit" CommandName="Edit">
-                                            </telerik:GridButtonColumn>--%>
+                                            <telerik:GridBoundColumn UniqueName="Date" HeaderText="Uploaded On" DataField="AR_CreatedOn"
+                                                DataFormatString="{0:D}" AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                                            </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
                                 </telerik:RadGrid>
