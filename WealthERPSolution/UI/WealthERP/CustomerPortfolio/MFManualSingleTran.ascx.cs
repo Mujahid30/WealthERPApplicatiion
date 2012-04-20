@@ -127,20 +127,21 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                int status = 1;
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
-
+                status = int.Parse(ddlSchemeType.SelectedValue);
                 if (ddlAMC.SelectedIndex != 0 && ddlCategory.SelectedIndex != 0)
                 {
                     amcCode = int.Parse(ddlAMC.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
-                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 1);
+                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 1,status);
                 }
                 else if (ddlAMC.SelectedIndex != 0)
                 {
                     amcCode = int.Parse(ddlAMC.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
-                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 0);
+                    dsScheme = productMfBo.GetSchemeName(amcCode, categoryCode, 0, status);
                 }
                 if (dsScheme.Tables.Count > 0)
                 {
@@ -1026,6 +1027,11 @@ namespace WealthERP.CustomerPortfolio
                      BindScheme();
  
             }
+        }
+
+        protected void ddlSchemeType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindScheme();
         }
 
     }

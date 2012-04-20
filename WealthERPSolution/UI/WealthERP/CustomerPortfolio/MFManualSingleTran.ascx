@@ -134,6 +134,19 @@
             </td>
             </tr>
             
+             <tr>
+            <td class="leftField" valign="top">
+            <asp:Label ID="lblSchemeType" runat="server" CssClass="FieldName" Text="Scheme Type :"></asp:Label>
+            </td>
+            <td colspan="4" class="rightField">
+            <asp:DropDownList ID="ddlSchemeType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    onselectedindexchanged="ddlSchemeType_SelectedIndexChanged" >
+            <asp:ListItem Text="Active" Value="1" Selected="True"></asp:ListItem>
+            <asp:ListItem Text="Inactive" Value="0"></asp:ListItem>
+            </asp:DropDownList>
+                                           
+            </td>
+            </tr>
             
             <tr style="width:100%">
                 <td class="leftField" valign="top">
