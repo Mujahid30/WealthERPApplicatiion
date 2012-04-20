@@ -307,13 +307,13 @@ namespace BoProductMaster
             return dsAssetCategory;
         }
 
-        public DataSet GetSchemeName(int amcCode, string categoryCode, int all)
+        public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             ProductMFDao productMFDao = new ProductMFDao();
             DataSet dsGetScheme;
             try
             {
-                dsGetScheme = productMFDao.GetSchemeName(amcCode, categoryCode, all);
+                dsGetScheme = productMFDao.GetSchemeName(amcCode, categoryCode, all, status);
             }
              catch (BaseApplicationException Ex)
             {
