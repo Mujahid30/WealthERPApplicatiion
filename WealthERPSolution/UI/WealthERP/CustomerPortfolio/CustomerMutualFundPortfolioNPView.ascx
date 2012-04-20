@@ -77,7 +77,7 @@
     <tr id="trContent" runat="server">
         <td>
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
-            <asp:Panel ID="pnlReturns" runat="server" ScrollBars="Auto" Style="padding: 20px 0 0 10px;">
+            <asp:Panel ID="pnlReturns" runat="server" ScrollBars="Auto" Style="padding: 5px 0 0 2px;">
                 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
                     EnableEmbeddedSkins="false" Width="100%" MultiPageID="ReturnsTabs" SelectedIndex="0"
                     EnableViewState="true">
@@ -97,7 +97,7 @@
                     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
                         <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%"
                             ScrollBars="Horizontal">
-                            <table id="tblHoldings" runat="server">
+                            <table id="tblHoldings" runat="server" width="99%">
                                 <tr>
                                     <td>
                                         <div id="dvHoldings" runat="server">
@@ -105,18 +105,18 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgHoldings" runat="server" Width="860px" Height="250px" PageSize="6"
+                                            <telerik:RadGrid ID="rgHoldings" runat="server" Width="100%" PageSize="10"
                                             AllowAutomaticDeletes="false" ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false" 
                                             HorizontalAlign="NotSet" AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="false"
                                             Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" ShowStatusBar="true"
-                                            OnItemCommand="rgHoldings_ItemCommand" EnableViewState="true">
+                                            OnItemCommand="rgHoldings_ItemCommand" EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                                                </ExportSettings>--%>
+                                               <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" >
-                                              <%--  <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
+                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
@@ -166,7 +166,7 @@
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
                         <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                            <table id="tblAll" runat="server">
+                            <table id="tblAll" runat="server" width="99%">
                                 <tr>
                                     <td>
                                         <div id="dvAll" runat="server">
@@ -174,17 +174,17 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
                                                 CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgAll" runat="server" Width="860px" Height="250px" PageSize="6"
+                                            <telerik:RadGrid ID="rgAll" runat="server" Width="100%" PageSize="10"
                                                 AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgAll_ItemCommand" EnableViewState="true">
+                                                OnItemCommand="rgAll_ItemCommand" EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <%--<ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                                                </ExportSettings>--%>
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false">
-                                               <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
+                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
@@ -242,7 +242,7 @@
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
                         <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%"
                             ScrollBars="Horizontal">
-                            <table id="tblRealized" runat="server">
+                            <table id="tblRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
                                         <div id="dvRealized" runat="server">
@@ -250,17 +250,17 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgRealized" runat="server" Width="860px" Height="250px" PageSize="6"
+                                            <telerik:RadGrid ID="rgRealized" runat="server" Width="100%" PageSize="10"
                                                 AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgRealized_ItemCommand" EnableViewState="true">
+                                                OnItemCommand="rgRealized_ItemCommand" EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                                                </ExportSettings>--%>
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" >
-                                           <%--     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
+                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
@@ -338,7 +338,7 @@
                     </telerik:RadPageView>
                 </telerik:RadMultiPage>
             </asp:Panel>
-            <asp:Panel ID="pnlTax" runat="server" ScrollBars="Auto" Style="padding: 20px 0 0 10px;">
+            <asp:Panel ID="pnlTax" runat="server" ScrollBars="Auto" Style="padding: 5px 0 0 2px;">
                 <telerik:RadTabStrip ID="RadTabStrip2" runat="server" EnableTheming="True" Skin="Telerik"
                     EnableEmbeddedSkins="False" Width="100%" MultiPageID="TaxTabs" SelectedIndex="0"
                     EnableViewState="true">
@@ -352,7 +352,7 @@
                 <telerik:RadMultiPage ID="TaxTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="TaxHoldingsTabPage" runat="server">
                         <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                            <table id="tblTaxHoldings" runat="server">
+                            <table id="tblTaxHoldings" runat="server" width="99%">
                                 <tr>
                                     <td>
                                         <div id="dvTaxHoldings" runat="server">
@@ -360,17 +360,17 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="860px" Height="250px" PageSize="6"
+                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="100%" PageSize="10"
                                                 AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgTaxHoldings_ItemCommand" EnableViewState="true">
+                                                OnItemCommand="rgTaxHoldings_ItemCommand" EnableViewState="true" OnNeedDataSource="rgTaxHoldings_OnNeedDataSource">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                              <%--  <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                                                </ExportSettings>--%>
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" >
-                                                <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />--%>
+                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
@@ -412,7 +412,7 @@
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="TaxRealizedTabPage" runat="server">
                         <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                            <table id="tblTaxRealized" runat="server">
+                            <table id="tblTaxRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
                                         <div id="dvTaxRealized" runat="server">
@@ -420,17 +420,17 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="860px" Height="250px" PageSize="6"
+                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="100%" PageSize="10"
                                                 AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
                                                 Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgTaxRealized_ItemCommand" EnableViewState="true">
+                                                OnItemCommand="rgTaxRealized_ItemCommand" EnableViewState="true" OnNeedDataSource="rgTaxRealized_OnNeedDataSource">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                               <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                                                </ExportSettings>--%>
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                AutoGenerateColumns="false" >
-                                               <%-- <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" >/--%>
+                                                AutoGenerateColumns="false" CommandItemDisplay="Top">
+                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>

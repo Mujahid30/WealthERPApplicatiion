@@ -274,12 +274,15 @@ namespace WealthERP.CustomerPortfolio
 
                 rgHoldings.DataSource = dtReturnsHoldings;
                 rgHoldings.DataBind();
+                ViewState["HoldingReturns"] = dtReturnsHoldings;
 
                 rgAll.DataSource = dtReturnsAll;
                 rgAll.DataBind();
+                ViewState["AllReturns"] = dtReturnsAll;
 
                 rgRealized.DataSource = dtReturnsRealized;
                 rgRealized.DataBind();
+                ViewState["RealizedReturns"] = dtReturnsRealized;
             }
         }
 
@@ -324,9 +327,11 @@ namespace WealthERP.CustomerPortfolio
 
                 rgTaxHoldings.DataSource = dtTaxHoldings;
                 rgTaxHoldings.DataBind();
+                ViewState["TaxHoldings"] = dtTaxHoldings;
 
                 rgTaxRealized.DataSource = dtTaxRealized;
                 rgTaxRealized.DataBind();
+                ViewState["TaxRealized"] = dtTaxRealized;
             }
         }
 
@@ -862,55 +867,60 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgHoldings_ItemCommand(object sender, GridCommandEventArgs e)
         {
-            GridDataItem dataItem = e.Item as GridDataItem;
-            string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
-            string strFolio = dataItem["FolioNum"].Text;
-            LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
-            string strScheme = lnk.Text;
-            int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
-
-            if (e.CommandName == "Select")
+            if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
-                int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
+                //string strMFNPId = rgHoldings.MasterTableView.DataKeyValues[e.Item.ItemIndex]["MFNPId"].ToString();
+                string strFolio = dataItem["FolioNum"].Text;
+                LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
+                string strScheme = lnk.Text;
+                int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
 
-                // Function to get the minimum date for that account id and scheme code
-                DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
-                string strFromDate = dtFrom.ToShortDateString();
-                string strToDate = DateTime.Today.ToShortDateString();
-
-                #region Reusing Old Code
-
-                Session["Folio"] = dataItem["FolioNum"].Text;
-                Session["Scheme"] = dataItem["Scheme"].Text;
-                Hashtable ht = new Hashtable();
-                ht["From"] = strFromDate;
-                ht["To"] = strToDate;
-                Session["tranDates"] = ht;
-
-                #endregion
-
-                //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-            }
-            else if (e.CommandName == "NavigateToMarketData")
-            {
-                string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
-                int month = 0;
-                int year = 0;
-
-                if (DateTime.Now.Month != 1)
+                if (e.CommandName == "Select")
                 {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
+                    int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
 
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                    // Function to get the minimum date for that account id and scheme code
+                    DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
+                    string strFromDate = dtFrom.ToShortDateString();
+                    string strToDate = DateTime.Today.ToShortDateString();
+
+                    #region Reusing Old Code
+
+                    Session["Folio"] = dataItem["FolioNum"].Text;
+                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = strFromDate;
+                    ht["To"] = strToDate;
+                    Session["tranDates"] = ht;
+
+                    #endregion
+
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                }
+                else if (e.CommandName == "NavigateToMarketData")
+                {
+                    string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
+                    int month = 0;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
+
+                    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                }
             }
+            
         }
 
         protected void lnkGoBackAll_Click(object sender, EventArgs e)
@@ -919,54 +929,57 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgAll_ItemCommand(object sender, GridCommandEventArgs e)
         {
-            GridDataItem dataItem = e.Item as GridDataItem;
-            string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
-            string strFolio = dataItem["FolioNum"].Text;
-            LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
-            string strScheme = lnk.Text;
-            int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
-
-            if (e.CommandName == "Select")
+            if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
-                int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
+                string strFolio = dataItem["FolioNum"].Text;
+                LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
+                string strScheme = lnk.Text;
+                int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
 
-                // Function to get the minimum date for that account id and scheme code
-                DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
-                string strFromDate = dtFrom.ToShortDateString();
-                string strToDate = DateTime.Today.ToShortDateString();
-
-                #region Reusing Old Code
-
-                Session["Folio"] = dataItem["FolioNum"].Text;
-                Session["Scheme"] = dataItem["Scheme"].Text;
-                Hashtable ht = new Hashtable();
-                ht["From"] = strFromDate;
-                ht["To"] = strToDate;
-                Session["tranDates"] = ht;
-
-                #endregion
-
-                //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-            }
-            else if (e.CommandName == "NavigateToMarketData")
-            {
-                string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
-                int month = 0;
-                int year = 0;
-
-                if (DateTime.Now.Month != 1)
+                if (e.CommandName == "Select")
                 {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
+                    int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
 
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                    // Function to get the minimum date for that account id and scheme code
+                    DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
+                    string strFromDate = dtFrom.ToShortDateString();
+                    string strToDate = DateTime.Today.ToShortDateString();
+
+                    #region Reusing Old Code
+
+                    Session["Folio"] = dataItem["FolioNum"].Text;
+                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = strFromDate;
+                    ht["To"] = strToDate;
+                    Session["tranDates"] = ht;
+
+                    #endregion
+
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                }
+                else if (e.CommandName == "NavigateToMarketData")
+                {
+                    string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
+                    int month = 0;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
+
+                    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                }
             }
         }
 
@@ -976,54 +989,57 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgRealized_ItemCommand(object sender, GridCommandEventArgs e)
         {
-            GridDataItem dataItem = e.Item as GridDataItem;
-            string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
-            string strFolio = dataItem["FolioNum"].Text;
-            LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
-            string strScheme = lnk.Text;
-            int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
-
-            if (e.CommandName == "Select")
+            if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
-                int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
+                string strFolio = dataItem["FolioNum"].Text;
+                LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
+                string strScheme = lnk.Text;
+                int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
 
-                // Function to get the minimum date for that account id and scheme code
-                DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
-                string strFromDate = dtFrom.ToShortDateString();
-                string strToDate = DateTime.Today.ToShortDateString();
-
-                #region Reusing Old Code
-
-                Session["Folio"] = dataItem["FolioNum"].Text;
-                Session["Scheme"] = dataItem["Scheme"].Text;
-                Hashtable ht = new Hashtable();
-                ht["From"] = strFromDate;
-                ht["To"] = strToDate;
-                Session["tranDates"] = ht;
-
-                #endregion
-
-                //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-            }
-            else if (e.CommandName == "NavigateToMarketData")
-            {
-                string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
-                int month = 0;
-                int year = 0;
-
-                if (DateTime.Now.Month != 1)
+                if (e.CommandName == "Select")
                 {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
+                    int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
 
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                    // Function to get the minimum date for that account id and scheme code
+                    DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
+                    string strFromDate = dtFrom.ToShortDateString();
+                    string strToDate = DateTime.Today.ToShortDateString();
+
+                    #region Reusing Old Code
+
+                    Session["Folio"] = dataItem["FolioNum"].Text;
+                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = strFromDate;
+                    ht["To"] = strToDate;
+                    Session["tranDates"] = ht;
+
+                    #endregion
+
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                }
+                else if (e.CommandName == "NavigateToMarketData")
+                {
+                    string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
+                    int month = 0;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
+
+                    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                }
             }
         }
 
@@ -1037,54 +1053,57 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgTaxHoldings_ItemCommand(object sender, GridCommandEventArgs e)
         {
-            GridDataItem dataItem = e.Item as GridDataItem;
-            string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
-            string strFolio = dataItem["FolioNum"].Text;
-            LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
-            string strScheme = lnk.Text;
-            int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
-
-            if (e.CommandName == "Select")
+            if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
-                int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
+                string strFolio = dataItem["FolioNum"].Text;
+                LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
+                string strScheme = lnk.Text;
+                int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
 
-                // Function to get the minimum date for that account id and scheme code
-                DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
-                string strFromDate = dtFrom.ToShortDateString();
-                string strToDate = DateTime.Today.ToShortDateString();
-
-                #region Reusing Old Code
-
-                Session["Folio"] = dataItem["FolioNum"].Text;
-                Session["Scheme"] = dataItem["Scheme"].Text;
-                Hashtable ht = new Hashtable();
-                ht["From"] = strFromDate;
-                ht["To"] = strToDate;
-                Session["tranDates"] = ht;
-
-                #endregion
-
-                //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-            }
-            else if (e.CommandName == "NavigateToMarketData")
-            {
-                string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
-                int month = 0;
-                int year = 0;
-
-                if (DateTime.Now.Month != 1)
+                if (e.CommandName == "Select")
                 {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
+                    int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
 
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                    // Function to get the minimum date for that account id and scheme code
+                    DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
+                    string strFromDate = dtFrom.ToShortDateString();
+                    string strToDate = DateTime.Today.ToShortDateString();
+
+                    #region Reusing Old Code
+
+                    Session["Folio"] = dataItem["FolioNum"].Text;
+                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = strFromDate;
+                    ht["To"] = strToDate;
+                    Session["tranDates"] = ht;
+
+                    #endregion
+
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                }
+                else if (e.CommandName == "NavigateToMarketData")
+                {
+                    string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
+                    int month = 0;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
+
+                    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                }
             }
         }
 
@@ -1094,54 +1113,57 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void rgTaxRealized_ItemCommand(object sender, GridCommandEventArgs e)
         {
-            GridDataItem dataItem = e.Item as GridDataItem;
-            string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
-            string strFolio = dataItem["FolioNum"].Text;
-            LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
-            string strScheme = lnk.Text;
-            int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
-
-            if (e.CommandName == "Select")
+            if (e.CommandName == "Select" || e.CommandName == "NavigateToMarketData")
             {
-                int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
+                GridDataItem dataItem = e.Item as GridDataItem;
+                string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
+                string strFolio = dataItem["FolioNum"].Text;
+                LinkButton lnk = (LinkButton)dataItem.FindControl("lnkScheme");
+                string strScheme = lnk.Text;
+                int intSchemeCode = Int32.Parse(dataItem.GetDataKeyValue("SchemeCode").ToString());
 
-                // Function to get the minimum date for that account id and scheme code
-                DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
-                string strFromDate = dtFrom.ToShortDateString();
-                string strToDate = DateTime.Today.ToShortDateString();
-
-                #region Reusing Old Code
-
-                Session["Folio"] = dataItem["FolioNum"].Text;
-                Session["Scheme"] = dataItem["Scheme"].Text;
-                Hashtable ht = new Hashtable();
-                ht["From"] = strFromDate;
-                ht["To"] = strToDate;
-                Session["tranDates"] = ht;
-
-                #endregion
-
-                //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
-            }
-            else if (e.CommandName == "NavigateToMarketData")
-            {
-                string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
-                int month = 0;
-                int year = 0;
-
-                if (DateTime.Now.Month != 1)
+                if (e.CommandName == "Select")
                 {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
+                    int intAccId = Int32.Parse(dataItem.GetDataKeyValue("AccountId").ToString());
 
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                    // Function to get the minimum date for that account id and scheme code
+                    DateTime dtFrom = customerPortfolioBo.GetSchemeTransactionInitialBuyDate(intAccId, intSchemeCode);
+                    string strFromDate = dtFrom.ToShortDateString();
+                    string strToDate = DateTime.Today.ToShortDateString();
+
+                    #region Reusing Old Code
+
+                    Session["Folio"] = dataItem["FolioNum"].Text;
+                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Hashtable ht = new Hashtable();
+                    ht["From"] = strFromDate;
+                    ht["To"] = strToDate;
+                    Session["tranDates"] = ht;
+
+                    #endregion
+
+                    //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('TransactionsView','none');", true);
+                }
+                else if (e.CommandName == "NavigateToMarketData")
+                {
+                    string strAMCCode = dataItem.GetDataKeyValue("AMCCode").ToString();
+                    int month = 0;
+                    int year = 0;
+
+                    if (DateTime.Now.Month != 1)
+                    {
+                        month = DateTime.Now.Month - 1;
+                        year = DateTime.Now.Year;
+                    }
+                    else
+                    {
+                        month = 12;
+                        year = DateTime.Now.Year - 1;
+                    }
+
+                    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
+                }
             }
         }
 
@@ -1166,5 +1188,54 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void rgHoldings_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["HoldingReturns"] != null)
+            {
+                dt = (DataTable)ViewState["HoldingReturns"];
+                rgHoldings.DataSource = dt;
+            }
+        }
+
+        protected void rgAll_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["AllReturns"] != null)
+            {
+                dt = (DataTable)ViewState["AllReturns"];
+                rgAll.DataSource = dt;
+            }
+        }
+
+        protected void rgRealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["RealizedReturns"] != null)
+            {
+                dt = (DataTable)ViewState["RealizedReturns"];
+                rgRealized.DataSource = dt;
+            }
+        }
+
+        protected void rgTaxHoldings_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["TaxHoldings"] != null)
+            {
+                dt = (DataTable)ViewState["TaxHoldings"];
+                rgTaxHoldings.DataSource = dt;
+            }
+        }
+
+        protected void rgTaxRealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["TaxRealized"] != null)
+            {
+                dt = (DataTable)ViewState["TaxRealized"];
+                rgTaxRealized.DataSource = dt;
+            }
+        }
     }
 }
