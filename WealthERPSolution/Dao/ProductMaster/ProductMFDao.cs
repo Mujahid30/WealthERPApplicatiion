@@ -468,7 +468,7 @@ namespace DaoProductMaster
             return dsAssetCategory;
         }
 
-        public DataSet GetSchemeName(int amcCode, string categoryCode, int all)
+        public DataSet GetSchemeName(int amcCode, string categoryCode, int all, int status)
         {
             Database db;
             DbCommand getSchemeNameCmd;
@@ -480,6 +480,7 @@ namespace DaoProductMaster
                 db.AddInParameter(getSchemeNameCmd, "@amcCode", DbType.Int32, amcCode);
                 db.AddInParameter(getSchemeNameCmd, "@categoryCode", DbType.String, categoryCode);
                 db.AddInParameter(getSchemeNameCmd, "@All", DbType.Int16, all);
+                db.AddInParameter(getSchemeNameCmd, "@staus", DbType.Int16, status);
                 dsSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
 
             }
