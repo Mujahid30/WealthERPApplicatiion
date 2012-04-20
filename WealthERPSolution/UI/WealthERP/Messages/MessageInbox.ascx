@@ -71,7 +71,7 @@
                                 ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Received" SortExpression="Received" HeaderText="Received"
-                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}" ItemStyle-Wrap="false">
+                                DataField="SentOn" DataFormatString="{0:R}" ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="ReadByUser" DataField="IsReadByUser" Visible="false" />

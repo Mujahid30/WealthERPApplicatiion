@@ -63,7 +63,7 @@
                                 ItemStyle-Wrap="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Sent" SortExpression="Sent" HeaderText="Sent"
-                                DataField="SentOn" DataFormatString="{0:MM/dd/yy hh:mm:ss}" ItemStyle-Wrap="false">
+                                DataField="SentOn" DataFormatString="{0:R}" ItemStyle-Wrap="false">
                                 <HeaderStyle Width="125px"></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Read" CommandName="Read"
