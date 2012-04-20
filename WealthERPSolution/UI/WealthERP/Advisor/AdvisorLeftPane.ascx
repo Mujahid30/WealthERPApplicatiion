@@ -42,7 +42,7 @@
 </asp:ScriptManager>--%>
 <asp:UpdatePanel ID="upnlAdviserleftpane" runat="server">
     <ContentTemplate>
-        <table style="valign: top; width: 100%;">
+        <table style="vertical-align: top; width: 100%;">
             <tr>
                 <td valign="top">
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
@@ -118,9 +118,26 @@
                                             <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>
                                         </Items>
-                                    </telerik:RadPanelItem>
+                                    </telerik:RadPanelItem>                                    
+                                    
+                                    <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS"
+                                                        Value="OrderMIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Entry"
+                                                        Value="OrderEntry">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Recon"
+                                                        Value="OrderRecon" Visible="false">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                     </telerik:RadPanelItem>                                        
+                                    
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
@@ -150,6 +167,8 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
+                                    
                                     <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
@@ -172,20 +191,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Management"
-                                                Value="OrderManagement">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Query/MIS"
-                                                        Value="OrderMIS">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Entry"
-                                                        Value="OrderEntry">
-                                                    </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Order Recon"
-                                                        Value="OrderRecon">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
-                                            </telerik:RadPanelItem>
+                                          
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Staff User Management" Value="Staff User Management">
@@ -224,7 +230,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
                                             </telerik:RadPanelItem>
@@ -234,7 +240,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content">
+                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                             </telerik:RadPanelItem>
@@ -571,7 +577,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
                                             </telerik:RadPanelItem>
