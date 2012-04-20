@@ -301,6 +301,12 @@ namespace WealthERP
                     e.Item.NavigateUrl = "javascript:loadfrommenu('RMDashBoard','login')";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
                 }
+                //else if (userVo.RoleList.Contains("Research"))
+                //{
+                //    e.Item.NavigateUrl = "javascript:loadfrommenu('ResearchDashboard','login')";
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
+                //}
+                    
                 else
                 {
                     e.Item.NavigateUrl = "javascript:loadfrommenu('AdvisorRMCustIndiDashboard','login')";

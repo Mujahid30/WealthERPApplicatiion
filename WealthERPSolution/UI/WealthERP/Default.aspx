@@ -281,19 +281,23 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
+                                                                Text="Transact/Business online <img id='img1' src='/Images/new.gif'/>" Value="Transact/Business online"
+                                                                SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" 
+                                                             Text="Repository <img id='img1' src='/Images/new.gif'/>"  Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem> 
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links <img id='img1' src='/Images/new.gif'/>"
+                                                                Value="Info links"></asp:MenuItem>
+                                                                
+                                                                <asp:MenuItem Enabled="false"  Text="<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>" NavigateUrl="#"></asp:MenuItem>
+                                                                
+                                                                <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
-                                                                Value="Interest Calculator" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
-                                                                Text="Transact/Business online <img id='img1' src='/Images/new.gif'/>" Value="Transact/Business online"
-                                                                SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links <img id='img1' src='/Images/new.gif'/>"
-                                                                Value="Info links" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository <img id='img1' src='/Images/new.gif'/>"
-                                                                Value="Repository"></asp:MenuItem>
+                                                                Value="Interest Calculator" ></asp:MenuItem>
+                                                            
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
