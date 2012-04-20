@@ -454,6 +454,7 @@ namespace WealthERP.Advisor
                     dtMISReport.Columns.Add("AMC");
                     dtMISReport.Columns.Add("Scheme");
                     dtMISReport.Columns.Add("Category");
+                    dtMISReport.Columns.Add("SubCategory");
                     dtMISReport.Columns.Add("AUM");
                     dtMISReport.Columns.Add("Units");
                     dtMISReport.Columns.Add("MarketPrice");
@@ -469,28 +470,28 @@ namespace WealthERP.Advisor
                         drMISReport[1] = dsMISReport.Tables[0].Rows[i][2].ToString();
                         drMISReport[2] = dsMISReport.Tables[0].Rows[i][3].ToString();
                         drMISReport[3] = dsMISReport.Tables[0].Rows[i][4].ToString();
-                        //drMISReport[4] = dsMISReport.Tables[0].Rows[i][5].ToString();
+                        drMISReport[4] = dsMISReport.Tables[0].Rows[i][5].ToString();
                         //drMISReport[5] = dsMISReport.Tables[0].Rows[i][6].ToString();
                         //drMISReport[6] = dsMISReport.Tables[0].Rows[i][7].ToString();
                         //drMISReport[7] = dsMISReport.Tables[0].Rows[i][8].ToString();
 
                         if (GridViewCultureFlag == true)
                         {
-                            decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][5].ToString()), 2);
-                            drMISReport[4] = temp.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drMISReport[5] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()), 4).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()), 2);
+                            drMISReport[5] = temp.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 4).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
                         else
                         {
-                            drMISReport[4] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][5].ToString()), 2).ToString();                             
-                            drMISReport[5] =System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()),4).ToString();
+                            drMISReport[5] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()), 2).ToString();                             
+                            drMISReport[6] =System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()),4).ToString();
                             //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString();
                                 
                         }
 
-                        drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString();
                         drMISReport[7] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 2).ToString();
+                        drMISReport[8] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][9].ToString()), 2).ToString();
                             
 
                         dtMISReport.Rows.Add(drMISReport);
@@ -516,14 +517,14 @@ namespace WealthERP.Advisor
                     }
                   if (GridViewCultureFlag == true)
                   {
-                      gvMFMIS.FooterRow.Cells[5].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                      gvMFMIS.FooterRow.Cells[6].Text = totalAmount.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                      gvMFMIS.FooterRow.Cells[6].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                      gvMFMIS.FooterRow.Cells[7].Text = totalAmount.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
  
                   }
                   else
                   {
-                      gvMFMIS.FooterRow.Cells[5].Text = totalUnits.ToString();
-                      gvMFMIS.FooterRow.Cells[6].Text = totalAmount.ToString();
+                      gvMFMIS.FooterRow.Cells[6].Text = totalUnits.ToString();
+                      gvMFMIS.FooterRow.Cells[7].Text = totalAmount.ToString();
 
                   }
                  

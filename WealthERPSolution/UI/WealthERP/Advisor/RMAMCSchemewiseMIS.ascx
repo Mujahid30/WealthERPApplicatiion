@@ -274,6 +274,20 @@
                                 </ItemTemplate>
                                 <ItemStyle Wrap="False"></ItemStyle>
                             </asp:TemplateField>
+                            
+                            <asp:TemplateField HeaderStyle-Wrap="false">
+                                <HeaderTemplate>
+                                    <asp:Label ID="lblSubCategory" runat="server" Text="Category"></asp:Label>
+                                    <%--<asp:DropDownList ID="ddlCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                        OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+                                    </asp:DropDownList>--%>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSubCategoryHeader" runat="server" Text='<%# Eval("SubCategory").ToString() %>'></asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle Wrap="False"></ItemStyle>
+                            </asp:TemplateField>
+                            
                             <asp:BoundField DataField="MarketPrice" HeaderText="Curr NAV" ItemStyle-HorizontalAlign="Right"
                                 HeaderStyle-Wrap="false">
                                 <HeaderStyle Wrap="False"></HeaderStyle>
