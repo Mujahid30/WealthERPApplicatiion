@@ -7,7 +7,7 @@
     ExpandMode="SingleExpandedItem" Width="100%" Skin="Telerik" EnableEmbeddedSkins="false"
     OnItemClick="RadPanelBar1_ItemClick">
     <Items>
-        <telerik:RadPanelItem Text="IFF" Value="IFF">
+         <telerik:RadPanelItem Text="IFA" Value="IFF">
             <Items>
                 <telerik:RadPanelItem Text="Add" Value="IFFAdd">
                 </telerik:RadPanelItem>
@@ -17,15 +17,7 @@
                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
-        <telerik:RadPanelItem Text="MessageBroadcast" Value="MessageBroadcast">
-        </telerik:RadPanelItem>
-        <telerik:RadPanelItem Text="Loan Scheme" Value="LoanScheme">
-            <Items>
-                <telerik:RadPanelItem Text="Add" Value="AddLoanScheme">
-                </telerik:RadPanelItem>
-            </Items>
-        </telerik:RadPanelItem>
-        <telerik:RadPanelItem Text="Configuration" Value="Configuration"></telerik:RadPanelItem>
+        
          <telerik:RadPanelItem Text="Ops" Value="OPS">
             <Items>
                 <telerik:RadPanelItem Text="Valuation Monitor" Value="Valuation_Monitor">
@@ -58,7 +50,8 @@
                  </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
-        <telerik:RadPanelItem Text="Issue Tracker">
+         
+         <telerik:RadPanelItem Text="Issue Tracker">
             <Items>
                 <telerik:RadPanelItem Text="View Issue Tracker" Value="IssueTracker">
                 </telerik:RadPanelItem>
@@ -68,7 +61,7 @@
                 </telerik:RadPanelItem>
             </Items>
         </telerik:RadPanelItem>
-        
+         
          <telerik:RadPanelItem Text="Messages">
             <Items>
             
@@ -85,5 +78,27 @@
             </Items>
             
         </telerik:RadPanelItem>
+        
+        
+         <telerik:RadPanelItem Text="MessageBroadcast" Value="MessageBroadcast">
+         </telerik:RadPanelItem>
+        
+         <telerik:RadPanelItem Text="Configuration" Value="Configuration">
+         </telerik:RadPanelItem>
+         
+         <telerik:RadPanelItem Text="Loan Scheme" Value="LoanScheme">
+            <Items>
+                <telerik:RadPanelItem Text="Add" Value="AddLoanScheme">
+                </telerik:RadPanelItem>
+            </Items>
+        </telerik:RadPanelItem>
+        
+        
+        
+       
+        
+       
+        
+       
     </Items>
 </telerik:RadPanelBar>
