@@ -721,6 +721,11 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
 
                 }
+                else if (e.Item.Value == "Multi_Product_MIS")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MultiProductMIS','login');", true);
+                }
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "adviser";
@@ -729,7 +734,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MultiProductMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
                 }
                 else if (e.Item.Value == "MF Commission MIS")
                 {
@@ -1395,6 +1400,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString().ToLower() == "multi product mis")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
                     }
                 }
