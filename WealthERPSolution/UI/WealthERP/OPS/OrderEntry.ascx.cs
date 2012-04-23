@@ -819,7 +819,7 @@ namespace WealthERP.OPS
                     amcCode = int.Parse(ddlAMCList.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
                     if(txtCustomerId.Value =="")
-                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1);
+                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode,1, 1);
                     else
                         dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode,Sflag,int.Parse(txtCustomerId.Value));
                 }
@@ -828,7 +828,7 @@ namespace WealthERP.OPS
                     amcCode = int.Parse(ddlAMCList.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
                     if (Sflag == 0)
-                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0);
+                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1,0);
                     else
                         dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
                 }
