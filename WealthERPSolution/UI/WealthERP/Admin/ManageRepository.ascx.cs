@@ -88,17 +88,11 @@ namespace WealthERP.Admin
         protected void ddlUploadDataType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
-            {
                 FileUploadVisibility(false, true);
-            }
             else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
-            {
                 FileUploadVisibility(true, false);
-            }
             else
-            {
                 FileUploadVisibility(false, false);
-            }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -186,7 +180,6 @@ namespace WealthERP.Admin
                                 {
                                     Directory.CreateDirectory(strRepositoryPath);
                                 }
-
                                 strGuid = Guid.NewGuid().ToString();
                                 string newFileName = SaveFileIntoServer(file, strGuid, strRepositoryPath);
 
@@ -200,15 +193,8 @@ namespace WealthERP.Admin
 
                                 if (blResult)
                                 {
-                                    #region Refactor This Code
-
                                     // Once the adding of repository is a success, then update the balance storage in advisor subscription table
-                                    fStorageBalance -= fileSize;
-                                    advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
-                                    advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
-                                    Session[SessionContents.AdvisorVo] = advisorVo;
-
-                                    #endregion
+                                    fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
                                 }
                             }
                             else
@@ -349,16 +335,12 @@ namespace WealthERP.Admin
                                 FileInfo f = new FileInfo(strFilePath);
                                 long lSize = f.Length;
                                 oldFileSize = (lSize / (float)1048576);
-
                                 float flRemainingBal = fStorageBalance + oldFileSize;
 
                                 if (flRemainingBal >= fileSize)
-                                {
                                     File.Delete(strFilePath);
-                                }
                                 else
                                     blZeroBalance = true;
-
                             }
 
                             if (!blZeroBalance)
@@ -379,15 +361,8 @@ namespace WealthERP.Admin
 
                                 if (blResult)
                                 {
-                                    #region Refactor This Code
-
                                     // Once updating the repository is a success, then update the balance storage in advisor subscription table
-                                    fStorageBalance -= (fileSize - oldFileSize);
-                                    advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
-                                    advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
-                                    Session[SessionContents.AdvisorVo] = advisorVo;
-
-                                    #endregion
+                                    fStorageBalance = UpdateAdvisorStorageBalance(fileSize, oldFileSize, fStorageBalance);
                                 }
                             }
                         }
@@ -412,6 +387,16 @@ namespace WealthERP.Admin
                 PageException(objects, Ex, "ManageRepository.ascx:UpdateClick()");
             }
             return blResult;
+        }
+
+        private float UpdateAdvisorStorageBalance(float fileSize, float oldFileSize, float fStorageBalance)
+        {
+            AdvisorBo advBo = new AdvisorBo();
+            fStorageBalance -= (fileSize - oldFileSize);
+            advBo.UpdateAdviserStorageBalance(advisorVo.advisorId, fStorageBalance);
+            advisorVo.SubscriptionVo.StorageBalance = fStorageBalance;
+            Session[SessionContents.AdvisorVo] = advisorVo;
+            return fStorageBalance;
         }
 
         private bool UpdateLink()
@@ -457,12 +442,12 @@ namespace WealthERP.Admin
             throw exBase;
         }
 
-        private string SaveFileIntoServer(UploadedFile file, string strGuid, string strRepositoryPath)
+        private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath)
         {
             fileExtension = file.GetExtension();
             string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
             // Save adviser repository file in the path
-            file.SaveAs(strRepositoryPath + "\\" + newFileName);
+            file.SaveAs(strPath + "\\" + newFileName);
             return newFileName;
         }
 
@@ -507,7 +492,7 @@ namespace WealthERP.Admin
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataBoundItem = e.Item as GridDataItem;
-                
+
                 Label lbl = (Label)dataBoundItem.FindControl("lbl");
                 if (lbl != null)
                 {
@@ -515,9 +500,9 @@ namespace WealthERP.Admin
                     {
                         // split the string
                         int intFirstIndex = lbl.Text.IndexOf('_');
-                        int intSecondIndex = lbl.Text.IndexOf('_', intFirstIndex+1);
-                        int intLength = lbl.Text.Length - (intSecondIndex+1);
-                        string strFileName = lbl.Text.Substring(intSecondIndex+1, intLength);
+                        int intSecondIndex = lbl.Text.IndexOf('_', intFirstIndex + 1);
+                        int intLength = lbl.Text.Length - (intSecondIndex + 1);
+                        string strFileName = lbl.Text.Substring(intSecondIndex + 1, intLength);
                         lbl.Text = strFileName;
                     }
                 }
@@ -599,7 +584,7 @@ namespace WealthERP.Admin
                 strUplFile = repoVo.Link.Split('_');
 
                 // The 3rd item in the array is the actual file name
-                lblUploadedFile.Text = strUplFile[strUplFile.Length-1];
+                lblUploadedFile.Text = strUplFile[strUplFile.Length - 1];
             }
             else
             {
@@ -610,5 +595,119 @@ namespace WealthERP.Admin
             }
             btnAdd.Text = Constants.Update.ToString();
         }
+
+        protected void hdrCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (GridDataItem item in rgRepositoryList.Items)
+            {
+                CheckBox hdrCheckBx = (CheckBox)sender;
+                CheckBox chkbxRow = (CheckBox)item.FindControl("chkbxRow");
+                if (hdrCheckBx != null && chkbxRow != null)
+                {
+                    chkbxRow.Checked = hdrCheckBx.Checked;
+                }
+            }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            bool blAnyChecked = false;
+            bool blResult = false;
+            DataSet ds = new DataSet();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("FileName");
+            dt.Columns.Add("IsFile");
+            DataRow drDelete;
+
+            foreach (GridDataItem item in rgRepositoryList.Items)
+            {
+                CheckBox chkbxRow = (CheckBox)item.FindControl("chkbxRow");
+                if (chkbxRow != null)
+                {
+                    if (chkbxRow.Checked)
+                    {
+                        // Update flag for validation message [select atleast one to delete]
+                        blAnyChecked = true;
+
+                        drDelete = dt.NewRow();
+                        string strKeyValue = item.GetDataKeyValue("AR_RepositoryId").ToString();
+                        string strIsFile = item.GetDataKeyValue("AR_IsFile").ToString();
+                        string strFileName = item.GetDataKeyValue("AR_Filename").ToString();
+                        drDelete[0] = strKeyValue;
+                        drDelete[1] = strFileName;
+                        drDelete[2] = strIsFile;
+                        dt.Rows.Add(drDelete);
+                    }
+                }
+            }
+
+            dt.TableName = "Table";
+            ds.Tables.Add(dt);
+            ds.DataSetName = "Deleted";
+
+            if (blAnyChecked)
+            {
+                #region Put Transaction Scope 3 here
+
+                // Get the system file path. Delete for each id in the dataset
+                float fBalanceStorage = 0.0F;
+                string strPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\";
+                fBalanceStorage = DeleteRepositoryItems(strPath, ds);
+
+                repoBo = new RepositoryBo();
+                blResult = repoBo.DeleteRepositoryItems(ds.GetXml().ToString(), fBalanceStorage, advisorVo.advisorId);
+
+                if (blResult)
+                {
+                    // Store the fBalanceStorage in advisor session and update the database
+                    advisorVo.SubscriptionVo.StorageBalance = fBalanceStorage;
+                    Session[SessionContents.AdvisorVo] = advisorVo;
+                    rgRepositoryList.Rebind();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Repository", "alert('Items deleted successfully!');", true);
+                }
+                else
+                {
+                    rgRepositoryList.Rebind();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Repository", "alert('Error deleting items!');", true);
+                }
+
+                #endregion
+
+            }
+            else
+            {
+                // Display validation message that atleast one checkbox should be checked
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Repository", "alert('Please select an item!');", true);
+            }
+        }
+
+        private float DeleteRepositoryItems(string strRepositoryPath, DataSet ds)
+        {
+            float oldFileSize = 0.0F;
+            float flRemainingBal = 0.0F;
+            flRemainingBal = fStorageBalance;
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                string strFilename = dr["FileName"].ToString();
+                string strFilePath = strRepositoryPath + strFilename;
+
+                if (File.Exists(strFilePath))
+                {
+                    // Get the file size of the old file to calculate the balance storage size
+                    FileInfo f = new FileInfo(strFilePath);
+                    long lSize = f.Length;
+                    oldFileSize = (lSize / (float)1048576);
+                    // Update the remaining balance storage after deletion
+                    flRemainingBal += oldFileSize;
+
+                    File.Delete(strFilePath);
+                }
+            }
+
+            return flRemainingBal;
+        }
+
     }
 }

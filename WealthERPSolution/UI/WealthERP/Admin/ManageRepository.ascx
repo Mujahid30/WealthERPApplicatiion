@@ -156,9 +156,25 @@
                                     EnableViewState="true" OnNeedDataSource="rgRepositoryList_NeedDataSource" OnItemDataBound="rgRepositoryList_ItemDataBound"
                                     AllowFilteringByColumn="true">
                                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                    <MasterTableView DataKeyNames="AR_RepositoryId" ShowFooter="true">
+                                    <MasterTableView DataKeyNames="AR_RepositoryId,AR_Filename,AR_IsFile" ShowFooter="true">
                                         <Columns>
-                                            <telerik:GridTemplateColumn UniqueName="HeadingText" HeaderText="Heading Text" AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                                            <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False" AllowFiltering="false">
+                                                <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>
+                                                <HeaderTemplate>
+                                                    <asp:CheckBox ID="hdrCheckBox" runat="server" OnCheckedChanged="hdrCheckBox_CheckedChanged"
+                                                        AutoPostBack="true" />
+                                                </HeaderTemplate>
+                                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                                                <ItemTemplate>
+                                                    <asp:CheckBox ID="chkbxRow" runat="server" />
+                                                </ItemTemplate>
+                                                <FooterTemplate>
+                                                    <asp:LinkButton ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click"
+                                                        ForeColor="White" />
+                                                </FooterTemplate>
+                                            </telerik:GridTemplateColumn>
+                                            <telerik:GridTemplateColumn UniqueName="HeadingText" HeaderText="Heading Text" AllowFiltering="false"
+                                                ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="lnkBtnFileName" runat="server" CssClass="CmbField" OnClick="lnkBtnFileNameClientListGrid_Click"
                                                         Text='<%# Eval("AR_HeadingText") %>'>
@@ -169,9 +185,11 @@
                                                 AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="ARC_RepositoryCategory"
-                                                AllowFiltering="true" CurrentFilterFunction="Contains" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                                                AllowFiltering="true" CurrentFilterFunction="Contains" ItemStyle-Wrap="false"
+                                                HeaderStyle-Wrap="false">
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridTemplateColumn UniqueName="Path" HeaderText="File/Link" AllowFiltering="false" ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
+                                            <telerik:GridTemplateColumn UniqueName="Path" HeaderText="File/Link" AllowFiltering="false"
+                                                ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lbl" Text='<%# Boolean.Parse(DataBinder.Eval(Container.DataItem, "AR_IsFile").ToString())? DataBinder.Eval(Container.DataItem, "AR_Filename").ToString():DataBinder.Eval(Container.DataItem, "AR_Link").ToString() %>'
                                                         runat="server"></asp:Label>
