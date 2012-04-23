@@ -481,14 +481,14 @@ namespace WealthERP.Advisor
                     email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
                     if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
                     {
-                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
+                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
                     }
                     else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Citrus")
                     {
-                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
+                        email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
                     }
                     email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
-                    if (!string.IsNullOrEmpty(advisorVo.Designation.Trim()))
+                    if (!string.IsNullOrEmpty(advisorVo.Designation))
                     email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
                     else
                       email.Body = email.Body.Replace("[DESIGNATION]", string.Empty);
