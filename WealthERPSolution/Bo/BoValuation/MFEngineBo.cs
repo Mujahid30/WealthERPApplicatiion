@@ -1098,12 +1098,12 @@ namespace BoValuation
                     }
                     //valuationVo.ReturnAllTotalDiv = totalDiv;
 
-                    expression = "WMTT_TransactionClassificationCode <> 'SEL' and WMTT_TransactionClassificationCode <> 'DVP'";
-                    dtMFTransactionBalance.DefaultView.RowFilter = expression;
-                    DataTable dtProratedDetails = dtMFTransactionBalance.DefaultView.ToTable();
-                    DataRow lastRow = (DataRow)dtProratedDetails.Rows[dtProratedDetails.Rows.Count - 1];
+                    //expression = "WMTT_TransactionClassificationCode <> 'SEL' and WMTT_TransactionClassificationCode <> 'DVP'";
+                    //dtMFTransactionBalance.DefaultView.RowFilter = expression;
+                    //DataTable dtProratedDetails = dtMFTransactionBalance.DefaultView.ToTable();
+                    //DataRow lastRow = (DataRow)dtProratedDetails.Rows[dtProratedDetails.Rows.Count - 1];
 
-                    avgCost = Convert.ToDouble(lastRow["CMFTB_AvgCostBalRETURN"]);
+                    //avgCost = Convert.ToDouble(lastRow["CMFTB_AvgCostBalRETURN"]);
 
                     //CMFNP_RET_Hold_AcqCost = openUnits * avgCost;
                     drMFNetPosition["CMFNP_RET_Hold_AcqCost"] = CMFNP_RET_Hold_AcqCost;  //  Return Holding   ----  Invested Cost
