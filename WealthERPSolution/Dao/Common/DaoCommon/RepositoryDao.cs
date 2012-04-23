@@ -272,5 +272,43 @@ namespace DaoCommon
             }
             return blResult;
         }
+
+        public bool DeleteRepositoryItems(string strXML, float fStorageBalance, int intAdviserId)
+        {
+            Database db;
+            DbCommand cmdDeleteRepositoryItems;
+            bool blResult = false;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdDeleteRepositoryItems = db.GetStoredProcCommand("sproc_Repository_DeleteRepositoryItems");
+                db.AddInParameter(cmdDeleteRepositoryItems, "@deletedRepositoryXML", DbType.String, strXML);
+                db.AddInParameter(cmdDeleteRepositoryItems, "@storageBalance", DbType.Decimal, fStorageBalance);
+                db.AddInParameter(cmdDeleteRepositoryItems, "@adviserId", DbType.Int32, intAdviserId);
+                db.ExecuteNonQuery(cmdDeleteRepositoryItems);
+                blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryDao.cs:DeleteRepositoryItems(string strXML, float fStorageBalance, int intAdviserId)");
+                object[] objects = new object[3];
+                objects[0] = strXML;
+                objects[1] = fStorageBalance;
+                objects[2] = intAdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
+
     }
 }
