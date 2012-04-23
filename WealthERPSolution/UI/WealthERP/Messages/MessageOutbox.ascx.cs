@@ -35,6 +35,9 @@ namespace WealthERP.Messages
                 trContent.Visible = true;
                 trNoRecords.Visible = false;
                 ViewState["dsOutbox"] = dsInbox;
+                //if (Cache["dsOutbox"] != null)
+                //    Cache.Remove("dsOutbox");
+                //Cache.Insert("dsOutbox", dsInbox, null, DateTime.Now.AddMinutes(60), TimeSpan.Zero);
             }
             else
             {
@@ -50,18 +53,19 @@ namespace WealthERP.Messages
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
                 string strKeyValue = dataItem.GetDataKeyValue("M_MessageId").ToString();
-
                 /*
                  * check if the message has alreaDY been read by user. If yes, then do not update DB.
                  * Else if not read then update DB flag.
                  */
                 tblMessageHeaders.Visible = true;
                 DataSet dsOutbox = (DataSet)ViewState["dsOutbox"];
+                msgBo = new MessageBo();
+                string strMessage = msgBo.GetMessage(Convert.ToInt64(strKeyValue));
+
                 foreach (DataRow dr in dsOutbox.Tables[0].Rows)
                 {
                     if (dr["M_MessageId"].ToString() == strKeyValue)
                     {
-                        string strMessage = dr["Message"].ToString();
                         lblMessageContent.Text = strMessage;
                         lblRecipientsContent.Text = dr["Recipients"].ToString();
                         lblSubjectContent.Text = dr["Subject"].ToString();

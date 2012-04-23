@@ -39,7 +39,7 @@
                     OnItemCommand="RadGrid1_ItemCommand" OnNeedDataSource="RadGrid1_NeedDataSource"
                     OnItemDataBound="RadGrid1_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                    <MasterTableView DataKeyNames="MR_MessageRecipientId" ShowFooter="true">
+                    <MasterTableView DataKeyNames="MR_MessageRecipientId,M_MessageId" ShowFooter="true">
                         <Columns>
                             <telerik:GridTemplateColumn UniqueName="TemplateColumn1" Groupable="False">
                                 <HeaderStyle HorizontalAlign="Center" Width="30px"></HeaderStyle>

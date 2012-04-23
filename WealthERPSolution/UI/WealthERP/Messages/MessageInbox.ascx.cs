@@ -50,19 +50,24 @@ namespace WealthERP.Messages
         {
             if (e.CommandName == "Read")
             {
+                #region Look into performance enhancement as multiple calls are made to DB
+
                 GridDataItem dataItem = e.Item as GridDataItem;
                 string strKeyValue = dataItem.GetDataKeyValue("MR_MessageRecipientId").ToString();
+                string strMsgId = dataItem.GetDataKeyValue("M_MessageId").ToString();
                 /*
                  *      check if the message has alreaDY been read by user. If yes, then do not update DB.
                  *      Else if not read then update DB flag.
                  */
                 tblMessageHeaders.Visible = true;
                 DataSet dsInbox = (DataSet)ViewState["dsInbox"];
+                msgBo = new MessageBo();
+                string strMessage = msgBo.GetMessage(Convert.ToInt64(strMsgId));
+
                 foreach (DataRow dr in dsInbox.Tables[0].Rows)
                 {
                     if (dr["MR_MessageRecipientId"].ToString() == strKeyValue)
                     {
-                        string strMessage = dr["Message"].ToString();
                         lblMessageContent.Text = strMessage;
                         lblSenderContent.Text = dr["Sender"].ToString();
                         lblSubjectContent.Text = dr["Subject"].ToString();
@@ -87,10 +92,10 @@ namespace WealthERP.Messages
                         RadGrid1.Rebind();
                     }
                 }
+
+                #endregion
             }
         }
-
-        
 
         protected void RadGrid1_ItemDataBound(object sender, GridItemEventArgs e)
         {
