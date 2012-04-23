@@ -460,24 +460,24 @@ namespace WealthERP.Advisor
                             email.Body = email.Body.Replace("[CUSTOMER_NAME]", userVo.FirstName);
                             if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
                             {
-                                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
+                                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
                             }
                             else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Citrus")
                             {
-                                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
+                                email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
                             }
                                                     
-                            email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName.Trim() + " " + advisorVo.ContactPersonMiddleName.Trim() + " " + advisorVo.ContactPersonLastName.Trim());
-                            if (!string.IsNullOrEmpty(advisorVo.Designation.Trim()))
+                            email.Body = email.Body.Replace("[CONTACTPERSON]", advisorVo.ContactPersonFirstName + " " + advisorVo.ContactPersonMiddleName + " " + advisorVo.ContactPersonLastName);
+                            if (!string.IsNullOrEmpty(advisorVo.Designation))
                               email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
                             else
-                                email.Body = email.Body.Replace("[DESIGNATION]", string.Empty);
-                            if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString().Trim()))
+                              email.Body = email.Body.Replace("[DESIGNATION]", string.Empty);
+                            if (!string.IsNullOrEmpty(advisorVo.Phone1Number.ToString()))
                                email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
                             else
                                  email.Body = email.Body.Replace("[PHONE]", string.Empty);
 
-                            if (!string.IsNullOrEmpty(advisorVo.Email.Trim()))
+                            if (!string.IsNullOrEmpty(advisorVo.Email))
                                email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
                             else
                                 email.Body = email.Body.Replace("[EMAIL]", string.Empty);
