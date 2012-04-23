@@ -214,6 +214,36 @@ namespace BoCommon
 
             return blResult;
         }
-        
+
+        public bool DeleteRepositoryItems(string strXML, float fStorageBalance, int intAdviserId)
+        {
+            RepositoryDao repoDao = new RepositoryDao();
+            bool blResult = false;
+
+            try
+            {
+                blResult = repoDao.DeleteRepositoryItems(strXML, fStorageBalance, intAdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryBo.cs:DeleteRepositoryItems(string strXML, float fStorageBalance, int intAdviserId)");
+                object[] objects = new object[3];
+                objects[0] = strXML;
+                objects[1] = fStorageBalance;
+                objects[2] = intAdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return blResult;
+        }
     }
 }
