@@ -283,5 +283,37 @@ namespace DaoCommon
             }
             return Id;
         }
+
+        public string GetMessage(Int64 intMessageId)
+        {
+            Database db;
+            DbCommand cmdGetMessage;
+            string strResult;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetMessage = db.GetStoredProcCommand("sproc_Message_GetMessage");
+                db.AddInParameter(cmdGetMessage, "@messageId", DbType.Int64, intMessageId);
+                strResult = db.ExecuteScalar(cmdGetMessage).ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageDao.cs:GetMessage(Int64 intMessageId)");
+                object[] objects = new object[1];
+                objects[0] = intMessageId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return strResult;
+        }
     }
 }
