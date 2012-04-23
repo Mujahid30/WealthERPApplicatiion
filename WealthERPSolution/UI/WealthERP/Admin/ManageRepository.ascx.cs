@@ -491,7 +491,15 @@ namespace WealthERP.Admin
 
         protected void rgRepositoryList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
+            if (e.Item is GridPagerItem)
+            {
+                RadComboBox rbCmBx = (RadComboBox)e.Item.FindControl("PageSizeComboBox");
+                rbCmBx.Visible = false;
+
+                Label lblPageSize = (Label)e.Item.FindControl("ChangePageSizeLabel");
+                lblPageSize.Text = "";
+            }
+            else if (e.Item is GridDataItem)
             {
                 GridDataItem dataBoundItem = e.Item as GridDataItem;
 
