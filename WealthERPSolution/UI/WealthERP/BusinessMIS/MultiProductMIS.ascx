@@ -32,13 +32,13 @@
     {
         font-size: 13px;
         margin-bottom: 10px;
-        padding: 5px 7px;
+        padding: 10px 7px;
     }
 </style>
 <table style="width: 100%;">
     <tr>
         <td class="HeaderTextBig">
-            <asp:Label ID="lblMultiAssetMIS" runat="server" CssClass="HeaderTextBig" Text="Multi-Asset MIS"></asp:Label>
+            <asp:Label ID="lblMultiAssetMIS" runat="server" CssClass="HeaderTextBig" Text="Multi Product MIS"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -97,7 +97,7 @@
         <td class="leftField" style="width: 35%">
         </td>
     </tr>
-    <tr>
+    <tr id="trCustomerSearch" runat="server">
         <td class="leftField" style="width: 15%">
             &nbsp;
         </td>
@@ -127,24 +127,35 @@
         </td>
         <td class="leftField" style="width: 35%">
         </td>
+    </tr>    
+    <tr>
+        <td></td>
+        <td colspan="4">
+            <div style="padding-top:2px"> 
+                <asp:LinkButton ID="lnkBtnMultiProductMIS" Text="Multi-Product" CssClass="LinkButtonsWithoutUnderLine"
+                    runat="server" OnClick="lnkBtnMultiProductMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
+                <span>|</span>
+                <asp:LinkButton ID="lnkBtnLifeInsuranceMIS" Text="LifeInsurance" CssClass="LinkButtonsWithoutUnderLine"
+                    runat="server" OnClick="lnkBtnLifeInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
+                <span>|</span>
+                <asp:LinkButton ID="lnkBtnGeneralInsuranceMIS" Text="General Insurance" CssClass="LinkButtonsWithoutUnderLine"
+                    runat="server" OnClick="lnkBtnGeneralInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
+                <span>|</span>
+                <asp:LinkButton ID="lnkBtnInvestmentMIS" Text="Fixed Income" CssClass="LinkButtonsWithoutUnderLine"
+                    runat="server" onclick="lnkBtnInvestmentMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
+            </div>
+        </td>
+    </tr>
+    <tr>
+    <td></td>
+        <td colspan="4">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Click on the MIS you would like to see"></asp:Label>   
+        </td>
     </tr>
     <%--</ContentTemplate>
     </asp:UpdatePanel> --%>
 </table>
-<div class="fk-lres-header" style="margin-left: 10%; padding-bottom: 5px; width: 43%;
-    text-align: center">
-    <asp:LinkButton ID="lnkBtnMultiProductMIS" Text="Multi-Product" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnMultiProductMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
-    <span>|</span>
-    <asp:LinkButton ID="lnkBtnLifeInsuranceMIS" Text="LifeInsurance" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnLifeInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
-    <span>|</span>
-    <asp:LinkButton ID="lnkBtnGeneralInsuranceMIS" Text="General Insurance" CssClass="LinkButtons"
-        runat="server" OnClick="lnkBtnGeneralInsuranceMIS_OnClick" ValidationGroup="CustomerValidation"></asp:LinkButton>
-    <span>|</span>
-    <asp:LinkButton ID="lnkBtnInvestmentMIS" Text="Fixed Income" CssClass="LinkButtons"
-        runat="server" onclick="lnkBtnInvestmentMIS_Click" ValidationGroup="CustomerValidation"></asp:LinkButton>
-</div>
+
 
 
 
@@ -172,12 +183,13 @@
 <table class="TableBackground" width="100%">
     <tr id="trMultiProduct" runat="server">
         <td>
+        <div style='overflow-x:scroll;overflow-y:hidden; width:97%'>
             <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId"
-                EnableEmbeddedSkins="false" Width="100%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -185,8 +197,8 @@
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" DataField="Customer_Name" 
-                        HtmlEncode="false" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Left" />
+                        HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Equity" HeaderText="Equity" DataField="Equity"
@@ -225,8 +237,8 @@
                             DataFormatString="{0:n2}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Cash_and_Savings" HeaderText="Cash and Savings" DataType="System.String"
-                            DataField="Cash_and_Savings" DataFormatString="{0:n2}" HtmlEncode="false" 
+                        <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Cash_and_Savings" HeaderText="Cash and Savings"
+                            DataField="Cash_and_Savings" DataFormatString="{0:n2}" HtmlEncode="false"
                             FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right"/>
                         </telerik:GridBoundColumn>
@@ -241,7 +253,7 @@
                     <%--<ClientEvents OnRowDblClick="RowDblClick" />--%>
                 </ClientSettings>
             </telerik:RadGrid>
-            
+        </div>    
         </td>
     </tr>
     <tr id="trLabelMessage" runat="server">
@@ -253,21 +265,27 @@
     </tr>
     <tr id="trFixedIncome" runat="server">
         <td>
+        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
             <telerik:RadGrid ID="rgvFixedIncomeMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
-                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="100%"
+                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="98%" 
                 DataKeyNames="CustomerId" EnableEmbeddedSkins="false" OnNeedDataSource="rgvFixedIncomeMIS_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="CustomerId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
+                    <%--<CommandItemTemplate>
+                        <div>
+                            <asp:Label ID="lblMISType66" runat="server" Text="Fixed Income MIS"></asp:Label> 
+                        </div>
+                    </CommandItemTemplate>--%>
+                    <CommandItemSettings AddNewRecordText="Fixed Income MIS" ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false"/>
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" 
-                        DataField="Customer_Name" HtmlEncode="false" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Left" />
+                        DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="Left"/>
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderText="Instrument Category" 
@@ -279,11 +297,11 @@
                             <ItemStyle HorizontalAlign="Left" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CFINP_PurchaseDate" HeaderText="Purchase Date" DataField="CFINP_PurchaseDate"
-                             HtmlEncode="false" DataFormatString="{0:d}">
+                             HtmlEncode="false" DataFormatString="{0:d}" DataType="System.DateTime">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CFINP_MaturityDate" HeaderText="Maturity Date" DataFormatString="{0:d}"
-                            DataField="CFINP_MaturityDate"  HtmlEncode="false">
+                            DataField="CFINP_MaturityDate"  HtmlEncode="false" DataType="System.DateTime">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
@@ -309,15 +327,17 @@
                     <%--<ClientEvents OnRowDblClick="RowDblClick" />--%>
                 </ClientSettings>
             </telerik:RadGrid>
+            </div>
         </td>
     </tr>
     <tr id="trGeneralInsurance" runat="server">
         <td>
+        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
             <telerik:RadGrid ID="rgvGeneralInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvGeneralInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="GenInsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -325,7 +345,7 @@
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" 
-                         FooterText="Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
+                         FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
                             <ItemStyle Width=""  HorizontalAlign="Left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PolicyIssuerName" AllowFiltering="false" HeaderText="Policy Issuer">
@@ -367,15 +387,17 @@
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
+            </div>
         </td>
     </tr>
     <tr id="trLifeInsurance" runat="server">
         <td>
+        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
             <telerik:RadGrid ID="rgvLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvLifeInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="InsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -383,7 +405,7 @@
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false"
-                        FooterText="Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
+                        FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PolicyIssuerName" AllowFiltering="false" HeaderText="Policy Issuer">
@@ -406,14 +428,16 @@
                         <telerik:GridBoundColumn DataField="PremiumFrequency" AllowFiltering="false" HeaderText="Premium Frequency">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Commencement Date" DataFormatString="{0:d}">
+                        <telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Commencement Date" 
+                        DataType="System.DateTime" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Aggregate="Sum" DataField="MaturityValue" AllowFiltering="false" HeaderText="Maturity Value"
                          FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Maturity Date" DataFormatString="{0:d}">
+                        <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Maturity Date"
+                        DataType="System.DateTime" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                       <%--  <telerik:GridBoundColumn AllowFiltering="false" HeaderText="Next Premium due date"
@@ -426,6 +450,7 @@
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
+            </div>
         </td>
     </tr>
     <tr>

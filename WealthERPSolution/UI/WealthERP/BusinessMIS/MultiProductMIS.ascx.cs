@@ -77,8 +77,9 @@ namespace WealthERP.BusinessMIS
             {
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
-                lblselectCustomer.Visible = false;
-                txtIndividualCustomer.Visible = false;              
+                trCustomerSearch.Visible = false;
+                //lblselectCustomer.Visible = false;
+                //txtIndividualCustomer.Visible = false;              
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
                 GridsVisibility();
 
@@ -413,8 +414,9 @@ namespace WealthERP.BusinessMIS
             {
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
-                txtIndividualCustomer.Visible = false;
-                lblselectCustomer.Visible = false;
+                //txtIndividualCustomer.Visible = false;
+                //lblselectCustomer.Visible = false;
+                trCustomerSearch.Visible = false;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
                 ddlCustomerType.SelectedIndex = 0;
                 GridsVisibility();
@@ -423,9 +425,10 @@ namespace WealthERP.BusinessMIS
             {
                 ddlCustomerType.Visible = true;
                 lblSelectTypeOfCustomer.Visible = true;
-                txtIndividualCustomer.Visible = true;
+                //txtIndividualCustomer.Visible = true;
                 txtIndividualCustomer.Text = string.Empty;
-                lblselectCustomer.Visible = true;
+                //lblselectCustomer.Visible = true;
+                trCustomerSearch.Visible = true;
                 rquiredFieldValidatorIndivudialCustomer.Visible = true;
 
                 //if (ddlCustomerType.SelectedIndex != 0)
@@ -682,16 +685,16 @@ namespace WealthERP.BusinessMIS
                                 drNetHoldings = dtGrpAssetNetHoldings.NewRow();
 
                                 drNetHoldings["C_CustomerId"] = dr["C_CustomerId"].ToString();
-                                drNetHoldings["Equity"] = 0.00;
-                                drNetHoldings["Mutual_Fund"] = 0.00;
-                                drNetHoldings["Fixed_Income"] = 0.00;
-                                drNetHoldings["Government_Savings"] = 0.00;
-                                drNetHoldings["Property"] = 0.00;
-                                drNetHoldings["Pension_and_Gratuity"] = 0.00;
-                                drNetHoldings["Personal_Assets"] = 0.00;
-                                drNetHoldings["Gold_Assets"] = 0.00;
-                                drNetHoldings["Collectibles"] = 0.00;
-                                drNetHoldings["Cash_and_Savings"] = 0.00;
+                                drNetHoldings["Equity"] = 0;
+                                drNetHoldings["Mutual_Fund"] = 0;
+                                drNetHoldings["Fixed_Income"] = 0;
+                                drNetHoldings["Government_Savings"] = 0;
+                                drNetHoldings["Property"] = 0;
+                                drNetHoldings["Pension_and_Gratuity"] = 0;
+                                drNetHoldings["Personal_Assets"] = 0;
+                                drNetHoldings["Gold_Assets"] = 0;
+                                drNetHoldings["Collectibles"] = 0;
+                                drNetHoldings["Cash_and_Savings"] = 0;
 
                                 drNetHoldings[0] = dr["Customer_Name"].ToString();
                                 if (dr["AssetType"].ToString() == "DE")
@@ -870,8 +873,8 @@ namespace WealthERP.BusinessMIS
                         dtFIMIS.Columns.Add("Customer_Name");
                         dtFIMIS.Columns.Add("PAIC_AssetInstrumentCategoryName");
                         dtFIMIS.Columns.Add("CFINP_Name");
-                        dtFIMIS.Columns.Add("CFINP_PurchaseDate");
-                        dtFIMIS.Columns.Add("CFINP_MaturityDate");
+                        dtFIMIS.Columns.Add("CFINP_PurchaseDate", typeof(DateTime));
+                        dtFIMIS.Columns.Add("CFINP_MaturityDate", typeof(DateTime));
                         dtFIMIS.Columns.Add("CFINP_PrincipalAmount", typeof(double));
                         dtFIMIS.Columns.Add("CFINP_InterestRate");
                         dtFIMIS.Columns.Add("CFINP_CurrentValue", typeof(double));
@@ -987,9 +990,9 @@ namespace WealthERP.BusinessMIS
                         dtLifeInsDetails.Columns.Add("SumAssured", typeof(double));
                         dtLifeInsDetails.Columns.Add("PremiumAmount", typeof(double));
                         dtLifeInsDetails.Columns.Add("PremiumFrequency");
-                        dtLifeInsDetails.Columns.Add("CommencementDate");
+                        dtLifeInsDetails.Columns.Add("CommencementDate", typeof(DateTime));
                         dtLifeInsDetails.Columns.Add("MaturityValue", typeof(double));
-                        dtLifeInsDetails.Columns.Add("MaturityDate");
+                        dtLifeInsDetails.Columns.Add("MaturityDate", typeof(DateTime));
 
                         dtLifeInsDetails.Columns.Add("CustomerId");
                         dtLifeInsDetails.Columns.Add("InsuranceNPId");
@@ -1083,9 +1086,9 @@ namespace WealthERP.BusinessMIS
                         dtGenInsDetails.Columns.Add("SumAssured", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumAmount", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumFrequency");
-                        dtGenInsDetails.Columns.Add("CommencementDate");
+                        dtGenInsDetails.Columns.Add("CommencementDate", typeof(DateTime));
                         //dtGenInsDetails.Columns.Add("MaturityValue");
-                        dtGenInsDetails.Columns.Add("MaturityDate");
+                        dtGenInsDetails.Columns.Add("MaturityDate", typeof(DateTime));
                         dtGenInsDetails.Columns.Add("CustomerId");
                         dtGenInsDetails.Columns.Add("GenInsuranceNPId");
 
@@ -1192,7 +1195,7 @@ namespace WealthERP.BusinessMIS
                 dt = (DataTable)ViewState["FixedIncomeMIS"];
                 rgvFixedIncomeMIS.DataSource = dt;
             }
-        }
+        }        
 
         protected void rgvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
