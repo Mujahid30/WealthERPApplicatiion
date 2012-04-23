@@ -32,6 +32,7 @@ namespace WealthERP.Admin
         const string strRepositoryCategoryTextField = "ARC_RepositoryCategory";
         const string strRepositoryCategoryValueField = "ARC_RepositoryCategoryCode";
         float fStorageBalance;
+        float fMaxStorage;
 
         public enum Constants
         {
@@ -49,6 +50,7 @@ namespace WealthERP.Admin
             // Get the Repository Path in solution
             strRepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"].ToString();
             fStorageBalance = advisorVo.SubscriptionVo.StorageBalance;
+            fMaxStorage = advisorVo.SubscriptionVo.StorageDefaultSize;
 
             // Bind View Grid Filters
             rgRepositoryList_Init(sender, e);
@@ -701,11 +703,12 @@ namespace WealthERP.Admin
                     oldFileSize = (lSize / (float)1048576);
                     // Update the remaining balance storage after deletion
                     flRemainingBal += oldFileSize;
+                    if (flRemainingBal > fMaxStorage)
+                        flRemainingBal = fMaxStorage;   // If balance exceeds maximum allowable due to dirty data, then set the balance to the maximum value.
 
                     File.Delete(strFilePath);
                 }
             }
-
             return flRemainingBal;
         }
 
