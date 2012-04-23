@@ -226,6 +226,34 @@ namespace BoCommon
             return intUnreadMessageCount;
         }
 
+        public string GetMessage(Int64 intMessageId)
+        {
+            MessageDao messageDao = new MessageDao();
+            string strResult;
 
+            try
+            {
+                strResult = messageDao.GetMessage(intMessageId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MessageBo.cs:GetMessage(Int64 intMessageId)");
+                object[] objects = new object[1];
+                objects[0] = intMessageId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return strResult;
+        }
     }
 }
