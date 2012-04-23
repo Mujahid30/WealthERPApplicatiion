@@ -119,6 +119,21 @@ div#MainDivLeft
     color: #055187;
 }
 
+
+.LinkButtonsWithoutUnderLine
+{
+    font-family: Arial;
+    font-weight: bold;
+    font-size: small; /*color:#993434;*/
+    color: #055187;
+    text-decoration: none;   
+}
+
+.LinkButtonsWithoutUnderLine:hover
+{    
+    text-decoration: underline;   
+}
+
 .Error
 {
     font-family: Verdana,Tahoma;
