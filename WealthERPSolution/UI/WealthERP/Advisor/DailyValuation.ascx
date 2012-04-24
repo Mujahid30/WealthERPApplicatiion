@@ -143,10 +143,10 @@
 
 <table width="100%" class="TableBackground">
     <tr>
-        <td class="HeaderCell">
+        <td class="HeaderCell" colspan="2">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Daily Valuation"></asp:Label>
             <hr />
-        </td>
+        </td>        
     </tr>
     <tr>
         <%--<td>
@@ -157,9 +157,10 @@
             <asp:RadioButton ID="rbtnMF" runat="server" AutoPostBack="True" CssClass="cmbField"
                 OnCheckedChanged="rbtnMF_CheckedChanged" Text="Mutual Fund" GroupName="DailyValuation" />
         </td>--%>
-        <td>
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblSelectValuation" runat="server" CssClass="FieldName" Text="Select Valuation Type : "></asp:Label>
-        &nbsp;
+        </td>
+        <td class="rightField" style="width: 85%">
             <asp:DropDownList ID="ddlValuationTypes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlValuationTypes_OnSelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
@@ -168,15 +169,12 @@
                 <asp:ListItem Text="Financial Profile" Value="FP"></asp:ListItem>
             </asp:DropDownList>
         </td>
-        <td>
-            &nbsp;
-        </td>
     </tr>
     <tr id="trEquity" runat="server">
-        <td>
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Trade Date"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Trade Date:"></asp:Label>
         </td>
-        <td>
+        <td class="rightField">
             <asp:DropDownList ID="ddTradeYear" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddTradeYear_SelectedIndexChanged">
             </asp:DropDownList>
@@ -186,18 +184,18 @@
         </td>
     </tr>
     <tr id="trMf" runat="server">
-        <td>
-            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Trade Date"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Trade Date:"></asp:Label>
         </td>
-        <td>
+        <td class="rightField">
             <asp:DropDownList ID="ddTradeMFYear" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddTradeMFYear_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:DropDownList ID="ddTradeMFMonth" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddTradeMFMonth_SelectedIndexChanged">
             </asp:DropDownList>
-            <asp:DropDownList ID="ddlTradeDay" runat="server" CssClass="cmbField" AutoPostBack="false">
-            </asp:DropDownList>
+            <%--<asp:DropDownList ID="ddlTradeDay" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>--%>
         </td>
     </tr>
     <tr id="trHeader" runat="server">
@@ -254,12 +252,13 @@
         </td>
     </tr>
        <tr id="trFPSync" runat="server">
-        <td>
+        <td colspan="2">
+        <div style="padding-top:2px; width:98%">
             <telerik:RadGrid ID="gvCustomerlist" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="98%" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false" AllowMultiRowSelection="true" OnNeedDataSource="gvCustomerlist_OnNeedDataSource">
-                <MasterTableView DataKeyNames="CustomerId" Width="100%" AllowMultiColumnSorting="True"
+                <MasterTableView DataKeyNames="CustomerId" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false">
                     <Columns>
                         <%--<telerik:GridClientSelectColumn UniqueName="ClientSelectColumn"  /> --%>
@@ -283,6 +282,7 @@
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                 </ClientSettings>
             </telerik:RadGrid>
+        </div>
         </td>
     </tr>
     <tr>
