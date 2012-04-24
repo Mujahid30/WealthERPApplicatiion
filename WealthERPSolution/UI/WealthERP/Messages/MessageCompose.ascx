@@ -48,6 +48,11 @@
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvMessage" runat="server"
                 ControlToValidate="txtMessage" ErrorMessage="<br/>Enter Message Body" ValidationGroup="main"
                 CssClass="cvPCG" Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="revMessage" runat="server" ValidationExpression="(\s|.){0,10000}"
+                ControlToValidate="txtMessage" SetFocusOnError="true" ValidationGroup="main"
+                ErrorMessage="<br/>Message body length should not be greater than 10,000 characters!"
+                CssClass="cvPCG">
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trSelectStaff" runat="server">
