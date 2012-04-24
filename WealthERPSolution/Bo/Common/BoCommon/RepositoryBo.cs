@@ -245,5 +245,36 @@ namespace BoCommon
 
             return blResult;
         }
+
+        public float GetAdviserStorageValues(int intAdviserId, out float fMaxStorage)
+        {
+            RepositoryDao repoDao = new RepositoryDao();
+            float fResult = 0.0F;
+            fMaxStorage = 0.0F;
+
+            try
+            {
+                fResult = repoDao.GetAdviserStorageValues(intAdviserId, out fMaxStorage);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryBo.cs:GetAdviserStorageValues(int intAdviserId, out float fMaxStorage)");
+                object[] objects = new object[1];
+                objects[0] = intAdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return fResult;
+        }
+
     }
 }
