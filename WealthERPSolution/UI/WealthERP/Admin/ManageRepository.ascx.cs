@@ -16,6 +16,7 @@ using System.Transactions;
 using BoAdvisorProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Text;
 
 namespace WealthERP.Admin
 {
@@ -49,8 +50,10 @@ namespace WealthERP.Admin
 
             // Get the Repository Path in solution
             strRepositoryPath = ConfigurationManager.AppSettings["RepositoryPath"].ToString();
-            fStorageBalance = advisorVo.SubscriptionVo.StorageBalance;
-            fMaxStorage = advisorVo.SubscriptionVo.StorageDefaultSize;
+
+            // Method to get the Storage Balance & Maximum Storage
+            repoBo = new RepositoryBo();
+            fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
 
             // Bind View Grid Filters
             rgRepositoryList_Init(sender, e);
@@ -447,7 +450,9 @@ namespace WealthERP.Admin
         private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath)
         {
             fileExtension = file.GetExtension();
-            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + file.GetName();
+            string strRenameFilename = file.GetName();
+            strRenameFilename = strRenameFilename.Replace(' ', '_');
+            string newFileName = advisorVo.advisorId + "_" + strGuid + "_" + strRenameFilename;
             // Save adviser repository file in the path
             file.SaveAs(strPath + "\\" + newFileName);
             return newFileName;
@@ -590,11 +595,18 @@ namespace WealthERP.Admin
                 ddlUploadDataType.SelectedValue = Constants.F.ToString();
                 FileUploadVisibility(false, true);
                 trUploadedFileName.Visible = true;
-                string[] strUplFile = new string[3];
+                string[] strUplFile;
                 strUplFile = repoVo.Link.Split('_');
+                StringBuilder sb = new StringBuilder();
+                for (int i = 2; i < strUplFile.Length; i++)
+                {
+                    sb.Append(strUplFile[i]);
+                    sb.Append('_');
+                }
+                sb.Remove(sb.Length - 1, 1);
 
                 // The 3rd item in the array is the actual file name
-                lblUploadedFile.Text = strUplFile[strUplFile.Length - 1];
+                lblUploadedFile.Text = sb.ToString();
             }
             else
             {
