@@ -949,8 +949,54 @@ namespace WealthERP.BusinessMIS
             }        
         }
 
+        private DateTime GetNextPremiumDate(string frequency, DateTime startDate, DateTime endDate)
+        {
+            DateTime nextPremiumDate = new DateTime();
+            DateTime currentDate = DateTime.Now;
+            int startDateOnly = Convert.ToInt32(startDate.Day);
+
+            if (endDate >= currentDate)
+            {
+                nextPremiumDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+                nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                switch (frequency)
+                {
+                    case "Daily":
+                        nextPremiumDate = nextPremiumDate.AddDays(1);
+                        break;
+                    case "FortNightly":
+                        nextPremiumDate = nextPremiumDate.AddDays(15);
+                        break;
+                    case "Weekly":
+                        nextPremiumDate = nextPremiumDate.AddDays(7);
+                        break;
+                    case "Monthly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(1);
+                        break;
+                    case "Quarterly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(4);
+                        break;
+                    case "HalfYearly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(6);
+                        break;
+                    case "Yearly":
+                        nextPremiumDate = nextPremiumDate.AddYears(1);
+                        break;
+                }
+            }
+            else
+            {
+                nextPremiumDate = DateTime.MinValue;
+            }
+
+            return nextPremiumDate;
+        } 
+
         public void BindLifeInsuranceDetails()
         {
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
+            string frequency = "";
             //int isGroup;
             //if (ddlCustomerType.SelectedValue == "Select")
             //    isGroup = 0;
@@ -991,6 +1037,7 @@ namespace WealthERP.BusinessMIS
                         dtLifeInsDetails.Columns.Add("PremiumAmount", typeof(double));
                         dtLifeInsDetails.Columns.Add("PremiumFrequency");
                         dtLifeInsDetails.Columns.Add("CommencementDate", typeof(DateTime));
+                        dtLifeInsDetails.Columns.Add("NextPremiumDate", typeof(DateTime));
                         dtLifeInsDetails.Columns.Add("MaturityValue", typeof(double));
                         dtLifeInsDetails.Columns.Add("MaturityDate", typeof(DateTime));
 
@@ -1011,6 +1058,22 @@ namespace WealthERP.BusinessMIS
                             drLifeInsurance["CommencementDate"] = DateTime.Parse(dr["CommencementDate"].ToString()).ToShortDateString();
                             drLifeInsurance["MaturityValue"] = String.Format("{0:n2}", decimal.Parse(dr["MaturityValue"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drLifeInsurance["MaturityDate"] = DateTime.Parse(dr["MaturityDate"].ToString()).ToShortDateString();
+
+
+                            startDate = DateTime.Parse(dr["CINP_FirstPremiumDate"].ToString());
+                            endDate = DateTime.Parse(dr["MaturityDate"].ToString());
+                            frequency = dr["PremiumFrequency"].ToString();
+
+                            DateTime nextPremiumDate = GetNextPremiumDate(frequency, startDate, endDate);
+                            if (nextPremiumDate != DateTime.MinValue)
+                            {
+                                drLifeInsurance["NextPremiumDate"] = nextPremiumDate.ToShortDateString();
+                            }
+                            else
+                            {
+                                //drLifeInsurance["NextPremiumDate"] = "---";
+                            }
+                            
                             drLifeInsurance["CustomerId"] = dr["CustomerId"].ToString();
                             drLifeInsurance["InsuranceNPId"] = dr["InsuranceNPId"].ToString();
 
