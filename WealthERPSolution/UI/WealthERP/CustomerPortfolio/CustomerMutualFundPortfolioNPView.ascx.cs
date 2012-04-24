@@ -93,13 +93,22 @@ namespace WealthERP.CustomerPortfolio
 
             try
             {
-                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-
-                mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId, strValuationDate);
-                Session["mfPortfolioList"] = mfPortfolioNetPositionList;
+                //genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                DateTime dtValDate = DateTime.Parse(strValuationDate);
+                if (!dtValDate.Equals(DateTime.MinValue))
+                {
+                    mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId, strValuationDate);
+                    Session["mfPortfolioList"] = mfPortfolioNetPositionList;
+                }
                 if (mfPortfolioNetPositionList != null)
                 {
                     intPortfolioListCount = mfPortfolioNetPositionList.Count;
+                }
+                else
+                {
+                    // Show no records found
+                    SetPanelVisibility(false, false);
+                    trNoRecords.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
