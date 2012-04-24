@@ -310,5 +310,49 @@ namespace DaoCommon
             return blResult;
         }
 
+        public float GetAdviserStorageValues(int intAdviserId, out float fMaxStorage)
+        {
+            Database db;
+            DbCommand cmdGetAdviserStorageValues;
+            DataSet ds = new DataSet();
+            float fResult = 0.0F;
+            fMaxStorage = 0.0F;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserStorageValues = db.GetStoredProcCommand("sproc_Repository_GetAdviserStorageValues");
+                db.AddInParameter(cmdGetAdviserStorageValues, "@adviserId", DbType.Int32, intAdviserId);
+                ds = db.ExecuteDataSet(cmdGetAdviserStorageValues);
+                if (ds != null)
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        if (ds.Tables[0].Rows[0]["AS_StorageBalance"] != null)
+                            fResult = float.Parse(ds.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
+                        if (ds.Tables[0].Rows[0]["AS_StorageSize"] != null)
+                            fMaxStorage = float.Parse(ds.Tables[0].Rows[0]["AS_StorageSize"].ToString());
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RepositoryDao.cs:GetAdviserStorageValues(int intAdviserId, out float fMaxStorage)");
+                object[] objects = new object[1];
+                objects[0] = intAdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return fResult;
+        }
+
     }
 }
