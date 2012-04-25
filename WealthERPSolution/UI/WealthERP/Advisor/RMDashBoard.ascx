@@ -3,7 +3,9 @@
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td colspan="2">
-            <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />
+            <%--<asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />--%>
+            <asp:LinkButton ID="lnkBtnNewMessages" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
+            runat="server" onclick="lnkBtnNewMessages_Click"></asp:LinkButton>
         </td>
     </tr>
     <tr>

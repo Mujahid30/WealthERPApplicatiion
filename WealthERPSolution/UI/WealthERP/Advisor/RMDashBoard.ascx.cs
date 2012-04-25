@@ -198,12 +198,17 @@ namespace WealthERP.Advisor
             int intCount = 0;
             intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
 
-            // Store the messages in a label control
+            // Store the messages in a label control            
             if (intCount > 0)
             {
-                lblNewMessages.Visible = true;
-                lblNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                lnkBtnNewMessages.Visible = true;
+                lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
             }
+        }
+
+        protected void lnkBtnNewMessages_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
         }
 
         public DataSet getCurrentValuesforRM(int RMId)

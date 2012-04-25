@@ -29,7 +29,9 @@
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />
+                <%--<asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />--%>
+                <asp:LinkButton ID="lnkBtnNewMessages" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
+            runat="server" onclick="lnkBtnNewMessages_Click"></asp:LinkButton>
             </td>
         </tr>
         <tr>

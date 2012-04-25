@@ -30,8 +30,10 @@
             </asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false">
-            </asp:Label>
+            <%--<asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false">
+            </asp:Label>--%>
+            <asp:LinkButton ID="lnkBtnNewMessages" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
+            runat="server" onclick="lnkBtnNewMessages_Click"></asp:LinkButton>
         </td>
         <td align="right">
             <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
