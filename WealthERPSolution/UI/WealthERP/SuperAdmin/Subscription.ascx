@@ -294,8 +294,8 @@
                             AutoPostBack="true">
                             <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                             <asp:ListItem Text="Advisory" Value="AD"></asp:ListItem>
-                             <asp:ListItem Text="All" Value="AL"></asp:ListItem>
-                            <asp:ListItem Text="Distribtion" Value="DT"></asp:ListItem>
+                            <asp:ListItem Text="All" Value="AL"></asp:ListItem>
+                            <asp:ListItem Text="Distribution" Value="DT"></asp:ListItem>
                             <asp:ListItem Text="Value Adds" Value="VA"></asp:ListItem>
                         </asp:DropDownList>
                           
