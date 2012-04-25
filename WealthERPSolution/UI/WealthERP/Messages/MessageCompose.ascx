@@ -1,7 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MessageCompose.ascx.cs"
     Inherits="WealthERP.Messages.MessageCompose" %>
 <%@ Register TagPrefix="ajaxList" Namespace="DanLudwig.Controls.Web" Assembly="DanLudwig.Controls.AspAjax.ListBox" %>
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     function CheckBoxListSelect(cbControl, source) {
         var chkBoxList = document.getElementById(cbControl);
@@ -12,9 +18,45 @@
         }
         return false;
     }
-</script>
 
-<asp:ScriptManager ID="ScriptManager1" runat="server">
+    function CheckBoxAllUncheck(cbControl, source) {
+        var chkBoxList = document.getElementById(cbControl);
+        var chkBoxAll = document.getElementById(source);        
+        chkBoxAll.checked = false;
+    }    
+</script>
+<style type="text/css">
+    .clearfix:after
+    {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    /* all borwsers see this, IE-mac included */.clearfix
+    {
+        display: block;
+    }
+    /* Hide this style from IE-mac \*/* html .clearfix
+    {
+        height: 1%; /* apply to IE-win*/
+    }
+    /* End hide from IE-mac */body
+    {
+        font-family: Arial;
+    }
+    a:link, a:visited
+    {
+        color: Blue;
+        text-decoration: underline;
+    }
+    a:hover
+    {
+        text-decoration: none;
+    }
+</style>
+<asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
 </asp:ScriptManager>
 <table width="100%" class="TableBackground">
     <tr>
@@ -63,6 +105,7 @@
             <asp:CheckBox ID="chkbxAll" CssClass="cmbField" runat="server" Text="All" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
                 OnCheckedChanged="ChkBxRoleList_SelectedIndexChanged" AutoPostBack="true" />
             <asp:CheckBoxList ID="ChkBxRoleList" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
+            onclick="javascript:CheckBoxAllUncheck('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
                 CssClass="cmbField" RepeatLayout="Flow" OnSelectedIndexChanged="ChkBxRoleList_SelectedIndexChanged"
                 AutoPostBack="true">
                 <%--<asp:ListItem Value="0" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList')">All</asp:ListItem>--%>
@@ -83,20 +126,20 @@
                 <tr>
                     <td>
                         <div class="clearfix" style="margin-bottom: 1em;">
-                            <asp:Panel ID="PLUser" runat="server" DefaultButton="AddSelected" Style="float: left">
+                            <asp:Panel ID="PLUser" runat="server" DefaultButton="AddSelected" style="float: left">
                                 <asp:Label ID="lblSelectUser" runat="server" CssClass="FieldName" Text="Select User"></asp:Label>
                                 <asp:UpdatePanel ID="UPUser" runat="server">
+                                    <ContentTemplate>
+                                        <ajaxList:ListBox ID="LBUser" runat="server" CssClass="DemoListBox" 
+                                            Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
+                                        </ajaxList:ListBox>
+                                    </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
                                     </Triggers>
-                                    <ContentTemplate>
-                                        <ajaxList:ListBox ID="LBUser" runat="server" CssClass="DemoListBox" HorizontalScrollEnabled="true"
-                                            Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
-                                        </ajaxList:ListBox>
-                                    </ContentTemplate>
                                 </asp:UpdatePanel>
                             </asp:Panel>
                             <div style="float: left; margin: 0.5em; width: 138px; font-size: 0.9em; text-align: center;">
@@ -124,17 +167,17 @@
                             <asp:Panel ID="PLSelectedUser" runat="server" DefaultButton="RemoveSelected" Style="float: left">
                                 <asp:Label ID="lblSelectedUser" runat="server" CssClass="FieldName" Text="Selected Users"></asp:Label>
                                 <asp:UpdatePanel ID="UPSelectedUser" runat="server">
+                                    <ContentTemplate>
+                                        <ajaxList:ListBox ID="LBSelectedUser" runat="server" CssClass="DemoListBox"
+                                            Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
+                                        </ajaxList:ListBox>
+                                    </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="AddSelected" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="RemoveSelected" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="SelectAll" EventName="Click" />
                                         <asp:AsyncPostBackTrigger ControlID="RemoveAll" EventName="Click" />
                                     </Triggers>
-                                    <ContentTemplate>
-                                        <ajaxList:ListBox ID="LBSelectedUser" runat="server" CssClass="DemoListBox" HorizontalScrollEnabled="true"
-                                            Rows="12" ScrollStateEnabled="true" SelectionMode="Multiple">
-                                        </ajaxList:ListBox>
-                                    </ContentTemplate>
                                 </asp:UpdatePanel>
                             </asp:Panel>
                         </div>

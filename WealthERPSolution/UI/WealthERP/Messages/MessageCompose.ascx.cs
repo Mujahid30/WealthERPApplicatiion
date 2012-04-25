@@ -109,9 +109,8 @@ namespace WealthERP.Messages
         {
             LBUser.Items.Clear();
             LBSelectedUser.Items.Clear();
-
-
-            BindUserList();
+                        
+            BindUserList();            
         }
 
         private void BindUserList()
