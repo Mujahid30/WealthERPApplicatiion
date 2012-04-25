@@ -5,6 +5,23 @@
 <%@ Register Src="../General/Pager.ascx" TagName="Pager" TagPrefix="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    $(".panel").show();
+
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+     });
+</script>
+
 <table style="width: 100%;" padding-top="1px" class="TableBackground" cellspacing="0"
     cellpadding="0">
     <tr>
@@ -125,8 +142,43 @@
         </td>
     </tr>
     <tr>
+    <td colspan="2"></td>
+    </tr>
+    <tr>
         <td colspan="2">
-            <%-- <Pager:Pager ID="mypager" runat="server" />--%>
+  <table width="100%" class="TableBackground">
+    <tr>
+        <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Super Admin Message"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+</table>      
+        
+ <table width="100%">
+    <tr>
+        <td colspan="3">
+              <div class="panel">
+                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
+        
+<%--<table width="100%">
+    <tr>
+        <td align="center">
+            <div class="information-msg" id="MessageReceived" runat="server" visible="false"
+                align="center">
+               <br />
+                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
+                <br />
+            </div>
+        </td>
+    </tr>
+</table>--%>
         </td>
     </tr>
     <tr>
@@ -184,15 +236,4 @@
         </td>
     </tr>
 </table>
-<table width="100%">
-    <tr>
-        <td align="center">
-            <div class="information-msg" id="MessageReceived" runat="server" visible="false"
-                align="center">
-                <br />
-                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
-                <br />
-            </div>
-        </td>
-    </tr>
-</table>
+
