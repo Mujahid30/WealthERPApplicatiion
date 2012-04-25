@@ -74,7 +74,7 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Select">
                                          <HeaderTemplate>
-                                         <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                         <asp:Label ID="lblchkBxSelect" runat="server" Text="Select<br />"></asp:Label>
                                          <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
                                          </HeaderTemplate>
                                             <ItemTemplate>
