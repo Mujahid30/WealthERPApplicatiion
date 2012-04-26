@@ -21,8 +21,22 @@
 
     function CheckBoxAllUncheck(cbControl, source) {
         var chkBoxList = document.getElementById(cbControl);
-        var chkBoxAll = document.getElementById(source);        
-        chkBoxAll.checked = false;
+        var chkBoxAll = document.getElementById(source);
+        var chkBoxCount = chkBoxList.getElementsByTagName("input");
+        var Count = chkBoxCount.length;
+        var CheckedCount = 0;
+        
+        for (var i = 0; i < chkBoxCount.length; i++) {
+            if (chkBoxCount[i].checked) {
+                CheckedCount++;
+            }
+        }
+        
+        if (Count == CheckedCount) {            
+            chkBoxAll.checked = true;           
+        }
+        else
+            chkBoxAll.checked = false;
     }    
 </script>
 <style type="text/css">
