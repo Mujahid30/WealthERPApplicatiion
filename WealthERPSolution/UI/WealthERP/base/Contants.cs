@@ -158,6 +158,7 @@ namespace WealthERP.Base
         public const string LoanProcessTracking = "S_LoanProcessTracking";
 
         public const string CurrentUserRole = "S_CurrentUserRole";
+        public const string UserTopRole = "S_UserTopRole";
 
 
         //Session contents for FPSuperLite
