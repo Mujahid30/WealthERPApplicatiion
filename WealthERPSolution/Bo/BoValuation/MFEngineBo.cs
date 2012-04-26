@@ -78,6 +78,7 @@ namespace BoValuation
                             dtCustomerTransactionBalance = CreateTransactionBalanceTable();
                             dtCustomerTransactionBalance = dsCustomerTransactionsDetails.Tables[3];
                             dtCustomerMFTransactionSellPaired = CreateSellPairedTable();
+                            dtFinalCustomerMFTransactionBalance = CreateTransactionBalanceTable();
                             if (dtCustomerPortfolio.Rows.Count > 0)
                             {
                                 foreach (DataRow drProftfolio in dtCustomerPortfolio.Rows)
@@ -213,7 +214,7 @@ namespace BoValuation
                                     }
 
                                     if (dtMFTransactionProcessedBalance.Rows.Count > 0)
-                                        dtFinalCustomerMFTransactionBalance.Merge(dtMFTransactionProcessedBalance);
+                                        dtFinalCustomerMFTransactionBalance.Merge(dtMFTransactionProcessedBalance, false, MissingSchemaAction.Ignore);
 
                                     dtMFTransactionProcessedBalance.Clear();
                                     dtMFTransactionBalance.Clear();
@@ -459,7 +460,10 @@ namespace BoValuation
                                                     }
                                                     avlCostDVR = totalCost - totalCostBalance;
                                                     dr3["CMFTB_TotalCostBalRETURN"] = avlCostDVR;
-                                                    dr3["CMFTB_AvgCostBalRETURN"] = avlCostDVR / dvrUnits;
+                                                    if (dvrUnits != 0)
+                                                        dr3["CMFTB_AvgCostBalRETURN"] = avlCostDVR / dvrUnits;
+                                                    else
+                                                        dr3["CMFTB_AvgCostBalRETURN"] = 0;
                                                     dr3["CMFTB_DVRUnitsAllocation_Share"] = 0;
                                                     dr3["CMFTB_DVRUnits_Contributed"] = 0;
                                                 }
@@ -1058,7 +1062,7 @@ namespace BoValuation
                     double.TryParse(Convert.ToString(sumObject), out totalDiv);
 
                     drMFNetPosition["CMFNP_TAX_Hold_BalanceAmt"] = totalDiv;
-                    currentValue = openUnits * Convert.ToDouble(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]));
+                    currentValue = openUnits * Convert.ToDouble(!string.IsNullOrEmpty(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"])) ? Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"]) : returnInvestedCost.ToString());
 
                     //*********************************XIRR****************************************
                     currentValueXIRR[(currentValueXIRR.Count()) - 1] = currentValue;
