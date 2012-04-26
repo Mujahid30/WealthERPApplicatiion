@@ -72,6 +72,10 @@ namespace WealthERP.OPS
                 txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
                 lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
             }
+            if (Request.QueryString["FromPage"] != null)
+            {
+                lnkBtnEdit.Visible = false;
+            }
           
             if (Session["operationVo"] != null)
             {
@@ -85,8 +89,9 @@ namespace WealthERP.OPS
             int bmID = rmVo.RMId;
             
             lnkBtnEdit.Visible = false;
-            
+            btnGeneratePDF.Visible = false;
 
+            //ddlOrderStatus.Enabled = false;
             if (!IsPostBack)
             {
                 hyperLinkFillablePdfForm.Visible = false;
@@ -716,6 +721,11 @@ namespace WealthERP.OPS
                     btnUpdate.Visible = false;
                     trReportButtons.Visible = true;
                     btnAddCustomer.Visible = false;
+                    if (Request.QueryString["FromPage"] != null)
+                    {
+                        lnkBtnEdit.Visible = false;
+                        btnGeneratePDF.Visible = false;
+                    }
                     
                 }
             }
@@ -828,7 +838,7 @@ namespace WealthERP.OPS
                     amcCode = int.Parse(ddlAMCList.SelectedValue.ToString());
                     categoryCode = ddlCategory.SelectedValue;
                     if (Sflag == 0)
-                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1,0);
+                        dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0,1);
                     else
                         dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
                 }
@@ -2469,6 +2479,12 @@ namespace WealthERP.OPS
                 System.Diagnostics.Process.Start(@Session["OutPutFilePath"].ToString());
             }
         }
+
+        //protected void chkCA_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (chkCA.Checked == true)
+        //        ddlOrderStatus.Enabled = true;
+        //}
 
     }
 }

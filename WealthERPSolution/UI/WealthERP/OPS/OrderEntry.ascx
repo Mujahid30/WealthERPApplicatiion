@@ -369,11 +369,16 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
              <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate" CssClass="cvPCG"
                ErrorMessage="<br />Order date should  be greater than or equal to Today" Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>     
   </td>
-  <td align="right">
+  <td align="right" valign="top">
   <asp:Label ID="Label2" runat="server" Text="Portfolio: "  CssClass="FieldName"></asp:Label>
+  <%--<br /><br />--%>
+  <%--<asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" 
+          oncheckedchanged="chkCA_CheckedChanged" />--%>
   </td>
-  <td align="left">
+  <td align="left" valign="top">
    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField"></asp:DropDownList>
+  <%-- <br /><br />
+   <asp:Label ID="lblCustomerApproval" runat="server"  CssClass="FieldName" Text=": Customer Approval"></asp:Label>--%>
   </td>
   
 </tr>
@@ -860,13 +865,14 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <asp:Button ID="btnAddMore" runat="server" Text="Submit & AddMore" ValidationGroup="MFSubmit"
         CssClass="PCGMediumButton" onclick="btnAddMore_Click" />
 
- <asp:Button ID="btnGeneratePDF" runat="server" Text="Generate PDF" 
-        CssClass="PCGMediumButton" onclick="btnGeneratePDF_Click" />
+ <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"  ValidationGroup="MFSubmit" onclick="btnUpdate_Click"/>
 
 </td>
 
 <td colspan="2">
-<asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"  ValidationGroup="MFSubmit" onclick="btnUpdate_Click"/>
+<asp:Button ID="btnGeneratePDF" runat="server" Text="Generate PDF" 
+        CssClass="PCGMediumButton" onclick="btnGeneratePDF_Click" />
+
 </td>
 </tr>
 </table>
