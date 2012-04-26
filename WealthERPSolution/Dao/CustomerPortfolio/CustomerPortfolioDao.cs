@@ -689,15 +689,20 @@ namespace DaoCustomerPortfolio
                     {
                         mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
                         mfPortfNetPositionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        if (dr["PASP_SchemePlanCode"].ToString().Trim() != String.Empty)
                         mfPortfNetPositionVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
                         mfPortfNetPositionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
                         mfPortfNetPositionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        if (dr["CMFA_FolioNum"].ToString().Trim() != String.Empty)
                         mfPortfNetPositionVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
                         mfPortfNetPositionVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfPortfNetPositionVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfPortfNetPositionVo.AssetInstrumentSubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        if (dr["PA_AMCCode"].ToString().Trim() != String.Empty)
                         mfPortfNetPositionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        if (dr["CMFNP_MarketPrice"].ToString().Trim() != String.Empty)
                         mfPortfNetPositionVo.MarketPrice = double.Parse(dr["CMFNP_MarketPrice"].ToString());
+                        if (dr["CMFNP_MFNPId"].ToString().Trim() != String.Empty)
                         mfPortfNetPositionVo.MFPortfolioId = int.Parse(dr["CMFNP_MFNPId"].ToString());
 
                         if (dr["CMFNP_ValuationDate"].ToString().Trim() != String.Empty)
