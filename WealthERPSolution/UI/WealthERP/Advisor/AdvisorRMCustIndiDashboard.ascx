@@ -13,7 +13,9 @@
     <table width="100%" cellspacing="0" cellpadding="0">
         <tr>
             <td colspan="2" align="center">
-                <asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />
+                <%--<asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false" />--%>
+                <asp:LinkButton ID="lnkBtnNewMessages" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
+                runat="server" onclick="lnkBtnNewMessages_Click"></asp:LinkButton>
             </td>
         </tr>
         <tr>

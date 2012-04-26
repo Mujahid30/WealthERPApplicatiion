@@ -84,11 +84,16 @@ namespace WealthERP.Advisor
             int intCount = 0;
             intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
             
-            // Store the messages in a label control
+            // Store the messages in a label control           
             if (intCount > 0)
             {
-                lnkBtnNewMessages.Visible = true;
-                lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                if (Session[SessionContents.UserTopRole] == "Admin")
+                {
+                    lnkBtnNewMessages.Visible = true;
+                    lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                }
+                else
+                    lnkBtnNewMessages.Visible = false;
             }
         }
 

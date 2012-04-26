@@ -128,9 +128,19 @@ namespace WealthERP.Advisor
             // Store the messages in a label control
             if (intCount > 0)
             {
-                lblNewMessages.Visible = true;
-                lblNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                if (Session[SessionContents.UserTopRole] == "Customer")
+                {
+                    lnkBtnNewMessages.Visible = true;
+                    lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                }
+                else
+                    lnkBtnNewMessages.Visible = false;
             }
+        }
+
+        protected void lnkBtnNewMessages_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
         }
 
         //function to populate the maturity dates in the grid

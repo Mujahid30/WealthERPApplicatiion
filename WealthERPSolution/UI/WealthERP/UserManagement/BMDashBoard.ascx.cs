@@ -78,9 +78,14 @@ namespace WealthERP.UserManagement
             // Store the messages in a label control            
             if (intCount > 0)
             {
-                lnkBtnNewMessages.Visible = true;
-                lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
-            } 
+                if (Session[SessionContents.UserTopRole] == "BM")
+                {
+                    lnkBtnNewMessages.Visible = true;
+                    lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
+                }
+                else
+                    lnkBtnNewMessages.Visible = false;
+            }
         }
 
         protected void lnkBtnNewMessages_Click(object sender, EventArgs e)
