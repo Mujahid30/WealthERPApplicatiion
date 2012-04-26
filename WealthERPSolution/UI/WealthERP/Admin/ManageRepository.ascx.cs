@@ -110,7 +110,6 @@ namespace WealthERP.Admin
 
         private void AddClick()
         {
-            repoVo = new RepositoryVo();
             bool blResult = false;
             bool blZeroBalance = false;
             bool blFileSizeExceeded = false;
@@ -126,7 +125,6 @@ namespace WealthERP.Admin
             {
                 blResult = AddLink();
             }
-
 
             if (blZeroBalance)
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
@@ -176,6 +174,7 @@ namespace WealthERP.Admin
                         UploadedFile file = radUploadRepoItem.UploadedFiles[0];
                         float fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
 
+                        // If space is there to upload file
                         if (fStorageBalance >= fileSize)
                         {
                             if (fileSize <= 2)   // If upload file size is less than 2 MB then upload
@@ -259,10 +258,17 @@ namespace WealthERP.Admin
 
             if (ddlUploadDataType.SelectedValue.Equals(Constants.F.ToString()))
             {
-                if (fStorageBalance > 0)
+                if (radUploadRepoItem.UploadedFiles.Count == 0)
+                {
                     blResult = UpdateFile(out blZeroBalance, out blFileSizeExceeded);
+                }
                 else
-                    blZeroBalance = true;
+                {
+                    if (fStorageBalance > 0)
+                        blResult = UpdateFile(out blZeroBalance, out blFileSizeExceeded);
+                    else
+                        blZeroBalance = true;
+                }
             }
             else if (ddlUploadDataType.SelectedValue.Equals(Constants.L.ToString()))
             {
@@ -695,7 +701,6 @@ namespace WealthERP.Admin
                 }
 
                 #endregion
-
             }
             else
             {
