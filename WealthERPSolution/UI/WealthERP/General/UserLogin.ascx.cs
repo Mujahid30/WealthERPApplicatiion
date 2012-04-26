@@ -306,10 +306,9 @@ namespace WealthERP.General
                                             Session["Customer"] = "Customer";
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                         }
-                                        Session["S_CurrentUserRole"] = "Admin";
+                                        Session[SessionContents.CurrentUserRole] = "Admin";
                                     }
-
-                                    if (count == 3)
+                                    else if (count == 3)
                                     {
                                         if (roleList.Contains("Admin") && ((roleList.Contains("RM") && roleList.Contains("BM")) || (roleList.Contains("Research") && roleList.Contains("BM")) || (roleList.Contains("Research") && roleList.Contains("RM"))))
                                         {
@@ -330,14 +329,14 @@ namespace WealthERP.General
                                                 Session["Customer"] = "Customer";
                                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                             }
-                                            Session["S_CurrentUserRole"] = "Admin";
+                                            Session[SessionContents.CurrentUserRole] = "Admin";
                                         }
                                         if (roleList.Contains("RM") && roleList.Contains("BM") && roleList.Contains("Research"))
                                         {
                                             advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                             Session["advisorBranchVo"] = advisorBranchVo;
                                             //login user role Type
-                                            Session["S_CurrentUserRole"] = "BM";
+                                            Session[SessionContents.CurrentUserRole] = "BM";
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //RM Theme Will be same as Advisor Theme
@@ -365,14 +364,14 @@ namespace WealthERP.General
 
                                         //}
                                     }
-                                    if (count == 2)
+                                    else if (count == 2)
                                     {
                                         if (roleList.Contains("RM") && roleList.Contains("BM"))
                                         {
                                             advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                             Session["advisorBranchVo"] = advisorBranchVo;
                                             //login user role Type
-                                            Session["S_CurrentUserRole"] = "BM";
+                                            Session[SessionContents.CurrentUserRole] = "BM";
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //RM Theme Will be same as Advisor Theme
@@ -407,7 +406,7 @@ namespace WealthERP.General
                                                 Session["Customer"] = "Customer";
                                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                             }
-                                            Session["S_CurrentUserRole"] = "Admin";
+                                            Session[SessionContents.CurrentUserRole] = "Admin";
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
 
@@ -432,7 +431,7 @@ namespace WealthERP.General
                                             }
                                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('IFAAdminMainDashboard','login');", true);
                                             //login user role Type
-                                            Session["S_CurrentUserRole"] = "Admin";
+                                            Session[SessionContents.CurrentUserRole] = "Admin";
                                         }
                                         else if (roleList.Contains("Admin") && roleList.Contains("Research"))
                                         {
@@ -451,7 +450,7 @@ namespace WealthERP.General
                                                 Session["Customer"] = "Customer";
                                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                             }
-                                            Session["S_CurrentUserRole"] = "Admin";
+                                            Session[SessionContents.CurrentUserRole] = "Admin";
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                         }
@@ -464,7 +463,7 @@ namespace WealthERP.General
                                             Session[SessionContents.LogoPath] = sourcePath;
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //login user role Type Issue Reported by Ajay on July 1 2010
-                                            Session["S_CurrentUserRole"] = "RM";
+                                            Session[SessionContents.CurrentUserRole] = "RM";
                                             //RM Theme Will be same as Advisor Theme
                                             userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                             Session["Theme"] = strUserTheme;
@@ -487,7 +486,7 @@ namespace WealthERP.General
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //login user role Type Issue Reported by Ajay on July 1 2010
-                                            Session["S_CurrentUserRole"] = "BM";
+                                            Session[SessionContents.CurrentUserRole] = "BM";
                                             //RM Theme Will be same as Advisor Theme
                                             userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                             Session["Theme"] = strUserTheme;
@@ -504,8 +503,7 @@ namespace WealthERP.General
                                             }
                                         }
                                     }
-
-                                    if (count == 1)
+                                    else if (count == 1)
                                     {
                                         if (roleList.Contains("RM"))
                                         {
@@ -516,7 +514,7 @@ namespace WealthERP.General
                                             Session[SessionContents.LogoPath] = sourcePath;
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //login user role Type Issue Reported by Ajay on July 1 2010
-                                            Session["S_CurrentUserRole"] = "RM";
+                                            Session[SessionContents.CurrentUserRole] = "RM";
                                             //RM Theme Will be same as Advisor Theme
                                             userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                             Session["Theme"] = strUserTheme;
@@ -540,7 +538,7 @@ namespace WealthERP.General
                                             branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                             Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                             //login user role Type Issue Reported by Ajay on July 1 2010
-                                            Session["S_CurrentUserRole"] = "BM";
+                                            Session[SessionContents.CurrentUserRole] = "BM";
                                             //RM Theme Will be same as Advisor Theme
                                             userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                             Session["Theme"] = strUserTheme;
@@ -563,7 +561,7 @@ namespace WealthERP.General
                                             Session["Theme"] = strUserTheme;
                                             Session["refreshTheme"] = true;
 
-                                            Session["S_CurrentUserRole"] = "Research";
+                                            Session[SessionContents.CurrentUserRole] = "Research";
                                             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('ModelPortfolioSetup','login');", true);
 
                                         }
@@ -627,7 +625,7 @@ namespace WealthERP.General
 
                                     sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                                     Session[SessionContents.LogoPath] = sourcePath;
-                                    Session["S_CurrentUserRole"] = "Customer";
+                                    Session[SessionContents.CurrentUserRole] = "Customer";
 
                                     //RM Theme Will be same as Advisor Theme
                                     userBo.GetUserTheme(customerVo.CustomerId, "CUSTOMER", out strUserTheme);
@@ -951,7 +949,7 @@ namespace WealthERP.General
                                 Session["Customer"] = "Customer";
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                             }
-                            Session["S_CurrentUserRole"] = "Admin";
+                            Session[SessionContents.CurrentUserRole] = "Admin";
                         }
 
                         if (count == 3)
@@ -975,14 +973,14 @@ namespace WealthERP.General
                                     Session["Customer"] = "Customer";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                 }
-                                Session["S_CurrentUserRole"] = "Admin";
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                             }
                             if (roleList.Contains("RM") && roleList.Contains("BM") && roleList.Contains("Research"))
                             {
                                 advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                 Session["advisorBranchVo"] = advisorBranchVo;
                                 //login user role Type
-                                Session["S_CurrentUserRole"] = "BM";
+                                Session[SessionContents.CurrentUserRole] = "BM";
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //RM Theme Will be same as Advisor Theme
@@ -1017,7 +1015,7 @@ namespace WealthERP.General
                                 advisorBranchVo = advisorBranchBo.GetBranch(advisorBranchBo.GetBranchId(rmVo.RMId));
                                 Session["advisorBranchVo"] = advisorBranchVo;
                                 //login user role Type
-                                Session["S_CurrentUserRole"] = "BM";
+                                Session[SessionContents.CurrentUserRole] = "BM";
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //RM Theme Will be same as Advisor Theme
@@ -1052,7 +1050,7 @@ namespace WealthERP.General
                                     Session["Customer"] = "Customer";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                 }
-                                Session["S_CurrentUserRole"] = "Admin";
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
 
@@ -1077,7 +1075,7 @@ namespace WealthERP.General
                                 }
                                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewerw", "loadcontrol('IFAAdminMainDashboard','login');", true);
                                 //login user role Type
-                                Session["S_CurrentUserRole"] = "Admin";
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                             }
                             else if (roleList.Contains("Admin") && roleList.Contains("Research"))
                             {
@@ -1096,7 +1094,7 @@ namespace WealthERP.General
                                     Session["Customer"] = "Customer";
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                 }
-                                Session["S_CurrentUserRole"] = "Admin";
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                             }
@@ -1109,7 +1107,7 @@ namespace WealthERP.General
                                 Session[SessionContents.LogoPath] = sourcePath;
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //login user role Type Issue Reported by Ajay on July 1 2010
-                                Session["S_CurrentUserRole"] = "RM";
+                                Session[SessionContents.CurrentUserRole] = "RM";
                                 //RM Theme Will be same as Advisor Theme
                                 userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                 Session["Theme"] = strUserTheme;
@@ -1132,7 +1130,7 @@ namespace WealthERP.General
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //login user role Type Issue Reported by Ajay on July 1 2010
-                                Session["S_CurrentUserRole"] = "BM";
+                                Session[SessionContents.CurrentUserRole] = "BM";
                                 //RM Theme Will be same as Advisor Theme
                                 userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                 Session["Theme"] = strUserTheme;
@@ -1161,7 +1159,7 @@ namespace WealthERP.General
                                 Session[SessionContents.LogoPath] = sourcePath;
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //login user role Type Issue Reported by Ajay on July 1 2010
-                                Session["S_CurrentUserRole"] = "RM";
+                                Session[SessionContents.CurrentUserRole] = "RM";
                                 //RM Theme Will be same as Advisor Theme
                                 userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                 Session["Theme"] = strUserTheme;
@@ -1185,7 +1183,7 @@ namespace WealthERP.General
                                 branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
                                 Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
                                 //login user role Type Issue Reported by Ajay on July 1 2010
-                                Session["S_CurrentUserRole"] = "BM";
+                                Session[SessionContents.CurrentUserRole] = "BM";
                                 //RM Theme Will be same as Advisor Theme
                                 userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
                                 Session["Theme"] = strUserTheme;
@@ -1208,7 +1206,7 @@ namespace WealthERP.General
                                 Session["Theme"] = strUserTheme;
                                 Session["refreshTheme"] = true;
 
-                                Session["S_CurrentUserRole"] = "Research";
+                                Session[SessionContents.CurrentUserRole] = "Research";
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('ModelPortfolioSetup','login');", true);
 
                             }
@@ -1219,7 +1217,7 @@ namespace WealthERP.General
                                 Session["Theme"] = strUserTheme;
                                 Session["refreshTheme"] = true;
 
-                                Session["S_CurrentUserRole"] = "Admin";
+                                Session[SessionContents.CurrentUserRole] = "Admin";
                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeemkwerw", "loadcontrol('AdviserCustomer','login');", true);
 
                             }
@@ -1272,7 +1270,7 @@ namespace WealthERP.General
 
                         sourcePath = "Images/" + userBo.GetCustomerLogo(customerVo.CustomerId);
                         Session[SessionContents.LogoPath] = sourcePath;
-                        Session["S_CurrentUserRole"] = "Customer";
+                        Session[SessionContents.CurrentUserRole] = "Customer";
 
                         //RM Theme Will be same as Advisor Theme
                         userBo.GetUserTheme(customerVo.CustomerId, "CUSTOMER", out strUserTheme);
