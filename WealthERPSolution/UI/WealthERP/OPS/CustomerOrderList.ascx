@@ -63,7 +63,7 @@
          <tr>
         <td>
             <asp:GridView ID="gvOrderList" runat="server" AutoGenerateColumns="False"  AllowSorting="True" 
-                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId" ShowFooter="True">
+                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId" OnRowCommand="gvOrderList_RowCommand" ShowFooter="True" >
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" />
@@ -81,7 +81,9 @@
                                               <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                                             </ItemTemplate>
                      </asp:TemplateField>  
-                    <asp:BoundField DataField="CMOT_MFOrderId" HeaderText="OrderId" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" />
+                    <%--<asp:BoundField DataField="CMOT_MFOrderId" HeaderText="OrderId" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" />--%>
+                    <asp:ButtonField DataTextField="CMOT_MFOrderId" CommandName="ViewOrderDetails" ButtonType="Link"
+                            HeaderText="OrderId" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" />
                     <asp:BoundField DataField="PASP_SchemePlanName" HeaderText="Scheme" ItemStyle-Wrap="false" >
                       <HeaderStyle HorizontalAlign="Center" />
                       <ItemStyle HorizontalAlign="Left" Wrap="false"></ItemStyle>

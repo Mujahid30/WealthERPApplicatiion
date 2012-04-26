@@ -10,12 +10,14 @@ using System.Collections.Specialized;
 using BoOps;
 using VoUser;
 using System.Data;
+using VoOps;
 
 namespace WealthERP.OPS
 {
     public partial class CustomerOrderList : System.Web.UI.UserControl
     {
         OperationBo operationBo = new OperationBo();
+        OperationVo operationVo = new OperationVo();
         CustomerVo customerVo = null;
         int customerId;
         protected void Page_Load(object sender, EventArgs e)
@@ -93,6 +95,28 @@ namespace WealthERP.OPS
                     }
                 }
                 BindCustomerList();
+            }
+        }
+
+        protected void gvOrderList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = 0;
+            if (e.CommandName == "ViewOrderDetails")
+            {
+                try
+                {
+                    index = Convert.ToInt32(e.CommandArgument);
+                    int orderId = Convert.ToInt32(gvOrderList.DataKeys[index].Value.ToString());
+
+                    operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
+                    Session["operationVo"] = operationVo;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','?action=" +"View"+ "&FromPage="+"OrderList"+ "');", true);
+
+                }
+                catch (BaseApplicationException Ex)
+                {
+                    throw Ex;
+                }
             }
         }
     }
