@@ -3915,7 +3915,7 @@ namespace WealthERP.Uploads
             }
             //***Dropdown screen info coding***
 
-            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT")
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL")
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
@@ -3985,6 +3985,7 @@ namespace WealthERP.Uploads
 
         protected string Show_Message(string ddlUploadType, string ddlCompanyType)
         {
+            string fileName = ddlListCompany.SelectedValue;
             string msg = "";
             if (ddlUploadType == "PMFF" && ddlCompanyType == "CA")
             {
@@ -4006,7 +4007,10 @@ namespace WealthERP.Uploads
             {
                 msg = "Standard Combo";
             }
-
+            else if (ddlUploadType == "TRAIL")
+            {
+                msg = "Trail Commission"+" "+fileName;
+            }
             return msg;
         }
 
