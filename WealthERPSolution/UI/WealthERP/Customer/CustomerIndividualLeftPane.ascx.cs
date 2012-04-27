@@ -303,6 +303,7 @@ namespace WealthERP.Customer
                 }
                 else if (TreeView1.SelectedNode.Value == "Add Proof")
                 {
+                    Session.Remove("SessionSpecificProof");
                     Session["FlagProof"] = 1;
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LeftPaneKey", "loadcontrolCustomer('CustomerProofsAdd','none');", true);
                 }
