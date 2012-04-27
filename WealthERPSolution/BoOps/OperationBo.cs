@@ -514,12 +514,12 @@ namespace BoOps
             return dtPdfForms;
         }
 
-        public DataSet GetCustomerApprovalList(int customerId)
+        public DataSet GetCustomerApprovalList(int customerId,int status)
         {
             DataSet dsCustomerApprovallist = new DataSet();
             try
             {
-                dsCustomerApprovallist = operationDao.GetCustomerApprovalList(customerId);
+                dsCustomerApprovallist = operationDao.GetCustomerApprovalList(customerId, status);
             }
             catch (BaseApplicationException Ex)
             {
