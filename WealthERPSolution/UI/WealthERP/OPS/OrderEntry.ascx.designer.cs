@@ -95,6 +95,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
         
         /// <summary>
+        /// lnlBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnlBack;
+        
+        /// <summary>
         /// lblAssetType control.
         /// </summary>
         /// <remarks>
@@ -572,6 +581,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
+        /// chkCA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkCA;
+        
+        /// <summary>
         /// ddlPortfolio control.
         /// </summary>
         /// <remarks>
@@ -579,6 +597,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPortfolio;
+        
+        /// <summary>
+        /// lblCustomerApproval control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomerApproval;
         
         /// <summary>
         /// trSectionTwo7 control.

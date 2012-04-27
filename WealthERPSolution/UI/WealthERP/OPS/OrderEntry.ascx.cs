@@ -81,7 +81,7 @@ namespace WealthERP.OPS
             {
                 operationVo = (OperationVo)Session["operationVo"];
             }
-
+            lnlBack.Visible = false;
             msgRecordStatus.Visible = false;
             rmVo = (RMVo)Session[SessionContents.RmVo];
             //customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
@@ -90,8 +90,8 @@ namespace WealthERP.OPS
             
             lnkBtnEdit.Visible = false;
             btnGeneratePDF.Visible = false;
-
-            //ddlOrderStatus.Enabled = false;
+            if(chkCA.Checked==false)
+              ddlOrderStatus.Enabled = false;
             if (!IsPostBack)
             {
                 hyperLinkFillablePdfForm.Visible = false;
@@ -725,6 +725,7 @@ namespace WealthERP.OPS
                     {
                         lnkBtnEdit.Visible = false;
                         btnGeneratePDF.Visible = false;
+                        lnlBack.Visible = true;
                     }
                     
                 }
@@ -2480,11 +2481,27 @@ namespace WealthERP.OPS
             }
         }
 
-        //protected void chkCA_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (chkCA.Checked == true)
-        //        ddlOrderStatus.Enabled = true;
-        //}
+        protected void chkCA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkCA.Checked == true)
+                ddlOrderStatus.Enabled = true;
+            else
+            {
+                ddlOrderStatus.Enabled = false;
+                ddlOrderStatus.SelectedValue = "OMIP";
+                ddlOrderPendingReason.Visible = false;
+                lblOrderPendingReason.Visible = false;
+
+            }
+        }
+
+        protected void lnlBack_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["FromPage"] != null)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerOrderList','none');", true);
+            }
+        }
 
     }
 }

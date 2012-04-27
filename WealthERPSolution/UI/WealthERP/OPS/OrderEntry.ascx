@@ -159,7 +159,9 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
 <tr>
 <td colspan="4">
 <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit" 
-        onclick="lnkBtnEdit_Click"  ></asp:LinkButton>
+        onclick="lnkBtnEdit_Click"  ></asp:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <asp:LinkButton ID="lnlBack" runat="server" CssClass="LinkButtons" Text="Back" 
+        onclick="lnlBack_Click" ></asp:LinkButton>       
 </td>
 </tr>
 <tr>
@@ -371,14 +373,14 @@ ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nb
   </td>
   <td align="right" valign="top">
   <asp:Label ID="Label2" runat="server" Text="Portfolio: "  CssClass="FieldName"></asp:Label>
-  <%--<br /><br />--%>
-  <%--<asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" 
-          oncheckedchanged="chkCA_CheckedChanged" />--%>
+  <br /><br />
+  <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" 
+          oncheckedchanged="chkCA_CheckedChanged" />
   </td>
   <td align="left" valign="top">
    <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField"></asp:DropDownList>
-  <%-- <br /><br />
-   <asp:Label ID="lblCustomerApproval" runat="server"  CssClass="FieldName" Text=": Customer Approval"></asp:Label>--%>
+  <br /><br />
+   <asp:Label ID="lblCustomerApproval" runat="server"  CssClass="FieldName" Text=": Customer Approval"></asp:Label>
   </td>
   
 </tr>
