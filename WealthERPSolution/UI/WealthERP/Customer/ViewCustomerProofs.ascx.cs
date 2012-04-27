@@ -523,6 +523,8 @@ namespace WealthERP.Customer
             if (blResult)
             {
                 Session.Remove("ImagePath");
+                Session.Remove(Constants.SessionSpecificProof.ToString());
+                ResetControls();
                 LoadImages();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Proof updated successfully!');", true);
             }
