@@ -954,6 +954,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View/Upload Images")
                 {
+                    Session.Remove("SessionSpecificProof");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
                 else if (e.Item.Value == "Order_Approval_List")
