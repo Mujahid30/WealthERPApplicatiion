@@ -20,6 +20,7 @@ namespace WealthERP.OPS
         OperationVo operationVo = new OperationVo();
         CustomerVo customerVo = null;
         int customerId;
+        int status;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,12 +34,14 @@ namespace WealthERP.OPS
         {
             DataSet dsCustomerApprovalList = new DataSet();
             DataTable dtCustomerApprovallist = new DataTable();
+            status = 1;
             try
             {
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 customerId = customerVo.CustomerId;
-                dsCustomerApprovalList = operationBo.GetCustomerApprovalList(customerId);
+                status = int.Parse(ddlOrderType.SelectedValue);
+                dsCustomerApprovalList = operationBo.GetCustomerApprovalList(customerId,status);
                 dtCustomerApprovallist = dsCustomerApprovalList.Tables[0];
                 if (dtCustomerApprovallist.Rows.Count > 0)
                 {
@@ -117,6 +120,15 @@ namespace WealthERP.OPS
                 {
                     throw Ex;
                 }
+            }
+        }
+
+        protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(ddlOrderType.SelectedValue)== 0)
+            {
+                BindCustomerList();
+                btnApprove.Visible = false;
             }
         }
     }

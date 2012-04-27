@@ -43,10 +43,22 @@
         <td align="left">
         <asp:Label ID="lblMF" runat="server" CssClass="FieldName" Text="Mutual Fund"></asp:Label>
         </td>
+        <td align="right">
+        <asp:Label ID="lblOrderType" runat="server" CssClass="FieldName" Text="Order Type: "></asp:Label>
+        </td>
+        <td>
+        <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                onselectedindexchanged="ddlOrderType_SelectedIndexChanged">
+        <asp:ListItem Text="Not Approve" Value=1 Selected="True"></asp:ListItem>
+        <asp:ListItem Text="Approve" Value=0></asp:ListItem>
+        </asp:DropDownList>
+        </td>
         </tr>
-        <tr><td colspan="2"></td></tr>
+        
+        
+        <tr><td colspan="4"></td></tr>
         <tr>
-        <td colspan="2">
+        <td colspan="4">
     <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
     <tr>
     <td align="center" >
@@ -58,7 +70,7 @@
         </td>
         </tr>
         <tr>
-        <td colspan="2">
+        <td colspan="4">
         <table width="100%">
          <tr>
         <td>
@@ -109,7 +121,7 @@
         </td>
         </tr>
         <tr>
-        <td colspan="2"></td>
+        <td colspan="4"></td>
         </tr>
         <tr>
         <td>

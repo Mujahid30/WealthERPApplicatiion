@@ -50,6 +50,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblMF;
         
         /// <summary>
+        /// lblOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrderType;
+        
+        /// <summary>
+        /// ddlOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
+        
+        /// <summary>
         /// tblMessage control.
         /// </summary>
         /// <remarks>
