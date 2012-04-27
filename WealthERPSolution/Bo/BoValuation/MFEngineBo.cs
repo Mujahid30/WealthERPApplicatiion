@@ -62,7 +62,7 @@ namespace BoValuation
                             if (AdviserCustomers != null)
                             {
                                 foreach (int customerId in AdviserCustomers)
-                                {
+                                {                                    
                                     MFBalanceCreation(customerId, 0, ValuationLabel.Customer);
 
                                 }
@@ -118,7 +118,7 @@ namespace BoValuation
                                 }
 
                             }
-
+                            
 
 
                             break;
@@ -398,6 +398,7 @@ namespace BoValuation
                                     int count1 = 0;
                                     double dvrUnitsContribution = 0;
                                     double totalCost = 0;
+                                    double unitBalanceReturnOldSum=0.0;
 
                                     DataRow[] drLastTransactionDetails;
 
@@ -441,9 +442,17 @@ namespace BoValuation
                                                             unitBalanceReturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
                                                         }
                                                     }
-                                                    dvrUnitsContribution = dvrUnits * (unitBalanceReturnOld / sum);
+
+                                                    if (sum != 0)
+                                                        unitBalanceReturnOldSum = (unitBalanceReturnOld / sum);
+                                                    else
+                                                        unitBalanceReturnOldSum = unitBalanceReturnOld;
+
+                                                    dvrUnitsContribution = dvrUnits * unitBalanceReturnOldSum;
                                                     avgCostReturn = totalCostBalanceReturn / (dvrUnitsContribution + double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()));
-                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = unitBalanceReturnOld / sum;
+
+                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = unitBalanceReturnOldSum;
+                                                    
                                                     dr3["CMFTB_DVRUnits_Contributed"] = dvrUnitsContribution;
                                                     dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
                                                     dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
@@ -692,9 +701,9 @@ namespace BoValuation
                         }
                         else if (buyUnits < sellUnits)
                         {
-                            dr["CMFTB_UnitBalanceTAX"] = 0;
+                            dr["CMFTB_UnitBalanceTAX"]=0;
                             dr["CMFTB_TotalCostBalanceTAX"] = 0;
-                            sellUnits = sellUnits - buyUnits;
+                            sellUnits = sellUnits - buyUnits;                           
                             span = sellTransactiondate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                             age = span.TotalDays;
                             FillSellPairedDataSet(buyUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()));
