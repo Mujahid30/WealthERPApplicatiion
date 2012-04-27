@@ -188,19 +188,6 @@
                         &nbsp;
                     </td>
                 </tr>
-                <%--<tr>
-                <td align="right">
-                    <label class="cmbField">Purpose: </label>
-                </td>
-                <td align="left">
-                    <asp:ListBox ID="lstProofPurpose" CssClass="cmbField" runat="server" SelectionMode="Multiple"></asp:ListBox>
-                </td>
-            </tr>--%>
-                <%--<tr>
-                <td>
-                    &nbsp;
-                </td>
-            </tr>--%>
                 <tr>
                     <td align="right">
                         <label class="cmbField">
