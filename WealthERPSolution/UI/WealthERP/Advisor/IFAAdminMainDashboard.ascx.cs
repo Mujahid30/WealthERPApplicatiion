@@ -660,7 +660,7 @@ namespace WealthERP.Advisor
             }
             else
             {
-                lblSuperAdmnMessage.Text = "No more message from Super Admin.";
+                lblSuperAdmnMessage.Text = "No more Broadcast message from Super Admin.";
             }
 
         }
