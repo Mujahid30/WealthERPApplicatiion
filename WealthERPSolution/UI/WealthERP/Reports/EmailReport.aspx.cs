@@ -623,7 +623,7 @@ namespace WealthERP.Reports
                         }
                         break;
                     case "COMPREHENSIVE":
-                        crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
+                        crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
 
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
