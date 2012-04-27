@@ -3474,6 +3474,7 @@ namespace DaoCustomerProfiling
             }
             return bResult;
         }
+
         public void CheckSpouseRelationship(int customerId,out bool spouseRelationExist,out bool spouseDobExist, out bool spouseAssumptionExist)
         {
             bool result = false;
@@ -3675,7 +3676,6 @@ namespace DaoCustomerProfiling
             return dtCustomerNames;
         }
 
-
         public DataTable GetPerticularBranchsAllIndividualCustomers(string contextKey, string prefixText)
         {
 
@@ -3761,6 +3761,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+
         public bool PANNumberDuplicateChild(int adviserId, string Pan)
         {
             Database db;
@@ -3837,7 +3838,6 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerProofTypes;
         }
-
 
         public DataTable GetCustomerProofsForTypes(int proofTypeCode)
         {
@@ -3918,7 +3918,6 @@ namespace DaoCustomerProfiling
             }
             return dtGetCustomerProofPurpose;
         }
-
 
         public DataTable GetCustomerProofCopy()
         {
@@ -4006,7 +4005,6 @@ namespace DaoCustomerProfiling
             }
             return bStatus;
         }
-
 
         public DataTable GetCustomerUploadedProofs(int customerId, int proofId)
         {
