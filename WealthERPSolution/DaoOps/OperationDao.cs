@@ -1014,7 +1014,7 @@ namespace DaoOps
             
         }
 
-        public DataSet GetCustomerApprovalList(int customerId)
+        public DataSet GetCustomerApprovalList(int customerId,int status)
         {
             Database db;
             DataSet dsCustomerApprovalList = new DataSet();
@@ -1024,6 +1024,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CustomerApprovalListCmd = db.GetStoredProcCommand("SP_GetCustomerApprovalList");
                 db.AddInParameter(CustomerApprovalListCmd, "@CustomerId", DbType.String, customerId);
+                db.AddInParameter(CustomerApprovalListCmd, "@status", DbType.Int16, status);
                 dsCustomerApprovalList = db.ExecuteDataSet(CustomerApprovalListCmd);
             }
             catch (BaseApplicationException Ex)
