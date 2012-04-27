@@ -225,5 +225,10 @@ namespace WealthERP.Uploads
             GVTrailTransactionRejects.DataSource = dsRejectedSIP;
         }
 
+        protected void lnkBtnBack_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+        }
+
     }
 }
