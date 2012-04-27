@@ -78,25 +78,28 @@
 <telerik:RadMultiPage ID="EQPortfolioTabPages" runat="server" EnableViewState="true"
 SelectedIndex="0">
 
-    <telerik:RadPageView ID="EQPortfolioAllTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioAll" runat="server">
-        <%--<table id="tblPortfolio" runat="server">
-                        <tr id="Tr1" runat="server" visible="true">
+    <telerik:RadPageView ID="EQPortfolioUnRealizedTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
+        <%--<table id="tblUnrealized" runat="server">
+                        <tr id="Tr4" runat="server" visible="true">
                             <td>
-                                <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
+                                <asp:RadioButton ID="rbtnUnrealExcel" Text="Excel" runat="server" GroupName="grpExport"
                                     CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnPDF" Text="PDF" runat="server" GroupName="grpExport" CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnWord" Text="Word" runat="server" GroupName="grpExport" CssClass="cmbField" />
+                                <asp:RadioButton ID="rbtnUnrealPDF" Text="PDF" runat="server" GroupName="grpExport"
+                                    CssClass="cmbField" />
+                                <asp:RadioButton ID="rbtnUnrealWord" Text="Word" runat="server" GroupName="grpExport"
+                                    CssClass="cmbField" />
                             </td>
                             <td>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"
-                                    CssClass="ButtonField" />
-                                <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
+                                <asp:Button ID="btnExportUnrealized" runat="server" OnClick="btnExportUnrealized_Click"
+                                    Text="Export" CssClass="ButtonField" />
+                                <asp:Button ID="btnPrintUnrealized" runat="server" OnClick="btnPrintUnrealized_Click"
+                                    Text="Print" CssClass="ButtonField" />
+                                <asp:Button ID="btnPrintUnrealizedGrid" runat="server" Text="" OnClick="btnPrintUnrealizedGrid_Click"
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
@@ -105,22 +108,23 @@ SelectedIndex="0">
             cellspacing="0">
             <tr>
                 <td>
-                    <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
+                    <asp:ImageButton ID="imgBtnExport3" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
+                        OnClick="imgBtnExport3_Click" style="width: 20px" />
                 </td>                    
             </tr>
-        </table>        
+        </table>
         <table>
                         <tr>
                             <td>
-                                <div id="dvEquityPortfolio" runat="server">
-                                    <asp:Label ID="lblMessage" Visible="false" Text="No Record Exists" runat="server"
+                                <div id="dvEquityPortfolioUnrealized" runat="server">
+                                    <asp:Label ID="lblMessageUnrealized" Visible="false" Text="No Record Exists" runat="server"
                                         CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolio" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
-                                        ShowFooter="True" OnSorting="gvEquityPortfolio_Sorting" OnRowCommand="gvEquityPortfolio_RowCommand"
-                                        OnPageIndexChanging="gvEquityPortfolio_PageIndexChanging" OnDataBound="gvEquityPortfolio_DataBound"
-                                        OnRowDataBound="gvEquityPortfolio_RowDataBound">
+                                    <asp:GridView ID="gvEquityPortfolioUnrealized" runat="server" AllowSorting="True"
+                                        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true"
+                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioUnrealized_Sorting"
+                                        OnRowCommand="gvEquityPortfolioUnrealized_RowCommand" OnPageIndexChanging="gvEquityPortfolioUnrealized_PageIndexChanging"
+                                        OnDataBound="gvEquityPortfolioUnrealized_DataBound" OnRowDataBound="gvEquityPortfolioUnrealized_RowDataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -133,21 +137,21 @@ SelectedIndex="0">
                                             <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
                                             <asp:TemplateField ItemStyle-Wrap="false">
                                                 <HeaderTemplate>
-                                                    <asp:Label ID="lblScripName" runat="server" Text="Scrip Name"></asp:Label>
+                                                    <asp:Label ID="lblScripNameUnRealized" runat="server" Text="Scrip Name"></asp:Label>
                                                     <br />
-                                                    <asp:TextBox ID="txtScripNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQNPSearch');" />
+                                                    <asp:TextBox ID="txtScripNameUnRealizedSearch" runat="server" CssClass="GridViewTxtField"
+                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQUnRealizedSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
+                                                    <asp:Label ID="lblScripNameUnRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                           <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                           <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
@@ -321,29 +325,26 @@ SelectedIndex="0">
                     </table>
     </asp:Panel>
     </telerik:RadPageView>
-    
-    <telerik:RadPageView ID="EQPortfolioUnRealizedTabPage" runat="server">
-    <asp:Panel ID="pnlEQPortfolioUnRealized" runat="server">
-        <%--<table id="tblUnrealized" runat="server">
-                        <tr id="Tr4" runat="server" visible="true">
+        
+    <telerik:RadPageView ID="EQPortfolioAllTabPage" runat="server">
+    <asp:Panel ID="pnlEQPortfolioAll" runat="server">
+        <%--<table id="tblPortfolio" runat="server">
+                        <tr id="Tr1" runat="server" visible="true">
                             <td>
-                                <asp:RadioButton ID="rbtnUnrealExcel" Text="Excel" runat="server" GroupName="grpExport"
+                                <asp:RadioButton ID="rbtnExcel" Text="Excel" runat="server" GroupName="grpExport"
                                     CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnUnrealPDF" Text="PDF" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
-                                <asp:RadioButton ID="rbtnUnrealWord" Text="Word" runat="server" GroupName="grpExport"
-                                    CssClass="cmbField" />
+                                <asp:RadioButton ID="rbtnPDF" Text="PDF" runat="server" GroupName="grpExport" CssClass="cmbField" />
+                                <asp:RadioButton ID="rbtnWord" Text="Word" runat="server" GroupName="grpExport" CssClass="cmbField" />
                             </td>
                             <td>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="btnExportUnrealized" runat="server" OnClick="btnExportUnrealized_Click"
-                                    Text="Export" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintUnrealized" runat="server" OnClick="btnPrintUnrealized_Click"
-                                    Text="Print" CssClass="ButtonField" />
-                                <asp:Button ID="btnPrintUnrealizedGrid" runat="server" Text="" OnClick="btnPrintUnrealizedGrid_Click"
+                                <asp:Button ID="btnExport" runat="server" OnClick="btnExport_Click" Text="Export"
+                                    CssClass="ButtonField" />
+                                <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="Print" CssClass="ButtonField" />
+                                <asp:Button ID="btnPrintGrid" runat="server" Text="" OnClick="btnPrintGrid_Click"
                                     BorderStyle="None" BackColor="Transparent" />
                             </td>
                         </tr>
@@ -352,23 +353,22 @@ SelectedIndex="0">
             cellspacing="0">
             <tr>
                 <td>
-                    <asp:ImageButton ID="imgBtnExport3" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" 
-                        OnClick="imgBtnExport3_Click" style="width: 20px" />
+                    <asp:ImageButton ID="imgBtnExport" ImageUrl="../App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click" />
                 </td>                    
             </tr>
-        </table>
+        </table>        
         <table>
                         <tr>
                             <td>
-                                <div id="dvEquityPortfolioUnrealized" runat="server">
-                                    <asp:Label ID="lblMessageUnrealized" Visible="false" Text="No Record Exists" runat="server"
+                                <div id="dvEquityPortfolio" runat="server">
+                                    <asp:Label ID="lblMessage" Visible="false" Text="No Record Exists" runat="server"
                                         CssClass="Field"></asp:Label>
-                                    <asp:GridView ID="gvEquityPortfolioUnrealized" runat="server" AllowSorting="True"
-                                        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true"
-                                        CssClass="GridViewStyle" ShowFooter="True" OnSorting="gvEquityPortfolioUnrealized_Sorting"
-                                        OnRowCommand="gvEquityPortfolioUnrealized_RowCommand" OnPageIndexChanging="gvEquityPortfolioUnrealized_PageIndexChanging"
-                                        OnDataBound="gvEquityPortfolioUnrealized_DataBound" OnRowDataBound="gvEquityPortfolioUnrealized_RowDataBound">
+                                    <asp:GridView ID="gvEquityPortfolio" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+                                        CellPadding="4" DataKeyNames="Sl.No." EnableViewState="true" CssClass="GridViewStyle"
+                                        ShowFooter="True" OnSorting="gvEquityPortfolio_Sorting" OnRowCommand="gvEquityPortfolio_RowCommand"
+                                        OnPageIndexChanging="gvEquityPortfolio_PageIndexChanging" OnDataBound="gvEquityPortfolio_DataBound"
+                                        OnRowDataBound="gvEquityPortfolio_RowDataBound">
                                         <RowStyle CssClass="RowStyle" />
                                         <FooterStyle CssClass="FooterStyle" />
                                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -381,21 +381,21 @@ SelectedIndex="0">
                                             <asp:BoundField DataField="Sl.No." HeaderText="Sl.No." Visible="false" />
                                             <asp:TemplateField ItemStyle-Wrap="false">
                                                 <HeaderTemplate>
-                                                    <asp:Label ID="lblScripNameUnRealized" runat="server" Text="Scrip Name"></asp:Label>
+                                                    <asp:Label ID="lblScripName" runat="server" Text="Scrip Name"></asp:Label>
                                                     <br />
-                                                    <asp:TextBox ID="txtScripNameUnRealizedSearch" runat="server" CssClass="GridViewTxtField"
-                                                        onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQUnRealizedSearch');" />
+                                                    <asp:TextBox ID="txtScripNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_ViewEquityPortfolios_btnEQNPSearch');" />
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblScripNameUnRealizedHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
+                                                    <asp:Label ID="lblScripNameHeader" runat="server" Text='<%# Eval("CompanyName").ToString() %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Quantity" HeaderText="No of Shares" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="AveragePrice" HeaderText="Average Price (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
-                                            <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                           <asp:BoundField DataField="CostOfPurchase" HeaderText="Cost Of Purchase (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                           <asp:BoundField DataField="MarketPrice" HeaderText="Current Price (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="UnRealizedPL" HeaderText="UnRealized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
+                                            <asp:BoundField DataField="RealizedPL" HeaderText="Realized P/L (Rs)" ItemStyle-HorizontalAlign="Right" />
                                             <asp:BoundField DataField="XIRR" HeaderText="XIRR (%)" ItemStyle-HorizontalAlign="Right" />
                                         </Columns>
                                     </asp:GridView>
