@@ -3972,9 +3972,11 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdInsertPlanPreferences, "@XPRT_ProofTypeCode", DbType.Int32, CPUVo.ProofTypeCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@XP_ProofCode", DbType.Int32, CPUVo.ProofCode);
                 db.AddInParameter(cmdInsertPlanPreferences, "@XPCT_ProofCopyTypeCode", DbType.String, CPUVo.ProofCopyTypeCode);
-                db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
-                //db.AddInParameter(cmdInsertPlanPreferences, "@ProofID", DbType.Int32, ProofUploadId);
-
+                if (!CPUVo.ProofImage.Equals(String.Empty))
+                    db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, CPUVo.ProofImage);
+                else
+                    db.AddInParameter(cmdInsertPlanPreferences, "@CPU_Image", DbType.String, DBNull.Value);
+                db.AddInParameter(cmdInsertPlanPreferences, "@ProofIDUpdate", DbType.Int32, ProofUploadId);
 
                 db.AddOutParameter(cmdInsertPlanPreferences, "@CPU_ProofUploadId", DbType.Int32, 0);
 
@@ -4049,7 +4051,7 @@ namespace DaoCustomerProfiling
             return dtGetCustomerUploadedProofs;
         }
 
-        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID)
+        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID, float fBalanceStorage, int adviserId)
         {
             bool bResult = false;
             Database db;
@@ -4061,6 +4063,8 @@ namespace DaoCustomerProfiling
                 deleteCustomerProofCmd = db.GetStoredProcCommand("SP_DeleteCustomerUploadedProofs");
                 db.AddInParameter(deleteCustomerProofCmd, "@C_CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(deleteCustomerProofCmd, "@CPU_ProofUploadId", DbType.Int32, proofUploadID);
+                db.AddInParameter(deleteCustomerProofCmd, "@BalanceStorage", DbType.Decimal, fBalanceStorage);
+                db.AddInParameter(deleteCustomerProofCmd, "@AdviserId", DbType.Int32, adviserId);
                 if (db.ExecuteNonQuery(deleteCustomerProofCmd) != 0)
                     bResult = true;
             }
