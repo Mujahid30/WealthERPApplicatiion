@@ -2175,13 +2175,13 @@ namespace BoCustomerProfiling
             return dtGetCustomerUploadedProofs;
         }
 
-        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID)
+        public bool DeleteCustomerUploadedProofs(int customerId, int proofUploadID, float fBalanceStorage, int adviserId)
         {
             bool bResult = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-                bResult = customerDao.DeleteCustomerUploadedProofs(customerId, proofUploadID);
+                bResult = customerDao.DeleteCustomerUploadedProofs(customerId, proofUploadID, fBalanceStorage, adviserId);
             }
             catch (BaseApplicationException Ex)
             {
