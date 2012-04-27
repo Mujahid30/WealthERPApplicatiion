@@ -266,6 +266,7 @@ namespace WealthERP.Customer
             {
                 if (blResult)
                 {
+                    ResetControls();
                     LoadImages();
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Proof added successfully!');", true);
                 }
@@ -603,7 +604,7 @@ namespace WealthERP.Customer
                             }
 
                             // Get the Repository Path in solution
-                            string strFilePath = path + dt.Rows[0]["CPU_Image"];
+                            string strFilePath = dt.Rows[0]["CPU_Image"].ToString();
                             AdvisorBo advBo = new AdvisorBo();
 
                             // Delete file if it exists
@@ -1086,6 +1087,7 @@ namespace WealthERP.Customer
 
                         if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete, flRemainingBal, adviserVo.advisorId))
                         {
+                            ResetControls();
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Proof deleted successfully..!');", true);
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
                         }
