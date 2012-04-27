@@ -277,7 +277,7 @@
                             
                             <asp:TemplateField HeaderStyle-Wrap="false">
                                 <HeaderTemplate>
-                                    <asp:Label ID="lblSubCategory" runat="server" Text="Category"></asp:Label>
+                                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category"></asp:Label>
                                     <%--<asp:DropDownList ID="ddlCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
                                         OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
                                     </asp:DropDownList>--%>
