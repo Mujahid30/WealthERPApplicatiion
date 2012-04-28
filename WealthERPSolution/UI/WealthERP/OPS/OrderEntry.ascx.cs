@@ -470,6 +470,13 @@ namespace WealthERP.OPS
                     if(!string.IsNullOrEmpty(operationVo.State.ToString().Trim()))
                         ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
+
+                   
+                    if (operationVo.IsApproved == 1)
+                        chkCA.Checked = true;
+                    else
+                        chkCA.Checked = false;
+
                     btnSubmit.Visible = false;
                     btnUpdate.Visible = true;
                     trReportButtons.Visible = true;
@@ -715,6 +722,11 @@ namespace WealthERP.OPS
                     txtCorrAdrCity.Text = operationVo.City;
                     ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
+
+                    if (operationVo.IsApproved == 1)
+                        chkCA.Checked = true;
+                    else
+                        chkCA.Checked = false;
 
                     Session["operationVo"] = operationVo;
                     btnSubmit.Visible = false;
@@ -1083,6 +1095,8 @@ namespace WealthERP.OPS
                 ddlCorrAdrState.Enabled = false;
                 txtCorrAdrPinCode.Enabled = false;
                 ddlCorrAdrCountry.Enabled = false;
+
+                chkCA.Enabled = false;
                 
                 btnSubmit.Enabled = false;
                 btnUpdate.Visible = false;
@@ -1141,6 +1155,8 @@ namespace WealthERP.OPS
                 ddlCorrAdrState.Enabled = true;
                 txtCorrAdrPinCode.Enabled = true;
                 ddlCorrAdrCountry.Enabled = true;
+
+                chkCA.Enabled = true;
 
                 btnSubmit.Enabled = true;
                 btnUpdate.Visible = true;
@@ -1279,6 +1295,11 @@ namespace WealthERP.OPS
             else
                 operationVo.Pincode = "";
             operationVo.Country = ddlCorrAdrCountry.SelectedValue;
+
+            if (chkCA.Checked == true)
+                operationVo.IsApproved = 1;
+            else
+                operationVo.IsApproved = 0;
 
             if (ddltransType.SelectedValue == "SIP")
             {
@@ -2007,6 +2028,7 @@ namespace WealthERP.OPS
                     operationVo.EndDate = DateTime.MinValue;
             }
 
+            
 
             //if (!string.IsNullOrEmpty((lblGetAvailableUnits.Text).ToString().Trim()))
             //    operationVo.Units = double.Parse(lblGetAvailableUnits.Text);
@@ -2068,6 +2090,11 @@ namespace WealthERP.OPS
             else
                 operationVo.Pincode = "";
             operationVo.Country = ddlCorrAdrCountry.SelectedValue;
+
+            if (chkCA.Checked == true)
+                operationVo.IsApproved = 1;
+            else
+                operationVo.IsApproved = 0;
 
             operationBo.UpdateOrderTracking(operationVo);
             msgUpdate.Visible = true;
@@ -2273,6 +2300,10 @@ namespace WealthERP.OPS
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
+            if (chkCA.Checked == true)
+                operationVo.IsApproved = 1;
+            else
+                operationVo.IsApproved = 0;
 
             operationBo.CreateMFOrderTracking(operationVo);
            
