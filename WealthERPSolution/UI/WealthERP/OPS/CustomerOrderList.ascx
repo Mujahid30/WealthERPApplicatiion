@@ -49,8 +49,8 @@
         <td>
         <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 onselectedindexchanged="ddlOrderType_SelectedIndexChanged">
-        <asp:ListItem Text="Not Approve" Value=1 Selected="True"></asp:ListItem>
-        <asp:ListItem Text="Approve" Value=0></asp:ListItem>
+        <asp:ListItem Text="Not Approved" Value=1 Selected="True"></asp:ListItem>
+        <asp:ListItem Text="Approved" Value=0></asp:ListItem>
         </asp:DropDownList>
         </td>
         </tr>
