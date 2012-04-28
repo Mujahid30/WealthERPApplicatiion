@@ -561,12 +561,27 @@ namespace WealthERP.OPS
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblordertype = e.Row.FindControl("lblOrderType") as Label;
+                CheckBox chkApprove = e.Row.FindControl("cbRecons") as CheckBox;
                 string ordertype = null;
                 ordertype = lblordertype.Text;
                 if (ordertype == "1")
                     lblordertype.Text = "Immediate";
                 else
                     lblordertype.Text = "Future";
+                Label lblisApproved = e.Row.FindControl("lblIsApproved") as Label;
+                string status = null;
+                status = lblisApproved.Text;
+                if (status == "1")
+                {
+                    lblisApproved.Text = "Yes";
+                }
+                else
+                {
+                    lblisApproved.Text = "No";
+                    chkApprove.Enabled = false;
+                    chkApprove.Checked = false;
+                }
+
             }
         }
 

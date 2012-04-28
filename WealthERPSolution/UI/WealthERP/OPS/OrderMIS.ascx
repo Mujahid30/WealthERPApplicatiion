@@ -575,6 +575,23 @@
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundField>
+                        <%--<asp:BoundField DataField="CMOT_IsApprovedByCustomer" HeaderText="Is Approved" HeaderStyle-Wrap="false"
+                            ItemStyle-Wrap="false" >
+                            <HeaderStyle HorizontalAlign="Left" />
+                            <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                        </asp:BoundField>--%>
+                        <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false" HeaderStyle-HorizontalAlign="Center"
+                            ItemStyle-HorizontalAlign="Left">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblApprovedHeader" runat="server" Text="Is Approved"></asp:Label>
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblIsApproved" runat="server" Text='<%#Eval("CMOT_IsApprovedByCustomer").ToString() %>'> </asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle Wrap="False" />
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                        
                     </Columns>
                     <EditRowStyle CssClass="EditRowStyle" />
                     <FooterStyle CssClass="FooterStyle" />
