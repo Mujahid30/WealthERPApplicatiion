@@ -85,6 +85,10 @@ namespace WealthERP.CustomerPortfolio
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            rgRealized_Init(sender, e);
+            rgAll_Init(sender, e);
+            rgHoldings_Init(sender, e);
+
         }
 
         private void GetMFPortfolioList(string strValuationDate)
@@ -664,16 +668,16 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("Category");
             dtReturnsHoldings.Columns.Add("Scheme");
             dtReturnsHoldings.Columns.Add("FolioNum");
-            dtReturnsHoldings.Columns.Add("PurchasedUnits");
-            dtReturnsHoldings.Columns.Add("DVRUnits");
-            dtReturnsHoldings.Columns.Add("OpenUnits");
+            dtReturnsHoldings.Columns.Add("PurchasedUnits", typeof(double));
+            dtReturnsHoldings.Columns.Add("DVRUnits", typeof(double));
+            dtReturnsHoldings.Columns.Add("OpenUnits", typeof(double));
             dtReturnsHoldings.Columns.Add("InvestedCost", typeof(double));
-            dtReturnsHoldings.Columns.Add("NAV");
-            dtReturnsHoldings.Columns.Add("MarketValue");
-            dtReturnsHoldings.Columns.Add("DVP");
+            dtReturnsHoldings.Columns.Add("NAV", typeof(double));
+            dtReturnsHoldings.Columns.Add("MarketValue", typeof(double));
+            dtReturnsHoldings.Columns.Add("DVP", typeof(double));
             dtReturnsHoldings.Columns.Add("TotalPL", typeof(double));
-            dtReturnsHoldings.Columns.Add("AbsoluteReturn");
-            dtReturnsHoldings.Columns.Add("XIRR");
+            dtReturnsHoldings.Columns.Add("AbsoluteReturn", typeof(double));
+            dtReturnsHoldings.Columns.Add("XIRR", typeof(double));
             dtReturnsHoldings.Columns.Add("AMCCode");
             dtReturnsHoldings.Columns.Add("SchemeCode");
             dtReturnsHoldings.Columns.Add("SubCategoryName");
@@ -686,19 +690,19 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("Category");
             dtReturnsAll.Columns.Add("Scheme");
             dtReturnsAll.Columns.Add("FolioNum");
-            dtReturnsAll.Columns.Add("Price");
-            dtReturnsAll.Columns.Add("InvestedCost");
-            dtReturnsAll.Columns.Add("OpenUnits");
-            dtReturnsAll.Columns.Add("NAV");
-            dtReturnsAll.Columns.Add("CurrentValue");
-            dtReturnsAll.Columns.Add("UnitsSold");
-            dtReturnsAll.Columns.Add("RedeemedAmount");
-            dtReturnsAll.Columns.Add("DVP");
-            dtReturnsAll.Columns.Add("TotalPL");
-            dtReturnsAll.Columns.Add("AbsoluteReturn");
-            dtReturnsAll.Columns.Add("DVR");
-            dtReturnsAll.Columns.Add("XIRR");
-            dtReturnsAll.Columns.Add("TotalDividends");
+            dtReturnsAll.Columns.Add("Price", typeof(double));
+            dtReturnsAll.Columns.Add("InvestedCost", typeof(double));
+            dtReturnsAll.Columns.Add("OpenUnits", typeof(double));
+            dtReturnsAll.Columns.Add("NAV", typeof(double));
+            dtReturnsAll.Columns.Add("CurrentValue", typeof(double));
+            dtReturnsAll.Columns.Add("UnitsSold", typeof(double));
+            dtReturnsAll.Columns.Add("RedeemedAmount", typeof(double));
+            dtReturnsAll.Columns.Add("DVP", typeof(double));
+            dtReturnsAll.Columns.Add("TotalPL", typeof(double));
+            dtReturnsAll.Columns.Add("AbsoluteReturn", typeof(double));
+            dtReturnsAll.Columns.Add("DVR", typeof(double));
+            dtReturnsAll.Columns.Add("XIRR", typeof(double));
+            dtReturnsAll.Columns.Add("TotalDividends", typeof(double));
             dtReturnsAll.Columns.Add("AMCCode");
             dtReturnsAll.Columns.Add("SchemeCode");
             dtReturnsAll.Columns.Add("SubCategoryName");
@@ -711,14 +715,14 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("Category");
             dtReturnsRealized.Columns.Add("Scheme");
             dtReturnsRealized.Columns.Add("FolioNum");
-            dtReturnsRealized.Columns.Add("InvestedCost");
-            dtReturnsRealized.Columns.Add("UnitsSold");
-            dtReturnsRealized.Columns.Add("RedeemedAmount");
-            dtReturnsRealized.Columns.Add("DVP");
-            dtReturnsRealized.Columns.Add("TotalDividends");
-            dtReturnsRealized.Columns.Add("TotalPL");
-            dtReturnsRealized.Columns.Add("AbsoluteReturn");
-            dtReturnsRealized.Columns.Add("XIRR");
+            dtReturnsRealized.Columns.Add("InvestedCost", typeof(double));
+            dtReturnsRealized.Columns.Add("UnitsSold", typeof(double));
+            dtReturnsRealized.Columns.Add("RedeemedAmount", typeof(double));
+            dtReturnsRealized.Columns.Add("DVP", typeof(double));
+            dtReturnsRealized.Columns.Add("TotalDividends", typeof(double));
+            dtReturnsRealized.Columns.Add("TotalPL", typeof(double));
+            dtReturnsRealized.Columns.Add("AbsoluteReturn", typeof(double));
+            dtReturnsRealized.Columns.Add("XIRR", typeof(double));
             dtReturnsRealized.Columns.Add("AMCCode");
             dtReturnsRealized.Columns.Add("SchemeCode");
             dtReturnsRealized.Columns.Add("SubCategoryName");
@@ -731,13 +735,13 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("Category");
             dtTaxHoldings.Columns.Add("Scheme");
             dtTaxHoldings.Columns.Add("FolioNum");
-            dtTaxHoldings.Columns.Add("OpenUnits");
-            dtTaxHoldings.Columns.Add("BalanceAmount");
-            dtTaxHoldings.Columns.Add("NAV");
-            dtTaxHoldings.Columns.Add("MarketValue");
-            dtTaxHoldings.Columns.Add("UnrealizedPL");
-            dtTaxHoldings.Columns.Add("EligibleSTCG");
-            dtTaxHoldings.Columns.Add("EligibleLTCG");
+            dtTaxHoldings.Columns.Add("OpenUnits", typeof(double));
+            dtTaxHoldings.Columns.Add("BalanceAmount", typeof(double));
+            dtTaxHoldings.Columns.Add("NAV", typeof(double));
+            dtTaxHoldings.Columns.Add("MarketValue", typeof(double));
+            dtTaxHoldings.Columns.Add("UnrealizedPL", typeof(double));
+            dtTaxHoldings.Columns.Add("EligibleSTCG", typeof(double));
+            dtTaxHoldings.Columns.Add("EligibleLTCG", typeof(double));
             dtTaxHoldings.Columns.Add("AMCCode");
             dtTaxHoldings.Columns.Add("SchemeCode");
             dtTaxHoldings.Columns.Add("SubCategoryName");
@@ -929,7 +933,7 @@ namespace WealthERP.CustomerPortfolio
                     Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + intSchemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + strScheme + "&AMCCode=" + strAMCCode, false);
                 }
             }
-            
+
         }
 
         protected void lnkGoBackAll_Click(object sender, EventArgs e)
@@ -1246,5 +1250,58 @@ namespace WealthERP.CustomerPortfolio
                 rgTaxRealized.DataSource = dt;
             }
         }
+
+
+        protected void rgHoldings_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = rgHoldings.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void rgAll_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = rgAll.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void rgRealized_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = rgRealized.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
     }
 }

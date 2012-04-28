@@ -58,12 +58,12 @@
             <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>
             <%--<asp:TextBox ID="txtPickDate" runat="server" CssClass="cmbField" Enabled="false"></asp:TextBox>--%>
         </td>
-        <td class="leftField" style="width: 10%">
+        <%--<td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR:" runat="server" CssClass="FieldName"> </asp:Label>
         </td>
         <td class="rightField" style="width: 15%">
             <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
-        </td>
+        </td>--%>
     </tr>
 </table>
 <table class="TableBackground" width="100%">
@@ -81,7 +81,7 @@
                 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
                     EnableEmbeddedSkins="false" Width="100%" MultiPageID="ReturnsTabs" SelectedIndex="0"
                     EnableViewState="true">
-                    <Tabs>
+                    <tabs>
                         <telerik:RadTab runat="server" Text="Holdings" Value="Holdings" TabIndex="0">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="All" Value="All" TabIndex="1">
@@ -91,219 +91,261 @@
                         <telerik:RadTab runat="server" Text="Performance and Analysis" Value="Performance and Analysis"
                             TabIndex="3">
                         </telerik:RadTab>
-                    </Tabs>
+                    </tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="ReturnsTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
-                        <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%"
-                            ScrollBars="Horizontal">
-                            <table id="tblHoldings" runat="server" width="99%">
-                                <tr>
-                                    <td>
-                                        <div id="dvHoldings" runat="server">
-                                            <asp:Label ID="lblMessageHoldings" Visible="false" Text="No Record Exists" runat="server"
-                                                CssClass="Field"></asp:Label>
-                                            <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
-                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgHoldings" runat="server" Width="100%" PageSize="10"
-                                            AllowAutomaticDeletes="false" ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false" 
-                                            HorizontalAlign="NotSet" AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="false"
-                                            Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" ShowStatusBar="true"
-                                            OnItemCommand="rgHoldings_ItemCommand" EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                               <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                </ExportSettings>
-                                                <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                        <%--  <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="78%"
+                            ScrollBars="Horizontal">--%>
+                        <table id="tblHoldings" runat="server" width="99%">
+                            <tr>
+                                <td>
+                                    <div id="dvHoldings" runat="server" style="width: 70%; overflow: scroll;">
+                                        <asp:Label ID="lblMessageHoldings" Visible="false" Text="No Record Exists" runat="server"
+                                            CssClass="Field"></asp:Label>
+                                        <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
+                                            Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
+                                        <telerik:RadGrid ID="rgHoldings" runat="server" Width="100%" PageSize="10" AllowAutomaticDeletes="false"
+                                            ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+                                            HorizontalAlign="NotSet" AllowPaging="true" ShowGroupPanel="true" GridLines="None"
+                                            AutoGenerateColumns="false" Style="border: 0; outline: none;" Skin="Telerik"
+                                            EnableEmbeddedSkins="false" ShowStatusBar="true" OnItemCommand="rgHoldings_ItemCommand"
+                                            EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
+                                            <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
+                                            <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true">
+                                                </exportsettings>
+                                            <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
+                                                autogeneratecolumns="false" commanditemdisplay="Top">
+                                                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                                        ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            FooterText="Total:" FooterStyle-HorizontalAlign="Left" AllowFiltering="false" >
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn UniqueName="Scheme" HeaderText="Scheme" Groupable="False"
-                                                            ItemStyle-Wrap="false">
+                                                        <telerik:GridTemplateColumn UniqueName="Scheme" HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="false">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
-                                                            DataField="PurchasedUnits">
+                                                        <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units" DataField="PurchasedUnits" AllowFiltering="false"  DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits">
+                                                        <telerik:GridBoundColumn UniqueName="DVRUnits" HeaderText="DVR Units" DataField="DVRUnits" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits">
+                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost" DataFormatString="{0:n2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV">
+                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue">
+                                                        <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP">
+                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL" DataFormatString="{0:n2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return"
-                                                            DataField="AbsoluteReturn">
+                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)" DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR" DataField="XIRR">
+                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
-                                                </MasterTableView>
-                                            </telerik:RadGrid>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </asp:Panel>
+                                                </mastertableview>
+                                        </telerik:RadGrid>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <%-- </asp:Panel>--%>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
-                        <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                            <table id="tblAll" runat="server" width="99%">
+                        <div style="width: 65%; overflow: scroll;">
+                            <%-- <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
+                            <table width="100%">
+                                <tr align="left">
+                                    <td style="width: 15%;">
+                                        <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR(%):" runat="server" CssClass="FieldName"> </asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table id="tblAll" runat="server" width="100%">
                                 <tr>
                                     <td>
-                                        <div id="dvAll" runat="server">
-                                            <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
-                                                CssClass="Field"></asp:Label>
-                                            <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
-                                                CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgAll" runat="server" Width="100%" PageSize="10"
-                                                AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
-                                                Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgAll_ItemCommand" EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                </ExportSettings>
-                                                <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                                        <%--<div id="dvAll" runat="server" style="overflow: scroll">--%>
+                                        <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
+                                            CssClass="Field"></asp:Label>
+                                        <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
+                                            CssClass="FieldName">Go Back</asp:LinkButton>
+                                        <telerik:RadGrid ID="rgAll" runat="server" Width="98%" PageSize="10" AllowPaging="True"
+                                            ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
+                                            outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgAll_ItemCommand"
+                                            EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource" AllowFilteringByColumn="true">
+                                            <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
+                                            <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true">
+                                                </exportsettings>
+                                            <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
+                                                autogeneratecolumns="false" commanditemdisplay="Top">
+                                                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                                        ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
-                                                            ItemStyle-Wrap="false">
+                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="false">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
+                                                        </telerik:GridBoundColumn>
+                                                        
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Price" HeaderText="Price" DataField="Price">
+                                                        <telerik:GridBoundColumn UniqueName="Price" HeaderText="Price" DataField="Price"   DataFormatString="{0:N0}" Aggregate="Sum" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost">
+                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost"  DataField="InvestedCost" DataFormatString="{0:N0}" Aggregate="Sum" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits">
+                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits"    DataFormatString="{0:N0}" Aggregate="Sum" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV">
+                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV"   DataFormatString="{0:N0}" Aggregate="Sum"  AllowFiltering="false" >
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue">
+                                                        <telerik:GridBoundColumn UniqueName="CurrentValue"  HeaderText="Current Value" DataField="CurrentValue"   DataFormatString="{0:N0}" Aggregate="Sum"  AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold">
+                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"  DataFormatString="{0:N0}" Aggregate="Sum"  AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
-                                                            DataField="RedeemedAmount">
+                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount" DataField="RedeemedAmount"  AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP">
+                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP"  AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL"  DataFormatString="{0:N0}" Aggregate="Sum"  AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return"
-                                                            DataField="AbsoluteReturn">
+                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)" DataField="AbsoluteReturn" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVR" HeaderText="DVR" DataField="DVR">
+                                                        <telerik:GridBoundColumn UniqueName="DVR" HeaderText="DVR" DataField="DVR"  DataFormatString="{0:N0}" Aggregate="Sum" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR" DataField="XIRR">
+                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR" AllowFiltering="false">
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
-                                                            DataField="TotalDividends">
+                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends" DataField="TotalDividends"  DataFormatString="{0:N0}" Aggregate="Sum" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
-                                                </MasterTableView>
-                                            </telerik:RadGrid>
-                                        </div>
+                                                </mastertableview>
+                                        </telerik:RadGrid>
+                                        <%-- </div>--%>
                                     </td>
                                 </tr>
                             </table>
-                        </asp:Panel>
+                            <%-- </asp:Panel>--%>
+                        </div>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
-                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%"
-                            ScrollBars="Horizontal">
-                            <table id="tblRealized" runat="server" width="99%">
-                                <tr>
-                                    <td>
-                                        <div id="dvRealized" runat="server">
-                                            <asp:Label ID="lblMessageRealized" Visible="false" Text="No Record Exists" runat="server"
-                                                CssClass="Field"></asp:Label>
-                                            <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
-                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgRealized" runat="server" Width="100%" PageSize="10"
-                                                AllowPaging="True" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
-                                                Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgRealized_ItemCommand" EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                </ExportSettings>
-                                                <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                        <%--  <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%"
+                            ScrollBars="Horizontal">--%>
+                        <table id="tblRealized" runat="server" width="99%">
+                            <tr>
+                                <td>
+                                    <div id="dvRealized" runat="server" style="width: 75%; overflow: scroll;">
+                                        <asp:Label ID="lblMessageRealized" Visible="false" Text="No Record Exists" runat="server"
+                                            CssClass="Field"></asp:Label>
+                                        <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
+                                            Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
+                                        <telerik:RadGrid ID="rgRealized" runat="server" Width="100%" PageSize="10" AllowPaging="True"
+                                            ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
+                                            outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgRealized_ItemCommand"
+                                            EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource" AllowFilteringByColumn="true">
+                                            <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
+                                            <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true">
+                                                </exportsettings>
+                                            <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
+                                                autogeneratecolumns="false" commanditemdisplay="Top">
+                                                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                                        ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
-                                                        </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
-                                                            ItemStyle-Wrap="false">
+                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="false">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
-                                                        </telerik:GridTemplateColumn>
+                                                        </telerik:GridTemplateColumn>                                                        
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost">
+                                                        <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold">
+                                                        <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
-                                                            DataField="RedeemedAmount">
+                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount" DataField="RedeemedAmount" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP">
+                                                        <telerik:GridBoundColumn UniqueName="DVP" HeaderText="DVP" DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
-                                                            DataField="TotalDividends">
+                                                        <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends" DataField="TotalDividends" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                         <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return"
-                                                            DataField="AbsoluteReturn">
+                                                        <telerik:GridBoundColumn UniqueName="AbsoluteReturn" HeaderText="Absolute Return(%)" DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR" DataField="XIRR">
+                                                        <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" >
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
-                                                </MasterTableView>
-                                            </telerik:RadGrid>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </asp:Panel>
+                                                </mastertableview>
+                                        </telerik:RadGrid>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <%-- </asp:Panel>--%>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPandATabPage" runat="server">
                         <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
@@ -342,12 +384,12 @@
                 <telerik:RadTabStrip ID="RadTabStrip2" runat="server" EnableTheming="True" Skin="Telerik"
                     EnableEmbeddedSkins="False" Width="100%" MultiPageID="TaxTabs" SelectedIndex="0"
                     EnableViewState="true">
-                    <Tabs>
+                    <tabs>
                         <telerik:RadTab runat="server" Text="Holdings" Value="Holdings" TabIndex="0">
                         </telerik:RadTab>
                         <telerik:RadTab runat="server" Text="Realized" Value="Realized" TabIndex="1">
                         </telerik:RadTab>
-                    </Tabs>
+                    </tabs>
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="TaxTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="TaxHoldingsTabPage" runat="server">
@@ -360,49 +402,56 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="100%" PageSize="10"
-                                                AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
-                                                Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgTaxHoldings_ItemCommand" EnableViewState="true" OnNeedDataSource="rgTaxHoldings_OnNeedDataSource">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                </ExportSettings>
-                                                <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="100%" PageSize="10" AllowPaging="true"
+                                                ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
+                                                outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxHoldings_ItemCommand"
+                                                EnableViewState="true" OnNeedDataSource="rgTaxHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
+                                                <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
+                                                <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true">
+                                                </exportsettings>
+                                                <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
+                                                    autogeneratecolumns="false" commanditemdisplay="Top">
+                                                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                                        ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
-                                                            ItemStyle-Wrap="false">
+                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="false">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits">
+                                                        <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Open Units" DataField="OpenUnits" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Invested Cost" DataField="BalanceAmount">
+                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Invested Cost" DataField="BalanceAmount" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV">
+                                                        <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue">
+                                                        <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="UnrealizedPL" HeaderText="PL" DataField="UnrealizedPL">
+                                                        <telerik:GridBoundColumn UniqueName="UnrealizedPL" HeaderText="PL" DataField="UnrealizedPL" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="EligibleSTCG" HeaderText="Eligible STCG" DataField="EligibleSTCG">
+                                                        <telerik:GridBoundColumn UniqueName="EligibleSTCG" HeaderText="Eligible STCG" DataField="EligibleSTCG" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="EligibleLTCG" HeaderText="Eligible LTCG" DataField="EligibleLTCG">
+                                                        <telerik:GridBoundColumn UniqueName="EligibleLTCG" HeaderText="Eligible LTCG" DataField="EligibleLTCG" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
-                                                </MasterTableView>
+                                                </mastertableview>
                                             </telerik:RadGrid>
                                         </div>
                                     </td>
@@ -420,47 +469,50 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="100%" PageSize="10"
-                                                AllowPaging="true" ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true"
-                                                Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                OnItemCommand="rgTaxRealized_ItemCommand" EnableViewState="true" OnNeedDataSource="rgTaxRealized_OnNeedDataSource">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
-                                                </ExportSettings>
-                                                <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
-                                                AutoGenerateColumns="false" CommandItemDisplay="Top">
-                                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="100%" PageSize="10" AllowPaging="true"
+                                                ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
+                                                outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxRealized_ItemCommand"
+                                                EnableViewState="true" OnNeedDataSource="rgTaxRealized_OnNeedDataSource" AllowFilteringByColumn="true">
+                                                <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
+                                                <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true">
+                                                </exportsettings>
+                                                <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
+                                                    autogeneratecolumns="false" commanditemdisplay="Top">
+                                                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                                        ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName">
+                                                        <telerik:GridBoundColumn UniqueName="SubCategoryName" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="false">
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
-                                                            ItemStyle-Wrap="false">
+                                                        <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False" ItemStyle-Wrap="false" AllowFiltering="false">
                                                             <ItemTemplate>
                                                                 <asp:LinkButton ID="lnkScheme" runat="server" Text='<%# Eval("Scheme").ToString() %>'
                                                                     CommandName="NavigateToMarketData"></asp:LinkButton>
                                                             </ItemTemplate>
                                                         </telerik:GridTemplateColumn>
-                                                        <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum">
+                                                        <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio No." DataField="FolioNum" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="AcquisitionCost" HeaderText="Acquisition Cost"
-                                                            DataField="AcquisitionCost">
+                                                        <telerik:GridBoundColumn UniqueName="AcquisitionCost" HeaderText="Acquisition Cost" DataField="AcquisitionCost" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
-                                                            DataField="RedeemedAmount">
+                                                        <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount" DataField="RedeemedAmount" AllowFiltering="false"> 
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL">
+                                                        <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total PL" DataField="TotalPL" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="STCG" HeaderText="STCG" DataField="STCG">
+                                                        <telerik:GridBoundColumn UniqueName="STCG" HeaderText="STCG" DataField="STCG" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="LTCG" HeaderText="LTCG" DataField="LTCG">
+                                                        <telerik:GridBoundColumn UniqueName="LTCG" HeaderText="LTCG" DataField="LTCG" AllowFiltering="false">
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
-                                                </MasterTableView>
+                                                </mastertableview>
                                             </telerik:RadGrid>
                                         </div>
                                     </td>
@@ -501,8 +553,3 @@
         </td>
     </tr>
 </table>
-
-
-
-
-
