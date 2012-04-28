@@ -340,7 +340,7 @@ namespace BoValuation
                             case "BUY":
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
+                                drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
@@ -368,7 +368,7 @@ namespace BoValuation
                                 double dvrUnits = 0;
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"]);
+                                drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
 
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
@@ -601,7 +601,7 @@ namespace BoValuation
                                 DataTable dtmodifiedDetails = new DataTable();
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
+                                drTransactionDetails["CMFT_TransactionDate"] =DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
