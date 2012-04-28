@@ -186,7 +186,7 @@ namespace WealthERP.Admin
                                 }
                                 strGuid = Guid.NewGuid().ToString();
                                 string newFileName = SaveFileIntoServer(file, strGuid, strRepositoryPath);
-
+                                repoVo = new RepositoryVo();
                                 repoVo.AdviserId = advisorVo.advisorId;
                                 repoVo.CategoryCode = ddlRCategory.SelectedValue;
                                 repoVo.Description = txtDescription.Text.Trim();
@@ -253,6 +253,7 @@ namespace WealthERP.Admin
             repoVo = new RepositoryVo();
             bool blResult = false;
             bool blZeroBalance = false;
+            
             bool blFileSizeExceeded = false;
             repoVo = (RepositoryVo)Session[SessionContents.RepositoryVo];
 
