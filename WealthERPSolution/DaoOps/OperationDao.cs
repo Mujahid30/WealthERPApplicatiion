@@ -561,6 +561,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, operationVo.Units);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@units", DbType.Double, DBNull.Value);
+                db.AddInParameter(createMFOrderTrackingCmd, "@isApproved", DbType.Int16, operationVo.IsApproved);
                  db.ExecuteNonQuery(createMFOrderTrackingCmd);
 
                 bResult = true;
@@ -907,6 +908,8 @@ namespace DaoOps
                     db.AddInParameter(updateMFOrderTrackingCmd, "@units", DbType.Double, operationVo.Units);
                 else
                     db.AddInParameter(updateMFOrderTrackingCmd, "@units", DbType.Double, DBNull.Value);
+                db.AddInParameter(updateMFOrderTrackingCmd, "@isApproved", DbType.Int16, operationVo.IsApproved);
+
 
                 db.ExecuteNonQuery(updateMFOrderTrackingCmd);
 
