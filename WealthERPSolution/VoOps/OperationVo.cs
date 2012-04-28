@@ -51,6 +51,7 @@ namespace VoOps
         private DateTime m_StartDate;
         private DateTime m_EndDate;
         private string m_PanNo;
+        private int m_IsApproved;
 
        #endregion
 
@@ -268,7 +269,11 @@ namespace VoOps
             get { return m_PanNo; }
             set { m_PanNo = value; }
         }
-
+        public int IsApproved
+        {
+            get { return m_IsApproved; }
+            set { m_IsApproved = value; }
+        }
         #endregion
     }
 }
