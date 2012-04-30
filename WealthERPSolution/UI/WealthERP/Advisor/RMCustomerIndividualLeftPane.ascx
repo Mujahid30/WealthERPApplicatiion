@@ -102,7 +102,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Proof" Value="Proof">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="View/Upload Images" Value="View/Upload Images">
+                                            <telerik:RadPanelItem runat="server" Text="Vault Proof" Value="VaultProof">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

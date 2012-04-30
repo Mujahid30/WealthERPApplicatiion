@@ -952,7 +952,7 @@ namespace WealthERP.Advisor
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
                 }
-                else if (e.Item.Value == "View/Upload Images")
+                else if (e.Item.Value == "VaultProof")
                 {
                     Session.Remove("SessionSpecificProof");
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','none');", true);
@@ -1311,6 +1311,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString().ToLower() == "vault proof")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
                     }
                 }
