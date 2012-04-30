@@ -880,8 +880,7 @@ namespace WealthERP.Customer
             else
             {
                 repProofImages.DataSource = null;
-                radPOCProof.SelectedIndex = 0;
-                multiPageView.SelectedIndex = 0;
+                ChangeTelerikRadTab(0);
             }
         }
 
