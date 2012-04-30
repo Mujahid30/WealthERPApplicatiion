@@ -238,6 +238,10 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindReturnsGrid()
         {
+            string expressonHoldings = "";
+            string expressonRealized = "";
+            string expressonAll = "";
+
             SetTaxGridsNull();
             if (intPortfolioListCount == 0)
             {
@@ -246,6 +250,14 @@ namespace WealthERP.CustomerPortfolio
             }
             else
             {
+                //if (rgHoldings.Items != null)
+                //{
+                //    categoryType = hdnDdlCategorySelectedValue.Value;
+
+                //    if (categoryType == "Select")
+                //        categoryType = "";
+                //}
+
                 ReturnsLabelVisibility(false);
                 mfPortfolioNetPositionList = new List<MFPortfolioNetPositionVo>();
                 mfPortfolioNetPositionList = (List<MFPortfolioNetPositionVo>)Session["mfPortfolioList"];
@@ -285,22 +297,59 @@ namespace WealthERP.CustomerPortfolio
                     dtReturnsRealized.Rows.Add(drMFPortfolioRealized);
                 }
 
-                rgHoldings.DataSource = dtReturnsHoldings;
+                // Filter DAtatable
+                // Get DataRow Array
+                // Convert the array into another datatable
+                // Bind the datatabke to grid
+                //DataRow[] drCategory;
+                //drCategory = dtReturnsHoldings.Select(expresson);
+                if(hdnReturnsHoldingsCategory.Value == "")
+                    expressonHoldings = "OpenUnits > 0";
+                else
+                    expressonHoldings = "OpenUnits > 0 AND Category LIKE '%" + hdnReturnsHoldingsCategory.Value + "%'";
+
+                DataView dvReturnsHoldings = new DataView(dtReturnsHoldings, expressonHoldings, "", DataViewRowState.CurrentRows);
+
+                if (hdnReturnsRealizedCategory.Value == "")
+                    expressonRealized = "UnitsSold > 0";
+                else
+                    expressonRealized = "UnitsSold > 0 AND Category LIKE '%" + hdnReturnsRealizedCategory.Value + "%'";
+                DataView dvReturnsRealized = new DataView(dtReturnsRealized, expressonRealized, "", DataViewRowState.CurrentRows);
+
+                if (hdnReturnsAllCategory.Value != "")
+                    expressonAll = "Category LIKE '%" + hdnReturnsAllCategory.Value + "%'";
+                DataView dvReturnsAll = new DataView(dtReturnsAll, expressonAll, "", DataViewRowState.CurrentRows);
+                //dvCategory.Table = dtReturnsHoldings;
+                //dvCategory.RowFilter = "Category = categoryType";
+                //DataTable dtRet = new DataTable();
+                //dtRet = drCategory.CopyToDataTable();
+                //foreach (DataRow row in drCategory)
+                //{
+                //    dtReturnsHoldings.ImportRow(row);
+                //}
+
+                //DataRow[] drTaxRealized = 
+
+
+                rgHoldings.DataSource = dvReturnsHoldings.ToTable();
                 rgHoldings.DataBind();
-                ViewState["HoldingReturns"] = dtReturnsHoldings;
+                ViewState["HoldingReturns"] = dvReturnsHoldings.ToTable();
 
-                rgAll.DataSource = dtReturnsAll;
+                rgAll.DataSource = dvReturnsAll.ToTable();
                 rgAll.DataBind();
-                ViewState["AllReturns"] = dtReturnsAll;
+                ViewState["AllReturns"] = dvReturnsAll.ToTable();
 
-                rgRealized.DataSource = dtReturnsRealized;
+                rgRealized.DataSource = dvReturnsRealized.ToTable();
                 rgRealized.DataBind();
-                ViewState["RealizedReturns"] = dtReturnsRealized;
+                ViewState["RealizedReturns"] = dvReturnsRealized.ToTable();
             }
         }
 
         private void BindTaxGrid()
         {
+            string expressonTaxHoldings = "";
+            string expressonTaxRealized = "";
+
             SetReturnsGridsNull();
             if (intPortfolioListCount == 0)
             {
@@ -338,13 +387,27 @@ namespace WealthERP.CustomerPortfolio
                     dtTaxRealized.Rows.Add(drTaxRealized);
                 }
 
-                rgTaxHoldings.DataSource = dtTaxHoldings;
-                rgTaxHoldings.DataBind();
-                ViewState["TaxHoldings"] = dtTaxHoldings;
+                if (hdnTaxRealizedCategory.Value == "")
+                    expressonTaxRealized = "RedeemedAmount > 0.00";
+                else
+                    expressonTaxRealized = "RedeemedAmount > 0.00 AND Category LIKE '%" + hdnTaxRealizedCategory.Value + "%'";
 
-                rgTaxRealized.DataSource = dtTaxRealized;
+                DataView dvTaxRealized = new DataView(dtTaxRealized, expressonTaxRealized, "", DataViewRowState.CurrentRows);
+
+                if (hdnTaxHoldingsCategory.Value == "")
+                    expressonTaxHoldings = "OpenUnits > 0.00";
+                else
+                    expressonTaxHoldings = "OpenUnits > 0.00 AND Category LIKE '%" + hdnTaxHoldingsCategory.Value + "%'";
+
+                DataView dvTaxHoldings = new DataView(dtTaxHoldings, expressonTaxHoldings, "", DataViewRowState.CurrentRows);
+
+                rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
+                rgTaxHoldings.DataBind();
+                ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
+
+                rgTaxRealized.DataSource = dvTaxRealized.ToTable();
                 rgTaxRealized.DataBind();
-                ViewState["TaxRealized"] = dtTaxRealized;
+                ViewState["TaxRealized"] = dvTaxRealized.ToTable();
             }
         }
 
@@ -666,7 +729,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("MFNPId");
             dtReturnsHoldings.Columns.Add("AccountId");
             dtReturnsHoldings.Columns.Add("Category");
-            dtReturnsHoldings.Columns.Add("Scheme");
+            dtReturnsHoldings.Columns.Add("Scheme", typeof(string));
             dtReturnsHoldings.Columns.Add("FolioNum");
             dtReturnsHoldings.Columns.Add("PurchasedUnits", typeof(double));
             dtReturnsHoldings.Columns.Add("DVRUnits", typeof(double));
@@ -1303,5 +1366,83 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        //protected void rgHoldings_ItemDataBound(object sender, GridItemEventArgs e)
+        //{
+        //    if (e.Item is GridHeaderItem)
+        //    {
+        //        GridHeaderItem item = e.Item as GridHeaderItem;
+        //        DropDownList DropdownCategory = (DropDownList)item.FindControl("ddlCategory");                
+        //    }
+        //}
+
+        //private void BindCategoryDDL(DropDownList ddl)
+        //{
+        //    List<string> transTypeList = (List<string>)ViewState["trntypelist"];
+
+        //    //ddl.Items.Add(new ListItem("Select", "Select"));
+        //    if (ddl.SelectedValue == "MFEQ")
+        //    {
+        //        hdnDdlCategorySelectedValue.Value = ddl.SelectedValue;
+        //    }
+        //    if (hdnDdlCategorySelectedValue.Value != "")
+        //        ddl.SelectedValue = hdnDdlCategorySelectedValue.Value;
+        //    else
+        //        ddl.SelectedValue = "Select";
+        //}
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {    
+            GridHeaderItem headerItem = rgHoldings.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlCategory") as DropDownList;
+            if (ddl != null)
+            {
+                hdnReturnsHoldingsCategory.Value = ddl.SelectedItem.ToString();
+            }
+            BindReturnsGrid();
+        }
+
+        protected void ddlRealizedCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridHeaderItem headerItem = rgRealized.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlRealizedCategory") as DropDownList;
+            if (ddl != null)
+            {
+                hdnReturnsRealizedCategory.Value = ddl.SelectedItem.ToString();
+            }
+            BindReturnsGrid();
+        }
+
+        protected void ddlAllCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridHeaderItem headerItem = rgAll.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlAllCategory") as DropDownList;
+            if (ddl != null)
+            {
+                hdnReturnsAllCategory.Value = ddl.SelectedItem.ToString();
+            }
+            BindReturnsGrid();
+        }
+
+        protected void ddlTaxHoldingsCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridHeaderItem headerItem = rgTaxHoldings.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlTaxHoldingsCategory") as DropDownList;
+            if (ddl != null)
+            {
+                hdnTaxHoldingsCategory.Value = ddl.SelectedItem.ToString();
+            }
+            BindTaxGrid();
+        }
+
+        protected void ddlTaxRealizedCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridHeaderItem headerItem = rgTaxRealized.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
+            DropDownList ddl = headerItem.FindControl("ddlTaxRealizedCategory") as DropDownList;
+            if (ddl != null)
+            {
+                hdnTaxRealizedCategory.Value = ddl.SelectedItem.ToString();
+            }
+            BindTaxGrid();
+        }
     }
 }
