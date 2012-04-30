@@ -82,11 +82,6 @@ namespace WealthERP.Customer
                 btnDelete.Visible = false;
                 lblFileUploaded.Visible = false;
             }
-
-            //if (Session[Constants.SessionSpecificProof.ToString()] != null)
-            //{
-            //    BindEditFields();
-            //}
         }
 
         private void BindEditFields()
