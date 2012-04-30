@@ -237,6 +237,7 @@ namespace WealthERP.Admin
         {
             bool blResult = false;
             // If the upload type is link 
+            repoVo = new RepositoryVo();
             repoVo.AdviserId = advisorVo.advisorId;
             repoVo.CategoryCode = ddlRCategory.SelectedValue;
             repoVo.Description = txtDescription.Text.Trim();
