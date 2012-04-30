@@ -122,6 +122,15 @@ namespace WealthERP.Customer {
         protected global::Telerik.Web.UI.RadUpload radUploadProof;
         
         /// <summary>
+        /// Customvalidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator Customvalidator1;
+        
+        /// <summary>
         /// lblFileUploaded control.
         /// </summary>
         /// <remarks>
@@ -156,15 +165,6 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDelete;
-        
-        /// <summary>
-        /// Customvalidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator Customvalidator1;
         
         /// <summary>
         /// pageProofView control.

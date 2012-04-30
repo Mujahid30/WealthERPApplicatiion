@@ -219,6 +219,9 @@
                         <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
                             AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="false">
                         </telerik:RadUpload>
+                        <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true"
+                            Font-Size="X-Small" ErrorMessage="Empty / Invalid File..!!!" ForeColor="Red"
+                            runat="server" Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>
                         <asp:Label ID="lblFileUploaded" runat="server" CssClass="cmbField" Text=""></asp:Label>
                     </td>
                 </tr>
@@ -238,15 +241,13 @@
                         <asp:Button ID="btnDelete" runat="server" CssClass="PCGButton" Text="Delete" OnClick="btnDelete_Click" />
                     </td>
                 </tr>
-                <tr>
+                <%--<tr>
                     <td>
                     </td>
                     <td>
-                        <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true"
-                            Font-Size="X-Small" ErrorMessage="Empty / Invalid File..!!!" ForeColor="Red"
-                            runat="server" Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>
+                        
                     </td>
-                </tr>
+                </tr>--%>
             </table>
         </asp:Panel>
     </telerik:RadPageView>
@@ -281,8 +282,8 @@
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
                                             Proof
                                         </th>
-                                        <td>
-                                        </td>
+                                        <%--<td>
+                                        </td>--%>
                                         <td>
                                         </td>
                                         <td>
@@ -304,10 +305,10 @@
                                         id="tdProofImages">
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
-                                    <td align="center">
+                                    <%--<td align="center">
                                         <asp:LinkButton ID="lnkMail" PostBackUrl="~/Reports/Display.aspx?mail=2" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
-                                    </td>
+                                    </td>--%>
                                     <td align="center">
                                         <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>

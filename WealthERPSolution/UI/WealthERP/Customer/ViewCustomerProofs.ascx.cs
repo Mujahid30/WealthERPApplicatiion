@@ -76,16 +76,17 @@ namespace WealthERP.Customer
             {
                 BindProofTypeDP();
                 BindProofCopy();
-                
+                // Only on initial page load bind a default select text to Proof dropdown as it gets bound only on Proof Type value
+                ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
                 LoadImages();
                 btnDelete.Visible = false;
                 lblFileUploaded.Visible = false;
             }
 
-            if (Session[Constants.SessionSpecificProof.ToString()] != null)
-            {
-                BindEditFields();
-            }
+            //if (Session[Constants.SessionSpecificProof.ToString()] != null)
+            //{
+            //    BindEditFields();
+            //}
         }
 
         private void BindEditFields()
@@ -142,7 +143,7 @@ namespace WealthERP.Customer
                 string strMsg = ex.Message;
                 Session.Remove(Constants.SessionSpecificProof.ToString());
             }
-            
+
             btnSubmit.Text = Constants.Update.ToString();
             btnDelete.Visible = true;
             btnSubmitAdd.Visible = false;
@@ -165,6 +166,21 @@ namespace WealthERP.Customer
         }
 
         #endregion
+
+        private void BindProofTypeDP()
+        {
+            DataTable dtDpProofTypes = new DataTable();
+            dtDpProofTypes = customerBo.GetCustomerProofTypes();
+
+            if (dtDpProofTypes.Rows.Count > 0)
+            {
+                ddlProofType.DataSource = dtDpProofTypes;
+                ddlProofType.DataValueField = dtDpProofTypes.Columns["XPRT_ProofTypeCode"].ToString();
+                ddlProofType.DataTextField = dtDpProofTypes.Columns["XPRT_ProofType"].ToString();
+                ddlProofType.DataBind();
+            }
+            ddlProofType.Items.Insert(0, new ListItem("Select", "Select"));
+        }
 
         private void BindProofCopy()
         {
@@ -196,31 +212,6 @@ namespace WealthERP.Customer
         //    }
         //}
 
-        private void BindProofTypeDP()
-        {
-            DataTable dtDpProofTypes = new DataTable();
-            dtDpProofTypes = customerBo.GetCustomerProofTypes();
-
-            if (dtDpProofTypes.Rows.Count > 0)
-            {
-                ddlProofType.DataSource = dtDpProofTypes;
-                ddlProofType.DataValueField = dtDpProofTypes.Columns["XPRT_ProofTypeCode"].ToString();
-                ddlProofType.DataTextField = dtDpProofTypes.Columns["XPRT_ProofType"].ToString();
-                ddlProofType.DataBind();
-            }
-            if (Session["Button"] == "Submit & Add More")
-            {
-                ddlProofType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                ddlProof.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-            }
-            if (!IsPostBack)
-            {
-                ddlProofType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-                ddlProof.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
-
-            }
-        }
-
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
             DataTable dtDpProofsForTypes = new DataTable();
@@ -228,9 +219,9 @@ namespace WealthERP.Customer
                 dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(Convert.ToInt32(ddlProofType.SelectedValue));
 
             ddlProof.Items.Clear();
+            ddlProof.SelectedValue = null;
             if (dtDpProofsForTypes.Rows.Count > 0)
             {
-
                 ddlProof.DataSource = dtDpProofsForTypes;
                 ddlProof.DataValueField = dtDpProofsForTypes.Columns["XP_ProofCode"].ToString();
                 ddlProof.DataTextField = dtDpProofsForTypes.Columns["XP_ProofName"].ToString();
@@ -901,9 +892,11 @@ namespace WealthERP.Customer
 
         private void ResetControls()
         {
+            BindProofTypeDP();
+            BindProofCopy();
             ddlProofType.SelectedIndex = 0;
-            ddlProof.SelectedIndex = 0;
             ddlProofCopyType.SelectedIndex = 0;
+            ddlProof.SelectedIndex = 0;
             lblFileUploaded.Visible = false;
             lblFileUploaded.Text = String.Empty;
         }
@@ -917,7 +910,7 @@ namespace WealthERP.Customer
             DataTable dtPurposes = new DataTable();
             string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
             Session["ImagePath"] = imageAttachmentPath;
-            
+
             if (e.CommandName == "Send Mail")
             {
                 SendMail(imageAttachmentPath);
