@@ -125,17 +125,17 @@
                     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
                     <Columns>
-                        <telerik:GridBoundColumn UniqueName="MISType" DataField="AccountId" AllowFiltering="false"
+                        <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="false"
                             HeaderText="">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Tot" AllowFiltering="false"
+                        <telerik:GridBoundColumn UniqueName="BrokerageAmt"  DataField="Tot" AllowFiltering="false"
                             HeaderText="Brokerage Amount">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="TrailCommission" DataField="trail" AllowFiltering="false"
                             HeaderText="Trail Commission">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
