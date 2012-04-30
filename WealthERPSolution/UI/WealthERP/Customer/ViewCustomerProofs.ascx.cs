@@ -517,6 +517,8 @@ namespace WealthERP.Customer
                 Session.Remove("ImagePath");
                 Session.Remove(Constants.SessionSpecificProof.ToString());
                 ResetControls();
+                // Change the tab
+                ChangeTelerikRadTab(1);
                 LoadImages();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Proof updated successfully!');", true);
             }
@@ -932,8 +934,7 @@ namespace WealthERP.Customer
             else if (e.CommandName == "Edit proof")
             {
                 Session[Constants.SessionSpecificProof.ToString()] = dtGetPerticularProofs;
-                radPOCProof.SelectedIndex = 0;
-                multiPageView.SelectedIndex = 0;
+                ChangeTelerikRadTab(0);
                 BindEditFields();
             }
 
@@ -1097,7 +1098,12 @@ namespace WealthERP.Customer
 
         protected void repProofImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-
+            if (customerVo.Email.Trim().Equals(String.Empty))
+            {
+                LinkButton lnkBtn = (LinkButton)e.Item.FindControl("lnkMail");
+                if (lnkBtn != null)
+                    lnkBtn.Enabled = false;
+            }
         }
 
         protected string LoadControls(string extension, string proofPath, string fileName)
@@ -1143,6 +1149,12 @@ namespace WealthERP.Customer
             exBase.AdditionalInformation = FunctionInfo;
             ExceptionManager.Publish(exBase);
             throw exBase;
+        }
+
+        private void ChangeTelerikRadTab(int intIndex)
+        {
+            radPOCProof.SelectedIndex = intIndex;
+            multiPageView.SelectedIndex = radPOCProof.SelectedTab.Index;
         }
 
     }

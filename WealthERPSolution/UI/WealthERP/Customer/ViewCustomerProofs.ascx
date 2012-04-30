@@ -282,8 +282,8 @@
                                         <th align="center" style="text-decoration: underline" class="HeaderText">
                                             Proof
                                         </th>
-                                        <%--<td>
-                                        </td>--%>
+                                        <td>
+                                        </td>
                                         <td>
                                         </td>
                                         <td>
@@ -305,10 +305,10 @@
                                         id="tdProofImages">
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>
                                     </td>
-                                    <%--<td align="center">
-                                        <asp:LinkButton ID="lnkMail" PostBackUrl="~/Reports/Display.aspx?mail=2" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
+                                    <td align="center">
+                                        <asp:LinkButton ID="lnkMail" runat="server" CssClass="LinkButtons" CommandName="Send Mail"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Send Email"></asp:LinkButton>
-                                    </td>--%>
+                                    </td>
                                     <td align="center">
                                         <asp:LinkButton ID="lnkEdit" runat="server" CssClass="LinkButtons" CommandName="Edit proof"
                                             CommandArgument='<%# Eval("ProofUploadId") %>' Text="Edit / Delete"></asp:LinkButton>
