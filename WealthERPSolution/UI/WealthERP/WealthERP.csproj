@@ -1877,6 +1877,13 @@
     <Compile Include="Customer\CustomerProofsAdd.ascx.designer.cs">
       <DependentUpon>CustomerProofsAdd.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerProofView.ascx.cs">
+      <DependentUpon>CustomerProofView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerProofView.ascx.designer.cs">
+      <DependentUpon>CustomerProofView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerType.ascx.cs">
       <DependentUpon>CustomerType.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5478,6 +5485,7 @@
     <Content Include="Customer\CustomerAssumptionsPreferencesSetup.ascx" />
     <Content Include="Customer\CustomerExpense.ascx" />
     <Content Include="Customer\CustomerIncome.ascx" />
+    <Content Include="Customer\CustomerProofView.ascx" />
     <Content Include="Customer\DematAccountDetails.ascx" />
     <Content Include="Customer\GroupAccountSetup.ascx" />
     <Content Include="Emails\SentFolder\sujisays%40gmail.com634110045873983697.html" />
