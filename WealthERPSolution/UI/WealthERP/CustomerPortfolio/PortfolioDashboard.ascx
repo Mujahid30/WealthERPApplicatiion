@@ -232,7 +232,7 @@
                     <Columns>
                         <asp:BoundField DataField="SchemeType" HeaderText="Scheme Type"  />
                         <asp:BoundField DataField="Scheme" HeaderText="Scheme"/>
-                        <asp:BoundField DataField="AmortisedCost" HeaderText="Amortised Cost (Rs)" 
+                        <asp:BoundField DataField="AmortisedCost" HeaderText="Invested Cost (Rs)" 
                             ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" HtmlEncode="false" />
                         <asp:BoundField DataField="CurrentValue" HeaderText="Current Value (Rs)" 
                             ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" HtmlEncode="false" />
