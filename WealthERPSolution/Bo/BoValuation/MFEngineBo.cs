@@ -194,7 +194,10 @@ namespace BoValuation
 
                                     dsTransactionBalanceReadyToProcess.Tables[0].TableName = "Transaction";
 
+                                    //if (commonId == 227617)
+                                    //{
 
+                                    //}
 
                                     if (dsTransactionBalanceReadyToProcess.Tables["Transaction"].Rows.Count > 0)
                                         dtMFTransactionProcessedBalance = TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
@@ -558,7 +561,7 @@ namespace BoValuation
 
                                 dtTransactionDetails.DefaultView.RowFilter = expression;
                                 dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-                                if (dtDefaultView.Rows.Count > 1)
+                                if (dtDefaultView.Rows.Count > 0)
                                 {
                                     double sum = 0;
                                     int count1 = 0;
@@ -584,7 +587,7 @@ namespace BoValuation
                                                 dr1["CMFTB_InsertUpdate_Flag"] = 2;
                                             }
                                             if (dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR" || dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY")
-                                                dr1["CMFTB_DivPayout"] = (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount;
+                                                dr1["CMFTB_DivPayout"] = double.Parse(dr1["CMFTB_DivPayout"].ToString())+(double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount;
                                             //costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
 
 
@@ -878,6 +881,10 @@ namespace BoValuation
                             DataSet dsMFTransactionBalanceAndSellPair = new DataSet();
                             DataTable dtMFAccountSchemeNetPosition = new DataTable();
                             dsMFTransactionBalanceAndSellPair = mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId, schemePlanCode, valuationDate);
+                            //if (commonId == 227617)
+                            //{
+
+                            //}
                             dtMFAccountSchemeNetPosition = CreateMFNetPositionDataTable(dsMFTransactionBalanceAndSellPair, valuationDate);
                             if (dtMFAccountSchemeNetPosition.Rows.Count > 0)
                                 dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
