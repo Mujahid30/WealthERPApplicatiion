@@ -34,7 +34,7 @@ namespace VoCustomerPortfolio
         private float m_PurchaseValue;
         private DateTime m_PurchaseDate;
         private DateTime m_MaturityDate;
-        private float m_MaturityValue;
+        private double m_MaturityValue;
         private int m_IsInterestAccumulated;
         private double m_CurrentPrice;
         private double m_CurrentValue;
@@ -178,7 +178,7 @@ namespace VoCustomerPortfolio
             get { return m_MaturityDate; }
             set { m_MaturityDate = value; }
         }
-        public float MaturityValue
+        public double MaturityValue
         {
             get { return m_MaturityValue; }
             set { m_MaturityValue = value; }
