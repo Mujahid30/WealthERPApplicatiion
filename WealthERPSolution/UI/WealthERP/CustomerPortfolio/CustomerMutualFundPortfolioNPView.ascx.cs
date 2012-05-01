@@ -472,13 +472,13 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioAll[3] = mfVo.SchemePlan;
             drMFPortfolioAll[4] = mfVo.FolioNumber;
 
-            if (mfVo.ReturnsAllPrice != 0)
-                drMFPortfolioAll[5] = mfVo.ReturnsAllPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsHoldPurchaseUnit != 0)
+                drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[5] = "0.00";
 
-            if (mfVo.InvestedCost != 0)
-                drMFPortfolioAll[6] = mfVo.InvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsHoldDVRUnits != 0)
+                drMFPortfolioAll[6] = mfVo.ReturnsHoldDVRUnits.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[6] = "0.00";
 
@@ -487,59 +487,69 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioAll[7] = "0.00";
 
-            if (mfVo.MarketPrice != 0)
-                drMFPortfolioAll[8] = mfVo.MarketPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsAllPrice != 0)
+                drMFPortfolioAll[8] = mfVo.ReturnsAllPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[8] = "0.00";
 
-            if (mfVo.CurrentValue != 0)
-                drMFPortfolioAll[9] = mfVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.InvestedCost != 0)
+                drMFPortfolioAll[9] = mfVo.InvestedCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[9] = "0.00";
 
-            if (mfVo.SalesQuantity != 0)
-                drMFPortfolioAll[10] = mfVo.SalesQuantity.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.MarketPrice != 0)
+                drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[10] = "0.00";
 
-            if (mfVo.RedeemedAmount != 0)
-                drMFPortfolioAll[11] = mfVo.RedeemedAmount.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.CurrentValue != 0)
+                drMFPortfolioAll[11] = mfVo.CurrentValue.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[11] = "0.00";
 
-            if (mfVo.ReturnsAllDVPAmt != 0)
-                drMFPortfolioAll[12] = mfVo.ReturnsAllDVPAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.SalesQuantity != 0)
+                drMFPortfolioAll[12] = mfVo.SalesQuantity.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[12] = "0.00";
 
-            if (mfVo.ReturnsAllTotalPL != 0)
-                drMFPortfolioAll[13] = mfVo.ReturnsAllTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.RedeemedAmount != 0)
+                drMFPortfolioAll[13] = mfVo.RedeemedAmount.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[13] = "0.00";
 
-            if (mfVo.ReturnsAllAbsReturn != 0)
-                drMFPortfolioAll[14] = mfVo.ReturnsAllAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsAllDVPAmt != 0)
+                drMFPortfolioAll[14] = mfVo.ReturnsAllDVPAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[14] = "0.00";
 
-            if (mfVo.ReturnsAllDVRAmt != 0)
-                drMFPortfolioAll[15] = mfVo.ReturnsAllDVRAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsAllTotalPL != 0)
+                drMFPortfolioAll[15] = mfVo.ReturnsAllTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[15] = "0.00";
 
-            if (mfVo.ReturnsAllTotalXIRR != 0)
-                drMFPortfolioAll[16] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsAllAbsReturn != 0)
+                drMFPortfolioAll[16] = mfVo.ReturnsAllAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[16] = "0.00";
 
-            if (mfVo.ReturnsAllTotalDividends != 0)
-                drMFPortfolioAll[17] = mfVo.ReturnsAllTotalDividends.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            if (mfVo.ReturnsAllDVRAmt != 0)
+                drMFPortfolioAll[17] = mfVo.ReturnsAllDVRAmt.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioAll[17] = "0.00";
 
-            drMFPortfolioAll[18] = mfVo.AMCCode;
-            drMFPortfolioAll[19] = mfVo.SchemePlanCode;
-            drMFPortfolioAll[20] = mfVo.AssetInstrumentSubCategoryName;
+            if (mfVo.ReturnsAllTotalXIRR != 0)
+                drMFPortfolioAll[18] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            else
+                drMFPortfolioAll[18] = "0.00";
+
+            if (mfVo.ReturnsAllTotalDividends != 0)
+                drMFPortfolioAll[19] = mfVo.ReturnsAllTotalDividends.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            else
+                drMFPortfolioAll[19] = "0.00";
+
+            drMFPortfolioAll[20] = mfVo.AMCCode;
+            drMFPortfolioAll[21] = mfVo.SchemePlanCode;
+            drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;            
         }
 
         private static void PopulateReturnsHoldDataTable(MFPortfolioNetPositionVo mfVo, DataRow drMFPortfolioHoldings)
@@ -691,6 +701,11 @@ namespace WealthERP.CustomerPortfolio
             drTaxRealized[10] = mfVo.AMCCode;
             drTaxRealized[11] = mfVo.SchemePlanCode;
             drTaxRealized[12] = mfVo.AssetInstrumentSubCategoryName;
+
+            if (mfVo.SalesQuantity != 0)
+                drTaxRealized[13] = mfVo.SalesQuantity.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+            else
+                drTaxRealized[13] = "0.00";
         }
 
         private void ReturnsLabelVisibility(bool blVisibility)
@@ -753,9 +768,11 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("Category");
             dtReturnsAll.Columns.Add("Scheme");
             dtReturnsAll.Columns.Add("FolioNum");
+            dtReturnsAll.Columns.Add("PurchasedUnits", typeof(double));
+            dtReturnsAll.Columns.Add("DVRUnits", typeof(double));
+            dtReturnsAll.Columns.Add("OpenUnits", typeof(double));
             dtReturnsAll.Columns.Add("Price", typeof(double));
             dtReturnsAll.Columns.Add("InvestedCost", typeof(double));
-            dtReturnsAll.Columns.Add("OpenUnits", typeof(double));
             dtReturnsAll.Columns.Add("NAV", typeof(double));
             dtReturnsAll.Columns.Add("CurrentValue", typeof(double));
             dtReturnsAll.Columns.Add("UnitsSold", typeof(double));
@@ -817,14 +834,15 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("Category");
             dtTaxRealized.Columns.Add("Scheme");
             dtTaxRealized.Columns.Add("FolioNum");
-            dtTaxRealized.Columns.Add("AcquisitionCost");
-            dtTaxRealized.Columns.Add("RedeemedAmount");
-            dtTaxRealized.Columns.Add("TotalPL");
-            dtTaxRealized.Columns.Add("STCG");
-            dtTaxRealized.Columns.Add("LTCG");
+            dtTaxRealized.Columns.Add("AcquisitionCost",typeof(double));
+            dtTaxRealized.Columns.Add("RedeemedAmount", typeof(double));
+            dtTaxRealized.Columns.Add("TotalPL", typeof(double));
+            dtTaxRealized.Columns.Add("STCG", typeof(double));
+            dtTaxRealized.Columns.Add("LTCG", typeof(double));
             dtTaxRealized.Columns.Add("AMCCode");
             dtTaxRealized.Columns.Add("SchemeCode");
             dtTaxRealized.Columns.Add("SubCategoryName");
+            dtTaxRealized.Columns.Add("UnitsSold", typeof(double));
         }
 
         private void BindPerformaceChart()
@@ -1026,7 +1044,7 @@ namespace WealthERP.CustomerPortfolio
                     #region Reusing Old Code
 
                     Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
@@ -1086,7 +1104,7 @@ namespace WealthERP.CustomerPortfolio
                     #region Reusing Old Code
 
                     Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
@@ -1150,7 +1168,7 @@ namespace WealthERP.CustomerPortfolio
                     #region Reusing Old Code
 
                     Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
@@ -1210,7 +1228,7 @@ namespace WealthERP.CustomerPortfolio
                     #region Reusing Old Code
 
                     Session["Folio"] = dataItem["FolioNum"].Text;
-                    Session["Scheme"] = dataItem["Scheme"].Text;
+                    Session["Scheme"] = dataItem["Schemes"].Text;
                     Hashtable ht = new Hashtable();
                     ht["From"] = strFromDate;
                     ht["To"] = strToDate;
