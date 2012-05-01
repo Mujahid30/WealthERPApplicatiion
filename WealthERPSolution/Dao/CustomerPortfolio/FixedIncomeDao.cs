@@ -332,7 +332,7 @@ namespace DaoCustomerPortfolio
                             fixedincomeVo.PurchaseDate = DateTime.Parse(dr["CFINP_PurchaseDate"].ToString());
                         if (dr["CFINP_MaturityDate"].ToString() != String.Empty)
                             fixedincomeVo.MaturityDate = DateTime.Parse(dr["CFINP_MaturityDate"].ToString());
-                        fixedincomeVo.MaturityValue = float.Parse(dr["CFINP_MaturityValue"].ToString());
+                        fixedincomeVo.MaturityValue = double.Parse(dr["CFINP_MaturityValue"].ToString());
                         fixedincomeVo.IsInterestAccumulated = int.Parse(dr["CFINP_IsInterestAccumulated"].ToString());
                         fixedincomeVo.CurrentPrice = float.Parse(dr["CFINP_CurrentPrice"].ToString());
                         fixedincomeVo.CurrentValue = float.Parse(dr["CFINP_CurrentValue"].ToString());
