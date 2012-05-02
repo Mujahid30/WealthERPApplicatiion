@@ -95,12 +95,11 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="ReturnsTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
-                        <%--  <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="78%"
-                            ScrollBars="Horizontal">--%>
+                          <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="80%" ScrollBars="Horizontal">
                         <table id="tblHoldings" runat="server" width="99%">
                             <tr>
                                 <td>
-                                    <div id="dvHoldings" runat="server" style="width: 98%; overflow: scroll;">
+                                    <div id="dvHoldings" runat="server" style="width: 98%;">
                                         <asp:Label ID="lblMessageHoldings" Visible="false" Text="No Record Exists" runat="server"
                                             CssClass="Field"></asp:Label>
                                         <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
@@ -112,7 +111,8 @@
                                             EnableEmbeddedSkins="false" ShowStatusBar="true" OnItemCommand="rgHoldings_ItemCommand" AllowSorting="true"
                                             EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
                                             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" 
+                                            Excel-Format="ExcelML">
                                             </ExportSettings>
                                             <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
                                                 AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -121,12 +121,10 @@
                                                 <Columns>
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                     </telerik:GridButtonColumn>
-                                                    <%--<telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
-                                                            FooterText="Total:" FooterStyle-HorizontalAlign="Left" AllowFiltering="false">
-                                                        <asp:DropDownList ID="ddlCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField">
-                                                        </asp:DropDownList>
-                                                        </telerik:GridBoundColumn>--%>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
+                                                    <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                            FooterText="Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">                                                        
+                                                    </telerik:GridBoundColumn>
+                                                    <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
                                                             <asp:Label CssClass="label" ID="lblHeaderCategory" runat="server" Text="Category"></asp:Label>
                                                             <asp:DropDownList ID="ddlCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
@@ -146,7 +144,7 @@
                                                                 <asp:Label ID="lblHoldingsFooter" runat="server" Text="Total:" CssClass="label"></asp:Label>
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"/>
-                                                    </telerik:GridTemplateColumn>
+                                                    </telerik:GridTemplateColumn>--%>
                                                     <telerik:GridTemplateColumn UniqueName="Scheme" HeaderText="Scheme" Groupable="False"
                                                         ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                         <ItemTemplate>
@@ -210,12 +208,12 @@
                                 </td>
                             </tr>
                         </table>
-                        <%-- </asp:Panel>--%>
+                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
-                        <div style="width: 98%; overflow: scroll;">
-                            <%-- <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
-                            <table width="100%">
+                        <%--<div style="width: 98%; overflow: scroll;">--%>
+                             <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="65%" ScrollBars="Horizontal">
+                            <table width="99%">
                                 <tr align="left">
                                     <td style="width: 15%;">
                                         <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR(%):" runat="server" CssClass="FieldName"> </asp:Label>
@@ -223,12 +221,10 @@
                                     <td>
                                         <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                     </td>
-                                </tr>
-                            </table>
-                            <table id="tblAll" runat="server" width="100%">
+                                </tr>                            
                                 <tr>
-                                    <td>
-                                        <%--<div id="dvAll" runat="server" style="overflow: scroll">--%>
+                                    <td colspan="2">
+                                        <div id="dvAll" runat="server" style="width:98%">
                                         <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
                                             CssClass="Field"></asp:Label>
                                         <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
@@ -238,9 +234,9 @@
                                             outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgAll_ItemCommand" AllowSorting="true"
                                             EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource" AllowFilteringByColumn="true">
                                             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" Excel-Format="ExcelML">
                                             </ExportSettings>
-                                            <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
+                                            <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true" Width="100%"
                                                 AutoGenerateColumns="false" CommandItemDisplay="Top">
                                                 <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                     ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
@@ -248,10 +244,11 @@
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         <ItemStyle HorizontalAlign="Right" />
                                                     </telerik:GridButtonColumn>
-                                                    <%--<telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
+                                                    <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
+                                                    AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
                                                          <ItemStyle HorizontalAlign="Right" />
-                                                        </telerik:GridBoundColumn>--%>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
+                                                        </telerik:GridBoundColumn>
+                                                    <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
                                                             <asp:Label CssClass="label" ID="lblAllHeader" runat="server" Text="Category"></asp:Label>
                                                             <asp:DropDownList ID="ddlAllCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
@@ -271,7 +268,7 @@
                                                                 <asp:Label ID="lblAllFooter" runat="server" Text="Total:" CssClass="label"></asp:Label>
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                    </telerik:GridTemplateColumn>
+                                                    </telerik:GridTemplateColumn>--%>
                                                     <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                         ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                         <ItemTemplate>
@@ -359,20 +356,19 @@
                                                 </Columns>
                                             </MasterTableView>
                                         </telerik:RadGrid>
-                                        <%-- </div>--%>
+                                         </div>
                                     </td>
                                 </tr>
                             </table>
-                            <%-- </asp:Panel>--%>
-                        </div>
+                             </asp:Panel>
+                        <%--</div>--%>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
-                        <%--  <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="100%"
-                            ScrollBars="Horizontal">--%>
+                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
                         <table id="tblRealized" runat="server" width="99%">
                             <tr>
                                 <td>
-                                    <div id="dvRealized" runat="server" style="width: 98%; overflow: scroll;">
+                                    <div id="dvRealized" runat="server" style="width: 98%">
                                         <asp:Label ID="lblMessageRealized" Visible="false" Text="No Record Exists" runat="server"
                                             CssClass="Field"></asp:Label>
                                         <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
@@ -382,18 +378,19 @@
                                             outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgRealized_ItemCommand"
                                             EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource" AllowFilteringByColumn="true">
                                             <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" Excel-Format="ExcelML">
                                             </ExportSettings>
-                                            <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
+                                            <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true" Width="100%"
                                                 AutoGenerateColumns="false" CommandItemDisplay="Top">
                                                 <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                                                     ShowRefreshButton="false" ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
                                                 <Columns>
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                     </telerik:GridButtonColumn>
-                                                    <%--<telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
-                                                        </telerik:GridBoundColumn>--%>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
+                                                    <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
+                                                    AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                    </telerik:GridBoundColumn>
+                                                    <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
                                                             <asp:Label CssClass="label" ID="lblRealizedHeader" runat="server" Text="Category"></asp:Label>
                                                             <asp:DropDownList ID="ddlRealizedCategory" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
@@ -413,7 +410,7 @@
                                                                 <asp:Label ID="lblRealizedFooter" runat="server" Text="Total:" CssClass="label"></asp:Label>
                                                         </FooterTemplate>
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                    </telerik:GridTemplateColumn>
+                                                    </telerik:GridTemplateColumn>--%>
                                                     <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                         ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                         <ItemTemplate>
@@ -469,11 +466,11 @@
                                 </td>
                             </tr>
                         </table>
-                        <%-- </asp:Panel>--%>
+                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPandATabPage" runat="server">
-                        <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                            <table id="tblPandA" runat="server">
+                        <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="80%" ScrollBars="Horizontal">
+                            <table id="tblPandA" runat="server" width="99%">
                                 <tr id="trMFCode" runat="server">
                                     <td>
                                         <asp:DropDownList ID="ddlMFClassificationCode" runat="server" CssClass="cmbField"
@@ -517,21 +514,21 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="TaxTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="TaxHoldingsTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+                        <asp:Panel ID="pnlTaxHoldings" runat="server" class="Landscape" Width="95%" ScrollBars="Horizontal">
                             <table id="tblTaxHoldings" runat="server" width="99%">
                                 <tr>
                                     <td>
-                                        <div id="dvTaxHoldings" runat="server">
+                                        <div id="dvTaxHoldings" runat="server" style="width:98%">
                                             <asp:Label ID="lblMessageTaxHoldings" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
-                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="100%" PageSize="10" AllowPaging="true" AllowSorting="true"
+                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>                                            
+                                            <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="98%" PageSize="10" AllowPaging="true" AllowSorting="true"
                                                 ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
                                                 outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxHoldings_ItemCommand"
                                                 EnableViewState="true" OnNeedDataSource="rgTaxHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
                                                 <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" Excel-Format="ExcelML">
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
                                                     AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -540,9 +537,10 @@
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <%--<telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
-                                                        </telerik:GridBoundColumn>--%>
-                                                        <telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
+                                                        AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                        </telerik:GridBoundColumn>
+                                                        <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
                                                                 <asp:Label CssClass="label" ID="lblTaxHoldingsHeader" runat="server" Text="Category"></asp:Label>
                                                                 <asp:DropDownList ID="ddlTaxHoldingsCategory" AutoPostBack="true" runat="server"
@@ -562,7 +560,7 @@
                                                                 <asp:Label ID="lblTaxHoldingsFooter" runat="server" Text="Total:" CssClass="label"></asp:Label>
                                                             </FooterTemplate>
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridTemplateColumn>
+                                                        </telerik:GridTemplateColumn>--%>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False"
                                                             ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
@@ -607,7 +605,7 @@
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
-                                            </telerik:RadGrid>
+                                            </telerik:RadGrid>                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -615,21 +613,21 @@
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="TaxRealizedTabPage" runat="server">
-                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+                        <asp:Panel ID="pnlTaxRealized" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
                             <table id="tblTaxRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
-                                        <div id="dvTaxRealized" runat="server">
+                                        <div id="dvTaxRealized" runat="server" style="width:98%">
                                             <asp:Label ID="lblTaxRealized" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
-                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="100%" PageSize="10" AllowPaging="true" AllowSorting="true"
+                                                Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>                                            
+                                            <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="98%" PageSize="10" AllowPaging="true" AllowSorting="true"
                                                 ShowGroupPanel="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
                                                 outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxRealized_ItemCommand"
                                                 EnableViewState="true" OnNeedDataSource="rgTaxRealized_OnNeedDataSource" AllowFilteringByColumn="true">
-                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
-                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                                                <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>                                                
+                                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" Excel-Format="ExcelML">
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
                                                     AutoGenerateColumns="false" CommandItemDisplay="Top">
@@ -638,9 +636,10 @@
                                                     <Columns>
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
-                                                        <%--<telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" AllowFiltering="false">
-                                                        </telerik:GridBoundColumn>--%>
-                                                        <telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
+                                                        <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
+                                                        AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                        </telerik:GridBoundColumn>
+                                                        <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
                                                                 <asp:Label CssClass="label" ID="lblTaxRealizedHeader" runat="server" Text="Category"></asp:Label>
                                                                 <asp:DropDownList ID="ddlTaxRealizedCategory" AutoPostBack="true" runat="server"
@@ -660,7 +659,7 @@
                                                                 <asp:Label ID="lblTaxRealizedFooter" runat="server" Text="Total:" CssClass="label"></asp:Label>
                                                             </FooterTemplate>
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                                        </telerik:GridTemplateColumn>
+                                                        </telerik:GridTemplateColumn>--%>
                                                         <telerik:GridTemplateColumn UniqueName="Schemes" HeaderText="Scheme" Groupable="False" SortExpression="Scheme"
                                                             ItemStyle-Wrap="false" AllowFiltering="true" DataField="Scheme">
                                                             <ItemTemplate>
@@ -703,7 +702,7 @@
                                                         </telerik:GridBoundColumn>
                                                     </Columns>
                                                 </MasterTableView>
-                                            </telerik:RadGrid>
+                                            </telerik:RadGrid>                                           
                                         </div>
                                     </td>
                                 </tr>
