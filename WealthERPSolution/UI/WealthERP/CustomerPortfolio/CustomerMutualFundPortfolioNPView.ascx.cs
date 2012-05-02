@@ -1290,6 +1290,7 @@ namespace WealthERP.CustomerPortfolio
                 dt = (DataTable)ViewState["HoldingReturns"];
                 rgHoldings.DataSource = dt;
             }
+            BindPerformaceChart();
         }
 
         protected void rgAll_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -1300,6 +1301,7 @@ namespace WealthERP.CustomerPortfolio
                 dt = (DataTable)ViewState["AllReturns"];
                 rgAll.DataSource = dt;
             }
+            BindPerformaceChart();
         }
 
         protected void rgRealized_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
@@ -1310,6 +1312,7 @@ namespace WealthERP.CustomerPortfolio
                 dt = (DataTable)ViewState["RealizedReturns"];
                 rgRealized.DataSource = dt;
             }
+            BindPerformaceChart();
         }
 
         protected void rgTaxHoldings_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)

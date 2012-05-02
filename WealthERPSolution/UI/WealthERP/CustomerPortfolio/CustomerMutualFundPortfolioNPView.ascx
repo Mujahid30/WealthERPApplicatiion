@@ -122,7 +122,7 @@
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                     </telerik:GridButtonColumn>
                                                     <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
-                                                            FooterText="Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">                                                        
+                                                            FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" AllowFiltering="true">                                                        
                                                     </telerik:GridBoundColumn>
                                                     <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
@@ -245,7 +245,7 @@
                                                         <ItemStyle HorizontalAlign="Right" />
                                                     </telerik:GridButtonColumn>
                                                     <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
-                                                    AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                    AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                          <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
                                                     <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
@@ -388,7 +388,7 @@
                                                     <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                     </telerik:GridButtonColumn>
                                                     <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
-                                                    AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                    AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                     </telerik:GridBoundColumn>
                                                     <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                         <HeaderTemplate>
@@ -538,7 +538,7 @@
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category"
-                                                        AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                        AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
@@ -637,7 +637,7 @@
                                                         <telerik:GridButtonColumn ButtonType="LinkButton" Text="Select" CommandName="Select">
                                                         </telerik:GridButtonColumn>
                                                         <telerik:GridBoundColumn UniqueName="Category" HeaderText="Category" DataField="Category" 
-                                                        AllowFiltering="true" FooterText="Total:" FooterStyle-HorizontalAlign="Right">
+                                                        AllowFiltering="true" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                                         </telerik:GridBoundColumn>
                                                         <%--<telerik:GridTemplateColumn AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                             <HeaderTemplate>
