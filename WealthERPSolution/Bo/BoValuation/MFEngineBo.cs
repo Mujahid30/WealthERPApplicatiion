@@ -881,7 +881,7 @@ namespace BoValuation
                             DataSet dsMFTransactionBalanceAndSellPair = new DataSet();
                             DataTable dtMFAccountSchemeNetPosition = new DataTable();
                             dsMFTransactionBalanceAndSellPair = mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId, schemePlanCode, valuationDate);
-                            //if (commonId == 227201)
+                            //if (commonId == 227769)
                             //{
 
                             //}
@@ -1063,7 +1063,7 @@ namespace BoValuation
                         foreach (DataRow dr in dtMFTransactionSellPair.Rows)
                         {
                             DataRow[] drTransaction = dtMFTransactionBalance.Select("CMFT_MFTransId=" + dr["CMFSP_BuyID"].ToString());
-                            CMFNP_TAX_Realized_AcqCost = +(double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
+                            CMFNP_TAX_Realized_AcqCost += (double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
                         }
                     }
 
@@ -1169,10 +1169,10 @@ namespace BoValuation
                     drMFNetPosition["CMFNP_RET_Hold_PurchaseUnit"] = returnPurchaseUnits;   // confusion  // Resolved
                     drMFNetPosition["CMFNP_RET_Hold_DVRUnits"] = openUnits - returnPurchaseUnits;
 
-                    sumObject = dtMFTransactionBalance.Compute("Sum(EligibleLTG)", string.Empty);
+                    sumObject = dtMFTransactionBalance.Compute("Sum(EligibleLTG)", "CMFTB_UnitBalanceTAX > 0");
                     double.TryParse(Convert.ToString(sumObject), out eligibleLTCG);
 
-                    sumObject = dtMFTransactionBalance.Compute("Sum(EligibleSTG)", string.Empty);
+                    sumObject = dtMFTransactionBalance.Compute("Sum(EligibleSTG)", "CMFTB_UnitBalanceTAX > 0");
                     double.TryParse(Convert.ToString(sumObject), out eligibleSTCG);
 
                     drMFNetPosition["CMFNP_TAX_Hold_EligibleLTCG"] = eligibleLTCG;
