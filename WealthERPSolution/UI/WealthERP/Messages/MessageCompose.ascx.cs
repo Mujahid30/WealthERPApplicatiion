@@ -52,7 +52,7 @@ namespace WealthERP.Messages
                     // Advisor admin logged in
                     List<int> lstRolesIds = new List<int>();
                     lstRolesIds.Add(1000);
-                    lstRolesIds.Add(1003);
+                    //lstRolesIds.Add(1003);
                     RemoveRoleCheckboxes(lstRolesIds);
                 }
                 else if (userVo.RoleList.Contains(strUserRoleBM))
