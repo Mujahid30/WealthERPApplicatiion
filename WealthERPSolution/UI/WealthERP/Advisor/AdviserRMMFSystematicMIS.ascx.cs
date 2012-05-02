@@ -115,7 +115,8 @@ namespace WealthERP.Advisor
                 CategoryDropdown(dsSystematicMIS.Tables[2]);
                 Session["ButtonGo"] = null;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
-
+                txtFrom.Text = DateTime.Now.ToShortDateString();
+                txtTo.Text = DateTime.Now.ToShortDateString();
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
