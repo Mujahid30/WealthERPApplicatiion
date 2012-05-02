@@ -881,7 +881,7 @@ namespace BoValuation
                             DataSet dsMFTransactionBalanceAndSellPair = new DataSet();
                             DataTable dtMFAccountSchemeNetPosition = new DataTable();
                             dsMFTransactionBalanceAndSellPair = mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId, schemePlanCode, valuationDate);
-                            //if (commonId == 227617)
+                            //if (commonId == 227201)
                             //{
 
                             //}
@@ -1014,6 +1014,7 @@ namespace BoValuation
             double sellUnits = 0;
             double[] currentValueXIRR;
             DateTime[] tranDateXIRR;
+            double CMFNP_TAX_Realized_AcqCost = 0;
 
             currentValueXIRR = new double[dtMFTransactionBalance.Rows.Count + 1];
             tranDateXIRR = new DateTime[dtMFTransactionBalance.Rows.Count + 1];
@@ -1057,13 +1058,22 @@ namespace BoValuation
                     double.TryParse(Convert.ToString(sumObject), out returnInvestedCost);
 
                     drMFNetPosition["CMFNP_InvestedCost"] = returnInvestedCost;
-                    drMFNetPosition["CMFNP_TAX_Realized_AcqCost"] = returnInvestedCost;
+                    if (dtMFTransactionSellPair.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dtMFTransactionSellPair.Rows)
+                        {
+                            DataRow[] drTransaction = dtMFTransactionBalance.Select("CMFT_MFTransId=" + dr["CMFSP_BuyID"].ToString());
+                            CMFNP_TAX_Realized_AcqCost = +(double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
+                        }
+                    }
+
+                    drMFNetPosition["CMFNP_TAX_Realized_AcqCost"] = CMFNP_TAX_Realized_AcqCost;
 
                     sumObject = dtMFTransactionBalance.Compute("Sum(CMFT_Amount)", "WMTT_TransactionClassificationCode = 'SEL'");
                     double.TryParse(Convert.ToString(sumObject), out reedemedAmount);
 
                     drMFNetPosition["CMFNP_RedeemedAmount"] = reedemedAmount;
-                    drMFNetPosition["CMFNP_TAX_Realized_TotalPL"] = reedemedAmount - returnInvestedCost;
+                    drMFNetPosition["CMFNP_TAX_Realized_TotalPL"] = reedemedAmount - CMFNP_TAX_Realized_AcqCost;
                     sumObject = dtMFTransactionBalance.Compute("Sum(CMFTB_UnitBalanceTAX)", string.Empty);
                     double.TryParse(Convert.ToString(sumObject), out openUnits);
 
