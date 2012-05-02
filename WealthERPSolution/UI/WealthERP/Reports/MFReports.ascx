@@ -75,8 +75,8 @@
          if (type == 'mail') {             
              var selectedCustomer = document.getElementById("<%=LBSelectCustomer.ClientID%>");
              var count=selectedCustomer.options.length;
-             if (count > 50) {
-                 alert("You can select only 50 Customers at a time");
+             if (count > 20) {
+                 alert("You can select only 20 Customers at a time");
                  return false;
              }            
          }
