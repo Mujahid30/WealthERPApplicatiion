@@ -42,6 +42,12 @@
         var btn = document.getElementById(btnID);
         btn.click();
     }
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
 </script>
 <style type="text/css" media="print">
     ..noDisplay
@@ -154,7 +160,7 @@
     </tr>
 </table>
 <table>
-    <tr id="trRange" visible="false" runat="server">
+    <tr id="trRange" visible="false" runat="server"  onkeypress="return keyPress(this, event)">
         <td align="right" valign="top">
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
         </td>
