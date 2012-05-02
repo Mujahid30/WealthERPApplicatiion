@@ -1015,6 +1015,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer//CustomerProofView.ascx.
+        /// </summary>
+        internal static string CustomerProofView {
+            get {
+                return ResourceManager.GetString("CustomerProofView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//CustomerProspect.ascx.
         /// </summary>
         internal static string CustomerProspect {
@@ -1443,6 +1452,15 @@ namespace WealthERP {
         internal static string InfoLinks {
             get {
                 return ResourceManager.GetString("InfoLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General//InterestCalculator.ascx.
+        /// </summary>
+        internal static string InterestCalculator {
+            get {
+                return ResourceManager.GetString("InterestCalculator", resourceCulture);
             }
         }
         

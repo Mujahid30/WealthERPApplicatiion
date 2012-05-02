@@ -1373,4 +1373,12 @@
     <value>SuperAdmin//MapToCustomerSA.ascx</value>
     <comment>SuperAdmin//MapToCustomerSA.ascx</comment>
   </data>
+  <data name="CustomerProofView" xml:space="preserve">
+    <value>Customer//CustomerProofView.ascx</value>
+    <comment>Customer//CustomerProofView.ascx</comment>
+  </data>
+  <data name="InterestCalculator" xml:space="preserve">
+    <value>General//InterestCalculator.ascx</value>
+    <comment>General//InterestCalculator.ascx</comment>
+  </data>
 </root>

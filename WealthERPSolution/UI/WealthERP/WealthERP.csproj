@@ -2199,6 +2199,13 @@
     <Compile Include="General\ImageServe.aspx.designer.cs">
       <DependentUpon>ImageServe.aspx</DependentUpon>
     </Compile>
+    <Compile Include="General\InterestCalculator.ascx.cs">
+      <DependentUpon>InterestCalculator.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\InterestCalculator.ascx.designer.cs">
+      <DependentUpon>InterestCalculator.ascx</DependentUpon>
+    </Compile>
     <Compile Include="General\LeftPanel_Links.ascx.cs">
       <DependentUpon>LeftPanel_Links.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5624,6 +5631,7 @@
     <Content Include="General\Calculators.ascx" />
     <Content Include="General\Dashboard.ascx" />
     <Content Include="General\ImageServe.aspx" />
+    <Content Include="General\InterestCalculator.ascx" />
     <Content Include="General\SetTheme.ascx" />
     <Content Include="General\UserSettings.ascx" />
     <Content Include="General\UserSettingsLeftPane.ascx" />
