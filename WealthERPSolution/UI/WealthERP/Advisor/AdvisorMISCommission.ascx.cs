@@ -88,19 +88,19 @@ namespace WealthERP.Advisor
                 {
                     case "Folio Wise":
                         ghItem.HeaderText = "Folio Number";
-                        ghItem.DataField = "AccountId";
+                        ghItem.DataField = "folio";
                         break;
                     case "AMC Wise":
                         ghItem.HeaderText = "AMC Name";
-                        ghItem.DataField = "Amc";
+                        ghItem.DataField = "AMCCODE";
                         break;
                     case "Transaction_Wise":
                         ghItem.HeaderText = "Transaction Classification Name";
-                        ghItem.DataField = "transactionType";
+                        ghItem.DataField = "TransactionType";
                         break;
                     case "Category Wise":
                         ghItem.HeaderText = "Category";
-                        ghItem.DataField = "CategoryType";
+                        ghItem.DataField = "categoryName";
                         break;
                     default:
                         ghItem.HeaderText = "Folio Number";
