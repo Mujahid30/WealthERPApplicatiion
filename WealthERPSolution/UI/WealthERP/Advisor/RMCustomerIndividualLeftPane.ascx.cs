@@ -1266,6 +1266,10 @@ namespace WealthERP.Advisor
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
+                            if (Item.Text == "Order")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
                         }
                     }
                 }

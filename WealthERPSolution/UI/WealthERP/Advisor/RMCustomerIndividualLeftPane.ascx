@@ -108,9 +108,10 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server" Value="Customer_Order" Text="Order">
+                            <telerik:RadPanelItem runat="server"  Value="Customer_Order" Text="Order">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Order Approval List" Value="Order_Approval_List">
+                                    <telerik:RadPanelItem runat="server" Text="Order Approval List" 
+                                    Value="Order_Approval_List" ImagePosition="Right">
                                     </telerik:RadPanelItem>
                                                                      
                                 </Items>
@@ -119,8 +120,8 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Left"
-                                        Text="Assumptions & Preferences" Value="Preferences">
+                                    <telerik:RadPanelItem runat="server" ImageUrl="~/Images/new.gif" ImagePosition="Right"
+                                        Text="Assumptions and Preferences" Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
                                     </telerik:RadPanelItem>
