@@ -838,7 +838,8 @@ namespace BoCustomerPortfolio
                                         {
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[j].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[j].SchemePlanCode
-                                                && mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
+                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
+                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[j].TransactionDate.AddDays(5))
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[j].Amount
                                                 && !mfSystematicTransactionVoList[j].MatchFound)
                                             {
@@ -873,7 +874,8 @@ namespace BoCustomerPortfolio
                                         {
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[j].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[j].SchemePlanCode
-                                                && mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
+                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
+                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[j].TransactionDate.AddDays(5))
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[j].Amount
                                                 && !mfSystematicTransactionVoList[j].MatchFound)
                                             {
@@ -906,7 +908,8 @@ namespace BoCustomerPortfolio
                                         {
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[k].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[k].SchemePlanCode
-                                                && mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate
+                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate
+                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[k].TransactionDate.AddDays(5))
                                                 && mfSystematicTransactionReportVo.SystematicTransacionType == mfSystematicTransactionVoList[k].TransactionClassificationCode
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[k].Amount
                                                 && !mfSystematicTransactionVoList[k].MatchFound)
