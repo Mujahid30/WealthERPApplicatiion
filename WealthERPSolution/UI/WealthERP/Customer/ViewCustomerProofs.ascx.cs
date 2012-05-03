@@ -121,18 +121,21 @@ namespace WealthERP.Customer
                 // Get only the uploaded file name without the appended guids
                 lblFileUploaded.Visible = true;
                 lblFileUploaded.Text = Path.GetFileName(imageAttachmentPath);
-                string[] strUplFile;
-                strUplFile = lblFileUploaded.Text.Split('_');
-                StringBuilder sb = new StringBuilder();
-                for (int i = 2; i < strUplFile.Length; i++)
+                if (!imageAttachmentPath.Equals(string.Empty))
                 {
-                    sb.Append(strUplFile[i]);
-                    sb.Append('_');
-                }
-                sb.Remove(sb.Length - 1, 1);
+                    string[] strUplFile;
+                    strUplFile = lblFileUploaded.Text.Split('_');
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 2; i < strUplFile.Length; i++)
+                    {
+                        sb.Append(strUplFile[i]);
+                        sb.Append('_');
+                    }
+                    sb.Remove(sb.Length - 1, 1);
 
-                // The 3rd item in the array is the actual file name
-                lblFileUploaded.Text = sb.ToString();
+                    // The 3rd item in the array is the actual file name
+                    lblFileUploaded.Text = sb.ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -601,22 +604,28 @@ namespace WealthERP.Customer
                             }
 
                             // Get the Repository Path in solution
-                            string strFilePath = dt.Rows[0]["CPU_Image"].ToString();
-                            AdvisorBo advBo = new AdvisorBo();
-
-                            // Delete file if it exists
-                            if (File.Exists(strFilePath))
+                            if (dt.Rows[0]["CPU_Image"] != null)
                             {
-                                // Get the file size of the old file to calculate the balance storagee size
-                                FileInfo f = new FileInfo(strFilePath);
-                                long lSize = f.Length;
-                                oldFileSize = (lSize / (float)1048576);
-                                float flRemainingBal = fStorageBalance + oldFileSize;
+                                if (!dt.Rows[0]["CPU_Image"].ToString().Equals(string.Empty))
+                                {
+                                    string strFilePath = dt.Rows[0]["CPU_Image"].ToString();
+                                    AdvisorBo advBo = new AdvisorBo();
 
-                                if (flRemainingBal >= fileSize)
-                                    File.Delete(strFilePath);
-                                else
-                                    blZeroBalance = true;
+                                    // Delete file if it exists
+                                    if (File.Exists(strFilePath))
+                                    {
+                                        // Get the file size of the old file to calculate the balance storagee size
+                                        FileInfo f = new FileInfo(strFilePath);
+                                        long lSize = f.Length;
+                                        oldFileSize = (lSize / (float)1048576);
+                                        float flRemainingBal = fStorageBalance + oldFileSize;
+
+                                        if (flRemainingBal >= fileSize)
+                                            File.Delete(strFilePath);
+                                        else
+                                            blZeroBalance = true;
+                                    }
+                                }
                             }
 
                             if (!blZeroBalance)
