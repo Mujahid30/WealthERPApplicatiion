@@ -3814,6 +3814,7 @@ namespace WealthERP.Uploads
                //List Added For Trail Commission
             else if (ddlUploadType.SelectedValue == "TRAIL")
             {
+                ddlListCompany.Items.Clear();
                 ddlListCompany.Items.Add("CAMS");
                 ddlListCompany.Items.Add("KARVY");
                 ddlListCompany.Items.Add("Templeton");
@@ -3919,7 +3920,7 @@ namespace WealthERP.Uploads
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
-                lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by your institution to Upload.";
+                lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
 
             }
             else
@@ -4011,6 +4012,11 @@ namespace WealthERP.Uploads
             {
                 msg = "Trail Commission"+" "+fileName;
             }
+            else if ((ddlUploadType == "MFT" && ddlCompanyType == "SU"))
+            {
+                msg = "ER-02";
+            }
+
             return msg;
         }
 
