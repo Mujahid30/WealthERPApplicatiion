@@ -12,6 +12,10 @@ namespace WealthERP
     {
         string path;
         string pageID;
+        string customerImageProofPath;
+        string customerProofExt;
+        string customerProofFileName;
+        string strAdvisorIdWithFielName;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -22,11 +26,27 @@ namespace WealthERP
         {
             if (Request.QueryString["PageId"] != null)
                 pageID = Request.QueryString["PageId"].ToString();
-            path = Getpagepath(pageID);
+            if (pageID == "CustomerProofView")
+            {
+                customerImageProofPath = Request.QueryString["ImagePath"].ToString();
+                customerProofExt = Request.QueryString["strExt"].ToString();
+                customerProofFileName = Request.QueryString["strFileName"].ToString();
+                strAdvisorIdWithFielName = Request.QueryString["strAdvisorIdWithFielName"].ToString();
+            }
+           
+            path = Getpagepath(pageID);           
             UserControl uc1 = new UserControl();
-
             uc1 = (UserControl)this.Page.LoadControl(path);
-            uc1.ID = "ctrl_" + pageID;
+
+            if (!string.IsNullOrEmpty(customerImageProofPath))
+            {
+                uc1.ID = "ctrl_" + pageID + "-" + customerImageProofPath + "-" + customerProofExt + "-" + customerProofFileName + "-" + strAdvisorIdWithFielName;
+            }
+            else
+            {
+                uc1.ID = "ctrl_" + pageID;
+            }
+
             phLoadControl.Controls.Clear();
             phLoadControl.Controls.Add(uc1);
         }
