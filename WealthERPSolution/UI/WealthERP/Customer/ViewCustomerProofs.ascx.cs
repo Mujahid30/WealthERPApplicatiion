@@ -315,7 +315,13 @@ namespace WealthERP.Customer
                                 }
                                 else
                                 {
-                                    path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
+                                    System.IO.Directory.CreateDirectory(Temppath);
+                                    path = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
+                                    if (!System.IO.Directory.Exists(path))
+                                    {
+                                        System.IO.Directory.CreateDirectory(path);
+                                    }
+                                    //path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
                                 }
 
                                 strGuid = Guid.NewGuid().ToString();
@@ -690,20 +696,18 @@ namespace WealthERP.Customer
 
             // Retrieve the uploaded image
             original_image = System.Drawing.Image.FromStream(jpeg_image_upload.InputStream);
-            original_image.Save(TargetPath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
+            original_image.Save(TargetPath + imageUploadPath);//"O_" + 
 
             int width = original_image.Width;
             int height = original_image.Height;
-            int new_width, new_height;
-            //string thumbnail_id;
+            //int new_width, new_height;
 
-            int target_width = 140;
-            int target_height = 100;
+            //int target_width = 140;
+            //int target_height = 100;
 
+            //CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, imageUploadPath); // , out thumbnail_id
 
-            CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, imageUploadPath); // , out thumbnail_id
-
-            File.Delete(TargetPath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
+            //File.Delete(TargetPath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
         }
 
         private void CreateThumbnail(System.Drawing.Image original_image, ref System.Drawing.Bitmap final_image, ref System.Drawing.Graphics graphic, ref MemoryStream ms, UploadedFile jpeg_image_upload, int width, int height, int target_width, int target_height, string p, bool p_11, bool p_12, out int new_width, out int new_height, string imageUploadPath)
@@ -931,6 +935,39 @@ namespace WealthERP.Customer
                 ChangeTelerikRadTab(0);
                 BindEditFields();
             }
+            else if (e.CommandName == "View proof")
+            {
+                int ProofIdToView = Convert.ToInt32(Session["ProofID"].ToString());
+                dtGetPerticularProofs = GetUploadedImagePaths(ProofIdToView);
+                //string imageName= dtGetPerticularProofs.Rows[0][""].ToString();
+                string imgPath = null;
+                imgPath = imageAttachmentPath;
+
+                string strFileName = string.Empty;
+                string strExt = string.Empty;
+                string strAdvisorIdWithFielName = string.Empty;
+
+                if (!imgPath.Equals(String.Empty))
+                {
+                    string[] strArray = new string[2];
+                    strArray = imgPath.Split('\\');
+                    strFileName = strArray[4];
+                    string[] strExtn = new string[2];
+                    strExtn = imgPath.Split('.');
+                    strExt = strExtn[1];
+                    strAdvisorIdWithFielName = strArray[2];
+
+                    imgPath = strArray[0] + "\\\\" + strArray[1] + "\\\\" + strArray[2] + "\\\\" + strArray[4];
+
+                }
+
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerProofView.ascx','strImgId=" + ProofIdToView + " ');", true);
+                //Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=CustomerProofView&ImagePath=" + imgPath + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+                Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=CustomerProofView&ImagePath=" + imgPath + "&strExt=" + strExt + "&strFileName=" + strFileName + "&strAdvisorIdWithFielName=" + strAdvisorIdWithFielName + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+
+
+            }
 
             string path = "";
             if (e.CommandName == "NavigateToPdf")
@@ -1151,5 +1188,12 @@ namespace WealthERP.Customer
             multiPageView.SelectedIndex = radPOCProof.SelectedTab.Index;
         }
 
+        public void bntViewProofImage_OnClick(object sender, EventArgs e)
+        {
+
+
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerProofView.ascx','strImgId=" + ProofUploadId + " ');", true);           
+
+        }
     }
 }
