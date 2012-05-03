@@ -156,7 +156,7 @@ namespace WealthERP.Admin
             // If not then, create a folder with the category code and store the file as done above.
             // If yes, then just store the file as done above.
             // Once this is done, store the info in the DB with the file path.
-            strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
+            strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId;
             AdvisorBo advBo = new AdvisorBo();
             repoBo = new RepositoryBo();
             bool blResult = false;
@@ -337,7 +337,7 @@ namespace WealthERP.Admin
                             // If file size is less than 2 MB then upload
 
                             // Get the Repository Path in solution
-                            string strFilePath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\" + repoVo.Link;
+                            string strFilePath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\" + repoVo.Link;
                             float fStorageBalance = advisorVo.SubscriptionVo.StorageBalance;
                             AdvisorBo advBo = new AdvisorBo();
 
@@ -359,7 +359,7 @@ namespace WealthERP.Admin
                             if (!blZeroBalance)
                             {
                                 // Add new file
-                                strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId;
+                                strRepositoryPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId;
                                 strGuid = Guid.NewGuid().ToString();
 
                                 // Reading File Upload Control
@@ -682,7 +682,7 @@ namespace WealthERP.Admin
 
                 // Get the system file path. Delete for each id in the dataset
                 float fBalanceStorage = 0.0F;
-                string strPath = Server.MapPath(strRepositoryPath) + "\\" + advisorVo.advisorId + "\\";
+                string strPath = Server.MapPath(strRepositoryPath) + "\\advisor_" + advisorVo.advisorId + "\\";
                 fBalanceStorage = DeleteRepositoryItems(strPath, ds);
 
                 repoBo = new RepositoryBo();
