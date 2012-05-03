@@ -81,6 +81,7 @@ namespace WealthERP.Customer
                 LoadImages();
                 btnDelete.Visible = false;
                 lblFileUploaded.Visible = false;
+                ChangeTelerikRadTab(0);
             }
         }
 
@@ -518,6 +519,8 @@ namespace WealthERP.Customer
                 Session.Remove("ImagePath");
                 Session.Remove(Constants.SessionSpecificProof.ToString());
                 ResetControls();
+                ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlProof.SelectedIndex = 0;
                 // Change the tab
                 ChangeTelerikRadTab(1);
                 LoadImages();
