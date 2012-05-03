@@ -118,7 +118,7 @@ namespace WealthERP.Admin
                         string strLink = string.Empty;
                         if (dr["AR_IsFile"].ToString().ToLower() == Boolean.TrueString.ToLower())
                         {
-                            strLink = "http:\\" + strRepositoryPath + "\\" + intAdviserId + "\\\\" + dr["AR_Filename"].ToString();
+                            strLink = "http:\\" + strRepositoryPath + "\\" + HttpUtility.UrlEncode(intAdviserId.ToString()) + "\\\\" + dr["AR_Filename"].ToString();
                             ctrlLstBx.Items.Add(new ListItem(dr["AR_HeadingText"].ToString(), strLink));
                         }
                         else
