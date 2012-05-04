@@ -88,7 +88,8 @@ namespace WealthERP.CustomerPortfolio
             rgRealized_Init(sender, e);
             rgAll_Init(sender, e);
             rgHoldings_Init(sender, e);
-
+            rgTaxHoldings_Init(sender, e);
+            rgTaxRealized_Init(sender, e);
         }
 
         private void GetMFPortfolioList(string strValuationDate)
@@ -1342,7 +1343,7 @@ namespace WealthERP.CustomerPortfolio
             int i = 0;
             while (i < menu.Items.Count)
             {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
                 {
                     i++;
                 }
@@ -1359,7 +1360,7 @@ namespace WealthERP.CustomerPortfolio
             int i = 0;
             while (i < menu.Items.Count)
             {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
                 {
                     i++;
                 }
@@ -1376,7 +1377,41 @@ namespace WealthERP.CustomerPortfolio
             int i = 0;
             while (i < menu.Items.Count)
             {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void rgTaxHoldings_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = rgTaxHoldings.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void rgTaxRealized_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = rgTaxRealized.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "StartsWith" || menu.Items[i].Text == "EndsWith")
                 {
                     i++;
                 }

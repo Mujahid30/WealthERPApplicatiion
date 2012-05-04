@@ -579,7 +579,7 @@
                                                             AllowFiltering="false"  DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Invested Cost" DataField="BalanceAmount"
+                                                        <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Acquisition Cost" DataField="BalanceAmount"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>

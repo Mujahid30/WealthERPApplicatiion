@@ -30,25 +30,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblHeader;
-
-        /// <summary>
-        /// lblHeaderCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHeaderCategory;
-
-        /// <summary>
-        /// lblCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
-
+        
         /// <summary>
         /// lblDisplayType control.
         /// </summary>
@@ -66,15 +48,6 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDisplayType;
-
-        /// <summary>
-        /// ddlCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
         /// lblPortfolio control.
@@ -138,52 +111,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNoRecords;
-
-        /// <summary>
-        /// hdnReturnsHoldingsCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsHoldingsCategory;
         
-        /// <summary>
-        /// hdnReturnsRealizedCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsRealizedCategory;
-       
-        /// <summary>
-        /// hdnReturnsAllCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsAllCategory;
-       
-        /// <summary>
-        /// hdnTaxHoldingsCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnTaxHoldingsCategory;
-       
-        /// <summary>
-        /// hdnTaxRealizedCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnTaxRealizedCategory;
-
         /// <summary>
         /// trContent control.
         /// </summary>
@@ -237,6 +165,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView MFPortfolioHoldingsTabPage;
+        
+        /// <summary>
+        /// pnlMFPortfolioHoldings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioHoldings;
         
         /// <summary>
         /// tblHoldings control.
@@ -293,6 +230,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadPageView MFPortfolioAllTabPage;
         
         /// <summary>
+        /// pnlMFPortfolioAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioAll;
+        
+        /// <summary>
         /// lblPortfolioXIRR control.
         /// </summary>
         /// <remarks>
@@ -311,13 +257,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblPortfolioXIRRValue;
         
         /// <summary>
-        /// tblAll control.
+        /// dvAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblAll;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAll;
         
         /// <summary>
         /// lblMessageAll control.
@@ -354,6 +300,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView MFPortfolioRealizedTabPage;
+        
+        /// <summary>
+        /// pnlMFPortfolioRealized control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMFPortfolioRealized;
         
         /// <summary>
         /// tblRealized control.
@@ -624,158 +579,50 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgTaxRealized;
-
+        
         /// <summary>
-        /// ddlAllCategory control.
+        /// hdnReturnsRealizedCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAllCategory;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsRealizedCategory;
+        
         /// <summary>
-        /// lblAllHeader control.
+        /// hdnReturnsHoldingsCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAllHeader;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsHoldingsCategory;
+        
         /// <summary>
-        /// lblAllCategory control.
+        /// hdnReturnsAllCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAllCategory;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnReturnsAllCategory;
+        
         /// <summary>
-        /// ddlTaxRealizedCategory control.
+        /// hdnTaxHoldingsCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTaxRealizedCategory;
-
+        protected global::System.Web.UI.WebControls.HiddenField hdnTaxHoldingsCategory;
+        
         /// <summary>
-        /// lblTaxRealizedHeader control.
+        /// hdnTaxRealizedCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxRealizedHeader;
-
-        /// <summary>
-        /// lblTaxRealizedCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxRealizedCategory;
-
-        /// <summary>
-        /// ddlTaxHoldingsCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTaxHoldingsCategory;
-
-        /// <summary>
-        /// lblTaxHoldingsHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxHoldingsHeader;
-
-        /// <summary>
-        /// lblTaxHoldingsCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxHoldingsCategory;
-
-        /// <summary>
-        /// ddlRealizedCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRealizedCategory;
-
-        /// <summary>
-        /// lblRealizedHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRealizedHeader;
-
-        /// <summary>
-        /// lblRealizedCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRealizedCategory;
-
-        /// <summary>
-        /// lblHoldingsFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHoldingsFooter;
-
-        /// <summary>
-        /// lblTaxHoldingsFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxHoldingsFooter;
-
-        /// <summary>
-        /// lblAllFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAllFooter;
-
-        /// <summary>
-        /// lblRealizedFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRealizedFooter;
-
-        /// <summary>
-        /// lblTaxRealizedFooter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxRealizedFooter;
+        protected global::System.Web.UI.WebControls.HiddenField hdnTaxRealizedCategory;
     }
 }
