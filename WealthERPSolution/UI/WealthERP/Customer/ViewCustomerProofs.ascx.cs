@@ -973,10 +973,33 @@ namespace WealthERP.Customer
 
                 }
 
+                if (strExt.Equals("pdf"))
+                {
+                    string Filepath = Server.MapPath("TempCustomerProof") + "\\" + customerVo.CustomerId.ToString() + "\\";
+                    Directory.CreateDirectory(Filepath);  
+                    
+                    Filepath = Filepath + strFileName;
+                    if (!File.Exists(Filepath))
+                    {
+                        File.Copy(imgPath , Filepath);
+                    }
 
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerProofView.ascx','strImgId=" + ProofIdToView + " ');", true);
-                //Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=CustomerProofView&ImagePath=" + imgPath + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
-                Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=CustomerProofView&ImagePath=" + imgPath + "&strExt=" + strExt + "&strFileName=" + strFileName + "&strAdvisorIdWithFielName=" + strAdvisorIdWithFielName + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+                    Response.Write("<script type='text/javascript'>detailedresults= window.open('../TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + strFileName + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+
+                    //Response.Write("<script>");
+                    //Response.Write("window.open('../Inventory/pages/printableads.pdf', '_newtab');");
+                    //Response.Write("</script>");
+                    
+                    ////   //"TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + strFileName;
+
+                    //control = "<a href=\"../TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + fileName + "\" target=\"_blank\" class=\"LinkButtons\" >" + fileName + "</a>";
+
+                }
+
+                else
+                {
+                    Response.Write("<script type='text/javascript'>detailedresults= window.open('PopUp.aspx?PageId=CustomerProofView&ImagePath=" + imgPath + "&strExt=" + strExt + "&strFileName=" + strFileName + "&strAdvisorIdWithFielName=" + strAdvisorIdWithFielName + "', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');</script>");
+                }
 
 
             }
@@ -1146,6 +1169,42 @@ namespace WealthERP.Customer
                 LinkButton lnkBtn = (LinkButton)e.Item.FindControl("lnkMail");
                 if (lnkBtn != null)
                     lnkBtn.Enabled = false;
+            }
+
+            
+            if (e.Item.DataItem!=null)
+            {
+                HiddenField hdnFld = (HiddenField)e.Item.FindControl("hdnCpuImage");
+                LinkButton lnkImage = (LinkButton)e.Item.FindControl("bntViewProofImage");
+                if (hdnFld.Value.Equals(string.Empty))
+                {
+                    if (lnkImage != null)
+                        lnkImage.Enabled = false;
+                }
+                else
+                {
+                                       
+                    //string[] strArrValue = new string[2];
+                    //strArrValue= hdnFld.Value.Split('.');                    
+                    //string strExtn = strArrValue[1];
+                                        
+                }
+
+                #region Old Code
+
+                //string Filepath = Server.MapPath("TempCustomerProof") + "\\" + customerVo.CustomerId.ToString() + "\\";
+                //Directory.CreateDirectory(Filepath);
+                ////Filepath = Server.MapPath("TempCustomerProof") + "\\" + customerVo.CustomerId.ToString() + "\\";
+                //Filepath = Filepath + fileName;
+                //if (!File.Exists(Filepath))
+                //{
+                //    File.Copy(proofPath, Filepath);
+                //}
+                //control = "<a href=\"../TempCustomerProof/" + customerVo.CustomerId.ToString() + "/" + fileName + "\" target=\"_blank\" class=\"LinkButtons\" >" + fileName + "</a>";
+
+                #endregion
+
+
             }
         }
 

@@ -317,6 +317,8 @@
                                     <td>
                                         <asp:LinkButton ID="bntViewProofImage" runat="server" Text="View" CommandArgument='<%# Eval("ProofUploadId") %>'
                                          CssClass="LinkButtons" CommandName="View proof"/>
+                                         <asp:HiddenField ID="hdnCpuImage" runat="server" Value='<%# Eval("ProofImage") %>' />
+                                         <asp:HiddenField ID="hdnPdfUrl" runat="server" />
                                     </td>
                                     <td align="center" visible="false">
                                         <asp:LinkButton ID="lnkPrint" Visible="false" runat="server" CssClass="LinkButtons"
