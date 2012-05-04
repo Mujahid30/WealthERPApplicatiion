@@ -2900,7 +2900,7 @@ namespace WealthERP.Reports
             {
                 MFReportsBo mfReports = new MFReportsBo();
                 report = (MFReportVo)Session["reportParams"];
-
+                CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                 if (Session["CusVo"] != null)
                     customerVo = (CustomerVo)Session["CusVo"];
                 else if (Session["customerVo"] != null)
@@ -3169,14 +3169,13 @@ namespace WealthERP.Reports
 
                     case "RETURNS_PORTFOLIO":
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         if (dtReturnsPortfolio.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
-                            //crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
+                            crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                             crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
@@ -3204,13 +3203,14 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
                         
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
-
+                        DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         //DataTable dtMFSchemePerformance = dsReturnsPortfolio.Tables["SchemeComprehensive"];
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
 
                             //crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dtMFSchemePerformance);
+                            crmain.Subreports["Portfolio_XIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRRComp);
                             crmain.Subreports["MFSchemePerformance"].Database.Tables["SchemeComprehensive"].SetDataSource(dsReturnsPortfolio.Tables[1]);
                             crmain.Subreports["MFTopTenHoldings"].Database.Tables["ToptenHoldings"].SetDataSource(dsReturnsPortfolio.Tables[2]);
                             crmain.Subreports["MFTopTenSectors"].Database.Tables["TopTenSectors"].SetDataSource(dsReturnsPortfolio.Tables[5]);
