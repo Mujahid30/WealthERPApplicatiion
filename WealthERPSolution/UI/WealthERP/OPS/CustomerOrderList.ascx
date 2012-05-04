@@ -49,7 +49,7 @@
         <td>
         <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 onselectedindexchanged="ddlOrderType_SelectedIndexChanged">
-        <asp:ListItem Text="Not Approved" Value=1 Selected="True"></asp:ListItem>
+        <asp:ListItem Text="Pending Order" Value=1 Selected="True"></asp:ListItem>
         <asp:ListItem Text="Approved" Value=0></asp:ListItem>
         </asp:DropDownList>
         </td>
@@ -129,5 +129,14 @@
                 onclick="btnApprove_Click"  />
         </td>
         <td></td>
+        </tr>
+        <tr>
+        <td colspan="4">
+        </td>
+        </tr>
+        <tr>
+        <td colspan="4">
+        <asp:Label ID="lblNote" runat="server" Text="Note: Pending order needs clients approval." Font-Size="Small" CssClass="cmbField"></asp:Label>
+        </td>
         </tr>
         </table>
