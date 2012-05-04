@@ -108,9 +108,9 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server"  Value="Customer_Order" Text="Order">
+                            <telerik:RadPanelItem runat="server"  Value="Customer_Order" Text="Product Order">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Order Approval List" 
+                                    <telerik:RadPanelItem runat="server" Text="Order Management" 
                                     Value="Order_Approval_List" ImagePosition="Right">
                                     </telerik:RadPanelItem>
                                                                      
