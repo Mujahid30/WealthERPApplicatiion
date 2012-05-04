@@ -209,10 +209,30 @@ namespace DaoCommon
                 db.AddInParameter(cmdUpdateRepositoryItem, "@repoId", DbType.Int32, repoVo.RepositoryId);
                 db.AddInParameter(cmdUpdateRepositoryItem, "@repoHeadingText", DbType.String, repoVo.HeadingText);
                 db.AddInParameter(cmdUpdateRepositoryItem, "@repoDescription", DbType.String, repoVo.Description);
-                if (repoVo.Link != String.Empty)
-                    db.AddInParameter(cmdUpdateRepositoryItem, "@repoLink", DbType.String, repoVo.Link);
-                else
+
+                if (repoVo.IsFile)
+                {
+                    // File Update
+                    if (repoVo.Link != String.Empty)
+                        db.AddInParameter(cmdUpdateRepositoryItem, "@repoFile", DbType.String, repoVo.Link);
+                    else
+                        db.AddInParameter(cmdUpdateRepositoryItem, "@repoFile", DbType.String, DBNull.Value);
+
+                    // Set Link parameter as NULL
                     db.AddInParameter(cmdUpdateRepositoryItem, "@repoLink", DbType.String, DBNull.Value);
+                }
+                else
+                {
+                    // Link Update
+                    if (repoVo.Link != String.Empty)
+                        db.AddInParameter(cmdUpdateRepositoryItem, "@repoLink", DbType.String, repoVo.Link);
+                    else
+                        db.AddInParameter(cmdUpdateRepositoryItem, "@repoLink", DbType.String, DBNull.Value);
+
+                    // Set File parameter as NULL
+                    db.AddInParameter(cmdUpdateRepositoryItem, "@repoFile", DbType.String, DBNull.Value);
+                }
+                
                 db.ExecuteNonQuery(cmdUpdateRepositoryItem);
                 blResult = true;
             }
