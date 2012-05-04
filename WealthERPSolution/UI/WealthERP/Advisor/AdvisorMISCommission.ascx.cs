@@ -48,6 +48,7 @@ namespace WealthERP.Advisor
             {
                 BindPeriodDropDown();
                 RadioButtonClick(sender, e);
+                ddlMISType.SelectedIndex = 0;
             }
         }
         /// <summary>
