@@ -3437,7 +3437,7 @@ namespace BoCustomerPortfolio
                 drXIRR["CustomerName"] = dr["C_CustomerName"];
                 drXIRR["PortfolioId"] = tempPortfoliId;
                 drXIRR["PortfolioName"] = dr["CP_PortfolioName"];
-                drXIRR["XIRR"] = Math.Round(tempPortfolioXIRR,5);
+                drXIRR["XIRR"] = (Math.Round(tempPortfolioXIRR,5))*100;
                 dtCustomerPortfolioXIRR.Rows.Add(drXIRR);
             }
 
