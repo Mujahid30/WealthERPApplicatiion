@@ -454,8 +454,9 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioRealized[11] = "0.00";
 
-            if (mfVo.ReturnsRealizedXIRR != 0)
-                drMFPortfolioRealized[12] = mfVo.ReturnsRealizedXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            // Showing RetunAll XIRR instead of realized XIRR(as per MJ discussion)
+            if (mfVo.ReturnsAllTotalXIRR != 0)
+                drMFPortfolioRealized[12] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioRealized[12] = "0.00";
 
@@ -607,8 +608,9 @@ namespace WealthERP.CustomerPortfolio
             else
                 drMFPortfolioHoldings[13] = "0.00";
 
-            if (mfVo.ReturnsHoldXIRR != 0)
-                drMFPortfolioHoldings[14] = mfVo.ReturnsHoldXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+            // Showing RetunAll XIRR instead of Holding XIRR(as per MJ discussion)
+            if (mfVo.ReturnsAllTotalXIRR != 0)
+                drMFPortfolioHoldings[14] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drMFPortfolioHoldings[14] = "0.00";
 

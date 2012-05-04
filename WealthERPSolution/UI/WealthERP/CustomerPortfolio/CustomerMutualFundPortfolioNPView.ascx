@@ -197,10 +197,10 @@
                                                         DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                         <ItemStyle HorizontalAlign="Right" />
                                                     </telerik:GridBoundColumn>
-                                                    <%--<telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
+                                                    <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                         AllowFiltering="false" DataFormatString="{0:N2}">
                                                         <ItemStyle HorizontalAlign="Right" />
-                                                    </telerik:GridBoundColumn>--%>
+                                                    </telerik:GridBoundColumn>
                                                 </Columns>
                                             </MasterTableView>
                                         </telerik:RadGrid>
@@ -455,10 +455,10 @@
                                                         DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                                         <ItemStyle HorizontalAlign="Right" />
                                                     </telerik:GridBoundColumn>
-                                                    <%--<telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
+                                                    <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                         AllowFiltering="false" DataFormatString="{0:N2}">
                                                         <ItemStyle HorizontalAlign="Right" />
-                                                    </telerik:GridBoundColumn>--%>
+                                                    </telerik:GridBoundColumn>
                                                 </Columns>
                                             </MasterTableView>
                                         </telerik:RadGrid>
