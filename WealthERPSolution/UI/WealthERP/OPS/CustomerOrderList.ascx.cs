@@ -125,10 +125,15 @@ namespace WealthERP.OPS
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.Parse(ddlOrderType.SelectedValue)== 0)
+            if (int.Parse(ddlOrderType.SelectedValue) == 0)
             {
                 BindCustomerList();
                 btnApprove.Visible = false;
+            }
+            else
+            {
+                BindCustomerList();
+                btnApprove.Visible = true;
             }
         }
     }
