@@ -19,7 +19,17 @@
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
 </script>
+
+<style type="text/css">
+   .ajax__calendar_container { z-index : 1000 ; }
+</style>
 
 <script language="javascript" type="text/javascript">
     function checkAllBoxes() {
@@ -157,7 +167,7 @@
         </td>
     </tr>
 </table>
-<table width="80%">
+<table width="80%" onkeypress="return keyPress(this, event)">
     <tr>
         <td align="right" valign="top">
             <asp:Label ID="lblFrom" runat="server" Text=" Order FromDate: " CssClass="FieldName"></asp:Label>
@@ -174,11 +184,16 @@
             <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFrom" CssClass="rfvPCG"
                 ErrorMessage="<br />Please select a  Date" Display="Dynamic" runat="server" InitialValue=""
                 ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                
+            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG"
+                ControlToValidate="txtFrom" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
+                Operator="DataTypeCheck" Type="Date">
+            </asp:CompareValidator>
         </td>
         <td align="right" valign="top">
             <asp:Label ID="lblTo" runat="server" Text="Order ToDate: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td colspan="3">
             <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
                 Format="dd/MM/yyyy">
@@ -187,14 +202,24 @@
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtTo" CssClass="rfvPCG"
-                ErrorMessage="<br />Please select a  Date" Display="Dynamic" runat="server" InitialValue=""
+                ErrorMessage="<br />Please select a Date" Display="Dynamic" runat="server" InitialValue=""
                 ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br />To Date should not less than From Date"
-                Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
+              
+            <%--<asp:RegularExpressionValidator ID="rev1" runat="server" CssClass="rfvPCG" ValidationExpression="[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]"
+            ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit">
+            </asp:RegularExpressionValidator>--%>
+            
+            <asp:CompareValidator ID="CompareValidator2" runat="server" CssClass="rfvPCG"
+            ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
+            Operator="DataTypeCheck" Type="Date">
+            </asp:CompareValidator>  
+            
+            <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br/>To Date should not less than From Date"
+                Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual" 
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
-        <td colspan="2">
-        </td>
+       <%-- <td colspan="2">
+        </td>--%>
     </tr>
     <tr>
         <td align="right">
