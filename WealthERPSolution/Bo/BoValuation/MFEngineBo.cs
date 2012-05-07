@@ -62,7 +62,11 @@ namespace BoValuation
                             if (AdviserCustomers != null)
                             {
                                 foreach (int customerId in AdviserCustomers)
-                                {                                    
+                                {
+                                    //if (customerId == 36349)
+                                    //{
+ 
+                                    //}
                                     MFBalanceCreation(customerId, 0, ValuationLabel.Customer);
 
                                 }
@@ -540,7 +544,7 @@ namespace BoValuation
                                 double amount = double.Parse(dr["CMFT_Amount"].ToString());
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
-                                drTransactionDetails["CMFT_TransactionDate"] = dr["CMFT_TransactionDate"].ToString();
+                                drTransactionDetails["CMFT_TransactionDate"] =Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
                                 drTransactionDetails["CMFT_Units"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFT_Amount"] = dr["CMFT_Amount"].ToString();
