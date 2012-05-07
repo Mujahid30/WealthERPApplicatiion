@@ -266,6 +266,9 @@
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please select a Transaction Date"
                         Display="Dynamic" runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CVTransactionDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtTransactionDate" CssClass="cvPCG" Operator="DataTypeCheck" ValidationGroup="MFSubmit"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />The date format should be dd/MM/yyyy"
                 ValidationGroup="MFSubmit" Type="Date" ControlToValidate="txtTransactionDate"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
@@ -322,7 +325,7 @@
                                         ErrorMessage="Please Enter Scheme Name" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                         ValidationGroup="MFSubmit">
                                     </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
-                                        few characters of customer name.</span>
+                                        few characters of a Scheme name.</span>
                     
                 </td>
             </tr>
