@@ -524,6 +524,8 @@ namespace WealthERP.Customer
                 ResetControls();
                 ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
                 ddlProof.SelectedIndex = 0;
+                Session.Remove("Button");
+                btnSubmit.Text="Submit";
                 // Change the tab
                 ChangeTelerikRadTab(1);
                 LoadImages();
