@@ -1857,25 +1857,25 @@ namespace WealthERP.OPS
                     }
                 }
             }
-            if(ddltransType.SelectedItem.Text != "")
-                transactionType = ddltransType.SelectedItem.Text;
+            //if(ddltransType.SelectedItem.Text != "")
+            //    transactionType = ddltransType.SelectedItem.Text;
 
-            if(ddlAmcSchemeList.SelectedIndex != 0)
-                schemeCode = Convert.ToInt32(ddlAmcSchemeList.SelectedValue);
+            //if(ddlAmcSchemeList.SelectedIndex != 0)
+            //    schemeCode = Convert.ToInt32(ddlAmcSchemeList.SelectedValue);
 
-            FileName = CheckPDFFormAvailabilty(transactionType, schemeCode);
+            //FileName = CheckPDFFormAvailabilty(transactionType, schemeCode);
 
-            if (FileName != "")
-            {
-                hyperLinkFillablePdfForm.Visible = true;
-                hyperLinkFillablePdfForm.NavigateUrl = "~/FillablePDFForms/" + FileName;
-                hyperLinkFillablePdfForm.Text = "(" + FileName+" )";
-                Session["FileName"] = FileName;
-            }
-            else
-            {
-                hyperLinkFillablePdfForm.Visible = false;
-            }
+            //if (FileName != "")
+            //{
+            //    hyperLinkFillablePdfForm.Visible = true;
+            //    hyperLinkFillablePdfForm.NavigateUrl = "~/FillablePDFForms/" + FileName;
+            //    hyperLinkFillablePdfForm.Text = "(" + FileName+" )";
+            //    Session["FileName"] = FileName;
+            //}
+            //else
+            //{
+            //    hyperLinkFillablePdfForm.Visible = false;
+            //}
         }
 
         private string CheckPDFFormAvailabilty(string transactionType, int schemeCode)
