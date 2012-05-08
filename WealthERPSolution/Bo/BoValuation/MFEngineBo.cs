@@ -1092,9 +1092,12 @@ namespace BoValuation
                     double.TryParse(Convert.ToString(sumObject), out totalDiv);
 
                     drMFNetPosition["CMFNP_TAX_Hold_BalanceAmt"] = totalDiv;
-
-                    currentValue = (!string.IsNullOrEmpty(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"])) ? (Convert.ToDouble(dtMFTransactionBalance.Rows[0]["NAV"].ToString())*openUnits) : returnInvestedCost);
-
+                    if (Math.Round(openUnits, 1) != 0)
+                    {
+                        currentValue = (!string.IsNullOrEmpty(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"])) ? (Convert.ToDouble(dtMFTransactionBalance.Rows[0]["NAV"].ToString()) * openUnits) : returnInvestedCost);
+                    }
+                    else
+                        currentValue = 0;
                     //*********************************XIRR****************************************
                     currentValueXIRR[(currentValueXIRR.Count()) - 1] = currentValue;
                     tranDateXIRR[(currentValueXIRR.Count()) - 1] = valuationDate;
