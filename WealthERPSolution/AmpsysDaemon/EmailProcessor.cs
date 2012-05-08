@@ -36,7 +36,7 @@ namespace AmpsysDaemon
                     Params[0] = new SqlParameter("@DaemonCode", _DaemonCode);
                     Params[0].DbType = DbType.String;
                     DataSet DS = Utils.ExecuteDataSet("sproc_GetOutgoingEmailList", Params);
-
+                    Trace("# of Records Retrieved : " + DS.Tables[0].Rows.Count.ToString());
                     bool HasItemsToProcess = false;
 
                     foreach (DataRow DR in DS.Tables[0].Rows)
