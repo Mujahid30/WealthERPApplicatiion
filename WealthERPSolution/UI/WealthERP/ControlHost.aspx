@@ -51,7 +51,7 @@
     </script>
 
 </head>
-<body class="TableBackground" style="overflow-y:hidden;">
+<body class="TableBackground" style="overflow-y:hidden; overflow-x:hidden;">
     <form id="form1" runat="server">
     <div style="vertical-align:top">
         <asp:Panel ID="mainpanel" runat="server" >
