@@ -851,7 +851,18 @@ namespace BoFPSuperlite
 
                         }
                     }
-                    assumptionValue = ((equityAllocation / debtAllocation) * customerAssumptionVo.ReturnOnEquity + (1 - (equityAllocation / debtAllocation)) * customerAssumptionVo.ReturnOnDebt) / 100;
+                    if (debtAllocation != 0 && equityAllocation != 0)
+                    {
+                        assumptionValue = ((equityAllocation / debtAllocation) * customerAssumptionVo.ReturnOnEquity + (1 - (equityAllocation / debtAllocation)) * customerAssumptionVo.ReturnOnDebt) / 100;
+                    }
+                    else if(debtAllocation == 0)
+                    {
+                        assumptionValue = customerAssumptionVo.ReturnOnEquity / 100;
+                    }
+                    else if (equityAllocation == 0)
+                    {
+                        assumptionValue = customerAssumptionVo.ReturnOnDebt / 100;
+                    }                   
 
                 }
 
