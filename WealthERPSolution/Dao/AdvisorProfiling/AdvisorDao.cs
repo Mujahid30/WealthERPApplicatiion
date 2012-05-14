@@ -2353,8 +2353,10 @@ namespace DaoAdvisorProfiling
                             aoTALVo.AMCLinkTypeCode = int.Parse(dr["XLTY_LinkTypeCode"].ToString());
                             aoTALVo.AMCLinks = dr["AL_Link"].ToString();
                             aoTALVo.AMCImagePath = dr["AL_LinkImagePath"].ToString();
-
-
+                            if(!string.IsNullOrEmpty(dr["WELM_LinkCode"].ToString()))
+                            {
+                                aoTALVo.ExternalLinkCode=dr["WELM_LinkCode"].ToString();
+                            }
                             adviserOTALink.Add(aoTALVo);
                         }
                     }
