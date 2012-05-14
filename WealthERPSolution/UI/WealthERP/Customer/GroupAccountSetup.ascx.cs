@@ -188,8 +188,21 @@ namespace WealthERP.Customer
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 txtAddressParent.Text = dr["C_Adr1Line1"].ToString();
                 txtParentCustomerType.Value = dr["XCT_CustomerTypeCode"].ToString();
-                txtMemberCustomer_AutoCompleteExtender.ContextKey = ddlSelectRMs.SelectedValue.ToString() + "|" + txtParentCustomerId.Value;
-                BindRelationshipDropDown();
+                if (txtParentCustomerType.Value == "IND")
+                {
+                    txtMemberCustomer_AutoCompleteExtender.ContextKey = ddlSelectRMs.SelectedValue.ToString() + "|" + txtParentCustomerId.Value;
+                    BindRelationshipDropDown();
+
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Selected Parent Customer is a Non Individua.Hence can not Proceed');", true);
+                    txtParentCustomer.Text = "";
+                    txtPanParent.Text = "";
+                    txtAddressParent.Text = "";
+                    return;
+                }
+                
             }
         }
 
