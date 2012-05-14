@@ -32,6 +32,7 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session["userVo"];
                 LoadViewFields();
+                btnCancel.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -52,7 +53,7 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-            btnCancel.Visible = false;
+
         }
 
         private void LoadViewFields()
@@ -277,6 +278,7 @@ namespace WealthERP.CustomerPortfolio
                 txtSTT.Text = mfTransactionVo.STT.ToString();
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
                 Session["MFEditValue"] = "Edit";
+                btnCancel.Visible = true;
 
             }
 
