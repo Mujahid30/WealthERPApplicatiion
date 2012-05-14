@@ -153,7 +153,7 @@
         <td class="HeaderCell">
             <img src="../Images/Telerik/mailNewIcon.png" height="25px" width="25px" style="float: right; cursor:hand;"
                 class="flip" />
-            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Super Admin Message"></asp:Label>
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Service Provider's Message"></asp:Label>
             <hr />
         </td>
     </tr>
