@@ -9,6 +9,8 @@ using BoAdvisorProfiling;
 using BoCommon;
 using System.Configuration;
 using System.Data;
+using BoCommon;
+using WealthERP.Base;
 
 namespace WealthERP.Admin
 {
@@ -24,7 +26,7 @@ namespace WealthERP.Admin
         DataSet dsGetAdviserLinks = new DataSet();
         DataTable dtGetAdviserLinks = new DataTable();
         List<AdviserOnlineTransactionAMCLinksVo> adviserOTALink = null;
-
+        CustomerVo customerVo = new CustomerVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,6 +34,7 @@ namespace WealthERP.Admin
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
+            customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
 
             if (!IsPostBack)
             {
@@ -82,7 +85,15 @@ namespace WealthERP.Admin
                     drAdvisorLinks[1] = AOTALVo.advisorId;
                     drAdvisorLinks[2] = AOTALVo.AMCLinkUserCode;
                     drAdvisorLinks[3] = AOTALVo.AMCLinkTypeCode;
-                    drAdvisorLinks[4] = AOTALVo.AMCLinks;
+                    if (!string.IsNullOrEmpty(AOTALVo.ExternalLinkCode) && AOTALVo.ExternalLinkCode == "TPSL")
+                    {
+                        drAdvisorLinks[4] = AOTALVo.AMCLinks + "&txtUserID=" + customerVo.CustomerId.ToString();
+                    }
+                    else
+                    {
+                        drAdvisorLinks[4] = AOTALVo.AMCLinks; 
+                    }
+                    
                     drAdvisorLinks[5] = "~/Images/" + AOTALVo.AMCImagePath;
 
                     dtBindLinks.Rows.Add(drAdvisorLinks);

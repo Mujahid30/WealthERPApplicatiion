@@ -36,7 +36,7 @@
                             
                                 <asp:TemplateField>
                                     <ItemTemplate>    
-                                        <asp:ImageButton ID="imgbtnLinks" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" Width="90px" Height="60px" CommandName="NavigateToLink" onclick="imgbtnLinks_Click" ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>' runat="server" />
+                                        <asp:ImageButton ID="imgbtnLinks" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="NavigateToLink" onclick="imgbtnLinks_Click" ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>' runat="server" />
                                         <br /><br />
                                     </ItemTemplate>                           
                                      <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />
