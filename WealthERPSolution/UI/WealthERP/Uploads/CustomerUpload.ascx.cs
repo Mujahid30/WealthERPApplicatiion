@@ -4705,7 +4705,7 @@ namespace WealthERP.Uploads
 
 
                         //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "TN", Contants.UploadFileTypeSystematic);
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeCAMS, Contants.UploadFileTypeSystematic);
                     }
                     else
                     {
