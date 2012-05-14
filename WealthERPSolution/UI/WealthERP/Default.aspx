@@ -623,6 +623,10 @@
                                 <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 3.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
+                            <td>
+                                <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/Terms & Condition- WERP.pdf" style="font-size:x-small"
+                                                    class="PCGWhiteText" target="_blank">Terms & Condition</a>                                
+                            </td>
                             <td align="right">
                                 <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
 --%>
