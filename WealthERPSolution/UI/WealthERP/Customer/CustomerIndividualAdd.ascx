@@ -743,7 +743,7 @@
                 AutoPostBack="false"  Enabled = "true"/>
                 &nbsp;
             &nbsp;
-                 <asp:Checkbox ID="chksms" runat="server" CssClass="txtField" Text="Via SMS"
+                 <asp:Checkbox ID="chksms" runat="server" Checked="true" CssClass="txtField" Text="Via SMS"
                 AutoPostBack="false"  Enabled = "true"/>
                             </td>
                             <td class="leftField">
