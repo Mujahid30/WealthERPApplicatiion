@@ -547,6 +547,7 @@ namespace DaoSuperAdmin
            {
                db = DatabaseFactory.CreateDatabase("wealtherp");
                AdviserListcmd = db.GetStoredProcCommand("SP_GetAllAdvisers");
+               db.AddInParameter(AdviserListcmd, "@IsforOldVluation", DbType.Int32, 0);
                dsBindAdviserForUpload = db.ExecuteDataSet(AdviserListcmd);
            }
            catch (BaseApplicationException Ex)
