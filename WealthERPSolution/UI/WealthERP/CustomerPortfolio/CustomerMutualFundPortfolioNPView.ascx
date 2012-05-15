@@ -44,16 +44,17 @@
         </td>
     </tr>
 </table>
+
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server">
-        <td align="center" colspan="7">
+        <td align="center">
             <div id="divNoRecords" runat="server" class="failure-msg">
                 <asp:Label ID="lblNoRecords" Text="No Records found" runat="server"></asp:Label>
             </div>
         </td>
     </tr>
     <tr id="trContent" runat="server">
-        <td colspan="7">
+        <td style="width:100%">
             <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Skin="Office2007" />
             <asp:Panel ID="pnlReturns" runat="server" Style="padding: 5px 0 0 2px;">
                 <telerik:RadTabStrip ID="RadTabStrip1" runat="server" EnableTheming="True" Skin="Telerik"
@@ -73,11 +74,11 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="ReturnsTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
-                        <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="80%" ScrollBars="Horizontal">
-                            <table id="tblHoldings" runat="server" width="99%">
+                        <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="98%" ScrollBars="Horizontal">
+                            <table id="tblHoldings" runat="server" width="50%">
                                 <tr>
                                     <td>
-                                        <div id="dvHoldings" runat="server" style="width: 98%;">
+                                        <div id="dvHoldings" runat="server" style="width: 640px;">
                                             <asp:Label ID="lblMessageHoldings" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
@@ -200,11 +201,11 @@
                                     </td>
                                 </tr>
                         </table>
-                        <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="65%" ScrollBars="Horizontal">
+                        <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
                             <table width="99%">
                                 <tr>
                                     <td colspan="2">
-                                        <div id="dvAll" runat="server" style="width: 98%">
+                                        <div id="dvAll" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageAll" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
@@ -345,12 +346,12 @@
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
-                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="90%"
+                        <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="98%"
                             ScrollBars="Horizontal">
                             <table id="tblRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
-                                        <div id="dvRealized" runat="server" style="width: 98%">
+                                        <div id="dvRealized" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageRealized" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
@@ -453,7 +454,7 @@
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPandATabPage" runat="server">
-                        <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="80%">
+                        <asp:Panel ID="pnlMFPandATabPage" runat="server" class="Landscape" Width="98%">
                             <table id="tblPandA" runat="server" width="99%">
                                 <tr id="trMFCode" runat="server">
                                     <td>
@@ -506,7 +507,7 @@
                             <table id="tblTaxHoldings" runat="server" width="99%">
                                 <tr>
                                     <td>
-                                        <div id="dvTaxHoldings" runat="server" style="width: 98%">
+                                        <div id="dvTaxHoldings" runat="server" style="width: 640px">
                                             <asp:Label ID="lblMessageTaxHoldings" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
@@ -608,7 +609,7 @@
                             <table id="tblTaxRealized" runat="server" width="99%">
                                 <tr>
                                     <td>
-                                        <div id="dvTaxRealized" runat="server" style="width: 98%">
+                                        <div id="dvTaxRealized" runat="server" style="width: 640px">
                                             <asp:Label ID="lblTaxRealized" Visible="false" Text="No Record Exists" runat="server"
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
