@@ -164,7 +164,7 @@
             <asp:DropDownList ID="ddlValuationTypes" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlValuationTypes_OnSelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>
+               <%-- <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>--%>
                 <asp:ListItem Text="Equity" Value="EQ"></asp:ListItem>
                 <asp:ListItem Text="Financial Profile" Value="FP"></asp:ListItem>
             </asp:DropDownList>
