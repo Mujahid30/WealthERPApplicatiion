@@ -31,9 +31,9 @@ namespace DaoWerpAdmin
                 db = DatabaseFactory.CreateDatabase("wealtherp");
 
                 Cmd = db.GetStoredProcCommand("SP_GetAllAdvisers");
-                
-                 getAdvisorDs = db.ExecuteDataSet(Cmd);
-                 dtAdvisers=getAdvisorDs.Tables[0];
+                db.AddInParameter(Cmd, "@IsforOldVluation", DbType.Int32, 0);
+                getAdvisorDs = db.ExecuteDataSet(Cmd);
+                dtAdvisers=getAdvisorDs.Tables[0];
                  foreach (DataRow dr in dtAdvisers.Rows)
                  {
                      adviserVo = new AdvisorVo();
