@@ -109,7 +109,11 @@
     </tr>
     <tr>
         <td>
-            <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4"
+        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+            <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+            <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4" Width="101%"
                 ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId" AllowSorting="true"
                 OnSorting="gvWERPTrans_Sort" >
                 <%--OnRowDataBound="gvWERPTrans_RowDataBound"--%>
@@ -238,6 +242,10 @@
                     <asp:BoundField DataField="BrokerCode" HeaderText="Broker Code" />                    
                 </Columns>
             </asp:GridView>
+            </td>
+                </tr>
+            </table>
+            </asp:Panel>
         </td>
     </tr>
     <tr id="trReprocess" runat="server">

@@ -2,7 +2,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
-
+<asp:ScriptManager ID="AdvLnCommnLnPrtLnScripManager" runat="server">
+</asp:ScriptManager>
 <table width="100%" class="TableBackground">
 <tr>
         <td class="HeaderCell">
@@ -16,9 +17,8 @@
     <table width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td>
-            <asp:ScriptManager ID="AdvLnCommnLnPrtLnScripManager" runat="server">
-            </asp:ScriptManager>
-            <asp:GridView ID="gvLnCommsnStrucLnPtr" runat="server" AutoGenerateColumns="False"
+            <asp:Panel ID="Panel1" runat="server" Width="110%">
+            <asp:GridView ID="gvLnCommsnStrucLnPtr" runat="server" AutoGenerateColumns="False" Width="120%"
                 CellPadding="4" ShowFooter="True" CssClass="GridViewStyle" AllowPaging="True"
                 DataKeyNames="ALPC_Id" OnRowDataBound="gvLnCommsnStrucLnPtr_RowDataBound" 
                 onrowdeleting="gvRowDeleting" 
@@ -154,6 +154,7 @@
                     </asp:CommandField>
                 </Columns>
             </asp:GridView>
+            </asp:Panel>            
         </td>
     </tr>
     </table>

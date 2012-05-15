@@ -77,7 +77,7 @@ function GetCustomerId(source, eventArgs) {
 <asp:Panel ID="pnlRejectedTransactions" runat="server" Height="200px" 
                        Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
 <asp:GridView ID="gvRejectedTransactions" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                        DataKeyNames="MFTransId" Width="624px" Height="78px" 
+                        DataKeyNames="MFTransId" Width="100%" Height="78px" 
                         Font-Size="Small" CssClass="GridViewStyle">
                         <FooterStyle Font-Bold="True" ForeColor="White" />
                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -120,7 +120,7 @@ function GetCustomerId(source, eventArgs) {
                        Width="100%" ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
 
 <asp:GridView ID="gvOriginalTransactions" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                        DataKeyNames="MFTransId" ForeColor="#333333" Width="624px" Height="78px"
+                        DataKeyNames="MFTransId" ForeColor="#333333" Width="100%" Height="78px"
                         Font-Size="Small" BackImageUrl="~/CSS/Images/HeaderGlassBlack.jpg" CssClass="GridViewStyle">
                         <FooterStyle Font-Bold="True" ForeColor="White" />
                         <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />

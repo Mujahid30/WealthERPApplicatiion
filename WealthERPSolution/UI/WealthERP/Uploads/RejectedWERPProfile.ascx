@@ -121,7 +121,11 @@
     </tr>
     <tr>
         <td>
-            <asp:GridView ID="gvWERPProfileReject" runat="server" AutoGenerateColumns="False"
+        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+         <table width="99%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+            <asp:GridView ID="gvWERPProfileReject" runat="server" AutoGenerateColumns="False" Width="110%"
                 CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPProfileStagingId"
                 AllowSorting="true" OnSorting="gvWERPProfileReject_Sort">
                 <FooterStyle CssClass="FooterStyle" />
@@ -236,6 +240,10 @@
                     <%--<asp:BoundField DataField="RejectReason" HeaderText="Reject Reason" />--%>
                 </Columns>
             </asp:GridView>
+            </td>
+        </tr>
+        </table>
+        </asp:Panel>
         </td>
     </tr>
     <tr id="trReprocess" runat="server">

@@ -96,7 +96,11 @@
         </tr>
         <tr>
             <td>
-                <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False"
+            <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+            <table width="100%" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False" Width="101%"
                     CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" AllowSorting="true"
                     DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID" >
                     <FooterStyle CssClass="FooterStyle" />
@@ -207,6 +211,10 @@
                        
                     </Columns>
                 </asp:GridView>
+                </td>
+                </tr>
+            </table>
+            </asp:Panel>
             </td>
         </tr>
         <tr id="trReprocess" runat="server">
