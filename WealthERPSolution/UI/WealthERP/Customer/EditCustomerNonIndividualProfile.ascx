@@ -501,7 +501,7 @@
                 AutoPostBack="false"  Enabled = "true"/>
                 &nbsp;
             
-                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS"
+                 <asp:Checkbox ID="chksmsn" runat="server" CssClass="txtField" Text="Via SMS" Checked="true"
                 AutoPostBack="false"  Enabled = "true"/>
                             </td>
                             <td>
