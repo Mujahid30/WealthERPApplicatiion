@@ -63,10 +63,10 @@ namespace BoValuation
                             {
                                 foreach (int customerId in AdviserCustomers)
                                 {
-                                    //if (customerId == 36349)
-                                    //{
- 
-                                    //}
+                                    if (customerId == 85747)
+                                    {
+
+                                    }
                                     MFBalanceCreation(customerId, 0, ValuationLabel.Customer);
 
                                 }
@@ -141,7 +141,7 @@ namespace BoValuation
                             if (dtCustomerTransactionsToProcess != null)
                             {
                                 if (dtCustomerTransactionsToProcess.Rows.Count > 0)
-                                {
+                                {                                 
 
                                     dtCustomerTransactionsToProcess.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
                                     dtMFTransactionsToProcess = dtCustomerTransactionsToProcess.DefaultView.ToTable();
@@ -570,6 +570,7 @@ namespace BoValuation
                                     double sum = 0;
                                     int count1 = 0;
 
+                                    dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };
                                     //  dtTransactionDetails = dtTransactionDetails.DefaultView.Table;
                                     if (dtDefaultView.Rows.Count > 0)
                                     {
@@ -628,7 +629,7 @@ namespace BoValuation
                                 dtTransactionDetails.Rows.Add(drTransactionDetails);
                                 dtTransactionDetails.DefaultView.RowFilter = expression;
                                 dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-
+                               // dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };
                                 dtmodifiedDetails = GetTransactiondetailsAfterSell(dtDefaultView, double.Parse(dr["CMFT_Units"].ToString()), double.Parse(dr["CMFT_Price"].ToString()), int.Parse(dr["CMFT_MFTransId"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
                                 dtTransactionDetails.Merge(dtmodifiedDetails, false);
                                 dtTransactionDetailsTemp = dtTransactionDetails.Copy();
