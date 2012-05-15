@@ -375,6 +375,7 @@ namespace WealthERP.Customer
                         {
                             customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
                         }
+                        
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();
@@ -416,6 +417,7 @@ namespace WealthERP.Customer
                     customerPortfolioVo.IsMainPortfolio = 1;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
                     customerPortfolioVo.PortfolioName = "MyPortfolio";
+                    customerVo.ViaSMS = 1;
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
                     Session["Customer"] = "Customer";
                     if (customerIds != null)
