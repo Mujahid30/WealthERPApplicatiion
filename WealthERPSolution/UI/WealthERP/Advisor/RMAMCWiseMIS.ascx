@@ -225,7 +225,7 @@
                         <ItemStyle Width="40px" />
                         <HeaderStyle Wrap="False"></HeaderStyle>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="15px"
+                    <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="15px" DataFormatString="{0:n2}"
                         HeaderStyle-Wrap="false">
                         <HeaderStyle Wrap="False"></HeaderStyle>
                     </asp:BoundField>

@@ -296,7 +296,7 @@ namespace WealthERP.Advisor
                 decimal AumPercentage = 0;
                 for (int i = 0; i < dsMISReport.Tables[0].Rows.Count; i++)
                 {
-                    dsMISReport.Tables[0].Rows[i]["AUM"] = Decimal.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i]["AUM"].ToString()));
+                    dsMISReport.Tables[0].Rows[i]["AUM"] = decimal.Parse(dsMISReport.Tables[0].Rows[i]["AUM"].ToString());
                     //dsMISReport.Tables[0].Rows[i]["Percentage"] = decimal.Parse(dsMISReport.Tables[0].Rows[i]["Percentage"].ToString()).ToString();
                         //decimal.Parse(dsMISReport.Tables[0].Rows[i]["Percentage"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 }
@@ -333,7 +333,7 @@ namespace WealthERP.Advisor
 
                     if (GridViewCultureFlag == true)
                     {
-                        decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i]["AUM"].ToString()), 2);
+                        decimal tempAum = decimal.Parse(dsMISReport.Tables[0].Rows[i]["AUM"].ToString());
                         drMISReport[2] = tempAum.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                     }
