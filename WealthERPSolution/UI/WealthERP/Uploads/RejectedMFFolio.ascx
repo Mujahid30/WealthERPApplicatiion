@@ -100,7 +100,9 @@
             <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False" Width="101%"
+                <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+                <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
+                <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False" Width="100%"
                     CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" AllowSorting="true"
                     DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID" >
                     <FooterStyle CssClass="FooterStyle" />
@@ -211,6 +213,9 @@
                        
                     </Columns>
                 </asp:GridView>
+                
+                </div>
+                </asp:Panel>
                 </td>
                 </tr>
             </table>
