@@ -53,6 +53,12 @@ namespace VoOps
         private string m_PanNo;
         private int m_IsApproved;
 
+        private DateTime m_MaturityDate;
+        private double m_SumAssured;
+        private string m_ModeOfHolding;
+        private string m_IsJointlyHeld;
+        private int m_PLIS_InsuranceSchemeid;
+        private string m_XII_InsuranceIssuerCode;
        #endregion
 
         #region Properties
@@ -268,6 +274,42 @@ namespace VoOps
         {
             get { return m_PanNo; }
             set { m_PanNo = value; }
+        }
+
+        public DateTime MaturityDate
+        {
+            get { return m_MaturityDate; }
+            set { m_MaturityDate = value; }
+        }
+
+        public double SumAssured
+        {
+            get { return m_SumAssured; }
+            set { m_SumAssured = value; }
+        }
+
+        public string ModeOfHolding
+        {
+            get { return m_ModeOfHolding; }
+            set { m_ModeOfHolding = value; }
+        }
+
+        public string IsJointlyHeld
+        {
+            get { return m_IsJointlyHeld; }
+            set { m_IsJointlyHeld = value; }
+        }
+
+        public int PLIS_InsuranceSchemeid
+        {
+            get { return m_PLIS_InsuranceSchemeid; }
+            set { m_PLIS_InsuranceSchemeid = value; }
+        }
+
+        public string XII_InsuranceIssuerCode
+        {
+            get { return m_XII_InsuranceIssuerCode; }
+            set { m_XII_InsuranceIssuerCode = value; }
         }
         public int IsApproved
         {
