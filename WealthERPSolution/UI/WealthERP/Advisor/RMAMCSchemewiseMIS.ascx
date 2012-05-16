@@ -298,7 +298,7 @@
                                 <HeaderStyle Wrap="False"></HeaderStyle>
                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:BoundField>
-                            <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right"
+                            <asp:BoundField DataField="AUM" HeaderText="AUM" ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}"
                                 HeaderStyle-Wrap="false">
                                 <HeaderStyle Wrap="False"></HeaderStyle>
                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>

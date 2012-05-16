@@ -477,15 +477,15 @@ namespace WealthERP.Advisor
 
                         if (GridViewCultureFlag == true)
                         {
-                            decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()), 2);
-                            drMISReport[5] = temp.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                            drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 4).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            decimal temp = decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString());
+                            drMISReport[5] = temp.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                            drMISReport[6] = decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                             //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         }
                         else
                         {
-                            drMISReport[5] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()), 2).ToString();                             
-                            drMISReport[6] =System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()),4).ToString();
+                            drMISReport[5] = decimal.Parse(dsMISReport.Tables[0].Rows[i][6].ToString()).ToString();                             
+                            drMISReport[6] =decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()).ToString();
                             //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString();
                                 
                         }
@@ -517,8 +517,8 @@ namespace WealthERP.Advisor
                     }
                   if (GridViewCultureFlag == true)
                   {
-                      gvMFMIS.FooterRow.Cells[6].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                      gvMFMIS.FooterRow.Cells[7].Text = totalAmount.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                      gvMFMIS.FooterRow.Cells[6].Text = totalUnits.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                      gvMFMIS.FooterRow.Cells[7].Text = totalAmount.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
  
                   }
                   else
