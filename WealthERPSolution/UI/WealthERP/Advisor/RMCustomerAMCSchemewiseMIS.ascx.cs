@@ -462,15 +462,15 @@ namespace WealthERP.Advisor
 
                     if (GridViewCultureFlag == true)
                     {
-                        decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 4);
-                        drMISReport[6] = temp.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        decimal temp = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 2);
+                        drMISReport[6] = temp.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2);
-                        drMISReport[7] = tempAum.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMISReport[7] = tempAum.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                     else
                     {
-                        drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 4).ToString();
+                        drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][8].ToString()), 2).ToString();
                         decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2);
                         drMISReport[7] = tempAum.ToString();
                         //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString();
@@ -494,7 +494,7 @@ namespace WealthERP.Advisor
 
                 if (GridViewCultureFlag == true)
                 {
-                    gvMFMIS.FooterRow.Cells[8].Text = System.Math.Round(decimal.Parse(totalAum.ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                    gvMFMIS.FooterRow.Cells[8].Text = System.Math.Round(decimal.Parse(totalAum.ToString()), 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                     gvMFMIS.FooterRow.Cells[7].Text = totalUnits.ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
