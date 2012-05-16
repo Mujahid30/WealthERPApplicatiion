@@ -365,5 +365,20 @@ namespace BoSuperAdmin
             }
             return dsAdviserRMDetails;
         }
+        public bool FolioStartDate()
+        {
+            bool isComplete=false;
+            try
+            {
+                SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
+                superAdminOpsDao.FolioStartDate();
+                isComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isComplete;
+        }
     }
 }
