@@ -139,6 +139,12 @@
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn UniqueName="FolioStartDate"  AllowFiltering="True" HeaderText="FolioStartDate" DataField="FolioStartDate"><%-- --%>
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                           <FilterTemplate>
+                                                            <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
                                                             DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N4}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
@@ -181,6 +187,7 @@
                                                             AllowFiltering="false" DataFormatString="{0:N2}">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                       
                                                     </Columns>
                                                 </MasterTableView>
                                             </telerik:RadGrid>
@@ -266,6 +273,12 @@
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="FolioStartDate"  AllowFiltering="True" HeaderText="FolioStartDate" DataField="FolioStartDate">
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                                           <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                                          </FilterTemplate>
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="PurchasedUnits" HeaderText="Purchased Units"
                                                             DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N4}" Aggregate="Sum"
                                                             FooterStyle-HorizontalAlign="Right">
@@ -334,8 +347,9 @@
                                                         <telerik:GridBoundColumn UniqueName="TotalDividends" HeaderText="Total Dividends"
                                                             DataField="TotalDividends" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
                                                             Aggregate="Sum" AllowFiltering="false">
-                                                            <ItemStyle HorizontalAlign="Right" />
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                          
                                                     </Columns>
                                                 </MasterTableView>
                                             </telerik:RadGrid>
@@ -410,6 +424,12 @@
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn UniqueName="FolioStartDate"  AllowFiltering="True" HeaderText="FolioStartDate" DataField="FolioStartDate">
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                                   <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                                       </FilterTemplate>
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="InvestedCost" HeaderText="Invested Cost" DataField="InvestedCost"
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -442,8 +462,9 @@
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="XIRR" HeaderText="XIRR(%)" DataField="XIRR"
                                                             AllowFiltering="false" DataFormatString="{0:N2}">
-                                                            <ItemStyle HorizontalAlign="Right" />
+                                                        <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                       
                                                     </Columns>
                                                 </MasterTableView>
                                             </telerik:RadGrid>
@@ -566,6 +587,12 @@
                                                         <telerik:GridBoundColumn UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn UniqueName="FolioStartDate"  HeaderText="FolioStartDate"  AllowFiltering="True" DataField="FolioStartDate">
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                                   <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                                       </FilterTemplate>
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="OpenUnits" HeaderText="Total Units" DataField="OpenUnits"
                                                             AllowFiltering="false" DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
@@ -595,6 +622,7 @@
                                                             AllowFiltering="false" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                       
                                                     </Columns>                                                    
                                                 </MasterTableView>
                                             </telerik:RadGrid>
@@ -669,6 +697,12 @@
                                                             AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn UniqueName="FolioStartDate" HeaderText="FolioStartDate"  AllowFiltering="True" DataField="FolioStartDate">
+                                                            <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                             <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                                             </FilterTemplate>
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn UniqueName="AcquisitionCost" HeaderText="Acquisition Cost"
                                                             DataField="AcquisitionCost" AllowFiltering="false" FooterStyle-HorizontalAlign="Right"
                                                             DataFormatString="{0:N0}" Aggregate="Sum">
@@ -697,6 +731,7 @@
                                                             FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
+                                                        
                                                     </Columns>
                                                 </MasterTableView>
                                             </telerik:RadGrid>

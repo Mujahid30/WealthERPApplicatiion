@@ -463,6 +463,10 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioRealized[13] = mfVo.AMCCode;
             drMFPortfolioRealized[14] = mfVo.SchemePlanCode;
             drMFPortfolioRealized[15] = mfVo.AssetInstrumentSubCategoryName;
+            if (mfVo.FolioStartDate == DateTime.MinValue)
+                drMFPortfolioRealized[16] = "N/A";
+            else
+                drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
 
         }
 
@@ -551,7 +555,12 @@ namespace WealthERP.CustomerPortfolio
 
             drMFPortfolioAll[20] = mfVo.AMCCode;
             drMFPortfolioAll[21] = mfVo.SchemePlanCode;
-            drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;            
+            drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
+            if (mfVo.FolioStartDate == DateTime.MinValue)
+                drMFPortfolioAll[23] = "N/A";
+            else
+                drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+
         }
 
         private static void PopulateReturnsHoldDataTable(MFPortfolioNetPositionVo mfVo, DataRow drMFPortfolioHoldings)
@@ -617,6 +626,10 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioHoldings[15] = mfVo.AMCCode;
             drMFPortfolioHoldings[16] = mfVo.SchemePlanCode;
             drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
+            if (mfVo.FolioStartDate == DateTime.MinValue)
+                drMFPortfolioHoldings[18] = "N/A";
+            else
+                drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -665,6 +678,10 @@ namespace WealthERP.CustomerPortfolio
             drTaxHoldings[12] = mfVo.AMCCode;
             drTaxHoldings[13] = mfVo.SchemePlanCode;
             drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
+            if (mfVo.FolioStartDate == DateTime.MinValue)
+                drTaxHoldings[15] = "N/A";
+            else
+                drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
 
         }
 
@@ -709,6 +726,11 @@ namespace WealthERP.CustomerPortfolio
                 drTaxRealized[13] = mfVo.SalesQuantity.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
                 drTaxRealized[13] = "0.00";
+            if (mfVo.FolioStartDate == DateTime.MinValue)
+                drTaxRealized[14] = "N/A";
+            else
+                drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
+
         }
 
         private void ReturnsLabelVisibility(bool blVisibility)
@@ -762,6 +784,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("AMCCode");
             dtReturnsHoldings.Columns.Add("SchemeCode");
             dtReturnsHoldings.Columns.Add("SubCategoryName");
+            dtReturnsHoldings.Columns.Add("FolioStartDate");                                  
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -789,6 +812,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("AMCCode");
             dtReturnsAll.Columns.Add("SchemeCode");
             dtReturnsAll.Columns.Add("SubCategoryName");
+            dtReturnsAll.Columns.Add("FolioStartDate");
         }
 
         private void ReturnsRealizedDataTableCreation(DataTable dtReturnsRealized)
@@ -809,6 +833,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("AMCCode");
             dtReturnsRealized.Columns.Add("SchemeCode");
             dtReturnsRealized.Columns.Add("SubCategoryName");
+            dtReturnsRealized.Columns.Add("FolioStartDate");
         }
 
         private void TaxHoldingsDataTableCreation(DataTable dtTaxHoldings)
@@ -828,6 +853,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("AMCCode");
             dtTaxHoldings.Columns.Add("SchemeCode");
             dtTaxHoldings.Columns.Add("SubCategoryName");
+            dtTaxHoldings.Columns.Add("FolioStartDate");
         }
 
         private void TaxRealizedDataTableCreation(DataTable dtTaxRealized)
@@ -846,6 +872,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("SchemeCode");
             dtTaxRealized.Columns.Add("SubCategoryName");
             dtTaxRealized.Columns.Add("UnitsSold", typeof(double));
+            dtTaxRealized.Columns.Add("FolioStartDate");
         }
 
         private void BindPerformaceChart()
