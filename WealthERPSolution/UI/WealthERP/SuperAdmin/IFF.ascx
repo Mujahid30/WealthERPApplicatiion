@@ -29,7 +29,7 @@
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="IFF Grid"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="IFA LIST"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -57,22 +57,24 @@
     </tr>--%>
 </table>
 <%--<asp:Panel ID="pnlIFFGrid" runat="server" Width="100%" ScrollBars="Vertical,horizontal">--%>
-<table class="TableBackground" width="100%">
+<table class="TableBackground" width="100%" cellpadding="0" cellspacing="0">
 <tr align="left">
-<td>
-    <asp:Button ID="btnExportFilteredData" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" Text="Export All Filtered Data" runat="server" />
+<td style="padding-left:4px">
+    <asp:Button ID="btnExportFilteredData" CssClass="PCGLongButton" OnClick="btnExportFilteredData_OnClick" Text="Export AllPage" runat="server" />
 </td>
 </tr>
     <tr>
         <td>
+           <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+            <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
             <telerik:RadGrid 
              ID="gvAdvisorList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
                     AllowAutomaticInserts="false" OnNeedDataSource="gvAdvisorList_OnNeedDataSource">
-                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"></ExportSettings>
-                <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
-                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"> </ExportSettings>
+                    <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
+                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                     ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
                     <Columns>
                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -88,8 +90,8 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn HeaderText="IFF" DataField="IFFName" AllowFiltering="true">
-                            <ItemStyle />
+                        <telerik:GridBoundColumn HeaderText="IFA" DataField="IFFName" AllowFiltering="true">
+                            <ItemStyle />                            
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Category" DataField="Category" AllowFiltering="true">
                             <ItemStyle />
@@ -109,7 +111,7 @@
                         <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Is Active" DataField="imgIFFIsActive" AllowFiltering="false">
+                        <telerik:GridBoundColumn HeaderText="Is Active" DataField="imgIFFIsActive" AllowFiltering="true">
                             <ItemStyle />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false">
@@ -138,12 +140,13 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderText="Real Est., Subs"  DataField="imgIFFComodities"  AllowFiltering="false">
                             <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        
+                        </telerik:GridBoundColumn>                        
                         
                     </Columns>
                 </MasterTableView>
             </telerik:RadGrid>
+            </div>
+             </asp:Panel>
             <br />
             <%--<asp:Button ID="clrFilters" runat="server" Text="Clear filters" CssClass="button"
             OnClick="clrFilters_Click"></asp:Button>--%>
