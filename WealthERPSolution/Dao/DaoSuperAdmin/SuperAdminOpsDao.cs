@@ -574,5 +574,22 @@ namespace DaoSuperAdmin
            }
            return dsAdviserRmDetails;
        }
+       public bool FolioStartDate()
+       {
+           Database db;
+           DbCommand FolioStartDatecmd;
+           bool isComplete = false;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               FolioStartDatecmd = db.GetStoredProcCommand("SP_FolioStartDate");
+               isComplete = true;
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           return isComplete;
+       }
     }
 }
