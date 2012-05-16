@@ -54,5 +54,6 @@ namespace VoCustomerPortfolio
         public double TaxRealizedSTCG { get; set; }
         public double TaxRealizedLTCG { get; set; }
         public string AssetInstrumentSubCategoryName { get; set; }
+        public DateTime FolioStartDate { get; set; }
     }
 }
