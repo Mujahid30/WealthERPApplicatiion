@@ -295,7 +295,7 @@
                         <asp:BoundField DataField="Script" HeaderText="Scrip"  />
                         <asp:BoundField DataField="NetHoldings" HeaderText="Net Holdings" 
                             ItemStyle-HorizontalAlign="Right" />
-                        <asp:BoundField DataField="AmortisedCost" HeaderText="Amortised Cost (Rs)" 
+                        <asp:BoundField DataField="AmortisedCost" HeaderText="Acquisition Cost (Rs)" 
                             ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" HtmlEncode="false" />
                         <asp:BoundField DataField="CurrentValue" HeaderText="CurrentValue (Rs)" 
                             ItemStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" HtmlEncode="false" />
