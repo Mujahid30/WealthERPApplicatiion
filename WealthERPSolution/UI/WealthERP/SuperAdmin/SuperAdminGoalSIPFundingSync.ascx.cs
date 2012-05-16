@@ -55,5 +55,14 @@ namespace WealthERP.SuperAdmin
            }
 
         }
+        protected void btnSubmitfolio_Click(object sender, EventArgs e)
+        {
+            bool isComplete = false;
+            isComplete=superAdminOpsBo.FolioStartDate();
+            if (isComplete == true)
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Startdate Updated');", true);
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Startdate not updated');", true);
+         }
     }
 }
