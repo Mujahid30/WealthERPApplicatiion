@@ -812,7 +812,8 @@ namespace DaoCustomerPortfolio
 
                         if (dr["CMFNP_TAX_Realized_LTCG"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.TaxRealizedLTCG = double.Parse(dr["CMFNP_TAX_Realized_LTCG"].ToString());
-
+                        if (dr["CMFA_AccountOpeningDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.FolioStartDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
                         mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
                 }
