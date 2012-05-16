@@ -139,11 +139,12 @@
         <td>
             <asp:Panel ID="pnlSystematicTransactions" runat="server" Height="500px" Width="100%"
                 ScrollBars="Vertical" Visible="false" HorizontalAlign="Left">
+                <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
                 <telerik:RadGrid ID="gvSystematicTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowSorting="true" AllowPaging="false" ShowStatusBar="True" ShowFooter="true" PageSize="10"
                     OnItemCreated="gvSystematicTransactions_ItemCreated"
                     OnItemDataBound="gvSystematicTransactions_ItemDataBound" OnNeedDataSource="gvSystematicTransactions_OnNeedDataSource"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="80%" AllowFilteringByColumn="true" 
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
                     AllowAutomaticInserts="false">
                     <exportsettings HideStructureColumns="true" ExportOnlyData="true">
                     </exportsettings>
@@ -209,6 +210,7 @@
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </clientsettings>
                 </telerik:RadGrid>
+                </div>
                 <%--<asp:GridView ID="gvSystematicTransactions" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         DataKeyNames="RowId" Width="624px" Height="78px" 
                         Font-Size="Small" CssClass="GridViewStyle" 
