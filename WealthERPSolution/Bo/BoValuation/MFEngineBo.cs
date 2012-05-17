@@ -63,10 +63,10 @@ namespace BoValuation
                             {
                                 foreach (int customerId in AdviserCustomers)
                                 {
-                                    if (customerId == 85747)
-                                    {
+                                    //if (customerId == 85747)
+                                    //{
 
-                                    }
+                                    //}
                                     MFBalanceCreation(customerId, 0, ValuationLabel.Customer);
 
                                 }
@@ -629,8 +629,9 @@ namespace BoValuation
                                 dtTransactionDetails.Rows.Add(drTransactionDetails);
                                 dtTransactionDetails.DefaultView.RowFilter = expression;
                                 dtDefaultView = dtTransactionDetails.DefaultView.ToTable();
-                               // dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };
+                               // dtDefaultView.PrimaryKey = new DataColumn[] { dtDefaultView.Columns["CMFT_MFTransId"] };                               
                                 dtmodifiedDetails = GetTransactiondetailsAfterSell(dtDefaultView, double.Parse(dr["CMFT_Units"].ToString()), double.Parse(dr["CMFT_Price"].ToString()), int.Parse(dr["CMFT_MFTransId"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
+                                dtmodifiedDetails.PrimaryKey = new DataColumn[] { dtmodifiedDetails.Columns["CMFT_MFTransId"] };
                                 dtTransactionDetails.Merge(dtmodifiedDetails, false);
                                 dtTransactionDetailsTemp = dtTransactionDetails.Copy();
                                 break;
