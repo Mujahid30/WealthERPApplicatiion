@@ -106,5 +106,41 @@ namespace BoCommon
             }
             return emailLogId;
         }
+
+        /// <summary>
+        /// This will add the emails to the emailtable ... which will help to send the email to the email IDs added to the table
+        /// This method can be used as a global method to access from any page within the project
+        /// </summary>
+        /// <param name="emailVo"></param>
+        /// <returns>This will return true or false</returns>
+
+        public bool AddToEmailQueue(EmailVo emailVo)
+        {
+            bool isCompleted= false;
+            EmailSMSDao emailSMSDao = new EmailSMSDao();
+            try
+            {
+                isCompleted = bool.Parse(emailSMSDao.AddToEmailQueue(emailVo).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "EmailSMSBo.cs:AddToEmailQueue(EmailVo emailVo)");
+                object[] objects = new object[1];
+                objects[0] = emailVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isCompleted;
+        }
     }
 }
