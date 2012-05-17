@@ -136,5 +136,101 @@ namespace DaoCommon
             }
             return emailLogId;
         }
+
+        /// <summary>
+        /// This will add the emails to the emailtable ... which will help to send the email to the email IDs added to the table
+        /// This method can be used as a global method to access from any page within the project
+        /// In this case we just need to provide the emailIds to the table and the email would be sent automatically with the help of the 
+        /// emailprocessing daemon
+        /// </summary>
+        /// <param name="emailVo"></param>
+        /// <returns>It will return a bool value which would be true or false</returns>
+
+        public bool AddToEmailQueue(EmailVo emailVo)
+        {
+           
+            bool isComplete = false;
+            Database db;
+            DbCommand addToEmailQueueCmd;
+            Int16 noOfRecord;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                addToEmailQueueCmd = db.GetStoredProcCommand("SP_AddEmailToQueueComplete");
+
+                //inserting data into the queue table and the attachment table
+
+                if (emailVo.To != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@To", DbType.String, emailVo.To);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@To", DbType.String, DBNull.Value);
+
+                if (emailVo.Cc != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Cc", DbType.String, emailVo.Cc);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Cc", DbType.String, DBNull.Value);
+
+                if (emailVo.Bcc != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Bcc", DbType.String, emailVo.Bcc);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Bcc", DbType.String, DBNull.Value);
+
+                if (emailVo.Subject != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Subject", DbType.String, emailVo.Subject);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Subject", DbType.String, DBNull.Value);
+
+                if (emailVo.Body != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Body", DbType.String, emailVo.Body);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Body", DbType.String, DBNull.Value);
+
+                if (emailVo.HasAttachment != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@HasAttachment", DbType.Int32, emailVo.HasAttachment);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@HasAttachment", DbType.Int32, DBNull.Value);
+
+                if (emailVo.AttachmentPath != null)
+                    db.AddInParameter(addToEmailQueueCmd, "@Path", DbType.String, emailVo.AttachmentPath);
+                else
+                    db.AddInParameter(addToEmailQueueCmd, "@Path", DbType.String, DBNull.Value);
+
+                //db.AddOutParameter(addToEmailQueueCmd, "@EmailQId", DbType.Int32, 10000);
+                noOfRecord=Convert.ToInt16(db.ExecuteNonQuery(addToEmailQueueCmd));
+
+                if (noOfRecord>0)
+                    isComplete = true;
+                //if (db.ExecuteNonQuery(addToEmailQueueCmd) != 0)
+                //{
+                //    emailQueueId = int.Parse(db.GetParameterValue(addToEmailQueueCmd, "EmailQId").ToString());
+                //}
+
+                //if (emailVo.EmailQueueId != null)
+                //    db.AddInParameter(addToEmailQueueCmd, "@EmailQId", DbType.Int32, emailQueueId);
+                //else
+                //    db.AddInParameter(addToEmailQueueCmd, "@EmailQId", DbType.Int32, DBNull.Value);
+
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:AddToEmailQueue(EmailVo emailVo)");
+                object[] objects = new object[1];
+                objects[0] = emailVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return isComplete;
+        }
     }
 }
