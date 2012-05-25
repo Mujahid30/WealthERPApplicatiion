@@ -757,6 +757,10 @@ namespace BoCustomerPortfolio
                 {
                     for (int i = 0; i < mfSystematicVoList.Count; i++)
                     {
+                        //if (mfSystematicVoList[i].FolioNum == "7765")
+                        //{
+ 
+                        //}
                         DateTime StartDate = mfSystematicVoList[i].StartDate;
                         DateTime EndDate = mfSystematicVoList[i].EndDate;
                         DateTime TransStartDate = new DateTime();
@@ -832,14 +836,22 @@ namespace BoCustomerPortfolio
                                     mfSystematicTransactionReportVo.SystematicTransacionType = mfSystematicVoList[i].SystematicTypeCode;
                                     mfSystematicTransactionReportVo.SystematicTransactionDate = TransDate;
                                     //Matching Original Transactions
+                                    //if (mfSystematicTransactionReportVo.SystematicTransactionDate == DateTime.Parse("30/07/2011"))
+                                    //{
+
+                                    //}
+
                                     if (mfSystematicTransactionVoList != null)
                                     {
                                         for (int j = 0; j < mfSystematicTransactionVoList.Count; j++)
                                         {
+                                            //if (mfSystematicTransactionVoList[j].TransactionDate == DateTime.Parse("02/08/2011") && mfSystematicTransactionVoList[j].FolioNum == "7765")
+                                            //{
+                                            //}
+
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[j].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[j].SchemePlanCode
-                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
-                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[j].TransactionDate.AddDays(5))
+                                                && (((mfSystematicTransactionVoList[j].TransactionDate >= mfSystematicTransactionReportVo.SystematicTransactionDate) && (mfSystematicTransactionVoList[j].TransactionDate <= mfSystematicTransactionReportVo.SystematicTransactionDate.AddDays(5))) || (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate))
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[j].Amount
                                                 && !mfSystematicTransactionVoList[j].MatchFound)
                                             {
@@ -874,8 +886,8 @@ namespace BoCustomerPortfolio
                                         {
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[j].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[j].SchemePlanCode
-                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate
-                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[j].TransactionDate.AddDays(5))
+                                                //&& (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate)
+                                                && (((mfSystematicTransactionVoList[j].TransactionDate >= mfSystematicTransactionReportVo.SystematicTransactionDate) && (mfSystematicTransactionVoList[j].TransactionDate <= mfSystematicTransactionReportVo.SystematicTransactionDate.AddDays(5))) || (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[j].TransactionDate))
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[j].Amount
                                                 && !mfSystematicTransactionVoList[j].MatchFound)
                                             {
@@ -908,8 +920,8 @@ namespace BoCustomerPortfolio
                                         {
                                             if (mfSystematicTransactionReportVo.AccountId == mfSystematicTransactionVoList[k].AccountId
                                                 && mfSystematicTransactionReportVo.SchemePlanCode == mfSystematicTransactionVoList[k].SchemePlanCode
-                                                && (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate
-                                                || mfSystematicTransactionReportVo.SystematicTransactionDate <= mfSystematicTransactionVoList[k].TransactionDate.AddDays(5))
+                                                //&& (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate)
+                                                && (((mfSystematicTransactionVoList[k].TransactionDate >= mfSystematicTransactionReportVo.SystematicTransactionDate) && (mfSystematicTransactionVoList[k].TransactionDate <= mfSystematicTransactionReportVo.SystematicTransactionDate.AddDays(5))) || (mfSystematicTransactionReportVo.SystematicTransactionDate == mfSystematicTransactionVoList[k].TransactionDate))
                                                 && mfSystematicTransactionReportVo.SystematicTransacionType == mfSystematicTransactionVoList[k].TransactionClassificationCode
                                                 && mfSystematicTransactionReportVo.SystematicAmount == mfSystematicTransactionVoList[k].Amount
                                                 && !mfSystematicTransactionVoList[k].MatchFound)
