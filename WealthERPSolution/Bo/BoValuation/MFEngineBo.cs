@@ -41,6 +41,12 @@ namespace BoValuation
         DataTable dtCustomerMutualFundNetPosition = new DataTable();
         bool isMFTractionSellPairRecreate;
 
+        DataTable dtCustomerMFTransactionBalanceForNP = new DataTable();
+        DataTable dtCustomerMFTransactionSellPairedForNP = new DataTable();
+        DataTable dtAdviserMFNetPosition = new DataTable();
+        int adviserId = 0;
+      
+
         public enum ValuationLabel
         {
             Advisor,
@@ -135,6 +141,7 @@ namespace BoValuation
                             DataTable dtMFTransactionBalance = new DataTable();
                             DataTable dtMFTransactionProcessedBalance = new DataTable();
                             DataTable dtMFTransactionProcessedBalanceTemp = new DataTable();
+                            DataSet dsMFTransactionProcessedBalance = new DataSet();
 
                             dtMFTransactionProcessedBalance = CreateTransactionBalanceTable();
                             dtMFTransactionBalance = CreateTransactionBalanceTable();
@@ -203,9 +210,12 @@ namespace BoValuation
 
                                     //}
 
+                                  
                                     if (dsTransactionBalanceReadyToProcess.Tables["Transaction"].Rows.Count > 0)
-                                        dtMFTransactionProcessedBalance = TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
-                                    dtMFTransactionProcessedBalance.PrimaryKey = null;
+                                        dsMFTransactionProcessedBalance = TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
+                                    dtMFTransactionProcessedBalance = dsMFTransactionProcessedBalance.Tables[0];
+                                            
+                                        dtMFTransactionProcessedBalance.PrimaryKey = null;
 
 
 
@@ -281,7 +291,7 @@ namespace BoValuation
 
         #region BalanceCreation
 
-        protected DataTable CreateTransactionBalanceTable()
+        public DataTable CreateTransactionBalanceTable()
         {
             DataTable dtTransactionDetails = new DataTable();
             dtTransactionDetails.Columns.Add("CMFT_MFTransId", typeof(System.Int32));
@@ -310,8 +320,9 @@ namespace BoValuation
             return dtTransactionDetails;
         }
 
-        protected DataTable TransactionBalanceProcess(DataSet dsTransactionList)
+        public DataSet TransactionBalanceProcess(DataSet dsTransactionList)
         {
+            DataSet dsBalancedSellPairedDetails = new DataSet();
             DataTable dtTransactionDetails = new DataTable();
             DataTable dtTransactionDetailsTemp = new DataTable();
             string transactionType;
@@ -346,6 +357,8 @@ namespace BoValuation
                         {
                             case "BUY":
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                                drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
+                                drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
                                 drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
@@ -374,6 +387,8 @@ namespace BoValuation
                             case "DVR":
                                 double dvrUnits = 0;
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                                drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
+                                drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
                                 drTransactionDetails["CMFT_TransactionDate"] = Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
 
@@ -543,6 +558,8 @@ namespace BoValuation
                             case "DVP":
                                 double amount = double.Parse(dr["CMFT_Amount"].ToString());
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                                drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
+                                drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
                                 drTransactionDetails["CMFT_TransactionDate"] =Convert.ToDateTime(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
@@ -608,6 +625,8 @@ namespace BoValuation
                             case "SEL":
                                 DataTable dtmodifiedDetails = new DataTable();
                                 drTransactionDetails["CMFT_MFTransId"] = dr["CMFT_MFTransId"].ToString();
+                                drTransactionDetails["CMFA_AccountId"] = dr["CMFA_AccountId"].ToString();
+                                drTransactionDetails["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                                 drTransactionDetails["WMTT_TransactionClassificationCode"] = dr["WMTT_TransactionClassificationCode"].ToString();
                                 drTransactionDetails["CMFT_TransactionDate"] =DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFT_Price"] = dr["CMFT_Price"];
@@ -661,7 +680,9 @@ namespace BoValuation
                 throw exBase;
 
             }
-            return dtTransactionDetails;
+            dsBalancedSellPairedDetails.Tables.Add(dtTransactionDetails);
+            dsBalancedSellPairedDetails.Tables.Add(dtMFTrasactionSellPair);
+            return dsBalancedSellPairedDetails;
         }
 
         protected DataTable GetTransactiondetailsAfterSell(DataTable dt, double sellUnits, double sellPrice, int sellId, DateTime sellTransactiondate)
@@ -822,17 +843,24 @@ namespace BoValuation
 
                     case "Advisor":
                         {
+                            adviserId = commonId;
                             AdviserCustomers = mfEngineDao.GetAdviserCustomerList_MF(commonId);
                             if (AdviserCustomers != null)
                             {
+                                dtAdviserMFNetPosition = CreateNetpositionTable();
                                 foreach (int customerId in AdviserCustomers)
                                 {
                                     MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate);
                                     if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
-                                        mfEngineDao.CreateCustomerMFNetPosition(customerId, valuationDate, dtCustomerMutualFundNetPosition);
+                                    {
+                                        dtAdviserMFNetPosition.Merge(dtCustomerMutualFundNetPosition);
+                                        //mfEngineDao.CreateCustomerMFNetPosition(customerId, valuationDate, dtCustomerMutualFundNetPosition);
+                                    }
                                     dtCustomerMutualFundNetPosition.Clear();
 
                                 }
+                                mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition);
+                                dtAdviserMFNetPosition.Clear();
                             }
                             break;
                         }
@@ -840,9 +868,14 @@ namespace BoValuation
                         {
                             DataSet dsCustomerMFPortfolioAccountDetails = new DataSet();
                             dsCustomerMFPortfolioAccountDetails = mfEngineDao.GetCustomerAllMFPortfolioAccountForValution(commonId);
+                            DataSet dsCustomerMFTransactionBalanceAndSellPair = mfEngineDao.GetCustomerMFTransactionBalanceAndSellPair(commonId, valuationDate);
                             dtCustomerPortfolio = dsCustomerMFPortfolioAccountDetails.Tables[0];
                             dtCustomerAccount = dsCustomerMFPortfolioAccountDetails.Tables[1];
                             dtCustomerMFTransactionSellPaired = CreateSellPairedTable();
+
+                            dtCustomerMFTransactionBalanceForNP = dsCustomerMFTransactionBalanceAndSellPair.Tables[0];
+                            dtCustomerMFTransactionSellPairedForNP = dsCustomerMFTransactionBalanceAndSellPair.Tables[1];
+
                             if (dtCustomerPortfolio.Rows.Count > 0)
                             {
                                 foreach (DataRow drProftfolio in dtCustomerPortfolio.Rows)
@@ -852,6 +885,8 @@ namespace BoValuation
                                 }
 
                             }
+                            dtCustomerMFTransactionBalanceForNP.Clear();
+                            dtCustomerMFTransactionSellPairedForNP.Clear();
 
                             break;
 
@@ -886,11 +921,22 @@ namespace BoValuation
 
                             DataSet dsMFTransactionBalanceAndSellPair = new DataSet();
                             DataTable dtMFAccountSchemeNetPosition = new DataTable();
-                            dsMFTransactionBalanceAndSellPair = mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId, schemePlanCode, valuationDate);
+                            //DataTable dtMFTransactionBalance = new DataTable();
+                            //DataTable dtMFTransactionSellPaired= new DataTable();
+
+                            //dsMFTransactionBalanceAndSellPair = mfEngineDao.GetMFTransactionBalanceAndSellPairAccountSchemeWise(commonId, schemePlanCode, valuationDate);
+
+                            dtCustomerMFTransactionBalanceForNP.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
+                            dtCustomerMFTransactionBalanceForNP.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
+
+                            dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionBalanceForNP.DefaultView.ToTable());
+                            dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionSellPairedForNP.DefaultView.ToTable());
+
                             //if (commonId == 227769)
                             //{
 
                             //}
+
                             dtMFAccountSchemeNetPosition = CreateMFNetPositionDataTable(dsMFTransactionBalanceAndSellPair, valuationDate);
                             if (dtMFAccountSchemeNetPosition.Rows.Count > 0)
                                 dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
