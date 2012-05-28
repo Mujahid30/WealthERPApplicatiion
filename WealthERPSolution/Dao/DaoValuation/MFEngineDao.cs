@@ -684,7 +684,47 @@ namespace DaoValuation
             return dsGetMFTransactionDetails;
 
         }
+        public DataSet GetSchemeNavDetail(int schemePlanCode, DateTime valuationDate)
+        {
+            Database db;
+            DbCommand getSchemeNavCmd;
+            DataSet dsSchemeNavDetail;
 
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNavCmd = db.GetStoredProcCommand("SPROC_GetSchemeNavDetail");
+                db.AddInParameter(getSchemeNavCmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(getSchemeNavCmd, "@ValuationDate", DbType.DateTime, valuationDate);
+                dsSchemeNavDetail = db.ExecuteDataSet(getSchemeNavCmd);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:GetSchemeNavDetail()");
+
+
+                object[] objects = new object[2];
+
+                objects[0] = schemePlanCode;
+                objects[1] = valuationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSchemeNavDetail;
+        }
 
     }
 }

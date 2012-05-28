@@ -1300,15 +1300,175 @@ namespace BoValuation
         }
 
 
+        public DataSet CreateMFNetPositionDataTable(DataSet dsMFTransactionBalanceAndSellPair, DateTime valuationDate, int schemePlanCode)
+        {
+            DataSet dsMfNetPositionValue = new DataSet();
+            DataTable dtMFTransactionProcessedBalance = new DataTable();
+            double nav = 0;
+            DataTable dtBalanceRecord = new DataTable();
+            DataTable dtSellPaired = new DataTable();
 
+            dtBalanceRecord = CreateBalanceTable();
+            dtSellPaired = CreateSellPairedDataTable();
 
+            TimeSpan span = new TimeSpan();
 
+            dtMFTransactionProcessedBalance = dsMFTransactionBalanceAndSellPair.Tables[0];
+            dtCustomerMFTransactionSellPaired = dsMFTransactionBalanceAndSellPair.Tables[1];
+            DataSet dsSchemeNavDetail = new DataSet();
 
+            DataRow drBalanceRecord;
+            DataRow drSellPairedDetails;
+
+            dsSchemeNavDetail = mfEngineDao.GetSchemeNavDetail(schemePlanCode, valuationDate);
+
+            if (dsSchemeNavDetail != null)
+            {
+                if (dsSchemeNavDetail.Tables.Count > 0)
+                {
+                    if (dsSchemeNavDetail.Tables[0].Rows.Count > 0)
+                    {
+                        nav = double.Parse(dsSchemeNavDetail.Tables[0].Rows[0]["NAV"].ToString());
+                    }
+                }
+            }
+            if (dtMFTransactionProcessedBalance.Rows.Count > 0)
+            {
+                foreach (DataRow drMFBalanced in dtMFTransactionProcessedBalance.Rows)
+                {
+                    drBalanceRecord = dtBalanceRecord.NewRow();
+                    drBalanceRecord["CMFT_MFTransId"] = drMFBalanced["CMFT_MFTransId"].ToString();
+                    drBalanceRecord["CMFT_Amount"] = drMFBalanced["CMFT_Amount"].ToString();
+                    drBalanceRecord["CMFA_AccountId"] = drMFBalanced["CMFA_AccountId"].ToString();
+                    drBalanceRecord["PASP_SchemePlanCode"] = drMFBalanced["PASP_SchemePlanCode"].ToString();
+                    drBalanceRecord["CMFT_TransactionDate"] = drMFBalanced["CMFT_TransactionDate"].ToString();
+                    drBalanceRecord["CMFTB_UnitBalanceTAX"] = drMFBalanced["CMFTB_UnitBalanceTAX"].ToString();
+                    drBalanceRecord["CMFTB_TotalCostBalanceTAX"] = drMFBalanced["CMFTB_TotalCostBalanceTAX"].ToString();
+                    drBalanceRecord["CMFTB_UnitBalanceRETURN"] = drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString();
+                    drBalanceRecord["CMFTB_AvgCostBalRETURN"] = drMFBalanced["CMFTB_AvgCostBalRETURN"].ToString();
+                    drBalanceRecord["CMFTB_TotalCostBalRETURN"] = drMFBalanced["CMFTB_TotalCostBalRETURN"].ToString();
+                    drBalanceRecord["CMFTB_DivPayout"] = drMFBalanced["CMFTB_DivPayout"].ToString();
+                    drBalanceRecord["NAV"] = nav;
+                    drBalanceRecord["CurrentValueTax"] = double.Parse(drMFBalanced["CMFTB_UnitBalanceTAX"].ToString()) * nav;
+                    span = valuationDate - DateTime.Parse(drMFBalanced["CMFT_TransactionDate"].ToString());
+                    drBalanceRecord["AGE"] = span.TotalDays;
+                    drBalanceRecord["WMTT_TransactionClassificationCode"] = drMFBalanced["WMTT_TransactionClassificationCode"].ToString();
+                    drBalanceRecord["CurrentValueReturn"] = double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString()) * nav;
+
+                    if (span.TotalDays > 365)
+                    {
+                        drBalanceRecord["EligibleLTG"] = (double.Parse(drMFBalanced["CMFTB_UnitBalanceTAX"].ToString()) * nav) - double.Parse(drMFBalanced["CMFT_Amount"].ToString());
+                        drBalanceRecord["EligibleSTG"] = 0;
+                    }
+                    else
+                    {
+                        drBalanceRecord["EligibleSTG"] = (double.Parse(drMFBalanced["CMFTB_UnitBalanceTAX"].ToString()) * nav) - double.Parse(drMFBalanced["CMFT_Amount"].ToString());
+                        drBalanceRecord["EligibleLTG"] = 0;
+                    }
+
+                    if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "BUY")
+                    {
+                        drBalanceRecord["XIRR_ALL"] = -double.Parse(drMFBalanced["CMFT_Amount"].ToString());
+                    }
+                    else if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "SEL" || drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "DVP")
+                    {
+                        drBalanceRecord["XIRR_ALL"] = -double.Parse(drMFBalanced["CMFT_Amount"].ToString());
+                    }
+                    else if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "DVR")
+                    {
+                        drBalanceRecord["XIRR_ALL"] = 0;
+                    }
+                    drBalanceRecord["CMFT_Price"] = drMFBalanced["CMFT_Price"].ToString();
+
+                    drBalanceRecord["InvestedCostReturnHolding"] = double.Parse(drMFBalanced["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
+                    dtBalanceRecord.Rows.Add(drBalanceRecord);
+                }
+            }
+
+            if (dtCustomerMFTransactionSellPaired.Rows.Count > 0)
+            {
+                foreach (DataRow drSellPaired in dtCustomerMFTransactionSellPaired.Rows)
+                {
+                    drSellPairedDetails = dtSellPaired.NewRow();
+
+                    drSellPairedDetails["CMFSP_SellID"] = drSellPaired["CMFT_MFTransIdSell"].ToString();
+                    drSellPairedDetails["CMFSP_BuyID"] = drSellPaired["CMFT_MFTransIdBuy"].ToString();
+                    drSellPairedDetails["CMFSP_Units"] = drSellPaired["CMFT_Units"].ToString();
+
+                    span = valuationDate - DateTime.Parse(drSellPaired["CMFT_TransactionDate"].ToString());
+
+                    drSellPairedDetails["AGE"] = span.TotalDays;
+
+                    if (span.TotalDays > 365)
+                    {
+                        drSellPairedDetails["LTG"] = drSellPaired["CMFT_Gain_loss_Value"].ToString();
+                        drSellPairedDetails["STG"] = 0;
+                    }
+                    else
+                    {
+                        drSellPairedDetails["STG"] = drSellPaired["CMFT_Gain_loss_Value"].ToString();
+                        drSellPairedDetails["LTG"] = 0;
+                    }
+                    drSellPairedDetails["CMFSP_LTG"] = drSellPaired["CMFT_LTG"].ToString();
+                    drSellPairedDetails["CMFSP_STG"] = drSellPaired["CMFT_STG"].ToString();
+                    drSellPairedDetails["CMFSP_GainLossValue"] = drSellPaired["CMFT_Gain_loss_Value"].ToString();
+                    dtSellPaired.Rows.Add(drSellPairedDetails);
+
+                }
+            }
+
+            dsMfNetPositionValue.Tables.Add(dtBalanceRecord);
+            dsMfNetPositionValue.Tables.Add(dtSellPaired);
+            return dsMfNetPositionValue;
+        }
+
+        public DataTable CreateBalanceTable()
+        {
+            DataTable dtMFBalanced = new DataTable();
+            dtMFBalanced.Columns.Add("CMFA_AccountId", typeof(double));
+            dtMFBalanced.Columns.Add("PASP_SchemePlanCode", typeof(double));
+            dtMFBalanced.Columns.Add("CMFT_Amount", typeof(double));
+            dtMFBalanced.Columns.Add("CMFT_MFTransId", typeof(double));
+            dtMFBalanced.Columns.Add("CMFT_TransactionDate", typeof(System.DateTime));
+            dtMFBalanced.Columns.Add("CMFTB_UnitBalanceTAX", typeof(double));
+            dtMFBalanced.Columns.Add("CMFTB_TotalCostBalanceTAX", typeof(double));
+            dtMFBalanced.Columns.Add("CMFTB_UnitBalanceRETURN", typeof(double));
+            dtMFBalanced.Columns.Add("CMFTB_AvgCostBalRETURN", typeof(double));
+            dtMFBalanced.Columns.Add("CMFTB_TotalCostBalRETURN", typeof(double));
+
+            dtMFBalanced.Columns.Add("CMFTB_DivPayout", typeof(double));
+            dtMFBalanced.Columns.Add("NAV", typeof(double));
+            dtMFBalanced.Columns.Add("CurrentValueTax", typeof(double));
+
+            dtMFBalanced.Columns.Add("AGE", typeof(double));
+            dtMFBalanced.Columns.Add("EligibleLTG", typeof(double));
+            dtMFBalanced.Columns.Add("EligibleSTG", typeof(double));
+            dtMFBalanced.Columns.Add("CurrentValueReturn", typeof(double));
+            dtMFBalanced.Columns.Add("CMFT_Price", typeof(double));
+
+            dtMFBalanced.Columns.Add("WMTT_TransactionClassificationCode", typeof(System.String));
+            dtMFBalanced.Columns.Add("XIRR_ALL", typeof(double));
+            dtMFBalanced.Columns.Add("InvestedCostReturnHolding", typeof(double));
+
+            return dtMFBalanced;
+
+        }
+
+        public DataTable CreateSellPairedDataTable()
+        {
+            DataTable dtMFSellPaired = new DataTable();
+            dtMFSellPaired.Columns.Add("CMFSP_SellID", typeof(double));
+            dtMFSellPaired.Columns.Add("CMFSP_BuyID", typeof(double));
+            dtMFSellPaired.Columns.Add("CMFSP_Units", typeof(double));
+            dtMFSellPaired.Columns.Add("AGE", typeof(double));
+            dtMFSellPaired.Columns.Add("CMFSP_LTG", typeof(System.DateTime));
+            dtMFSellPaired.Columns.Add("CMFSP_STG", typeof(double));
+            dtMFSellPaired.Columns.Add("CMFSP_GainLossValue", typeof(double));
+            dtMFSellPaired.Columns.Add("LTG", typeof(double));
+            dtMFSellPaired.Columns.Add("STG", typeof(double));
+
+            return dtMFSellPaired;
+
+        }
     }
-
-
-
-
-
-
 }
