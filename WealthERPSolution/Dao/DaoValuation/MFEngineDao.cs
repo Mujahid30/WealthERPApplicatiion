@@ -500,11 +500,190 @@ namespace DaoValuation
 
 
         }
-        
+
+        public DataSet GetCustomerMFTransactionBalanceAndSellPair(int customerId, DateTime valuationDate)
+        {
+            Database db;
+            DbCommand getCustomerMFTransactionBalanceAndSellPairCmd;
+            DataSet dsCustomerMFTransactionBalanceAndSellPair;
+
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerMFTransactionBalanceAndSellPairCmd = db.GetStoredProcCommand("SP_GetCustomerTransactionBalanceForValuation");
+                db.AddInParameter(getCustomerMFTransactionBalanceAndSellPairCmd, "@C_CustomerId", DbType.Int32, customerId);                
+                db.AddInParameter(getCustomerMFTransactionBalanceAndSellPairCmd, "@ValuationDate", DbType.DateTime, valuationDate);
+                dsCustomerMFTransactionBalanceAndSellPair = db.ExecuteDataSet(getCustomerMFTransactionBalanceAndSellPairCmd);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:GetMFTransactionBalanceAndSellPairAccountSchemeWise()");
+
+
+                object[] objects = new object[3];
+                objects[0] = customerId;                
+                objects[1] = valuationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerMFTransactionBalanceAndSellPair;
+
+        }
         //private SqlConnection SqlConnection(string con)
         //{
         //    throw new NotImplementedException();
         //}
+
+        public void CreateAdviserMFNetPosition(int adviserId, DateTime valuationDate, DataTable dtAdviserMFNetPosition)
+        {
+
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SPROC_BulkInsertAdviserMutualFundNetPosition", sqlCon);
+                cmd.CommandType = CommandType.StoredProcedure;
+                //SqlParameter param = new SqlParameter("@BalanceTable", SqlDbType.Structured);
+                //cmd.Parameters.Add(param);
+                //SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                // Add the input parameter and set its properties.
+                SqlParameter sqlParameterCustomerId = new SqlParameter();
+                sqlParameterCustomerId.ParameterName = "@AdviserId";
+                sqlParameterCustomerId.SqlDbType = SqlDbType.BigInt;
+                sqlParameterCustomerId.Direction = ParameterDirection.Input;
+                sqlParameterCustomerId.Value = adviserId;
+
+                // Add the parameter to the Parameters collection. 
+                cmd.Parameters.Add(sqlParameterCustomerId);
+
+
+                // Add the input parameter and set its properties.
+                SqlParameter sqlParameterValuationDate = new SqlParameter();
+                sqlParameterValuationDate.ParameterName = "@ValuationDate";
+                sqlParameterValuationDate.SqlDbType = SqlDbType.DateTime;
+                sqlParameterValuationDate.Direction = ParameterDirection.Input;
+                sqlParameterValuationDate.Value = valuationDate;
+
+                // Add the parameter to the Parameters collection. 
+                cmd.Parameters.Add(sqlParameterValuationDate);
+
+                // Add the input parameter and set its properties.
+                SqlParameter sqlParameterMFNetPositionTable = new SqlParameter();
+                sqlParameterMFNetPositionTable.ParameterName = "@AdviserMFNetPosition";
+                sqlParameterMFNetPositionTable.SqlDbType = SqlDbType.Structured;
+                //parameter.Direction = ParameterDirection.Input;
+                sqlParameterMFNetPositionTable.Value = dtAdviserMFNetPosition;
+
+                // Add the parameter to the Parameters collection. 
+                cmd.Parameters.Add(sqlParameterMFNetPositionTable);
+
+
+
+                sqlCon.Open();
+                cmd.ExecuteNonQuery();
+
+                //SqlParameter parameter = new SqlParameter();
+                ////The parameter for the SP must be of SqlDbType.Structured 
+                //parameter.ParameterName = "@Sample";
+                //parameter.SqlDbType = System.Data.SqlDbType.Structured;
+                //parameter.Value = dtCustomerMFTransactionBalance;
+                //command.Parameters.Add(parameter);
+
+                //db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                //getdtCustomerMFTransactionBalanceCmd = db.GetStoredProcCommand("SPROC_GetCustomerTransactionsForBalanceCreation");
+                //db.AddInParameter(getCustomerTransactionDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                //dsGetCustomerTransactionDetails = db.ExecuteDataSet(getCustomerTransactionDetailsCmd);
+
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                //FunctionInfo.Add("Method", "MFEngineDao.cs:GetCustomerTransactionsForBalanceCreation()");
+
+
+                //object[] objects = new object[1];
+                //objects[0] = customerId;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                //exBase.AdditionalInformation = FunctionInfo;
+                //ExceptionManager.Publish(exBase);
+                //throw exBase;
+
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+
+
+        }
+
+
+        public DataSet GetMFTransactionsForBalanceCreation(int accountId,int schemePlaneCode)
+        {
+            Database db;
+            DbCommand getMFTransactionDetailsCmd;
+            DataSet dsGetMFTransactionDetails;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFTransactionDetailsCmd = db.GetStoredProcCommand("SPROC_GetMFTransactionsForBalanceCreation");
+                db.AddInParameter(getMFTransactionDetailsCmd, "@AccountId", DbType.Int32, accountId);
+                db.AddInParameter(getMFTransactionDetailsCmd, "@SchemePlanCode", DbType.Int32, schemePlaneCode);
+                dsGetMFTransactionDetails = db.ExecuteDataSet(getMFTransactionDetailsCmd);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:GetCustomerTransactionsForBalanceCreation()");
+
+
+                object[] objects = new object[2];
+                objects[0] = accountId;
+                objects[1] = schemePlaneCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dsGetMFTransactionDetails;
+
+        }
 
 
     }
