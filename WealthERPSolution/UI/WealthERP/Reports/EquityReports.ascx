@@ -21,6 +21,9 @@
     $('#ctrl_EquityReports_btnView').bubbletip($('#div1'), { deltaDirection: 'left' });
     $('#ctrl_EquityReports_btnViewInPDF').bubbletip($('#div2'), { deltaDirection: 'left' });
     $('#ctrl_EquityReports_btnViewInDOC').bubbletip($('#div3'), { deltaDirection: 'left' });
+    $('#ctrl_EquityReports_btnCustomerViewReport').bubbletip($('#div4'), { deltaDirection: 'left' });
+    $('#ctrl_EquityReports_btnCustomerExportToPDF').bubbletip($('#div5'), { deltaDirection: 'left' });
+    $('#ctrl_EquityReports_btnCustomerViewInDOC').bubbletip($('#div6'), { deltaDirection: 'left' }); 
     });
 </script>
 
@@ -197,6 +200,53 @@
             }
         }
     }
+
+    //**********Customer Login Equity Report Validation For ViewReport and Export To PDF Button
+    function CustomerValidate(type) {
+        if (type == 'view') {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
+        }
+        else if (type == 'doc') {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
+        }
+        else {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        }
+
+        setTimeout(function() {
+            window.document.forms[0].target = '';
+            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
+        }, 500);
+        return true;
+
+    }
 </script>
 
 <style>
@@ -206,13 +256,13 @@
     }
 </style>
 <table border="0" width="100%">
-    <tr>
+    <tr  >
         <td colspan="2">
             <asp:Label ID="Label7" runat="server" CssClass="HeaderTextSmall" Text="Equity Reports"></asp:Label>
             <hr />
         </td>
     </tr>
-    <tr>
+    <tr id="trAdminRmButton" runat="server">
         <td colspan="2" align="right">
          <asp:Button ID="btnView" runat="server"  OnClientClick="return validate('')"
                 PostBackUrl="~/Reports/Display.aspx" CssClass="CrystalButton" />&nbsp;&nbsp;
@@ -238,25 +288,51 @@
      </div>  
     </td>
     </tr>
+    <tr id="trCustomerButton" runat="server" >
+        <td colspan="2" align="right">
+         <asp:Button ID="btnCustomerViewReport" runat="server"  OnClientClick="return CustomerValidate('view')"
+         PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                <div id="div4" style="display: none;">
+                <p class="tip">
+                    Click here to view MF report.
+                </p>
+            </div>
+           
+            <asp:Button ID="btnCustomerExportToPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
+             PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                 <div id="div5" style="display: none;">
+                <p class="tip">
+                   Click here to view MF report in pdf format.
+                </p>
+      </div>
+            <asp:Button ID="btnCustomerViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
+                    <div id="div6" style="display: none;">
+                <p class="tip">
+                    Click here to view MF report in word doc.</p>
+     </div>  
+    </td>
+    </tr>
     <tr>
         <td colspan="2">
             <%--   <asp:RadioButton ID="rdoGroup" runat="server" Text="Group" GroupName="customer" CssClass="Field"
                 Checked="true" onClick="DisplayCustomerSelection('GROUP')" />
             <asp:RadioButton ID="rdoIndividual" runat="server" Text="Individual" GroupName="customer"
                 CssClass="Field" onClick="DisplayCustomerSelection('INDIVIDUAL')" />--%>
-            <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" OnClientActiveTabChanged="OnChanged">
+            <ajaxToolkit:TabContainer ID="TabContainer1" runat="server"
+                OnClientActiveTabChanged="OnChanged" ActiveTabIndex="1">
                 <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Group" Visible="true">
                     <HeaderTemplate>
                         Group</HeaderTemplate>
                     <ContentTemplate>
                         <table border="0" id="tblGroup" style="display: block;">
-                            <tr>
+                            <tr id="trStepGrHead" runat="server">
                                 <td colspan="2">
                                     <asp:Label ID="lblSelectCustomer" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                         Text="Step 1: Select Customer"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr Id="trAdminCustomer" runat="server" >
                                 <td style="width: 80px" align="right">
                                     <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                 </td>
@@ -280,6 +356,12 @@
                                         UseContextKey="True">
                                     </ajaxToolkit:AutoCompleteExtender>
                                 </td>
+                            </tr>
+                            <tr id="trCustomerGrHead" runat="server">
+                            <td>
+                            <asp:Label ID="lblCustomerGrHead" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td></td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -331,13 +413,13 @@
                 <ajaxToolkit:TabPanel ID="TabPanel2" runat="server" HeaderText="Individual">
                     <ContentTemplate>
                         <table border="0" id="tblIndividual">
-                            <tr>
+                            <tr id="trStepIndi" runat="server">
                                 <td colspan="2">
                                     <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                         Text="Step 1: Select Customer"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="trAdminIndiCustomer" runat="server">
                                 <td>
                                     <asp:Label ID="Label1" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
                                 </td>
@@ -361,6 +443,12 @@
                                     </asp:RequiredFieldValidator><span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
                                         few characters of customer  name.</span>
                                 </td>
+                            </tr>
+                            <tr id="trCustomerInd" runat="server">
+                            <td>
+                            <asp:Label ID="lblCustomerIndi" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                            </td>
+                            <td></td>
                             </tr>
                         </table>
                         <table border="0">
@@ -572,6 +660,8 @@
 <asp:HiddenField ID="hidToDate" Value="" runat="server" />
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
 <asp:HiddenField ID="hidTabIndex" Value="0" runat="server" />
+<asp:HiddenField ID="hndCustomerLogin" runat="server" />
+<asp:HiddenField ID="hdnCustomerId1" runat="server" />
 
 <script>
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {
