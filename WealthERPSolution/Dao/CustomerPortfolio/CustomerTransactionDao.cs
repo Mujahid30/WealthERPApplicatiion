@@ -1107,6 +1107,20 @@ namespace DaoCustomerPortfolio
                     foreach (DataRow dr in dtGetMFTransactions.Rows)
                     {
                         mfTransactionVo = new MFTransactionVo();
+                        if (dr["ADUL_ProcessId"].ToString() != null && dr["ADUL_ProcessId"].ToString() != string.Empty)
+                            mfTransactionVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        else
+                            mfTransactionVo.ProcessId = 0;
+
+                        if (dr["CMFT_SubBrokerCode"].ToString() != null && dr["CMFT_SubBrokerCode"].ToString() != string.Empty)
+                            mfTransactionVo.SubBrokerCode = dr["CMFT_SubBrokerCode"].ToString();
+                        else
+                            mfTransactionVo.SubBrokerCode = "N/A";
+
+                        if (dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != null && dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != string.Empty)
+                            mfTransactionVo.SubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        else
+                            mfTransactionVo.SubCategoryName = "N/A";
                         mfTransactionVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
                         mfTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
                         mfTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
@@ -2357,6 +2371,22 @@ namespace DaoCustomerPortfolio
                     foreach (DataRow dr in dtGetMFTransactions.Rows)
                     {
                         mfTransactionVo = new MFTransactionVo();
+
+                        if (dr["ADUL_ProcessId"].ToString() != null && dr["ADUL_ProcessId"].ToString() != string.Empty)
+                            mfTransactionVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        else
+                            mfTransactionVo.ProcessId = 0;
+
+                        if (dr["CMFT_SubBrokerCode"].ToString() != null && dr["CMFT_SubBrokerCode"].ToString() != string.Empty)
+                            mfTransactionVo.SubBrokerCode = dr["CMFT_SubBrokerCode"].ToString();
+                        else
+                            mfTransactionVo.SubBrokerCode = "N/A";
+
+                        if (dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != null && dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != string.Empty)
+                            mfTransactionVo.SubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        else
+                            mfTransactionVo.SubCategoryName = "N/A";
+
                         mfTransactionVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
                         mfTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
                         mfTransactionVo.CustomerName = dr["Name"].ToString();
