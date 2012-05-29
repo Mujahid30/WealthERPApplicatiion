@@ -6597,6 +6597,7 @@
     <None Include="Standard Upload Files\EquityTransaction.xlsx" />
     <None Include="Standard Upload Files\MFFolio.xlsx" />
     <None Include="Standard Upload Files\MFTransaction.xlsx" />
+    <None Include="Terms &amp; Condition- WERP.pdf" />
     <None Include="UploadFiles\CAMSProfileXls.xls" />
     <None Include="UploadFiles\CPD.dbf" />
     <None Include="UploadFiles\cp_1004.dbf" />
