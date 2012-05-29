@@ -48,10 +48,13 @@ namespace VoCustomerPortfolio
 
         private int m_TransactionStatusCode;
 
+        private int m_ProcessId;
+        private string m_SubCategoryName;
+        private string m_SubBrokerCode;
 
         #endregion Fields
 
-        #region Properties
+        #region Properties       
         public string PortfolioName
         {
             get { return m_PortfolioName; }
@@ -234,7 +237,24 @@ namespace VoCustomerPortfolio
             get { return m_TransactionStatusCode; }
             set { m_TransactionStatusCode = value; }
         }
-      
+
+        public int ProcessId
+        {
+            get { return m_ProcessId; }
+            set { m_ProcessId = value; }
+        }
+
+        public string SubCategoryName
+        {
+            get { return m_SubCategoryName; }
+            set { m_SubCategoryName = value; }
+        }
+
+        public string SubBrokerCode
+        {
+            get { return m_SubBrokerCode; }
+            set { m_SubBrokerCode = value; }
+        }
         #endregion Properties
 
         #region ICloneable Members
