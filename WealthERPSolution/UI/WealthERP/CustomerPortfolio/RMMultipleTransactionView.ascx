@@ -282,6 +282,9 @@
                                 <AlternatingRowStyle CssClass="AltRowStyle" />
                                 <Columns>
                                     <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
+                                    <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>                                    
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Customer Name">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblName" runat="server" Text="Name"></asp:Label>
@@ -293,7 +296,9 @@
                                         </ItemTemplate>
                                         <ItemStyle Wrap="False"></ItemStyle>
                                     </asp:TemplateField>
-                                    
+                                    <asp:BoundField DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>
                                     <%--   <asp:BoundField DataField="Folio Number" HeaderText="Folio No" ItemStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                             </asp:BoundField>--%>
@@ -334,6 +339,9 @@
                                         </ItemTemplate>
                                         <ItemStyle Wrap="False"></ItemStyle>
                                     </asp:TemplateField>
+                                    <asp:BoundField DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="SubCategoryName">
+                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                                    </asp:BoundField>
                                     <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblFolio" runat="server" Text="Folio"></asp:Label>

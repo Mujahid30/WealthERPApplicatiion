@@ -284,6 +284,9 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("Transaction Status");
                     dtMFTransactions.Columns.Add("Category");
                     dtMFTransactions.Columns.Add("AMC");
+                    dtMFTransactions.Columns.Add("ADUL_ProcessId");
+                    dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
+                    dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     DataRow drMFTransaction;
 
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -325,6 +328,13 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
                         drMFTransaction[12] = mfTransactionVo.Category;
                         drMFTransaction[13] = mfTransactionVo.AMCName;
+                        
+                        if (mfTransactionVo.ProcessId == 0)
+                            drMFTransaction[14] = "N/A";
+                        else
+                            drMFTransaction[14] = int.Parse(mfTransactionVo.ProcessId.ToString());
+                        drMFTransaction[15] = mfTransactionVo.SubBrokerCode;
+                        drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
 

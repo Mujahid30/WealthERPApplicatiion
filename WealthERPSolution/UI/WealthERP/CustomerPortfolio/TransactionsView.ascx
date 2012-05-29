@@ -265,12 +265,18 @@
                                     runat="server" Text="Delete" />
                             </FooterTemplate>
                         </asp:TemplateField>--%>
+                       
+                           <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
+                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>                                    
                         <asp:ButtonField CommandName="Select" HeaderText="View Details" ShowHeader="True" Text="View Details"
                             ItemStyle-Wrap="false">
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
                         <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
-                        
+                        <asp:BoundField DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio No">
                             <HeaderTemplate>
                                 <asp:Label ID="lblFolio" runat="server" Text="Folio No"></asp:Label>
@@ -284,11 +290,13 @@
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:TemplateField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Scheme">
+                        
                             <HeaderTemplate>
                                 <asp:Label ID="lblScheme" runat="server" Text="Scheme"></asp:Label>
-                                <br />
+                               <br />
                                 <asp:TextBox ID="txtSchemeSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_TransactionsView_btnTranSchemeSearch');" />
                             </HeaderTemplate>
+                             
                             <ItemTemplate>
                                 <%--<asp:Label ID="lblSchemeHeader" runat="server" Text='<%# Eval("Scheme Name").ToString() %>'
                                     ItemStyle-Wrap="false"></asp:Label>--%> 
@@ -297,6 +305,9 @@
                             </ItemTemplate>
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:TemplateField>
+                        <asp:BoundField DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="SubCategoryName">
+                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Transaction Type">
                             <HeaderTemplate>
                                 <asp:Label ID="lblTranType" runat="server" Text="Type"></asp:Label>

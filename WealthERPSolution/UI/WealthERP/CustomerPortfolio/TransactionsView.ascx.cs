@@ -269,6 +269,9 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("Amount");
                     dtMFTransactions.Columns.Add("STT");
                     dtMFTransactions.Columns.Add("Transaction Status");
+                    dtMFTransactions.Columns.Add("ADUL_ProcessId");
+                    dtMFTransactions.Columns.Add("CMFT_SubBrokerCode");
+                    dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     DataRow drMFTransaction;
                     string transactiontype;
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -299,7 +302,12 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[8] = decimal.Parse(mfTransactionVo.STT.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         totalsst = totalsst + mfTransactionVo.STT;
                         drMFTransaction[9] = mfTransactionVo.TransactionStatus.ToString();
-                        
+                        if (mfTransactionVo.ProcessId == 0)
+                            drMFTransaction[10] = "N/A";
+                        else
+                            drMFTransaction[10] = int.Parse(mfTransactionVo.ProcessId.ToString());
+                        drMFTransaction[11] = mfTransactionVo.SubBrokerCode;
+                        drMFTransaction[12] = mfTransactionVo.SubCategoryName;
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
