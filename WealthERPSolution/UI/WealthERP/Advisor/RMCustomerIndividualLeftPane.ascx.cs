@@ -1186,6 +1186,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanningReports", "loadcontrol('FPSectional','login')", true);
                 }
+                else if (e.Item.Value == "Equity Report")
+                {
+                    Session["UserType"] = "Customer";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EquityReports", "loadcontrol('EquityReports','login')", true);
+                }
                 else if (e.Item.Value == "View Notifications")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAlertNotifications", "loadcontrol('RMAlertNotifications','none');", true);

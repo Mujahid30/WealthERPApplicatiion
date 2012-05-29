@@ -265,6 +265,10 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="FP Report" Value="FP Report">
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Equity Report" Value="Equity Report">
+                                    </telerik:RadPanelItem>
+                                    <%--<telerik:RadPanelItem runat="server" Text="Multi Asset report" Value="Multi Asset report">
+                                    </telerik:RadPanelItem>--%>
                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Alerts" Value="Alerts">
