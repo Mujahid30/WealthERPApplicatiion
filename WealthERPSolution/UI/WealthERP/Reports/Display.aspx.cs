@@ -138,7 +138,9 @@ namespace WealthERP.Reports
                 if (Request.QueryString["mail"] == "1")
                     isMail = "1";
             }
-            if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null)
+            if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null
+                || Request.Form["ctrl_EquityReports$btnCustomerViewReport"] != null
+                || Request.Form["ctrl_EquityReports$btnCustomerExportToPDF"] != null || Request.Form["ctrl_EquityReports$CustomerViewInDOC"] != null)
             {
                 CurrentReportType = ReportType.EquityReports;
                 ctrlPrefix = "ctrl_EquityReports$";
