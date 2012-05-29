@@ -755,12 +755,14 @@ namespace WealthERP.SuperAdmin
             //valuationDate.AddMonths(Convert.ToInt32(ddTradeMonth.SelectedValue.ToString()));
             //valuationDate.AddDays(Convert.ToInt32(ddlTradeDate.SelectedValue.ToString()));
             valuationDate = DateTime.Parse(ddlTradeDate.SelectedValue.ToString());
-            if (valuationDate > DateTime.Now)
+            if (valuationDate >= DateTime.Today)
             {
+                gvAdviserList.Visible = false;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Should not be future date!!');", true);
             }
             else
             {
+                gvAdviserList.Visible = true;
                 BindAdviserGrid("EQ", valuationDate);
                 btnRunValuation.Visible = true;
             }
@@ -774,12 +776,14 @@ namespace WealthERP.SuperAdmin
             //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
             valuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
             //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
-            if (valuationDate > DateTime.Now)
+            if (valuationDate >= DateTime.Today)
             {
+                gvAdviserList.Visible = false;
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Should not be future date!!');", true);
             }
             else
             {
+                gvAdviserList.Visible = true;
                 BindAdviserGrid("MF", valuationDate);
                 btnRunValuation.Visible = true;
             }
