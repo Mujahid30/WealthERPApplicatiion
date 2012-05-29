@@ -149,9 +149,10 @@
 <table class="TableBackground" style="width: 100%;">
     <tr>
         <td id="Td1" colspan="4" align="right" runat="server">
-            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="UploadDateLbl"
-                Visible="false"></asp:Label>
+            <asp:Label ID="lblLastUploadDateText" runat="server" Text="Last Upload Date:" CssClass="UploadDateLbl" Visible="true"></asp:Label>
             <asp:Label ID="lblLastUploadDate" runat="server" Text="" Font-Bold="true" CssClass="UploadDateLbl" Visible="false"></asp:Label>
+            <asp:Label ID="lblFor" runat="server" Text="For" CssClass="UploadDateLbl"></asp:Label>
+            <asp:Label ID="lblAdviserName" runat="server" CssClass="UploadDateLbl" Font-Bold="true"></asp:Label>
         </td>
     </tr>
     <tr id="trError" visible="false" runat="server">

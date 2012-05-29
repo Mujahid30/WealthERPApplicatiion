@@ -120,27 +120,43 @@ namespace WealthERP.SuperAdmin
             DateTime uploadDate;
 
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
-           // lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserId);
-            //if (lastUploadDate != "")
-            //{
-            //    //DateTime dt = new DateTime();
-            //    //String.Format("{0:d}", dt);
+            //added for last uploaded date 
+            //lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserVo.advisorId);
+            DataSet lastUploadDateAndAdviserId;
+            DataTable dt;
+            lastUploadDateAndAdviserId = uploadsCommonBo.GetLastUploadDateForSuperadminUpload();
+            if (lastUploadDateAndAdviserId.Tables.Count != 0)
+            {
+                //DateTime dt = new DateTime();
+                //String.Format("{0:d}", dt);
+                dt = lastUploadDateAndAdviserId.Tables.Add() ;
+                int i = int.Parse(lastUploadDateAndAdviserId.Tables[0].Rows[0]["adviserId"].ToString());
+                DateTime date = DateTime.Parse(lastUploadDateAndAdviserId.Tables[0].Rows[0]["lastUploadedDate"].ToString());
+                string strAdviserName = lastUploadDateAndAdviserId.Tables[0].Rows[0]["adviserName"].ToString();
 
-            //    lblLastUploadDateText.Visible = true;
-            //    lblLastUploadDate.Visible = true;
-            //    if (lastUploadDate != "01/01/0001 00:00:00")
-            //    {
-            //        uploadDate = DateTime.Parse(lastUploadDate);
-            //        lastUploadDate = uploadDate.ToLongDateString();
-            //    }
-            //    else
-            //    {
-            //        lastUploadDate = "No Uploaded History!";
+                
 
-            //    }
+                lblLastUploadDateText.Visible = true;
+                lblLastUploadDate.Visible = true;
 
-            //    lblLastUploadDate.Text = lastUploadDate.ToString();
-            //}
+                lblLastUploadDate.Text = date.ToString();
+                lblAdviserName.Text = strAdviserName;
+             
+
+                 
+                if (lastUploadDate != "01/01/0001 00:00:00")
+                {
+                    uploadDate = DateTime.Parse(date.ToString());
+                    lastUploadDate = uploadDate.ToLongDateString();
+                }
+                else
+                {
+                    lastUploadDate = "No Uploaded History!";
+
+                }
+
+                lblLastUploadDate.Text = lastUploadDate.ToString();
+            }
             if (Session["userVo"] != null)
             {
 
