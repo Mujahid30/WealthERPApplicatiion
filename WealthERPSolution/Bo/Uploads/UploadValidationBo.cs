@@ -344,19 +344,26 @@ namespace BoUploads
                                     {
                                         //break;
                                     }
-                                    if (drValidations["CheckValue"].ToString() == "1")
-                                    {
 
-                                        if (drInputfile[columnname].ToString() != "Margin" )
-                                        {
-                                            drInputfile["Error"] = "Wrong file format, does not contain all columns";
-                                            //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
+                                    #region Old File Format
+
+                                    //if (drValidations["CheckValue"].ToString() == "1")
+                                    //{
+
+                                    //    if (drInputfile[columnname].ToString() != "Margin" )
+                                    //    {
+                                    //        drInputfile["Error"] = "Wrong file format, does not contain all columns";
+                                    //        //drInputfile["Error"] = drInputfile["Error"].ToString() + "Invalida data in " + columnname + ",Line:" + rowindex + ";";
 
 
-                                            continue;
-                                        }
+                                    //        continue;
+                                    //    }
 
-                                    }
+                                    //}
+
+
+                                    #endregion
+                                    
                                     if (drValidations["CheckValue"].ToString() == "2")
                                     {
 
