@@ -70,7 +70,7 @@ namespace WealthERP.SuperAdmin
             {
                 _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
                 Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
-
+                txtDefaultStorage.Text = "10";
                 if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count > 0)
                 {
                     txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
@@ -80,17 +80,17 @@ namespace WealthERP.SuperAdmin
                     }
                     double storageBalance = 0;
                     double storagePaidSize = 0;
-                    double storageSize = 0;
-
+                    double storageSize = 0;                    
                     storageBalance = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
                     storagePaidSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_PaidStorage"].ToString());
                     storageSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageSize"].ToString());
 
                     txtPaidSize.Text = Convert.ToString(storagePaidSize);
                     hdnStorageUsed.Value = Convert.ToString(storageSize - storageBalance);
+                    txtUsedSpace.Text = Convert.ToString(storageSize - storageBalance);
                     txtDefaultStorage.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_DefaultStorage"].ToString();
 
-                    txtBalanceSize.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString();
+                    txtBalanceSize.Text = Math.Round(decimal.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString()),2).ToString();
                     txtNoOfBranches.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfBranches"].ToString();
                     txtNoOfCustomerLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfCustomerWebLogins"].ToString();
                     txtNoOfStaffLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString();
@@ -127,8 +127,27 @@ namespace WealthERP.SuperAdmin
                         for (int i = 0; i < _dsGetSubscriptionDetails.Tables[1].Rows.Count; i++)
                         {
                             flavourId = Convert.ToInt32(_dsGetSubscriptionDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
-                            chkModules.Items[flavourId - 1].Selected = true;
+                            if (flavourId < 10)
+                            {
+                                chkModules.Items[flavourId - 1].Selected = true;
+                            }
+                            else
+                            {
+                                if (flavourId == 10)
+                                {
+                                    chkValueAdds.Items[0].Selected = true;
+                                }
+                                if (flavourId == 11)
+                                {
+                                    chkValueAdds.Items[1].Selected = true;
+                                }
+                                if (flavourId == 12)
+                                {
+                                    chkValueAdds.Items[2].Selected = true;
+                                }
+                            }
                         }
+
                         //for (int j = 0; j < chkModules.Items.Count; j++)
                         //{
                         //    if (chkModules.Items[j].Selected == false)
@@ -237,7 +256,7 @@ namespace WealthERP.SuperAdmin
                         //}
                         if (ddlFlavourCategory.SelectedValue != "Select")
                         {
-                            _advisersubscriptionvo.FlavourCategory = ddlFlavourCategory.SelectedValue ;
+                            _advisersubscriptionvo.FlavourCategory = ddlFlavourCategory.SelectedValue;
                         }
                         if (!string.IsNullOrEmpty(txtComment.Text))
                         {
@@ -292,31 +311,40 @@ namespace WealthERP.SuperAdmin
 
                         }
                         _vaultBalanceSize = _vaultPaidSize + _vaultDefaultSize - float.Parse(hdnStorageUsed.Value);
-                       
-                        _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
-                        
-                        if (int.TryParse(txtSMSBought.Text, out _smsBought))
+
+                        if (_vaultBalanceSize >= 0)
                         {
-                            _advisersubscriptionvo.SmsBought = _smsBought;
-                        }
-                        
-                        for (int i = 0; i < chkModules.Items.Count; i++)
-                        {
-                            ListItem _limodules = (ListItem)chkModules.Items[i];
-                            if (_limodules.Selected == true)
+                            _advisersubscriptionvo.StorageBalance = _vaultBalanceSize;
+
+                            if (int.TryParse(txtSMSBought.Text, out _smsBought))
                             {
-                                _advisersubscriptionvo.CustomPlanSelection += _limodules.Value + ",";
+                                _advisersubscriptionvo.SmsBought = _smsBought;
                             }
-                        }
-                        if (uservo != null)
-                        {
-                            _subscriptionId = _advisersubscriptionbo.CreateAdviserSubscription(_advisersubscriptionvo, uservo.UserId);
-                            string flavourIds=GetFlavourIds();
-                            _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
-                            SettingsSavedMessage.Visible = true;
+
+                            for (int i = 0; i < chkModules.Items.Count; i++)
+                            {
+                                ListItem _limodules = (ListItem)chkModules.Items[i];
+                                if (_limodules.Selected == true)
+                                {
+                                    _advisersubscriptionvo.CustomPlanSelection += _limodules.Value + ",";
+                                }
+                            }
+                            if (uservo != null)
+                            {
+                                _subscriptionId = _advisersubscriptionbo.CreateAdviserSubscription(_advisersubscriptionvo, uservo.UserId);
+                                string flavourIds = GetFlavourIds();
+                                _advisersubscriptionbo.SetFlavoursToAdviser(flavourIds, advisorVo.advisorId);
+                                SettingsSavedMessage.Visible = true;
+                                SetAdviserFlavourSubscription();
+                            }
                             SetAdviserFlavourSubscription();
                         }
-                        SetAdviserFlavourSubscription();
+
+                        //else
+                        //{
+                        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('You don't have enough amount');", true);
+                        //    return;
+                        //}
                     }
                 }
 
@@ -333,12 +361,20 @@ namespace WealthERP.SuperAdmin
         private string GetFlavourIds()
         {
             string flavourIds="";
-            for (int i = 0; i < chkModules.Items.Count; i++)
+            int i =0;
+            for (i = 0; i < chkModules.Items.Count; i++)
             {
                 if(chkModules.Items[i].Selected == true)
                     {
                         flavourIds += chkModules.Items[i].Value + "~";
                     }
+            }
+            for (i = 0; i < chkValueAdds.Items.Count; i++)
+            {
+                if (chkValueAdds.Items[i].Selected == true)
+                {
+                    flavourIds += chkValueAdds.Items[i].Value + "~";    
+                }
             }
           return flavourIds;
         }
@@ -524,25 +560,50 @@ namespace WealthERP.SuperAdmin
             chkModules.Items[7].Selected = false;
             chkModules.Items[8].Selected = false;
 
+            chkValueAdds.Items[0].Selected = false;
+            chkValueAdds.Items[1].Selected = false;
+            chkValueAdds.Items[2].Selected = false;
+
             string flavourCategory="";
-            if (dsFlavourDetails.Tables[0].Rows.Count > 0)
+            if (dsFlavourDetails != null)
             {
-                flavourCategory = dsFlavourDetails.Tables[0].Rows[0]["WFC_FlavourCategoryCode"].ToString();
-            }
-            if (dsFlavourDetails.Tables[1].Rows.Count > 0)
-            {
-                if (flavourCategory == _ddl.SelectedItem.Value)
+                if (dsFlavourDetails.Tables[0].Rows.Count > 0)
                 {
-                    for (int i = 0; i < dsFlavourDetails.Tables[1].Rows.Count; i++)
+                    flavourCategory = dsFlavourDetails.Tables[0].Rows[0]["WFC_FlavourCategoryCode"].ToString();
+                }
+                if (dsFlavourDetails.Tables[1].Rows.Count > 0)
+                {
+                    if (flavourCategory == _ddl.SelectedItem.Value)
                     {
-                        flavourId = Convert.ToInt32(dsFlavourDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
-                        chkModules.Items[flavourId - 1].Selected = true;
+                        for (int i = 0; i < dsFlavourDetails.Tables[1].Rows.Count; i++)
+                        {
+                            flavourId = Convert.ToInt32(dsFlavourDetails.Tables[1].Rows[i]["WF_FlavourId"].ToString());
+                            if (flavourId < 10)
+                            {
+                                chkModules.Items[flavourId - 1].Selected = true;
+                            }
+                            else
+                            {
+                                if (chkValueAdds.Items[0].Value == flavourId.ToString())
+                                {
+                                    chkValueAdds.Items[0].Selected = true;
+                                }
+                                if (chkValueAdds.Items[1].Value == flavourId.ToString())
+                                {
+                                    chkValueAdds.Items[1].Selected = true;
+                                }
+                                if (chkValueAdds.Items[2].Value == flavourId.ToString())
+                                {
+                                    chkValueAdds.Items[2].Selected = true;
+                                }
+
+                            }
+                        }
                     }
+
                 }
 
             }
-
-
         }
         //[System.Web.Services.WebMethod(EnableSession = true)]
         //public static void AjaxSetBalanceStorage(string storageBalance)

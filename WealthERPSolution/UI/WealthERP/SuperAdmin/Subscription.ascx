@@ -34,8 +34,9 @@
             storageUsed = 0;
 
         }
-       
-            document.getElementById('<%=txtBalanceSize.ClientID %>').value = parseFloat(storagePaid) + parseFloat(storageDefault) - parseFloat(storageUsed);                     
+        var balance = 0;
+        balance = parseFloat(storagePaid) + parseFloat(storageDefault) - parseFloat(storageUsed); 
+            document.getElementById('<%=txtBalanceSize.ClientID %>').value =parseFloat(balance).toFixed(2);                     
 //            parent.PageMethods.AjaxSetSession(storageBalance);
        
         
@@ -52,12 +53,12 @@
         var status = false;
         var storageUsed = 0;
         var storagePaid = 0;
-        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>');
-        storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>');
-        
-        if(parseFloat(storagePaid) < parseFloat(storageUsed))
-        {
-            alert('Please free your space allocated');
+        storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;
+        storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;
+      if(parseFloat(storagePaid) < parseFloat(storageUsed)) {
+          var msg = 'Your have allocated' + '\t' + storageUsed + '\t' +'MB of size';
+          alert(msg);
+            alert('Please free your space allocated first');
             return false;        
         }
         
@@ -261,7 +262,16 @@
                         <asp:Label ID="lblBalanceSize" runat="server" CssClass="FieldName" Text="Vault Balance Storage:"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtBalanceSize" runat="server" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="txtBalanceSize" runat="server" CssClass="txtField"  ReadOnly="true"></asp:TextBox>
+                    </td>
+                </tr> 
+                
+                <tr>
+                    <td align="right">
+                        <asp:Label ID="lblUsedSpace" runat="server" CssClass="FieldName" Text="Vault Used Storage:" Enabled="false"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="txtUsedSpace" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                     </td>
                 </tr>            
                
@@ -296,13 +306,15 @@
                             <asp:ListItem Text="Advisory" Value="AD"></asp:ListItem>
                             <asp:ListItem Text="All" Value="AL"></asp:ListItem>
                             <asp:ListItem Text="Distribution" Value="DT"></asp:ListItem>
-                            <asp:ListItem Text="Value Adds" Value="VA"></asp:ListItem>
+                            <%--<asp:ListItem Text="Value Adds" Value="VA"></asp:ListItem>--%>
                         </asp:DropDownList>
                           
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                <td>
+                    </td>
+                    <td>
                         <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName">
                             <asp:ListItem Text="Mutual Funds" Value="1"></asp:ListItem>
                             <asp:ListItem Text="Equity" Value="2"></asp:ListItem>
@@ -318,12 +330,23 @@
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>
                     </td>
                 </tr>
+                <tr>
+                <td>
+                <asp:Label ID="lblValueAdds" runat="server" CssClass="FieldName" Text="Value Adds: "></asp:Label>
+                </td>
+                <td>
+                        <asp:CheckBoxList ID="chkValueAdds" runat="server" CssClass="FieldName">
+                            <asp:ListItem Text="Inbox" Value="10"></asp:ListItem>
+                            <asp:ListItem Text="Repository" Value="11"></asp:ListItem>
+                            <asp:ListItem Text="Vault" Value="12"></asp:ListItem>                                              
+                        </asp:CheckBoxList>                  
+                </td>
+                </tr>
             </table>
             </ContentTemplate>
             </asp:UpdatePanel>
         </td>
-    </tr>   
-    
+    </tr>      
 </table>
 <asp:HiddenField ID="hdnSMSBought" runat="server" />
 <asp:HiddenField ID="hdnStorageUsed" runat="server" />
