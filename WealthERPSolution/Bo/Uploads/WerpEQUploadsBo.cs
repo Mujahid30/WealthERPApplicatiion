@@ -225,6 +225,53 @@ namespace BoUploads
             return blResult;
         }
 
+        /// <summary>
+        /// NEWLY ADDED FOR ODIN UPLOADS IN ORDER TO UPDATE THE SOURCE CODE 
+        /// </summary>
+        /// <param name="processId"></param>
+        /// <param name="Packagepath"></param>
+        /// <param name="configPath"></param>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public bool WERPEQProcessDataInSecondStagingTransForODINUploads(int processId, string Packagepath, string configPath, int adviserId,string sourceCode)
+        {
+            bool blResult = false;
+
+            try
+            {
+                Package werpEQTranPkg1 = App.LoadPackage(Packagepath, null);
+                werpEQTranPkg1.Variables["varAdviserId"].Value = adviserId;
+                werpEQTranPkg1.Variables["varProcessIdUpdateBrokerCode"].Value = processId;
+                werpEQTranPkg1.Variables["varSourceCode"].Value = sourceCode;
+                werpEQTranPkg1.ImportConfigurationFile(configPath);
+                DTSExecResult werpEQTranResult1 = werpEQTranPkg1.Execute();
+                if (werpEQTranResult1.ToString() == "Success")
+                    blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "WerpMFUploadsBo.cs:WerpMFInsertToInputProfile()");
+
+                object[] objects = new object[3];
+                objects[0] = processId;
+                objects[1] = Packagepath;
+                objects[2] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
+        }
+
         public bool WERPEQInsertTransDetails(int processId, string Packagepath, string configPath)
         {
             bool blResult = false;
