@@ -187,7 +187,7 @@
                <%-- <asp:ListItem Value="EQDA">Equity Demat Account Only</asp:ListItem>--%>
                 <asp:ListItem Value="EQT">Equity Transaction</asp:ListItem>
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
-                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
+                <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>                
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
             <div id="div1" style="display: none;">
@@ -278,7 +278,7 @@
             <asp:Label ID="lbluploadtype" runat="server" CssClass="FieldName" Text="Upload Type:"></asp:Label>
         </td>
         <td>                          
-                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="False" CssClass="cmbField" >
+                                <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged">
                                     <asp:ListItem Text="NSE" />
                                     <asp:ListItem Text="BSE" /> 
                                 </asp:DropDownList>
@@ -333,7 +333,7 @@
         <td class="rightField" colspan="3">
         <asp:FileUpload ID="FileUpload" runat="server" Height="22px"/>      
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="FileUpload" Runat="Server"  ValidationGroup="btn_Upload" ErrorMessage="Only .dbf, .xls and.xlsx File allowed" Display="Dynamic"
-                ValidationExpression="^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F))$" CssClass="rfvPCG"/>
+                ValidationExpression="^.*\.((x|X)(l|L)(s|S)|(x|X)(l|L)(s|S)(x|X)|(d|D)(b|B)(f|F)|(t|T)(x|X)(t|T))$" CssClass="rfvPCG"/>
             <br />
             <asp:RequiredFieldValidator ID="FileUpload_RequiredFieldValidator" ControlToValidate="FileUpload"
                 ValidationGroup="btn_Upload" ErrorMessage="Please select a file for upload" Display="Dynamic"

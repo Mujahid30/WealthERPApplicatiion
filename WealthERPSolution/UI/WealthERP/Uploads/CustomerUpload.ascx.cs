@@ -315,7 +315,7 @@ namespace WealthERP.Uploads
             Dictionary<string, string> genDictEQTranx = new Dictionary<string, string>();
             genDictEQTranx.Add("Standard", "WP");
             genDictEQTranx.Add("India Infoline", "IIFL");
-            //genDictEQTranx.Add("ODIN", "ODIN");
+            genDictEQTranx.Add("ODIN", "ODIN");
             return genDictEQTranx;
         }
 
@@ -2141,7 +2141,7 @@ namespace WealthERP.Uploads
 
 
 
-                                //****************Systematic Uploads**************\\
+                                    //****************Systematic Uploads**************\\
                                 //********************Shantanu**********************\\
 
                                 #region MF CAMS Systematic Upload
@@ -3070,9 +3070,10 @@ namespace WealthERP.Uploads
                                 }
                                 #endregion MF WERP Transaction
 
-                                #region Standard Equity Transaction Upload
-                                //*****************************************************************************************************************************
-                                //Standard Equity Transaction Upload
+
+                                //Gobinda ODIN Standard Equity Transaction Upload with BSE and NSE files .. 
+                                #region Standard Equity Transaction Upload with ODIN
+                                //*****************************************************************************************************************************                                
                                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && (ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard || ddlListCompany.SelectedValue == Contants.UploadExternalTypeIIFL || ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN))
                                 {
                                     bool werpEQTranInputResult = false;
@@ -3107,8 +3108,20 @@ namespace WealthERP.Uploads
                                                 if (updateProcessLog2)
                                                 {
                                                     // Doing a check on data in First Staging and marking IsRejected flag
+
                                                     packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
-                                                    werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+
+                                                    if (ddlListCompany.SelectedValue != Contants.UploadExternalTypeODIN)
+                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                    else if (ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
+                                                    {
+                                                        if (ddlAction.SelectedValue == "NSE")
+                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, ddlAction.SelectedValue);
+                                                        else if (ddlAction.SelectedValue == "BSE")
+                                                            werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, ddlAction.SelectedValue);
+                                                    }
+
+                                                    //werpEQFirstStagingCheckResult = werpEQUploadsBo.WerpEQProcessDataInFirstStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
 
                                                     if (werpEQFirstStagingCheckResult)
                                                     {
@@ -3119,12 +3132,15 @@ namespace WealthERP.Uploads
                                                         {
                                                             werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 19); // EQ Trans XML File Type Id = 8
                                                         }
-                                                        else
-                                                            werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
+                                                        //else
+                                                        //    werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
 
-                                                        if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
+                                                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                         {
-                                                            werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 20); // EQ Trans XML File Type Id = 8
+                                                            if (ddlAction.SelectedValue == "NSE")
+                                                                werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 10); // EQ Trans XML File Type Id = 8
+                                                            else if (ddlAction.SelectedValue == "BSE")
+                                                                werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 11); // EQ Trans XML File Type Id = 8
                                                         }
 
 
@@ -3138,6 +3154,7 @@ namespace WealthERP.Uploads
                                                             {
                                                                 // WERP Insertion
                                                                 packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQTranStaging.dtsx");
+
                                                                 WERPEQSecondStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
 
                                                                 if (WERPEQSecondStagingCheckResult)
@@ -3147,15 +3164,16 @@ namespace WealthERP.Uploads
                                                                     if (WERPEQTranWerpResult)
                                                                     {
                                                                         processlogVo.IsInsertionToWERPComplete = 1;
-
-
-
-
-
                                                                     }
                                                                     processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "EQT");
-                                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPEQ");
-                                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
+                                                                    if (ddlAction.SelectedValue == "NSE" || ddlAction.SelectedValue == "BSE")
+                                                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "ODIN");
+                                                                    else
+                                                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "WPEQ");
+                                                                    if (ddlAction.SelectedValue == "NSE" || ddlAction.SelectedValue == "BSE")
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "ODIN");
+                                                                    else
+                                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
                                                                     processlogVo.NoOfTransactionDuplicates = 0;
                                                                     processlogVo.EndTime = DateTime.Now;
                                                                     bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
@@ -3821,6 +3839,32 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Add("Sundaram");
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
             }
+            //List Added For ODIN 
+            else if (ddlUploadType.SelectedValue == "ODIN")
+            {
+                List<object> ListA = new List<object>();
+                ListA.Add(new
+                {
+                    oDid = "ODNSE",
+                    oDName = "NSE"
+                }
+                );
+
+                ListA.Add(new
+                {
+                    oDid = "ODBSE",
+                    oDName = "BSE"
+                }
+                );
+
+                ddlListCompany.DataSource = ListA;
+                ddlListCompany.DataTextField = "oDName";
+                ddlListCompany.DataValueField = "oDid";
+                ddlListCompany.DataBind();
+
+
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+            }
             else
             {
                 ddlListCompany.Items.Clear();
@@ -3915,13 +3959,14 @@ namespace WealthERP.Uploads
             }
             //***Dropdown screen info coding***
 
-            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL")
+            if (ddlUploadType.SelectedValue == "PMFF" || ddlUploadType.SelectedValue == "MFT" || ddlUploadType.SelectedValue == "TRAIL" || ddlUploadType.SelectedValue == "ODIN" || ddlUploadType.SelectedValue == "EQT")
             {
                 lblFileType.Visible = true;
                 message = Show_Message(ddlUploadType.SelectedValue, ddlListCompany.SelectedValue);
                 lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
 
             }
+
             else
             {
                 lblFileType.Visible = false;
@@ -4026,7 +4071,22 @@ namespace WealthERP.Uploads
             }
             else if ((ddlUploadType == "PMFF" && ddlCompanyType == "SU"))
             {
-                msg="ER - 04";
+                msg = "ER - 04";
+            }
+            else if ((ddlUploadType == "ODIN" && ddlCompanyType == "NSE"))
+            {
+                msg = "0330TRD";
+            }
+            else if ((ddlUploadType == "ODIN" && ddlCompanyType == "BSE"))
+            {
+                msg = "TR10022012";
+            }
+            else if ((ddlUploadType == "EQT" && ddlCompanyType == "ODIN"))
+            {
+                if (ddlAction.SelectedValue == "NSE")
+                    msg = "NSE TRD";
+                else if (ddlAction.SelectedValue == "BSE")
+                    msg = "TR BSE";
             }
             return msg;
         }
@@ -4705,7 +4765,7 @@ namespace WealthERP.Uploads
 
 
                         //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", Contants.UploadExternalTypeCAMS, Contants.UploadFileTypeSystematic);
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", Contants.UploadFileTypeSystematic);
                     }
                     else
                     {
@@ -5642,7 +5702,12 @@ namespace WealthERP.Uploads
 
                             }
                         }
-                        filetypeid = 20;
+                        if (ddlAction.SelectedValue == "NSE")
+                            filetypeid = 10;
+                        else if (ddlAction.SelectedValue == "BSE")
+                            filetypeid = 11;
+                        else if (ddlAction.SelectedValue == "IIFL")
+                            filetypeid = 19;
                     }
                     else
                     {
@@ -5890,12 +5955,13 @@ namespace WealthERP.Uploads
                         else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction)
                             processlogVo.ExtractTypeCode = "ET";
 
+
+
                         else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic)
                             processlogVo.ExtractTypeCode = "SS";
 
                         else if (ddlUploadType.SelectedValue == "TRAIL")
                             processlogVo.ExtractTypeCode = "TRAIL";
-
 
                         processlogVo.ProcessId = uploadcommonBo.CreateUploadProcess(processlogVo);
                         dsXML.Tables[0].Columns.Add("ProcessId");
@@ -6181,7 +6247,7 @@ namespace WealthERP.Uploads
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processid + "&filetypeid=" + filetype + "');", true);
             }
-            else if (filetype == (int)Contants.UploadTypes.ODINTransaction && extracttype == "ET")
+            else if (filetype == 10 || filetype == 11 || filetype == 19 && extracttype == "ET")
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processid + "&filetypeid=" + filetype + "');", true);
             }
@@ -6344,6 +6410,15 @@ namespace WealthERP.Uploads
             gvInputError.DataBind();
             divresult.Visible = false;
             ViewState["dtinputvalidationerror"] = dtInputRejects;
+        }
+
+        protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            string ddlCompanyType="ODIN";
+            string ddlUploadType="EQT";
+            message = Show_Message(ddlUploadType, ddlCompanyType);
+            lblFileType.Visible = true;
+            lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
         }
     }
 }
