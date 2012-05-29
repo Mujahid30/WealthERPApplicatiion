@@ -182,7 +182,7 @@
         <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
      </asp:DropDownList>--%>
         </td>
-        <td align="right" valign="top">
+        <td align="right">
             <asp:Label ID="lblCustomer" runat="server" Text="Customer: " CssClass="FieldName"></asp:Label>
         </td>
         <td align="left">
@@ -242,7 +242,7 @@
         </td>
     </tr>
     <tr id="trSectionTwo3" runat="server">
-        <td align="right" valign="top">
+        <td align="right" >
             <asp:Label ID="ddlTransactionType" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -266,7 +266,7 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a transaction type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td align="right" valign="top">
+        <td align="right">
             <asp:Label ID="lblAMC" runat="server" Text="AMC: " CssClass="FieldName"></asp:Label>
         </td>
         <td align="left">
@@ -284,7 +284,7 @@
             <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "
                 CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" valign="top">
             <asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="spnReceiveDate" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReceivedDate"
@@ -303,10 +303,10 @@
                 CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
                 Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
         </td>
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="Label7" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" valign="top">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
             </asp:DropDownList>
@@ -317,7 +317,7 @@
             <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span
+            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" ></asp:TextBox><span
                 id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application number" Display="Dynamic"
@@ -326,7 +326,7 @@
         <td align="right" valign="top">
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
             </asp:DropDownList>
@@ -344,7 +344,7 @@
         <td align="right" valign="top">
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlFolioNumber_SelectedIndexChanged">
             </asp:DropDownList>
@@ -356,9 +356,9 @@
         <td align="right" valign="top">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <%--<asp:Label ID="lblGetOrderDate" runat="server" Text=""  CssClass="cmbField"></asp:Label>--%>
-            <asp:TextBox ID="txtOrderDate" runat="server" CssClass="txtField"></asp:TextBox><span
+            <asp:TextBox ID="txtOrderDate" runat="server" CssClass="txtField" ></asp:TextBox><span
                 id="Span4" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender9" runat="server" TargetControlID="txtOrderDate"
                 Format="dd/MM/yyyy">
@@ -383,7 +383,7 @@
             <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="chkCA_CheckedChanged" />
         </td>
         <td align="left" valign="top">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" >
             </asp:DropDownList>
             <br />
             <br />
@@ -438,10 +438,10 @@
         </td>
     </tr>
     <tr id="trSectionTwo10" runat="server">
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblFutureDate" runat="server" Text="Select Future Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtFutureDate" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="Span6" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtFutureDate"
@@ -460,10 +460,10 @@
                 CssClass="cvPCG" ErrorMessage="<br />Future date should  be greater than or equal to Today"
                 Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>
         </td>
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblFutureTrigger" runat="server" Text="Future Trigger: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtFutureTrigger" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
@@ -555,10 +555,10 @@
         </td>
     </tr>
     <tr id="trSIPDate" runat="server">
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblStartDateSIP" runat="server" Text="Start Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtstartDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtstartDateSIP"
                 Format="dd/MM/yyyy">
@@ -570,10 +570,10 @@
                 Type="Date" ControlToValidate="txtstartDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
         </td>
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblEndDateSIP" runat="server" Text="End Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtendDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtendDateSIP"
                 Format="dd/MM/yyyy">
@@ -606,19 +606,19 @@
         </td>
     </tr>
     <tr id="trSell2" runat="server">
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="Label16" runat="server" Text="Redeem/Switch: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:RadioButton ID="rbtAmount" Class="cmbField" runat="server" GroupName="AmountUnit"
                 Checked="True" Text="Amount" />
             <asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server" GroupName="AmountUnit"
                 Text="Units" />
         </td>
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblAmountUnits" runat="server" Text="Amount/Unit: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtNewAmount" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtNewAmount"
@@ -630,10 +630,10 @@
         </td>
     </tr>
     <tr id="trSell3" runat="server">
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblSchemeSwitch" runat="server" Text="To Scheme: " CssClass="FieldName"></asp:Label>
         </td>
-        <td align="left">
+        <td align="left" valign="top">
             <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span3" runat="server" class="spnRequiredField">*</span>
@@ -656,10 +656,10 @@
         </td>
     </tr>
     <tr id="trDateSTP" runat="server">
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblstartDateSTP" runat="server" Text="Start Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtstartDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender7" runat="server" TargetControlID="txtstartDateSTP"
                 Format="dd/MM/yyyy">
@@ -671,10 +671,10 @@
                 Type="Date" ControlToValidate="txtstartDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
         </td>
-        <td align="right">
+        <td align="right" valign="top">
             <asp:Label ID="lblendDateSTP" runat="server" Text="End Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td>
+        <td valign="top">
             <asp:TextBox ID="txtendDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender8" runat="server" TargetControlID="txtendDateSTP"
                 Format="dd/MM/yyyy">
