@@ -477,9 +477,18 @@
        <%-- Add/Edit Subscription Option not included in this release so hiding this button for this release --%>
        
        <td>
-            <asp:Button ID="btnSubscription" runat="server" Text="Subscription"  CssClass="PCGMediumButton" OnClick="btnSubscription_Click"
-                />
+            <asp:Button ID="btnSubscription" runat="server" Text="Subscription"  CssClass="PCGMediumButton" OnClick="btnSubscription_Click"/>
         </td>
+    </tr>
+</table>
+<table>
+<tr></tr>
+<tr>
+        <td align="left">
+            <asp:Label ID="lblNote" Text="Note: Please make sure that subscription is also done after Submit!!"
+                runat="server" CssClass="FieldName">
+            </asp:Label>
+        </td>        
     </tr>
 </table>
 <input type="hidden" id="hidValid" />
