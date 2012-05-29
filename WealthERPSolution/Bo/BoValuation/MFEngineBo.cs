@@ -1115,7 +1115,11 @@ namespace BoValuation
                         foreach (DataRow dr in dtMFTransactionSellPair.Rows)
                         {
                             DataRow[] drTransaction = dtMFTransactionBalance.Select("CMFT_MFTransId=" + dr["CMFSP_BuyID"].ToString());
-                            CMFNP_TAX_Realized_AcqCost += (double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
+                            if (drTransaction.Count() > 0)
+                            {
+                                CMFNP_TAX_Realized_AcqCost += (double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
+                            }
+                            //CMFNP_TAX_Realized_AcqCost += (double.Parse(drTransaction[0]["CMFT_Price"].ToString()) * double.Parse(dr["CMFSP_Units"].ToString()));
                         }
                     }
 
