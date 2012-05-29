@@ -71,7 +71,7 @@ namespace WealthERP.Admin
 
             ds = repoBo.GetRepositoryView(userVo.UserId, sbRoleList.ToString());
 
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables[0].Rows.Count > 0 && ds.Tables[2].Rows.Count > 0)
             {
                 trNoRecords.Visible = false;
                 int intAdviserId = 0;
