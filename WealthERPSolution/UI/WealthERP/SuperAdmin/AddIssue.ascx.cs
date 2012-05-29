@@ -22,6 +22,8 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using System.Web.UI.HtmlControls;
 using VoUser;
+using VoEmailSMS;
+
 
 namespace WealthERP.SuperAdmin
 {
@@ -32,9 +34,9 @@ namespace WealthERP.SuperAdmin
         IssueTrackerBo superAdminOpsBo = new IssueTrackerBo();
         DataTable dtIssueTrackerDetails = new DataTable();
         int roleId = 0;
-        int treeSubNodeId=0;
-        int treeSubSubNodeId=0;
-        int adviserId=0;
+        int treeSubNodeId = 0;
+        int treeSubSubNodeId = 0;
+        int adviserId = 0;
         int issueTypeId = 0;
         string strOrgName;
         string strddlLevel;
@@ -45,6 +47,8 @@ namespace WealthERP.SuperAdmin
         DataSet dsTreeNode = new DataSet();
         string xmlPath;
         DataTable dtXML = new DataTable();
+        EmailSMSBo emailSMSBo;
+        EmailVo emailVo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -61,10 +65,10 @@ namespace WealthERP.SuperAdmin
             txtIssueCode.Enabled = false;
             BindDDLPriority();
             BindDDLLevel();
-            
+
             BindDDLStatus();
-            SetToFirstLevel(sender,e);           
- 
+            SetToFirstLevel(sender, e);
+
             BindDDLCustomerPriority();
             if (!IsPostBack)
             {
@@ -73,8 +77,8 @@ namespace WealthERP.SuperAdmin
                 BindDDLAdviser(adviserId);
                 BindDDLRoleList(dtIssueTrackerDetails);
                 TreeNodeDropdown(roleId);
-                TreeSubNodeDropdown(roleId,treeSubNodeId);
-                TreeSubSubNodeDropdown(roleId, treeSubNodeId,treeSubSubNodeId);
+                TreeSubNodeDropdown(roleId, treeSubNodeId);
+                TreeSubSubNodeDropdown(roleId, treeSubNodeId, treeSubSubNodeId);
                 LevelSelectionFromQueryString();
             }
 
@@ -89,8 +93,8 @@ namespace WealthERP.SuperAdmin
                 btnQAUpdate.Visible = false;
                 btnDEVSubmit.Visible = false;
                 btnDevUpdate.Visible = false;
-            }            
-            else if(txtComments.Text=="")
+            }
+            else if (txtComments.Text == "")
             {
                 level2ControlDisable();
                 level3ControlDisable();
@@ -115,7 +119,7 @@ namespace WealthERP.SuperAdmin
                     lblTypes.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
                     lblOpenClose.Attributes.Add("style", "text-decoration:blink; color: LimeGreen");
                 }
-                else if(strStatus=="Open ")
+                else if (strStatus == "Open ")
                 {
                     dtSolveDate.Visible = false;
                     System.Drawing.Color color = System.Drawing.Color.FromArgb(34 - 139 - 34);
@@ -166,21 +170,21 @@ namespace WealthERP.SuperAdmin
             {
                 if (strActiveLevel == "Level1")
                 {
-                    LevelSelection();  
+                    LevelSelection();
                     level2ControlDisable();
                     level3ControlDisable();
                 }
 
                 else if (strActiveLevel == "Level2")
                 {
-                    LevelSelection();          
+                    LevelSelection();
                     level1ControlDisable();
                     level3ControlDisable();
                 }
 
                 else if (strActiveLevel == "Level3")
                 {
-                    LevelSelection();  
+                    LevelSelection();
                     level2ControlDisable();
                     level1ControlDisable();
                 }
@@ -241,15 +245,15 @@ namespace WealthERP.SuperAdmin
 
             lblTypes.Text = strActiveLevel.ToString();
             lblOpenClose.Text = strStatus.ToString();
-            
+
         }
 
-      
+
 
         public void CsLevelDataInsertion()
         {
             DataSet ds = superAdminOpsBo.getCSIssueDataAccordingToCSId(strCsId);
-            int treeNodeId=0;
+            int treeNodeId = 0;
             //int treeSubNodeId = 0;
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
@@ -292,22 +296,22 @@ namespace WealthERP.SuperAdmin
                         SuperAdminTreeNodeDropdown(roleId);
                     }
                     ddlTreeNode.SelectedValue = ds.Tables[0].Rows[0]["WTN_TreeNodeId"].ToString();
-                    
+
 
                     if (ddlTreeNode.SelectedValue != "Select Tree Node")
-                    {                        
+                    {
                         SuperadminTreeSubNodeDropdown(roleId, treeNodeId);
                     }
                     ddlSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSN_TreeSubNodeId"].ToString();
-                      
+
                     if (ddlSubNode.SelectedValue != "Select Tree SubNode")
                     {
-                        int treeSubNodeId = int.Parse((ddlSubNode.SelectedValue).ToString());                
+                        int treeSubNodeId = int.Parse((ddlSubNode.SelectedValue).ToString());
                         SuperadminTreeSubSubNodeDropdown(roleId, treeNodeId, treeSubNodeId);
                     }
                     ddlSubSubNode.SelectedValue = ds.Tables[0].Rows[0]["WTSSN_TreeSubSubNodeId"].ToString();
-                    
-                    
+
+
                     txtDescription.Text = ds.Tables[0].Rows[0]["CSI_CustomerDescription"].ToString();
                     txtIssueCode.Text = ds.Tables[0].Rows[0]["CSI_Code"].ToString();
                     txtIssueDate.Text = ds.Tables[0].Rows[0]["CSI_issueAddedDate"].ToString();
@@ -390,48 +394,48 @@ namespace WealthERP.SuperAdmin
 
         }
 
-        public  void DevLevelDataInsertion()
-        {            
+        public void DevLevelDataInsertion()
+        {
             DataSet dsDEV = superAdminOpsBo.GetDEVCSIssueDataAccordingToCSId(strCsId);
-                if (dsDEV.Tables[0].Rows.Count > 0)
-                        {
-                            txtDevComments.Text = dsDEV.Tables[0].Rows[0]["CSILA_Comments"].ToString();
-                            ddlReportDEV.SelectedValue = dsDEV.Tables[0].Rows[0]["XMLCSL_Code"].ToString();
-                            txtDevRepliedBy.Text = dsDEV.Tables[0].Rows[0]["CSILA_RepliedBy"].ToString();
-                            if (dsDEV.Tables[0].Rows[0]["CSILA_RepliedDate"].ToString() == "")
-                                txtDEVReportedDate.SelectedDate = DateTime.Now;     
-                            else
-                                txtDEVReportedDate.SelectedDate = DateTime.Parse(dsDEV.Tables[0].Rows[0]["CSILA_RepliedDate"].ToString());                            
+            if (dsDEV.Tables[0].Rows.Count > 0)
+            {
+                txtDevComments.Text = dsDEV.Tables[0].Rows[0]["CSILA_Comments"].ToString();
+                ddlReportDEV.SelectedValue = dsDEV.Tables[0].Rows[0]["XMLCSL_Code"].ToString();
+                txtDevRepliedBy.Text = dsDEV.Tables[0].Rows[0]["CSILA_RepliedBy"].ToString();
+                if (dsDEV.Tables[0].Rows[0]["CSILA_RepliedDate"].ToString() == "")
+                    txtDEVReportedDate.SelectedDate = DateTime.Now;
+                else
+                    txtDEVReportedDate.SelectedDate = DateTime.Parse(dsDEV.Tables[0].Rows[0]["CSILA_RepliedDate"].ToString());
 
-                            if (txtDevComments.Text == "")
-                            {
-                                btnDevUpdate.Visible = false;
-                                btnDEVSubmit.Visible = true;
-                            }
-                            else
-                            {
-                                btnDevUpdate.Visible = true;
-                                btnDEVSubmit.Visible = false;
-                            }
-                        }
-                    else if (txtDevComments.Text=="")
-                            {
-                                btnDevUpdate.Visible = false;
-                                btnDEVSubmit.Visible = true;
-                            }
-                           
-                        else
-                            {
-                                 btnDEVSubmit.Visible = true;
-                                btnDevUpdate.Visible = false;
-                            }
+                if (txtDevComments.Text == "")
+                {
+                    btnDevUpdate.Visible = false;
+                    btnDEVSubmit.Visible = true;
+                }
+                else
+                {
+                    btnDevUpdate.Visible = true;
+                    btnDEVSubmit.Visible = false;
+                }
+            }
+            else if (txtDevComments.Text == "")
+            {
+                btnDevUpdate.Visible = false;
+                btnDEVSubmit.Visible = true;
+            }
+
+            else
+            {
+                btnDEVSubmit.Visible = true;
+                btnDevUpdate.Visible = false;
+            }
         }
 
         public void QaLevelDataInsertion()
         {
-            DataSet dsQA = superAdminOpsBo.GetQACSIssueDataAccordingToCSId(strCsId );
+            DataSet dsQA = superAdminOpsBo.GetQACSIssueDataAccordingToCSId(strCsId);
 
-            if (dsQA.Tables[0].Rows.Count >0)
+            if (dsQA.Tables[0].Rows.Count > 0)
             {
                 txtQAComments.Text = dsQA.Tables[0].Rows[0]["CSILA_Comments"].ToString();
                 txtRepliedBy.Text = dsQA.Tables[0].Rows[0]["CSILA_RepliedBy"].ToString();
@@ -454,7 +458,7 @@ namespace WealthERP.SuperAdmin
                     txtVersionReadOnly.Text = txteleaseVersion.Text;
                 else
                     txtVersionReadOnly.Text = "";
-  
+
                 if (txtRepliedBy.Text == "")
                 {
                     btnQAUpdate.Visible = false;
@@ -465,14 +469,14 @@ namespace WealthERP.SuperAdmin
                     btnQAUpdate.Visible = true;
                     QASubmit.Visible = false;
                 }
-                
+
             }
             else if (txtRepliedBy.Text == "")
             {
                 btnQAUpdate.Visible = false;
                 QASubmit.Visible = true;
             }
-            
+
             else
             {
                 btnUpdate.Visible = false;
@@ -484,15 +488,15 @@ namespace WealthERP.SuperAdmin
         private void BindDDLPriority()
         {
             Dictionary<string, string> genDictPriority = new Dictionary<string, string>();
-            
+
             DataTable dt = superAdminOpsBo.GetPriorityList();
             if (dt.Rows.Count > 0)
-            {                
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     genDictPriority.Add(dr["XMLCSP_Name"].ToString(), dr["XMLCSP_Code"].ToString());
                 }
-                
+
                 if (ddlPriority != null)
                 {
                     ddlPriority.DataSource = genDictPriority;
@@ -506,22 +510,22 @@ namespace WealthERP.SuperAdmin
                     ddlCustomerPriority.DataValueField = "Value";
                     ddlCustomerPriority.DataBind();
                     ddlCustomerPriority.SelectedIndex = 0;
-                }              
-            }            
+                }
+            }
         }
-        
+
         private void BindDDLCustomerPriority()
         {
             Dictionary<string, string> genDictPriority = new Dictionary<string, string>();
 
             DataTable dt = superAdminOpsBo.GetCustomerPriorityList();
             if (dt.Rows.Count > 0)
-            {                
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     genDictPriority.Add(dr["XMLACSP_Name"].ToString(), dr["XMLACSP_Code"].ToString());
                 }
-                
+
                 if (ddlPriority != null)
                 {
                     ddlCustomerPriority.DataSource = genDictPriority;
@@ -529,17 +533,17 @@ namespace WealthERP.SuperAdmin
                     ddlCustomerPriority.DataValueField = "Value";
                     ddlCustomerPriority.DataBind();
                     ddlCustomerPriority.SelectedIndex = 0;
-                }              
-            }            
+                }
+            }
         }
 
         private void BindDDLLevel()
         {
             Dictionary<string, string> genDictPriority = new Dictionary<string, string>();
-           
+
             DataTable dt = superAdminOpsBo.GetLevelList();
             if (dt.Rows.Count > 0)
-            {               
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     genDictPriority.Add(dr["XMLCSL_Name"].ToString(), dr["XMLCSL_Code"].ToString());
@@ -552,19 +556,19 @@ namespace WealthERP.SuperAdmin
                     ddlReportFromCS.DataValueField = "Value";
                     ddlReportFromCS.DataBind();
                     ddlReportFromCS.SelectedIndex = 1;
-                    
+
                     ddlReportQA.DataSource = genDictPriority;
                     ddlReportQA.DataTextField = "Key";
                     ddlReportQA.DataValueField = "Value";
                     ddlReportQA.DataBind();
                     ddlReportQA.SelectedIndex = 2;
-                    
+
                     ddlReportDEV.DataSource = genDictPriority;
                     ddlReportDEV.DataTextField = "Key";
                     ddlReportDEV.DataValueField = "Value";
                     ddlReportDEV.DataBind();
                     ddlReportDEV.SelectedIndex = 0;
-                    
+
                 }
             }
         }
@@ -575,7 +579,7 @@ namespace WealthERP.SuperAdmin
 
             DataTable dt = superAdminOpsBo.GetStatusList();
             if (dt.Rows.Count > 0)
-            {               
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     genDictPriority.Add(dr["XMLCSS_Name"].ToString(), dr["XMLCSS_Code"].ToString());
@@ -587,7 +591,7 @@ namespace WealthERP.SuperAdmin
                     ddlIssueStatus.DataTextField = "Key";
                     ddlIssueStatus.DataValueField = "Value";
                     ddlIssueStatus.DataBind();
-                    ddlIssueStatus.SelectedIndex = 0;                 
+                    ddlIssueStatus.SelectedIndex = 0;
 
                 }
             }
@@ -605,13 +609,13 @@ namespace WealthERP.SuperAdmin
                     genDictPriority.Add(dr["A_OrgName"].ToString(), dr["A_AdviserId"].ToString());
                 }
                 if (ddlAdviser != null)
-                {                    
+                {
                     ddlAdviser.DataSource = genDictPriority;
                     ddlAdviser.DataTextField = "Key";
                     ddlAdviser.DataValueField = "Value";
                     ddlAdviser.DataBind();
                     ddlAdviser.Items.Insert(0, new ListItem("Select", "0"));
-                }                
+                }
             }
             else
             {
@@ -640,7 +644,7 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.SelectedIndex = 0;
                     ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
-                
+
             }
         }
 
@@ -665,7 +669,7 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.SelectedIndex = 0;
                     ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
-                
+
             }
         }
 
@@ -690,9 +694,9 @@ namespace WealthERP.SuperAdmin
                     ddlAdviser.SelectedIndex = 0;
                     ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
                 }
-                
+
             }
-        } 
+        }
 
         private void BindDDLRoleList(DataTable dtRoleDropDown)
         {
@@ -720,7 +724,7 @@ namespace WealthERP.SuperAdmin
 
             DataTable dt = superAdminOpsBo.GetTypesList();
             if (dt.Rows.Count > 0)
-            {               
+            {
                 foreach (DataRow dr in dt.Rows)
                 {
                     genDictPriority.Add(dr["XMLCST_Name"].ToString(), dr["XMLCST_Code"].ToString());
@@ -741,13 +745,13 @@ namespace WealthERP.SuperAdmin
             }
         }
 
-        
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             //Page.Validate("vgBtnSubmit");
             int result = 0;
             int statusResult = 0;
-            superAdminCSIssueTrackerVo.A_AdviserId=int.Parse(ddlAdviser.SelectedValue);
+            superAdminCSIssueTrackerVo.A_AdviserId = int.Parse(ddlAdviser.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_ContactPerson = txtCustomerName.Text;
             superAdminCSIssueTrackerVo.CSI_Phone = txtCustomerPhone.Text;
             superAdminCSIssueTrackerVo.CSI_Email = txtCustomerEmail.Text;
@@ -761,7 +765,7 @@ namespace WealthERP.SuperAdmin
                 superAdminCSIssueTrackerVo.WTSSN_TreeSubSubNodeId = int.Parse(ddlSubSubNode.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_CustomerDescription = txtDescription.Text;
             superAdminCSIssueTrackerVo.CSI_Code = txtIssueCode.Text;
-            superAdminCSIssueTrackerVo.CSI_issueAddedDate =DateTime.Parse(txtIssueDate.Text);
+            superAdminCSIssueTrackerVo.CSI_issueAddedDate = DateTime.Parse(txtIssueDate.Text);
             superAdminCSIssueTrackerVo.XMLCST_Code = int.Parse(ddlIssueType.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_ReportedVia = ddlReportedBy.SelectedValue;
             superAdminCSIssueTrackerVo.XMLACSP_Code = int.Parse(ddlCustomerPriority.SelectedValue);
@@ -783,7 +787,7 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.XMLCSL_Code = int.Parse(ddlReportFromCS.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCSP_Code = int.Parse(ddlPriority.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCSS_Code = int.Parse(ddlIssueStatus.SelectedValue);
-            
+
             try
             {
                 if (ddlIssueStatus.SelectedValue.Equals("3"))
@@ -813,12 +817,12 @@ namespace WealthERP.SuperAdmin
                         tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Issue Closed Successfully";
                     ShowIssueDetailsPage();
-                }   
+                }
 
-                else 
+                else
                 {
                     result = superAdminOpsBo.InsertIntoCSIssueLevel1ToLevel1(superAdminCSIssueTrackerVo);
-                     if (result > 0 && statusResult > 0)
+                    if (result > 0 && statusResult > 0)
                     {
 
                         tblErrorMassage.Visible = true;
@@ -828,25 +832,30 @@ namespace WealthERP.SuperAdmin
                         tblErrorMassage.Visible = true;
                     ErrorMessage.InnerHtml = "Record submitted successfully";
                     ShowIssueDetailsPage();
-                }                
+                }
+                if (chkEmailLevel1.Checked == true)
+                {
+                    SentEmail();
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
+
 
         public void level1ControlDisable()
         {
             txtCustomerEmail.Enabled = false;
             txtReportedBy.Enabled = false;
             txtReportedDate.Enabled = false;
-            txtComments.Enabled = false;            
+            txtComments.Enabled = false;
             ddlReportFromCS.Enabled = false;
             ddlPriority.Enabled = false;
             ddlIssueStatus.Enabled = false;
             btnSubmit.Enabled = false;
-            btnUpdate.Enabled = false;            
+            btnUpdate.Enabled = false;
         }
 
         public void level1ControlEnable()
@@ -854,20 +863,20 @@ namespace WealthERP.SuperAdmin
             txtCustomerEmail.Enabled = true;
             txtReportedBy.Enabled = true;
             txtReportedDate.Enabled = true;
-            txtComments.Enabled = true;            
+            txtComments.Enabled = true;
             ddlReportFromCS.Enabled = true;
             ddlPriority.Enabled = true;
             ddlIssueStatus.Enabled = true;
             btnSubmit.Enabled = true;
-            btnUpdate.Enabled = true;           
+            btnUpdate.Enabled = true;
         }
 
         public void level2ControlDisable()
         {
             txtQAComments.Enabled = false;
             txtRepliedBy.Enabled = false;
-            ddlReportQA.Enabled = false;;
-            QASubmit.Enabled=false;
+            ddlReportQA.Enabled = false; ;
+            QASubmit.Enabled = false;
             btnQAUpdate.Enabled = false;
             txtQAReportedDate.Enabled = false;
             txteleaseVersion.Enabled = false;
@@ -877,14 +886,14 @@ namespace WealthERP.SuperAdmin
         {
             txtQAComments.Enabled = true;
             txtRepliedBy.Enabled = true;
-            ddlReportQA.Enabled = true;  
+            ddlReportQA.Enabled = true;
             txtQAReportedDate.Enabled = true;
             txteleaseVersion.Enabled = true;
         }
 
         public void level3ControlDisable()
         {
-            txtDevComments.Enabled = false;            
+            txtDevComments.Enabled = false;
             ddlReportDEV.Enabled = false;
             btnDEVSubmit.Enabled = false;
             btnDevUpdate.Enabled = false;
@@ -902,7 +911,7 @@ namespace WealthERP.SuperAdmin
             txtDEVReportedDate.Enabled = true;
         }
 
-       
+
         protected void QASubmit_Click(object sender, EventArgs e)
         {
             int result = 0;
@@ -917,26 +926,26 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSILA_Version = txteleaseVersion.Text;
 
             try
-            {                
-                    result = superAdminOpsBo.InsertIntoCSIssueLevel2ToAnyLevel(superAdminCSIssueTrackerVo);
-                    if (result > 0)
-                    {
-                        tblErrorMassage.Visible = true;
-                        ErrorMessage.InnerHtml = "Record not submitted successfully";
-                    }
-                    else
-                    {
-                        tblErrorMassage.Visible = true;
-                        ErrorMessage.InnerHtml = "Record submitted successfully";
-                    }
-                    ShowIssueDetailsPage();
-                
+            {
+                result = superAdminOpsBo.InsertIntoCSIssueLevel2ToAnyLevel(superAdminCSIssueTrackerVo);
+                if (result > 0)
+                {
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record not submitted successfully";
+                }
+                else
+                {
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record submitted successfully";
+                }
+                ShowIssueDetailsPage();
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-           
+
         }
 
         protected void ddlSubNode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1011,7 +1020,7 @@ namespace WealthERP.SuperAdmin
         }
 
 
-        private void TreeSubSubNodeDropdown(int roleId,int treeSubNodeId,int treeSubSubNodeId)
+        private void TreeSubSubNodeDropdown(int roleId, int treeSubNodeId, int treeSubSubNodeId)
         {
             DataTable dtTreeSubSubNode = new DataTable();
             try
@@ -1041,10 +1050,10 @@ namespace WealthERP.SuperAdmin
         }
 
         protected void ddlRole_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             if (ddlRole.SelectedIndex != 0)
             {
-                roleId = int.Parse(ddlRole.SelectedValue);                
+                roleId = int.Parse(ddlRole.SelectedValue);
                 if (roleId == 1006)
                 {
                     SuperAdminTreeNodeDropdown(roleId);
@@ -1063,7 +1072,7 @@ namespace WealthERP.SuperAdmin
 
         public void SuperAdminTreeNodeDropdown(int roleId)
         {
-            DataSet ds=new DataSet();
+            DataSet ds = new DataSet();
             DataSet dsColumnNames = new DataSet();
             DataSet dsWerpColumnNames = new DataSet();
             xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
@@ -1089,7 +1098,7 @@ namespace WealthERP.SuperAdmin
             }
         }
 
-     
+
 
         private void TreeNodeDropdown(int roleId)
         {
@@ -1101,7 +1110,7 @@ namespace WealthERP.SuperAdmin
                     dtTreeNode = dsTreeNode.Tables[0];
                 if (dtTreeNode.Rows.Count > 0)
                 {
-                    ddlTreeNode.DataSource = dtTreeNode;  
+                    ddlTreeNode.DataSource = dtTreeNode;
                     ddlTreeNode.DataValueField = dtTreeNode.Columns["WTN_TreeNodeId"].ToString();
                     ddlTreeNode.DataTextField = dtTreeNode.Columns["WTN_TreeNodeText"].ToString();
                     ddlTreeNode.DataBind();
@@ -1117,7 +1126,7 @@ namespace WealthERP.SuperAdmin
             }
         }
 
-        private void TreeSubNodeDropdown(int roleId,int treeSubNodeId)
+        private void TreeSubNodeDropdown(int roleId, int treeSubNodeId)
         {
             DataTable dtTreeSubNode = new DataTable();
             try
@@ -1149,7 +1158,7 @@ namespace WealthERP.SuperAdmin
         protected void ddlTreeNode_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (ddlTreeNode.SelectedIndex!= 0)
+            if (ddlTreeNode.SelectedIndex != 0)
             {
                 roleId = int.Parse(ddlRole.SelectedValue);
                 if (roleId == 1006)
@@ -1166,7 +1175,7 @@ namespace WealthERP.SuperAdmin
             else
             {
                 ddlTreeNode.SelectedIndex = 0;
-            }           
+            }
         }
 
         public void SuperadminTreeSubNodeDropdown(int roleId, int treeSubNodeId)
@@ -1183,7 +1192,7 @@ namespace WealthERP.SuperAdmin
             DataRow drSubNode;
             try
             {
-                int count=dtXML.Rows.Count;
+                int count = dtXML.Rows.Count;
                 DataRow[] drSubNodeDetails;
                 if (dtXML.Rows.Count > 0)
                 {
@@ -1191,7 +1200,7 @@ namespace WealthERP.SuperAdmin
 
                     foreach (DataRow dr in drSubNodeDetails)
                     {
-                        drSubNode=dtSubNodeDetails.NewRow();
+                        drSubNode = dtSubNodeDetails.NewRow();
                         drSubNode["TreeSubNodeId"] = dr["TreeSubNodeCode"].ToString();
                         drSubNode["TreeSubNodetext"] = dr["TreeSubNodeText"].ToString();
                         dtSubNodeDetails.Rows.Add(drSubNode);
@@ -1202,7 +1211,7 @@ namespace WealthERP.SuperAdmin
                     ddlSubNode.DataBind();
                     ddlSubNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree SubNode", "0"));
 
-                   
+
                 }
                 else
                     ddlTreeNode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Tree Node", "0"));
@@ -1225,7 +1234,7 @@ namespace WealthERP.SuperAdmin
             else
             {
                 ddlAdviser.SelectedIndex = 0;
-            }     
+            }
         }
 
         public void fillAdviserPhoneNoandEmail(DataTable dtPhoneNoandEmail)
@@ -1235,7 +1244,7 @@ namespace WealthERP.SuperAdmin
                 AdviserTextBoxesShow();
                 string strCode = dtPhoneNoandEmail.Rows[0]["A_Phone1STD"].ToString();
                 string strPhoneNo = dtPhoneNoandEmail.Rows[0]["A_Phone1Number"].ToString();
-                AdviserPhoneNo.Text = strCode +"-"+ strPhoneNo;
+                AdviserPhoneNo.Text = strCode + "-" + strPhoneNo;
                 AdviserEmail.Text = dtPhoneNoandEmail.Rows[0]["A_Email"].ToString();
             }
         }
@@ -1268,25 +1277,25 @@ namespace WealthERP.SuperAdmin
             //    txteleaseVersion.Text = "";
 
             try
-            {                               
-                            result = superAdminOpsBo.InsertIntoCSIssueLevel3ToAnyLevel(superAdminCSIssueTrackerVo);
-                            if (result > 0)
-                            {
-                                tblErrorMassage.Visible = true;
-                                ErrorMessage.InnerHtml = "Record not submitted successfully";
-                            }
-                            else
-                            {
-                                tblErrorMassage.Visible = true;
-                                ErrorMessage.InnerHtml = "Record submitted successfully";
-                            }
-                            ShowIssueDetailsPage();
+            {
+                result = superAdminOpsBo.InsertIntoCSIssueLevel3ToAnyLevel(superAdminCSIssueTrackerVo);
+                if (result > 0)
+                {
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record not submitted successfully";
+                }
+                else
+                {
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record submitted successfully";
+                }
+                ShowIssueDetailsPage();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-           
+
         }
 
         protected void btnQAUpdate_Click(object sender, EventArgs e)
@@ -1295,24 +1304,24 @@ namespace WealthERP.SuperAdmin
             int activeLevel;
             activeLevel = int.Parse(ddlReportQA.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_id = strCsId;
-            superAdminCSIssueTrackerVo.XMLCSL_Code = activeLevel;            
+            superAdminCSIssueTrackerVo.XMLCSL_Code = activeLevel;
             superAdminCSIssueTrackerVo.CSILA_Comments = txtQAComments.Text;
             superAdminCSIssueTrackerVo.CSILA_RepliedBy = txtRepliedBy.Text;
             superAdminCSIssueTrackerVo.CSILA_RepliedDate = DateTime.Parse(txtQAReportedDate.SelectedDate.ToString());
             superAdminCSIssueTrackerVo.CSILA_Version = txteleaseVersion.Text;
-            
-                result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel2ToAnyLevel(superAdminCSIssueTrackerVo);
-                if (result > 0)
-                {
-                    tblErrorMassage.Visible = true;
-                    ErrorMessage.InnerHtml = "Record not updated successfully";
-                }
-                else
-                {
-                    tblErrorMassage.Visible = true;
-                    ErrorMessage.InnerHtml = "Record updated successfully";
-                }
-                ShowIssueDetailsPage();
+
+            result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel2ToAnyLevel(superAdminCSIssueTrackerVo);
+            if (result > 0)
+            {
+                tblErrorMassage.Visible = true;
+                ErrorMessage.InnerHtml = "Record not updated successfully";
+            }
+            else
+            {
+                tblErrorMassage.Visible = true;
+                ErrorMessage.InnerHtml = "Record updated successfully";
+            }
+            ShowIssueDetailsPage();
         }
 
         protected void btnDevUpdate_Click(object sender, EventArgs e)
@@ -1326,21 +1335,21 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSILA_RepliedBy = txtDevRepliedBy.Text;
             superAdminCSIssueTrackerVo.CSILA_RepliedDate = DateTime.Parse(txtDEVReportedDate.SelectedDate.ToString());
             superAdminCSIssueTrackerVo.CSILA_Version = txteleaseVersion.Text;
-            
-            
 
-                result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel3ToAnyLevel(superAdminCSIssueTrackerVo);
-                if (result > 0)
-                {
-                    tblErrorMassage.Visible = true;
-                    ErrorMessage.InnerHtml = "Record not updated successfully";
-                }
-                else
-                {
-                    tblErrorMassage.Visible = true;
-                    ErrorMessage.InnerHtml = "Record updated successfully";
-                }
-                ShowIssueDetailsPage();
+
+
+            result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel3ToAnyLevel(superAdminCSIssueTrackerVo);
+            if (result > 0)
+            {
+                tblErrorMassage.Visible = true;
+                ErrorMessage.InnerHtml = "Record not updated successfully";
+            }
+            else
+            {
+                tblErrorMassage.Visible = true;
+                ErrorMessage.InnerHtml = "Record updated successfully";
+            }
+            ShowIssueDetailsPage();
         }
 
         public void btnUpdate_Click(object sender, EventArgs e)
@@ -1352,22 +1361,22 @@ namespace WealthERP.SuperAdmin
             superAdminCSIssueTrackerVo.CSI_ContactPerson = txtCustomerName.Text;
             superAdminCSIssueTrackerVo.CSI_Phone = txtCustomerPhone.Text;
             superAdminCSIssueTrackerVo.CSI_Email = txtCustomerEmail.Text;
-            superAdminCSIssueTrackerVo.UR_RoleId = int.Parse(ddlRole.SelectedValue);           
+            superAdminCSIssueTrackerVo.UR_RoleId = int.Parse(ddlRole.SelectedValue);
             superAdminCSIssueTrackerVo.CSI_Code = txtIssueCode.Text;
-            superAdminCSIssueTrackerVo.CSI_issueAddedDate = DateTime.Parse(txtIssueDate.Text);         
+            superAdminCSIssueTrackerVo.CSI_issueAddedDate = DateTime.Parse(txtIssueDate.Text);
             superAdminCSIssueTrackerVo.CSI_ReportedVia = ddlReportedBy.SelectedValue;
-            
+
             superAdminCSIssueTrackerVo.A_AdviserId = int.Parse(ddlAdviser.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCST_Code = int.Parse(ddlIssueType.SelectedValue);
             superAdminCSIssueTrackerVo.XMLACSP_Code = int.Parse(ddlCustomerPriority.SelectedValue);
-            
+
             superAdminCSIssueTrackerVo.CSILA_Comments = txtComments.Text;
             superAdminCSIssueTrackerVo.CSI_Atuhor = txtReportedBy.Text;
             superAdminCSIssueTrackerVo.CSI_ReportedDate = txtReportedDate.SelectedDate.Value;
             superAdminCSIssueTrackerVo.XMLCSL_Code = activeLevel;
             superAdminCSIssueTrackerVo.XMLCSP_Code = int.Parse(ddlPriority.SelectedValue);
             superAdminCSIssueTrackerVo.XMLCSS_Code = int.Parse(ddlIssueStatus.SelectedValue);
-            superAdminCSIssueTrackerVo.CSI_id = strCsId;           
+            superAdminCSIssueTrackerVo.CSI_id = strCsId;
             superAdminCSIssueTrackerVo.CSILA_Comments = txtComments.Text;
             superAdminCSIssueTrackerVo.CSILA_RepliedBy = txtReportedBy.Text;
             superAdminCSIssueTrackerVo.CSILA_RepliedDate = DateTime.Parse(txtReportedDate.SelectedDate.ToString());
@@ -1402,58 +1411,80 @@ namespace WealthERP.SuperAdmin
                     tblErrorMassage.Visible = true;
                 ErrorMessage.InnerHtml = "Issue Closed Successfully";
                 ShowIssueDetailsPage();
-            }            
+            }
+            else
+            {
+                result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel1ToAnyLevel(superAdminCSIssueTrackerVo);
+                if (result > 0)
+                {
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record updated successfully";
+                }
                 else
                 {
-                    result = superAdminOpsBo.UpdateCSIssueLevelAssociationLevel1ToAnyLevel(superAdminCSIssueTrackerVo);
-                    if (result > 0)
-                    {
-                        tblErrorMassage.Visible = true;
-                        ErrorMessage.InnerHtml = "Record updated successfully";
-                    }
-                    else
-                    {
-                        tblErrorMassage.Visible = true;
-                        ErrorMessage.InnerHtml = "Record updated successfully";
-                    }
-                    ShowIssueDetailsPage();
+                    tblErrorMassage.Visible = true;
+                    ErrorMessage.InnerHtml = "Record updated successfully";
                 }
-            
-            }
-
-            public void ShowIssueDetailsPage()
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ViewIssuseDetails');", true);   
-            }
-            public void SetToFirstLevel(Object sender, EventArgs e)
-            {
-                if(ddlIssueStatus.SelectedValue.Equals("2"))
-                {
-                    HideCloseDate();
-                    //ddlReportFromCS.SelectedItem.Value.Equals("10");
-                }
-                else if (ddlIssueStatus.SelectedValue.Equals("3"))
-                {
-                    
-                    ShowCloseDate();
-                    ddlReportFromCS.SelectedItem.Value.Equals("10");
-                }
-               
-            }
-            public void HideCloseDate()
-            {
-                lblSolveDate.Visible = false;
-                dtSolveDate.Visible = false;
-                dtSolveDate.Enabled = false;
-            }
-
-            public void ShowCloseDate()
-            {
-                lblSolveDate.Visible = true;
-                dtSolveDate.Visible = true;
-                dtSolveDate.Enabled = false;
-                dtSolveDate.SelectedDate = DateTime.Now;
+                ShowIssueDetailsPage();
             }
 
         }
+
+        public void ShowIssueDetailsPage()
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ViewIssuseDetails');", true);
+        }
+
+        public void SetToFirstLevel(Object sender, EventArgs e)
+        {
+            if (ddlIssueStatus.SelectedValue.Equals("2"))
+            {
+                HideCloseDate();
+                //ddlReportFromCS.SelectedItem.Value.Equals("10");
+            }
+            else if (ddlIssueStatus.SelectedValue.Equals("3"))
+            {
+
+                ShowCloseDate();
+                ddlReportFromCS.SelectedItem.Value.Equals("10");
+            }
+        }
+
+        public void HideCloseDate()
+        {
+            lblSolveDate.Visible = false;
+            dtSolveDate.Visible = false;
+            dtSolveDate.Enabled = false;
+        }
+
+        public void ShowCloseDate()
+        {
+            lblSolveDate.Visible = true;
+            dtSolveDate.Visible = true;
+            dtSolveDate.Enabled = false;
+            dtSolveDate.SelectedDate = DateTime.Now;
+        }
+
+        public void SentEmail()
+        {
+            bool isInserted;
+            emailSMSBo = new EmailSMSBo();
+            emailVo = new EmailVo();
+
+            string levelOneEmailTo = "grajmohan@ampsys.in,dyadav@ampsys.in,ssourabh@ampsys.in,bsahoo@ampsys.in,kroutray@ampsys.in,psahoo@ampsys.in";
+            string levelOneEmailCC = "psahoo@ampsys.in,mjamwal@ampsys.in";
+            string levelOneEmailBCC = "gobindamohan@hotmail.com";
+
+            emailVo.To = levelOneEmailTo;
+            emailVo.Cc = levelOneEmailCC;
+            emailVo.Bcc = levelOneEmailBCC;
+
+            emailVo.Subject = txtComments.Text;
+            emailVo.Body = txtDescription.Text;
+            emailVo.SentDate = DateTime.Now;
+            emailVo.HasAttachment = 0;
+            emailVo.ErrorMsg = "";
+            isInserted = emailSMSBo.AddToEmailQueue(emailVo);
+        }
     }
+}
