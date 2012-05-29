@@ -55,18 +55,49 @@ namespace DaoUploads
 
             return getColumnNamesds;
         }
-
-        public string GetLastUploadDate(int advisorid)
+        public DataSet GetLastUploadDateForSuperadminUpload()
         {
-            string lastUploadDate="";
+            string lastUploadDate = "";
             Database db;
             DbCommand getColumnNamesCmd;
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getColumnNamesCmd = db.GetStoredProcCommand("SP_GetLastUploadDateForSuperAdmin");
+                ds = db.ExecuteDataSet(getColumnNamesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsDao.cs:GetLastUploadDate()");
+                object[] objects = new object[1];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public string GetLastUploadDate(int advisorid)
+        {
+            string lastUploadDate = "";
+            Database db;
+            DbCommand getColumnNamesCmd;
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getColumnNamesCmd = db.GetStoredProcCommand("SP_GetLastUploadDate");
                 db.AddInParameter(getColumnNamesCmd, "@advisorId", DbType.Int32, advisorid);
-                lastUploadDate = db.ExecuteDataSet(getColumnNamesCmd).Tables[0].Rows[0]["ADUL_StartTime"].ToString();                
+                lastUploadDate = db.ExecuteDataSet(getColumnNamesCmd).Tables[0].Rows[0]["ADUL_StartTime"].ToString();
+
             }
             catch (BaseApplicationException Ex)
             {
