@@ -177,6 +177,53 @@
             }
         }
     }
+
+    //**********Customer Login Equity Report Validation For ViewReport and Export To PDF Button
+    function CustomerValidate(type) {
+        if (type == 'view') {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
+        }
+        else if (type == 'doc') {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
+        }
+        else {
+            dateType = document.getElementById("<%= hidDateType.ClientID %>").value;
+            if (dateType == 'PERIOD') {
+                dateVal = document.getElementById("<%= ddlPeriod.ClientID  %>").selectedIndex;
+                if (dateVal < 1) {
+                    alert("Please select a period")
+                    return false;
+                }
+            }
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        }
+
+        setTimeout(function() {
+            window.document.forms[0].target = '';
+            window.document.forms[0].action = "ControlHost.aspx?pageid=MFReports";
+        }, 500);
+        return true;
+
+    }
 </script>
 
 <style>
@@ -192,7 +239,7 @@
             <hr />
         </td>
     </tr>
-    <tr>
+    <tr id="trAdminRmButton" runat="server">
         <td colspan="2" align="right">
          <asp:Button ID="btnView" runat="server"  OnClientClick="return validate('')"
                 PostBackUrl="~/Reports/Display.aspx" CssClass="CrystalButton" />&nbsp;&nbsp;
@@ -218,6 +265,31 @@
      </div>  
     </td>
     </tr>
+    <tr id="trCustomerButton" runat="server" >
+        <td colspan="2" align="right">
+         <asp:Button ID="btnCustomerViewReport" runat="server"  OnClientClick="return CustomerValidate('view')"
+         PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
+                <div id="div4" style="display: none;">
+                <p class="tip">
+                    Click here to view Portfolio report.
+                </p>
+            </div>
+           
+            <asp:Button ID="btnCustomerExportToPDF" runat="server"  OnClientClick="return CustomerValidate('pdf')"
+             PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                 <div id="div5" style="display: none;">
+                <p class="tip">
+                   Click here to view portfolio report in pdf format.
+                </p>
+      </div>
+            <asp:Button ID="btnCustomerViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
+                PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
+                    <div id="div6" style="display: none;">
+                <p class="tip">
+                    Click here to view Portfolio report in word doc.</p>
+     </div>  
+    </td>
+    </tr>
     <tr>
         <td>
             <%--   <asp:RadioButton ID="rdoGroup" runat="server" Text="Group" GroupName="customer" CssClass="Field"
@@ -230,13 +302,13 @@
                         Group</HeaderTemplate>
                     <ContentTemplate>
                         <table border="0" id="tblGroup" style="display: block;">
-                            <tr>
+                            <tr id="trStepGrHead" runat="server">
                                 <td colspan="2">
                                     <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                         Text="Step 1 : Select Customer"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr Id="trAdminCustomer" runat="server">
                                 <td class="leftField">
                                     <asp:Label ID="lblGroupHead" runat="server" CssClass="FieldName" Text="Group Head :"></asp:Label>
                                 </td>
@@ -260,6 +332,12 @@
                                         UseContextKey="True">
                                     </ajaxToolkit:AutoCompleteExtender>
                                 </td>
+                            </tr>
+                            <tr id="trCustomerGrHead" runat="server">
+                            <td>
+                            <asp:Label ID="lblCustomerGrHead" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td></td>
                             </tr>
                             <tr>
                                 <td colspan="2">
@@ -319,13 +397,13 @@
                 <ajaxToolkit:TabPanel ID="TabPanel2" runat="server" HeaderText="Individual">
                     <ContentTemplate>
                         <table border="0" id="tblIndividual">
-                            <tr>
+                            <tr id="trStepIndi" runat="server">
                                 <td colspan="2">
                                     <asp:Label ID="Label6" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                         Text="Step 1 : Select Customer"></asp:Label>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr id="trAdminIndiCustomer" runat="server">
                                 <td>
                                     <asp:Label ID="Label1" runat="server" Text="Customer Name :" CssClass="FieldName"></asp:Label>
                                 </td>
@@ -350,6 +428,12 @@
                                         few characters of customer name.</span>--%>
                                 </td>
                             </tr>
+                             <tr id="trCustomerInd" runat="server">
+                            <td>
+                            <asp:Label ID="lblCustomerIndi" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                            </td>
+                            <td></td>
+                            </tr>
                         </table>
                         <table border="0">
                             <tr id="trCustomerDetails" runat="server" visible="false">
@@ -365,11 +449,9 @@
                                 </td>
                             </tr>
                             <tr id="trPortfolioDetails" runat="server" visible="false">
-                                <td>
+                                <td colspan="2">
                                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
+                                     <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                         AutoPostBack="true">
                                         <asp:ListItem Text="Managed" Value="MANAGED" Selected="True">Managed</asp:ListItem>
                                         <asp:ListItem Text="UnManaged" Value="UN_MANAGED">UnManaged</asp:ListItem>
@@ -545,6 +627,8 @@
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
 <asp:HiddenField ID="hidTabIndex" Value="0" runat="server" />
 <asp:HiddenField ID="hidPortfolioIds" Value="" runat="server" />
+<asp:HiddenField ID="hndCustomerLogin" runat="server" />
+<asp:HiddenField ID="hdnCustomerId1" runat="server" />
 
 <script>
     if (document.getElementById("<%= rbtnPickDate.ClientID %>").checked) {

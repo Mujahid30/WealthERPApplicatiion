@@ -31,6 +31,10 @@ namespace WealthERP.Reports
         int activeTabIndex = 0;
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo advisorVo = null;
+        bool CustomerLogin = false;
+        bool strFromCustomerDashBoard = false;
+        bool isGrpHead = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -41,31 +45,107 @@ namespace WealthERP.Reports
                 rmVo = (RMVo)Session[SessionContents.RmVo];
             if (Request.Form["ctrl_PortfolioReports$btnView"] != "View Report")
             {                
-                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());             
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+                if (Session["UserType"] != null)
+                {
+                    if (Session["UserType"].ToString() == "Customer")
+                        strFromCustomerDashBoard = true;
+                }
+
+                if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
+                {
+                    if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
+                        customerVo = (CustomerVo)Session["CustomerVo"];
+                    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                    if (isGrpHead == false)
+                    {
+                        TabPanel1.Visible = false;
+                        TabPanel2.Visible = true;
+                    }
+                    else
+                    {
+                        TabPanel1.Visible = true;
+                        TabPanel2.Visible = true;
+                    }
+
+                    CustomerLogin = true;
+                    hndCustomerLogin.Value = "true";
+                    Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+                    trCustomerButton.Visible = true;
+                    trAdminRmButton.Visible = false;
+                }
+                else
+                {
+                    hndCustomerLogin.Value = "false";
+                    Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+                    trCustomerButton.Visible = false;
+                    trAdminRmButton.Visible = true;
+
+                }
 
                 BindPeriodDropDown();
                 //txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                 //txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
 
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                //{
+                //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                //}
+                //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                //{
+                //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
-                }
+                //}
 
                 if (!IsPostBack)
                 {
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                    if (CustomerLogin == true)
+                    {
+                        trCustomerGrHead.Visible = true;
+                        trAdminCustomer.Visible = false;
+                        trAdminIndiCustomer.Visible = false;
+                        trCustomerInd.Visible = true;
+                        trStepIndi.Visible = false;
+                        trStepGrHead.Visible = false;
+                        IndivisulCustomerLogin();
+                        ShowGroupCustomers();
+
+                    }
+                    else
+                    {
+                        trCustomerGrHead.Visible = false;
+                        trAdminCustomer.Visible = true;
+                        trAdminIndiCustomer.Visible = true;
+                        trCustomerInd.Visible = false;
+                        trStepIndi.Visible = true;
+                        trStepGrHead.Visible = true;
+
+
+                        //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        {
+                            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                        }
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                        {
+                            txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                        }
+                    }
                     DataSet ds = customerTransactionBo.GetLastTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
@@ -85,6 +165,21 @@ namespace WealthERP.Reports
             }
 
 
+        }
+
+        private void IndivisulCustomerLogin()
+        {
+            lblCustomerIndi.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+            DataTable dt = customerBo.GetCustomerPanAddress(customerVo.CustomerId);
+            DataRow dr = dt.Rows[0];
+            hdnCustomerId1.Value = customerVo.CustomerId.ToString();
+            txtPanParent.Text = dr["C_PANNum"].ToString();
+            trCustomerDetails.Style.Add("display", "block");
+            ShowFolios();
+            trCustomerDetails.Visible = true;
+            trPortfolioDetails.Visible = true;
+            TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
+            TabContainer1.ActiveTabIndex = activeTabIndex;
         }
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
@@ -133,10 +228,15 @@ namespace WealthERP.Reports
         private void ShowGroupCustomers()
         {
             CustomerBo customerBo = new CustomerBo();
-            if (txtParentCustomerId.Value != string.Empty)
+            if (txtParentCustomerId.Value != string.Empty || Session["UserType"].ToString() == "Customer")
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
-                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(txtParentCustomerId.Value));
+                //DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(txtParentCustomerId.Value));
+                if (CustomerLogin == true)
+                {
+                    lblCustomerGrHead.Text = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
+                }
+                DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     StringBuilder strCustomers = new StringBuilder();
@@ -206,9 +306,13 @@ namespace WealthERP.Reports
 
             PortfolioBo portfolioBo = new PortfolioBo();
             divPortfolios.InnerHtml = string.Empty;
-            if (!String.IsNullOrEmpty(txtCustomerId.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(txtCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
-                int customerId = Convert.ToInt32(txtCustomerId.Value);
+                int customerId = 0;
+                if (CustomerLogin == true)
+                    customerId = customerVo.CustomerId;
+                else
+                    customerId = Convert.ToInt32(txtCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
                 if (customerPortfolioVos != null && customerPortfolioVos.Count > 0) //One or more folios available for selected customer
                 {
@@ -249,7 +353,7 @@ namespace WealthERP.Reports
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(txtParentCustomerId.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(txtParentCustomerId.Value) || Session["UserType"].ToString() == "Customer") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
