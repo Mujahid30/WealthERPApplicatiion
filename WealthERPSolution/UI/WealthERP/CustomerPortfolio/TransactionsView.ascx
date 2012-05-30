@@ -272,7 +272,7 @@
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
                         <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
-                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                 <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                     </asp:BoundField> 
                         <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
                         <asp:BoundField DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode">
