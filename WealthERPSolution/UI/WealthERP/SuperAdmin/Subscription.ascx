@@ -53,9 +53,12 @@
         var status = false;
         var storageUsed = 0;
         var storagePaid = 0;
+        var storageDefault = 0;
+        
         storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;
         storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;
-      if(parseFloat(storagePaid) < parseFloat(storageUsed)) {
+        storageDefault = document.getElementById('<%=txtDefaultStorage.ClientID %>').value;
+        if (parseFloat(storagePaid) + parseFloat(storageDefault) < parseFloat(storageUsed)) {
           var msg = 'Your have allocated' + '\t' + storageUsed + '\t' +'MB of size';
           alert(msg);
             alert('Please free your space allocated first');
@@ -146,7 +149,7 @@
 
 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
 
-<DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy"></DateInput>
+<DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy"></DateInput>
                         </telerik:RadDatePicker>
                     </td>
                 </tr>
@@ -161,7 +164,7 @@
 
 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
 
-<DateInput DisplayDateFormat="M/d/yyyy" DateFormat="M/d/yyyy" EnableEmbeddedSkins="False"></DateInput>
+<DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy" EnableEmbeddedSkins="False"></DateInput>
                         </telerik:RadDatePicker>
                         <asp:CompareValidator ID="cvTrailEndDate" runat="server" ControlToCompare="dpTrialStartDate"
                             ControlToValidate="dpTrialEndDate" Operator="GreaterThan" ErrorMessage="Trial End Date should be greater than Trial Start Date"
@@ -198,7 +201,7 @@
                         </telerik:RadDatePicker>
                         <asp:CompareValidator ID="cvEndStart" runat="server" ControlToCompare="dpStartDate"
                             ControlToValidate="dpEndDate" Operator="GreaterThan" ErrorMessage="End Date should be greater than Start Date"
-                            Display="Dynamic" CssClass="cvPCG"></asp:CompareValidator>
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="vgDateChk" ></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>

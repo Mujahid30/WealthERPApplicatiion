@@ -213,8 +213,11 @@ namespace BoValuation
                                   
                                     if (dsTransactionBalanceReadyToProcess.Tables["Transaction"].Rows.Count > 0)
                                         dsMFTransactionProcessedBalance = TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
-                                    dtMFTransactionProcessedBalance = dsMFTransactionProcessedBalance.Tables[0];
-                                            
+                                    if (dsMFTransactionProcessedBalance.Tables.Count > 0)
+                                    {
+                                        if (dsMFTransactionProcessedBalance.Tables[0] != null)
+                                            dtMFTransactionProcessedBalance = dsMFTransactionProcessedBalance.Tables[0];
+                                    }       
                                         dtMFTransactionProcessedBalance.PrimaryKey = null;
 
 

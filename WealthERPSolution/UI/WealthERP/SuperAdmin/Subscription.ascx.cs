@@ -70,7 +70,7 @@ namespace WealthERP.SuperAdmin
             {
                 _dsGetSubscriptionDetails = _advisersubscriptionbo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
                 Session["SubscriptionDetails"] = _dsGetSubscriptionDetails;
-                txtDefaultStorage.Text = "10";
+
                 if (_dsGetSubscriptionDetails != null && _dsGetSubscriptionDetails.Tables[0].Rows.Count > 0)
                 {
                     txtComment.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_Comments"].ToString();
@@ -80,7 +80,7 @@ namespace WealthERP.SuperAdmin
                     }
                     double storageBalance = 0;
                     double storagePaidSize = 0;
-                    double storageSize = 0;                    
+                    double storageSize = 0;
                     storageBalance = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString());
                     storagePaidSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_PaidStorage"].ToString());
                     storageSize = double.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageSize"].ToString());
@@ -90,7 +90,7 @@ namespace WealthERP.SuperAdmin
                     txtUsedSpace.Text = Convert.ToString(storageSize - storageBalance);
                     txtDefaultStorage.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_DefaultStorage"].ToString();
 
-                    txtBalanceSize.Text = Math.Round(decimal.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString()),2).ToString();
+                    txtBalanceSize.Text = Math.Round(decimal.Parse(_dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_StorageBalance"].ToString()), 2).ToString();
                     txtNoOfBranches.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfBranches"].ToString();
                     txtNoOfCustomerLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfCustomerWebLogins"].ToString();
                     txtNoOfStaffLogins.Text = _dsGetSubscriptionDetails.Tables[0].Rows[0]["AS_NoOfStaffWebLogins"].ToString();
@@ -211,6 +211,11 @@ namespace WealthERP.SuperAdmin
                             chkModules.Items[8].Selected = false;
                         }
                     }
+                }
+                else
+                {
+                    txtDefaultStorage.Text = "10";
+                    txtBalanceSize.Text = "10";
                 }
 
             }
