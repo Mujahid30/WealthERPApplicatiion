@@ -164,7 +164,9 @@ namespace WealthERP.Reports
                 }
 
             }
-            if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnMail"] != null || Request.Form["ctrl_PortfolioReports$btnViewInPDF"] != null || Request.Form["ctrl_PortfolioReports$btnViewInDOC"] != null)
+            if (Request.Form["ctrl_PortfolioReports$btnView"] != null || Request.Form["ctrl_PortfolioReports$btnMail"] != null || Request.Form["ctrl_PortfolioReports$btnViewInPDF"] != null
+                || Request.Form["ctrl_PortfolioReports$btnViewInDOC"] != null || Request.Form["ctrl_PortfolioReports$btnCustomerViewReport"] != null
+                || Request.Form["ctrl_PortfolioReports$btnCustomerExportToPDF"] != null || Request.Form["ctrl_PortfolioReports$CustomerViewInDOC"] != null)
             {
                 CurrentReportType = ReportType.PortfolioReports;
                 ctrlPrefix = "ctrl_PortfolioReports$";
