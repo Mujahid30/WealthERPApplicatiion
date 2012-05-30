@@ -266,16 +266,17 @@
                             </FooterTemplate>
                         </asp:TemplateField>--%>
                        
-                           <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
-                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                                    </asp:BoundField>                                    
+                                                              
                         <asp:ButtonField CommandName="Select" HeaderText="View Details" ShowHeader="True" Text="View Details"
                             ItemStyle-Wrap="false">
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:ButtonField>
+                        <asp:BoundField DataField="ADUL_ProcessId" HeaderText="ProcessId">
+                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                    </asp:BoundField> 
                         <asp:BoundField DataField="TransactionId" HeaderText="TransactionId" Visible="false" />
                         <asp:BoundField DataField="CMFT_SubBrokerCode" HeaderText="SubBrokerCode">
-                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                     </asp:BoundField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Folio No">
                             <HeaderTemplate>
@@ -306,7 +307,7 @@
                             <ItemStyle Wrap="False"></ItemStyle>
                         </asp:TemplateField>
                         <asp:BoundField DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="SubCategoryName">
-                                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
+                                        <ItemStyle HorizontalAlign="Left"></ItemStyle>
                                     </asp:BoundField>
                         <asp:TemplateField ItemStyle-Wrap="false" HeaderText="Transaction Type">
                             <HeaderTemplate>
