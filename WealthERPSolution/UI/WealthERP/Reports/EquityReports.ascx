@@ -294,7 +294,7 @@
          PostBackUrl="~/Reports/Display.aspx?mail=3" CssClass="CrystalButton" ValidationGroup="btnView" />&nbsp;&nbsp;
                 <div id="div4" style="display: none;">
                 <p class="tip">
-                    Click here to view MF report.
+                    Click here to view equity report.
                 </p>
             </div>
            
@@ -302,14 +302,14 @@
              PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
                  <div id="div5" style="display: none;">
                 <p class="tip">
-                   Click here to view MF report in pdf format.
+                   Click here to view equity report in pdf format.
                 </p>
       </div>
             <asp:Button ID="btnCustomerViewInDOC" runat="server"  CssClass="DOCButton" OnClientClick="return CustomerValidate('doc')"
                 PostBackUrl="~/Reports/Display.aspx?mail=4" />&nbsp;&nbsp;
                     <div id="div6" style="display: none;">
                 <p class="tip">
-                    Click here to view MF report in word doc.</p>
+                    Click here to view equity report in word doc.</p>
      </div>  
     </td>
     </tr>
@@ -465,11 +465,9 @@
                                 </td>
                             </tr>
                             <tr id="trPortfolioDetails" runat="server" visible="false">
-                                <td>
+                                <td colspan="2">
                                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio :"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
+                                      <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                         AutoPostBack="true">
                                         <asp:ListItem Text="Managed" Value="MANAGED" Selected="True">Managed</asp:ListItem>
                                         <asp:ListItem Text="UnManaged" Value="UN_MANAGED">UnManaged</asp:ListItem>

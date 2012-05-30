@@ -187,8 +187,8 @@ namespace WealthERP.Reports
                 trPortfolioDetails.Visible = true;
                 ShowFolios();
             }
-            TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
-            TabContainer1.ActiveTabIndex = activeTabIndex;
+            //TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
+            //TabContainer1.ActiveTabIndex = activeTabIndex;
 
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
@@ -398,8 +398,8 @@ namespace WealthERP.Reports
             ShowFolios();
             trCustomerDetails.Visible = true;
             trPortfolioDetails.Visible = true;
-            TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
-            TabContainer1.ActiveTabIndex = activeTabIndex;
+            //TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
+            //TabContainer1.ActiveTabIndex = activeTabIndex;
         }
 
 
