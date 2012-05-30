@@ -189,7 +189,7 @@
             <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
-                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId"
+                AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId" onItemCommand="rgvMultiProductMIS_ItemCommand"
                 EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>                
@@ -207,10 +207,13 @@
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataField="Mutual_Fund"
+                        <telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataTextField="Mutual_Fund">
+                            <ItemStyle HorizontalAlign="Right" />
+                        </telerik:gridbuttonColumn>
+                    <%--    <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataField="Mutual_Fund"
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>--%>
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Fixed_Income" HeaderText="Fixed Income" DataField="Fixed_Income"
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />

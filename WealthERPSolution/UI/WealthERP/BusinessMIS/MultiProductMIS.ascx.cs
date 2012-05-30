@@ -1303,5 +1303,16 @@ namespace WealthERP.BusinessMIS
         {
             GridsVisibility();
         }
+
+        protected void rgvMultiProductMIS_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Redirect")
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                string value = item.GetDataKeyValue("C_CustomerId").ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);           
+               
+            }
+        } 
     }
 }
