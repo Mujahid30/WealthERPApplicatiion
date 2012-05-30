@@ -31,7 +31,7 @@ namespace WealthERP.Advisor
         string userType;
         int advisorId;
         int userId;
-      
+        int customerId=0;
         int schemeplanid;
         DateTime ValuationDate;
         DateTime LatestValuationdate = new DateTime();
@@ -194,6 +194,10 @@ namespace WealthERP.Advisor
                 if (LatestValuationdate != DateTime.MinValue)
                 {
                     txtDate.Text = LatestValuationdate.Date.ToShortDateString();
+                    if (Request.QueryString["strCustomreId"] != null)
+                    {
+                        GetQueryString();
+                    }
                     bindgrid(LatestValuationdate, schemeplanid);
 
                 }
@@ -204,6 +208,9 @@ namespace WealthERP.Advisor
 
                 //}
             }
+
+           
+             
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
@@ -444,6 +451,7 @@ namespace WealthERP.Advisor
                 dtMISReport.Columns.Add("Units");
                 dtMISReport.Columns.Add("AUM");
                 dtMISReport.Columns.Add("Percentage");
+                dtMISReport.Columns.Add("C_CustomerId");
 
 
                 DataRow drMISReport;
@@ -458,6 +466,8 @@ namespace WealthERP.Advisor
                     drMISReport[3] = dsMISReport.Tables[0].Rows[i][5].ToString();
                     drMISReport[4] = dsMISReport.Tables[0].Rows[i][6].ToString();
                     drMISReport[5] = dsMISReport.Tables[0].Rows[i][9].ToString();
+                    drMISReport[9] = dsMISReport.Tables[0].Rows[i][11].ToString();
+
 
 
                     if (GridViewCultureFlag == true)
@@ -466,6 +476,7 @@ namespace WealthERP.Advisor
                         drMISReport[6] = temp.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         decimal tempAum = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2);
                         drMISReport[7] = tempAum.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        //drMISReport[7] = tempAum.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //drMISReport[6] = System.Math.Round(decimal.Parse(dsMISReport.Tables[0].Rows[i][7].ToString()), 2).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     }
                     else
@@ -484,10 +495,38 @@ namespace WealthERP.Advisor
                     dtMISReport.Rows.Add(drMISReport);
 
                 }
+                string Customer_Name = "";
 
+                if (customerId != 0)
+                {
+                    string expression = "C_CustomerId = " + customerId;
+                  
+                    dtMISReport.DefaultView.RowFilter = expression;
+                    dtMISReport = dtMISReport.DefaultView.ToTable();
+                    if (dtMISReport.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dtMISReport.Rows)
+                        {
+                            Customer_Name = dr["CustomerName"].ToString();
+                            hdnCustomerNameVal.Value = Customer_Name;
+                            break;
+                        }
+                    }
+             
+                   
+                }
 
+                
                 gvMFMIS.DataSource = dtMISReport;
                 gvMFMIS.DataBind();
+                if (gvMFMIS.HeaderRow != null)
+                {
+                    TextBox CustomerName = new TextBox();
+
+                    CustomerName = (TextBox)gvMFMIS.HeaderRow.FindControl("txtCustomerSearch");
+
+                    CustomerName.Text = Customer_Name;
+                }
 
 
 
@@ -946,7 +985,13 @@ namespace WealthERP.Advisor
             }
         }
 
-        
+        public void GetQueryString()
+        {            
+            customerId = Int32.Parse(Request.QueryString["strCustomreId"].ToString());
+
+
+        }
+
 
         /* End For Binding the RM Dropdowns */
     }
