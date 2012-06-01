@@ -8,6 +8,46 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgSyncComplete" runat="server" class="success-msg" align="center"
+                visible="false">
+                Folio Sync successfully Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<%--<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgGoalSynccomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Goal SIP Funding Sync not Completed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgGoalSyncincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Goal SIP Funding Sync not Completed
+            </div>
+        </td>
+    </tr>
+</table>--%>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgSyncincomplete" runat="server" class="failure-msg" align="center"
+                visible="false">
+                Folio Sync not Completed
+            </div>
+        </td>
+    </tr>
+</table>
 <table>
     <tr>
         <td id="trlbladvList" runat="server" align="right">
@@ -38,7 +78,7 @@
                 OnClick="btnSubmitSync_Click" />
         </td>
         <td>
-            <asp:Button ID="btnSubmitFolio" runat="server" Text="Folio" CssClass="PCGButton"
+            <asp:Button ID="btnSubmitFolio" runat="server" Text="FolioSync" CssClass="PCGButton" ValidationGroup="SyncSubmit"
                  OnClick="btnSubmitfolio_Click" />
         </td>
         <td>

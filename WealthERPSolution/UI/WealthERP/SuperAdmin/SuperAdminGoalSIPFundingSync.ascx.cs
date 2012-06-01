@@ -45,24 +45,27 @@ namespace WealthERP.SuperAdmin
            {
                // Success Message
                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sync Completed');", true);
-
+               //msgGoalSynccomplete.Visible = true;
            }
            else
            {
                // Failure Message
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Transaction not found for Sync');", true);
-
+              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Transaction not found for Sync');", true);
+               //msgGoalSyncincomplete.Visible = true;
            }
 
         }
         protected void btnSubmitfolio_Click(object sender, EventArgs e)
         {
+            int adviserId = int.Parse(ddlAdviserList.SelectedValue);
             bool isComplete = false;
-            isComplete=superAdminOpsBo.FolioStartDate();
+            isComplete = superAdminOpsBo.FolioStartDate(adviserId);
             if (isComplete == true)
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Startdate Updated');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Start Date Updated');", true);
+                msgSyncComplete.Visible = true;
             else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Startdate not updated');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio Start Date not updated');", true);
+                msgSyncincomplete.Visible = true;
          }
     }
 }
