@@ -7,7 +7,7 @@ namespace WERP_DAILY_MF_GOLD_PRICE_UPDATE
 {
     public class Program
     {
-
+        [STAThread]
         public static void Main(string[] args)
         {
 
