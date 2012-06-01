@@ -365,13 +365,14 @@ namespace BoSuperAdmin
             }
             return dsAdviserRMDetails;
         }
-        public bool FolioStartDate()
+        public bool FolioStartDate(int adviserId)
         {
+            SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             bool isComplete=false;
             try
             {
-                SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
-                superAdminOpsDao.FolioStartDate();
+                
+                superAdminOpsDao.FolioStartDate( adviserId);
                 isComplete = true;
             }
             catch (BaseApplicationException Ex)
