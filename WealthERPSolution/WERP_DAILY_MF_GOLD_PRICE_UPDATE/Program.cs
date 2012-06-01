@@ -17,8 +17,8 @@ namespace WERP_DAILY_MF_GOLD_PRICE_UPDATE
 
         public static void ProcessGoldScrapping()
         {
-
- 
+            ProcessGoldScrappingBo processGoldScrappingBo = new ProcessGoldScrappingBo();
+            processGoldScrappingBo.GoldPriceUpdateProcessor();
         }
     }
 }
