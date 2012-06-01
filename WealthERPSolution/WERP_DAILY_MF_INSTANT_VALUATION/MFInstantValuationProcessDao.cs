@@ -19,11 +19,10 @@ using System.Configuration;
 using VoValuation;
 
 
-namespace WERP_MF_INSTANT_VALUATION
+namespace WERP_DAILY_MF_INSTANT_VALUATION
 {
     public class MFInstantValuationProcessDao
     {
-
         public DataTable GetMFAccountsForInstantValuation()
         {
             Database db;
@@ -34,9 +33,9 @@ namespace WERP_MF_INSTANT_VALUATION
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getMFAccountsForInstantValuationCmd = db.GetStoredProcCommand("SPROC_GetMFAccountForInstantValuation");                
+                getMFAccountsForInstantValuationCmd = db.GetStoredProcCommand("SPROC_GetMFAccountForInstantValuation");
                 dsMFAccountsForInstantValuation = db.ExecuteDataSet(getMFAccountsForInstantValuationCmd);
-                
+
             }
 
             catch (BaseApplicationException Ex)
@@ -51,7 +50,7 @@ namespace WERP_MF_INSTANT_VALUATION
                 FunctionInfo.Add("Method", "MFEngineDao.cs:GetCustomerTransactionsForBalanceCreation()");
 
 
-                object[] objects = new object[1];               
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

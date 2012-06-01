@@ -19,7 +19,7 @@ using System.Configuration;
 using VoValuation;
 using BoValuation;
 
-namespace WERP_MF_INSTANT_VALUATION
+namespace WERP_DAILY_MF_INSTANT_VALUATION
 {
     public class MFInstantValuationProcessBo
     {
@@ -30,18 +30,18 @@ namespace WERP_MF_INSTANT_VALUATION
         {
             DataTable dtAccountList = new DataTable();
             dtAccountList = mfInstantValuationProcessDao.GetMFAccountsForInstantValuation();
-            foreach(DataRow dr in dtAccountList.Rows)
+            foreach (DataRow dr in dtAccountList.Rows)
             {
                 try
                 {
                     mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), DateTime.Parse(dr["CMFNP_ValuationDate"].ToString()));
-                   //Update the Account details As Processed and Ideal
+                    //Update the Account details As Processed and Ideal
                 }
                 catch
                 {
 
                 }
-             
+
             }
 
         }
