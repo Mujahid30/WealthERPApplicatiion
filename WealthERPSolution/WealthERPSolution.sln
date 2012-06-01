@@ -214,9 +214,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoValuation", "Vo\VoValuati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoValuation", "Bo\BoValuation\BoValuation.csproj", "{189258F3-16C1-4384-83D4-B8038C04A391}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_DAILY_MF_INSTANT_VALUATION", "WERP_DAILY_MF_INSTANT_VALUATION\WERP_DAILY_MF_INSTANT_VALUATION.csproj", "{2BD2D962-B093-49A7-AE99-883CAD3BF19A}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 86
+		SccNumberOfProjects = 87
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -548,6 +550,9 @@ Global
 		SccProjectTopLevelParentUniqueName85 = WealthERPSolution.sln
 		SccProjectName85 = Bo/BoValuation
 		SccLocalPath85 = Bo\\BoValuation
+		SccProjectUniqueName86 = WERP_DAILY_MF_INSTANT_VALUATION\\WERP_DAILY_MF_INSTANT_VALUATION.csproj
+		SccProjectName86 = WERP_DAILY_MF_INSTANT_VALUATION
+		SccLocalPath86 = WERP_DAILY_MF_INSTANT_VALUATION
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -898,6 +903,10 @@ Global
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD2D962-B093-49A7-AE99-883CAD3BF19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD2D962-B093-49A7-AE99-883CAD3BF19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD2D962-B093-49A7-AE99-883CAD3BF19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD2D962-B093-49A7-AE99-883CAD3BF19A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
