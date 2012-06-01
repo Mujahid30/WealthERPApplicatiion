@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="MFEngineBo.cs" />
     <Compile Include="MFHistoricalValuationBo.cs" />
+    <Compile Include="MFInstantValuationBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
