@@ -512,8 +512,19 @@ namespace WealthERP.Advisor
                             break;
                         }
                     }
-             
-                   
+
+                    totalUnits = 0;
+                    totalAum = 0;
+                    foreach (DataRow dtr in dtMISReport.Rows)
+                    {
+                        double tempAUM = double.Parse(dtr["AUM"].ToString());
+                        double tempUnits = double.Parse(dtr["Units"].ToString());
+                        totalAum = tempAUM + totalAum;
+                        totalUnits = tempUnits + totalUnits;
+
+                    }
+                    //resultTotalAum = dtMISReport.Compute("Sum(AUM)", "");
+                    //resultTotalUnits = dtMISReport.Compute("Sum(Units)","");                    
                 }
 
                 
