@@ -214,11 +214,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoValuation", "Vo\VoValuati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoValuation", "Bo\BoValuation\BoValuation.csproj", "{189258F3-16C1-4384-83D4-B8038C04A391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_MF_INSTANT_VALUATION", "C:\Users\administrator.AMP\Desktop\WERP_MF_INSTANT_VALUATION\WERP_MF_INSTANT_VALUATION.csproj", "{8FE4C9A6-ECB0-4A51-8E95-143A931171FA}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 87
+		SccNumberOfProjects = 86
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
@@ -550,9 +548,6 @@ Global
 		SccProjectTopLevelParentUniqueName85 = WealthERPSolution.sln
 		SccProjectName85 = Bo/BoValuation
 		SccLocalPath85 = Bo\\BoValuation
-		SccProjectUniqueName86 = C:\\Users\\administrator.AMP\\Desktop\\WERP_MF_INSTANT_VALUATION\\WERP_MF_INSTANT_VALUATION.csproj
-		SccProjectName86 = WERP_MF_INSTANT_VALUATION
-		SccLocalPath86 = C:\\Users\\administrator.AMP\\Desktop\\WERP_MF_INSTANT_VALUATION
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -903,10 +898,6 @@ Global
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189258F3-16C1-4384-83D4-B8038C04A391}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8FE4C9A6-ECB0-4A51-8E95-143A931171FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8FE4C9A6-ECB0-4A51-8E95-143A931171FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8FE4C9A6-ECB0-4A51-8E95-143A931171FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8FE4C9A6-ECB0-4A51-8E95-143A931171FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
