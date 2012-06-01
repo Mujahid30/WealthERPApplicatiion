@@ -14,8 +14,8 @@ namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
         }
         public static void ProcessMFTransactionBalance()
         {
-            //MFTransactionBalanceCreation MFBalance = new MFTransactionBalanceCreation();
-            //MFBalance.CreateMFTransactionBalanceForAllAdviser();
+            MFTransactionBalanceProcessBo MFBalance = new MFTransactionBalanceProcessBo();
+            MFBalance.CreateMFTransactionBalanceForAllAdviser();
         }
 
     }
