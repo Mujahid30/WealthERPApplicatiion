@@ -11,13 +11,13 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
     {
         public static void Main(string[] args)
         {
-
+            ProcessMFInstantValuation();
         }
 
         public static void ProcessMFInstantValuation()
         {
-        //    MFInstantValuationProcessBo mfInstantValuationProcessBo = new MFInstantValuationProcessBo();
-        //    mfInstantValuationProcessBo.ProcessMFAccountInstantValuation();
+            MFInstantValuationProcessBo mfInstantValuationProcessBo = new MFInstantValuationProcessBo();
+            mfInstantValuationProcessBo.ProcessMFAccountInstantValuation();
         }
     }
 }
