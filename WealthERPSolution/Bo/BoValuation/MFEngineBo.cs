@@ -281,6 +281,7 @@ namespace BoValuation
             dtSellPaired.Columns.Add("CMFT_MFTransIdSell", typeof(Int32));
             dtSellPaired.Columns.Add("CMFT_MFTransIdBuy", typeof(Int32));
             dtSellPaired.Columns.Add("CMFT_Age", typeof(Int32));
+            dtSellPaired.Columns.Add("CMFT_TransactionDate", typeof(DateTime));
             dtSellPaired.Columns.Add("CMFT_LTG", typeof(double));
             dtSellPaired.Columns.Add("CMFT_STG", typeof(double));
             dtSellPaired.Columns.Add("CMFT_Gain_loss_Value", typeof(double));
@@ -719,7 +720,7 @@ namespace BoValuation
                             dr["CMFTB_TotalCostBalanceTAX"] = 0;
                             span = sellTransactiondate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                             age = span.TotalDays;
-                            FillSellPairedDataSet(sellUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()));
+                            FillSellPairedDataSet(sellUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
                             break;
                         }
                         else if (buyUnits > sellUnits)
@@ -728,7 +729,7 @@ namespace BoValuation
                             dr["CMFTB_TotalCostBalanceTAX"] = double.Parse(dr["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
                             span = sellTransactiondate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                             age = span.TotalDays;
-                            FillSellPairedDataSet(sellUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()));
+                            FillSellPairedDataSet(sellUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
 
                             break;
                         }
@@ -739,7 +740,7 @@ namespace BoValuation
                             sellUnits = sellUnits - buyUnits;                           
                             span = sellTransactiondate - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                             age = span.TotalDays;
-                            FillSellPairedDataSet(buyUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()));
+                            FillSellPairedDataSet(buyUnits, age, sellId, double.Parse(dr["CMFT_MFTransId"].ToString()), sellPrice, double.Parse(dr["CMFT_Price"].ToString()), DateTime.Parse(dr["CMFT_TransactionDate"].ToString()));
 
                         }
                     }
@@ -749,7 +750,7 @@ namespace BoValuation
             return dt;
         }
 
-        protected void FillSellPairedDataSet(double units, double age, double sellId, double buyId, double sellPrice, double buyPrice)
+        protected void FillSellPairedDataSet(double units, double age, double sellId, double buyId, double sellPrice, double buyPrice ,DateTime transactionDate)
         {
             //if (dtSellPaired.Rows.Count == 0)
             //{
@@ -770,6 +771,7 @@ namespace BoValuation
             drSellPaired["CMFT_MFTransIdBuy"] = buyId;
             drSellPaired["CMFT_Age"] = age;
             drSellPaired["CMFT_Units"] = units;
+            drSellPaired["CMFT_TransactionDate"] = transactionDate;
             drSellPaired["CMFT_PriceBuy"] = buyPrice;
             gainLossValue = units * (sellPrice - buyPrice);
             drSellPaired["CMFT_Gain_loss_Value"] = gainLossValue;
