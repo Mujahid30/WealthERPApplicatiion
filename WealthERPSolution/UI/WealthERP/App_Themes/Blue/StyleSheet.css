@@ -994,6 +994,61 @@ p.tip
 }
 
 
+.calcTopDiv
+{
+    width: 447px;
+    height: 25px;
+    -webkit-border-radius: 34px 45px 0px 0px;
+    -moz-border-radius: 34px 45px 0px 0px;
+    border-radius: 34px 45px 0px 0px;
+    border: 1px solid #0F4B75;
+    background-color: #38769E;
+}
+
+.calcBottomDiv
+{
+    width: 447px;
+    height: 25px;
+    -webkit-border-radius: 0px 0px 29px 29px;
+    -moz-border-radius: 0px 0px 29px 29px;
+    border-radius: 0px 0px 29px 29px;
+    border: 1px solid #0F4B75;
+    background-color: #38769E;
+}
+
+
+.calcRectangularDiv
+{
+    width: 447px;
+    height: 20px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border: 1px solid #0F4B75;
+    background-color: #38769E;
+}
+
+
+.calcTd
+{
+    background-color: #A8BFCF;
+    height: 50px;
+    vertical-align: top;
+}
+
+.calcTdCenter
+{
+    background-color: #A8BFCF;
+    height: 150px;
+    vertical-align: top;
+}
+
+.calcTdSmall
+{
+    background-color: #A8BFCF;
+    height: 30px;
+    vertical-align: top;
+}
 
 
 /* End */

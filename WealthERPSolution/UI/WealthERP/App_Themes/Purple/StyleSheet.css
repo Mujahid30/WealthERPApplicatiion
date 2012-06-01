@@ -1018,6 +1018,61 @@ p.tip
 }
 
 
+.calcTopDiv
+{
+    width: 447px;
+    height: 25px;
+    -webkit-border-radius: 34px 45px 0px 0px;
+    -moz-border-radius: 34px 45px 0px 0px;
+    border-radius: 34px 45px 0px 0px;
+    border: 1px solid #C7B5FA;
+    background-color: #7C5EB1;
+}
+
+.calcBottomDiv
+{
+    width: 447px;
+    height: 25px;
+    -webkit-border-radius: 0px 0px 29px 29px;
+    -moz-border-radius: 0px 0px 29px 29px;
+    border-radius: 0px 0px 29px 29px;
+    border: 1px solid #C7B5FA;
+    background-color: #7C5EB1;
+}
+
+
+.calcRectangularDiv
+{
+    width: 447px;
+    height: 20px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border: 1px solid #C7B5FA;
+    background-color: #7C5EB1;
+}
+
+
+.calcTdSmall
+{
+    background-color: #C7B5FA;
+    height: 30px;
+    vertical-align: top;
+}
+.calcTd
+{
+    background-color: #C7B5FA;
+    height: 50px;
+    vertical-align: top;
+}
+.calcTdCenter
+{
+    background-color: #C7B5FA;
+    height: 150px;
+    vertical-align: top;
+}
+
+
 /* End */
 
 
