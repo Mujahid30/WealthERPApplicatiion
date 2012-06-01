@@ -497,35 +497,35 @@ namespace WealthERP.Advisor
                 }
                 string Customer_Name = "";
 
-                if (customerId != 0)
-                {
-                    string expression = "C_CustomerId = " + customerId;
+                //if (customerId != 0)
+                //{
+                //    string expression = "C_CustomerId = " + customerId;
                   
-                    dtMISReport.DefaultView.RowFilter = expression;
-                    dtMISReport = dtMISReport.DefaultView.ToTable();
-                    if (dtMISReport.Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in dtMISReport.Rows)
-                        {
-                            Customer_Name = dr["CustomerName"].ToString();
-                            hdnCustomerNameVal.Value = Customer_Name;
-                            break;
-                        }
-                    }
+                //    dtMISReport.DefaultView.RowFilter = expression;
+                //    dtMISReport = dtMISReport.DefaultView.ToTable();
+                //    if (dtMISReport.Rows.Count > 0)
+                //    {
+                //        foreach (DataRow dr in dtMISReport.Rows)
+                //        {
+                //            Customer_Name = dr["CustomerName"].ToString();
+                //            hdnCustomerNameVal.Value = Customer_Name;
+                //            break;
+                //        }
+                //    }
 
-                    totalUnits = 0;
-                    totalAum = 0;
-                    foreach (DataRow dtr in dtMISReport.Rows)
-                    {
-                        double tempAUM = double.Parse(dtr["AUM"].ToString());
-                        double tempUnits = double.Parse(dtr["Units"].ToString());
-                        totalAum = tempAUM + totalAum;
-                        totalUnits = tempUnits + totalUnits;
+                //    totalUnits = 0;
+                //    totalAum = 0;
+                //    foreach (DataRow dtr in dtMISReport.Rows)
+                //    {
+                //        double tempAUM = double.Parse(dtr["AUM"].ToString());
+                //        double tempUnits = double.Parse(dtr["Units"].ToString());
+                //        totalAum = tempAUM + totalAum;
+                //        totalUnits = tempUnits + totalUnits;
 
-                    }
-                    //resultTotalAum = dtMISReport.Compute("Sum(AUM)", "");
-                    //resultTotalUnits = dtMISReport.Compute("Sum(Units)","");                    
-                }
+                //    }
+                //    //resultTotalAum = dtMISReport.Compute("Sum(AUM)", "");
+                //    //resultTotalUnits = dtMISReport.Compute("Sum(Units)","");                    
+                //}
 
                 
                 gvMFMIS.DataSource = dtMISReport;
@@ -589,6 +589,9 @@ namespace WealthERP.Advisor
             txtscheme.Text = hdnSchemeSearchVal.Value.ToString();
             txtCustomer.Text = hdnCustomerNameVal.Value.ToString();
             txtFolio.Text = hdnFolioNumVal.Value.ToString();
+
+
+            
 
             this.GetPageCount();
 
@@ -997,9 +1000,11 @@ namespace WealthERP.Advisor
         }
 
         public void GetQueryString()
-        {            
-            customerId = Int32.Parse(Request.QueryString["strCustomreId"].ToString());
-
+        {
+            string customerName = string.Empty;
+            customerName = Request.QueryString["strCustomreId"].ToString().Trim();
+            hdnCustomerNameVal.Value = customerName;
+            
 
         }
 
