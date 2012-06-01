@@ -574,8 +574,9 @@ namespace DaoSuperAdmin
            }
            return dsAdviserRmDetails;
        }
-       public bool FolioStartDate()
+       public bool FolioStartDate(int adviserId)
        {
+           DataSet dsFolioStartDate = new DataSet();
            Database db;
            DbCommand FolioStartDatecmd;
            bool isComplete = false;
@@ -583,6 +584,8 @@ namespace DaoSuperAdmin
            {
                db = DatabaseFactory.CreateDatabase("wealtherp");
                FolioStartDatecmd = db.GetStoredProcCommand("SP_FolioStartDate");
+               db.AddInParameter(FolioStartDatecmd, "@AdviserId", DbType.Int32, adviserId);
+               dsFolioStartDate=db.ExecuteDataSet(FolioStartDatecmd);
                isComplete = true;
            }
            catch (BaseApplicationException Ex)
