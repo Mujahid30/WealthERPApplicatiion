@@ -1309,7 +1309,7 @@ namespace WealthERP.BusinessMIS
             if (e.CommandName == "Redirect")
             {
                 GridDataItem item = (GridDataItem)e.Item;
-                string value = item.GetDataKeyValue("C_CustomerId").ToString();
+                string value = item.GetDataKeyValue("Customer_Name").ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);           
                
             }
