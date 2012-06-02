@@ -249,7 +249,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlFolioNum.DataTextField =dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
                     ddlFolioNum.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolioNum.DataBind();
-                    ddlFolioNum.Items.Insert(0, new ListItem("Select", "Select"));
+                    ddlFolioNum.Items.Insert(0, new ListItem("Select", "0"));
                 }
                 
             }

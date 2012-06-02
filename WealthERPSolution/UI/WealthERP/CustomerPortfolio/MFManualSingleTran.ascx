@@ -193,7 +193,7 @@
                 </td>--%>
 
          <tr>
-                <td class="leftField">
+                <td class="leftField" >
                     <asp:Label ID="Label4" runat="server" Text="Folio Number :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightField">
@@ -201,9 +201,14 @@
                         AutoPostBack="true" onselectedindexchanged="ddlFolioNum_SelectedIndexChanged">
                     </asp:DropDownList>
                     <span id="Span3" class="spnRequiredField">*</span>
+                    <br />
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a folio number"
                         ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" Operator="NotEqual"
                         CssClass="rfvPCG" ValueToCompare="Select a Folio Number" Display="Dynamic"></asp:CompareValidator>
+                       
+                        <asp:RequiredFieldValidator ID="reqddlFolio" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a folio number"
+              Text="Please select a folio number" Display="Dynamic" ValidationGroup="MFSubmit" ControlToValidate="ddlFolioNum" InitialValue="0">
+             </asp:RequiredFieldValidator> 
                 </td>
                 <td class="style2">
                 </td>
