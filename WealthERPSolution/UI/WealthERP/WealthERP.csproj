@@ -5435,6 +5435,7 @@
     <Content Include="bin\BoResearch.pdb" />
     <Content Include="bin\BoWerpAdmin.pdb" />
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
+    <Content Include="bin\DaoAdvisorProfiling.dll" />
     <Content Include="bin\DaoAdvisorProfiling.pdb" />
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
@@ -5446,9 +5447,11 @@
     <Content Include="bin\Financial.dll" />
     <Content Include="bin\FusionCharts.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="bin\Interop.SHDocVw.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.pdb" />
+    <Content Include="bin\Microsoft.mshtml.dll" />
     <Content Include="bin\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll" />
@@ -5466,6 +5469,8 @@
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
     <Content Include="bin\VoValuation.pdb" />
+    <Content Include="bin\WatiN.Core.dll" />
+    <Content Include="bin\WatiN.Core.XML" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />
