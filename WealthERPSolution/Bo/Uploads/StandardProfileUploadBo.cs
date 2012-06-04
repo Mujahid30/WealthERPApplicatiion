@@ -615,8 +615,8 @@ namespace BoUploads
                             customerVo.OfcFax = Int32.Parse(StandardProfileUploadVo.Fax);
                     }
 
-                   
 
+                    customerVo.ViaSMS = 1;
                     customerVo.PANNum = StandardProfileUploadVo.PANNum;
                     customerVo.Password = id.Next(10000, 99999).ToString();
                     if(StandardProfileUploadVo.DOB != "")
