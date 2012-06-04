@@ -1882,5 +1882,34 @@ namespace BoCustomerPortfolio
             }
             return bResult;
         }
+
+        public DataSet GetLastMFTradeDate()
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetLastMFTradeDate();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetLastTradeDate()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
     }
 }
