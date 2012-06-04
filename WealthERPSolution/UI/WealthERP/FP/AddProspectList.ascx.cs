@@ -1040,7 +1040,7 @@ namespace WealthERP.FP
                 {
                     customerVo.IsActive = 0;
                 }
-              
+                customerVo.ViaSMS = 1;
 
                 if (dpProspectAddDate.SelectedDate != null)
                 {
@@ -1141,6 +1141,7 @@ namespace WealthERP.FP
             {
                 customerVo.IsProspect = 1;
             }
+            customerVo.ViaSMS = 1;
             customerBo.UpdateCustomer(customerVo);
             Session["Customer"] = "Customer";
             if (drChildCustomer["C_CustomerId"].ToString() != "")
