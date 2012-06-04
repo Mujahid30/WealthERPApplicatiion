@@ -453,7 +453,7 @@
             <asp:Label ID="Label28" runat="server" Text="Remarks:" CssClass="FieldName" Font-Size="Small"></asp:Label>
         </td>
         <td colspan="4" rowspan="2" class="rightField">
-            <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" Height="74px" Width="245px"></asp:TextBox>
+            <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
