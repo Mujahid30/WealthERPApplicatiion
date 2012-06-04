@@ -3371,7 +3371,7 @@ namespace DaoCustomerPortfolio
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-            }
+            } 
             catch (Exception Ex)
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
@@ -3391,6 +3391,36 @@ namespace DaoCustomerPortfolio
 
             }
             return bResult;
+        }
+        public DataSet GetLastMFTradeDate()
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getLastTradeDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLastTradeDateCmd = db.GetStoredProcCommand("SP_GetLastMFValuationDate");
+                ds = db.ExecuteDataSet(getLastTradeDateCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetLastTradeDate()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
         }
        
     }
