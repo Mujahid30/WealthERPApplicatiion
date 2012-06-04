@@ -671,6 +671,7 @@ namespace WealthERP.Uploads
                     customerVo.Adr2State = null;
                     customerVo.ProfilingDate = DateTime.Today;
                     customerVo.UserId = userVo.UserId;
+                    customerVo.ViaSMS = 1;
                     userVo.Email = txtEmail.Text.ToString();
                     customerPortfolioVo.IsMainPortfolio = 1;
                     customerPortfolioVo.PortfolioTypeCode = "RGL";
