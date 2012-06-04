@@ -37,6 +37,7 @@ namespace BoValuation
       DataTable dtCustomerMutualFundNetPosition = new DataTable();
       bool isMFTractionSellPairRecreate;
       DataTable dtMFAccountSchemeNetPosition = new DataTable();
+      int adviserId = 0;
 
 
       public enum ValuationLabel
@@ -57,6 +58,7 @@ namespace BoValuation
 
                   case "Advisor":
                       {
+                          adviserId = commonId;
                           AdviserCustomers = mfEngineDao.GetAdviserCustomerList_MF(commonId);
                           if (AdviserCustomers != null)
                           {
@@ -66,12 +68,12 @@ namespace BoValuation
                                   //{
 
                                   //}
-                                  MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate);
-                                  if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
-                                  mfEngineDao.CreateCustomerMFNetPosition(customerId, valuationDate, dtCustomerMutualFundNetPosition);
-                                  dtCustomerMutualFundNetPosition.Clear();
+                                  MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate);                                 
 
                               }
+                              if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
+                                  mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtCustomerMutualFundNetPosition);
+                              dtCustomerMutualFundNetPosition.Clear();
                           }
                           break;
                       }
@@ -82,7 +84,7 @@ namespace BoValuation
                           dtCustomerAccount = dsCustomerTransactionsDetails.Tables[1];
                           dtCustomerTransactionsToProcess = dsCustomerTransactionsDetails.Tables[2];
                           dtCustomerTransactionBalance = mfEngineBo.CreateTransactionBalanceTable();
-                          dtCustomerTransactionBalance = dsCustomerTransactionsDetails.Tables[3];
+                         // dtCustomerTransactionBalance = dsCustomerTransactionsDetails.Tables[3];
                           dtCustomerMFTransactionSellPaired = mfEngineBo.CreateSellPairedTable();
                           dtFinalCustomerMFTransactionBalance = mfEngineBo.CreateTransactionBalanceTable();
                           if (dtCustomerPortfolio.Rows.Count > 0)
@@ -136,18 +138,18 @@ namespace BoValuation
 
                                   dtCustomerTransactionsToProcess.DefaultView.RowFilter = "CMFA_AccountId=" + commonId.ToString() + " AND " + "PASP_SchemePlanCode=" + schemePlanCode.ToString();
                                   dtMFTransactionsToProcess = dtCustomerTransactionsToProcess.DefaultView.ToTable();
-                                  DataView dvMFTransactionsProcessed = new DataView(dtMFTransactionsToProcess, "CMFT_IsValued='1'", "CMFT_TransactionDate", DataViewRowState.CurrentRows);
-                                  DataView dvMFTransactionsToBeProcess = new DataView(dtMFTransactionsToProcess, "CMFT_IsValued='0'", "CMFT_TransactionDate", DataViewRowState.CurrentRows);
+                                  ////DataView dvMFTransactionsProcessed = new DataView(dtMFTransactionsToProcess, "CMFT_IsValued='1'", "CMFT_TransactionDate", DataViewRowState.CurrentRows);
+                                  ////DataView dvMFTransactionsToBeProcess = new DataView(dtMFTransactionsToProcess, "CMFT_IsValued='0'", "CMFT_TransactionDate", DataViewRowState.CurrentRows);
                                   //dvMFTransactionsProcessed.RowFilter = "CMFT_IsValued='1'"; 
                                   //dvMFTransactionsToBeProcess.RowFilter = "CMFT_IsValued='0'";
-                                  if (dvMFTransactionsToBeProcess.ToTable().Rows.Count > 0)
-                                  {
-                                      dtMinDateTransToBeProcess = Convert.ToDateTime((dvMFTransactionsToBeProcess.ToTable().Compute("Min(CMFT_TransactionDate)", string.Empty)));
-                                  }
-                                  if (dvMFTransactionsProcessed.ToTable().Rows.Count > 0)
-                                  {
-                                      dtMaxDateTransProcessed = Convert.ToDateTime((dvMFTransactionsProcessed.ToTable().Compute("Max(CMFT_TransactionDate)", string.Empty)));
-                                  }
+                                  //if (dvMFTransactionsToBeProcess.ToTable().Rows.Count > 0)
+                                  //{
+                                  //    dtMinDateTransToBeProcess = Convert.ToDateTime((dvMFTransactionsToBeProcess.ToTable().Compute("Min(CMFT_TransactionDate)", string.Empty)));
+                                  //}
+                                  //if (dvMFTransactionsProcessed.ToTable().Rows.Count > 0)
+                                  //{
+                                  //    dtMaxDateTransProcessed = Convert.ToDateTime((dvMFTransactionsProcessed.ToTable().Compute("Max(CMFT_TransactionDate)", string.Empty)));
+                                  //}
                                   //dtMinDateForNotBalancedCreated=dtMFTransactionsToProcess.
 
                                   if (dtCustomerTransactionBalance != null)
@@ -160,29 +162,29 @@ namespace BoValuation
                                       }
                                   }
 
-                                  if (dtMinDateTransToBeProcess != DateTime.MinValue && dtMaxDateTransProcessed != DateTime.MinValue && (dtMinDateTransToBeProcess < dtMaxDateTransProcessed))
-                                  {
-                                      isMFTractionSellPairRecreate = true;
-                                      dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess);
+                                  //if (dtMinDateTransToBeProcess != DateTime.MinValue && dtMaxDateTransProcessed != DateTime.MinValue && (dtMinDateTransToBeProcess < dtMaxDateTransProcessed))
+                                  //{
+                                  //    isMFTractionSellPairRecreate = true;
+                                  //    dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess);
 
-                                      if (dtMFTransactionBalance.TableName != "")
-                                      {
+                                  //    if (dtMFTransactionBalance.TableName != "")
+                                  //    {
 
-                                          DataColumn dcInsertUpdate = new DataColumn("CMFTB_InsertUpdate_Flag");
-                                          dcInsertUpdate.DataType = typeof(int);
-                                          dcInsertUpdate.DefaultValue = 3; //3 is used to delete the balanced record from TransactionBalanced Table
+                                  //        DataColumn dcInsertUpdate = new DataColumn("CMFTB_InsertUpdate_Flag");
+                                  //        dcInsertUpdate.DataType = typeof(int);
+                                  //        dcInsertUpdate.DefaultValue = 3; //3 is used to delete the balanced record from TransactionBalanced Table
 
-                                          dtMFTransactionBalance.Columns.Remove("CMFTB_InsertUpdate_Flag");
-                                          dtMFTransactionBalance.Columns.Add(dcInsertUpdate);
-                                      }
-                                  }
-                                  else
-                                  {
+                                  //        dtMFTransactionBalance.Columns.Remove("CMFTB_InsertUpdate_Flag");
+                                  //        dtMFTransactionBalance.Columns.Add(dcInsertUpdate);
+                                  //    }
+                                  //}
+                                  //else
+                                  //{
                                       isMFTractionSellPairRecreate = false;
-                                      dsTransactionBalanceReadyToProcess.Tables.Add(dvMFTransactionsToBeProcess.ToTable());
-                                      dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionBalance);
-                                      dsTransactionBalanceReadyToProcess.Tables[1].TableName = "Balance";
-                                  }
+                                      dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess);
+                                     // dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionBalance);
+                                      //dsTransactionBalanceReadyToProcess.Tables[1].TableName = "Balance";
+                                  //}
 
                                   dsTransactionBalanceReadyToProcess.Tables[0].TableName = "Transaction";
 
@@ -201,10 +203,10 @@ namespace BoValuation
                                   //For creating NetPosition details 
                                   dtMfNetPositionFinalDataTable = mfEngineBo.CreateMFNetPositionDataTable(dsMfBalancedSellPairedForNetPosition, valuationDate); 
                                   //dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
-                                  
-                                  if (dtMFAccountSchemeNetPosition.Rows.Count > 0)
-                                      dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
-                                  dtMFAccountSchemeNetPosition.Clear();
+
+                                  if (dtMfNetPositionFinalDataTable.Rows.Count > 0)
+                                      dtCustomerMutualFundNetPosition.Merge(dtMfNetPositionFinalDataTable);
+                                  dtMfNetPositionFinalDataTable.Clear();
 
                                   //if (dtMinDateTransToBeProcess != DateTime.MinValue && dtMaxDateTransProcessed != DateTime.MinValue && (dtMinDateTransToBeProcess < dtMaxDateTransProcessed))
                                   //{

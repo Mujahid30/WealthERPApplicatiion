@@ -54,6 +54,8 @@
         var storageUsed = 0;
         var storagePaid = 0;
         var storageDefault = 0;
+
+       
         
         storageUsed = document.getElementById('<%=hdnStorageUsed.ClientID %>').value;
         storagePaid = document.getElementById('<%=txtPaidSize.ClientID %>').value;
@@ -102,10 +104,10 @@
         GroupSeparator="" GroupSizes="3" MinValue="0" PositivePattern="n" 
         DecimalDigits="0">
         <TargetControls>
-            <telerik:TargetInput ControlID="txtNoOfBranches" />
-            <telerik:TargetInput ControlID="txtNoOfStaffLogins" />
-            <telerik:TargetInput ControlID="txtNoOfCustomerLogins" />
-            <telerik:TargetInput ControlID="txtSMSBought" />
+            <%--<telerik:TargetInput ControlID="txtNoOfBranches" />--%>
+           <%-- <telerik:TargetInput ControlID="txtNoOfStaffLogins" />--%>
+           <%-- <telerik:TargetInput ControlID="txtNoOfCustomerLogins" />--%>
+            <%--<telerik:TargetInput ControlID="txtSMSBought" />--%>
             <telerik:TargetInput ControlID="txtSMSSentTillDate" />
             <telerik:TargetInput ControlID="txtSMSRemaining" />
         </TargetControls>
@@ -168,7 +170,7 @@
                         </telerik:RadDatePicker>
                         <asp:CompareValidator ID="cvTrailEndDate" runat="server" ControlToCompare="dpTrialStartDate"
                             ControlToValidate="dpTrialEndDate" Operator="GreaterThan" ErrorMessage="Trial End Date should be greater than Trial Start Date"
-                            Display="Dynamic" CssClass="cvPCG"></asp:CompareValidator>
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnSubmit"></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -201,7 +203,7 @@
                         </telerik:RadDatePicker>
                         <asp:CompareValidator ID="cvEndStart" runat="server" ControlToCompare="dpStartDate"
                             ControlToValidate="dpEndDate" Operator="GreaterThan" ErrorMessage="End Date should be greater than Start Date"
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="vgDateChk" ></asp:CompareValidator>
+                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnSubmit" ></asp:CompareValidator>
                     </td>
                 </tr>
                 <tr>
@@ -210,6 +212,9 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtNoOfBranches" runat="server" CssClass="txtField" MaxLength="3"></asp:TextBox>
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server"  CssClass="cvPCG" ControlToValidate="txtNoOfBranches"
+                                     Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+
                     </td>
                 </tr>
                 <tr>
@@ -218,6 +223,9 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtNoOfStaffLogins" runat="server" CssClass="txtField"  MaxLength="5"></asp:TextBox>
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfStaffLogins"
+                                     Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+
                     </td>
                 </tr>
                 <tr>
@@ -226,6 +234,9 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5"></asp:TextBox>
+                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" CssClass="cvPCG" ControlToValidate="txtNoOfCustomerLogins"
+                                     Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+
                     </td>
                 </tr>
                 <tr>
@@ -233,8 +244,10 @@
                         <asp:Label ID="lblSMSBought" runat="server" CssClass="FieldName" Text="SMS's Bought : "></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtSMSBought" runat="server" CssClass="txtField"></asp:TextBox>
-                       
+                        <asp:TextBox ID="txtSMSBought" runat="server" CssClass="txtField"></asp:TextBox>                       
+                        
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="cvPCG" ControlToValidate="txtSMSBought"
+                                     Display="Dynamic"  ErrorMessage="Please Enter Numbers" ValidationExpression="^0$|^[1-9][0-9]*$|^[1-9][0-9]{0,2}(,[0-9]{3})$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
                     </td>
                 </tr>   
                 <tr>
@@ -243,9 +256,8 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtDefaultStorage" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
-                   <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ControlToValidate="txtDefaultStorage"
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="cvPCG" ControlToValidate="txtDefaultStorage"
                                      Display="Dynamic"  ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
-
                     </td>
                 </tr>  
                 <tr>
@@ -255,7 +267,7 @@
                     </td>
                     <td>
                         <asp:TextBox ID="txtPaidSize" runat="server" CssClass="txtField" onchange="BalanceCalculate()"></asp:TextBox>
-                   <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="FieldName" ControlToValidate="txtPaidSize"
+                   <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="cvPCG" ControlToValidate="txtPaidSize"
                                      Display="Dynamic" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
 
                     </td>
@@ -334,8 +346,8 @@
                     </td>
                 </tr>
                 <tr>
-                <td>
-                <asp:Label ID="lblValueAdds" runat="server" CssClass="FieldName" Text="Value Adds: "></asp:Label>
+                <td align="right">
+                <asp:Label ID="lblValueAdds" runat="server" CssClass="FieldName" Text="Value Adds:"></asp:Label>
                 </td>
                 <td>
                         <asp:CheckBoxList ID="chkValueAdds" runat="server" CssClass="FieldName">

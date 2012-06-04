@@ -1094,7 +1094,6 @@ namespace BoValuation
 
                 if (dtMFTransactionBalance.Rows.Count > 0)
                 {
-
                     drMFNetPosition["CMFNP_MarketPrice"] = dtMFTransactionBalance.Rows[0]["NAV"];
                     drMFNetPosition["CMFNP_RET_Hold_XIRR"] = 0; //Still Confusion
                     drMFNetPosition["CMFNP_RET_Realized_XIRR"] = 0; // Still Confusion
@@ -1470,7 +1469,8 @@ namespace BoValuation
             dtMFSellPaired.Columns.Add("CMFSP_BuyID", typeof(double));
             dtMFSellPaired.Columns.Add("CMFSP_Units", typeof(double));
             dtMFSellPaired.Columns.Add("AGE", typeof(double));
-            dtMFSellPaired.Columns.Add("CMFSP_LTG", typeof(System.DateTime));
+            dtMFSellPaired.Columns.Add("CMFT_TransactionDate", typeof(System.DateTime));
+            dtMFSellPaired.Columns.Add("CMFSP_LTG", typeof(double));
             dtMFSellPaired.Columns.Add("CMFSP_STG", typeof(double));
             dtMFSellPaired.Columns.Add("CMFSP_GainLossValue", typeof(double));
             dtMFSellPaired.Columns.Add("LTG", typeof(double));
