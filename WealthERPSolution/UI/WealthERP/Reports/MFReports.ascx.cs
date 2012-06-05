@@ -273,7 +273,7 @@ namespace WealthERP.Reports
                         LBCustomer.DataBind();
                     }
                     CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
-                    DataSet ds = customerTransactionBo.GetLastTradeDate();
+                    DataSet ds = customerTransactionBo.GetLastMFTradeDate();
                     if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
                     {
                         txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
