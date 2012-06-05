@@ -5442,6 +5442,7 @@ namespace WealthERP.Uploads
                                             dr1["CET_TradeNum"] = 0;
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
+                                           
 
                                             ifl++;
                                             dtIIFL.Rows.Add(dr1);
@@ -5468,6 +5469,7 @@ namespace WealthERP.Uploads
                                             dr1["CET_TradeNum"] = 0;
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
+                                          
 
                                             ifl++;
                                             dtIIFL.Rows.Add(dr1);
@@ -5591,7 +5593,7 @@ namespace WealthERP.Uploads
                         if (badData == false)
                         {
 
-                            if (ds.Tables[0].Columns.Count == 25 || ds.Tables[0].Columns.Count == 16)
+                            if (ds.Tables[0].Columns.Count == 26 || ds.Tables[0].Columns.Count == 16)
                             {
                                 DataSet dsStdColNames = new DataSet();
                                 DataTable dt = new DataTable();
@@ -5616,6 +5618,8 @@ namespace WealthERP.Uploads
                                 dtOdin.Columns.Add("CET_TradeNum");
                                 dtOdin.Columns.Add("CET_OrderNum");
                                 dtOdin.Columns.Add("CET_IsSpeculative");
+                                dtOdin.Columns.Add("column25");
+                                
                                 //foreach (DataRow dr in dtOdin.Rows)
                                 //{
                                 //    dt.Columns.Add(dr[""].ToString());
@@ -5651,6 +5655,7 @@ namespace WealthERP.Uploads
                                         dr1["CET_TradeNum"] = dr["Col22"].ToString();
                                         dr1["CET_OrderNum"] = dr["Col1"].ToString();
                                         dr1["CET_IsSpeculative"] = 0;
+                                        dr1["column25"] = dr["Col25"].ToString(); 
 
                                         i++;
                                         dtOdin.Rows.Add(dr1);
@@ -5681,8 +5686,7 @@ namespace WealthERP.Uploads
                                         dr1["CET_TradeTotal"] = 0;
                                         dr1["CET_TradeNum"] = dr["Col3"].ToString();
                                         dr1["CET_OrderNum"] = dr["Col13"].ToString();
-                                        dr1["CET_IsSpeculative"] = 0;
-
+                                        dr1["CET_IsSpeculative"] = 0;                                        
                                         i++;
                                         dtOdin.Rows.Add(dr1);
 
