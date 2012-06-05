@@ -140,6 +140,7 @@ namespace BoCommon
             dtOdin.Columns.Add("Col22");
             dtOdin.Columns.Add("Col23");
             dtOdin.Columns.Add("Col24");
+            dtOdin.Columns.Add("Col25");
           
             string[] rows = data.Split("\r".ToCharArray());
             //now we will add the rows to our DataTable
@@ -154,7 +155,7 @@ namespace BoCommon
                 {
                     if (filetype == "NSE")
                     {
-                        if (i == 19 || i == 20)
+                        if (i == 19 || i == 20 || i==24)
                         {
                             drOdin[i] = DateTime.Parse(items[i]);
 
