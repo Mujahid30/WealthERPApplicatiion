@@ -65,10 +65,11 @@
     }
     </script>
 
-<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">
+<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table style="width: 100%" class="TableBackground">
         <tr>
             <td>
+                
                <asp:Label Text="Mutual Fund Folio Rejects" ID="lblHeader" CssClass="HeaderTextBig" runat="server"></asp:Label>
             </td>
         </tr>
@@ -216,8 +217,11 @@
                        
                     </Columns>
                 </asp:GridView>
-            </td>
-        </tr>
+                
+               </td>
+               </tr>
+               </table>
+             </asp:Panel>
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
@@ -241,7 +245,7 @@
                 </asp:Label>
             </td>
         </tr>
-    </table>
+ 
     <div id="DivPager" runat="server" style="display: none">
         <table style="width: 100%">
             <tr align="center">
@@ -263,4 +267,4 @@
     <asp:HiddenField ID="hdnIsCustomerExistingFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
-</asp:Panel>
+
