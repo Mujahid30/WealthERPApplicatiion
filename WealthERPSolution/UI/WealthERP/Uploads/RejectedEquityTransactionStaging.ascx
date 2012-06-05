@@ -107,8 +107,7 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td>
+    </table>
         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
@@ -246,8 +245,7 @@
                 </tr>
             </table>
             </asp:Panel>
-        </td>
-    </tr>
+    
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
@@ -271,7 +269,7 @@
             </asp:Label>
         </td>
     </tr>--%>
-</table>
+
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
