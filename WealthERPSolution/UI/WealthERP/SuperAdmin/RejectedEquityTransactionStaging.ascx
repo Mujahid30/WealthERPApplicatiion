@@ -99,6 +99,7 @@
         </td>
     </tr>
      </table>
+     <asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
      <table style="width: 100%" class="TableBackground">
     <tr>
         <td align="right">
@@ -250,6 +251,8 @@
             </asp:GridView>
         </td>
     </tr>
+    </table>
+    </asp:Panel>
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
@@ -273,7 +276,7 @@
             </asp:Label>
         </td>
     </tr>--%>
-</table>
+
 <div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
