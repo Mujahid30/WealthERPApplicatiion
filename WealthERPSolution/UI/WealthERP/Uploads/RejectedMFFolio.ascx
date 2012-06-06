@@ -65,24 +65,30 @@
     }
     </script>
 
-<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">
+<%--<asp:Panel ID="pnl" DefaultButton="btnGridSearch" runat="server">--%>
     <table style="width: 100%" class="TableBackground">
         <tr>
             <td>
                <asp:Label Text="Mutual Fund Folio Rejects" ID="lblHeader" CssClass="HeaderTextBig" runat="server"></asp:Label>
             </td>
         </tr>
+        </table>
+        <table>
         <tr>
             <td>
                 <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                     OnClick="lnkBtnBack_Click"></asp:LinkButton>
             </td>
         </tr>
+        </table>
+        <table>
         <tr>
             <td>
                 &nbsp;
             </td>
         </tr>
+        </table>
+        <table>
         <tr>
             <td class="leftField">
             <asp:LinkButton ID="LinkInputRejects" runat="server" 
@@ -94,14 +100,15 @@
                 <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
             </td>
         </tr>
-        <tr>
-            <td>
+        </table>
+        <%--<tr>
+            <td>--%>
             <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-                <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
+                <asp:Panel ID="pnlMFPortfolioHoldings" runat="server">
+               <%-- <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">--%>
                 <asp:GridView ID="gvCAMSProfileReject" runat="server" AutoGenerateColumns="False" Width="100%"
                     CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" AllowSorting="true"
                     DataKeyNames="MFFolioStagingId,MainStagingId,ProcessID" >
@@ -214,14 +221,15 @@
                     </Columns>
                 </asp:GridView>
                 
-                </div>
+                <%--</div>--%>
                 </asp:Panel>
                 </td>
                 </tr>
             </table>
             </asp:Panel>
-            </td>
-        </tr>
+    <%--  </td>--%>
+    <%-- </tr>--%>
+    <table width="100%">
         <tr id="trReprocess" runat="server">
             <td class="SubmitCell">
                 <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
@@ -245,7 +253,8 @@
                 </asp:Label>
             </td>
         </tr>
-    </table>
+        </table>
+  
     <div id="DivPager" runat="server" style="display: none">
         <table style="width: 100%">
             <tr align="center">
@@ -267,4 +276,5 @@
     <asp:HiddenField ID="hdnIsCustomerExistingFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnIsRejectedFilter" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
-</asp:Panel>
+<%--</asp:Panel>
+--%>
