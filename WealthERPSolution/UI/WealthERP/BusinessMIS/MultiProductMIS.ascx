@@ -190,7 +190,7 @@
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId,Customer_Name" onItemCommand="rgvMultiProductMIS_ItemCommand"
-                EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource">
+                EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource" onDataBound="rgvMultiProductMIS_DataBound">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId,Customer_Name" Width="100%" AllowMultiColumnSorting="True"
@@ -207,7 +207,8 @@
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataTextField="Mutual_Fund">
+                        <telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" 
+                         DataTextField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:gridbuttonColumn>
                     <%--    <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataField="Mutual_Fund"

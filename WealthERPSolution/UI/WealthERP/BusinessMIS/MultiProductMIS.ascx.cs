@@ -807,11 +807,11 @@ namespace WealthERP.BusinessMIS
                             }
                         }
                         rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
+                        ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;
                         rgvMultiProductMIS.DataBind();
                         trMultiProduct.Visible = true;
                         trLabelMessage.Visible = true;
                         //rgvMultiProductMIS.Visible = true;
-                        ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;
                         //hdnCustomerId.Value = null;
                     }
                 }
@@ -1313,6 +1313,21 @@ namespace WealthERP.BusinessMIS
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);           
                
             }
-        } 
+        }
+
+        protected void rgvMultiProductMIS_DataBound(object sender, System.EventArgs e)
+        {
+            DataTable gridTable = (DataTable)ViewState["MultiProductMIS"];
+            double grandTotal = 0;
+            if (gridTable.Rows.Count > 0)
+            {
+                foreach (DataRow row in gridTable.Rows)
+                {
+                    grandTotal = grandTotal + double.Parse(row["Mutual_Fund"].ToString());
+                }
+                GridFooterItem footerItem = (GridFooterItem)rgvMultiProductMIS.MasterTableView.GetItems(GridItemType.Footer)[0];
+                footerItem["Mutual_Fund"].Text = grandTotal.ToString();
+            }
+        }
     }
 }
