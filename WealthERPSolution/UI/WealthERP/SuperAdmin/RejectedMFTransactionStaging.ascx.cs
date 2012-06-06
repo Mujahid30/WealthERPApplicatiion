@@ -979,12 +979,14 @@ namespace WealthERP.SuperAdmin
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
+            string StagingID = string.Empty;
 
             foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
                     i = i + 1;
+                    StagingID += Convert.ToString(gvWERPTrans.DataKeys[gvr.RowIndex].Value) + "~";
                 }
             }
 
@@ -994,39 +996,45 @@ namespace WealthERP.SuperAdmin
             }
             else
             {
-                CustomerTransactionDelete();
+                rejectedRecordsBo = new RejectedRecordsBo();
+                rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+                if (hdnProcessIdFilter.Value != "")
+                {
+                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                }
+                BindEquityTransactionGrid(ProcessId);
             }
-
         }
 
 
 
         private void CustomerTransactionDelete()
         {
-            foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
-            {
-                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                {
-                    rejectedRecordsBo = new RejectedRecordsBo();
+            #region unused 
+            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
+            //{
+            //    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+            //    {
+            //        rejectedRecordsBo = new RejectedRecordsBo();
 
-                    int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
+            //        int StagingID = int.Parse(gvWERPTrans.DataKeys[gvr.RowIndex].Values["CMFTSId"].ToString());
 
-                    rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
-                    if (hdnProcessIdFilter.Value != "")
-                    {
-                        ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                    }
+            //        rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+            //        if (hdnProcessIdFilter.Value != "")
+            //        {
+            //            ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            //        }
 
-                    BindEquityTransactionGrid(ProcessId);
-
-
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
+            //        BindEquityTransactionGrid(ProcessId);
 
 
+            //        // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
 
-                }
-            }
 
+
+            //    }
+            //}
+            #endregion  
         }
 
         protected void btnProbableInsert_Click(object sender, EventArgs e)
