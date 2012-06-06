@@ -104,11 +104,15 @@
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
         </td>
     </tr>
+    </table>
+      <table>
     <tr>
         <td>
             &nbsp;
         </td>
     </tr>
+      </table>
+        <table>
     <tr>
         <td class="leftField">
             <asp:LinkButton ID="lnkProfile" runat="server" OnClick="lnkProfile_Click" CssClass="LinkButtons"></asp:LinkButton>
@@ -118,8 +122,11 @@
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td>
+      </table>
+   <%-- <tr>
+        <td>--%>
+        <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+        <table width="100%" cellspacing="0" cellpadding="0">
             <asp:GridView ID="gvWERPProfileReject" runat="server" AutoGenerateColumns="False"
                 CellPadding="4" ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPProfileStagingId,A_AdviserId"
                 AllowSorting="true" OnSorting="gvWERPProfileReject_Sort">
@@ -246,8 +253,11 @@
                     <%--<asp:BoundField DataField="RejectReason" HeaderText="Reject Reason" />--%>
                 </Columns>
             </asp:GridView>
+            </table>
+            </asp:Panel>
         </td>
     </tr>
+    <table width="100%">
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
             <asp:Button ID="btnReprocess" OnClick="btnReprocess_Click" runat="server" Text="Reprocess"
