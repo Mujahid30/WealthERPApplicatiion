@@ -62,5 +62,40 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
 
         }
 
+        public void UpdateInstantValuationFlag(int accountId,int schemeplanCode ,int flag)
+        {
+            Database db;
+            DbCommand updateInstantValuationFlagCmd;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateInstantValuationFlagCmd = db.GetStoredProcCommand("SPROC_UpdateInstantValuationFlag");
+                db.AddInParameter(updateInstantValuationFlagCmd, "@CMFA_AccountId", DbType.Int32, accountId);
+                db.AddInParameter(updateInstantValuationFlagCmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplanCode);
+                db.AddInParameter(updateInstantValuationFlagCmd, "@Flag", DbType.Int16, flag);
+                db.ExecuteNonQuery(updateInstantValuationFlagCmd);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:UpdateInstantValuationFlag()");
+
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
     }
 }

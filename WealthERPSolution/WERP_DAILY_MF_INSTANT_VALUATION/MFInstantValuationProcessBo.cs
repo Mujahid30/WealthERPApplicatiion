@@ -29,17 +29,22 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
         public void ProcessMFAccountInstantValuation()
         {
             DataTable dtAccountList = new DataTable();
+            int flag;
             dtAccountList = mfInstantValuationProcessDao.GetMFAccountsForInstantValuation();
             foreach (DataRow dr in dtAccountList.Rows)
             {
                 try
                 {
-                    mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), DateTime.Parse(dr["CMFNP_ValuationDate"].ToString()));
+                    mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),DateTime.Now);
+                    flag = 2;
+                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),flag);
                     //Update the Account details As Processed and Ideal
                 }
-                catch
+                catch (Exception Ex)
                 {
-
+                    flag = 0;
+                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), flag);
+                     
                 }
 
             }
