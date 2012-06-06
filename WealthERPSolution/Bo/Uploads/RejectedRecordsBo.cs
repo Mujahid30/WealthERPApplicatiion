@@ -966,7 +966,7 @@ namespace BoUploads
 
             return dsProcessIds;
         }
-        public void DeleteMFTransactionStaging(int StagingID)
+        public void DeleteMFTransactionStaging(string StagingID)
         {            
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
