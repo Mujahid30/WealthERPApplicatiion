@@ -20,14 +20,14 @@ namespace BoValuation
 
         public void ProcessMFAccountScheme(int accountId, int schemePlanCode, DateTime valuationDate)
         {
-            DataSet dsMFBalancedSellPairedForNetPosition = new DataSet();
+            DataTable dtMFInstantNetPosition = new DataTable();
             try
             {
-                dsMFBalancedSellPairedForNetPosition=MFInstantValuation(accountId, schemePlanCode, valuationDate);
-                dsMFBalancedSellPairedForNetPosition.Tables[0].TableName="TransactionBalance";
-                dsMFBalancedSellPairedForNetPosition.Tables[1].TableName="TransactionSellPair";
-                dsMFBalancedSellPairedForNetPosition.Tables[2].TableName = "MutualFundNetPosition";
-                mfEngineDao.CreateCustomerMFNetPosition(0, valuationDate, dsMFBalancedSellPairedForNetPosition.Tables[2]);
+                dtMFInstantNetPosition = MFInstantValuation(accountId, schemePlanCode, valuationDate);
+                //dsMFBalancedSellPairedForNetPosition.Tables[0].TableName="TransactionBalance";
+                //dsMFBalancedSellPairedForNetPosition.Tables[1].TableName="TransactionSellPair";
+                //dsMFBalancedSellPairedForNetPosition.Tables[2].TableName = "MutualFundNetPosition";
+                mfEngineDao.CreateCustomerMFNetPosition(0, valuationDate, dtMFInstantNetPosition);
 
             }
             catch (BaseApplicationException Ex)
@@ -53,10 +53,10 @@ namespace BoValuation
             }
         }
 
-        protected DataSet MFInstantValuation(int accountId, int schemePlanCode,DateTime valuationDate)
+        protected DataTable MFInstantValuation(int accountId, int schemePlanCode,DateTime valuationDate)
         {
+            DataTable dtInstantNetPosition = new DataTable();
             DataSet dsMFBalancedSellPairedForNetPosition = new DataSet();
-
             try
             {              
                     
@@ -101,7 +101,7 @@ namespace BoValuation
                                     if (dtMinDateTransToBeProcess != DateTime.MinValue && dtMaxDateTransProcessed != DateTime.MinValue && (dtMinDateTransToBeProcess < dtMaxDateTransProcessed))
                                     {
                                         isMFTractionSellPairRecreate = true;
-                                        dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess);
+                                        dsTransactionBalanceReadyToProcess.Tables.Add(dtMFTransactionsToProcess.DefaultView.ToTable());
 
                                         if (dtMFTransactionBalance.TableName != "")
                                         {
@@ -135,16 +135,16 @@ namespace BoValuation
                                         dsMFBalanceSellpaired = mfEngineBo.TransactionBalanceProcess(dsTransactionBalanceReadyToProcess);
                                     else
                                     {
-                                        dsMFBalanceSellpaired.Tables.Add(dtMFTransactionBalance);
-                                        dsMFBalanceSellpaired.Tables.Add(dtMFTransactionBalanceSellPaired);
+                                        dsMFBalanceSellpaired.Tables.Add(dtMFTransactionBalance.DefaultView.ToTable());
+                                        dsMFBalanceSellpaired.Tables.Add(dtMFTransactionBalanceSellPaired.DefaultView.ToTable());
                                     }
                                     
                                     dsMFBalancedSellPairedForNetPosition = mfEngineBo.CreateMFNetPositionDataTable(dsMFBalanceSellpaired, valuationDate, schemePlanCode);
                                     dtMFNetPositionFinalDataTable = mfEngineBo.CreateMFNetPositionDataTable(dsMFBalancedSellPairedForNetPosition, valuationDate);
-                                    
-                                    dsMFBalancedSellPairedForNetPosition.Tables.Add(dsMFBalanceSellpaired.Tables[0]);
-                                    dsMFBalancedSellPairedForNetPosition.Tables.Add(dsMFBalanceSellpaired.Tables[1]);
-                                    dsMFBalancedSellPairedForNetPosition.Tables.Add(dtMFNetPositionFinalDataTable);
+
+                                    //dsMFBalancedSellPairedForNetPosition.Tables.Add(dsMFBalanceSellpaired.Tables[0].DefaultView.ToTable());
+                                    //dsMFBalancedSellPairedForNetPosition.Tables.Add(dsMFBalanceSellpaired.Tables[1].DefaultView.ToTable());
+                                    dtInstantNetPosition.Merge(dtMFNetPositionFinalDataTable);
                                     
                                 }
 
@@ -173,7 +173,7 @@ namespace BoValuation
 
             }
 
-            return dsMFBalancedSellPairedForNetPosition;
+            return dtInstantNetPosition;
 
         }
 
