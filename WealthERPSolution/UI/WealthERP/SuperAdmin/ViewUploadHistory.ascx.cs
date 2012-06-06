@@ -282,7 +282,7 @@ namespace WealthERP.SuperAdmin
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
-                    else if (filetypeId == (int)Contants.UploadTypes.IIFLTransaction && extracttype == "ET")
+                    else if (filetypeId == (int)Contants.UploadTypes.IIFLTransaction && extracttype == "ET" || filetypeId ==10 ||filetypeId ==11 )
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStagingSA','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
                     }
