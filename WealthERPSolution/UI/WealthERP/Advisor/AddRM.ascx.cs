@@ -1067,10 +1067,10 @@ namespace WealthERP.Advisor
             {
                 email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
             }
-            email.Body = email.Body.Replace("[CONTACTPERSON]", !string.IsNullOrEmpty(advisorVo.ContactPersonFirstName.Trim()) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonMiddleName.Trim()) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonLastName.Trim()));
-            email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation.Trim());
-            email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString().Trim() + "-" + advisorVo.Phone1Number.ToString().Trim());
-            email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email.Trim());
+            email.Body = email.Body.Replace("[CONTACTPERSON]", !string.IsNullOrEmpty(advisorVo.ContactPersonFirstName.Trim()) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonMiddleName) + " " + !string.IsNullOrEmpty(advisorVo.ContactPersonLastName));
+            email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation);
+            email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString());
+            email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email);
             email.Body = email.Body.Replace("[LOGO]", "<img src='cid:HDIImage' alt='Logo'>");
 
             System.Net.Mail.AlternateView htmlView;
