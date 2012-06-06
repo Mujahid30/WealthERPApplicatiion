@@ -115,8 +115,8 @@ namespace WealthERP.Advisor
                 CategoryDropdown(dsSystematicMIS.Tables[2]);
                 Session["ButtonGo"] = null;
                 rquiredFieldValidatorIndivudialCustomer.Visible = false;
-                txtFrom.Text = DateTime.Now.ToShortDateString();
-                txtTo.Text = DateTime.Now.ToShortDateString();
+                txtFrom.SelectedDate = DateTime.Now;
+                txtTo.SelectedDate = DateTime.Now;
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
@@ -767,10 +767,10 @@ namespace WealthERP.Advisor
             }
 
 
-            if (txtFrom.Text != "")
+            if (txtFrom.SelectedDate.ToString() != "")
             {
-                hdnFromDate.Value = DateTime.Parse(txtFrom.Text).ToString();
-                ViewState["txtFromDate"] = DateTime.Parse(txtFrom.Text).ToString();
+                hdnFromDate.Value = txtFrom.SelectedDate.ToString();
+                ViewState["txtFromDate"] = txtFrom.SelectedDate.ToString();
             }
             else if (ViewState["txtFromDate"].ToString() != null)
             {
@@ -781,10 +781,10 @@ namespace WealthERP.Advisor
 
 
 
-            if (txtTo.Text != "")
+            if (txtTo.SelectedDate.ToString() != "")
             {
-                hdnTodate.Value = DateTime.Parse(txtTo.Text).ToString();
-                ViewState["txtToDate"] = DateTime.Parse(txtTo.Text).ToString();
+                hdnTodate.Value = txtTo.SelectedDate.ToString();
+                ViewState["txtToDate"] = txtTo.SelectedDate.ToString();
             }
             else if (ViewState["txtToDate"].ToString() != null)
             {

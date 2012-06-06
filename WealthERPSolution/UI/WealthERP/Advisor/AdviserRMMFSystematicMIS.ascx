@@ -168,21 +168,30 @@
          </asp:Label>
         </td>
         <td align="left" width="10%">
-        <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
-         <%--<span id="SpanFromDate" class="spnRequiredField">*</span>--%>
+        <%--<asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox>
+         <span id="SpanFromDate" class="spnRequiredField">*</span>
          <ajaxToolkit:CalendarExtender ID="txtFrom_CalendarExtender" runat="server" TargetControlID="txtFrom" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
          </ajaxToolkit:CalendarExtender>
          <ajaxToolkit:TextBoxWatermarkExtender ID="txtFrom_TextBoxWatermarkExtender" runat="server" TargetControlID="txtFrom" WatermarkText="dd/mm/yyyy" Enabled="True">
          </ajaxToolkit:TextBoxWatermarkExtender>
          <asp:RequiredFieldValidator ID="RequiredFieldValidator3" Display="Dynamic" ControlToValidate="txtFrom" CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" runat="server" ValidationGroup="btnGo">
-          </asp:RequiredFieldValidator>
+          </asp:RequiredFieldValidator>--%>
+           <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
         </td>
         
         <td align="right" width="10%">
          <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To:"></asp:Label>
         </td>
         <td align="left" width="10%" valign="middle" colspan="2">
-         <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+         <%--<asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
           <span id="SpanToDate" class="spnRequiredField">*</span>
               <ajaxToolkit:CalendarExtender ID="txtTo_CalendarExtender" runat="server" TargetControlID="txtTo" Format="dd/MM/yyyy" Enabled="True" PopupPosition="TopRight">
                </ajaxToolkit:CalendarExtender>
@@ -193,7 +202,16 @@
                 </asp:RequiredFieldValidator>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="To Date should not be less than From Date" Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo">
-               </asp:CompareValidator>
+               </asp:CompareValidator>--%>
+               <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar2"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
         </td>
         
            <td>
