@@ -533,7 +533,7 @@ table.RadCalendarTimeView_Telerik td
 
  table.RadCalendar_Telerik .rcTitlebar {
 	background-image: none;
-	background-color: rgb(18, 76, 117);
+	background-color: #A3D3F5;
 }
  table.RadCalendar_Telerik .rcTitlebar .rcTitle {
 	color: rgb(255, 255, 255);
