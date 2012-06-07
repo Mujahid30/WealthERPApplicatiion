@@ -90,14 +90,14 @@ namespace WealthERP.CustomerPortfolio
 
                         BindLastTradeDate();
                         string fromdate = "01-01-1990";
-                        txtFromDate.Text = DateTime.Parse(fromdate).ToShortDateString();
+                        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                     }
                     else
                     {
                         BindLastTradeDate();
                     }
 
-                    BindGrid(0,mypager.CurrentPage, DateTime.Parse(txtFromDate.Text), DateTime.Parse(txtToDate.Text));
+                    BindGrid(0, mypager.CurrentPage, DateTime.Parse(txtFromDate.SelectedDate.ToString()), DateTime.Parse(txtToDate.SelectedDate.ToString()));
                     trMessage.Visible = false;
                 }
             }
@@ -126,8 +126,8 @@ namespace WealthERP.CustomerPortfolio
         private void BindLastTradeDate()
         {
             DataSet ds = customerTransactionBo.GetLastTradeDate();
-            txtFromDate.Text = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
-            txtToDate.Text = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
+            txtFromDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString());
+            txtToDate.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString());
 
         }
 
@@ -193,8 +193,8 @@ namespace WealthERP.CustomerPortfolio
             hdnFolioNumber.Value = string.Empty;
             if (rbtnPickDate.Checked)
             {
-                convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim());
-                convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim());
+                convertedFromDate = Convert.ToDateTime(txtFromDate.SelectedDate);
+                convertedToDate = Convert.ToDateTime(txtToDate.SelectedDate);
             }
             else
             {
@@ -1450,8 +1450,8 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (rbtnPickDate.Checked)
                 {
-                    convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim());
-                    convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim());
+                    convertedFromDate = Convert.ToDateTime(txtFromDate.SelectedDate);
+                    convertedToDate = Convert.ToDateTime(txtToDate.SelectedDate);
                 }
                 else
                 {
