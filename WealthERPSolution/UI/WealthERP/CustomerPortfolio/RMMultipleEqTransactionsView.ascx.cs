@@ -19,6 +19,7 @@ using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web.UI.HtmlControls;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -71,7 +72,7 @@ namespace WealthERP.CustomerPortfolio
                     txtParentCustomer.Visible = false;
                     rfvGroupHead.Visible = false;
                     BindLastTradeDate();
-                    BindGrid(mypager.CurrentPage, DateTime.Parse(txtFromDate.Text), DateTime.Parse(txtToDate.Text));
+                    BindGrid(mypager.CurrentPage, DateTime.Parse(txtFromDate.SelectedDate.ToString()), DateTime.Parse(txtToDate.SelectedDate.ToString()));
 
                     trMessage.Visible = false;
                 }
@@ -101,8 +102,8 @@ namespace WealthERP.CustomerPortfolio
         private void BindLastTradeDate()
         {
             DataSet ds = customerTransactionBo.GetLastTradeDate();
-            txtFromDate.Text = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
-            txtToDate.Text = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
+            txtFromDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
+            txtToDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
 
         }
 
@@ -183,8 +184,8 @@ namespace WealthERP.CustomerPortfolio
         {
             if (rbtnPickDate.Checked)
             {
-                convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim());
-                convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim());
+                convertedFromDate = Convert.ToDateTime(txtFromDate.SelectedDate);
+                convertedToDate = Convert.ToDateTime(txtToDate.SelectedDate);
             }
             else
             {
