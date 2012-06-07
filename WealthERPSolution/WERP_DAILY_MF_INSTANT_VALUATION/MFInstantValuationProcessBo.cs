@@ -35,7 +35,7 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
             {
                 try
                 {
-                    mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),DateTime.Now.Date.AddDays(-1));
+                    mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),DateTime.Today.Date.AddDays(-1));
                     flag = 2;
                     mfInstantValuationProcessDao.UpdateInstantValuationFlag(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),flag);
                     //Update the Account details As Processed and Ideal
