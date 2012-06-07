@@ -61,7 +61,7 @@ namespace WealthERP.OPS
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = operationBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
-            txtOrderDate.Text = DateTime.Now.ToShortDateString();
+            txtOrderDate.SelectedDate = DateTime.Now;
             lblGetOrderNo.Text = orderNumber.ToString();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -69,7 +69,7 @@ namespace WealthERP.OPS
             {
                 ViewForm = Request.QueryString["action"].ToString();
                 operationVo = (OperationVo)Session["operationVo"];
-                txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                txtOrderDate.SelectedDate = operationVo.OrderDate;
                 lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
             }
             if (Request.QueryString["FromPage"] != null)
@@ -212,7 +212,7 @@ namespace WealthERP.OPS
                     ddlAmcSchemeList.SelectedIndex = 0;
                     ddlPortfolio.SelectedIndex = -1;
                     ddlFolioNumber.SelectedIndex = 0;
-                    txtOrderDate.Text = "";
+                    txtOrderDate.SelectedDate = DateTime.Now;
                     lblGetOrderNo.Text = "";
                     ddlOrderPendingReason.SelectedIndex = 0;
                     ddlOrderStatus.SelectedIndex = 0;
@@ -258,7 +258,7 @@ namespace WealthERP.OPS
                     lblGetRM.Text = operationVo.RMName;
                     lblgetPan.Text = operationVo.PanNo;
                     ddltransType.SelectedValue = operationVo.TransactionCode;
-                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    txtOrderDate.SelectedDate = operationVo.OrderDate;
                     
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     hdnType.Value = operationVo.TransactionCode;
@@ -388,7 +388,7 @@ namespace WealthERP.OPS
                     txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
-                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    txtOrderDate.SelectedDate = operationVo.OrderDate;
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     ddlOrderStatus.SelectedValue = operationVo.StatusCode;
                     BindRejectStatus(operationVo.StatusCode);
@@ -501,7 +501,7 @@ namespace WealthERP.OPS
                     lblgetPan.Text = operationVo.PanNo;
                     ddltransType.Enabled = false;
                     ddltransType.SelectedValue = operationVo.TransactionCode;
-                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    txtOrderDate.SelectedDate = operationVo.OrderDate;
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     hdnType.Value = operationVo.TransactionCode;
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
@@ -637,7 +637,7 @@ namespace WealthERP.OPS
                     txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
-                    txtOrderDate.Text = operationVo.OrderDate.ToShortDateString();
+                    txtOrderDate.SelectedDate = operationVo.OrderDate;
                     lblGetOrderNo.Text = operationVo.OrderNumber.ToString();
                     ddlOrderStatus.SelectedValue = operationVo.StatusCode;
                     BindRejectStatus(operationVo.StatusCode);
@@ -1195,7 +1195,7 @@ namespace WealthERP.OPS
                 operationVo.accountid = int.Parse(ddlFolioNumber.SelectedValue);
             else
                 operationVo.accountid = 0;
-            operationVo.OrderDate = DateTime.Parse(txtOrderDate.Text);
+            operationVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
             operationVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             operationVo.StatusCode = ddlOrderStatus.SelectedValue;
             operationVo.StatusReasonCode = ddlOrderPendingReason.SelectedValue;
@@ -1338,7 +1338,8 @@ namespace WealthERP.OPS
             lblgetPan.Text = "";
             CleanAllFields();
             lblGetOrderNo.Text = "";
-            txtOrderDate.Text = "";
+            txtOrderDate.SelectedDate = DateTime.Now;
+;
             btnSubmit.Visible = true;
             btnUpdate.Visible = false;
             lnkBtnEdit.Visible = false;
@@ -1962,7 +1963,7 @@ namespace WealthERP.OPS
             //    operationVo.accountid = int.Parse(ddlFolioNumber.SelectedValue);
             //else
             //    operationVo.accountid = 0;
-            operationVo.OrderDate = DateTime.Parse(txtOrderDate.Text);
+            operationVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
             operationVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             operationVo.StatusCode = ddlOrderStatus.SelectedValue;
             operationVo.StatusReasonCode = ddlOrderPendingReason.SelectedValue;
@@ -2172,7 +2173,7 @@ namespace WealthERP.OPS
                 operationVo.accountid = int.Parse(ddlFolioNumber.SelectedValue);
             else
                 operationVo.accountid = 0;
-            operationVo.OrderDate = DateTime.Parse(txtOrderDate.Text);
+            operationVo.OrderDate = Convert.ToDateTime(txtOrderDate.SelectedDate);
             operationVo.OrderNumber = int.Parse(lblGetOrderNo.Text);
             operationVo.StatusCode = ddlOrderStatus.SelectedValue;
             operationVo.StatusReasonCode = ddlOrderPendingReason.SelectedValue;
@@ -2316,7 +2317,7 @@ namespace WealthERP.OPS
             lblgetPan.Text = "";
             CleanAllFields();
             lblGetOrderNo.Text = "";
-            txtOrderDate.Text = "";
+            txtOrderDate.SelectedDate = DateTime.Now;
             btnUpdate.Visible = false;
             lnkBtnEdit.Visible = false;
 
