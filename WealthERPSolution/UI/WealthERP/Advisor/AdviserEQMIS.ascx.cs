@@ -15,7 +15,7 @@ using System.Globalization;
 using System.Collections.Specialized;
 using BoCustomerPortfolio;
 using BoUploads;
-
+using Telerik.Web.UI;
 namespace WealthERP.Advisor
 {
     public partial class AdviserEQMIS : System.Web.UI.UserControl
@@ -138,8 +138,8 @@ namespace WealthERP.Advisor
                     {
                         dtLastTradeDate = (DateTime)dsGetLastTradeDate.Tables[0].Rows[0]["WTD_Date"];
 
-                        txtFromDate.Text = dtLastTradeDate.ToShortDateString();
-                        txtToDate.Text = dtLastTradeDate.ToShortDateString();
+                        txtFrom.SelectedDate = DateTime.Parse(dtLastTradeDate.ToShortDateString());
+                        txtTo.SelectedDate = DateTime.Parse(dtLastTradeDate.ToShortDateString());
 
                     }
 
@@ -797,8 +797,8 @@ namespace WealthERP.Advisor
             hdnValuationDate.Value = LatestValuationdate.ToString();
             DateTime Valuation_Date = Convert.ToDateTime(hdnValuationDate.Value.ToString());
 
-            convertedFromDate = Convert.ToDateTime(txtFromDate.Text.Trim(), ci);
-            convertedToDate = Convert.ToDateTime(txtToDate.Text.Trim(), ci);
+            convertedFromDate = Convert.ToDateTime(txtFrom.SelectedDate, ci);
+            convertedToDate = Convert.ToDateTime(txtTo.SelectedDate, ci);
 
 
             /* For Turn Over EQ */
