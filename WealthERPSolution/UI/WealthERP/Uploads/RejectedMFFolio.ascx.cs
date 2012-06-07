@@ -505,30 +505,60 @@ namespace WealthERP.Uploads
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
-            foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
-            {
-                if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
-                    i = i + 1;
-            }
+            string StagingID = string.Empty;
 
-            if (i == 0)
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
-            else
-                CustomerTransactionDelete();
-        }
-
-        private void CustomerTransactionDelete()
-        {
             foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
             {
                 if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
                 {
-                    rejectedRecordsBo = new RejectedRecordsBo();
-                    int StagingID = int.Parse(gvCAMSProfileReject.DataKeys[gvr.RowIndex].Values["MFFolioStagingId"].ToString());
-                    rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+                    i = i + 1;
+                    StagingID += Convert.ToString(gvCAMSProfileReject.DataKeys[gvr.RowIndex].Value) + "~";
+                   
                 }
             }
+
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+            }
+            else
+            {
+                rejectedRecordsBo = new RejectedRecordsBo();
+                rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+
+            }
+        }
+        #region previouscode unused
+        //{
+        //    int i = 0;
+        //    foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
+        //    {
+        //        if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
+        //            i = i + 1;
+        //    }
+
+        //    if (i == 0)
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select record to delete!');", true);
+        //    else
+        //        CustomerTransactionDelete();
+        //}
+        #endregion
+
+        private void CustomerTransactionDelete()
+        {
+            #region unused            
+            //foreach (GridViewRow gvr in this.gvCAMSProfileReject.Rows)
+            //{
+            //    if (((CheckBox)gvr.FindControl("chkBx")).Checked == true)
+            //    {
+            //        rejectedRecordsBo = new RejectedRecordsBo();
+            //        int StagingID = int.Parse(gvCAMSProfileReject.DataKeys[gvr.RowIndex].Values["MFFolioStagingId"].ToString());
+            //        rejectedRecordsBo.DeleteMFRejectedFolios(StagingID);
+            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFFolio','login');", true);
+            //    }
+            //}
+            #endregion
         }
 
 
