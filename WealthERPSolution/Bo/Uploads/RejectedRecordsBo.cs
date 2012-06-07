@@ -1075,7 +1075,7 @@ namespace BoUploads
             }
         }
 
-        public void DeleteMFRejectedFolios(int StagingID)
+        public void DeleteMFRejectedFolios(string StagingID)
         {
             RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
             try

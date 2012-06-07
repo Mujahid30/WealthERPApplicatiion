@@ -1476,7 +1476,7 @@ namespace DaoUploads
             }
         }
 
-        public void DeleteMFRejectedFolios(int StagingID)
+        public void DeleteMFRejectedFolios(string StagingID)
         {
             Database db;
             DbCommand deletetransactions;
@@ -1485,7 +1485,7 @@ namespace DaoUploads
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deletetransactions = db.GetStoredProcCommand("SP_DeleteMFRejectedFolios");
-                db.AddInParameter(deletetransactions, "@StagingID", DbType.Int32, StagingID);
+                db.AddInParameter(deletetransactions, "@StagingID", DbType.String, StagingID);
                 db.ExecuteDataSet(deletetransactions);
             }
             catch (BaseApplicationException Ex)
