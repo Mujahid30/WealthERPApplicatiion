@@ -70,13 +70,22 @@
             <asp:Label ID="lblDate" runat="server" CssClass="FieldName">As on Date:</asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtDate" runat="server" CssClass="txtField" Height="16px" Width="145px"></asp:TextBox>
+            <%--<asp:TextBox ID="txtDate" runat="server" CssClass="txtField" Height="16px" Width="145px"></asp:TextBox>
             <cc1:CalendarExtender ID="txtFromDate_CalendarExtender" runat="server" TargetControlID="txtDate"
                 OnClientDateSelectionChanged="checkdate" Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtFromDate_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1"  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="btnGo">

@@ -139,7 +139,7 @@ namespace WealthERP.Advisor
                 }
                 if (LatestValuationdate != DateTime.MinValue)
                 {
-                    txtDate.Text = LatestValuationdate.Date.ToShortDateString();
+                    txtDate.SelectedDate = DateTime.Parse(LatestValuationdate.Date.ToShortDateString());
                     bindgrid(LatestValuationdate);
                 }
                 //else
@@ -180,7 +180,7 @@ namespace WealthERP.Advisor
         }
         public void GenerateMIS()
         {
-            LatestValuationdate = Convert.ToDateTime(txtDate.Text);
+            LatestValuationdate = Convert.ToDateTime(txtDate.SelectedDate);
             hdnValuationDate.Value = LatestValuationdate.ToString();
             TextBox AMCSearchval = new TextBox();
             if (gvMFMIS.HeaderRow != null)
@@ -392,7 +392,7 @@ namespace WealthERP.Advisor
             int amcCode;
             amcCode = int.Parse(gvMFMIS.SelectedDataKey["AMCCode"].ToString());
             Session["PassAMCCode"] = amcCode.ToString();
-            LatestValuationdate = Convert.ToDateTime(txtDate.Text).Date;
+            LatestValuationdate = Convert.ToDateTime(txtDate.SelectedDate).Date;
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMAMCSchemewiseMIS','amcCode=" + amcCode + "&latestValuationdate=" + LatestValuationdate.ToShortDateString() + "&BranchSelection=" + hdnBranchSelection.Value + "&RMSelection=" + hdnRMSelection.Value + "');", true);
 
         }
