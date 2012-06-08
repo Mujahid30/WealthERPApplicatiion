@@ -3925,6 +3925,14 @@ namespace WealthERP.Uploads
             {
                 Response.Redirect("Standard Upload Files/SystematicStandard.xlsx");
             }
+            else if (File7.Checked)
+            {
+                Response.Redirect("Standard Upload Files/BSEForOdin.xlsx");
+            }
+            else if (File8.Checked)
+            {
+                Response.Redirect("Standard Upload Files/NSEForOdin");
+            }
             else if (AllFiles.Checked)
             {
                 Response.Redirect("Standard Upload Files/All Standard Upload Files.zip");
@@ -4010,6 +4018,7 @@ namespace WealthERP.Uploads
             }
             if (ddlUploadType.SelectedValue == "EQT" && ddlListCompany.SelectedValue == "ODIN")
             {
+                lnkbtnpup.Visible = true;
                 upload.Visible = true;
                 lbluploadtype.Visible = true;
                 ddlAction.Visible = true;
@@ -4084,9 +4093,15 @@ namespace WealthERP.Uploads
             else if ((ddlUploadType == "EQT" && ddlCompanyType == "ODIN"))
             {
                 if (ddlAction.SelectedValue == "NSE")
+                {
                     msg = "NSE TRD";
+                    lnkbtnpup.Visible = true;
+                }
                 else if (ddlAction.SelectedValue == "BSE")
+                {
                     msg = "TR BSE";
+                    lnkbtnpup.Visible = true;
+                }
             }
             return msg;
         }

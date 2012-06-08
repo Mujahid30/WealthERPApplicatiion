@@ -384,10 +384,15 @@
                 <asp:RadioButton ID="File6" Text="SystematicStandard" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
+                 <asp:RadioButton ID="File7" Text="NSE Upload Files" Checked="True" GroupName="colors"
+                    runat="server" />
+                <br /> 
+                <asp:RadioButton ID="File8" Text="BSE Upload Files" Checked="True" GroupName="colors"
+                    runat="server" />                                   
+                <br />                 
                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="True" GroupName="colors"
                     runat="server" />
                 <br />
-                <br />                
                 <asp:Button ID="btnOk" runat="server" Text="Download" CausesValidation="false" CssClass="PCGButton" />
                 &nbsp;
                 <asp:Button ID="btnCancel"  CausesValidation="false" runat="server" Text="Cancel" CssClass="PCGButton" />

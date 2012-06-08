@@ -518,6 +518,24 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.RadioButton File6;
         
         /// <summary>
+        /// File7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton File7;
+        
+        /// <summary>
+        /// File8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton File8;
+        
+        /// <summary>
         /// AllFiles control.
         /// </summary>
         /// <remarks>
