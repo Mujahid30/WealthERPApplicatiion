@@ -41,7 +41,7 @@ namespace WealthERP.Customer
             txtLivingSince_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
             cvJobStartDate.ValueToCompare = DateTime.Now.ToShortDateString();
             txtMarriageDate_CompareValidator.ValueToCompare = DateTime.Now.ToShortDateString();
-
+          
             try
             {
                 SessionBo.CheckSession();
@@ -114,11 +114,11 @@ namespace WealthERP.Customer
                         txtMarriageDate.Enabled = true;
                     else
                         txtMarriageDate.Enabled = false;
-                    
+
                     if (customerVo.MarriageDate == DateTime.MinValue)
-                        txtMarriageDate.Text = "";
+                        txtMarriageDate.SelectedDate = null;                        
                     else
-                        txtMarriageDate.Text = customerVo.MarriageDate.ToShortDateString();
+                        txtMarriageDate.SelectedDate = customerVo.MarriageDate;
                     if (customerVo.Nationality != null)
                         ddlNationality.SelectedValue = customerVo.Nationality.ToString();
                     if (customerVo.Occupation != null)
@@ -132,9 +132,9 @@ namespace WealthERP.Customer
                         txtProfilingDate.Text = customerVo.ProfilingDate.ToShortDateString();
 
                     if (customerVo.Dob == DateTime.MinValue)
-                        txtDob.Text = "";
+                        txtDate.SelectedDate = null;
                     else
-                        txtDob.Text = customerVo.Dob.ToShortDateString();
+                        txtDate.SelectedDate = customerVo.Dob;
                     if (!string.IsNullOrEmpty(customerVo.Salutation))
                         ddlSalutation.SelectedValue = customerVo.Salutation;
                     else
@@ -409,10 +409,10 @@ namespace WealthERP.Customer
                         customerVo.ContactFirstName = txtGuardianFirstName.Text;
                     }
 
-                    if (txtDob.Text == "")
+                    if (txtDate.SelectedDate.ToString() == "")
                         customerVo.Dob = DateTime.MinValue;
                     else
-                        customerVo.Dob = DateTime.Parse(txtDob.Text);
+                        customerVo.Dob = DateTime.Parse(txtDate.SelectedDate.ToString());
                     if (txtProfilingDate.Text == "")
                         customerVo.ProfilingDate = DateTime.MinValue;
                     else
@@ -604,9 +604,9 @@ namespace WealthERP.Customer
                     else
                         customerVo.MaritalStatus = ddlMaritalStatus.SelectedItem.Value.ToString();
 
-                    if (txtMarriageDate.Text != string.Empty && txtMarriageDate.Text != "dd/mm/yyyy")
+                    if (txtMarriageDate.SelectedDate.ToString() != string.Empty && txtMarriageDate.SelectedDate.ToString() != "dd/mm/yyyy")
                     {
-                        customerVo.MarriageDate = DateTime.Parse(txtMarriageDate.Text);
+                        customerVo.MarriageDate = DateTime.Parse(txtMarriageDate.SelectedDate.ToString());
                     }
                     else
                         customerVo.MarriageDate = DateTime.MinValue;
@@ -839,18 +839,18 @@ namespace WealthERP.Customer
             //    }
             //}
             bool isGenderExist = false;
-            if (!string.IsNullOrEmpty(txtDob.Text.Trim()))
-                CalculateAge(DateTime.Parse(txtDob.Text.Trim().ToString()));
+            if (!string.IsNullOrEmpty(txtDate.SelectedDate.ToString()))
+                CalculateAge(DateTime.Parse(txtDate.SelectedDate.ToString()));
 
             if ((rbtnFemale.Checked == true || rbtnMale.Checked == true))
             {
                 isGenderExist = true;
             }
-            if ((!isGenderExist && years < 60) || (string.IsNullOrEmpty(txtDob.Text.Trim()) && years < 60))
+            if ((!isGenderExist && years < 60) || (string.IsNullOrEmpty(txtDate.SelectedDate.ToString()) && years < 60))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select gender and date of birth for the customer to get the tax slab');", true);
             }
-            else if (!string.IsNullOrEmpty(txtDob.Text.Trim()))
+            else if (!string.IsNullOrEmpty(txtDate.SelectedDate.ToString()))
             {
 
                 if ((years < 60) && (!isGenderExist))
@@ -894,8 +894,7 @@ namespace WealthERP.Customer
             return years;
         }
 
-
-
+       
         //private void BindTaxSlabDropDown()
         //{
         //    try
