@@ -276,7 +276,7 @@ function showassocation() {
                     <asp:Label ID="lblRemarks" runat="server" CssClass="FieldName" Text="Remarks:"></asp:Label>
                 </td>
                 <td rowspan="2" class="rightField" colspan="3">
-                    <asp:TextBox ID="txtRemarks" runat="server" Height="53px" Width="170px" CssClass="txtField"></asp:TextBox>
+                    <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="txtField"></asp:TextBox>
                 </td>
             </tr>
             <tr>
