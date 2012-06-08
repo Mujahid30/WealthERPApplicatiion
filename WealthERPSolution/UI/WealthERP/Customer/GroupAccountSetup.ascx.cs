@@ -177,6 +177,7 @@ namespace WealthERP.Customer
             SaveAssociateDetails();
             ClearAll();
             BindRelationshipDropDown();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Your Details are succesfully added');", true);
         }
 
         protected void txtParentCustomer_TextChanged(object sender, EventArgs e)

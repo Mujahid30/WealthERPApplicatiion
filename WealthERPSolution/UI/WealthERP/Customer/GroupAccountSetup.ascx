@@ -48,10 +48,12 @@
             <asp:Label ID="lblSelectRM" runat="server" style="text-align: right" Text="Select RM: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" Width="180"  CssClass="cmbField" runat="server" AutoPostBack="true" onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlSelectRMs" style="vertical-align: middle" CssClass="cmbField" runat="server" AutoPostBack="true" onselectedindexchanged="ddlSelectRMs_SelectedIndexChanged">
             
             </asp:DropDownList>
         </td>
+    </tr>
+    <tr>
     </tr>
     <tr>
         <td align="right">
@@ -93,7 +95,7 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr>
+     <tr>
         <td align="right">
             <asp:Label ID="lblPanParent" runat="server" CssClass="FieldName" Text="PAN Number:"></asp:Label>
         </td>
@@ -165,7 +167,7 @@
             <asp:Label ID="lblRelationship" runat="server" CssClass="FieldName" Text="Relationship:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlRelationship" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlRelationship" runat="server"  CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlRelationship"
