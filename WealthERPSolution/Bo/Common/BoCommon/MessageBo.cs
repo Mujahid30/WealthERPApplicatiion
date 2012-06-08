@@ -196,14 +196,15 @@ namespace BoCommon
             return blResult;
         }
 
-        public int GetUnreadMessageCount(int intId)
+        public int GetUnreadMessageCount(int intId,out int flavourId)
         {
             MessageDao messageDao = new MessageDao();
             int intUnreadMessageCount;
+            flavourId = 0;
 
             try
             {
-                intUnreadMessageCount = messageDao.GetUnreadMessageCount(intId);
+                intUnreadMessageCount = messageDao.GetUnreadMessageCount(intId,out flavourId);
             }
             catch (BaseApplicationException Ex)
             {

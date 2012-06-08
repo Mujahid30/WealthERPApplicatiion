@@ -64,6 +64,8 @@ namespace WealthERP
             RMVo rmVo = new RMVo();
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
+
+            tdTermsCondition.Visible = false;
             try
             {
                 lblDate.Text = DateTime.Now.ToLongDateString();
@@ -105,9 +107,19 @@ namespace WealthERP
                     {
                         userVo = (UserVo)(Session["userVo"]);
                         rmVo = (RMVo)(Session[SessionContents.RmVo]);
+                        if (userVo.UserType == "Advisor")
+                        {
+
+                            tdTermsCondition.Visible = true;
+                        }
+                        else
+                        {
+                            tdTermsCondition.Visible = false;
+                        }
 
                         if ((!IsPostBack) && (userVo.UserType == "Customer"))
                         {
+                            tdTermsCondition.Visible = false;
                             tdDemo.Visible = false;
                             tdHelp.Visible = false;
                             lnkDemo.Visible = false;

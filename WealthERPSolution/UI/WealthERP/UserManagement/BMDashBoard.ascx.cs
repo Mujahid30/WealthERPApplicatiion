@@ -72,13 +72,14 @@ namespace WealthERP.UserManagement
             msgBo = new MessageBo();
 
             // Get unread messages from the DB
-            int intCount = 0;
-            intCount = msgBo.GetUnreadMessageCount(userVo.UserId);
+            int intCount = 0,flavourId=0;
+
+            intCount = msgBo.GetUnreadMessageCount(userVo.UserId,out flavourId);
 
             // Store the messages in a label control            
             if (intCount > 0)
             {
-                if (Session[SessionContents.UserTopRole] == "BM")
+                if (Session[SessionContents.UserTopRole] == "BM" && flavourId ==10)
                 {
                     lnkBtnNewMessages.Visible = true;
                     lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";

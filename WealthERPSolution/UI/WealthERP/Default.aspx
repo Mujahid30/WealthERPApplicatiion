@@ -620,11 +620,11 @@
                     <table width="100%">
                         <tr>
                             <td>
-                                <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 3.0 and above"
+                                <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 8.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
-                            <td>
-                                <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/Terms & Condition- WERP.pdf" style="font-size:x-small"
+                            <td id="tdTermsCondition" runat="server">
+                                <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf" style="font-size:x-small"
                                                     class="PCGWhiteText" target="_blank">Terms & Condition</a>                                
                             </td>
                             <td align="right">

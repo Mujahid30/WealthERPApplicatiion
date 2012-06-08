@@ -252,18 +252,45 @@ namespace DaoCommon
             return blResult;
         }
 
-        public int GetUnreadMessageCount(int intId)
+        public int GetUnreadMessageCount(int intId,out int flavourId)
         {
             Database db;
             DbCommand cmdGetUnreadMessageCount;
-            int Id;
-
+            int Id = 0; flavourId=0;
+            DataSet dsGetUnreadMessageCount = new DataSet();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetUnreadMessageCount = db.GetStoredProcCommand("sproc_Message_GetUnreadMessageCount");
                 db.AddInParameter(cmdGetUnreadMessageCount, "@userId", DbType.Int32, intId);
-                Id = Int32.Parse(db.ExecuteScalar(cmdGetUnreadMessageCount).ToString());
+                dsGetUnreadMessageCount = db.ExecuteDataSet(cmdGetUnreadMessageCount);
+                if (dsGetUnreadMessageCount.Tables.Count > 0)
+                {
+                    if(dsGetUnreadMessageCount.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsGetUnreadMessageCount.Tables[0].Rows)
+                        {
+                            if (dr["CNT"] != "" && dr["CNT"] != null)
+                            {
+                                Id = Int32.Parse(dr["CNT"].ToString());
+                            }
+                        }   
+                    }
+                }
+                if (dsGetUnreadMessageCount.Tables.Count > 1)
+                {
+                    if (dsGetUnreadMessageCount.Tables[1].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsGetUnreadMessageCount.Tables[1].Rows)
+                        {
+                            if (dr["WF_FlavourId"] != "" && dr["WF_FlavourId"] != null)
+                            {
+                                flavourId = Int32.Parse(dr["WF_FlavourId"].ToString());
+                            }
+                        }
+                    }
+
+                }
             }
             catch (BaseApplicationException Ex)
             {
