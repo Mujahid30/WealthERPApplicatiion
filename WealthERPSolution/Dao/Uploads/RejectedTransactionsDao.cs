@@ -138,6 +138,7 @@ namespace DaoUploads
         {
             Database db;
             DbCommand cmd;
+            bool result = false;
             int affectedRecords = 0;
             try
             {
@@ -147,34 +148,15 @@ namespace DaoUploads
                 db.AddInParameter(cmd, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(cmd, "@CurrentUser", DbType.Int32, userId);
                 affectedRecords = db.ExecuteNonQuery(cmd);
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
+                result = true;
             }
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "RejectedTransactionsDao.cs:GetRejectedRecord()");
-
-                object[] objects = new object[3];
-                objects[0] = transactionStagingId;
-                objects[1] = customerId;
-                objects[2] = userId;
-
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+                return result;
             }
-            if (affectedRecords > 0)
-                return true;
-            else
-                return false;
+            return result;
+          
         }
     }
 }
