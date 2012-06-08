@@ -169,7 +169,7 @@ namespace WealthERP.CustomerPortfolio
                 if (txtSTT.Text != string.Empty)
                     eqTransactionVo.STT = float.Parse(txtSTT.Text);
 
-                eqTransactionVo.TradeDate = Convert.ToDateTime(txtTransactionDate.SelectedDate);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
+                eqTransactionVo.TradeDate = Convert.ToDateTime(txtTransactionDate.Text);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
                 //eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
                 if (ddlTradeAccountNos.SelectedValue != "-1")
                     eqTransactionVo.AccountId = int.Parse(ddlTradeAccountNos.SelectedValue);
@@ -232,7 +232,7 @@ namespace WealthERP.CustomerPortfolio
 
             hashtable.Add("Mode", rdoDelivery.Checked);
 
-            hashtable.Add("TransactionDate", txtTransactionDate.SelectedDate);
+            hashtable.Add("TransactionDate", txtTransactionDate.Text);
             hashtable.Add("PanParent", txtPanParent.Text);
             Session["EqTransactionHT"] = hashtable;
         }
@@ -264,7 +264,7 @@ namespace WealthERP.CustomerPortfolio
                     rdoDelivery.Checked = true;
                 else
                     rdoSpeculative.Checked = true;
-                txtTransactionDate.SelectedDate =DateTime.Parse(hashtable["TransactionDate"].ToString());
+                txtTransactionDate.Text =hashtable["TransactionDate"].ToString();
                 txtPanParent.Text = hashtable["PanParent"].ToString();
                 BindCustomerTradeAccount();
             }
@@ -294,7 +294,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DataSet ds = customerTransactionBo.GetLastTradeDate();
-                txtTransactionDate.SelectedDate = DateTime.Parse((ds.Tables[0].Rows[0][0].ToString()));
+                txtTransactionDate.Text =DateTime.Parse(ds.Tables[0].Rows[0][0].ToString()).ToShortDateString();
             }
             catch (Exception ex)
             {

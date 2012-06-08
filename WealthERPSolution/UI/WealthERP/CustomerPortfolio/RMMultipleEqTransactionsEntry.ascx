@@ -223,7 +223,8 @@
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Transaction Date:"></asp:Label>
         </td>
         <td>
-            <telerik:RadDatePicker ID="txtTransactionDate" CssClass="txtField" runat="server" Culture="English (United States)"
+        <asp:TextBox ID="txtTransactionDate" runat="server" CssClass="txtField"></asp:TextBox>
+           <%-- <telerik:RadDatePicker ID="txtTransactionDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar  runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
@@ -231,12 +232,22 @@
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
-            </telerik:RadDatePicker>
+            </telerik:RadDatePicker>--%>
+            
+            <cc1:CalendarExtender ID="CalendarExtender7" runat="server" TargetControlID="txtTransactionDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtTransactionDate"
+                WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
             <span class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="vgBtnSubmitTemp"
                 runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
                 ControlToValidate="txtTransactionDate"></asp:RequiredFieldValidator>
+           <asp:CompareValidator ID="CvtxtTransDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtTransactionDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                ValueToCompare="" Display="Dynamic" ValidationGroup="vgBtnTSubmit"></asp:CompareValidator>
         </td>
         <td align="right">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="STT charges:"></asp:Label>
