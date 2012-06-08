@@ -230,7 +230,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <asp:Label ID="lblNoOfCustomerLogins" runat="server" CssClass="FieldName" Text="No of CustomerLogins : "></asp:Label>
+                        <asp:Label ID="lblNoOfCustomerLogins" runat="server" CssClass="FieldName" Text="No.of CustomerLogins:"></asp:Label>
                     </td>
                     <td>
                         <asp:TextBox ID="txtNoOfCustomerLogins" runat="server" CssClass="txtField" MaxLength="5"></asp:TextBox>
