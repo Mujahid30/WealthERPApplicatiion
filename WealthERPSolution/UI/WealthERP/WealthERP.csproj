@@ -6597,11 +6597,13 @@
     <None Include="Reports\TempReports\PortfolioReports_634044466546257687.pdf" />
     <None Include="Reports\TempReports\PortfolioReports_634044469450163937.pdf" />
     <None Include="Standard Upload Files\All Standard Upload Files.zip" />
+    <None Include="Standard Upload Files\BSEForOdin.xlsx" />
     <None Include="Standard Upload Files\CustomerProfile.xlsx" />
     <None Include="Standard Upload Files\EquityTradeAccount.xlsx" />
     <None Include="Standard Upload Files\EquityTransaction.xlsx" />
     <None Include="Standard Upload Files\MFFolio.xlsx" />
     <None Include="Standard Upload Files\MFTransaction.xlsx" />
+    <None Include="Standard Upload Files\NSEForOdin.xlsx" />
     <None Include="Terms &amp; Condition- WERP.pdf" />
     <None Include="UploadFiles\CAMSProfileXls.xls" />
     <None Include="UploadFiles\CPD.dbf" />
