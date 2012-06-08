@@ -23,6 +23,12 @@
         btn = document.getElementById('<%= btnExportExcel.ClientID %>');
         btn.click();
     }
+
+    function keyPress(sender, args) {
+        if (args.keyCode == 13) {
+            return false;
+        }
+    }
 </script>
 
 <style type="text/css" media="print">
@@ -147,7 +153,7 @@
     </tr>
 </table>
 <table>
-    <tr id="trRange" visible="true" runat="server">
+    <tr id="trRange" visible="true" runat="server" onkeypress="return keyPress(this, event)">
         <td align="right" valign="top">
             <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
         </td>
