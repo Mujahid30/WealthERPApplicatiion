@@ -3112,7 +3112,7 @@ namespace WealthERP.Uploads
                                                     packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
 
                                                     if (ddlListCompany.SelectedValue != Contants.UploadExternalTypeODIN)
-                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTrans(UploadProcessId, packagePath, configPath, adviserVo.advisorId);
+                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId,"WP");
                                                     else if (ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                     {
                                                         if (ddlAction.SelectedValue == "NSE")
@@ -3132,9 +3132,10 @@ namespace WealthERP.Uploads
                                                         {
                                                             werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 19); // EQ Trans XML File Type Id = 8
                                                         }
-                                                        //else
-                                                        //    werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
-
+                                                        else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == "WP")
+                                                        {
+                                                            werpEQSecondStagingResult = werpEQUploadsBo.WerpEQInsertToSecondStagingTransaction(UploadProcessId, packagePath, configPath, 8); // EQ Trans XML File Type Id = 8
+                                                        }
                                                         else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                         {
                                                             if (ddlAction.SelectedValue == "NSE")
@@ -5345,7 +5346,7 @@ namespace WealthERP.Uploads
                         {
                             ds = SkipRows(ds);
                         }
-
+                        ds.Tables[0].Columns.Add("column25");
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.EquityStandardTransaction);
 
