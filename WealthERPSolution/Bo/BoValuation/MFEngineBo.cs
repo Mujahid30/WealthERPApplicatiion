@@ -9,8 +9,6 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoValuation;
 
-
-
 //using VoValuation;
 
 namespace BoValuation
@@ -39,6 +37,7 @@ namespace BoValuation
         string expression = "CMFTB_UnitBalanceRETURN" + ">0";
         DataTable dtFinalCustomerMFTransactionBalance = new DataTable();
         DataTable dtCustomerMutualFundNetPosition = new DataTable();
+       
         bool isMFTractionSellPairRecreate;
 
         DataTable dtCustomerMFTransactionBalanceForNP = new DataTable();
@@ -849,12 +848,15 @@ namespace BoValuation
                     case "Advisor":
                         {
                             adviserId = commonId;
+                            dtCustomerMutualFundNetPosition = CreateNetpositionTable();
+
                             AdviserCustomers = mfEngineDao.GetAdviserCustomerList_MF(commonId);
                             if (AdviserCustomers != null)
                             {
                                 dtAdviserMFNetPosition = CreateNetpositionTable();
                                 foreach (int customerId in AdviserCustomers)
                                 {
+
                                     MFNetPositionCreation(customerId, 0, ValuationLabel.Customer, valuationDate);
                                     if (dtCustomerMutualFundNetPosition.Rows.Count > 0)
                                     {
@@ -865,6 +867,9 @@ namespace BoValuation
 
                                 }
                                 mfEngineDao.CreateAdviserMFNetPosition(adviserId, valuationDate, dtAdviserMFNetPosition);
+                                //DataSet ds = new DataSet();
+                                //ds.WriteXml(Server..MapPath("UploadFiles") + "\\" + processlogVo.ProcessId + ".xml", XmlWriteMode.WriteSchema);
+ 
                                 dtAdviserMFNetPosition.Clear();
                             }
                             break;
@@ -937,11 +942,11 @@ namespace BoValuation
                             dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionBalanceForNP.DefaultView.ToTable());
                             dsMFTransactionBalanceAndSellPair.Tables.Add(dtCustomerMFTransactionSellPairedForNP.DefaultView.ToTable());
 
-                            //if (commonId == 227769)
+                            //if (commonId == 117614 & schemePlanCode == 24261)
                             //{
 
                             //}
-
+                            dtMFAccountSchemeNetPosition = CreateNetpositionTable();
                             dtMFAccountSchemeNetPosition = CreateMFNetPositionDataTable(dsMFTransactionBalanceAndSellPair, valuationDate);
                             if (dtMFAccountSchemeNetPosition.Rows.Count > 0)
                                 dtCustomerMutualFundNetPosition.Merge(dtMFAccountSchemeNetPosition);
@@ -984,47 +989,47 @@ namespace BoValuation
             DataTable dtMFNetPosition = new DataTable();
             dtMFNetPosition.Columns.Add("CMFA_AccountId", typeof(Int32));
             dtMFNetPosition.Columns.Add("PASP_SchemePlanCode", typeof(Int32));
-            dtMFNetPosition.Columns.Add("CMFNP_MarketPrice", typeof(double));
+            dtMFNetPosition.Columns.Add("CMFNP_MarketPrice", typeof(decimal));
             dtMFNetPosition.Columns.Add("CMFNP_ValuationDate", typeof(DateTime));
-            dtMFNetPosition.Columns.Add("CMFNP_NetHoldings", typeof(double));
+            dtMFNetPosition.Columns.Add("CMFNP_NetHoldings", typeof(decimal));
 
-            dtMFNetPosition.Columns.Add("CMFNP_SalesQuantity", typeof(double));  //1 done
-            dtMFNetPosition.Columns.Add("CMFNP_RedeemedAmount", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_InvestedCost", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_CurrentValue", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_TotalPL", typeof(double));
+            dtMFNetPosition.Columns.Add("CMFNP_SalesQuantity", typeof(decimal));  //1 done
+            dtMFNetPosition.Columns.Add("CMFNP_RedeemedAmount", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_InvestedCost", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_CurrentValue", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_TotalPL", typeof(decimal));
 
-            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_AbsReturn", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_TotalXIRR", typeof(double));  //2 nt req
-            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVRAmt", typeof(double));   //3  done
+            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_AbsReturn", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_TotalXIRR", typeof(decimal));  //2 nt req
+            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVRAmt", typeof(decimal));   //3  done
 
-            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVPAmt", typeof(double));   //4  done
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AcqCost", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_TotalPL", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AbsReturn", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_PurchaseUnit", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVRUnits", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVPAmt", typeof(double));  //5 done
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_XIRR", typeof(double));  //6  nt req
-
-
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_InvestedCost", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_DVPAmt", typeof(double)); //7 done
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_DVRAmt", typeof(double));  //8   
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_TotalPL", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_AbsReturn", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_XIRR", typeof(double));  //9  nt req
+            dtMFNetPosition.Columns.Add("CMFNP_RET_ALL_DVPAmt", typeof(decimal));   //4  done
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AcqCost", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_TotalPL", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_AbsReturn", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_PurchaseUnit", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVRUnits", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_DVPAmt", typeof(decimal));  //5 done
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Hold_XIRR", typeof(decimal));  //6  nt req
 
 
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_PurchaseUnits", typeof(double));  // 10
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_BalanceAmt", typeof(double)); //11 done
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_TotalPL", typeof(double)); //12 done
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_EligibleSTCG", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_EligibleLTCG", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_TotalPL", typeof(double));  //13
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_AcqCost", typeof(double));  //14
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_STCG", typeof(double));
-            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_LTCG", typeof(double));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_InvestedCost", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_DVPAmt", typeof(decimal)); //7 done
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_DVRAmt", typeof(decimal));  //8   
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_TotalPL", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_AbsReturn", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_RET_Realized_XIRR", typeof(decimal));  //9  nt req
+
+
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_PurchaseUnits", typeof(decimal));  // 10
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_BalanceAmt", typeof(decimal)); //11 done
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_TotalPL", typeof(decimal)); //12 done
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_EligibleSTCG", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Hold_EligibleLTCG", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_TotalPL", typeof(decimal));  //13
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_AcqCost", typeof(decimal));  //14
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_STCG", typeof(decimal));
+            dtMFNetPosition.Columns.Add("CMFNP_TAX_Realized_LTCG", typeof(decimal));
 
             dtMFNetPosition.Columns.Add("CMFNP_CreatedBy", typeof(Int32));
             dtMFNetPosition.Columns.Add("CMFNP_CreatedOn", typeof(DateTime));
@@ -1293,7 +1298,7 @@ namespace BoValuation
             {
                 result = Financial.XIrr(values, date);
                 //This 'if' loop is a temporary fix for the error where calculation is done for XIRR instead of average
-                if (Convert.ToInt64(result).ToString().Length > 3 || result.ToString().Contains("E") || result.ToString().Contains("e"))
+                if (result.ToString().Contains("E") || Convert.ToInt64(result).ToString().Length > 3 || result.ToString().Contains("e"))
                 {
                     result = 0;
                 }
