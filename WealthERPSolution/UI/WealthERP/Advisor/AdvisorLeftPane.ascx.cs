@@ -180,7 +180,7 @@ namespace WealthERP.Advisor
                         RadPanelBar4.FindItemByValue("Customer").Selected = true;
                     }
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -191,7 +191,7 @@ namespace WealthERP.Advisor
                     else
                         RadPanelBar3.FindItemByValue("Customer").Selected = true;
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
@@ -202,7 +202,7 @@ namespace WealthERP.Advisor
                     else
                         RadPanelBar2.FindItemByValue("Customer").Selected = true;
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (userVo.RoleList.Contains("Ops"))
                 {
@@ -240,7 +240,7 @@ namespace WealthERP.Advisor
                 {
                     /* Inbox Visible only in research pane */
 
-                }
+                }               
                 //else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 //{
                 //    /* None visible as of now */
@@ -249,6 +249,8 @@ namespace WealthERP.Advisor
                 //{
                 //    /* None visible for customer as of now */
                 //}
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
 
             }
         }
