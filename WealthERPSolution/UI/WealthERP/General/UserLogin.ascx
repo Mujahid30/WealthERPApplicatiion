@@ -87,7 +87,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr runat="server" visible="false">
                                 <td colspan="2" align="right">
                                     <span class="FieldName">Forgot Password?
                                         <asp:LinkButton ID="lnkForgotPassword" runat="server" OnClick="ForgotPassword_Click">Click Here</asp:LinkButton>
