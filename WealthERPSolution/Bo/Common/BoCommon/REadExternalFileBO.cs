@@ -155,13 +155,16 @@ namespace BoCommon
                 {
                     if (filetype == "NSE")
                     {
-                        if (i == 19 || i == 20 || i==24)
+                        if (i == 19 || i == 20 || i == 24)
                         {
                             drOdin[i] = DateTime.Parse(items[i]);
 
                         }
                         else
-                            drOdin[i] = items[i];
+                        {
+                            //items[i] = items[i].Replace("\n", "");
+                            drOdin[i] = items[i].Replace("\n", "");
+                        }
                     }
                    else if (filetype == "BSE")
                     {
@@ -171,7 +174,8 @@ namespace BoCommon
 
                         //}
                         //else
-                            drOdin[i] = items[i];
+                            //items[i] = items[i].Replace("\n", "");
+                            drOdin[i] = items[i].Replace("\n", "");
                     }
 
                    
