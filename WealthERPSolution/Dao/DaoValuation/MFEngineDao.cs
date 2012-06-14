@@ -196,6 +196,7 @@ namespace DaoValuation
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerTransactionDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerTransactionsForBalanceCreation");
                 db.AddInParameter(getCustomerTransactionDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerTransactionDetailsCmd, "@ValuationDate", DbType.DateTime, DateTime.Now);
                 dsGetCustomerTransactionDetails = db.ExecuteDataSet(getCustomerTransactionDetailsCmd);
 
             }
@@ -224,7 +225,47 @@ namespace DaoValuation
             return dsGetCustomerTransactionDetails;
 
         }
+        public DataSet GetCustomerTransactionsForBalanceCreation(int customerId,DateTime dtValuationDate)
+        {
+            Database db;
+            DbCommand getCustomerTransactionDetailsCmd;
+            DataSet dsGetCustomerTransactionDetails;
 
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerTransactionDetailsCmd = db.GetStoredProcCommand("SPROC_GetCustomerTransactionsForBalanceCreation");
+                db.AddInParameter(getCustomerTransactionDetailsCmd, "@CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getCustomerTransactionDetailsCmd, "@ValuationDate", DbType.DateTime, dtValuationDate);
+                dsGetCustomerTransactionDetails = db.ExecuteDataSet(getCustomerTransactionDetailsCmd);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "MFEngineDao.cs:GetCustomerTransactionsForBalanceCreation()");
+
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dsGetCustomerTransactionDetails;
+
+        }
 
         public void CreateCustomerMFTransactionBalance(DataSet dsCustomerMFTransBalanceSellPair)
         {

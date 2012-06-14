@@ -79,7 +79,7 @@ namespace BoValuation
                       }
                   case "Customer":
                       {
-                          dsCustomerTransactionsDetails = mfEngineDao.GetCustomerTransactionsForBalanceCreation(commonId);
+                          dsCustomerTransactionsDetails = mfEngineDao.GetCustomerTransactionsForBalanceCreation(commonId, valuationDate);
                           dtCustomerPortfolio = dsCustomerTransactionsDetails.Tables[0];
                           dtCustomerAccount = dsCustomerTransactionsDetails.Tables[1];
                           dtCustomerTransactionsToProcess = dsCustomerTransactionsDetails.Tables[2];
