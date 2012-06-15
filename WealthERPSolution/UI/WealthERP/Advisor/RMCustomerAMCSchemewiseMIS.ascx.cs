@@ -466,7 +466,7 @@ namespace WealthERP.Advisor
                     drMISReport[3] = dsMISReport.Tables[0].Rows[i][5].ToString();
                     drMISReport[4] = dsMISReport.Tables[0].Rows[i][6].ToString();
                     drMISReport[5] = dsMISReport.Tables[0].Rows[i][9].ToString();
-                    drMISReport[9] = dsMISReport.Tables[0].Rows[i][11].ToString();
+                    drMISReport[9] = dsMISReport.Tables[0].Rows[i][10].ToString();
 
 
 
