@@ -226,7 +226,7 @@ namespace BoFPSuperlite
                 else
                     spouseLifeAfterCustomerRet = customerAssumptionVo.CustomerEOL - customerAssumptionVo.RetirementAge;
 
-                adjustedInfluation = ((1 + customerAssumptionVo.PostRetirementReturn / 100) / (1 + customerAssumptionVo.InflationPercent / 100) - 1) * 100;
+                adjustedInfluation = ((1 + customerAssumptionVo.PostRetirementReturn / 100) / (1 + customerAssumptionVo.PostRetirementInflation / 100) - 1) * 100;
 
                 if (goalPlanningVo.CorpusLeftBehind == 0)
                 {
