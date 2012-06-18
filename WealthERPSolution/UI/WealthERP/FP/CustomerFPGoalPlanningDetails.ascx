@@ -121,6 +121,13 @@
                                     </asp:Label>
                                 </FooterTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Expected Rate of Return(%)" HeaderStyle-HorizontalAlign="Center"
+                                ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpROI" runat="server" CssClass="cmbField" Text='<%#Eval("ExpROI")%>'>
+                                    </asp:Label>
+                                </ItemTemplate>                                
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Start Date" HeaderStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:Label ID="lblGoalDate" runat="server" CssClass="cmbField" Text='<%#Eval("GoalPrifileDate", "{0:M-dd-yyyy}")  %>'>
@@ -187,7 +194,8 @@
                                         Text="">
                                     </asp:Label>
                                 </FooterTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>      
+                            
                             <asp:TemplateField HeaderText="Monthly SIP Contribution" HeaderStyle-HorizontalAlign="Center"
                                 ItemStyle-HorizontalAlign="Right" FooterStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
