@@ -1,13 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewRepository.ascx.cs"
     Inherits="WealthERP.Admin.ViewRepository" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
 <style type="text/css">
     option
     {
         text-decoration: underline;
         color:Blue;
+        cursor:pointer;
+        cursor:hand;        
     }
 </style>
+
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -40,6 +44,7 @@
                         <td>
                             <asp:ListBox ID="ListBox1" runat="server" Visible="false" Width="300px" Height="150px"
                                 OnSelectedIndexChanged="ListBox_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+
                         </td>
                         <td>
                             <asp:ListBox ID="ListBox2" runat="server" Visible="false" Width="300px" Height="150px"

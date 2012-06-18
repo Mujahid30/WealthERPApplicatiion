@@ -122,11 +122,17 @@ namespace WealthERP.Admin
                             strLink = "~//" + strRepositoryPath + "//advisor_" + intAdviserId.ToString() + "////" + dr["AR_Filename"].ToString();
                             strLink = this.ResolveUrl(strLink);
                             ctrlLstBx.Items.Add(new ListItem(dr["AR_HeadingText"].ToString(), strLink));
+                            
+                            ctrlLstBx.CssClass = "option";                            
+                            ctrlLstBx.Attributes["style"] = "cursor:pointer;";
                         }
                         else
                         {
                             strLink = dr["AR_Link"].ToString();
                             ctrlLstBx.Items.Add(new ListItem(dr["AR_HeadingText"].ToString(), strLink));
+                           
+                            ctrlLstBx.Attributes["style"] = "cursor:pointer;";                            
+                            ctrlLstBx.CssClass = "option";
                         }
                     }
                     else
