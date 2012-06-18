@@ -230,6 +230,9 @@ namespace WealthERP.FP
                 tdPostRetirementReturns1.Visible = true;
                 tdPostRetirementReturns2.Visible = true;
 
+                tdPostRetirementInflation1.Visible = true;
+                tdPostRetirementInflation2.Visible = true;
+
                 //trReturnOnNewInvestments.Visible = true;
                 if (customerAssumptionVo.IsCorpusToBeLeftBehind == true)
                     trCorpusToBeLeftBehind.Visible = true;
@@ -244,7 +247,7 @@ namespace WealthERP.FP
                
                 //*****************Blank Table Cell**********************
                 //tdMFBasedBlank.Visible = true;
-                tdExistingInvestBlank.Visible = true;
+                //tdExistingInvestBlank.Visible = true;
                 tdReturnOnExistingInvestBlank.Visible = true;
                 tdReturnOnFutureInvestBlank.Visible = true;
                 //tdROIFutureInvestBlank.Visible = true;
@@ -264,6 +267,7 @@ namespace WealthERP.FP
                 txtCustomerEOL.Text = customerAssumptionVo.CustomerEOL.ToString();
                 txtSpouseEOL.Text = customerAssumptionVo.SpouseEOL.ToString();
                 txtPostRetirementReturns.Text = customerAssumptionVo.PostRetirementReturn.ToString();
+                txtPostRetirementInflation.Text = customerAssumptionVo.PostRetirementInflation.ToString();
                 //txtExpRateOfReturn.Text = customerAssumptionVo.WeightedReturn.ToString();
 
                 txtCustomerAge.Enabled = false;
@@ -272,6 +276,7 @@ namespace WealthERP.FP
                 txtCustomerEOL.Enabled = false;
                 txtSpouseEOL.Enabled = false;
                 txtPostRetirementReturns.Enabled = false;
+                txtPostRetirementInflation.Enabled = false;
 
             }
             else
@@ -294,13 +299,16 @@ namespace WealthERP.FP
                 tdPostRetirementReturns1.Visible = false;
                 tdPostRetirementReturns2.Visible = false;
 
+                tdPostRetirementInflation1.Visible = false;
+                tdPostRetirementInflation2.Visible = false;
+
                 //trReturnOnNewInvestments.Visible = false;
 
                 trCorpusToBeLeftBehind.Visible = false;
 
                 //*****************Blank Table Cell**********************
                 //tdMFBasedBlank.Visible = false;
-                tdExistingInvestBlank.Visible = false;
+                //tdExistingInvestBlank.Visible = false;
                 tdReturnOnExistingInvestBlank.Visible = false;
                 tdReturnOnFutureInvestBlank.Visible = false;
                 //tdROIFutureInvestBlank.Visible = false;
@@ -650,6 +658,9 @@ namespace WealthERP.FP
 
                 tdPostRetirementReturns1.Visible = false;
                 tdPostRetirementReturns2.Visible = false;
+
+                tdPostRetirementInflation1.Visible = false;
+                tdPostRetirementInflation2.Visible = false;
 
                
             }
@@ -1173,6 +1184,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
+                    customerAssumptionVo.PostRetirementInflation = Convert.ToDouble(txtPostRetirementInflation.Text.Trim());
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
@@ -1306,6 +1318,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
+                    customerAssumptionVo.PostRetirementInflation = Convert.ToDouble(txtPostRetirementInflation.Text.Trim());
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
@@ -1449,6 +1462,7 @@ namespace WealthERP.FP
                     customerAssumptionVo.CustomerEOL = Convert.ToUInt16(txtCustomerEOL.Text);
                     customerAssumptionVo.SpouseEOL = Convert.ToUInt16(txtSpouseEOL.Text);
                     customerAssumptionVo.PostRetirementReturn = Convert.ToDouble(txtPostRetirementReturns.Text);
+                    customerAssumptionVo.PostRetirementInflation = Convert.ToDouble(txtPostRetirementInflation.Text.Trim());
                     customerAssumptionVo.ReturnOnNewInvestment = Convert.ToDouble(txtExpRateOfReturn.Text);
                     customerAssumptionVo.InflationPercent = Convert.ToDouble(txtInflation.Text);
 
