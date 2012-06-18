@@ -378,6 +378,11 @@ namespace DaoFPSuperlite
                                 customerAssumptionVo.ReturnOnAlternate = double.Parse(Convert.ToString(dr["CPA_Value"]));
                                 break;
                             }
+                        case "PRI":
+                            {
+                                customerAssumptionVo.PostRetirementInflation = double.Parse(Convert.ToString(dr["CPA_Value"]));
+                                break;
+                            }
                     }
                 }
 
