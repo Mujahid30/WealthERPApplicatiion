@@ -1,8 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewRM.ascx.cs" Inherits="WealthERP.Advisor.ViewRM"
     Debug="false" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
-
-
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+</telerik:RadScriptManager>
 <table class="TableBackground" width="100%">
     <tr id="trMessage" runat="server" visible="false">
         <td>
@@ -14,21 +15,22 @@
             <asp:Label ID="Label1" runat="server" Text="RM List" CssClass="HeaderTextBig"></asp:Label>
         </td>
     </tr>--%>
-    <tr align="center">
+    <%-- <tr align="center">
         <td colspan="2" class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
-    </tr>
-   <tr id="trBMBranchs" runat="server">
-         <td colspan="2" style="float: left">
-            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName" Text="Branch: "></asp:Label>
+    </tr>--%>
+    <tr id="trBMBranchs" runat="server">
+        <td colspan="2" style="float: left">
+            <asp:Label ID="lblChooseBr" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName"
+                Text="Branch: "></asp:Label>
             &nbsp;&nbsp;
             <asp:DropDownList ID="ddlBMStaffList" runat="server" AutoPostBack="true" CssClass="cmbField"
-                onselectedindexchanged="ddlBMStaffList_SelectedIndexChanged">            
+                OnSelectedIndexChanged="ddlBMStaffList_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        </tr>
+    </tr>
     <tr width="100%">
         <td>
             <div id="print" runat="server" width="100%">
@@ -38,8 +40,106 @@
 </table>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
-
-<tr>
+        <tr>
+            <td class="HeaderCell">
+                <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
+                <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource">
+                    <exportsettings hidestructurecolumns="true">
+                    </exportsettings>
+                    <mastertableview datakeynames="UserId" width="100%" allowmulticolumnsorting="True"
+                        autogeneratecolumns="false" commanditemdisplay="Top">
+                        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                            ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
+                        <Columns>
+                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
+                              
+                                <%--<ItemTemplate>
+                                    <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
+                                        OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
+                                        <asp:ListItem>Select </asp:ListItem>
+                                        <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
+                                        <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
+                                    </asp:DropDownList>
+                                </ItemTemplate>--%>
+                                
+                               <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
+                                <ItemTemplate>
+                                    <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                        <Items>
+                                            <telerik:RadComboBoxItem  ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
+                                            </telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem  Text="View profile" Value="View profile" ImageUrl="~/Images/DetailedView.png" 
+                                            runat="server"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem  ImageUrl="~/Images/RecordEdit.png"  Text="Edit Profile" Value="Edit Profile"
+                                                runat="server"></telerik:RadComboBoxItem>                                          
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                </ItemTemplate>
+                           <%-- </asp:TemplateField>--%>
+                                
+                            </telerik:GridTemplateColumn>
+                            
+                            <%-- <telerik:GridTemplateColumn AllowFiltering="true">
+                                <ItemTemplate>
+                                    <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("RMName") %>'></asp:Label>
+                                </ItemTemplate>
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridTemplateColumn> --%>
+                            
+                             <telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText="Name"
+                                UniqueName="Name">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
+                                UniqueName="ActiveLevel">
+                                <FilterTemplate>
+                                <asp:DropDownList Visible="true" runat="server" ID="" OnSelectedIndexChanged="ddlNameFilter_OnSelectedIndexChanged" AutoPostBack="true"  CssClass="GridViewCmbField"></asp:DropDownList>
+                                </FilterTemplate>
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>--%>
+                            <telerik:GridBoundColumn DataField="StaffCode" AllowFiltering="false" HeaderText="Staffcode"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="StaffType" AllowFiltering="false" HeaderText="Type"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="StaffRole" AllowFiltering="false" HeaderText="Role"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="BranchList" AllowFiltering="false" HeaderText="Branch"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Email" AllowFiltering="false" HeaderText="Email"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Mobile" AllowFiltering="false" HeaderText="Mobile"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WealthERP Id" AllowFiltering="false" HeaderText="Id"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </mastertableview>
+                    <clientsettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </clientsettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+        <%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
                 <asp:GridView ID="gvRMList" runat="server" AllowSorting="True" AutoGenerateColumns="False"
@@ -59,15 +159,13 @@
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
                                     <asp:ListItem>Select </asp:ListItem>
-                                   <%-- <asp:ListItem Text="Edit profile" Value="Edit profile">Edit profile </asp:ListItem>--%>
                                     <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
                                      <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
-                                    <%--<asp:ListItem Text="RM Dashboard" Value="RM Dashboard">RM Dashboard</asp:ListItem>--%>
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>
                       <asp:BoundField DataField="RMName" HeaderText="Name" SortExpression="RMName" ItemStyle-Wrap="false" />
-                        <%--<asp:BoundField DataField="RM Main Branch" HeaderText="RM Main Branch" />--%>
+                       
                      <asp:BoundField DataField="StaffCode" HeaderText="Staffcode" />
                         <asp:BoundField DataField="StaffType" HeaderText="Type" />
                         <asp:BoundField DataField="StaffRole" HeaderText="Role" />
@@ -80,13 +178,10 @@
                 </asp:GridView>
            
         </td>
-    </tr>
-</table>
+    </tr>--%>
+    </table>
 </asp:Panel>
-
-
-
-<div id="DivPager" runat="server">
+<%--<div id="DivPager" runat="server">
     <table style="width: 100%">
         <tr id="trPager" runat="server">
             <td>
@@ -94,11 +189,10 @@
             </td>
         </tr>
     </table>
-</div>
+</div>--%>
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />
-
 <%-- Hiddenfields for BranchId, BranchHeadId and all parameters --%>
 <asp:HiddenField ID="hdnbranchID" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />

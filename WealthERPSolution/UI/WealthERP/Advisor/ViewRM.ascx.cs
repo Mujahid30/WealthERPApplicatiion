@@ -21,12 +21,15 @@ using System.Text;
 using BoCommon;
 using WealthERP.Base;
 using BoUploads;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.Advisor
 {
     public partial class ViewRM : System.Web.UI.UserControl
     {
+        DataTable dt;
+        public DropDownList ddl=new DropDownList();
         AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
@@ -47,104 +50,110 @@ namespace WealthERP.Advisor
         List<int> rmList = new List<int>();
         string currentRole = "";
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
+        #region removed the pager
 
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypager.EnableViewState = true;
+        //        base.OnInit(e);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRM.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.BindGrid();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
+       
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GetPageCount();
+        //        this.BindGrid();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRM.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit = "";
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = "";
-            string PageRecords = "";
-            try
-            {
-                if (hdnCount.Value != "")
-                    rowCount = Convert.ToInt32(hdnCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 15;
-                    mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 15) + 1).ToString();
-                    upperlimit = (mypager.CurrentPage * 15).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnCount.Value;
-                    PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+       
+        
+        //private void GetPageCount()
+        //{
+        //    string upperlimit = "";
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = "";
+        //    string PageRecords = "";
+        //    try
+        //    {
+        //        if (hdnCount.Value != "")
+        //            rowCount = Convert.ToInt32(hdnCount.Value);
+        //        if (rowCount > 0)
+        //        {
+        //            ratio = rowCount / 15;
+        //            mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
+        //            mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //            lowerlimit = (((mypager.CurrentPage - 1) * 15) + 1).ToString();
+        //            upperlimit = (mypager.CurrentPage * 15).ToString();
+        //            if (mypager.CurrentPage == mypager.PageCount)
+        //                upperlimit = hdnCount.Value;
+        //            PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //            lblCurrentPage.Text = PageRecords;
+        //            hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewRM.ascx.cs:GetPageCount()");
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+
+        #endregion
 
         protected void BindGrid()
         {
@@ -155,7 +164,7 @@ namespace WealthERP.Advisor
                 userVo = (UserVo)Session["UserVo"];
                 if (hdnCurrentPage.Value.ToString() != "")
                 {
-                    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+                    //mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
                     hdnCurrentPage.Value = "";
                 }
                 if (Session["RM"] != null)
@@ -197,7 +206,7 @@ namespace WealthERP.Advisor
                 if (!IsPostBack)
                 {
 
-                    mypager.CurrentPage = 1;
+                    //mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
                 //if (Session["RM"] != null)
@@ -239,9 +248,9 @@ namespace WealthERP.Advisor
                 if (rm.ToLower().Trim() == "find rm" || rm.ToLower().Trim() == "")
                     rm = "";
 
-                ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value.ToString(), out count);
+                ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, hdnSort.Value.ToString(), out count);
 
-                lblTotalRows.Text = hdnCount.Value = count.ToString();
+                //lblTotalRows.Text = hdnCount.Value = count.ToString();
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     trBMBranchs.Visible = false;
@@ -284,16 +293,16 @@ namespace WealthERP.Advisor
 
                     gvRMList.DataSource = dtAdvisorStaff;
                     gvRMList.DataBind();
-                    this.GetPageCount();
+                    //this.GetPageCount();
                 }
                 else
                 {
                     trBMBranchs.Visible = false;
                     gvRMList.DataSource = null;
                     gvRMList.DataBind();
-                    DivPager.Visible = false;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
+                    //DivPager.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
                     trMessage.Visible = true;
                 }
             }
@@ -339,10 +348,10 @@ namespace WealthERP.Advisor
                         bmIdOrHeadID = rmVo.RMId;
                         BindBMDropDown(bmIdOrHeadID);
                     }
-                    rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all, mypager.CurrentPage, out Count);
+                    rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all, out Count);
                     if (rmList!=null && rmList.Count != 0)
                     {
-                        lblTotalRows.Text = hdnCount.Value = Count.ToString();
+                        //lblTotalRows.Text = hdnCount.Value = Count.ToString();
                         DataTable dtAdvisorStaff = new DataTable();
                         dtAdvisorStaff.Columns.Add("UserId");
                         dtAdvisorStaff.Columns.Add("WealthERP Id");
@@ -382,15 +391,15 @@ namespace WealthERP.Advisor
                         gvRMList.Columns[4].Visible = false;
                         gvRMList.DataBind();
 
-                        this.GetPageCount();
+                        //this.GetPageCount();
                     }
                     else
                     {
                         gvRMList.DataSource = null;
                         gvRMList.DataBind();
-                        DivPager.Visible = false;
-                        lblCurrentPage.Visible = false;
-                        lblTotalRows.Visible = false;
+                        //DivPager.Visible = false;
+                        //lblCurrentPage.Visible = false;
+                        //lblTotalRows.Visible = false;
                         trMessage.Visible = true;
                     }
                 }
@@ -400,10 +409,12 @@ namespace WealthERP.Advisor
                     trMessage.Visible = false;
                     advisorStaffBo = new AdvisorStaffBo();
                     List<RMVo> advisorStaffList = null;
-                    advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value, out Count, string.Empty);
+                    //advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value, out Count, string.Empty);
+                    advisorStaffList = advisorStaffBo.GetRMList(advisorVo.advisorId, hdnSort.Value, string.Empty);
+
                     if (advisorStaffList != null)
                     {
-                        lblTotalRows.Text = hdnCount.Value = Count.ToString();
+                        //lblTotalRows.Text = hdnCount.Value = Count.ToString();
                         DataTable dtAdvisorStaff = new DataTable();
 
                         dtAdvisorStaff.Columns.Add("UserId");
@@ -440,19 +451,31 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[8] = rmVo.BranchList.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
-
                         gvRMList.DataSource = dtAdvisorStaff;
                         gvRMList.DataBind();
 
-                        this.GetPageCount();
+
+
+                        if (Cache["RMList"] == null)
+                        {
+                            Cache.Insert("RMList", dtAdvisorStaff);
+                        }
+                        else
+                        {
+                            Cache.Remove("RMList");
+                            Cache.Insert("RMList", dtAdvisorStaff);
+                        }
+
+                        
+                        //this.GetPageCount();
                     }
                     else
                     {
                         gvRMList.DataSource = null;
                         gvRMList.DataBind();
-                        DivPager.Visible = false;
-                        lblCurrentPage.Visible = false;
-                        lblTotalRows.Visible = false;
+                        //DivPager.Visible = false;
+                        //lblCurrentPage.Visible = false;
+                        //lblTotalRows.Visible = false;
                         trMessage.Visible = true;
                     }
                 }
@@ -483,16 +506,23 @@ namespace WealthERP.Advisor
 
             }
         }
+
+       
+
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             string menu;
             try
             {
-                DropDownList MyDropDownList = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                userId = int.Parse(gvRMList.DataKeys[selectedRow].Value.ToString());
+                RadComboBox MyDropDownList = (RadComboBox)sender; 
+                //DropDownList MyDropDownList = (DropDownList)sender;                
+                GridDataItem gvr = (GridDataItem)MyDropDownList.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                //int selectedRow = gvr.RowIndex;
+                //userId = int.Parse(gvRMList.DataKeys[selectedRow].Value.ToString());
+                userId = int.Parse(gvRMList.MasterTableView.DataKeyValues[selectedRow-1]["UserId"].ToString());
+
+              
                 Session["userId"] = userId;
                 rmVo = advisorStaffBo.GetAdvisorStaff(userId);
                 Session["CurrentrmVo"] = rmVo;
@@ -695,6 +725,20 @@ namespace WealthERP.Advisor
         {
 
         }
-        /* End For Binding the Branch Dropdowns */
+
+        protected void gvRMList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtMIS = new DataTable();
+            dtMIS = (DataTable)Cache["RMList"];
+            gvRMList.DataSource = dtMIS;
+        }
+
+        protected void ddlNameFilter_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+      
+            /* End For Binding the Branch Dropdowns */
     }
 }
