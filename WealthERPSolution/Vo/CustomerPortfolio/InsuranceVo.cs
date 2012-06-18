@@ -42,10 +42,9 @@ namespace VoCustomerPortfolio
         private DateTime m_FirstPremiumDate;
         private DateTime m_LastPremiumDate;
 
-       
 
-        
-   
+
+        private int m_SchemeId;
 
         #endregion Fields
 
@@ -261,6 +260,12 @@ namespace VoCustomerPortfolio
         {
             get { return m_LastPremiumDate; }
             set { m_LastPremiumDate = value; }
+        }
+
+        public int SchemeId
+        {
+            get { return m_SchemeId; }
+            set { m_SchemeId = value; }
         }
         #endregion Properties
     }
