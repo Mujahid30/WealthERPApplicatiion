@@ -1381,4 +1381,12 @@
     <value>General//InterestCalculator.ascx</value>
     <comment>General//InterestCalculator.ascx</comment>
   </data>
+  <data name="OrderList" xml:space="preserve">
+    <value>OPS//OrderList.ascx</value>
+    <comment>OPS//OrderList.ascx</comment>
+  </data>
+  <data name="ViewEQTransactionInputrejects" xml:space="preserve">
+    <value>Uploads//ViewEQTransactionInputrejects.ascx</value>
+    <comment>Uploads//ViewEQTransactionInputrejects.ascx</comment>
+  </data>
 </root>
