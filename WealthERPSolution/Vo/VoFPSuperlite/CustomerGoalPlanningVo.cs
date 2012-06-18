@@ -413,6 +413,14 @@ namespace VoFPSuperlite
             set { C_IsRiskProfileComplete = value; }
         }
 
+        private double A_PostRetirementInflation;
+
+        public double PostRetirementInflation
+        {
+            get { return A_PostRetirementInflation; }
+            set { A_PostRetirementInflation = value; }
+        }
+
     }
 
 
