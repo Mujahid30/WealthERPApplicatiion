@@ -519,6 +519,34 @@ namespace BoCustomerPortfolio
 
             return assetSubSubCategories;
         }
+        public DataSet GetGIPlans(string issuerCode)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet getUlipPlanDs;
+            try
+            {
+                getUlipPlanDs = assetDao.GetGIPlans(issuerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetBo.cs:GetULIPPlans()");
+                object[] objects = new object[1];
+                objects[0] = issuerCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return getUlipPlanDs;
+        }
+        
         public DataSet GetULIPPlans(string issuerCode)
         {
             AssetDao assetDao = new AssetDao();
