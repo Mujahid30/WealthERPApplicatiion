@@ -63,7 +63,7 @@ namespace WealthERP.Uploads
                 int ratio = rowCount / 10;
                 mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
                 mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
                 upperlimit = (mypager.CurrentPage * 10).ToString();
                 if (mypager.CurrentPage == mypager.PageCount)
                     upperlimit = hdnRecordCount.Value;
@@ -317,7 +317,7 @@ namespace WealthERP.Uploads
                 }
             }
         }
-        
+
         private void BindPanNumber(DataTable dtPanNumber)
         {
             Dictionary<string, string> genDictPanNum = new Dictionary<string, string>();
@@ -551,14 +551,14 @@ namespace WealthERP.Uploads
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
-                    blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);                    
+                    blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
                 }
             }
             if (blResult == false)
             {
                 error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
             }
-            
+
             if (blResult)
             {
                 // Success Message
@@ -610,6 +610,12 @@ namespace WealthERP.Uploads
             }
             return blResult;
         }
+
+        protected void lnkViewInputRejects_OnClick(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewEQTransactionInputrejects','processId=" + ProcessId + "');", true);
+        }
+
 
         protected void ddlRejectReason_SelectedIndexChanged(object sender, EventArgs e)
         {

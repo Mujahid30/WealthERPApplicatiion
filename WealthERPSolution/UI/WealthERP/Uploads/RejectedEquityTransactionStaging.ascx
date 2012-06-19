@@ -111,6 +111,11 @@
         <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
             <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
+            <td>
+            <asp:LinkButton runat="server" ID="lnkViewInputRejects" Text="View Input Rejects" CssClass="LinkButtons"  OnClick="lnkViewInputRejects_OnClick"></asp:LinkButton>
+            </td>
+            </tr>
+            <tr>
                 <td>
             <asp:GridView ID="gvWERPTrans" runat="server" AutoGenerateColumns="False" CellPadding="4" Width="101%"
                 ShowFooter="true" CssClass="GridViewStyle" DataKeyNames="WERPTransactionId" AllowSorting="true"
