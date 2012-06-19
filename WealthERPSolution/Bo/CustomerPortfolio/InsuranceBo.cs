@@ -1442,5 +1442,101 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
+        public DataTable GetInsuranceULIPPlans(int insuranceId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = insuranceDao.GetInsuranceULIPPlans(insuranceId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetInsuranceULIPPlans()");
+
+                object[] objects = new object[1];
+                objects[0] = insuranceId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        public void InsertNewULIPPlan(string PlanName, string InsuranceIssuerCode)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+                insuranceDao.InsertNewULIPPlan(PlanName, InsuranceIssuerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void InsertULIPInsuranceSchemeFund(string ulipSchemeFundName, int insuranceSchemeId, string issuerCode, int userId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+                insuranceDao.InsertULIPInsuranceSchemeFund(ulipSchemeFundName, insuranceSchemeId, issuerCode, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void InsertSchemeName(string schemeName, string InsuranceIssuerCode)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+                insuranceDao.InsertSchemeName(schemeName, InsuranceIssuerCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public bool UpdateULIPInsuranceSchemeFund(InsuranceULIPVo insuranceULIPvo)
+        {
+            bool bResult = false;
+            InsuranceDao insuranceDao = new InsuranceDao();
+            try
+            {
+                bResult = insuranceDao.UpdateULIPInsuranceSchemeFund(insuranceULIPvo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceBo.cs:UpdateULIPInsuranceSchemeFund()");
+                object[] objects = new object[1];
+                objects[0] = insuranceULIPvo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }

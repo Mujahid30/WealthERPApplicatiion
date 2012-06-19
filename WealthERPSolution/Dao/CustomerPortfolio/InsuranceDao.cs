@@ -28,7 +28,11 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@PAG_AssetGroupCode", DbType.String, insuranceVo.AssetGroupCode);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CIA_AccountId", DbType.Int32, insuranceVo.AccountId);
                 db.AddInParameter(createInsurancePortfolioCmd, "@XII_InsuranceIssuerCode", DbType.String, insuranceVo.InsuranceIssuerCode);
-                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Name", DbType.String, insuranceVo.Name);
+                if (insuranceVo.Name != null)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Name", DbType.String, insuranceVo.Name);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Name", DbType.String, DBNull.Value);
+
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_StartDate", DbType.DateTime, insuranceVo.StartDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_EndDate", DbType.DateTime, insuranceVo.EndDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SumAssured", DbType.Decimal, insuranceVo.SumAssured);
@@ -112,6 +116,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_StartDate", DbType.DateTime, insuranceVo.StartDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_EndDate", DbType.DateTime, insuranceVo.EndDate);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SumAssured", DbType.Decimal, insuranceVo.SumAssured);
+                db.AddInParameter(createInsurancePortfolioCmd, "@IS_SchemeId", DbType.Int32, insuranceVo.SchemeId);
                 if (insuranceVo.ApplicationDate != DateTime.MinValue)
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ApplicationDate", DbType.DateTime, insuranceVo.ApplicationDate);
                 else
@@ -331,6 +336,8 @@ namespace DaoCustomerPortfolio
                     insuranceVo.InsuranceIssuerCode = dr["XII_InsuranceIssuerCode"].ToString();
                     insuranceVo.MaturityValue = float.Parse(dr["CINP_MaturityValue"].ToString());
                     insuranceVo.Name = dr["CINP_Name"].ToString();
+                    if (dr["IS_SchemeId"].ToString() != string.Empty)
+                    insuranceVo.SchemeId = int.Parse(dr["IS_SchemeId"].ToString());
                     insuranceVo.PremiumAccumalated = float.Parse(dr["CINP_PremiumAccumalated"].ToString());
                     insuranceVo.PremiumAmount = float.Parse(dr["CINP_PremiumAmount"].ToString());
 
@@ -507,16 +514,21 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createInsuranceULIPPlanCmd = db.GetStoredProcCommand("SP_CreateInsuranceULIPPlan");
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CINP_InsuranceNPId", DbType.Int32, insuranceUlipVo.CIP_CustInsInvId);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@WUSP_ULIPSubPlanCode", DbType.Int32, insuranceUlipVo.WUP_ULIPSubPlaCode);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@ISF_SchemeFundId", DbType.Int32, insuranceUlipVo.WUP_ULIPSubPlaCode);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
+                //db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
+
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_InvestedCost", DbType.Double, insuranceUlipVo.CIUP_InvestedCost);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_CurrentValue", DbType.Double, insuranceUlipVo.CIUP_CurrentValue);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Double, insuranceUlipVo.CIUP_AbsoluteReturn);
+
                 if(insuranceUlipVo.CIUP_PurchaseDate != DateTime.MinValue)
-                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
+                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
                 else
-                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_CreatedBy", DbType.Int32, insuranceUlipVo.CIUP_CreatedBy);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CIUP_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
+                    db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_PurchaseDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_CreatedBy", DbType.Int32, insuranceUlipVo.CIUP_CreatedBy);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
                 if (db.ExecuteNonQuery(createInsuranceULIPPlanCmd) != 0)
                     bResult = true;
 
@@ -550,15 +562,22 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateInsuranceULIPPlanCmd = db.GetStoredProcCommand("SP_UpdateInsuranceULIPPlan");
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_ULIPPlanId", DbType.Int32, insuranceUlipVo.CIUP_ULIPPlanId);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_ULIPPlanId", DbType.Int32, insuranceUlipVo.CIUP_ULIPPlanId);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
                 if(insuranceUlipVo.CIUP_PurchaseDate != DateTime.MinValue)
-                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
+                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_PurchaseDate", DbType.DateTime, insuranceUlipVo.CIUP_PurchaseDate);
                 else
-                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_PurchaseDate", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CIUP_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
+                    db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_PurchaseDate", DbType.DateTime, DBNull.Value);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
+
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_InvestedCost", DbType.Double, insuranceUlipVo.CIUP_InvestedCost);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_CurrentValue", DbType.Double, insuranceUlipVo.CIUP_CurrentValue);
+                //db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_NAV", DbType.Double, insuranceUlipVo.CINPUD_NAV);
+                //db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_MortalityCharges", DbType.Double, insuranceUlipVo.CINPUD_MortalityCharges);
+                //db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_OtherCharges", DbType.Double, insuranceUlipVo.CINPUD_OtherCharges);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Double, insuranceUlipVo.CIUP_AbsoluteReturn);
                 if (db.ExecuteNonQuery(updateInsuranceULIPPlanCmd) != 0)
                     bResult = true;
             }
@@ -745,17 +764,22 @@ namespace DaoCustomerPortfolio
                     foreach (DataRow dr in getInsuranceUlipListDt.Rows)
                     {
                         insuranceUlipVo = new InsuranceULIPVo();
-                        insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(dr["CIUP_ULIPPlanId"].ToString());
-                        insuranceUlipVo.CIUP_AllocationPer = float.Parse(dr["CIUP_AllocationPer"].ToString());
-                        insuranceUlipVo.CIUP_CreatedBy = int.Parse(dr["CIUP_CreatedBy"].ToString());
-                        insuranceUlipVo.CIUP_ModifiedBy = int.Parse(dr["CIUP_ModifiedBy"].ToString());
-                        insuranceUlipVo.CIUP_PurchasePrice = float.Parse(dr["CIUP_PurchasePrice"].ToString());
-                        if (dr["CIUP_PurchaseDate"].ToString() != null && dr["CIUP_PurchaseDate"].ToString() != string.Empty)
-                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(dr["CIUP_PurchaseDate"].ToString());
+                        insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(dr["CINPUD_ULIPPlanId"].ToString());
+                        insuranceUlipVo.CIUP_AllocationPer = float.Parse(dr["CINPUD_AllocationPer"].ToString());
+                        insuranceUlipVo.CIUP_CreatedBy = int.Parse(dr["CINPUD_CreatedBy"].ToString());
+                        insuranceUlipVo.CIUP_ModifiedBy = int.Parse(dr["CINPUD_ModifiedBy"].ToString());
+                        //insuranceUlipVo.CIUP_PurchasePrice = float.Parse(dr["CINPUD_PurchasePrice"].ToString());
+                        if (dr["CINPUD_PurchaseDate"].ToString() != null && dr["CINPUD_PurchaseDate"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(dr["CINPUD_PurchaseDate"].ToString());
                         else
                             insuranceUlipVo.CIUP_PurchaseDate = DateTime.MinValue;
-                        insuranceUlipVo.CIUP_Unit = float.Parse(dr["CIUP_Unit"].ToString());
-                        insuranceUlipVo.WUP_ULIPSubPlaCode = dr["WUSP_ULIPSubPlanCode"].ToString();
+                        insuranceUlipVo.CIUP_Unit = float.Parse(dr["CINPUD_Unit"].ToString());
+                        insuranceUlipVo.WUP_ULIPSubPlaCode = dr["ISF_SchemeFundId"].ToString();
+
+                        insuranceUlipVo.CIUP_CurrentValue = float.Parse(dr["CINPUD_CurrentValue"].ToString());
+                        insuranceUlipVo.CIUP_InvestedCost = float.Parse(dr["CINPUD_InvestedCost"].ToString());
+                        insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(dr["CINPUD_AbsoluteReturn"].ToString());
+
                         insuranceUlipList.Add(insuranceUlipVo);
 
                     }
@@ -2142,7 +2166,142 @@ namespace DaoCustomerPortfolio
             return insuranceGrpDetails;
         }
 
+        public DataTable GetInsuranceULIPPlans(int insuranceId)
+        {
+            Database db;
+            DbCommand chkGenInsPortfolioExistCmd;
+            DataTable dt = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkGenInsPortfolioExistCmd = db.GetStoredProcCommand("SP_GetInsuranceULIPPlans");
+                db.AddInParameter(chkGenInsPortfolioExistCmd, "@CINP_InsuranceNPId", DbType.Int32, insuranceId);
+                DataSet ds = db.ExecuteDataSet(chkGenInsPortfolioExistCmd);
+                if (ds != null)
+                {
+                    dt = ds.Tables[0];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetInsuranceULIPPlans()");
+
+                object[] objects = new object[1];
+                objects[0] = insuranceId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        public void InsertNewULIPPlan(string PlanName, string InsuranceIssuerCode)
+        {
+            Database db;
+            DbCommand cmdInsertNewULIPPlan;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertNewULIPPlan = db.GetStoredProcCommand("SP_InsertNewULIPPlan");
+                db.AddInParameter(cmdInsertNewULIPPlan, "@PlanName", DbType.String, PlanName);
+                db.AddInParameter(cmdInsertNewULIPPlan, "@InsuranceIssuerCode", DbType.String, InsuranceIssuerCode);
+                db.ExecuteNonQuery(cmdInsertNewULIPPlan);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void InsertULIPInsuranceSchemeFund(string ulipSchemeFundName, int insuranceSchemeId, string issuerCode, int userId)
+        {
+            Database db;
+            DbCommand cmdInsertNewULIPSubPlan;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertNewULIPSubPlan = db.GetStoredProcCommand("SP_InsertNewULIPSchemeFund");
+                db.AddInParameter(cmdInsertNewULIPSubPlan, "@UlipSchemeFundName", DbType.String, ulipSchemeFundName);
+                db.AddInParameter(cmdInsertNewULIPSubPlan, "@SchemeId", DbType.String, insuranceSchemeId);
+                db.AddInParameter(cmdInsertNewULIPSubPlan, "@IssuerCode", DbType.String, issuerCode);
+                db.AddInParameter(cmdInsertNewULIPSubPlan, "@UserId", DbType.String, userId);
+                db.ExecuteNonQuery(cmdInsertNewULIPSubPlan);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public void InsertSchemeName(string schemeName, string InsuranceIssuerCode)
+        {
+            Database db;
+            DbCommand cmdInsertschemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertschemeName = db.GetStoredProcCommand("SP_InsertInsuranceSchemeName");
+                db.AddInParameter(cmdInsertschemeName, "@schemeName", DbType.String, schemeName);
+                db.AddInParameter(cmdInsertschemeName, "@InsuranceIssuerCode", DbType.String, InsuranceIssuerCode);
+                db.ExecuteNonQuery(cmdInsertschemeName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public bool UpdateULIPInsuranceSchemeFund(InsuranceULIPVo insuranceULIPvo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand cmdUpdateULIPSchemeFund;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateULIPSchemeFund = db.GetStoredProcCommand("SP_UpdateULIPInsuranceSchemeFund");
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@ISF_SchemeFundId", DbType.Double, insuranceULIPvo.CIUP_ULIPPlanId);
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_CurrentValue", DbType.Double, insuranceULIPvo.CIUP_CurrentValue);
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_Unit", DbType.Double, insuranceULIPvo.CIUP_Unit);
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_AllocationPer", DbType.Double, insuranceULIPvo.CIUP_AllocationPer);
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_AbsoluteReturn", DbType.Double, insuranceULIPvo.CIUP_AbsoluteReturn);
+                db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_InvestedCost", DbType.Double, insuranceULIPvo.CIUP_InvestedCost);
+
+                if (insuranceULIPvo.CIUP_PurchaseDate != DateTime.MinValue)
+                    db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_PurchaseDate", DbType.DateTime, insuranceULIPvo.CIUP_PurchaseDate);
+                else
+                    db.AddInParameter(cmdUpdateULIPSchemeFund, "@CIUP_PurchaseDate", DbType.DateTime, DBNull.Value);
+
+                if (db.ExecuteNonQuery(cmdUpdateULIPSchemeFund) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:CreateInsuranceULIPPlan()");
+                object[] objects = new object[1];
+                objects[0] = insuranceULIPvo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return bResult;
+        }
     }
-
 }

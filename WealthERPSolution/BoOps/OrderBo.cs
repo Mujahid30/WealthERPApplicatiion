@@ -162,13 +162,13 @@ namespace BoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
         {
             bool bResult = false;
             OrderDao orderDao = new OrderDao();
             try
             {
-                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo);
+                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
 
             }
             catch (BaseApplicationException Ex)
@@ -193,37 +193,67 @@ namespace BoOps
             return bResult;
         }
 
-        //public DataSet GetLifeInsuranceOrderDetails(LifeInsuranceOrderVo lifeInsuranceOrdervo)
-        //{
-        //    DataSet dsLIOrder = null;
-        //    DataTable dtLIOrder = null;
-        //    OrderDao orderDao = new OrderDao();
-        //    try
-        //    {
-        //        dsLIOrder = orderDao.GetLifeInsuranceOrderDetails();
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        public bool UpdateLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        {
+            bool bResult = false;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                bResult = orderDao.UpdateLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
 
-        //        FunctionInfo.Add("Method", "OrderBo.cs:GetLifeInsuranceOrderDetails()");
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
-        //        object[] objects = new object[1];
-        //        objects[0] = issuerCode;
+                FunctionInfo.Add("Method", "orderBo.cs:AddLifeInsuranceOrder()");
 
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
+                object[] objects = new object[1];
+                objects[0] = lifeInsuranceOrdervo;
 
-        //    }
-        //    return dsLIOrder;
-        //}
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public LifeInsuranceOrderVo GetLifeInsuranceOrderDetails(int orderId)
+        {
+            LifeInsuranceOrderVo lifeInsuranceOrderVo = new LifeInsuranceOrderVo();            
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                lifeInsuranceOrderVo = orderDao.GetLifeInsuranceOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetLifeInsuranceOrderDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = orderId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return lifeInsuranceOrderVo;
+        }
 
         //public bool EditLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo)
         //{
@@ -254,8 +284,72 @@ namespace BoOps
         //    }
         //    return bResult;
         //}
-      
-        
+
+        public DataTable GetCustomerOrderDetails(int customerId, DateTime orderDate, string AssetCategory, string applicationNumber)
+        {
+            DataTable dtOrderDetails = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderDetails = orderDao.GetCustomerOrderDetails(customerId, orderDate, AssetCategory, applicationNumber);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetCustomerOrderDetails()");
+
+                object[] objects = new object[4];
+                objects[0] = customerId;
+                objects[1] = orderDate;
+                objects[2] = AssetCategory;
+                objects[3] = applicationNumber;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtOrderDetails;
+        }
+
+        public DataSet GetOrderStepsDetails(int orderId)
+        {
+            DataSet dsStepsDetails = null;
+            DataTable dtStepsDetails = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dsStepsDetails = orderDao.GetOrderStepsDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStepsDetails()");
+
+                object[] objects = new object[1];
+                objects[0] = orderId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsStepsDetails;
+        }
         /*************************************Code starts Here for Bond Order ****************************************************************************************/
                
         public DataTable GetAssetParticularForBonds(int bondIssuerId)
@@ -404,6 +498,36 @@ namespace BoOps
 
             }
             return dtDemateDetails;
+        }
+
+        public DataTable GetCustomerOrderList(int customerId)
+        {
+            DataTable dtOrder = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrder = orderDao.GetCustomerOrderList(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetCustomerOrderList()");
+
+                object[] objects = new object[1];
+                objects[0] = customerId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
         }
     }
 }
