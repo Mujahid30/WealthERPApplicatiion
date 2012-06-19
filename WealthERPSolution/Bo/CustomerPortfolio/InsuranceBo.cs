@@ -115,14 +115,14 @@ namespace BoCustomerPortfolio
             return bResult;
         }
         
-        public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, int currentPage, string sortExpression, out int count)
+        public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, string sortExpression)
         {
             InsuranceDao insuranceDao = new InsuranceDao();
             List<InsuranceVo> insuranceList = new List<InsuranceVo>();
 
             try
             {
-                insuranceList = insuranceDao.GetInsurancePortfolio(portfolioId, currentPage, sortExpression, out count);
+                insuranceList = insuranceDao.GetInsurancePortfolio(portfolioId, sortExpression);
             }
             catch (BaseApplicationException Ex)
             {
