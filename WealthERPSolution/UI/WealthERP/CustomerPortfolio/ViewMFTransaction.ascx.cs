@@ -12,6 +12,7 @@ using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using WealthERP.Base;
 using BoCommon;
+using System.Data;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -58,8 +59,21 @@ namespace WealthERP.CustomerPortfolio
 
         private void LoadViewFields()
         {
+            bool isMainPortfolio=false;
+            DataSet dsPortfolioType=new DataSet();
+            dsPortfolioType = customerTransactionBo.GetPortfolioType(mfTransactionVo.Folio);
+            
             try
             {
+                if (dsPortfolioType.Tables[0].Rows.Count > 0)
+                {
+                    if (Convert.ToInt16(dsPortfolioType.Tables[0].Rows[0][0].ToString()) == 1)
+                    {
+                        isMainPortfolio = true;
+                    }
+
+                }
+
                 if (Session["MFEditValue"].ToString() =="Edit")
                 {
                     SetFields(1);
@@ -67,17 +81,17 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     SetFields(0);
-                }
-                
+                }                
 
-                if (mfTransactionVo.IsSourceManual == 1)
-                {
-                    lnkEdit.Visible = true;
-                }
-                else
-                {
-                    lnkEdit.Visible = false;
-                }
+                //if (mfTransactionVo.IsSourceManual == 1)
+                //{
+                //    lnkEdit.Visible = true;
+                //}
+                //else
+                //{
+                //    lnkEdit.Visible = false;
+                //}
+
                 lblAMCName.Text = mfTransactionVo.AMCName;
                 lblcategoryName.Text = mfTransactionVo.Category;
                 lblScheme.Text = mfTransactionVo.SchemePlan.ToString();
@@ -109,20 +123,25 @@ namespace WealthERP.CustomerPortfolio
                 }
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
                 lblTransactionStatusValue.Text = mfTransactionVo.TransactionStatus.ToString();
-                if (mfTransactionVo.TransactionStatusCode == 1)
-                {
-                    btnCancel.Visible = true;
 
-                }
-                else
-                {
-                    btnCancel.Visible = false;
-                }
-                if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
-                {
-                    btnCancel.Visible = false;
-                    lnkEdit.Visible = false;
-                }
+                ShowHideCommandButton(isMainPortfolio, mfTransactionVo.IsSourceManual == 1 ? true : false, Session[SessionContents.CurrentUserRole].ToString() == "Customer" ? true : false, mfTransactionVo.TransactionStatusCode == 1 ? true : false);
+
+
+                //if (mfTransactionVo.TransactionStatusCode == 1)
+                //{
+                //    btnCancel.Visible = true;
+                //}
+                //else
+                //{
+                //    btnCancel.Visible = false;
+                //}
+
+                //if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
+                //{
+                //    btnCancel.Visible = false;
+                //    lnkEdit.Visible = false;
+                //}
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -141,6 +160,42 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+        }
+
+        protected void ShowHideCommandButton(bool isMainportfolio, bool isManulSource, bool isCustomerLogin, bool isOkTransaction)
+        {
+            if (isCustomerLogin == true || isOkTransaction==false)
+            {
+                lnkEdit.Visible = false;
+                btnDelete.Visible = false;
+                btnCancel.Visible = false;
+            }
+            else if (isMainportfolio == true)
+            {
+                if (isManulSource == true)
+                {
+                    lnkEdit.Visible = true;
+                    btnCancel.Visible = false;
+                    btnDelete.Visible = true;
+                    btnDelete.Enabled = false;
+                }
+                else
+                {
+                    lnkEdit.Visible = false;
+                    btnDelete.Visible = false;
+                    btnCancel.Visible = true;
+                    btnCancel.Enabled = false;
+                }
+
+            }
+            else
+            {
+                lnkEdit.Visible = true;
+                btnDelete.Visible = true;
+                btnDelete.Enabled = false;
+
+            }
+ 
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -277,8 +332,16 @@ namespace WealthERP.CustomerPortfolio
                 txtPrice.Text = mfTransactionVo.Price.ToString();
                 txtSTT.Text = mfTransactionVo.STT.ToString();
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
-                Session["MFEditValue"] = "Edit";
-                btnCancel.Visible = true;
+                Session["MFEditValue"] = "Edit";              
+                lnkEdit.Visible = false;
+                if (btnDelete.Visible == true)
+                {
+                    btnDelete.Enabled = true;
+                }
+                else if (btnCancel.Visible == true)
+                {
+                    btnDelete.Enabled = true;
+                }
 
             }
 
