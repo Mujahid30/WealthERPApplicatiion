@@ -855,17 +855,16 @@
             <table align="Left" width="80%">
             <tr>
               <td colspan="4"></td>
-              </tr>
+            </tr>
               
-              <tr>
+             <tr>
               <td colspan="4"></td>
-              </tr>
+             </tr>
                                
              <tr>
-                <td align="right" valign="top" width="15%">
-                    <asp:Label ID="lblAmcCode" runat="server" CssClass="FieldName" Text="AMC:"></asp:Label>
-                </td>
-                <td width="25%">
+                <td align="left" colspan="2" width="40%">
+                    <asp:Label ID="lblAmcCode" runat="server" CssClass="FieldName" Text="AMC:"></asp:Label>&nbsp;&nbsp;&nbsp;
+               
                     <asp:DropDownList ID="ddlAmcCode" runat="server" AutoPostBack="true" 
                         CssClass="cmbField" onselectedindexchanged="ddlAmcCode_SelectedIndexChanged" 
                         style="width:350px;">
@@ -875,54 +874,42 @@
                         ErrorMessage="&lt;br /&gt;Please Select AMC Code" Operator="NotEqual" 
                         ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
                 </td>
-                <td align="right" valign="top" width="15%">
+                <td align="left" colspan="2" width="60%"> 
+                     <asp:Label ID="lblFactCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <asp:DropDownList ID="ddlFactCategory" runat="server" AutoPostBack="true" 
+                        CssClass="cmbField" onselectedindexchanged="ddlFactCategory_SelectedIndexChanged" style="width:350px;">
+                    </asp:DropDownList>
+                  </td>
+              </tr> 
+                               
+                <tr>
+                <td align="left" colspan="2" width="40%">
                     <asp:Label ID="lblSchemeList" runat="server" CssClass="FieldName" 
                         Text="Scheme:"></asp:Label>
-                </td>
-                <td width="25%">
+                
                     <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" 
                         style="width:350px;">
                     </asp:DropDownList>
                     <asp:CompareValidator ID="CompareValidator2" runat="server" 
                         ControlToValidate="ddlSchemeList" CssClass="cvPCG" Display="Dynamic" 
                         ErrorMessage="&lt;br /&gt;Please Select Scheme" Operator="NotEqual" 
-                        ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-                  </td>
-            </tr> 
-                               
-                <tr>
-                    <td class="leftField" colspan="2" width="40%">
+                        ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator></td>
+                    <td  align="left" colspan="2" width="60%">
                         <asp:Label ID="lblYear" runat="server" CssClass="FieldName" 
                             Text="Month &amp; Year:">
                         </asp:Label>
                     
-                      <%--  <telerik:RadDatePicker Skin="Telerik" ID="RadDatePicker1" runat="server">
-                            <DateInput Skin="Telerik" DateFormat="">
-                            </DateInput>
-                            <Calendar>
-                                <FastNavigationSettings TodayButtonCaption="current date" />
-                            </Calendar>
-                        </telerik:RadDatePicker>--%>
-                     <%--<asp:TextBox ID="txtFactSheetDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
-                     <span class="spnRequiredField">*</span>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" CssClass="FieldName" ErrorMessage="Invalid Date"
-                                        ControlToValidate="txtFactSheetDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
-                                    <cc1:CalendarExtender ID="txtFactSheetDate_CalendarExtender" runat="server" TargetControlID="txtFactSheetDate"
-                                        Format="dd/MM/yyyy" Enabled="True"></cc1:CalendarExtender>
-                                    <cc1:TextBoxWatermarkExtender ID="txtFactSheetDate_TextBoxWatermarkExtender" runat="server"
-                                        TargetControlID="txtFactSheetDate" WatermarkText="dd/mm/yyyy" Enabled="True"></cc1:TextBoxWatermarkExtender>
-                                    <asp:RequiredFieldValidator ID="rfv_txtFactSheetDate" ControlToValidate="txtFactSheetDate"
-                ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter a Date" Display="Dynamic"
-                runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
             <asp:DropDownList ID="ddYear" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <asp:DropDownList ID="ddMonth" runat="server" CssClass="cmbField">
             </asp:DropDownList>
                     </td>
                   
-                    <td></td>
+                    
                 </tr>
+                <tr>
+              <td colspan="4"></td>
+             </tr>
                 <tr>
                       <td align="left" align="left" width="20%">
                         <asp:Button ID="btnViewFactsheet" runat="server" CssClass="PCGMediumButton" 
@@ -942,8 +929,7 @@
             </tr>  
               
                 
-               <tr>
-               <td colspan="2">
+               <tr><td colspan="2">
                <table id="tblFactSheet" runat="server" align="Left" width="80%">
             
             <tr>
@@ -955,15 +941,14 @@
                 <td width="30%">
                 <asp:Label ID="lblFactSheetHeading" runat="server" CssClass="HeaderTextSmall" 
                         Text="FactSheet for "></asp:Label>
-                <asp:Label ID="lblGetScheme" runat="server" CssClass="HeaderTextSmall" Text=" "></asp:Label>
-                </td>
-                <td width="10%"></td>
+                    <asp:Label ID="lblGetScheme" 
+                        runat="server" CssClass="HeaderTextSmall" Text=" "></asp:Label></td>
+                    <td 
+                        width="10%"></td>
                 <td align="left" width="30%">
-                <asp:Label ID="lblMonth" runat="server" CssClass="HeaderTextSmall" Text="Month: "></asp:Label>
-                <asp:Label ID="lblGetMonth" runat="server" CssClass="HeaderTextSmall" Text=" "></asp:Label>
-                </td>
-                </tr>
-                <tr><td colspan="3">
+                <asp:Label ID="lblMonth" runat="server" CssClass="HeaderTextSmall" Text="Month: "></asp:Label><asp:Label 
+                        ID="lblGetMonth" runat="server" CssClass="HeaderTextSmall" Text=" "></asp:Label></td></tr><tr>
+                       <td colspan="3">
                     <hr /></td></tr>
             
             <tr>
@@ -973,424 +958,237 @@
             <tr>
             <td width="30%">
             <asp:Label ID="lblObjective" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Fund Objective"></asp:Label>
-            </td>
-            <td width="10%"></td>
+                    Text="Fund Objective"></asp:Label></td>
+                <td width="10%"></td>
             <td width="30%">
             <asp:Label ID="lblInvestInfo" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Investment Information"></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
-            <td valign="top" width="30%">
+                    Text="Investment Information"></asp:Label></td></tr>
+                   <tr>
+            <td width="30%" valign="top">
             <table id="tblFundObject" runat="server" width="100%">
             <tr id="tr3" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactFundObject" runat="server" border="1" cellspacing="0" 
-                    width="100%">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table><table 
+                    id="tblFactFundObject" runat="server" border="1" cellspacing="0" width="100%">
             <tr>
             <td>
-             <asp:Label ID="lblObjPara" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            </td>
-            <td width="10%"></td>
-            <td valign="top" width="30%">
+             <asp:Label ID="lblObjPara" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td>
+                       <td width="10%"></td>
+            <td width="30%" valign="top">
             <table id="tblInvInformation" runat="server" width="100%">
             <tr id="tr4" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactInvInformation" runat="server" border="1" cellspacing="0" 
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table>
+                <table id="tblFactInvInformation" runat="server" border="1" cellspacing="0" 
                     width="100%">
             <tr>
             <td>
             <asp:Label ID="lblSchemeType" runat="server" CssClass="FieldName" 
-                    Text="Scheme Type:"></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblgetSchemeType" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-              
-            <tr>
+                    Text="Scheme Type:"></asp:Label></td>
+                <td>
+            <asp:Label ID="lblgetSchemeType" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr><tr>
             <td>
             <asp:Label ID="lblLaunchDate" runat="server" CssClass="FieldName" 
-                    Text="Launch date:"></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblgetlunchDate" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Launch date:"></asp:Label></td>
+                        <td>
+            <asp:Label ID="lblgetlunchDate" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td>
             <asp:Label ID="lblFundMgr" runat="server" CssClass="FieldName" 
-                    Text="Fund Manager: "></asp:Label>
-            </td>
+                    Text="Fund Manager: "></asp:Label></td>
+                        <td>
+            <asp:Label ID="lblGetFundMgr" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td>
-            <asp:Label ID="lblGetFundMgr" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-              
-            <tr>
-            <td>
-            <asp:Label ID="lblBenchMark" runat="server" CssClass="FieldName" Text="Benchmark:"></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblgetBenchMark" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-              
-              
-            </table>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblBenchMark" runat="server" CssClass="FieldName" Text="Benchmark:"></asp:Label></td><td>
+            <asp:Label ID="lblgetBenchMark" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td></tr>
+                   <tr>
             <td colspan="3"></td>
             </tr>
             
             <tr>
             <td width="30%">
             <asp:Label ID="lblFHDet" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Fund House Details"></asp:Label>
-            </td>
-            <td width="10%"></td>
+                    Text="Fund House Details"></asp:Label></td>
+                <td width="10%"></td>
             <td width="30%">
             <asp:Label ID="lblFundstr" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Fund Structure"></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Fund Structure"></asp:Label></td></tr>
+                   <tr>
             <td valign="top" width="30%">
               <table id="tblFundHouseDetails" runat="server" width="100%">
             <tr id="tr5" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactFundHouseDetails" runat="server" border="1" cellspacing="0" 
+            <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table>
+                <table id="tblFactFundHouseDetails" runat="server" border="1" cellspacing="0" 
                     width="100%">
             <tr>
             <td>
-            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC : "></asp:Label>
-            </td>
+            <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC : "></asp:Label></td><td>
+            <asp:Label ID="lblgetAMC" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr><tr>
             <td>
-            <asp:Label ID="lblgetAMC" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Addres: "></asp:Label></td><td>
+            <asp:Label ID="lblgetAddress" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td>
-            <asp:Label ID="lblAddress" runat="server" CssClass="FieldName" Text="Addres: "></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblgetAddress" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
-            <td>
-            <asp:Label ID="lblWebsite" runat="server" CssClass="FieldName" Text="Website: "></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblgetWebsite" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            </table>
-            </td>
-            <td width="10%"></td>
+            <asp:Label ID="lblWebsite" runat="server" CssClass="FieldName" Text="Website: "></asp:Label></td><td>
+            <asp:Label ID="lblgetWebsite" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td>
+                       <td width="10%"></td>
             <td valign="top" width="30%">
               <table id="tblFundStructure" runat="server" width="100%">
             <tr id="tr6" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactFundStructure" runat="server" border="1" cellspacing="0" 
+            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table>
+                <table id="tblFactFundStructure" runat="server" border="1" cellspacing="0" 
                     width="100%">
             <tr>
             <td>
-            <asp:Label ID="lblPERatio" runat="server" CssClass="FieldName" Text="P/E Ratio:"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetPERatio" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblPERatio" runat="server" CssClass="FieldName" Text="P/E Ratio:"></asp:Label></td>
+                <td align="right">
+            <asp:Label ID="lblgetPERatio" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr><tr>
             <td>
-            <asp:Label ID="lblPBRatio" runat="server" CssClass="FieldName" Text="P/B Ratio:"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetPBRatio" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblPBRatio" runat="server" CssClass="FieldName" Text="P/B Ratio:"></asp:Label></td>
+                        <td align="right">
+            <asp:Label ID="lblgetPBRatio" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td>
             <asp:Label ID="lblAvgMkt" runat="server" CssClass="FieldName" 
-                    Text="Avg Market Cap(Rs):"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetAvgMkt" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Avg Market Cap(Rs):"></asp:Label></td>
+                        <td align="right">
+            <asp:Label ID="lblgetAvgMkt" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td></tr>
+                   <tr>
             <td colspan="3"></td>
             </tr>
             
             <tr>
             <td width="30%">
             <asp:Label ID="lblFinacialDetail" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Financial Details"></asp:Label>
-            </td>
-            <td width="10%"></td>
+                    Text="Financial Details"></asp:Label></td>
+                <td width="10%"></td>
             <td valign="top" width="30%">
             <asp:Label ID="lblPerformance" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Scheme Performance"></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Scheme Performance"></asp:Label></td></tr>
+                   <tr>
             <td valign="top" width="30%">
               <table id="tblFinancialDetails" runat="server" width="100%">
             <tr id="tr7" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactFinancialDetails" runat="server" border="1" cellspacing="0" 
+            <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table>
+                <table id="tblFactFinancialDetails" runat="server" border="1" cellspacing="0" 
                     width="100%">
             <tr>
             <td width="50%">
-            <asp:Label ID="lblAUM" runat="server" CssClass="FieldName" Text="AUM"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblgetAUM" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblAUM" runat="server" CssClass="FieldName" Text="AUM"></asp:Label></td>
+                <td align="right" width="50%">
+            <asp:Label ID="lblgetAUM" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr><tr>
             <td width="50%">
-            <asp:Label ID="lblNAV" runat="server" CssClass="FieldName" Text="NAV"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblgetNAV" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblNAV" runat="server" CssClass="FieldName" Text="NAV"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblgetNAV" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
             <asp:Label ID="lblMinInvestment" runat="server" CssClass="FieldName" 
-                    Text="Min Investment"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblgetMinInvestment" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Min Investment"></asp:Label></td><td align="right" width="50%">
+            <asp:Label ID="lblgetMinInvestment" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
             <asp:Label ID="lblNAV52high" runat="server" CssClass="FieldName" 
-                    Text="NAV(52 week high)"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblgetNAV52high" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="NAV(52 week high)"></asp:Label></td><td align="right" width="50%">
+            <asp:Label ID="lblgetNAV52high" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
             <asp:Label ID="lblNAV52Low" runat="server" CssClass="FieldName" 
-                    Text="NAV (52 week Low)"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblgetNAV52Low" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            </table>
-            </td>
-            <td width="10%"></td>
+                    Text="NAV (52 week Low)"></asp:Label></td><td align="right" width="50%">
+            <asp:Label ID="lblgetNAV52Low" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td>
+                       <td width="10%"></td>
             <td valign="top" width="30%">
             <table id="tblmsgSchemePerformance" runat="server" width="100%">
             <tr id="tr1" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            <table id="tblFactSchemePerformance" runat="server" border="1" cellspacing="0" 
+            <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table>
+                <table id="tblFactSchemePerformance" runat="server" border="1" cellspacing="0" 
                     width="100%">
             
              <tr>
             <td align="center" width="50%">
-            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName" Text="Period"></asp:Label>
-            </td>
-            <td align="center" width="50%">
-            <asp:Label ID="lblReturns" runat="server" CssClass="FieldName" Text="Returns"></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblPeriod" runat="server" CssClass="FieldName" Text="Period"></asp:Label></td>
+                 <td align="center" width="50%">
+            <asp:Label ID="lblReturns" runat="server" CssClass="FieldName" Text="Returns"></asp:Label></td></tr><tr>
             <td width="50%">
-            <asp:Label ID="lbl3Month" runat="server" CssClass="FieldName" Text="3Months"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGet3Month" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lbl3Month" runat="server" CssClass="FieldName" Text="3Months"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblGet3Month" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
-            <asp:Label ID="lbl6Month" runat="server" CssClass="FieldName" Text="6Months"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGet6Month" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lbl6Month" runat="server" CssClass="FieldName" Text="6Months"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblGet6Month" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
-            <asp:Label ID="lbl1year" runat="server" CssClass="FieldName" Text="1Year"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGet1year" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lbl1year" runat="server" CssClass="FieldName" Text="1Year"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblGet1year" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
-            <asp:Label ID="lbl3Years" runat="server" CssClass="FieldName" Text="3Years"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGet3Years" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lbl3Years" runat="server" CssClass="FieldName" Text="3Years"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblGet3Years" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
-            <asp:Label ID="lbl5Years" runat="server" CssClass="FieldName" Text="5Years"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGet5Years" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lbl5Years" runat="server" CssClass="FieldName" Text="5Years"></asp:Label></td>
+                        <td align="right" width="50%">
+            <asp:Label ID="lblGet5Years" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr>
+                    <tr>
             <td width="50%">
             <asp:Label ID="lblSinceInception" runat="server" CssClass="FieldName" 
-                    Text="Since Inception"></asp:Label>
-            </td>
-            <td align="right" width="50%">
-            <asp:Label ID="lblGetSinceInception" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            </table>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Since Inception"></asp:Label></td><td align="right" width="50%">
+            <asp:Label ID="lblGetSinceInception" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td></tr>
+                   <tr>
             <td colspan="3"></td>
             </tr>
             
             <tr>
             <td width="30%">
             <asp:Label ID="lblgetFinacialDetail" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Volatality Measures"></asp:Label>
-            </td>
-            <td colspan="2"></td>
+                    Text="Volatality Measures"></asp:Label></td>
+                <td colspan="2"></td>
             </tr>
             <tr>
             <td valign="top" width="30%">
               <table id="tblVolatality" runat="server" width="100%">
             <tr id="tr8" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            </table>
-            
-            
-            <table id="tblFactVolatality" runat="server" border="1" cellspacing="0" 
-                    width="100%">
+            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr></table><table 
+                    id="tblFactVolatality" runat="server" border="1" cellspacing="0" width="100%">
             <tr>
             <td>
-            <asp:Label ID="lblFama" runat="server" CssClass="FieldName" Text="Fama"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetFama" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
+            <asp:Label ID="lblFama" runat="server" CssClass="FieldName" Text="Fama"></asp:Label></td>
+                <td align="right">
+            <asp:Label ID="lblgetFama" runat="server" CssClass="FieldName" Text=""></asp:Label></td><td>
+            <asp:Label ID="lblstdDev" runat="server" CssClass="FieldName" Text="Std Deviation"></asp:Label></td>
+                <td align="right">
+            <asp:Label ID="lblgetstdDev" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr><tr>
             <td>
-            <asp:Label ID="lblstdDev" runat="server" CssClass="FieldName" Text="Std Deviation"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetstdDev" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
-            <td>
-            <asp:Label ID="lblBeta" runat="server" CssClass="FieldName" Text="Beta"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetBeta" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            <td>
-            <asp:Label ID="lblSharpe" runat="server" CssClass="FieldName" Text="Sharpe"></asp:Label>
-            </td>
-            <td align="right">
-            <asp:Label ID="lblgetSharpe" runat="server" CssClass="FieldName" Text=""></asp:Label>
-            </td>
-            </tr>
-            </table>
-            </td>
-            </tr>
-            
-            <tr>
+            <asp:Label ID="lblBeta" runat="server" CssClass="FieldName" Text="Beta"></asp:Label></td>
+                        <td align="right">
+            <asp:Label ID="lblgetBeta" runat="server" CssClass="FieldName" Text=""></asp:Label></td>
+                        <td>
+            <asp:Label ID="lblSharpe" runat="server" CssClass="FieldName" Text="Sharpe"></asp:Label></td>
+                        <td align="right">
+            <asp:Label ID="lblgetSharpe" runat="server" CssClass="FieldName" Text=""></asp:Label></td></tr></table></td></tr>
+                   <tr>
             <td colspan="3"></td>
             </tr>
             
             <tr>
             <td width="30%">
             <asp:Label ID="lblCompany" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Top 10 Companies"></asp:Label>
-            </td>
-            <td width="10%"></td>
+                    Text="Top 10 Companies"></asp:Label></td>
+                <td width="10%"></td>
             <td width="30%">
             <asp:Label ID="lblSector" runat="server" CssClass="HeaderTextSmall" 
-                    Text="Top 10 Sector wise holdings"></asp:Label>
-            </td>
-            </tr>
-            
-            <tr>
+                    Text="Top 10 Sector wise holdings"></asp:Label></td></tr>
+                   <tr>
             <td colspan="3"></td>
             </tr>
             <tr>
@@ -1402,10 +1200,7 @@
             <table width="100%">
             <tr id="trTop10Company" runat="server">
             <td align="center" style="background-color: White; color: Black;">
-            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            <tr>
+            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="No Records Found!"></asp:Label></td></tr><tr>
                 <td>
                     <asp:GridView ID="gvTop10Companies" runat="server" AllowSorting="True" 
                         AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
@@ -1422,8 +1217,9 @@
                             <asp:BoundField DataField="PEM_CompanyName" 
                                 HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" 
                                 HeaderText="Name" />
-                            <asp:BoundField DataField="PASPO_HoldPercentage" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" DataFormatString="{0:n2}" 
-                                HeaderStyle-Width="20%" HeaderText="%" />
+                            <asp:BoundField DataField="PASPO_HoldPercentage" DataFormatString="{0:n2}" 
+                                HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="20%" HeaderText="%" 
+                                ItemStyle-HorizontalAlign="Center" />
 
                         </Columns>
                     
@@ -1438,10 +1234,8 @@
             <tr id="trSector" runat="server">
             <td align="center" style="background-color: White; color: Black;">
             <asp:Label ID="lblmsgAbsRetn" runat="server" CssClass="FieldName" 
-                    Text="No Records Found!"></asp:Label>
-            </td>
-            </tr>
-            <tr>
+                    Text="No Records Found!"></asp:Label></td></tr>
+                <tr>
             <td>
             <asp:GridView ID="gvSectorWiseHolding" runat="server" AllowSorting="True" 
                     AutoGenerateColumns="False" CellPadding="4" CssClass="GridViewStyle" 
@@ -1476,8 +1270,7 @@
                </td>
                </tr> 
             </table>
-            <table>
-                <tr>
+            <table><tr>
                     <td>
                        <%-- <asp:UpdatePanel ID="updatePanel" runat="server">
                             <Triggers>

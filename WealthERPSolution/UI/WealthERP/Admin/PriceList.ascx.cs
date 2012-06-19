@@ -145,15 +145,27 @@ namespace WealthERP.Admin
             DataSet dsNavCategory;
             DataTable dtNavCategory;
             dsNavCategory = priceBo.GetNavOverAllCategoryList();
-            if (dsNavCategory.Tables.Count > 0)
+            dtNavCategory = dsNavCategory.Tables[0];
+            if (dtNavCategory.Rows.Count > 0)
             {
-                dtNavCategory = dsNavCategory.Tables[0];
+                
                 ddlNAVCategory.DataSource = dtNavCategory;
                 ddlNAVCategory.DataValueField = dtNavCategory.Columns["Category_Code"].ToString();
                 ddlNAVCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
                 ddlNAVCategory.DataBind();
+                ddlNAVCategory.Items.Insert(0, new ListItem("All", "All"));
+
+                //--------------------------------------------FactSheet Category Binding------------------
+
+
+                ddlFactCategory.DataSource = dtNavCategory;
+                ddlFactCategory.DataValueField = dtNavCategory.Columns["Category_Code"].ToString();
+                ddlFactCategory.DataTextField = dtNavCategory.Columns["Category_Name"].ToString();
+                ddlFactCategory.DataBind();
+                ddlFactCategory.Items.Insert(0, new ListItem("All", "All"));
+
             }
-            ddlNAVCategory.Items.Insert(0, new ListItem("All", "All"));
+            
         }
         private void BindSchemeCategory()
         {
@@ -1305,10 +1317,22 @@ namespace WealthERP.Admin
         private void LoadAllSchemeList(int amcCode)
         {
             PriceBo priceBo = new PriceBo();
+            DataSet dsLoadAllScheme = new DataSet();
             DataTable dtLoadAllScheme = new DataTable();
-            if (ddlAmcCode.SelectedIndex != 0)
+            if (ddlAmcCode.SelectedIndex != 0 && ddlFactCategory.SelectedIndex == 0)
             {
-                dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
+                amcCode = int.Parse(ddlAmcCode.SelectedValue.ToString());
+                categoryCode = ddlFactCategory.SelectedValue;
+                //dtLoadAllScheme = priceBo.GetAllScehmeList(amcCode);
+                dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+                dtLoadAllScheme = dsLoadAllScheme.Tables[0];
+            }
+            if (ddlAmcCode.SelectedIndex != 0 && ddlFactCategory.SelectedIndex != 0)
+            {
+                amcCode = int.Parse(ddlAmcCode.SelectedValue.ToString());
+                categoryCode = ddlFactCategory.SelectedValue;
+                dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+                dtLoadAllScheme = dsLoadAllScheme.Tables[0];
             }
             if (dtLoadAllScheme.Rows.Count > 0)
             {
@@ -1612,5 +1636,18 @@ namespace WealthERP.Admin
         //        throw exBase;
         //    }
         //}
+        protected void ddlFactCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlAmcCode.SelectedIndex != 0)
+            {
+                if (ddlFactCategory.SelectedIndex != 0)
+                {
+                    LoadAllSchemeList(amcCode);
+                }
+
+           }
+            else
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select AMC first');", true);
+        }
     }
 }
