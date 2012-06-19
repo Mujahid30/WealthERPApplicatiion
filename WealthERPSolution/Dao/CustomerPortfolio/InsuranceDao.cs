@@ -211,7 +211,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, int currentPage, string sortExpression, out int Count)
+        public List<InsuranceVo> GetInsurancePortfolio(int portfolioId, string sortExpression)
         {
             List<InsuranceVo> insuranceList = null;
             InsuranceVo insuranceVo;
@@ -225,7 +225,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getInsurancePortfolioCmd = db.GetStoredProcCommand("SP_GetInsurancePortfolio");
                 db.AddInParameter(getInsurancePortfolioCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
-                db.AddInParameter(getInsurancePortfolioCmd, "@CurrentPage", DbType.Int32, currentPage);
+                //db.AddInParameter(getInsurancePortfolioCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getInsurancePortfolioCmd, "@SortOrder", DbType.String, sortExpression);
 
                 dsGetInsurancePortfolio = db.ExecuteDataSet(getInsurancePortfolioCmd);
@@ -276,10 +276,10 @@ namespace DaoCustomerPortfolio
                     }
                 }
 
-                if (dsGetInsurancePortfolio.Tables[1] != null && dsGetInsurancePortfolio.Tables[1].Rows.Count > 0)
-                    Count = Int32.Parse(dsGetInsurancePortfolio.Tables[1].Rows[0][0].ToString());
-                else
-                    Count = 0;
+                //if (dsGetInsurancePortfolio.Tables[1] != null && dsGetInsurancePortfolio.Tables[1].Rows.Count > 0)
+                //    Count = Int32.Parse(dsGetInsurancePortfolio.Tables[1].Rows[0][0].ToString());
+                //else
+                //    Count = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1628,7 +1628,8 @@ namespace DaoCustomerPortfolio
                     dr = dsGetGINPDetails.Tables[0].Rows[0];
                     generalInsuranceVo.AccountId = int.Parse(dr["CGIA_AccountId"].ToString());
                     generalInsuranceVo.InsIssuerCode = dr["XGII_GIIssuerCode"].ToString();
-                    generalInsuranceVo.PolicyParticular = dr["CGINP_PolicyParticular"].ToString();
+
+                    generalInsuranceVo.PolicyParticular = dr["PGISP_SchemePlanCode"].ToString();
                     if (dr["CGINP_OriginalStartDate"].ToString() != string.Empty)
                         generalInsuranceVo.OriginalStartDate = Convert.ToDateTime(dr["CGINP_OriginalStartDate"].ToString());
                     if (dr["CGINP_IsFamilyPolicy"].ToString() != string.Empty)
