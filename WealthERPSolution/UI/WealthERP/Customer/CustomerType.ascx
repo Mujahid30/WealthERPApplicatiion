@@ -159,7 +159,7 @@
                 <asp:ListItem>Mrs.</asp:ListItem>
                 <asp:ListItem>Ms.</asp:ListItem>
                 <asp:ListItem>M/S.</asp:ListItem>
-                
+                <asp:ListItem>Dr.</asp:ListItem>
             </asp:DropDownList>
 
         </td>
