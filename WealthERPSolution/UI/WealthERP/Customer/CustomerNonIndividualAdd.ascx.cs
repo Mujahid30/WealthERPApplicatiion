@@ -255,6 +255,7 @@ namespace WealthERP.Customer
                         customerVo.ISDFax = int.Parse(txtFaxIsd.Text.ToString());
                         customerVo.STDFax = int.Parse(txtFaxStd.Text.ToString());
                         customerVo.Email = txtEmail.Text.ToString();
+                        customerVo.AltEmail = txtAltEmail.Text;
                         customerVo.MaritalStatus = null;
                         Session["Customer"] = "Customer";
                         //  customerBo.CreateCustomer(customerVo, customerVo.RmId,userVo.UserId);
@@ -392,6 +393,7 @@ namespace WealthERP.Customer
                         newCustomerVo.ISDFax = int.Parse(txtFaxIsd.Text.ToString());
                         newCustomerVo.STDFax = int.Parse(txtFaxStd.Text.ToString());
                         newCustomerVo.Email = txtEmail.Text.ToString();
+                        newCustomerVo.AltEmail = txtAltEmail.Text;
                         newCustomerVo.MaritalStatus = null;
 
 
@@ -512,6 +514,7 @@ namespace WealthERP.Customer
                     customerVo.ISDFax = int.Parse(txtFaxIsd.Text.ToString());
                     customerVo.STDFax = int.Parse(txtFaxStd.Text.ToString());
                     customerVo.Email = txtEmail.Text.ToString();
+                    customerVo.AltEmail= txtAltEmail.Text.ToString();
                     customerVo.MaritalStatus = null;
                     customerVo.Nationality = null;
                     customerVo.Occupation = null;
