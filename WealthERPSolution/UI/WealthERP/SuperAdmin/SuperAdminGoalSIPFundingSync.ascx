@@ -72,13 +72,23 @@
         </td>
     </tr>
     <br />
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
     <tr>
         <td>
-            <asp:Button ID="btnSubmitSync" runat="server" Text="Sync" CssClass="PCGButton" ValidationGroup="SyncSubmit"
+            <asp:Button ID="btnSubmitSync" runat="server" Text="Sync for SIP Gold funding" CssClass="PCGLongButton" ValidationGroup="SyncSubmit"
                 OnClick="btnSubmitSync_Click" />
         </td>
         <td>
-            <asp:Button ID="btnSubmitFolio" runat="server" Text="FolioSync" CssClass="PCGButton" ValidationGroup="SyncSubmit"
+        </td>
+        <td>
+        </td>
+        <td>
+            <asp:Button ID="btnSubmitFolio" runat="server" Text="Folio Date Sync"  CssClass="PCGLongButton" ValidationGroup="SyncSubmit"
                  OnClick="btnSubmitfolio_Click" />
         </td>
         <td>
