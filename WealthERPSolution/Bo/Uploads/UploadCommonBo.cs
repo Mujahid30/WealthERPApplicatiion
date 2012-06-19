@@ -4335,13 +4335,13 @@ namespace BoUploads
                 throw exBase;
             }
         }
-        public DataSet GetUploadProcessLogSuperAdmin(int CurrentPage, out int Count, string SortExpression)
+        public DataSet GetUploadProcessLogSuperAdmin(int CurrentPage, out int Count, string SortExpression, string orgName)
         {
             DataSet getProcessLogDs;
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                getProcessLogDs = uploadDAO.GetUploadProcessLogSuperAdmin(CurrentPage, out Count, SortExpression);
+                getProcessLogDs = uploadDAO.GetUploadProcessLogSuperAdmin(CurrentPage, out Count, SortExpression, orgName);
             }
             catch (Exception Ex)
             {
@@ -4495,14 +4495,14 @@ namespace BoUploads
         //    return ds;
         //}
 
-        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+        public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter,string OrgName)
         {
             DataSet dsSIPRejectedDetails = new DataSet();
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
 
             try
             {
-                dsSIPRejectedDetails = uploadDAO.GetSuperAdminRejectedSIPRecords(CurrentPage, out Count, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, schemeNameFilter);
+                dsSIPRejectedDetails = uploadDAO.GetSuperAdminRejectedSIPRecords(CurrentPage, out Count, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, schemeNameFilter, OrgName);
             }
             catch (BaseApplicationException Ex)
             {
