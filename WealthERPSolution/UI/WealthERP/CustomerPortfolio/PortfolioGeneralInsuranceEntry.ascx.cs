@@ -11,7 +11,9 @@ using System.Data;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
-using System.Configuration; 
+using System.Configuration;
+using BoOps;
+using System.Web.Script.Services;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -63,14 +65,22 @@ namespace WealthERP.CustomerPortfolio
                 lnkBtnEdit.Visible = false;
                 LoadNominees();
                 DisplayAssetCategory();
+
+
             }
             cv2_txtPolicyCommencementDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
-            CompareValidator77.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+            //CompareValidator77.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
 
             if (Request.QueryString["FromPage"] == "ViewGeneralInsuranceDetails")
             {
+                Session["insuranceId"] = insuranceId;
+                if (Session["insuranceId"] != null)
+                {
+                    insuranceId = (int)Session["insuranceId"];
+                }
+
                 int.TryParse(Request.QueryString["InsuranceId"].ToString(), out insuranceId);
-                ViewState["insuranceId"] = insuranceId;
+                // ViewState["insuranceId"] = insuranceId;
             }
 
             if (!IsPostBack)
@@ -80,11 +90,30 @@ namespace WealthERP.CustomerPortfolio
                 BindPolicyTypeDropDown();
 
                 if (Request.QueryString["FromPage"] == "ViewGeneralInsuranceDetails")
+                {
                     action = Request.QueryString["action"].ToString();
+                    Session["action"] = action;
+                    Session["insuranceId"] = insuranceId;
+                }
+
+                if (Session["insuranceId"] != null && Session["action"] != null)
+                {
+                    insuranceId = int.Parse(Session["insuranceId"].ToString());
+                    action = Session["action"].ToString();
+                }
             }
 
             if (action == "View")
             {
+              // 
+                btnAddScheme.Enabled = false;
+                hideControlsForViewAndEdit();
+                Session["insuranceId"] = insuranceId;
+                if (Session["insuranceId"] != null)
+                {
+                    insuranceId = (int)Session["insuranceId"];
+                }
+
                 SetControls();
                 btnAssetShow.Visible = false;
                 btnSubmit.Visible = false;
@@ -92,18 +121,39 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (action == "Edit")
             {
-
+                btnAddScheme.Enabled = true;
+                hideControlsForViewAndEdit();
                 btnSubmit.Text = "Update";
                 btnAssetShow.Visible = true;
                 lnkBtnEdit.Visible = false;
                 SetControls();
             }
 
+            if (assSubCatCode == "GIRIHM" || assSubCatCode == "GIRIPA")
+            {
+                showHealthInsuranceFields();
+            }
+            else
+                hideHealthInsuranceFields();
+
+        }
+
+        protected void hideControlsForViewAndEdit()
+        {
+            lblPolicyTerm.Visible = false;
+            rdbPolicyTermDays.Visible = false;
+            rdbPolicyTermMonth.Visible = false;
+            lblDays.Visible = false;
+            txtDays.Visible = false;
+            lblMonths.Visible = false;
+            txtMonths.Visible = false;
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            double SumAssured, premiumAmount;
+            //double SumAssured, premiumAmount;
+            double premiumAmount;
             double nomineeShare;
             long TPAContactNumber;
             bool bresult;
@@ -116,28 +166,32 @@ namespace WealthERP.CustomerPortfolio
                 generalInsuranceVo.InsIssuerCode = ddlPolicyIssuer.SelectedValue;
                 generalInsuranceVo.InsIssuerName = ddlPolicyIssuer.SelectedItem.Text;
                 generalInsuranceVo.PolicyParticular = txtPolicyParticular.Text;
-                if (txtPolicyCommencementDate.Text != string.Empty)
-                    generalInsuranceVo.OriginalStartDate = Convert.ToDateTime(txtPolicyCommencementDate.Text);
+                if (txtPolicyCommencementDate.SelectedDate != DateTime.MinValue)
+                    generalInsuranceVo.OriginalStartDate = Convert.ToDateTime(txtPolicyCommencementDate.SelectedDate);
                 if (rdoGroupPolicyYes.Checked)
                     generalInsuranceVo.IsFamilyPolicy = 1;
                 generalInsuranceVo.PolicyTypeCode = ddlTypeOfPolicy.SelectedValue;
                 generalInsuranceVo.PolicyType = ddlTypeOfPolicy.SelectedItem.Text;
-                double.TryParse(hdnSumAssured.Value, out SumAssured);
-                generalInsuranceVo.SumAssured = SumAssured;
+                //double.TryParse(hdnSumAssured.Value, out SumAssured);
+                //generalInsuranceVo.SumAssured = SumAssured;
+                generalInsuranceVo.SumAssured = double.Parse(txtSumAssured1.Text);
                 generalInsuranceVo.TPAName = txtTPA.Text;
                 long.TryParse(txtTPAContactNumber.Text, out TPAContactNumber);
                 generalInsuranceVo.TPAContactNumber = TPAContactNumber;
                 if (rdoHealthYes.Checked)
                     generalInsuranceVo.IsEligibleFreeHealth = 1;
-                if (txtCheckUpDate.Text != string.Empty)
-                    generalInsuranceVo.CheckupDate = Convert.ToDateTime(txtCheckUpDate.Text);
-                if (txtProposalDate.Text != string.Empty)
-                    generalInsuranceVo.ProposalDate = Convert.ToDateTime(txtProposalDate.Text);
+                if (txtCheckUpDate.IsEmpty == false)
+                    generalInsuranceVo.CheckupDate = Convert.ToDateTime(txtCheckUpDate.SelectedDate);
+                if (txtProposalDate.IsEmpty == false)
+                    generalInsuranceVo.ProposalDate = Convert.ToDateTime(txtProposalDate.SelectedDate);
                 generalInsuranceVo.ProposalNumber = txtProposalNumber.Text; ;
-                if (txtPolicyValidityStartDate.Text != string.Empty)
-                    generalInsuranceVo.PolicyValidityStartDate = Convert.ToDateTime(txtPolicyValidityStartDate.Text);
-                if (txtPolicyValidityEndDate.Text != string.Empty)
-                    generalInsuranceVo.PolicyValidityEndDate = Convert.ToDateTime(txtPolicyValidityEndDate.Text);
+                //if (txtPolicyValidityStartDate.IsEmpty == false)
+                //    generalInsuranceVo.PolicyValidityStartDate = Convert.ToDateTime(txtPolicyValidityStartDate.SelectedDate);
+                //if (txtPolicyValidityEndDate.IsEmpty == false)
+                //    generalInsuranceVo.PolicyValidityEndDate = Convert.ToDateTime(txtPolicyValidityEndDate.SelectedDate);
+                if (txtMaturityDate.IsEmpty == false)
+                    generalInsuranceVo.PolicyValidityEndDate = Convert.ToDateTime(txtMaturityDate.SelectedDate);
+
                 double.TryParse(txtPremiumAmount.Text, out premiumAmount);
                 generalInsuranceVo.PremiumAmount = premiumAmount;
                 generalInsuranceVo.FrequencyCode = ddlPremiumCycle.SelectedValue;
@@ -631,23 +685,27 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetControls()
         {
+
+            Session["insuranceId"] = insuranceId;
             generalInsuranceVo = new GeneralInsuranceVo();
             generalInsuranceVo = insuranceBo.GetGINetPositionDetails(insuranceId);
-
+            BindAssetParticular(generalInsuranceVo.InsIssuerCode);
             assCatCode = generalInsuranceVo.AssetInstrumentCategoryCode;
             ViewState["assCatCode"] = assCatCode;
             assSubCatCode = generalInsuranceVo.AssetInstrumentSubCategoryCode;
             ViewState["assSubCatCode"] = assSubCatCode;
             accountId = int.Parse(generalInsuranceVo.AccountId.ToString());
-            ViewState["accountId"] = accountId;
+            //ViewState["accountId"] = accountId;
 
             txtAssetCategory.Text = generalInsuranceVo.AssetInstrumentCategoryName;
             txtAssetSubCategory.Text = generalInsuranceVo.AssetInstrumentSubCategoryName;
             txtPolicyNumber.Text = generalInsuranceVo.PolicyNumber;
-            txtPolicyParticular.Text = generalInsuranceVo.PolicyParticular;
+            txtPolicyParticular.SelectedValue = generalInsuranceVo.PolicyParticular;
             ddlPolicyIssuer.SelectedValue = generalInsuranceVo.InsIssuerCode;
+            if (generalInsuranceVo.PolicyValidityEndDate != DateTime.MinValue)
+                txtMaturityDate.SelectedDate = generalInsuranceVo.PolicyValidityEndDate;
             if (generalInsuranceVo.OriginalStartDate != DateTime.MinValue)
-                txtPolicyCommencementDate.Text = generalInsuranceVo.OriginalStartDate.ToShortDateString();
+                txtPolicyCommencementDate.SelectedDate = generalInsuranceVo.OriginalStartDate;
             if (generalInsuranceVo.IsProvidedByEmployer == 1)
                 chkIsPolicyByEmployer.Checked = true;
             if (generalInsuranceVo.IsFamilyPolicy == 1)
@@ -665,7 +723,7 @@ namespace WealthERP.CustomerPortfolio
             txtSumAssured1.Text = generalInsuranceVo.SumAssured.ToString();
             hdnSumAssured.Value = generalInsuranceVo.SumAssured.ToString();
             txtTPA.Text = generalInsuranceVo.TPAName;
-            if(generalInsuranceVo.TPAContactNumber != 0)
+            if (generalInsuranceVo.TPAContactNumber != 0)
                 txtTPAContactNumber.Text = generalInsuranceVo.TPAContactNumber.ToString();
             if (generalInsuranceVo.IsEligibleFreeHealth == 1)
             {
@@ -678,16 +736,16 @@ namespace WealthERP.CustomerPortfolio
                 hdnFreeHealth.Value = "0";
             }
             if (generalInsuranceVo.CheckupDate != DateTime.MinValue)
-                txtCheckUpDate.Text = generalInsuranceVo.CheckupDate.ToShortDateString();
+                txtCheckUpDate.SelectedDate = generalInsuranceVo.CheckupDate;
             if (generalInsuranceVo.ProposalDate != DateTime.MinValue)
-                txtProposalDate.Text = generalInsuranceVo.ProposalDate.ToShortDateString();
+                txtProposalDate.SelectedDate = generalInsuranceVo.ProposalDate;
             txtProposalNumber.Text = generalInsuranceVo.ProposalNumber;
-            if (generalInsuranceVo.PolicyValidityStartDate != DateTime.MinValue)
-                txtPolicyValidityStartDate.Text = generalInsuranceVo.PolicyValidityStartDate.ToShortDateString();
-            if (generalInsuranceVo.PolicyValidityEndDate != DateTime.MinValue)
-                txtPolicyValidityEndDate.Text = generalInsuranceVo.PolicyValidityEndDate.ToShortDateString();
+            //if (generalInsuranceVo.PolicyValidityStartDate != DateTime.MinValue)
+            //    txtPolicyValidityStartDate.SelectedDate = generalInsuranceVo.PolicyValidityStartDate;
+            //if (generalInsuranceVo.PolicyValidityEndDate != DateTime.MinValue)
+            //    txtPolicyValidityEndDate.SelectedDate = generalInsuranceVo.PolicyValidityEndDate;
             ddlPremiumCycle.SelectedValue = generalInsuranceVo.FrequencyCode;
-            if(generalInsuranceVo.PremiumAmount != 0)
+            if (generalInsuranceVo.PremiumAmount != 0)
                 txtPremiumAmount.Text = generalInsuranceVo.PremiumAmount.ToString();
             txtRemarks.Text = generalInsuranceVo.Remarks;
 
@@ -732,8 +790,9 @@ namespace WealthERP.CustomerPortfolio
             txtPolicyCommencementDate.Enabled = trueOrFalse;
             txtPolicyNumber.Enabled = trueOrFalse;
             txtPolicyParticular.Enabled = trueOrFalse;
-            txtPolicyValidityEndDate.Enabled = trueOrFalse;
-            txtPolicyValidityStartDate.Enabled = trueOrFalse;
+            txtMaturityDate.Enabled = trueOrFalse;
+            //txtPolicyValidityEndDate.Enabled = trueOrFalse;
+            //txtPolicyValidityStartDate.Enabled = trueOrFalse;
             txtPremiumAmount.Enabled = trueOrFalse;
             txtProposalDate.Enabled = trueOrFalse;
             txtProposalNumber.Enabled = trueOrFalse;
@@ -1096,7 +1155,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','login');", true);
+            Session["action"] = null;
+            Session["insuranceId"] = null;
         }
 
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
@@ -1113,5 +1175,107 @@ namespace WealthERP.CustomerPortfolio
             action = "Edit";
             AssetShow(dtAssetAssc);
         }
+
+        public void BindAssetParticular(string issuerCode)
+        {
+            AssetBo assetBo = new AssetBo();
+            DataSet ds = assetBo.GetGIPlans(issuerCode);
+            DataTable dtSchemePlan = ds.Tables[0];
+            txtPolicyParticular.Items.Clear();
+            if (dtSchemePlan.Rows.Count > 0)
+            {
+                txtPolicyParticular.DataSource = dtSchemePlan;
+                txtPolicyParticular.DataValueField = dtSchemePlan.Columns["PGISP_SchemePlanCode"].ToString();
+                txtPolicyParticular.DataTextField = dtSchemePlan.Columns["PGISP_SchemePlanName"].ToString();
+                txtPolicyParticular.DataBind();
+                txtPolicyParticular.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            else
+            {
+
+                txtPolicyParticular.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+
+        }
+
+        protected void btnInsertNewScheme_Click(object sender, EventArgs e)
+        {
+            OrderBo orderbo = new OrderBo();
+            if (txtAsset.Text.Trim() != "")
+            {
+                if (ddlPolicyIssuer.SelectedIndex != 0)
+                {
+                    orderbo.InsertIntoProductGIInsuranceScheme(assSubCatCode, ddlPolicyIssuer.SelectedValue, txtAsset.Text.Trim());
+                    BindAssetParticular(ddlPolicyIssuer.SelectedValue);
+                }
+            }
+          
+        }
+
+        public void ddlPolicyIssuer_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblIssuarCode.Text = ddlPolicyIssuer.SelectedItem.Text;
+            BindAssetParticular(ddlPolicyIssuer.SelectedValue);
+        }
+
+        public void showHealthInsuranceFields()
+        {
+            lblWthHealthCheckUp.Visible = true;
+            rdoHealthNo.Visible = true;
+            rdoHealthYes.Visible = true;
+            lblCheckUpDate.Visible = true;
+            txtCheckUpDate.Visible = true;
+            lblProposalDate.Visible = true;
+            txtProposalDate.Visible = true;
+            lblProposalNumber.Visible = true;
+            txtProposalNumber.Visible = true;
+        }
+
+        public void hideHealthInsuranceFields()
+        {
+            lblWthHealthCheckUp.Visible = false;
+            rdoHealthNo.Visible = false;
+            rdoHealthYes.Visible = false;
+            lblCheckUpDate.Visible = false;
+            txtCheckUpDate.Visible = false;
+            lblProposalDate.Visible = false;
+            txtProposalDate.Visible = false;
+            lblProposalNumber.Visible = false;
+            txtProposalNumber.Visible = false;
+        }
+
+        public DateTime calculateMaturityDate(int period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            startDate = DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString());
+
+            if (rdbPolicyTermDays.Checked == true)
+            {
+                period = int.Parse(txtDays.Text);
+                endDate = startDate.AddDays(period);
+            }
+            else if (rdbPolicyTermMonth.Checked == true)
+            {
+                period = int.Parse(txtMonths.Text);
+                endDate = startDate.AddDays(period);
+            }
+
+
+            return endDate;
+        }
+
+
+        protected void txtMonths_OnTextChanged(object sender, EventArgs e)
+        {
+            txtMaturityDate.SelectedDate = calculateMaturityDate(int.Parse(txtMonths.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+
+
+        }
+        protected void txtDays_OnTextChanged(object sender, EventArgs e)
+        {
+            txtMaturityDate.SelectedDate = calculateMaturityDate(int.Parse(txtDays.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+        }
+
+
     }
 }

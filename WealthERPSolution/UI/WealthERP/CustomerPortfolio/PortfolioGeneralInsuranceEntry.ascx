@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortfolioGeneralInsuranceEntry.ascx.cs"
-    Inherits="WealthERP.CustomerPortfolio.PortfolioGeneralInsuranceEntry" %>
+    Inherits="WealthERP.CustomerPortfolio.PortfolioGeneralInsuranceEntry" EnableViewState="true" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <style type="text/css">
     .style1
     {
@@ -20,8 +21,53 @@
     }
 </style>
 <%--Javascript Calendar Controls - Required Files--%>
-<asp:ScriptManager ID="scptMgr" runat="server">
+<asp:ScriptManager ID="scptMgr" runat="server" EnablePartialRendering="true" EnablePageMethods="true">
+    <Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>
 </asp:ScriptManager>
+
+
+<script type="text/javascript">
+    function DownloadScript() {
+        var btn = document.getElementById('<%= btnInsertNewScheme.ClientID %>');
+        btn.click();
+    }
+</script>
+
+<script runat="server">
+            protected override void OnLoad(EventArgs e)
+            {
+	        base.OnLoad(e);     
+	 
+	        }
+</script>
+
+<script type="text/javascript">
+
+    function SetDateBydays() {
+        var currentdate = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
+        var days = document.getElementById("<%= txtDays.ClientID %>").value;
+        // call server side method
+        alert(currentdate);
+        alert(days);
+        alert(PageMethods.GetDateByDays(currentdate, days));
+        var maturityDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
+        //            maturityDate.value = GetDateByDays(currentdate, days);
+
+    }
+
+    function SetDateByMonths() {
+
+        var currentdate = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
+        var months = document.getElementById("<%= txtMonths.ClientID %>").value;
+        // call server side method
+        PageMethods.GetDateByMonths(currentdate, months);
+        var maturityDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
+        maturityDate.value = GetDateByDays(currentdate, days);
+    }
+
+</script>
 
 <script language="javascript" type="text/javascript">
     //Business Rules to happen on policy type change
@@ -159,7 +205,7 @@
             document.getElementById('<%=txtCheckUpDate.ClientID %>').disabled = false;
         else {
             document.getElementById('<%=txtCheckUpDate.ClientID %>').disabled = true;
-            document.getElementById('<%=txtCheckUpDate.ClientID %>').value = 'dd/mm/yyyy';
+            document.getElementById('<%=txtCheckUpDate.ClientID %>').value = 'MM/dd/yyyy';
         }
     }
 
@@ -205,11 +251,10 @@
                 return false;
             }
         }
-        var validityStartDate = document.getElementById('<%=txtPolicyValidityStartDate.ClientID %>').value;
         validityStartDate = changeDate(validityStartDate);
-        var validityEndDate = document.getElementById('<%=txtPolicyValidityEndDate.ClientID %>').value;
+        
         validityEndDate = changeDate(validityEndDate);
-        if (document.getElementById('<%=txtProposalDate.ClientID %>').value != '' && document.getElementById('<%=txtProposalDate.ClientID %>').value != 'dd/mm/yyyy') {
+        if (document.getElementById('<%=txtProposalDate.ClientID %>').value != '' && document.getElementById('<%=txtProposalDate.ClientID %>').value != 'MM/dd/yyyy') {
             var proposalDate = document.getElementById('<%=txtProposalDate.ClientID %>').value;
             proposalDate = changeDate(proposalDate);
             if (Date.parse(validityStartDate) < Date.parse(proposalDate)) {
@@ -222,7 +267,7 @@
             return false;
         }
         //        if (document.getElementById('<%= rdoHealthYes.ClientID %>').checked) {
-        //            if (document.getElementById('<%=txtCheckUpDate.ClientID %>').value == '' || document.getElementById('<%=txtCheckUpDate.ClientID %>').value == 'dd/mm/yyyy') {
+        //            if (document.getElementById('<%=txtCheckUpDate.ClientID %>').value == '' || document.getElementById('<%=txtCheckUpDate.ClientID %>').value == 'MM/dd/yyyy') {
         //                alert('Please enter the Check Up Date !');
         //                return false;
         //            }
@@ -235,8 +280,76 @@
         date = newDate[1] + "/" + newDate[0] + "/" + newDate[2];
         return date;
     }
+
+  
+    
 </script>
 
+<script type="text/javascript">
+
+    function EnableDisableDaysMonths() {
+        if (document.getElementById("<%= rdbPolicyTermDays.ClientID %>").checked == true) {
+            document.getElementById("<%= txtDays.ClientID %>").disabled = false;
+            document.getElementById("<%= txtMonths.ClientID %>").disabled = true;
+            document.getElementById("<%= txtMonths.ClientID %>").value = "";
+        }
+        else if (document.getElementById("<%= rdbPolicyTermMonth.ClientID %>").checked == true) {
+        document.getElementById("<%= txtDays.ClientID %>").disabled = true;
+        document.getElementById("<%= txtDays.ClientID %>").value = "";
+            document.getElementById("<%= txtMonths.ClientID %>").disabled = false;
+        }
+    }
+</script>
+
+<%--<script type="text/javascript">
+
+    function AddDaysToDateTime() {
+        if (document.getElementById("<%= rdbPolicyTermDays.ClientID %>").checked == true) {
+            var monthtextbox = document.getElementById("<%= txtMonths.ClientID %>").value;
+            monthtextbox = '';
+            var days = document.getElementById("<%= txtDays.ClientID %>").value;
+
+            //            var StartDate = new Date();
+
+            //            StartDate.setMonth(0 + StartDate.getMonth(), 2 + StartDate.getDate());
+            // alert(StartDate);
+            var MaturityDate = new Date();
+            var StartDate = new Date(document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value);
+            alert(StartDate);
+            StartDate.setMonth(0 + StartDate.getMonth(), parseFloat(days) + StartDate.getDate());
+            // MaturityDate.setDate(days);
+            alert("hi");
+            alert(StartDate);
+            var calcuatedDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
+            calcuatedDate.value = StartDate.format("dd/mm/yyyy");
+            
+            // document.getElementById("<%= txtMaturityDate.ClientID %>").value = MaturityDate.getMonth() + 1 + "/" + MaturityDate.getDate() + "/" + MaturityDate.getYear();
+        }
+        else if (document.getElementById("<%= rdbPolicyTermMonth.ClientID %>").checked == true) {
+            alert('gobinda');
+
+            var months = document.getElementById("<%= txtMonths.ClientID %>").value;
+
+            var StartDateForMonths = new Date();
+            
+            var MaturityDateForMonths = new Date();
+            alert(MaturityDateForMonths);
+            StartDateForMonths = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
+            alert(StartDateForMonths);
+            StartDateForMonths.setMonth(months + StartDate.getMonth(), 0 + StartDate.getDate());
+            alert(StartDateForMonths);
+            //StartDate.setMonth(months + StartDate.getMonth(), 0 + StartDate.getDate());
+            alert(StartDateForMonths);
+            
+            //           alert(months);
+            //            alert(parseFloat(months) * 30);
+            //            MaturityDate.setDate(months * 30);
+            alert(MaturityDateForMonths);
+            //            document.getElementById("<%= txtMaturityDate.ClientID %>").value = MaturityDate.getMonth() + 1 + "/" + MaturityDate.getDate()  + "/" + MaturityDate.getYear();
+            //        
+        }
+    }
+</script>--%>
 <table style="width: 100%;">
     <tr>
         <td colspan="4">
@@ -274,24 +387,33 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName" ></asp:Label>
+            <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtAssetCategory" runat="server" Width="176px" CssClass="txtField" Enabled="false">
+            <asp:TextBox ID="txtAssetCategory" runat="server" Width="176px" CssClass="txtField"
+                Enabled="false">
             </asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblAssetSubCategory" runat="server" Text="Asset Sub Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtAssetSubCategory" runat="server" Width="176px" CssClass="txtField" Enabled="false">
+            <asp:TextBox ID="txtAssetSubCategory" runat="server" Width="176px" CssClass="txtField"
+                Enabled="false">
             </asp:TextBox>
         </td>
     </tr>
     <tr>
-        <td colspan="4">
-            &nbsp;
+        <td align="right">
+            <asp:Label ID="lblPolicyNumber" runat="server" Text="Policy Number:" CssClass="FieldName"></asp:Label>
         </td>
+        <td class="style3">
+            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField" Enabled="false"
+                Width="176px"></asp:TextBox>
+        </td>
+        <%-- <td >
+            &nbsp;
+        </td>--%>
     </tr>
     <tr>
         <td colspan="4">
@@ -301,17 +423,11 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblPolicyNumber" runat="server" Text="Policy Number:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="style3">
-            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField" 
-                Enabled="false" Width="176px"></asp:TextBox>
-        </td>
-        <td align="right">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlPolicyIssuer" runat="server" Width="176px" CssClass="cmbField">
+            <asp:DropDownList ID="ddlPolicyIssuer" runat="server" Width="176px" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
             </asp:DropDownList>
             <span id="span1" class="spnRequiredField">*</span>
@@ -322,17 +438,70 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblPolicyParticular" runat="server" Text="Policy Particular:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPolicyParticular" runat="server" Text="Scheme Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyParticular" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
+            <asp:DropDownList ID="txtPolicyParticular" runat="server" Width="176px" CssClass="cmbField">
+            </asp:DropDownList>
         </td>
-        <td colspan="2">
-            &nbsp;&nbsp;&nbsp;&nbsp;
+        <td visible="false">
+            <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGLongButton" Text="Add Scheme" />
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td>
+            <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddScheme"
+                PopupControlID="Panel2" BackgroundCssClass="modalBackground" OnOkScript="DownloadScript()"
+                Y="150" DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel" PopupDragHandleControlID="Panel2">
+            </cc1:ModalPopupExtender>
+        </td>
+        <td>
+            <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100%">
+                <%-- <asp:UpdatePanel ID="udpSchemeName" runat="Server" UpdateMode="Conditional">
+                    <ContentTemplate>--%>
+                <table width="100%">
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField" ValidationGroup="vgOK"></asp:TextBox>
+                            <span id="Span5" class="spnRequiredField">*</span>
+                            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtAsset" ErrorMessage="Please enter the Scheme Name"
+                                ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                            </asp:RequiredFieldValidator>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="leftField" style="width: 10%">
+                            <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" CausesValidation="false"
+                                ValidationGroup="vgOK" />
+                        </td>
+                        <td class="rightField" style="width: 25%">
+                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                        </td>
+                    </tr>
+                </table>
+                <asp:Button ID="btnInsertNewScheme" runat="server" Text="Scheme" Style="display: none"
+                    OnClick="btnInsertNewScheme_Click" CausesValidation="false" />
+                <%--</ContentTemplate>--%>
+                <triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnOk" EventName="Click" />
+                    </triggers>
+                <%--
+                </asp:UpdatePanel>--%>
+            </asp:Panel>
+        </td>
+        <td colspan="2">
         </td>
     </tr>
     <tr>
@@ -343,16 +512,26 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Original Start Date:"></asp:Label>
+            <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Start Date:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtPolicyCommencementDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
+            <telerik:RadDatePicker ID="txtPolicyCommencementDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%-- <asp:TextBox ID="txtPolicyCommencementDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
-                TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy">
+                TargetControlID="txtPolicyCommencementDate" Format="MM/dd/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="txtPolicyCommencementDate_TextBoxWatermarkExtender"
-                runat="server" TargetControlID="txtPolicyCommencementDate" WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+                runat="server" TargetControlID="txtPolicyCommencementDate" WatermarkText="mm/dd/yyyy">
+            </cc1:TextBoxWatermarkExtender>--%>
             <asp:CompareValidator ID="cv2_txtPolicyCommencementDate" runat="server" Operator="LessThan"
                 ErrorMessage="<br />Please Select a valid date" Type="Date" ControlToValidate="txtPolicyCommencementDate"
                 CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
@@ -379,18 +558,18 @@
             <asp:Label ID="lblTypeOfPolicy" runat="server" CssClass="FieldName" Text="Type of Policy:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" Width="176px" CssClass="Field" onChange="ChangePolicyType()"
-                Enabled="false">
+            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" Width="176px" CssClass="Field"
+                onChange="ChangePolicyType()" Enabled="false">
                 <%--<asp:ListItem Text="Individual" Value="PTIND"></asp:ListItem>
                 <asp:ListItem Text="Floater" Value="PTFLT"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td colspan="4">
             &nbsp;
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>
             <div id="divGridView">
@@ -423,11 +602,57 @@
         <td class="style3">
             &nbsp;&nbsp;
         </td>
+    </tr>
+    <tr >
+        <td align="right">
+            <asp:Label ID="lblPolicyTerm" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
+        </td>
+        <td class="style3">
+            <asp:RadioButton ID="rdbPolicyTermDays" Text="Days" runat="server" onClick="return EnableDisableDaysMonths()"
+                GroupName="PolicyTerm" class="cmbField" />
+            <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
+                GroupName="PolicyTerm" Checked="true" class="cmbField" />
+        </td>
+        <td align="right">
+            <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>
+        </td>
+        <td align="left">
+            <asp:TextBox ID="txtDays" runat="server" CssClass="txtField"
+                Width="50px" AutoPostBack="true" OnTextChanged="txtDays_OnTextChanged"></asp:TextBox>
+            <asp:Label ID="lblMonths" runat="server" CssClass="FieldName" Text="Months:"></asp:Label>
+            <asp:TextBox ID="txtMonths" AutoPostBack="true" OnTextChanged="txtMonths_OnTextChanged" runat="server" Width="50px" CssClass="txtField"
+               ></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <telerik:RadDatePicker ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%-- <asp:TextBox ID="txtMaturityDate" runat="server" Width="176px" CssClass="txtField"
+                Enabled="false"></asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtMaturityDate"
+                Format="MM/dd/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtMaturityDate"
+                WatermarkText="MM/dd/yyyy">
+            </cc1:TextBoxWatermarkExtender>--%>
+        </td>
         <td align="right">
             <asp:Label ID="lblSumAssured" runat="server" Text="Sum Assured:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtSumAssured1" runat="server" Width="176px" CssClass="txtField" ReadOnly="false"></asp:TextBox>
+            <asp:TextBox ID="txtSumAssured1" runat="server" Width="176px" CssClass="txtField"
+                ReadOnly="false"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtSumAssured1"
                 ErrorMessage="<br />Please enter the Sum Assured" Display="Dynamic" CssClass="rfvPCG"
@@ -439,11 +664,6 @@
             <asp:CompareValidator ID="cv_txtSumAssured1" ControlToValidate="txtSumAssured1" Type="Double"
                 Display="Dynamic" CssClass="cvPCG" runat="server" ErrorMessage="<br />Please enter a valid amount"
                 ValidationGroup="buttonSubmit" ValueToCompare="0" Operator="GreaterThan"></asp:CompareValidator>
-        </td>
-    </tr>
-    <tr>
-        <td class="style4">
-            &nbsp;
         </td>
     </tr>
     <tr>
@@ -477,19 +697,29 @@
             <asp:Label ID="lblCheckUpDate" runat="server" CssClass="FieldName" Text="If Yes, Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtCheckUpDate" runat="server" Width="176px" CssClass="txtField" Enabled="false"></asp:TextBox>
+            <telerik:RadDatePicker ID="txtCheckUpDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%--<asp:TextBox ID="txtCheckUpDate" runat="server" Width="176px" CssClass="txtField"
+                Enabled="false"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtCheckUpDate"
-                Format="dd/MM/yyyy">
+                Format="MM/dd/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtCheckUpDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+                WatermarkText="MM/dd/yyyy">
+            </cc1:TextBoxWatermarkExtender>--%>
             <%--<span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyCommencementDate" ControlToValidate="txtPolicyCommencementDate"
                 ErrorMessage="Please select a Policy Commencement Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:CompareValidator ID="CompareValidator67" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+            <asp:CompareValidator ID="CompareValidator67" runat="server" ErrorMessage="<br />The date format should be MM/dd/yyyy"
                 Type="Date" ControlToValidate="txtCheckUpDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 ValidationGroup="buttonSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
@@ -505,34 +735,53 @@
             <asp:Label ID="lblProposalDate" runat="server" CssClass="FieldName" Text="Proposal Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtProposalDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
+            <telerik:RadDatePicker ID="txtProposalDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%-- <asp:TextBox ID="txtProposalDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtProposalDate"
-                Format="dd/MM/yyyy">
+                Format="MM/dd/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtProposalDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+                WatermarkText="MM/dd/yyyy">
+            </cc1:TextBoxWatermarkExtender>--%>
             <%--<span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyCommencementDate" ControlToValidate="txtPolicyCommencementDate"
                 ErrorMessage="Please select a Policy Commencement Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
+            <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="The date format should be MM/dd/yyyyyy"
                 Type="Date" ControlToValidate="txtPolicyCommencementDate" Operator="DataTypeCheck"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
-    <tr>
+   <%-- <tr>
         <td align="right">
             <asp:Label ID="lblPolicyValidityStartDate" runat="server" CssClass="FieldName" Text="Policy Validity Start Date:"></asp:Label>
         </td>
         <td class="style3">
+            <telerik:RadDatePicker ID="txtPolicyValidityStartDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:TextBox ID="txtPolicyValidityStartDate" Width="176px" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtPolicyValidityStartDate"
-                Format="dd/MM/yyyy">
+                Format="MM/dd/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtPolicyValidityStartDate"
-                WatermarkText="dd/mm/yyyy">
+                WatermarkText="MM/dd/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyValidityStartDate" ControlToValidate="txtPolicyValidityStartDate"
@@ -547,12 +796,22 @@
             <asp:Label ID="lblPolicyValidityEndDate" runat="server" CssClass="FieldName" Text="Policy Validity End Date:"></asp:Label>
         </td>
         <td class="rightField">
+            <telerik:RadDatePicker ID="txtPolicyValidityEndDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:TextBox ID="txtPolicyValidityEndDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtPolicyValidityEndDate"
-                Format="dd/MM/yyyy">
+                Format="MM/dd/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtPolicyValidityEndDate"
-                WatermarkText="dd/mm/yyyy">
+                WatermarkText="MM/dd/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyValidityEndDate" ControlToValidate="txtPolicyValidityEndDate"
@@ -563,7 +822,7 @@
                 Type="Date" ControlToValidate="txtPolicyValidityEndDate" Operator="GreaterThan"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="4">
             &nbsp;
@@ -635,7 +894,8 @@
             </span>
         </td>
         <td colspan="2">
-            <asp:Button ID="btnAssetShow" runat="server" Text="Show Assets" OnClick="btnAssetShow_Click" />
+            <asp:Button ID="btnAssetShow" runat="server" Text="Show Assets" CssClass="PCGMediumButton"
+                OnClick="btnAssetShow_Click" />
         </td>
     </tr>
     <tr>
@@ -692,8 +952,8 @@
             <asp:Label ID="lblRemarks" runat="server" Text="Remarks :" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style3">
-            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" 
-                CssClass="txtField" Height="75px" Width="208px"></asp:TextBox>
+            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="txtField"
+                Height="75px" Width="208px"></asp:TextBox>
         </td>
         <td colspan="2">
             &nbsp;&nbsp;&nbsp;&nbsp;
