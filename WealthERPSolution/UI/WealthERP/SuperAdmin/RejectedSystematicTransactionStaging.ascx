@@ -306,17 +306,20 @@
                                 <asp:Label ID="lblRejectReasonHeader"  runat="server" Text='<%# Eval("WRR_RejectReasonDescription").ToString() %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                         <asp:TemplateField>
-                    <HeaderTemplate>
-                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser Org."></asp:Label>
-                               <%-- <asp:DropDownList ID="ddlRejectReason" CssClass="cmbLongField" AutoPostBack="true"
-                                    runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
-                                </asp:DropDownList>--%>
+                    <asp:TemplateField>
+                       <HeaderTemplate>
+                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser"></asp:Label>
+                                <asp:DropDownList ID="ddlAdviserName" AutoPostBack="true" CssClass="cmbField"
+                                    runat="server" OnSelectedIndexChanged="ddlAdviserName_SelectedIndexChanged" >
+                                </asp:DropDownList>
                             </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblAdviserOrg"  runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="true"></HeaderStyle>
+                        <ItemStyle Wrap="true"></ItemStyle>
+                    </asp:TemplateField>
+                    
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
@@ -524,3 +527,4 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
+<asp:HiddenField  ID="hdnAdviserFilter" runat="server" Visible="false"/>

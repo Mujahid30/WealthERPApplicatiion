@@ -125,7 +125,7 @@ namespace WealthERP.SuperAdmin
             hdnProcessIdFilter.Value = processId.ToString();
             int Count;
 
-            dsRejectedSIP = uploadsCommonBo.GetSuperAdminRejectedSIPRecords(mypager.CurrentPage, out Count, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSchemeNameFilter.Value);
+            dsRejectedSIP = uploadsCommonBo.GetSuperAdminRejectedSIPRecords(mypager.CurrentPage, out Count, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSchemeNameFilter.Value, hdnAdviserFilter.Value);
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
             if (Count > 0)
                 DivPager.Style.Add("display", "visible");
@@ -163,6 +163,7 @@ namespace WealthERP.SuperAdmin
                 BindSchemeName(dsRejectedSIP.Tables[5]);
                 BindTransactionType(dsRejectedSIP.Tables[6]);
                 BindFileName(dsRejectedSIP.Tables[7]);
+                BindAdviserName(dsRejectedSIP.Tables[9]);
 
             }
             else
@@ -756,6 +757,66 @@ namespace WealthERP.SuperAdmin
                 }
             }
 
+        }
+
+        private void BindAdviserName(DataTable dtAdviser)
+        {
+            Dictionary<string, string> genOrganizationData = new Dictionary<string, string>();
+            if (dtAdviser.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtAdviser.Rows)
+                {
+                    genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
+                }
+                DropDownList ddlAdviserNameDate = GetOrganization();
+                if (ddlAdviserNameDate != null)
+                {
+                    ddlAdviserNameDate.DataSource = genOrganizationData;
+                    ddlAdviserNameDate.DataTextField = "Key";
+                    ddlAdviserNameDate.DataValueField = "Value";
+                    ddlAdviserNameDate.DataBind();
+                    ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                if (hdnAdviserFilter.Value != "")
+                {
+                    ddlAdviserNameDate.SelectedValue = hdnAdviserFilter.Value;
+                }
+
+            }
+        }
+
+        protected void ddlAdviserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAdviserName = GetOrganization();
+
+            if (Request.QueryString["processId"] != null)
+                processId = Int32.Parse(Request.QueryString["processId"].ToString());
+
+            if (ddlAdviserName != null)
+            {
+                if (ddlAdviserName.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+
+                    hdnAdviserFilter.Value = ddlAdviserName.SelectedItem.Text;
+                    BindRejectedSIPGrid(processId);
+                    // ddlAdviserName.SelectedItem.Text = hdnAdviserNameAUMFilter.Value;
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAdviserFilter.Value = "";
+                    BindRejectedSIPGrid(processId);
+                }
+            }
+        }
+
+        private DropDownList GetOrganization()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvSIPReject.HeaderRow.FindControl("ddlAdviserName") != null)
+            {
+                ddl = (DropDownList)gvSIPReject.HeaderRow.FindControl("ddlAdviserName");
+            }
+            return ddl;
         }
 
     }
