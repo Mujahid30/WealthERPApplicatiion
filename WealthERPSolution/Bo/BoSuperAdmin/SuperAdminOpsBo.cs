@@ -69,13 +69,13 @@ namespace BoSuperAdmin
         /// <param name="fromdate"></param>
         /// <param name="todate"></param>
         /// <returns></returns>
-        public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate, int currentPage, out int count,string orgName)
+        public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate,string asset)
         {
             DataSet dsGetAum;
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             try
             {
-                dsGetAum = superAdminOpsDao.GetAllAdviserAUM(fromdate, todate, currentPage, out count, orgName);
+                dsGetAum = superAdminOpsDao.GetAllAdviserAUM(fromdate, todate,asset);
             }
             catch (BaseApplicationException Ex)
             {
@@ -86,9 +86,10 @@ namespace BoSuperAdmin
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:GetAllAdviserAUM()");
-                object[] objects = new object[2];
+                object[] objects = new object[3];
                 objects[0] = fromdate;
                 objects[1] = todate;
+                objects[2] = asset;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -96,14 +97,14 @@ namespace BoSuperAdmin
             }
             return dsGetAum;
         }
-        public DataSet GetMfrejectedDetails(DateTime fromdate,DateTime todate,int currentPage, out int count, string rejectReasoncode, string adviserId, string processId)
+        public DataSet GetMfrejectedDetails(DateTime fromdate,DateTime todate, string rejectReasoncode, string adviserId, string processId)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             DataSet dsRejectedRecords;
 
             try
             {
-                dsRejectedRecords = superAdminOpsDao.GetMfrejectedDetails(fromdate, todate,currentPage, out count,rejectReasoncode, adviserId, processId);
+                dsRejectedRecords = superAdminOpsDao.GetMfrejectedDetails(fromdate, todate,rejectReasoncode, adviserId, processId);
 
             }
             catch (BaseApplicationException Ex)
@@ -372,7 +373,7 @@ namespace BoSuperAdmin
             try
             {
                 
-                superAdminOpsDao.FolioStartDate( adviserId);
+                superAdminOpsDao.FolioStartDate(adviserId);
                 isComplete = true;
             }
             catch (BaseApplicationException Ex)

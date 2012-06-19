@@ -100,7 +100,7 @@ namespace DaoSuperAdmin
        /// <param name="fromdate"></param>
        /// <param name="todate"></param>
        /// <returns></returns>
-       public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate, int currentPage, out int count, string orgName)
+       public DataSet GetAllAdviserAUM(DateTime fromdate, DateTime todate,string asset)
        {
            DataSet dsGetAumValue;
            Database db;
@@ -111,12 +111,13 @@ namespace DaoSuperAdmin
                getAumValueCmd = db.GetStoredProcCommand("SP_GetAllAdviser'sTotalAUM");
                db.AddInParameter(getAumValueCmd, "@fromDate", DbType.Date, fromdate);
                db.AddInParameter(getAumValueCmd, "@toDate", DbType.Date, todate);
-               db.AddInParameter(getAumValueCmd, "@currentPage", DbType.Int32, currentPage);
-               db.AddInParameter(getAumValueCmd, "@orgName", DbType.String, orgName);
-               db.AddOutParameter(getAumValueCmd, "@Count", DbType.Int32, 0);
+               //db.AddInParameter(getAumValueCmd, "@currentPage", DbType.Int32, currentPage);
+               //db.AddInParameter(getAumValueCmd, "@orgName", DbType.String, orgName);
+               db.AddInParameter(getAumValueCmd, "@Assettype", DbType.String, asset);
+               //db.AddOutParameter(getAumValueCmd, "@Count", DbType.Int32, 0);
                getAumValueCmd.CommandTimeout = 60 * 60;
                dsGetAumValue = db.ExecuteDataSet(getAumValueCmd);
-               count = (int)db.GetParameterValue(getAumValueCmd, "@Count");
+               //count = (int)db.GetParameterValue(getAumValueCmd, "@Count");
                if ((dsGetAumValue == null) && (dsGetAumValue.Tables.Count == 0))
                    dsGetAumValue = null;
            }
@@ -129,11 +130,12 @@ namespace DaoSuperAdmin
                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                NameValueCollection FunctionInfo = new NameValueCollection();
                FunctionInfo.Add("Method", "SuperAdminOpsBo.cs:GetAllAdviserAUM()");
-               object[] objects = new object[4];
+               object[] objects = new object[3];
                objects[0] = fromdate;
                objects[1] = todate;
-               objects[2] = currentPage;
-               objects[3] = orgName;
+               //objects[2] = currentPage;
+               objects[2] = asset; 
+               //objects[3] = asset;
                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
@@ -152,7 +154,7 @@ namespace DaoSuperAdmin
        /// <param name="adviserId"></param>
        /// <param name="processId"></param>
        /// <returns></returns>
-       public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate, int currentPage, out int count, string rejectReasoncode, string adviserId, string processId)
+       public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate, string rejectReasoncode, string adviserId, string processId)
        {
            DataSet dsRejectedRecords = new DataSet();
            Database db;
@@ -164,8 +166,8 @@ namespace DaoSuperAdmin
                getMfrejectedDetailsCmd = db.GetStoredProcCommand("SP_GetMFTransactionRejectedRecords");
                db.AddInParameter(getMfrejectedDetailsCmd, "@fromDate", DbType.Date, fromdate);
                db.AddInParameter(getMfrejectedDetailsCmd, "@toDate", DbType.Date, todate);
-               db.AddInParameter(getMfrejectedDetailsCmd, "@currentPage", DbType.Int32, currentPage);
-               db.AddOutParameter(getMfrejectedDetailsCmd, "@Count", DbType.Int32, 0);
+               //db.AddInParameter(getMfrejectedDetailsCmd, "@currentPage", DbType.Int32, currentPage);
+               //db.AddOutParameter(getMfrejectedDetailsCmd, "@Count", DbType.Int32, 0);
                if (rejectReasoncode != "")
                {
                    db.AddInParameter(getMfrejectedDetailsCmd, "@RejectCode", DbType.String, rejectReasoncode);
@@ -192,7 +194,7 @@ namespace DaoSuperAdmin
                }
                
                dsRejectedRecords = db.ExecuteDataSet(getMfrejectedDetailsCmd);
-               count = (int)db.GetParameterValue(getMfrejectedDetailsCmd, "@Count");
+               //count = (int)db.GetParameterValue(getMfrejectedDetailsCmd, "@Count");
            }
            catch (BaseApplicationException Ex)
            {
@@ -206,10 +208,10 @@ namespace DaoSuperAdmin
                object[] objects = new object[6];
                objects[0] = fromdate;
                objects[1] = todate;
-               objects[2] = currentPage;
-               objects[3] = rejectReasoncode;
-               objects[4] = adviserId;
-               objects[5] = processId;
+               //objects[2] = currentPage;
+               objects[2] = rejectReasoncode;
+               objects[3] = adviserId;
+               objects[4] = processId;
                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
