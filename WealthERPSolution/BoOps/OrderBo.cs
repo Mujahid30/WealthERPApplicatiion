@@ -162,7 +162,20 @@ namespace BoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        public void InsertIntoProductGIInsuranceScheme(string asset, string InsuranceIssuerCode,string schemePlanName)
+        {
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                orderDao.InsertIntoProductGIInsuranceScheme(asset, InsuranceIssuerCode, schemePlanName);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo)
         {
             bool bResult = false;
             OrderDao orderDao = new OrderDao();
