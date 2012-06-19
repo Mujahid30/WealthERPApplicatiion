@@ -92,6 +92,7 @@
                 <asp:ListItem>Ms.</asp:ListItem>
                 <asp:ListItem>Other</asp:ListItem>
                 <asp:ListItem>M.S.</asp:ListItem>
+                <asp:ListItem>Dr.</asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
@@ -470,6 +471,23 @@
                 <td class="rightField">
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+                        ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
+                        ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+             <tr>
+                <td class="leftField">
+                    <asp:Label ID="lblAltEmail" runat="server" Text="Alternate Email:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField">
+                    <asp:TextBox ID="txtAltEmail" runat="server" CssClass="txtField"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtAltEmail"
                         ErrorMessage="Please enter a valid Email ID" Display="Dynamic" runat="server"
                         ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
                 </td>

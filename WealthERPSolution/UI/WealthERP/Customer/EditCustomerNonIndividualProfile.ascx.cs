@@ -144,6 +144,7 @@ namespace WealthERP.Customer
                     txtFaxIsd.Text = customerVo.ISDFax.ToString();
                     txtFaxStd.Text = customerVo.STDFax.ToString();
                     txtEmail.Text = customerVo.Email.ToString();
+                    txtAltEmail.Text = customerVo.AltEmail.ToString();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -392,6 +393,7 @@ namespace WealthERP.Customer
                     customerVo.STDFax = 0;
                 }
                 customerVo.Email = txtEmail.Text.ToString();
+                customerVo.AltEmail = txtAltEmail.Text;
                 customerVo.OfcFax = 0;
                 customerVo.OfcISDFax = 0;
                 customerVo.OfcSTDFax = 0;
