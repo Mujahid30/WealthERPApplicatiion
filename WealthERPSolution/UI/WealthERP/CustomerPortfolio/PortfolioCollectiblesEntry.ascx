@@ -97,6 +97,9 @@
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender_txtPurchaseDate" runat="server"
                         TargetControlID="txtPurchaseDate" WatermarkText="dd/mm/yyyy">
                     </cc1:TextBoxWatermarkExtender>
+                    <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtPurchaseDate" CssClass="cvPCG" Operator="DataTypeCheck" ValidationGroup="btnSubmit"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                 
         </td>
     </tr>
@@ -112,7 +115,7 @@
                         CssClass="rfvPCG">
                     </asp:RequiredFieldValidator>--%>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPurchaseValue" ValidationGroup="btnSubmit"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                        Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
                 </td>
         <td class="leftField">
             <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value(Rs):"></asp:Label>
@@ -125,7 +128,7 @@
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtCurrentValue" ValidationGroup="btnSubmit"
-                        Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
+                        Display="Dynamic" runat="server"  CssClass="rfvPCG" ErrorMessage="Not acceptable format" ValidationExpression="^\d*(\.(\d{0,5}))?$"></asp:RegularExpressionValidator>
              
             
            
