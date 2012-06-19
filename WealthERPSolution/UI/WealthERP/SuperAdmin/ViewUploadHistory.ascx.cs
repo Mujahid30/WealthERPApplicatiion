@@ -122,6 +122,7 @@ namespace WealthERP.SuperAdmin
 
         private void BindProcessHistoryGrid()
         {
+            Dictionary<string, string> genOrganizationData = new Dictionary<string, string>();
             if (hdnCurrentPage.Value.ToString() != "")
             {
                 mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
@@ -133,7 +134,7 @@ namespace WealthERP.SuperAdmin
 
             try
             {
-                getProcessLogDs = uploadProcessLogBo.GetUploadProcessLogSuperAdmin(mypager.CurrentPage, out Count, hdnSort.Value);
+                getProcessLogDs = uploadProcessLogBo.GetUploadProcessLogSuperAdmin(mypager.CurrentPage, out Count, hdnSort.Value, hdnAdviserFilter.Value);
             }
             catch (Exception Ex)
             {
@@ -182,6 +183,24 @@ namespace WealthERP.SuperAdmin
                 gvProcessLog.DataSource = null;
                 gvProcessLog.DataBind();
             }
+            foreach (DataRow dr in getProcessLogDs.Tables[2].Rows)
+            {
+                genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
+            }
+            DropDownList ddlAdviserNameDate = GetOrganization();
+            if (ddlAdviserNameDate != null)
+            {
+                ddlAdviserNameDate.DataSource = genOrganizationData;
+                ddlAdviserNameDate.DataTextField = "Key";
+                ddlAdviserNameDate.DataValueField = "Value";
+                ddlAdviserNameDate.DataBind();
+                ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            if (hdnAdviserFilter.Value != "")
+            {
+                ddlAdviserNameDate.SelectedValue = hdnAdviserFilter.Value;
+            }
+            
 
             this.GetPageCount();
         }
@@ -4135,6 +4154,34 @@ namespace WealthERP.SuperAdmin
             }
     //        btn_Upload.Attributes.Add("onclick",
     //"setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+        }
+        protected void ddlAdviserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAdviserName = GetOrganization();
+
+            if (ddlAdviserName != null)
+            {
+                if (ddlAdviserName.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnAdviserFilter.Value = ddlAdviserName.SelectedItem.Text;
+                    BindProcessHistoryGrid();
+                    // ddlAdviserName.SelectedItem.Text = hdnAdviserNameAUMFilter.Value;
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAdviserFilter.Value = "";
+                    BindProcessHistoryGrid();
+                }
+            }
+        }
+        private DropDownList GetOrganization()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvProcessLog.HeaderRow.FindControl("ddlAdviserName") != null)
+            {
+                ddl = (DropDownList)gvProcessLog.HeaderRow.FindControl("ddlAdviserName");
+            }
+            return ddl;
         }
 
     }

@@ -139,8 +139,20 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="Status" />
-                    <asp:BoundField HeaderText="Adviser" DataField="A_OrgName" ItemStyle-Wrap="false"/>
-                    
+                    <%--<asp:BoundField HeaderText="Adviser" DataField="A_OrgName" ItemStyle-Wrap="false"/>--%>
+                    <asp:TemplateField>
+                       <HeaderTemplate>
+                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser"></asp:Label>
+                                <asp:DropDownList ID="ddlAdviserName" AutoPostBack="true" CssClass="cmbField"
+                                    runat="server" OnSelectedIndexChanged="ddlAdviserName_SelectedIndexChanged" >
+                                </asp:DropDownList>
+                            </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="true"></HeaderStyle>
+                        <ItemStyle Wrap="true"></ItemStyle>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="ADUL_ProcessId" HeaderText="Process Id" />
                     <asp:BoundField DataField="ADUL_FileName" HeaderText="Actual FileName" />
                     <asp:BoundField DataField="WUXFT_XMLFileName" HeaderText = "File Type" />
@@ -254,3 +266,4 @@
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="ADUL_StartTime DESC" />
+<asp:HiddenField ID="hdnAdviserFilter" runat="server" Visible="false" />
