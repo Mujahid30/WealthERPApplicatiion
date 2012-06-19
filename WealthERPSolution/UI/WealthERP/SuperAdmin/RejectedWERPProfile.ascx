@@ -163,17 +163,20 @@
                             <asp:Label ID="lblRejectReasonHeader" runat="server" Text='<%# Eval("RejectReason").ToString() %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField>
-                        <HeaderTemplate>
-                            <asp:Label ID="lblAdviserOrg" runat="server" Text="Adviser Org"></asp:Label>
-                            <%--<asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged"
-                                CssClass="cmbLongField">
-                            </asp:DropDownList>--%>
-                        </HeaderTemplate>
+                    <asp:TemplateField>
+                       <HeaderTemplate>
+                                <asp:Label ID="lblAdviserName" runat="server" Text="Adviser"></asp:Label>
+                                <asp:DropDownList ID="ddlAdviserName" AutoPostBack="true" CssClass="cmbField"
+                                    runat="server" OnSelectedIndexChanged="ddlAdviserName_SelectedIndexChanged" >
+                                </asp:DropDownList>
+                            </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblAdviserOrg" runat="server" Text='<%# Eval("A_OrgName").ToString() %>' ItemStyle-Wrap="false"></asp:Label>
+                            <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
                         </ItemTemplate>
+                        <HeaderStyle Wrap="true"></HeaderStyle>
+                        <ItemStyle Wrap="true"></ItemStyle>
                     </asp:TemplateField>
+                    
                      <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
@@ -296,5 +299,7 @@
 <asp:HiddenField ID="hdnRejectReasonFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnCustomerNameFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnProcessIdFilter" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAdviserFilter" runat="server" Visible="false" />
+
 <asp:Button ID="btnGridSearch" runat="server" Text="" OnClick="btnGridSearch_Click"
     BorderStyle="None" BackColor="Transparent" />

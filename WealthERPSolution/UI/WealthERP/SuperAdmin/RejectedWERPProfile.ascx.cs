@@ -153,12 +153,12 @@ namespace WealthERP.SuperAdmin
 
             if (ProcessId == 0)
             {   // Bind All Processes
-                dsRejectedRecords = rejectedRecordsBo.getSuperAdminWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getSuperAdminWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value, hdnAdviserFilter.Value);
                 //   PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
             }
             else
             {   // Bind Grid for the specific Process Id
-                dsRejectedRecords = rejectedRecordsBo.getSuperAdminWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.getSuperAdminWERPRejectedProfile(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnPANFilter.Value, hdnRejectReasonFilter.Value, hdnBrokerCodeFilter.Value, hdnCustomerNameFilter.Value, hdnAdviserFilter.Value);
             }
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -198,6 +198,7 @@ namespace WealthERP.SuperAdmin
 
                 BindPanNumber(dsRejectedRecords.Tables[3]);
                 BindProcessId(dsRejectedRecords.Tables[4]);
+                BindAdviser(dsRejectedRecords.Tables[5]);
             }
             else
             {
@@ -208,6 +209,32 @@ namespace WealthERP.SuperAdmin
                 trReprocess.Visible = false;
             }
             this.GetPageCount();
+        }
+
+        private void BindAdviser(DataTable dtAdviser)
+        {
+            Dictionary<string, string> genOrganizationData = new Dictionary<string, string>();
+            if (dtAdviser.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtAdviser.Rows)
+                {
+                    genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
+                }
+                DropDownList ddlAdviserNameDate = GetOrganization();
+                if (ddlAdviserNameDate != null)
+                {
+                    ddlAdviserNameDate.DataSource = genOrganizationData;
+                    ddlAdviserNameDate.DataTextField = "Key";
+                    ddlAdviserNameDate.DataValueField = "Value";
+                    ddlAdviserNameDate.DataBind();
+                    ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                if (hdnAdviserFilter.Value != "")
+                {
+                    ddlAdviserNameDate.SelectedValue = hdnAdviserFilter.Value;
+                }
+
+            }
         }
 
         //********** Code implented by bhoopendra for adding a dropdown filter of process id.*************//
@@ -823,6 +850,48 @@ namespace WealthERP.SuperAdmin
             else if (filetypeId == (int)Contants.UploadTypes.StandardProfile)
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('StandardProfileInputRejects','processId=" + processlogVo.ProcessId + "');", true);
 
+        }
+        protected void ddlAdviserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAdviserName = GetOrganization();
+
+            if (Request.QueryString["processId"] != null)
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+            if (Request.QueryString["filetypeid"] != null)
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
+
+            if (ddlAdviserName != null)
+            {
+                if (ddlAdviserName.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnAdviserFilter.Value = ddlAdviserName.SelectedItem.Text;
+                    BindWerpProfileGrid(ProcessId);
+                    // ddlAdviserName.SelectedItem.Text = hdnAdviserNameAUMFilter.Value;
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAdviserFilter.Value = "";
+                    BindWerpProfileGrid(ProcessId);
+                }
+            }
+        }
+        private DropDownList GetOrganization()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvWERPProfileReject.HeaderRow.FindControl("ddlAdviserName") != null)
+            {
+                ddl = (DropDownList)gvWERPProfileReject.HeaderRow.FindControl("ddlAdviserName");
+            }
+            return ddl;
         }
 
     }
