@@ -230,8 +230,7 @@
             <asp:Label ID="lblRemarks" runat="server" CssClass="FieldName" Text="Remarks:"></asp:Label>
         </td>
         <td colspan="3">
-            <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" Height="58px" 
-                Width="229px"></asp:TextBox>
+            <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
