@@ -9,6 +9,7 @@ using BoCustomerPortfolio;
 using WealthERP.Base;
 using BoCommon;
 using System;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.CustomerPortfolio
@@ -106,6 +107,16 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.Visible = false;
                     gvGeneralInsurance.DataSource = dt;
                     gvGeneralInsurance.DataBind();
+
+                    if (Cache["GIList"] == null)
+                    {
+                        Cache.Insert("GIList", dt);
+                    }
+                    else
+                    {
+                        Cache.Remove("GIList");
+                        Cache.Insert("GIList", dt);
+                    }
                 }
                 else
                     ErrorMessage.Visible = true;
@@ -141,10 +152,12 @@ namespace WealthERP.CustomerPortfolio
             string qryString=null;
             try
             {
-                DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int.TryParse(gvGeneralInsurance.DataKeys[selectedRow].Value.ToString(),out insuranceId);
+                //DropDownList ddlAction = (DropDownList)sender;
+                RadComboBox ddlAction = (RadComboBox)sender;
+                //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex+1;
+                int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString(), out insuranceId);
                 int Insurance = insuranceId;
                 // insuranceId;
                 
@@ -220,9 +233,15 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvGeneralInsurance_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvGeneralInsurance.PageIndex = e.NewPageIndex;
+            //gvGeneralInsurance.PageIndex = e.NewPageIndex;
             BindGeneralInsuranceGridview(123);
         }
 
+        protected void gvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGIDetails = new DataTable();
+            dtGIDetails = (DataTable)Cache["GIList"];
+            gvGeneralInsurance.DataSource = dtGIDetails;
+        }
     }
 }
