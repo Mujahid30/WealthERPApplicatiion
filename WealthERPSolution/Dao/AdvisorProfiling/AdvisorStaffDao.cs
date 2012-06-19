@@ -311,7 +311,7 @@ namespace DaoAdvisorProfiling
             return result;
         }
 
-        public DataSet FindRM(string rmName, int advisorId, int currentpage, string sortorder, out int count)
+        public DataSet FindRM(string rmName, int advisorId, string sortorder, out int count)
         {
             //List<int> rmList = new List<int>();
             Database db;
@@ -324,7 +324,7 @@ namespace DaoAdvisorProfiling
                 findRMCmd = db.GetStoredProcCommand("SP_FindRM");
                 db.AddInParameter(findRMCmd, "@AR_FirstName", DbType.String, rmName);
                 db.AddInParameter(findRMCmd, "@A_AdviserId", DbType.Int16, advisorId);
-                db.AddInParameter(findRMCmd, "@CurrentPage", DbType.Int16, currentpage);
+                //db.AddInParameter(findRMCmd, "@CurrentPage", DbType.Int16, currentpage);
                 db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
                 ds = db.ExecuteDataSet(findRMCmd);
 
@@ -351,7 +351,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        public List<RMVo> GetBMRMList(int branchId, int currentPage, out int Count)
+        public List<RMVo> GetBMRMList(int branchId, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
             int rmId;
@@ -365,7 +365,7 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getRMListCmd = db.GetStoredProcCommand("SP_GetRMList");
                 db.AddInParameter(getRMListCmd, "@AB_BranchId", DbType.String, branchId);
-                db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
+                //db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
 
                 getRMListDs = db.ExecuteDataSet(getRMListCmd);
                 if (getRMListDs.Tables[0].Rows.Count > 0)
@@ -501,7 +501,7 @@ namespace DaoAdvisorProfiling
             return rmList;
         }
 
-        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count, string nameSrch)
+        public List<RMVo> GetRMList(int advisorId, string sortOrder, string nameSrch)
         {
             List<RMVo> rmList = new List<RMVo>();
             RMVo rmVo;
@@ -515,11 +515,11 @@ namespace DaoAdvisorProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdvisorCmd = db.GetStoredProcCommand("SP_GetAdviserRMList");
                 db.AddInParameter(getAdvisorCmd, "@A_AdviserId", DbType.Int32, advisorId);
-                db.AddInParameter(getAdvisorCmd, "@CurrentPage", DbType.Int32, currentPage);
+                //db.AddInParameter(getAdvisorCmd, "@CurrentPage", DbType.Int32, currentPage);
                 db.AddInParameter(getAdvisorCmd, "@SortOrder", DbType.String, sortOrder);
                 db.AddInParameter(getAdvisorCmd, "@nameSrch", DbType.String, nameSrch);
                 getAdvisorDs = db.ExecuteDataSet(getAdvisorCmd);
-                Count = Int32.Parse(getAdvisorDs.Tables[1].Rows[0][0].ToString());
+                //Count = Int32.Parse(getAdvisorDs.Tables[1].Rows[0][0].ToString());
                 if (getAdvisorDs.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow dr in getAdvisorDs.Tables[0].Rows)
@@ -1989,7 +1989,7 @@ namespace DaoAdvisorProfiling
 
         /* Function For Branch Manager */
 
-        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
             int rmId;
@@ -2005,7 +2005,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getRMListCmd, "@AB_BranchId", DbType.String, branchId);
                 db.AddInParameter(getRMListCmd, "@branchHeadId", DbType.String, branchHeadId);
                 db.AddInParameter(getRMListCmd, "@all", DbType.String, all);
-                db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
+                //db.AddInParameter(getRMListCmd, "@CurrentPage", DbType.Int32, currentPage);
 
                 getRMListDs = db.ExecuteDataSet(getRMListCmd);
                 if (getRMListDs.Tables[0].Rows.Count > 0)
