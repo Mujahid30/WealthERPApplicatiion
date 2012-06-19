@@ -45,6 +45,36 @@ namespace BoUploads
             return getRejectedTransactionsDs;
         }
 
+        public DataSet GETAllEquityInputRejectTransactions(int processId)
+        {
+            RejectedTransactionsDao RejectedTransactionsDao = new RejectedTransactionsDao();
+            DataSet getRejectedTransactionsDs;
+            try
+            {
+                getRejectedTransactionsDs = RejectedTransactionsDao.GETAllEquityInputRejectTransactions(processId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadBo.cs:GETAllEquityInputRejectTransactions()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getRejectedTransactionsDs;
+        }
+
+        
         public bool MapFolioToCustomer(int MFTransactionStagingId, int customerId, int userId)
         {
             RejectedTransactionsDao rejectedTransactionsDao = new RejectedTransactionsDao();

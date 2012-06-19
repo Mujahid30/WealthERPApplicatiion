@@ -158,5 +158,41 @@ namespace DaoUploads
             return result;
           
         }
+
+
+        public DataSet GETAllEquityInputRejectTransactions(int ProcessId)
+        {
+            Database db;
+            DbCommand gETAllEquityInputRejectTransactionsCmd;
+            DataSet gETAllEquityInputRejectTransactionsDs;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                gETAllEquityInputRejectTransactionsCmd = db.GetStoredProcCommand("SP_GETAllEquityInputRejectTransactions", ProcessId);
+                gETAllEquityInputRejectTransactionsDs = db.ExecuteDataSet(gETAllEquityInputRejectTransactionsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsDao.cs:GetRejectedRecords()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return gETAllEquityInputRejectTransactionsDs;
+        }
+
+        
     }
 }
