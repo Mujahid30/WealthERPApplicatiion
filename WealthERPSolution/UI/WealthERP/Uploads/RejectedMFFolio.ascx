@@ -139,7 +139,7 @@
                        <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblRejectReason" runat="server" Text="Reject Reason"></asp:Label>
-                                <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlRejectReason" AutoPostBack="true" runat="server" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlRejectReason_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>
@@ -210,7 +210,7 @@
                         <asp:TemplateField>
                             <HeaderTemplate>
                                 <asp:Label ID="lblIsRejected" runat="server" Text="Is Rejected"></asp:Label>
-                                <asp:DropDownList ID="ddlIsRejected" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlIsRejected_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlIsRejected" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" OnSelectedIndexChanged="ddlIsRejected_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </HeaderTemplate>
                             <ItemTemplate>

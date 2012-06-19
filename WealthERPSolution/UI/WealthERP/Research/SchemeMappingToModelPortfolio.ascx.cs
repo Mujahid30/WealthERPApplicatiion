@@ -118,7 +118,14 @@ namespace WealthERP.Research
                         drRiskClass["PASP_SchemePlanName"] = dr["PASP_SchemePlanName"].ToString();
                         drRiskClass["PASP_SchemePlanCode"] = dr["PASP_SchemePlanCode"].ToString();
                         drRiskClass["AMFMPD_AllocationPercentage"] = dr["AMFMPD_AllocationPercentage"].ToString();
-                        drRiskClass["AMFMPD_AddedOn"] =DateTime.Parse(dr["AMFMPD_AddedOn"].ToString()).ToShortDateString();
+                        if (dr["AMFMPD_AddedOn"].ToString() != "" && dr["AMFMPD_AddedOn"].ToString() != null)
+                        {
+                            drRiskClass["AMFMPD_AddedOn"] = DateTime.Parse(dr["AMFMPD_AddedOn"].ToString()).ToShortDateString();
+                        }
+                        else
+                        {
+                            drRiskClass["AMFMPD_AddedOn"] = dr["AMFMPD_AddedOn"].ToString();
+                        }
                         drRiskClass["AMFMPD_Id"] = dr["AMFMPD_Id"].ToString();
                         drRiskClass["AMFMPD_SchemeDescription"] = dr["AMFMPD_SchemeDescription"].ToString();
                         drRiskClass["PA_AMCName"] = dr["PA_AMCName"].ToString();
