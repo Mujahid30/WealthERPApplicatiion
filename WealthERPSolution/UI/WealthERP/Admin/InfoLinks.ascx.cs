@@ -48,6 +48,7 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("XLTY_LinkTypeCode");
             dtBindLinks.Columns.Add("AL_Link");
             dtBindLinks.Columns.Add("AL_LinkImagePath");
+            dtBindLinks.Columns.Add("AL_AltLinkName");
 
 
 
@@ -82,6 +83,7 @@ namespace WealthERP.Admin
                     drAdvisorLinks[3] = AOTALVo.AMCLinkTypeCode;
                     drAdvisorLinks[4] = AOTALVo.AMCLinks;
                     drAdvisorLinks[5] = "~/Images/" + AOTALVo.AMCImagePath;
+                    drAdvisorLinks[6] = AOTALVo.AltLinkName;
 
                     dtBindLinks.Rows.Add(drAdvisorLinks);
                 }
