@@ -175,7 +175,7 @@ namespace WealthERP.Advisor
 
                 int count = 0;
 
-                rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId, mypager.CurrentPage, hdnSort.Value.Trim(), out count,hdnNameFilter.Value.Trim());
+                rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId, hdnSort.Value.Trim(),hdnNameFilter.Value.Trim());
 
                 lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
