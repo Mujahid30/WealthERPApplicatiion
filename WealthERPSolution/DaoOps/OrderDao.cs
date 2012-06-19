@@ -152,6 +152,25 @@ namespace DaoOps
             return dtAssetParticular;
         }
 
+        public void InsertIntoProductGIInsuranceScheme(string assetText, string InsuranceIssuerCode,string schemePlanName)
+        {
+            Database db;
+            DbCommand cmdInsertAssetParticular;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertAssetParticular = db.GetStoredProcCommand("SP_InsertIntoProductGISchemePLan");
+                db.AddInParameter(cmdInsertAssetParticular, "@XGII_GIIssuerCode ", DbType.String, assetText);
+                db.AddInParameter(cmdInsertAssetParticular, "@PGISP_SchemePlanName", DbType.String, schemePlanName);
+                db.AddInParameter(cmdInsertAssetParticular, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, InsuranceIssuerCode);                
+                db.ExecuteNonQuery(cmdInsertAssetParticular);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public void InsertAssetParticularScheme(string assetText, string InsuranceIssuerCode)
         {
             Database db;
