@@ -12,6 +12,7 @@ using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using WealthERP.Base;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -28,101 +29,101 @@ namespace WealthERP.CustomerPortfolio
         int portfolioId = 0;
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypager.EnableViewState = true;
+        //        base.OnInit(e);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
-                GetPageCount();
-                this.LoadGridview(portfolioId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
+        //        //GetPageCount();
+        //        this.LoadGridview(portfolioId);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit = "";
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = "";
-            string PageRecords = "";
-            try
-            {
-                if (hdnRecordCount.Value.Trim() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //private void GetPageCount()
+        //{
+        //    string upperlimit = "";
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = "";
+        //    string PageRecords = "";
+        //    try
+        //    {
+        //        if (hdnRecordCount.Value.Trim() != "")
+        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        ratio = rowCount / 10;
+        //        mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //        mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //        lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+        //        upperlimit = (mypager.CurrentPage * 10).ToString();
+        //        if (mypager.CurrentPage == mypager.PageCount)
+        //            upperlimit = hdnRecordCount.Value;
+        //        PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //        //lblCurrentPage.Text = PageRecords;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx.cs:GetPageCount()");
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
         private void BindPortfolioDropDown()
         {
@@ -188,21 +189,21 @@ namespace WealthERP.CustomerPortfolio
             List<InsuranceVo> insuranceList = new List<InsuranceVo>();
             try
             {
-                int count;
-                insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
+                //int count;
+                insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, hdnSort.Value);
 
-                if (count > 0)
-                {
-                    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
-                    tblPager.Visible = true;
-                    trPager.Visible = true;
-                }
-                else
-                {
-                    ErrorMessage.Visible = true;
-                    tblPager.Visible = false;
-                    trPager.Visible = false;
-                }
+                //if (count > 0)
+                //{
+                //    //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //    //tblPager.Visible = true;
+                //    //trPager.Visible = true;
+                //}
+                //else
+                //{
+                //    ErrorMessage.Visible = true;
+                //    //tblPager.Visible = false;
+                //    //trPager.Visible = false;
+                //}
 
                 int RecordsCount = 0;
                 if (insuranceList != null)
@@ -213,7 +214,7 @@ namespace WealthERP.CustomerPortfolio
                 if (RecordsCount > 0)
                 {
                     ErrorMessage.Visible = false;
-                    trPager.Visible = true;
+                    //trPager.Visible = true;
                     InsuranceVo insuranceVo;
                     DataTable dtInsurance = new DataTable();
                     //dtInsurance.Columns.Add("SI.No");
@@ -389,14 +390,14 @@ namespace WealthERP.CustomerPortfolio
                     gvrLifeInsurance.DataSource = dtInsurance;
                     gvrLifeInsurance.DataBind();
                     gvrLifeInsurance.Visible = true;
-                    this.GetPageCount();
+                    //this.GetPageCount();
                 }
                 else
                 {
                     gvrLifeInsurance.DataSource = null;
                     gvrLifeInsurance.DataBind();
                     ErrorMessage.Visible = true;
-                    trPager.Visible = false;
+                    //trPager.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -423,10 +424,12 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int insuranceId = int.Parse(gvrLifeInsurance.DataKeys[selectedRow].Value.ToString());
+                //DropDownList ddlAction = (DropDownList)sender;
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex+1;
+                int insuranceId = int.Parse(gvrLifeInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString());
 
                 // Set the VO into the Session
                 insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
@@ -492,7 +495,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrLifeInsurance_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvrLifeInsurance.PageIndex = e.NewPageIndex;
+            //gvrLifeInsurance.PageIndex = e.NewPageIndex;
             gvrLifeInsurance.DataBind();
         }
 
@@ -530,15 +533,15 @@ namespace WealthERP.CustomerPortfolio
             List<InsuranceVo> insuranceList = new List<InsuranceVo>();
             try
             {
-                int count;
+               // int count;
 
-                insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, mypager.CurrentPage, hdnSort.Value.Trim(), out count);
+                insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, hdnSort.Value.Trim());
 
-                if (count > 0)
-                {
-                    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
-                    tblPager.Visible = true;
-                }
+                //if (count > 0)
+                //{
+                //    //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //    //tblPager.Visible = true;
+                //}
 
                 InsuranceVo insuranceVo;
                 DataTable dtInsurance = new DataTable();
@@ -570,6 +573,19 @@ namespace WealthERP.CustomerPortfolio
                 dv.Sort = sortExpression + direction;
                 gvrLifeInsurance.DataSource = dv;
                 gvrLifeInsurance.DataBind();
+
+                if (Cache["LIList"] == null)
+                {
+                    Cache.Insert("LIList", dtInsurance);
+                }
+                else
+                {
+                    Cache.Remove("LIList");
+                    Cache.Insert("LIList", dtInsurance);
+                }
+
+
+
                 gvrLifeInsurance.Visible = true;
             }
             catch (BaseApplicationException Ex)
@@ -634,5 +650,11 @@ namespace WealthERP.CustomerPortfolio
             LoadGridview(portfolioId);
         }
 
+        protected void gvrLifeInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtLIDetails = new DataTable();
+            dtLIDetails = (DataTable)Cache["LIList"];
+            gvrLifeInsurance.DataSource = dtLIDetails;
+        }
     }
 }
