@@ -94,6 +94,12 @@ namespace WealthERP.CustomerPortfolio
                             case "FIPS":
                                 lblInstrumentCategory.Text = "PSU & PFI Bonds";
                                 break;
+                            case "FICG":
+                                lblInstrumentCategory.Text = "Capital Gain Bond";
+                                break;
+                            case "FITF":
+                                lblInstrumentCategory.Text = "Tax Free Bond";
+                                break;
                             default:
                                 lblInstrumentCategory.Text = "N/A";
                                 break;
@@ -147,7 +153,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 SetFDCFD();
             }
-            if (custAccVo.AssetCategory.ToString().Trim() == "FITB" || custAccVo.AssetCategory.ToString().Trim() == "FIIB" || custAccVo.AssetCategory.ToString().Trim() == "FICB")
+            if (custAccVo.AssetCategory.ToString().Trim() == "FITB" || custAccVo.AssetCategory.ToString().Trim() == "FIIB" || custAccVo.AssetCategory.ToString().Trim() == "FICB" || custAccVo.AssetCategory.ToString().Trim() == "FICG")
             {
                 SetTaxSaving();
             }
@@ -167,7 +173,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 SetOthers();
             }
-            if (custAccVo.AssetCategory.ToString().Trim() == "FICE" || custAccVo.AssetCategory.ToString().Trim() == "FIPS")
+            if (custAccVo.AssetCategory.ToString().Trim() == "FICE" || custAccVo.AssetCategory.ToString().Trim() == "FIPS" || custAccVo.AssetCategory.ToString().Trim() == "FITF")
             {
                 SetMarketLink();
             }
@@ -297,6 +303,12 @@ namespace WealthERP.CustomerPortfolio
                     case "FIPS":
                         lblInstrumentCategory.Text = "PSU & PFI Bonds";
                         break;
+                    case "FICG":
+                        lblInstrumentCategory.Text = "Capital Gain Bond";
+                        break;
+                    case "FITF":
+                        lblInstrumentCategory.Text = "Tax Free Bond";
+                        break;
                     default:
                         lblInstrumentCategory.Text = "N/A";
                         break;
@@ -329,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
                 txtAssetParticulars.Enabled = false;
 
                 // Setting Visibility of Account Source
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
                 {
                     trAccountSource.Visible = true;
                     //txtAccountWith.Visible = false;
@@ -371,7 +383,7 @@ namespace WealthERP.CustomerPortfolio
                         txtInterestAmtCredited.Enabled = false;
                     }
                 }
-                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
                 {   // Tax Saving Infrastructure Bonds and Tax Savings Bonds - Banks
 
                     txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
@@ -515,7 +527,7 @@ namespace WealthERP.CustomerPortfolio
                     txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                     txtInterestAmtCredited.Enabled = false;
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = false;
@@ -689,6 +701,12 @@ namespace WealthERP.CustomerPortfolio
                     case "FIPS":
                         lblInstrumentCategory.Text = "PSU & PFI Bonds";
                         break;
+                    case "FICG":
+                        lblInstrumentCategory.Text = "Capital Gain Bond";
+                        break;
+                    case "FITF":
+                        lblInstrumentCategory.Text = "Tax Free Bond";
+                        break;
                     default:
                         lblInstrumentCategory.Text = "N/A";
                         break;
@@ -762,7 +780,7 @@ namespace WealthERP.CustomerPortfolio
                         txtInterestAmtCredited.Enabled = true;
                     }
                 }
-                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
                 {   // Tax Saving Infrastructure Bonds and Tax Savings Bonds - Banks
 
                     txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
@@ -911,7 +929,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlPayableFrequencyCode.Enabled = true;
 
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = true;
@@ -1170,7 +1188,7 @@ namespace WealthERP.CustomerPortfolio
 
                     blResult = fixedincomeBo.CreateFixedIncome(fixedincomeVo, userVo.UserId);
                 }
-                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICB")
+                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
                 {
                     fixedincomeVo.CustomerId = customerVo.CustomerId;
                     fixedincomeVo.AccountId = customerAccountsVo.AccountId;
@@ -1378,7 +1396,7 @@ namespace WealthERP.CustomerPortfolio
                     blResult = fixedincomeBo.CreateFixedIncome(fixedincomeVo, userVo.UserId);
                 }
 
-                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIPS")
+                else if (customerAccountsVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountsVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     fixedincomeVo.CustomerId = customerVo.CustomerId;
                     fixedincomeVo.AccountId = customerAccountsVo.AccountId;
@@ -1850,7 +1868,7 @@ namespace WealthERP.CustomerPortfolio
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
 
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
                 {
                     newFixedIncomeVo.CustomerId = customerVo.CustomerId;
                     newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
@@ -2004,7 +2022,7 @@ namespace WealthERP.CustomerPortfolio
 
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FICE")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     newFixedIncomeVo.CustomerId = customerVo.CustomerId;
                     newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
