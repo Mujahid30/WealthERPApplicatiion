@@ -118,6 +118,9 @@
                     <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1"
                         runat="server" TargetControlID="txtLoanStartDate" WatermarkText="dd/mm/yyyy">
                     </cc1:TextBoxWatermarkExtender>
+                    <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtLoanStartDate" CssClass="cvPCG" Operator="DataTypeCheck" ValidationGroup="btnSubmit"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     
                 </td>
             </tr>
