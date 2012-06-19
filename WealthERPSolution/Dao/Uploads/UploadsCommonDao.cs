@@ -3732,7 +3732,7 @@ namespace DaoUploads
             }
         }
 
-          public DataSet GetUploadProcessLogSuperAdmin(int CurrentPage, out int Count, string SortExpression)
+        public DataSet GetUploadProcessLogSuperAdmin(int CurrentPage, out int Count, string SortExpression, string orgName)
         {
             Database db;
             DbCommand getProcessLogCmd;
@@ -3744,6 +3744,8 @@ namespace DaoUploads
                 getProcessLogCmd = db.GetStoredProcCommand("SP_GetSuperAdminAdvDailyUploadLog");                
                 db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getProcessLogCmd, "@processIdSort", DbType.String, SortExpression);
+                db.AddInParameter(getProcessLogCmd, "@orgName", DbType.String, orgName);
+                getProcessLogCmd.CommandTimeout = 60 * 60;
                 getProcessLogDs = db.ExecuteDataSet(getProcessLogCmd);
             }
             catch (BaseApplicationException Ex)
@@ -3887,7 +3889,7 @@ namespace DaoUploads
               return ds;
           }
 
-          public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter)
+          public DataSet GetSuperAdminRejectedSIPRecords(int CurrentPage, out int Count, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string schemeNameFilter,string OrgName)
           {
               DataSet dsSIPRejectedDetails = new DataSet();
 
@@ -3921,7 +3923,9 @@ namespace DaoUploads
 
                   if (schemeNameFilter != "")
                       db.AddInParameter(getCount, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                  db.AddInParameter(getCount, "@orgName", DbType.String, OrgName);
 
+                  getCount.CommandTimeout = 60 * 60;
                   dsSIPRejectedDetails = db.ExecuteDataSet(getCount);
 
                   Count = Int32.Parse(dsSIPRejectedDetails.Tables[8].Rows[0]["CNT"].ToString());
