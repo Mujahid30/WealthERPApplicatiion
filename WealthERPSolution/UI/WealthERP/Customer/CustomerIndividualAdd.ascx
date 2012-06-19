@@ -404,7 +404,7 @@
                     <table width="100%">
                         <tr>
                             <td colspan="4">
-                                <asp:Label ID="Label26" CssClass="HeaderTextSmall" runat="server" Text="Office Address"></asp:Label>
+                                <asp:Label ID="Label26" CssClass="HeaderTextSmall" runat="server" ></asp:Label>
                                 <hr />
                             </td>
                         </tr>
