@@ -358,6 +358,7 @@ namespace VoUser
         private string m_AMCLinks;
         private string m_AMCImagePath;
         private string m_ExternalLinkCode;
+        private string m_AltLinkName;
 
        
 
@@ -405,6 +406,11 @@ namespace VoUser
         {
             get { return m_ExternalLinkCode; }
             set { m_ExternalLinkCode = value; }
+        }
+        public string AltLinkName
+        {
+            get { return m_AltLinkName; }
+            set { m_AltLinkName = value; }
         }
         #endregion Properties
     }
