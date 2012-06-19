@@ -292,13 +292,13 @@ namespace BoAdvisorProfiling
         /// <param name="sortorder"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public DataSet  FindRM(string rmName,int adviserId,int currentpage,string sortorder,out int count)
+        public DataSet  FindRM(string rmName,int adviserId,string sortorder,out int count)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             DataSet ds = new DataSet();
             try
             {
-                ds = advisorStaffDao.FindRM(rmName, adviserId, currentpage, sortorder, out count);
+                ds = advisorStaffDao.FindRM(rmName, adviserId, sortorder, out count);
             }
             catch (BaseApplicationException Ex)
             {
@@ -326,14 +326,14 @@ namespace BoAdvisorProfiling
         /// <param name="CurrentPage"></param>
         /// <param name="Count"></param>
         /// <returns></returns>
-        public List<RMVo> GetBMRMList(int branchId,int CurrentPage,out int Count)
+        public List<RMVo> GetBMRMList(int branchId,out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             Count = 0;
             try
             {
-                rmList = advisorStaffDao.GetBMRMList(branchId, CurrentPage, out Count);
+                rmList = advisorStaffDao.GetBMRMList(branchId, out Count);
             }
             catch (Exception e)
             {
@@ -495,14 +495,14 @@ namespace BoAdvisorProfiling
         /// <param name="Count"></param>
         /// <param name="nameSrch"></param>
         /// <returns></returns>
-        public List<RMVo> GetRMList(int advisorId, int currentPage, string sortOrder, out int Count,string nameSrch)
+        public List<RMVo> GetRMList(int advisorId, string sortOrder,string nameSrch)
         {
             List<RMVo> rmList = null;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
 
-                rmList = advisorStaffDao.GetRMList(advisorId,currentPage,sortOrder,out Count,nameSrch);
+                rmList = advisorStaffDao.GetRMList(advisorId,sortOrder,nameSrch);
 
             }
             catch (BaseApplicationException Ex)
@@ -1147,14 +1147,14 @@ namespace BoAdvisorProfiling
 
         /* For Getting Staffs according to Branch selection */
 
-        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, int currentPage, out int Count)
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, out int Count)
         {
             List<RMVo> rmList = new List<RMVo>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             Count = 0;
             try
             {
-                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all, currentPage, out Count);
+                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all, out Count);
             }
             catch (Exception e)
             {
