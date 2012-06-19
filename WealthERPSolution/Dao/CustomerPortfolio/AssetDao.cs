@@ -678,6 +678,39 @@ namespace DaoCustomerPortfolio
             return getUlipPlanDs;
 
         }
+
+        public DataSet GetGIPlans(string issuerCode)
+        {
+            DataSet getUlipPlanDs = null;
+            Database db;
+            DbCommand getUlipPlanCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUlipPlanCmd = db.GetStoredProcCommand("SP_GetGISchemePlans");
+                db.AddInParameter(getUlipPlanCmd, "@XII_InsuranceIssuerCode", DbType.String, issuerCode);
+                getUlipPlanDs = db.ExecuteDataSet(getUlipPlanCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "Asset.cs:GetULIPPlans()");
+                object[] objects = new object[1];
+                objects[0] = issuerCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getUlipPlanDs;
+
+        }
+
         public DataTable GetFiscalYearCode(string path)
         {
             DataSet ds;
