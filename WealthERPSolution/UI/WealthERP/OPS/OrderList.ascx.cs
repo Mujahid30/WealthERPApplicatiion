@@ -7,14 +7,21 @@ using System.Web.UI.WebControls;
 using System.Data;
 using BoOps;
 using Telerik.Web.UI;
+using VoUser;
+using BoCommon;
 
 namespace WealthERP.OPS
 {
     public partial class OrderList : System.Web.UI.UserControl
     {
         OrderBo orderbo = new OrderBo();
+        AdvisorVo advisorVo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
+            if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+
             if (!IsPostBack)
             {
                 BindGvOrderList();
@@ -23,9 +30,8 @@ namespace WealthERP.OPS
 
         protected void BindGvOrderList()
         {
-            int CustomerId = 40168;
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetCustomerOrderList(CustomerId);
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId);
             gvOrderList.DataSource = dtOrder;
             gvOrderList.DataBind();
 

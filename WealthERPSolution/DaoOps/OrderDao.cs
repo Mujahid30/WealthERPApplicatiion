@@ -884,7 +884,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetCustomerOrderList(int customerId)
+        public DataTable GetOrderList(int advisorId)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -894,7 +894,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbOrder = db.GetStoredProcCommand("SP_GetCustomerOrderList");
-                db.AddInParameter(dbOrder, "@CustomerId", DbType.Int64, customerId);
+                db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
             }
@@ -907,10 +907,10 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "OrderDao.cs:GetCustomerOrderList()");
+                FunctionInfo.Add("Method", "OrderDao.cs:GetOrderList()");
 
                 object[] objects = new object[1];
-                objects[0] = customerId;
+                objects[0] = advisorId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

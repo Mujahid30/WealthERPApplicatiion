@@ -500,13 +500,13 @@ namespace BoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetCustomerOrderList(int customerId)
+        public DataTable GetOrderList(int advisorId)
         {
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetCustomerOrderList(customerId);
+                dtOrder = orderDao.GetOrderList(advisorId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -517,10 +517,10 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "OrderBo.cs:GetCustomerOrderList()");
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderList()");
 
                 object[] objects = new object[1];
-                objects[0] = customerId;
+                objects[0] = advisorId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
