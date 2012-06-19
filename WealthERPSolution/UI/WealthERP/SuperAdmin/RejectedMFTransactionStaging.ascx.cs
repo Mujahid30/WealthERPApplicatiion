@@ -129,7 +129,7 @@ namespace WealthERP.SuperAdmin
 
             rejectedRecordsBo = new RejectedRecordsBo();
 
-            dsRejectedRecords = rejectedRecordsBo.GetSuperAdminUploadRejectsMFTransactionStaging(mypager.CurrentPage, out Count, hdnSort.Value, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSourceTypeFilter.Value, hdnSchemeNameFilter.Value);
+            dsRejectedRecords = rejectedRecordsBo.GetSuperAdminUploadRejectsMFTransactionStaging(mypager.CurrentPage, out Count, hdnSort.Value, int.Parse(hdnProcessIdFilter.Value), hdnRejectReasonFilter.Value, hdnFileNameFilter.Value, hdnFolioFilter.Value, hdnTransactionTypeFilter.Value, hdnInvNameFilter.Value, hdnSourceTypeFilter.Value, hdnSchemeNameFilter.Value, hdnAdviserFilter.Value);
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
             if (Count > 0)
@@ -177,7 +177,7 @@ namespace WealthERP.SuperAdmin
                 BindFolioNumber(dsRejectedRecords.Tables[7]);
                 BindSchemeName(dsRejectedRecords.Tables[8]);
                 BindTransactionType(dsRejectedRecords.Tables[9]);
-
+                BindAdviserName(dsRejectedRecords.Tables[10]);
 
             }
             else
@@ -189,6 +189,32 @@ namespace WealthERP.SuperAdmin
                 trReprocess.Visible = false;
             }
             this.GetPageCount();
+        }
+
+        private void BindAdviserName(DataTable dtAdviser)
+        {
+            Dictionary<string, string> genOrganizationData = new Dictionary<string, string>();
+            if (dtAdviser.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtAdviser.Rows)
+                {
+                    genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
+                }
+                DropDownList ddlAdviserNameDate = GetOrganization();
+                if (ddlAdviserNameDate != null)
+                {
+                    ddlAdviserNameDate.DataSource = genOrganizationData;
+                    ddlAdviserNameDate.DataTextField = "Key";
+                    ddlAdviserNameDate.DataValueField = "Value";
+                    ddlAdviserNameDate.DataBind();
+                    ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                if (hdnAdviserFilter.Value != "")
+                {
+                    ddlAdviserNameDate.SelectedValue = hdnAdviserFilter.Value;
+                }
+
+            }
         }
 
         #region BindDropdown Filters
@@ -1131,6 +1157,50 @@ namespace WealthERP.SuperAdmin
             }
 
             BindEquityTransactionGrid(ProcessId);
+        }
+
+        protected void ddlAdviserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAdviserName = GetOrganization();
+
+            if (Request.QueryString["processId"] != null)
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+            if (Request.QueryString["filetypeid"] != null)
+                filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
+
+            if (ddlAdviserName != null)
+            {
+                if (ddlAdviserName.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnAdviserFilter.Value = ddlAdviserName.SelectedItem.Text;
+                    BindEquityTransactionGrid(ProcessId);
+                    // ddlAdviserName.SelectedItem.Text = hdnAdviserNameAUMFilter.Value;
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAdviserFilter.Value = "";
+                    BindEquityTransactionGrid(ProcessId);
+                }
+            }
+        }
+
+        private DropDownList GetOrganization()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlAdviserName") != null)
+            {
+                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlAdviserName");
+            }
+            return ddl;
         }
 
     }
