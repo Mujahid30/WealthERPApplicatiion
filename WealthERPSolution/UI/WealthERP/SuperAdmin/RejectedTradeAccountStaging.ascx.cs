@@ -120,11 +120,11 @@ namespace WealthERP.SuperAdmin
 
             if (ProcessId == 0) //TODO : This IF ELSE can be removed.
             {   // Bind All Processes
-                dsRejectedRecords = rejectedRecordsBo.GetSuperAdminRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.GetSuperAdminRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value, hdnAdviserFilter.Value);
             }
             else
             {   // Bind Grid for the specific Process Id
-                dsRejectedRecords = rejectedRecordsBo.GetSuperAdminRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value);
+                dsRejectedRecords = rejectedRecordsBo.GetSuperAdminRejectedTradeAccountStaging(ProcessId, mypager.CurrentPage, out Count, hdnSort.Value, hdnTradeAccountNumFilter.Value, hdnRejectReasonFilter.Value, hdnPanFilter.Value, hdnAdviserFilter.Value);
             }
 
             lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
@@ -164,6 +164,7 @@ namespace WealthERP.SuperAdmin
                 }
                 BindPanNumber(dsRejectedRecords.Tables[3]);
                 BindProcessId(dsRejectedRecords.Tables[4]);
+                BindAdviserName(dsRejectedRecords.Tables[5]);
             }
             else
             {
@@ -598,6 +599,74 @@ namespace WealthERP.SuperAdmin
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+        }
+
+        private void BindAdviserName(DataTable dtAdviser)
+        {
+            Dictionary<string, string> genOrganizationData = new Dictionary<string, string>();
+            if (dtAdviser.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dtAdviser.Rows)
+                {
+                    genOrganizationData.Add(dr[0].ToString(), dr[0].ToString());
+                }
+                DropDownList ddlAdviserNameDate = GetOrganization();
+                if (ddlAdviserNameDate != null)
+                {
+                    ddlAdviserNameDate.DataSource = genOrganizationData;
+                    ddlAdviserNameDate.DataTextField = "Key";
+                    ddlAdviserNameDate.DataValueField = "Value";
+                    ddlAdviserNameDate.DataBind();
+                    ddlAdviserNameDate.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                if (hdnAdviserFilter.Value != "")
+                {
+                    ddlAdviserNameDate.SelectedValue = hdnAdviserFilter.Value;
+                }
+
+            }
+        }
+
+        protected void ddlAdviserName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAdviserName = GetOrganization();
+
+            if (Request.QueryString["processId"] != null)
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+           
+            DropDownList ddlProcessId = GetProcessIdDDL();
+            if (ddlProcessId.SelectedIndex != 0)
+            {
+                hdnProcessIdFilter.Value = ddlProcessId.SelectedValue;
+                ProcessId = int.Parse(hdnProcessIdFilter.Value);
+            }
+            else
+                ProcessId = 0;
+
+            if (ddlAdviserName != null)
+            {
+                if (ddlAdviserName.SelectedIndex != 0)
+                {   // Bind the Grid with Only Selected Values
+                    hdnAdviserFilter.Value = ddlAdviserName.SelectedItem.Text;
+                    BindRejectedUploadsGrid(ProcessId);
+                    // ddlAdviserName.SelectedItem.Text = hdnAdviserNameAUMFilter.Value;
+                }
+                else
+                {   // Bind the Grid with Only All Values
+                    hdnAdviserFilter.Value = "";
+                    BindRejectedUploadsGrid(ProcessId);
+                }
+            }
+        }
+
+        private DropDownList GetOrganization()
+        {
+            DropDownList ddl = new DropDownList();
+            if ((DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlAdviserName") != null)
+            {
+                ddl = (DropDownList)gvWERPTrans.HeaderRow.FindControl("ddlAdviserName");
+            }
+            return ddl;
         }
     }
 }
