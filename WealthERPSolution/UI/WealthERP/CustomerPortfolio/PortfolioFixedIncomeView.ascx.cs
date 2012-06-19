@@ -198,6 +198,7 @@ namespace WealthERP.CustomerPortfolio
                     dtFixedIncomePortfolio.Columns.Add("Interest Rate");
                     dtFixedIncomePortfolio.Columns.Add("Current Value");
                     dtFixedIncomePortfolio.Columns.Add("Maturity Value");
+                    dtFixedIncomePortfolio.Columns.Add("Purchase Value");
 
                     DataRow drFixedIncomePortfolio;
 
@@ -232,7 +233,13 @@ namespace WealthERP.CustomerPortfolio
                             drFixedIncomePortfolio[8] = "0";
                         else
                             drFixedIncomePortfolio[8] = decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                      
+
+                     
+                            if (Convert.ToDecimal(fixedincomeVo.PurchaseValue.ToString()) == 0)
+                                drFixedIncomePortfolio[9] = "0";
+                            else
+                                drFixedIncomePortfolio[9] = decimal.Parse(fixedincomeVo.PurchaseValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        
                        // drFixedIncomePortfolio[8] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtFixedIncomePortfolio.Rows.Add(drFixedIncomePortfolio);
