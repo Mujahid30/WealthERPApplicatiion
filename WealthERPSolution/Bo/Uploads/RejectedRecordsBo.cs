@@ -1132,13 +1132,13 @@ namespace BoUploads
             return affectedRecords;
         }
 
-        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter, string orgName)
         {
             DataSet dsWERPRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedProfiles = rejecetedRecords.getSuperAdminWERPRejectedProfile(processId, CurrentPage, out  Count, SortExpression, PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter);
+                dsWERPRejectedProfiles = rejecetedRecords.getSuperAdminWERPRejectedProfile(processId, CurrentPage, out  Count, SortExpression, PANFilter, RejectReasonFilter, BrokerFilter, CustomerNameFilter, orgName);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1169,13 +1169,13 @@ namespace BoUploads
             return dsWERPRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter, string OrgName)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminUploadRejectsMFTransactionStaging(CurrentPage, out Count, SortExpression, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, sourceTypeFilter, schemeNameFilter);
+                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminUploadRejectsMFTransactionStaging(CurrentPage, out Count, SortExpression, processId, RejectReasonFilter, fileNameFilter, FolioFilter, TransactionTypeFilter, investorNameFileter, sourceTypeFilter, schemeNameFilter,OrgName);
 
             }
             catch (BaseApplicationException Ex)
@@ -1211,13 +1211,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter, string OrgName)
         {
             DataSet dsCAMSRejectedProfiles;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsCAMSRejectedProfiles = rejecetedRecords.getSuperAdminMFRejectedFolios(processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter);
+                dsCAMSRejectedProfiles = rejecetedRecords.getSuperAdminMFRejectedFolios(processId, CurrentPage, out Count, SortExpression, IsRejectedFilter, PANFilter, RejectReasonFilter, NameFilter, FolioFilter, OrgName);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1250,13 +1250,13 @@ namespace BoUploads
             return dsCAMSRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter)
+        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PanFilter,string OrgName)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminRejectedTradeAccountStaging(processId, CurrentPage, out Count, SortExpression, TradeAccountNumFilter, RejectReasonFilter, PanFilter);
+                dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminRejectedTradeAccountStaging(processId, CurrentPage, out Count, SortExpression, TradeAccountNumFilter, RejectReasonFilter, PanFilter, OrgName);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1286,14 +1286,14 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
         public DataSet GetSuperAdminRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
-           string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
+           string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter,string Orgname)
         {
             DataSet dsWERPRejectedTransactions;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
                 dsWERPRejectedTransactions = rejecetedRecords.GetSuperAdminRejectedEquityTransactionsStaging(processId, CurrentPage, out Count,
-             SortExpression, RejectReasonFilter, PanNumberFilter, ScripFilter, ExchangeFilter, TransactionTypeFilter);
+             SortExpression, RejectReasonFilter, PanNumberFilter, ScripFilter, ExchangeFilter, TransactionTypeFilter, Orgname);
 
             }
             catch (BaseApplicationException Ex)
