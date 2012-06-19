@@ -1559,7 +1559,7 @@ namespace DaoUploads
             else
                 return false;
         }
-        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter)
+        public DataSet getSuperAdminWERPRejectedProfile(int processId, int CurrentPage, out int Count, string SortExpression, string PANFilter, string RejectReasonFilter, string BrokerFilter, string CustomerNameFilter, string orgName)
         {
             DataSet dsGetWERPRejectedProfiles;
             Database db;
@@ -1588,6 +1588,10 @@ namespace DaoUploads
 
                 if (RejectReasonFilter != "")
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
+
+                
+                 db.AddInParameter(getWERPRejectedProfilesCmd, "@orgName", DbType.String, orgName);
+                getWERPRejectedProfilesCmd.CommandTimeout = 60 * 60;
 
                 dsGetWERPRejectedProfiles = db.ExecuteDataSet(getWERPRejectedProfilesCmd);
             }
@@ -1622,7 +1626,7 @@ namespace DaoUploads
             return dsGetWERPRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter)
+        public DataSet GetSuperAdminUploadRejectsMFTransactionStaging(int CurrentPage, out int Count, string SortExpression, int processId, string RejectReasonFilter, string fileNameFilter, string FolioFilter, string TransactionTypeFilter, string investorNameFileter, string sourceTypeFilter, string schemeNameFilter,string OrgName)
         {
             DataSet dsGetMFRejectedTransactions;
             Database db;
@@ -1659,6 +1663,7 @@ namespace DaoUploads
 
                 if (schemeNameFilter != "")
                     db.AddInParameter(getMFRejectedTransactionsCmd, "@schemeNameFilter", DbType.String, schemeNameFilter);
+                db.AddInParameter(getMFRejectedTransactionsCmd, "@orgName", DbType.String, OrgName);
                 getMFRejectedTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetMFRejectedTransactions = db.ExecuteDataSet(getMFRejectedTransactionsCmd);
             }
@@ -1695,7 +1700,7 @@ namespace DaoUploads
 
             return dsGetMFRejectedTransactions;
         }
-        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter)
+        public DataSet getSuperAdminMFRejectedFolios(int processId, int CurrentPage, out int Count, string SortExpression, string IsRejectedFilter, string PANFilter, string RejectReasonFilter, string NameFilter, string FolioFilter,string OrgName)
         {
             DataSet dsGetCAMSRejectedProfiles;
             Database db;
@@ -1728,11 +1733,14 @@ namespace DaoUploads
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
                 else
                     db.AddInParameter(getCAMSRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, DBNull.Value);
+
+                db.AddInParameter(getCAMSRejectedProfilesCmd, "@orgName", DbType.String, OrgName);
                 //if (DoesCustExistFilter != "")
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DoesCustExistFilter);
                 //else
                 //    db.AddInParameter(getCAMSRejectedProfilesCmd, "@isCustomerExistingFilter", DbType.String, DBNull.Value);
 
+                getCAMSRejectedProfilesCmd.CommandTimeout = 60 * 60;
                 dsGetCAMSRejectedProfiles = db.ExecuteDataSet(getCAMSRejectedProfilesCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1768,7 +1776,7 @@ namespace DaoUploads
             return dsGetCAMSRejectedProfiles;
         }
 
-        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter)
+        public DataSet GetSuperAdminRejectedTradeAccountStaging(int processId, int CurrentPage, out int Count, string SortExpression, string TradeAccountNumFilter, string RejectReasonFilter, string PANFilter,string OrgName)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -1793,6 +1801,7 @@ namespace DaoUploads
 
                 if (PANFilter != "")
                     db.AddInParameter(getWERPRejectedTransactionsCmd, "@PANNum", DbType.String, PANFilter);
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@orgName", DbType.String, OrgName);
 
                 dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
             }
@@ -1826,7 +1835,7 @@ namespace DaoUploads
             return dsGetWERPRejectedTransactions;
         }
         public DataSet GetSuperAdminRejectedEquityTransactionsStaging(int processId, int CurrentPage, out int Count,
-          string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter)
+          string SortExpression, string RejectReasonFilter, string PanNumberFilter, string ScripFilter, string ExchangeFilter, string TransactionTypeFilter,string OrgName)
         {
             DataSet dsGetWERPRejectedTransactions;
             Database db;
@@ -1856,8 +1865,8 @@ namespace DaoUploads
 
                 if (TransactionTypeFilter != "")
                     db.AddInParameter(getWERPRejectedTransactionsCmd, "@transactionTypeFilter", DbType.String, TransactionTypeFilter);
-
-
+                db.AddInParameter(getWERPRejectedTransactionsCmd, "@orgName", DbType.String, OrgName);
+                getWERPRejectedTransactionsCmd.CommandTimeout = 60 * 60;
                 dsGetWERPRejectedTransactions = db.ExecuteDataSet(getWERPRejectedTransactionsCmd);
             }
             catch (BaseApplicationException Ex)
