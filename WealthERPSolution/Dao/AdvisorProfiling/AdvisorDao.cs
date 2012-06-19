@@ -2357,6 +2357,10 @@ namespace DaoAdvisorProfiling
                             {
                                 aoTALVo.ExternalLinkCode=dr["WELM_LinkCode"].ToString();
                             }
+                            if (!string.IsNullOrEmpty(dr["AL_AltLinkName"].ToString()))
+                            {
+                                aoTALVo.AltLinkName = dr["AL_AltLinkName"].ToString();
+                            }
                             adviserOTALink.Add(aoTALVo);
                         }
                     }
