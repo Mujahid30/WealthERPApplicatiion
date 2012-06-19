@@ -14,5 +14,6 @@ namespace WealthERP.Uploads
 
     public partial class ViewEQTransactionInputrejects
     {
+        protected global::Telerik.Web.UI.RadGrid gvEquityInputRejects;
     }
 }
