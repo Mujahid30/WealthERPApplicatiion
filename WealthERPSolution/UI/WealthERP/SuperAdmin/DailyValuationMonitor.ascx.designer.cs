@@ -68,6 +68,15 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator3;
         
         /// <summary>
+        /// trdd1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trdd1;
+        
+        /// <summary>
         /// lblAction control.
         /// </summary>
         /// <remarks>
@@ -93,6 +102,42 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cmpamc;
+        
+        /// <summary>
+        /// trequity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trequity;
+        
+        /// <summary>
+        /// lblEquity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEquity;
+        
+        /// <summary>
+        /// ddlEquity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEquity;
+        
+        /// <summary>
+        /// CompareValidator4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator4;
         
         /// <summary>
         /// trRadioDatePeriod control.
@@ -264,8 +309,7 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trDate;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trdd1;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trequity;
+        
         /// <summary>
         /// lblDate control.
         /// </summary>
@@ -328,7 +372,7 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlNavPer;
-        protected global::System.Web.UI.WebControls.DropDownList ddlEquity;
+        
         /// <summary>
         /// btnGo control.
         /// </summary>
@@ -339,32 +383,14 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Button btnGo;
         
         /// <summary>
-        /// lblCurrentPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-        
-        /// <summary>
-        /// lblTotalRows control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalRows;
-        
-        /// <summary>
         /// gvDuplicateCheck control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        
-        
+        protected global::Telerik.Web.UI.RadGrid gvDuplicateCheck;
+        protected global::Telerik.Web.UI.RadGrid gvAumMis;
         /// <summary>
         /// btnDelete control.
         /// </summary>
@@ -384,60 +410,13 @@ namespace WealthERP.SuperAdmin {
         protected global::System.Web.UI.WebControls.Button btnDeleteAll;
         
         /// <summary>
-        /// lblPage control.
+        /// lblAdviserNameDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPage;
-        
-        /// <summary>
-        /// lblTotalPage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalPage;
-        
-        /// <summary>
-        /// gvAumMis control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvAumMis;
-        protected global::Telerik.Web.UI.RadGrid gvMFRejectedDetails;
-
-        protected global::Telerik.Web.UI.RadGrid gvDuplicateCheck;
-        /// <summary>
-        /// pnlReject control.gvDuplicateCheck
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlReject;
-        
-        /// <summary>
-        /// lblRejectCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRejectCount;
-        
-        /// <summary>
-        /// lblRejectTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRejectTotal;
+        protected global::System.Web.UI.WebControls.Label lblAdviserNameDate;
         
         /// <summary>
         /// gvMFRejectedDetails control.
@@ -446,25 +425,7 @@ namespace WealthERP.SuperAdmin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        //protected global::System.Web.UI.WebControls.GridView gvMFRejectedDetails;
-        
-        /// <summary>
-        /// lblNAVCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNAVCount;
-        
-        /// <summary>
-        /// lblNAVTotal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNAVTotal;
+        protected global::Telerik.Web.UI.RadGrid gvMFRejectedDetails;
         
         /// <summary>
         /// gvNavChange control.
@@ -473,7 +434,7 @@ namespace WealthERP.SuperAdmin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvNavChange;
+        protected global::Telerik.Web.UI.RadGrid gvNavChange;
         
         /// <summary>
         /// tblMessage control.
@@ -492,78 +453,6 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
-        
-        /// <summary>
-        /// trpagerDuplicate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trpagerDuplicate;
-        
-        /// <summary>
-        /// mypagerDuplicate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.Pager mypagerDuplicate;
-        
-        /// <summary>
-        /// trmypagerAUM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trmypagerAUM;
-        
-        /// <summary>
-        /// mypagerAUM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.Pager mypagerAUM;
-        
-        /// <summary>
-        /// trPagerReject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPagerReject;
-        
-        /// <summary>
-        /// pgrReject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.Pager pgrReject;
-        
-        /// <summary>
-        /// trPagerNAV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPagerNAV;
-        
-        /// <summary>
-        /// myPagerNAV control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WealthERP.Pager myPagerNAV;
         
         /// <summary>
         /// hidDateType control.

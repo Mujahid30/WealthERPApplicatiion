@@ -36,87 +36,87 @@ namespace WealthERP.SuperAdmin
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         int count;
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-                ((Pager)mypagerDuplicate).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypagerDuplicate.EnableViewState = true;
-                base.OnInit(e);
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Pager)mypagerDuplicate).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypagerDuplicate.EnableViewState = true;
+        //        base.OnInit(e);
 
-                //((Pager)mypagerAUM).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                //mypagerAUM.EnableViewState = true;
-                //base.OnInit(e);
+        //        //((Pager)mypagerAUM).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        //mypagerAUM.EnableViewState = true;
+        //        //base.OnInit(e);
 
-                ((Pager)pgrReject).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                pgrReject.EnableViewState = true;
-                base.OnInit(e);
+        //        ((Pager)pgrReject).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        pgrReject.EnableViewState = true;
+        //        base.OnInit(e);
 
-                ((Pager)myPagerNAV).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                myPagerNAV.EnableViewState = true;
-                base.OnInit(e);
+        //        ((Pager)myPagerNAV).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        myPagerNAV.EnableViewState = true;
+        //        base.OnInit(e);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "UnderConstruction.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "UnderConstruction.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCountDuplicate();
-                //GetPageCountAUM();
-                if (ddlAction.SelectedValue == "DuplicateMis")
-                {
-                    this.BindDuplicateGrid();
-                }
-                else if (ddlAction.SelectedValue == "AumMis")
-                {
-                    this.BindAUMGrid();
-                }
-                else if (ddlAction.SelectedValue == "mfRejects")
-                {
-                    this.BindMFRejectedGrid();
-                }
-                else if (ddlAction.SelectedValue == "NAVChange")
-                {
-                    this.BindNAVPercentageChange();
-                }
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    //try
+        //    //{
+        //    //    GetPageCountDuplicate();
+        //    //    //GetPageCountAUM();
+        //    //    if (ddlAction.SelectedValue == "DuplicateMis")
+        //    //    {
+        //    //        this.BindDuplicateGrid();
+        //    //    }
+        //    //    else if (ddlAction.SelectedValue == "AumMis")
+        //    //    {
+        //    //        this.BindAUMGrid();
+        //    //    }
+        //    //    else if (ddlAction.SelectedValue == "mfRejects")
+        //    //    {
+        //    //        this.BindMFRejectedGrid();
+        //    //    }
+        //    //    else if (ddlAction.SelectedValue == "NAVChange")
+        //    //    {
+        //    //        this.BindNAVPercentageChange();
+        //    //    }
 
-            }
+        //    //}
 
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "UnderConstruction.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[2];
-                objects[0] = mypagerDuplicate.CurrentPage;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //    //catch (BaseApplicationException Ex)
+        //    //{
+        //    //    throw Ex;
+        //    //}
+        //    //catch (Exception Ex)
+        //    //{
+        //    //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //    //    NameValueCollection FunctionInfo = new NameValueCollection();
+        //    //    FunctionInfo.Add("Method", "UnderConstruction.ascx.cs:HandlePagerEvent()");
+        //    //    object[] objects = new object[2];
+        //    //    objects[0] = mypagerDuplicate.CurrentPage;
+        //    //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //    //    exBase.AdditionalInformation = FunctionInfo;
+        //    //    ExceptionManager.Publish(exBase);
+        //    //    throw exBase;
+        //    //}
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -138,18 +138,18 @@ namespace WealthERP.SuperAdmin
                 tblMessage.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = false;
+                //lblCurrentPage.Visible = false;
+                //lblTotalRows.Visible = false;
+                //lblPage.Visible = false;
                 //lblTotalPage.Visible = false;
-                trpagerDuplicate.Visible = false;
+                //trpagerDuplicate.Visible = false;
                 //trmypagerAUM.Visible = false;
-                trPagerReject.Visible = false;
-                trPagerNAV.Visible = false;
+                //trPagerReject.Visible = false;
+                //trPagerNAV.Visible = false;
                 //lblRejectCount.Visible = false;
                 //lblRejectTotal.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
                 hidDateType.Value = "DATE_RANGE";
                 trDate.Visible = false;
                 //pnlReject.Visible = false;
@@ -193,10 +193,13 @@ namespace WealthERP.SuperAdmin
         protected void btnGo_Click(object sender, EventArgs e)
         {
 
-            CalculateDateRange(out dtFrom, out dtTo);
-            hdnFromDate.Value = dtFrom.ToString();
-            hdnToDate.Value = dtTo.ToString();
-            hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+            if (ddlAction.SelectedValue != "NAVChange")
+            {
+                CalculateDateRange(out dtFrom, out dtTo);
+                hdnFromDate.Value = dtFrom.ToString();
+                hdnToDate.Value = dtTo.ToString();
+                hdnSelectDate.Value = txtDate.SelectedDate.ToString();
+            }
             if (ddlAction.SelectedValue == "DuplicateMis")
             {
                 BindDuplicateGrid();
@@ -230,7 +233,7 @@ namespace WealthERP.SuperAdmin
             DataSet dsGetNAV;
             DataTable dtGetNAV;
             NavPer = double.Parse(ddlNavPer.SelectedValue);
-            dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(hdnSelectDate.Value), NavPer, myPagerNAV.CurrentPage, out count);
+            dsGetNAV = superAdminOpsBo.GetNAVPercentage(DateTime.Parse(txtDate.SelectedDate.ToString()), NavPer);
             dtGetNAV = dsGetNAV.Tables[0];
             try
             {
@@ -242,6 +245,15 @@ namespace WealthERP.SuperAdmin
                     dtGetNAVPercentageDetails.Columns.Add("CurrentNAV");
                     dtGetNAVPercentageDetails.Columns.Add("PreviousNAV");
                     dtGetNAVPercentageDetails.Columns.Add("PercentChange");
+                    if (Cache["duplicatecheckList"] == null)
+                    {
+                        Cache.Insert("dsGetNAVList", dsGetNAV);
+                    }
+                    else
+                    {
+                        Cache.Remove("dsGetNAVList");
+                        Cache.Insert("dsGetNAVList", dsGetNAV);
+                    }
 
                     DataRow drGetNAVPercentageDetails;
 
@@ -256,24 +268,24 @@ namespace WealthERP.SuperAdmin
                         drGetNAVPercentageDetails["PercentChange"] = double.Parse(dr["PerDiff"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         dtGetNAVPercentageDetails.Rows.Add(drGetNAVPercentageDetails);
                     }
-                    lblNAVTotal.Text = hdnRecordCount.Value = count.ToString();
+                    //lblNAVTotal.Text = hdnRecordCount.Value = count.ToString();
                     gvNavChange.DataSource = dtGetNAVPercentageDetails;
                     gvNavChange.DataBind();
                     gvNavChange.Visible = true;
-                    this.GetPageCountNAV();
-                    lblNAVCount.Visible = true;
-                    lblNAVTotal.Visible = true;
+                    //this.GetPageCountNAV();
+                    //lblNAVCount.Visible = true;
+                    //lblNAVTotal.Visible = true;
                     gvDuplicateCheck.Visible = false;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
-                    lblPage.Visible = false;
-                    lblTotalPage.Visible = false;
-                    trpagerDuplicate.Visible = false;
-                    trmypagerAUM.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
+                    //lblPage.Visible = false;
+                    //lblTotalPage.Visible = false;
+                    //trpagerDuplicate.Visible = false;
+                    //trmypagerAUM.Visible = false;
                     btnDelete.Visible = false;
                     btnDeleteAll.Visible = false;
                     gvMFRejectedDetails.Visible = false;
-                    trPagerNAV.Visible = true;
+                    //trPagerNAV.Visible = true;
 
                 }
                 else
@@ -284,22 +296,22 @@ namespace WealthERP.SuperAdmin
                     ErrorMessage.InnerText = "No Records Found...!";
                     gvDuplicateCheck.Visible = false;
                     gvAumMis.Visible = false;
-                    lblCurrentPage.Visible = false;
-                    lblTotalRows.Visible = false;
-                    lblPage.Visible = false;
-                    lblTotalPage.Visible = false;
-                    trpagerDuplicate.Visible = false;
-                    trmypagerAUM.Visible = false;
+                    //lblCurrentPage.Visible = false;
+                    //lblTotalRows.Visible = false;
+                    //lblPage.Visible = false;
+                    //lblTotalPage.Visible = false;
+                    //trpagerDuplicate.Visible = false;
+                    //trmypagerAUM.Visible = false;
                     btnDelete.Visible = false;
                     btnDeleteAll.Visible = false;
                     gvMFRejectedDetails.Visible = false;
-                    trPagerReject.Visible = false;
-                    lblRejectCount.Visible = false;
-                    lblRejectTotal.Visible = false;
+                    //trPagerReject.Visible = false;
+                    //lblRejectCount.Visible = false;
+                    //lblRejectTotal.Visible = false;
                     //pnlReject.Visible = false;
-                    lblNAVCount.Visible = false;
-                    lblNAVTotal.Visible = false;
-                    trPagerNAV.Visible = false;
+                    //lblNAVCount.Visible = false;
+                    //lblNAVTotal.Visible = false;
+                    //trPagerNAV.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -340,11 +352,11 @@ namespace WealthERP.SuperAdmin
 
                 gvAumMis.Visible = true;
                 gvDuplicateCheck.Visible = false;
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = true;
+                //lblCurrentPage.Visible = false;
+                //lblTotalRows.Visible = false;
+                //lblPage.Visible = true;
                 //lblTotalPage.Visible = true;
-                trpagerDuplicate.Visible = false;
+                //trpagerDuplicate.Visible = false;
                 //trmypagerAUM.Visible = true;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
@@ -367,14 +379,14 @@ namespace WealthERP.SuperAdmin
                 //    ddlAdviserNameDate.SelectedValue = hdnAdviserNameAUMFilter.Value;
                 //}
                 //this.GetPageCountAUM();
-                trPagerReject.Visible = false;
-                trPagerNAV.Visible = false;
+                //trPagerReject.Visible = false;
+                //trPagerNAV.Visible = false;
                 //lblRejectCount.Visible = false;
                 //lblRejectTotal.Visible = false;
                 //pnlReject.Visible = false;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
             }
             else
             {
@@ -383,23 +395,23 @@ namespace WealthERP.SuperAdmin
                 ErrorMessage.InnerText = "No Records Found...!";
                 gvDuplicateCheck.Visible = false;
                 gvAumMis.Visible = false;
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = false;
-                lblTotalPage.Visible = false;
-                trpagerDuplicate.Visible = false;
-                trmypagerAUM.Visible = false;
+                //lblCurrentPage.Visible = false;
+                //lblTotalRows.Visible = false;
+                //lblPage.Visible = false;
+                //lblTotalPage.Visible = false;
+                //trpagerDuplicate.Visible = false;
+               // trmypagerAUM.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
                 gvMFRejectedDetails.Visible = false;
-                trPagerNAV.Visible = false;
-                trPagerReject.Visible = false;
-                lblRejectCount.Visible = false;
-                lblRejectTotal.Visible = false;
+                //trPagerNAV.Visible = false;
+                //trPagerReject.Visible = false;
+                //lblRejectCount.Visible = false;
+                //lblRejectTotal.Visible = false;
                 //pnlReject.Visible = false;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
             }
         }
 
@@ -421,57 +433,65 @@ namespace WealthERP.SuperAdmin
             Dictionary<string, string> genAdviserDdl = new Dictionary<string, string>();
             DataSet dsduplicatecheck;
             DataTable dtDuplicateCheck;
-            dsduplicatecheck = superAdminOpsBo.GetAllAdviserDuplicateRecords(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), mypagerDuplicate.CurrentPage, out  count, hdnAdviserIdDupli.Value, hdnOrgNameDupli.Value, hdnFolioiNoDupli.Value, hdnSchemeDupli.Value);
+            dsduplicatecheck = superAdminOpsBo.GetAllAdviserDuplicateRecords(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()),hdnAdviserIdDupli.Value, hdnOrgNameDupli.Value, hdnFolioiNoDupli.Value, hdnSchemeDupli.Value);
             dtDuplicateCheck = dsduplicatecheck.Tables[0];
             if (dtDuplicateCheck.Rows.Count > 0)
             {
-                lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
                 gvDuplicateCheck.DataSource = dtDuplicateCheck;
                 gvDuplicateCheck.DataBind();
                 gvDuplicateCheck.Visible = true;
                 gvAumMis.Visible = false;
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
-                lblCurrentPage.Visible = true;
+                //lblCurrentPage.Visible = true;
+                if (Cache["duplicatecheckList"] == null)
+                {
+                    Cache.Insert("duplicatecheckList", dsduplicatecheck);
+                }
+                else
+                {
+                    Cache.Remove("duplicatecheckList");
+                    Cache.Insert("duplicatecheckList", dsduplicatecheck);
+                }
 
-
-                foreach (DataRow dr in dsduplicatecheck.Tables[1].Rows)
-                {
-                    genAdviserDdl.Add(dr[0].ToString(), dr[0].ToString());
-                }
-                DropDownList ddlOrganization = GetAdviserDdl();
-                if (ddlOrganization != null)
-                {
-                    ddlOrganization.DataSource = genAdviserDdl;
-                    ddlOrganization.DataTextField = "Key";
-                    ddlOrganization.DataValueField = "Value";
-                    ddlOrganization.DataBind();
-                    ddlOrganization.Items.Insert(0, new ListItem("Select", "Select"));
-                }
-                if (hdnOrgNameDupli.Value != "")
-                {
-                    ddlOrganization.SelectedValue = hdnOrgNameDupli.Value;
-                }
-                BindFolioNumber(dsduplicatecheck.Tables[2]);
-                BindSchemeName(dsduplicatecheck.Tables[3]);
-                BindAdviserIdDuplicate(dsduplicatecheck.Tables[4]);
-                this.GetPageCountDuplicate();
-                lblTotalRows.Visible = true;
-                lblPage.Visible = false;
-                lblTotalPage.Visible = false;
-                trmypagerAUM.Visible = false;
-                trpagerDuplicate.Visible = true;
+                //foreach (DataRow dr in dsduplicatecheck.Tables[1].Rows)
+                //{
+                //    genAdviserDdl.Add(dr[0].ToString(), dr[0].ToString());
+                //}
+                //DropDownList ddlOrganization = GetAdviserDdl();
+                //if (ddlOrganization != null)
+                //{
+                //    ddlOrganization.DataSource = genAdviserDdl;
+                //    ddlOrganization.DataTextField = "Key";
+                //    ddlOrganization.DataValueField = "Value";
+                //    ddlOrganization.DataBind();
+                //    ddlOrganization.Items.Insert(0, new ListItem("Select", "Select"));
+                //}
+                //if (hdnOrgNameDupli.Value != "")
+                //{
+                //    ddlOrganization.SelectedValue = hdnOrgNameDupli.Value;
+                //}
+                //BindFolioNumber(dsduplicatecheck.Tables[2]);
+                //BindSchemeName(dsduplicatecheck.Tables[3]);
+                //BindAdviserIdDuplicate(dsduplicatecheck.Tables[4]);
+                //this.GetPageCountDuplicate();
+                //lblTotalRows.Visible = true;
+                //lblPage.Visible = false;
+                //lblTotalPage.Visible = false;
+                //trmypagerAUM.Visible = false;
+                //trpagerDuplicate.Visible = true;
                 btnDelete.Visible = true;
                 btnDeleteAll.Visible = true;
                 gvMFRejectedDetails.Visible = false;
-                trPagerReject.Visible = false;
-                trPagerNAV.Visible = false;
-                lblRejectCount.Visible = false;
-                lblRejectTotal.Visible = false;
+                //trPagerReject.Visible = false;
+                //trPagerNAV.Visible = false;
+                //lblRejectCount.Visible = false;
+                //lblRejectTotal.Visible = false;
                 //pnlReject.Visible = false;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
             }
             else
             {
@@ -481,71 +501,71 @@ namespace WealthERP.SuperAdmin
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = false;
-                lblTotalPage.Visible = false;
-                trmypagerAUM.Visible = false;
-                trpagerDuplicate.Visible = false;
+                //lblCurrentPage.Visible = false;
+                //lblTotalRows.Visible = false;
+                //lblPage.Visible = false;
+                //lblTotalPage.Visible = false;
+                //trmypagerAUM.Visible = false;
+                //trpagerDuplicate.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
-                trPagerReject.Visible = false;
-                trPagerNAV.Visible = false;
-                lblRejectCount.Visible = false;
-                lblRejectTotal.Visible = false;
+                //trPagerReject.Visible = false;
+                //trPagerNAV.Visible = false;
+                //lblRejectCount.Visible = false;
+                //lblRejectTotal.Visible = false;
                 //pnlReject.Visible = false;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
             }
         }
 
-        private void BindAdviserIdDuplicate(DataTable dtAdviserDupli)
-        {
-            Dictionary<string, string> genAdviserIdDupli = new Dictionary<string, string>();
-            if (dtAdviserDupli.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtAdviserDupli.Rows)
-                {
-                    genAdviserIdDupli.Add(dr[0].ToString(), dr[0].ToString());
-                }
+        //private void BindAdviserIdDuplicate(DataTable dtAdviserDupli)
+        //{
+        //    Dictionary<string, string> genAdviserIdDupli = new Dictionary<string, string>();
+        //    if (dtAdviserDupli.Rows.Count > 0)
+        //    {
+        //        // Get the Reject Reason Codes Available into Generic Dictionary
+        //        foreach (DataRow dr in dtAdviserDupli.Rows)
+        //        {
+        //            genAdviserIdDupli.Add(dr[0].ToString(), dr[0].ToString());
+        //        }
 
-                DropDownList ddlSchemeName = GetAdviserIdddlDupli();
-                if (ddlSchemeName != null)
-                {
-                    ddlSchemeName.DataSource = genAdviserIdDupli;
-                    ddlSchemeName.DataTextField = "Key";
-                    ddlSchemeName.DataValueField = "Value";
-                    ddlSchemeName.DataBind();
-                    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
+                //DropDownList ddlSchemeName = GetAdviserIdddlDupli();
+                //if (ddlSchemeName != null)
+                //{
+                //    ddlSchemeName.DataSource = genAdviserIdDupli;
+                //    ddlSchemeName.DataTextField = "Key";
+                //    ddlSchemeName.DataValueField = "Value";
+                //    ddlSchemeName.DataBind();
+                //    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
+                //}
 
-                if (hdnAdviserIdDupli.Value != "")
-                {
-                    ddlSchemeName.SelectedValue = hdnAdviserIdDupli.Value.ToString();
-                }
-            }
-        }
+                //if (hdnAdviserIdDupli.Value != "")
+                //{
+                //    ddlSchemeName.SelectedValue = hdnAdviserIdDupli.Value.ToString();
+                //}
+         //   }
+       // }
 
-        private DropDownList GetAdviserIdddlDupli()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlAdviserId") != null)
-            {
-                ddl = (DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlAdviserId");
-            }
-            return ddl;
-        }
-        private DropDownList GetAdviserDdl()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlOrganization") != null)
-            {
-                ddl = (DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlOrganization");
-            }
-            return ddl;
-        }
+        //private DropDownList GetAdviserIdddlDupli()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if ((DropDownList)gvDuplicateCheck.FindControl("ddlAdviserId") != null)
+        //    {
+        //        ddl = (DropDownList)gvDuplicateCheck.FindControl("ddlAdviserId");
+        //    }
+        //    return ddl;
+        //}
+        //private DropDownList GetAdviserDdl()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if ((DropDownList)gvDuplicateCheck.FindControl("ddlOrganization") != null)
+        //    {
+        //        ddl = (DropDownList)gvDuplicateCheck.FindControl("ddlOrganization");
+        //    }
+        //    return ddl;
+        //}
 
 
         /// <summary>
@@ -586,127 +606,127 @@ namespace WealthERP.SuperAdmin
         //}
         private void GetPageCountDuplicate()
         {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 10;
-                    mypagerDuplicate.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                    mypagerDuplicate.Set_Page(mypagerDuplicate.CurrentPage, mypagerDuplicate.PageCount);
-                    if (((mypagerDuplicate.CurrentPage - 1) * 10) != 0)
-                        lowerlimit = (((mypagerDuplicate.CurrentPage - 1) * 10) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (mypagerDuplicate.CurrentPage * 10).ToString();
-                    if (mypagerDuplicate.CurrentPage == mypagerDuplicate.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    lblPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypagerDuplicate.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //    string upperlimit = null;
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = null;
+        //    string PageRecords = null;
+        //    try
+        //    {
+        //        if (hdnRecordCount.Value.ToString() != "")
+        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        if (rowCount > 0)
+        //        {
+        //            ratio = rowCount / 10;
+        //            mypagerDuplicate.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //            mypagerDuplicate.Set_Page(mypagerDuplicate.CurrentPage, mypagerDuplicate.PageCount);
+        //            if (((mypagerDuplicate.CurrentPage - 1) * 10) != 0)
+        //                lowerlimit = (((mypagerDuplicate.CurrentPage - 1) * 10) + 1).ToString();
+        //            else
+        //                lowerlimit = "1";
+        //            upperlimit = (mypagerDuplicate.CurrentPage * 10).ToString();
+        //            if (mypagerDuplicate.CurrentPage == mypagerDuplicate.PageCount)
+        //                upperlimit = hdnRecordCount.Value;
+        //            PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //            lblCurrentPage.Text = PageRecords;
+        //            lblPage.Text = PageRecords;
+        //            hdnCurrentPage.Value = mypagerDuplicate.CurrentPage.ToString();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
+        //        FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
 
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
         }
-        private void BindFolioNumber(DataTable dtFolioNumber)
-        {
-            Dictionary<string, string> genDictFolioNumber = new Dictionary<string, string>();
-            if (dtFolioNumber.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dtFolioNumber.Rows)
-                {
-                    genDictFolioNumber.Add(dr[0].ToString(), dr[0].ToString());
-                }
+        //private void BindFolioNumber(DataTable dtFolioNumber)
+        //{
+        //    Dictionary<string, string> genDictFolioNumber = new Dictionary<string, string>();
+        //    if (dtFolioNumber.Rows.Count > 0)
+        //    {
+        //        foreach (DataRow dr in dtFolioNumber.Rows)
+        //        {
+        //            genDictFolioNumber.Add(dr[0].ToString(), dr[0].ToString());
+        //        }
 
-                DropDownList ddlFolioNumber = GetFolioNumberDupli();
-                if (ddlFolioNumber != null)
-                {
-                    ddlFolioNumber.DataSource = genDictFolioNumber;
-                    ddlFolioNumber.DataTextField = "Key";
-                    ddlFolioNumber.DataValueField = "Value";
-                    ddlFolioNumber.DataBind();
-                    ddlFolioNumber.Items.Insert(0, new ListItem("Select", "Select"));
-                }
+        //        //DropDownList ddlFolioNumber = GetFolioNumberDupli();
+        //        //if (ddlFolioNumber != null)
+        //        //{
+        //        //    ddlFolioNumber.DataSource = genDictFolioNumber;
+        //        //    ddlFolioNumber.DataTextField = "Key";
+        //        //    ddlFolioNumber.DataValueField = "Value";
+        //        //    ddlFolioNumber.DataBind();
+        //        //    ddlFolioNumber.Items.Insert(0, new ListItem("Select", "Select"));
+        //        //}
 
-                if (hdnFolioiNoDupli.Value != "")
-                {
-                    ddlFolioNumber.SelectedValue = hdnFolioiNoDupli.Value.ToString();
-                }
-            }
-        }
-        private DropDownList GetFolioNumberDupli()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlFolioNo") != null)
-            {
-                ddl = (DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlFolioNo");
-            }
-            return ddl;
-        }
-        private void BindSchemeName(DataTable dtSchemeName)
-        {
-            Dictionary<string, string> genDictSchemeName = new Dictionary<string, string>();
-            if (dtSchemeName.Rows.Count > 0)
-            {
-                // Get the Reject Reason Codes Available into Generic Dictionary
-                foreach (DataRow dr in dtSchemeName.Rows)
-                {
-                    genDictSchemeName.Add(dr[0].ToString(), dr[0].ToString());
-                }
+        //        //if (hdnFolioiNoDupli.Value != "")
+        //        //{
+        //        //    ddlFolioNumber.SelectedValue = hdnFolioiNoDupli.Value.ToString();
+        //        //}
+        //    }
+        //}
+        //private DropDownList GetFolioNumberDupli()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if ((DropDownList)gvDuplicateCheck.FindControl("ddlFolioNo") != null)
+        //    {
+        //        ddl = (DropDownList)gvDuplicateCheck.FindControl("ddlFolioNo");
+        //    }
+        //    return ddl;
+        //}
+        //private void BindSchemeName(DataTable dtSchemeName)
+        //{
+        //    Dictionary<string, string> genDictSchemeName = new Dictionary<string, string>();
+        //    if (dtSchemeName.Rows.Count > 0)
+        //    {
+        //        // Get the Reject Reason Codes Available into Generic Dictionary
+        //        foreach (DataRow dr in dtSchemeName.Rows)
+        //        {
+        //            genDictSchemeName.Add(dr[0].ToString(), dr[0].ToString());
+        //        }
 
-                DropDownList ddlSchemeName = GetSchemeNameDDL();
-                if (ddlSchemeName != null)
-                {
-                    ddlSchemeName.DataSource = genDictSchemeName;
-                    ddlSchemeName.DataTextField = "Key";
-                    ddlSchemeName.DataValueField = "Value";
-                    ddlSchemeName.DataBind();
-                    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
-                }
+                //DropDownList ddlSchemeName = GetSchemeNameDDL();
+                //if (ddlSchemeName != null)
+                //{
+                //    ddlSchemeName.DataSource = genDictSchemeName;
+                //    ddlSchemeName.DataTextField = "Key";
+                //    ddlSchemeName.DataValueField = "Value";
+                //    ddlSchemeName.DataBind();
+                //    ddlSchemeName.Items.Insert(0, new ListItem("Select", "Select"));
+                //}
 
-                if (hdnSchemeDupli.Value != "")
-                {
-                    ddlSchemeName.SelectedValue = hdnSchemeDupli.Value.ToString();
-                }
-            }
-        }
-        private DropDownList GetSchemeNameDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlScheme") != null)
-            {
-                ddl = (DropDownList)gvDuplicateCheck.HeaderRow.FindControl("ddlScheme");
-            }
-            return ddl;
-        }
+                //if (hdnSchemeDupli.Value != "")
+                //{
+                //    ddlSchemeName.SelectedValue = hdnSchemeDupli.Value.ToString();
+                //}
+        //    }
+        //}
+        //private DropDownList GetSchemeNameDDL()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if ((DropDownList)gvDuplicateCheck.FindControl("ddlScheme") != null)
+        //    {
+        //        ddl = (DropDownList)gvDuplicateCheck.FindControl("ddlScheme");
+        //    }
+        //    return ddl;
+        //}
 
         //protected void ddlAdviserNameDate_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -852,24 +872,24 @@ namespace WealthERP.SuperAdmin
                 //}
                 gvMFRejectedDetails.Visible = true;
                 gvDuplicateCheck.Visible = false;
-                this.GetPageCountReject();
+                //this.GetPageCountReject();
                 gvAumMis.Visible = false;
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = false;
+                //lblCurrentPage.Visible = false;
+               // lblTotalRows.Visible = false;
+                //lblPage.Visible = false;
                 //lblTotalPage.Visible = false;
                 //trmypagerAUM.Visible = false;
-                trpagerDuplicate.Visible = false;
+                //trpagerDuplicate.Visible = false;
                 //trPagerReject.Visible = true;
                 //lblRejectCount.Visible = true;
                 //lblRejectTotal.Visible = true;
                 //pnlReject.Visible = true;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
-                trPagerNAV.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
+                //trPagerNAV.Visible = false;
 
                 //if (hdnRejectReasonFilter.Value != "")
                 //{
@@ -893,12 +913,12 @@ namespace WealthERP.SuperAdmin
                 tblMessage.Visible = true;
                 ErrorMessage.Visible = true;
                 ErrorMessage.InnerText = "No Records Found...!";
-                lblCurrentPage.Visible = false;
-                lblTotalRows.Visible = false;
-                lblPage.Visible = false;
-                lblTotalPage.Visible = false;
+                //lblCurrentPage.Visible = false;
+                //lblTotalRows.Visible = false;
+                //lblPage.Visible = false;
+                //lblTotalPage.Visible = false;
                 //trmypagerAUM.Visible = false;
-                trpagerDuplicate.Visible = false;
+                //trpagerDuplicate.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
                 //trPagerReject.Visible = false;
@@ -906,9 +926,9 @@ namespace WealthERP.SuperAdmin
                 //lblRejectTotal.Visible = false;
                 //pnlReject.Visible = false;
                 gvNavChange.Visible = false;
-                lblNAVCount.Visible = false;
-                lblNAVTotal.Visible = false;
-                trPagerNAV.Visible = false;
+                //lblNAVCount.Visible = false;
+                //lblNAVTotal.Visible = false;
+                //trPagerNAV.Visible = false;
             }
 
 
@@ -933,15 +953,15 @@ namespace WealthERP.SuperAdmin
             return ddl;
         }
 
-        private DropDownList GetAdviserIdDDL()
-        {
-            DropDownList ddl = new DropDownList();
-            if ((DropDownList)gvMFRejectedDetails.FindControl("ddlAdviserId") != null)
-            {
-                ddl = (DropDownList)gvMFRejectedDetails.FindControl("ddlAdviserId");
-            }
-            return ddl;
-        }
+        //private DropDownList GetAdviserIdDDL()
+        //{
+        //    DropDownList ddl = new DropDownList();
+        //    if ((DropDownList)gvMFRejectedDetails.FindControl("ddlAdviserId") != null)
+        //    {
+        //        ddl = (DropDownList)gvMFRejectedDetails.FindControl("ddlAdviserId");
+        //    }
+        //    return ddl;
+        //}
         protected void ddlRejectReason_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddlReject = GetRejectReasonDDL();
@@ -976,106 +996,124 @@ namespace WealthERP.SuperAdmin
                 }
             }
         }
-        protected void ddlAdviserIdDuplicate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddladviserIdDupli = GetAdviserIdddlDupli();
-            if (ddladviserIdDupli != null)
-            {
-                if (ddladviserIdDupli.SelectedIndex != 0)
-                {
-                    hdnAdviserIdDupli.Value = ddladviserIdDupli.SelectedValue;
-                    BindDuplicateGrid();
-                }
-                else
-                {
-                    hdnAdviserIdDupli.Value = "";
-                    BindDuplicateGrid();
-                }
-            }
-        }
+        //protected void ddlAdviserIdDuplicate_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddladviserIdDupli = GetAdviserIdddlDupli();
+        //    if (ddladviserIdDupli != null)
+        //    {
+        //        if (ddladviserIdDupli.SelectedIndex != 0)
+        //        {
+        //            hdnAdviserIdDupli.Value = ddladviserIdDupli.SelectedValue;
+        //            BindDuplicateGrid();
+        //        }
+        //        else
+        //        {
+        //            hdnAdviserIdDupli.Value = "";
+        //            BindDuplicateGrid();
+        //        }
+        //    }
+        //}
 
-        protected void ddlAdviserId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlAdviserId = GetAdviserIdDDL();
-            if (ddlAdviserId != null)
-            {
-                if (ddlAdviserId.SelectedIndex != 0)
-                {   // Bind the Grid with Only Selected Values
-                    hdnAdviserIdFilter.Value = ddlAdviserId.SelectedValue;
-                    BindMFRejectedGrid();
-                }
-                else
-                {   // Bind the Grid with Only All Values
-                    hdnAdviserIdFilter.Value = "";
-                    BindMFRejectedGrid();
-                }
-            }
-        }
+        //protected void ddlAdviserId_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlAdviserId = GetAdviserIdDDL();
+        //    if (ddlAdviserId != null)
+        //    {
+        //        if (ddlAdviserId.SelectedIndex != 0)
+        //        {   // Bind the Grid with Only Selected Values
+        //            hdnAdviserIdFilter.Value = ddlAdviserId.SelectedValue;
+        //            BindMFRejectedGrid();
+        //        }
+        //        else
+        //        {   // Bind the Grid with Only All Values
+        //            hdnAdviserIdFilter.Value = "";
+        //            BindMFRejectedGrid();
+        //        }
+        //    }
+        //}
 
-        protected void ddlOrganization_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlOrgDupli = GetAdviserDdl();
-            if (ddlOrgDupli != null)
-            {
-                if (ddlOrgDupli.SelectedIndex != 0)
-                {
-                    hdnOrgNameDupli.Value = ddlOrgDupli.SelectedValue;
-                    BindDuplicateGrid();
-                }
-                else
-                {
-                    hdnOrgNameDupli.Value = "";
-                    BindDuplicateGrid();
-                }
-            }
-        }
-        protected void ddlFolioNo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlFolioNoDupli = GetFolioNumberDupli();
-            if (ddlFolioNoDupli != null)
-            {
-                if (ddlFolioNoDupli.SelectedIndex != 0)
-                {
-                    hdnFolioiNoDupli.Value = ddlFolioNoDupli.SelectedValue;
-                    BindDuplicateGrid();
-                }
-                else
-                {
-                    hdnFolioiNoDupli.Value = "";
-                    BindDuplicateGrid();
-                }
-            }
-        }
-        protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddlSchemeNameDupli = GetSchemeNameDDL();
-            if (ddlSchemeNameDupli != null)
-            {
-                if (ddlSchemeNameDupli.SelectedIndex != 0)
-                {
-                    hdnSchemeDupli.Value = ddlSchemeNameDupli.SelectedValue;
-                    BindDuplicateGrid();
-                }
-                else
-                {
-                    hdnSchemeDupli.Value = "";
-                    BindDuplicateGrid();
-                }
-            }
-        }
+        //protected void ddlOrganization_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlOrgDupli = GetAdviserDdl();
+        //    if (ddlOrgDupli != null)
+        //    {
+        //        if (ddlOrgDupli.SelectedIndex != 0)
+        //        {
+        //            hdnOrgNameDupli.Value = ddlOrgDupli.SelectedValue;
+        //            BindDuplicateGrid();
+        //        }
+        //        else
+        //        {
+        //            hdnOrgNameDupli.Value = "";
+        //            BindDuplicateGrid();
+        //        }
+        //    }
+        //}
+        //protected void ddlFolioNo_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlFolioNoDupli = GetFolioNumberDupli();
+        //    if (ddlFolioNoDupli != null)
+        //    {
+        //        if (ddlFolioNoDupli.SelectedIndex != 0)
+        //        {
+        //            hdnFolioiNoDupli.Value = ddlFolioNoDupli.SelectedValue;
+        //            BindDuplicateGrid();
+        //        }
+        //        else
+        //        {
+        //            hdnFolioiNoDupli.Value = "";
+        //            BindDuplicateGrid();
+        //        }
+        //    }
+        //}
+        //protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlSchemeNameDupli = GetSchemeNameDDL();
+        //    if (ddlSchemeNameDupli != null)
+        //    {
+        //        if (ddlSchemeNameDupli.SelectedIndex != 0)
+        //        {
+        //            hdnSchemeDupli.Value = ddlSchemeNameDupli.SelectedValue;
+        //            BindDuplicateGrid();
+        //        }
+        //        else
+        //        {
+        //            hdnSchemeDupli.Value = "";
+        //            BindDuplicateGrid();
+        //        }
+        //    }
+        //}
         protected void btnDelete_Click(object sender, EventArgs e)
         {
 
             int i = 0;
+            int gvAdviserId = 0;
+            int gvAccountId = 0;
+            double gvNetHolding = 0;
+            int gvSchemeCode = 0;
+            int selectedRow = 0;
+            DateTime gvValuationDate = new DateTime();
 
-            foreach (GridViewRow gvRow in gvDuplicateCheck.Rows)
+            foreach (GridDataItem gvRow in gvDuplicateCheck.Items)
             {
 
                 CheckBox chk = (CheckBox)gvRow.FindControl("chkDelete");
                 if (chk.Checked)
                 {
                     i++;
+                    gvAdviserId = int.Parse(gvRow.GetDataKeyValue("A_AdviserId").ToString());
+                    gvAccountId = Convert.ToInt32(gvRow.GetDataKeyValue("CMFA_AccountId").ToString());
+                    gvNetHolding = double.Parse(gvRow.GetDataKeyValue("CMFNP_NetHoldings").ToString());
+                    gvSchemeCode = Convert.ToInt32(gvRow.GetDataKeyValue("PASP_SchemePlanCode").ToString());
+                    gvValuationDate = DateTime.Parse(gvRow.GetDataKeyValue("CMFNP_ValuationDate").ToString());
+                    //drDelete[0] = strKeyValue;
+                    //drDelete[1] = chkbxRow.Checked.ToString().ToLower();
+                    //dt.Rows.Add(drDelete);
+
+                    superAdminOpsBo.DeleteDuplicateRecord(gvAdviserId, gvAccountId, gvNetHolding, gvSchemeCode, gvValuationDate);
+
                 }
+
 
             }
             if (i == 0)
@@ -1084,87 +1122,94 @@ namespace WealthERP.SuperAdmin
             }
             else
             {
-                DuplicateDelete();
+                //DuplicateDelete();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Record has been deleted successfully.');", true);
-            }
-        }
-        private void DuplicateDelete()
-        {
-            int gvAdviserId = 0;
-            int gvAccountId = 0;
-            double gvNetHolding = 0;
-            int gvSchemeCode = 0;
-            DateTime gvValuationDate = new DateTime();
-            foreach (GridViewRow gvRow in gvDuplicateCheck.Rows)
-            {
-
-                if (((CheckBox)gvRow.FindControl("chkDelete")).Checked == true)
-                {
-                    gvAdviserId = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["A_AdviserId"].ToString());
-                    gvAccountId = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFA_AccountId"].ToString());
-                    gvNetHolding = double.Parse(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFNP_NetHoldings"].ToString());
-                    gvSchemeCode = Convert.ToInt32(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["PASP_SchemePlanCode"].ToString());
-                    gvValuationDate = DateTime.Parse(gvDuplicateCheck.DataKeys[gvRow.RowIndex].Values["CMFNP_ValuationDate"].ToString());
-
-                    superAdminOpsBo.DeleteDuplicateRecord(gvAdviserId, gvAccountId, gvNetHolding, gvSchemeCode, gvValuationDate);
-
-
-                }
             }
             BindDuplicateGrid();
         }
-        private void GetPageCountReject()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 10;
-                    pgrReject.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                    pgrReject.Set_Page(pgrReject.CurrentPage, pgrReject.PageCount);
-                    if (((pgrReject.CurrentPage - 1) * 10) != 0)
-                        lowerlimit = (((pgrReject.CurrentPage - 1) * 10) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (pgrReject.CurrentPage * 10).ToString();
-                    if (pgrReject.CurrentPage == pgrReject.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    lblRejectCount.Text = PageRecords;
-                    hdnCurrentPage.Value = pgrReject.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //private void DuplicateDelete()
+        //{
+            
+        //    int gvAdviserId = 0;
+        //    int gvAccountId = 0;
+        //    double gvNetHolding = 0;
+        //    int gvSchemeCode = 0;
+        //    int selectedRow = 0;
+        //    DateTime gvValuationDate = new DateTime();
+        //    foreach ( gvRow in gvDuplicateCheck.Items)
+        //    {
 
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
+                
+        //        if (((CheckBox)gvRow.FindControl("chkDelete")).Checked == true)
+        //        {
+                    
+        //            selectedRow = gvRow.ItemIndex + 1;
+                    
+        //            gvAdviserId =int.Parse(gvDuplicateCheck.MasterTableView.DataKeyValues[selectedRow]["A_AdviserId"].ToString());
+        //            gvAccountId = Convert.ToInt32(gvDuplicateCheck.MasterTableView.DataKeyValues[selectedRow-1]["CMFA_AccountId"].ToString());
+        //            gvNetHolding = double.Parse(gvDuplicateCheck.MasterTableView.DataKeyValues[selectedRow - 1]["CMFNP_NetHoldings"].ToString());
+        //            gvSchemeCode = Convert.ToInt32(gvDuplicateCheck.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
+        //            gvValuationDate = DateTime.Parse(gvDuplicateCheck.MasterTableView.DataKeyValues[selectedRow - 1]["CMFNP_ValuationDate"].ToString());
 
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //            superAdminOpsBo.DeleteDuplicateRecord(gvAdviserId, gvAccountId, gvNetHolding, gvSchemeCode, gvValuationDate);
+
+
+        //        }
+        //    }
+        //    BindDuplicateGrid();
+        //}
+        //private void GetPageCountReject()
+        //{
+        //    string upperlimit = null;
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = null;
+        //    string PageRecords = null;
+        //    try
+        //    {
+        //        if (hdnRecordCount.Value.ToString() != "")
+        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        if (rowCount > 0)
+        //        {
+        //            ratio = rowCount / 10;
+        //            pgrReject.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //            pgrReject.Set_Page(pgrReject.CurrentPage, pgrReject.PageCount);
+        //            if (((pgrReject.CurrentPage - 1) * 10) != 0)
+        //                lowerlimit = (((pgrReject.CurrentPage - 1) * 10) + 1).ToString();
+        //            else
+        //                lowerlimit = "1";
+        //            upperlimit = (pgrReject.CurrentPage * 10).ToString();
+        //            if (pgrReject.CurrentPage == pgrReject.PageCount)
+        //                upperlimit = hdnRecordCount.Value;
+        //            PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //            lblCurrentPage.Text = PageRecords;
+        //            //lblRejectCount.Text = PageRecords;
+        //            hdnCurrentPage.Value = pgrReject.CurrentPage.ToString();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
+
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         //protected void btnSyncSIPToGoal_Click(object sender, EventArgs e)
         //{
@@ -1185,57 +1230,57 @@ namespace WealthERP.SuperAdmin
         //        tblMessage.Visible = false;
         //    }
         //}
-        private void GetPageCountNAV()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 10;
-                    myPagerNAV.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                    myPagerNAV.Set_Page(myPagerNAV.CurrentPage, myPagerNAV.PageCount);
-                    if (((myPagerNAV.CurrentPage - 1) * 10) != 0)
-                        lowerlimit = (((myPagerNAV.CurrentPage - 1) * 10) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (myPagerNAV.CurrentPage * 10).ToString();
-                    if (myPagerNAV.CurrentPage == myPagerNAV.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblNAVCount.Text = PageRecords;
-                    hdnCurrentPage.Value = myPagerNAV.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+        //private void GetPageCountNAV()
+        //{
+        //    string upperlimit = null;
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = null;
+        //    string PageRecords = null;
+        //    try
+        //    {
+        //        if (hdnRecordCount.Value.ToString() != "")
+        //            rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        if (rowCount > 0)
+        //        {
+        //            ratio = rowCount / 10;
+        //            myPagerNAV.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //            myPagerNAV.Set_Page(myPagerNAV.CurrentPage, myPagerNAV.PageCount);
+        //            if (((myPagerNAV.CurrentPage - 1) * 10) != 0)
+        //                lowerlimit = (((myPagerNAV.CurrentPage - 1) * 10) + 1).ToString();
+        //            else
+        //                lowerlimit = "1";
+        //            upperlimit = (myPagerNAV.CurrentPage * 10).ToString();
+        //            if (myPagerNAV.CurrentPage == myPagerNAV.PageCount)
+        //                upperlimit = hdnRecordCount.Value;
+        //            PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //            lblNAVCount.Text = PageRecords;
+        //            hdnCurrentPage.Value = myPagerNAV.CurrentPage.ToString();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
+        //        FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
 
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1243,10 +1288,11 @@ namespace WealthERP.SuperAdmin
             {
                 if (ddlAction.SelectedValue == "NAVChange")
                 {
+
                     trRadioDatePeriod.Visible = false;
                     trDate.Visible = true;
-                    //txtPercentage.Text = "20";
-                    txtDate.SelectedDate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                   // txtPercentage.Text = "20";
+                    txtDate.SelectedDate = DateTime.Now.AddDays(-1);
                     trRange.Visible = false;
                     trPeriod.Visible = false;
                    
@@ -1325,6 +1371,18 @@ namespace WealthERP.SuperAdmin
             DataSet dsRejectedRecords = new DataSet();
             dsRejectedRecords = (DataSet)Cache["RejectedRecordsList"];
             gvMFRejectedDetails.DataSource = dsRejectedRecords;
+        }
+        protected void gvDuplicateCheck_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dsduplicatecheck = new DataSet();
+            dsduplicatecheck = (DataSet)Cache["duplicatecheckList"];
+            gvDuplicateCheck.DataSource = dsduplicatecheck;
+        }
+        protected void gvNavChange_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dsGetNAV = new DataSet();
+            dsGetNAV = (DataSet)Cache["dsGetNAVList"];
+            gvNavChange.DataSource = dsGetNAV;
         }
    }
 }
