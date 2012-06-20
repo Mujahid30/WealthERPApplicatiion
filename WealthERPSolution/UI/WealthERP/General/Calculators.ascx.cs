@@ -23,8 +23,8 @@ namespace WealthERP.General
             txtStartDate_OnTextChanged(sender, e);
             if (txtLoanAmount.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
-            else if (txtTenureYears.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
+            //else if (txtTenureYears.Text == "")
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtInterest.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtStartDate.Text == "")
@@ -357,25 +357,25 @@ namespace WealthERP.General
         protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
         {
 
-            int noOfYears ;
-            int noOfMonths;
+            int noOfYears = 0;
+            int noOfMonths = 0;
 
             DateTime startDate = DateTime.Parse(txtStartDate.Text);
 
             if (txtTenureYears.Text != string.Empty)
                 noOfYears = int.Parse(txtTenureYears.Text);
             else
-                noOfYears=0;
+                noOfYears = 0;
             if (txtTenureMonths.Text != string.Empty)
 
                 noOfMonths = int.Parse(txtTenureMonths.Text);
             else
                 noOfMonths = 0;
 
-            txtEndDate.Text=getInstallmentEndDate(noOfYears,noOfMonths,startDate).ToShortDateString();
+            txtEndDate.Text = getInstallmentEndDate(noOfYears, noOfMonths, startDate).ToShortDateString();
             txtEndDate.Enabled = false;
         }
 
-       
+
     }
 }
