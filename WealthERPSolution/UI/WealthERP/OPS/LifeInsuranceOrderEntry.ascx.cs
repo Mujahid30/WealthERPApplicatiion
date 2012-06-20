@@ -64,27 +64,30 @@ namespace WealthERP.OPS
             orderNumber = operationBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
             userVo = (UserVo)Session["userVo"];
-            //txtOrderDate.Text = DateTime.Now.ToShortDateString();
-            //lblGetOrderNo.Text = orderNumber.ToString();
+
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
-            if (Request.QueryString["action"] != null)
-            {
-                ViewForm = Request.QueryString["action"].ToString();
-                operationVo = (OperationVo)Session["operationVo"];
-            }
+            //if (Request.QueryString["action"] != null)
+            //{
+            //    ViewForm = Request.QueryString["action"].ToString();
+            //    operationVo = (OperationVo)Session["operationVo"];
+            //}
 
-            if (Session["operationVo"] != null)
-            {
-                operationVo = (OperationVo)Session["operationVo"];
-            }
+            //if (Session["operationVo"] != null)
+            //{
+            //    operationVo = (OperationVo)Session["operationVo"];
+            //}
 
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
 
             if (!IsPostBack)
             {
+                pnlOrderSteps.Visible = false;
+                btnUpdate.Visible = false;
+                lnkBtnEdit.Visible = false;
+
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
@@ -107,8 +110,10 @@ namespace WealthERP.OPS
                     int orderId = Convert.ToInt32(Request.QueryString["strOrderId"]);
                     lifeInsuranceOrdervo = orderbo.GetLifeInsuranceOrderDetails(orderId);
                     SetControls(false);
-                    //btnEdit.Enabled = true;
-                    //btnSubmit.Visible = false;
+                    lnkBtnEdit.Visible = true;
+                    btnUpdate.Enabled = true;
+                    btnSubmit.Visible = false;
+                    pnlOrderSteps.Visible = true;
                     SetValuesToControls(lifeInsuranceOrdervo);
                 }
 
@@ -119,7 +124,6 @@ namespace WealthERP.OPS
                     lblPickJointHolder.Visible = false;
                     lblPickNominee.Visible = false;
                 }
-                pnlOrderSteps.Visible = false;
             }
 
             LoadCategory();
@@ -447,8 +451,8 @@ namespace WealthERP.OPS
             ddlOrderStatus.Enabled = bentry;
             ddlReason.Enabled = bentry;
             chkCA.Enabled = bentry;
-            btnSubmit.Enabled = bentry;
-            btnEdit.Enabled = bentry;
+            //btnSubmit.Enabled = bentry;
+            //btnUpdate.Enabled = bentry;
         }
 
         public void SetValuesToControls(LifeInsuranceOrderVo lifeInsuranceOrdervo)
@@ -523,6 +527,7 @@ namespace WealthERP.OPS
             DataSet dsOrderSteps = new DataSet();
             DataTable dtOrderDetails;
             int orderId;
+            SetControls(false);
             dtOrderDetails = orderbo.GetCustomerOrderDetails(lifeInsuranceOrdervo.CustomerId, lifeInsuranceOrdervo.OrderDate, lifeInsuranceOrdervo.AssetCategory, lifeInsuranceOrdervo.ApplicationNumber);
             orderId = int.Parse(dtOrderDetails.Rows[0]["CO_OrderId"].ToString());
             dsOrderSteps = orderbo.GetOrderStepsDetails(orderId);
@@ -668,7 +673,7 @@ namespace WealthERP.OPS
             }
         }
 
-        protected void btnEdit_Click(object sender, EventArgs e)
+        protected void btnUpdate_Click(object sender, EventArgs e)
         {
             bool bresult = false;
             string nomineeAssociationIds = "";
@@ -753,6 +758,22 @@ namespace WealthERP.OPS
             else
             {
                 pnlOrderSteps.Visible = false;
+            }
+        }
+
+        protected void lnkBtnEdit_Click(object sender, EventArgs e)
+        {
+            SetControls(true);
+            btnUpdate.Visible = true;
+            btnSubmit.Visible = false;
+            lnkBtnEdit.Visible = false;            
+        }
+
+        protected void lnlBack_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["strOrderId"] != null)
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
             }
         }
     }

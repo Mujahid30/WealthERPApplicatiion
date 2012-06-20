@@ -43,10 +43,14 @@
     <tr>
         <td style="width: 30%">
             <asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry-Life Insurance"></asp:Label>
+            <hr />
         </td>
     </tr>
     <tr>
-        <td colspan="5">
+        <td colspan="4">
+            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
+                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+            <asp:LinkButton ID="lnlBack" runat="server" CssClass="LinkButtons" Text="Back" OnClick="lnlBack_Click"></asp:LinkButton>
         </td>
     </tr>
     <tr>
@@ -297,7 +301,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate"
+            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate" CssClass="rfvPCG"
             ErrorMessage="Enter a date!"></asp:RequiredFieldValidator> 
         </td>
     </tr>
@@ -365,7 +369,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvApplicationDate" ControlToValidate="txtApplicationDate"
+            <asp:RequiredFieldValidator runat="server" ID="rfvApplicationDate" ControlToValidate="txtApplicationDate" CssClass="rfvPCG"
             ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -383,7 +387,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvMaturityDate" ControlToValidate="txtMaturityDate"
+            <asp:RequiredFieldValidator runat="server" ID="rfvMaturityDate" ControlToValidate="txtMaturityDate" CssClass="rfvPCG"
             ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
@@ -399,7 +403,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvOrderDate" ControlToValidate="txtOrderDate"
+            <asp:RequiredFieldValidator runat="server" ID="rfvOrderDate" ControlToValidate="txtOrderDate" CssClass="rfvPCG"
             ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
     </tr>
@@ -449,8 +453,8 @@
     <tr>
         <td class="rightField" style="width: 25%">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" ValidationGroup="Submit"/>
-            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="PCGButton"  ValidationGroup="Submit"
-                onclick="btnEdit_Click"/>
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"  ValidationGroup="Submit"
+                onclick="btnUpdate_Click"/>
         </td>
     </tr>
 </table>
@@ -503,7 +507,7 @@
                     Width="70%" CssClass="GridViewStyle">
                     <RowStyle CssClass="RowStyle" />
                     <Columns>
-                        <asp:BoundField HeaderText="Summary" DataField="AssociateName" />
+                        <asp:BoundField HeaderText="Summary" DataField="CO_OrderId" />
                         <asp:TemplateField HeaderText="Status">
                             <ItemTemplate>
                                 <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="GridViewCmbField">
@@ -517,8 +521,8 @@
                                 </asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>                       
-                        <asp:BoundField HeaderText="Date" DataField="XR_Relationship" />
-                        <asp:BoundField HeaderText="User Name" DataField="XR_Relationship" />
+                        <asp:BoundField HeaderText="Date" DataField="XS_StatusCode" />
+                        <asp:BoundField HeaderText="User Name" DataField="XSR_StatusReasonCode" />
                     </Columns>
                     <FooterStyle CssClass="FooterStyle" />
                     <SelectedRowStyle CssClass="SelectedRowStyle" />

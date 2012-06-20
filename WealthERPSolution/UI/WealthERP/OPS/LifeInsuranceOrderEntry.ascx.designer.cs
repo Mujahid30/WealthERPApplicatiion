@@ -32,6 +32,24 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Label lblOrderEntry;
         
         /// <summary>
+        /// lnkBtnEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
+        
+        /// <summary>
+        /// lnlBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnlBack;
+        
+        /// <summary>
         /// lblCustomer control.
         /// </summary>
         /// <remarks>
@@ -671,13 +689,13 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
-        /// btnEdit control.
+        /// btnUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEdit;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
         /// Panel2 control.
