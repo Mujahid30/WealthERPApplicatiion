@@ -28,7 +28,7 @@
                 </telerik:RadPanelItem>
                  <telerik:RadPanelItem Text="Gold Price Maintenance" Value="Gold_Price_Monito">
                 </telerik:RadPanelItem>
-                 <telerik:RadPanelItem Text="Sync For SIP Goal Funding" Value="GoalFunding_Sync">
+                 <telerik:RadPanelItem Text="Sync" Value="GoalFunding_Sync">
                 </telerik:RadPanelItem>
                 <telerik:RadPanelItem Text="Uploads" Value="Uploads">
                 <Items>
