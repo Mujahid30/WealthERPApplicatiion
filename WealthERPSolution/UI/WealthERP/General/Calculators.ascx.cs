@@ -355,8 +355,7 @@ namespace WealthERP.General
         }
 
         protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
-        {
-
+        {  
             int noOfYears = 0;
             int noOfMonths = 0;
 
