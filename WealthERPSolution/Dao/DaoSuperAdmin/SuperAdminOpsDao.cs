@@ -22,7 +22,7 @@ namespace DaoSuperAdmin
         /// <param name="currentPage"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-       public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate, int currentPage, out int count,string adviserId,string OrgName,string folioNo,string schemeName)
+       public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate,string adviserId,string OrgName,string folioNo,string schemeName)
        {
            DataSet dsGetDuplicateRecord;
            Database db;
@@ -33,8 +33,8 @@ namespace DaoSuperAdmin
                getDuplicateCheckCmd = db.GetStoredProcCommand("SP_GetDuplicateRecordsFromValuation");
                db.AddInParameter(getDuplicateCheckCmd, "@fromDate", DbType.Date, FromDate);
                db.AddInParameter(getDuplicateCheckCmd, "@toDate", DbType.Date, ToDate);
-               db.AddInParameter(getDuplicateCheckCmd, "@currentPage", DbType.Int32, currentPage);
-               db.AddOutParameter(getDuplicateCheckCmd, "@Count", DbType.Int32, 0);
+               //db.AddInParameter(getDuplicateCheckCmd, "@currentPage", DbType.Int32, currentPage);
+               //db.AddOutParameter(getDuplicateCheckCmd, "@Count", DbType.Int32, 0);
                if (adviserId != "")
                {
                    db.AddInParameter(getDuplicateCheckCmd, "@AdviserId", DbType.String, adviserId);
@@ -65,7 +65,7 @@ namespace DaoSuperAdmin
              
                getDuplicateCheckCmd.CommandTimeout = 60 * 60;
                dsGetDuplicateRecord = db.ExecuteDataSet(getDuplicateCheckCmd);
-               count = (int)db.GetParameterValue(getDuplicateCheckCmd, "@Count");
+               //count = (int)db.GetParameterValue(getDuplicateCheckCmd, "@Count");
                if ((dsGetDuplicateRecord == null) && (dsGetDuplicateRecord.Tables.Count == 0))
                    dsGetDuplicateRecord = null;
            }
@@ -82,11 +82,11 @@ namespace DaoSuperAdmin
                object[] objects = new object[7];
                objects[0] = FromDate;
                objects[1] = ToDate;
-               objects[2] = currentPage;
-               objects[3] = adviserId;
-               objects[4] = OrgName;
-               objects[5] = folioNo;
-               objects[6] = schemeName;
+               //objects[2] = currentPage;
+               objects[2] = adviserId;
+               objects[3] = OrgName;
+               objects[4] = folioNo;
+               objects[5] = schemeName;
                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
@@ -499,7 +499,7 @@ namespace DaoSuperAdmin
 
            return dsAdviserList.Tables[0];
        }
-       public DataSet GetNAVPercentage(DateTime navDate, double NavPer, int currentPage, out int count)
+       public DataSet GetNAVPercentage(DateTime navDate, double NavPer)
        {
            DataSet dsGetNAVPer;
            Database db;
@@ -509,12 +509,12 @@ namespace DaoSuperAdmin
                db = DatabaseFactory.CreateDatabase("wealtherp");
                getNAVPercmd = db.GetStoredProcCommand("SP_GetNAVChangePercentage");
                db.AddInParameter(getNAVPercmd, "@navDateToday", DbType.DateTime, navDate);
-               db.AddInParameter(getNAVPercmd, "@currentPage", DbType.Int32, currentPage);
+               //db.AddInParameter(getNAVPercmd, "@currentPage", DbType.Int32, currentPage);
                db.AddInParameter(getNAVPercmd, "@navPercent", DbType.Double, NavPer);
-               db.AddOutParameter(getNAVPercmd, "@Count", DbType.Int32, 0);
+               //db.AddOutParameter(getNAVPercmd, "@Count", DbType.Int32, 0);
                getNAVPercmd.CommandTimeout = 60 * 60;
                dsGetNAVPer = db.ExecuteDataSet(getNAVPercmd);
-               count = (int)db.GetParameterValue(getNAVPercmd, "@Count");
+               //count = (int)db.GetParameterValue(getNAVPercmd, "@Count");
            }
            catch (BaseApplicationException Ex)
            {

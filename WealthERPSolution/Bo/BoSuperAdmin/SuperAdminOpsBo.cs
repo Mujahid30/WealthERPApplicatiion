@@ -29,13 +29,13 @@ namespace BoSuperAdmin
         /// <returns></returns>
 
 
-        public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate, int currentPage, out int count,string adviserId,string OrgName,string FolioNo,string schemename)
+        public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate,string adviserId,string OrgName,string FolioNo,string schemename)
         {
             DataSet dsGetDuplicateRecords;
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             try
             {
-                dsGetDuplicateRecords = superAdminOpsDao.GetAllAdviserDuplicateRecords(FromDate, ToDate,currentPage,out count,adviserId,OrgName,FolioNo,schemename);
+                dsGetDuplicateRecords = superAdminOpsDao.GetAllAdviserDuplicateRecords(FromDate, ToDate,adviserId,OrgName,FolioNo,schemename);
             }
             catch (BaseApplicationException Ex)
             {
@@ -50,11 +50,11 @@ namespace BoSuperAdmin
                 object[] objects = new object[7];
                 objects[0] = FromDate;
                 objects[1] = ToDate;
-                objects[2] = currentPage;
-                objects[3] = adviserId;
-                objects[4] = OrgName;
-                objects[5] = FolioNo;
-                objects[6] = schemename;
+                //objects[2] = currentPage;
+                objects[2] = adviserId;
+                objects[3] = OrgName;
+                objects[4] = FolioNo;
+                objects[5] = schemename;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -323,13 +323,13 @@ namespace BoSuperAdmin
             }           
         }
 
-        public DataSet GetNAVPercentage(DateTime navDate, double NavPer, int currentPage, out int count)
+        public DataSet GetNAVPercentage(DateTime navDate, double NavPer)
         {
             SuperAdminOpsDao superAdminOpsDao = new SuperAdminOpsDao();
             DataSet dsGetNAVPer;
             try
             {
-                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate,NavPer, currentPage, out count);
+                dsGetNAVPer = superAdminOpsDao.GetNAVPercentage(navDate,NavPer);
 
             }
             catch (BaseApplicationException Ex)
