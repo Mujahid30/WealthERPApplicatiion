@@ -25,8 +25,8 @@ namespace WealthERP.General
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             //else if (txtTenureYears.Text == "")
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
-            else if (txtInterest.Text == "")
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
+            //else if (txtInterest.Text == "")
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtStartDate.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtEndDate.Text == "")
