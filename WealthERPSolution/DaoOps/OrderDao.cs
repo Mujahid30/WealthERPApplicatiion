@@ -489,12 +489,12 @@ namespace DaoOps
                     lifeInsuranceOrderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
                     lifeInsuranceOrderVo.ApplicationReceivedDate = Convert.ToDateTime(dr["CO_ApplicationReceivedDate"].ToString());
                     //lifeInsuranceOrderVo.ApprovedBy = Convert.ToInt32(dr["CO_ApplicationNumber"].ToString());
-                    lifeInsuranceOrderVo.AssetCategory = dr["PAS_AssetCategory"].ToString();                    
+                    lifeInsuranceOrderVo.AssetCategory = dr["PAG_AssetGroupCode"].ToString();                    
 
                     lifeInsuranceOrderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
                     lifeInsuranceOrderVo.CustBankAccId = Convert.ToInt32(dr["CB_CustBankAccId"].ToString());
                     lifeInsuranceOrderVo.CustomerId = Convert.ToInt32(dr["C_CustomerId"].ToString());
-                    lifeInsuranceOrderVo.FrequencyCode = dr["CIOD_PremiumFrequency"].ToString();
+                    lifeInsuranceOrderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
                     lifeInsuranceOrderVo.GIIssuerCode = dr["XGII_GIIssuerCode"].ToString();
                     lifeInsuranceOrderVo.HoldingMode = dr["CIOD_ModeOfHolding"].ToString();
                     lifeInsuranceOrderVo.InsuranceIssuerCode = dr["XII_InsuranceIssuerCode"].ToString();
@@ -507,7 +507,7 @@ namespace DaoOps
                     //lifeInsuranceOrderVo.OrderNumber = Convert.ToInt32(dr["CO_ApplicationNumber"].ToString());
 
                     lifeInsuranceOrderVo.PaymentDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
-                    lifeInsuranceOrderVo.PaymentMode = dr["CO_PaymentMode"].ToString();
+                    lifeInsuranceOrderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
                     lifeInsuranceOrderVo.SumAssured = Convert.ToDouble(dr["CIOD_SumAssured"].ToString());
                     lifeInsuranceOrderVo.SourceCode = dr["WOSR_SourceCode"].ToString();                       
                 }
@@ -912,7 +912,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbOrder = db.GetStoredProcCommand("SP_GetCustomerOrderList");
+                dbOrder = db.GetStoredProcCommand("SP_GetOrderList");
                 db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
