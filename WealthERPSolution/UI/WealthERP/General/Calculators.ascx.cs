@@ -357,9 +357,11 @@ namespace WealthERP.General
         protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
         {
 
-            DateTime startDate = DateTime.Parse(txtStartDate.Text);
             int noOfYears ;
             int noOfMonths;
+
+            DateTime startDate = DateTime.Parse(txtStartDate.Text);
+
             if (txtTenureYears.Text != string.Empty)
                 noOfYears = int.Parse(txtTenureYears.Text);
             else
