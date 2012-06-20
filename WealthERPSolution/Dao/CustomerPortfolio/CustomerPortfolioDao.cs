@@ -2067,6 +2067,57 @@ namespace DaoCustomerPortfolio
 
         #endregion
 
+        public DataSet GetMFSchemePlanPurchaseDateAndValue(int schemePlanCode, DateTime navDate, string transactionType)
+        {
+            float schemePlanNAV = 0;
+            Database db;
+            DbCommand getMFSchemePlanNAVCmd;
+            DataSet dsMFSchemePlanNAV;
+            DataTable dtMFSchemePlanNAV;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFSchemePlanNAVCmd = db.GetStoredProcCommand("SP_GetSchemePlanPrice");
+
+                db.AddInParameter(getMFSchemePlanNAVCmd, "@PSP_PostDate", DbType.DateTime, navDate);
+                db.AddInParameter(getMFSchemePlanNAVCmd, "@PASP_SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddInParameter(getMFSchemePlanNAVCmd, "@WMTT_TransactionType", DbType.String, transactionType);
+                dsMFSchemePlanNAV = db.ExecuteDataSet(getMFSchemePlanNAVCmd);
+                //if (dsMFSchemePlanNAV.Tables[0].Rows.Count > 0)
+                //{
+                //    dtMFSchemePlanNAV = dsMFSchemePlanNAV.Tables[0];
+                //    foreach (DataRow dr in dtMFSchemePlanNAV.Rows)
+                //    {
+                //        schemePlanNAV = float.Parse(dr["PSP_RepurchasePrice"].ToString());
+                //    }
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetMFSchemePlanPurchaseDateAndValue(int scripCode, DateTime priceDate)");
+
+
+                object[] objects = new object[2];
+                objects[0] = schemePlanNAV;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsMFSchemePlanNAV;
+        }
+
+
 
     }
 }

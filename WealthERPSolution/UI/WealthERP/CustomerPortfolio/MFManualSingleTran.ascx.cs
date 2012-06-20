@@ -65,7 +65,7 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 advisorVo = (AdvisorVo)Session["advisorVo"];
                 BindPortfolioDropDown();
-                
+                Label19.Text = "Purchase Price :";
                 
                 
                 if (!IsPostBack)
@@ -294,6 +294,9 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void setVisibility()
         {
+            tdLblNav.Visible = true;
+            tdtxtNAV.Visible = true;
+            tdNavButton.Visible = true;
             if (ddlTransactionType.SelectedItem.Value == "Sell")
             {
                 trPrice.Visible = true;
@@ -313,7 +316,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
-
+                Label19.Text = "Sell Price";
 
             }
             if (ddlTransactionType.SelectedItem.Value == "Buy" || ddlTransactionType.SelectedItem.Value == "Holdings")
@@ -335,7 +338,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
-
+                Label19.Text = "Purchase Price :";
             }
             if (ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment")
             {
@@ -356,6 +359,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
+                Label19.Text = "Purchase Price :";
             }
             if (ddlTransactionType.SelectedItem.Value == "SIP")
             {
@@ -376,7 +380,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
-
+                Label19.Text = "Purchase Price :";
 
                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showSIPDetails();", true);
 
@@ -400,6 +404,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = true;
                 tdUnitsAllotedLabel.Visible = true;
                 tdUnitsAllotedValue.Visible = true;
+                Label19.Text = "Sell Price";
             }
             if (ddlTransactionType.SelectedItem.Value == "SWP")
             {
@@ -420,6 +425,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
+                Label19.Text = "Sell Price";
                 // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showSWPDetails();", true);
 
             }
@@ -442,6 +448,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = true;
                 tdUnitsAllotedLabel.Visible = true;
                 tdUnitsAllotedValue.Visible = true;
+                Label19.Text = "Purchase Price :";
             }
             if (ddlTransactionType.SelectedItem.Value == "Dividend Payout")
             {
@@ -463,6 +470,10 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
+                Label19.Text = "Purchase Price :";
+                tdLblNav.Visible = false;
+                tdtxtNAV.Visible = false;
+                tdNavButton.Visible = false;
             }
         }
         protected void ddlTransactionType_SelectedIndexChanged(object sender, EventArgs e)
@@ -792,13 +803,72 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtTransactionDate_TextChanged(object sender, EventArgs e)
         {
+            string ddlTrxnType = "";
             DateTime dt = Convert.ToDateTime(txtTransactionDate.Text);
-            txtNAV.Text = customerPortfolioBo.GetMFSchemePlanNAV(schemePlanCode, dt).ToString();
+            if (ddlTransactionType.SelectedItem.Value == "Sell")
+            {
+               ddlTrxnType = "SEL";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "Buy" )
+            {
+                ddlTrxnType = "BUY";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment" )
+            {
+                ddlTrxnType = "DVR";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "SIP" )
+            {
+                ddlTrxnType = "SIP";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "SWP" )
+            {
+                ddlTrxnType = "SWP";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "STP" )
+            {
+                ddlTrxnType = "STP";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "Dividend Payout" )
+            {
+                ddlTrxnType = "DVP";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "Switch" )
+            {
+                ddlTrxnType = "SWS";
+            }
+            else if( ddlTransactionType.SelectedItem.Value == "Holdings" )
+            {
+                ddlTrxnType = "HLD";
+            }
+
+            DataSet dsNavDetails = new DataSet();
+            dsNavDetails = customerPortfolioBo.GetMFSchemePlanPurchaseDateAndValue(schemePlanCode, dt, ddlTrxnType);
+
+            if(dsNavDetails != null)
+            {
+                if (dsNavDetails.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow drNavDetails in dsNavDetails.Tables[0].Rows)
+                    {
+                        if (drNavDetails["PSP_RepurchasePrice"].ToString() != null && drNavDetails["PSP_RepurchasePrice"].ToString() != "")
+                        {
+                            txtNAV.Text = drNavDetails["PSP_RepurchasePrice"].ToString();
+                            txtPurDate.Text = Convert.ToDateTime(drNavDetails["PSP_Date"]).ToShortDateString();
+                        }
+                    }
+                }
+                else
+                {
+                    txtNAV.Text = "0";
+                    txtPurDate.Text = "Not Available";
+                }
+            }        
         }
 
         protected void btnUseNAV_Click(object sender, EventArgs e)
         {
-            txtPrice.Text = txtNAV.Text;
+               txtPrice.Text = txtNAV.Text;
         }
 
         protected void txtAmount_TextChanged(object sender, EventArgs e)

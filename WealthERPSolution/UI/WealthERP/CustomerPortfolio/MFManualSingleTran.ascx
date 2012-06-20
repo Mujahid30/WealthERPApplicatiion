@@ -91,14 +91,20 @@
        </table>
         <table style="width: 100%;" class="TableBackground">
             <tr>
-                <td class="leftField">
+                <td class="leftField" style="width : 20%;">
                     <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Select the Portfolio :"></asp:Label>
                 </td>
-                <td colspan="4" class="rightField">
+                <td class="rightField" style="width : 20%;">
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
                     
+                </td>
+                <td style="width : 10%;">
+                </td>
+                <td style="width : 25%;">
+                </td>
+                <td style="width : 30%;">
                 </td>
             </tr>
             
@@ -106,7 +112,7 @@
             <td class="leftField" valign="top">
             <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="AMC :"></asp:Label>
             </td>
-            <td colspan="4" class="rightField">
+            <td class="rightField">
             <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="true"
                     onselectedindexchanged="ddlAMC_SelectedIndexChanged" ></asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">*
@@ -117,13 +123,17 @@
                         
                     
             </td>
+            <td>
+                </td>
+                <td>
+                </td>
             </tr>
             
             <tr>
             <td class="leftField" valign="top">
             <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Category :"></asp:Label>
             </td>
-            <td colspan="4" class="rightField">
+            <td class="rightField">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                     onselectedindexchanged="ddlCategory_SelectedIndexChanged" ></asp:DropDownList>
                     <span id="Span5" class="spnRequiredField">*</span>
@@ -132,6 +142,12 @@
                         CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
                         
             </td>
+            <td>
+                </td>
+                <td>
+                </td>
+                  <td>
+                </td>
             </tr>
             
              <tr>
@@ -177,6 +193,12 @@
                                     
                                         
                                  
+                </td>
+                  <td>
+                </td>
+                <td>
+                </td>
+                  <td>
                 </td>
             </tr>
             <tr>
@@ -242,6 +264,12 @@
                         ValidationGroup="MFSubmit" ControlToValidate="ddlTransactionType" Operator="NotEqual"
                         CssClass="rfvPCG" ValueToCompare="lblScheme" Display="Dynamic"></asp:CompareValidator>
                 </td>
+                  <td>
+                </td>
+                <td>
+                </td>
+                  <td>
+                </td>
             </tr>
             
             <%--From here there is lots of work to do--%>
@@ -251,6 +279,12 @@
                 </td>
                 <td class="rightField" id="tdSchemeNameValue" runat="server" colspan="3">
                     <asp:Label ID="lblScheme" runat="server" Text="Label" CssClass="Field"></asp:Label>
+                </td>
+                  <td>
+                </td>
+                <td>
+                </td>
+                  <td>
                 </td>
             </tr>
             <tr>
@@ -278,14 +312,14 @@
                 ValidationGroup="MFSubmit" Type="Date" ControlToValidate="txtTransactionDate"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
                 </td>
-                <td align="right">
-                    <asp:Label ID="Label19" runat="server" Text="NAV :" CssClass="FieldName"></asp:Label>
+                <td align="right" id="tdLblNav" runat="server">
+                    <asp:Label ID="Label19"  runat="server" Text="" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="style1">
+                <td class="style1" id="tdtxtNAV" runat="server">
                     <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td>
-                    <asp:Button ID="btnUseNAV" runat="server" Text="Use NAV" CssClass="PCGMediumButton"
+                <td id="tdNavButton" runat="server">
+                    <asp:Button ID="btnUseNAV" runat="server" Text="Use Price" CssClass="PCGMediumButton"
                         OnClick="btnUseNAV_Click" />
                 </td>
             </tr>
@@ -303,6 +337,12 @@
                     <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" Type="Double" ControlToValidate="txtDividentRate"
                         Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                </td>
+                  <td>
+                </td>
+                <td>
+                </td>
+                  <td>
                 </td>
             </tr>
             <tr>
@@ -348,6 +388,12 @@
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPrice"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" Display="Dynamic" runat="server" ErrorMessage="Not acceptable format"
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
+                </td>
+               <td align="right">
+                    <asp:Label ID="lblPurDate" runat="server" Text="Date:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="style1">
+                    <asp:TextBox ID="txtPurDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
                 </td>
                 </tr>
                 <tr>

@@ -3527,6 +3527,15 @@ namespace BoCustomerPortfolio
             }
             return bCheckValuationForDate;
         }
+
+        public DataSet GetMFSchemePlanPurchaseDateAndValue(int schemePlanCode, DateTime navDate, string transactionType)
+        {
+            float schemePlanNAV = 0;
+            DataSet dsMFSchemePlanNAV = new DataSet();
+            CustomerPortfolioDao customerPortfolioDao = new CustomerPortfolioDao();
+            dsMFSchemePlanNAV = customerPortfolioDao.GetMFSchemePlanPurchaseDateAndValue(schemePlanCode, navDate, transactionType);
+            return dsMFSchemePlanNAV;
+        }
        
     }
 }
