@@ -2724,7 +2724,7 @@
     <StandardValidationColumn ColumnName ="TRXN_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
     <StandardValidationColumn ColumnName ="XE_ExchangeCode" CheckValue="1"  />
    
-    <StandardValidationColumn ColumnName ="WETT_TransactionCode" CheckValue="2"  />
+    <StandardValidationColumn ColumnName ="WETT_TransactionCode" CheckValue="3"  />
 
 
 
