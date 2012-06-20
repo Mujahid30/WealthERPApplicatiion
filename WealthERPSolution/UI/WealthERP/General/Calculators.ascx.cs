@@ -20,6 +20,7 @@ namespace WealthERP.General
 
         protected void btnCalculateEMI_Click(object sender, EventArgs e)
         {
+            txtStartDate_OnTextChanged(sender, e);
             if (txtLoanAmount.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtTenureYears.Text == "")
@@ -78,14 +79,14 @@ namespace WealthERP.General
         }
         protected void btnCalculatePV_Click(object sender, EventArgs e)
         {
-           if(ddlChooseTypePV.SelectedValue=="0")
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the Drop Down');", true);
+            if (ddlChooseTypePV.SelectedValue == "0")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select the Drop Down');", true);
             else if (txtPVPaymentMade.Text == "" && txtPVFutureValue.Text == "")
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtPVInterestRate.Text == "")
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else if (txtPVNoOfPayments.Text == "")
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill all details');", true);
             else
             {
                 Calculator calculator = new Calculator();
@@ -206,7 +207,7 @@ namespace WealthERP.General
                 {
                     frequencyCode = "";
 
-                    interestRatePerPeriod = fvInterestRate ;
+                    interestRatePerPeriod = fvInterestRate;
                 }
                 else
                 {
@@ -340,5 +341,39 @@ namespace WealthERP.General
             }
 
         }
+
+        public DateTime getInstallmentEndDate(int year, int month, DateTime startDate)
+        {
+            DateTime setInstallmentEndDate;
+            DateTime b;
+            DateTime c;
+
+            setInstallmentEndDate = startDate.AddYears(year);
+            c = setInstallmentEndDate;
+            b = c.AddMonths(month);
+            return b;
+        }
+
+        protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
+        {
+
+            DateTime startDate = DateTime.Parse(txtStartDate.Text);
+            int noOfYears ;
+            int noOfMonths;
+            if (txtTenureYears.Text != string.Empty)
+                noOfYears = int.Parse(txtTenureYears.Text);
+            else
+                noOfYears=0;
+            if (txtTenureMonths.Text != string.Empty)
+
+                noOfMonths = int.Parse(txtTenureMonths.Text);
+            else
+                noOfMonths = 0;
+
+            txtEndDate.Text=getInstallmentEndDate(noOfYears,noOfMonths,startDate).ToShortDateString();
+            txtEndDate.Enabled = false;
+        }
+
+       
     }
 }

@@ -167,7 +167,7 @@
                                     <asp:Label ID="lblStartDate" runat="server" Text="Installment Start Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtStartDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox AutoPostBack="true" OnTextChanged="txtStartDate_OnTextChanged" ID="txtStartDate" runat="server" Width="120px"  CssClass="Field"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName" ErrorMessage="Invalid Date"
                                         ControlToValidate="txtStartDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
