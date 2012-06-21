@@ -75,7 +75,6 @@ namespace DaoValuation
             Database db;
             DbCommand GetInputForSelOutputCmd;
             DataSet dsInputFields;
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("werpFinCalc");
