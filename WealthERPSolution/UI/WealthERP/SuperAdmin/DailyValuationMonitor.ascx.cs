@@ -122,7 +122,10 @@ namespace WealthERP.SuperAdmin
         {
             btnGo.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             tblMessage.Visible = false;
-          
+            gvAumMis.Visible = false;
+            gvDuplicateCheck.Visible = false;
+            gvMFRejectedDetails.Visible = false;
+            gvNavChange.Visible = false;
             cvSelectDate.ValueToCompare = DateTime.Now.ToShortDateString();
             if (!Page.IsPostBack)
             {
@@ -175,9 +178,10 @@ namespace WealthERP.SuperAdmin
         }
         protected void rbtnDate_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbtnPickDate.Checked == true)
+            if (rbtnPickDate.Checked == true && txtFromDate.SelectedDate != null && txtToDate.SelectedDate != null)
             {
                 trRange.Visible = true;
+               
                 txtFromDate.SelectedDate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 txtToDate.SelectedDate = DateTime.Parse(txtToDate.SelectedDate.ToString());
                 trPeriod.Visible = false;
@@ -192,9 +196,11 @@ namespace WealthERP.SuperAdmin
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
+           
 
             if (ddlAction.SelectedValue != "NAVChange")
             {
+
                 CalculateDateRange(out dtFrom, out dtTo);
                 hdnFromDate.Value = dtFrom.ToString();
                 hdnToDate.Value = dtTo.ToString();
@@ -202,29 +208,46 @@ namespace WealthERP.SuperAdmin
             }
             if (ddlAction.SelectedValue == "DuplicateMis")
             {
+                gvAumMis.Visible = false;
+                gvDuplicateCheck.Visible = true;
+                gvMFRejectedDetails.Visible = false;
+                gvNavChange.Visible = false;
                 BindDuplicateGrid();
 
             }
             else if (ddlAction.SelectedValue == "AumMis")
             {
                 BindAUMGrid();
+                gvAumMis.Visible = true;
+                gvDuplicateCheck.Visible = false;
+                gvMFRejectedDetails.Visible = false;
+                gvNavChange.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
             }
             else if (ddlAction.SelectedValue == "mfRejects")
             {
                 BindMFRejectedGrid();
+                gvAumMis.Visible = false;
+                gvDuplicateCheck.Visible = false;
+                gvMFRejectedDetails.Visible = true;
+                gvNavChange.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
             }
             else if (ddlAction.SelectedValue == "NAVChange")
             {
                 BindNAVPercentageChange();
+                gvAumMis.Visible = false;
+                gvDuplicateCheck.Visible = false;
+                gvMFRejectedDetails.Visible = false;
+                gvNavChange.Visible = true;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
             }
 
             gvAumMis_Init(sender, e);
+           
         }
 
         private void BindNAVPercentageChange()
@@ -890,6 +913,8 @@ namespace WealthERP.SuperAdmin
                 //lblNAVCount.Visible = false;
                 //lblNAVTotal.Visible = false;
                 //trPagerNAV.Visible = false;
+                //btnDelete.Visible = false;
+                //btnDeleteAll.Visible = false;
 
                 //if (hdnRejectReasonFilter.Value != "")
                 //{
@@ -1315,22 +1340,34 @@ namespace WealthERP.SuperAdmin
                 if (ddlMonitorfr.SelectedValue == "EQ")
                 {
                     string asset = ddlMonitorfr.SelectedValue;
-                    trdd1.Visible = false;
+                   // trdd1.Visible = false;
                     trRadioDatePeriod.Visible = true;
                     trRange.Visible = true;
                     trPeriod.Visible = false;
                     trDate.Visible = false;
-                    trequity.Visible = true;
+                    //trequity.Visible = true;
+                    ddlAction.Items[0].Enabled = true;
+                    ddlAction.Items[1].Enabled = true;
+                    ddlAction.Items[2].Enabled = false;
+                    ddlAction.Items[3].Enabled = false;
+
+                    ddlAction.Items[4].Enabled = false;
                 }
                 else
                 {
+                    ddlAction.Items[0].Enabled = true;
+                    ddlAction.Items[1].Enabled = true;
+                    ddlAction.Items[2].Enabled = true;
+                    ddlAction.Items[3].Enabled = true;
+
+                    ddlAction.Items[4].Enabled = true;
                     string asset = ddlMonitorfr.SelectedValue;
-                    trdd1.Visible = true;
+                   // trdd1.Visible = true;
                     trRadioDatePeriod.Visible = true;
                     trRange.Visible = true;
                     trPeriod.Visible = false;
                     trDate.Visible = false;
-                    trequity.Visible = false;
+                   // trequity.Visible = false;
                 }
             }
         }
@@ -1350,36 +1387,52 @@ namespace WealthERP.SuperAdmin
                 }
             }
         }
-        protected void ddEquity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          if (ddlEquity.SelectedIndex != 0)
-          {
-              if (ddlEquity.SelectedValue == "AumMis")
-              {
-                  trdd1.Visible = false; 
-              }
-        }
-    }
+        //protected void ddEquity_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //  if (ddlEquity.SelectedIndex != 0)
+        //  {
+        //      if (ddlEquity.SelectedValue == "AumMis")
+        //      {
+        //          trdd1.Visible = false; 
+        //      }
+        //}
+    
         protected void gvAumMis_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dsAumMis = new DataSet();
+            gvAumMis.Visible = true;
+            gvDuplicateCheck.Visible = false;
+            gvMFRejectedDetails.Visible = false;
+            gvNavChange.Visible = false;
             dsAumMis = (DataSet)Cache["AUMList"];
             gvAumMis.DataSource = dsAumMis;
         }
         protected void gvMFRejectedDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dsRejectedRecords = new DataSet();
+            gvAumMis.Visible = false;
+            gvDuplicateCheck.Visible = false;
+            gvMFRejectedDetails.Visible = true;
+            gvNavChange.Visible = false;
             dsRejectedRecords = (DataSet)Cache["RejectedRecordsList"];
             gvMFRejectedDetails.DataSource = dsRejectedRecords;
         }
         protected void gvDuplicateCheck_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataSet dsduplicatecheck = new DataSet();
+            gvAumMis.Visible = false;
+            gvDuplicateCheck.Visible = true;
+            gvMFRejectedDetails.Visible = false;
+            gvNavChange.Visible = false;
             dsduplicatecheck = (DataSet)Cache["duplicatecheckList"];
             gvDuplicateCheck.DataSource = dsduplicatecheck;
         }
         protected void gvNavChange_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            gvAumMis.Visible = false;
+            gvDuplicateCheck.Visible = false;
+            gvMFRejectedDetails.Visible = false;
+            gvNavChange.Visible = true;
             DataSet dsGetNAV = new DataSet();
             dsGetNAV = (DataSet)Cache["dsGetNAVList"];
             gvNavChange.DataSource = dsGetNAV;

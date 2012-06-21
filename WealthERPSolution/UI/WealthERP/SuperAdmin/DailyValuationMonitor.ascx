@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DailyValuationMonitor.ascx.cs"
-    Inherits="WealthERP.SuperAdmin.DailyValuationMonitor" %>
+    Inherits="WealthERP.SuperAdmin.DailyValuationMonitor" %>    
+
 <%--<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>--%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
@@ -11,6 +12,15 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
+<%--<script type="text/javascript">
+    function ValidateInputField() {
+        var select = document.getElementById('<%=ddlMonitorfr.ClientID %>');
+        if (select.options[select.selectedIndex].value == "Select") {
+                alert('Please Select Monitor Type');
+                return false; 
+        }
+        </script>--%>
 
 <script type="text/javascript">
     function pageLoad() {
@@ -58,14 +68,19 @@
         <td>
             <asp:DropDownList ID="ddlMonitorfr" runat="server" AutoPostBack="true" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlMonitorfr_SelectedIndexChanged">
-                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Mutual Fund" Value="MF"></asp:ListItem>
                 <asp:ListItem Text="Equity" Value="EQ"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Please select an Action"
-                ValidationGroup="MFSubmit" ControlToValidate="ddlMonitorfr" Operator="NotEqual"
+                ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlMonitorfr" Operator="NotEqual"
                 CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
+                <br />
+            <asp:RequiredFieldValidator ID="reqddlAdviser" runat="server" CssClass="rfvPCG" ErrorMessage="Please select an Advisor"
+                Text="Please select a Field" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"
+                ControlToValidate="ddlMonitorfr" InitialValue="0">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr id="trdd1" runat="server">
@@ -84,18 +99,17 @@
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cmpamc" runat="server" ErrorMessage="<br />Please select an Action"
-                ValidationGroup="MFSubmit" ControlToValidate="ddlAction" Operator="NotEqual"
+                ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlAction" Operator="NotEqual"
                 CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trequity" runat="server" visible="false">
+    <%--<tr id="trequity" runat="server" visible="false">
         <td align="left" style="width: 158px" valign="top">
             <asp:Label ID="lblEquity" runat="server" Text="Select Type Of Monitoring: " CssClass="FieldName"
                 Width="100%"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlEquity" runat="server" AutoPostBack="true" CssClass="cmbField"
-                OnSelectedIndexChanged="ddEquity_SelectedIndexChanged">
+          <asp:DropDownList ID="ddlEquity" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
                 <asp:ListItem Text="Adviser Valuation" Value="AumMis"></asp:ListItem>
             </asp:DropDownList>
@@ -103,15 +117,15 @@
             <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please select an Action"
                 ValidationGroup="MFSubmit" ControlToValidate="ddlEquity" Operator="NotEqual"
                 CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
-        </td>
-    </tr>
+     </td>
+    </tr>--%>
     <tr id="trRadioDatePeriod" runat="server">
         <td class="style1" colspan="2">
             <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
+                runat="server" GroupName="Date"  ValidationGroup="vgBtnSubmitTemp" />
             <asp:Label ID="lblPickDate" runat="server" Text="Pick a date range" CssClass="Field"></asp:Label>
             <asp:RadioButton ID="rbtnPickPeriod" AutoPostBack="true" OnCheckedChanged="rbtnDate_CheckedChanged"
-                runat="server" GroupName="Date" />
+                runat="server" GroupName="Date"  ValidationGroup="vgBtnSubmitTemp" />
             <asp:Label ID="lblPickPeriod" runat="server" Text="Pick a Period" CssClass="Field"></asp:Label>
         </td>
     </tr>
@@ -131,7 +145,7 @@
                 TargetControlID="txtFromDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender--%>
             <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" ValidationGroup="vgBtnSubmitTemp" MinDate="1900-01-01">
                 <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -142,7 +156,7 @@
             <span id="spnFrom" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="MFSubmit">
+                runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
             </asp:RequiredFieldValidator>
         </td>
         <td valign="top" align="left">
@@ -159,7 +173,7 @@
                 TargetControlID="txtToDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" ValidationGroup="vgBtnSubmitTemp" MinDate="1900-01-01">
                 <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -170,11 +184,11 @@
             <span id="spnTo" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="MFSubmit">
+                runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />To Date should not be less than From Date"
                 Type="Date" ControlToValidate="txtToDate" ControlToCompare="txtFromDate" Operator="GreaterThanEqual"
-                CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp" ></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trPeriod" visible="false" runat="server">
@@ -186,7 +200,7 @@
             </asp:DropDownList>
             <span id="spnPeriod" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Period"
-                ValidationGroup="MFSubmit" ControlToValidate="ddlPeriod" Operator="NotEqual"
+                ValidationGroup="vgBtnSubmitTemp" ControlToValidate="ddlPeriod" Operator="NotEqual"
                 CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
@@ -204,7 +218,7 @@
                 TargetControlID="txtDate" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
             <telerik:RadDatePicker ID="txtDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" ValidationGroup="vgBtnSubmitTemp" MinDate="1900-01-01">
                 <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -215,11 +229,11 @@
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select a  Date" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="MFSubmit">
+                runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CVDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
             <asp:CompareValidator ID="cvSelectDate" runat="server" ControlToValidate="txtDate"
                 CssClass="cvPCG" ErrorMessage="<br />Date should not be  greater than  Today date"
                 Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
@@ -251,11 +265,11 @@
       </td>
   </tr>
 </table>--%>
-<table width="100%">
+<table>
     <tr>
         <td colspan="2">
-            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="MFSubmit"
-                OnClick="btnGo_Click" OnClientClick="Loading(true)" />
+            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="vgBtnSubmitTemp"
+                OnClick="btnGo_Click" />
         </td>
     </tr>
     <%-- <tr>
@@ -503,64 +517,65 @@
     </tr>
     <tr>
         <td>
-            <table width="50%">
-                <%--  <tr>
+</table>
+<table>
+    <%--<tr>
                     <td class="leftField" align="right">
                         <asp:Label ID="lblPage" class="Field" runat="server"></asp:Label>
                         <%-- <asp:Label ID="lblTotalPage" class="Field" runat="server"></asp:Label>
                     </td>
-                </tr>
-     
-                <tr>
-                    <td>
-                        <telerik:RadGrid ID="gvAumMis" runat="server" GridLines="None" AutoGenerateColumns="False"
-                            PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                            Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                            AllowAutomaticInserts="false" OnNeedDataSource="gvAumMis_OnNeedDataSource">
-                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-                            </ExportSettings>
-                            <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                                CommandItemDisplay="Top">
-                                <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
-                                <Columns>
-                                    <telerik:GridBoundColumn DataField="CMFNP_ValuationDate" AllowFiltering="false" HeaderText="Valuation Date"
-                                        DataFormatString="{0:D}" UniqueName="Valuation Date" HeaderStyle-HorizontalAlign="Center">
-                                        <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn DataField="A_AdviserId" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
-                                        HeaderText="Adviser Id" UniqueName="Adviser Id">
-                                        <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn AllowFiltering="true" DataField="A_OrgName">
-                                        <HeaderTemplate>
-                                            <asp:Label ID="lblAdviserNameDate" runat="server" Text="Adviser Name"></asp:Label>
-                                            <%--<asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
+                </tr>--%>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvAumMis" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" OnNeedDataSource="gvAumMis_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                </ExportSettings>
+                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    CommandItemDisplay="Top">
+                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                        ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
+                    <Columns>
+                        <telerik:GridBoundColumn DataField="CMFNP_ValuationDate" AllowFiltering="false" HeaderText="Valuation Date"
+                            DataFormatString="{0:D}" UniqueName="Valuation Date" HeaderStyle-HorizontalAlign="Center">
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="A_AdviserId" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
+                            HeaderText="Adviser Id" UniqueName="Adviser Id">
+                            <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridTemplateColumn AllowFiltering="true" DataField="A_OrgName">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblAdviserNameDate" runat="server" Text="Adviser Name"></asp:Label>
+                                <%--<asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
                                                 runat="server" OnSelectedIndexChanged="ddlAdviserNameDate_SelectedIndexChanged">
                                             </asp:DropDownList>--%>
-                </HeaderTemplate>
-                <itemtemplate>
-                                            <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
-                                        </itemtemplate>
-                <headerstyle wrap="true"></headerstyle>
-                <itemstyle wrap="true"></itemstyle>
-                </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn DataField="AUM" AllowFiltering="false" HeaderText="AUM"
-                    UniqueName="AUM" DataFormatString="{0:n}">
-                    <itemstyle width="" horizontalalign="Right" wrap="false" verticalalign="Top" />
-                </telerik:GridBoundColumn>
-                <%-- <telerik:GridTemplateColumn UniqueName="TemplateColumn" SortExpression="CompanyName"
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAdviserNameDate" runat="server" Text='<%# Eval("A_OrgName").ToString() %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle Wrap="true"></HeaderStyle>
+                            <ItemStyle Wrap="true"></ItemStyle>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn DataField="AUM" AllowFiltering="false" HeaderText="AUM"
+                            UniqueName="AUM" DataFormatString="{0:n}">
+                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <%-- <telerik:GridTemplateColumn UniqueName="TemplateColumn" SortExpression="CompanyName"
                         InitializeTemplatesFirst="false">
                                     <FooterTemplate>
                             Template column footer</FooterTemplate>
                         <FooterStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </telerik:GridTemplateColumn>--%>
-                </Columns> </MasterTableView>
-                <clientsettings>
-                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                            </clientsettings>
-                </telerik:RadGrid>
-                <%--<asp:GridView ID="gvAumMis" runat="server" CellPadding="4" CssClass="GridViewStyle"
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+            <%--<asp:GridView ID="gvAumMis" runat="server" CellPadding="4" CssClass="GridViewStyle"
                             AllowSorting="True" HeaderStyle-Width="50%" ShowFooter="true" AutoGenerateColumns="False">
                             <RowStyle CssClass="RowStyle" />
                             <FooterStyle CssClass="FooterStyle" />
@@ -747,7 +762,7 @@
     </tr>
 </table>
 <%--</asp:Panel>--%>
-<table width="60%">
+<table>
     <%-- <tr>
                     <td class="leftField" align="right">
                         <asp:Label ID="lblNAVCount" class="Field" runat="server"></asp:Label>
