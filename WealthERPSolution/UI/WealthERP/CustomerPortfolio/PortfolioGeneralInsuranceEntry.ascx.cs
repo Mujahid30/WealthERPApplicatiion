@@ -1257,7 +1257,7 @@ namespace WealthERP.CustomerPortfolio
             else if (rdbPolicyTermMonth.Checked == true)
             {
                 period = int.Parse(txtMonths.Text);
-                endDate = startDate.AddDays(period);
+                endDate = startDate.AddMonths(period);
             }
 
 
