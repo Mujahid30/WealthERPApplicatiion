@@ -57,6 +57,7 @@
     <Reference Include="VoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculatorDao.cs" />
     <Compile Include="MFEngineDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
