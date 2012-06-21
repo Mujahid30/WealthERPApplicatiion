@@ -54,7 +54,7 @@
                         <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                             ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
                         <Columns>
-                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
+                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                               
                                 <%--<ItemTemplate>
                                     <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
