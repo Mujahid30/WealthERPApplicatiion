@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 using System.Collections;
 
 namespace BoValuation
-{
+{ 
     public class CalculatorBo
     {
         public static DataSet dsInstType = new DataSet();
