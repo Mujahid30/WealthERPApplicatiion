@@ -2077,7 +2077,7 @@ namespace DaoCustomerPortfolio
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getMFSchemePlanNAVCmd = db.GetStoredProcCommand("SP_GetSchemePlanPrice");
+                getMFSchemePlanNAVCmd = db.GetStoredProcCommand("SP_GetMFSchemePlanPurchaseDateAndValue");
 
                 db.AddInParameter(getMFSchemePlanNAVCmd, "@PSP_PostDate", DbType.DateTime, navDate);
                 db.AddInParameter(getMFSchemePlanNAVCmd, "@PASP_SchemePlanCode", DbType.Int32, schemePlanCode);
