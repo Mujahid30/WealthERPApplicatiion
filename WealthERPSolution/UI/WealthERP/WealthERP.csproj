@@ -1177,6 +1177,7 @@
     <Compile Include="Alerts\NotificationDashboard.ascx.designer.cs">
       <DependentUpon>NotificationDashboard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Base\Caching.cs" />
     <Compile Include="Base\Contants.cs" />
     <Compile Include="Advisor\ChangeLoginId.ascx.cs">
       <DependentUpon>ChangeLoginId.ascx</DependentUpon>
