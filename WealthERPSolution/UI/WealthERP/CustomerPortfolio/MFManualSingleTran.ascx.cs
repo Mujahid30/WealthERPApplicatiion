@@ -59,6 +59,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                CompareValidator2.ValueToCompare = DateTime.Now.ToShortDateString(); 
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 customerVo = (CustomerVo)Session["CustomerVo"];

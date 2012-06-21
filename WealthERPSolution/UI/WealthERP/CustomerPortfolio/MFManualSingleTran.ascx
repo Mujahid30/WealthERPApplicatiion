@@ -41,6 +41,46 @@
 
     
 </script>
+<script type="text/javascript">
+    function checkTrxnDate() {
+        var selectedDate = new Date();
+        selectedDate = document.getElementById("<%= txtTransactionDate.ClientID %>").value;
+
+        var todayDate = new Date();
+        //        var day = selectedDate.value.split("/")[0];
+        //        var month = selectedDate.value.split("/")[1];
+
+        //        var year = selectedDate.value.split("/")[2];
+
+        //        var dt = new Date(year, month - 1, day);
+
+        //        var today = new Date();
+        //        
+        //        if ((dt.getDate() != day) || (dt.getMonth() != month - 1) || (dt.getFullYear() != year) || (dt > today)) {
+        //            alert("Invalid Date"); return false;
+
+
+        alert(selectedDate);
+        var trxnDate = new Date(selectedDate);
+
+        alert(todayDate);
+
+        alert(trxnDate);
+        
+        if (trxnDate > todayDate) {
+            alert("Warning! - Date Cannot be in the future");
+            return false;
+    
+        }
+
+        var select = document.getElementById('<%=ddlFolioNum.ClientID %>');
+        if (select.options[select.selectedIndex].value == "Select") {
+            alert('Please Select Folio');
+            return false;
+        }
+    }
+    </script>
+
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
     <Services>
@@ -308,6 +348,9 @@
                     <asp:CompareValidator ID="CVTransactionDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtTransactionDate" CssClass="cvPCG" Operator="DataTypeCheck" ValidationGroup="MFSubmit"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                <asp:CompareValidator ID="CompareValidator2" runat="server" ValidationGroup="MFSubmit" CssClass="cvPCG" ControlToValidate="txtTransactionDate"
+
+                     ErrorMessage="<br/>Date Cannot be in the future" Display="Dynamic" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
                     <%--<asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />The date format should be dd/MM/yyyy"
                 ValidationGroup="MFSubmit" Type="Date" ControlToValidate="txtTransactionDate"
                 Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>--%>
@@ -532,7 +575,7 @@
 <td class="leftField">
   <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
                         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_MFManualSingleTran_btnSubmit', 'S');"
-                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"  />
+                        ValidationGroup="MFSubmit" OnClick="btnSubmit_Click"/>
 </td>
 </tr>
 </table>
