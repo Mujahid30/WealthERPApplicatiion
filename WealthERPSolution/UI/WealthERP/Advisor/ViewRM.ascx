@@ -123,7 +123,7 @@
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Mobile" AllowFiltering="false" HeaderText="Mobile"
+                            <telerik:GridBoundColumn DataField="Mobile Number" AllowFiltering="false" HeaderText="Mobile"
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>

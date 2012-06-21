@@ -286,8 +286,8 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[3] = "Internal";
                         drAdvisorStaff[4] = dr["AR_JobFunction"].ToString();
                         drAdvisorStaff[5] = dr["AR_Email"].ToString();
-                        drAdvisorStaff[6] = dr["AR_Mobile"].ToString();
-                        drAdvisorStaff[7] = dr["BranchList"].ToString();
+                        drAdvisorStaff[7] = dr["AR_Mobile"].ToString();
+                        drAdvisorStaff[8] = dr["BranchList"].ToString();
                         dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                     }
 
