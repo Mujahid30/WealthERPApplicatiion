@@ -3,7 +3,7 @@
 <table width="100%">
     <tr>
         <td class="HeaderCell" colspan="2">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Goal Funding Sync"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Sync"></asp:Label>
             <hr />
         </td>
     </tr>
