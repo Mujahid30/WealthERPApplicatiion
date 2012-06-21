@@ -181,7 +181,11 @@
  </tr>
  <tr>
     <td>
-        <asp:Button runat="server" Text="Export filtered data to Excel" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" ID="btnExportFilteredData" />
+       <%-- <asp:Button  runat="server" Text="Export filtered data to Excel" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" ID="btnExportFilteredData" />
+--%>    
+          <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px" ></asp:ImageButton>
     </td>
  </tr>
     <tr>
@@ -190,10 +194,10 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
                     AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
-                    <ExportSettings HideStructureColumns="true"></ExportSettings>
-                    <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
-                     <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
+                    <ExportSettings FileName="CSLIST" HideStructureColumns="true" ExportOnlyData="true"></ExportSettings>
+                    <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"  CommandItemDisplay="None">
+                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                    ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false"/>
                       <Columns>                         
                         <telerik:GridTemplateColumn HeaderText="Issue Code" AllowFiltering="false">
                             <ItemStyle />

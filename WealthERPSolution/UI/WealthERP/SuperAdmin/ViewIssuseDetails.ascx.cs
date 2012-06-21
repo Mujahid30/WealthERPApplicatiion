@@ -45,16 +45,16 @@ namespace WealthERP.SuperAdmin
             }           
         }
 
-        public void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        {
-            gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
-            gvCSIssueTracker.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvCSIssueTracker.MasterTableView.ExportToCSV();
-        } 
+        //public void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        //{
+        //    gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
+        //    gvCSIssueTracker.ExportSettings.IgnorePaging = true;
+        //    foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
+        //    {
+        //        filter.Visible = false;
+        //    }
+        //    gvCSIssueTracker.MasterTableView.ExportToCSV();
+        //} 
 
         public void csIssueGridViewBind()
         { 
@@ -167,6 +167,17 @@ namespace WealthERP.SuperAdmin
             //gvCSIssueTracker.VirtualItemCount = ds.Tables[0].Rows.Count;
             //gvCSIssueTracker.DataSource = ds;
 
+        }
+
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
+            gvCSIssueTracker.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCSIssueTracker.MasterTableView.ExportToExcel();
         }
     }
 }
