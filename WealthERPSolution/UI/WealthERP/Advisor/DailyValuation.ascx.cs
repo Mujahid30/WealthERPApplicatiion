@@ -48,7 +48,8 @@ namespace WealthERP.Advisor
             {
                 trMf.Visible = false;
                 trEquity.Visible = false;
-                trHeader.Visible = false;              
+                trHeader.Visible = false;
+                trSelectAllFPGrid.Visible = false;
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;        
                 trNote.Visible = false;
@@ -788,6 +789,7 @@ namespace WealthERP.Advisor
                 trMf.Visible = false;
                 trEquity.Visible = false;
                 trHeader.Visible = false;
+                trSelectAllFPGrid.Visible = false;
                 trFPSync.Visible = false;
                 btnFPSync.Visible = false;
                 trNote.Visible = false;
@@ -801,6 +803,7 @@ namespace WealthERP.Advisor
                 btnFPSync.Visible = false;
                 trValuation.Visible = true;
                 trSubmitButton.Visible = true;
+                trSelectAllFPGrid.Visible = false;
                 trFPSync.Visible = false;
                 trNote.Visible = true;
                 trHeader.Visible = true;
@@ -816,6 +819,7 @@ namespace WealthERP.Advisor
                 trValuation.Visible = false;
                 Button1.Visible = true;
                 trFPSync.Visible = false;
+                trSelectAllFPGrid.Visible = false;
                 btnFPSync.Visible = false;
                 trValuation.Visible = true;
                 trSubmitButton.Visible = true;
@@ -845,6 +849,7 @@ namespace WealthERP.Advisor
                 trValuation.Visible = false;
                 trSubmitButton.Visible = false;
                 trFPSync.Visible = true;
+                trSelectAllFPGrid.Visible = true;
                 btnFPSync.Visible = true;
                 trNote.Visible = true;
                 trHeader.Visible = false;
@@ -993,12 +998,19 @@ namespace WealthERP.Advisor
         {
             string customerIds = "";
             bool result = true;
-            foreach (GridDataItem item in gvCustomerlist.MasterTableView.Items)
+            if (hdnCheckBoxChecked.Value == "AllPage")
             {
-                CheckBox chkbx = (CheckBox)item["View"].FindControl("CheckBox1");
-                if (chkbx.Checked == true)
+                customerIds = "0";
+            }
+            else
+            {
+                foreach (GridDataItem item in gvCustomerlist.MasterTableView.Items)
                 {
-                    customerIds = customerIds + Convert.ToString(item.GetDataKeyValue("CustomerId").ToString()) + ',';                    
+                    CheckBox chkbx = (CheckBox)item["View"].FindControl("CheckBox1");
+                    if (chkbx.Checked == true)
+                    {
+                        customerIds = customerIds + Convert.ToString(item.GetDataKeyValue("CustomerId").ToString()) + ',';
+                    }
                 }
             }
                result = advisorBo.UpdateAdviserFPBatch(customerIds,advisorVo.advisorId);

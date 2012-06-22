@@ -3,6 +3,53 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
 
+
+<script language="javascript" type="text/javascript">
+    function checkAllFPBoxes(type) {
+
+        document.getElementById("<%=hdnCheckBoxChecked.ClientID %>").value = type;
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var totalChkBoxes = parseInt('<%= gvCustomerlist.Items.Count %>');
+        var gvAssociation = document.getElementById('<%= gvCustomerlist.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "CheckBox1";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkAll");
+        if (type == "AllPage") {
+            if (mainChkBox.checked == false) {
+                mainChkBox.checked = true;
+
+            }
+            else {
+                mainChkBox.checked = false;
+            }
+
+        }
+        else {
+            var allMainChkBox = document.getElementById("chkSelectAllpages");
+            if (allMainChkBox.checked == true) {
+                allMainChkBox.checked = false;
+            }
+
+
+        }
+
+        //get an array of input types in the gridview
+        var inputTypes = gvAssociation.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template            
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    } 
+
+
+    </script>
 <script language="javascript" type="text/javascript">
     function CheckboxCheck() {
         
@@ -251,7 +298,16 @@
             &nbsp;
         </td>
     </tr>
+    <tr>
+    <td id="trSelectAllFPGrid"  runat="server" colspan="2" style="padding-left:8px">
+    
+   <input id="chkSelectAllpages"  name="Select All across pages" value="Customer" type="checkbox" onclick="checkAllFPBoxes('AllPage');" />
+ <%--   <asp:CheckBox ID="chkSelectAllpages" runat="server" CssClass="FieldName" Text="Select All across pages"/>--%>
+   <asp:Label ID="lblAllpages" class="Field" Text="Select all across pages" runat="server"></asp:Label>
+    </td>
+    </tr>
        <tr id="trFPSync" runat="server">
+        
         <td colspan="2">
         <div style="padding-top:2px; width:98%">
             <telerik:RadGrid ID="gvCustomerlist" runat="server" GridLines="None" AutoGenerateColumns="False"
@@ -264,7 +320,7 @@
                         <%--<telerik:GridClientSelectColumn UniqueName="ClientSelectColumn"  /> --%>
                         <telerik:GridTemplateColumn UniqueName="View" HeaderText="View" AllowFiltering="false" DataField="View">
                             <HeaderTemplate>
-                                <input type="checkbox" id="chkAll" name="chkAll" onclick="Check();" />
+                                <input type="checkbox" id="chkAll" name="chkAll" onclick="checkAllFPBoxes('CurrentPage');" />
                             </HeaderTemplate>
                             <ItemTemplate>
                                 <asp:CheckBox ID="CheckBox1" runat="server" />
@@ -326,3 +382,4 @@
 <asp:HiddenField ID="hdnCount" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />--%>
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:HiddenField ID="hdnCheckBoxChecked" runat="server" />
