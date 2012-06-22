@@ -5617,7 +5617,7 @@ namespace WealthERP.Uploads
                                 int i = 0;
                                 DataTable dtOdin = new DataTable();
                                 dtOdin.Columns.Add("Trade_Account_Number");
-                                dtOdin.Columns.Add("PEM_ScripCode");
+                                dtOdin.Columns.Add("PESM_Identifier");
                                 dtOdin.Columns.Add("WETT_TransactionCode");
                                 dtOdin.Columns.Add("CET_TradeDate");
                                 dtOdin.Columns.Add("CET_Rate");
@@ -5648,7 +5648,7 @@ namespace WealthERP.Uploads
                                     {
                                         dr1 = dtOdin.NewRow();
                                         dr1["Trade_Account_Number"] = dr["Col15"].ToString();
-                                        dr1["PEM_ScripCode"] = dr["Col3"].ToString();
+                                        dr1["PESM_Identifier"] = dr["Col3"].ToString();
                                         if (dr["Col11"].ToString() == "1")
                                             dr1["WETT_TransactionCode"] = 1;
                                         else
@@ -5680,7 +5680,7 @@ namespace WealthERP.Uploads
                                     {
                                         dr1 = dtOdin.NewRow();
                                         dr1["Trade_Account_Number"] = dr["Col10"].ToString();
-                                        dr1["PEM_ScripCode"] = dr["Col1"].ToString();
+                                        dr1["PESM_Identifier"] = dr["Col1"].ToString();
                                         if (dr["Col11"].ToString() == "B")
                                             dr1["WETT_TransactionCode"] = 1;
                                         else
