@@ -205,7 +205,7 @@ namespace WealthERP.Advisor
             {
                 if (!IsPostBack)
                 {
-
+                    gvRMList_Init(sender,e);
                     //mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
@@ -390,6 +390,7 @@ namespace WealthERP.Advisor
                         gvRMList.Columns[5].Visible = false;
                         gvRMList.Columns[4].Visible = false;
                         gvRMList.DataBind();
+                        
 
                         //this.GetPageCount();
                     }
@@ -738,7 +739,34 @@ namespace WealthERP.Advisor
 
         }
 
-      
+        protected void gvRMList_Init(object sender, System.EventArgs e)
+        {
+            GridFilterMenu menu = gvRMList.FilterMenu;
+            int i = 0;
+            while (i < menu.Items.Count)
+            {
+                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+                {
+                    i++;
+                }
+                else
+                {
+                    menu.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvRMList.ExportSettings.OpenInNewWindow = true;
+            gvRMList.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvRMList.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvRMList.MasterTableView.ExportToExcel();
+        }
+
             /* End For Binding the Branch Dropdowns */
     }
 }

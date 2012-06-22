@@ -43,19 +43,23 @@
         <tr>
             <td class="HeaderCell">
                 <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                 <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource">
-                    <exportsettings hidestructurecolumns="true">
-                    </exportsettings>
-                    <mastertableview datakeynames="UserId" width="100%" allowmulticolumnsorting="True"
-                        autogeneratecolumns="false" commanditemdisplay="Top">
-                        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                            ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
+                    <ExportSettings FileName="Staff Details" HideStructureColumns="true" ExportOnlyData="true">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
+                        AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
-                              
                                 <%--<ItemTemplate>
                                     <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
                                         OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
@@ -64,38 +68,33 @@
                                         <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
                                     </asp:DropDownList>
                                 </ItemTemplate>--%>
-                                
-                               <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
+                                <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                         AllowCustomText="true" Width="120px" AutoPostBack="true">
                                         <Items>
-                                            <telerik:RadComboBoxItem  ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem  Text="View profile" Value="View profile" ImageUrl="~/Images/DetailedView.png" 
-                                            runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem  ImageUrl="~/Images/RecordEdit.png"  Text="Edit Profile" Value="Edit Profile"
-                                                runat="server"></telerik:RadComboBoxItem>                                          
+                                            <telerik:RadComboBoxItem Text="View profile" Value="View profile" ImageUrl="~/Images/DetailedView.png"
+                                                runat="server"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit Profile" Value="Edit Profile"
+                                                runat="server"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
-                           <%-- </asp:TemplateField>--%>
-                                
+                                <%-- </asp:TemplateField>--%>
                             </telerik:GridTemplateColumn>
-                            
                             <%-- <telerik:GridTemplateColumn AllowFiltering="true">
                                 <ItemTemplate>
                                     <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("RMName") %>'></asp:Label>
                                 </ItemTemplate>
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridTemplateColumn> --%>
-                            
-                             <telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText="Name"
+                            <telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText="Name"
                                 UniqueName="Name">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
                             <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
                                 UniqueName="ActiveLevel">
                                 <FilterTemplate>
@@ -132,10 +131,10 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </clientsettings>
+                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>
