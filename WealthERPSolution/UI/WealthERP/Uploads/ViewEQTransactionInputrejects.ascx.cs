@@ -28,7 +28,7 @@ namespace WealthERP.Uploads
             UserVo userVo = (UserVo)Session[SessionContents.UserVo];
 
             SessionBo.CheckSession();
-
+           
             if (!IsPostBack)
             {
                 if (Request.QueryString["processId"] != null)
@@ -40,6 +40,8 @@ namespace WealthERP.Uploads
                 bindEQInputGrid();
 
             }
+            //gvEquityInputRejects_Init(sender, e);
+
         }
 
         public void bindEQInputGrid()
@@ -70,6 +72,33 @@ namespace WealthERP.Uploads
             dtgvEquityInputRejectsList = (DataSet)Cache["gvEquityInputRejectsList"];
             gvEquityInputRejects.DataSource = dtgvEquityInputRejectsList;
 
+        }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvEquityInputRejects.ExportSettings.OpenInNewWindow = true;
+            gvEquityInputRejects.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvEquityInputRejects.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvEquityInputRejects.MasterTableView.ExportToExcel();
+        }
+       
+        protected void gvEquityInputRejects_Init(object sender, System.EventArgs e)
+        {
+            //GridFilterMenu menu = gvEquityInputRejects.FilterMenu;
+            //int i = 0;
+            //while (i < menu.Items.Count)
+            //{
+            //    if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo" || menu.Items[i].Text == "GreaterThan" || menu.Items[i].Text == "LessThan")
+            //    {
+            //        i++;
+            //    }
+            //    else
+            //    {
+            //        menu.Items.RemoveAt(i);
+            //    }
+            //}
         }
     }
 }
