@@ -284,20 +284,19 @@
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
                                                                 Text="Transact/Business online <img id='img1' src='/Images/new.gif'/>" Value="Transact/Business online"
                                                                 SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" 
-                                                             Text="Repository <img id='img1' src='/Images/new.gif'/>"  Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem> 
-                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links <img id='img1' src='/Images/new.gif'/>"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository <img id='img1' src='/Images/new.gif'/>"
+                                                                Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links <img id='img1' src='/Images/new.gif'/>"
                                                                 Value="Info links"></asp:MenuItem>
-                                                                
-                                                                <asp:MenuItem Enabled="false"  Text="<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>" NavigateUrl="#"></asp:MenuItem>
-                                                                
-                                                                <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
+                                                            <asp:MenuItem Enabled="false" Text="<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>"
+                                                                NavigateUrl="#"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
                                                                 Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
                                                                 Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');" Text="Interest Calculator"
-                                                                Value="Interest Calculator" ></asp:MenuItem><%--https://calculator.wealtherp.com/--%>
-                                                            
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InterestCalculator','login');"
+                                                                Text="Interest Calculator" Value="Interest Calculator"></asp:MenuItem>
+                                                            <%--https://calculator.wealtherp.com/--%>
                                                         </Items>
                                                     </asp:Menu>
                                                 </td>
@@ -575,6 +574,39 @@
                                             </tr>
                                         </table>
                                     </div>
+                                    <div id="divSuperAdminMenu" style="height: auto; width: 88%; float: left; display: none;"
+                                        runat="server">
+                                        <table width="100%">
+                                            <tr>
+                                                <td>
+                                                    <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal" BorderStyle="Solid"
+                                                        BorderWidth="2px" CssClass="MenuEX" OnMenuItemClick="AdvisorMenu_MenuItemClick">
+                                                        <%-- OnMenuItemClick="AdvisorMenu_MenuItemClick"--%>
+                                                        <LevelMenuItemStyles>
+                                                            <asp:MenuItemStyle CssClass="level1" />
+                                                            <asp:MenuItemStyle CssClass="level2" />
+                                                            <asp:MenuItemStyle CssClass="level3" />
+                                                        </LevelMenuItemStyles>
+                                                        <StaticHoverStyle CssClass="hoverstyle" />
+                                                        <LevelSubMenuStyles>
+                                                            <asp:SubMenuStyle CssClass="sublevel1" />
+                                                        </LevelSubMenuStyles>
+                                                        <Items>                                                          
+                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('MarketData','login');" Text="Market Data <img id='img1' src='/Images/new.gif'/>"
+                                                                Value="Price List" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('Calculators','login');" Text="Calculators"
+                                                                Value="Calculators" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
+                                                            <asp:MenuItem NavigateUrl="https://calculator.wealtherp.com/" Target="_blank" Text="Interest Calculator"
+                                                                Value="Interest Calculator" ></asp:MenuItem>
+                                                            
+                                                        </Items>
+                                                    </asp:Menu>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -624,8 +656,8 @@
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
                             <td id="tdTermsCondition" runat="server">
-                                <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf" style="font-size:x-small"
-                                                    class="PCGWhiteText" target="_blank">Terms & Condition</a>                                
+                                <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf"
+                                    style="font-size: x-small" class="PCGWhiteText" target="_blank">Terms & Condition</a>
                             </td>
                             <td align="right">
                                 <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
