@@ -4617,6 +4617,30 @@ namespace BoUploads
                 throw exBase;
             }
             return dsTrailRejectRecords;
-        }        
+        }
+
+        public int getInputRejectedRecordsForEquity(int processId)
+        {
+            UploadsCommonDao UploadsCommonDao=new UploadsCommonDao();
+            int InputRejectedRecordsForEquity=0;            
+            try
+            {
+                InputRejectedRecordsForEquity = UploadsCommonDao.getInputRejectedRecordsForEquity(processId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:getInputRejectedRecordsForEquity()");              
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return InputRejectedRecordsForEquity;
+        }
     }
 }
