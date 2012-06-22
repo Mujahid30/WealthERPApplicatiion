@@ -5441,7 +5441,7 @@ namespace WealthERP.Uploads
 
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
                                             //dt.Rows[i]["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                            dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
+                                            dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
                                             dr1["WETT_TransactionCode"] = 1;
                                             dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
                                             dr1["CET_Rate"] = float.Parse(dr["Avg Buy Rate"].ToString()).ToString();
@@ -5468,7 +5468,7 @@ namespace WealthERP.Uploads
                                         {
                                             dr1 = dtIIFL.NewRow();
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                            dr1["PEM_ScripCode"] = dr["Scrip Name"].ToString();
+                                            dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
                                             dr1["WETT_TransactionCode"] = 2;
                                             dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
                                             dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
@@ -5499,7 +5499,7 @@ namespace WealthERP.Uploads
                                         {
                                             dr1 = dtIIFL.NewRow();
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                            dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
+                                            dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
                                             dr1["WETT_TransactionCode"] = 1;
                                             dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
                                             dr1["CET_Rate"] = dr["Avg Buy Rate"].ToString();
@@ -5525,7 +5525,7 @@ namespace WealthERP.Uploads
                                         {
                                             dr1 = dtIIFL.NewRow();
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
-                                            dr1["PEM_ScripCode"] = dr["Scrip Code"].ToString();
+                                            dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
                                             dr1["WETT_TransactionCode"] = 2;
                                             dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
                                             dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
