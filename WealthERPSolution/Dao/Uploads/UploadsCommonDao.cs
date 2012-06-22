@@ -4001,5 +4001,48 @@ namespace DaoUploads
             }
             return dsTrailRejectRecords;
         }
+
+        public int getInputRejectedRecordsForEquity(int processID)
+        {
+            string count = string.Empty;
+            int result = 0;
+            Database db;
+            DbCommand getCount;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCount = db.GetStoredProcCommand("SP_GetEquityStandardTransactionInputRejects");
+                db.AddInParameter(getCount, "@processId", DbType.Int32, processID);
+
+
+
+                if (db.ExecuteNonQuery(getCount) != 0)
+                    count = (db.ExecuteScalar(getCount)).ToString();
+                result = int.Parse( count.ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetUploadSystematicInsertCount()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
     }
 }
