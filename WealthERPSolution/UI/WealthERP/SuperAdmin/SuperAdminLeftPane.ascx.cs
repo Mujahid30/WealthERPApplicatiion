@@ -27,7 +27,7 @@ namespace WealthERP.SuperAdmin
             if (!IsPostBack)
             {
                 RadPanelBar1.CollapseAllItems();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('SuperAdminLeftTopMenu');", true);
             }
         }
 
