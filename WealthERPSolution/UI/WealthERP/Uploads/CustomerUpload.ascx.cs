@@ -3082,6 +3082,7 @@ namespace WealthERP.Uploads
                                     bool werpEQSecondStagingResult = false;
                                     bool WERPEQSecondStagingCheckResult = false;
                                     bool WERPEQTranWerpResult = false;
+                                    int inputRejects = 0;
 
                                     // WERP Equity Insert To Input Profile
                                     packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx");
@@ -3177,6 +3178,7 @@ namespace WealthERP.Uploads
                                                                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, "WPEQ");
                                                                     processlogVo.NoOfTransactionDuplicates = 0;
                                                                     processlogVo.EndTime = DateTime.Now;
+                                                                    inputRejects = uploadsCommonBo.getInputRejectedRecordsForEquity(UploadProcessId);
                                                                     bool updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                                 }
                                                             }
@@ -3228,6 +3230,12 @@ namespace WealthERP.Uploads
                                     }
                                     else
                                         txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+
+                                    if (inputRejects!=0)
+                                    {
+                                        txtInputRejectedRecords.Text = inputRejects.ToString();
+                                        txtInputRejectedRecords.Visible = true;
+                                    }
 
                                     txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
                                     txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
@@ -6440,6 +6448,7 @@ namespace WealthERP.Uploads
             lblFileType.Visible = true;
             lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
         }
+
     }
 }
 

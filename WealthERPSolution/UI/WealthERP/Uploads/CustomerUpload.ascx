@@ -598,6 +598,18 @@
                 <asp:TextBox ID="txtRejectedRecords" CssClass="txtField" runat="server" Enabled="false">
                 </asp:TextBox>
             </td>
+           <td colspan="2" class="rightField"></td>
+        </tr>
+         <tr>
+            <td class="leftField">
+                <asp:Label ID="Label5" Text="Total Inut Records Rejected:" CssClass="FieldName"
+                    runat="server">
+                </asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtInputRejectedRecords" CssClass="txtField" runat="server" Visible="false" Enabled="false">
+                </asp:TextBox>
+            </td>
             <td colspan="2" class="rightField">
                 <asp:Button ID="btn_ViewRjects" runat="server" Text="View Rejects" CssClass="PCGMediumButton"
                     onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerUpload_btn_ViewRjects','M');"
