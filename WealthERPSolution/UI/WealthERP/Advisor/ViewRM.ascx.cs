@@ -452,6 +452,7 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[8] = rmVo.BranchList.ToString();
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
+                        dtAdvisorStaff.DefaultView.Sort = "RMName ASC";
                         gvRMList.DataSource = dtAdvisorStaff;
                         gvRMList.DataBind();
 
