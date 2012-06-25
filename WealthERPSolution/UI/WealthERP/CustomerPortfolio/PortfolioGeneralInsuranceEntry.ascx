@@ -426,12 +426,12 @@
             <telerik:RadDatePicker ID="txtPolicyCommencementDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <%-- <asp:TextBox ID="txtPolicyCommencementDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
@@ -522,15 +522,18 @@
                 GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
             <asp:TextBox ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPolicyTerm"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPolicyTerm"
                 ErrorMessage="<br />Please enter the Policy Term" Display="Dynamic" CssClass="rfvPCG"
                 runat="server" InitialValue="" ValidationGroup="buttonSubmit">
             </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtPolicyTerm"
+                ErrorMessage="Please Enter Valid Term" ValidationExpression="^\d+$"  CssClass="rfvPCG" ValidationGroup="buttonSubmit"></asp:RegularExpressionValidator>
         </td>
-        <td >
-            <asp:DropDownList AutoPostBack="true" ID="ddlPeriodSelection" runat="server" CssClass="Field"  onselectedindexchanged="ddlPeriodSelection_SelectedIndexChanged">
+        <td>
+            <asp:DropDownList AutoPostBack="true" ID="ddlPeriodSelection" runat="server" CssClass="Field"
+                OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="0" Selected="True">               
-                </asp:ListItem>                
+                </asp:ListItem>
                 <asp:ListItem Text="Days" Value="DA">               
                 </asp:ListItem>
                 <asp:ListItem Text="Months" Value="MN">               
@@ -538,14 +541,13 @@
                 <asp:ListItem Text="Years" Value="YR">               
                 </asp:ListItem>
             </asp:DropDownList>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlPeriodSelection"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlPeriodSelection"
                 ErrorMessage="<br />Please select tenure" Display="Dynamic" CssClass="rfvPCG"
                 runat="server" InitialValue="0" ValidationGroup="buttonSubmit">
             </asp:RequiredFieldValidator>
             <%--  <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>--%>
         </td>
-        <td >
-         
+        <td>
         </td>
     </tr>
     <tr>
@@ -553,14 +555,15 @@
             <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+            <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <%-- <asp:TextBox ID="txtMaturityDate" runat="server" Width="176px" CssClass="txtField"
                 Enabled="false"></asp:TextBox>
@@ -623,12 +626,12 @@
         <td class="rightField">
             <telerik:RadDatePicker ID="txtCheckUpDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <%--<asp:TextBox ID="txtCheckUpDate" runat="server" Width="176px" CssClass="txtField"
                 Enabled="false"></asp:TextBox>
@@ -661,12 +664,12 @@
         <td class="rightField">
             <telerik:RadDatePicker ID="txtProposalDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <%-- <asp:TextBox ID="txtProposalDate" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtProposalDate"
