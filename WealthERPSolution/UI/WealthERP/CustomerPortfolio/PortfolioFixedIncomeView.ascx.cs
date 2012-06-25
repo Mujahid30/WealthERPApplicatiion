@@ -15,6 +15,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
 using BoCommon;
 using System.Configuration;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -31,101 +32,101 @@ namespace WealthERP.CustomerPortfolio
         private const string DESCENDING = " DESC";
         static int portfolioId = 0;
 
-        protected override void OnInit(EventArgs e)
-        {
+        //protected override void OnInit(EventArgs e)
+        //{
 
-            try
-            {
-                this.Page.Culture = "en-GB";
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //    try
+        //    {
+        //        this.Page.Culture = "en-GB";
+        //        ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypager.EnableViewState = true;
+        //        base.OnInit(e);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.LoadGridView();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GetPageCount();
+        //        this.LoadGridView();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit = "";
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = "";
-            string PageRecords = "";
-            try
-            {
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //private void GetPageCount()
+        //{
+        //    string upperlimit = "";
+        //    int rowCount = 0;
+        //    int ratio = 0;
+        //    string lowerlimit = "";
+        //    string PageRecords = "";
+        //    try
+        //    {
+        //        rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //        ratio = rowCount / 10;
+        //        mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //        mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //        lowerlimit = (((mypager.CurrentPage - 1) * 10)+1).ToString();
+        //        upperlimit = (mypager.CurrentPage * 10).ToString();
+        //        if (mypager.CurrentPage == mypager.PageCount)
+        //            upperlimit = hdnRecordCount.Value;
+        //        PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //        lblCurrentPage.Text = PageRecords;
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "PortfolioFixedIncomeView.ascx.cs:GetPageCount()");
+        //        object[] objects = new object[5];
+        //        objects[0] = upperlimit;
+        //        objects[1] = rowCount;
+        //        objects[2] = ratio;
+        //        objects[3] = lowerlimit;
+        //        objects[4] = PageRecords;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -160,17 +161,17 @@ namespace WealthERP.CustomerPortfolio
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 int count;
-                fixedincomeList = fixedincomeBo.GetFixedIncomePortfolioList(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
-                if (count > 0)
-                {
-                    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
-                    tblPager.Visible = true;
-                }
-                else
-                {
-                    lblTotalRows.Text = "";
-                    tblPager.Visible = false;
-                }
+                fixedincomeList = fixedincomeBo.GetFixedIncomePortfolioList(portfolioId, hdnSort.Value);
+                //if (count > 0)
+                //{
+                //    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //    tblPager.Visible = true;
+                //}
+                //else
+                //{
+                //    lblTotalRows.Text = "";
+                //    tblPager.Visible = false;
+                //}
                 if (fixedincomeList == null)
                 {
                     //lblMessage.Visible = true;
@@ -247,7 +248,7 @@ namespace WealthERP.CustomerPortfolio
 
                     gvFixedIncomePortfolio.DataSource = dtFixedIncomePortfolio;
                     gvFixedIncomePortfolio.DataBind();
-                    this.GetPageCount();
+                    //this.GetPageCount();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -277,10 +278,12 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                DropDownList ddlAction = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int portfolioId = int.Parse(gvFixedIncomePortfolio.DataKeys[selectedRow].Value.ToString());
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex+1;
+                int portfolioId = int.Parse(gvFixedIncomePortfolio.MasterTableView.DataKeyValues[selectedRow - 1]["FITransactionId"].ToString());
+
+
                 Session["fixedIncomeVo"] = fixedincomeBo.GetFixedIncomePortfolio(portfolioId);
                 hdndeleteId.Value = portfolioId.ToString();
 
@@ -382,6 +385,17 @@ namespace WealthERP.CustomerPortfolio
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioFixedIncomeView','login');", true);
                 msgRecordStatus.Visible = true;
             }
+        }
+
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvFixedIncomePortfolio.ExportSettings.OpenInNewWindow = true;
+            gvFixedIncomePortfolio.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvFixedIncomePortfolio.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvFixedIncomePortfolio.MasterTableView.ExportToExcel();
         }
     }
 }

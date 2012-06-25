@@ -341,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
                 txtAssetParticulars.Enabled = false;
 
                 // Setting Visibility of Account Source
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIRD" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICG")
                 {
                     trAccountSource.Visible = true;
                     //txtAccountWith.Visible = false;
@@ -383,7 +383,7 @@ namespace WealthERP.CustomerPortfolio
                         txtInterestAmtCredited.Enabled = false;
                     }
                 }
-                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICG")
                 {   // Tax Saving Infrastructure Bonds and Tax Savings Bonds - Banks
 
                     txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
@@ -527,7 +527,7 @@ namespace WealthERP.CustomerPortfolio
                     txtInterestAmtCredited.Text = fixedIncomeVo.InterestAmtPaidOut.ToString();
                     txtInterestAmtCredited.Enabled = false;
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = false;
@@ -780,7 +780,7 @@ namespace WealthERP.CustomerPortfolio
                         txtInterestAmtCredited.Enabled = true;
                     }
                 }
-                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
+                else if (customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICG")
                 {   // Tax Saving Infrastructure Bonds and Tax Savings Bonds - Banks
 
                     txtDepositDate.Text = fixedIncomeVo.PurchaseDate.ToShortDateString();
@@ -929,7 +929,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlPayableFrequencyCode.Enabled = true;
 
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     txtInterstRate.Text = fixedIncomeVo.InterestRate.ToString();
                     txtInterstRate.Enabled = true;

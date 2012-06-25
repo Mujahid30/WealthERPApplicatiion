@@ -160,13 +160,13 @@ namespace BoCustomerPortfolio
             return fixedIncomeVo;  
         }
 
-        public List<FixedIncomeVo> GetFixedIncomePortfolioList(int customerId,int CurrentPage , string SortOrder,out int Count)
+        public List<FixedIncomeVo> GetFixedIncomePortfolioList(int customerId, string SortOrder)
         {
             List<FixedIncomeVo> fixedincomeList = new List<FixedIncomeVo>();
             FixedIncomeDao fixedincomeDao = new FixedIncomeDao();
             try
             {
-                fixedincomeList = fixedincomeDao.GetFixedIncomePortfolioList(customerId, CurrentPage, SortOrder, out Count);
+                fixedincomeList = fixedincomeDao.GetFixedIncomePortfolioList(customerId, SortOrder);
             }
             catch (BaseApplicationException Ex)
             {

@@ -286,7 +286,7 @@ namespace DaoCustomerPortfolio
             return fixedIncomeVo;
         }
 
-        public List<FixedIncomeVo> GetFixedIncomePortfolioList(int portfolioId ,int CurrentPage , string SortOrder,out int Count)
+        public List<FixedIncomeVo> GetFixedIncomePortfolioList(int portfolioId , string SortOrder)
         {
             List<FixedIncomeVo> FixedIncomeList=null;
             FixedIncomeVo fixedincomeVo;
@@ -300,7 +300,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getFixedIncomePortfolioListCmd = db.GetStoredProcCommand("SP_GetFixedIncomeList");
                 db.AddInParameter(getFixedIncomePortfolioListCmd, "@CP_PortfolioId", DbType.Int32, portfolioId);
-                db.AddInParameter(getFixedIncomePortfolioListCmd, "@CurrentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getFixedIncomePortfolioListCmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getFixedIncomePortfolioListCmd, "@SortOrder", DbType.String, SortOrder);
                 dsGetFixedIncomePortfolioList = db.ExecuteDataSet(getFixedIncomePortfolioListCmd);
                 if (dsGetFixedIncomePortfolioList.Tables[0].Rows.Count > 0)
@@ -340,10 +340,10 @@ namespace DaoCustomerPortfolio
                         FixedIncomeList.Add(fixedincomeVo);
                     }
                 }
-                if (dsGetFixedIncomePortfolioList.Tables[1] != null && dsGetFixedIncomePortfolioList.Tables[1].Rows.Count > 0)
-                    Count = Int32.Parse(dsGetFixedIncomePortfolioList.Tables[1].Rows[0][0].ToString());
-                else
-                    Count = 0;
+                //if (dsGetFixedIncomePortfolioList.Tables[1] != null && dsGetFixedIncomePortfolioList.Tables[1].Rows.Count > 0)
+                //    Count = Int32.Parse(dsGetFixedIncomePortfolioList.Tables[1].Rows[0][0].ToString());
+                //else
+                //    Count = 0;
             }
             catch (BaseApplicationException Ex)
             {
