@@ -556,7 +556,7 @@
                         EnableEmbeddedSkins="false" ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem" OnItemClick="RadPanelBar5_ItemClick">
                         <Items>
-                            <telerik:RadPanelItem runat="server" Text="Research <img id='img1' src='/Images/new.gif'/>"
+                            <telerik:RadPanelItem runat="server" Text="Research"
                                 Value="Research">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Research Dashboard" Value="Research_Dashboard">
