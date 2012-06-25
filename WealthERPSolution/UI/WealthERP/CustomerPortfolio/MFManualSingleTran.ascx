@@ -436,7 +436,7 @@
                     <asp:Label ID="lblPurDate" runat="server" Text="Date:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="style1">
-                    <asp:TextBox ID="txtPurDate" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+                    <asp:Label ID="lblNavAsOnDate" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
                 </td>
                 </tr>
                 <tr>

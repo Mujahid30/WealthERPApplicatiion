@@ -855,14 +855,14 @@ namespace WealthERP.CustomerPortfolio
                         if (drNavDetails["PSP_RepurchasePrice"].ToString() != null && drNavDetails["PSP_RepurchasePrice"].ToString() != "")
                         {
                             txtNAV.Text = drNavDetails["PSP_RepurchasePrice"].ToString();
-                            txtPurDate.Text = Convert.ToDateTime(drNavDetails["PSP_Date"]).ToShortDateString();
+                            lblNavAsOnDate.Text = Convert.ToDateTime(drNavDetails["PSP_Date"]).ToShortDateString();
                         }
                     }
                 }
                 else
                 {
                     txtNAV.Text = "0";
-                    txtPurDate.Text = "Not Available";
+                    lblNavAsOnDate.Text = "Not Available";
                 }
             }        
         }
