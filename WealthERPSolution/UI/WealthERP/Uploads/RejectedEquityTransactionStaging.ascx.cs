@@ -80,7 +80,14 @@ namespace WealthERP.Uploads
             ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
+            {
                 ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+                lnkViewInputRejects.Visible = true ;
+            }
+            else
+            {
+                lnkViewInputRejects.Visible = false;
+            }
 
             if (Session["userVo"] != null)
             {

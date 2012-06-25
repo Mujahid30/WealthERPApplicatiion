@@ -89,10 +89,17 @@ namespace WealthERP.Uploads
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             
             if (Request.QueryString["processId"] != null)
-                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());            
+                ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
 
             if (Request.QueryString["filetypeid"] != null)
+            {
                 filetypeId = Int32.Parse(Request.QueryString["filetypeid"].ToString());
+                LinkInputRejects.Visible = true;
+            }
+            else
+            {
+                LinkInputRejects.Visible = false;
+            }
 
             if (Session["userVo"] != null)
             {

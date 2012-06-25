@@ -90,7 +90,7 @@
         </table>
         <table>
         <tr>
-            <td class="leftField">
+            <td align="right" class="leftField">
             <asp:LinkButton ID="LinkInputRejects" runat="server" 
                 Text="View Input Rejects" CssClass="LinkButtons" 
                 onclick="LinkInputRejects_Click"></asp:LinkButton>
