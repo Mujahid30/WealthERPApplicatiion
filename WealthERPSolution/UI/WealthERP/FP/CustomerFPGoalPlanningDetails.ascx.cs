@@ -101,6 +101,8 @@ namespace WealthERP.FP
                     dtGoalProfile.Columns.Add("SavingRequired");
                     dtGoalProfile.Columns.Add("GoalAmount");
                     dtGoalProfile.Columns.Add("ExpROI");
+                    dtGoalProfile.Columns.Add("Inflation");
+                    dtGoalProfile.Columns.Add("ROIEarned");
                     dtGoalProfile.Columns.Add("GoalPrifileDate");
                     dtGoalProfile.Columns.Add("GoalYear");
                     dtGoalProfile.Columns.Add("IsActive");
@@ -151,6 +153,8 @@ namespace WealthERP.FP
                         else
                          costTodayTotal += goalProfileSetupVo.CostOfGoalToday;
                         drGoalProfile["ExpROI"] = goalProfileSetupVo.ExpectedROI.ToString();
+                        drGoalProfile["Inflation"]=goalProfileSetupVo.InflationPercent.ToString();
+                        drGoalProfile["ROIEarned"] = goalProfileSetupVo.ROIEarned.ToString();
                         drGoalProfile["CurrentInvestment"] = goalProfileSetupVo.CurrInvestementForGoal != 0 ? String.Format("{0:n2}", goalProfileSetupVo.CurrInvestementForGoal.ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"))) : "0";
                         allocAmountToWardsGoalTotal += goalProfileSetupVo.CurrInvestementForGoal;
                         drGoalProfile["SavingRequired"] = goalProfileSetupVo.MonthlySavingsReq != 0 ? Math.Round(double.Parse(String.Format("{0:n2}", goalProfileSetupVo.MonthlySavingsReq.ToString())), 0).ToString("#,#", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")) : "0";
