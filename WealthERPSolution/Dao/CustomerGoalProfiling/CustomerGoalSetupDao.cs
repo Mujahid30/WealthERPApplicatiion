@@ -407,6 +407,7 @@ namespace DaoCustomerGoalProfiling
  
                         
                         }
+
                         if (dr["CG_IsFundFromAsset"] != null)
                         {
                             if (int.Parse(dr["CG_IsFundFromAsset"].ToString()) == 1)
@@ -415,6 +416,18 @@ namespace DaoCustomerGoalProfiling
 
                             }
                         }
+
+                        if (!string.IsNullOrEmpty(dr["CG_ROIEarned"].ToString()))
+                        {
+                            GoalProfileVo.ROIEarned = Convert.ToDouble(dr["CG_ROIEarned"].ToString());
+                        }
+
+                        if (!string.IsNullOrEmpty(dr["CG_InflationPer"].ToString()))
+                        {
+                            GoalProfileVo.InflationPercent = Convert.ToDouble(dr["CG_InflationPer"].ToString());
+
+                        }
+                        
                         //drGoalFundingDetails = new DataRow[dtGoalFund.Rows.Count];
                         //if (dtGoalFund.Rows.Count > 0)
                         //{
