@@ -81,6 +81,8 @@ namespace WealthERP.CustomerPortfolio
 
                 int.TryParse(Request.QueryString["InsuranceId"].ToString(), out insuranceId);
                 // ViewState["insuranceId"] = insuranceId;
+                ddlPeriodSelection.Visible = false;
+                txtPolicyTerm.Visible = false;
             }
 
             if (!IsPostBack)
