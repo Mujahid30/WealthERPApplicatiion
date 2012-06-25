@@ -141,12 +141,12 @@ namespace WealthERP.CustomerPortfolio
         protected void hideControlsForViewAndEdit()
         {
             lblPolicyTerm.Visible = false;
-            rdbPolicyTermDays.Visible = false;
-            rdbPolicyTermMonth.Visible = false;
-            lblDays.Visible = false;
-            txtDays.Visible = false;
-            lblMonths.Visible = false;
-            txtMonths.Visible = false;
+            //rdbPolicyTermDays.Visible = false;
+            //rdbPolicyTermMonth.Visible = false;
+            //lblDays.Visible = false;
+           // txtDays.Visible = false;
+           // lblMonths.Visible = false;
+           // txtMonths.Visible = false;
 
         }
 
@@ -1249,33 +1249,44 @@ namespace WealthERP.CustomerPortfolio
             DateTime endDate = new DateTime();
             startDate = DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString());
 
-            if (rdbPolicyTermDays.Checked == true)
-            {
-                period = int.Parse(txtDays.Text);
+            //if (rdbPolicyTermDays.Checked == true)
+            //{
+              //  period = int.Parse(txtDays.Text);
                 endDate = startDate.AddDays(period);
-            }
-            else if (rdbPolicyTermMonth.Checked == true)
-            {
-                period = int.Parse(txtMonths.Text);
+            //}
+            //else if (rdbPolicyTermMonth.Checked == true)
+            //{
+             //   period = int.Parse(txtMonths.Text);
                 endDate = startDate.AddMonths(period);
-            }
+            //}
 
 
             return endDate;
         }
 
-
-        protected void txtMonths_OnTextChanged(object sender, EventArgs e)
+        protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtMaturityDate.SelectedDate = calculateMaturityDate(int.Parse(txtMonths.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
-
-
-        }
-        protected void txtDays_OnTextChanged(object sender, EventArgs e)
-        {
-            txtMaturityDate.SelectedDate = calculateMaturityDate(int.Parse(txtDays.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+            txtMaturityDate.SelectedDate = CalcEndDate(int.Parse(txtPolicyTerm.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
         }
 
+        private DateTime CalcEndDate(int period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            if (ddlPeriodSelection.SelectedItem.Value == "DA")
+            {
+                endDate = startDate.AddDays(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "MN")
+            {
+                endDate = startDate.AddMonths(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "YR")
+            {
+                endDate = startDate.AddYears(period);
+            }
+
+            return endDate;
+        }
 
     }
 }

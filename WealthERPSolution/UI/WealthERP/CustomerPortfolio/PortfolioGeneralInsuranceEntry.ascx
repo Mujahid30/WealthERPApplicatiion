@@ -27,7 +27,6 @@
     </Services>
 </asp:ScriptManager>
 
-
 <script type="text/javascript">
     function DownloadScript() {
         var btn = document.getElementById('<%= btnInsertNewScheme.ClientID %>');
@@ -36,37 +35,11 @@
 </script>
 
 <script runat="server">
-            protected override void OnLoad(EventArgs e)
-            {
-	        base.OnLoad(e);     
-	 
-	        }
-</script>
-
-<script type="text/javascript">
-
-    function SetDateBydays() {
-        var currentdate = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
-        var days = document.getElementById("<%= txtDays.ClientID %>").value;
-        // call server side method
-        alert(currentdate);
-        alert(days);
-        alert(PageMethods.GetDateByDays(currentdate, days));
-        var maturityDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
-        //            maturityDate.value = GetDateByDays(currentdate, days);
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
 
     }
-
-    function SetDateByMonths() {
-
-        var currentdate = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
-        var months = document.getElementById("<%= txtMonths.ClientID %>").value;
-        // call server side method
-        PageMethods.GetDateByMonths(currentdate, months);
-        var maturityDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
-        maturityDate.value = GetDateByDays(currentdate, days);
-    }
-
 </script>
 
 <script language="javascript" type="text/javascript">
@@ -252,7 +225,7 @@
             }
         }
         validityStartDate = changeDate(validityStartDate);
-        
+
         validityEndDate = changeDate(validityEndDate);
         if (document.getElementById('<%=txtProposalDate.ClientID %>').value != '' && document.getElementById('<%=txtProposalDate.ClientID %>').value != 'MM/dd/yyyy') {
             var proposalDate = document.getElementById('<%=txtProposalDate.ClientID %>').value;
@@ -285,71 +258,6 @@
     
 </script>
 
-<script type="text/javascript">
-
-    function EnableDisableDaysMonths() {
-        if (document.getElementById("<%= rdbPolicyTermDays.ClientID %>").checked == true) {
-            document.getElementById("<%= txtDays.ClientID %>").disabled = false;
-            document.getElementById("<%= txtMonths.ClientID %>").disabled = true;
-            document.getElementById("<%= txtMonths.ClientID %>").value = "";
-        }
-        else if (document.getElementById("<%= rdbPolicyTermMonth.ClientID %>").checked == true) {
-        document.getElementById("<%= txtDays.ClientID %>").disabled = true;
-        document.getElementById("<%= txtDays.ClientID %>").value = "";
-            document.getElementById("<%= txtMonths.ClientID %>").disabled = false;
-        }
-    }
-</script>
-
-<%--<script type="text/javascript">
-
-    function AddDaysToDateTime() {
-        if (document.getElementById("<%= rdbPolicyTermDays.ClientID %>").checked == true) {
-            var monthtextbox = document.getElementById("<%= txtMonths.ClientID %>").value;
-            monthtextbox = '';
-            var days = document.getElementById("<%= txtDays.ClientID %>").value;
-
-            //            var StartDate = new Date();
-
-            //            StartDate.setMonth(0 + StartDate.getMonth(), 2 + StartDate.getDate());
-            // alert(StartDate);
-            var MaturityDate = new Date();
-            var StartDate = new Date(document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value);
-            alert(StartDate);
-            StartDate.setMonth(0 + StartDate.getMonth(), parseFloat(days) + StartDate.getDate());
-            // MaturityDate.setDate(days);
-            alert("hi");
-            alert(StartDate);
-            var calcuatedDate = document.getElementById("<%= txtMaturityDate.ClientID %>");
-            calcuatedDate.value = StartDate.format("dd/mm/yyyy");
-            
-            // document.getElementById("<%= txtMaturityDate.ClientID %>").value = MaturityDate.getMonth() + 1 + "/" + MaturityDate.getDate() + "/" + MaturityDate.getYear();
-        }
-        else if (document.getElementById("<%= rdbPolicyTermMonth.ClientID %>").checked == true) {
-            alert('gobinda');
-
-            var months = document.getElementById("<%= txtMonths.ClientID %>").value;
-
-            var StartDateForMonths = new Date();
-            
-            var MaturityDateForMonths = new Date();
-            alert(MaturityDateForMonths);
-            StartDateForMonths = document.getElementById("<%= txtPolicyCommencementDate.ClientID %>").value;
-            alert(StartDateForMonths);
-            StartDateForMonths.setMonth(months + StartDate.getMonth(), 0 + StartDate.getDate());
-            alert(StartDateForMonths);
-            //StartDate.setMonth(months + StartDate.getMonth(), 0 + StartDate.getDate());
-            alert(StartDateForMonths);
-            
-            //           alert(months);
-            //            alert(parseFloat(months) * 30);
-            //            MaturityDate.setDate(months * 30);
-            alert(MaturityDateForMonths);
-            //            document.getElementById("<%= txtMaturityDate.ClientID %>").value = MaturityDate.getMonth() + 1 + "/" + MaturityDate.getDate()  + "/" + MaturityDate.getYear();
-            //        
-        }
-    }
-</script>--%>
 <table style="width: 100%;">
     <tr>
         <td colspan="4">
@@ -603,25 +511,41 @@
             &nbsp;&nbsp;
         </td>
     </tr>
-    <tr >
+    <tr>
         <td align="right">
             <asp:Label ID="lblPolicyTerm" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>
         <td class="style3">
-            <asp:RadioButton ID="rdbPolicyTermDays" Text="Days" runat="server" onClick="return EnableDisableDaysMonths()"
+            <%-- <asp:RadioButton ID="rdbPolicyTermDays" Text="Days" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
-                GroupName="PolicyTerm" Checked="true" class="cmbField" />
+                GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
+            <asp:TextBox ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span6" class="spnRequiredField">*</span>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPolicyTerm"
+                ErrorMessage="<br />Please enter the Policy Term" Display="Dynamic" CssClass="rfvPCG"
+                runat="server" InitialValue="" ValidationGroup="buttonSubmit">
+            </asp:RequiredFieldValidator>
         </td>
-        <td align="right">
-            <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>
+        <td >
+            <asp:DropDownList AutoPostBack="true" ID="ddlPeriodSelection" runat="server" CssClass="Field"  onselectedindexchanged="ddlPeriodSelection_SelectedIndexChanged">
+                <asp:ListItem Text="Select" Value="0" Selected="True">               
+                </asp:ListItem>                
+                <asp:ListItem Text="Days" Value="DA">               
+                </asp:ListItem>
+                <asp:ListItem Text="Months" Value="MN">               
+                </asp:ListItem>
+                <asp:ListItem Text="Years" Value="YR">               
+                </asp:ListItem>
+            </asp:DropDownList>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlPeriodSelection"
+                ErrorMessage="<br />Please select tenure" Display="Dynamic" CssClass="rfvPCG"
+                runat="server" InitialValue="0" ValidationGroup="buttonSubmit">
+            </asp:RequiredFieldValidator>
+            <%--  <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>--%>
         </td>
-        <td align="left">
-            <asp:TextBox ID="txtDays" runat="server" CssClass="txtField"
-                Width="50px" AutoPostBack="true" OnTextChanged="txtDays_OnTextChanged"></asp:TextBox>
-            <asp:Label ID="lblMonths" runat="server" CssClass="FieldName" Text="Months:"></asp:Label>
-            <asp:TextBox ID="txtMonths" AutoPostBack="true" OnTextChanged="txtMonths_OnTextChanged" runat="server" Width="50px" CssClass="txtField"
-               ></asp:TextBox>
+        <td >
+         
         </td>
     </tr>
     <tr>
@@ -629,7 +553,7 @@
             <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <telerik:RadDatePicker ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
@@ -761,7 +685,7 @@
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
     </tr>
-   <%-- <tr>
+    <%-- <tr>
         <td align="right">
             <asp:Label ID="lblPolicyValidityStartDate" runat="server" CssClass="FieldName" Text="Policy Validity Start Date:"></asp:Label>
         </td>
