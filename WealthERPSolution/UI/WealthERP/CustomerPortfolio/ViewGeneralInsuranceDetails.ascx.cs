@@ -243,5 +243,17 @@ namespace WealthERP.CustomerPortfolio
             dtGIDetails = (DataTable)Cache["GIList"];
             gvGeneralInsurance.DataSource = dtGIDetails;
         }
+
+
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvGeneralInsurance.ExportSettings.OpenInNewWindow = true;
+            gvGeneralInsurance.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvGeneralInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvGeneralInsurance.MasterTableView.ExportToExcel();
+        }
     }
 }

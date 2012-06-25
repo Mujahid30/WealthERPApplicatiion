@@ -65,15 +65,22 @@
     </tr>--%>
     <tr>
         <td>
+            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <telerik:RadGrid ID="gvGeneralInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false" OnNeedDataSource="gvGeneralInsurance_OnNeedDataSource">
+                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+                OnNeedDataSource="gvGeneralInsurance_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                        ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                  
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
                             <ItemTemplate>
