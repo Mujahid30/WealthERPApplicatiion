@@ -433,10 +433,10 @@
                         ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>
                 </td>
                <td align="right">
-                    <asp:Label ID="lblPurDate" runat="server" Text="Date:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblPurDate" runat="server" Text="As on Date :" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="style1">
-                    <asp:Label ID="lblNavAsOnDate" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+                    <asp:Label ID="lblNavAsOnDate" runat="server" CssClass="txtField" Enabled="false"></asp:Label>
                 </td>
                 </tr>
                 <tr>
