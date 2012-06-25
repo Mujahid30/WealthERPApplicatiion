@@ -75,7 +75,10 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trdd1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredNavData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredDupData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredAumData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredRejData;
         /// <summary>
         /// lblAction control.
         /// </summary>
@@ -111,7 +114,7 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trequity;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trbtnDelete;
         /// <summary>
         /// lblEquity control.
         /// </summary>
