@@ -248,6 +248,18 @@ namespace WealthERP.CustomerPortfolio
 
                     gvFixedIncomePortfolio.DataSource = dtFixedIncomePortfolio;
                     gvFixedIncomePortfolio.DataBind();
+
+
+                    if (Cache["FIList"] == null)
+                    {
+                        Cache.Insert("FIList", dtFixedIncomePortfolio);
+                    }
+                    else
+                    {
+                        Cache.Remove("FIList");
+                        Cache.Insert("FIList", dtFixedIncomePortfolio);
+                    }
+
                     //this.GetPageCount();
                 }
             }
@@ -396,6 +408,13 @@ namespace WealthERP.CustomerPortfolio
                 filter.Visible = false;
             }
             gvFixedIncomePortfolio.MasterTableView.ExportToExcel();
+        }
+
+        protected void gvFixedIncomePortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtFIDetails = new DataTable();
+            dtFIDetails = (DataTable)Cache["FIList"];
+            gvFixedIncomePortfolio.DataSource = dtFIDetails;
         }
     }
 }

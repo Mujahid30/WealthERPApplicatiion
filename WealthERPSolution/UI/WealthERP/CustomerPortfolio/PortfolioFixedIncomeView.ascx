@@ -120,9 +120,9 @@
             </asp:GridView>--%>
             <telerik:RadGrid ID="gvFixedIncomePortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false" OnNeedDataSource="gvFixedIncomePortfolio_OnNeedDataSource"
                 >
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="FixedIncomeList">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="FITransactionId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
