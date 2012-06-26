@@ -402,9 +402,9 @@
                 <asp:Button ID="btnInsertNewScheme" runat="server" Text="Scheme" Style="display: none"
                     OnClick="btnInsertNewScheme_Click" CausesValidation="false" />
                 <%--</ContentTemplate>--%>
-                <triggers>
+               <%-- <triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnOk" EventName="Click" />
-                    </triggers>
+                    </triggers>--%>
                 <%--
                 </asp:UpdatePanel>--%>
             </asp:Panel>
@@ -423,7 +423,7 @@
             <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Start Date:"></asp:Label>
         </td>
         <td class="style3">
-            <telerik:RadDatePicker ID="txtPolicyCommencementDate" CssClass="txtField" runat="server"
+            <telerik:RadDatePicker  Width="176px" ID="txtPolicyCommencementDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
@@ -520,7 +520,7 @@
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
-            <asp:TextBox ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox  Width="176px" ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPolicyTerm"
                 ErrorMessage="<br />Please enter the Policy Term" Display="Dynamic" CssClass="rfvPCG"
@@ -541,6 +541,7 @@
                 <asp:ListItem Text="Years" Value="YR">               
                 </asp:ListItem>
             </asp:DropDownList>
+             <asp:Label ID="lblterm" runat="server" Text="(units)"  CssClass="FieldName"></asp:Label>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlPeriodSelection"
                 ErrorMessage="<br />Please select tenure" Display="Dynamic" CssClass="rfvPCG"
                 runat="server" InitialValue="0" ValidationGroup="buttonSubmit">
@@ -548,6 +549,7 @@
             <%--  <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>--%>
         </td>
         <td>
+       
         </td>
     </tr>
     <tr>
@@ -555,7 +557,7 @@
             <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <telerik:RadDatePicker Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
+            <telerik:RadDatePicker  Width="176px" Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
@@ -624,7 +626,7 @@
             <asp:Label ID="lblCheckUpDate" runat="server" CssClass="FieldName" Text="If Yes, Date:"></asp:Label>
         </td>
         <td class="rightField">
-            <telerik:RadDatePicker ID="txtCheckUpDate" CssClass="txtField" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker  Width="176px" ID="txtCheckUpDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
                     skin="Telerik" enableembeddedskins="false">

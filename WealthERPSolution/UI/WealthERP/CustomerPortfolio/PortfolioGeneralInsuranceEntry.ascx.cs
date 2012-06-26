@@ -84,7 +84,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlPeriodSelection.Visible = false;
                 txtPolicyTerm.Visible = false;
             }
-
+            MPEAssetParticular.Hide();
             if (!IsPostBack)
             {
                 BindPolicyIssuerDropDown();
