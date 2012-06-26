@@ -127,7 +127,7 @@
                 <MasterTableView DataKeyNames="FITransactionId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
+                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                             <ItemTemplate>
                                 <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -139,7 +139,7 @@
                                             runat="server"></telerik:RadComboBoxItem>
                                         <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
                                             runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Delete" Value="Delete"
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>
                                     </Items>
                                 </telerik:RadComboBox>
