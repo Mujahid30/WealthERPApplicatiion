@@ -170,8 +170,9 @@ namespace WealthERP.OPS
             if (e.CommandName == "Redirect")
             {
                 GridDataItem item = (GridDataItem)e.Item;
-                string value = item.GetDataKeyValue("CO_OrderId").ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('LifeInsuranceOrderEntry','strOrderId=" + value + " ');", true);
+                string orderId = item.GetDataKeyValue("CO_OrderId").ToString();
+                string customerId = item.GetDataKeyValue("C_CustomerId").ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
             }
         }
     }

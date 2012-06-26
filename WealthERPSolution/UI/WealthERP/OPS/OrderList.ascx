@@ -115,7 +115,7 @@
                     OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemCommand="gvOrderList_ItemCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId" Width="100%" AllowMultiColumnSorting="True"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId" Width="100%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" CommandItemDisplay="Top">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
