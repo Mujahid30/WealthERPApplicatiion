@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
+
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
 <script language="javascript" type="text/javascript">
@@ -38,7 +39,7 @@
     }
 </script>
 
-<table id="Table1" class="TableBackground" width="100%" runat="server">
+<table width="100%">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="Label1" class="HeaderTextBig" runat="server" Text="Life Insurance Portfolio"></asp:Label>
@@ -68,69 +69,80 @@
         </td>
     </tr>
 </table>
-<telerik:RadGrid ID="gvrLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
-    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-    OnNeedDataSource="gvrLifeInsurance_OnNeedDataSource">
-    <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
-    </ExportSettings>
-    <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
-        AutoGenerateColumns="false" CommandItemDisplay="Top">
-        <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-            ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
-        <Columns>
-            <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
-                <ItemTemplate>
-                    <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                        AllowCustomText="true" Width="120px" AutoPostBack="true">
-                        <Items>
-                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                            </telerik:RadComboBoxItem>
-                            <telerik:RadComboBoxItem Text="View profile" Value="Edit" ImageUrl="~/Images/DetailedView.png"
-                                runat="server"></telerik:RadComboBoxItem>
-                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="View" Value="View"
-                                runat="server"></telerik:RadComboBoxItem>
-                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Delete" Value="Delete"
-                                runat="server"></telerik:RadComboBoxItem>
-                        </Items>
-                    </telerik:RadComboBox>
-                </ItemTemplate>
-            </telerik:GridTemplateColumn>
-            <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Category"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Sum Assured" AllowFiltering="false" HeaderText="Sum Assured"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Commencement Date" AllowFiltering="false" HeaderText="Commencement Date"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date"
-                UniqueName="ActiveLevel">
-                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-            </telerik:GridBoundColumn>            
-        </Columns>
-    </MasterTableView>
-    <ClientSettings>
-        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-    </ClientSettings>
-</telerik:RadGrid>
+<table>
+    <tr>
+        <td>
+            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvrLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+                OnNeedDataSource="gvrLifeInsurance_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+                            <ItemTemplate>
+                                <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                    AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                    <Items>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
+                                        </telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem Text="View profile" Value="Edit" ImageUrl="~/Images/DetailedView.png"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="View" Value="View"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
+                                            runat="server"></telerik:RadComboBoxItem>
+                                    </Items>
+                                </telerik:RadComboBox>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Category"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Sum Assured" AllowFiltering="false" HeaderText="Sum Assured"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Commencement Date" AllowFiltering="false" HeaderText="Commencement Date"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+</table>
 <%--<table class="TableBackground" width="100%">
     <tr id="trPager" runat="server">
         <td class="leftField">

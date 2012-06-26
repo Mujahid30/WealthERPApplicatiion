@@ -656,5 +656,16 @@ namespace WealthERP.CustomerPortfolio
             dtLIDetails = (DataTable)Cache["LIList"];
             gvrLifeInsurance.DataSource = dtLIDetails;
         }
+
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvrLifeInsurance.ExportSettings.OpenInNewWindow = true;
+            gvrLifeInsurance.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvrLifeInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvrLifeInsurance.MasterTableView.ExportToExcel();
+        }
     }
 }
