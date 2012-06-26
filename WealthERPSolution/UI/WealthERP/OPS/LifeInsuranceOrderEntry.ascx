@@ -2,6 +2,7 @@
     Inherits="WealthERP.OPS.LifeInsuranceOrderEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 
@@ -41,7 +42,7 @@
 
 <table width="100%">
     <tr>
-        <td style="width: 30%">
+        <td colspan="5">
             <asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry-Life Insurance"></asp:Label>
             <hr />
         </td>
@@ -71,7 +72,7 @@
             <asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','M');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','M');"
-                OnClientClick="return openpopupAddCustomer()"/>
+                OnClientClick="return openpopupAddCustomer()" />
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -140,9 +141,9 @@
             <asp:DropDownList ID="ddlInstrumentCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="cvInstrumentCategory" runat="server"
-                ControlToValidate="ddlInstrumentCategory" ErrorMessage="Please select category"
-                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" ValidationGroup="Submit">
+            <asp:CompareValidator ID="cvInstrumentCategory" runat="server" ControlToValidate="ddlInstrumentCategory"
+                ErrorMessage="Please select category" Operator="NotEqual" ValueToCompare="Select"
+                CssClass="cvPCG" ValidationGroup="Submit">
             </asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 10%">
@@ -161,13 +162,13 @@
                 OnSelectedIndexChanged="ddlPolicyIssuer_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="cvPolicyIssuer" runat="server"
-                ControlToValidate="ddlPolicyIssuer" ErrorMessage="Please select a Policy Issuer"
-                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" ValidationGroup="Submit">
+            <asp:CompareValidator ID="cvPolicyIssuer" runat="server" ControlToValidate="ddlPolicyIssuer"
+                ErrorMessage="Please select a Policy Issuer" Operator="NotEqual" ValueToCompare="Select"
+                CssClass="cvPCG" ValidationGroup="Submit">
             </asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblAssetPerticular" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblAssetPerticular" runat="server" Text="Scheme Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField">
@@ -294,15 +295,15 @@
             <telerik:RadDatePicker ID="txtPaymentInstruDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate" CssClass="rfvPCG"
-            ErrorMessage="Enter a date!"></asp:RequiredFieldValidator> 
+            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate"
+                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -319,7 +320,7 @@
             <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
-            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>            
+            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -362,15 +363,15 @@
             <telerik:RadDatePicker ID="txtApplicationDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvApplicationDate" ControlToValidate="txtApplicationDate" CssClass="rfvPCG"
-            ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator runat="server" ID="rfvApplicationDate" ControlToValidate="txtApplicationDate"
+                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -380,15 +381,15 @@
         <td>
             <telerik:RadDatePicker ID="txtMaturityDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvMaturityDate" ControlToValidate="txtMaturityDate" CssClass="rfvPCG"
-            ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator runat="server" ID="rfvMaturityDate" ControlToValidate="txtMaturityDate"
+                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
         <td align="right">
             <asp:Label ID="lblOrederDate" runat="server" Text="Order Date: " CssClass="FieldName"></asp:Label>
@@ -396,15 +397,15 @@
         <td>
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvOrderDate" ControlToValidate="txtOrderDate" CssClass="rfvPCG"
-            ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator runat="server" ID="rfvOrderDate" ControlToValidate="txtOrderDate"
+                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>
@@ -413,8 +414,9 @@
         </td>
         <td valign="middle">
             <asp:TextBox ID="txtSumAssured" runat="server" CssClass="txtField"></asp:TextBox>
-            <asp:RegularExpressionValidator ID="revPaymentInstrNo" runat="server" CssClass="rfvPCG" ValidationExpression="^\d+$"
-            ControlToValidate="txtSumAssured" Display="Dynamic" ErrorMessage="Please enter number only" ValidationGroup="Submit">
+            <asp:RegularExpressionValidator ID="revPaymentInstrNo" runat="server" CssClass="rfvPCG"
+                ValidationExpression="^\d+$" ControlToValidate="txtSumAssured" Display="Dynamic"
+                ErrorMessage="Please enter number only" ValidationGroup="Submit">
             </asp:RegularExpressionValidator>
         </td>
         <td class="leftField" style="width: 10%">
@@ -452,9 +454,10 @@
     </tr>
     <tr>
         <td class="rightField" style="width: 25%">
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click" ValidationGroup="Submit"/>
-            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"  ValidationGroup="Submit"
-                onclick="btnUpdate_Click"/>
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
+                ValidationGroup="Submit" />
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="Submit"
+                OnClick="btnUpdate_Click" />
         </td>
     </tr>
 </table>
@@ -497,44 +500,92 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Panel>
-
 <asp:Panel ID="pnlOrderSteps" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="80%">
     <table width="100%">
         <tr>
             <td>
-                <asp:Label ID="Label1" runat="server" Text="Order Steps" CssClass="FieldName"></asp:Label>
-                <asp:GridView ID="gvOrderSteps" runat="server" AutoGenerateColumns="False"
-                    Width="70%" CssClass="GridViewStyle">
-                    <RowStyle CssClass="RowStyle" />
-                    <Columns>
-                        <asp:BoundField HeaderText="Summary" DataField="CO_OrderId" />
-                        <asp:TemplateField HeaderText="Status">
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="GridViewCmbField">
-                                </asp:DropDownList>                                
-                                    <%--OnSelectedIndexChanged="ddlStatus_OnSelectedIndexChange"--%>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Pending Reason">
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlPendingReason" runat="server" CssClass="GridViewCmbField">
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                        </asp:TemplateField>                       
-                        <asp:BoundField HeaderText="Date" DataField="XS_StatusCode" />
-                        <asp:BoundField HeaderText="User Name" DataField="XSR_StatusReasonCode" />
+                <asp:Label ID="lblSteps" runat="server" Text="Order Steps" CssClass="FieldName"></asp:Label>
+                <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" 
+                    GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
+                    ShowStatusBar="true" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
+                    OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand">
+                    <mastertableview commanditemdisplay="none" editmode="PopUp" EnableViewState="false">
+                    <%--OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand"--%>
+                        <Columns>
+                         <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="OrderId" UniqueName="CO_OrderId">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Summary" UniqueName="WOS_OrderStep">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn  DataField="XS_Status"  HeaderText="Status" UniqueName="XS_Status">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn  DataField="XSR_StatusReason"  HeaderText="Pending Reason" UniqueName="XSR_StatusReason">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn  DataField="CMFOS_Date"  HeaderText="Date" UniqueName="CMFOS_Date">
+                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridEditCommandColumn UpdateText="Update" EditText="Edit" UniqueName="EditCommandColumn" CancelText="Cancel">                
+                            <HeaderStyle Width="85px"></HeaderStyle>
+                        </telerik:GridEditCommandColumn>
                     </Columns>
-                    <FooterStyle CssClass="FooterStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle" />
-                    <HeaderStyle CssClass="HeaderStyle" />
-                    <EditRowStyle CssClass="EditRowStyle" />
-                    <AlternatingRowStyle CssClass="AltRowStyle" />
-                </asp:GridView>
-            </td>
-        </tr>
-    </table>
+                <EditFormSettings FormTableStyle-HorizontalAlign="Center"
+                    PopUpSettings-Modal="true" PopUpSettings-ZIndex="80" CaptionFormatString="Archive Scheme:"
+                    CaptionDataField="CO_OrderId" EditFormType="Template">
+                <FormTemplate>
+                    <table cellspacing="1" cellpadding="1" width="100%" border="0">
+                        <tr>
+                            <td class="leftField">
+                            <asp:Label ID="lblPickAMC" runat="server" CssClass="FieldName" Text="Status:"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <telerik:RadComboBox ID="rcbStatus" runat="server" CssClass="GridViewCmbField" AutoPostBack="true"
+                                OnSelectedIndexChanged="rcStatus_SelectedIndexChanged"> 
+                                </telerik:RadComboBox> 
+                                
+                                <%--OnSelectedIndexChanged="rcStatus_SelectedIndexChanged"--%>
+                                <%--<asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="GridViewCmbField" >                                
+                                </asp:DropDownList>--%>
+                                <span id="Span3" class="spnRequiredField">*</span> 
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="Please Select Status" InitialValue="Select AMC Code" 
+                                    ControlToValidate="rcbStatus" Display="Dynamic" runat="server"
+                                    CssClass="rfvPCG" ValidationGroup="Button1">
+                                </asp:RequiredFieldValidator>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td class="leftField">
+                                <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="Reason:"></asp:Label>
+                            </td>
+                            <td class="rightField">
+                                <telerik:RadComboBox ID="rcbPendingReason" runat="server" CssClass="GridViewCmbField"
+                                EnableLoadOnDemand= "True" OnItemsRequested= "rcbPendingReason_ItemsRequested"> 
+                                </telerik:RadComboBox>                                 
+                               <%-- <asp:DropDownList ID="ddlPendingReason" runat="server" CssClass="GridViewCmbField">
+                                </asp:DropDownList>--%>
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td class="leftField"></td>
+                            <td class="rightField">
+                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CssClass="PCGButton"
+                                  runat="server" ValidationGroup="Button1" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                </asp:Button>&nbsp;
+                                <asp:Button ID="Button2" Text="Cancel" CssClass="PCGButton" runat="server" CausesValidation="False" CommandName="Cancel">
+                                </asp:Button>
+                            </td>
+                        </tr>               
+                    </table>
+                </FormTemplate>
+            </EditFormSettings>
+        </mastertableview>
+    </telerik:RadGrid>
+</td>
+</tr>
+</table>
 </asp:Panel>
-
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
