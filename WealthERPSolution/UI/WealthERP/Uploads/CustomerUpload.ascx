@@ -602,7 +602,7 @@
         </tr>
          <tr>
             <td class="leftField">
-                <asp:Label ID="Label5" Text="Total Inut Records Rejected:" CssClass="FieldName"
+                <asp:Label ID="Label5" Text="Total Input Records Rejected:" CssClass="FieldName"
                     runat="server">
                 </asp:Label>
             </td>
