@@ -39,10 +39,11 @@
     </tr>
 </table>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="0">
+    <table width="100%">
         <tr>
             <td class="HeaderCell">
                 <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="View Staff"></asp:Label>
+                <hr />
             </td>
         </tr>
         <tr>
