@@ -938,5 +938,121 @@ namespace DaoOps
             }
             return dtOrder;
         }
+
+        public DataTable GetOrderStatus(string orderStepCode, int orderId)
+        {
+            DataSet ds = null;
+            DataTable dt;
+            Database db;
+            DbCommand dbCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCmd = db.GetStoredProcCommand("SP_GetOrderStepStatus");
+                db.AddInParameter(dbCmd, "@OrderStepCode", DbType.String, orderStepCode);
+                db.AddInParameter(dbCmd, "@CO_OrderId", DbType.Int64, orderId);
+                ds = db.ExecuteDataSet(dbCmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderDao.cs:GetOrderStatus()");
+
+                object[] objects = new object[1];
+                objects[0] = orderStepCode;
+                objects[1] = orderId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        public DataTable GetOrderStatusPendingReason(string orderStatusCode)
+        {
+            DataSet ds = null;
+            DataTable dt;
+            Database db;
+            DbCommand dbCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCmd = db.GetStoredProcCommand("SP_GetOrderStatusPendingReason");
+                //db.AddInParameter(dbCmd, "@OrderStepCode", DbType.String, orderStepCode);
+                db.AddInParameter(dbCmd, "@OrderStatusCode", DbType.String, orderStatusCode);
+                //db.AddInParameter(dbCmd, "@CO_OrderId", DbType.Int64, orderId);
+                ds = db.ExecuteDataSet(dbCmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderDao.cs:GetOrderStatusPendingReason()");
+
+                object[] objects = new object[2];
+                objects[0] = orderStatusCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+        public bool UpdateOrderStep(string updatedStatus, string updatedReason, int orderId, string orderStepCode)
+        {
+            Database db;
+            DbCommand OrderCmd;
+            bool bResult = false;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                OrderCmd = db.GetStoredProcCommand("SP_UpdateOrderStep");
+                db.AddInParameter(OrderCmd, "@updatedStatusCode", DbType.String, updatedStatus);
+                db.AddInParameter(OrderCmd, "@updatedReasonCode", DbType.String, updatedReason);
+                db.AddInParameter(OrderCmd, "@CO_OrderId", DbType.Int64, orderId);
+                db.AddInParameter(OrderCmd, "@OrderStepCode", DbType.String, orderStepCode);
+                if (db.ExecuteNonQuery(OrderCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderDao.cs:UpdateOrderStep()");
+                object[] objects = new object[3];
+                objects[0] = updatedStatus;
+                objects[1] = updatedReason;
+                objects[2] = orderId;
+                objects[3] = orderStepCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }

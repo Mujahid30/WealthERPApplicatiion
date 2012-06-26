@@ -542,5 +542,100 @@ namespace BoOps
             }
             return dtOrder;
         }
+
+        public DataTable GetOrderStatus(string orderStepCode, int orderId)
+        {
+            DataTable dtOrderStatus = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderStatus = orderDao.GetOrderStatus(orderStepCode, orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderList()");
+
+                object[] objects = new object[1];
+                objects[0] = orderStepCode;
+                objects[1] = orderId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrderStatus;
+        }
+
+        public DataTable GetOrderStatusPendingReason(string orderStatusCode)
+        {
+            DataTable dtOrderStatus = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderStatus = orderDao.GetOrderStatusPendingReason(orderStatusCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStatusPendingReason()");
+
+                object[] objects = new object[1];
+                objects[0] = orderStatusCode;                
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrderStatus;
+        }
+
+        public bool UpdateOrderStep(string updatedStatus, string updatedReason, int orderId, string orderStepCode)
+        {
+            bool bResult = false;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                bResult = orderDao.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "orderBo.cs:UpdateOrderStep()");
+
+                object[] objects = new object[1];
+                objects[0] = updatedStatus;
+                objects[1] = updatedReason;
+                objects[2] = orderId;
+                objects[3] = orderStepCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
     }
 }
