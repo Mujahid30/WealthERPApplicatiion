@@ -255,7 +255,7 @@ namespace WealthERP.Reports
                         {
                             dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                         }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                         {
                             tabpnlEmailReports.Visible = true;
                             dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
@@ -299,7 +299,7 @@ namespace WealthERP.Reports
                         txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                     }
-                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                     {
                         hidBMLogin.Value = "False";
                         txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -740,7 +740,7 @@ namespace WealthERP.Reports
             {
                 dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
             {
 
                 dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
@@ -767,7 +767,7 @@ namespace WealthERP.Reports
             {
                 dtIndiviCustomerList = customerBo.GetAllRMMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
             {
 
                 dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
@@ -840,7 +840,7 @@ namespace WealthERP.Reports
             {
                 dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() =="Ops")
             {
 
                 dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
