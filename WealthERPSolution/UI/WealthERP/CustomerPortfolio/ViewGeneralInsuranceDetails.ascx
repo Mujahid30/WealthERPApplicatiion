@@ -39,9 +39,9 @@
     }
 </script>
 
-<table id="Table1" class="TableBackground" runat="server">
+<table class="TableBackground" width="100%">
     <tr>
-        <td class="HeaderCell">
+        <td>
             <asp:Label ID="lblInsuranceHeader" class="HeaderTextBig" runat="server" Text="General Insurance Portfolio"></asp:Label>
             <hr />
         </td>
@@ -80,7 +80,6 @@
                 </ExportSettings>
                 <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
-                  
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
                             <ItemTemplate>
@@ -94,7 +93,7 @@
                                             runat="server"></telerik:RadComboBoxItem>
                                         <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
                                             runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Delete" Value="Delete"
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>
                                     </Items>
                                 </telerik:RadComboBox>
