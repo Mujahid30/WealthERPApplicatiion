@@ -3072,6 +3072,45 @@ namespace WealthERP.CustomerPortfolio
             //    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
             //    e.Canceled = true;
             //}            
-        }       
+        }
+
+        protected void txtPolicyTerms_TextChanged(object sender, EventArgs e)
+        {
+            txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
+            txtPolicyMaturity.Enabled = false;
+        }
+
+        protected void txtPolicyCommencementDate_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtPolicyTerms.Text.ToString().Trim()))
+            {
+                txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
+                txtPolicyMaturity.Enabled = false;
+            }
+        }
+
+        private DateTime CalcEndDate(int period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            if (ddlPeriodSelection.SelectedItem.Value == "DA")
+            {
+                endDate = startDate.AddDays(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "MN")
+            {
+                endDate = startDate.AddMonths(period);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "YR")
+            {
+                endDate = startDate.AddYears(period);
+            }
+            return endDate;
+        }
+
+        protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
+            txtPolicyMaturity.Enabled = false;
+        }
     }
 }

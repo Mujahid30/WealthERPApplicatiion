@@ -251,7 +251,8 @@
             <asp:Label ID="Label21" runat="server" CssClass="FieldName" Text="Policy Commencement Date:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:TextBox ID="txtPolicyCommencementDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyCommencementDate" runat="server" CssClass="txtField" AutoPostBack="true"
+            ontextchanged="txtPolicyCommencementDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyCommencementDate_CalendarExtender" runat="server"
                 TargetControlID="txtPolicyCommencementDate" Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckMaturityDate">
             </cc1:CalendarExtender>
@@ -273,15 +274,24 @@
             <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term (Months):"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField" onchange="return CalculateMaturityDate();"></asp:TextBox>
+            <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField"
+            AutoPostBack="true" ValidationGroup="vgSubmit" 
+            ontextchanged="txtPolicyTerms_TextChanged" ></asp:TextBox>
             <span id="Span12" class="spnRequiredField">*</span>
+            <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" 
+                CssClass="cmbField" ValidationGroup="vgSubmit"
+                onselectedindexchanged="ddlPeriodSelection_SelectedIndexChanged" >            
+            <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
+            <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
+            <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
+            </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rfvPolicyTerms" ControlToValidate="txtPolicyTerms"
                 ErrorMessage="Please select a Policy Terms" Display="Dynamic" runat="server"
                 ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvPolicyTerms" runat="server" ErrorMessage="Please enter intiger value"
                 Type="Integer" ControlToValidate="txtPolicyTerms" Operator="DataTypeCheck" CssClass="cvPCG"
-                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>                
         </td>
     </tr>
     <tr>
