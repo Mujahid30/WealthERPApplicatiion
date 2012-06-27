@@ -16,6 +16,8 @@ using WealthERP.Base;
 using BoCommon;
 using System.Text;
 using AjaxControlToolkit;
+using BoOps;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -33,6 +35,7 @@ namespace WealthERP.CustomerPortfolio
         List<MoneyBackEpisodeVo> moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
         CalendarExtender ce;
         TextBoxWatermarkExtender txtWE;
+        DataTable dtULIPSubPlanSchedule = new DataTable();
 
         int count;
         int insuranceId;
@@ -54,24 +57,7 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
                 customerAccountVo = (CustomerAccountsVo)Session["customerAccountVo"];
-                insuranceVo = (InsuranceVo)Session["insuranceVo"];
-
-
-                //if (Session["table"] != null)
-                //{
-                //    if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
-                //    {
-                //        this.PlaceHolder2.Controls.Clear();
-                //        Table tb = (Table)Session["table"];
-                //        this.PlaceHolder2.Controls.Add(tb);
-                //    }
-                //    else
-                //    {
-                //        this.PlaceHolder1.Controls.Clear();
-                //        Table tb = (Table)Session["table"];
-                //        this.PlaceHolder1.Controls.Add(tb);
-                //    }
-                //}
+                insuranceVo = (InsuranceVo)Session["insuranceVo"]; 
 
                 if (!IsPostBack)
                 {
@@ -81,8 +67,11 @@ namespace WealthERP.CustomerPortfolio
                         Manage = Request.QueryString["action"].ToString();
 
                     ClearFields();
+                    LoadNominees();
                     BindDropDowns(path, customerAccountVo.AssetCategory.ToString().Trim());
                     LoadInsuranceIssuerCode(path);
+                    if (Session["insuranceVo"] != null)
+                    BindAssetParticular(insuranceVo.InsuranceIssuerCode);
                     LoadInsuranceIssuerDateTP(path);
                     LoadInsuranceIssuerDateULIP(path);
                     LoadInsuranceIssuerDateMP(path);
@@ -109,9 +98,9 @@ namespace WealthERP.CustomerPortfolio
                 {
                     if (customerAccountVo.AssetCategory.Trim() == "INUP")
                     {
-                        if (ddlUlipPlans.SelectedIndex != 0 && ddlUlipPlans.SelectedIndex != -1)
+                        if (ddlAssetPerticular.SelectedIndex != 0 && ddlAssetPerticular.SelectedIndex != -1)
                         {
-                            LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
+                            //LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
                         }
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INMP")
@@ -148,6 +137,15 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void Page_PreRender(object sender, System.EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                //this.rgULIPSubPlanSchedule.MasterTableView.Items[0].Edit = true;
+                //this.rgULIPSubPlanSchedule.MasterTableView.Rebind();
+            }
+        }
+
         public void ClearFields()
         {
             trEditButton.Visible = false;
@@ -161,14 +159,6 @@ namespace WealthERP.CustomerPortfolio
             trEPSurrenderValue.Visible = false;
             trEPRemarks.Visible = false;
 
-
-
-
-
-
-
-
-
             trOTPremiumAmount.Visible = false;
             trOTPremiumPeriod.Visible = false;
             trOTPremiumFirstLast.Visible = false;
@@ -176,7 +166,6 @@ namespace WealthERP.CustomerPortfolio
             trOTBonus.Visible = false;
             trOTSurrenderValue.Visible = false;
             trOTRemarks.Visible = false;
-
 
             trWLPPremiumAmount.Visible = false;
             trWLPPremiumPeriod.Visible = false;
@@ -203,8 +192,8 @@ namespace WealthERP.CustomerPortfolio
             trULIPPremiumFirstLast.Visible = false;
             trULIPHeader.Visible = false;
             trULIPHeader.Visible = false;
-            trULIPSchemeBasket.Visible = false;
-            trULIPAllocation.Visible = false;
+            //trULIPSchemeBasket.Visible = false;
+            //trULIPAllocation.Visible = false;
             pnlUlip.Visible = false;
             trULIPError.Visible = false;
             trULIPSurrenderValue.Visible = false;
@@ -220,7 +209,6 @@ namespace WealthERP.CustomerPortfolio
             trTPRemarks.Visible = false;
 
             trValuationHeader.Visible = false;
-
             trDeleteButton.Visible = false;
         }
 
@@ -280,8 +268,6 @@ namespace WealthERP.CustomerPortfolio
                     ddlOTPremiumFrequencyCode.Items.Insert(0, new ListItem("Select a Frequency Code", "Select a Frequency Code"));
 
                 }
-
-                
             }
             catch (BaseApplicationException Ex)
             {
@@ -329,22 +315,19 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
         }
         public void LoadInsuranceIssuerDateTP(string path)
         {
-            
-                DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
-                ddlTPPrPayDate.DataSource = dt;
-                ddlTPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
-                ddlTPPrPayDate.DataValueField = dt.Columns["Code"].ToString();
-                ddlTPPrPayDate.DataBind();
-                ddlTPPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
+            DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
+            ddlTPPrPayDate.DataSource = dt;
+            ddlTPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
+            ddlTPPrPayDate.DataValueField = dt.Columns["Code"].ToString();
+            ddlTPPrPayDate.DataBind();
+            ddlTPPrPayDate.Items.Insert(0, new ListItem("Select Premium Date", "Select Premium Date"));
         }
         public void LoadInsuranceIssuerDateULIP(string path)
         {
-
             DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
             ddlULIPPrPayDate.DataSource = dt;
             ddlULIPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
@@ -354,7 +337,6 @@ namespace WealthERP.CustomerPortfolio
         }
         public void LoadInsuranceIssuerDatePAY(string path)
         {
-
             DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
             ddlWLPPrPayDate.DataSource = dt;
             ddlWLPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
@@ -365,7 +347,6 @@ namespace WealthERP.CustomerPortfolio
 
         public void LoadInsuranceIssuerDateMP(string path)
         {
-
             DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
             ddlMPPrPayDate.DataSource = dt;
             ddlMPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
@@ -376,7 +357,6 @@ namespace WealthERP.CustomerPortfolio
 
         public void LoadInsuranceIssuerDateTR(string path)
         {
-
             DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
             ddlEPPrPayDate.DataSource = dt;
             ddlEPPrPayDate.DataTextField = dt.Columns["Name"].ToString();
@@ -387,7 +367,7 @@ namespace WealthERP.CustomerPortfolio
         public void LoadInsuranceIssuerDateOT(string path)
         {
             DataTable dt = XMLBo.GetInsuranceIssuerDate(path);
-                ddlOTPrPayDate.DataSource=dt;
+            ddlOTPrPayDate.DataSource = dt;
             ddlOTPrPayDate.DataSource = dt;
             ddlOTPrPayDate.DataTextField = dt.Columns["Name"].ToString();
             ddlOTPrPayDate.DataValueField = dt.Columns["Code"].ToString();
@@ -428,8 +408,9 @@ namespace WealthERP.CustomerPortfolio
                      * *****/
 
                     // Bind values to the respective controls
-                    txtName.Text = insuranceVo.Name.Trim();
+                    //txtName.Text = insuranceVo.Name.Trim();
                     ddlInsuranceIssuerCode.SelectedValue = insuranceVo.InsuranceIssuerCode.Trim();
+                    ddlAssetPerticular.SelectedValue = insuranceVo.SchemeId.ToString().Trim();                    
                     txtPolicyCommencementDate.Text = insuranceVo.StartDate.ToShortDateString();
                     txtPolicyMaturity.Text = insuranceVo.EndDate.ToShortDateString();
                     txtSumAssured.Text = insuranceVo.SumAssured.ToString();
@@ -442,7 +423,7 @@ namespace WealthERP.CustomerPortfolio
                         txtEPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
                         ddlEPPremiumFrequencyCode.SelectedValue = insuranceVo.PremiumFrequencyCode.ToString().Trim();
                         txtEPPremiumDuration.Text = insuranceVo.PremiumDuration.ToString();
-                        ddlEPPrPayDate.SelectedValue= insuranceVo.PremiumPaymentDate.ToString();
+                        ddlEPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtEPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
@@ -538,45 +519,14 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtUlipPremiumInstAmt.Text = insuranceVo.PremiumAmount.ToString();
 
-                        LoadUlipPlan();
                         // Get the ULIP Plan Code from CustomerInsuraceULIPPlan Table
                         DataSet dsUlipPlanCode = insuranceBo.GetUlipPlanCode(insuranceVo.CustInsInvId);
-                        ddlUlipPlans.SelectedValue = dsUlipPlanCode.Tables[0].Rows[0]["WUP_ULIPPlanCode"].ToString().Trim();
-
-                        // Bind ULIP Sub-Plans
-                        LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
-
+                        string schemeId = insuranceVo.SchemeId.ToString().Trim();
+                        //BindRadGridULIPSubPlanSchedule(schemeId);
 
                         insuranceULIPList = insuranceBo.GetInsuranceULIPList(insuranceVo.CustInsInvId);
+                        BindRadGridULIPSubPlanSchedule(insuranceVo.CustInsInvId.ToString().Trim());
                         Session["insuranceULIPList"] = insuranceULIPList;
-                        InsuranceULIPVo insuranceULIPVo;
-
-                        for (int i = 0; i < insuranceULIPList.Count; i++)
-                        {
-                            insuranceULIPVo = new InsuranceULIPVo();
-                            insuranceULIPVo = insuranceULIPList[i];
-
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
-                            //txtBox1.Text = insuranceULIPVo.WUP_ULIPSubPlaCode.ToString();
-
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
-                            txtBox2.Text = insuranceULIPVo.CIUP_Unit.ToString();
-
-                            TextBox txtBox3 = new TextBox();
-                            txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
-                            txtBox3.Text = insuranceULIPVo.CIUP_PurchasePrice.ToString();
-
-                            TextBox txtBox4 = new TextBox();
-                            txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
-                            if (insuranceULIPVo.CIUP_PurchaseDate != DateTime.MinValue)
-                                txtBox4.Text = insuranceULIPVo.CIUP_PurchaseDate.ToShortDateString();
-
-                            TextBox txtBox5 = new TextBox();
-                            txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
-                            txtBox5.Text = insuranceULIPVo.CIUP_AllocationPer.ToString();
-                        }
 
                         txtULIPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
                         txtULIPMaturityValue.Text = insuranceVo.BonusAccumalated.ToString();
@@ -646,7 +596,8 @@ namespace WealthERP.CustomerPortfolio
 
             try
             {
-                txtName.Text = "";
+                //txtName.Text = "";
+                ddlAssetPerticular.SelectedIndex = 0;
                 ddlInsuranceIssuerCode.SelectedIndex = 0;
                 txtPolicyCommencementDate.Text = "";
                 txtPolicyMaturity.Text = "";
@@ -702,13 +653,16 @@ namespace WealthERP.CustomerPortfolio
                 {
                     ddlULIPPremiumFrequencyCode.SelectedIndex = -1;
                     ddlULIPPrPayDate.Text = "";
-                    ddlUlipPlans.SelectedIndex = -1;
+                    //ddlUlipPlans.SelectedIndex = -1;
+                    ddlAssetPerticular.SelectedIndex = -1;
+
                     txtULIPLastPremiumDate.Text = "";
                     txtULIPFirstPremiumDate.Text = "";
                     txtULIPSurrenderValue.Text = "";
                     txtULIPMaturityValue.Text = "";
                     txtULIPCharges.Text = "";
                     txtULIPRemarks.Text = "";
+                    Session.Remove("ULIPSubPlanSchedule");
                 }
                 else if (CategoryCode == "INWP")
                 {
@@ -767,16 +721,15 @@ namespace WealthERP.CustomerPortfolio
             {
                 if (action == "view")
                 {
-                    //lblInsuranceHeader.Text = "Insurance Details View Form";
-
-
                     trDeleteButton.Visible = true;
                     trEditButton.Visible = true;
                     trEditSpace.Visible = true;
                     trSubmitButton.Visible = false;
                     btnSubmit.Text = "";
 
-                    txtName.Enabled = false;
+                    //pnlforULIP.Visible = false;
+                    //txtName.Enabled = false;
+                    ddlAssetPerticular.Enabled = false;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = false;
                     txtPolicyCommencementDate.Enabled = false;
@@ -908,8 +861,8 @@ namespace WealthERP.CustomerPortfolio
                         trULIPPremiumFirstLast.Visible = true;
                         trULIPGracePeriod.Visible = true;
                         trULIPHeader.Visible = true;
-                        trULIPSchemeBasket.Visible = true;
-                        trULIPAllocation.Visible = true;
+                        //trULIPSchemeBasket.Visible = true;
+                        //trULIPAllocation.Visible = true;
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
@@ -924,33 +877,42 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPFirstPremiumDate.Enabled = false;
                         txtULIPLastPremiumDate.Enabled = false;
                         txtULIPGracePeriod.Enabled = false;
-                        ddlUlipPlans.Enabled = false;
-
+                        //ddlUlipPlans.Enabled = false;
+                        ddlAssetPerticular.Enabled = false;
+                        pnlGridView.Visible = true;
+                        trULIPAllocation.Visible = true;
+                        rgULIPSubPlanSchedule.Visible = true;
+                        rgULIPSubPlanSchedule.Enabled = false;
+                        gvNominee.Enabled = false;
+                        txtPolicyTerms.Enabled = false;
                         // Get ULIP Sub-Plans Count
-                        DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
-                        int count = ds.Tables[0].Rows.Count;
-                        for (int i = 0; i < count; i++)
-                        {
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
-                            txtBox1.Enabled = false;
+                        #region NotNeededAnyMore
+                        
+                        //DataSet ds = assetBo.GetULIPSubPlans(schemeid);
+                        //int count = ds.Tables[0].Rows.Count;
+                        //for (int i = 0; i < count; i++)
+                        //{
+                        //    TextBox txtBox1 = new TextBox();
+                        //    txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
+                        //    txtBox1.Enabled = false;
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
-                            txtBox2.Enabled = false;
+                        //    TextBox txtBox2 = new TextBox();
+                        //    txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
+                        //    txtBox2.Enabled = false;
 
-                            TextBox txtBox3 = new TextBox();
-                            txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
-                            txtBox3.Enabled = false;
+                        //    TextBox txtBox3 = new TextBox();
+                        //    txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
+                        //    txtBox3.Enabled = false;
 
-                            TextBox txtBox4 = new TextBox();
-                            txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
-                            txtBox4.Enabled = false;
+                        //    TextBox txtBox4 = new TextBox();
+                        //    txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
+                        //    txtBox4.Enabled = false;
 
-                            TextBox txtBox5 = new TextBox();
-                            txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
-                            txtBox5.Enabled = false;
-                        }
+                        //    TextBox txtBox5 = new TextBox();
+                        //    txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
+                        //    txtBox5.Enabled = false;
+                        //}
+                        #endregion
 
                         txtULIPSurrenderValue.Enabled = false;
                         txtULIPMaturityValue.Enabled = false;
@@ -993,7 +955,9 @@ namespace WealthERP.CustomerPortfolio
                     trSubmitButton.Visible = true;
                     btnSubmit.Text = "Update";
 
-                    txtName.Enabled = true;
+                    //pnlforULIP.Visible = false;
+                    //txtName.Enabled = true;
+                    ddlAssetPerticular.Enabled = true;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = true;
                     txtPolicyCommencementDate.Enabled = true;
@@ -1029,7 +993,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (CategoryCode == "INOT")
                     {
-                              trOTPremiumAmount.Visible = true;
+                        trOTPremiumAmount.Visible = true;
                         trOTPremiumPeriod.Visible = true;
                         trOTPremiumFirstLast.Visible = true;
                         trOTGracePeriod.Visible = true;
@@ -1121,13 +1085,18 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (CategoryCode == "INUP")
                     {
+                        pnlGridView.Visible = true;
+                        trULIPAllocation.Visible = true;
+                        rgULIPSubPlanSchedule.Visible = true;
+                        rgULIPSubPlanSchedule.Enabled = true;
+
                         trValuationHeader.Visible = true;
                         trULIPPremiumCycle.Visible = true;
                         trULIPPremiumFirstLast.Visible = true;
                         trULIPGracePeriod.Visible = true;
                         trULIPHeader.Visible = true;
-                        trULIPSchemeBasket.Visible = true;
-                        trULIPAllocation.Visible = true;
+                        //trULIPSchemeBasket.Visible = true;
+                        //trULIPAllocation.Visible = true;
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
@@ -1142,34 +1111,35 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPFirstPremiumDate.Enabled = true;
                         txtULIPLastPremiumDate.Enabled = true;
                         txtULIPGracePeriod.Enabled = true;
-                        ddlUlipPlans.Enabled = true;
+                        //ddlUlipPlans.Enabled = true;
+                        ddlAssetPerticular.Enabled = true;
                         //ddlUlipSubPlans.Enabled = true;
-
+                        txtPolicyTerms.Enabled = true;
                         // Get ULIP Sub-Plans Count
-                        DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
-                        int count = ds.Tables[0].Rows.Count;
-                        for (int i = 0; i < count; i++)
-                        {
-                            TextBox txtBox1 = new TextBox();
-                            txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
-                            txtBox1.Enabled = false;
+                        //DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlAssetPerticular.SelectedValue.ToString()));
+                        //int count = ds.Tables[0].Rows.Count;
+                        //for (int i = 0; i < count; i++)
+                        //{
+                        //    TextBox txtBox1 = new TextBox();
+                        //    txtBox1 = ((TextBox)PlaceHolder1.FindControl("txtSubPlanId" + i.ToString()));
+                        //    txtBox1.Enabled = false;
 
-                            TextBox txtBox2 = new TextBox();
-                            txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
-                            txtBox2.Enabled = true;
+                        //    TextBox txtBox2 = new TextBox();
+                        //    txtBox2 = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString()));
+                        //    txtBox2.Enabled = true;
 
-                            TextBox txtBox3 = new TextBox();
-                            txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
-                            txtBox3.Enabled = true;
+                        //    TextBox txtBox3 = new TextBox();
+                        //    txtBox3 = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString()));
+                        //    txtBox3.Enabled = true;
 
-                            TextBox txtBox4 = new TextBox();
-                            txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
-                            txtBox4.Enabled = true;
+                        //    TextBox txtBox4 = new TextBox();
+                        //    txtBox4 = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString()));
+                        //    txtBox4.Enabled = true;
 
-                            TextBox txtBox5 = new TextBox();
-                            txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
-                            txtBox5.Enabled = true;
-                        }
+                        //    TextBox txtBox5 = new TextBox();
+                        //    txtBox5 = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString()));
+                        //    txtBox5.Enabled = true;
+                        //}
 
                         txtULIPSurrenderValue.Enabled = true;
                         txtULIPMaturityValue.Enabled = true;
@@ -1211,9 +1181,10 @@ namespace WealthERP.CustomerPortfolio
                     trEditSpace.Visible = false;
                     trSubmitButton.Visible = true;
                     btnSubmit.Text = "Submit";
-
-
-                    txtName.Enabled = true;
+                    
+                    //pnlforULIP.Visible = false;
+                    //txtName.Enabled = true;
+                    ddlAssetPerticular.Enabled = true;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = true;
                     txtPolicyCommencementDate.Enabled = true;
@@ -1298,13 +1269,18 @@ namespace WealthERP.CustomerPortfolio
                     }
                     else if (CategoryCode == "INUP")
                     {
+                        pnlGridView.Visible = true;
+                        trULIPAllocation.Visible = true;
+                        rgULIPSubPlanSchedule.Visible = true;
+                        rgULIPSubPlanSchedule.Enabled = true;
+
                         trValuationHeader.Visible = true;
                         trULIPPremiumCycle.Visible = true;
                         trULIPPremiumFirstLast.Visible = true;
                         trULIPGracePeriod.Visible = true;
                         trULIPHeader.Visible = true;
-                        trULIPSchemeBasket.Visible = true;
-                        trULIPAllocation.Visible = false;
+                        //trULIPSchemeBasket.Visible = true;
+                        //trULIPAllocation.Visible = false;
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
@@ -1317,9 +1293,11 @@ namespace WealthERP.CustomerPortfolio
                         txtUlipPremiuimPeriod.Enabled = true;
                         ddlULIPPremiumFrequencyCode.Enabled = true;
                         ddlULIPPrPayDate.Enabled = true;
-                        ddlUlipPlans.Enabled = true;
+                        //ddlUlipPlans.Enabled = true;
+                        ddlAssetPerticular.Enabled = true;
                         txtULIPFirstPremiumDate.Enabled = true;
                         txtULIPLastPremiumDate.Enabled = true;
+                        txtPolicyTerms.Enabled = true;
 
                         txtULIPSurrenderValue.Enabled = true;
                         txtULIPMaturityValue.Enabled = true;
@@ -1416,7 +1394,10 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.AccountId = customerAccountVo.AccountId;
                         insuranceVo.AssetGroupCode = AssetGroupCode;
                         insuranceVo.AssetInstrumentCategoryCode = customerAccountVo.AssetCategory.ToString().Trim();
-                        insuranceVo.Name = txtName.Text;
+                        //insuranceVo.Name = txtName.Text;
+                        insuranceVo.Name = ddlAssetPerticular.SelectedItem.ToString();
+                        if (ddlAssetPerticular.SelectedValue != "Select")
+                        insuranceVo.SchemeId = int.Parse(ddlAssetPerticular.SelectedValue);
                         insuranceVo.PolicyNumber = customerAccountVo.PolicyNum;
                         insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
                         insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
@@ -1567,96 +1548,524 @@ namespace WealthERP.CustomerPortfolio
                                 insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
                             insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
 
-
-                            DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
-                            int count = ds.Tables[0].Rows.Count;
+                            #region dont needed anymore
+                            //DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
+                            //int count = ds.Tables[0].Rows.Count;
                             subPlanList = new List<float>();
                             insuranceUlipList = new List<InsuranceULIPVo>();
-                            float tot = 0;
-                            int txt = 0;
+                            //float tot = 0;
+                            //int txt = 0;
 
-                            // Calcuating the total Asset Allocation value
+
+                            //// Calcuating the total Asset Allocation value
+                            //for (int i = 0; i < count; i++)
+                            //{
+                            //    string temp = (((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString());
+                            //    if (temp == "")
+                            //        txt = 0;
+                            //    else
+                            //        txt = int.Parse(temp.ToString());
+
+                            //    tot = tot + (float)txt;
+                            //    subPlanList.Add(txt);
+                            //}
+                            #endregion
+
+
+                            #region new code implemented by bhoopendra
+
+                            DataTable dtSchedule = new DataTable();
+                            dtSchedule = (DataTable)Session["ULIPSubPlanSchedule"];
+                                //(DataTable)Session["SubmitAllocationSchedule"]
+                            float Percentage = 0;
+                            float totalPercentage = 0;
+
+                            if (dtSchedule.Rows.Count > 0)
+                            {
+                                foreach (DataRow drSchedule in dtSchedule.Rows)
+                                {
+                                    Percentage = float.Parse(drSchedule["CINPUD_AllocationPer"].ToString());
+                                    totalPercentage = Percentage + totalPercentage;
+                                }
+
+                                if (totalPercentage == 100)
+                                {
+                                    foreach (DataRow drSchedule in dtSchedule.Rows)
+                                    {
+                                        insuranceUlipVo = new InsuranceULIPVo();
+                                        string allocPer = drSchedule["CINPUD_AllocationPer"].ToString();
+                                        string investedCost = drSchedule["CINPUD_InvestedCost"].ToString();
+                                        string currentValue = drSchedule["CINPUD_CurrentValue"].ToString();
+                                        string unit = drSchedule["CINPUD_Unit"].ToString();
+                                        //string purchaseDate = drSchedule["CINPUD_PurchaseDate"].ToString();
+                                        string absoluteReturn = drSchedule["CINPUD_AbsoluteReturn"].ToString();
+                                        string fundName = drSchedule["IF_FundName"].ToString();
+
+                                        insuranceUlipVo.IssuerCode = ddlInsuranceIssuerCode.SelectedValue;
+                                        insuranceUlipVo.WUP_ULIPSubPlaCode = drSchedule["ISF_SchemeFundId"].ToString();
+                                        insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(ddlAssetPerticular.SelectedValue.ToString());
+
+                                        if (allocPer == null)
+                                        {
+                                            insuranceUlipVo.CIUP_AllocationPer = 0;
+                                            insuranceUlipVo.CIUP_PurchasePrice = 0;
+                                            insuranceUlipVo.CIUP_Unit = 0;
+                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.MinValue;
+
+                                            insuranceUlipVo.CIUP_InvestedCost = 0;
+                                            insuranceUlipVo.CIUP_CurrentValue = 0;
+                                            insuranceUlipVo.CIUP_AllocationPer = 0;
+                                        }
+                                        else
+                                        {
+                                            if (allocPer != string.Empty)
+                                                insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocPer.ToString());
+
+                                            if (fundName != string.Empty)
+                                                insuranceUlipVo.WUP_ULIPSubPlaName = fundName.Trim().ToString();
+                                            if (unit != string.Empty)
+                                                insuranceUlipVo.CIUP_Unit = float.Parse(unit.ToString());
+                                            //if (purchaseDate != string.Empty)
+                                            //    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+
+                                            if (investedCost != string.Empty)
+                                                insuranceUlipVo.CIUP_InvestedCost = float.Parse(investedCost.ToString());
+                                            if (currentValue != string.Empty)
+                                                insuranceUlipVo.CIUP_CurrentValue = float.Parse(currentValue.ToString());
+                                            if (absoluteReturn != string.Empty)
+                                                insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(absoluteReturn.ToString());
+                                        }
+                                        insuranceUlipList.Add(insuranceUlipVo);
+                                    }
+                            #endregion
+
+
+                                    #region dont needed anymore
+                                    //Check the total asset Allocation and assign Unit, Purchase price and Allocation percentage 
+                                    //if (tot == 100)
+                                    //{
+                                    //    // lblError.Text = "Hundred";
+                                    //    for (int i = 0; i < count; i++)
+                                    //    {
+                                    //        insuranceUlipVo = new InsuranceULIPVo();
+                                    //        string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
+                                    //        string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
+                                    //        string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
+                                    //        string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
+
+                                    //        string investedCost = ((TextBox)PlaceHolder1.FindControl("txtInvestedCost" + i.ToString())).Text.ToString();
+                                    //        string currentValue = ((TextBox)PlaceHolder1.FindControl("txtCurrentValue" + i.ToString())).Text.ToString();
+                                    //        string absoluteReturn = ((TextBox)PlaceHolder1.FindControl("txtAbsoluteReturn" + i.ToString())).Text.ToString();
+
+                                    //        insuranceUlipVo.WUP_ULIPSubPlaCode = ds.Tables[0].Rows[i][0].ToString();
+                                    //        insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(ddlUlipPlans.SelectedValue.ToString());
+
+                                    //        if (allocationPer == "")
+                                    //        {
+                                    //            insuranceUlipVo.CIUP_AllocationPer = 0;
+                                    //            insuranceUlipVo.CIUP_PurchasePrice = 0;
+                                    //            insuranceUlipVo.CIUP_Unit = 0;
+                                    //            insuranceUlipVo.CIUP_PurchaseDate = DateTime.MinValue;
+
+                                    //            insuranceUlipVo.CIUP_InvestedCost = 0;
+                                    //            insuranceUlipVo.CIUP_CurrentValue = 0;
+                                    //            insuranceUlipVo.CIUP_AllocationPer = 0;
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            if (allocationPer != string.Empty)
+                                    //                insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                                    //            if (purchasePrice != string.Empty)
+                                    //                insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                                    //            if (units != string.Empty)
+                                    //                insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
+                                    //            if (purchaseDate != string.Empty)
+                                    //                insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+
+                                    //            if (investedCost != string.Empty)
+                                    //                insuranceUlipVo.CIUP_InvestedCost = float.Parse(investedCost.ToString());
+                                    //            if (currentValue != string.Empty)
+                                    //                insuranceUlipVo.CIUP_CurrentValue = float.Parse(currentValue.ToString());
+                                    //            if (absoluteReturn != string.Empty)
+                                    //                insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(absoluteReturn.ToString());
+                                    //        }
+                                    //        insuranceUlipList.Add(insuranceUlipVo);
+                                    //    }
+                                    #endregion
+
+
+                                    try
+                                    {
+                                        insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
+                                        for (int i = 0; i < insuranceUlipList.Count; i++)
+                                        {
+                                            insuranceUlipVo = new InsuranceULIPVo();
+                                            insuranceUlipVo = insuranceUlipList[i];
+                                            insuranceUlipVo.CIP_CustInsInvId = insuranceId;
+                                            insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
+                                            insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
+                                            insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
+                                        }
+                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                                    }
+                                    catch (BaseApplicationException Ex)
+                                    {
+                                        throw Ex;
+                                    }
+                                    catch (Exception Ex)
+                                    {
+                                        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                                        NameValueCollection FunctionInfo = new NameValueCollection();
+                                        FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
+                                        //object[] objects = new object[1];
+                                        //objects[0] = moneyBackEpisodeVo;
+                                        FunctionInfo = exBase.AddObject(FunctionInfo, null);
+                                        exBase.AdditionalInformation = FunctionInfo;
+                                        ExceptionManager.Publish(exBase);
+                                        throw exBase;
+                                    }
+                                    Session.Remove("ULIPSubPlanSchedule");
+                                    Session.Remove("table");
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                                }
+                                else
+                                {
+                                    lblError.Text = "Check the Allocation";
+                                    lblError.CssClass = "Error";
+                                    trULIPError.Visible = true;
+                                }
+                            }
+                    }
+                        #endregion
+                    #region MBP Submit
+                    else if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
+                    {
+                        if (txtMPPremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtMPPremiumAmount.Text.Trim());
+                        insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
+
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.Text.Trim());
+                        if (txtMPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
+                        if (txtMPPremiumDuration.Text.Trim() != "")
+                            insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
+                        if (txtMoneyBackEpisode.Text.Trim() != "")
+                            insuranceVo.PolicyEpisode = float.Parse(txtMoneyBackEpisode.Text.Trim());
+                        if (txtMPPremiumAccumulated.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtMPPremiumAccumulated.Text.Trim());
+                        if (txtMPBonusAccumulated.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtMPBonusAccumulated.Text.Trim());
+                        if (txtMPSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtMPSurrenderValue.Text.Trim());
+                        if (txtMPMaturityValue.Text.Trim() != "")
+                            insuranceVo.MaturityValue = float.Parse(txtMPMaturityValue.Text.Trim());
+                        insuranceVo.Remarks = txtMPRemarks.Text.Trim();
+                        insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
+
+                        try
+                        {
+                            insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
+
+                            List<MoneyBackEpisodeVo> moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
+                            MoneyBackEpisodeVo moneyBackEpisodeVo;
+                            count = 0;
+                            Int32.TryParse(txtMoneyBackEpisode.Text.Trim(), out count);
                             for (int i = 0; i < count; i++)
                             {
-                                string temp = (((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString());
-                                if (temp == "")
-                                    txt = 0;
-                                else
-                                    txt = int.Parse(temp.ToString());
-
-                                tot = tot + (float)txt;
-                                subPlanList.Add(txt);
+                                moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                                string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
+                                if (paymentDate != string.Empty)
+                                    moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
+                                if (repaidPercent != string.Empty)
+                                    moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                moneyBackEpisodeVo.CustInsInvId = insuranceId;
+                                moneyBackEpisodeList.Add(moneyBackEpisodeVo);
                             }
 
-                            // Check the total asset Allocation and assign Unit, Purchase price and Allocation percentage 
-                            if (tot == 100)
+
+                            for (int i = 0; i < moneyBackEpisodeList.Count; i++)
                             {
-                                // lblError.Text = "Hundred";
-                                for (int i = 0; i < count; i++)
+                                moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                                moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                                moneyBackEpisodeVo.CIMBE_CreatedBy = userVo.UserId;
+                                moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
+                                insuranceBo.CreateMoneyBackEpisode(moneyBackEpisodeVo);
+                            }
+
+                            Session.Remove("moneyBackEpisodeList");
+                            Session.Remove("table");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+                        catch (BaseApplicationException Ex)
+                        {
+                            throw Ex;
+                        }
+                        catch (Exception Ex)
+                        {
+                            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                            NameValueCollection FunctionInfo = new NameValueCollection();
+                            FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
+                            FunctionInfo = exBase.AddObject(FunctionInfo, null);
+                            exBase.AdditionalInformation = FunctionInfo;
+                            ExceptionManager.Publish(exBase);
+                            throw exBase;
+                        }
+                    }
+                    #endregion
+                    else
+                    {
+
+                    }
+                    //Session.Remove("table");
+                }
+                else if (btnSubmit.Text == "Update")
+                {
+                    // Get Insurance VO from Sessioin
+                    insuranceVo = (InsuranceVo)Session["insuranceVo"];
+
+                    // Start Update Process
+                    //insuranceVo.Name = txtName.Text;
+                    //insuranceVo.Name = ddlAssetPerticular.SelectedItem.ToString();
+                    insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
+                    if (ddlAssetPerticular.SelectedValue != "Select")
+                        insuranceVo.SchemeId = int.Parse(ddlAssetPerticular.SelectedValue);
+                    insuranceVo.PolicyNumber = customerAccountVo.PolicyNum;                    
+                    insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
+                    insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
+                    insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
+                    if (txtApplDate.Text.Trim() != "")
+                        insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
+                    insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
+
+                    if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
+                    {
+                        if (txtEPPremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtEPPremiumAmount.Text.Trim());
+                        insuranceVo.PremiumFrequencyCode = ddlEPPremiumFrequencyCode.SelectedValue.ToString().Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtLastPremiumDate.Text.ToString());
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlEPPrPayDate.SelectedItem.Text.Trim());
+
+                        if (txtEPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtEPGracePeriod.Text);
+                        if (txtEPPremiumAccumulated.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtEPPremiumAccumulated.Text);
+                        if (txtEPBonusAccumulated.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtEPBonusAccumulated.Text);
+                        if (txtEPSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtEPSurrenderValue.Text);
+                        if (txtEPMaturityValue.Text.Trim() != "")
+                            insuranceVo.MaturityValue = float.Parse(txtEPMaturityValue.Text);
+                        insuranceVo.Remarks = txtEPRemarks.Text.Trim();
+
+                        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        {
+                            Session.Remove("table");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+                    }
+                    else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INOT")
+                    {
+                        if (txtOTpremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtOTpremiumAmount.Text.Trim());
+                        insuranceVo.PremiumFrequencyCode = ddlOTPremiumFrequencyCode.SelectedValue.ToString().Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtOTFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtOTLastPremiumDate.Text.ToString());
+
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.Text);
+                        if (txtOTGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtOTGracePeriod.Text);
+                        if (txtOTPremiumAccumulated.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtOTPremiumAccumulated.Text);
+                        if (txtOTBonusAccumulated.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtOTBonusAccumulated.Text);
+                        if (txtOTSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtOTSurrenderValue.Text);
+                        if (txtOTMaturityValue.Text.Trim() != "")
+                            insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
+                        insuranceVo.Remarks = txtOTRemarks.Text.Trim();
+
+                        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        {
+                            Session.Remove("table");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+                    }
+
+                    else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
+                    {
+                        if (txtWLPPremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtWLPPremiumAmount.Text);
+                        insuranceVo.PremiumFrequencyCode = ddlWLPPremiumFrequencyCode.SelectedValue.Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtWLPFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtWLPLastPremiumDate.Text.ToString());
+
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlWLPPrPayDate.SelectedItem.Text.Trim());
+                        if (txtWLPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtWLPGracePeriod.Text);
+                        if (txtWPPremiumAccumulated.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtWPPremiumAccumulated.Text);
+                        if (txtWPBonusAccumulated.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtWPBonusAccumulated.Text);
+                        if (txtWPSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtWPSurrenderValue.Text);
+                        if (txtWPMaturityValue.Text.Trim() != "")
+                            insuranceVo.MaturityValue = float.Parse(txtWPMaturityValue.Text);
+                        insuranceVo.Remarks = txtWLPRemarks.Text.Trim();
+
+                        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        {
+                            Session.Remove("table");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+                    }
+                    else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INTP")
+                    {
+                        if (txtTPPremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtTPPremiumAmount.Text.Trim());
+                        insuranceVo.PremiumFrequencyCode = ddlTPPremiumFrequencyCode.SelectedValue.Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtTPFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtTPLastPremiumDate.Text.ToString());
+
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlTPPrPayDate.SelectedItem.Text.Trim());
+                        if (txtTPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtTPGracePeriod.Text.Trim());
+                        if (txtTPPremiumAccum.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtTPPremiumAccum.Text.Trim());
+                        insuranceVo.Remarks = txtWLPRemarks.Text.Trim();
+
+                        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        {
+                            Session.Remove("table");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        }
+                    }
+                    #region ULIP Update
+                    else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INUP")
+                    {                        
+                        List<InsuranceULIPVo> insuranceUlipListUpdate;
+                        InsuranceULIPVo insuranceUlipVo;
+
+                        //int PrevUlipSubPlanCode = 0;
+                        //int PrevUlipPlanCode = 0;
+
+                        insuranceVo.PremiumAmount = 0;
+                        insuranceVo.PremiumDuration = 0;
+                        if (txtUlipPremiumInstAmt.Text == "")
+                            insuranceVo.PremiumAmount = 0;
+                        else
+                            insuranceVo.PremiumAmount = double.Parse(txtUlipPremiumInstAmt.Text);
+                        if (txtUlipPremiuimPeriod.Text == "")
+                            insuranceVo.PremiumDuration = 0;
+                        else
+                            insuranceVo.PremiumDuration = float.Parse(txtUlipPremiuimPeriod.Text);
+
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
+
+                        insuranceVo.PremiumAccumalated = 0;
+                        insuranceVo.BonusAccumalated = 0;
+
+                        if (txtULIPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtULIPGracePeriod.Text);
+                        if (ddlULIPPrPayDate.Text.Trim() != "")
+                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlULIPPrPayDate.SelectedItem.Text.Trim());
+                        if (txtULIPMaturityValue.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtULIPMaturityValue.Text);
+                        if (txtULIPSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
+                        if (txtULIPCharges.Text.Trim() != "")
+                            insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
+                        insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
+
+                        //DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
+                        //PrevUlipSubPlanCode = Int32.Parse(prevUlipSubPlansDS.Tables[0].Rows[0]["ISF_SchemeFundId"].ToString().Trim());
+                        //DataSet prevUlipPlanCodeDS = assetBo.GetPrevUlipPlanCode(insuranceVo.SchemeId);
+                        //PrevUlipPlanCode = Int32.Parse(prevUlipPlanCodeDS.Tables[0].Rows[0]["ISF_SchemeFundId"].ToString().Trim());
+
+                        //DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlAssetPerticular.SelectedValue.ToString()));
+                        //int count = ds.Tables[0].Rows.Count;
+
+                        //// Calcuating the total Asset Allocation value
+                        DataTable dtSchedule = new DataTable();
+                        dtSchedule = (DataTable)Session["ULIPSubPlanSchedule"];
+                        //dtSchedule = (DataTable)Session["SubmitAllocationSchedule"];
+                        float totalPercentage = 0;
+
+                        if (dtSchedule.Rows.Count > 0)
+                        {
+                            foreach (DataRow drSchedule in dtSchedule.Rows)
+                            {
+                                totalPercentage += float.Parse(drSchedule["CINPUD_AllocationPer"].ToString());
+                            }
+
+                            if (totalPercentage == 100)
+                            {
+                                // Do an Update Here
+                                insuranceUlipListUpdate = new List<InsuranceULIPVo>();
+                                insuranceUlipList = (List<InsuranceULIPVo>)Session["insuranceULIPList"];                                
+                                foreach (DataRow drSchedule in dtSchedule.Rows)
                                 {
                                     insuranceUlipVo = new InsuranceULIPVo();
-                                    string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
-                                    string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
-                                    string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
-                                    string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
+                                    string allocPer = drSchedule["CINPUD_AllocationPer"].ToString();
+                                    string investedCost = drSchedule["CINPUD_InvestedCost"].ToString();
+                                    string currentValue = drSchedule["CINPUD_CurrentValue"].ToString();
+                                    string unit = drSchedule["CINPUD_Unit"].ToString();
+                                    //string purchaseDate = drSchedule["CINPUD_PurchaseDate"].ToString();
+                                    string absoluteReturn = drSchedule["CINPUD_AbsoluteReturn"].ToString();
+                                    string fundName = drSchedule["IF_FundName"].ToString();
 
-                                    insuranceUlipVo.WUP_ULIPSubPlaCode = ds.Tables[0].Rows[i][0].ToString();
-                                    insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(ddlUlipPlans.SelectedValue.ToString());
-
-                                    if (allocationPer == "")
+                                    if (allocPer == null)
                                     {
                                         insuranceUlipVo.CIUP_AllocationPer = 0;
                                         insuranceUlipVo.CIUP_PurchasePrice = 0;
                                         insuranceUlipVo.CIUP_Unit = 0;
                                         insuranceUlipVo.CIUP_PurchaseDate = DateTime.MinValue;
+                                        insuranceUlipVo.CIUP_InvestedCost = 0;
+                                        insuranceUlipVo.CIUP_CurrentValue = 0;
+                                        insuranceUlipVo.CIUP_AllocationPer = 0;
                                     }
                                     else
                                     {
-                                        if (allocationPer != string.Empty)
-                                            insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                        if (purchasePrice != string.Empty)
-                                            insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                        if (units != string.Empty)
-                                            insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
-                                        if (purchaseDate != string.Empty)
-                                            insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
-                                    }
-                                    insuranceUlipList.Add(insuranceUlipVo);
-                                }
+                                        if (allocPer != string.Empty)
+                                            insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocPer.ToString());
 
-                                try
+                                        if (fundName != string.Empty)
+                                            insuranceUlipVo.WUP_ULIPSubPlaName = fundName.Trim().ToString();
+                                        //if (purchasePrice != string.Empty)
+                                        //    insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                                        if (unit != string.Empty)
+                                            insuranceUlipVo.CIUP_Unit = float.Parse(unit.ToString());
+                                        //if (purchaseDate != string.Empty)
+                                        //    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+
+                                        if (investedCost != string.Empty)
+                                            insuranceUlipVo.CIUP_InvestedCost = float.Parse(investedCost.ToString());
+                                        if (currentValue != string.Empty)
+                                            insuranceUlipVo.CIUP_CurrentValue = float.Parse(currentValue.ToString());
+                                        if (absoluteReturn != string.Empty)
+                                            insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(absoluteReturn.ToString());
+                                    }
+                                    insuranceUlipListUpdate.Add(insuranceUlipVo);
+                                }
+                                if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
                                 {
-                                    insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
-                                    for (int i = 0; i < insuranceUlipList.Count; i++)
+                                    for (int i = 0; i < insuranceUlipListUpdate.Count; i++)
                                     {
                                         insuranceUlipVo = new InsuranceULIPVo();
                                         insuranceUlipVo = insuranceUlipList[i];
-                                        insuranceUlipVo.CIP_CustInsInvId = insuranceId;
+                                        insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
                                         insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
                                         insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
-                                        insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
+                                        insuranceBo.UpdateInsuranceULIPPlan(insuranceUlipVo);
                                     }
+                                    Session.Remove("ULIPSubPlanSchedule");
+                                    Session.Remove("table");
                                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                                 }
-                                catch (BaseApplicationException Ex)
-                                {
-                                    throw Ex;
-                                }
-                                catch (Exception Ex)
-                                {
-                                    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                                    NameValueCollection FunctionInfo = new NameValueCollection();
-                                    FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
-                                    //object[] objects = new object[1];
-                                    //objects[0] = moneyBackEpisodeVo;
-                                    FunctionInfo = exBase.AddObject(FunctionInfo, null);
-                                    exBase.AdditionalInformation = FunctionInfo;
-                                    ExceptionManager.Publish(exBase);
-                                    throw exBase;
-                                }
-
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
                             }
                             else
                             {
@@ -1665,55 +2074,292 @@ namespace WealthERP.CustomerPortfolio
                                 trULIPError.Visible = true;
                             }
                         }
+                        #region dont needed any more
+                        // Check the total asset Allocation and assign Unit, Purchase price and Allocation percentage 
+                        //if (tot == 100)
+                        //{
+                        //    // If the Drop Down Selection has changed then 
+                        //    // Delete the previous records saved 
+                        //    // Update the new records
+
+                        //    if (int.Parse(ddlUlipPlans.SelectedValue.ToString()) == PrevUlipPlanCode)
+                        //    {
+                        //        // Do an Update Here
+                        //        insuranceUlipList = new List<InsuranceULIPVo>();
+                        //        insuranceUlipList = (List<InsuranceULIPVo>)Session["insuranceULIPList"];
+
+                        //        for (int i = 0; i < count; i++)
+                        //        {
+                        //            //insuranceUlipVo = insuranceUlipList[i];
+                        //            string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
+                        //            string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
+                        //            string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
+                        //            string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
+
+                        //            string investedCost = ((TextBox)PlaceHolder1.FindControl("txtInvestedCost" + i.ToString())).Text.ToString();
+                        //            string currentValue = ((TextBox)PlaceHolder1.FindControl("txtCurrentValue" + i.ToString())).Text.ToString();
+                        //            string absoluteReturn = ((TextBox)PlaceHolder1.FindControl("txtAbsoluteReturn" + i.ToString())).Text.ToString();
+
+                        //            if (allocationPer == "")
+                        //            {
+                        //                insuranceUlipList[i].CIUP_AllocationPer = 0;
+                        //                insuranceUlipList[i].CIUP_PurchasePrice = 0;
+                        //                insuranceUlipList[i].CIUP_Unit = 0;
+                        //                insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
+                        //            }
+                        //            else
+                        //            {
+                        //                if (allocationPer != string.Empty)
+                        //                    insuranceUlipList[i].CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                        //                if (purchasePrice != string.Empty)
+                        //                    insuranceUlipList[i].CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                        //                if (units != string.Empty)
+                        //                    insuranceUlipList[i].CIUP_Unit = float.Parse(units.ToString());
+                        //                if (purchaseDate != string.Empty)
+                        //                    insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                        //            }
+                        //            //insuranceUlipList.Add(insuranceUlipVo);
+                        //        }
+
+                        //        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        //        {
+                        //            for (int i = 0; i < insuranceUlipList.Count; i++)
+                        //            {
+                        //                insuranceUlipVo = new InsuranceULIPVo();
+                        //                insuranceUlipVo = insuranceUlipList[i];
+                        //                insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
+                        //                insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
+                        //                insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
+                        //                insuranceBo.UpdateInsuranceULIPPlan(insuranceUlipVo);
+                        //            }
+
+                        //            Session.Remove("table");
+                        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        // Delete the old sub-plans
+                        //        // --
+                        //        if (insuranceBo.DeleteInsuranceUlipPlans(insuranceVo.CustInsInvId))
+                        //        {
+                        //            insuranceUlipList = new List<InsuranceULIPVo>();
+
+                        //            // Add New Ones Here
+                        //            // --
+                        //            for (int i = 0; i < count; i++)
+                        //            {
+                        //                insuranceUlipVo = new InsuranceULIPVo();
+                        //                string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
+                        //                string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
+                        //                string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
+                        //                string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
+
+                        //                string investedCost = ((TextBox)PlaceHolder1.FindControl("txtInvestedCost" + i.ToString())).Text.ToString();
+                        //                string currentValue = ((TextBox)PlaceHolder1.FindControl("txtCurrentValue" + i.ToString())).Text.ToString();
+                        //                string absoluteReturn = ((TextBox)PlaceHolder1.FindControl("txtAbsoluteReturn" + i.ToString())).Text.ToString();
+
+                        //                insuranceUlipVo.WUP_ULIPSubPlaCode = ds.Tables[0].Rows[i][0].ToString();
+                        //                insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(ddlUlipPlans.SelectedValue.ToString());
+
+                        //                if (allocationPer == "")
+                        //                {
+                        //                    insuranceUlipVo.CIUP_AllocationPer = 0;
+                        //                    insuranceUlipVo.CIUP_PurchasePrice = 0;
+                        //                    insuranceUlipVo.CIUP_Unit = 0;
+                        //                    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
+                        //                }
+                        //                else
+                        //                {
+                        //                    insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
+                        //                    insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+                        //                    insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
+                        //                    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                        //                }
+                        //                insuranceUlipList.Add(insuranceUlipVo);
+                        //            }
+
+                        //            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
+                        //            {
+                        //                for (int i = 0; i < insuranceUlipList.Count; i++)
+                        //                {
+                        //                    insuranceUlipVo = new InsuranceULIPVo();
+                        //                    insuranceUlipVo = insuranceUlipList[i];
+                        //                    insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
+                        //                    insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
+                        //                    insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
+                        //                    insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
+                        //                }
+                        //                Session.Remove("table");
+                        //                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    lblError.Text = "Check the Allocation";
+                        //    lblError.CssClass = "Error";
+                        //    trULIPError.Visible = true;
+                        //}
                         #endregion
-                        #region MBP Submit
-                        else if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
+                    }
+                    #endregion
+                    #region MBP Update
+                    else if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
+                    {
+                        int previousEpisodeCount = 0;
+
+                        if (txtMPPremiumAmount.Text.Trim() != "")
+                            insuranceVo.PremiumAmount = float.Parse(txtMPPremiumAmount.Text.Trim());
+                        insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
+                        insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.SelectedItem.Text.Trim());
+                        if (txtMPPremiumDuration.Text.Trim() != "")
+                            insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
+                        else
+                            insuranceVo.PremiumDuration = 0.0F;
+                        if (txtMPGracePeriod.Text.Trim() != "")
+                            insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
+                        else
+                            insuranceVo.GracePeriod = 0.0F;
+
+                        // Important Step for Updates
+                        previousEpisodeCount = Int32.Parse(insuranceVo.PolicyEpisode.ToString());
+                        if (txtMoneyBackEpisode.Text.Trim() != "")
+                            insuranceVo.PolicyEpisode = float.Parse(txtMoneyBackEpisode.Text.Trim());
+                        else
+                            insuranceVo.PolicyEpisode = 0.0F;
+
+                        if (txtMPPremiumAccumulated.Text.Trim() != "")
+                            insuranceVo.PremiumAccumalated = float.Parse(txtMPPremiumAccumulated.Text.Trim());
+                        else
+                            insuranceVo.PremiumAccumalated = 0.0F;
+                        if (txtMPBonusAccumulated.Text.Trim() != "")
+                            insuranceVo.BonusAccumalated = float.Parse(txtMPBonusAccumulated.Text.Trim());
+                        else
+                            insuranceVo.BonusAccumalated = 0.0F;
+                        if (txtMPSurrenderValue.Text.Trim() != "")
+                            insuranceVo.SurrenderValue = float.Parse(txtMPSurrenderValue.Text.Trim());
+                        else
+                            insuranceVo.SurrenderValue = 0.0F;
+                        if (txtMPMaturityValue.Text.Trim() != "")
+                            insuranceVo.MaturityValue = float.Parse(txtMPMaturityValue.Text.Trim());
+                        else
+                            insuranceVo.MaturityValue = 0.0F;
+                        insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
+
+                        insuranceVo.Remarks = txtMPRemarks.Text.Trim();
+
+                        // Put this under a C# Transaction Block
+                        try
                         {
-                            if (txtMPPremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtMPPremiumAmount.Text.Trim());
-                            insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
+                            List<MoneyBackEpisodeVo> moneyBackEpisodeList;
+                            MoneyBackEpisodeVo moneyBackEpisodeVo;
+                            count = 0;
+                            Int32.TryParse(txtMoneyBackEpisode.Text.Trim(), out count);
 
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.Text.Trim());
-                            if (txtMPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
-                            if (txtMPPremiumDuration.Text.Trim() != "")
-                                insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
-                            if (txtMoneyBackEpisode.Text.Trim() != "")
-                                insuranceVo.PolicyEpisode = float.Parse(txtMoneyBackEpisode.Text.Trim());
-                            if (txtMPPremiumAccumulated.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtMPPremiumAccumulated.Text.Trim());
-                            if (txtMPBonusAccumulated.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtMPBonusAccumulated.Text.Trim());
-                            if (txtMPSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtMPSurrenderValue.Text.Trim());
-                            if (txtMPMaturityValue.Text.Trim() != "")
-                                insuranceVo.MaturityValue = float.Parse(txtMPMaturityValue.Text.Trim());
-                            insuranceVo.Remarks = txtMPRemarks.Text.Trim();
-                            insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
-
-                            try
+                            // If Current Count is equal to previous count or less than it
+                            // then just update the moneyback episodes
+                            if (count == previousEpisodeCount || count < previousEpisodeCount)
                             {
-                                insuranceId = insuranceBo.CreateInsurancePortfolio(insuranceVo, userVo.UserId);
+                                moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
+                                moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
 
-                                List<MoneyBackEpisodeVo> moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
-                                MoneyBackEpisodeVo moneyBackEpisodeVo;
-                                count = 0;
-                                Int32.TryParse(txtMoneyBackEpisode.Text.Trim(), out count);
+                                // Update the rows
                                 for (int i = 0; i < count; i++)
+                                {
+                                    moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                                    string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
+                                    if (paymentDate != string.Empty && paymentDate != null)
+                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                    else
+                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
+                                    string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
+                                    if (repaidPercent != string.Empty && repaidPercent != null)
+                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                    else
+                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
+                                    moneyBackEpisodeList[i] = moneyBackEpisodeVo;
+                                }
+
+                                if (moneyBackEpisodeList != null)
+                                {
+                                    for (int i = 0; i < moneyBackEpisodeList.Count; i++)
+                                    {
+                                        moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                                        moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
+                                        insuranceBo.UpdateMoneyBackEpisode(moneyBackEpisodeVo);
+                                    }
+                                }
+
+
+                                if (count < previousEpisodeCount)
+                                {
+                                    moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
+                                    moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
+
+                                    int NewCount = previousEpisodeCount - count;
+
+                                    // Delete Extra Entries
+                                    for (int i = previousEpisodeCount - 1; i > count - 1; i--)
+                                    {
+                                        moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
+
+                                        insuranceBo.DeleteMoneyBackEpisode(moneyBackEpisodeVo);
+                                    }
+                                }
+                            }
+                            else if (count > previousEpisodeCount)
+                            {
+                                moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
+                                if (Session["moneyBackEpisodeList"] != null)
+                                    moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
+
+                                // Update the old entries
+                                for (int i = 0; i < previousEpisodeCount; i++)
+                                {
+                                    moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                                    string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
+                                    if (paymentDate != string.Empty && paymentDate != null)
+                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
+                                    else
+                                        moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
+                                    string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
+                                    if (repaidPercent != string.Empty && repaidPercent != null)
+                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
+                                    else
+                                        moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
+                                    moneyBackEpisodeList[i] = moneyBackEpisodeVo;
+                                }
+
+
+                                for (int i = 0; i < moneyBackEpisodeList.Count; i++)
+                                {
+                                    moneyBackEpisodeVo = new MoneyBackEpisodeVo();
+                                    moneyBackEpisodeVo = moneyBackEpisodeList[i];
+                                    moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
+                                    insuranceBo.UpdateMoneyBackEpisode(moneyBackEpisodeVo);
+                                }
+
+
+                                // Add the New Entries Here
+                                moneyBackEpisodeList.Clear();
+                                for (int i = previousEpisodeCount; i < count; i++)
                                 {
                                     moneyBackEpisodeVo = new MoneyBackEpisodeVo();
                                     string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                    if (paymentDate != string.Empty)
+                                    if (paymentDate != string.Empty && paymentDate != null)
                                         moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
                                     string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                    if (repaidPercent != string.Empty)
+                                    if (repaidPercent != string.Empty && repaidPercent != null)
                                         moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
-                                    moneyBackEpisodeVo.CustInsInvId = insuranceId;
+                                    moneyBackEpisodeVo.CustInsInvId = insuranceVo.CustInsInvId;
                                     moneyBackEpisodeList.Add(moneyBackEpisodeVo);
                                 }
-
 
                                 for (int i = 0; i < moneyBackEpisodeList.Count; i++)
                                 {
@@ -1723,539 +2369,39 @@ namespace WealthERP.CustomerPortfolio
                                     moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
                                     insuranceBo.CreateMoneyBackEpisode(moneyBackEpisodeVo);
                                 }
+                            }
 
-                                Session.Remove("moneyBackEpisodeList");
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                            }
-                            catch (BaseApplicationException Ex)
-                            {
-                                throw Ex;
-                            }
-                            catch (Exception Ex)
-                            {
-                                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                                NameValueCollection FunctionInfo = new NameValueCollection();
-                                FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
-                                FunctionInfo = exBase.AddObject(FunctionInfo, null);
-                                exBase.AdditionalInformation = FunctionInfo;
-                                ExceptionManager.Publish(exBase);
-                                throw exBase;
-                            }
+                            insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId);
+
+                            Session.Remove("table");
+                            Session.Remove("moneyBackEpisodeList");
+                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
+
                         }
-                        #endregion
-                        else
+                        catch (BaseApplicationException Ex)
                         {
-
+                            throw Ex;
                         }
-                        //Session.Remove("table");
+                        catch (Exception Ex)
+                        {
+                            BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                            NameValueCollection FunctionInfo = new NameValueCollection();
+                            FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
+                            //object[] objects = new object[1];
+                            //objects[0] = moneyBackEpisodeVo;
+                            FunctionInfo = exBase.AddObject(FunctionInfo, null);
+                            exBase.AdditionalInformation = FunctionInfo;
+                            ExceptionManager.Publish(exBase);
+                            throw exBase;
+                        }
                     }
-                    else if (btnSubmit.Text == "Update")
+                    #endregion
+                    else
                     {
-                        // Get Insurance VO from Sessioin
-                        insuranceVo = (InsuranceVo)Session["insuranceVo"];
 
-                        // Start Update Process
-                        insuranceVo.Name = txtName.Text;
-                        insuranceVo.PolicyNumber = customerAccountVo.PolicyNum;
-                        insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
-                        insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
-                        insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
-                        insuranceVo.SumAssured = double.Parse(txtSumAssured.Text);
-                        if (txtApplDate.Text.Trim() != "")
-                            insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
-                        insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
-
-                        if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
-                        {
-                            if (txtEPPremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtEPPremiumAmount.Text.Trim());
-                            insuranceVo.PremiumFrequencyCode = ddlEPPremiumFrequencyCode.SelectedValue.ToString().Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtLastPremiumDate.Text.ToString());
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlEPPrPayDate.SelectedItem.Text.Trim());
-
-                            if (txtEPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtEPGracePeriod.Text);
-                            if (txtEPPremiumAccumulated.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtEPPremiumAccumulated.Text);
-                            if (txtEPBonusAccumulated.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtEPBonusAccumulated.Text);
-                            if (txtEPSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtEPSurrenderValue.Text);
-                            if (txtEPMaturityValue.Text.Trim() != "")
-                                insuranceVo.MaturityValue = float.Parse(txtEPMaturityValue.Text);
-                            insuranceVo.Remarks = txtEPRemarks.Text.Trim();
-
-                            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                            {
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                            }
-                        }
-                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INOT")
-                        {
-                            if (txtOTpremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtOTpremiumAmount.Text.Trim());
-                            insuranceVo.PremiumFrequencyCode = ddlOTPremiumFrequencyCode.SelectedValue.ToString().Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtOTFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtOTLastPremiumDate.Text.ToString());
-
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlOTPrPayDate.Text);
-                            if (txtOTGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtOTGracePeriod.Text);
-                            if (txtOTPremiumAccumulated.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtOTPremiumAccumulated.Text);
-                            if (txtOTBonusAccumulated.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtOTBonusAccumulated.Text);
-                            if (txtOTSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtOTSurrenderValue.Text);
-                            if (txtOTMaturityValue.Text.Trim() != "")
-                                insuranceVo.MaturityValue = float.Parse(txtOTMaturityValue.Text);
-                            insuranceVo.Remarks = txtOTRemarks.Text.Trim();
-
-                            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                            {
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                            }
-                        }
-
-
-
-
-                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INWP")
-                        {
-                            if (txtWLPPremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtWLPPremiumAmount.Text);
-                            insuranceVo.PremiumFrequencyCode = ddlWLPPremiumFrequencyCode.SelectedValue.Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtWLPFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtWLPLastPremiumDate.Text.ToString());
-
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlWLPPrPayDate.SelectedItem.Text.Trim());
-                            if (txtWLPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtWLPGracePeriod.Text);
-                            if (txtWPPremiumAccumulated.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtWPPremiumAccumulated.Text);
-                            if (txtWPBonusAccumulated.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtWPBonusAccumulated.Text);
-                            if (txtWPSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtWPSurrenderValue.Text);
-                            if (txtWPMaturityValue.Text.Trim() != "")
-                                insuranceVo.MaturityValue = float.Parse(txtWPMaturityValue.Text);
-                            insuranceVo.Remarks = txtWLPRemarks.Text.Trim();
-
-                            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                            {
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                            }
-                        }
-                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INTP")
-                        {
-                            if (txtTPPremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtTPPremiumAmount.Text.Trim());
-                            insuranceVo.PremiumFrequencyCode = ddlTPPremiumFrequencyCode.SelectedValue.Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtTPFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtTPLastPremiumDate.Text.ToString());
-
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlTPPrPayDate.SelectedItem.Text.Trim());
-                            if (txtTPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtTPGracePeriod.Text.Trim());
-                            if (txtTPPremiumAccum.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtTPPremiumAccum.Text.Trim());
-                            insuranceVo.Remarks = txtWLPRemarks.Text.Trim();
-
-                            if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                            {
-                                Session.Remove("table");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                            }
-                        }
-                        #region ULIP Update
-                        else if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INUP")
-                        {
-                            List<float> subPlanList = null;
-                            List<InsuranceULIPVo> insuranceUlipList;
-                            InsuranceULIPVo insuranceUlipVo;
-
-                            int PrevUlipSubPlanCode = 0;
-                            int PrevUlipPlanCode = 0;
-
-                            insuranceVo.PremiumAmount = 0;
-                            insuranceVo.PremiumDuration = 0;
-                            if (txtUlipPremiumInstAmt.Text == "")
-                                insuranceVo.PremiumAmount = 0;
-                            else
-                                insuranceVo.PremiumAmount = double.Parse(txtUlipPremiumInstAmt.Text);
-                            if (txtUlipPremiuimPeriod.Text == "")
-                                insuranceVo.PremiumDuration = 0;
-                            else
-                                insuranceVo.PremiumDuration = float.Parse(txtUlipPremiuimPeriod.Text);
-                       
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtULIPFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtULIPLastPremiumDate.Text.ToString());
-
-                            insuranceVo.PremiumAccumalated = 0;
-                            insuranceVo.BonusAccumalated = 0;
-
-                            if (txtULIPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtULIPGracePeriod.Text);
-                            if (ddlULIPPrPayDate.Text.Trim() != "")
-                                insuranceVo.PremiumPaymentDate = Int16.Parse(ddlULIPPrPayDate.SelectedItem.Text.Trim());
-                            if (txtULIPMaturityValue.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtULIPMaturityValue.Text);
-                            if (txtULIPSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
-                            if (txtULIPCharges.Text.Trim() != "")
-                                insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
-                            insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
-
-                            DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
-                            PrevUlipSubPlanCode = Int32.Parse(prevUlipSubPlansDS.Tables[0].Rows[0]["WUSP_ULIPSubPlanCode"].ToString().Trim());
-                            DataSet prevUlipPlanCodeDS = assetBo.GetPrevUlipPlanCode(PrevUlipSubPlanCode);
-                            PrevUlipPlanCode = Int32.Parse(prevUlipPlanCodeDS.Tables[0].Rows[0]["WUP_ULIPPlanCode"].ToString().Trim());
-
-                            DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ddlUlipPlans.SelectedValue.ToString()));
-                            int count = ds.Tables[0].Rows.Count;
-                            subPlanList = new List<float>();
-
-                            float tot = 0;
-                            int txt = 0;
-
-                            // Calcuating the total Asset Allocation value
-                            for (int i = 0; i < count; i++)
-                            {
-                                string temp = (((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString());
-                                if (temp == "")
-                                    txt = 0;
-                                else
-                                    txt = int.Parse(temp.ToString());
-
-                                tot = tot + (float)txt;
-                                subPlanList.Add(txt);
-                            }
-
-
-                            // Check the total asset Allocation and assign Unit, Purchase price and Allocation percentage 
-                            if (tot == 100)
-                            {
-                                // If the Drop Down Selection has changed then 
-                                // Delete the previous records saved 
-                                // Update the new records
-
-                                if (int.Parse(ddlUlipPlans.SelectedValue.ToString()) == PrevUlipPlanCode)
-                                {
-                                    // Do an Update Here
-                                    insuranceUlipList = new List<InsuranceULIPVo>();
-                                    insuranceUlipList = (List<InsuranceULIPVo>)Session["insuranceULIPList"];
-
-                                    for (int i = 0; i < count; i++)
-                                    {
-                                        //insuranceUlipVo = insuranceUlipList[i];
-                                        string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
-                                        string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
-                                        string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
-                                        string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
-
-                                        if (allocationPer == "")
-                                        {
-                                            insuranceUlipList[i].CIUP_AllocationPer = 0;
-                                            insuranceUlipList[i].CIUP_PurchasePrice = 0;
-                                            insuranceUlipList[i].CIUP_Unit = 0;
-                                            insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
-                                        }
-                                        else
-                                        {
-                                            if (allocationPer != string.Empty)
-                                                insuranceUlipList[i].CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                            if (purchasePrice != string.Empty)
-                                                insuranceUlipList[i].CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                            if (units != string.Empty)
-                                                insuranceUlipList[i].CIUP_Unit = float.Parse(units.ToString());
-                                            if (purchaseDate != string.Empty)
-                                                insuranceUlipList[i].CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
-                                        }
-                                        //insuranceUlipList.Add(insuranceUlipVo);
-                                    }
-
-                                    if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                                    {
-                                        for (int i = 0; i < insuranceUlipList.Count; i++)
-                                        {
-                                            insuranceUlipVo = new InsuranceULIPVo();
-                                            insuranceUlipVo = insuranceUlipList[i];
-                                            insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
-                                            insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
-                                            insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
-                                            insuranceBo.UpdateInsuranceULIPPlan(insuranceUlipVo);
-                                        }
-
-                                        Session.Remove("table");
-                                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                                    }
-                                }
-                                else
-                                {
-                                    // Delete the old sub-plans
-                                    // --
-                                    if (insuranceBo.DeleteInsuranceUlipPlans(insuranceVo.CustInsInvId))
-                                    {
-                                        insuranceUlipList = new List<InsuranceULIPVo>();
-
-                                        // Add New Ones Here
-                                        // --
-                                        for (int i = 0; i < count; i++)
-                                        {
-                                            insuranceUlipVo = new InsuranceULIPVo();
-                                            string allocationPer = ((TextBox)PlaceHolder1.FindControl("txtAllocationId" + i.ToString())).Text.ToString();
-                                            string units = ((TextBox)PlaceHolder1.FindControl("txtUnitsId" + i.ToString())).Text.ToString();
-                                            string purchasePrice = ((TextBox)PlaceHolder1.FindControl("txtPurchasePriceId" + i.ToString())).Text.ToString();
-                                            string purchaseDate = ((TextBox)PlaceHolder1.FindControl("txtPurchaseDateId" + i.ToString())).Text.ToString();
-
-                                            insuranceUlipVo.WUP_ULIPSubPlaCode = ds.Tables[0].Rows[i][0].ToString();
-                                            insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(ddlUlipPlans.SelectedValue.ToString());
-
-                                            if (allocationPer == "")
-                                            {
-                                                insuranceUlipVo.CIUP_AllocationPer = 0;
-                                                insuranceUlipVo.CIUP_PurchasePrice = 0;
-                                                insuranceUlipVo.CIUP_Unit = 0;
-                                                insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse("1/1/1900");
-                                            }
-                                            else
-                                            {
-                                                insuranceUlipVo.CIUP_AllocationPer = float.Parse(allocationPer.ToString());
-                                                insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
-                                                insuranceUlipVo.CIUP_Unit = float.Parse(units.ToString());
-                                                insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
-                                            }
-                                            insuranceUlipList.Add(insuranceUlipVo);
-                                        }
-
-                                        if (insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId))
-                                        {
-                                            for (int i = 0; i < insuranceUlipList.Count; i++)
-                                            {
-                                                insuranceUlipVo = new InsuranceULIPVo();
-                                                insuranceUlipVo = insuranceUlipList[i];
-                                                insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
-                                                insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
-                                                insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
-                                                insuranceBo.CreateInsuranceULIPPlan(insuranceUlipVo);
-                                            }
-                                            Session.Remove("table");
-                                            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                lblError.Text = "Check the Allocation";
-                                lblError.CssClass = "Error";
-                                trULIPError.Visible = true;
-                            }
-                        }
-                        #endregion
-                        #region MBP Update
-                        else if (customerAccountVo.AssetCategory.ToString().Trim() == "INMP")
-                        {
-                            int previousEpisodeCount = 0;
-
-                            if (txtMPPremiumAmount.Text.Trim() != "")
-                                insuranceVo.PremiumAmount = float.Parse(txtMPPremiumAmount.Text.Trim());
-                            insuranceVo.PremiumFrequencyCode = ddlMPPremiumFrequencyCode.SelectedValue.Trim();
-                            insuranceVo.FirstPremiumDate = DateTime.Parse(txtMPFirstPremiumDate.Text.ToString());
-                            insuranceVo.LastPremiumDate = DateTime.Parse(txtMPLastPremiumDate.Text.ToString());
-                            insuranceVo.PremiumPaymentDate = Int16.Parse(ddlMPPrPayDate.SelectedItem.Text.Trim());
-                            if (txtMPPremiumDuration.Text.Trim() != "")
-                                insuranceVo.PremiumDuration = float.Parse(txtMPPremiumDuration.Text.Trim());
-                            else
-                                insuranceVo.PremiumDuration = 0.0F;
-                            if (txtMPGracePeriod.Text.Trim() != "")
-                                insuranceVo.GracePeriod = float.Parse(txtMPGracePeriod.Text.Trim());
-                            else
-                                insuranceVo.GracePeriod = 0.0F;
-
-                            // Important Step for Updates
-                            previousEpisodeCount = Int32.Parse(insuranceVo.PolicyEpisode.ToString());
-                            if (txtMoneyBackEpisode.Text.Trim() != "")
-                                insuranceVo.PolicyEpisode = float.Parse(txtMoneyBackEpisode.Text.Trim());
-                            else
-                                insuranceVo.PolicyEpisode = 0.0F;
-
-                            if (txtMPPremiumAccumulated.Text.Trim() != "")
-                                insuranceVo.PremiumAccumalated = float.Parse(txtMPPremiumAccumulated.Text.Trim());
-                            else
-                                insuranceVo.PremiumAccumalated = 0.0F;
-                            if (txtMPBonusAccumulated.Text.Trim() != "")
-                                insuranceVo.BonusAccumalated = float.Parse(txtMPBonusAccumulated.Text.Trim());
-                            else
-                                insuranceVo.BonusAccumalated = 0.0F;
-                            if (txtMPSurrenderValue.Text.Trim() != "")
-                                insuranceVo.SurrenderValue = float.Parse(txtMPSurrenderValue.Text.Trim());
-                            else
-                                insuranceVo.SurrenderValue = 0.0F;
-                            if (txtMPMaturityValue.Text.Trim() != "")
-                                insuranceVo.MaturityValue = float.Parse(txtMPMaturityValue.Text.Trim());
-                            else
-                                insuranceVo.MaturityValue = 0.0F;
-                            insuranceVo.PolicyPeriod = float.Parse(txtMPPolicyTerm.Text.Trim());
-
-                            insuranceVo.Remarks = txtMPRemarks.Text.Trim();
-
-                            // Put this under a C# Transaction Block
-                            try
-                            {
-                                List<MoneyBackEpisodeVo> moneyBackEpisodeList;
-                                MoneyBackEpisodeVo moneyBackEpisodeVo;
-                                count = 0;
-                                Int32.TryParse(txtMoneyBackEpisode.Text.Trim(), out count);
-
-                                // If Current Count is equal to previous count or less than it
-                                // then just update the moneyback episodes
-                                if (count == previousEpisodeCount || count < previousEpisodeCount)
-                                {
-                                    moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
-                                    moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
-
-                                    // Update the rows
-                                    for (int i = 0; i < count; i++)
-                                    {
-                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
-                                        string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        if (paymentDate != string.Empty && paymentDate != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
-                                        else
-                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
-                                        string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        if (repaidPercent != string.Empty && repaidPercent != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
-                                        else
-                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
-                                        moneyBackEpisodeList[i] = moneyBackEpisodeVo;
-                                    }
-
-                                    if (moneyBackEpisodeList != null)
-                                    {
-                                        for (int i = 0; i < moneyBackEpisodeList.Count; i++)
-                                        {
-                                            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                                            moneyBackEpisodeVo = moneyBackEpisodeList[i];
-                                            moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
-                                            insuranceBo.UpdateMoneyBackEpisode(moneyBackEpisodeVo);
-                                        }
-                                    }
-
-
-                                    if (count < previousEpisodeCount)
-                                    {
-                                        moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
-                                        moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
-
-                                        int NewCount = previousEpisodeCount - count;
-
-                                        // Delete Extra Entries
-                                        for (int i = previousEpisodeCount - 1; i > count - 1; i--)
-                                        {
-                                            moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                                            moneyBackEpisodeVo = moneyBackEpisodeList[i];
-
-                                            insuranceBo.DeleteMoneyBackEpisode(moneyBackEpisodeVo);
-                                        }
-                                    }
-                                }
-                                else if (count > previousEpisodeCount)
-                                {
-                                    moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
-                                    if (Session["moneyBackEpisodeList"] != null)
-                                        moneyBackEpisodeList = (List<MoneyBackEpisodeVo>)Session["moneyBackEpisodeList"];
-
-                                    // Update the old entries
-                                    for (int i = 0; i < previousEpisodeCount; i++)
-                                    {
-                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
-                                        string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        if (paymentDate != string.Empty && paymentDate != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
-                                        else
-                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.MinValue;
-                                        string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        if (repaidPercent != string.Empty && repaidPercent != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
-                                        else
-                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse("0.00");
-                                        moneyBackEpisodeList[i] = moneyBackEpisodeVo;
-                                    }
-
-
-                                    for (int i = 0; i < moneyBackEpisodeList.Count; i++)
-                                    {
-                                        moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
-                                        moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
-                                        insuranceBo.UpdateMoneyBackEpisode(moneyBackEpisodeVo);
-                                    }
-
-
-                                    // Add the New Entries Here
-                                    moneyBackEpisodeList.Clear();
-                                    for (int i = previousEpisodeCount; i < count; i++)
-                                    {
-                                        moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                                        string paymentDate = (((TextBox)PlaceHolder2.FindControl("txtPaymentDate" + i.ToString())).Text.ToString());
-                                        if (paymentDate != string.Empty && paymentDate != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaymentDate = DateTime.Parse(paymentDate);
-                                        string repaidPercent = (((TextBox)PlaceHolder2.FindControl("txtRepaidPer" + i.ToString())).Text.ToString());
-                                        if (repaidPercent != string.Empty && repaidPercent != null)
-                                            moneyBackEpisodeVo.CIMBE_RepaidPer = float.Parse(repaidPercent);
-                                        moneyBackEpisodeVo.CustInsInvId = insuranceVo.CustInsInvId;
-                                        moneyBackEpisodeList.Add(moneyBackEpisodeVo);
-                                    }
-
-                                    for (int i = 0; i < moneyBackEpisodeList.Count; i++)
-                                    {
-                                        moneyBackEpisodeVo = new MoneyBackEpisodeVo();
-                                        moneyBackEpisodeVo = moneyBackEpisodeList[i];
-                                        moneyBackEpisodeVo.CIMBE_CreatedBy = userVo.UserId;
-                                        moneyBackEpisodeVo.CIMBE_ModifiedBy = userVo.UserId;
-                                        insuranceBo.CreateMoneyBackEpisode(moneyBackEpisodeVo);
-                                    }
-                                }
-
-                                insuranceBo.UpdateInsurancePortfolio(insuranceVo, userVo.UserId);
-
-                                Session.Remove("table");
-                                Session.Remove("moneyBackEpisodeList");
-                                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','login');", true);
-
-                            }
-                            catch (BaseApplicationException Ex)
-                            {
-                                throw Ex;
-                            }
-                            catch (Exception Ex)
-                            {
-                                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                                NameValueCollection FunctionInfo = new NameValueCollection();
-                                FunctionInfo.Add("Method", "PortfolioInsuranceEntry.cs:btnSubmit_Click()");
-                                //object[] objects = new object[1];
-                                //objects[0] = moneyBackEpisodeVo;
-                                FunctionInfo = exBase.AddObject(FunctionInfo, null);
-                                exBase.AdditionalInformation = FunctionInfo;
-                                ExceptionManager.Publish(exBase);
-                                throw exBase;
-                            }
-                        }
-                        #endregion
-                        else
-                        {
-
-                        }
                     }
                 }
-
+            }
             }
             catch (BaseApplicationException Ex)
             {
@@ -2293,7 +2439,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 //Session["episodeCount"] = txtMoneyBackEpisode.Text;
                 pnlMoneyBackEpisode.Visible = true;
-                
+
                 if (txtMoneyBackEpisode.Text != "")
                 {
                     count = int.Parse(txtMoneyBackEpisode.Text);
@@ -2472,185 +2618,17 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlInsuranceIssuerCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (customerAccountVo.AssetCategory.ToString().Trim() == "INUP")
-            {
-                LoadUlipPlan();
-            }
-        }
-
-        public void LoadUlipPlan()
-        {
-            DataSet ds = assetBo.GetULIPPlans(ddlInsuranceIssuerCode.SelectedItem.Value.ToString());
-            ddlUlipPlans.DataSource = ds;
-            ddlUlipPlans.DataTextField = ds.Tables[0].Columns["WUP_ULIPPlanName"].ToString();
-            ddlUlipPlans.DataValueField = ds.Tables[0].Columns["WUP_ULIPPlanCode"].ToString();
-            ddlUlipPlans.DataBind();
-            ddlUlipPlans.Items.Insert(0, new ListItem("Select a ULIP Plan", "Select a ULIP Plan"));
-            pnlUlip.Visible = true;
-        }
-
-        public void LoadUlipSubPlans(string UlipPlan)
-        {
-            try
-            {
-                PlaceHolder1.Controls.Clear();
-                if (UlipPlan != "Select a ULIP Plan")
-                {
-                    DataSet ds = assetBo.GetULIPSubPlans(int.Parse(UlipPlan));
-                    int count = ds.Tables[0].Rows.Count;
-                    // LiteralControl literal = new LiteralControl();
-                    if (count > 0)
-                        trULIPAllocation.Visible = true;
-                    else
-                        trULIPAllocation.Visible = false;
-
-                    Table tb = new Table();
-                    TableCell tc;
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        TableRow tr = new TableRow();
-
-                        tc = new TableCell();
-                        TextBox txtBox1 = new TextBox();
-                        txtBox1.ID = "txtSubPlanId" + i.ToString();
-                        // txtBox1.ID = ds.Tables[0].Rows[i][0].ToString();                 
-                        txtBox1.CssClass = "txtField";
-                        txtBox1.Text = ds.Tables[0].Rows[i]["WUSP_ULIPSubPlanName"].ToString();
-                        txtBox1.Enabled = false;
-                        tc.Controls.Add(txtBox1);
-                        tr.Cells.Add(tc);
-
-                        tc = new TableCell();
-                        TextBox txtBox2 = new TextBox();
-                        txtBox2.ID = "txtUnitsId" + i.ToString();
-                        //txtBox2.ID = ds.Tables[0].Rows[i][0].ToString();
-                        txtBox2.CssClass = "txtField";
-                        RegularExpressionValidator regularExpressionValidator1 = new RegularExpressionValidator();
-                        regularExpressionValidator1.ID = regularExpressionValidator1 + i.ToString() + i.ToString();
-                        regularExpressionValidator1.ValidationExpression = "^\\d*\\.?\\d*$";
-                        regularExpressionValidator1.ControlToValidate = txtBox2.ID;
-                        regularExpressionValidator1.CssClass = "revPCG";
-                        regularExpressionValidator1.ErrorMessage = "<br />Please enter valid Units";
-                        regularExpressionValidator1.EnableViewState = true;
-                        regularExpressionValidator1.Display = ValidatorDisplay.Dynamic;
-                        tc.Controls.Add(txtBox2);
-                        tc.Controls.Add(regularExpressionValidator1);
-                        tr.Cells.Add(tc);
-
-                        tc = new TableCell();
-                        TextBox txtBox3 = new TextBox();
-                        txtBox3.ID = "txtPurchasePriceId" + i.ToString();
-                        // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
-                        txtBox3.CssClass = "txtField";
-                        RegularExpressionValidator regularExpressionValidator2 = new RegularExpressionValidator();
-                        regularExpressionValidator2.ID = regularExpressionValidator2 + i.ToString() + (i + 1).ToString();
-                        regularExpressionValidator2.ValidationExpression = "^\\d*\\.?\\d*$";
-                        regularExpressionValidator2.ControlToValidate = txtBox3.ID;
-                        regularExpressionValidator2.CssClass = "revPCG";
-                        regularExpressionValidator2.ErrorMessage = "<br />Please enter a valid Purchase Price";
-                        regularExpressionValidator2.EnableViewState = true;
-                        regularExpressionValidator2.Display = ValidatorDisplay.Dynamic;
-                        tc.Controls.Add(txtBox3);
-                        tc.Controls.Add(regularExpressionValidator2);
-                        tr.Cells.Add(tc);
-
-                        tc = new TableCell();
-                        TextBox txtBox4 = new TextBox();
-                        txtBox4.ID = "txtPurchaseDateId" + i.ToString();
-                        // txtBox3.ID = ds.Tables[0].Rows[i][0].ToString();
-                        txtBox4.CssClass = "txtField";
-                        CalendarExtender calExtender = new CalendarExtender();
-                        calExtender.ID = calExtender + i.ToString();
-                        calExtender.TargetControlID = txtBox4.ID;
-                        calExtender.Format = "dd/MM/yyyy";
-                        calExtender.OnClientDateSelectionChanged = "isFutureDate";
-                        calExtender.EnableViewState = true;
-                        TextBoxWatermarkExtender waterMarkExtender = new TextBoxWatermarkExtender();
-                        waterMarkExtender.ID = waterMarkExtender + i.ToString();
-                        waterMarkExtender.WatermarkText = "dd/mm/yyyy";
-                        waterMarkExtender.TargetControlID = txtBox4.ID;
-                        waterMarkExtender.EnableViewState = true;
-                        CompareValidator compareValidator = new CompareValidator();
-                        compareValidator.ID = compareValidator + i.ToString();
-                        compareValidator.ControlToValidate = txtBox4.ID;
-                        compareValidator.Type = ValidationDataType.Date;
-                        compareValidator.ErrorMessage = "<br />The date format should be dd/mm/yyyyyy";
-                        compareValidator.Operator = ValidationCompareOperator.DataTypeCheck;
-                        compareValidator.CssClass = "cvPCG";
-                        compareValidator.Display = ValidatorDisplay.Dynamic;
-                        compareValidator.EnableViewState = true;
-                        tc.Controls.Add(txtBox4);
-                        tc.Controls.Add(calExtender);
-                        tc.Controls.Add(waterMarkExtender);
-                        tc.Controls.Add(compareValidator);
-
-                        //// Bind Ajax Date Controls
-                        //ce = new CalendarExtender();
-                        //ce.ID = "txtPurchaseDateId" + i.ToString() + "_CalendarExtender";
-                        //ce.TargetControlID = "txtPurchaseDateId" + i.ToString();
-                        //ce.Format = "dd/MM/yyyy";
-                        ////ce.EnableViewState = true;
-
-                        //txtWE = new TextBoxWatermarkExtender();
-                        //txtWE.ID = "txtPurchaseDateId" + i.ToString() + "_TextBoxWatermarkExtender";
-                        //txtWE.TargetControlID = "txtPurchaseDateId" + i.ToString();
-                        //txtWE.WatermarkText = "dd/mm/yyyy";
-                        ////txtWE.EnableViewState = true;
-
-                        //tc.Controls.Add(ce);
-                        //tc.Controls.Add(txtWE);
-                        tr.Cells.Add(tc);
-
-                        tc = new TableCell();
-                        TextBox txtBox5 = new TextBox();
-                        txtBox5.ID = "txtAllocationId" + i.ToString();
-                        txtBox5.CssClass = "txtField";
-                        RegularExpressionValidator regularExpressionValidator3 = new RegularExpressionValidator();
-                        regularExpressionValidator3.ID = regularExpressionValidator3 + i.ToString() + (i + 2).ToString();
-                        regularExpressionValidator3.ValidationExpression = "^\\d*\\.?\\d*$";
-                        regularExpressionValidator3.ControlToValidate = txtBox5.ID;
-                        regularExpressionValidator3.CssClass = "revPCG";
-                        regularExpressionValidator3.ErrorMessage = "<br />Please enter a valid Allocation Percentage";
-                        regularExpressionValidator3.EnableViewState = true;
-                        regularExpressionValidator3.Display = ValidatorDisplay.Dynamic;
-                        tc.Controls.Add(txtBox5);
-                        tc.Controls.Add(regularExpressionValidator3);
-                        tr.Cells.Add(tc);
-
-                        tb.Rows.Add(tr);
-                    }
-
-                    PlaceHolder1.Controls.Add(tb);
-                    trULIPAllocation.Visible = true;
-                    Session["table"] = tb;
-                }
-                else
-                    trULIPAllocation.Visible = false;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "PortfolioInsuranceEntry.ascx:LoadUlipSubPlans()");
-                object[] objects = new object[1];
-                objects[0] = UlipPlan;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
+            lblIssuarCode.Text = ddlInsuranceIssuerCode.SelectedItem.Text;
+            BindAssetParticular(ddlInsuranceIssuerCode.SelectedValue);
         }
 
         protected void ddlUlipPlans_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadUlipSubPlans(ddlUlipPlans.SelectedValue.ToString().Trim());
+            if (customerAccountVo.AssetCategory.Trim() == "INUP")
+            {
+                Session.Remove("ULIPSubPlanSchedule");
+                BindRadGridULIPSubPlanSchedule(ddlAssetPerticular.SelectedValue.ToString().Trim());
+            }
         }
 
         protected void lnkEdit_Click(object sender, EventArgs e)
@@ -2684,7 +2662,6 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
         }
 
@@ -2703,11 +2680,11 @@ namespace WealthERP.CustomerPortfolio
 
                 float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
-               // txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
+                // txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
             }
         }
         protected void txtOTLastPremiumDate_TextChanged(object sender, EventArgs e)
-        { 
+        {
             if (txtOTFirstPremiumDate.Text != "dd/mm/yyyy" && txtOTFirstPremiumDate.Text != string.Empty && txtOTLastPremiumDate.Text != "dd/mm/yyyy" && txtOTLastPremiumDate.Text != string.Empty)
             {
                 DateTime dtFrom = DateTime.Parse(txtOTFirstPremiumDate.Text);
@@ -2715,7 +2692,6 @@ namespace WealthERP.CustomerPortfolio
                 DateBo dtBo = new DateBo();
 
                 float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                
                 txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
             }
         }
@@ -2787,5 +2763,298 @@ namespace WealthERP.CustomerPortfolio
                 }
             }
         }
+
+        public void LoadNominees()
+        {
+            DataSet dsCustomerAssociates = new DataSet();
+            DataTable dtAssociates = new DataTable();
+            DataTable dtCustomerAssociates = new DataTable();
+            DataRow drCustomerAssociates;
+            try
+            {
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtAssociates = dsCustomerAssociates.Tables[0];
+
+                dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                dtCustomerAssociates.Columns.Add("AssociationId");
+                dtCustomerAssociates.Columns.Add("Name");
+                dtCustomerAssociates.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtAssociates.Rows)
+                {
+
+                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtCustomerAssociates.Rows.Count > 0)
+                {
+                    gvNominee.DataSource = dtCustomerAssociates;
+                    gvNominee.DataBind();
+                    gvNominee.Visible = true;
+
+                    trNoNominee.Visible = false;
+                    trNominees.Visible = true;
+                }
+                else
+                {
+                    trNoNominee.Visible = true;
+                    trNominees.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountAdd.ascx:LoadNominees()");
+                object[] objects = new object[1];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+
+        protected void btnInsertNewScheme_Click(object sender, EventArgs e)
+        {
+            OrderBo orderbo = new OrderBo();
+            if (txtAsset.Text.Trim() != "")
+            {
+                if (ddlInsuranceIssuerCode.SelectedIndex != 0)
+                    orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlInsuranceIssuerCode.SelectedValue);
+            }
+            BindAssetParticular(ddlInsuranceIssuerCode.SelectedValue);
+        }
+
+        public void BindAssetParticular(string issuerCode)
+        {
+            DataSet ds = assetBo.GetULIPPlans(issuerCode);
+            DataTable dtSchemePlan = ds.Tables[0];
+            if (dtSchemePlan.Rows.Count > 0)
+            {
+                ddlAssetPerticular.DataSource = dtSchemePlan;
+                ddlAssetPerticular.DataValueField = dtSchemePlan.Columns["IS_SchemeId"].ToString();
+                ddlAssetPerticular.DataTextField = dtSchemePlan.Columns["IS_SchemeName"].ToString();
+                ddlAssetPerticular.DataBind();
+            }
+            ddlAssetPerticular.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
+        public void BindRadGridULIPSubPlanSchedule(string ulipPlan)
+        {            
+            trULIPAllocation.Visible = true;
+            rgULIPSubPlanSchedule.Visible = true;
+            pnlGridView.Visible = true;
+
+            dtULIPSubPlanSchedule.Columns.Add("ISF_SchemeFundId");
+            dtULIPSubPlanSchedule.Columns.Add("IF_FundName");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_InvestedCost");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_Unit");
+            //dtULIPSubPlanSchedule.Columns.Add("CINPUD_PurchaseDate", typeof(DateTime));
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_CurrentValue");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_AbsoluteReturn");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_AllocationPer");
+            dtULIPSubPlanSchedule.Columns.Add("Flag");
+            if (ddlAssetPerticular.SelectedValue != "0" && ddlAssetPerticular.SelectedValue != "")
+            {
+                DataSet ds = assetBo.GetULIPSubPlans(int.Parse(ulipPlan));
+                if (ds.Tables[0].Rows.Count > 0)
+                {                    
+                    DataRow drULIPSubPlan;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        drULIPSubPlan = dtULIPSubPlanSchedule.NewRow();
+                        drULIPSubPlan["ISF_SchemeFundId"] = dr["ISF_SchemeFundId"];
+                        drULIPSubPlan["IF_FundName"] = dr["IF_FundName"];
+                        drULIPSubPlan["CINPUD_InvestedCost"] = dr["CINPUD_InvestedCost"];
+                        drULIPSubPlan["CINPUD_Unit"] = dr["CINPUD_Unit"];
+                        //drULIPSubPlan["CINPUD_PurchaseDate"] = DateTime.Now;
+                        drULIPSubPlan["CINPUD_CurrentValue"] = dr["CINPUD_CurrentValue"];
+                        drULIPSubPlan["CINPUD_AbsoluteReturn"] = dr["CINPUD_AbsoluteReturn"];
+                        drULIPSubPlan["CINPUD_AllocationPer"] = dr["CINPUD_AllocationPer"];
+                        drULIPSubPlan["Flag"] = "D";
+                        dtULIPSubPlanSchedule.Rows.Add(drULIPSubPlan);
+                    }
+                    Session["ULIPSubPlanSchedule"] = dtULIPSubPlanSchedule;
+                }
+                else
+                {
+                    //trULIPAllocation.Visible = false;
+                    //Session.Remove("ULIPSubPlanSchedule");
+                    rgULIPSubPlanSchedule.DataSource = dtULIPSubPlanSchedule;
+                    Session["ULIPSubPlanSchedule"] = dtULIPSubPlanSchedule;
+                    rgULIPSubPlanSchedule.DataSourceID = String.Empty;
+                    rgULIPSubPlanSchedule.DataBind();
+                }
+            }
+        }
+
+        protected void rgULIPSubPlanSchedule_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            InsuranceBo insuranceBo = new InsuranceBo();
+
+            trULIPAllocation.Visible = true;
+            GridBoundColumn SubPlanName = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("IF_FundName") as GridBoundColumn;
+            GridBoundColumn InvestedCost = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_InvestedCost") as GridBoundColumn;
+            GridBoundColumn Unit = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_Unit") as GridBoundColumn;
+            //GridDateTimeColumn PurchaseDate = (GridDateTimeColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_PurchaseDate") as GridDateTimeColumn;
+            GridBoundColumn CurrentValue = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_CurrentValue") as GridBoundColumn;
+            GridBoundColumn AbsoluteReturn = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_AbsoluteReturn") as GridBoundColumn;
+            GridBoundColumn AllocationPer = (GridBoundColumn)e.Item.OwnerTableView.GetColumnSafe("CINPUD_AllocationPer") as GridBoundColumn;           
+
+            if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                e.Canceled = true;
+                if (e.Item.OwnerTableView.EditMode == GridEditMode.PopUp)
+                {
+                    InvestedCost.ReadOnly = true;
+                    Unit.ReadOnly = true;
+                    //PurchaseDate.ReadOnly = true;
+                    CurrentValue.ReadOnly = true;
+                    AbsoluteReturn.ReadOnly = true;
+                    AllocationPer.ReadOnly = true;
+                }
+                SubPlanName.ReadOnly = false;
+                e.Item.OwnerTableView.InsertItem();
+                //GridEditableItem insertedItem = rgULIPSubPlanSchedule.MasterTableView.GetInsertItem();                
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+                SubPlanName.ReadOnly = true;
+                InvestedCost.ReadOnly = false;
+                Unit.ReadOnly = false;
+                //PurchaseDate.ReadOnly = false;
+                CurrentValue.ReadOnly = false;
+                AbsoluteReturn.ReadOnly = true;
+                AllocationPer.ReadOnly = false;                
+            }
+
+            if (e.CommandName == RadGrid.PerformInsertCommandName) //"Add new" button clicked
+            {
+                try
+                {
+                    GridEditFormInsertItem insertedItem = (GridEditFormInsertItem)e.Item;
+                    string ulipSchemeFundName = (insertedItem["IF_FundName"].Controls[0] as TextBox).Text.Trim();
+
+                    if (ulipSchemeFundName != "")
+                    {
+                        if (ddlAssetPerticular.SelectedIndex != 0)
+                        {
+                            DataTable dt = (DataTable)Session["ULIPSubPlanSchedule"];
+                            DataRow dr;
+                            dr = dt.NewRow();
+                            dr["IF_FundName"] = ulipSchemeFundName;
+                            dr["CINPUD_InvestedCost"] = "0";
+                            dr["CINPUD_Unit"] = "0";
+                            dr["CINPUD_CurrentValue"] = "0";
+                            dr["CINPUD_AbsoluteReturn"] = "0";
+                            dr["CINPUD_AllocationPer"] = "0";
+                            dr["Flag"] = "UI";
+                            dt.Rows.Add(dr);
+
+                            Session["ULIPSubPlanSchedule"] = dt;
+                            rgULIPSubPlanSchedule.DataSource = dt;
+                            rgULIPSubPlanSchedule.DataBind();
+
+                            //insuranceBo.InsertULIPInsuranceSchemeFund(ulipSchemeFundName, int.Parse(ddlAssetPerticular.SelectedValue), ddlInsuranceIssuerCode.SelectedValue, userVo.UserId);
+                        }                        
+                        //else if ()
+                        //{
+                        //    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("Allocation Percentage must be 100% "));
+                        //    e.Canceled = true;
+                        //}
+                    }
+                }
+                catch (Exception ex)
+                {
+                    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("Unable to insert into Sub Plan. Reason: " + ex.Message));
+                    e.Canceled = true;
+                }
+            }
+            else if (e.CommandName == RadGrid.EditCommandName)
+            {
+            }
+            else if (e.CommandName == RadGrid.CancelCommandName)
+            {
+            }
+        }
+
+        protected void rgULIPSubPlanSchedule_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            if (Session["ULIPSubPlanSchedule"] != null)
+            this.rgULIPSubPlanSchedule.DataSource = Session["ULIPSubPlanSchedule"];
+        }
+
+        protected void rgULIPSubPlanSchedule_UpdateCommand(object source, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            GridEditableItem editedItem = e.Item as GridEditableItem;
+            //GridEditFormInsertItem insertedItem = (GridEditFormInsertItem)e.Item;             
+            
+            //InsuranceULIPVo insuranceULIPvo = new InsuranceULIPVo();
+            //insuranceULIPvo.CIUP_ULIPPlanId = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["ISF_SchemeFundId"].ToString());
+                //int.Parse(editedItem.OwnerTableView.DataKeyValues[editedItem.ItemIndex]["ISF_SchemeFundId"].ToString());
+
+            
+            double investedCost = double.Parse((editedItem["CINPUD_InvestedCost"].Controls[0] as TextBox).Text.Trim());
+            double currentValue = double.Parse((editedItem["CINPUD_CurrentValue"].Controls[0] as TextBox).Text.Trim());
+            double absoluteReturn = ((currentValue - investedCost) / investedCost)*100;
+            double allocationPer = Convert.ToDouble((editedItem["CINPUD_AllocationPer"].Controls[0] as TextBox).Text.Trim());
+            double unit = Convert.ToDouble((editedItem["CINPUD_Unit"].Controls[0] as TextBox).Text.Trim());
+
+            //insuranceULIPvo.CIUP_InvestedCost = investedCost;
+            //insuranceULIPvo.CIUP_CurrentValue = currentValue;
+            //insuranceULIPvo.CIUP_AbsoluteReturn = absoluteReturn;
+            //insuranceULIPvo.CIUP_AllocationPer = float.Parse((editedItem["CINPUD_AllocationPer"].Controls[0] as TextBox).Text.Trim());
+            //insuranceULIPvo.CIUP_Unit = float.Parse((editedItem["CINPUD_Unit"].Controls[0] as TextBox).Text.Trim());
+
+            DataTable dtUpdate = (DataTable)Session["ULIPSubPlanSchedule"];
+            DataRow drUpdate = dtUpdate.Rows[e.Item.ItemIndex];
+            drUpdate["CINPUD_InvestedCost"] = investedCost;
+            drUpdate["CINPUD_Unit"] = unit;
+            drUpdate["CINPUD_CurrentValue"] = currentValue;
+            drUpdate["CINPUD_AbsoluteReturn"] = absoluteReturn;
+            drUpdate["CINPUD_AllocationPer"] = allocationPer;
+            drUpdate["Flag"] = "UI";
+            dtUpdate.AcceptChanges();
+
+            Session["ULIPSubPlanSchedule"] = dtUpdate;
+            rgULIPSubPlanSchedule.DataSource = dtUpdate;
+            rgULIPSubPlanSchedule.DataBind();
+
+            //UpdateULIPSchemeFund = insuranceBo.UpdateULIPInsuranceSchemeFund(insuranceULIPvo);
+
+            //    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("<strong>Unable to update value</strong>" ));
+            //    e.Canceled = true; 
+            
+            //rgULIPSubPlanSchedule.MasterTableView.ClearEditItems();
+            //Session["SubmitAllocationSchedule"] = dt;
+
+            //try
+            //{
+            //    DataTable dt4 = new DataTable();
+            //    dt4 = (DataTable)Session["ULIPSubPlanSchedule"];
+            //    int subPlanCode = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["ISF_SchemeFundId"].ToString());                           
+            //    DataRow[] changedRows = dt.Select("ISF_SchemeFundId = " + subPlanCode + "");
+            //    changedRows[0][column.UniqueName] = editorValue;
+            //    dt.AcceptChanges();
+            //    rgULIPSubPlanSchedule.DataSource = dt;
+            //    Session["SubmitAllocationSchedule"] = dt;
+            //}
+            //catch (Exception ex)
+            //{
+            //    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("<strong>Unable to set value of column '" + column.UniqueName + "'</strong> - " + ex.Message));
+            //    e.Canceled = true;
+            //}            
+        }       
     }
 }

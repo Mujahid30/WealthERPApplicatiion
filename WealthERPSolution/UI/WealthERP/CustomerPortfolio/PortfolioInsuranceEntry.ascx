@@ -4,7 +4,6 @@
 <%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
-
 <script language="javascript" type="text/javascript">
     function CheckMaturityDate(sender, args) {
 
@@ -93,8 +92,33 @@
     }
 </script>
 
-<%--<asp:UpdatePanel ID="up1" runat="server">
-    <ContentTemplate>--%>
+<script type="text/javascript">
+    function DownloadScript() {
+        var btn = document.getElementById('<%= btnInsertNewScheme.ClientID %>');
+        btn.click();
+    }
+</script>
+
+<script type="text/javascript">
+    function CalculateMaturityDate() {
+        var Months = document.getElementById('<%=txtPolicyTerms.ClientID %>').value;
+        var dateStr = document.getElementById('<%=txtPolicyCommencementDate.ClientID %>').value;
+
+        dArr = dateStr.split("/");
+        var newDate = dArr[1] + "/" + dArr[0] + "/" + dArr[2];
+
+        var InitialDate = new Date(newDate);
+        var MaturityDate = new Date(InitialDate.setMonth(parseFloat(Months) + InitialDate.getMonth(), InitialDate.getDate()));
+
+        var MaturityDateStr = (MaturityDate.getMonth() + 1 + "/" + MaturityDate.getDate() + "/" + MaturityDate.getFullYear());
+
+        dArr = MaturityDateStr.split("/");
+        var newMaturityDate = dArr[1] + "/" + dArr[0] + "/" + dArr[2];
+
+        document.getElementById("<%= txtPolicyMaturity.ClientID %>").value = newMaturityDate;
+    }
+</script>   
+    
 <table style="width: 100%;">
     <tr>
         <td colspan="6">
@@ -139,6 +163,14 @@
         </td>
     </tr>
     <tr>
+        <td colspan="2" class="leftField">
+            <asp:Label ID="lblPolicyNumber" runat="server" CssClass="FieldName" Text="Policy Number:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
         <td colspan="6">
             &nbsp;
         </td>
@@ -162,36 +194,41 @@
     </tr>
     <tr>
         <td colspan="2" class="leftField">
-            <asp:Label ID="Label20" runat="server" CssClass="FieldName" Text="Policy Particulars:"></asp:Label>
-        </td>
-        <td colspan="4">
-            <asp:TextBox ID="txtName" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span1" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtName" ErrorMessage="Please enter the Policy Particulars"
-                Display="Dynamic" runat="server" CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="leftField">
-            <asp:Label ID="lblPolicyNumber" runat="server" CssClass="FieldName" Text="Policy Number:"></asp:Label>
-        </td>
-        <td colspan="4">
-            <asp:TextBox ID="txtPolicyNumber" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="leftField">
             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Policy Issuer:"></asp:Label>
         </td>
         <td colspan="4">
-            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField" Width="42%"
-                AutoPostBack="True" OnSelectedIndexChanged="ddlInsuranceIssuerCode_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlInsuranceIssuerCode" runat="server" CssClass="cmbField"
+                Width="42%" AutoPostBack="True" OnSelectedIndexChanged="ddlInsuranceIssuerCode_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvInsuranceIssuerCode" runat="server" ControlToValidate="ddlInsuranceIssuerCode"
                 ErrorMessage="Please select an Insurance Issuer" Operator="NotEqual" ValueToCompare="Select an Insurance Issuer"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgSubmit"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="leftField">
+            <asp:Label ID="Label20" runat="server" CssClass="FieldName" Text="Scheme Name:"></asp:Label>
+        </td>
+        <td colspan="4">
+            <%--<asp:TextBox ID="txtName" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span1" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtName" ErrorMessage="Please enter the Scheme Name"
+                Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>--%>
+            <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField" AutoPostBack="true" 
+            OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
+            </asp:DropDownList>
+            <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGMediumButton" Text="Add Scheme"
+                CausesValidation="false" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddScheme"
+                PopupControlID="Panel2" BackgroundCssClass="modalBackground" OnOkScript="DownloadScript()" y="150"
+                DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel" PopupDragHandleControlID="Panel2">
+            </cc1:ModalPopupExtender>
         </td>
     </tr>
     <tr>
@@ -224,11 +261,27 @@
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyCommencementDate" ControlToValidate="txtPolicyCommencementDate"
                 ErrorMessage="Please select a Policy Commencement Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                CssClass="rfvPCG" ValidationGroup="vgSubmit">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtPolicyCommencementDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="leftField">
+            <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term (Months):"></asp:Label>
+        </td>
+        <td colspan="4">
+            <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField" onchange="return CalculateMaturityDate();"></asp:TextBox>
+            <span id="Span12" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="rfvPolicyTerms" ControlToValidate="txtPolicyTerms"
+                ErrorMessage="Please select a Policy Terms" Display="Dynamic" runat="server"
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cvPolicyTerms" runat="server" ErrorMessage="Please enter intiger value"
+                Type="Integer" ControlToValidate="txtPolicyTerms" Operator="DataTypeCheck" CssClass="cvPCG"
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -237,7 +290,7 @@
         </td>
         <td colspan="4">
             <asp:TextBox ID="txtPolicyMaturity" runat="server" CssClass="txtField" OnTextChanged="txtPolicyMaturity_TextChanged"
-                AutoPostBack="true"></asp:TextBox>
+                Enabled="false" AutoPostBack="true"></asp:TextBox>
             <cc1:CalendarExtender ID="txtPolicyMaturity_CalendarExtender" runat="server" TargetControlID="txtPolicyMaturity"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckMaturityDate">
             </cc1:CalendarExtender>
@@ -247,11 +300,11 @@
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvPolicyMaturity" ControlToValidate="txtPolicyMaturity"
                 ErrorMessage="Please select a Policy Maturity Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtPolicyMaturity" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -263,11 +316,11 @@
             <span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvSumAssured" ControlToValidate="txtSumAssured"
                 ErrorMessage="Please enter the Sum Assured" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtSumAssured" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -283,7 +336,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtApplicationNumber" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -294,7 +347,7 @@
             <asp:TextBox ID="txtApplDate" runat="server" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="cvDepositDate1" runat="server" ErrorMessage="<br/>The application date should not be greater than current date."
                 Type="Date" ControlToValidate="txtApplDate" CssClass="cvPCG" Operator="LessThanEqual"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <cc1:CalendarExtender ID="txtApplDate_CalendarExtender" runat="server" TargetControlID="txtApplDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -307,7 +360,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator11" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtApplDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -335,7 +388,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator12" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtEPPremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblEPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
@@ -346,10 +399,9 @@
             <span id="Span9" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlEPPremiumFrequencyCode"
                 ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-  
     <tr id="trEPPremiumFirstLast" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="lblFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
@@ -366,11 +418,11 @@
             <span id="Span49" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvFirstPremiumDate" ControlToValidate="txtFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvFirstPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
@@ -387,11 +439,11 @@
             <span id="Span50" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvLastPremiumDate" ControlToValidate="txtLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvLastPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtLastPremiumDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trEPPremiumPeriod" runat="server">
@@ -407,19 +459,24 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator13" runat="server" ErrorMessage="Please enter a integer value"
                 Type="Double" ControlToValidate="txtEPPremiumDuration" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblEPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlEPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
-            <span id="Span11" class="spnRequiredField">*</span>
-            <span class="Apple-style-span" 
-                style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
-            <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlEPPrPayDate" Operator="NotEqual" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>       
+            <asp:DropDownList ID="ddlEPPrPayDate" runat="server" CssClass="txtField">
+            </asp:DropDownList>
+            <span id="Span11" class="spnRequiredField">*</span> <span class="Apple-style-span"
+                style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman';
+                font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal;
+                line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px;
+                text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px;
+                -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none;
+                -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium;">
+                <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="Please Select Premium Date"
+                    Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlEPPrPayDate"
+                    Operator="NotEqual" CssClass="cvPCG" Display="Dynamic" ValidationGroup="vgSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trEPGracePeriod" runat="server">
@@ -435,7 +492,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtEPGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trOTPremiumAmount" runat="server">
@@ -451,7 +508,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator48" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtOTpremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
@@ -462,10 +519,9 @@
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator49" runat="server" ControlToValidate="ddlOTPremiumFrequencyCode"
                 ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    
     <tr id="trOTPremiumFirstLast" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
@@ -482,11 +538,11 @@
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtOTFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator50" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtOTFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
@@ -503,11 +559,11 @@
             <span id="Span8" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtOTLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator51" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
-                Type="Date" ControlToValidate="txtOTLastPremiumDate" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                Type="Date" ControlToValidate="txtOTLastPremiumDate" Operator="DataTypeCheck"
+                CssClass="cvPCG" ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trOTPremiumPeriod" runat="server">
@@ -523,22 +579,25 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator52" runat="server" ErrorMessage="Please enter a integer value"
                 Type="Double" ControlToValidate="txtOTPremiumDuration" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOTPrPayDate" runat="server" CssClass="cmbField"></asp:DropDownList>
-            <span id="Span10" class="spnRequiredField">*</span>
-            <span class="Apple-style-span" 
-                style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman'; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium; ">
-          
-         
-          <asp:CompareValidator ID="cmpddlOTPrPayDate" runat="server" ErrorMessage="Please Select Premium Date"
-            Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlOTPrPayDate" Operator="NotEqual" CssClass="cvPCG"
-            Display="Dynamic"></asp:CompareValidator>
-  <%--<asp:RequiredFieldValidator id="Requiredfieldvalidator3" Runat="server" CssClass="cvPCG" ControlToValidate="ddlOTPrPayDate" ErrorMessage="Please Select Premium Date" ValidationExpression=???????></asp:RequiredFieldValidator> --%>          
+            <asp:DropDownList ID="ddlOTPrPayDate" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span10" class="spnRequiredField">*</span> <span class="Apple-style-span"
+                style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman';
+                font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal;
+                line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px;
+                text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px;
+                -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none;
+                -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium;">
+                <asp:CompareValidator ID="cmpddlOTPrPayDate" runat="server" ErrorMessage="Please Select Premium Date"
+                    ValidationGroup="vgSubmit" Type="String" ValueToCompare="Select Premium Date"
+                    ControlToValidate="ddlOTPrPayDate" Operator="NotEqual" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                <%--<asp:RequiredFieldValidator id="Requiredfieldvalidator3" Runat="server" CssClass="cvPCG" ControlToValidate="ddlOTPrPayDate" ErrorMessage="Please Select Premium Date" ValidationExpression=???????></asp:RequiredFieldValidator> --%>
         </td>
     </tr>
     <tr id="trOTGracePeriod" runat="server">
@@ -554,11 +613,9 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator54" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtOTGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-    
-    
     <tr id="trWLPPremiumAmount" runat="server">
         <td colspan="2" class="leftField">
             <asp:Label ID="lblWLPPremiumAmount" runat="server" CssClass="FieldName" Text="Premium Installment Amount:"></asp:Label>
@@ -572,7 +629,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator16" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWLPPremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td colspan="2" class="leftField">
             <asp:Label ID="lblWLPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
@@ -582,8 +639,8 @@
             </asp:DropDownList>
             <span id="Span14" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlWLPPremiumFrequencyCode"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ErrorMessage="Please select a Premium Cycle" Operator="NotEqual"
+                ValueToCompare="Select a Frequency Code" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trWLPPremiumFirstLast" runat="server">
@@ -602,11 +659,11 @@
             <span id="Span51" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvWLPFirstPremiumDate" ControlToValidate="txtWLPFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvWLPFirstPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtWLPFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblWLPLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
@@ -623,11 +680,11 @@
             <span id="Span52" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvWLPLastPremiumDate" ControlToValidate="txtWLPLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvWLPLastPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtWLPLastPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trWLPPremiumPeriod" runat="server">
@@ -643,18 +700,18 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator17" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWLPPremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblWLPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlWLPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
+            <asp:DropDownList ID="ddlWLPPrPayDate" runat="server" CssClass="txtField">
+            </asp:DropDownList>
             <span id="Span16" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator18" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlWLPPrPayDate" Operator="NotEqual" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
-
+                ValidationGroup="vgSubmit" Type="String" ValueToCompare="Select Premium Date"
+                ControlToValidate="ddlWLPPrPayDate" Operator="NotEqual" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trWLPGracePeriod" runat="server">
@@ -670,7 +727,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator19" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtWLPGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPPremiumAmount" runat="server">
@@ -686,7 +743,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator20" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPPremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblMPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
@@ -696,8 +753,8 @@
             </asp:DropDownList>
             <span id="Span19" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMPPremiumFrequencyCode"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ErrorMessage="Please select a Premium Cycle" Operator="NotEqual"
+                ValueToCompare="Select a Frequency Code" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPPremiumFirstLast" runat="server">
@@ -716,11 +773,11 @@
             <span id="Span53" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvMPFirstPremiumDate" ControlToValidate="txtMPFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvMPFirstPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtMPFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblMPLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
@@ -737,11 +794,11 @@
             <span id="Span54" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvMPLastPremiumDate" ControlToValidate="txtMPLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvMPLastPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtMPLastPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPPeriod" runat="server">
@@ -757,21 +814,22 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator21" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPPremiumDuration" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblMPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlMPPrPayDate" runat="server" CssClass="cmbField"></asp:DropDownList>
+            <asp:DropDownList ID="ddlMPPrPayDate" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
             <span id="Span21" class="spnRequiredField">*</span>
-          <%--  <asp:RequiredFieldValidator ID="rfvMPPrPayDate" ControlToValidate="ddlMPPrPayDate" 
+            <%--  <asp:RequiredFieldValidator ID="rfvMPPrPayDate" ControlToValidate="ddlMPPrPayDate" 
                 ErrorMessage="Please Enter Premium Payment Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator22" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ControlToValidate="ddlMPPrPayDate" ValueToCompare="Select Premium Date" Operator= "NotEqual" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Type="String" ControlToValidate="ddlMPPrPayDate" ValueToCompare="Select Premium Date"
+                Operator="NotEqual" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPGracePeriod" runat="server">
@@ -787,14 +845,14 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator23" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtMPGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr runat="server" id="trUlipPremiumAmount">
-    <td class="leftField" colspan="2">
+        <td class="leftField" colspan="2">
             <asp:Label ID="lblUlipPremiumInstAmt" runat="server" CssClass="FieldName" Text="Premium Installment Amount:"></asp:Label>
         </td>
-         <td>
+        <td>
             <asp:TextBox ID="txtUlipPremiumInstAmt" runat="server" CssClass="txtField"></asp:TextBox>
             <%--<span id="Span25" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvULIPGracePeriod" ControlToValidate="txtULIPGracePeriod"
@@ -803,10 +861,9 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator53" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtUlipPremiumInstAmt" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
-        
-         <td class="leftField" colspan="2">
+        <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
@@ -814,8 +871,8 @@
             </asp:DropDownList>
             <span id="Span23" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlULIPPremiumFrequencyCode"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ErrorMessage="Please select a Premium Cycle" Operator="NotEqual"
+                ValueToCompare="Select a Frequency Code" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trULIPPremiumFirstLast" runat="server">
@@ -823,7 +880,8 @@
             <asp:Label ID="lblULIPFirstPremiumDate" runat="server" CssClass="FieldName" Text="First Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtULIPFirstPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField" OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="txtULIPFirstPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField"
+                OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="ceULIPFirstPremiumDate" runat="server" TargetControlID="txtULIPFirstPremiumDate"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
@@ -833,17 +891,18 @@
             <span id="Span55" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvULIPFirstPremiumDate" ControlToValidate="txtULIPFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvULIPFirstPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtULIPFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtULIPLastPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField" OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="txtULIPLastPremiumDate" runat="server" AutoPostBack="true" CssClass="txtField"
+                OnTextChanged="txtULIPFirstPremiumDate_TextChanged"></asp:TextBox>
             <cc1:CalendarExtender ID="ceULIPLastPremiumDate" runat="server" TargetControlID="txtULIPLastPremiumDate"
                 Format="dd/MM/yyyy" OnClientDateSelectionChanged="CheckLastPremiumDate">
             </cc1:CalendarExtender>
@@ -853,16 +912,15 @@
             <span id="Span56" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvULIPLastPremiumDate" ControlToValidate="txtULIPLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvULIPLastPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtULIPLastPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trULIPPremiumCycle" runat="server">
-       
-         <td class="leftField" colspan="2">
+        <td class="leftField" colspan="2">
             <asp:Label ID="lblUlipPremiuimPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
         </td>
         <td>
@@ -874,20 +932,18 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator59" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtUlipPremiuimPeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
-       
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlULIPPrPayDate" runat="server" CssClass="txtField"></asp:DropDownList>
+            <asp:DropDownList ID="ddlULIPPrPayDate" runat="server" CssClass="txtField">
+            </asp:DropDownList>
             <span id="Span24" class="spnRequiredField">*</span>
-
             <asp:CompareValidator ID="CompareValidator24" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ControlToValidate="ddlULIPPrPayDate" Operator="NotEqual" ValueToCompare="Select Premium Date"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
-
+                ValidationGroup="vgSubmit" Type="String" ControlToValidate="ddlULIPPrPayDate"
+                Operator="NotEqual" ValueToCompare="Select Premium Date" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trULIPGracePeriod" runat="server">
@@ -903,7 +959,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator25" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtULIPGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trTPPremiumAmount" runat="server">
@@ -919,7 +975,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator26" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtTPPremiumAmount" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblTPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
@@ -929,8 +985,8 @@
             </asp:DropDownList>
             <span id="Span27" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlTPPremiumFrequencyCode"
-                ErrorMessage="Please select a Premium Cycle" Operator="NotEqual" ValueToCompare="Select a Frequency Code"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ErrorMessage="Please select a Premium Cycle" Operator="NotEqual"
+                ValueToCompare="Select a Frequency Code" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trTPPremiumFirstLast" runat="server">
@@ -949,11 +1005,11 @@
             <span id="Span57" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvTPFirstPremiumDate" ControlToValidate="txtTPFirstPremiumDate"
                 ErrorMessage="Please enter the First Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvTPFirstPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtTPFirstPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblTPLastPremiumDate" runat="server" CssClass="FieldName" Text="Last Premium Date:"></asp:Label>
@@ -970,11 +1026,11 @@
             <span id="Span58" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvTPLastPremiumDate" ControlToValidate="txtTPLastPremiumDate"
                 ErrorMessage="Please enter the Last Premium Date" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="cvTPLastPremiumDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
                 Type="Date" ControlToValidate="txtTPLastPremiumDate" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trTPPremiumPeriod" runat="server">
@@ -990,22 +1046,23 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator27" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Double" ControlToValidate="txtTPPremiumDuration" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblTPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlTPPrPayDate" runat="server" CssClass="cmbField"></asp:DropDownList>
+            <asp:DropDownList ID="ddlTPPrPayDate" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
             <span id="Span29" class="spnRequiredField">*</span>
-           <%-- <asp:RequiredFieldValidator ID="rfvTPPrPayDate" ControlToValidate="ddlTPPrPayDate"
+            <%-- <asp:RequiredFieldValidator ID="rfvTPPrPayDate" ControlToValidate="ddlTPPrPayDate"
                 ErrorMessage="Please Enter Premium Payment Date" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator28" runat="server" ErrorMessage="Please Select Premium Date"
-                Type="String" ValueToCompare="Select Premium Date" ControlToValidate="ddlTPPrPayDate" Operator= "NotEqual" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
-           <%-- <asp:CompareValidator ID="cvRange5" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
+                ValidationGroup="vgSubmit" Type="String" ValueToCompare="Select Premium Date"
+                ControlToValidate="ddlTPPrPayDate" Operator="NotEqual" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+            <%-- <asp:CompareValidator ID="cvRange5" runat="server" ErrorMessage="Premium Payment Date has to be less than or equal to 31"
                 Type="Integer" ControlToValidate="ddlTPPrPayDate" Operator="LessThanEqual" ValueToCompare="31"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
@@ -1023,7 +1080,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator29" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtTPGracePeriod" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trTPPremiumAccumn" runat="server">
@@ -1039,7 +1096,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator30" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtTPPremiumAccum" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPHeader" runat="server">
@@ -1057,11 +1114,11 @@
             <span id="Span32" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvMPPolicyTerm" ControlToValidate="txtMPPolicyTerm"
                 ErrorMessage="Please enter the Policy Term" Display="Dynamic" runat="server"
-                CssClass="rfvPCG">
+                ValidationGroup="vgSubmit" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator31" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Double" ControlToValidate="txtMPPolicyTerm" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="Label31" runat="server" CssClass="FieldName" Text="No. of Moneyback episodes:"></asp:Label>
@@ -1071,7 +1128,7 @@
                 OnTextChanged="txtMoneyBackEpisode_TextChanged"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator32" runat="server" ErrorMessage="Please enter an integer value"
                 Type="Integer" ControlToValidate="txtMoneyBackEpisode" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPDetails" runat="server" visible="false">
@@ -1105,7 +1162,7 @@
             <hr />
         </td>
     </tr>
-    <tr id="trULIPSchemeBasket" runat="server">
+    <%--<tr id="trULIPSchemeBasket" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="Label33" runat="server" CssClass="FieldName" Text="Scheme Basket:"></asp:Label>
         </td>
@@ -1115,27 +1172,109 @@
             </asp:DropDownList>
             <span id="Span33" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlUlipPlans"
-                ErrorMessage="Please select Scheme Basket" Operator="NotEqual" ValueToCompare="Select a ULIP Plan"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" ErrorMessage="Please select Scheme Basket" Operator="NotEqual"
+                ValueToCompare="Select a ULIP Plan" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+            <asp:Button ID="btnAddPlanToULIP" runat="server" CssClass="PCGMediumButton" Text="Add ULIP Plan"
+                CausesValidation="false" />
         </td>
     </tr>
-    <tr id="trULIPAllocation" runat="server">
-        <td align="left" style="width: 165px;">
+    <tr>
+        <td colspan="6">
+            <cc1:ModalPopupExtender ID="MPforULIP" runat="server" TargetControlID="btnAddPlanToULIP"
+                PopupControlID="pnlforULIP" BackgroundCssClass="modalBackground" OnOkScript="btnInsertNewSchemeULIPClick()"
+                DropShadow="true" OkControlID="btnOkULIP" CancelControlID="btnCancelULIP" PopupDragHandleControlID="pnlforULIP">
+            </cc1:ModalPopupExtender>
+        </td>
+    </tr>--%>
+    <%--<tr id="trULIPAllocation" runat="server">
+        <td align="left" style="width: 12%;">
             <asp:Label ID="lblULIPSubPlan" runat="server" CssClass="FieldName" Text="Sub-Plan Code"></asp:Label>
         </td>
-        <td align="left" style="width: 165px;">
-            <asp:Label ID="lblULIPUnits" runat="server" CssClass="FieldName" Text="Units"></asp:Label>
+        <td align="left" style="width: 12;">
+            <asp:Label ID="lblInvestedCost" runat="server" CssClass="FieldName" Text="Invested Cost"></asp:Label>
         </td>
-        <td align="left" style="width: 165px;">
+        <td align="left" style="width: 12;">
+            <asp:Label ID="lblULIPUnits" runat="server" CssClass="FieldName" Text="Current Units"></asp:Label>
+        </td>
+        <td align="left" style="width: 12%;">
             <asp:Label ID="lblULIPPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Price"></asp:Label>
         </td>
-        <td align="left" style="width: 165px;">
+        <td align="left" style="width: 12%;">
             <asp:Label ID="lblULIPPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date"></asp:Label>
         </td>
-        <td align="left" colspan="2">
+        <td align="left" style="width: 12%;">
+            <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value"></asp:Label>
+        </td>
+        <td align="left" style="width: 12%;">
+            <asp:Label ID="lblAbsoluteReturn" runat="server" CssClass="FieldName" Text="Absolute Return"></asp:Label>
+        </td>
+        <td align="left" style="width: 16%;">
             <asp:Label ID="lblULIPAllocation" runat="server" CssClass="FieldName" Text="Allocation Percentage"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
+    <asp:Panel ID="pnlGridView" runat="server">
+        <tr id="trULIPAllocation" runat="server">
+            <td align="left" colspan="6">
+                <telerik:RadGrid ID="rgULIPSubPlanSchedule" runat="server" Skin="Telerik" CssClass="RadGrid" 
+                    GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="False" AutoGenerateColumns="False"
+                    ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="true"
+                    AllowAutomaticUpdates="true" OnItemCommand="rgULIPSubPlanSchedule_ItemCommand"
+                    OnNeedDataSource="rgULIPSubPlanSchedule_NeedDataSource" OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand"
+                    HorizontalAlign="NotSet" DataKeyNames="ISF_SchemeFundId" Width="100%">
+                    <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" CssClass="TableBackground"
+                        TableLayout="Fixed" Width="100%">
+                        <CommandItemSettings ShowRefreshButton="false"/>
+                        <Columns>
+                            <telerik:GridEditCommandColumn HeaderText="Edit" UniqueName="EditCommandColumn">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridEditCommandColumn>
+                            <telerik:GridBoundColumn UniqueName="IF_FundName" HeaderText="Sub Plan Name"
+                                DataField="IF_FundName">
+                                <HeaderStyle Width="20%" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="CINPUD_InvestedCost" HeaderText="Funds Allocated"
+                                DataField="CINPUD_InvestedCost">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="CINPUD_Unit" HeaderText="Unit" DataField="CINPUD_Unit">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn UniqueName="CIUP_PurchaseDate" HeaderText="Purchase Date" DataField="CIUP_PurchaseDate">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn>--%>
+                            <%--<telerik:GridDateTimeColumn UniqueName="CINPUD_PurchaseDate" SortExpression="CINPUD_PurchaseDate"
+                                HeaderText="Purchase Date" DataField="CINPUD_PurchaseDate" DataFormatString="{0:d}" />--%>
+                            <telerik:GridBoundColumn UniqueName="CINPUD_CurrentValue" HeaderText="Current Value"
+                                DataField="CINPUD_CurrentValue">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn UniqueName="CIUP_AbsoluteReturn" HeaderText="Absolute Return" DataField="CIUP_AbsoluteReturn">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn>--%>
+                            <telerik:GridBoundColumn HeaderText="Absolute Return" UniqueName="CINPUD_AbsoluteReturn"
+                                DataField="CINPUD_AbsoluteReturn">
+                                <HeaderStyle Width="10%" />
+                            </telerik:GridBoundColumn> 
+                            <telerik:GridBoundColumn UniqueName="CINPUD_AllocationPer" HeaderText="Allocation Percentage"
+                                DataField="CINPUD_AllocationPer">
+                            </telerik:GridBoundColumn>
+                            <%--<telerik:GridBoundColumn UniqueName="Equity" HeaderText="Equity" DataField="Equity"
+                                Display="false">
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="Debt" HeaderText="Debt" DataField="Debt" Display="false">
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="Cash" HeaderText="Cash" DataField="Cash" Display="false">
+                            </telerik:GridBoundColumn>--%>
+                            <%--<telerik:GridBoundColumn UniqueName="WUSP_ULIPSubPlanCode" HeaderText="SubPlanCode" DataField="WUSP_ULIPSubPlanCode" Display="false">
+                            </telerik:GridBoundColumn>--%>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </asp:Panel>
     <asp:Panel ID="pnlUlip" runat="server" Visible="false">
         <tr>
             <td align="left" colspan="6">
@@ -1146,6 +1285,46 @@
     <tr id="trULIPError" runat="server">
         <td align="center" colspan="6">
             <asp:Label ID="lblError" runat="server" CssClass="FieldName" Text="Label"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <asp:Label ID="lblNomineeDetails" runat="server" CssClass="HeaderTextSmall" Text="Nominee Details"></asp:Label>
+            <hr />
+        </td>
+    </tr>
+    <tr id="trNominees" runat="server">
+        <td colspan="4">
+            <asp:GridView ID="gvNominee" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
+                CssClass="GridViewStyle">
+                <FooterStyle CssClass="FooterStyle" />
+                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+                <RowStyle CssClass="RowStyle" />
+                <Columns>
+                    <asp:TemplateField HeaderText="Select">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkId0" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderText="Name" DataField="Name" />
+                    <asp:BoundField HeaderText="Relationship" DataField="Relationship" />
+                </Columns>
+                <FooterStyle CssClass="FooterStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+            </asp:GridView>
+        </td>
+    </tr>
+    <tr id="trNoNominee" runat="server" visible="false">
+        <td class="Message" colspan="2">
+            <asp:Label ID="lblNoNominee" runat="server" Text="You have no Associations" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr id="trValuationHeader" runat="server">
@@ -1167,7 +1346,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator33" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtEPPremiumAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblBonus" runat="server" CssClass="FieldName" Text="Bonus Accumulated:"></asp:Label>
@@ -1181,7 +1360,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator34" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtEPBonusAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trEPSurrenderValue" runat="server">
@@ -1197,7 +1376,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator35" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtEPSurrenderValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblEPMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
@@ -1211,10 +1390,10 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator36" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtEPMaturityValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
-      <tr id="trOTBonus" runat="server">
+    <tr id="trOTBonus" runat="server">
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTBonus" runat="server" CssClass="FieldName" Text="Premium Accumulated:"></asp:Label>
         </td>
@@ -1227,7 +1406,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator55" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtOTPremiumAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTPBonus" runat="server" CssClass="FieldName" Text="Bonus Accumulated:"></asp:Label>
@@ -1241,7 +1420,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator56" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtOTBonusAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trOTSurrenderValue" runat="server">
@@ -1257,7 +1436,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator57" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtOTSurrenderValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblOTMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
@@ -1271,7 +1450,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator58" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtOTMaturityValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPBonus" runat="server">
@@ -1287,7 +1466,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator37" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPPremiumAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="Label14" runat="server" CssClass="FieldName" Text="Bonus Accumulated:"></asp:Label>
@@ -1301,7 +1480,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator38" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPBonusAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trMPSurrenderValue" runat="server">
@@ -1317,7 +1496,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator39" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPSurrenderValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblMPMaturityValue" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
@@ -1331,7 +1510,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator40" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtMPMaturityValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trULIPSurrenderValue" runat="server">
@@ -1347,7 +1526,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator41" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtULIPSurrenderValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="lblULIPMaturityValue" runat="server" CssClass="FieldName" Text="Bonus Accumulated:"></asp:Label>
@@ -1361,7 +1540,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator42" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtULIPMaturityValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trULIPCharges" runat="server">
@@ -1376,7 +1555,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator43" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtULIPCharges" Operator="DataTypeCheck" CssClass="cvPCG"
-                Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trWPBonus" runat="server">
@@ -1392,7 +1571,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator44" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWPPremiumAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="Label38" runat="server" CssClass="FieldName" Text="Bonus Accumulated:"></asp:Label>
@@ -1406,7 +1585,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator45" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWPBonusAccumulated" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trWPSurrenderValue" runat="server">
@@ -1422,7 +1601,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator46" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWPSurrenderValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftField" colspan="2">
             <asp:Label ID="Label40" runat="server" CssClass="FieldName" Text="Maturity Value:"></asp:Label>
@@ -1436,7 +1615,7 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator47" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtWPMaturityValue" Operator="DataTypeCheck"
-                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                ValidationGroup="vgSubmit" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trEPRemarks" runat="server">
@@ -1498,7 +1677,7 @@
     <tr id="trSubmitButton" runat="server">
         <td colspan="6" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click"
-                CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioInsuranceEntry_btnSubmit', 'S');"
+                ValidationGroup="vgSubmit" CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioInsuranceEntry_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioInsuranceEntry_btnSubmit', 'S');" />
         </td>
     </tr>
@@ -1510,5 +1689,86 @@
         </td>
     </tr>
 </table>
-<%--</ContentTemplate>
-</asp:UpdatePanel>--%>
+
+<asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100%">
+    <asp:UpdatePanel ID="udpSchemeName" runat="Server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <table width="100%">
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtAsset" ErrorMessage="Please enter the Scheme Name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" CausesValidation="false"
+                            ValidationGroup="vgOK" />
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
+                    </td>
+                </tr>
+            </table>
+            <asp:Button ID="btnInsertNewScheme" runat="server" Text="Scheme" Style="display: none"
+                OnClick="btnInsertNewScheme_Click" CausesValidation="false" />
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnOk" EventName="Click" />
+        </Triggers>
+    </asp:UpdatePanel>
+</asp:Panel>
+
+<%--<asp:Panel ID="pnlforULIP" runat="server" CssClass="ExortPanelpopup" Width="100%"
+    Height="85%">
+    <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <table width="100%">
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblNewSchemeBasket" runat="server" CssClass="FieldName" Text="Issuar Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:Label ID="lblNewPlanName" runat="server" CssClass="FieldName" Text=""></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField">
+                        <asp:Label ID="lblSchemeName" runat="server" CssClass="FieldName" Text="Plan Name:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <asp:TextBox ID="txtULIPSchemeName" runat="server" CssClass="txtField"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnOkULIP" runat="server" Text="Submit" CssClass="PCGButton" CausesValidation="false"
+                            ValidationGroup="vgOkULIP" />
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Button ID="btnCancelULIP" runat="server" Text="Cancel" CssClass="PCGButton" />
+                    </td>
+                </tr>
+                <asp:Button ID="btnInsertNewPlanULIP" runat="server" Text="Scheme" Style="display: none"
+                    CausesValidation="false" OnClick="btnInsertNewPlanULIP_Click" />
+            </table>
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnOkULIP" EventName="Click" />
+        </Triggers>
+    </asp:UpdatePanel>
+</asp:Panel>--%>
