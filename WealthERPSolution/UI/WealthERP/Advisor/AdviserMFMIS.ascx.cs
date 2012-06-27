@@ -367,7 +367,7 @@ namespace WealthERP.Advisor
 
 
             /* For BM Branch wise MIS */
-            if (userType == "adviser")
+            if (userType == "adviser" || userType == "ops")
             {
                 //dsMfMIS = adviserMFMIS.GetMFMISAdviser(advisorVo.advisorId, branchId, rmId, convertedFromDate, convertedToDate);
                 //if (dsMfMIS.Tables[0].Rows.Count > 0)
