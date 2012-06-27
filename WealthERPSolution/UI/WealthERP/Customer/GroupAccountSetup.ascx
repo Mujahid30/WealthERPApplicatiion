@@ -83,7 +83,7 @@
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="txtParentCustomer_autoCompleteExtender" runat="server"
                 TargetControlID="txtParentCustomer" ServiceMethod="GetParentCustomers" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="2" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetParentCustomerId" />
@@ -129,7 +129,7 @@
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender runat="server" ID="txtMemberCustomer_AutoCompleteExtender"
                 TargetControlID="txtMemberCustomer" ServiceMethod="GetMemberCustomerNamesForGrouping" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="2" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetMemberCustomerId" />
