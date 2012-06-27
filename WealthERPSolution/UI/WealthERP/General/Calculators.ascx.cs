@@ -356,23 +356,36 @@ namespace WealthERP.General
 
         protected void txtStartDate_OnTextChanged(object sender, EventArgs e)
         {  
-            int noOfYears = 0;
-            int noOfMonths = 0;
 
-            DateTime startDate = DateTime.Parse(txtStartDate.Text);
-
-            if (txtTenureYears.Text != string.Empty)
-                noOfYears = int.Parse(txtTenureYears.Text);
+            string regExp="^[0-9]+(\\.[0-9]+)+$";
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtTenureYears.Text, regExp))
+            {
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid year');", true);
+            }
+            else if (System.Text.RegularExpressions.Regex.IsMatch(txtTenureMonths.Text, regExp))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid month');", true);
+            }
             else
-                noOfYears = 0;
-            if (txtTenureMonths.Text != string.Empty)
+            {
+                int noOfYears = 0;
+                int noOfMonths = 0;
 
-                noOfMonths = int.Parse(txtTenureMonths.Text);
-            else
-                noOfMonths = 0;
+                DateTime startDate = DateTime.Parse(txtStartDate.Text);
 
-            txtEndDate.Text = getInstallmentEndDate(noOfYears, noOfMonths, startDate).ToShortDateString();
-            txtEndDate.Enabled = false;
+                if (txtTenureYears.Text != string.Empty)
+                    noOfYears = int.Parse(txtTenureYears.Text);
+                else
+                    noOfYears = 0;
+                if (txtTenureMonths.Text != string.Empty)
+
+                    noOfMonths = int.Parse(txtTenureMonths.Text);
+                else
+                    noOfMonths = 0;
+
+                txtEndDate.Text = getInstallmentEndDate(noOfYears, noOfMonths, startDate).ToShortDateString();
+                txtEndDate.Enabled = false;
+            }
         }
 
 

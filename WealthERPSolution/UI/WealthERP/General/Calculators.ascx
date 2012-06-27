@@ -14,6 +14,22 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 
+<script type="text/javascript">
+function CheckDecimal(inputtxt)
+{
+ var numbers =/^[0-9]+(\.[0-9]+)+$/;
+ if((inputtxt.value.match(numbers))) 
+  {
+   return true;
+  }
+ else
+  {
+  alert("Please enter a non decimal number"); 
+  return false; 
+  }
+}
+</script>
+
 <script id="myScript" language="javascript" type="text/javascript">
     function OnChanged(sender, args) {
 
@@ -102,9 +118,14 @@
                                     <asp:Label ID="lblLOanAmount" runat="server" Text="Loan Amount:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtLoanAmount" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" CssClass="FieldName"
-                                        ControlToValidate="txtLoanAmount" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <asp:TextBox ID="txtLoanAmount" runat="server" Width="120px" CssClass="Field" ValidationGroup="vgBtnCalculateEMI"></asp:TextBox>
+                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator3"
+                                        runat="server" CssClass="FieldName" ControlToValidate="txtLoanAmount" ValidationGroup="vgBtnCalculateEMI"
+                                        ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator1" runat="server"
+                                        CssClass="FieldName" ControlToValidate="txtLoanAmount" ErrorMessage="Please Enter Amount"
+                                        ValidationGroup="vgBtnCalculateEMI">
+                                    </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -112,25 +133,27 @@
                                     <asp:Label ID="lblTenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left" class="style1">
-                                    <asp:TextBox ID="txtTenureYears" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox ID="txtTenureYears" runat="server" Width="120px" CssClass="Field" ValidationGroup="vgBtnCalculateEMI"></asp:TextBox>
                                     <cc1:TextBoxWatermarkExtender ID="txtTenureYears_TextBoxWatermarkExtender" runat="server"
                                         TargetControlID="txtTenureYears" WatermarkText="Years" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <asp:TextBox ID="txtTenureMonths" Width="120px" runat="server" CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox ValidationGroup="vgBtnCalculateEMI" ID="txtTenureMonths" Width="120px"
+                                        runat="server" CssClass="Field"></asp:TextBox>
                                     <cc1:TextBoxWatermarkExtender ID="txtTenureMonths_TextBoxWatermarkExtender" runat="server"
                                         TargetControlID="txtTenureMonths" WatermarkText="Months" Enabled="True">
                                     </cc1:TextBoxWatermarkExtender>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator21" runat="server"
-                                        CssClass="FieldName" ControlToValidate="txtTenureYears" ErrorMessage="Please Enter Numeric Value"
+                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator21"
+                                        runat="server" CssClass="FieldName" ControlToValidate="txtTenureYears" ErrorMessage="Please Enter Numeric Value"
                                         ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator20" runat="server"
-                                        CssClass="FieldName" ControlToValidate="txtTenureMonths" ErrorMessage="" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator20"
+                                        runat="server" CssClass="FieldName" ControlToValidate="txtTenureMonths" ErrorMessage=""
+                                        ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
                                     <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator13"
                                         runat="server" ControlToValidate="txtTenureYears" ErrorMessage="Please Enter Valid Year"
-                                        ValidationExpression="^\d+$" CssClass="rfvPCG"></asp:RegularExpressionValidator>
+                                        ValidationExpression="^\d+$" CssClass="FieldName"></asp:RegularExpressionValidator>
                                     <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator14"
                                         runat="server" ControlToValidate="txtTenureMonths" ErrorMessage="Please Enter Valid Month"
-                                        ValidationExpression="^\d+$" CssClass="rfvPCG"></asp:RegularExpressionValidator>
+                                        ValidationExpression="^\d+$" CssClass="FieldName"></asp:RegularExpressionValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -138,10 +161,15 @@
                                     <asp:Label ID="lblInterestRate" runat="server" Text="Interest Rate(%) p.a:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ID="txtInterest" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:TextBox ID="txtInterest" runat="server" Width="120px" CssClass="Field" ValidationGroup="vgBtnCalculateEMI"></asp:TextBox>
                                     <%--<span id="Span2" class="spnRequiredField">*</span>--%>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" runat="server" CssClass="FieldName"
-                                        ControlToValidate="txtInterest" ErrorMessage="Please Enter Numeric Value" ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator8"
+                                        runat="server" CssClass="FieldName" ControlToValidate="txtInterest" ErrorMessage="Please Enter Numeric Value"
+                                        ValidationExpression="\d+\.?\d*"></asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator2" runat="server"
+                                        CssClass="FieldName" ControlToValidate="txtInterest" ErrorMessage="Please Enter Interest"
+                                        ValidationGroup="vgBtnCalculateEMI">
+                                    </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -150,7 +178,9 @@
                                         CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:DropDownList ID="ddlFrequency" runat="server" Width="125px" CssClass="cmbField">
+                                    <asp:DropDownList ValidationGroup="vgBtnCalculateEMI" ID="ddlFrequency" runat="server"
+                                        Width="125px" CssClass="cmbField">
+                                        <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                                         <asp:ListItem Text="Daily" Value="DA"></asp:ListItem>
                                         <asp:ListItem Text="Weekly" Value="WK"></asp:ListItem>
                                         <asp:ListItem Text="FortNightly" Value="FN"></asp:ListItem>
@@ -159,6 +189,10 @@
                                         <asp:ListItem Text="Half Yearly" Value="HY"></asp:ListItem>
                                         <asp:ListItem Text="Yearly" Value="YR"></asp:ListItem>
                                     </asp:DropDownList>
+                                    <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidator3" runat="server"
+                                        CssClass="FieldName" ControlToValidate="ddlFrequency" ErrorMessage="Please Select frequency"
+                                        ValidationGroup="vgBtnCalculateEMI" InitialValue="0">
+                                    </asp:RequiredFieldValidator>
                                 </td>
                             </tr>
                             <tr>
@@ -166,9 +200,9 @@
                                     <asp:Label ID="lblStartDate" runat="server" Text="Installment Start Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox AutoPostBack="true" OnTextChanged="txtStartDate_OnTextChanged" ID="txtStartDate"
+                                    <asp:TextBox ValidationGroup="vgBtnCalculateEMI"  AutoPostBack="true" OnTextChanged="txtStartDate_OnTextChanged" ID="txtStartDate"
                                         runat="server" Width="120px" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" CssClass="FieldName"
+                                    <asp:RegularExpressionValidator ValidationGroup="vgBtnCalculateEMI" ID="RegularExpressionValidator1" runat="server" CssClass="FieldName"
                                         ErrorMessage="Invalid Date" ControlToValidate="txtStartDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
                                         Format="dd/MM/yyyy" Enabled="True">
@@ -202,7 +236,7 @@
                             <tr>
                                 <td colspan="2">
                                     <asp:Button ID="btnCalculateEMI" runat="server" CssClass="PCGButton" OnClick="btnCalculateEMI_Click"
-                                        Text="Calculate" />
+                                        Text="Calculate" ValidationGroup="vgBtnCalculateEMI" />
                                 </td>
                                 <td align="left">
                                     &nbsp;
