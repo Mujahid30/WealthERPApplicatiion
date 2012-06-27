@@ -221,7 +221,7 @@ namespace WealthERP.CustomerPortfolio
             int rmID = 0;
             int AdviserId = 0;
 
-            if (userType == "advisor")
+            if (userType == "advisor" || userType == "ops")
                 AdviserId = advisorVo.advisorId;
             else
                 rmID = rmVo.RMId;
