@@ -22,6 +22,8 @@ namespace VoCustomerPortfolio
         private double m_CIUP_InvestedCost;
         private double m_CIUP_CurrentValue;
         private double m_CIUP_AbsoluteReturn;
+        private string m_IssuerCode;
+
         #endregion Fields
 
         #region Properties
@@ -104,6 +106,11 @@ namespace VoCustomerPortfolio
             set { m_CIUP_AbsoluteReturn = value; }
         }
 
+        public string IssuerCode
+        {
+            get { return m_IssuerCode; }
+            set { m_IssuerCode = value; }
+        }
         #endregion Properties
 
 
