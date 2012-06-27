@@ -68,7 +68,7 @@ namespace WealthERP.Advisor
             if (hdnValuationDate.Value == string.Empty)
             {
                 ValuationNotDoneErrorMsg.Visible = true;
-                if (userType == "advisor")
+                if (userType == "advisor" || userType.ToLower() == "ops")
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
@@ -94,7 +94,7 @@ namespace WealthERP.Advisor
                     advisorVo = (AdvisorVo)Session["advisorVo"];
                     path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
-                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
+                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                         userType = "advisor";
                     else
                         userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
