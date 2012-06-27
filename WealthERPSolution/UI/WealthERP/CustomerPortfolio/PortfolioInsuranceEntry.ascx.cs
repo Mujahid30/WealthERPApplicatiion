@@ -737,6 +737,11 @@ namespace WealthERP.CustomerPortfolio
                     txtSumAssured.Enabled = false;
                     txtApplicationNumber.Enabled = false;
                     txtApplDate.Enabled = false;
+                    txtPolicyTerms.Enabled = false;
+                    pnlGridView.Visible = false;
+                    trULIPAllocation.Visible = false;
+                    rgULIPSubPlanSchedule.Visible = false;
+                    rgULIPSubPlanSchedule.Enabled = false;
 
                     if (CategoryCode == "INEP")
                     {
@@ -965,7 +970,11 @@ namespace WealthERP.CustomerPortfolio
                     txtSumAssured.Enabled = true;
                     txtApplicationNumber.Enabled = true;
                     txtApplDate.Enabled = true;
-
+                    txtPolicyTerms.Enabled = true;
+                    pnlGridView.Visible = false;
+                    trULIPAllocation.Visible = false;
+                    rgULIPSubPlanSchedule.Visible = false;
+                    rgULIPSubPlanSchedule.Enabled = false;
 
                     if (CategoryCode == "INEP")
                     {
@@ -1192,6 +1201,11 @@ namespace WealthERP.CustomerPortfolio
                     txtSumAssured.Enabled = true;
                     txtApplicationNumber.Enabled = true;
                     txtApplDate.Enabled = true;
+                    txtPolicyTerms.Enabled = true;
+                    pnlGridView.Visible = false;
+                    trULIPAllocation.Visible = false;
+                    rgULIPSubPlanSchedule.Visible = false;
+                    rgULIPSubPlanSchedule.Enabled = false;
 
                     if (CategoryCode == "INEP")
                     {
@@ -2017,6 +2031,7 @@ namespace WealthERP.CustomerPortfolio
                                     //string purchaseDate = drSchedule["CINPUD_PurchaseDate"].ToString();
                                     string absoluteReturn = drSchedule["CINPUD_AbsoluteReturn"].ToString();
                                     string fundName = drSchedule["IF_FundName"].ToString();
+                                    string ulipPlanId = drSchedule["ISF_SchemeFundId"].ToString();
 
                                     if (allocPer == null)
                                     {
@@ -2035,12 +2050,14 @@ namespace WealthERP.CustomerPortfolio
 
                                         if (fundName != string.Empty)
                                             insuranceUlipVo.WUP_ULIPSubPlaName = fundName.Trim().ToString();
-                                        //if (purchasePrice != string.Empty)
-                                        //    insuranceUlipVo.CIUP_PurchasePrice = float.Parse(purchasePrice.ToString());
+
+                                        if (ulipPlanId != string.Empty)
+                                            insuranceUlipVo.CIUP_ULIPPlanId = Convert.ToInt32(ulipPlanId.ToString());
+
                                         if (unit != string.Empty)
                                             insuranceUlipVo.CIUP_Unit = float.Parse(unit.ToString());
                                         //if (purchaseDate != string.Empty)
-                                        //    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
+                                        //    insuranceUlipVo.CIUP_PurchaseDate = Convert.ToInt32(ulipPlanId.ToString());
 
                                         if (investedCost != string.Empty)
                                             insuranceUlipVo.CIUP_InvestedCost = float.Parse(investedCost.ToString());
@@ -2056,7 +2073,7 @@ namespace WealthERP.CustomerPortfolio
                                     for (int i = 0; i < insuranceUlipListUpdate.Count; i++)
                                     {
                                         insuranceUlipVo = new InsuranceULIPVo();
-                                        insuranceUlipVo = insuranceUlipList[i];
+                                        insuranceUlipVo = insuranceUlipListUpdate[i];
                                         insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
                                         insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
                                         insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;

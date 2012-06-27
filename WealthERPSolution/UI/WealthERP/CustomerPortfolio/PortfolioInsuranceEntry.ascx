@@ -465,7 +465,7 @@
             <asp:Label ID="lblEPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlEPPrPayDate" runat="server" CssClass="txtField">
+            <asp:DropDownList ID="ddlEPPrPayDate" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span11" class="spnRequiredField">*</span> <span class="Apple-style-span"
                 style="border-collapse: separate; color: rgb(0, 0, 0); font-family: 'Times New Roman';
@@ -938,7 +938,7 @@
             <asp:Label ID="lblULIPPremiumPayDate" runat="server" CssClass="FieldName" Text="Premium Payment Date:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlULIPPrPayDate" runat="server" CssClass="txtField">
+            <asp:DropDownList ID="ddlULIPPrPayDate" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span24" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator24" runat="server" ErrorMessage="Please Select Premium Date"
