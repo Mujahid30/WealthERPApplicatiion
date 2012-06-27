@@ -626,7 +626,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetULIPSubPlans");
-                db.AddInParameter(getUlipSubPlanCmd, "@WUP_ULIPPlanCode", DbType.String, ulipPlanId);
+                db.AddInParameter(getUlipSubPlanCmd, "@ISF_SchemeFundId", DbType.String, ulipPlanId);
                 getUlipSubPalnDs = db.ExecuteDataSet(getUlipSubPlanCmd);
             }
             catch (BaseApplicationException Ex)
@@ -699,7 +699,7 @@ namespace DaoCustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "Asset.cs:GetULIPPlans()");
+                FunctionInfo.Add("Method", "Asset.cs:GetGIPlans()");
                 object[] objects = new object[1];
                 objects[0] = issuerCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -944,7 +944,7 @@ namespace DaoCustomerPortfolio
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "Asset.cs:GetULIPPlans()");
+                FunctionInfo.Add("Method", "Asset.cs:GetPrevULIPSubPlans()");
                 object[] objects = new object[1];
                 objects[0] = InsuranceId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
