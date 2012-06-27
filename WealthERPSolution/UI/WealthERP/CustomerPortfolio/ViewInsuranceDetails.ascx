@@ -96,9 +96,9 @@
                                     <Items>
                                         <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                         </telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem Text="View profile" Value="Edit" ImageUrl="~/Images/DetailedView.png"
+                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
                                             runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="View" Value="View"
+                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
                                             runat="server"></telerik:RadComboBoxItem>
                                         <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>
