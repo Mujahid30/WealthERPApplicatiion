@@ -250,7 +250,7 @@ namespace WealthERP.Advisor
             }
 
             /* For BM Branch wise MIS */
-            if (userType == "adviser")
+            if (userType == "adviser" || userType.ToLower() == "ops")
             {
                 hdnbranchId.Value = "0";
                 hdnbranchHeadId.Value = AdviserID.ToString();
