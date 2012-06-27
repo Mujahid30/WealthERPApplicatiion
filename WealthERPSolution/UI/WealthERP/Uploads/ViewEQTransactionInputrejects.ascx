@@ -45,16 +45,16 @@
 
 
             }
-            else if (DataType="System.String" || columnName == "TransactionType" || columnName == "Exchange") {
+            else if (DataType = "System.String" || columnName == "TransactionType" || columnName == "Exchange") {
 
-                    {
+                {
                     var j = 0;
 
-                
-                    
+
+
                     while (j < items.get_count()) {
-                            
-//                        alert(items.getItem(j).get_value());
+
+                        //                        alert(items.getItem(j).get_value());
                         if (!(items.getItem(j).get_value() in { 'NoFilter': '', 'Contains': '', 'DoesNotContain': '', 'StartsWith': '', 'EndsWith': '' })) {
                             var item = items.getItem(j);
                             if (item != null)
@@ -74,7 +74,7 @@
 
             }
 
-            
+
             column = null;
             columnName = null;
 
@@ -99,23 +99,26 @@
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="View Equity Transaction Input Rejects"></asp:Label>
         </td>
     </tr>
-  <tr>
-    <td>
-        <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+</table>
+<hr />
+<table>
+    <tr>
+        <td>
+            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" ></asp:ImageButton>
-    </td>
- </tr>
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
     <tr>
         <td>
             <telerik:RadGrid ID="gvEquityInputRejects" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false" OnNeedDataSource="gvEquityInputRejects_OnNeedDataSource">
-                <ExportSettings FileName="EquityInputRejectsList" HideStructureColumns="true" ExportOnlyData="true" >
+                <ExportSettings FileName="EquityInputRejectsList" HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
-                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                    
+                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    CommandItemDisplay="None">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
