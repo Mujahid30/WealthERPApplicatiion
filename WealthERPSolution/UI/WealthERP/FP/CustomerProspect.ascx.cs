@@ -1383,6 +1383,14 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtTermSurrMktVal.Text.Trim()),0);
                 }
+                if (txtTotalSurrMrktValue.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalSurrMrktValue.Text.Trim()), 0);
+                }
+                if (txtAdjustedTermSurrenderValue.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedTermSurrenderValue.Text.Trim()), 0);
+                }
                 assetdetailsvolist.Add(assetdetailsvo);
 
 
@@ -1415,6 +1423,14 @@ namespace WealthERP.FP
                 if (txtEndowmentSurrMktVal.Text.Trim() != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtEndowmentSurrMktVal.Text.Trim()),0);
+                }
+                if (txtTotalEndowmentSurrMktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalEndowmentSurrMktVal.Text.Trim()), 0);
+                }
+                if (txtAdjustedSurrMktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedSurrMktVal.Text.Trim()), 0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1450,6 +1466,14 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtWholeLifeSurrMktVal.Text.Trim()),0);
                 }
+                if (txtTotalWholeLifeSurrMrktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalWholeLifeSurrMrktVal.Text.Trim()), 0);
+                }
+                if (txtAdjustedWholeLifeSurrMrktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedWholeLifeSurrMrktVal.Text.Trim()), 0);
+                }
                 assetdetailsvolist.Add(assetdetailsvo);
 
 
@@ -1483,6 +1507,14 @@ namespace WealthERP.FP
                 if (txtMoneyBackSurrMktVal.Text.Trim() != string.Empty)
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtMoneyBackSurrMktVal.Text.Trim()),0);
+                }
+                if (txtTotalMoneyBackSurrenMarkt.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalMoneyBackSurrenMarkt.Text.Trim()), 0);
+                }
+                if (txtAdjustedMBSurrMrktValue.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedMBSurrMrktValue.Text.Trim()), 0);
                 }
                 assetdetailsvolist.Add(assetdetailsvo);
 
@@ -1518,6 +1550,14 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtULIPSurrMktVal.Text.Trim()),0);
                 }
+                if (txtTotalULIPSurrMrktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalULIPSurrMrktVal.Text.Trim()), 0);
+                }
+                if (txtAdjustedULIPSurrMrktValue.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedULIPSurrMrktValue.Text.Trim()), 0);
+                }
                 assetdetailsvolist.Add(assetdetailsvo);
 
 
@@ -1552,6 +1592,16 @@ namespace WealthERP.FP
                 {
                     assetdetailsvo.SurrMktVal = Math.Round(double.Parse(txtOtherSurrMktVal.Text.Trim()),0);
                 }
+
+                if (txtTotalOthersSurrenMrktval.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.TotalSurrMkt = Math.Round(double.Parse(txtTotalOthersSurrenMrktval.Text.Trim()), 0);
+                }
+                if (txtAdjustedOthersSurrMrktVal.Text.Trim() != string.Empty)
+                {
+                    assetdetailsvo.AdjustedSurrMkt = Math.Round(double.Parse(txtAdjustedOthersSurrMrktVal.Text.Trim()), 0);
+                }
+
                 assetdetailsvolist.Add(assetdetailsvo);
                 if (txtTotalTermPremium.Text.Trim() == "")
                     txtTotalTermPremium.Text = "0";
@@ -2614,6 +2664,8 @@ namespace WealthERP.FP
                         txtTotalTermSA.Text = cpad.Value.ToString();
                         txtAdjustedTermSA.Text = cpad.AdjustedValue.ToString();
                         txtTermSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalSurrMrktValue.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedTermSurrenderValue.Text = cpad.AdjustedSurrMkt.ToString();
                         txtTermP.Text = cpad.Premium.ToString();
                         txtAdjustedPremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalTermPremium.Text = cpad.TotalPremiumValue.ToString();
@@ -2624,6 +2676,8 @@ namespace WealthERP.FP
                         txtTotalEndowmentSA.Text = cpad.Value.ToString();
                         txtAdjustedEndowmentSA.Text = cpad.AdjustedValue.ToString();
                         txtEndowmentSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalEndowmentSurrMktVal.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedSurrMktVal.Text = cpad.AdjustedSurrMkt.ToString();
                         txtEndowmentP.Text = cpad.Premium.ToString();
                         txtAdjustedEndowmentPremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalEndowmentPremium.Text = cpad.TotalPremiumValue.ToString();
@@ -2634,6 +2688,8 @@ namespace WealthERP.FP
                         txtTotalWholeLifeSA.Text = cpad.Value.ToString();
                         txtAdjustedWholeLifeSA.Text = cpad.AdjustedValue.ToString();
                         txtWholeLifeSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalWholeLifeSurrMrktVal.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedWholeLifeSurrMrktVal.Text = cpad.AdjustedSurrMkt.ToString();
                         txtWholeLifeP.Text = cpad.Premium.ToString();
                         txtAdjustedWholeLifePremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalWholeLifePremium.Text = cpad.TotalPremiumValue.ToString();
@@ -2644,6 +2700,8 @@ namespace WealthERP.FP
                         txtTotalMoneyBackSA.Text = cpad.Value.ToString();
                         txtAdjustedMoneyBackSA.Text = cpad.AdjustedValue.ToString();
                         txtMoneyBackSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalMoneyBackSurrenMarkt.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedMBSurrMrktValue.Text = cpad.AdjustedSurrMkt.ToString();
                         txtMoneyBackP.Text = cpad.Premium.ToString();
                         txtAdjustedMoneyBackPremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalMoneyBackPremium.Text = cpad.TotalPremiumValue.ToString();
@@ -2654,6 +2712,8 @@ namespace WealthERP.FP
                         txtTotalULIPSA.Text = cpad.Value.ToString();
                         txtAdjustedULIPSA.Text = cpad.AdjustedValue.ToString();
                         txtULIPSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalULIPSurrMrktVal.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedULIPSurrMrktValue.Text = cpad.AdjustedSurrMkt.ToString();
                         txtULIPP.Text = cpad.Premium.ToString();
                         txtAdjustedULIPPremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalULIPPremium.Text = cpad.TotalPremiumValue.ToString();
@@ -2664,6 +2724,8 @@ namespace WealthERP.FP
                         txtTotalOthersLISA.Text = cpad.Value.ToString();
                         txtAdjustedOthersLISA.Text = cpad.AdjustedValue.ToString();
                         txtOtherSurrMktVal.Text = cpad.SurrMktVal.ToString();
+                        txtTotalOthersSurrenMrktval.Text = cpad.TotalSurrMkt.ToString();
+                        txtAdjustedOthersSurrMrktVal.Text = cpad.AdjustedSurrMkt.ToString();
                         txtOthersLIP.Text = cpad.Premium.ToString();
                         txtAdjustedOthersLIPremium.Text = cpad.AdjustedPremium.ToString();
                         txtTotalOthersPremium.Text = cpad.TotalPremiumValue.ToString();

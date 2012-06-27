@@ -771,6 +771,15 @@ namespace DaoFPSuperlite
                 else
                     db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_SurrenderMarketValue", DbType.Decimal, 0.0);
 
+                if (customerProspectAssetDetailsVo.TotalSurrMkt != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_TotalSurrenderMarketValue", DbType.Decimal, customerProspectAssetDetailsVo.TotalSurrMkt);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_TotalSurrenderMarketValue", DbType.Decimal, 0.0);
+
+                if (customerProspectAssetDetailsVo.TotalSurrMkt != 0.0)
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedSurrenderMarketValue", DbType.Decimal, customerProspectAssetDetailsVo.AdjustedSurrMkt);
+                else
+                    db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_AdjustedSurrenderMarketValue", DbType.Decimal, 0.0);
 
                 db.AddInParameter(cmdAddCustomerFPAssetInstrumentDetails, "@CFPAID_MaturityDate", DbType.DateTime, customerProspectAssetDetailsVo.MaturityDate);
 

@@ -74,6 +74,19 @@
                 </telerik:RadTabStrip>
                 <telerik:RadMultiPage ID="ReturnsTabs" runat="server" EnableViewState="true" SelectedIndex="0">
                     <telerik:RadPageView ID="MFPortfolioHoldingsTabPage" runat="server">
+                      <table width="99%">
+                                <tr align="left">
+                                <td style="width: 100%;">
+                                        <asp:Label ID="lblHoldingTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
+                                    
+                                        <asp:Label ID="lblHoldingTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                    &nbsp;
+                                        <asp:Label ID="lblHoldingAbsoluteReturn" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                   
+                                        <asp:Label ID="lblHoldingAbsoluteReturnValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                  </td>
+                                </tr>
+                        </table>
                         <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" Width="98%" ScrollBars="Horizontal">
                             <table id="tblHoldings" runat="server" width="50%">
                                 <tr>
@@ -200,12 +213,19 @@
                     <telerik:RadPageView ID="MFPortfolioAllTabPage" runat="server">
                         <table width="99%">
                                 <tr align="left">
-                                    <td style="width: 15%;">
-                                        <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR(%):" runat="server" CssClass="FieldName"> </asp:Label>
-                                    </td>
-                                    <td>
+                                <td style="width: 100%;">
+                                        <asp:Label ID="lblALLTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
+                                    
+                                        <asp:Label ID="lblALLTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                    &nbsp;
+                                        <asp:Label ID="lblALLAbsoluteReturns" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                   
+                                        <asp:Label ID="lblALLAbsoluteReturnsValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                    &nbsp;
+                                        <asp:Label ID="lblPortfolioXIRR" Text="Portfolio XIRR(%): " runat="server" CssClass="FieldName"> </asp:Label>
+                                   
                                         <asp:Label ID="lblPortfolioXIRRValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
-                                    </td>
+                                  </td>
                                 </tr>
                         </table>
                         <asp:Panel ID="pnlMFPortfolioAll" runat="server" class="Landscape" Width="98%" ScrollBars="Horizontal">
@@ -360,6 +380,19 @@
                         </asp:Panel>
                     </telerik:RadPageView>
                     <telerik:RadPageView ID="MFPortfolioRealizedTabPage" runat="server">
+                    <table width="99%">
+                                <tr align="left">
+                                <td style="width: 100%;">
+                                        <asp:Label ID="lblRealizedTotalPL" Text="Total P/L: " runat="server" CssClass="FieldName"> </asp:Label>
+                                    
+                                        <asp:Label ID="lblRealizedTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                    &nbsp;
+                                        <asp:Label ID="lblRealizedAbsoluteReturn" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                   
+                                        <asp:Label ID="lblRealizedAbsoluteReturnValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                                  </td>
+                                </tr>
+                        </table>
                         <asp:Panel ID="pnlMFPortfolioRealized" runat="server" class="Landscape" Width="98%"
                             ScrollBars="Horizontal">
                             <table id="tblRealized" runat="server" width="99%">

@@ -2138,6 +2138,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblPremiumLI;
         
         /// <summary>
+        /// lblSurrenderMarketValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSurrenderMarketValue;
+        
+        /// <summary>
         /// lblSumAssuredLI control.
         /// </summary>
         /// <remarks>
@@ -2154,6 +2163,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// lblSurrenderMarketValueAdjust control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSurrenderMarketValueAdjust;
         
         /// <summary>
         /// lblTotalSumAssuredLI control.
@@ -2174,13 +2192,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.Label lblTotalPremium;
         
         /// <summary>
-        /// lblSurrenderMarketValue control.
+        /// lblTotalSurrenderMarketValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSurrenderMarketValue;
+        protected global::System.Web.UI.WebControls.Label lblTotalSurrenderMarketValue;
         
         /// <summary>
         /// lblTerm control.
@@ -2210,6 +2228,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTermP;
         
         /// <summary>
+        /// txtTermSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTermSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedTermSA control.
         /// </summary>
         /// <remarks>
@@ -2226,6 +2253,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedPremium;
+        
+        /// <summary>
+        /// txtAdjustedTermSurrenderValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedTermSurrenderValue;
         
         /// <summary>
         /// txtTotalTermSA control.
@@ -2246,13 +2282,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalTermPremium;
         
         /// <summary>
-        /// txtTermSurrMktVal control.
+        /// txtTotalSurrMrktValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTermSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalSurrMrktValue;
         
         /// <summary>
         /// lblEndowment control.
@@ -2282,6 +2318,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtEndowmentP;
         
         /// <summary>
+        /// txtEndowmentSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEndowmentSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedEndowmentSA control.
         /// </summary>
         /// <remarks>
@@ -2298,6 +2343,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedEndowmentPremium;
+        
+        /// <summary>
+        /// txtAdjustedSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedSurrMktVal;
         
         /// <summary>
         /// txtTotalEndowmentSA control.
@@ -2318,13 +2372,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalEndowmentPremium;
         
         /// <summary>
-        /// txtEndowmentSurrMktVal control.
+        /// txtTotalEndowmentSurrMktVal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEndowmentSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalEndowmentSurrMktVal;
         
         /// <summary>
         /// lblWholeLife control.
@@ -2354,6 +2408,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtWholeLifeP;
         
         /// <summary>
+        /// txtWholeLifeSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWholeLifeSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedWholeLifeSA control.
         /// </summary>
         /// <remarks>
@@ -2370,6 +2433,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedWholeLifePremium;
+        
+        /// <summary>
+        /// txtAdjustedWholeLifeSurrMrktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedWholeLifeSurrMrktVal;
         
         /// <summary>
         /// txtTotalWholeLifeSA control.
@@ -2390,13 +2462,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalWholeLifePremium;
         
         /// <summary>
-        /// txtWholeLifeSurrMktVal control.
+        /// txtTotalWholeLifeSurrMrktVal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWholeLifeSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalWholeLifeSurrMrktVal;
         
         /// <summary>
         /// lblMoneyBack control.
@@ -2426,6 +2498,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtMoneyBackP;
         
         /// <summary>
+        /// txtMoneyBackSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMoneyBackSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedMoneyBackSA control.
         /// </summary>
         /// <remarks>
@@ -2442,6 +2523,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedMoneyBackPremium;
+        
+        /// <summary>
+        /// txtAdjustedMBSurrMrktValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedMBSurrMrktValue;
         
         /// <summary>
         /// txtTotalMoneyBackSA control.
@@ -2462,13 +2552,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalMoneyBackPremium;
         
         /// <summary>
-        /// txtMoneyBackSurrMktVal control.
+        /// txtTotalMoneyBackSurrenMarkt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMoneyBackSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalMoneyBackSurrenMarkt;
         
         /// <summary>
         /// lblULIP control.
@@ -2498,6 +2588,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtULIPP;
         
         /// <summary>
+        /// txtULIPSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtULIPSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedULIPSA control.
         /// </summary>
         /// <remarks>
@@ -2514,6 +2613,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedULIPPremium;
+        
+        /// <summary>
+        /// txtAdjustedULIPSurrMrktValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedULIPSurrMrktValue;
         
         /// <summary>
         /// txtTotalULIPSA control.
@@ -2534,13 +2642,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalULIPPremium;
         
         /// <summary>
-        /// txtULIPSurrMktVal control.
+        /// txtTotalULIPSurrMrktVal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtULIPSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalULIPSurrMrktVal;
         
         /// <summary>
         /// lblOthersLI control.
@@ -2570,6 +2678,15 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtOthersLIP;
         
         /// <summary>
+        /// txtOtherSurrMktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOtherSurrMktVal;
+        
+        /// <summary>
         /// txtAdjustedOthersLISA control.
         /// </summary>
         /// <remarks>
@@ -2586,6 +2703,15 @@ namespace WealthERP.FP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdjustedOthersLIPremium;
+        
+        /// <summary>
+        /// txtAdjustedOthersSurrMrktVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdjustedOthersSurrMrktVal;
         
         /// <summary>
         /// txtTotalOthersLISA control.
@@ -2606,13 +2732,13 @@ namespace WealthERP.FP {
         protected global::System.Web.UI.WebControls.TextBox txtTotalOthersPremium;
         
         /// <summary>
-        /// txtOtherSurrMktVal control.
+        /// txtTotalOthersSurrenMrktval control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherSurrMktVal;
+        protected global::System.Web.UI.WebControls.TextBox txtTotalOthersSurrenMrktval;
         
         /// <summary>
         /// lblTotalLI control.

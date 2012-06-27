@@ -17,8 +17,20 @@ namespace VoFPSuperlite
         private double FP_AdjustedPremium;
         private double FP_TotalPremiumValue;
         private DateTime? FP_MaturityDate;
+        private double FP_TotalSurrMkt;
+        private double FP_AdjustedSurrMkt;
 
+        public double AdjustedSurrMkt
+        {
+            get { return FP_AdjustedSurrMkt; }
+            set { FP_AdjustedSurrMkt = value; }
+        }
 
+        public double TotalSurrMkt
+        {
+            get { return FP_TotalSurrMkt; }
+            set { FP_TotalSurrMkt = value; }
+        }      
 
         public int InstrumentDetailsId
         {

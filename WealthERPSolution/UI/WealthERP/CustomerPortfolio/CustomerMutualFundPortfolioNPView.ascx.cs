@@ -242,7 +242,17 @@ namespace WealthERP.CustomerPortfolio
             string expressonHoldings = "";
             string expressonRealized = "";
             string expressonAll = "";
-
+            object sumObject;
+            double totalALLPL = 0;
+            double totalALLAbsoluteReturn = 0;
+            double totalHoldingPL = 0;
+            double totalHoldingAbsoluteReturn = 0;
+            double totalRealizedPl = 0;
+            double totalRealizedAbsReturn= 0;
+            double totalALLInvestedCost = 0;
+            double totalRealizedInvestedCost = 0;
+            double totalHoldingInvestedCost = 0;
+          
             SetTaxGridsNull();
             if (intPortfolioListCount == 0)
             {
@@ -331,18 +341,65 @@ namespace WealthERP.CustomerPortfolio
 
                 //DataRow[] drTaxRealized = 
 
+                DataTable dtMFReturnsholding  = new DataTable();
+                dtMFReturnsholding = dvReturnsHoldings.ToTable();
 
-                rgHoldings.DataSource = dvReturnsHoldings.ToTable();
+
+                sumObject = dtMFReturnsholding.Compute("Sum(TotalPL)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
+
+                sumObject = dtMFReturnsholding.Compute("Sum(InvestedCost)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
+
+                if (totalHoldingInvestedCost != 0)
+                    totalHoldingAbsoluteReturn = totalHoldingPL / totalHoldingInvestedCost;
+
+                lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn,2).ToString();
+                lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL,2).ToString();
+
+                rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
-                ViewState["HoldingReturns"] = dvReturnsHoldings.ToTable();
+                ViewState["HoldingReturns"] = dtMFReturnsholding;
 
-                rgAll.DataSource = dvReturnsAll.ToTable();
+                DataTable dtMFReturnsAll = new DataTable();
+                dtMFReturnsAll = dvReturnsAll.ToTable();
+
+
+                sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalALLPL);
+
+                sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
+
+                if(totalALLInvestedCost != 0)
+                totalALLAbsoluteReturn = totalALLPL / totalALLInvestedCost;
+
+                lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn,2).ToString();
+                lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString();
+
+                rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
-                ViewState["AllReturns"] = dvReturnsAll.ToTable();
+                ViewState["AllReturns"] = dtMFReturnsAll;
 
-                rgRealized.DataSource = dvReturnsRealized.ToTable();
+                DataTable dtMFReturnsRealized = new DataTable();
+                dtMFReturnsRealized = dvReturnsRealized.ToTable();
+
+
+                sumObject = dtMFReturnsRealized.Compute("Sum(TotalPL)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalRealizedPl);
+
+                sumObject = dtMFReturnsRealized.Compute("Sum(InvestedCost)", string.Empty);
+                double.TryParse(Convert.ToString(sumObject), out totalRealizedInvestedCost);
+
+                if (totalRealizedInvestedCost != 0)
+                    totalRealizedAbsReturn = totalRealizedPl / totalRealizedInvestedCost;
+
+                lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn,2).ToString();
+                lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl,2).ToString();
+
+                rgRealized.DataSource = dtMFReturnsRealized;
                 rgRealized.DataBind();
-                ViewState["RealizedReturns"] = dvReturnsRealized.ToTable();
+                ViewState["RealizedReturns"] = dtMFReturnsRealized;
             }
         }
 

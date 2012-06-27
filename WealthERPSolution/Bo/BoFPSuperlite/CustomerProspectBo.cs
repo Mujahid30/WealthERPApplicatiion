@@ -574,6 +574,14 @@ namespace BoFPSuperlite
                     {
                         customerprospectassetdetailsvo.SurrMktVal = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_SurrenderMarketValue"].ToString());
                     }
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalSurrenderMarketValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalSurrenderMarketValue"].ToString() != "")
+                    {
+                        customerprospectassetdetailsvo.TotalSurrMkt = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_TotalSurrenderMarketValue"].ToString());
+                    }
+                    if (dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedSurrenderMarketValue"] != null && dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedSurrenderMarketValue"].ToString() != "")
+                    {
+                        customerprospectassetdetailsvo.AdjustedSurrMkt = double.Parse(dtCustomerAssetInstrumentDetails.Rows[i]["CFPAID_AdjustedSurrenderMarketValue"].ToString());
+                    }
                     customerprospectassetdetailsvolist.Add(customerprospectassetdetailsvo);
                 }
             }
