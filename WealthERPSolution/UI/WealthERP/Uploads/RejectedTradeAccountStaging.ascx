@@ -28,7 +28,7 @@
                 inputTypes[i].checked = mainChkBox.checked;
         }
     }
-    </script>
+</script>
 
 <table style="width: 100%" class="TableBackground">
     <tr>
@@ -36,6 +36,9 @@
             <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Trade Account Staging Rejects"></asp:Label>
         </td>
     </tr>
+</table>
+<hr />
+<table>
     <tr>
         <td>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
@@ -92,16 +95,16 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
-                            <HeaderTemplate>
-                                <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
-                                <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="GridViewCmbField" runat="server" 
-                                OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:Label ID="lblHdrProcessId" runat="server" Text="Process Id"></asp:Label>
+                            <asp:DropDownList ID="ddlProcessId" AutoPostBack="true" CssClass="GridViewCmbField"
+                                runat="server" OnSelectedIndexChanged="ddlProcessId_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblProcessID" runat="server" Text='<%# Eval("ProcessId").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField>
                         <HeaderTemplate>
                             <asp:Label ID="lblTradeAccountNumber" runat="server" Text="Trade Account Number"></asp:Label>
@@ -130,7 +133,6 @@
                             <asp:TextBox ID="txtPanNumberMultiple" runat="server" CssClass="txtField" />
                         </FooterTemplate>
                     </asp:TemplateField>
-                    
                     <%--<asp:BoundField DataField="ProcessId" HeaderText="Process Id" />--%>
                     <%--<asp:BoundField DataField="ProcessID" HeaderText="ProcessId" />
                     <asp:BoundField DataField="WERPCustomerName" HeaderText="WERP Customer Name" SortExpression="WERPCustomerName" />
