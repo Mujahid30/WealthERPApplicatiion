@@ -3112,6 +3112,39 @@ namespace BoUploads
             return count;
         }
 
+        public int GetInputRejectForCAMSProfile(int processID)
+        {
+            int count = 0;
+            UploadsCommonDao uploadDAO = new UploadsCommonDao();
+
+            try
+            {
+                count = uploadDAO.GetInputRejectForCAMSProfile(processID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonBo.cs:GetInputRejectForCAMSProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return count;
+        }
+
         public int GetUploadProfileInputRejectCount(int processID, string source)
         {
             int count = 0;

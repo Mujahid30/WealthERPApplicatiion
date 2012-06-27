@@ -707,6 +707,20 @@ namespace WealthERP.Uploads
                                                         processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetProfileUploadRejectCount(UploadProcessId, "CA");
                                                         processlogVo.NoOfAccountsInserted = uploadsCommonBo.GetAccountsUploadCount(UploadProcessId, "WPMF");
                                                         processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadProfileInputRejectCount(UploadProcessId, "CA");
+                                                        //input reject count for CAMS profile
+                                                        int inputRejectCount = 0;
+                                                        inputRejectCount = uploadsCommonBo.GetInputRejectForCAMSProfile(processlogVo.ProcessId);
+                                                        if (inputRejectCount != 0)
+                                                        {
+                                                            txtInputRejectedRecords.Text =inputRejectCount.ToString();
+                                                            txtInputRejectedRecords.Visible = true;
+                                                            lblTotalInputRecordsRejected.Visible = true;
+                                                        }
+                                                        else if (inputRejectCount == 0)
+                                                        {
+                                                            txtInputRejectedRecords.Visible = false;
+                                                            lblTotalInputRecordsRejected.Visible = false;
+                                                        }
                                                         processlogVo.NoOfAccountDuplicates = processlogVo.NoOfTotalRecords - processlogVo.NoOfAccountsInserted - processlogVo.NoOfRejectedRecords;
                                                         txtUploadedRecords.Text = processlogVo.NoOfAccountsInserted.ToString();
 
@@ -3235,6 +3249,12 @@ namespace WealthERP.Uploads
                                     {
                                         txtInputRejectedRecords.Text = inputRejects.ToString();
                                         txtInputRejectedRecords.Visible = true;
+                                        lblTotalInputRecordsRejected.Visible = true;
+                                    }
+                                    else if (inputRejects == 0)
+                                    {
+                                        txtInputRejectedRecords.Visible = false;
+                                        lblTotalInputRecordsRejected.Visible = false;
                                     }
 
                                     txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();

@@ -4002,6 +4002,46 @@ namespace DaoUploads
             return dsTrailRejectRecords;
         }
 
+        public int GetInputRejectForCAMSProfile(int processID)
+        {
+            string count = string.Empty;
+            int result = 0;
+            Database db;
+            DbCommand cmdGetInputRejectForCAMSProfile;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetInputRejectForCAMSProfile = db.GetStoredProcCommand("SP_GetProfileInputRejectsForCAMS");
+                db.AddInParameter(cmdGetInputRejectForCAMSProfile, "@processId", DbType.Int32, processID);
+                if (db.ExecuteNonQuery(cmdGetInputRejectForCAMSProfile) != 0)
+                    count = (db.ExecuteScalar(cmdGetInputRejectForCAMSProfile)).ToString();
+                result = int.Parse( count.ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadsCommonDao.cs:GetInputRejectForCAMSProfile()");
+
+                object[] objects = new object[2];
+                objects[0] = processID;
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return result;
+        }
+
         public int getInputRejectedRecordsForEquity(int processID)
         {
             string count = string.Empty;
