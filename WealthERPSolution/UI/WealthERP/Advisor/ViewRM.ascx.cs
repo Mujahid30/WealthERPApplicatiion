@@ -205,7 +205,7 @@ namespace WealthERP.Advisor
             {
                 if (!IsPostBack)
                 {
-                    gvRMList_Init(sender,e);
+                    
                     //mypager.CurrentPage = 1;
                     this.BindGrid();
                 }
@@ -231,6 +231,7 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            gvRMList_Init(sender, e);
         }
 
         private void ShowRM()
