@@ -87,7 +87,7 @@ namespace WealthERP.CustomerPortfolio
                 ddlPeriodSelection.Visible = false;
                 txtPolicyTerm.Visible = false;
             }
-            MPEAssetParticular.Hide();
+            //MPEAssetParticular.Hide();
             if (!IsPostBack)
             {
                 BindPolicyIssuerDropDown();
@@ -134,6 +134,7 @@ namespace WealthERP.CustomerPortfolio
                 btnSubmit.Text = "Update";
                 btnAssetShow.Visible = true;
                 lnkBtnEdit.Visible = false;
+                ddlPeriodSelection.Visible = true;
                 SetControls();
             }
 
@@ -406,6 +407,8 @@ namespace WealthERP.CustomerPortfolio
                     ddlPolicyIssuer.DataBind();
                 }
                 ddlPolicyIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+
+                //ddlPolicyIssuer.Attributes.Add("onChange", "");
             }
             catch (BaseApplicationException Ex)
             {
@@ -1222,6 +1225,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void ddlPolicyIssuer_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+           
             lblIssuarCode.Text = ddlPolicyIssuer.SelectedItem.Text;
             BindAssetParticular(ddlPolicyIssuer.SelectedValue);
         }
@@ -1250,6 +1254,7 @@ namespace WealthERP.CustomerPortfolio
             txtProposalDate.Visible = false;
             lblProposalNumber.Visible = false;
             txtProposalNumber.Visible = false;
+            //lblterm.Visible = false;
         }
 
         public DateTime calculateMaturityDate(int period, DateTime startDate)
@@ -1274,7 +1279,14 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtMaturityDate.SelectedDate = CalcEndDate(int.Parse(txtPolicyTerm.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+            if (txtPolicyTerm.Text == "")
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid term');", true);
+            else if(txtPolicyCommencementDate.SelectedDate==null)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a start date');", true);
+            else
+            {
+                txtMaturityDate.SelectedDate = CalcEndDate(int.Parse(txtPolicyTerm.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
+            } 
         }
 
         private DateTime CalcEndDate(int period, DateTime startDate)

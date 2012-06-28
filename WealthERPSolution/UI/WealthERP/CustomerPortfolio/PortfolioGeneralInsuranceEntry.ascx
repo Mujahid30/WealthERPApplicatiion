@@ -28,6 +28,16 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
+    function hidePopup() {
+
+        var modalPopup = document.getElementById('<%= MPEAssetParticular.ClientID %>');
+        alert(modalPopup);
+        if (modalPopup !=null)
+        modalPopup.hide();
+      }
+</script>
+
+<script type="text/javascript">
     function DownloadScript() {
         var btn = document.getElementById('<%= btnInsertNewScheme.ClientID %>');
         btn.click();
@@ -334,8 +344,9 @@
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlPolicyIssuer" runat="server" Width="176px" CssClass="cmbField"
-                OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
+            <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" Width="176px" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true" onchange="hidePopup();">
+                
                 <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
             </asp:DropDownList>
             <span id="span1" class="spnRequiredField">*</span>
@@ -360,11 +371,11 @@
         <td>
             <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddScheme"
                 PopupControlID="Panel2" BackgroundCssClass="modalBackground" OnOkScript="DownloadScript()"
-                Y="150" DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel" PopupDragHandleControlID="Panel2">
+                Y="150" DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel"  PopupDragHandleControlID="Panel2">
             </cc1:ModalPopupExtender>
         </td>
         <td>
-            <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100%">
+            <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100">
                 <%-- <asp:UpdatePanel ID="udpSchemeName" runat="Server" UpdateMode="Conditional">
                     <ContentTemplate>--%>
                 <table width="100%">
@@ -515,12 +526,12 @@
         <td align="right">
             <asp:Label ID="lblPolicyTerm" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>
-        <td class="style3">
+        <td style="width:10px">
             <%-- <asp:RadioButton ID="rdbPolicyTermDays" Text="Days" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" Checked="true" class="cmbField" />--%>
-            <asp:TextBox  Width="176px" ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox  Width="30px" ID="txtPolicyTerm" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPolicyTerm"
                 ErrorMessage="<br />Please enter the Policy Term" Display="Dynamic" CssClass="rfvPCG"
@@ -528,9 +539,8 @@
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator Display="Dynamic" ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtPolicyTerm"
                 ErrorMessage="Please Enter Valid Term" ValidationExpression="^\d+$"  CssClass="rfvPCG" ValidationGroup="buttonSubmit"></asp:RegularExpressionValidator>
-        </td>
-        <td>
-            <asp:DropDownList AutoPostBack="true" ID="ddlPeriodSelection" runat="server" CssClass="Field"
+       
+            <asp:DropDownList CausesValidation="true" AutoPostBack="true" ID="ddlPeriodSelection" runat="server" CssClass="Field"
                 OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="0" Selected="True">               
                 </asp:ListItem>
