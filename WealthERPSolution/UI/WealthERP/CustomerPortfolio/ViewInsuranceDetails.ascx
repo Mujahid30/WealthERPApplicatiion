@@ -106,11 +106,11 @@
                                 </telerik:RadComboBox>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Category"
+                        <telerik:GridBoundColumn DataField="Category" FooterText="Grand Total:" AllowFiltering="false" HeaderText="Category"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars"
+                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Scheme"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
