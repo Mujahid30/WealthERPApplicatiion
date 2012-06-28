@@ -668,13 +668,13 @@
     <tr>
         <td>
             <telerik:RadGrid ID="gvMFRejectedDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                PageSize="10" AllowSorting="true"  AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="950px" AllowFilteringByColumn="true"
                 AllowAutomaticInserts="false" OnNeedDataSource="gvMFRejectedDetails_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="RejectedDetailslist">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MFRejectedDetailslist">
                 </ExportSettings>
-                <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                    CommandItemDisplay="None">
+                <MasterTableView AllowFilteringByColumn="false" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                    CommandItemDisplay="None" Height="100%">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
@@ -730,6 +730,8 @@
                 </MasterTableView>
                 <ClientSettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="True">
+                </Scrolling>
                 </ClientSettings>
             </telerik:RadGrid>
             <%--<asp:GridView ID="gvMFRejectedDetails" runat="server" AutoGenerateColumns="False"

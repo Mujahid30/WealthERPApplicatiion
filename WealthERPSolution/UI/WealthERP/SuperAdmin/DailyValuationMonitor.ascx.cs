@@ -1385,9 +1385,13 @@ namespace WealthERP.SuperAdmin
                     string asset = ddlMonitorfr.SelectedValue;
                     // trdd1.Visible = false;
                     trRadioDatePeriod.Visible = true;
-                    trRange.Visible = true;
-                    trPeriod.Visible = false;
-                    trDate.Visible = false;
+                    if (rbtnPickDate.Checked == true)
+                        trRange.Visible = true;
+                    else if (rbtnPickPeriod.Checked == true)
+                        trPeriod.Visible = true; 
+                    //trRange.Visible = true;
+                    //trPeriod.Visible = false;
+                    //trDate.Visible = false;
                     //trequity.Visible = true;
                     ddlAction.Items[0].Enabled = true;
                     ddlAction.Items[1].Enabled = true;
@@ -1407,9 +1411,13 @@ namespace WealthERP.SuperAdmin
                     string asset = ddlMonitorfr.SelectedValue;
                     // trdd1.Visible = true;
                     trRadioDatePeriod.Visible = true;
-                    trRange.Visible = true;
-                    trPeriod.Visible = false;
-                    trDate.Visible = false;
+                    if (rbtnPickDate.Checked == true)
+                        trRange.Visible = true;
+                    else if (rbtnPickPeriod.Checked == true)
+                        trPeriod.Visible = true; 
+                    //trRange.Visible = true;
+                    //trPeriod.Visible = false;
+                    //trDate.Visible = false;
                     // trequity.Visible = false;
                 }
             }
