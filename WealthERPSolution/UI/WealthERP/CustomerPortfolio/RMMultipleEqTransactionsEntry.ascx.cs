@@ -22,7 +22,7 @@ namespace WealthERP.CustomerPortfolio
     public partial class RMMultipleEqTransactionsEntry : System.Web.UI.UserControl
     {
         string path;
-
+        AdvisorVo advisorVo = new AdvisorVo();
         RMVo rmVo = new RMVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
@@ -39,9 +39,15 @@ namespace WealthERP.CustomerPortfolio
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             rmVo = (RMVo)Session[SessionContents.RmVo];
 
-
-
-            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
+                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+            {
+                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            } 
             //cvTransactionDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
             if (!IsPostBack && Session["EqTransactionHT"] == null) //Session["EqTransactionHT"] -> returning from trade account add.
