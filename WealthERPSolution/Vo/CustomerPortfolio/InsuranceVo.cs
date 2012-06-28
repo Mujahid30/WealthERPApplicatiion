@@ -16,7 +16,7 @@ namespace VoCustomerPortfolio
         private int m_AccountId;
         private int m_ModifiedBy;
         private int m_CreatedBy;
-        private float m_ULIPCharges;
+        private float m_InsuranceCharges;
         private string m_ULIPPlans;
         private DateTime m_EndDate;
         private double m_MaturityValue;
@@ -42,10 +42,12 @@ namespace VoCustomerPortfolio
         private DateTime m_FirstPremiumDate;
         private DateTime m_LastPremiumDate;
 
-
-
         private int m_SchemeId;
+        private DateTime m_PurchaseDate;
 
+        private float m_NAV;
+        private float m_OtherULIPCharges;
+        private float m_MortalityCharges;
         #endregion Fields
 
 
@@ -228,12 +230,12 @@ namespace VoCustomerPortfolio
             get { return m_ULIPPlans; }
             set { m_ULIPPlans = value; }
         }
-      
 
-        public float ULIPCharges
+
+        public float InsuranceCharges
         {
-            get { return m_ULIPCharges; }
-            set { m_ULIPCharges = value; }
+            get { return m_InsuranceCharges; }
+            set { m_InsuranceCharges = value; }
         }
     
 
@@ -267,6 +269,31 @@ namespace VoCustomerPortfolio
             get { return m_SchemeId; }
             set { m_SchemeId = value; }
         }
+
+        public DateTime PurchaseDate
+        {
+            get { return m_PurchaseDate; }
+            set { m_PurchaseDate = value; }
+        }
+
+        public float NAV
+        {
+            get { return m_NAV; }
+            set { m_NAV = value; }
+        }
+
+        public float OtherULIPCharges
+        {
+            get { return m_OtherULIPCharges; }
+            set { m_OtherULIPCharges = value; }
+        }
+
+        public float MortalityCharges
+        {
+            get { return m_MortalityCharges; }
+            set { m_MortalityCharges = value; }
+        }
+
         #endregion Properties
     }
 }

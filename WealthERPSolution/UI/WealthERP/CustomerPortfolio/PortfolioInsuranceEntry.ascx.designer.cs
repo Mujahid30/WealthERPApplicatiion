@@ -455,6 +455,51 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator11;
         
         /// <summary>
+        /// lblPolicyPurchaseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPolicyPurchaseDate;
+        
+        /// <summary>
+        /// txtPolicyPurchaseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPolicyPurchaseDate;
+        
+        /// <summary>
+        /// cePolicyPurchaseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cePolicyPurchaseDate;
+        
+        /// <summary>
+        /// TextBoxWatermarkExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+        
+        /// <summary>
+        /// cvPolicyPurchaseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvPolicyPurchaseDate;
+        
+        /// <summary>
         /// Label24 control.
         /// </summary>
         /// <remarks>
@@ -2912,6 +2957,33 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trULIPCharges;
         
         /// <summary>
+        /// lblMortalityCharges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMortalityCharges;
+        
+        /// <summary>
+        /// txtMortalityCharges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMortalityCharges;
+        
+        /// <summary>
+        /// cvMortalityCharges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvMortalityCharges;
+        
+        /// <summary>
         /// lblULIPCharges control.
         /// </summary>
         /// <remarks>
@@ -2937,6 +3009,42 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator43;
+        
+        /// <summary>
+        /// trUlipNAV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trUlipNAV;
+        
+        /// <summary>
+        /// lblUlipNAV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUlipNAV;
+        
+        /// <summary>
+        /// txtUlipNAV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUlipNAV;
+        
+        /// <summary>
+        /// CompareValidator6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
         
         /// <summary>
         /// trWPBonus control.

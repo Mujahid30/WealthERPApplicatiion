@@ -374,6 +374,30 @@
         </td>
     </tr>
     <tr>
+        <td class="leftField" colspan="2"">
+            <asp:Label ID="lblPolicyPurchaseDate" runat="server" CssClass="FieldName" Text="Policy Purchase Date:"></asp:Label>
+        </td>
+        <td colspan="4">
+            <asp:TextBox ID="txtPolicyPurchaseDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<asp:CompareValidator ID="compvPolicyPurchaseDate" runat="server" ErrorMessage="<br/>The purchase date should not be greater than current date."
+                Type="Date" ControlToValidate="txtPolicyPurchaseDate" CssClass="cvPCG" Operator="LessThanEqual"
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>--%>
+            <cc1:CalendarExtender ID="cePolicyPurchaseDate" runat="server" TargetControlID="txtPolicyPurchaseDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                TargetControlID="txtPolicyPurchaseDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <%--<span id="Span7" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="rfvApplDate" ControlToValidate="txtPolicyPurchaseDate" ErrorMessage="Please select purchase Date"
+                        Display="Dynamic" runat="server" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>--%>
+            <asp:CompareValidator ID="cvPolicyPurchaseDate" runat="server" ErrorMessage="The date format should be dd/mm/yyyyyy"
+                Type="Date" ControlToValidate="txtPolicyPurchaseDate" Operator="DataTypeCheck" CssClass="cvPCG"
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
         <td colspan="6">
             &nbsp;
         </td>
@@ -1555,7 +1579,16 @@
     </tr>
     <tr id="trULIPCharges" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblULIPCharges" runat="server" CssClass="FieldName" Text="Charges:"></asp:Label>
+            <asp:Label ID="lblMortalityCharges" runat="server" CssClass="FieldName" Text="Mortality  Charges:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtMortalityCharges" runat="server" CssClass="txtField"></asp:TextBox>            
+            <asp:CompareValidator ID="cvMortalityCharges" runat="server" ErrorMessage="Please enter a numeric value"
+                Type="Double" ControlToValidate="txtMortalityCharges" Operator="DataTypeCheck" CssClass="cvPCG"
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td class="leftField" colspan="2">
+            <asp:Label ID="lblULIPCharges" runat="server" CssClass="FieldName" Text="Other Charges:"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtULIPCharges" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1565,6 +1598,17 @@
                     </asp:RequiredFieldValidator>--%>
             <asp:CompareValidator ID="CompareValidator43" runat="server" ErrorMessage="Please enter a numeric value"
                 Type="Double" ControlToValidate="txtULIPCharges" Operator="DataTypeCheck" CssClass="cvPCG"
+                ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trUlipNAV" runat="server">
+        <td class="leftField" colspan="2">
+            <asp:Label ID="lblUlipNAV" runat="server" CssClass="FieldName" Text="NAV:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtUlipNAV" runat="server" CssClass="txtField"></asp:TextBox>            
+            <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="Please enter a numeric value"
+                Type="Double" ControlToValidate="txtUlipNAV" Operator="DataTypeCheck" CssClass="cvPCG"
                 ValidationGroup="vgSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>

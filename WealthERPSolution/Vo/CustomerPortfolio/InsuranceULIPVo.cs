@@ -111,6 +111,7 @@ namespace VoCustomerPortfolio
             get { return m_IssuerCode; }
             set { m_IssuerCode = value; }
         }
+
         #endregion Properties
 
 

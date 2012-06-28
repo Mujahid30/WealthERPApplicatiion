@@ -198,6 +198,7 @@ namespace WealthERP.CustomerPortfolio
             trULIPError.Visible = false;
             trULIPSurrenderValue.Visible = false;
             trULIPCharges.Visible = false;
+            trUlipNAV.Visible = false;
             trULIPRemarks.Visible = false;
             trUlipPremiumAmount.Visible = false;
 
@@ -418,6 +419,9 @@ namespace WealthERP.CustomerPortfolio
                     if (insuranceVo.ApplicationDate != DateTime.MinValue)
                         txtApplDate.Text = insuranceVo.ApplicationDate.ToShortDateString();
 
+                    if (insuranceVo.PurchaseDate != DateTime.MinValue)
+                        txtPolicyPurchaseDate.Text = insuranceVo.PurchaseDate.ToShortDateString();
+                    
                     if (customerAccountVo.AssetCategory.Trim() == "INEP")
                     {
                         txtEPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
@@ -530,7 +534,12 @@ namespace WealthERP.CustomerPortfolio
 
                         txtULIPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
                         txtULIPMaturityValue.Text = insuranceVo.BonusAccumalated.ToString();
-                        txtULIPCharges.Text = insuranceVo.ULIPCharges.ToString();
+                        txtULIPCharges.Text = insuranceVo.InsuranceCharges.ToString();
+                        if (insuranceVo.MortalityCharges != null)
+                            txtMortalityCharges.Text = insuranceVo.MortalityCharges.ToString();
+                        if (insuranceVo.NAV != null)
+                            txtUlipNAV.Text = insuranceVo.NAV.ToString();
+
                         txtULIPRemarks.Text = insuranceVo.Remarks.ToString();
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INWP")
@@ -661,6 +670,8 @@ namespace WealthERP.CustomerPortfolio
                     txtULIPSurrenderValue.Text = "";
                     txtULIPMaturityValue.Text = "";
                     txtULIPCharges.Text = "";
+                    txtMortalityCharges.Text = "";
+                    txtUlipNAV.Text = "";
                     txtULIPRemarks.Text = "";
                     Session.Remove("ULIPSubPlanSchedule");
                 }
@@ -871,6 +882,7 @@ namespace WealthERP.CustomerPortfolio
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
+                        trUlipNAV.Visible = true;
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
@@ -922,6 +934,8 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPSurrenderValue.Enabled = false;
                         txtULIPMaturityValue.Enabled = false;
                         txtULIPCharges.Enabled = false;
+                        txtMortalityCharges.Enabled = false;
+                        txtUlipNAV.Enabled = false;
                         txtULIPRemarks.Enabled = false;
 
                     }
@@ -1109,6 +1123,7 @@ namespace WealthERP.CustomerPortfolio
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
+                        trUlipNAV.Visible = true;
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
@@ -1153,6 +1168,8 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPSurrenderValue.Enabled = true;
                         txtULIPMaturityValue.Enabled = true;
                         txtULIPCharges.Enabled = true;
+                        txtMortalityCharges.Enabled = true;
+                        txtUlipNAV.Enabled = true;
                         txtULIPRemarks.Enabled = true;
                     }
                     else if (CategoryCode == "INWP")
@@ -1298,6 +1315,7 @@ namespace WealthERP.CustomerPortfolio
                         pnlUlip.Visible = true;
                         trULIPSurrenderValue.Visible = true;
                         trULIPCharges.Visible = true;
+                        trUlipNAV.Visible = true;
                         trULIPRemarks.Visible = true;
                         // Error Tr
                         trULIPError.Visible = false;
@@ -1316,6 +1334,8 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPSurrenderValue.Enabled = true;
                         txtULIPMaturityValue.Enabled = true;
                         txtULIPCharges.Enabled = true;
+                        txtMortalityCharges.Enabled = true;
+                        txtUlipNAV.Enabled = true;
                         txtULIPRemarks.Enabled = true;
                     }
                     else if (CategoryCode == "INWP")
@@ -1421,6 +1441,9 @@ namespace WealthERP.CustomerPortfolio
                             insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                         insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
 
+                        if (txtPolicyPurchaseDate.Text.Trim() != "")
+                            insuranceVo.PurchaseDate = DateTime.Parse(txtPolicyPurchaseDate.Text.Trim());
+
                         // Insert Empty Values
                         insuranceVo.PremiumFrequencyCode = "";
                         insuranceVo.PremiumAmount = 0;
@@ -1432,8 +1455,9 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.SurrenderValue = 0;
                         insuranceVo.Remarks = "";
                         insuranceVo.MaturityValue = 0;
+                        insuranceVo.NAV = 0;
                         insuranceVo.GracePeriod = 0;
-                        insuranceVo.ULIPCharges = 0;
+                        insuranceVo.InsuranceCharges = 0;
                         insuranceVo.PremiumPaymentDate = 0;
 
                         if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
@@ -1559,7 +1583,13 @@ namespace WealthERP.CustomerPortfolio
                             if (txtULIPSurrenderValue.Text.Trim() != "")
                                 insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
                             if (txtULIPCharges.Text.Trim() != "")
-                                insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
+                                insuranceVo.InsuranceCharges = float.Parse(txtULIPCharges.Text);
+
+                            if (txtMortalityCharges.Text.Trim() != "")
+                                insuranceVo.MortalityCharges = float.Parse(txtMortalityCharges.Text.Trim());
+
+                            if (txtUlipNAV.Text.Trim() != "")
+                                insuranceVo.NAV = float.Parse(txtUlipNAV.Text.Trim());
                             insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
 
                             #region dont needed anymore
@@ -1853,6 +1883,8 @@ namespace WealthERP.CustomerPortfolio
                     if (txtApplDate.Text.Trim() != "")
                         insuranceVo.ApplicationDate = DateTime.Parse(txtApplDate.Text.Trim());
                     insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
+                    if (txtPolicyPurchaseDate.Text.Trim() != "")
+                        insuranceVo.PurchaseDate = DateTime.Parse(txtPolicyPurchaseDate.Text.Trim());
 
                     if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                     {
@@ -1992,7 +2024,12 @@ namespace WealthERP.CustomerPortfolio
                         if (txtULIPSurrenderValue.Text.Trim() != "")
                             insuranceVo.SurrenderValue = float.Parse(txtULIPSurrenderValue.Text);
                         if (txtULIPCharges.Text.Trim() != "")
-                            insuranceVo.ULIPCharges = float.Parse(txtULIPCharges.Text);
+                            insuranceVo.InsuranceCharges = float.Parse(txtULIPCharges.Text);
+                        if (txtMortalityCharges.Text.Trim() != "")
+                            insuranceVo.MortalityCharges = float.Parse(txtMortalityCharges.Text.Trim());
+                        if (txtUlipNAV.Text.Trim() != "")
+                            insuranceVo.NAV = float.Parse(txtUlipNAV.Text.Trim());
+                        
                         insuranceVo.Remarks = txtULIPRemarks.Text.Trim();
 
                         //DataSet prevUlipSubPlansDS = assetBo.GetPrevULIPSubPlans(insuranceVo.CustInsInvId);
@@ -2855,6 +2892,7 @@ namespace WealthERP.CustomerPortfolio
 
         public void BindAssetParticular(string issuerCode)
         {
+            ddlAssetPerticular.Items.Clear();
             DataSet ds = assetBo.GetULIPPlans(issuerCode);
             DataTable dtSchemePlan = ds.Tables[0];
             if (dtSchemePlan.Rows.Count > 0)

@@ -52,6 +52,15 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_LastPremiumDate", DbType.DateTime, DBNull.Value);
 
+                if (insuranceVo.MortalityCharges != null)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, insuranceVo.MortalityCharges);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, DBNull.Value);
+                if (insuranceVo.NAV != null)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_NAV", DbType.Decimal, insuranceVo.NAV);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_NAV", DbType.Decimal, DBNull.Value);
+
                 db.AddInParameter(createInsurancePortfolioCmd, "@IS_SchemeId", DbType.Int32, insuranceVo.SchemeId);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PolicyPeriod", DbType.Decimal, insuranceVo.PolicyPeriod);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumAccumalated", DbType.Decimal, insuranceVo.PremiumAccumalated);
@@ -59,7 +68,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BonusAccumalated", DbType.Decimal, insuranceVo.BonusAccumalated);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SurrenderValue", DbType.Decimal, insuranceVo.SurrenderValue);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MaturityValue", DbType.Decimal, insuranceVo.MaturityValue);
-                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ULIPCharges", DbType.Decimal, insuranceVo.ULIPCharges);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ULIPCharges", DbType.Decimal, insuranceVo.InsuranceCharges);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Remark", DbType.String, insuranceVo.Remarks);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_GracePeriod", DbType.Decimal, insuranceVo.GracePeriod);
@@ -132,13 +141,22 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_LastPremiumDate", DbType.DateTime, DBNull.Value);
 
+                if (insuranceVo.MortalityCharges != null)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, insuranceVo.MortalityCharges);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, DBNull.Value);
+                if (insuranceVo.NAV != null)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_NAV", DbType.Decimal, insuranceVo.NAV);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_NAV", DbType.Decimal, DBNull.Value);
+
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PolicyPeriod", DbType.Decimal, insuranceVo.PolicyPeriod);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumAccumalated", DbType.Decimal, insuranceVo.PremiumAccumalated);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PolicyEpisode", DbType.Decimal, insuranceVo.PolicyEpisode);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BonusAccumalated", DbType.Decimal, insuranceVo.BonusAccumalated);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SurrenderValue", DbType.Decimal, insuranceVo.SurrenderValue);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MaturityValue", DbType.Decimal, insuranceVo.MaturityValue);
-                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ULIPCharges", DbType.Decimal, insuranceVo.ULIPCharges);
+                db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ULIPCharges", DbType.Decimal, insuranceVo.InsuranceCharges);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_Remark", DbType.String, insuranceVo.Remarks);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_GracePeriod", DbType.Decimal, insuranceVo.GracePeriod);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumPaymentDate", DbType.Int16, insuranceVo.PremiumPaymentDate);
@@ -251,12 +269,20 @@ namespace DaoCustomerPortfolio
                         insuranceVo.PremiumAccumalated = float.Parse(dr["CINP_PremiumAccumalated"].ToString());
                         insuranceVo.PremiumAmount = float.Parse(dr["CINP_PremiumAmount"].ToString());
 
+                        if (dr["CINP_MortalityCharges"].ToString() != null && dr["CINP_MortalityCharges"].ToString() != "")
+                            insuranceVo.MortalityCharges = float.Parse(dr["CINP_MortalityCharges"].ToString());
+                        if (dr["CINP_NAV"].ToString() != null && dr["CINP_NAV"].ToString() != "")
+                            insuranceVo.NAV = float.Parse(dr["CINP_NAV"].ToString());
+
                         insuranceVo.PremiumFrequencyCode = dr["XF_PremiumFrequencyCode"].ToString();
                         if (dr["CINP_StartDate"].ToString() != string.Empty)
                             insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
                         insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
                         insuranceVo.SurrenderValue = float.Parse(dr["CINP_SurrenderValue"].ToString());
-                        insuranceVo.ULIPCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
+
+                        if (dr["CINP_ULIPCharges"].ToString() != null && dr["CINP_ULIPCharges"].ToString() != "")
+                            insuranceVo.InsuranceCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
+                        
                         insuranceVo.PremiumPaymentDate = Int16.Parse(dr["CINP_PremiumPaymentDate"].ToString());
                         if (dr["CINP_FirstPremiumDate"].ToString() != string.Empty)
                             insuranceVo.FirstPremiumDate = DateTime.Parse(dr["CINP_FirstPremiumDate"].ToString());
@@ -345,7 +371,7 @@ namespace DaoCustomerPortfolio
                         insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
                     insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
                     insuranceVo.SurrenderValue = float.Parse(dr["CINP_SurrenderValue"].ToString());
-                    insuranceVo.ULIPCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
+                    insuranceVo.InsuranceCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
                     if (dr["CINP_PremiumPaymentDate"].ToString() != string.Empty)
                         insuranceVo.PremiumPaymentDate = Int16.Parse(dr["CINP_PremiumPaymentDate"].ToString());
                     if (dr["CINP_FirstPremiumDate"].ToString() != string.Empty)
