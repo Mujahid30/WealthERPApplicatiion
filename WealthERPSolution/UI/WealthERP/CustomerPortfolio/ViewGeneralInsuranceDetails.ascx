@@ -81,7 +81,7 @@
                 <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
-                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" HeaderText="Issue Code" AllowFiltering="false">
+                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                             <ItemTemplate>
                                 <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
