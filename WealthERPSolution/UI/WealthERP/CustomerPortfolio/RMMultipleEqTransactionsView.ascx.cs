@@ -214,7 +214,7 @@ namespace WealthERP.CustomerPortfolio
             Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             DataSet ds = new DataSet();
             int Count = 0;
-
+                                   
 
             string extraSearch = "";
             try
@@ -223,13 +223,13 @@ namespace WealthERP.CustomerPortfolio
                 if (rbtnGroup.Checked)
                 {
                     //rmVo.RMId = 1037;
-                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId,advisorVo.advisorId, int.Parse(txtParentCustomerId.Value), convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 else
                 {
                     //rmVo.RMId = 1037;
-                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
+                    ds = customerTransactionBo.GetRMCustomerEqTransactions(out Count, currentPage, rmVo.RMId,advisorVo.advisorId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), hdnCustomerNameSearch.Value.Trim(), hdnSchemeSearch.Value.Trim(), hdnTranType.Value.Trim(), out genDictTranType, extraSearch, exportFlag);
                     hdnRecordCount.Value = lblTotalRows.Text = Count.ToString();
                 }
                 DataTable dtTransactions = new DataTable();
