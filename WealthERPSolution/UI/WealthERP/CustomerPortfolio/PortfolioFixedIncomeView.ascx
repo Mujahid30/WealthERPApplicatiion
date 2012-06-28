@@ -124,7 +124,7 @@
                 >
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="FixedIncomeList">
                 </ExportSettings>
-                <MasterTableView DataKeyNames="FITransactionId" Width="100%" AllowMultiColumnSorting="True"
+                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="FITransactionId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
