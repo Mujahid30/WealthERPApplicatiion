@@ -390,13 +390,13 @@ namespace WealthERP.General
                         lbl.ID = "lbl" + input[Contants.cStr_IM_Abbrevation].ToString();
 
                         tc = new TableCell();
-                        tc.CssClass = "labelText";
+                        tc.CssClass = "FieldName";
                         tr = new TableRow();
                         tc.Controls.Add(lbl);
                         tr.Controls.Add(tc);
 
                         tc = new TableCell();
-                        tc.CssClass = "labelText";
+                        tc.CssClass = "FieldName";
                         if (input[Contants.cStr_IOM_FieldType].Equals("Text") || input[Contants.cStr_IOM_FieldType].Equals("Date"))
                         {
                             if (input[Contants.cStr_IOM_FieldType].Equals("Text"))
@@ -404,7 +404,7 @@ namespace WealthERP.General
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "labelText";
+                                txt.CssClass = "txtField";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -430,7 +430,7 @@ namespace WealthERP.General
                             {
                                 Label lblPercentage = new Label();
                                 lblPercentage.Text = "%";
-                                lblPercentage.CssClass = "labelText";
+                                lblPercentage.CssClass = "FieldName";
                                 lblPercentage.Style.Add("width", "25px");
                                 lblPercentage.Style.Add("height", "20px");
                                 lblPercentage.Style.Add("position", "absolute");
@@ -441,7 +441,7 @@ namespace WealthERP.General
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "labelText";
+                                txt.CssClass = "txtField";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -479,7 +479,7 @@ namespace WealthERP.General
                         {
 
                             DropDownList ddl = new DropDownList();
-                            ddl.CssClass = "labelText";
+                            ddl.CssClass = "cmbField";
                             ddl.ID = "txt" + input[Contants.cStr_IM_Abbrevation].ToString();
                             ddl.Attributes.Add("name", "txt" + input[Contants.cStr_IM_Abbrevation].ToString());
 
@@ -537,7 +537,7 @@ namespace WealthERP.General
                             if (!alInputFields.Contains(ddl.ID))
                             {
                                 alInputFields.Add(ddl.ID);
-                                tc.CssClass = "dropdownList";
+                                tc.CssClass = "cmbField";
                                 tc.Controls.Add(ddl);
                                 tr.Controls.Add(tc);
                                 tbl.Controls.Add(tr);

@@ -176,7 +176,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td height="30px" align="left" valign="bottom">
-                                                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" Width="350px" />
+                                                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="cvPCG" Width="350px" />
                                                         </td>
                                                     </tr>
                                                     <tr style="display: none" id="trError" runat="server">
