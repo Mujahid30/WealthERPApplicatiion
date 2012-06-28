@@ -282,9 +282,9 @@
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
-                                                                Text="Transact/Business online" Value="Transact/Business online"
+                                                                Text="Transact/Business online <img id='img1' src='/Images/new.gif'/>" Value="Transact/Business online"
                                                                 SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
+                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository <img id='img1' src='/Images/new.gif'/>"
                                                                 Value="Repository" SeparatorImageUrl="~/Images/MenuSeparator.jpg"></asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('InfoLinks','login');" Text="Info links"
                                                                 Value="Info links"></asp:MenuItem>
