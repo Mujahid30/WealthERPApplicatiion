@@ -128,10 +128,10 @@
                                                     <telerik:RadPanelItem runat="server" Text="Order Entry"
                                                         Value="OrderEntry">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="LI Order"
+                                                    <telerik:RadPanelItem runat="server" Text="LI Order" Visible="false"
                                                         Value="LI_Order">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order List"
+                                                    <telerik:RadPanelItem runat="server" Text="Order List" Visible="false"
                                                         Value="Order_List">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Order Recon"
@@ -432,6 +432,25 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS"
+                                                        Value="OrderMIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Entry"
+                                                        Value="OrderEntry">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="LI Order" Visible="false"
+                                                        Value="LI_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order List" Visible="false"
+                                                        Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Recon"
+                                                        Value="OrderRecon" Visible="false">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                     </telerik:RadPanelItem>  
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
                                       
