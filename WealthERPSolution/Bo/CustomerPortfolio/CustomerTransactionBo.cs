@@ -1638,14 +1638,14 @@ namespace BoCustomerPortfolio
 
 
 
-        public DataSet GetRMCustomerEqTransactions(out int Count, int CurrentPage, int RMId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber,int exportFlag)
+        public DataSet GetRMCustomerEqTransactions(out int Count, int CurrentPage, int RMId, int adviserId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scheme, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             DataSet ds = null;
             try
             {
 
-                ds = customerTransactionDao.GetRMCustomerEqTransactions(out Count, CurrentPage, RMId, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, out genDictTranType, FolioNumber, exportFlag);
+                ds = customerTransactionDao.GetRMCustomerEqTransactions(out Count, CurrentPage, RMId,adviserId, GroupHeadId, From, To, Manage, CustomerName, Scheme, TranType, out genDictTranType, FolioNumber, exportFlag);
 
             }
             catch (BaseApplicationException Ex)
