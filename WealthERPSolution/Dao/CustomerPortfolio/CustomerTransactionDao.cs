@@ -2681,7 +2681,7 @@ namespace DaoCustomerPortfolio
         #region Equity Multiple Transaction View
 
 
-        public DataSet GetRMCustomerEqTransactions(out int Count, int CurrentPage, int RMId, int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scrip, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
+        public DataSet GetRMCustomerEqTransactions(out int Count, int CurrentPage, int RMId,int adviserId , int GroupHeadId, DateTime From, DateTime To, int Manage, string CustomerName, string Scrip, string TranType, out Dictionary<string, string> genDictTranType, string FolioNumber, int exportFlag)
         {
             DataSet ds = null;
             Database db;
@@ -2696,6 +2696,7 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerEQTransactions");
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, adviserId);
                 if (GroupHeadId != 0)
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
