@@ -317,7 +317,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
-                Label19.Text = "Sell Price";
+                Label19.Text = "Sell Price :";
 
             }
             if (ddlTransactionType.SelectedItem.Value == "Buy" || ddlTransactionType.SelectedItem.Value == "Holdings")
@@ -405,7 +405,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = true;
                 tdUnitsAllotedLabel.Visible = true;
                 tdUnitsAllotedValue.Visible = true;
-                Label19.Text = "Sell Price";
+                Label19.Text = "Sell Price :";
             }
             if (ddlTransactionType.SelectedItem.Value == "SWP")
             {
@@ -426,7 +426,7 @@ namespace WealthERP.CustomerPortfolio
                 tdAmtPurchasedValue.Visible = false;
                 tdUnitsAllotedLabel.Visible = false;
                 tdUnitsAllotedValue.Visible = false;
-                Label19.Text = "Sell Price";
+                Label19.Text = "Sell Price :";
                 // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showSWPDetails();", true);
 
             }

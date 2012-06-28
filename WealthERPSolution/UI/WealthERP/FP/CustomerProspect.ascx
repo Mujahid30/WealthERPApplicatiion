@@ -1896,7 +1896,7 @@
                                     <asp:TextBox ID="txtTotalTermPremium" runat="server" onchange="Total()" ReadOnly="false" 
                                                     style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     <td align="left">
-                                    <asp:TextBox ID="txtTotalSurrMrktValue" runat="server" onchange="Total()" ReadOnly="true" 
+                                    <asp:TextBox ID="txtTotalSurrMrktValue" runat="server" onchange="Total()"
                                                     style="direction: rtl" Width="90px"></asp:TextBox></td></tr><tr>
                                 <td align="right">
                                     <asp:Label ID="lblEndowment" runat="server" CssClass="FieldName" 
@@ -1926,7 +1926,7 @@
                                                     ReadOnly="false" Style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     <td align="left">
                                     <asp:TextBox ID="txtTotalEndowmentSurrMktVal" runat="server" onchange="Total()" 
-                                                    ReadOnly="true" Style="direction: rtl" Width="90px"></asp:TextBox></td>
+                                                    Style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     </tr><tr>
                                 <td align="right">
                                     <asp:Label ID="lblWholeLife" runat="server" CssClass="FieldName" 
@@ -1957,7 +1957,7 @@
                                                     ReadOnly="false" style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     <td align="left">
                                     <asp:TextBox ID="txtTotalWholeLifeSurrMrktVal" runat="server" onchange="Total()" 
-                                                    ReadOnly="true" style="direction: rtl" Width="90px"></asp:TextBox></td></tr><tr>
+                                                   style="direction: rtl" Width="90px"></asp:TextBox></td></tr><tr>
                                     
                                    <td align="right">
                                         <asp:Label ID="lblMoneyBack" runat="server" CssClass="FieldName" 
@@ -1989,7 +1989,7 @@
                                                     <td 
                                                 align="left">
                                             <asp:TextBox ID="txtTotalMoneyBackSurrenMarkt" runat="server" onchange="Total()" 
-                                                    ReadOnly="true" style="direction: rtl" Width="90px"></asp:TextBox></td>
+                                                    style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     </tr><tr>
                                     <td align="right">
                                     <asp:Label ID="lblULIP" runat="server" CssClass="FieldName" Text="ULIP : "></asp:Label></td><td 
@@ -2016,7 +2016,7 @@
                                         <asp:TextBox ID="txtTotalULIPPremium" runat="server" onchange="Total()" ReadOnly="false" 
                                                     Style="direction: rtl" Width="90px"></asp:TextBox></td>
                                                     <td align="left">
-                                        <asp:TextBox ID="txtTotalULIPSurrMrktVal" runat="server" onchange="Total()" ReadOnly="true" 
+                                        <asp:TextBox ID="txtTotalULIPSurrMrktVal" runat="server" onchange="Total()" 
                                                     Style="direction: rtl" Width="90px"></asp:TextBox></td></tr><tr>
                                 <td align="right">
                                     <asp:Label ID="lblOthersLI" runat="server" CssClass="FieldName" 

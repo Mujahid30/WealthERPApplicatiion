@@ -263,7 +263,7 @@ namespace WealthERP.FP
             {
                 customerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());
                 AdvisorVo advisorvo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 1);
+                ManagedUnmanagedDetails(customerId, advisorvo.advisorId, 0);
 
                 dt = (DataTable)Session[SessionContents.FPS_AddProspect_DataTable];
                 ParentCustomerId = int.Parse(Session[SessionContents.FPS_ProspectList_CustomerId].ToString());

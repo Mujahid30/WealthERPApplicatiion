@@ -140,11 +140,11 @@
                     </asp:DropDownList>
                     
                 </td>
-                <td style="width : 10%;">
+                <td style="width : 15%;">
+                </td>
+                <td style="width : 20%;">
                 </td>
                 <td style="width : 25%;">
-                </td>
-                <td style="width : 30%;">
                 </td>
             </tr>
             
