@@ -390,6 +390,19 @@ namespace WealthERP.CustomerPortfolio
                     gvrLifeInsurance.DataSource = dtInsurance;
                     gvrLifeInsurance.DataBind();
                     gvrLifeInsurance.Visible = true;
+
+
+                    if (Cache["LIList"] == null)
+                    {
+                        Cache.Insert("LIList", dtInsurance);
+                    }
+                    else
+                    {
+                        Cache.Remove("LIList");
+                        Cache.Insert("LIList", dtInsurance);
+                    }
+
+
                     //this.GetPageCount();
                 }
                 else
@@ -656,6 +669,7 @@ namespace WealthERP.CustomerPortfolio
             dtLIDetails = (DataTable)Cache["LIList"];
             gvrLifeInsurance.DataSource = dtLIDetails;
         }
+
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {

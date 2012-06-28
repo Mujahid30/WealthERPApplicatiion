@@ -85,7 +85,7 @@
                 OnNeedDataSource="gvrLifeInsurance_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
-                <MasterTableView DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
+                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
