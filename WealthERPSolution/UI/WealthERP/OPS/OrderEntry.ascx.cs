@@ -107,7 +107,7 @@ namespace WealthERP.OPS
                     BindPortfolioDropdown(customerId);
                 }
                 trReportButtons.Visible = false;
-                if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
