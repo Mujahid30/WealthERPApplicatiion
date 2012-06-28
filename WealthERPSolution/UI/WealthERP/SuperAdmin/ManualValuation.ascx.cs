@@ -776,10 +776,10 @@ namespace WealthERP.SuperAdmin
             //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
             valuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
             //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
-            if (valuationDate >= DateTime.Today)
+            if (valuationDate!=DateTime.Now.AddDays(-1))
             {
                 gvAdviserList.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Should not be future date!!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
             }
             else
             {
