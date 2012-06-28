@@ -103,7 +103,7 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Category"
+                        <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" FooterText="Grand Total:" HeaderText="Category"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
