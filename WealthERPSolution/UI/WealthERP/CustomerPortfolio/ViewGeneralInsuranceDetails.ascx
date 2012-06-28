@@ -76,7 +76,7 @@
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
                 OnNeedDataSource="gvGeneralInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="GI Details">
                 </ExportSettings>
                 <MasterTableView AllowFilteringByColumn="false" DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="None">
