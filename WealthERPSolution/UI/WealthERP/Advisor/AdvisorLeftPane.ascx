@@ -434,7 +434,10 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                      
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF Systematic MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>

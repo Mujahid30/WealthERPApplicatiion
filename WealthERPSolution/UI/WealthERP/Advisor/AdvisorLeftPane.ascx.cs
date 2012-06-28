@@ -1212,6 +1212,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','login');", true);
+                }
+                else if (e.Item.Value == "Multi_Product_MIS")
+                {
+                    Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MultiProductMIS','login');", true);
                 }
                 else if (e.Item.Value == "MF Commission MIS")
