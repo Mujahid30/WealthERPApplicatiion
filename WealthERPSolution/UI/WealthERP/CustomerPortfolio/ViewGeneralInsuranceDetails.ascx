@@ -78,8 +78,8 @@
                 OnNeedDataSource="gvGeneralInsurance_OnNeedDataSource">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="GI Details">
                 </ExportSettings>
-                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="InsuranceId" Width="100%"
+                    AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                             <ItemTemplate>
@@ -111,12 +111,12 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="InsuredAmount" AllowFiltering="false" HeaderText="Insured Amount"
-                            UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn DataFormatString="{0:N4}" DataField="InsuredAmount" AllowFiltering="false" HeaderText="Insured Amount"
+                            UniqueName="ActiveLevel" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PremiumAmount" AllowFiltering="false" HeaderText="Premium Amount"
-                            UniqueName="ActiveLevel">
+                            UniqueName="ActiveLevel" DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CommencementDate" DataFormatString="{0:dd/MM/yyyy}"
