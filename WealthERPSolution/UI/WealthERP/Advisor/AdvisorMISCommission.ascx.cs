@@ -44,6 +44,8 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            trCommissionMIS.Visible = false;
+            gvCommissionMIS.Visible = false;
             if (!Page.IsPostBack)
             {
                 BindPeriodDropDown();
@@ -79,6 +81,7 @@ namespace WealthERP.Advisor
             dsMISCommission = advisorMISBo.GetMFMISCommission(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), out sumTotal);            
             if (dsMISCommission.Tables[0].Rows.Count > 0)
             {
+                trCommissionMIS.Visible = true;
                 dtMIS = dsMISCommission.Tables[0];
                 string misType = hdnMISType.Value.ToString();                
                 tblMessage.Visible = false;
@@ -191,10 +194,20 @@ namespace WealthERP.Advisor
                 PickADateValidation.Visible = true;
             }
         }
-
+        protected void btnCommissionMIS_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCommissionMIS.ExportSettings.OpenInNewWindow = true;
+            gvCommissionMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCommissionMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCommissionMIS.MasterTableView.ExportToExcel();
+        }
         public void gvCommissionMIS_OnNeedDataSource(object sender, EventArgs e)
         {
-
+            gvCommissionMIS.Visible = true;
+            trCommissionMIS.Visible = true;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["MIS"];
             gvCommissionMIS.DataSource = dtMIS;

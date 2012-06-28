@@ -115,16 +115,23 @@
                 ValidationGroup="btnView" />
         </td>
     </tr>
+    <tr id="trCommissionMIS" runat="server">
+        <td>
+            <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+        </td>
+    </tr>
     <tr>
         <td>
             <telerik:RadGrid ID="gvCommissionMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
-                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
-                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                Width="80%" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
+                    <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
-                    <Columns>
+--%>                    <Columns>
                         <telerik:GridBoundColumn UniqueName="MISType" AllowFiltering="false"
                             HeaderText="">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

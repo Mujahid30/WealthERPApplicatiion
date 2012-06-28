@@ -30,7 +30,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr1;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCommissionMIS;
         /// <summary>
         /// Td3 control.
         /// </summary>
