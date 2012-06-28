@@ -429,7 +429,7 @@ namespace WealthERP.General
                             if (input[Contants.cStr_IM_Abbrevation].ToString().Equals("IRA", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 Label lblPercentage = new Label();
-                                lblPercentage.Text = "%";
+                                //lblPercentage.Text = "%";
                                 lblPercentage.CssClass = "FieldName";
                                 lblPercentage.Style.Add("width", "25px");
                                 lblPercentage.Style.Add("height", "20px");
