@@ -47,6 +47,9 @@ namespace WealthERP.CustomerPortfolio
 
             if (Request.QueryString["FromPage"] == "GIAccountAdd")
             {
+                Session["action"] = null;
+                Session["insuranceId"] = null;
+
                 int.TryParse(Request.QueryString["AccountId"].ToString(), out acntId);
                 ViewState["accountId"] = accountId = acntId;
 
@@ -107,7 +110,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (action == "View")
             {
-              // 
+                // 
                 btnAddScheme.Enabled = false;
                 hideControlsForViewAndEdit();
                 Session["insuranceId"] = insuranceId;
@@ -123,6 +126,9 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (action == "Edit")
             {
+                Session["action"] = null;
+                Session["insuranceId"] = null;
+
                 btnAddScheme.Enabled = true;
                 hideControlsForViewAndEdit();
                 btnSubmit.Text = "Update";
@@ -146,9 +152,9 @@ namespace WealthERP.CustomerPortfolio
             //rdbPolicyTermDays.Visible = false;
             //rdbPolicyTermMonth.Visible = false;
             //lblDays.Visible = false;
-           // txtDays.Visible = false;
-           // lblMonths.Visible = false;
-           // txtMonths.Visible = false;
+            // txtDays.Visible = false;
+            // lblMonths.Visible = false;
+            // txtMonths.Visible = false;
 
         }
 
@@ -1211,7 +1217,7 @@ namespace WealthERP.CustomerPortfolio
                     BindAssetParticular(ddlPolicyIssuer.SelectedValue);
                 }
             }
-          
+
         }
 
         public void ddlPolicyIssuer_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -1253,13 +1259,13 @@ namespace WealthERP.CustomerPortfolio
 
             //if (rdbPolicyTermDays.Checked == true)
             //{
-              //  period = int.Parse(txtDays.Text);
-                endDate = startDate.AddDays(period);
+            //  period = int.Parse(txtDays.Text);
+            endDate = startDate.AddDays(period);
             //}
             //else if (rdbPolicyTermMonth.Checked == true)
             //{
-             //   period = int.Parse(txtMonths.Text);
-                endDate = startDate.AddMonths(period);
+            //   period = int.Parse(txtMonths.Text);
+            endDate = startDate.AddMonths(period);
             //}
 
 
@@ -1290,5 +1296,11 @@ namespace WealthERP.CustomerPortfolio
             return endDate;
         }
 
+        protected override void OnUnload(EventArgs e)
+        {
+            //base.OnUnload(e);
+            //Session["action"] = null;
+            //Session["insuranceId"] = null;
+        }
     }
 }
