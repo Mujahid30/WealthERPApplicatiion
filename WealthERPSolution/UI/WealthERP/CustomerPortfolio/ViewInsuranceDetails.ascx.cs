@@ -221,10 +221,10 @@ namespace WealthERP.CustomerPortfolio
                     dtInsurance.Columns.Add("InsuranceId");
                     dtInsurance.Columns.Add("Category");
                     dtInsurance.Columns.Add("Particulars");
-                    dtInsurance.Columns.Add("Sum Assured");
-                    dtInsurance.Columns.Add("Premium Amount");
+                    dtInsurance.Columns.Add("Sum Assured", typeof(double));
+                    dtInsurance.Columns.Add("Premium Amount", typeof(double));
                     dtInsurance.Columns.Add("Commencement Date");
-                    dtInsurance.Columns.Add("Maturity Value");
+                    dtInsurance.Columns.Add("Maturity Value", typeof(double));
                     dtInsurance.Columns.Add("Maturity Date");
                     DataRow drInsurance;
 

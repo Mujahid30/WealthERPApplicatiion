@@ -114,11 +114,11 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Sum Assured" AllowFiltering="false" HeaderText="Sum Assured"
-                            UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn DataField="Sum Assured" DataFormatString="{0:N4}" AllowFiltering="false" HeaderText="Sum Assured"
+                            UniqueName="ActiveLevel" Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
+                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N4}" DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -126,7 +126,7 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
+                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N4}" DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
