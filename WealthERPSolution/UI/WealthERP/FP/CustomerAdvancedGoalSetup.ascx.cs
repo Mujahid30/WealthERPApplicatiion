@@ -2207,7 +2207,26 @@ namespace WealthERP.FP
             //}
 
         }
-
+        protected void btnexistmfinvest_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadGrid1.ExportSettings.OpenInNewWindow = true;
+            RadGrid1.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in RadGrid1.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            RadGrid1.MasterTableView.ExportToExcel();
+        }
+        protected void FutureMFinvest_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadGrid2.ExportSettings.OpenInNewWindow = true;
+            RadGrid2.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in RadGrid2.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            RadGrid2.MasterTableView.ExportToExcel();
+        }
         protected void BindModelPortFolioSchemes(int modelPortfolioId)
         {
             DataTable dtModelPortFolioSchemeDetails = dsModelPortFolioSchemeDetails.Tables[0];

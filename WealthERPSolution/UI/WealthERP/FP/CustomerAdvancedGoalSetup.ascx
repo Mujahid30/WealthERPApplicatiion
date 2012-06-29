@@ -759,6 +759,15 @@
                         <b>Fund from Existing MF Investments</b>
                     </td>
                 </tr>
+                <tr id="existmfinvest" runat="server">
+                <td>
+                <asp:ImageButton ID="btnexistmfinvest" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnexistmfinvest_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
+                </td>
+                </tr>
+
             </table>
             <telerik:RadGrid ID="RadGrid1" runat="server" CssClass="RadGrid" GridLines="None"
                 Width="100%" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
@@ -766,6 +775,9 @@
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid1_ItemDataBound"
                 OnDeleteCommand="RadGrid1_DeleteCommand" OnInsertCommand="RadGrid1_ItemInserted"
                 OnItemUpdated="RadGrid1_ItemUpdated" OnItemCommand="RadGrid1_ItemCommand" OnPreRender="RadGrid1_PreRender">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                </ExportSettings>
+
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     DataKeyNames="SchemeCode,OtherGoalAllocation">
                     <Columns>
@@ -950,6 +962,14 @@
                         <b>Fund from Future MF Savings</b>
                     </td>
                 </tr>
+                <tr id="FutureMFinvest" runat="server">
+                <td>
+                <asp:ImageButton ID="btnFutureMFinvest" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="FutureMFinvest_OnClick"
+                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                
+                </td>
+                </tr>
             </table>
             <telerik:RadGrid ID="RadGrid2" runat="server" CssClass="RadGrid" GridLines="None"
                 AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
@@ -957,6 +977,8 @@
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="RadGrid2_ItemDataBound"
                 OnInsertCommand="RadGrid2_ItemInserted" OnDeleteCommand="RadGrid2_DeleteCommand"
                 OnItemCommand="RadGrid2_ItemCommand">
+                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="FutureMFInvestlist">
+                </ExportSettings>
                 <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                     DataKeyNames="SIPId,TotalSIPamount">
                     <Columns>
