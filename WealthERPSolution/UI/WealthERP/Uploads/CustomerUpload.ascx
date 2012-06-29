@@ -602,8 +602,7 @@
         </tr>
          <tr>
             <td class="leftField">
-                <asp:Label ID="lblTotalInputRecordsRejected" Visible="false"Text="Total Input Records Rejected:" CssClass="FieldName"
-                    runat="server">
+                <asp:Label ID="lblTotalInputRecordsRejected" Visible="false"Text="Total Input Records Rejected:" CssClass="FieldName">
                 </asp:Label>
             </td>
             <td class="rightField">

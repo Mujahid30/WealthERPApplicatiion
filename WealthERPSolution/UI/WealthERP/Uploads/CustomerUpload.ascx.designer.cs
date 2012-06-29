@@ -165,6 +165,8 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranch;
+
+        protected global::System.Web.UI.WebControls.Label lblTotalInputRecordsRejected;
         
         /// <summary>
         /// ddlListBranch control.
@@ -705,15 +707,6 @@ namespace WealthERP.Uploads {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRejectedRecords;
-        
-        /// <summary>
-        /// lblTotalInputRecordsRejected control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalInputRecordsRejected;
         
         /// <summary>
         /// txtInputRejectedRecords control.
