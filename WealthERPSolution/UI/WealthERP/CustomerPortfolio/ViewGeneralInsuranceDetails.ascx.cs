@@ -24,6 +24,7 @@ namespace WealthERP.CustomerPortfolio
         {
             customerVo = (CustomerVo)Session["customerVo"];
             BindGeneralInsuranceGridview(123);
+            trExportFilteredData.Visible = false;
 
         }
 
@@ -104,6 +105,7 @@ namespace WealthERP.CustomerPortfolio
                 dt = insuranceBo.GetCustomerGIDetails(customerVo.CustomerId);
                 if (dt.Rows.Count > 0)
                 {
+                    trExportFilteredData.Visible = true;
                     ErrorMessage.Visible = false;
                     gvGeneralInsurance.DataSource = dt;
                     gvGeneralInsurance.DataBind();
@@ -250,6 +252,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            trExportFilteredData.Visible = true;
             gvGeneralInsurance.ExportSettings.OpenInNewWindow = true;
             gvGeneralInsurance.ExportSettings.IgnorePaging = true;
             foreach (GridFilteringItem filter in gvGeneralInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
