@@ -24,6 +24,11 @@
 <asp:UpdatePanel ID="upPanel" runat="server">
     <ContentTemplate>
         <table cellpadding="0" cellspacing="0" border="0" class="mainTable" width="100%">
+        <tr>
+        <td>
+        &nbsp;
+        </td>
+        </tr>
             <tr>
                 <td>
                     <table cellpadding="0" cellspacing="0" border="0" width="450px" align="center">
@@ -176,12 +181,12 @@
                                                     </tr>
                                                     <tr>
                                                         <td height="30px" align="left" valign="bottom">
-                                                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="cvPCG" Width="350px" />
+                                                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" Width="350px" CssClass="spnRequiredField" />
                                                         </td>
                                                     </tr>
                                                     <tr style="display: none" id="trError" runat="server">
                                                         <td height="30px" align="center" valign="top">
-                                                            <asp:Label ID="lblMessage" CssClass="errorLabel" runat="server" EnableViewState="false"></asp:Label>
+                                                            <asp:Label ID="lblMessage" CssClass="spnRequiredField" runat="server" EnableViewState="false"></asp:Label>
                                                         </td>
                                                     </tr>
                                                 </table>

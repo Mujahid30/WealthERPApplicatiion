@@ -214,13 +214,13 @@ namespace WealthERP.General
                             continue;
                         else
                         {
-                            sb.Append("<td>");
+                            sb.Append("<td class=" + "FieldName" + ">");
                             //sb.Append(dEntry.Key + " of " + ddlInstType.SelectedItem.Text + " : ");
                             //sb.Append("<b> " + dEntry.Value.ToString() + "</b>" );
                             //sb.Append("<br />");
                             sb.Append(dEntry.Key + " of " + ddlInstType.SelectedItem.Text);
                             sb.Append("</td>");
-                            sb.Append("<td align='right'>");
+                            sb.Append("<td align='right' class=" + "FieldName" + ">");
                             sb.Append("<b> " + dEntry.Value.ToString() + "</b>");
                             sb.Append("</td>");
                         }
@@ -241,8 +241,10 @@ namespace WealthERP.General
                             sResultText += msg.ToString() + " <br />";
                         }
                         trError.Style.Add("display", "display");
+                        //trError.Style.Add("Class", "spnRequiredField");
                     }
                     lblMessage.Text = sResultText;
+                    lblMessage.CssClass = "spnRequiredField";
                     lblResult.Text = string.Empty;
                     lblResultValue.Text = string.Empty;
                     alErrMsg.Clear();
@@ -386,17 +388,19 @@ namespace WealthERP.General
                     {
                         Label lbl = new Label();
 
-                        lbl.Text = "<span style='color:red;font-weight:bold;'>*&nbsp;</span>" + input[Contants.cStr_IM_InputType].ToString();
+                        lbl.Text = input[Contants.cStr_IM_InputType].ToString()+": ";
                         lbl.ID = "lbl" + input[Contants.cStr_IM_Abbrevation].ToString();
+                        lbl.CssClass = "FieldName";
 
                         tc = new TableCell();
-                        tc.CssClass = "labelText";
+                        tc.CssClass = "leftField";
+
                         tr = new TableRow();
                         tc.Controls.Add(lbl);
                         tr.Controls.Add(tc);
 
                         tc = new TableCell();
-                        tc.CssClass = "labelText";
+                        tc.CssClass = "rightField";
 
                         if (input[Contants.cStr_IOM_FieldType].Equals("Text") || input[Contants.cStr_IOM_FieldType].Equals("Date"))
                         {
@@ -405,7 +409,7 @@ namespace WealthERP.General
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "labelText";
+                                txt.CssClass = "txtField";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -420,29 +424,41 @@ namespace WealthERP.General
                                         rfv.ControlToValidate = txt.ID;
                                         rfv.ErrorMessage = input[Contants.cStr_IM_InputType].ToString() + " " + "value canot be empty";
                                         rfv.Text = "*";
+                                        rfv.CssClass = "spnRequiredField";
                                         rfv.SetFocusOnError = true;
                                         tc.Controls.Add(rfv);
                                     }
                                     tr.Controls.Add(tc);
+
+                                    //add Span Coontrol to the table row
+                                    tc = new TableCell();
+                                    Label lblSpan = new Label();
+                                    lblSpan.Text = "<span>*</span>";
+                                    lblSpan.ID = "lbl" + "span" + input[Contants.cStr_IM_Abbrevation].ToString();
+                                    tc.CssClass = "spnRequiredField";
+                                    tc.Controls.Add(lblSpan);
+                                    tr.Controls.Add(tc);
+                                    //add Span Coontrol to the table row
+
                                     tbl.Controls.Add(tr);
                                 }
                             }
-                            if (input[Contants.cStr_IM_Abbrevation].ToString().Equals("IRA", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                Label lblPercentage = new Label();
-                                lblPercentage.Text = "%";
-                                lblPercentage.CssClass = "labelText";
-                                lblPercentage.Style.Add("width", "25px");
-                                lblPercentage.Style.Add("height", "20px");
-                                lblPercentage.Style.Add("position", "absolute");
-                                tc.Controls.Add(lblPercentage);
-                            }
+                            //if (input[Contants.cStr_IM_Abbrevation].ToString().Equals("IRA", StringComparison.CurrentCultureIgnoreCase))
+                            //{
+                            //    Label lblPercentage = new Label();
+                            //    lblPercentage.Text = "%";
+                            //    lblPercentage.CssClass = "labelText";
+                            //    lblPercentage.Style.Add("width", "25px");
+                            //    lblPercentage.Style.Add("height", "20px");
+                            //    lblPercentage.Style.Add("position", "absolute");
+                            //    tc.Controls.Add(lblPercentage);
+                            //}
                             if (input[Contants.cStr_IOM_FieldType].Equals("Date"))
                             {
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "labelText";
+                                txt.CssClass = "txtField";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -469,9 +485,22 @@ namespace WealthERP.General
                                         rfv.ErrorMessage = input[Contants.cStr_IM_InputType].ToString() + " " + "value canot be empty";
                                         rfv.Text = "*";
                                         rfv.SetFocusOnError = true;
+                                        rfv.CssClass = "spnRequiredField";
                                         tc.Controls.Add(rfv);
                                     }
                                     tr.Controls.Add(tc);
+
+                                    //add Span Coontrol to the table row
+                                    tc = new TableCell();
+                                    Label lblSpan = new Label();
+                                    lblSpan.Text = "<span>*</span>";
+                                    lblSpan.ID = "lbl" + "span" + input[Contants.cStr_IM_Abbrevation].ToString();
+                                    tc.CssClass = "spnRequiredField";
+                                    tc.Controls.Add(lblSpan);
+                                    tr.Controls.Add(tc);
+                                    //add Span Coontrol to the table row
+
+
                                     tbl.Controls.Add(tr);
                                 }
                             }
@@ -480,7 +509,7 @@ namespace WealthERP.General
                         {
 
                             DropDownList ddl = new DropDownList();
-                            ddl.CssClass = "labelText";
+                            ddl.CssClass = "cmbField";
                             ddl.ID = "txt" + input[Contants.cStr_IM_Abbrevation].ToString();
                             ddl.Attributes.Add("name", "txt" + input[Contants.cStr_IM_Abbrevation].ToString());
 
@@ -541,9 +570,22 @@ namespace WealthERP.General
                                 tc.CssClass = "dropdownList";
                                 tc.Controls.Add(ddl);
                                 tr.Controls.Add(tc);
+
+                                //add Span Coontrol to the table row
+                                tc = new TableCell();
+                                Label lblSpan = new Label();
+                                lblSpan.Text = "<span>*</span>";
+                                lblSpan.ID = "lbl" + "span" + input[Contants.cStr_IM_Abbrevation].ToString();
+                                tc.CssClass = "spnRequiredField";
+                                tc.Controls.Add(lblSpan);
+                                tr.Controls.Add(tc);
+                                //add Span Coontrol to the table row
+
                                 tbl.Controls.Add(tr);
                             }
                         }
+
+                        
 
                         pnlInputFields.Controls.Add(tbl);
                     }
