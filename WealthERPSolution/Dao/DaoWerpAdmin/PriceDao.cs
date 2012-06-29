@@ -94,7 +94,7 @@ namespace DaoWerpAdmin
         }
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode, int All, string CategoryCode)
         {
 
             DataSet ds;
@@ -110,6 +110,8 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
                 db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
                 db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
+                db.AddInParameter(Cmd, "@All", DbType.Int16, All);
+                db.AddInParameter(Cmd, "@CategoryCode", DbType.String, CategoryCode);
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
@@ -134,7 +136,7 @@ namespace DaoWerpAdmin
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
             }
         }
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode, int All, string CategoryCode)
         {
 
             DataSet ds;
@@ -152,7 +154,8 @@ namespace DaoWerpAdmin
                 db.AddInParameter(Cmd, "@amfiCode", DbType.Int32, amfiCode);
                 db.AddInParameter(Cmd, "@schemeCode", DbType.Int32, schemeCode);
                 db.AddInParameter(Cmd, "@selectAllCode", DbType.Int32, selectAllCode);
-
+                db.AddInParameter(Cmd, "@All", DbType.Int16, All);
+                db.AddInParameter(Cmd, "@CategoryCode", DbType.String, CategoryCode);
                 ds = db.ExecuteDataSet(Cmd);
                 return ds;
             }
