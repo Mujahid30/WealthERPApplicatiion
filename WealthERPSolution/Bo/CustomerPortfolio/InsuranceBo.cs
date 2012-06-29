@@ -368,14 +368,14 @@ namespace BoCustomerPortfolio
 
         }
 
-        public bool UpdateInsuranceULIPPlan(InsuranceULIPVo insuranceUlipVo)
+        public bool UpdateInsuranceULIPPlan(InsuranceULIPVo insuranceUlipVo, int schemeId)
         {
             bool bResult = false;
 
             InsuranceDao insuranceDao = new InsuranceDao();
             try
             {
-                bResult = insuranceDao.UpdateInsuranceULIPPlan(insuranceUlipVo);
+                bResult = insuranceDao.UpdateInsuranceULIPPlan(insuranceUlipVo, schemeId);
             }
             catch (BaseApplicationException Ex)
             {

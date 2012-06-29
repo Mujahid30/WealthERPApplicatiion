@@ -1897,13 +1897,13 @@ namespace WealthERP.CustomerPortfolio
                 {
                     // Get Insurance VO from Sessioin
                     insuranceVo = (InsuranceVo)Session["insuranceVo"];
-
                     // Start Update Process
                     //insuranceVo.Name = txtName.Text;
                     //insuranceVo.Name = ddlAssetPerticular.SelectedItem.ToString();
                     insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
-                    if (ddlAssetPerticular.SelectedValue != "Select")
+                    if (ddlAssetPerticular.SelectedValue != "Select")                    
                         insuranceVo.SchemeId = int.Parse(ddlAssetPerticular.SelectedValue);
+
                     insuranceVo.PolicyNumber = customerAccountVo.PolicyNum;                    
                     insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                     insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
@@ -2125,6 +2125,8 @@ namespace WealthERP.CustomerPortfolio
 
                                         if (unit != string.Empty)
                                             insuranceUlipVo.CIUP_Unit = float.Parse(unit.ToString());
+
+                                        insuranceUlipVo.IssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
                                         //if (purchaseDate != string.Empty)
                                         //    insuranceUlipVo.CIUP_PurchaseDate = Convert.ToInt32(ulipPlanId.ToString());
 
@@ -2145,8 +2147,8 @@ namespace WealthERP.CustomerPortfolio
                                         insuranceUlipVo = insuranceUlipListUpdate[i];
                                         insuranceUlipVo.CIP_CustInsInvId = insuranceVo.CustInsInvId;
                                         insuranceUlipVo.CIUP_CreatedBy = userVo.UserId;
-                                        insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;
-                                        insuranceBo.UpdateInsuranceULIPPlan(insuranceUlipVo);
+                                        insuranceUlipVo.CIUP_ModifiedBy = userVo.UserId;                                        
+                                        insuranceBo.UpdateInsuranceULIPPlan(insuranceUlipVo, int.Parse(ddlAssetPerticular.SelectedValue));
                                     }
                                     Session.Remove("ULIPSubPlanSchedule");
                                     Session.Remove("table");
