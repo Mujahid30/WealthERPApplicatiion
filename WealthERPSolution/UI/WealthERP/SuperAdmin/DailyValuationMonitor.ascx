@@ -682,13 +682,13 @@
                             DataFormatString="{0:D}" UniqueName="CMFTS_CreatedOn" HeaderStyle-HorizontalAlign="right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Right"
+                        <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
                             HeaderText="Adviser Name" UniqueName="A_OrgName">
                             <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" AllowFiltering="false" HeaderText="File NameSource Type"
                             UniqueName="File NameSource Type">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CMFTS_FolioNum" AllowFiltering="false" HeaderText="Folio number"
                             UniqueName="Folio number">
@@ -696,15 +696,15 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CMFTS_SchemeCode" AllowFiltering="false" HeaderText="Scheme"
                             UniqueName="Scheme">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PASP_SchemePlanName" AllowFiltering="false" HeaderText="Scheme name"
                             UniqueName="Scheme name">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
                             HeaderText="Transaction type" UniqueName="Transaction type">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CMFTS_TransactionDate" AllowFiltering="false"
                             HeaderText="Transaction date" DataFormatString="{0:D}" UniqueName="Transaction date">
@@ -722,10 +722,10 @@
                             DataFormatString="{0:n}" UniqueName="Transaction type">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
+                       <%-- <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
                             HeaderText="Transaction type" UniqueName="Transaction type">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>--%>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
