@@ -113,6 +113,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblAccountDetails;
         
         /// <summary>
+        /// uplAccountDetail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplAccountDetail;
+        
+        /// <summary>
         /// lblPolicyIssuer control.
         /// </summary>
         /// <remarks>
@@ -257,6 +266,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Button btnInsertNewScheme;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Label23 control.
         /// </summary>
         /// <remarks>
@@ -302,58 +320,13 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.CheckBox chkIsPolicyByEmployer;
         
         /// <summary>
-        /// lblWhtFamilyPolicy control.
+        /// trPolicyTerm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWhtFamilyPolicy;
-        
-        /// <summary>
-        /// rdoGroupPolicyYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdoGroupPolicyYes;
-        
-        /// <summary>
-        /// rdoGroupPolicyNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdoGroupPolicyNo;
-        
-        /// <summary>
-        /// lblTypeOfPolicy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTypeOfPolicy;
-        
-        /// <summary>
-        /// ddlTypeOfPolicy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTypeOfPolicy;
-        
-        /// <summary>
-        /// gvNominees control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvNominees;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trPolicyTerm;
         
         /// <summary>
         /// lblPolicyTerm control.
@@ -471,6 +444,60 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cv_txtSumAssured1;
+        
+        /// <summary>
+        /// lblWhtFamilyPolicy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWhtFamilyPolicy;
+        
+        /// <summary>
+        /// rdoGroupPolicyYes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdoGroupPolicyYes;
+        
+        /// <summary>
+        /// rdoGroupPolicyNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdoGroupPolicyNo;
+        
+        /// <summary>
+        /// lblTypeOfPolicy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTypeOfPolicy;
+        
+        /// <summary>
+        /// ddlTypeOfPolicy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTypeOfPolicy;
+        
+        /// <summary>
+        /// gvNominees control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvNominees;
         
         /// <summary>
         /// lblTPA control.
@@ -678,6 +705,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cv_txtPremiumAmount;
+        
+        /// <summary>
+        /// uplAssetDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uplAssetDetails;
         
         /// <summary>
         /// trAssetGroupHeader control.

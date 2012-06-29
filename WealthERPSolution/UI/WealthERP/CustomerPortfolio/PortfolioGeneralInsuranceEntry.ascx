@@ -31,7 +31,7 @@
     function hidePopup() {
 
         var modalPopup = document.getElementById('<%= MPEAssetParticular.ClientID %>');
-        alert(modalPopup);
+//        alert(modalPopup);
         if (modalPopup !=null)
         modalPopup.hide();
       }
@@ -44,13 +44,6 @@
     }
 </script>
 
-<script runat="server">
-    protected override void OnLoad(EventArgs e)
-    {
-        base.OnLoad(e);
-
-    }
-</script>
 
 <script language="javascript" type="text/javascript">
     //Business Rules to happen on policy type change
@@ -270,20 +263,20 @@
 
 <table style="width: 100%;">
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             <asp:Label ID="lblGeneralInsuranceEntryHeader" class="HeaderTextBig" runat="server"
                 Text="General Insurance Add Screen"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td colspan="4" class="tdRequiredText">
+        <td colspan="5" class="tdRequiredText">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
         </td>
     </tr>
     <tr>
-        <td class="style4">
+        <td  colspan="5" class="style4">
             <%--<asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>--%>
             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
@@ -291,12 +284,12 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             &nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="4" class="style5">
+        <td colspan="5" class="style5">
             <%--<asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
                 OnClick="lnkBtnBack_Click"></asp:LinkButton>--%>
             <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
@@ -334,16 +327,20 @@
         </td>--%>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             <asp:Label ID="lblAccountDetails" runat="server" Text="Account Details" CssClass="HeaderTextSmall"></asp:Label>
             <hr />
         </td>
     </tr>
+      </table>
+    <asp:UpdatePanel runat="server" ID="uplAccountDetail" UpdateMode="Conditional">
+                                        <ContentTemplate>
+                                        <table>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" Width="176px" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true" onchange="hidePopup();">
                 
@@ -354,27 +351,39 @@
                 ControlToValidate="ddlPolicyIssuer" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
         </td>
+        <td style="width : 20%;">
+        
+        </td>
+         <td style="width : 20%;">
+        
+        </td>
+         <td style="width : 20%;">
+        
+        </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPolicyParticular" runat="server" Text="Scheme Name:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style3">
+        <td  style="width : 20%;">
             <asp:DropDownList ID="txtPolicyParticular" runat="server" Width="176px" CssClass="cmbField">
             </asp:DropDownList>
         </td>
-        <td visible="false">
+        <td visible="false" style="width : 20%;">
             <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGLongButton" Text="Add Scheme" />
         </td>
+        <td style="width : 20%;">
+        </td>
+        <td style="width : 20%;"></td>
     </tr>
     <tr>
-        <td>
+        <td style="width : 20%;">
             <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddScheme"
                 PopupControlID="Panel2" BackgroundCssClass="modalBackground" OnOkScript="DownloadScript()"
                 Y="150" DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel"  PopupDragHandleControlID="Panel2">
             </cc1:ModalPopupExtender>
         </td>
-        <td>
+        <td style="width : 20%;">
             <asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100">
                 <%-- <asp:UpdatePanel ID="udpSchemeName" runat="Server" UpdateMode="Conditional">
                     <ContentTemplate>--%>
@@ -420,20 +429,29 @@
                 </asp:UpdatePanel>--%>
             </asp:Panel>
         </td>
-        <td colspan="2">
+        <td style="width : 20%;">
+        </td>
+        <td style="width : 20%;">
         </td>
     </tr>
+    </table>
+    </table>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+      <asp:UpdatePanel runat="server" ID="UpdatePanel1" UpdateMode="Conditional">
+                                        <ContentTemplate>
+    <table>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             <asp:Label ID="Label23" runat="server" CssClass="HeaderTextSmall" Text="Policy Details"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Start Date:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <telerik:RadDatePicker  Width="176px" ID="txtPolicyCommencementDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -455,78 +473,23 @@
                 ErrorMessage="<br />Please Select a valid date" Type="Date" ControlToValidate="txtPolicyCommencementDate"
                 CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
         </td>
-        <td colspan="2" align="center">
+        <td align="center" style="width : 20%;">
             <asp:CheckBox ID="chkIsPolicyByEmployer" Text="Policy provided by employer" runat="server"
                 class="cmbField" onClick="EnableDisableValidators();" />
         </td>
-        <td>
+        <td style="width : 20%;">
             &nbsp;
         </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <asp:Label ID="lblWhtFamilyPolicy" runat="server" CssClass="FieldName" Text="Whether Family/Group Policy:"></asp:Label>
-        </td>
-        <td class="style3">
-            <asp:RadioButton ID="rdoGroupPolicyYes" Text="Yes" runat="server" GroupName="Policy"
-                class="cmbField" onClick="ChangeGroupPolicy('Yes');" />
-            <asp:RadioButton ID="rdoGroupPolicyNo" Text="No" runat="server" GroupName="Policy"
-                Checked="true" class="cmbField" onClick="ChangeGroupPolicy('No');" />
-        </td>
-        <td align="right">
-            <asp:Label ID="lblTypeOfPolicy" runat="server" CssClass="FieldName" Text="Type of Policy:"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" Width="176px" CssClass="Field"
-                onChange="ChangePolicyType()" Enabled="false">
-                <%--<asp:ListItem Text="Individual" Value="PTIND"></asp:ListItem>
-                <asp:ListItem Text="Floater" Value="PTFLT"></asp:ListItem>--%>
-            </asp:DropDownList>
+        <td style="width : 20%;">
+        
         </td>
     </tr>
-    <%--<tr>
-        <td colspan="4">
-            &nbsp;
-        </td>
-    </tr>--%>
-    <tr>
-        <td>
-            <div id="divGridView">
-                <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" DataKeyNames="AssociationId"
-                    AllowSorting="False" CssClass="GridViewStyle">
-                    <FooterStyle CssClass="FooterStyle" />
-                    <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                    <SelectedRowStyle CssClass="SelectedRowStyle" />
-                    <HeaderStyle CssClass="HeaderStyle" />
-                    <EditRowStyle CssClass="EditRowStyle" />
-                    <AlternatingRowStyle CssClass="AltRowStyle" />
-                    <RowStyle CssClass="RowStyle" />
-                    <Columns>
-                        <asp:TemplateField HeaderText="Select">
-                            <ItemTemplate>
-                                <asp:CheckBox ID="chkId" runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Name" HeaderText="Name" />
-                        <asp:TemplateField HeaderText="Sum Assured">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtSumAssured" runat="server" CssClass="GridViewTxtField" Enabled="false"
-                                    onblur="CalculateSum()" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                </asp:GridView>
-            </div>
-        </td>
-        <td class="style3">
-            &nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
+    
+    <tr id="trPolicyTerm" runat="server">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPolicyTerm" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>
-        <td style="width:10px">
+        <td style="width : 20%;">
             <%-- <asp:RadioButton ID="rdbPolicyTermDays" Text="Days" runat="server" onClick="return EnableDisableDaysMonths()"
                 GroupName="PolicyTerm" class="cmbField" />
             <asp:RadioButton ID="rdbPolicyTermMonth" Text="Month" runat="server" onClick="return EnableDisableDaysMonths()"
@@ -558,15 +521,17 @@
             </asp:RequiredFieldValidator>
             <%--  <asp:Label ID="lblDays" runat="server" CssClass="FieldName" Text="Days:"></asp:Label>--%>
         </td>
-        <td>
+        <td style="width : 20%;">
        
         </td>
+        <td style="width : 20%;"></td>
+        <td style="width : 20%;"></td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblMaturityDate" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <telerik:RadDatePicker  Width="176px" Enabled="false" ID="txtMaturityDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                 ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -586,10 +551,10 @@
                 WatermarkText="MM/dd/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
         </td>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblSumAssured" runat="server" Text="Sum Assured:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <asp:TextBox ID="txtSumAssured1" runat="server" Width="176px" CssClass="txtField"
                 ReadOnly="false"></asp:TextBox>
             <span id="Span2" class="spnRequiredField">*</span>
@@ -604,38 +569,114 @@
                 Display="Dynamic" CssClass="cvPCG" runat="server" ErrorMessage="<br />Please enter a valid amount"
                 ValidationGroup="buttonSubmit" ValueToCompare="0" Operator="GreaterThan"></asp:CompareValidator>
         </td>
+        <td style="width : 20%;"></td>
+    </tr>
+     </table>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+    <table>
+    <tr>
+        <td align="right" style="width : 20%;">
+            <asp:Label ID="lblWhtFamilyPolicy" runat="server" CssClass="FieldName" Text="Whether Family/Group Policy:"></asp:Label>
+        </td>
+        <td class="style3" style="width : 20%;">
+            <asp:RadioButton ID="rdoGroupPolicyYes" Text="Yes" runat="server" GroupName="Policy"
+                class="cmbField" onClick="ChangeGroupPolicy('Yes');" />
+            <asp:RadioButton ID="rdoGroupPolicyNo" Text="No" runat="server" GroupName="Policy"
+                Checked="true" class="cmbField" onClick="ChangeGroupPolicy('No');" />
+        </td>
+        <td align="right" style="width : 20%;">
+            <asp:Label ID="lblTypeOfPolicy" runat="server" CssClass="FieldName" Text="Type of Policy:"></asp:Label>
+        </td>
+        <td class="rightField" style="width : 20%;">
+            <asp:DropDownList ID="ddlTypeOfPolicy" runat="server" Width="176px" CssClass="Field"
+                onChange="ChangePolicyType()" Enabled="false">
+                <%--<asp:ListItem Text="Individual" Value="PTIND"></asp:ListItem>
+                <asp:ListItem Text="Floater" Value="PTFLT"></asp:ListItem>--%>
+            </asp:DropDownList>
+        </td>
+        <td style="width : 20%;"></td>
+    </tr>
+    <%--<tr>
+        <td colspan="4">
+            &nbsp;
+        </td>
+    </tr>--%>
+    <tr>
+        <td  style="width : 20%;">
+            <div id="divGridView">
+                <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" DataKeyNames="AssociationId"
+                    AllowSorting="False" CssClass="GridViewStyle">
+                    <FooterStyle CssClass="FooterStyle" />
+                    <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                    <SelectedRowStyle CssClass="SelectedRowStyle" />
+                    <HeaderStyle CssClass="HeaderStyle" />
+                    <EditRowStyle CssClass="EditRowStyle" />
+                    <AlternatingRowStyle CssClass="AltRowStyle" />
+                    <RowStyle CssClass="RowStyle" />
+                    <Columns>
+                        <asp:TemplateField HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Name" HeaderText="Name" />
+                        <asp:TemplateField HeaderText="Sum Assured">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtSumAssured" runat="server" CssClass="GridViewTxtField" Enabled="false"
+                                    onblur="CalculateSum()" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+        </td>
+        <td  style="width : 20%;">
+            &nbsp;&nbsp;
+        </td>
+        <td  style="width : 20%;">
+            &nbsp;&nbsp;
+        </td>
+        <td  style="width : 20%;">
+            &nbsp;&nbsp;
+        </td>
+        <td  style="width : 20%;">
+            &nbsp;&nbsp;
+        </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblTPA" runat="server" CssClass="FieldName" Text="Name of the Third Party Administartor[TPA]:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:TextBox ID="txtTPA" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
         </td>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblTPAContactNumber" runat="server" CssClass="FieldName" Text="Contact No. of TPA:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <asp:TextBox ID="txtTPAContactNumber" runat="server" Width="176px" CssClass="txtField"></asp:TextBox>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br />Enter a numeric value"
                 CssClass="cvPCG" Type="Integer" ControlToValidate="txtTPAContactNumber" Operator="DataTypeCheck"
                 Display="Dynamic" ValidationGroup="buttonSubmit"></asp:CompareValidator>
         </td>
+        <td style="width : 20%;"></td>
     </tr>
+
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblWthHealthCheckUp" runat="server" CssClass="FieldName" Text="Whether Eligible for Health Checkup:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:RadioButton ID="rdoHealthYes" Text="Yes" runat="server" GroupName="Health" class="cmbField"
                 onClick="EnableDisableCheckUpDate('Yes');" />
             <asp:RadioButton ID="rdoHealthNo" Text="No" runat="server" GroupName="Health" class="cmbField"
                 Checked="true" onClick="EnableDisableCheckUpDate('No');" />
         </td>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblCheckUpDate" runat="server" CssClass="FieldName" Text="If Yes, Date:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <telerik:RadDatePicker  Width="176px" ID="txtCheckUpDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
@@ -662,18 +703,20 @@
                 Type="Date" ControlToValidate="txtCheckUpDate" Operator="DataTypeCheck" CssClass="cvPCG"
                 ValidationGroup="buttonSubmit" Display="Dynamic"></asp:CompareValidator>
         </td>
+        <td style="width : 20%;">
+        </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblProposalNumber" runat="server" CssClass="FieldName" Text="Proposal Number:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:TextBox ID="txtProposalNumber" Width="176px" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblProposalDate" runat="server" CssClass="FieldName" Text="Proposal Date:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width : 20%;">
             <telerik:RadDatePicker ID="txtProposalDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
@@ -699,6 +742,7 @@
                 Type="Date" ControlToValidate="txtPolicyCommencementDate" Operator="DataTypeCheck"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>--%>
         </td>
+        <td style="width : 20%;"></td>
     </tr>
     <%-- <tr>
         <td align="right">
@@ -763,22 +807,22 @@
         </td>
     </tr>--%>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             &nbsp;
         </td>
     </tr>
     <%--Start Editing From Here--%>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             <asp:Label ID="Label24" runat="server" CssClass="HeaderTextSmall" Text="Premium Details"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:DropDownList ID="ddlPremiumCycle" Width="176px" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="span3" class="spnRequiredField">*</span>
@@ -786,14 +830,14 @@
                 ControlToValidate="ddlPremiumCycle" Operator="NotEqual" ValueToCompare="Select"
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
         </td>
-        <td colspan="2">
+        <td colspan="3">
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblPremiumAmount" runat="server" CssClass="FieldName" Text="Premium Amount:"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:TextBox ID="txtPremiumAmount" Width="176px" runat="server" CssClass="txtField"></asp:TextBox>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPremiumAmount"
@@ -807,43 +851,50 @@
                 Type="Double" Display="Dynamic" CssClass="cvPCG" runat="server" ErrorMessage="<br />Please enter a valid amount"
                 ValidationGroup="buttonSubmit" ValueToCompare="0" Operator="GreaterThan"></asp:CompareValidator>
         </td>
-        <td colspan="2" class="style1">
+        <td colspan="3" class="style1">
         </td>
     </tr>
+    </table>
+     <asp:UpdatePanel runat="server" ID="uplAssetDetails" UpdateMode="Conditional">
+                                        <ContentTemplate>
+    <table>
     <tr id="trAssetGroupHeader" runat="server" visible="false">
-        <td colspan="4">
+        <td colspan="5">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Select Existing Asset Details"></asp:Label>
             <hr />
         </td>
     </tr>
-    <tr id="trAssetGroup" runat="server" visible="false">
-        <td align="right">
+    <tr id="trAssetGroup" runat="server" visible="false" >
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblAddAsset" runat="server" Text="Pick an Asset Group:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" colspan="3">
             <span id="spnchkProperty" runat="server" visible="false">
                 <asp:CheckBox ID="chkProperty" runat="server" Text="Property" class="cmbField" />
-            </span><span id="spnchkGold" runat="server" visible="false">&nbsp;&nbsp;&nbsp;<asp:CheckBox
+            </span><span id="spnchkGold" runat="server" visible="false">
+            
+            <asp:CheckBox
                 ID="chkGold" runat="server" Text="Gold & Jewellery" class="cmbField" />
             </span><span id="spnchkCollectibles" runat="server" visible="false">
                 <br />
                 <asp:CheckBox ID="chkCollectibles" runat="server" Text="Collectibles" class="cmbField" />
             </span><span id="spnchkPersonal" runat="server" visible="false">
+           
                 <asp:CheckBox ID="chkPersonal" runat="server" Text="Personal Items" class="cmbField" />
             </span>
         </td>
-        <td colspan="2">
+        <td>
             <asp:Button ID="btnAssetShow" runat="server" Text="Show Assets" CssClass="PCGMediumButton"
                 OnClick="btnAssetShow_Click" />
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
         </td>
     </tr>
-    <asp:Panel ID="pnlPickAssetProperty" runat="server" Visible="false">
+    <asp:Panel ID="pnlPickAssetProperty" runat="server">
         <tr>
-            <td align="left" colspan="4">
+            <td align="left" colspan="5">
                 <br />
                 <asp:Label ID="Label6" runat="server" Text="Pick Properties:" CssClass="FieldName"></asp:Label>
                 <br />
@@ -851,9 +902,9 @@
             </td>
         </tr>
     </asp:Panel>
-    <asp:Panel ID="pnlPickAssetCollectibles" runat="server" Visible="false">
+    <asp:Panel ID="pnlPickAssetCollectibles" runat="server">
         <tr>
-            <td align="left" colspan="4">
+            <td align="left" colspan="5">
                 <br />
                 <asp:Label ID="Label2" runat="server" Text="Pick Collectibles:" CssClass="FieldName"></asp:Label>
                 <br />
@@ -861,9 +912,9 @@
             </td>
         </tr>
     </asp:Panel>
-    <asp:Panel ID="pnlPickAssetGold" runat="server" Visible="false">
+    <asp:Panel ID="pnlPickAssetGold" runat="server">
         <tr>
-            <td align="left" colspan="4">
+            <td align="left" colspan="5">
                 <br />
                 <asp:Label ID="Label3" runat="server" Text="Pick Gold:" CssClass="FieldName"></asp:Label>
                 <br />
@@ -871,9 +922,9 @@
             </td>
         </tr>
     </asp:Panel>
-    <asp:Panel ID="pnlPickAssetPersonal" runat="server" Visible="false">
+    <asp:Panel ID="pnlPickAssetPersonal" runat="server">
         <tr>
-            <td align="left" colspan="4">
+            <td align="left" colspan="5">
                 <br />
                 <asp:Label ID="Label4" runat="server" Text="Pick Personal Items:" CssClass="FieldName"></asp:Label>
                 <br />
@@ -882,29 +933,33 @@
         </tr>
     </asp:Panel>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             &nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>
+    </table>
+</ContentTemplate>
+</asp:UpdatePanel>
+<table>
     <tr>
-        <td align="right">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="lblRemarks" runat="server" Text="Remarks :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="style3">
+        <td class="style3" style="width : 20%;">
             <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" CssClass="txtField"
                 Height="75px" Width="208px"></asp:TextBox>
         </td>
-        <td colspan="2">
+        <td colspan="3">
             &nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="5">
             &nbsp;&nbsp;&nbsp;&nbsp;
         </td>
     </tr>
     <tr id="trSubmitButton" runat="server">
-        <td colspan="4" class="SubmitCell">
+        <td colspan="5" class="SubmitCell">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" Text="Submit" OnClick="btnSubmit_Click"
                 CausesValidation="true" ValidationGroup="buttonSubmit" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_PortfolioGeneralInsuranceEntry_btnSubmit', 'S');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_PortfolioGeneralInsuranceEntry_btnSubmit', 'S');"

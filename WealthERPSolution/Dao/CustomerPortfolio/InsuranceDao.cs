@@ -1688,7 +1688,7 @@ namespace DaoCustomerPortfolio
                     generalInsuranceVo.AccountId = int.Parse(dr["CGIA_AccountId"].ToString());
                     generalInsuranceVo.InsIssuerCode = dr["XGII_GIIssuerCode"].ToString();
 
-                    generalInsuranceVo.PolicyParticular = dr["PGISP_SchemePlanCode"].ToString();
+                    generalInsuranceVo.PolicyParticular = dr["CGINP_PolicyParticular"].ToString();
                     if (dr["CGINP_OriginalStartDate"].ToString() != string.Empty)
                         generalInsuranceVo.OriginalStartDate = Convert.ToDateTime(dr["CGINP_OriginalStartDate"].ToString());
                     if (dr["CGINP_IsFamilyPolicy"].ToString() != string.Empty)
@@ -1717,6 +1717,8 @@ namespace DaoCustomerPortfolio
                         generalInsuranceVo.IsProvidedByEmployer = int.Parse(dr["CGINP_IsProvidedByEmployer"].ToString());
                     generalInsuranceVo.InsIssuerCode = dr["XGII_GIIssuerCode"].ToString();
                     generalInsuranceVo.InsIssuerCode = dr["XGII_GIIssuerCode"].ToString();
+                  
+
 
                     generalInsuranceVo.PolicyNumber = dr["CGIA_PolicyNum"].ToString();
                     generalInsuranceVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();

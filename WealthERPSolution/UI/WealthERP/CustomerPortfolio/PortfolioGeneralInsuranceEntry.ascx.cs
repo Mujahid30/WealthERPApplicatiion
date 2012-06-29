@@ -44,7 +44,13 @@ namespace WealthERP.CustomerPortfolio
             userVo = (UserVo)Session["userVo"];
             customerVo = (CustomerVo)Session["customerVo"];
             DataTable dt;
+            trPolicyTerm.Visible = true;
+            if (Session["AccountId"] != null)
+            {
 
+                accountId = Convert.ToInt32(Session["AccountId"].ToString());
+                ViewState["accountId"] = accountId;
+            }
             if (Request.QueryString["FromPage"] == "GIAccountAdd")
             {
                 Session["action"] = null;
@@ -83,9 +89,9 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 int.TryParse(Request.QueryString["InsuranceId"].ToString(), out insuranceId);
-                // ViewState["insuranceId"] = insuranceId;
-                ddlPeriodSelection.Visible = false;
-                txtPolicyTerm.Visible = false;
+                ViewState["insuranceId"] = insuranceId;
+               // ddlPeriodSelection.Visible = false;
+                //txtPolicyTerm.Visible = false;
             }
             //MPEAssetParticular.Hide();
             if (!IsPostBack)
@@ -93,7 +99,10 @@ namespace WealthERP.CustomerPortfolio
                 BindPolicyIssuerDropDown();
                 BindFrequencyDropDown();
                 BindPolicyTypeDropDown();
-
+                pnlPickAssetPersonal.Visible = false;
+                pnlPickAssetGold.Visible = false;
+                pnlPickAssetCollectibles.Visible = false;
+                pnlPickAssetProperty.Visible = false;
                 if (Request.QueryString["FromPage"] == "ViewGeneralInsuranceDetails")
                 {
                     action = Request.QueryString["action"].ToString();
@@ -112,7 +121,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 // 
                 btnAddScheme.Enabled = false;
-                hideControlsForViewAndEdit();
+             //   hideControlsForViewAndEdit();
                 Session["insuranceId"] = insuranceId;
                 if (Session["insuranceId"] != null)
                 {
@@ -123,18 +132,19 @@ namespace WealthERP.CustomerPortfolio
                 btnAssetShow.Visible = false;
                 btnSubmit.Visible = false;
                 EnableDisableControls(false);
+                trPolicyTerm.Visible = false;
             }
             else if (action == "Edit")
             {
-                Session["action"] = null;
-                Session["insuranceId"] = null;
+               // Session["action"] = null;
+               // Session["insuranceId"] = null;
 
                 btnAddScheme.Enabled = true;
-                hideControlsForViewAndEdit();
+             // hideControlsForViewAndEdit();
                 btnSubmit.Text = "Update";
                 btnAssetShow.Visible = true;
                 lnkBtnEdit.Visible = false;
-                ddlPeriodSelection.Visible = true;
+                //ddlPeriodSelection.Visible = true;
                 SetControls();
             }
 
@@ -144,12 +154,13 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 hideHealthInsuranceFields();
+          
 
         }
 
         protected void hideControlsForViewAndEdit()
         {
-            lblPolicyTerm.Visible = false;
+            //lblPolicyTerm.Visible = false;
             //rdbPolicyTermDays.Visible = false;
             //rdbPolicyTermMonth.Visible = false;
             //lblDays.Visible = false;
@@ -696,11 +707,12 @@ namespace WealthERP.CustomerPortfolio
 
         private void SetControls()
         {
-
+            TimeSpan timeSpan = new TimeSpan();
             Session["insuranceId"] = insuranceId;
             generalInsuranceVo = new GeneralInsuranceVo();
             generalInsuranceVo = insuranceBo.GetGINetPositionDetails(insuranceId);
             BindAssetParticular(generalInsuranceVo.InsIssuerCode);
+            txtPolicyParticular.SelectedValue =generalInsuranceVo.PolicyParticular;
             assCatCode = generalInsuranceVo.AssetInstrumentCategoryCode;
             ViewState["assCatCode"] = assCatCode;
             assSubCatCode = generalInsuranceVo.AssetInstrumentSubCategoryCode;
@@ -717,6 +729,11 @@ namespace WealthERP.CustomerPortfolio
                 txtMaturityDate.SelectedDate = generalInsuranceVo.PolicyValidityEndDate;
             if (generalInsuranceVo.OriginalStartDate != DateTime.MinValue)
                 txtPolicyCommencementDate.SelectedDate = generalInsuranceVo.OriginalStartDate;
+
+            timeSpan = generalInsuranceVo.PolicyValidityEndDate - generalInsuranceVo.OriginalStartDate;
+            txtPolicyTerm.Text = timeSpan.TotalDays.ToString();
+
+            ddlPeriodSelection.SelectedValue = "DA";
             if (generalInsuranceVo.IsProvidedByEmployer == 1)
                 chkIsPolicyByEmployer.Checked = true;
             if (generalInsuranceVo.IsFamilyPolicy == 1)
@@ -801,7 +818,7 @@ namespace WealthERP.CustomerPortfolio
             txtPolicyCommencementDate.Enabled = trueOrFalse;
             txtPolicyNumber.Enabled = trueOrFalse;
             txtPolicyParticular.Enabled = trueOrFalse;
-            txtMaturityDate.Enabled = trueOrFalse;
+           // txtMaturityDate.Enabled = trueOrFalse;
             //txtPolicyValidityEndDate.Enabled = trueOrFalse;
             //txtPolicyValidityStartDate.Enabled = trueOrFalse;
             txtPremiumAmount.Enabled = trueOrFalse;
@@ -824,6 +841,8 @@ namespace WealthERP.CustomerPortfolio
             ddlPolicyIssuer.Enabled = trueOrFalse;
             ddlPremiumCycle.Enabled = trueOrFalse;
             ddlTypeOfPolicy.Enabled = trueOrFalse;
+           
+            
         }
 
         private void DisplayAssetCategory()

@@ -149,6 +149,7 @@ namespace WealthERP.CustomerPortfolio
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             int insuranceId;
+            int accountId;
             string qryString=null;
             try
             {
@@ -158,6 +159,7 @@ namespace WealthERP.CustomerPortfolio
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex+1;
                 int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString(), out insuranceId);
+                int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString(), out accountId);
                 int Insurance = insuranceId;
                 // insuranceId;
                 
@@ -165,10 +167,11 @@ namespace WealthERP.CustomerPortfolio
                 //// Set the VO into the Session
                 //insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
                 InsuranceVo insuranceVo = new InsuranceVo();
-                
-                insuranceVo.AccountId = insuranceId;
-                Session["insuranceId"] = insuranceVo;
-                
+
+                insuranceVo.AccountId = accountId;
+                Session["insuranceId"] = insuranceId;
+                Session["AccountId"] = accountId;
+                //Session["AccountId"] = 
                 
                 //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
 
