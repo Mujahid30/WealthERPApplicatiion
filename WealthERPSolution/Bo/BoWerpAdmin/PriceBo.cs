@@ -47,10 +47,10 @@ namespace BoWerpAdmin
 
 
 
-        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFIRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search, int amfiCode, int schemeCode, int selectAllCode, int All, string CategoryCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, amfiCode, schemeCode,selectAllCode);
+            return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, amfiCode, schemeCode,selectAllCode,All,CategoryCode);
 
         }
 
@@ -64,10 +64,10 @@ namespace BoWerpAdmin
 
 
 
-        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode)
+        public DataSet GetAMFISnapshot(string Flag, String Search, int amfiCode, int schemeCode, int selectAllCode,int All,string CategoryCode)
         {
             PriceDao PriceObj = new PriceDao();
-            return PriceObj.GetAMFISnapshot(Flag, Search,amfiCode,schemeCode,selectAllCode);
+            return PriceObj.GetAMFISnapshot(Flag, Search, amfiCode, schemeCode, selectAllCode, All, CategoryCode);
 
         }
 
