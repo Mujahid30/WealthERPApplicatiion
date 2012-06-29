@@ -390,13 +390,14 @@ namespace WealthERP.General
                         lbl.ID = "lbl" + input[Contants.cStr_IM_Abbrevation].ToString();
 
                         tc = new TableCell();
-                        tc.CssClass = "FieldName";
+                        tc.CssClass = "labelText";
                         tr = new TableRow();
                         tc.Controls.Add(lbl);
                         tr.Controls.Add(tc);
 
                         tc = new TableCell();
-                        tc.CssClass = "FieldName";
+                        tc.CssClass = "labelText";
+
                         if (input[Contants.cStr_IOM_FieldType].Equals("Text") || input[Contants.cStr_IOM_FieldType].Equals("Date"))
                         {
                             if (input[Contants.cStr_IOM_FieldType].Equals("Text"))
@@ -404,7 +405,7 @@ namespace WealthERP.General
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "txtField";
+                                txt.CssClass = "labelText";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -429,8 +430,8 @@ namespace WealthERP.General
                             if (input[Contants.cStr_IM_Abbrevation].ToString().Equals("IRA", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 Label lblPercentage = new Label();
-                                //lblPercentage.Text = "%";
-                                lblPercentage.CssClass = "FieldName";
+                                lblPercentage.Text = "%";
+                                lblPercentage.CssClass = "labelText";
                                 lblPercentage.Style.Add("width", "25px");
                                 lblPercentage.Style.Add("height", "20px");
                                 lblPercentage.Style.Add("position", "absolute");
@@ -441,7 +442,7 @@ namespace WealthERP.General
                                 string sAbb = input[Contants.cStr_IM_Abbrevation].ToString();
                                 TextBox txt = new TextBox();
                                 txt.ID = "txt" + sAbb;
-                                txt.CssClass = "txtField";
+                                txt.CssClass = "labelText";
                                 if (!alInputFields.Contains(txt.ID))
                                 {
                                     alInputFields.Add(txt.ID);
@@ -479,7 +480,7 @@ namespace WealthERP.General
                         {
 
                             DropDownList ddl = new DropDownList();
-                            ddl.CssClass = "cmbField";
+                            ddl.CssClass = "labelText";
                             ddl.ID = "txt" + input[Contants.cStr_IM_Abbrevation].ToString();
                             ddl.Attributes.Add("name", "txt" + input[Contants.cStr_IM_Abbrevation].ToString());
 
@@ -537,7 +538,7 @@ namespace WealthERP.General
                             if (!alInputFields.Contains(ddl.ID))
                             {
                                 alInputFields.Add(ddl.ID);
-                                tc.CssClass = "cmbField";
+                                tc.CssClass = "dropdownList";
                                 tc.Controls.Add(ddl);
                                 tr.Controls.Add(tc);
                                 tbl.Controls.Add(tr);
