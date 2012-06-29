@@ -110,18 +110,22 @@ namespace WealthERP.CustomerPortfolio
                     gvGeneralInsurance.DataSource = dt;
                     gvGeneralInsurance.DataBind();
 
-                    if (Cache["GIList"] == null)
+                    if (Cache["GIList" + customerVo.CustomerId.ToString()] == null)
                     {
-                        Cache.Insert("GIList", dt);
+                        Cache.Insert("GIList" + customerVo.CustomerId.ToString(), dt);
                     }
                     else
                     {
-                        Cache.Remove("GIList");
-                        Cache.Insert("GIList", dt);
+                        Cache.Remove("GIList"+ customerVo.CustomerId.ToString());
+                        Cache.Insert("GIList" + customerVo.CustomerId.ToString(), dt);
                     }
                 }
                 else
+                {
                     ErrorMessage.Visible = true;
+                    btnExportFilteredData.Visible = false;
+                    gvGeneralInsurance.Visible = false;
+                }
 
             }
             catch (BaseApplicationException Ex)
@@ -245,7 +249,7 @@ namespace WealthERP.CustomerPortfolio
         protected void gvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGIDetails = new DataTable();
-            dtGIDetails = (DataTable)Cache["GIList"];
+            dtGIDetails = (DataTable)Cache["GIList" + customerVo.CustomerId.ToString()];
             gvGeneralInsurance.DataSource = dtGIDetails;
         }
 

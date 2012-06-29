@@ -194,7 +194,7 @@ namespace WealthERP.CustomerPortfolio
                 generalInsuranceVo.PolicyType = ddlTypeOfPolicy.SelectedItem.Text;
                 //double.TryParse(hdnSumAssured.Value, out SumAssured);
                 //generalInsuranceVo.SumAssured = SumAssured;
-                generalInsuranceVo.SumAssured = double.Parse(txtSumAssured1.Text);
+                generalInsuranceVo.SumAssured = double.Parse(hdnSumAssured.Value);
                 generalInsuranceVo.TPAName = txtTPA.Text;
                 long.TryParse(txtTPAContactNumber.Text, out TPAContactNumber);
                 generalInsuranceVo.TPAContactNumber = TPAContactNumber;
@@ -770,6 +770,8 @@ namespace WealthERP.CustomerPortfolio
             txtProposalNumber.Text = generalInsuranceVo.ProposalNumber;
             //if (generalInsuranceVo.PolicyValidityStartDate != DateTime.MinValue)
             //    txtPolicyValidityStartDate.SelectedDate = generalInsuranceVo.PolicyValidityStartDate;
+            if (txtPolicyCommencementDate.SelectedDate != DateTime.MinValue)
+                generalInsuranceVo.PolicyValidityStartDate = Convert.ToDateTime(txtPolicyCommencementDate.SelectedDate);
             //if (generalInsuranceVo.PolicyValidityEndDate != DateTime.MinValue)
             //    txtPolicyValidityEndDate.SelectedDate = generalInsuranceVo.PolicyValidityEndDate;
             ddlPremiumCycle.SelectedValue = generalInsuranceVo.FrequencyCode;

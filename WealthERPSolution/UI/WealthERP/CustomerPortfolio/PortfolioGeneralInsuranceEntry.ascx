@@ -444,9 +444,10 @@
     <tr>
         <td colspan="5">
             <asp:Label ID="Label23" runat="server" CssClass="HeaderTextSmall" Text="Policy Details"></asp:Label>
-            <hr />
+           
         </td>
     </tr>
+     <hr />
     <tr>
         <td align="right" style="width : 20%;">
             <asp:Label ID="lblPolicyCommencementDate" runat="server" CssClass="FieldName" Text="Policy Start Date:"></asp:Label>
@@ -603,7 +604,10 @@
         </td>
     </tr>--%>
     <tr>
-        <td  style="width : 20%;">
+     <td  style="width : 20%;">
+            &nbsp;&nbsp;
+        </td>
+        <td  colspan="2" style="width : 20%;">
             <div id="divGridView">
                 <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" DataKeyNames="AssociationId"
                     AllowSorting="False" CssClass="GridViewStyle">
@@ -631,15 +635,8 @@
                 </asp:GridView>
             </div>
         </td>
-        <td  style="width : 20%;">
-            &nbsp;&nbsp;
-        </td>
-        <td  style="width : 20%;">
-            &nbsp;&nbsp;
-        </td>
-        <td  style="width : 20%;">
-            &nbsp;&nbsp;
-        </td>
+      
+       
         <td  style="width : 20%;">
             &nbsp;&nbsp;
         </td>
@@ -859,11 +856,12 @@
                                         <ContentTemplate>
     <table>
     <tr id="trAssetGroupHeader" runat="server" visible="false">
-        <td colspan="5">
+        <td align="right" style="width : 20%;">
             <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Select Existing Asset Details"></asp:Label>
-            <hr />
+            
         </td>
     </tr>
+    <hr />
     <tr id="trAssetGroup" runat="server" visible="false" >
         <td align="right" style="width : 20%;">
             <asp:Label ID="lblAddAsset" runat="server" Text="Pick an Asset Group:" CssClass="FieldName"></asp:Label>

@@ -393,14 +393,14 @@ namespace WealthERP.CustomerPortfolio
                     gvrLifeInsurance.Visible = true;
 
 
-                    if (Cache["LIList"] == null)
+                    if (Cache["LIList" + customerVo.CustomerId.ToString()] == null)
                     {
-                        Cache.Insert("LIList", dtInsurance);
+                        Cache.Insert("LIList" + customerVo.CustomerId.ToString(), dtInsurance);
                     }
                     else
                     {
-                        Cache.Remove("LIList");
-                        Cache.Insert("LIList", dtInsurance);
+                        Cache.Remove("LIList" + customerVo.CustomerId.ToString());
+                        Cache.Insert("LIList" + customerVo.CustomerId.ToString(), dtInsurance);
                     }
 
 
@@ -411,6 +411,7 @@ namespace WealthERP.CustomerPortfolio
                     gvrLifeInsurance.DataSource = null;
                     gvrLifeInsurance.DataBind();
                     ErrorMessage.Visible = true;
+                    gvrLifeInsurance.Visible = false;
                     //trPager.Visible = false;
                 }
             }
@@ -588,14 +589,14 @@ namespace WealthERP.CustomerPortfolio
                 gvrLifeInsurance.DataSource = dv;
                 gvrLifeInsurance.DataBind();
 
-                if (Cache["LIList"] == null)
+                if (Cache["LIList" + customerVo.CustomerId.ToString()] == null)
                 {
-                    Cache.Insert("LIList", dtInsurance);
+                    Cache.Insert("LIList" + customerVo.CustomerId.ToString(), dtInsurance);
                 }
                 else
                 {
-                    Cache.Remove("LIList");
-                    Cache.Insert("LIList", dtInsurance);
+                    Cache.Remove("LIList" + customerVo.CustomerId.ToString());
+                    Cache.Insert("LIList" + customerVo.CustomerId.ToString(), dtInsurance);
                 }
 
 
@@ -668,7 +669,7 @@ namespace WealthERP.CustomerPortfolio
         {
             trExportFilteredData.Visible = true;
             DataTable dtLIDetails = new DataTable();
-            dtLIDetails = (DataTable)Cache["LIList"];
+            dtLIDetails = (DataTable)Cache["LIList" + customerVo.CustomerId.ToString()];
             gvrLifeInsurance.DataSource = dtLIDetails;
         }
 
