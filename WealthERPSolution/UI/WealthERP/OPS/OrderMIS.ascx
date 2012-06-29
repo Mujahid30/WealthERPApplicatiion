@@ -448,7 +448,7 @@
     <table width="100%">
         <tr>
             <td>
-                <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate"
+                <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate,PASP_SchemePlanSwitch"
                     runat="server" AutoGenerateColumns="False" ShowFooter="True" OnRowDataBound="gvMIS_RowDataBound"
                     OnRowCommand="gvMIS_RowCommand">
                     <RowStyle CssClass="RowStyle" />
