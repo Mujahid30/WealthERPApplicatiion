@@ -119,6 +119,7 @@ namespace WealthERP.SuperAdmin
                 PopulateMFTradeMonth();
                 BindTradeDateDropDown("MF", Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()), Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
                 //assetGroup = "MF";
+               
             }
             //GetTradeDate();
 
@@ -771,21 +772,25 @@ namespace WealthERP.SuperAdmin
 
         protected void ddlTradeMFDate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DateTime valuationDate = DateTime.MinValue;
+            DateTime selectedValuationDate = DateTime.MinValue;
+            DateTime validValuationDate = DateTime.MinValue;
             //valuationDate.AddYears(Convert.ToInt32(ddTradeMFYear.SelectedValue.ToString()));
             //valuationDate.AddMonths(Convert.ToInt32(ddTradeMFMonth.SelectedValue.ToString()));
-            valuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
+            selectedValuationDate = DateTime.Parse(ddlTradeMFDate.SelectedValue.ToString());
+            validValuationDate = DateTime.Parse(DateTime.Now.ToShortDateString()).AddDays(-1);
             //valuationDate.AddDays(Convert.ToInt32(ddlTradeMFDate.SelectedValue.ToString()));
-            if (valuationDate!=DateTime.Now.AddDays(-1))
+            if (selectedValuationDate == validValuationDate)
             {
-                gvAdviserList.Visible = false;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+                gvAdviserList.Visible = true;
+                BindAdviserGrid("MF", selectedValuationDate);
+                btnRunValuation.Visible = true;
             }
             else
             {
-                gvAdviserList.Visible = true;
-                BindAdviserGrid("MF", valuationDate);
-                btnRunValuation.Visible = true;
+
+                gvAdviserList.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Valuation date should be previous date only');", true);
+                
             }
 
         }
