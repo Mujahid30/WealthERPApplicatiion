@@ -131,14 +131,16 @@ namespace WealthERP.CustomerPortfolio
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            
             if (!IsPostBack)
             {
                 this.Page.Culture = "en-GB";
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.LoadGridView();
                 BindPortfolioDropDown();
-                
+
             }
+            trExportFilteredData.Visible = false;
 
 
         }
@@ -174,6 +176,7 @@ namespace WealthERP.CustomerPortfolio
                 //}
                 if (fixedincomeList == null)
                 {
+                    trExportFilteredData.Visible = false;
                     //lblMessage.Visible = true;
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
@@ -184,6 +187,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     //lblMessage.Visible = false;
+                    trExportFilteredData.Visible = true;
                     tblMessage.Visible = false;
                     gvFixedIncomePortfolio.Visible = true;
                     ErrorMessage.Visible = false;
@@ -228,20 +232,20 @@ namespace WealthERP.CustomerPortfolio
                             drFixedIncomePortfolio[7] = "0";
                         else
                             drFixedIncomePortfolio[7] = decimal.Parse(fixedincomeVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                      
-                      //  drFixedIncomePortfolio[7] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                        //  drFixedIncomePortfolio[7] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         if (Convert.ToDecimal(fixedincomeVo.MaturityValue.ToString()) == 0)
                             drFixedIncomePortfolio[8] = "0";
                         else
                             drFixedIncomePortfolio[8] = decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                     
-                            if (Convert.ToDecimal(fixedincomeVo.PurchaseValue.ToString()) == 0)
-                                drFixedIncomePortfolio[9] = "0";
-                            else
-                                drFixedIncomePortfolio[9] = decimal.Parse(fixedincomeVo.PurchaseValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        
-                       // drFixedIncomePortfolio[8] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+
+                        if (Convert.ToDecimal(fixedincomeVo.PurchaseValue.ToString()) == 0)
+                            drFixedIncomePortfolio[9] = "0";
+                        else
+                            drFixedIncomePortfolio[9] = decimal.Parse(fixedincomeVo.PurchaseValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                        // drFixedIncomePortfolio[8] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
 
                         dtFixedIncomePortfolio.Rows.Add(drFixedIncomePortfolio);
                     }
@@ -292,7 +296,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-                int selectedRow = gvr.ItemIndex+1;
+                int selectedRow = gvr.ItemIndex + 1;
                 int portfolioId = int.Parse(gvFixedIncomePortfolio.MasterTableView.DataKeyValues[selectedRow - 1]["FITransactionId"].ToString());
 
 
@@ -412,6 +416,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvFixedIncomePortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trExportFilteredData.Visible = true;
             DataTable dtFIDetails = new DataTable();
             dtFIDetails = (DataTable)Cache["FIList"];
             gvFixedIncomePortfolio.DataSource = dtFIDetails;
