@@ -243,7 +243,7 @@
         </td>
     </tr>
     <tr id="trSectionTwo3" runat="server">
-        <td align="right" >
+        <td align="right">
             <asp:Label ID="ddlTransactionType" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -286,17 +286,26 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td align="left" valign="top">
-            <asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox><span
+            <%--<asp:TextBox ID="txtReceivedDate" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="spnReceiveDate" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReceivedDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtReceivedDate"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck" ValidationGroup="MFSubmit"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -318,7 +327,7 @@
             <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField" ></asp:TextBox><span
+            <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtApplicationNumber"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application number" Display="Dynamic"
@@ -358,7 +367,7 @@
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-           <%-- <asp:TextBox ID="txtOrderDate" runat="server" CssClass="txtField" ></asp:TextBox><span
+            <%-- <asp:TextBox ID="txtOrderDate" runat="server" CssClass="txtField" ></asp:TextBox><span
                 id="Span4" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender9" runat="server" TargetControlID="txtOrderDate"
                 Format="dd/MM/yyyy">
@@ -366,7 +375,6 @@
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtOrderDate"
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
-            
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
@@ -376,7 +384,6 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            
             <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -394,7 +401,7 @@
             <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="chkCA_CheckedChanged" />
         </td>
         <td align="left" valign="top">
-            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" >
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <br />
             <br />
@@ -453,14 +460,23 @@
             <asp:Label ID="lblFutureDate" runat="server" Text="Select Future Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtFutureDate" runat="server" CssClass="txtField"></asp:TextBox><span
+            <%--  <asp:TextBox ID="txtFutureDate" runat="server" CssClass="txtField"></asp:TextBox><span
                 id="Span6" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtFutureDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtFutureDate"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtFutureDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CVFutureDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtFutureDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -493,9 +509,9 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server" ValidationGroup="MFSubmit"
-                Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
-                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server"
+                ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
         </td>
         <td align="right" valign="top">
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment: " CssClass="FieldName"></asp:Label>
@@ -523,13 +539,23 @@
             <asp:Label ID="Label1" runat="server" Text="Payment Instrument Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtPaymentInstDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--  <asp:TextBox ID="txtPaymentInstDate" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPaymentInstDate"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtPaymentInstDate"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -570,13 +596,22 @@
             <asp:Label ID="lblStartDateSIP" runat="server" Text="Start Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtstartDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<asp:TextBox ID="txtstartDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtstartDateSIP"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtstartDateSIP"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtstartDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtstartDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -585,13 +620,22 @@
             <asp:Label ID="lblEndDateSIP" runat="server" Text="End Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtendDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
+            <%-- <asp:TextBox ID="txtendDateSIP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtendDateSIP"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtendDateSIP"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtendDateSIP" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -671,13 +715,22 @@
             <asp:Label ID="lblstartDateSTP" runat="server" Text="Start Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtstartDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<asp:TextBox ID="txtstartDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender7" runat="server" TargetControlID="txtstartDateSTP"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtstartDateSTP"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtstartDateSTP" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtstartDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -686,13 +739,22 @@
             <asp:Label ID="lblendDateSTP" runat="server" Text="End Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="top">
-            <asp:TextBox ID="txtendDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<asp:TextBox ID="txtendDateSTP" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender8" runat="server" TargetControlID="txtendDateSTP"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID="txtendDateSTP"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtendDateSTP" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -796,13 +858,22 @@
             <asp:Label ID="lblResidenceLivingDate" CssClass="FieldName" runat="server" Text="Living Since:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtLivingSince" runat="server" CssClass="txtField"></asp:TextBox>
+            <%-- <asp:TextBox ID="txtLivingSince" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtLivingSince"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtLivingSince"
                 WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            </cc1:TextBoxWatermarkExtender>--%>
+            <telerik:RadDatePicker ID="txtLivingSince" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
             <asp:CompareValidator ID="txtLivingSince_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtLivingSince" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>

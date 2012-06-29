@@ -61,7 +61,7 @@ namespace WealthERP.OPS
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = operationBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
-            txtOrderDate.SelectedDate = DateTime.Now;
+            //txtOrderDate.SelectedDate = DateTime.Now;
             lblGetOrderNo.Text = orderNumber.ToString();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -205,23 +205,23 @@ namespace WealthERP.OPS
                     //ddlRM.SelectedIndex = 0;
                     txtCustomerName.Text = "";
                     ddltransType.SelectedIndex = 0;
-                    txtReceivedDate.Text = "";
+                    txtReceivedDate.SelectedDate = null;
                     txtApplicationNumber.Text = "";
                     ddlAMCList.SelectedIndex = 0;
                     ddlCategory.SelectedIndex = 0;
                     ddlAmcSchemeList.SelectedIndex = 0;
                     ddlPortfolio.SelectedIndex = -1;
                     ddlFolioNumber.SelectedIndex = 0;
-                    txtOrderDate.SelectedDate = DateTime.Now;
+                    txtOrderDate.SelectedDate = null;
                     lblGetOrderNo.Text = "";
                     ddlOrderPendingReason.SelectedIndex = 0;
                     ddlOrderStatus.SelectedIndex = 0;
-                    txtFutureDate.Text = "";
+                    txtFutureDate.SelectedDate = null;
                     txtFutureTrigger.Text = "";
                     txtAmount.Text = "";
                     ddlPaymentMode.SelectedIndex = 0;
                     txtPaymentNumber.Text = "";
-                    txtPaymentInstDate.Text = "";
+                    txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedIndex = 0;
                     txtBranchName.Text = "";
                     lblGetAvailableAmount.Text = "";
@@ -230,16 +230,16 @@ namespace WealthERP.OPS
                     txtCorrAdrLine1.Text = "";
                     txtCorrAdrLine2.Text = "";
                     txtCorrAdrLine3.Text = "";
-                    txtLivingSince.Text = "";
+                    txtLivingSince.SelectedDate = null;
                     txtCorrAdrCity.Text = "";
                     ddlCorrAdrState.SelectedIndex = 0;
                     txtCorrAdrPinCode.Text = "";
                     ddlFrequencySIP.SelectedIndex = -1;
                     ddlFrequencySTP.SelectedIndex = -1;
-                    txtstartDateSIP.Text = "";
-                    txtendDateSIP.Text = "";
-                    txtstartDateSTP.Text = "";
-                    txtendDateSTP.Text = "";
+                    txtstartDateSIP.SelectedDate = null;
+                    txtendDateSIP.SelectedDate = null;
+                    txtstartDateSTP.SelectedDate = null;
+                    txtendDateSTP.SelectedDate = null;
                     txtNewAmount.Text = "";
                 }
             }
@@ -315,13 +315,13 @@ namespace WealthERP.OPS
                         trSIPDate.Visible = true;
                         ddlFrequencySIP.SelectedValue = operationVo.FrequencyCode;
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSIP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSIP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSIP.Text = "";
+                            txtstartDateSIP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSIP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSIP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSIP.Text = "";
+                            txtendDateSIP.SelectedDate = null;
                     }
                     else if (ddltransType.SelectedValue == "SWB")
                     {
@@ -338,13 +338,13 @@ namespace WealthERP.OPS
                         if (operationVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = operationVo.FrequencyCode;
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSTP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSTP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSTP.Text = "";
+                            txtstartDateSTP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSTP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSTP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSTP.Text = "";
+                            txtendDateSTP.SelectedDate = null;
                     }
                     else if (ddltransType.SelectedValue == "Sel")
                     {
@@ -360,13 +360,13 @@ namespace WealthERP.OPS
                         if (operationVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = operationVo.FrequencyCode;
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSTP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSTP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSTP.Text = "";
+                            txtstartDateSTP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSTP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSTP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSTP.Text = "";
+                            txtendDateSTP.SelectedDate = null;
                     }
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
@@ -385,7 +385,7 @@ namespace WealthERP.OPS
                             ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
-                    txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
+                    txtReceivedDate.SelectedDate = operationVo.ApplicationReceivedDate;
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
                     txtOrderDate.SelectedDate = operationVo.OrderDate;
@@ -403,9 +403,9 @@ namespace WealthERP.OPS
                         ddlOrderPendingReason.SelectedValue = operationVo.StatusReasonCode;
                     }
                     if (operationVo.FutureExecutionDate != DateTime.MinValue)
-                        txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
+                        txtFutureDate.SelectedDate = operationVo.FutureExecutionDate;
                     else
-                        txtFutureDate.Text = "";
+                        txtFutureDate.SelectedDate = null;
                     if (operationVo.IsImmediate == 1)
                         rbtnImmediate.Checked = true;
                     else
@@ -448,9 +448,9 @@ namespace WealthERP.OPS
                     ddlPaymentMode.SelectedValue= operationVo.PaymentMode;
                     txtPaymentNumber.Text = operationVo.ChequeNumber;
                     if (operationVo.PaymentDate != DateTime.MinValue)
-                        txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                        txtPaymentInstDate.SelectedDate = operationVo.PaymentDate;
                     else
-                        txtPaymentInstDate.Text = "";
+                        txtPaymentInstDate.SelectedDate =null;
                     ddlBankName.SelectedItem.Text = operationVo.BankName;
                     txtBranchName.Text =operationVo.BranchName;
                     //lblGetAvailableAmount.Text = ;
@@ -462,9 +462,9 @@ namespace WealthERP.OPS
                     txtCorrAdrLine2.Text = operationVo.AddrLine2;
                     txtCorrAdrLine3.Text = operationVo.AddrLine3;
                     if (operationVo.LivingSince != DateTime.MinValue)
-                        txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                        txtLivingSince.SelectedDate = operationVo.LivingSince;
                     else
-                        txtLivingSince.Text ="";
+                        txtLivingSince.SelectedDate =null;
                     //txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
                     txtCorrAdrCity.Text = operationVo.City;
                     if(!string.IsNullOrEmpty(operationVo.State.ToString().Trim()))
@@ -515,13 +515,13 @@ namespace WealthERP.OPS
                         ddlFrequencySIP.SelectedValue = operationVo.FrequencyCode;
                         txtstartDateSIP.Enabled = false;
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSIP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSIP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSIP.Text = "";
+                            txtstartDateSIP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSIP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSIP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSIP.Text = "";
+                            txtendDateSIP.SelectedDate = null;
                     }
                     else if (ddltransType.SelectedValue == "SWB")
                     {
@@ -540,13 +540,13 @@ namespace WealthERP.OPS
                         else
                             ddlFrequencySTP.SelectedValue = "DA";
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSTP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSTP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSTP.Text = "";
+                            txtstartDateSTP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSTP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSTP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSTP.Text = "";
+                            txtendDateSTP.SelectedDate = null;
                     }
                     else if (ddltransType.SelectedValue == "Sel")
                     {
@@ -564,13 +564,13 @@ namespace WealthERP.OPS
                         else
                             ddlFrequencySTP.SelectedValue = "DA";
                         if (operationVo.StartDate != DateTime.MinValue)
-                            txtstartDateSTP.Text = operationVo.StartDate.ToShortDateString();
+                            txtstartDateSTP.SelectedDate = operationVo.StartDate;
                         else
-                            txtstartDateSTP.Text = "";
+                            txtstartDateSTP.SelectedDate = null;
                         if (operationVo.EndDate != DateTime.MinValue)
-                            txtendDateSTP.Text = operationVo.EndDate.ToShortDateString();
+                            txtendDateSTP.SelectedDate = operationVo.EndDate;
                         else
-                            txtendDateSTP.Text = "";
+                            txtendDateSTP.SelectedDate = null;
                     }
                     if (ddltransType.SelectedValue == "CAF")
                     {
@@ -634,7 +634,7 @@ namespace WealthERP.OPS
                             ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
-                    txtReceivedDate.Text = operationVo.ApplicationReceivedDate.ToShortDateString();
+                    txtReceivedDate.SelectedDate = operationVo.ApplicationReceivedDate;
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = operationVo.ApplicationNumber;
                     txtOrderDate.SelectedDate = operationVo.OrderDate;
@@ -666,9 +666,9 @@ namespace WealthERP.OPS
                         trSectionTwo10.Visible = true;
                     }
                     if (operationVo.FutureExecutionDate != DateTime.MinValue)
-                        txtFutureDate.Text = operationVo.FutureExecutionDate.ToShortDateString();
+                        txtFutureDate.SelectedDate = operationVo.FutureExecutionDate;
                     else
-                        txtFutureDate.Text = "";
+                        txtFutureDate.SelectedDate = null;
                     txtFutureTrigger.Text = operationVo.FutureTriggerCondition;
                     txtAmount.Text = operationVo.Amount.ToString();
                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -704,9 +704,9 @@ namespace WealthERP.OPS
                     ddlPaymentMode.SelectedValue = operationVo.PaymentMode;
                     txtPaymentNumber.Text = operationVo.ChequeNumber;
                     if (operationVo.PaymentDate != DateTime.MinValue)
-                        txtPaymentInstDate.Text = operationVo.PaymentDate.ToShortDateString();
+                        txtPaymentInstDate.SelectedDate = operationVo.PaymentDate;
                     else
-                        txtPaymentInstDate.Text = "";
+                        txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedItem.Text = operationVo.BankName;
                     txtBranchName.Text = operationVo.BranchName;
                     //lblGetAvailableAmount.Text = ;
@@ -716,9 +716,9 @@ namespace WealthERP.OPS
                     txtCorrAdrLine2.Text = operationVo.AddrLine2;
                     txtCorrAdrLine3.Text = operationVo.AddrLine3;
                     if (operationVo.LivingSince != DateTime.MinValue)
-                        txtLivingSince.Text = operationVo.LivingSince.ToShortDateString();
+                        txtLivingSince.SelectedDate = operationVo.LivingSince;
                     else
-                        txtLivingSince.Text = "";
+                        txtLivingSince.SelectedDate = null;
                     txtCorrAdrCity.Text = operationVo.City;
                     ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
@@ -1179,7 +1179,7 @@ namespace WealthERP.OPS
             operationVo.RMName = lblGetRM.Text;
             operationVo.PanNo = lblgetPan.Text;
             operationVo.TransactionCode = ddltransType.SelectedValue;
-            operationVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.Text);
+            operationVo.ApplicationReceivedDate =DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
             operationVo.ApplicationNumber = txtApplicationNumber.Text;
             if (ddlAMCList.SelectedIndex != 0)
                 operationVo.Amccode = int.Parse(ddlAMCList.SelectedValue);
@@ -1203,8 +1203,8 @@ namespace WealthERP.OPS
                 operationVo.IsImmediate = 1;
             else
                 operationVo.IsImmediate = 0;
-            if (!string.IsNullOrEmpty((txtFutureDate.Text).ToString().Trim()))
-                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.Text);
+            if (!string.IsNullOrEmpty((txtFutureDate.SelectedDate).ToString().Trim()))
+                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.SelectedDate.ToString());
             else
                 operationVo.FutureExecutionDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty((txtFutureTrigger.Text).ToString().Trim()))
@@ -1249,8 +1249,8 @@ namespace WealthERP.OPS
                 operationVo.ChequeNumber = txtPaymentNumber.Text;
             else
                 operationVo.ChequeNumber = "";
-            if (!string.IsNullOrEmpty(txtPaymentInstDate.Text.ToString().Trim()))
-                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.Text);
+            if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString().Trim()))
+                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
             else
                 operationVo.PaymentDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
@@ -1278,8 +1278,8 @@ namespace WealthERP.OPS
                 operationVo.AddrLine3 = txtCorrAdrLine3.Text;
             else
                 operationVo.AddrLine3 = "";
-            if (!string.IsNullOrEmpty(txtLivingSince.Text.ToString().Trim()))
-                operationVo.LivingSince = DateTime.Parse(txtLivingSince.Text);
+            if (!string.IsNullOrEmpty(txtLivingSince.SelectedDate.ToString().Trim()))
+                operationVo.LivingSince = DateTime.Parse(txtLivingSince.SelectedDate.ToString());
             else
                 operationVo.LivingSince = DateTime.MinValue;
             if (!string.IsNullOrEmpty(txtCorrAdrCity.Text.ToString().Trim()))
@@ -1305,12 +1305,12 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-                if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
+                if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate =DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate =DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -1318,12 +1318,12 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-                if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
+                if (!string.IsNullOrEmpty((txtstartDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -1338,7 +1338,7 @@ namespace WealthERP.OPS
             lblgetPan.Text = "";
             CleanAllFields();
             lblGetOrderNo.Text = "";
-            txtOrderDate.SelectedDate = DateTime.Now;
+            txtOrderDate.SelectedDate = null;
 ;
             btnSubmit.Visible = true;
             btnUpdate.Visible = false;
@@ -1358,7 +1358,7 @@ namespace WealthERP.OPS
             //ddlRM.SelectedIndex = 0;
             //txtCustomerName.Text = "";
             ddltransType.SelectedIndex = 0;
-            txtReceivedDate.Text = "";
+            txtReceivedDate.SelectedDate =null;
             txtApplicationNumber.Text = "";
             BindAMC(0);
             ddlAMCList.SelectedIndex = 0;
@@ -1373,12 +1373,12 @@ namespace WealthERP.OPS
             //lblGetOrderNo.Text = "";
             //ddlOrderPendingReason.SelectedIndex = 0;
             //ddlOrderStatus.SelectedIndex = 0;
-            txtFutureDate.Text = "";
+            txtFutureDate.SelectedDate = null;
             txtFutureTrigger.Text = "";
             txtAmount.Text = "";
             ddlPaymentMode.SelectedIndex = -1;
             txtPaymentNumber.Text = "";
-            txtPaymentInstDate.Text = "";
+            txtPaymentInstDate.SelectedDate = null;
             ddlBankName.SelectedIndex = -1;
             txtBranchName.Text = "";
             lblGetAvailableAmount.Text = "";
@@ -1387,16 +1387,16 @@ namespace WealthERP.OPS
             txtCorrAdrLine1.Text = "";
             txtCorrAdrLine2.Text = "";
             txtCorrAdrLine3.Text = "";
-            txtLivingSince.Text = "";
+            txtLivingSince.SelectedDate = null;
             txtCorrAdrCity.Text = "";
             ddlCorrAdrState.SelectedIndex = -1;
             txtCorrAdrPinCode.Text = "";
             ddlFrequencySIP.SelectedIndex = -1;
             ddlFrequencySTP.SelectedIndex = -1;
-            txtstartDateSIP.Text = "";
-            txtendDateSIP.Text = "";
-            txtstartDateSTP.Text = "";
-            txtendDateSTP.Text = "";
+            txtstartDateSIP.SelectedDate = null;
+            txtendDateSIP.SelectedDate = null;
+            txtstartDateSTP.SelectedDate = null;
+            txtendDateSTP.SelectedDate = null;
 
             lblGetLine1.Text = "";
             lblGetLine2.Text = "";
@@ -1942,7 +1942,7 @@ namespace WealthERP.OPS
             operationVo.RMName = lblGetRM.Text;
             operationVo.PanNo = lblgetPan.Text;
             operationVo.TransactionCode = ddltransType.SelectedValue;
-            operationVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.Text);
+            operationVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
             operationVo.ApplicationNumber = txtApplicationNumber.Text;
             if (ddlAMCList.SelectedIndex != -1)
                 operationVo.Amccode = int.Parse(ddlAMCList.SelectedValue);
@@ -1971,8 +1971,8 @@ namespace WealthERP.OPS
                 operationVo.IsImmediate = 1;
             else
                 operationVo.IsImmediate = 0;
-            if (!string.IsNullOrEmpty(txtFutureDate.Text.ToString().Trim()))
-                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.Text);
+            if (!string.IsNullOrEmpty(txtFutureDate.SelectedDate.ToString().Trim()))
+                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.SelectedDate.ToString());
             else
                 operationVo.FutureExecutionDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty((txtFutureTrigger.Text).ToString().Trim()))
@@ -2005,12 +2005,12 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-                if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
+                if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -2018,13 +2018,13 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-                
-                if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
+
+                if (!string.IsNullOrEmpty((txtstartDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -2045,8 +2045,8 @@ namespace WealthERP.OPS
                 operationVo.ChequeNumber = txtPaymentNumber.Text;
             else
                 operationVo.ChequeNumber = "";
-            if (txtPaymentInstDate.Text != "")
-                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.Text);
+            if (txtPaymentInstDate.SelectedDate != null)
+                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
             else
                 operationVo.PaymentDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
@@ -2074,7 +2074,7 @@ namespace WealthERP.OPS
                 operationVo.AddrLine3 = txtCorrAdrLine3.Text;
             else
                 operationVo.AddrLine3 = "";
-             if (txtLivingSince.Text != "dd/mm/yyyy")
+            if (txtLivingSince.SelectedDate.ToString() != "d4d/mm/yyyy")
                 operationVo.LivingSince = DateTime.MinValue;
             else
                 operationVo.LivingSince = DateTime.MinValue;
@@ -2157,7 +2157,7 @@ namespace WealthERP.OPS
             operationVo.RMName = lblGetRM.Text;
             operationVo.PanNo = lblgetPan.Text;
             operationVo.TransactionCode = ddltransType.SelectedValue;
-            operationVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.Text);
+            operationVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
             operationVo.ApplicationNumber = txtApplicationNumber.Text;
             if (ddlAMCList.SelectedIndex != 0)
                 operationVo.Amccode = int.Parse(ddlAMCList.SelectedValue);
@@ -2181,8 +2181,8 @@ namespace WealthERP.OPS
                 operationVo.IsImmediate = 1;
             else
                 operationVo.IsImmediate = 0;
-            if (!string.IsNullOrEmpty((txtFutureDate.Text).ToString().Trim()))
-                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.Text);
+            if (!string.IsNullOrEmpty((txtFutureDate.SelectedDate).ToString().Trim()))
+                operationVo.FutureExecutionDate = DateTime.Parse(txtFutureDate.SelectedDate.ToString());
             else
                 operationVo.FutureExecutionDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty((txtFutureTrigger.Text).ToString().Trim()))
@@ -2226,8 +2226,8 @@ namespace WealthERP.OPS
                 operationVo.ChequeNumber = txtPaymentNumber.Text;
             else
                 operationVo.ChequeNumber = "";
-            if (!string.IsNullOrEmpty(txtPaymentInstDate.Text.ToString().Trim()))
-                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.Text);
+            if (!string.IsNullOrEmpty(txtPaymentInstDate.SelectedDate.ToString().Trim()))
+                operationVo.PaymentDate = DateTime.Parse(txtPaymentInstDate.SelectedDate.ToString());
             else
                 operationVo.PaymentDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
@@ -2255,8 +2255,8 @@ namespace WealthERP.OPS
                 operationVo.AddrLine3 = txtCorrAdrLine3.Text;
             else
                 operationVo.AddrLine3 = "";
-            if (!string.IsNullOrEmpty(txtLivingSince.Text.ToString().Trim()))
-                operationVo.LivingSince = DateTime.Parse(txtLivingSince.Text);
+            if (!string.IsNullOrEmpty(txtLivingSince.SelectedDate.ToString().Trim()))
+                operationVo.LivingSince = DateTime.Parse(txtLivingSince.SelectedDate.ToString());
             else
                 operationVo.LivingSince = DateTime.MinValue;
             if (!string.IsNullOrEmpty(txtCorrAdrCity.Text.ToString().Trim()))
@@ -2277,13 +2277,13 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySIP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySIP.SelectedValue;
-              
-                if (!string.IsNullOrEmpty((txtstartDateSIP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.Text);
+
+                if (!string.IsNullOrEmpty((txtstartDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate = DateTime.Parse(txtstartDateSIP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSIP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSIP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate = DateTime.Parse(txtendDateSIP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -2291,13 +2291,13 @@ namespace WealthERP.OPS
             {
                 if (!string.IsNullOrEmpty((ddlFrequencySTP.SelectedValue).ToString().Trim()))
                     operationVo.FrequencyCode = ddlFrequencySTP.SelectedValue;
-              
-                if (!string.IsNullOrEmpty((txtstartDateSTP.Text).ToString().Trim()))
-                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.Text);
+
+                if (!string.IsNullOrEmpty((txtstartDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.StartDate = DateTime.Parse(txtstartDateSTP.SelectedDate.ToString());
                 else
                     operationVo.StartDate = DateTime.MinValue;
-                if (!string.IsNullOrEmpty((txtendDateSTP.Text).ToString().Trim()))
-                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.Text);
+                if (!string.IsNullOrEmpty((txtendDateSTP.SelectedDate).ToString().Trim()))
+                    operationVo.EndDate = DateTime.Parse(txtendDateSTP.SelectedDate.ToString());
                 else
                     operationVo.EndDate = DateTime.MinValue;
             }
@@ -2384,14 +2384,14 @@ namespace WealthERP.OPS
                 if (ddlAmcSchemeList.SelectedItem.Text != "")
                     pdfFormFields.SetField("WERP_SCHEME", ddlAmcSchemeList.SelectedItem.Text);
 
-                if (txtReceivedDate.Text != "")
-                    pdfFormFields.SetField("WERP_DATE", DateTime.Parse(txtReceivedDate.Text).ToShortDateString());
+                if (txtReceivedDate.SelectedDate != null)
+                    pdfFormFields.SetField("WERP_DATE",txtReceivedDate.SelectedDate.ToString());
 
-                if (txtstartDateSIP.Text != "")
-                    pdfFormFields.SetField("WERP_ECSFROM", DateTime.Parse(txtstartDateSIP.Text).ToShortDateString());
+                if (txtstartDateSIP.SelectedDate != null)
+                    pdfFormFields.SetField("WERP_ECSFROM", txtstartDateSIP.SelectedDate.ToString());
 
-                if (txtendDateSIP.Text != "")
-                    pdfFormFields.SetField("WERP_ECSTO", DateTime.Parse(txtendDateSIP.Text).ToShortDateString());
+                if (txtendDateSIP.SelectedDate != null)
+                    pdfFormFields.SetField("WERP_ECSTO", txtendDateSIP.SelectedDate.ToString());
 
                 if (lblgetPan.Text != "")
                     pdfFormFields.SetField("WERP_PAN", lblgetPan.Text);
@@ -2399,8 +2399,8 @@ namespace WealthERP.OPS
                 if (ddlCategory.SelectedValue != "")
                     pdfFormFields.SetField("WERP_PLAN", ddlCategory.SelectedValue);
 
-                if (txtPaymentInstDate.Text != "")
-                    pdfFormFields.SetField("WERP_SIPCHQDATE", DateTime.Parse(txtPaymentInstDate.Text).ToShortDateString());
+                if (txtPaymentInstDate.SelectedDate != null)
+                    pdfFormFields.SetField("WERP_SIPCHQDATE", txtPaymentInstDate.SelectedDate.ToString());
 
                 if (ddlBankName.SelectedValue != "")
                     pdfFormFields.SetField("WERP_BANKNAME", ddlBankName.SelectedValue);

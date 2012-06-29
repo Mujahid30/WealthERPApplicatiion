@@ -326,25 +326,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtReceivedDate;
-        
-        /// <summary>
-        /// CalendarExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+        protected global::Telerik.Web.UI.RadDatePicker txtReceivedDate;
         
         /// <summary>
         /// CVReceivedDate control.
@@ -713,25 +695,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFutureDate;
-        
-        /// <summary>
-        /// CalendarExtender3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+        protected global::Telerik.Web.UI.RadDatePicker txtFutureDate;
         
         /// <summary>
         /// CVFutureDate control.
@@ -893,25 +857,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPaymentInstDate;
-        
-        /// <summary>
-        /// CalendarExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
+        protected global::Telerik.Web.UI.RadDatePicker txtPaymentInstDate;
         
         /// <summary>
         /// CVPaymentDate control.
@@ -1028,25 +974,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtstartDateSIP;
-        
-        /// <summary>
-        /// CalendarExtender5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender5;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender5;
+        protected global::Telerik.Web.UI.RadDatePicker txtstartDateSIP;
         
         /// <summary>
         /// CompareValidator3 control.
@@ -1073,25 +1001,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtendDateSIP;
-        
-        /// <summary>
-        /// CalendarExtender6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender6;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender6;
+        protected global::Telerik.Web.UI.RadDatePicker txtendDateSIP;
         
         /// <summary>
         /// CompareValidator4 control.
@@ -1334,25 +1244,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtstartDateSTP;
-        
-        /// <summary>
-        /// CalendarExtender7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender7;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender7;
+        protected global::Telerik.Web.UI.RadDatePicker txtstartDateSTP;
         
         /// <summary>
         /// CompareValidator5 control.
@@ -1379,25 +1271,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtendDateSTP;
-        
-        /// <summary>
-        /// CalendarExtender8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender8;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender8;
+        protected global::Telerik.Web.UI.RadDatePicker txtendDateSTP;
         
         /// <summary>
         /// CompareValidator7 control.
@@ -1721,25 +1595,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLivingSince;
-        
-        /// <summary>
-        /// CalendarExtender4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender4;
-        
-        /// <summary>
-        /// TextBoxWatermarkExtender4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
+        protected global::Telerik.Web.UI.RadDatePicker txtLivingSince;
         
         /// <summary>
         /// txtLivingSince_CompareValidator control.
