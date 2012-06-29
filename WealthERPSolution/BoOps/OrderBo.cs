@@ -149,12 +149,12 @@ namespace BoOps
             return dtAssetParticular;
         }
 
-        public void InsertAssetParticularScheme(string asset, string InsuranceIssuerCode)
+        public void InsertAssetParticularScheme(string asset, string InsuranceIssuerCode, string assetCategory)
         {
             OrderDao orderDao = new OrderDao();
             try
             {
-                orderDao.InsertAssetParticularScheme(asset, InsuranceIssuerCode);
+                orderDao.InsertAssetParticularScheme(asset, InsuranceIssuerCode, assetCategory);
             }
             catch (BaseApplicationException Ex)
             {

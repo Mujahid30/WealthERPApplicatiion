@@ -48,6 +48,9 @@ namespace VoCustomerPortfolio
         private float m_NAV;
         private float m_OtherULIPCharges;
         private float m_MortalityCharges;
+
+        private int m_PolicyTerms;
+        private string m_PolicyTermsDuration;
         #endregion Fields
 
 
@@ -294,6 +297,17 @@ namespace VoCustomerPortfolio
             set { m_MortalityCharges = value; }
         }
 
+        public int PolicyTerms
+        {
+            get { return m_PolicyTerms; }
+            set { m_PolicyTerms = value; }
+        }
+
+        public string PolicyTermsDuration
+        {
+            get { return m_PolicyTermsDuration; }
+            set { m_PolicyTermsDuration = value; }
+        }
         #endregion Properties
     }
 }

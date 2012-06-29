@@ -171,7 +171,7 @@ namespace DaoOps
             }
         }
 
-        public void InsertAssetParticularScheme(string assetText, string InsuranceIssuerCode)
+        public void InsertAssetParticularScheme(string assetText, string InsuranceIssuerCode, string assetCategory)
         {
             Database db;
             DbCommand cmdInsertAssetParticular;
@@ -180,6 +180,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertAssetParticular = db.GetStoredProcCommand("SP_InsertAssetParticularScheme");
                 db.AddInParameter(cmdInsertAssetParticular, "@assetText", DbType.String, assetText);
+                db.AddInParameter(cmdInsertAssetParticular, "@assetCategory", DbType.String, assetCategory);
                 db.AddInParameter(cmdInsertAssetParticular, "@InsuranceIssuerCode", DbType.String, InsuranceIssuerCode);
                 db.ExecuteNonQuery(cmdInsertAssetParticular);
             }

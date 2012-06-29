@@ -52,6 +52,11 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_LastPremiumDate", DbType.DateTime, DBNull.Value);
 
+                if (insuranceVo.PurchaseDate != DateTime.MinValue)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PurchaseDate", DbType.DateTime, insuranceVo.PurchaseDate);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PurchaseDate", DbType.DateTime, DBNull.Value);
+
                 if (insuranceVo.MortalityCharges != null)
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, insuranceVo.MortalityCharges);
                 else
@@ -140,6 +145,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_LastPremiumDate", DbType.DateTime, insuranceVo.LastPremiumDate);
                 else
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_LastPremiumDate", DbType.DateTime, DBNull.Value);
+
+                if (insuranceVo.PurchaseDate != DateTime.MinValue)
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PurchaseDate", DbType.DateTime, insuranceVo.PurchaseDate);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PurchaseDate", DbType.DateTime, DBNull.Value);
 
                 if (insuranceVo.MortalityCharges != null)
                     db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MortalityCharges", DbType.Decimal, insuranceVo.MortalityCharges);
@@ -371,14 +381,22 @@ namespace DaoCustomerPortfolio
                         insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
                     insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
                     insuranceVo.SurrenderValue = float.Parse(dr["CINP_SurrenderValue"].ToString());
-                    insuranceVo.InsuranceCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
+
+                    if (dr["CINP_Charges"].ToString() != "" && dr["CINP_Charges"].ToString() != null)
+                        insuranceVo.InsuranceCharges = float.Parse(dr["CINP_Charges"].ToString());
                     if (dr["CINP_PremiumPaymentDate"].ToString() != string.Empty)
                         insuranceVo.PremiumPaymentDate = Int16.Parse(dr["CINP_PremiumPaymentDate"].ToString());
                     if (dr["CINP_FirstPremiumDate"].ToString() != string.Empty)
                         insuranceVo.FirstPremiumDate = DateTime.Parse(dr["CINP_FirstPremiumDate"].ToString());
                     if (dr["CINP_LastPremiumDate"].ToString() != string.Empty)
                         insuranceVo.LastPremiumDate = DateTime.Parse(dr["CINP_LastPremiumDate"].ToString());
+                    if (dr["CINP_PurchaseDate"].ToString() != string.Empty)
+                        insuranceVo.PurchaseDate = DateTime.Parse(dr["CINP_PurchaseDate"].ToString());
 
+                    if (dr["CINP_MortalityCharges"].ToString() != string.Empty && dr["CINP_MortalityCharges"].ToString() != null)
+                        insuranceVo.MortalityCharges = float.Parse(dr["CINP_MortalityCharges"].ToString());
+                    if (dr["CINP_NAV"].ToString() != string.Empty && dr["CINP_NAV"].ToString() != null)
+                        insuranceVo.NAV = float.Parse(dr["CINP_NAV"].ToString());
                     insuranceVo.PolicyPeriod = float.Parse(dr["CINP_PolicyPeriod"].ToString());
                     insuranceVo.PolicyEpisode = float.Parse(dr["CINP_PolicyEpisode"].ToString());
                     insuranceVo.GracePeriod = float.Parse(dr["CINP_GracePeriod"].ToString());
@@ -386,6 +404,13 @@ namespace DaoCustomerPortfolio
                     if (dr["CINP_ApplicationDate"].ToString() != string.Empty)
                         insuranceVo.ApplicationDate = DateTime.Parse(dr["CINP_ApplicationDate"].ToString());
                     insuranceVo.Remarks = dr["CINP_Remark"].ToString();
+
+                    if (dr["CINP_StartDate"].ToString() != string.Empty && dr["CINP_EndDate"].ToString() != string.Empty)
+                    {
+                        insuranceVo.PolicyTerms = Math.Abs((insuranceVo.EndDate.Month - insuranceVo.StartDate.Month) + 12 * (insuranceVo.EndDate.Year - insuranceVo.StartDate.Year));
+                    }
+
+                    insuranceVo.PolicyTermsDuration = "MN";
                 }
             }
             catch (BaseApplicationException Ex)

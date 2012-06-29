@@ -122,7 +122,7 @@
 <table style="width: 100%;">
     <tr>
         <td colspan="6">
-            <asp:Label ID="lblInsuranceEntryHeader" class="HeaderTextBig" runat="server" Text="Insurance Portfolio Details"></asp:Label>
+            <asp:Label ID="lblInsuranceEntryHeader" class="HeaderTextBig" runat="server" Text="Life Insurance Account Entry Details"></asp:Label>
             <hr />
         </td>
     </tr>
@@ -271,7 +271,7 @@
     </tr>
     <tr>
         <td colspan="2" class="leftField">
-            <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term (Months):"></asp:Label>
+            <asp:Label ID="lblPolicyTerms" runat="server" CssClass="FieldName" Text="Policy Term:"></asp:Label>
         </td>
         <td colspan="4">
             <asp:TextBox ID="txtPolicyTerms" runat="server" CssClass="txtField"

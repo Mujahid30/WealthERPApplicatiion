@@ -418,10 +418,13 @@ namespace WealthERP.CustomerPortfolio
                     txtApplicationNumber.Text = insuranceVo.ApplicationNumber.ToString();
                     if (insuranceVo.ApplicationDate != DateTime.MinValue)
                         txtApplDate.Text = insuranceVo.ApplicationDate.ToShortDateString();
+                    if (insuranceVo.PolicyTermsDuration != string.Empty)
+                        ddlPeriodSelection.SelectedValue = insuranceVo.PolicyTermsDuration;
 
+                    txtPolicyTerms.Text = insuranceVo.PolicyTerms.ToString().Trim();
                     if (insuranceVo.PurchaseDate != DateTime.MinValue)
                         txtPolicyPurchaseDate.Text = insuranceVo.PurchaseDate.ToShortDateString();
-                    
+
                     if (customerAccountVo.AssetCategory.Trim() == "INEP")
                     {
                         txtEPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
@@ -613,6 +616,9 @@ namespace WealthERP.CustomerPortfolio
                 txtSumAssured.Text = "";
                 txtApplicationNumber.Text = "";
                 txtApplDate.Text = "";
+                txtPolicyPurchaseDate.Text = "";
+                txtPolicyTerms.Text = "";
+                ddlPeriodSelection.SelectedIndex = 0;
 
                 if (CategoryCode == "INEP")
                 {
@@ -741,6 +747,7 @@ namespace WealthERP.CustomerPortfolio
                     //pnlforULIP.Visible = false;
                     //txtName.Enabled = false;
                     ddlAssetPerticular.Enabled = false;
+                    btnAddScheme.Enabled = false;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = false;
                     txtPolicyCommencementDate.Enabled = false;
@@ -753,6 +760,10 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+
+                    ddlPeriodSelection.Enabled = false;
+                    txtPolicyPurchaseDate.Enabled = false;
+                    txtPolicyTerms.Enabled = false;
 
                     if (CategoryCode == "INEP")
                     {
@@ -896,6 +907,7 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPGracePeriod.Enabled = false;
                         //ddlUlipPlans.Enabled = false;
                         ddlAssetPerticular.Enabled = false;
+                        btnAddScheme.Enabled = false;
                         pnlGridView.Visible = true;
                         trULIPAllocation.Visible = true;
                         rgULIPSubPlanSchedule.Visible = true;
@@ -977,6 +989,7 @@ namespace WealthERP.CustomerPortfolio
                     //pnlforULIP.Visible = false;
                     //txtName.Enabled = true;
                     ddlAssetPerticular.Enabled = true;
+                    btnAddScheme.Enabled = true;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = true;
                     txtPolicyCommencementDate.Enabled = true;
@@ -989,6 +1002,10 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+
+                    ddlPeriodSelection.Enabled = true;
+                    txtPolicyPurchaseDate.Enabled = true;
+                    txtPolicyTerms.Enabled = true;
 
                     if (CategoryCode == "INEP")
                     {
@@ -1137,6 +1154,7 @@ namespace WealthERP.CustomerPortfolio
                         txtULIPGracePeriod.Enabled = true;
                         //ddlUlipPlans.Enabled = true;
                         ddlAssetPerticular.Enabled = true;
+                        btnAddScheme.Enabled = true;
                         //ddlUlipSubPlans.Enabled = true;
                         txtPolicyTerms.Enabled = true;
                         // Get ULIP Sub-Plans Count
@@ -1211,6 +1229,7 @@ namespace WealthERP.CustomerPortfolio
                     //pnlforULIP.Visible = false;
                     //txtName.Enabled = true;
                     ddlAssetPerticular.Enabled = true;
+                    btnAddScheme.Enabled = true;
                     txtPolicyNumber.Enabled = false;
                     ddlInsuranceIssuerCode.Enabled = true;
                     txtPolicyCommencementDate.Enabled = true;
@@ -1223,6 +1242,10 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+
+                    ddlPeriodSelection.Enabled = true;
+                    txtPolicyPurchaseDate.Enabled = true;
+                    txtPolicyTerms.Enabled = true;
 
                     if (CategoryCode == "INEP")
                     {
@@ -1327,6 +1350,7 @@ namespace WealthERP.CustomerPortfolio
                         ddlULIPPrPayDate.Enabled = true;
                         //ddlUlipPlans.Enabled = true;
                         ddlAssetPerticular.Enabled = true;
+                        btnAddScheme.Enabled = true;
                         txtULIPFirstPremiumDate.Enabled = true;
                         txtULIPLastPremiumDate.Enabled = true;
                         txtPolicyTerms.Enabled = true;
@@ -1444,6 +1468,10 @@ namespace WealthERP.CustomerPortfolio
                         if (txtPolicyPurchaseDate.Text.Trim() != "")
                             insuranceVo.PurchaseDate = DateTime.Parse(txtPolicyPurchaseDate.Text.Trim());
 
+                        if (txtPolicyTerms.Text.Trim() != "")
+                            insuranceVo.PolicyTerms = Convert.ToInt32(txtPolicyTerms.Text.Trim());
+
+                        insuranceVo.PolicyTermsDuration = ddlPeriodSelection.SelectedItem.ToString();
                         // Insert Empty Values
                         insuranceVo.PremiumFrequencyCode = "";
                         insuranceVo.PremiumAmount = 0;
@@ -1885,6 +1913,10 @@ namespace WealthERP.CustomerPortfolio
                     insuranceVo.ApplicationNumber = txtApplicationNumber.Text;
                     if (txtPolicyPurchaseDate.Text.Trim() != "")
                         insuranceVo.PurchaseDate = DateTime.Parse(txtPolicyPurchaseDate.Text.Trim());
+
+                    if (txtPolicyTerms.Text.Trim() != "")
+                        insuranceVo.PolicyTerms = Convert.ToInt32(txtPolicyTerms.Text.Trim());
+                    insuranceVo.PolicyTermsDuration = ddlPeriodSelection.SelectedItem.ToString();
 
                     if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                     {
@@ -2882,10 +2914,11 @@ namespace WealthERP.CustomerPortfolio
         protected void btnInsertNewScheme_Click(object sender, EventArgs e)
         {
             OrderBo orderbo = new OrderBo();
+            string assetCategory = customerAccountVo.AssetCategory.Trim();
             if (txtAsset.Text.Trim() != "")
             {
                 if (ddlInsuranceIssuerCode.SelectedIndex != 0)
-                    orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlInsuranceIssuerCode.SelectedValue);
+                    orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlInsuranceIssuerCode.SelectedValue, assetCategory);
             }
             BindAssetParticular(ddlInsuranceIssuerCode.SelectedValue);
         }
@@ -3147,8 +3180,11 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
-            txtPolicyMaturity.Enabled = false;
+            if (!string.IsNullOrEmpty(txtPolicyTerms.Text.ToString().Trim()))
+            {
+                txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
+                txtPolicyMaturity.Enabled = false;
+            }
         }
     }
 }
