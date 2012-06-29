@@ -68,6 +68,7 @@ namespace WealthERP.Admin
                 trSelectSchemeNAV.Visible = true;
                 trNavCategory.Visible = true;
                 gvMFFundPerformance.Visible = false;
+                //gvMFRecord.Visible = false;
                // BindMFFundPerformance();
                 tblFactSheet.Visible = false;
                 BindYear();
@@ -329,6 +330,8 @@ namespace WealthERP.Admin
         protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             LoadAllSchemeNAV();
+            gvMFRecord.DataSource = null;
+            gvMFRecord.DataBind();
         }
         public void LoadAllSchemeNAV()
         {
@@ -435,6 +438,8 @@ namespace WealthERP.Admin
                         trPager.Visible = false;
                         trMfPagecount.Visible = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
+                        gvMFRecord.DataSource = null;
+                        gvMFRecord.DataBind();
 
                     }
                     trbtnSubmit.Visible = true;
@@ -442,8 +447,12 @@ namespace WealthERP.Admin
 
                 else
                 {
+                    int All=0;
                     int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
+                    if(ddlNAVCategory.SelectedIndex != 0)
+                        All=1;
                     int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                    string categoryCode = ddlNAVCategory.SelectedValue;
                     int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
 
                     string Search = hdnSchemeSearch.Value;
@@ -451,11 +460,11 @@ namespace WealthERP.Admin
                     //lblMFTotalRows.Text = hdnMFCount.Value;
                     //GetPageCount_MF();
                     //ds = PriceObj.GetAMFISnapshot("D", Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
-                    ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode);
+                    ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode, All, categoryCode);
                     if (ds.Tables[0].Rows.Count > 0)
                     {
                         gvMFRecord.Visible = true;
-                        gvMFRecord.CurrentPageIndex = 0;
+                        //gvMFRecord.CurrentPageIndex = 0;
                         gvMFRecord.DataSource = ds.Tables[0]; ;
                         gvMFRecord.DataBind();
                         //DivMF.Style.Add("display", "visible");
@@ -466,6 +475,7 @@ namespace WealthERP.Admin
                         //gvMFRecord.Visible = true;
                         //gvNAVPriceList.DataSource = ds.Tables[0];
                         //gvNAVPriceList.DataBind();
+                        
                     }
                     else
                     {
@@ -475,6 +485,8 @@ namespace WealthERP.Admin
                        // trPager.Visible = false;
                        // trMfPagecount.Visible = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records');", true);
+                        gvMFRecord.DataSource = null;
+                        gvMFRecord.DataBind();
                     }
                 }
             }
@@ -523,17 +535,25 @@ namespace WealthERP.Admin
                 }
                 else if (hdnassetType.Value == "MF")
                 {
+                    //int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
+                    //int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                    //int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
+                    //string Search = hdnSchemeSearch.Value;
+                    int All = 0;
                     int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
+                    if (ddlNAVCategory.SelectedIndex != 0)
+                        All = 1;
                     int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                    string categoryCode = ddlNAVCategory.SelectedValue;
                     int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
                     string Search = hdnSchemeSearch.Value;
                     //hdnMFCount.Value = PriceObj.GetAMFICount("C", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode).ToString();
                     //lblMFTotalRows.Text = hdnMFCount.Value;
                     //ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, mypager.CurrentPage, amfiCode, schemeCode, selectAllCode);
-                    ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode);
+                    ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode, All, categoryCode);
                     if (ds.Tables[0].Rows.Count > 0)
                     {
-                        //gvMFRecord.Visible = true;
+                        gvMFRecord.Visible = true;
                         gvMFRecord.DataSource = ds.Tables[0];
                         gvMFRecord.DataBind();
                         
@@ -550,6 +570,8 @@ namespace WealthERP.Admin
                         //trPager.Visible = false;
                        // trMfPagecount.Visible = false;
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('This Scheme Has No Records For This Period Of Time');", true);
+                        gvMFRecord.DataSource = null;
+                        gvMFRecord.DataBind();
                     }
                     //Search = null;
                     //hdnSchemeSearch.Value = null;
@@ -1313,6 +1335,8 @@ namespace WealthERP.Admin
         {
             //BindNavSubCategory();
             LoadAllSchemeNAV();
+            gvMFRecord.DataSource = null;
+            gvMFRecord.DataBind();
         }
         private void LoadAllSchemeList(int amcCode)
         {
@@ -1401,18 +1425,22 @@ namespace WealthERP.Admin
                         int amfiCode = 0;
                         int selectAllCode = 0;
                         int schemeCode = 0;
-                        if (ddlSelectMutualFund.SelectedValue == "Select AMC Code" || ddlSelectSchemeNAV.SelectedIndex == -1 || ddlSelectSchemeNAV.SelectedValue == "")
+                        int All = 0;
+                        if (ddlSelectMutualFund.SelectedValue == "Select AMC Code" || ddlSelectSchemeNAV.SelectedIndex == -1 || ddlSelectSchemeNAV.SelectedValue == "" )
                         {
                             
                         }
                         else
                         {
+                            
                             amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
-                            selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                            if (ddlNAVCategory.SelectedIndex != 0)
+                                All = 1;
+                             selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
+                             string CategoryCode = ddlNAVCategory.SelectedValue;
                             schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
-
                             string Search = hdnSchemeSearch.Value;
-                            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode);
+                            ds = PriceObj.GetAMFISnapshot("D", Search, amfiCode, schemeCode, selectAllCode ,All, CategoryCode);
                             if (ds.Tables[0].Rows.Count > 0)
                             {
                                 gvMFRecord.DataSource = ds.Tables[0]; ;
@@ -1478,11 +1506,15 @@ namespace WealthERP.Admin
                         }
                         else if (hdnassetType.Value == "MF")
                         {
+                            int All=0;
                             int amfiCode = int.Parse(ddlSelectMutualFund.SelectedValue);
                             int selectAllCode = ddlSelectSchemeNAV.SelectedIndex;
                             int schemeCode = int.Parse(ddlSelectSchemeNAV.SelectedValue);
                             string Search = hdnSchemeSearch.Value;
-                            ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode);
+                            if (ddlNAVCategory.SelectedIndex != 0)
+                                All = 1;
+                            string CategoryCode = ddlNAVCategory.SelectedValue;
+                            ds = PriceObj.GetAMFIRecord("D", StartDate, EndDate, Search, amfiCode, schemeCode, selectAllCode, All, CategoryCode);
                             if (ds.Tables[0].Rows.Count > 0)
                             {
                                 gvMFRecord.VirtualItemCount = ds.Tables[0].Rows.Count;
