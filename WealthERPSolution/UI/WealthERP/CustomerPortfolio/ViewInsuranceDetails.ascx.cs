@@ -145,7 +145,7 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["customerVo"];//SessionContents.CustomerVo;
-
+                trExportFilteredData.Visible = false;
                 if (Session[SessionContents.PortfolioId] != null)
                 {
                     portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
@@ -213,6 +213,7 @@ namespace WealthERP.CustomerPortfolio
 
                 if (RecordsCount > 0)
                 {
+                    trExportFilteredData.Visible = true;
                     ErrorMessage.Visible = false;
                     //trPager.Visible = true;
                     InsuranceVo insuranceVo;
@@ -665,6 +666,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrLifeInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trExportFilteredData.Visible = true;
             DataTable dtLIDetails = new DataTable();
             dtLIDetails = (DataTable)Cache["LIList"];
             gvrLifeInsurance.DataSource = dtLIDetails;
