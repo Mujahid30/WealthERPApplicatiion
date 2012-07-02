@@ -130,7 +130,8 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
+            trExportFilteredData.Visible = false;
+           SessionBo.CheckSession();
             
             if (!IsPostBack)
             {
@@ -140,8 +141,7 @@ namespace WealthERP.CustomerPortfolio
                 BindPortfolioDropDown();
 
             }
-            trExportFilteredData.Visible = false;
-
+            
 
         }
         private void BindPortfolioDropDown()
