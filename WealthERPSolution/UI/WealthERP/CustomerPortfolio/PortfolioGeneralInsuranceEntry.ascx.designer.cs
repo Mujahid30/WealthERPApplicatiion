@@ -302,15 +302,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadDatePicker txtPolicyCommencementDate;
         
         /// <summary>
-        /// cv2_txtPolicyCommencementDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cv2_txtPolicyCommencementDate;
-        
-        /// <summary>
         /// chkIsPolicyByEmployer control.
         /// </summary>
         /// <remarks>

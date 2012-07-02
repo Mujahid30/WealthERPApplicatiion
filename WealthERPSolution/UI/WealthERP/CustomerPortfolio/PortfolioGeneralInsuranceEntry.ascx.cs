@@ -77,7 +77,7 @@ namespace WealthERP.CustomerPortfolio
 
 
             }
-            cv2_txtPolicyCommencementDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
+            //cv2_txtPolicyCommencementDate.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
             //CompareValidator77.ValueToCompare = DateTime.Now.ToString("dd/MM/yyyy");
 
             if (Request.QueryString["FromPage"] == "ViewGeneralInsuranceDetails")
@@ -194,7 +194,10 @@ namespace WealthERP.CustomerPortfolio
                 generalInsuranceVo.PolicyType = ddlTypeOfPolicy.SelectedItem.Text;
                 //double.TryParse(hdnSumAssured.Value, out SumAssured);
                 //generalInsuranceVo.SumAssured = SumAssured;
+                if (hdnSumAssured.Value!="")
                 generalInsuranceVo.SumAssured = double.Parse(hdnSumAssured.Value);
+                else
+                    generalInsuranceVo.SumAssured = double.Parse(txtSumAssured1.Text);
                 generalInsuranceVo.TPAName = txtTPA.Text;
                 long.TryParse(txtTPAContactNumber.Text, out TPAContactNumber);
                 generalInsuranceVo.TPAContactNumber = TPAContactNumber;

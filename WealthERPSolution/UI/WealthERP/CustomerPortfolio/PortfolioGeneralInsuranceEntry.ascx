@@ -470,9 +470,9 @@
             <cc1:TextBoxWatermarkExtender ID="txtPolicyCommencementDate_TextBoxWatermarkExtender"
                 runat="server" TargetControlID="txtPolicyCommencementDate" WatermarkText="mm/dd/yyyy">
             </cc1:TextBoxWatermarkExtender>--%>
-            <asp:CompareValidator ID="cv2_txtPolicyCommencementDate" runat="server" Operator="LessThan"
+            <%--<asp:CompareValidator ID="cv2_txtPolicyCommencementDate" runat="server" Operator="LessThan"
                 ErrorMessage="<br />Please Select a valid date" Type="Date" ControlToValidate="txtPolicyCommencementDate"
-                CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
+                CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>--%>
         </td>
         <td align="center" style="width : 20%;">
             <asp:CheckBox ID="chkIsPolicyByEmployer" Text="Policy provided by employer" runat="server"

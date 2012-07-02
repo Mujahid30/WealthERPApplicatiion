@@ -217,14 +217,17 @@ namespace WealthERP.CustomerPortfolio
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
             string val = Convert.ToString(hdnMsgValue.Value);
+            int InsuranceNo = 0;
             if (val == "1")
             {
                 bool DeleteAccount;
                 CustomerVo customervo = (CustomerVo)Session["customerVo"];
-                int Account = customervo.CustomerId ;
-                InsuranceVo insuranceVo = (InsuranceVo)Session["insuranceId"];
-                int InsuranceNo = insuranceVo.AccountId;
-
+                int Account = customervo.CustomerId ;               
+                if (!String.IsNullOrEmpty(Session["insuranceId"].ToString()))
+                {
+                     InsuranceNo = Convert.ToInt32(Session["insuranceId"].ToString());
+                }
+              
                 
 
                 //int Insurance = Session ;
