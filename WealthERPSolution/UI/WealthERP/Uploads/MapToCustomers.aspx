@@ -156,7 +156,7 @@ function ClosePopUp(){
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField" onselectedindexchanged="ddlAdviserBranchList_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <br />
@@ -166,6 +166,23 @@ function ClosePopUp(){
             </asp:CompareValidator>
         </td>
     </tr>
+    
+     <tr>
+        <td class="leftField">
+            <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAdviseRMList" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span8" class="spnRequiredField">*</span>
+            <br />
+          <asp:CompareValidator ID="CompareValidator2" runat="server"
+                ControlToValidate="ddlAdviseRMList" ErrorMessage=" "
+                Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+            </asp:CompareValidator>
+        </td>
+    </tr>
+    
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCustomerSubType" runat="server" CssClass="FieldName" Text="Customer Sub Type:"></asp:Label>
