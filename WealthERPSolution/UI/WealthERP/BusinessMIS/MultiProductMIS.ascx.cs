@@ -50,7 +50,7 @@ namespace WealthERP.BusinessMIS
         string asset;
 
         DataSet dsInsuranceDetails = new DataSet();
-        DataRow drGeneralInsurance ;
+        DataRow drGeneralInsurance;
         DataRow drLifeInsurance;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace WealthERP.BusinessMIS
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower()=="ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";
@@ -71,7 +71,7 @@ namespace WealthERP.BusinessMIS
             int RMId = rmVo.RMId;
             customerId = customerVo.CustomerId;
             rmId = rmVo.RMId;
-            bmID = rmVo.RMId;  
+            bmID = rmVo.RMId;
 
             if (!IsPostBack)
             {
@@ -172,7 +172,7 @@ namespace WealthERP.BusinessMIS
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        }        
+        }
 
         private void BindRMforBranchDropdown(int branchId, int branchHeadId)
         {
@@ -639,7 +639,7 @@ namespace WealthERP.BusinessMIS
         }
 
         public void bindRadGrid_rgvMultiProductMIS()
-        {            
+        {
             int tempID = 0;
             try
             {
@@ -946,7 +946,7 @@ namespace WealthERP.BusinessMIS
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-            }        
+            }
         }
 
         private DateTime GetNextPremiumDate(string frequency, DateTime startDate, DateTime endDate)
@@ -990,7 +990,7 @@ namespace WealthERP.BusinessMIS
             }
 
             return nextPremiumDate;
-        } 
+        }
 
         public void BindLifeInsuranceDetails()
         {
@@ -1073,7 +1073,7 @@ namespace WealthERP.BusinessMIS
                             {
                                 //drLifeInsurance["NextPremiumDate"] = "---";
                             }
-                            
+
                             drLifeInsurance["CustomerId"] = dr["CustomerId"].ToString();
                             drLifeInsurance["InsuranceNPId"] = dr["InsuranceNPId"].ToString();
 
@@ -1118,7 +1118,7 @@ namespace WealthERP.BusinessMIS
         //function to populate the General Insurance Grid
         public void BindGeneralInsuranceDetails()
         {
-            string asset = lnkBtnGeneralInsuranceMIS.Text;            
+            string asset = lnkBtnGeneralInsuranceMIS.Text;
             DataTable dtGenInsDetails = new DataTable();
             try
             {
@@ -1149,9 +1149,9 @@ namespace WealthERP.BusinessMIS
                         dtGenInsDetails.Columns.Add("SumAssured", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumAmount", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumFrequency");
-                        dtGenInsDetails.Columns.Add("CommencementDate", typeof(DateTime));
+                        dtGenInsDetails.Columns.Add("CommencementDate");
                         //dtGenInsDetails.Columns.Add("MaturityValue");
-                        dtGenInsDetails.Columns.Add("MaturityDate", typeof(DateTime));
+                        dtGenInsDetails.Columns.Add("MaturityDate");
                         dtGenInsDetails.Columns.Add("CustomerId");
                         dtGenInsDetails.Columns.Add("GenInsuranceNPId");
 
@@ -1167,8 +1167,15 @@ namespace WealthERP.BusinessMIS
                             drGeneralInsurance["SumAssured"] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance["PremiumAmount"] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance["PremiumFrequency"] = dr["PremiumFrequency"].ToString();
-                            drGeneralInsurance["CommencementDate"] = DateTime.Parse(dr["CommencementDate"].ToString()).ToShortDateString();
-                            drGeneralInsurance["MaturityDate"] = DateTime.Parse(dr["MaturityDate"].ToString()).ToShortDateString();
+                            if (dr["CommencementDate"].ToString() == "" || dr["CommencementDate"].ToString() == DateTime.MinValue.ToString())
+                                drGeneralInsurance["CommencementDate"] = "N/A";
+                            else
+                                drGeneralInsurance["CommencementDate"] = Convert.ToDateTime(dr["CommencementDate"].ToString()).ToShortDateString().ToString();
+
+                            if (dr["MaturityDate"].ToString() == "" || dr["MaturityDate"].ToString() == DateTime.MinValue.ToString())
+                                drGeneralInsurance["CommencementDate"] = "N/A";
+                            else
+                                drGeneralInsurance["MaturityDate"] = DateTime.Parse(dr["MaturityDate"].ToString()).ToShortDateString();
                             drGeneralInsurance["CustomerId"] = dr["CustomerId"].ToString();
                             drGeneralInsurance["GenInsuranceNPId"] = dr["GenInsuranceNPId"].ToString();
 
@@ -1218,7 +1225,7 @@ namespace WealthERP.BusinessMIS
             trMultiProduct.Visible = true;
             trLabelMessage.Visible = true;
             bindRadGrid_rgvMultiProductMIS();
-        } 
+        }
 
         protected void lnkBtnInvestmentMIS_Click(object sender, EventArgs e)
         {
@@ -1229,7 +1236,7 @@ namespace WealthERP.BusinessMIS
             trLabelMessage.Visible = false;
             BindFixedincomeMIS();
         }
-        
+
         public void lnkBtnLifeInsuranceMIS_OnClick(object sender, EventArgs e)
         {
             trFixedIncome.Visible = false;
@@ -1258,7 +1265,7 @@ namespace WealthERP.BusinessMIS
                 dt = (DataTable)ViewState["FixedIncomeMIS"];
                 rgvFixedIncomeMIS.DataSource = dt;
             }
-        }        
+        }
 
         protected void rgvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -1295,7 +1302,7 @@ namespace WealthERP.BusinessMIS
         //    txtIndividualCustomer.Clear();
         //}
         private void txtIndividualCustomer_Enter(object sender, System.EventArgs e)
-        {            
+        {
             txtIndividualCustomer.Text = ""; // Clears the text field            
         }
 
@@ -1310,8 +1317,8 @@ namespace WealthERP.BusinessMIS
             {
                 GridDataItem item = (GridDataItem)e.Item;
                 string value = item.GetDataKeyValue("Customer_Name").ToString();
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);           
-               
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('RMCustomerAMCSchemewiseMIS','strCustomreId=" + value + " ');", true);
+
             }
         }
 
