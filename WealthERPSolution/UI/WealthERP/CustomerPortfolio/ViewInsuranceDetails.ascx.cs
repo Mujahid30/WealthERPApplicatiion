@@ -142,10 +142,11 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
+                trExportFilteredData.Visible = false;
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["customerVo"];//SessionContents.CustomerVo;
-                trExportFilteredData.Visible = false;
+               
                 if (Session[SessionContents.PortfolioId] != null)
                 {
                     portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
@@ -676,6 +677,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
+            
             gvrLifeInsurance.ExportSettings.OpenInNewWindow = true;
             gvrLifeInsurance.ExportSettings.IgnorePaging = true;
             foreach (GridFilteringItem filter in gvrLifeInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
