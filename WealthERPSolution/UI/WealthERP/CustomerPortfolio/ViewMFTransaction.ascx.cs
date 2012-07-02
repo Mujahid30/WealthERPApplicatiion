@@ -32,8 +32,9 @@ namespace WealthERP.CustomerPortfolio
                 mfTransactionVo = (MFTransactionVo)Session["MFTransactionVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
                 userVo = (UserVo)Session["userVo"];
+                if(!Page.IsPostBack)
                 LoadViewFields();
-                btnCancel.Visible = false;
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -181,7 +182,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else
                 {
-                    lnkEdit.Visible = false;
+                    lnkEdit.Visible = true;
                     btnDelete.Visible = false;
                     btnCancel.Visible = true;
                     btnCancel.Enabled = false;
@@ -340,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
                 }
                 else if (btnCancel.Visible == true)
                 {
-                    btnDelete.Enabled = true;
+                    btnCancel.Enabled = true;
                 }
 
             }
