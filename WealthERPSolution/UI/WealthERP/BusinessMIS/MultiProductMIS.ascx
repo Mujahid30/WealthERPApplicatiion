@@ -45,6 +45,7 @@
 </table>
 <%--<div class="divSectionHeading" style="vertical-align: text-bottom">
 </div>--%>
+
 <table class="TableBackground" width="100%">
     <tr id="trBranchRM" runat="server">
         <td class="leftField" style="width: 15%">
@@ -181,11 +182,18 @@
     </tr>
 </table>
 
-
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
 <table class="TableBackground" width="100%">
+ <tr id="trExportFilteredData" runat="server">
+            <td>
+                <asp:ImageButton ID="btnMultiProductMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
     <tr id="trMultiProduct" runat="server">
         <td>
-        <div style='overflow-x:scroll;overflow-y:hidden; width:97%'>
+       <div id="Div1" runat="server" style="width: 640px">
             <telerik:RadGrid ID="rgvMultiProductMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
@@ -194,9 +202,9 @@
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId,Customer_Name" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" />
+                    AutoGenerateColumns="false" CommandItemDisplay="none">
+                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false" ShowRefreshButton="false" 
+                    ShowExportToCsvButton="false" ShowAddNewRecordButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" DataField="Customer_Name" 
                         HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
@@ -269,25 +277,32 @@
             </asp:Label>
         </td>
     </tr>
+    <tr id="trFixedIncomeMIS" runat="server">
+            <td>
+                <asp:ImageButton ID="btnFixedIncomeMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnFixedIncomeMIS_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
     <tr id="trFixedIncome" runat="server">
         <td>
-        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
+        <div id="Div2" runat="server" style="width: 640px">
             <telerik:RadGrid ID="rgvFixedIncomeMIS" runat="server" Skin="Telerik" CssClass="RadGrid"
                 GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" Width="98%" 
                 DataKeyNames="CustomerId" EnableEmbeddedSkins="false" OnNeedDataSource="rgvFixedIncomeMIS_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="Fixed IncomeMIS Details">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="CustomerId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                    AutoGenerateColumns="false" CommandItemDisplay="none">
                     <%--<CommandItemTemplate>
                         <div>
                             <asp:Label ID="lblMISType66" runat="server" Text="Fixed Income MIS"></asp:Label> 
                         </div>
                     </CommandItemTemplate>--%>
-                    <CommandItemSettings AddNewRecordText="Fixed Income MIS" ShowExportToWordButton="true" ShowExportToExcelButton="true" ShowRefreshButton="false" 
-                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false"/>
+                    <CommandItemSettings AddNewRecordText="Fixed Income MIS" ShowExportToWordButton="false" ShowExportToExcelButton="false" ShowRefreshButton="false" 
+                    ShowExportToCsvButton="false" ShowAddNewRecordButton="false"/>
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" 
                         DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
@@ -336,19 +351,26 @@
             </div>
         </td>
     </tr>
+    <tr id="trGeneralInsuranceMis" runat="server">
+            <td>
+                <asp:ImageButton ID="btnGeneralInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnGeneralInsurance_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
     <tr id="trGeneralInsurance" runat="server">
         <td>
-        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
+        <div id="Div3" runat="server" style="width: 640px">
             <telerik:RadGrid ID="rgvGeneralInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvGeneralInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="GeneralInsurance Details">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="GenInsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                        ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                    AutoGenerateColumns="false" CommandItemDisplay="none">
+                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                        ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" 
                          FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
@@ -396,19 +418,26 @@
             </div>
         </td>
     </tr>
+     <tr id="trLifeInsuranceMIS" runat="server">
+            <td>
+                <asp:ImageButton ID="btnLifeInsurance" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnLifeInsurance_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
     <tr id="trLifeInsurance" runat="server">
         <td>
-        <div style='overflow-x:scroll;overflow-y:hidden;width:97%'>
+        <div id="Div4" runat="server" style="width: 640px">
             <telerik:RadGrid ID="rgvLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvLifeInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="LifeInsuranceMIS Details">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="InsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                        ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                        ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false"
                         FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
@@ -475,7 +504,7 @@
         </td>
     </tr>
 </table>
-
+</asp:Panel>
 <asp:HiddenField ID="hdnCustomerId" runat="server" 
     onvaluechanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />

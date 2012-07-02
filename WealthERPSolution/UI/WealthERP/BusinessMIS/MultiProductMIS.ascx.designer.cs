@@ -39,7 +39,10 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranchRM;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFixedIncomeMIS;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGeneralInsuranceMis;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trLifeInsuranceMIS;
         /// <summary>
         /// lblBranch control.
         /// </summary>

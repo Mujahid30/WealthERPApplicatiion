@@ -55,6 +55,10 @@ namespace WealthERP.BusinessMIS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            trLifeInsuranceMIS.Visible = false;
+            trGeneralInsuranceMis.Visible = false;
+            trFixedIncomeMIS.Visible = false;
+            trExportFilteredData.Visible = false;
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
 
@@ -650,6 +654,7 @@ namespace WealthERP.BusinessMIS
 
                     if (dsGrpAssetNetHoldings.Tables[0].Rows.Count == 0)
                     {
+                        trExportFilteredData.Visible = false;
                         lblErrorMsg.Text = "No records found for Multi-Product MIS";
                         lblErrorMsg.Visible = true;
                         trMultiProduct.Visible = false;
@@ -659,6 +664,7 @@ namespace WealthERP.BusinessMIS
                     }
                     else
                     {
+                        trExportFilteredData.Visible = true;
                         lblErrorMsg.Visible = false;
                         lblMISType.Text = "Multi-Product MIS";
                         trMISType.Visible = true;
@@ -857,6 +863,7 @@ namespace WealthERP.BusinessMIS
                     dsFIMIS = insuranceBo.GetFixedincomeMISDetails(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
                     if (dsFIMIS.Tables[0].Rows.Count == 0)
                     {
+                        trFixedIncomeMIS.Visible = false;
                         lblErrorMsg.Text = "No records found for Fixed Income MIS";
                         lblErrorMsg.Visible = true;
                         trFixedIncome.Visible = false;
@@ -865,6 +872,7 @@ namespace WealthERP.BusinessMIS
                     }
                     else
                     {
+                        trFixedIncomeMIS.Visible = true;
                         lblErrorMsg.Visible = false;
                         lblMISType.Text = "Fixed Income MIS";
                         trMISType.Visible = true;
@@ -1013,6 +1021,7 @@ namespace WealthERP.BusinessMIS
                     dsInsuranceDetails = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
                     if (dsInsuranceDetails.Tables[0].Rows.Count == 0)
                     {
+                        trLifeInsuranceMIS.Visible = false;
                         //rgvGeneralInsurance.MasterTableView.Rebind();
                         //rgvGeneralInsurance.Rebind();
                         lblErrorMsg.Text = "No records found for Life Insurance MIS";
@@ -1023,6 +1032,7 @@ namespace WealthERP.BusinessMIS
                     }
                     else
                     {
+                        trLifeInsuranceMIS.Visible = true;
                         lblErrorMsg.Visible = false;
                         lblMISType.Text = "Life Insurance MIS";
                         trMISType.Visible = true;
@@ -1129,14 +1139,17 @@ namespace WealthERP.BusinessMIS
                     dsInsuranceDetails = insuranceBo.GetMultiProductMISInsuranceDetails(advisorId, branchId, branchHeadId, rmId, customerId, asset, isGroup);
                     if (dsInsuranceDetails.Tables[0].Rows.Count == 0)
                     {
+                        trGeneralInsuranceMis.Visible = false;
                         lblErrorMsg.Text = "No records found for General Insurance MIS";
                         lblErrorMsg.Visible = true;
                         trGeneralInsurance.Visible = false;
                         lblMISType.Visible = false;
                         //rgvGeneralInsurance.Visible = false;
+                      
                     }
                     else
                     {
+                        trGeneralInsuranceMis.Visible = true;
                         lblErrorMsg.Visible = false;
                         lblMISType.Text = "General Insurance MIS";
                         trMISType.Visible = true;
@@ -1259,6 +1272,7 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvFixedIncomeMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trFixedIncomeMIS.Visible = true;
             DataTable dt = new DataTable();
             if (ViewState["FixedIncomeMIS"] != null)
             {
@@ -1269,6 +1283,7 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trGeneralInsuranceMis.Visible = false;
             DataTable dt = new DataTable();
             if (ViewState["GeneralInsuranceMIS"] != null)
             {
@@ -1279,6 +1294,7 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvLifeInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trLifeInsuranceMIS.Visible = true;
             DataTable dt = new DataTable();
             if (ViewState["LifeInsuranceMIS"] != null)
             {
@@ -1289,6 +1305,7 @@ namespace WealthERP.BusinessMIS
 
         protected void rgvMultiProductMIS_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trExportFilteredData.Visible = true;
             DataTable dt = new DataTable();
             if (ViewState["MultiProductMIS"] != null)
             {
@@ -1321,7 +1338,50 @@ namespace WealthERP.BusinessMIS
 
             }
         }
+        protected void btnFixedIncomeMIS_OnClick(object sender, ImageClickEventArgs e)
+        {
 
+            rgvFixedIncomeMIS.ExportSettings.OpenInNewWindow = true;
+            rgvFixedIncomeMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in rgvFixedIncomeMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            rgvFixedIncomeMIS.MasterTableView.ExportToExcel();
+        }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            rgvMultiProductMIS.ExportSettings.OpenInNewWindow = true;
+            rgvMultiProductMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in rgvMultiProductMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            rgvMultiProductMIS.MasterTableView.ExportToExcel();
+        }
+        protected void btnLifeInsurance_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            rgvLifeInsurance.ExportSettings.OpenInNewWindow = true;
+            rgvLifeInsurance.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in rgvLifeInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            rgvLifeInsurance.MasterTableView.ExportToExcel();
+        }
+        protected void btnGeneralInsurance_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            rgvGeneralInsurance.ExportSettings.OpenInNewWindow = true;
+            rgvGeneralInsurance.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in rgvGeneralInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            rgvGeneralInsurance.MasterTableView.ExportToExcel();
+        }
         protected void rgvMultiProductMIS_DataBound(object sender, System.EventArgs e)
         {
             DataTable gridTable = (DataTable)ViewState["MultiProductMIS"];
