@@ -155,18 +155,23 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+
+            RadComboBox ddlAction;
             int insuranceId;
             int accountId;
             string qryString=null;
             try
             {
                 //DropDownList ddlAction = (DropDownList)sender;
-                RadComboBox ddlAction = (RadComboBox)sender;
+                ddlAction = (RadComboBox)sender;
                 //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex+1;
-                int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString(), out insuranceId);
-                int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString(), out accountId);
+                insuranceId = int.Parse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString());
+                accountId = int.Parse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString());
+                //int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString(), out insuranceId);
+                //int.TryParse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString(), out accountId);
                 int Insurance = insuranceId;
                 // insuranceId;
                 
@@ -194,8 +199,10 @@ namespace WealthERP.CustomerPortfolio
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
            
                 }
-                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                else if (ddlAction.SelectedItem.Value.ToString() == "Delete")
                 {
+                    int insuranceDeleteId = int.Parse(gvGeneralInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString());
+                    Session["insuranceDeleteId"] = insuranceDeleteId;
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
                 }
@@ -223,10 +230,10 @@ namespace WealthERP.CustomerPortfolio
             {
                 bool DeleteAccount;
                 CustomerVo customervo = (CustomerVo)Session["customerVo"];
-                int Account = customervo.CustomerId ;               
-                if (!String.IsNullOrEmpty(Session["insuranceId"].ToString()))
+                int Account = customervo.CustomerId ;
+                if (!String.IsNullOrEmpty(Session["insuranceDeleteId"].ToString()))
                 {
-                     InsuranceNo = Convert.ToInt32(Session["insuranceId"].ToString());
+                    InsuranceNo = Convert.ToInt32(Session["insuranceDeleteId"].ToString());
                 }
               
                 
