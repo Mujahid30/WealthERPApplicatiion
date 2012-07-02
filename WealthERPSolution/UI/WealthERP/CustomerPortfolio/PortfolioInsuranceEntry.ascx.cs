@@ -31,6 +31,7 @@ namespace WealthERP.CustomerPortfolio
         InsuranceBo insuranceBo = new InsuranceBo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
+        CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo(); 
         List<InsuranceULIPVo> insuranceUlipList = new List<InsuranceULIPVo>();
         List<MoneyBackEpisodeVo> moneyBackEpisodeList = new List<MoneyBackEpisodeVo>();
         CalendarExtender ce;
@@ -57,10 +58,15 @@ namespace WealthERP.CustomerPortfolio
                 userVo = (UserVo)Session["userVo"];
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
                 customerAccountVo = (CustomerAccountsVo)Session["customerAccountVo"];
-                insuranceVo = (InsuranceVo)Session["insuranceVo"]; 
+                insuranceVo = (InsuranceVo)Session["insuranceVo"];
 
                 if (!IsPostBack)
                 {
+                    if (!string.IsNullOrEmpty(Request.QueryString["AssociationId"]))
+                    {
+                        Session["AssociationId"] = Request.QueryString["AssociationId"];
+                    }
+                     
                     Session["moneyBackEpisodeList"] = null;
                     // Check Querystring to see if its an Edit/View/Entry
                     if (Request.QueryString["action"] != null)
@@ -425,6 +431,23 @@ namespace WealthERP.CustomerPortfolio
                     if (insuranceVo.PurchaseDate != DateTime.MinValue)
                         txtPolicyPurchaseDate.Text = insuranceVo.PurchaseDate.ToShortDateString();
 
+                    
+                    DataTable dtAssociationId = (DataTable)Session["dtAssociationId"];
+                    if (dtAssociationId.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dtAssociationId.Rows)
+                        {
+                            for (int i = 0; i < gvNominee.Rows.Count; i++)
+                            {
+                                if (dr["C_AssociateCustomerId"].ToString() == gvNominee.Rows[i].Cells[3].Text)
+                                {
+                                    CheckBox cb = (CheckBox)gvNominee.Rows[i].Cells[0].FindControl("chkId0");
+                                    cb.Checked = true;
+                                }
+                            }
+                        }
+                    }
+
                     if (customerAccountVo.AssetCategory.Trim() == "INEP")
                     {
                         txtEPPremiumAmount.Text = insuranceVo.PremiumAmount.ToString();
@@ -760,6 +783,7 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+                    gvNominee.Enabled = false;
 
                     ddlPeriodSelection.Enabled = false;
                     txtPolicyPurchaseDate.Enabled = false;
@@ -912,7 +936,6 @@ namespace WealthERP.CustomerPortfolio
                         trULIPAllocation.Visible = true;
                         rgULIPSubPlanSchedule.Visible = true;
                         rgULIPSubPlanSchedule.Enabled = false;
-                        gvNominee.Enabled = false;
                         txtPolicyTerms.Enabled = false;
                         // Get ULIP Sub-Plans Count
                         #region NotNeededAnyMore
@@ -1002,6 +1025,7 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+                    gvNominee.Enabled = true;
 
                     ddlPeriodSelection.Enabled = true;
                     txtPolicyPurchaseDate.Enabled = true;
@@ -1242,6 +1266,7 @@ namespace WealthERP.CustomerPortfolio
                     trULIPAllocation.Visible = false;
                     rgULIPSubPlanSchedule.Visible = false;
                     rgULIPSubPlanSchedule.Enabled = false;
+                    gvNominee.Enabled = true;
 
                     ddlPeriodSelection.Enabled = true;
                     txtPolicyPurchaseDate.Enabled = true;
@@ -1443,8 +1468,7 @@ namespace WealthERP.CustomerPortfolio
                     customerVo = (CustomerVo)Session["customerVo"];
                     userVo = (UserVo)Session["userVo"];
                     customerAccountVo = (CustomerAccountsVo)Session["customerAccountVo"];
-
-
+                    
                     if (btnSubmit.Text == "Submit")
                     {
                         InsuranceVo insuranceVo = new InsuranceVo();
@@ -1487,6 +1511,23 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo.GracePeriod = 0;
                         insuranceVo.InsuranceCharges = 0;
                         insuranceVo.PremiumPaymentDate = 0;
+                        string associationIds = "";
+
+                        customerAccountAssociationVo.AccountId = customerAccountVo.AccountId;
+                        customerAccountAssociationVo.CustomerId = customerVo.CustomerId;
+                        //Life insurance nominee add
+                        foreach (GridViewRow gvr in this.gvNominee.Rows)
+                        {
+                            if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                            {
+                                customerAccountAssociationVo.AssociationId = int.Parse(gvNominee.DataKeys[gvr.RowIndex].Values[1].ToString());
+                                customerAccountAssociationVo.AssociationType = "Nominee";
+                                associationIds = associationIds + customerAccountAssociationVo.AssociationId.ToString() + "~";
+                                customerAccountAssociationVo.AccountId = insuranceVo.AccountId;
+                            }
+                        }
+                        if (associationIds != "")
+                            customerAccountBo.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userVo.UserId, associationIds);//change after making all classes
 
                         if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                         {
@@ -1891,7 +1932,6 @@ namespace WealthERP.CustomerPortfolio
                     {
 
                     }
-                    //Session.Remove("table");
                 }
                 else if (btnSubmit.Text == "Update")
                 {
@@ -1917,6 +1957,20 @@ namespace WealthERP.CustomerPortfolio
                     if (txtPolicyTerms.Text.Trim() != "")
                         insuranceVo.PolicyTerms = Convert.ToInt32(txtPolicyTerms.Text.Trim());
                     insuranceVo.PolicyTermsDuration = ddlPeriodSelection.SelectedItem.ToString();
+
+                    string associationIds = "";
+                    foreach (GridViewRow gvr in this.gvNominee.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            customerAccountAssociationVo.AssociationId = int.Parse(gvNominee.DataKeys[gvr.RowIndex].Values[1].ToString());
+                            customerAccountAssociationVo.AssociationType = "Nominee";
+                            associationIds = associationIds + customerAccountAssociationVo.AssociationId.ToString() + "~";
+                            customerAccountAssociationVo.AccountId = insuranceVo.AccountId;
+                        }
+                    }
+                    if (associationIds != "")
+                    customerAccountBo.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userVo.UserId, associationIds);//change after making all classes
 
                     if (insuranceVo.AssetInstrumentCategoryCode.ToString().Trim() == "INEP")
                     {
@@ -2766,8 +2820,13 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtEPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //((dtTo.Year - dtFrom.Year) * 12) + dtTo.Month - dtFrom.Month;
+                //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                //double months = ((dtTo.Year - dtFrom.Year) * 12) + dtTo.Month - dtFrom.Month;
+                //double Months =  dtTo.Subtract(dtFrom).Days / (365.25 / 12);
+
+                txtEPPremiumDuration.Text = NoOfMonths.ToString("f0");
                 // txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
             }
         }
@@ -2779,8 +2838,9 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtOTLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtOTPremiumDuration.Text = NoOfMonths.ToString("f0");
             }
         }
 
@@ -2792,8 +2852,9 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtWLPLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtWLPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtWLPPremiumDuration.Text = NoOfMonths.ToString("f0");
             }
         }
 
@@ -2805,8 +2866,9 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtMPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtMPPremiumDuration.Text = NoOfMonths.ToString("f0");
             }
         }
 
@@ -2818,8 +2880,9 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtULIPLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f0");
             }
         }
 
@@ -2831,8 +2894,9 @@ namespace WealthERP.CustomerPortfolio
                 DateTime dtTo = DateTime.Parse(txtTPLastPremiumDate.Text);
                 DateBo dtBo = new DateBo();
 
-                float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                txtTPPremiumDuration.Text = NoOfMonths.ToString("f2");
+                double NoOfMonths = (dtTo - dtFrom).TotalDays;
+                    //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                txtTPPremiumDuration.Text = NoOfMonths.ToString("f0");
             }
         }
 
@@ -2847,7 +2911,7 @@ namespace WealthERP.CustomerPortfolio
                     DateBo dtBo = new DateBo();
 
                     float NoOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                    txtMPPolicyTerm.Text = NoOfMonths.ToString("f2");
+                    txtMPPolicyTerm.Text = NoOfMonths.ToString("f0");
                 }
             }
         }
@@ -2861,6 +2925,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                DataTable dt = (DataTable)Session["customerAccountAssociationVo"];
                 dtAssociates = dsCustomerAssociates.Tables[0];
 
                 dtCustomerAssociates.Columns.Add("MemberCustomerId");
@@ -2870,7 +2935,6 @@ namespace WealthERP.CustomerPortfolio
 
                 foreach (DataRow dr in dtAssociates.Rows)
                 {
-
                     drCustomerAssociates = dtCustomerAssociates.NewRow();
                     drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
                     drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
@@ -2886,7 +2950,7 @@ namespace WealthERP.CustomerPortfolio
                     gvNominee.Visible = true;
 
                     trNoNominee.Visible = false;
-                    trNominees.Visible = true;
+                    trNominees.Visible = true;                    
                 }
                 else
                 {
@@ -3187,6 +3251,34 @@ namespace WealthERP.CustomerPortfolio
                 txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
                 txtPolicyMaturity.Enabled = false;
             }
+        }
+
+        public void gvNominee_RowDataBound(Object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int AssociationId = int.Parse(gvNominee.DataKeys[e.Row.RowIndex].Values[0].ToString());
+                string memberId = "", memberSplitId;
+                if (Session["AssociationId"] != null)
+                {
+                    memberId = Session["AssociationId"].ToString();
+                }
+
+                if (memberId != "")
+                {
+                    int memberIdLen = memberId.Length;
+                    int indexId = memberId.IndexOf('~', 0);
+                    memberSplitId = memberId.Substring(0, indexId);
+                    memberId = memberId.Substring(indexId + 1);
+                
+                    if (Convert.ToInt32(memberSplitId) == AssociationId)
+                    {
+                        Session["AssociationId"] = memberId;
+                        ((CheckBox)e.Row.FindControl("chkId0")).Checked = true;
+                    }
+                }
+            }
+            
         }
     }
 }

@@ -435,6 +435,104 @@ namespace DaoCustomerPortfolio
             return insuranceVo;
         }
 
+        public InsuranceVo GetInsuranceAssetLI(int insurancePortfolioId, out DataTable dtAssociationId)
+        {
+            InsuranceVo insuranceVo = null;
+            Database db;
+            DbCommand getInsurancePortfolioCmd;
+            DataSet dsGetInsurancePortfolio;
+            DataRow dr;
+            dtAssociationId = new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getInsurancePortfolioCmd = db.GetStoredProcCommand("SP_GetInsuranceAssetLI");
+                db.AddInParameter(getInsurancePortfolioCmd, "@CINP_InsuranceNPId", DbType.Int32, insurancePortfolioId);
+                dsGetInsurancePortfolio = db.ExecuteDataSet(getInsurancePortfolioCmd);
+
+                if (dsGetInsurancePortfolio.Tables[0].Rows.Count > 0)
+                {
+                    insuranceVo = new InsuranceVo();
+                    dr = dsGetInsurancePortfolio.Tables[0].Rows[0];
+                    insuranceVo.AccountId = int.Parse(dr["CIA_AccountId"].ToString());
+                    insuranceVo.AssetGroupCode = dr["PAG_AssetGroupCode"].ToString();
+                    insuranceVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+
+                    insuranceVo.BonusAccumalated = float.Parse(dr["CINP_BonusAccumalated"].ToString());
+                    insuranceVo.CustInsInvId = int.Parse(dr["CINP_InsuranceNPId"].ToString());
+                    if (dr["CINP_EndDate"].ToString() != string.Empty)
+                        insuranceVo.EndDate = DateTime.Parse(dr["CINP_EndDate"].ToString());
+                    insuranceVo.InsuranceIssuerCode = dr["XII_InsuranceIssuerCode"].ToString();
+                    insuranceVo.MaturityValue = float.Parse(dr["CINP_MaturityValue"].ToString());
+                    insuranceVo.Name = dr["CINP_Name"].ToString();
+                    if (dr["IS_SchemeId"].ToString() != string.Empty)
+                        insuranceVo.SchemeId = int.Parse(dr["IS_SchemeId"].ToString());
+                    insuranceVo.PremiumAccumalated = float.Parse(dr["CINP_PremiumAccumalated"].ToString());
+                    insuranceVo.PremiumAmount = float.Parse(dr["CINP_PremiumAmount"].ToString());
+
+                    insuranceVo.PremiumFrequencyCode = dr["XF_PremiumFrequencyCode"].ToString();
+                    if (dr["CINP_StartDate"].ToString() != string.Empty)
+                        insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
+                    insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
+                    insuranceVo.SurrenderValue = float.Parse(dr["CINP_SurrenderValue"].ToString());
+
+                    if (dr["CINP_Charges"].ToString() != "" && dr["CINP_Charges"].ToString() != null)
+                        insuranceVo.InsuranceCharges = float.Parse(dr["CINP_Charges"].ToString());
+                    if (dr["CINP_PremiumPaymentDate"].ToString() != string.Empty)
+                        insuranceVo.PremiumPaymentDate = Int16.Parse(dr["CINP_PremiumPaymentDate"].ToString());
+                    if (dr["CINP_FirstPremiumDate"].ToString() != string.Empty)
+                        insuranceVo.FirstPremiumDate = DateTime.Parse(dr["CINP_FirstPremiumDate"].ToString());
+                    if (dr["CINP_LastPremiumDate"].ToString() != string.Empty)
+                        insuranceVo.LastPremiumDate = DateTime.Parse(dr["CINP_LastPremiumDate"].ToString());
+                    if (dr["CINP_PurchaseDate"].ToString() != string.Empty)
+                        insuranceVo.PurchaseDate = DateTime.Parse(dr["CINP_PurchaseDate"].ToString());
+
+                    if (dr["CINP_MortalityCharges"].ToString() != string.Empty && dr["CINP_MortalityCharges"].ToString() != null)
+                        insuranceVo.MortalityCharges = float.Parse(dr["CINP_MortalityCharges"].ToString());
+                    if (dr["CINP_NAV"].ToString() != string.Empty && dr["CINP_NAV"].ToString() != null)
+                        insuranceVo.NAV = float.Parse(dr["CINP_NAV"].ToString());
+                    insuranceVo.PolicyPeriod = float.Parse(dr["CINP_PolicyPeriod"].ToString());
+                    insuranceVo.PolicyEpisode = float.Parse(dr["CINP_PolicyEpisode"].ToString());
+                    insuranceVo.GracePeriod = float.Parse(dr["CINP_GracePeriod"].ToString());
+                    insuranceVo.ApplicationNumber = dr["CINP_ApplicationNum"].ToString();
+                    if (dr["CINP_ApplicationDate"].ToString() != string.Empty)
+                        insuranceVo.ApplicationDate = DateTime.Parse(dr["CINP_ApplicationDate"].ToString());
+                    insuranceVo.Remarks = dr["CINP_Remark"].ToString();
+
+                    if (dr["CINP_StartDate"].ToString() != string.Empty && dr["CINP_EndDate"].ToString() != string.Empty)
+                    {
+                        insuranceVo.PolicyTerms = Math.Abs((insuranceVo.EndDate.Month - insuranceVo.StartDate.Month) + 12 * (insuranceVo.EndDate.Year - insuranceVo.StartDate.Year));
+                    }
+
+                    insuranceVo.PolicyTermsDuration = "MN";
+                }
+
+                if (dsGetInsurancePortfolio.Tables[1].Rows.Count > 0)
+                {
+                    dtAssociationId = dsGetInsurancePortfolio.Tables[1];
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceDao.cs:GetInsuranceAssetLI()");
+
+                object[] objects = new object[1];
+                objects[0] = insurancePortfolioId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return insuranceVo;
+        }
+
         public int ChkAccountAvail(int customerId)
         {
             int count = 0;

@@ -179,6 +179,39 @@ namespace BoCustomerPortfolio
             return insuranceVo;
         }
 
+        public InsuranceVo GetInsuranceAssetLI(int insurancePortfolioId, out DataTable dtAssociationId)
+        {
+            InsuranceDao insuranceDao = new InsuranceDao();
+            InsuranceVo insuranceVo = new InsuranceVo();
+            dtAssociationId = new DataTable();
+            try
+            {
+                insuranceVo = insuranceDao.GetInsuranceAssetLI(insurancePortfolioId, out dtAssociationId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "InsuranceBo.cs:GetInsuranceAssetLI()");
+
+
+                object[] objects = new object[1];
+                objects[0] = insurancePortfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return insuranceVo;
+        }
+
         public int ChkAccountAvail(int customerId)
         {
             int count = 0;

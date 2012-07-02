@@ -446,9 +446,11 @@ namespace WealthERP.CustomerPortfolio
                 //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex+1;
                 int insuranceId = int.Parse(gvrLifeInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString());
+                DataTable dtAssociationId = new DataTable();
 
                 // Set the VO into the Session
-                insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
+                insuranceVo = insuranceBo.GetInsuranceAssetLI(insuranceId, out dtAssociationId);
+                Session["dtAssociationId"] = dtAssociationId;
                 Session["insuranceVo"] = insuranceVo;
                 Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
 

@@ -1330,7 +1330,7 @@
     <tr id="trNominees" runat="server">
         <td colspan="4">
             <asp:GridView ID="gvNominee" runat="server" AutoGenerateColumns="False" CellPadding="4"
-                ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
+                ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True" Onrowdatabound="gvNominee_RowDataBound" 
                 CssClass="GridViewStyle">
                 <FooterStyle CssClass="FooterStyle" />
                 <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
@@ -1347,6 +1347,7 @@
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="Name" DataField="Name" />
                     <asp:BoundField HeaderText="Relationship" DataField="Relationship" />
+                    <asp:BoundField HeaderText="Id" DataField="MemberCustomerId" />
                 </Columns>
                 <FooterStyle CssClass="FooterStyle" />
                 <SelectedRowStyle CssClass="SelectedRowStyle" />

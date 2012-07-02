@@ -1000,6 +1000,35 @@ namespace BoCustomerPortfolio
 
         }
 
+        public DataSet GetInsuranceAccountAssociation(int accountId)
+        {
+            CustomerAccountDao customerAccountsDao = new CustomerAccountDao();
+            DataSet ds;
+            try
+            {
+                ds = customerAccountsDao.GetInsuranceAccountAssociation(accountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:GetInsuranceAccountAssociation()");
+
+                object[] objects = new object[1];
+                objects[0] = accountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
 
         public bool CreatePropertyAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
         {
@@ -1181,13 +1210,13 @@ namespace BoCustomerPortfolio
 
         }
 
-        public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId, string associationIds)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             bool bResult = false;
             try
             {
-                bResult = customerAccountDao.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userId);
+                bResult = customerAccountDao.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userId, associationIds);
 
             }
             catch (BaseApplicationException Ex)

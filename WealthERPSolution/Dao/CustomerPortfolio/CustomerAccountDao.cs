@@ -1187,6 +1187,39 @@ namespace DaoCustomerPortfolio
             return dsCustomerAssociates;
         }
 
+        public DataSet GetInsuranceAccountAssociation(int accountId)
+        {
+            DataSet ds = null;
+            DbCommand getCustomerAssociatesCmd;
+            Database db;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerAssociatesCmd = db.GetStoredProcCommand("SP_GetInsuranceAccountAssociation");
+                db.AddInParameter(getCustomerAssociatesCmd, "@CIA_AccountId", DbType.Int32, accountId);
+                ds = db.ExecuteDataSet(getCustomerAssociatesCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:GetInsuranceAccountAssociation()");
+
+                object[] objects = new object[1];
+                objects[0] = accountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
         public CustomerAccountsVo GetFixedIncomeAccount(int accountId)
         {
             CustomerAccountsVo customerAccountVo = null;
@@ -1715,7 +1748,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId)
+        public bool CreateInsuranceAccountAssociation(CustomerAccountAssociationVo customerAccountAssociationVo, int userId, string associationIds)
         {
             bool bResult = false;
             Database db;
@@ -1725,8 +1758,9 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createInsuranceAccountAssociationCmd = db.GetStoredProcCommand("SP_CreateInsuranceAccountAssociation");
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIA_AccountId", DbType.Int32, customerAccountAssociationVo.AccountId);
-                db.AddInParameter(createInsuranceAccountAssociationCmd, "@CA_AssociationId", DbType.Int32, customerAccountAssociationVo.AssociationId);
+                //db.AddInParameter(createInsuranceAccountAssociationCmd, "@CA_AssociationId", DbType.Int32, customerAccountAssociationVo.AssociationId);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_AssociationType", DbType.String, customerAccountAssociationVo.AssociationType);
+                db.AddInParameter(createInsuranceAccountAssociationCmd, "@associationIds", DbType.String, associationIds);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createInsuranceAccountAssociationCmd, "@CIAA_ModifiedBy", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(createInsuranceAccountAssociationCmd) != 0)
