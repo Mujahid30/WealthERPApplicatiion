@@ -1,5 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransactBusinessOnlineLinks.ascx.cs" Inherits="WealthERP.Admin.TransactBusinessOnlineLinks" %>
 
+<script type="text/javascript">
+        function CallWindow(URL)
+        {
+            window.open(URL, "'_blank'");
+            return false;
+        }
+    </script>
 
 <table width="100%">
     <tr>
@@ -30,13 +37,17 @@
             <asp:GridView ID="gvAdviserLinks" ShowHeader="false" runat="server" DataKeyNames="AL_LinkId" 
                 AutoGenerateColumns="False" BorderStyle="None" BorderColor="Transparent"
                         Font-Size="Small" HorizontalAlign="Center" 
-                        EnableViewState="true" onrowcommand="gvAdviserLinks_RowCommand">
+                        EnableViewState="true"  
+                onrowdatabound="gvAdviserLinks_RowDataBound">
                         
                         <Columns>
                             
                                 <asp:TemplateField>
                                     <ItemTemplate>    
-                                        <asp:ImageButton ID="imgbtnLinks" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="NavigateToLink" onclick="imgbtnLinks_Click" ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>' runat="server" />
+                                        <asp:ImageButton ID="imgbtnLinks"
+                                        ImageUrl='<%# Eval("AL_LinkImagePath").ToString() %>' runat="server" />
+                                        <asp:Label ID="lblURL" Text='<%# Eval("AL_Link").ToString() %>' runat="server" Visible="false">
+                                        </asp:Label>
                                         <br /><br />
                                     </ItemTemplate>                           
                                      <ItemStyle BorderColor="Transparent" HorizontalAlign="Center" />

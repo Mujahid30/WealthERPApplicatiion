@@ -54,9 +54,9 @@ namespace WealthERP.Admin
             dtBindLinks.Columns.Add("AL_Link");
             dtBindLinks.Columns.Add("AL_LinkImagePath");
 
-           
 
-            if (userVo.UserType == "Customer")
+
+            if (Session[SessionContents.CustomerVo] != null)
             {
                 linkUserId = 2;
             }
@@ -116,12 +116,17 @@ namespace WealthERP.Admin
 
         protected void imgbtnLinks_Click(object sender, ImageClickEventArgs e)
         {
+            GridViewRow gvRow = ((GridViewRow)(((ImageButton)sender).Parent.Parent));
+            int rowIndex = gvRow.RowIndex;
+            DataKey dk = gvAdviserLinks.DataKeys[rowIndex];
+            string Link = dk.Value.ToString();
+           
 
         }
 
         protected void gvAdviserLinks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            GetAdviserLinkData();
+            //GetAdviserLinkData();
             int index = 0;
             index = Convert.ToInt32(e.CommandArgument);
             int linkId = int.Parse(gvAdviserLinks.DataKeys[index].Value.ToString());
@@ -132,6 +137,18 @@ namespace WealthERP.Admin
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "popup", "window.open('" + Link + "','_blank')", true);
             }
 
+        }
+
+        protected void gvAdviserLinks_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                // Get the contents of bound column #4 ("Item4")...
+                ImageButton imgSelect = (ImageButton)e.Row.FindControl("imgbtnLinks");
+                Label lblURL = (Label)e.Row.FindControl("lblURL");
+                imgSelect.Attributes.Add("onClick", "javascript:CallWindow('" + lblURL.Text + "+')");
+            }
         }
     }
 }
