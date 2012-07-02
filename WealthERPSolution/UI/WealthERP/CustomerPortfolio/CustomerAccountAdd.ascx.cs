@@ -643,19 +643,16 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountAssociationVo.AccountId = accountId;
                     customerAccountAssociationVo.CustomerId = customerVo.CustomerId;
 
-                    //foreach (GridViewRow gvr in this.gvNominees.Rows)
-                    //{
-                    //    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
-                    //    {
-                    //        i++;
-                    //        customerAccountAssociationVo.AssociationId = int.Parse(gvNominees.DataKeys[gvr.RowIndex].Values[1].ToString());
-                    //        customerAccountAssociationVo.AssociationType = "Nominee";
-                    //        customerAccountBo.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
-                    //    }
-                    //}
-
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','?action=entry');", true);
-
+                    string associationId = string.Empty;
+                    foreach (GridViewRow gvr in this.gvNominees.Rows)
+                    {
+                        if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
+                        {
+                            associationId += Convert.ToString(gvNominees.DataKeys[gvr.RowIndex].Value) + "~";
+                        }
+                    }
+                    //Session["customerAccountAssociationVo"] = customerAccountBo.GetInsuranceAccountAssociation(accountId);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','?action=entry" + "&AssociationId=" + associationId + "');", true);                    
                 }
                 else if (group == "PR")
                 {
@@ -898,23 +895,23 @@ namespace WealthERP.CustomerPortfolio
                     customerAccountAssociationVo.CustomerId = customerVo.CustomerId;
                     customerAccountsVo.PortfolioId = int.Parse(ddlPortfolio.SelectedItem.Value.ToString()); ;
 
-                    if (this.gvJointHoldersList.Rows.Count > 0)
-                    {
-                        foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
-                        {
-                            if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
-                            {
-                                i++;
-                                customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[1].ToString());
-                                customerAccountAssociationVo.AssociationType = "Joint Holder";
-                                customerAccountBo.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
-                            }
-                        }
-                    }
-                    else
-                    {
-                        i = -1;
-                    }
+                    //if (this.gvJointHoldersList.Rows.Count > 0)
+                    //{
+                    //    foreach (GridViewRow gvr in this.gvJointHoldersList.Rows)
+                    //    {
+                    //        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                    //        {
+                    //            i++;
+                    //            customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[1].ToString());
+                    //            customerAccountAssociationVo.AssociationType = "Joint Holder";
+                    //            customerAccountBo.CreateInsuranceAccountAssociation(customerAccountAssociationVo, userVo.UserId);//change after making all classes
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    i = -1;
+                    //}
                     //foreach (GridViewRow gvr in this.gvNominees.Rows)
                     //{
                     //    if (((CheckBox)gvr.FindControl("chkId0")).Checked == true)
