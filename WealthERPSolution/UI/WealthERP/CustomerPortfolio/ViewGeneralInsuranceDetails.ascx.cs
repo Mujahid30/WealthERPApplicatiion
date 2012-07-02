@@ -22,9 +22,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            trExportFilteredData.Visible = false;
             customerVo = (CustomerVo)Session["customerVo"];
             BindGeneralInsuranceGridview(123);
-            trExportFilteredData.Visible = false;
+            
 
         }
 
@@ -251,6 +252,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvGeneralInsurance_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trExportFilteredData.Visible = true;
             DataTable dtGIDetails = new DataTable();
             dtGIDetails = (DataTable)Cache["GIList" + customerVo.CustomerId.ToString()];
             gvGeneralInsurance.DataSource = dtGIDetails;
@@ -259,7 +261,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            trExportFilteredData.Visible = true;
+            
             gvGeneralInsurance.ExportSettings.OpenInNewWindow = true;
             gvGeneralInsurance.ExportSettings.IgnorePaging = true;
             foreach (GridFilteringItem filter in gvGeneralInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))
