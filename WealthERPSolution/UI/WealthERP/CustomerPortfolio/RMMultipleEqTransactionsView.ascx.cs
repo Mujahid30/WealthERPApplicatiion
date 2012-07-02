@@ -55,18 +55,22 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
+
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 {
                     txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 } 
                
 
                 if (!IsPostBack)
-                {
+                {                   
+
                     hdnSchemeSearch.Value = string.Empty;
                     hdnTranType.Value = string.Empty;
                     hdnCustomerNameSearch.Value = string.Empty;
@@ -160,11 +164,13 @@ namespace WealthERP.CustomerPortfolio
                 tdGroupHead.Visible = false;
             }
             else if (rbtnGroup.Checked == true)
-            {
+            {            
+
                 lblGroupHead.Visible = true;
                 txtParentCustomer.Visible = true;
                 rfvGroupHead.Visible = true;
                 tdGroupHead.Visible = true;
+               
             }
             gvMFTransactions.DataSource = null;
             gvMFTransactions.DataBind();

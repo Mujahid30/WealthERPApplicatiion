@@ -43,10 +43,13 @@ namespace WealthERP.CustomerPortfolio
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+
             }
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
             {
                 txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
             } 
             //cvTransactionDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
