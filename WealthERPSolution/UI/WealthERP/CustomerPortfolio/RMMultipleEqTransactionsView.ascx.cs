@@ -55,7 +55,15 @@ namespace WealthERP.CustomerPortfolio
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                {
+                    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                } 
+               
 
                 if (!IsPostBack)
                 {
