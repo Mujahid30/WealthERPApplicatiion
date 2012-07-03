@@ -398,7 +398,7 @@
             <asp:Label ID="Label2" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
             <br />
             <br />
-            <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="chkCA_CheckedChanged" />
+            <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" Checked="true" Enabled="false" OnCheckedChanged="chkCA_CheckedChanged" />
         </td>
         <td align="left" valign="top">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
@@ -406,6 +406,8 @@
             <br />
             <br />
             <asp:Label ID="lblCustomerApproval" runat="server" CssClass="FieldName" Text=": Customer Approval"></asp:Label>
+            <span style='font-size: 9px; font-weight: normal'class='FieldName'>
+                <br />(For Future Use)</span>
         </td>
     </tr>
     <tr id="trSectionTwo7" runat="server">

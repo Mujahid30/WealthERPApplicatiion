@@ -471,7 +471,7 @@ namespace WealthERP.OPS
                         ddlCorrAdrState.SelectedItem.Text = operationVo.State;
                     txtCorrAdrPinCode.Text = operationVo.Pincode;
 
-                   
+                    chkCA.Enabled = false;
                     if (operationVo.IsApproved == 1)
                         chkCA.Checked = true;
                     else
@@ -611,7 +611,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(operationVo.CustomerId);
                         ddlPortfolio.SelectedValue = operationVo.portfolioId.ToString();
                         BindScheme(0);
-                        ddlAmcSchemeList.SelectedItem.Value = operationVo.SchemePlanCode.ToString();
+                        ddlAmcSchemeList.SelectedValue = operationVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = operationVo.SchemePlanCode.ToString();
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = operationVo.SchemePlanSwitch.ToString();
@@ -1156,7 +1156,7 @@ namespace WealthERP.OPS
                 txtCorrAdrPinCode.Enabled = true;
                 ddlCorrAdrCountry.Enabled = true;
 
-                chkCA.Enabled = true;
+                chkCA.Enabled = false;
 
                 btnSubmit.Enabled = true;
                 btnUpdate.Visible = true;
