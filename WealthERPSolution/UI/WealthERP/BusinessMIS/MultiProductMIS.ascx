@@ -199,7 +199,7 @@
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId,Customer_Name" onItemCommand="rgvMultiProductMIS_ItemCommand"
                 EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource" onDataBound="rgvMultiProductMIS_DataBound">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MultiProductMIS Details">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MultiProductMIS Details" Excel-Format="ExcelML">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId,Customer_Name" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="none">
@@ -224,10 +224,17 @@
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" 
+                        <telerik:GridTemplateColumn UniqueName="Mutual_Fund" HeaderText="Mutual Fund" Groupable="False"
+                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# Eval("Mutual_Fund").ToString() %>'
+                                    CommandName="Redirect"></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <%--<telerik:gridbuttonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" 
                          DataTextField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
-                        </telerik:gridbuttonColumn>
+                        </telerik:gridbuttonColumn>--%>
                     <%--    <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Mutual_Fund" HeaderText="Mutual Fund" DataField="Mutual_Fund"
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
