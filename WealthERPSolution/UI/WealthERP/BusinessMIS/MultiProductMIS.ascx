@@ -199,7 +199,7 @@
                 ShowStatusBar="true" AllowAutomaticDeletes="false" FooterStyle-CssClass="FooterStyle" ShowFooter="true" 
                 AllowAutomaticInserts="false" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="C_CustomerId,Customer_Name" onItemCommand="rgvMultiProductMIS_ItemCommand"
                 EnableEmbeddedSkins="false" Width="98%" OnNeedDataSource="rgvMultiProductMIS_OnNeedDataSource" onDataBound="rgvMultiProductMIS_DataBound">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MultiProductMIS Details">
                 </ExportSettings>                
                 <MasterTableView DataKeyNames="C_CustomerId,Customer_Name" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="none">
@@ -365,7 +365,7 @@
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvGeneralInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="GeneralInsurance Details">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="GeneralInsuranceMIS Details">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="GenInsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
                     AutoGenerateColumns="false" CommandItemDisplay="none">
@@ -380,7 +380,7 @@
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="InsuranceType" AllowFiltering="false" HeaderText="Insurance Type">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -432,10 +432,10 @@
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="98%"
                 AllowAutomaticInserts="false" OnNeedDataSource="rgvLifeInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="LifeInsuranceMIS Details">
+                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="LifeInsurance Details">
                 </ExportSettings>
                 <MasterTableView DataKeyNames="InsuranceNPId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="Top">
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
