@@ -210,6 +210,15 @@
                         HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Left" Wrap="false"/>
                         </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn UniqueName="RMName" HeaderText="RM" DataField="RmName" 
+                        HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
+                        </telerik:GridBoundColumn>
+                        
+                         <telerik:GridBoundColumn UniqueName="BranchName" HeaderText="Branch" DataField="BranchName" 
+                        HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false"/>
+                        </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn Aggregate="Sum" UniqueName="Equity" HeaderText="Equity" DataField="Equity"
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">

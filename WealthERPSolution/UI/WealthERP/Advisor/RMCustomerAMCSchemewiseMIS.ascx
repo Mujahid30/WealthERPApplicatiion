@@ -13,7 +13,7 @@
         //value of the senders selected date
         var selectedDate = new Date();
         selectedDate = sender._selectedDate;
-        //create a date var and set it's value to today
+        //create a date var and set it's value to gvMFMIS
         var todayDate = new Date();
         var mssge = "";
 
@@ -254,6 +254,27 @@
                         </ItemTemplate>
                         <HeaderStyle Wrap="False"></HeaderStyle>
                     </asp:TemplateField>
+                     <asp:TemplateField HeaderStyle-Wrap="false">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblRmName" runat="server" Text="RM"></asp:Label>
+                          
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblRMHeader" runat="server" Text='<%# Eval("RmName").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField HeaderStyle-Wrap="false">
+                        <HeaderTemplate>
+                            <asp:Label ID="lblBranchName" runat="server" Text="Branch"></asp:Label>
+                           
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblBranchHeader" runat="server" Text='<%# Eval("BranchName").ToString() %>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle Wrap="False"></HeaderStyle>
+                    </asp:TemplateField>
                     <%--<asp:BoundField DataField="CustomerName" HeaderText="Customer Name" 
                         ItemStyle-HorizontalAlign="Left" HeaderStyle-Wrap="false" />--%>
                     <asp:TemplateField HeaderStyle-Wrap="false">
@@ -353,7 +374,6 @@
 <asp:HiddenField ID="hdnFolioNumVal" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnValuationDate" runat="server" Visible="false" />
-
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />

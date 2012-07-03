@@ -671,6 +671,8 @@ namespace WealthERP.BusinessMIS
                         lblMISType.Visible = true;
 
                         dtGrpAssetNetHoldings.Columns.Add("Customer_Name");
+                        dtGrpAssetNetHoldings.Columns.Add("RmName");
+                        dtGrpAssetNetHoldings.Columns.Add("BranchName");
                         dtGrpAssetNetHoldings.Columns.Add("Equity", typeof(double));
                         dtGrpAssetNetHoldings.Columns.Add("Mutual_Fund", typeof(double));
                         dtGrpAssetNetHoldings.Columns.Add("Fixed_Income", typeof(double));
@@ -691,6 +693,8 @@ namespace WealthERP.BusinessMIS
                                 drNetHoldings = dtGrpAssetNetHoldings.NewRow();
 
                                 drNetHoldings["C_CustomerId"] = dr["C_CustomerId"].ToString();
+                                drNetHoldings["RmName"] = dr["RmName"].ToString();
+                                drNetHoldings["BranchName"] = dr["BranchName"].ToString();
                                 drNetHoldings["Equity"] = 0;
                                 drNetHoldings["Mutual_Fund"] = 0;
                                 drNetHoldings["Fixed_Income"] = 0;

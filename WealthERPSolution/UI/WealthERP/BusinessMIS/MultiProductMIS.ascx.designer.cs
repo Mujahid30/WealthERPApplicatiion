@@ -39,10 +39,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBranchRM;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFixedIncomeMIS;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredData;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGeneralInsuranceMis;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trLifeInsuranceMIS;
+        
         /// <summary>
         /// lblBranch control.
         /// </summary>
@@ -251,6 +248,33 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Label lblWrongCustomer;
         
         /// <summary>
+        /// Panel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+        
+        /// <summary>
+        /// trExportFilteredData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredData;
+        
+        /// <summary>
+        /// btnMultiProductMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnMultiProductMIS;
+        
+        /// <summary>
         /// trMultiProduct control.
         /// </summary>
         /// <remarks>
@@ -258,6 +282,15 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMultiProduct;
+        
+        /// <summary>
+        /// Div1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
         
         /// <summary>
         /// rgvMultiProductMIS control.
@@ -287,6 +320,24 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.Label lblMessage;
         
         /// <summary>
+        /// trFixedIncomeMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFixedIncomeMIS;
+        
+        /// <summary>
+        /// btnFixedIncomeMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnFixedIncomeMIS;
+        
+        /// <summary>
         /// trFixedIncome control.
         /// </summary>
         /// <remarks>
@@ -294,6 +345,15 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trFixedIncome;
+        
+        /// <summary>
+        /// Div2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
         
         /// <summary>
         /// rgvFixedIncomeMIS control.
@@ -305,6 +365,24 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid rgvFixedIncomeMIS;
         
         /// <summary>
+        /// trGeneralInsuranceMis control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trGeneralInsuranceMis;
+        
+        /// <summary>
+        /// btnGeneralInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGeneralInsurance;
+        
+        /// <summary>
         /// trGeneralInsurance control.
         /// </summary>
         /// <remarks>
@@ -312,6 +390,15 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trGeneralInsurance;
+        
+        /// <summary>
+        /// Div3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div3;
         
         /// <summary>
         /// rgvGeneralInsurance control.
@@ -323,6 +410,24 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadGrid rgvGeneralInsurance;
         
         /// <summary>
+        /// trLifeInsuranceMIS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trLifeInsuranceMIS;
+        
+        /// <summary>
+        /// btnLifeInsurance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnLifeInsurance;
+        
+        /// <summary>
         /// trLifeInsurance control.
         /// </summary>
         /// <remarks>
@@ -330,6 +435,15 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trLifeInsurance;
+        
+        /// <summary>
+        /// Div4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div4;
         
         /// <summary>
         /// rgvLifeInsurance control.
