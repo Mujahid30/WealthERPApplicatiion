@@ -155,27 +155,27 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Purchase Date" AllowFiltering="false" HeaderText="Purchase Date (dd/mm/yyyy)"
                             UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date (dd/mm/yyyy)"
                             UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" AllowFiltering="false" HeaderText="Deposit Amount/ purchase Cost (Rs)"
                             UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Interest Rate" DataFormatString="{0:dd/MM/yyyy}"
                             AllowFiltering="false" HeaderText="Interest Rate (%)" UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" DataFormatString="{0:dd/MM/yyyy}"
                             AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Value" DataFormatString="{0:dd/MM/yyyy}"
                             AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
                 </MasterTableView>
