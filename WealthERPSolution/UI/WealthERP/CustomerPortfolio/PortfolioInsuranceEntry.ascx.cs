@@ -456,6 +456,10 @@ namespace WealthERP.CustomerPortfolio
                         ddlEPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
                         txtFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
+
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtEPPremiumDuration.Text = (end - start).TotalDays.ToString();
                         txtEPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtEPPremiumAccumulated.Text = insuranceVo.PremiumAccumalated.ToString();
                         txtEPBonusAccumulated.Text = insuranceVo.BonusAccumalated.ToString();
@@ -479,6 +483,10 @@ namespace WealthERP.CustomerPortfolio
                         txtOTMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtOTRemarks.Text = insuranceVo.Remarks.ToString();
 
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtOTPremiumDuration.Text = (end - start).TotalDays.ToString();
+
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INMP")
                     {
@@ -488,10 +496,14 @@ namespace WealthERP.CustomerPortfolio
                         ddlMPPrPayDate.SelectedValue = insuranceVo.PremiumPaymentDate.ToString();
                         txtMPFirstPremiumDate.Text = insuranceVo.FirstPremiumDate.ToShortDateString();
                         txtMPLastPremiumDate.Text = insuranceVo.LastPremiumDate.ToShortDateString();
-                        dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
-                        dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
-                        noOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
-                        txtMPPremiumDuration.Text = noOfMonths.ToString("f2");
+                        //dtFrom = DateTime.Parse(txtMPFirstPremiumDate.Text);
+                        //dtTo = DateTime.Parse(txtMPLastPremiumDate.Text);
+                        //noOfMonths = dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
+                        //txtMPPremiumDuration.Text = noOfMonths.ToString("f2");
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtMPPremiumDuration.Text = (end - start).TotalDays.ToString();
+
                         txtMPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtMoneyBackEpisode.Text = Int32.Parse(insuranceVo.PolicyEpisode.ToString()).ToString();
                         txtMPPremiumAccumulated.Text = insuranceVo.PremiumAccumalated.ToString();
@@ -539,6 +551,10 @@ namespace WealthERP.CustomerPortfolio
                         txtTPGracePeriod.Text = insuranceVo.GracePeriod.ToString();
                         txtTPPremiumAccum.Text = insuranceVo.PremiumAccumalated.ToString();
                         txtWLPRemarks.Text = insuranceVo.Remarks.ToString();
+
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtTPPremiumDuration.Text = (end - start).TotalDays.ToString();
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INUP")
                     {
@@ -567,6 +583,10 @@ namespace WealthERP.CustomerPortfolio
                             txtUlipNAV.Text = insuranceVo.NAV.ToString();
 
                         txtULIPRemarks.Text = insuranceVo.Remarks.ToString();
+
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtUlipPremiuimPeriod.Text = (end - start).TotalDays.ToString();
                     }
                     else if (customerAccountVo.AssetCategory.Trim() == "INWP")
                     {
@@ -582,6 +602,10 @@ namespace WealthERP.CustomerPortfolio
                         txtWPSurrenderValue.Text = insuranceVo.SurrenderValue.ToString();
                         txtWPMaturityValue.Text = insuranceVo.MaturityValue.ToString();
                         txtWLPRemarks.Text = insuranceVo.Remarks.ToString();
+
+                        DateTime start = Convert.ToDateTime(insuranceVo.FirstPremiumDate.ToShortDateString());
+                        DateTime end = Convert.ToDateTime(insuranceVo.LastPremiumDate.ToShortDateString());
+                        txtWLPPremiumDuration.Text = (end - start).TotalDays.ToString();
                     }
                     //if (customerAccountVo.AssetCategory.Trim() == "INOT")
                     //{ 
