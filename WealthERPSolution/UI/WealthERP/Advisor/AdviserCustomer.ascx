@@ -224,9 +224,28 @@
                                     Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
                             </ItemTemplate>
                             <ItemStyle Wrap="False" />
+                           
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile Number" />
-                        <asp:BoundField DataField="Phone Number" HeaderText="Phone Number" />
+                         <asp:BoundField DataField="BranchName" HeaderText="Branch" />
+                          <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
+                            <HeaderTemplate>
+                                <asp:Label ID="lblAssignedRM" runat="server" Text="RM"></asp:Label>
+                              
+                                <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                    OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
+                                </asp:DropDownList>
+                                
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <asp:Label ID="lblAssignedRMHeader" runat="server" 
+                                    Text='<%# Eval("Assigned RM").ToString() %>'></asp:Label>
+                                
+                            </ItemTemplate>
+                            <ItemStyle Wrap="False" />
+                        </asp:TemplateField>
+                         
+                        <asp:BoundField DataField="Mobile Number" HeaderText="Mobile" />
+                        <asp:BoundField DataField="Phone Number" HeaderText="Phone" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Address" HeaderText="Address" 
                             ItemStyle-Wrap="false" />
@@ -282,22 +301,7 @@
                        
                            
                        
-                       <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
-                            <HeaderTemplate>
-                                <asp:Label ID="lblAssignedRM" runat="server" Text="Assigned RM"></asp:Label>
-                                <br />
-                                <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
-                                </asp:DropDownList>
-                                
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblAssignedRMHeader" runat="server" 
-                                    Text='<%# Eval("Assigned RM").ToString() %>'></asp:Label>
-                                
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                        </asp:TemplateField>
+                     
                         <%--<asp:BoundField DataField="Assigned RM" HeaderText="Assigned RM" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" />--%>
                         <asp:TemplateField HeaderText="IsActive">
@@ -305,7 +309,8 @@
                                 <asp:Label ID="lblIsActive" runat="server" Text='<%#Eval("IsActive") %>'>
                                 </asp:Label>
                             </ItemTemplate>
-                            <HeaderTemplate>
+                            <HeaderTemplate >
+                             <asp:Label ID="lblHeaderIsActive" runat="server" Text="Status"></asp:Label>
                                 <br />
                                 <asp:DropDownList ID="ddlActiveFilter" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                     OnSelectedIndexChanged="ddlActiveFilter_SelectedIndexChanged">

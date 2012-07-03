@@ -352,10 +352,12 @@ namespace WealthERP.CustomerPortfolio
                 double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
 
                 if (totalHoldingInvestedCost != 0)
-                    totalHoldingAbsoluteReturn = totalHoldingPL / totalHoldingInvestedCost;
+                    totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost)*100;
 
                 lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn,2).ToString();
-                lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL,2).ToString();
+                lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                  
 
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
@@ -372,10 +374,10 @@ namespace WealthERP.CustomerPortfolio
                 double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
 
                 if(totalALLInvestedCost != 0)
-                totalALLAbsoluteReturn = totalALLPL / totalALLInvestedCost;
+                totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost)*100;
 
                 lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn,2).ToString();
-                lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString();
+                lblALLTotalPLValue.Text = Math.Round(totalALLPL,2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
@@ -392,11 +394,10 @@ namespace WealthERP.CustomerPortfolio
                 double.TryParse(Convert.ToString(sumObject), out totalRealizedInvestedCost);
 
                 if (totalRealizedInvestedCost != 0)
-                    totalRealizedAbsReturn = totalRealizedPl / totalRealizedInvestedCost;
+                    totalRealizedAbsReturn = (totalRealizedPl / totalRealizedInvestedCost)*100;
 
                 lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn,2).ToString();
-                lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl,2).ToString();
-
+                lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 rgRealized.DataSource = dtMFReturnsRealized;
                 rgRealized.DataBind();
                 ViewState["RealizedReturns"] = dtMFReturnsRealized;

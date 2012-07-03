@@ -966,6 +966,8 @@ namespace DaoAdvisorProfiling
                             customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
                         if (dr["RMName"] != "")
                             customerVo.AssignedRM = dr["RMName"].ToString();
+                        if (dr["BranchName"] != "")
+                            customerVo.BranchName = dr["BranchName"].ToString();
                         customerList.Add(customerVo);
 
                     }
@@ -1100,6 +1102,9 @@ namespace DaoAdvisorProfiling
                             customerVo.AssignedRM = dr["RMName"].ToString();
                         if (dr["C_IsProspect"].ToString() != "")
                             customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
+                        if (dr["BranchName"].ToString() != "")
+                            customerVo.BranchName = dr["BranchName"].ToString();
+
                         customerList.Add(customerVo);
                     }
                 }

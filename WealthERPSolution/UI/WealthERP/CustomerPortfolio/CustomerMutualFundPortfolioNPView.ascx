@@ -81,7 +81,7 @@
                                     
                                         <asp:Label ID="lblHoldingTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                     &nbsp;
-                                        <asp:Label ID="lblHoldingAbsoluteReturn" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                        <asp:Label ID="lblHoldingAbsoluteReturn" Text="Absolute Returns(%): " runat="server" CssClass="FieldName"> </asp:Label>
                                    
                                         <asp:Label ID="lblHoldingAbsoluteReturnValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                   </td>
@@ -218,7 +218,7 @@
                                     
                                         <asp:Label ID="lblALLTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                     &nbsp;
-                                        <asp:Label ID="lblALLAbsoluteReturns" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                        <asp:Label ID="lblALLAbsoluteReturns" Text="Absolute Returns(%): " runat="server" CssClass="FieldName"> </asp:Label>
                                    
                                         <asp:Label ID="lblALLAbsoluteReturnsValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                     &nbsp;
@@ -387,7 +387,7 @@
                                     
                                         <asp:Label ID="lblRealizedTotalPLValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                     &nbsp;
-                                        <asp:Label ID="lblRealizedAbsoluteReturn" Text="Absolute Returns: " runat="server" CssClass="FieldName"> </asp:Label>
+                                        <asp:Label ID="lblRealizedAbsoluteReturn" Text="Absolute Returns(%): " runat="server" CssClass="FieldName"> </asp:Label>
                                    
                                         <asp:Label ID="lblRealizedAbsoluteReturnValue" Text="" runat="server" CssClass="FieldName"> </asp:Label>
                                   </td>
