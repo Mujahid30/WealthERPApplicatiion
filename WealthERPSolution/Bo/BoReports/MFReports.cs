@@ -498,5 +498,12 @@ namespace BoReports
             MFReportsDao mfReports = new MFReportsDao();
             return mfReports.GetMFRealizedReport(report, adviserId);
         }
+
+        public void LogCustomerMFReportEmailStatus(Dictionary<string, string> MFReportEmailStatus)
+        {
+            MFReportsDao mfReports = new MFReportsDao();
+            mfReports.LogCustomerMFReportEmailStatus(MFReportEmailStatus);
+        }
+
     }
 }
