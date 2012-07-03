@@ -284,7 +284,7 @@ namespace DaoCustomerPortfolio
                         if (dr["CINP_NAV"].ToString() != null && dr["CINP_NAV"].ToString() != "")
                             insuranceVo.NAV = float.Parse(dr["CINP_NAV"].ToString());
 
-                        insuranceVo.PremiumFrequencyCode = dr["XF_PremiumFrequencyCode"].ToString();
+                        insuranceVo.PremiumFrequencyCode = dr["XF_Frequency"].ToString();
                         if (dr["CINP_StartDate"].ToString() != string.Empty)
                             insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
                         insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
@@ -307,6 +307,11 @@ namespace DaoCustomerPortfolio
                         if (dr["CINP_ApplicationDate"].ToString() != string.Empty)
                             insuranceVo.ApplicationDate = DateTime.Parse(dr["CINP_ApplicationDate"].ToString());
 
+                        if (dr["XF_Frequency"].ToString() != string.Empty)
+                            insuranceVo.Frequency = dr["XF_Frequency"].ToString();
+
+                        if (dr["XII_InsuranceIssuerName"].ToString() != string.Empty)
+                            insuranceVo.InsuranceIssuerName = dr["XII_InsuranceIssuerName"].ToString();
                         insuranceList.Add(insuranceVo);
                     }
                 }
