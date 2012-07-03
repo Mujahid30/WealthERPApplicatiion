@@ -146,7 +146,7 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["customerVo"];//SessionContents.CustomerVo;
-               
+
                 if (Session[SessionContents.PortfolioId] != null)
                 {
                     portfolioId = Int32.Parse(Session[SessionContents.PortfolioId].ToString());
@@ -193,6 +193,7 @@ namespace WealthERP.CustomerPortfolio
                 //int count;
                 insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, hdnSort.Value);
 
+                #region unused
                 //if (count > 0)
                 //{
                 //    //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
@@ -205,6 +206,7 @@ namespace WealthERP.CustomerPortfolio
                 //    //tblPager.Visible = false;
                 //    //trPager.Visible = false;
                 //}
+                #endregion
 
                 int RecordsCount = 0;
                 if (insuranceList != null)
@@ -223,11 +225,17 @@ namespace WealthERP.CustomerPortfolio
                     dtInsurance.Columns.Add("InsuranceId");
                     dtInsurance.Columns.Add("Category");
                     dtInsurance.Columns.Add("Particulars");
-                    dtInsurance.Columns.Add("Sum Assured", typeof(double));
+                    dtInsurance.Columns.Add("CINP_SumAssured", typeof(double));
                     dtInsurance.Columns.Add("Premium Amount", typeof(double));
-                    dtInsurance.Columns.Add("Commencement Date");
+                    dtInsurance.Columns.Add("Commencement Date", typeof(DateTime));
                     dtInsurance.Columns.Add("Maturity Value", typeof(double));
-                    dtInsurance.Columns.Add("Maturity Date");
+                    dtInsurance.Columns.Add("Maturity Date", typeof(DateTime));
+                    dtInsurance.Columns.Add("Insurance Company");
+                    dtInsurance.Columns.Add("XII_InsuranceIssuerName");
+                    //dtInsurance.Columns.Add("CINP_FirstPremiumDate");
+                    dtInsurance.Columns.Add("Next Due Date", typeof(DateTime));
+                    dtInsurance.Columns.Add("XF_Frequency");
+
                     DataRow drInsurance;
 
                     for (int i = 0; i < insuranceList.Count; i++)
@@ -236,13 +244,21 @@ namespace WealthERP.CustomerPortfolio
                         insuranceVo = new InsuranceVo();
                         insuranceVo = insuranceList[i];
                         //drInsurance[0] = (i + 1).ToString();
-                        drInsurance[0] = insuranceVo.CustInsInvId.ToString();
-                        drInsurance[1] = insuranceVo.AssetInstrumentCategoryName.ToString();
-                        drInsurance[2] = insuranceVo.Name.ToString();
-                        drInsurance[3] = String.Format("{0:n0}", decimal.Parse(insuranceVo.SumAssured.ToString("f0")));
-                        drInsurance[4] = String.Format("{0:n0}", decimal.Parse(insuranceVo.PremiumAmount.ToString("f0")));
+                        drInsurance["InsuranceId"] = insuranceVo.CustInsInvId.ToString();
+                        drInsurance["Category"] = insuranceVo.AssetInstrumentCategoryName.ToString();
+                        drInsurance["Particulars"] = insuranceVo.Name.ToString();
+
+                        if (insuranceVo.SumAssured.ToString() != "")
+                            drInsurance["CINP_SumAssured"] = insuranceVo.SumAssured;
+                        if (insuranceVo.PremiumAmount.ToString() != "")
+                            drInsurance["Premium Amount"] = insuranceVo.PremiumAmount;
+
 
                         DateTime dtNow = DateTime.Now;
+
+                        #region unused
+
+
                         //DateTime dtPremiumPayDate;
 
                         //********************************************************************************************************************
@@ -381,10 +397,31 @@ namespace WealthERP.CustomerPortfolio
                         //{
                         //    drInsurance[5] = "";
                         //}
+                        #endregion
+                        drInsurance["Commencement Date"] = insuranceVo.StartDate.ToShortDateString();
+                        if (insuranceVo.MaturityValue.ToString() != "")
+                            drInsurance["Maturity Value"] = insuranceVo.MaturityValue;
 
-                        drInsurance[5] = insuranceVo.StartDate.ToShortDateString();
-                        drInsurance[6] = System.Math.Round(decimal.Parse(insuranceVo.MaturityValue.ToString(),0)).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));                            
-                        drInsurance[7] = insuranceVo.EndDate.ToShortDateString();
+
+                        drInsurance["Maturity Date"] = insuranceVo.EndDate.ToShortDateString();
+                        drInsurance["Insurance Company"] = insuranceVo.AssetInstrumentCategoryName;
+                        drInsurance["XII_InsuranceIssuerName"] = insuranceVo.InsuranceIssuerName;
+                        drInsurance["XF_Frequency"] = insuranceVo.Frequency;
+
+                        string frequency = "";
+                        DateTime startDate = insuranceVo.FirstPremiumDate;
+                        DateTime endDate = DateTime.Parse(drInsurance["Maturity Date"].ToString());
+                        frequency = insuranceVo.PremiumFrequencyCode;
+                        DateTime nextPremiumDate = GetNextPremiumDate(frequency, startDate, endDate);
+                        if (nextPremiumDate != DateTime.MinValue)
+                        {
+                            drInsurance["Next Due Date"] = nextPremiumDate.ToShortDateString();
+                        }
+                        else
+                        {
+                            //drLifeInsurance["NextPremiumDate"] = "---";
+                        }
+
 
                         dtInsurance.Rows.Add(drInsurance);
                     }
@@ -436,6 +473,49 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        private DateTime GetNextPremiumDate(string frequency, DateTime startDate, DateTime endDate)
+        {
+            DateTime nextPremiumDate = new DateTime();
+            DateTime currentDate = DateTime.Now;
+            int startDateOnly = Convert.ToInt32(startDate.Day);
+
+            if (endDate >= currentDate)
+            {
+                nextPremiumDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+                nextPremiumDate = nextPremiumDate.AddDays(startDateOnly - 1);
+                switch (frequency)
+                {
+                    case "Daily":
+                        nextPremiumDate = nextPremiumDate.AddDays(1);
+                        break;
+                    case "FortNightly":
+                        nextPremiumDate = nextPremiumDate.AddDays(15);
+                        break;
+                    case "Weekly":
+                        nextPremiumDate = nextPremiumDate.AddDays(7);
+                        break;
+                    case "Monthly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(1);
+                        break;
+                    case "Quarterly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(4);
+                        break;
+                    case "HalfYearly":
+                        nextPremiumDate = nextPremiumDate.AddMonths(6);
+                        break;
+                    case "Yearly":
+                        nextPremiumDate = nextPremiumDate.AddYears(1);
+                        break;
+                }
+            }
+            else
+            {
+                nextPremiumDate = DateTime.MinValue;
+            }
+
+            return nextPremiumDate;
+        }
+
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -444,7 +524,7 @@ namespace WealthERP.CustomerPortfolio
                 RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 //GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.ItemIndex+1;
+                int selectedRow = gvr.ItemIndex + 1;
                 int insuranceId = int.Parse(gvrLifeInsurance.MasterTableView.DataKeyValues[selectedRow - 1]["InsuranceId"].ToString());
                 DataTable dtAssociationId = new DataTable();
 
@@ -551,7 +631,7 @@ namespace WealthERP.CustomerPortfolio
             List<InsuranceVo> insuranceList = new List<InsuranceVo>();
             try
             {
-               // int count;
+                // int count;
 
                 insuranceList = insuranceBo.GetInsurancePortfolio(portfolioId, hdnSort.Value.Trim());
 
@@ -679,7 +759,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
-            
+
             gvrLifeInsurance.ExportSettings.OpenInNewWindow = true;
             gvrLifeInsurance.ExportSettings.IgnorePaging = true;
             foreach (GridFilteringItem filter in gvrLifeInsurance.MasterTableView.GetItems(GridItemType.FilteringItem))

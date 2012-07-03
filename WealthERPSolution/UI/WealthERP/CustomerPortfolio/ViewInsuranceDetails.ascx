@@ -69,24 +69,25 @@
         </td>
     </tr>
 </table>
-<table>
-    <tr id="trExportFilteredData" runat="server">
-        <td>
-            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <telerik:RadGrid ID="gvrLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true" 
-                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                OnNeedDataSource="gvrLifeInsurance_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="LI Details">
-                </ExportSettings>
-                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="InsuranceId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
+<asp:Panel  ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+    <table>
+        <tr id="trExportFilteredData" runat="server">
+            <td>
+                <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="gvrLifeInsurance" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+                    OnNeedDataSource="gvrLifeInsurance_OnNeedDataSource">
+                    <exportsettings hidestructurecolumns="true" exportonlydata="true" filename="LI Details">
+                </exportsettings>
+                    <mastertableview allowfilteringbycolumn="false" datakeynames="InsuranceId" width="100%"
+                        allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None">
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
                             <ItemTemplate>
@@ -106,44 +107,64 @@
                                 </telerik:RadComboBox>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="Category" FooterText="Grand Total:" AllowFiltering="false" HeaderText="Category" 
+                        
+                        <telerik:GridBoundColumn DataField="XII_InsuranceIssuerName"  AllowFiltering="false" HeaderText="Policy Issuer" FooterText="Grand Total:"
                             UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn> 
                         <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Scheme"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Sum Assured" DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right" AllowFiltering="false" HeaderText="Sum Assured"
-                            UniqueName="ActiveLevel" Aggregate="Sum">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false"  VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right" DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
+                         <telerik:GridBoundColumn DataField="Insurance Company" AllowFiltering="false" HeaderText="Insurance Type"
                             UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="CINP_SumAssured" AllowFiltering="false" HeaderText="Sum Assured"
+                            UniqueName="CINP_SumAssured" Aggregate="Sum"  DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Commencement Date" AllowFiltering="false" HeaderText="Commencement Date"
-                            UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn  DataFormatString="{0:N0}" Aggregate="Sum" DataField="Premium Amount" AllowFiltering="false" HeaderText="Premium Amount"
+                            UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
-                            UniqueName="ActiveLevel">
+                        
+                        <telerik:GridBoundColumn DataFormatString="{0:N0}" DataField="XF_Frequency" AllowFiltering="false" HeaderText="Premium Frequency"
+                            UniqueName="Premium Frequency">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        
+                        <telerik:GridBoundColumn DataField="Commencement Date" AllowFiltering="false" HeaderText="Commencement Date" 
+                          DataType="System.DateTime" DataFormatString="{0:d}"  UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        
+                        <telerik:GridBoundColumn DataField="Next Due Date" AllowFiltering="false" HeaderText="Next Due Date" 
+                          DataType="System.DateTime" DataFormatString="{0:d}"  UniqueName="Next Due Date">
+                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N0}" DataField="Maturity Value" AllowFiltering="false" HeaderText="Maturity Value"
+                            UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
+                        
+                       
                         <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date"
-                            UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                           DataType="System.DateTime" DataFormatString="{0:d}" UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>
-                </MasterTableView>
-                <ClientSettings>
+                </mastertableview>
+                    <clientsettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                    
-                </ClientSettings>
-            </telerik:RadGrid>
-        </td>
-    </tr>
-</table>
+                </clientsettings>
+                </telerik:RadGrid>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <%--<table class="TableBackground" width="100%">
     <tr id="trPager" runat="server">
         <td class="leftField">
