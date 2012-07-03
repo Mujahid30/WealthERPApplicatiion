@@ -34,6 +34,7 @@ namespace WealthERP.Reports
 {
     public partial class EmailReport : System.Web.UI.Page
     {
+        Dictionary<string, string> MFReportEmailStatus = new Dictionary<string, string>();
         ReportDocument crmain;
 
         DateBo dtBo = new DateBo();
@@ -42,7 +43,7 @@ namespace WealthERP.Reports
         string ctrlPrefix = "ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$";
         public string isMail = "0";
         int CountReport = 0;
-
+        MFReportsBo mfReports = new MFReportsBo();
         MFReportVo mfReport = new MFReportVo();
         EquityReportVo equityReport = new EquityReportVo();
         PortfolioReportVo portfolioReport = new PortfolioReportVo();
@@ -138,10 +139,10 @@ namespace WealthERP.Reports
                             {
                                 DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
 
-                                foreach (FileInfo f in di.GetFiles())
-                                {
-                                    f.Delete();
-                                }
+                                //foreach (FileInfo f in di.GetFiles())
+                                //{
+                                //    f.Delete();
+                                //}
                             }
                             else
                                 Directory.CreateDirectory(Server.MapPath("~/Reports/TempReports/") + rmVo.RMId);
@@ -160,6 +161,9 @@ namespace WealthERP.Reports
 
                                 customerVo = customerBo.GetCustomer(CustomerId);
                                 //customerVo.Email = "psahoo9@gmail.com";
+                                MFReportEmailStatus = new Dictionary<string, string>();
+                                MFReportEmailStatus.Add("C_CustomerId", CustomerId.ToString());
+
                                 if (!string.IsNullOrEmpty(customerVo.Email.Trim()))
                                 {
                                     clearAllReportString();
@@ -170,54 +174,115 @@ namespace WealthERP.Reports
                                     string CustometName = customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName;
                                     drCustomerReportMailStatus["CustometName"] = CustometName;
                                     if (!string.IsNullOrEmpty(mFundSummary))
+                                    {
                                         drCustomerReportMailStatus["MFundSummary"] = mFundSummary;
+                                        MFReportEmailStatus.Add("MFundSummary", mFundSummary);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["MFundSummary"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("MFundSummary", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(portfolioRHolding))
+                                    {
                                         drCustomerReportMailStatus["PortfolioRHolding"] = portfolioRHolding;
+                                        MFReportEmailStatus.Add("PortfolioRHolding", portfolioRHolding);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["PortfolioRHolding"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("PortfolioRHolding", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(comprehensive))
+                                    {
                                         drCustomerReportMailStatus["Comprehensive"] = comprehensive;
+                                        MFReportEmailStatus.Add("Comprehensive", comprehensive);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["Comprehensive"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("Comprehensive", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(eCapitalGainDetails))
+                                    {
                                         drCustomerReportMailStatus["ECapitalGainDetails"] = eCapitalGainDetails;
+                                        MFReportEmailStatus.Add("ECapitalGainDetails", eCapitalGainDetails);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["ECapitalGainDetails"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("ECapitalGainDetails", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(eCapitalGainsSummary))
+                                    {
                                         drCustomerReportMailStatus["ECapitalGainsSummary"] = eCapitalGainsSummary;
+                                        MFReportEmailStatus.Add("ECapitalGainsSummary", eCapitalGainsSummary);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["ECapitalGainsSummary"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("ECapitalGainsSummary", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(transactionReport))
+                                    {
                                         drCustomerReportMailStatus["TransactionReport"] = transactionReport;
+                                        MFReportEmailStatus.Add("TransactionReport", transactionReport);
+
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["TransactionReport"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("TransactionReport", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(dividendStatement))
+                                    {
                                         drCustomerReportMailStatus["DividendStatement"] = dividendStatement;
+                                        MFReportEmailStatus.Add("DividendStatement", dividendStatement);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["DividendStatement"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("DividendStatement", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(dividendSummary))
+                                    {
                                         drCustomerReportMailStatus["DividendSummary"] = dividendSummary;
+                                        MFReportEmailStatus.Add("DividendStatement", dividendSummary);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["DividendSummary"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("DividendStatement", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(capitalGainDetails))
+                                    {
                                         drCustomerReportMailStatus["CapitalGainDetails"] = capitalGainDetails;
+                                        MFReportEmailStatus.Add("CapitalGainDetails", capitalGainDetails);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["CapitalGainDetails"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("CapitalGainDetails", mailSendStatus);
+                                    }
 
                                     if (!string.IsNullOrEmpty(capitalGainSummary))
+                                    {
                                         drCustomerReportMailStatus["CapitalGainSummary"] = capitalGainSummary;
+                                        MFReportEmailStatus.Add("CapitalGainSummary", capitalGainSummary);
+                                    }
                                     else
+                                    {
                                         drCustomerReportMailStatus["CapitalGainSummary"] = mailSendStatus;
+                                        MFReportEmailStatus.Add("CapitalGainSummary", mailSendStatus);
+                                    }
 
                                     dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
 
@@ -239,7 +304,23 @@ namespace WealthERP.Reports
                                     drCustomerReportMailStatus["CapitalGainSummary"] = "Email-Id Not in Profile";
                                     dtCustomerReportMailStatus.Rows.Add(drCustomerReportMailStatus);
 
+                                    MFReportEmailStatus.Add("MFundSummary", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("PortfolioRHolding", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("Comprehensive", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("ECapitalGainDetails", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("ECapitalGainsSummary", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("TransactionReport", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("DividendStatement", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("DividendStatement", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("DividendSummary", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("CapitalGainDetails", "Email-Id Not in Profile");
+                                    MFReportEmailStatus.Add("CapitalGainSummary", "Email-Id Not in Profile");
+
+
                                 }
+
+                                MFReportEmailStatus.Add("RMId", rmVo.RMId.ToString());
+                                mfReports.LogCustomerMFReportEmailStatus(MFReportEmailStatus);
 
                             }
 
