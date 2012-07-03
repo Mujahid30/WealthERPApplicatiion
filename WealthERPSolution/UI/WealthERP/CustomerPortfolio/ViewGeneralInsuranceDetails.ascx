@@ -108,7 +108,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" FooterText="Grand Total:"
                                 HeaderText="Category" UniqueName="ActiveLevel">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="SubCategory" AllowFiltering="false" HeaderText="Sub Category"
                                 UniqueName="ActiveLevel">
@@ -116,19 +116,19 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataFormatString="{0:N4}" DataField="InsuredAmount" AllowFiltering="false"
                                 HeaderText="Insured Amount" UniqueName="ActiveLevel" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PremiumAmount" AllowFiltering="false" HeaderText="Premium Amount"
                                 UniqueName="ActiveLevel" DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CommencementDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="false" HeaderText="Commencement Date" UniqueName="ActiveLevel">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="MaturityDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="false" HeaderText="Maturity Date" UniqueName="ActiveLevel">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
