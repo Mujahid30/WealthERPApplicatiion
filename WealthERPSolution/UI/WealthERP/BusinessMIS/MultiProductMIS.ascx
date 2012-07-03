@@ -206,7 +206,7 @@
                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false" ShowRefreshButton="false" 
                     ShowExportToCsvButton="false" ShowAddNewRecordButton="false" />
                     <Columns>
-                        <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" DataField="Customer_Name" 
+                        <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer" DataField="Customer_Name" 
                         HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Left" Wrap="false"/>
                         </telerik:GridBoundColumn>
@@ -320,7 +320,7 @@
                     <CommandItemSettings AddNewRecordText="Fixed Income MIS" ShowExportToWordButton="false" ShowExportToExcelButton="false" ShowRefreshButton="false" 
                     ShowExportToCsvButton="false" ShowAddNewRecordButton="false"/>
                     <Columns>
-                        <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer Name" 
+                        <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer" 
                         DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Left"/>
                         </telerik:GridBoundColumn>
@@ -389,13 +389,13 @@
                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false" 
-                         FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
+                         FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer">
                             <ItemStyle Width=""  HorizontalAlign="Left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PolicyIssuerName" AllowFiltering="false" HeaderText="Policy Issuer">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars">
+                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Scheme">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="InsuranceType" AllowFiltering="false" HeaderText="Insurance Type">
