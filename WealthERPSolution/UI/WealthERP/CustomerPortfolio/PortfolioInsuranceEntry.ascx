@@ -482,7 +482,7 @@
     </tr>
     <tr id="trEPPremiumPeriod" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblEPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblEPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtEPPremiumDuration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -602,7 +602,7 @@
     </tr>
     <tr id="trOTPremiumPeriod" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblOTPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblOTPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtOTPremiumDuration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -723,7 +723,7 @@
     </tr>
     <tr id="trWLPPremiumPeriod" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblWLPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblWLPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtWLPPremiumDuration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -837,7 +837,7 @@
     </tr>
     <tr id="trMPPeriod" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblMPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblMPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtMPPremiumDuration" runat="server" CssClass="txtField"></asp:TextBox>
@@ -955,7 +955,7 @@
     </tr>
     <tr id="trULIPPremiumCycle" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblUlipPremiuimPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblUlipPremiuimPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtUlipPremiuimPeriod" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1069,7 +1069,7 @@
     </tr>
     <tr id="trTPPremiumPeriod" runat="server">
         <td class="leftField" colspan="2">
-            <asp:Label ID="lblTPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period:"></asp:Label>
+            <asp:Label ID="lblTPPremiumPeriod" runat="server" CssClass="FieldName" Text="Premium Period (Days):"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtTPPremiumDuration" runat="server" CssClass="txtField"></asp:TextBox>
