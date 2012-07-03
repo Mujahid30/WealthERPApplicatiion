@@ -743,6 +743,7 @@ namespace DaoOps
                         operationVo.Units = double.Parse(dr["CMOT_Units"].ToString());
                     else
                         operationVo.Units = 0;
+                    operationVo.IsApproved = int.Parse(dr["CMOT_IsApprovedByCustomer"].ToString());
                 }
             }
             catch (BaseApplicationException Ex)
