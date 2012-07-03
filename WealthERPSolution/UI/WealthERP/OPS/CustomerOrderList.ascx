@@ -49,8 +49,8 @@
         <td>
         <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 onselectedindexchanged="ddlOrderType_SelectedIndexChanged">
-        <asp:ListItem Text="Pending Order" Value=1 Selected="True"></asp:ListItem>
-        <asp:ListItem Text="Approved" Value=0></asp:ListItem>
+        <asp:ListItem Text="Pending Order" Value=0 ></asp:ListItem>
+        <asp:ListItem Text="Approved" Value=1 Selected="True"></asp:ListItem>
         </asp:DropDownList>
         </td>
         </tr>
@@ -75,7 +75,7 @@
          <tr>
         <td>
             <asp:GridView ID="gvOrderList" runat="server" AutoGenerateColumns="False"  AllowSorting="True" 
-                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId" OnRowCommand="gvOrderList_RowCommand" ShowFooter="True" >
+                CellPadding="4" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId" OnRowDataBound="gvOrderList_RowDataBound" OnRowCommand="gvOrderList_RowCommand" ShowFooter="True" >
                 <FooterStyle CssClass="FooterStyle" />
                 <RowStyle CssClass="RowStyle" />
                 <EditRowStyle HorizontalAlign="Left" VerticalAlign="Top" />
@@ -84,7 +84,7 @@
                 <HeaderStyle CssClass="HeaderStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:TemplateField HeaderText="Select">
+                    <asp:TemplateField HeaderText="Select" >
                                          <HeaderTemplate>
                                          <asp:Label ID="lblchkBxSelect" runat="server" Text="Select<br />"></asp:Label>
                                          <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />

@@ -23,9 +23,11 @@ namespace WealthERP.OPS
         int status;
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnApprove.Visible = false;
             if (!IsPostBack)
             {
                 BindCustomerList();
+
             }
           
         }
@@ -50,6 +52,7 @@ namespace WealthERP.OPS
                     gvOrderList.Visible = true;
                     ErrorMessage.Visible = false;
                     tblMessage.Visible = false;
+                    //btnApprove.Visible = false;
                 }
                 else
                 {
@@ -104,12 +107,17 @@ namespace WealthERP.OPS
         protected void gvOrderList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = 0;
+           
             if (e.CommandName == "ViewOrderDetails")
             {
                 try
                 {
                     index = Convert.ToInt32(e.CommandArgument);
+                     
+
                     int orderId = Convert.ToInt32(gvOrderList.DataKeys[index].Value.ToString());
+                    //if(int.Parse(ddlOrderType.SelectedValue)==1)
+                    //    e.Row.Cells[index].Visible = false;
 
                     operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
                     Session["operationVo"] = operationVo;
@@ -120,20 +128,34 @@ namespace WealthERP.OPS
                 {
                     throw Ex;
                 }
+            
+            }
+               
+        }
+        protected void gvOrderList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                TemplateField b = gvOrderList.Columns[0] as TemplateField;
+
+                if (int.Parse(ddlOrderType.SelectedValue) == 1)
+                    b.Visible = false;
+                else
+                    b.Visible = true;
+                
             }
         }
-
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.Parse(ddlOrderType.SelectedValue) == 0)
             {
                 BindCustomerList();
-                btnApprove.Visible = false;
+                btnApprove.Visible = true;
             }
             else
             {
                 BindCustomerList();
-                btnApprove.Visible = true;
+                btnApprove.Visible = false;
             }
         }
     }
