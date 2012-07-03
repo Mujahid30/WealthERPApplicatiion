@@ -32,6 +32,7 @@
         </td>
     </tr>
 </table>
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
 <table class="TableBackground" width="100%">
     <tr>
         <td class="HeaderCell">
@@ -161,7 +162,7 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Deposit Amount" AllowFiltering="false" HeaderText="Deposit Amount/ purchase Cost (Rs)"
+                        <telerik:GridBoundColumn  DataFormatString="{0:N2}" DataField="Deposit Amount" AllowFiltering="false" HeaderText="Deposit Amount/ purchase Cost (Rs)"
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -169,11 +170,11 @@
                             AllowFiltering="false" HeaderText="Interest Rate (%)" UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Current Value" DataFormatString="{0:dd/MM/yyyy}"
+                        <telerik:GridBoundColumn DataField="Current Value" DataFormatString="{0:N2}"
                             AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Maturity Value" DataFormatString="{0:dd/MM/yyyy}"
+                        <telerik:GridBoundColumn DataField="Maturity Value" DataFormatString="{0:N2}"
                             AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -186,6 +187,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>
