@@ -216,7 +216,7 @@
             <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtName" ErrorMessage="Please enter the Scheme Name"
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>--%>
-            <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField" AutoPostBack="true" 
+            <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField" AutoPostBack="true" Width="42%"
             OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGMediumButton" Text="Add Scheme"
@@ -1251,8 +1251,8 @@
             <td align="left" colspan="6">
                 <telerik:RadGrid ID="rgULIPSubPlanSchedule" runat="server" Skin="Telerik" CssClass="RadGrid" 
                     GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="False" AutoGenerateColumns="False"
-                    ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="true"
-                    AllowAutomaticUpdates="true" OnItemCommand="rgULIPSubPlanSchedule_ItemCommand"
+                    ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
+                    AllowAutomaticUpdates="false" OnItemCommand="rgULIPSubPlanSchedule_ItemCommand"
                     OnNeedDataSource="rgULIPSubPlanSchedule_NeedDataSource" OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand"
                     HorizontalAlign="NotSet" DataKeyNames="ISF_SchemeFundId" Width="100%">
                     <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" CssClass="TableBackground"

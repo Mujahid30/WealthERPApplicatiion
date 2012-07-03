@@ -3119,7 +3119,6 @@ namespace WealthERP.CustomerPortfolio
                             Session["ULIPSubPlanSchedule"] = dt;
                             rgULIPSubPlanSchedule.DataSource = dt;
                             rgULIPSubPlanSchedule.DataBind();
-
                             //insuranceBo.InsertULIPInsuranceSchemeFund(ulipSchemeFundName, int.Parse(ddlAssetPerticular.SelectedValue), ddlInsuranceIssuerCode.SelectedValue, userVo.UserId);
                         }                        
                         //else if ()
@@ -3184,7 +3183,6 @@ namespace WealthERP.CustomerPortfolio
             Session["ULIPSubPlanSchedule"] = dtUpdate;
             rgULIPSubPlanSchedule.DataSource = dtUpdate;
             rgULIPSubPlanSchedule.DataBind();
-
             //UpdateULIPSchemeFund = insuranceBo.UpdateULIPInsuranceSchemeFund(insuranceULIPvo);
 
             //    rgULIPSubPlanSchedule.Controls.Add(new LiteralControl("<strong>Unable to update value</strong>" ));
@@ -3213,8 +3211,11 @@ namespace WealthERP.CustomerPortfolio
 
         protected void txtPolicyTerms_TextChanged(object sender, EventArgs e)
         {
-            txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
-            txtPolicyMaturity.Enabled = false;
+            if (!string.IsNullOrEmpty(txtPolicyTerms.Text.ToString().Trim()))
+            {
+                txtPolicyMaturity.Text = CalcEndDate(int.Parse(txtPolicyTerms.Text.ToString()), DateTime.Parse(txtPolicyCommencementDate.Text.ToString())).ToShortDateString();
+                txtPolicyMaturity.Enabled = false;
+            }
         }
 
         protected void txtPolicyCommencementDate_TextChanged(object sender, EventArgs e)
