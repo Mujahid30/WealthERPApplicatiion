@@ -834,6 +834,49 @@ namespace DaoReports
                 throw (ex);
             }
         }
+
+
+        public void LogCustomerMFReportEmailStatus(Dictionary<string, string> MFReportEmailStatus)
+        {
+            //Dictionary<string, string> chkBoxsList = new Dictionary<string, string>();
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdMFReportEmailStatus;            
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdMFReportEmailStatus = db.GetStoredProcCommand("SPROC_LogCustomerMFReportEmailStatus");
+                db.AddInParameter(cmdMFReportEmailStatus, "@CustomerId", DbType.Int32, Convert.ToInt32(MFReportEmailStatus["C_CustomerId"].ToString()));
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_MFundSummary", DbType.String, MFReportEmailStatus["MFundSummary"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_PortfolioRHolding", DbType.String, MFReportEmailStatus["PortfolioRHolding"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_Comprehensive", DbType.String, MFReportEmailStatus["Comprehensive"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_ECapitalGainDetails", DbType.String, MFReportEmailStatus["ECapitalGainDetails"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_TransactionReport", DbType.String, MFReportEmailStatus["TransactionReport"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_DividendStatement", DbType.String, MFReportEmailStatus["DividendStatement"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_DividendSummary", DbType.String, MFReportEmailStatus["DividendSummary"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_CapitalGainDetails", DbType.String, MFReportEmailStatus["CapitalGainDetails"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_CapitalGainSummary", DbType.String, MFReportEmailStatus["CapitalGainSummary"].ToString());
+                db.AddInParameter(cmdMFReportEmailStatus, "@CMFREL_CreatedBy", DbType.Int32, Convert.ToInt32(MFReportEmailStatus["RMId"].ToString()));
+                db.ExecuteNonQuery(cmdMFReportEmailStatus);          
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:LogCustomerMFReportEmailStatus()");
+                object[] objects = new object[3];
+                objects[0] = MFReportEmailStatus;                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         
 
     }
