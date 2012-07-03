@@ -102,7 +102,12 @@
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="InsCompany" AllowFiltering="false" HeaderText="Insurance Company"
+                            <telerik:GridBoundColumn DataField="InsCompany" AllowFiltering="false" HeaderText="Policy Issuer"
+                                UniqueName="ActiveLevel">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            <telerik:GridBoundColumn DataField="scheme" AllowFiltering="false" HeaderText="Scheme"
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -110,18 +115,27 @@
                                 HeaderText="Category" UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="SubCategory" AllowFiltering="false" HeaderText="Sub Category"
+                            <telerik:GridBoundColumn DataField="SubCategory" AllowFiltering="false" HeaderText="Insurance Type"
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataFormatString="{0:N4}" DataField="InsuredAmount" AllowFiltering="false"
-                                HeaderText="Insured Amount" UniqueName="ActiveLevel" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                HeaderText="Sum Assured" UniqueName="ActiveLevel" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PremiumAmount" AllowFiltering="false" HeaderText="Premium Amount"
                                 UniqueName="ActiveLevel" DataFormatString="{0:N4}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="frequency" AllowFiltering="false" HeaderText="Premium Frequency"
+                                UniqueName="frequency" FooterStyle-HorizontalAlign="Right">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                            
+                            
                             <telerik:GridBoundColumn DataField="CommencementDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="false" HeaderText="Commencement Date" UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />

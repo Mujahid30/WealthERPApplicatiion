@@ -41,6 +41,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.HtmlControls.HtmlTable ErrorMessage;
         
         /// <summary>
+        /// Panel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+        
+        /// <summary>
         /// trExportFilteredData control.
         /// </summary>
         /// <remarks>
@@ -57,6 +66,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
+        
+        /// <summary>
+        /// dvAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvAll;
         
         /// <summary>
         /// gvGeneralInsurance control.
