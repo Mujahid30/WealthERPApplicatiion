@@ -41,6 +41,7 @@ namespace VoCustomerPortfolio
         private DateTime m_ApplicationDate;
         private DateTime m_FirstPremiumDate;
         private DateTime m_LastPremiumDate;
+        private string m_Frequency;
 
         private int m_SchemeId;
         private DateTime m_PurchaseDate;
@@ -51,6 +52,8 @@ namespace VoCustomerPortfolio
 
         private int m_PolicyTerms;
         private string m_PolicyTermsDuration;
+        private string m_InsuranceIssuerName;
+
         #endregion Fields
 
 
@@ -60,6 +63,13 @@ namespace VoCustomerPortfolio
             get { return m_AssetInstrumentCategoryName; }
             set { m_AssetInstrumentCategoryName = value; }
         }
+
+        public string Frequency
+        {
+            get { return m_Frequency; }
+            set { m_Frequency = value; }
+        }
+
         public DateTime ApplicationDate
         {
             get { return m_ApplicationDate; }
@@ -308,6 +318,13 @@ namespace VoCustomerPortfolio
             get { return m_PolicyTermsDuration; }
             set { m_PolicyTermsDuration = value; }
         }
+
+        public string InsuranceIssuerName
+        {
+            get { return m_InsuranceIssuerName; }
+            set { m_InsuranceIssuerName = value; }
+        }
+        
         #endregion Properties
     }
 }
