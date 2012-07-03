@@ -240,7 +240,7 @@ namespace WealthERP.CustomerPortfolio
                         drInsurance[1] = insuranceVo.AssetInstrumentCategoryName.ToString();
                         drInsurance[2] = insuranceVo.Name.ToString();
                         drInsurance[3] = String.Format("{0:n0}", decimal.Parse(insuranceVo.SumAssured.ToString("f0")));
-                        drInsurance[4] = String.Format("{0:n2}", decimal.Parse(insuranceVo.PremiumAmount.ToString("f2")));
+                        drInsurance[4] = String.Format("{0:n0}", decimal.Parse(insuranceVo.PremiumAmount.ToString("f0")));
 
                         DateTime dtNow = DateTime.Now;
                         //DateTime dtPremiumPayDate;
@@ -383,7 +383,7 @@ namespace WealthERP.CustomerPortfolio
                         //}
 
                         drInsurance[5] = insuranceVo.StartDate.ToShortDateString();
-                        drInsurance[6] = String.Format("{0:n2}", decimal.Parse(insuranceVo.MaturityValue.ToString("f2")));
+                        drInsurance[6] = System.Math.Round(decimal.Parse(insuranceVo.MaturityValue.ToString(),0)).ToString("n0", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));                            
                         drInsurance[7] = insuranceVo.EndDate.ToShortDateString();
 
                         dtInsurance.Rows.Add(drInsurance);
@@ -579,9 +579,9 @@ namespace WealthERP.CustomerPortfolio
                     drInsurance[0] = insuranceVo.CustInsInvId.ToString();
                     drInsurance[1] = insuranceVo.AssetInstrumentCategoryCode.ToString();
                     drInsurance[2] = insuranceVo.Name.ToString();
-                    drInsurance[3] = String.Format("{0:n2}", decimal.Parse(insuranceVo.PremiumAmount.ToString("f2")));
-                    drInsurance[4] = String.Format("{0:n0}", decimal.Parse(insuranceVo.SumAssured.ToString("f0")));
-                    drInsurance[5] = String.Format("{0:n2}", decimal.Parse(insuranceVo.MaturityValue.ToString("f2")));
+                    drInsurance[3] = String.Format("{0:n2}", decimal.Parse(insuranceVo.PremiumAmount.ToString("N0")));
+                    drInsurance[4] = String.Format("{0:n0}", decimal.Parse(insuranceVo.SumAssured.ToString("N0")));
+                    drInsurance[5] = String.Format("{0:n2}", decimal.Parse(insuranceVo.MaturityValue.ToString("N0")));
 
                     dtInsurance.Rows.Add(drInsurance);
 
