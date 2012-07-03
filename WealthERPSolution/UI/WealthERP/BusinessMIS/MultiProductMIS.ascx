@@ -449,13 +449,13 @@
                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                     <Columns>
                         <telerik:GridBoundColumn DataField="CustomerName" AllowFiltering="false"
-                        FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer Name">
+                        FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" HeaderText="Customer">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="PolicyIssuerName" AllowFiltering="false" HeaderText="Policy Issuer">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Particulars">
+                        <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Scheme">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="InsuranceType" AllowFiltering="false" HeaderText="Insurance Type">
