@@ -666,7 +666,7 @@
                     <div style="vertical-align: middle;">
                         <asp:TextBox runat="server" ID="txtFindRM" Style="width: 110px;" onkeypress="return JSdoPostback(event,'ctrl_AdvisorLeftPane_btnSearchRM');" />
                         <cc1:TextBoxWatermarkExtender ID="txtFindRM_TextBoxWatermarkExtender" runat="server"
-                            TargetControlID="txtFindRM" WatermarkText="Find RM">
+                            TargetControlID="txtFindRM" WatermarkText="Find Staff">
                         </cc1:TextBoxWatermarkExtender>
                         <asp:Button ID="btnSearchRM" runat="server" CssClass="SearchButton" OnClientClick="javascript:callSearchControl('RM');return false;" />
                     </div>
