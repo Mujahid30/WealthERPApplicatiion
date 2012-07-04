@@ -130,6 +130,7 @@
     <BankName	BankNameCode="DBSBK" BankFullName="DBS Bank" Deleted="False"	/>
     <BankName	BankNameCode="HSBC" BankFullName="HSBC" Deleted="False"	/>
     <BankName	BankNameCode="SCBK" BankFullName="Standard Chartered Bank" Deleted="False"	/>
+    <BankName	BankNameCode="RBL" BankFullName="Ratnakar Bank" Deleted="False"	/>
   </BankName>
 
   <CustomerSubTypes>
