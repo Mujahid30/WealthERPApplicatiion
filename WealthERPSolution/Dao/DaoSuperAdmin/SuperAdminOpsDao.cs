@@ -22,7 +22,7 @@ namespace DaoSuperAdmin
         /// <param name="currentPage"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-       public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate,string adviserId,string OrgName,string folioNo,string schemeName)
+       public DataSet GetAllAdviserDuplicateRecords(DateTime FromDate, DateTime ToDate)
        {
            DataSet dsGetDuplicateRecord;
            Database db;
@@ -35,33 +35,7 @@ namespace DaoSuperAdmin
                db.AddInParameter(getDuplicateCheckCmd, "@toDate", DbType.Date, ToDate);
                //db.AddInParameter(getDuplicateCheckCmd, "@currentPage", DbType.Int32, currentPage);
                //db.AddOutParameter(getDuplicateCheckCmd, "@Count", DbType.Int32, 0);
-               if (adviserId != "")
-               {
-                   db.AddInParameter(getDuplicateCheckCmd, "@AdviserId", DbType.String, adviserId);
-               }
-               else
-                   db.AddInParameter(getDuplicateCheckCmd, "@AdviserId", DbType.String, DBNull.Value);
-               if (OrgName != "")
-               {
-                   db.AddInParameter(getDuplicateCheckCmd, "@orgName", DbType.String, OrgName);
-               }
-               else
-                   db.AddInParameter(getDuplicateCheckCmd, "@orgName", DbType.String, DBNull.Value);
-               if (folioNo != "")
-               {
-
-                   db.AddInParameter(getDuplicateCheckCmd, "@folioNo", DbType.String, folioNo);
-               }
-               else
-                   db.AddInParameter(getDuplicateCheckCmd, "@folioNo", DbType.String, DBNull.Value);
-
-               if (schemeName != "")
-               {
-
-                   db.AddInParameter(getDuplicateCheckCmd, "@schemeName", DbType.String, schemeName);
-               }
-               else
-                   db.AddInParameter(getDuplicateCheckCmd, "@schemeName", DbType.String, DBNull.Value);
+               
              
                getDuplicateCheckCmd.CommandTimeout = 60 * 60;
                dsGetDuplicateRecord = db.ExecuteDataSet(getDuplicateCheckCmd);
@@ -83,10 +57,7 @@ namespace DaoSuperAdmin
                objects[0] = FromDate;
                objects[1] = ToDate;
                //objects[2] = currentPage;
-               objects[2] = adviserId;
-               objects[3] = OrgName;
-               objects[4] = folioNo;
-               objects[5] = schemeName;
+               
                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
@@ -143,18 +114,8 @@ namespace DaoSuperAdmin
            }
            return dsGetAumValue;
        }
-       /// <summary>
-       /// Display rejected records with all the information
-       /// </summary>
-       /// <param name="fromdate"></param>
-       /// <param name="todate"></param>
-       /// <param name="currentPage"></param>
-       /// <param name="count"></param>
-       /// <param name="rejectReasoncode"></param>
-       /// <param name="adviserId"></param>
-       /// <param name="processId"></param>
-       /// <returns></returns>
-       public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate, string rejectReasoncode, string adviserId, string processId)
+       
+       public DataSet GetMfrejectedDetails(DateTime fromdate, DateTime todate)
        {
            DataSet dsRejectedRecords = new DataSet();
            Database db;
@@ -166,33 +127,7 @@ namespace DaoSuperAdmin
                getMfrejectedDetailsCmd = db.GetStoredProcCommand("SP_GetMFTransactionRejectedRecords");
                db.AddInParameter(getMfrejectedDetailsCmd, "@fromDate", DbType.Date, fromdate);
                db.AddInParameter(getMfrejectedDetailsCmd, "@toDate", DbType.Date, todate);
-               //db.AddInParameter(getMfrejectedDetailsCmd, "@currentPage", DbType.Int32, currentPage);
-               //db.AddOutParameter(getMfrejectedDetailsCmd, "@Count", DbType.Int32, 0);
-               if (rejectReasoncode != "")
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@RejectCode", DbType.String, rejectReasoncode);
-               }
-               else
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@RejectCode", DbType.String, DBNull.Value);
-               }
-               if (adviserId != "")
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@AdviserId", DbType.String, adviserId);
-               }
-               else
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@AdviserId", DbType.String, DBNull.Value);
-               }
-               if (processId != "")
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@ProcessId", DbType.String, processId);
-               }
-               else
-               {
-                   db.AddInParameter(getMfrejectedDetailsCmd, "@ProcessId", DbType.String, DBNull.Value);
-               }
-               
+                       
                dsRejectedRecords = db.ExecuteDataSet(getMfrejectedDetailsCmd);
                //count = (int)db.GetParameterValue(getMfrejectedDetailsCmd, "@Count");
            }
@@ -208,10 +143,8 @@ namespace DaoSuperAdmin
                object[] objects = new object[6];
                objects[0] = fromdate;
                objects[1] = todate;
-               //objects[2] = currentPage;
-               objects[2] = rejectReasoncode;
-               objects[3] = adviserId;
-               objects[4] = processId;
+               
+              
                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                exBase.AdditionalInformation = FunctionInfo;
                ExceptionManager.Publish(exBase);
