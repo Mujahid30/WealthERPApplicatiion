@@ -1384,17 +1384,19 @@ namespace BoValuation
                     }
 
                     if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "BUY")
+                        
                     {
                         drBalanceRecord["XIRR_ALL"] = -double.Parse(drMFBalanced["CMFT_Amount"].ToString());
                     }
                     else if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "SEL" || drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "DVP")
                     {
-                        drBalanceRecord["XIRR_ALL"] = -double.Parse(drMFBalanced["CMFT_Amount"].ToString());
+                        drBalanceRecord["XIRR_ALL"] = double.Parse(drMFBalanced["CMFT_Amount"].ToString());
                     }
                     else if (drMFBalanced["WMTT_TransactionClassificationCode"].ToString() == "DVR")
                     {
                         drBalanceRecord["XIRR_ALL"] = 0;
                     }
+                    
                     drBalanceRecord["CMFT_Price"] = drMFBalanced["CMFT_Price"].ToString();
 
                     drBalanceRecord["InvestedCostReturnHolding"] = double.Parse(drMFBalanced["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(drMFBalanced["CMFTB_UnitBalanceRETURN"].ToString());
