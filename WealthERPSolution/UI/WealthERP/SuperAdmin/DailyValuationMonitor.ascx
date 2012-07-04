@@ -20,7 +20,7 @@
         }
         </script>--%>
 
-<script type="text/javascript" >
+<script type="text/javascript">
     function pageLoad() {
         InitDialogs();
         Loading(false);
@@ -49,9 +49,7 @@
             DialogBox_Loading.hide();
         }
     }
-    </script>
-    
-  
+</script>
 
 <table width="100%">
     <tr>
@@ -297,7 +295,6 @@
                 </ExportSettings>
                 <MasterTableView DataKeyNames="A_AdviserId,CMFNP_ValuationDate,PASP_SchemePlanCode,CMFA_AccountId,CMFNP_NetHoldings"
                     Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                    
                     <Columns>
                         <telerik:GridTemplateColumn ItemStyle-Wrap="false" HeaderStyle-Wrap="false" HeaderText="Select">
                             <ItemTemplate>
@@ -341,7 +338,6 @@
                             UniqueName="AdviserID" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       
                         <%--<telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right"
                             HeaderStyle-Width="10px">
                             <HeaderTemplate>
@@ -357,10 +353,10 @@
                             <ItemStyle Wrap="true"></ItemStyle>
                         </telerik:GridTemplateColumn>--%>
                         <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderText="Adviser Name"
-                             UniqueName="Adviser Name" HeaderStyle-HorizontalAlign="Center">
+                            UniqueName="Adviser Name" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       <%-- <telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" HeaderText="No of Duplicates"
+                        <%-- <telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" HeaderText="No of Duplicates"
                             ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="10px">
                             <%--<HeaderTemplate>
                                             <asp:Label ID="lblOrganizationData" runat="server" Text="Adviser Name"></asp:Label>
@@ -375,7 +371,7 @@
                             <ItemStyle Wrap="true"></ItemStyle>
                         </telerik:GridTemplateColumn>--%>
                         <telerik:GridBoundColumn DataField="Duplicate" AllowFiltering="false" HeaderText="No of Duplicates"
-                             UniqueName="No of Duplicates" HeaderStyle-HorizontalAlign="Center">
+                            UniqueName="No of Duplicates" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right"
@@ -389,8 +385,8 @@
                             <HeaderStyle Wrap="true"></HeaderStyle>
                             <ItemStyle Wrap="true"></ItemStyle>
                         </telerik:GridTemplateColumn>--%>
-                         <telerik:GridBoundColumn DataField="CMFA_FolioNum" AllowFiltering="false" HeaderText="Folio Number"
-                             UniqueName="Folio Number" HeaderStyle-HorizontalAlign="Center">
+                        <telerik:GridBoundColumn DataField="CMFA_FolioNum" AllowFiltering="false" HeaderText="Folio Number"
+                            UniqueName="Folio Number" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" ItemStyle-HorizontalAlign="Right"
@@ -405,10 +401,10 @@
                             <ItemStyle Wrap="true"></ItemStyle>
                         </telerik:GridTemplateColumn>--%>
                         <telerik:GridBoundColumn DataField="PASP_SchemePlanName" AllowFiltering="false" HeaderText="Scheme Name"
-                             UniqueName="Scheme Name" HeaderStyle-HorizontalAlign="Center">
+                            UniqueName="Scheme Name" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                       <%-- <telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" HeaderText="Holdings"
+                        <%-- <telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" HeaderText="Holdings"
                             ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="10px">
                             <ItemTemplate>
                                 <asp:Label ID="lblHoldings"  Width="" runat="server" Text='<%# Eval("CMFNP_NetHoldings","{0:n}").ToString() %>'></asp:Label>
@@ -417,7 +413,7 @@
                             <ItemStyle Wrap="true"></ItemStyle>
                         </telerik:GridTemplateColumn>--%>
                         <telerik:GridBoundColumn DataField="CMFNP_NetHoldings" AllowFiltering="false" HeaderText="Holdings"
-                             DataFormatString="{0:n}" UniqueName="Holdings" HeaderStyle-HorizontalAlign="Center">
+                            DataFormatString="{0:n}" UniqueName="Holdings" HeaderStyle-HorizontalAlign="Center">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%-- <telerik:GridTemplateColumn ItemStyle-Wrap="true" HeaderStyle-Wrap="true" HeaderText="Creation Date" ItemStyle-HorizontalAlign="Right"
@@ -650,91 +646,115 @@
         </td>
     </tr>
 </table>
-<%-- <asp:Panel ID="pnlReject" runat="server" class="Landscape" ScrollBars="Horizontal">--%>
-<table>
-    <tr id="trExportFilteredRejData" runat="server" >
-        <td>
-            <asp:ImageButton ID="btnExportFilteredRejData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredRejData_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
-        </td>
-    </tr>
-    <%--<tr>
+<asp:Panel ID="pnlReject" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+    <%-- <asp:Panel ID="pnlReject" runat="server" class="Landscape" ScrollBars="Horizontal">--%>
+    <table>
+        <tr id="trExportFilteredRejData" runat="server">
+            <td>
+                <asp:ImageButton ID="btnExportFilteredRejData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredRejData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+            </td>
+        </tr>
+        <%--<tr>
                         <td class="leftField" align="right" width="95%">
                             <asp:Label ID="lblRejectCount" class="Field" runat="server"></asp:Label>
                             <asp:Label ID="lblRejectTotal" class="Field" runat="server"></asp:Label>
                         </td>
                     </tr>--%>
-    <tr>
-        <td>
-            <telerik:RadGrid ID="gvMFRejectedDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true"  AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" Width="950px" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" OnNeedDataSource="gvMFRejectedDetails_OnNeedDataSource">
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MFRejectedDetailslist">
-                </ExportSettings>
-                <MasterTableView AllowFilteringByColumn="false" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                    CommandItemDisplay="None" Height="100%">
-                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                        ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
-                    <Columns>
-                        <telerik:GridBoundColumn DataField="CMFTS_CreatedOn" AllowFiltering="false" HeaderText="Process Date"
-                            DataFormatString="{0:D}" UniqueName="CMFTS_CreatedOn" HeaderStyle-HorizontalAlign="right">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+        <tr>
+            <td>
+                <div id="dvAll" runat="server" style="width: 640px">
+                    <telerik:RadGrid ID="gvMFRejectedDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false" OnNeedDataSource="gvMFRejectedDetails_OnNeedDataSource">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MFRejectedDetailslist">
+                        </ExportSettings>
+                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                            CommandItemDisplay="None">
+                            <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                                ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                            <Columns>
+                                <telerik:GridBoundColumn DataField="CMFTS_CreatedOn" AllowFiltering="false" HeaderText="Process Date"
+                                    DataFormatString="{0:D}" UniqueName="CMFTS_CreatedOn" HeaderStyle-HorizontalAlign="right">
+                                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" DataField="A_AdviserId" HeaderText="AdviserId"
+                             UniqueName="AdviserId" HeaderStyle-HorizontalAlign="left">
+                            <ItemStyle Width=""  HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
-                            HeaderText="Adviser Name" UniqueName="A_OrgName">
-                            <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
+                                <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="A_AdviserId">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblHAdviserId" runat="server"  Text="AdviserId"></asp:Label>
+                                        <%--<asp:DropDownList ID="ddlAdviserNameDate" AutoPostBack="true" CssClass="cmbField"
+                                                runat="server" OnSelectedIndexChanged="ddlAdviserNameDate_SelectedIndexChanged">
+                                            </asp:DropDownList>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIAdviserId" runat="server"  Text='<%# Eval("A_AdviserId").ToString() %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle Wrap="true"></HeaderStyle>
+                                    <ItemStyle Wrap="true"></ItemStyle>
+                                </telerik:GridTemplateColumn>--%>
+                                <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderStyle-HorizontalAlign="Left"
+                                    HeaderText="Adviser Name" UniqueName="A_OrgName">
+                                    <ItemStyle Width="" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" AllowFiltering="false" HeaderText="File NameSource Type"
+                                    UniqueName="File NameSource Type">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_FolioNum" AllowFiltering="false" HeaderText="Folio number"
+                                    UniqueName="Folio number">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_SchemeCode" AllowFiltering="false" HeaderText="Scheme"
+                                    UniqueName="Scheme">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASP_SchemePlanName" AllowFiltering="false" HeaderText="Scheme name"
+                                    UniqueName="Scheme name">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
+                                    HeaderText="Transaction type" UniqueName="Transaction type">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_TransactionDate" AllowFiltering="false"
+                                    HeaderText="Transaction date" DataFormatString="{0:D}" UniqueName="Transaction date">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_Price" AllowFiltering="false" HeaderText="Price"
+                                    DataFormatString="{0:n}" UniqueName="Price">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_Units" AllowFiltering="false" HeaderText="Units"
+                                    DataFormatString="{0:n}" UniqueName="Units">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="CMFTS_Amount" AllowFiltering="false" HeaderText="Amount"
+                                    DataFormatString="{0:n}" UniqueName="Transaction type">
+                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn AllowFiltering="true" DataField="WRR_RejectReasonDescription" HeaderText="Reject Reason"
+                             UniqueName="Reject Reason" HeaderStyle-HorizontalAlign="left">
+                            <ItemStyle Width=""  HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" AllowFiltering="false" HeaderText="File NameSource Type"
-                            UniqueName="File NameSource Type">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                
+                                <telerik:GridBoundColumn AllowFiltering="true" DataField="Adul_ProcessId" HeaderText="ProcessId"
+                             UniqueName="ProcessId" HeaderStyle-HorizontalAlign="right">
+                            <ItemStyle Width=""  HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_FolioNum" AllowFiltering="false" HeaderText="Folio number"
-                            UniqueName="Folio number">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_SchemeCode" AllowFiltering="false" HeaderText="Scheme"
-                            UniqueName="Scheme">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="PASP_SchemePlanName" AllowFiltering="false" HeaderText="Scheme name"
-                            UniqueName="Scheme name">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
-                            HeaderText="Transaction type" UniqueName="Transaction type">
-                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_TransactionDate" AllowFiltering="false"
-                            HeaderText="Transaction date" DataFormatString="{0:D}" UniqueName="Transaction date">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_Price" AllowFiltering="false" HeaderText="Price"
-                            DataFormatString="{0:n}" UniqueName="Price">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_Units" AllowFiltering="false" HeaderText="Units"
-                            DataFormatString="{0:n}" UniqueName="Units">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CMFTS_Amount" AllowFiltering="false" HeaderText="Amount"
-                            DataFormatString="{0:n}" UniqueName="Transaction type">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                       <%-- <telerik:GridBoundColumn DataField="CMFTS_TransactionClassificationCode" AllowFiltering="false"
-                            HeaderText="Transaction type" UniqueName="Transaction type">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>--%>
-                    </Columns>
-                </MasterTableView>
-                <ClientSettings>
-                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="True">
-                </Scrolling>
-                </ClientSettings>
-            </telerik:RadGrid>
-            <%--<asp:GridView ID="gvMFRejectedDetails" runat="server" AutoGenerateColumns="False"
+                                
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </div>
+                <%--<asp:GridView ID="gvMFRejectedDetails" runat="server" AutoGenerateColumns="False"
                                 AllowSorting="True" CellPadding="4" CssClass="GridViewStyle" HeaderStyle-Width="100%"
                                 ShowFooter="True">
                                 <FooterStyle CssClass="FooterStyle" />
@@ -809,9 +829,10 @@
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>--%>
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <%--</asp:Panel>--%>
 <table>
     <tr id="trExportFilteredNavData" runat="server">

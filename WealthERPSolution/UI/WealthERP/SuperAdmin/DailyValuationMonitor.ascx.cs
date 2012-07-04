@@ -123,6 +123,7 @@ namespace WealthERP.SuperAdmin
             btnGo.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             tblMessage.Visible = false;
             gvAumMis.Visible = false;
+            pnlReject.Visible = false;
             trbtnDelete.Visible = false;
             gvDuplicateCheck.Visible = false;
             gvMFRejectedDetails.Visible = false;
@@ -489,7 +490,7 @@ namespace WealthERP.SuperAdmin
             Dictionary<string, string> genAdviserDdl = new Dictionary<string, string>();
             DataSet dsduplicatecheck;
             DataTable dtDuplicateCheck;
-            dsduplicatecheck = superAdminOpsBo.GetAllAdviserDuplicateRecords(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), hdnAdviserIdDupli.Value, hdnOrgNameDupli.Value, hdnFolioiNoDupli.Value, hdnSchemeDupli.Value);
+            dsduplicatecheck = superAdminOpsBo.GetAllAdviserDuplicateRecords(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
             dtDuplicateCheck = dsduplicatecheck.Tables[0];
             if (dtDuplicateCheck.Rows.Count > 0)
             {
@@ -869,10 +870,10 @@ namespace WealthERP.SuperAdmin
             Dictionary<string, string> genDictProcessId = new Dictionary<string, string>();
 
             Dictionary<string, string> genDictAdviserId = new Dictionary<string, string>();
-
+           
             DataSet dsRejectedRecords = new DataSet();
-            dsRejectedRecords = superAdminOpsBo.GetMfrejectedDetails(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), hdnRejectReasonFilter.Value, hdnAdviserIdFilter.Value, hdnProcessIdFilter.Value);
-
+            dsRejectedRecords = superAdminOpsBo.GetMfrejectedDetails(DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
+            pnlReject.Visible= true;
             if (dsRejectedRecords.Tables.Count > 0)
             {
                 trExportFilteredRejData.Visible = true;
@@ -1462,6 +1463,7 @@ namespace WealthERP.SuperAdmin
         }
         protected void gvMFRejectedDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            pnlReject.Visible = true;
             DataSet dsRejectedRecords = new DataSet();
             gvAumMis.Visible = false;
             trbtnDelete.Visible = false;

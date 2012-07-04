@@ -48,7 +48,10 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Mntfr;
-        
+        protected global::System.Web.UI.WebControls.Label lblHProcessId;
+        protected global::System.Web.UI.WebControls.Label lblIProcessId;
+        protected global::System.Web.UI.WebControls.Label lblHRejectReason;
+        protected global::System.Web.UI.WebControls.Label lblIRejectReason;
         /// <summary>
         /// ddlMonitorfr control.
         /// </summary>
@@ -204,7 +207,8 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRange;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlReject;
+       
         /// <summary>
         /// lblFromDate control.
         /// </summary>
