@@ -121,7 +121,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right" DataField="InsuredAmount" AllowFiltering="false"
                                 HeaderText="Sum Assured" UniqueName="ActiveLevel" Aggregate="Sum">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PremiumAmount" AllowFiltering="false" HeaderText="Premium Amount"
                                 UniqueName="ActiveLevel" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum" >
