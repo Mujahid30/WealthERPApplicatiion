@@ -3233,6 +3233,47 @@ namespace WealthERP.CustomerPortfolio
             //}            
         }
 
+        protected void rgULIPSubPlanSchedule_ItemCreated(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridEditableItem && e.Item.IsInEditMode)
+            {
+                GridEditableItem item = e.Item as GridEditableItem;
+                GridTextBoxColumnEditor editorInvestedCost = (GridTextBoxColumnEditor)item.EditManager.GetColumnEditor("CINPUD_InvestedCost");
+                GridTextBoxColumnEditor editorUnit = (GridTextBoxColumnEditor)item.EditManager.GetColumnEditor("CINPUD_Unit");
+                GridTextBoxColumnEditor editorCurrentValue = (GridTextBoxColumnEditor)item.EditManager.GetColumnEditor("CINPUD_CurrentValue");
+                GridTextBoxColumnEditor editorAllocationPer = (GridTextBoxColumnEditor)item.EditManager.GetColumnEditor("CINPUD_AllocationPer");
+
+                TableCell cellInvestedCost = (TableCell)editorInvestedCost.TextBoxControl.Parent;
+                TableCell cellUnit = (TableCell)editorUnit.TextBoxControl.Parent;
+                TableCell cellCurrentValue = (TableCell)editorCurrentValue.TextBoxControl.Parent;
+                TableCell cellAllocationPer = (TableCell)editorAllocationPer.TextBoxControl.Parent;
+
+                RequiredFieldValidator validatorInvestedCost = new RequiredFieldValidator();
+                editorInvestedCost.TextBoxControl.ID = "rfInvestedCost";
+                validatorInvestedCost.ControlToValidate = editorInvestedCost.TextBoxControl.ID;
+                validatorInvestedCost.ErrorMessage = "Select invested cost";
+                cellInvestedCost.Controls.Add(validatorInvestedCost);
+
+                RequiredFieldValidator validatorUnit = new RequiredFieldValidator();
+                editorUnit.TextBoxControl.ID = "rfUnit";
+                validatorUnit.ControlToValidate = editorUnit.TextBoxControl.ID;
+                validatorUnit.ErrorMessage = "Select unit";
+                cellUnit.Controls.Add(validatorUnit);
+
+                RequiredFieldValidator validatorCurrentValue = new RequiredFieldValidator();
+                editorCurrentValue.TextBoxControl.ID = "rfCurrentValue";
+                validatorCurrentValue.ControlToValidate = editorCurrentValue.TextBoxControl.ID;
+                validatorCurrentValue.ErrorMessage = "Select current value";
+                cellCurrentValue.Controls.Add(validatorCurrentValue);
+
+                RequiredFieldValidator validatorAllocationPer = new RequiredFieldValidator();
+                editorAllocationPer.TextBoxControl.ID = "rfAllocationPer";
+                validatorAllocationPer.ControlToValidate = editorAllocationPer.TextBoxControl.ID;
+                validatorAllocationPer.ErrorMessage = "Select percentage";
+                cellAllocationPer.Controls.Add(validatorAllocationPer);
+            }
+        }
+
         protected void txtPolicyTerms_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtPolicyTerms.Text.ToString().Trim()))
