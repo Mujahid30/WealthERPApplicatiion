@@ -415,7 +415,7 @@ namespace WealthERP.Research
                 {
                     if ((int.Parse(dr["MinAge"].ToString()) < minAge && minAge < int.Parse(dr["MaxAge"].ToString())) || (int.Parse(dr["MinAge"].ToString()) < maxAge && maxAge < int.Parse(dr["MaxAge"].ToString())))
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Invalid Age selection');", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Age can not be overlapped for same risk class');", true);
                         return;
                     }
 

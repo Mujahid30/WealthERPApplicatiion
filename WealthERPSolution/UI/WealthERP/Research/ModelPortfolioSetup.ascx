@@ -323,10 +323,17 @@
                         <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMinAUM" controltovalidate="txtMinAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid min amount" />
+                            <asp:CompareValidator ID="cvMinAUM" runat="server" ErrorMessage="<br />Min investment amount should be greater than max investment amount" 
+                            Type="Integer" ControlToValidate="txtMinAUM" ControlToCompare="txtMaxAUM" Operator="LessThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>
                         </td>
                         <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMaxAUM" controltovalidate="txtMaxAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max amount" />
+                            
+                            <%--<asp:CompareValidator ID="cvMaxAUM" runat="server" ErrorMessage="<br />Max investment amount should be greater than min investment amount" 
+                            Type="Integer" ControlToValidate="txtMaxAUM" ControlToCompare="txtMinAUM" Operator="GreaterThanEqual"
+                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>--%>
                         </td>
                       </tr>
                       <tr>
