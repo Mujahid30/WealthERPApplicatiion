@@ -230,7 +230,7 @@
                           <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblAssignedRM" runat="server" Text="RM"></asp:Label>
-                              
+                               <br/>
                                 <asp:DropDownList ID="ddlAssignedRM" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
                                     OnSelectedIndexChanged="ddlAssignedRM_SelectedIndexChanged">
                                 </asp:DropDownList>
