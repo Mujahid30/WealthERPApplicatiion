@@ -969,14 +969,14 @@ namespace WealthERP.Advisor
                 gvCustomerlist.DataSource = dtRMCustomer;
                 gvCustomerlist.DataBind();
 
-                if (Cache["FP"] == null)
+                if (Cache["FP" + advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("FP", dtRMCustomer);
+                    Cache.Insert("FP" + advisorVo.advisorId, dtRMCustomer);
                 }
                 else
                 {
-                    Cache.Remove("FP");
-                    Cache.Insert("FP", dtRMCustomer);
+                    Cache.Remove("FP" + advisorVo.advisorId);
+                    Cache.Insert("FP" + advisorVo.advisorId, dtRMCustomer);
                 }
             }
         }
@@ -989,7 +989,7 @@ namespace WealthERP.Advisor
             //    BindFPCustomerData();
             //}
             DataTable dtCustomerList = new DataTable();
-            dtCustomerList = (DataTable)Cache["FP"];
+            dtCustomerList = (DataTable)Cache["FP" + advisorVo.advisorId];
             gvCustomerlist.DataSource = dtCustomerList;
             //gvCustomerlist.DataBind();
         }    

@@ -117,14 +117,14 @@ namespace WealthERP.Advisor
                 gvCommissionMIS.DataBind();
                 gvCommissionMIS.Visible = true;
 
-                if (Cache["MIS"] == null)
+                if (Cache["MIS"+ advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("MIS", dtMIS);
+                    Cache.Insert("MIS" + advisorVo.advisorId, dtMIS);
                 }
                 else
                 {
-                    Cache.Remove("MIS");
-                    Cache.Insert("MIS", dtMIS);
+                    Cache.Remove("MIS" + advisorVo.advisorId);
+                    Cache.Insert("MIS" + advisorVo.advisorId, dtMIS);
                 }
 
 
@@ -209,7 +209,7 @@ namespace WealthERP.Advisor
             gvCommissionMIS.Visible = true;
             trCommissionMIS.Visible = true;
             DataTable dtMIS = new DataTable();
-            dtMIS = (DataTable)Cache["MIS"];
+            dtMIS = (DataTable)Cache["MIS" + advisorVo.advisorId];
             gvCommissionMIS.DataSource = dtMIS;
         }
     }
