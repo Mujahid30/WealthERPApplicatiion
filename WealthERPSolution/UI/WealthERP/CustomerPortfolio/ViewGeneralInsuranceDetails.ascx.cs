@@ -180,21 +180,26 @@ namespace WealthERP.CustomerPortfolio
                 //insuranceVo = insuranceBo.GetInsuranceAsset(insuranceId);
                 InsuranceVo insuranceVo = new InsuranceVo();
 
-                insuranceVo.AccountId = accountId;
-                Session["insuranceId"] = insuranceId;
-                Session["AccountId"] = accountId;
+                
+               
                 //Session["AccountId"] = 
                 
                 //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
 
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
+                    insuranceVo.AccountId = accountId;
+                    Session["insuranceId"] = insuranceId;
+                    Session["AccountId"] = accountId;
                     qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + insuranceId + "&action=Edit";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
            
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == "View")
                 {
+                    insuranceVo.AccountId = accountId;
+                    Session["insuranceId"] = insuranceId;
+                    Session["AccountId"] = accountId;
                     qryString = "FromPage=ViewGeneralInsuranceDetails&InsuranceId=" + insuranceId + "&action=View";
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioGeneralInsuranceEntry','" + qryString + "');", true);
            
