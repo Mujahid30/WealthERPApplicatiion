@@ -140,7 +140,7 @@
     </Services>
 </asp:ScriptManager>
 <div>
-    <asp:Label ID="lblIFFAdd" runat="server" Text="Add IFF" CssClass="HeaderTextBig"></asp:Label>
+    <asp:Label ID="lblIFFAdd" runat="server" Text="Add IFA" CssClass="HeaderTextBig"></asp:Label>
     <hr />
 </div>
 <table width="100%">
