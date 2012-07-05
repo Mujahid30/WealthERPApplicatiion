@@ -39,25 +39,28 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <asp:Label ID="lblHeader" runat="server" Text="Liabilities Maintenance Form" CssClass="HeaderTextSmall"></asp:Label>
+                 <asp:Label ID="lblHeader" runat="server" CssClass="HeaderTextBig" Text="Liabilities Maintenance Form"></asp:Label>
+                 <hr />
+                    <%--<asp:Label ID="lblHeader" runat="server" Text="Liabilities Maintenance Form" CssClass="HeaderTextSmall"></asp:Label>--%>
                 </td>
             </tr>
+             
             <tr id="trEdit" runat="server">
                 <td colspan="4">
                     <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click"
                         CausesValidation="false"></asp:LinkButton>
                 </td>
             </tr>
-            <tr id="trBack" runat="server">
+          <%--  <tr id="trBack" runat="server">
                 <td colspan="4">
                     <asp:LinkButton ID="lnkBack" Text="Back" runat="server" CssClass="LinkButtons" OnClick="lnkBtnBack_Click"
                         CausesValidation="false"></asp:LinkButton>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td colspan="4">
                     <asp:Label ID="lblBasicDetails" runat="server" Text="Basic Details" CssClass="HeaderTextSmall"></asp:Label>
-                    <hr />
+                   
                 </td>
             </tr>
             <tr>
