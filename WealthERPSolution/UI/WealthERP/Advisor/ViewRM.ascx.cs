@@ -200,6 +200,7 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             string rm = "";
             try
             {
@@ -231,7 +232,7 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            gvRMList_Init(sender, e);
+            //gvRMList_Init(sender, e);
         }
 
         private void ShowRM()
@@ -352,6 +353,7 @@ namespace WealthERP.Advisor
                     rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all, out Count);
                     if (rmList!=null && rmList.Count != 0)
                     {
+
                         //lblTotalRows.Text = hdnCount.Value = Count.ToString();
                         DataTable dtAdvisorStaff = new DataTable();
                         dtAdvisorStaff.Columns.Add("UserId");
@@ -731,6 +733,7 @@ namespace WealthERP.Advisor
 
         protected void gvRMList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            trMessage.Visible = false;
             DataTable dtMIS = new DataTable();
             dtMIS = (DataTable)Cache["RMList"];
             gvRMList.DataSource = dtMIS;
@@ -741,22 +744,22 @@ namespace WealthERP.Advisor
 
         }
 
-        protected void gvRMList_Init(object sender, System.EventArgs e)
-        {
-            GridFilterMenu menu = gvRMList.FilterMenu;
-            int i = 0;
-            while (i < menu.Items.Count)
-            {
-                if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
-                {
-                    i++;
-                }
-                else
-                {
-                    menu.Items.RemoveAt(i);
-                }
-            }
-        }
+        //protected void gvRMList_Init(object sender, System.EventArgs e)
+        //{
+        //    GridFilterMenu menu = gvRMList.FilterMenu;
+        //    int i = 0;
+        //    while (i < menu.Items.Count)
+        //    {
+        //        if (menu.Items[i].Text == "NoFilter" || menu.Items[i].Text == "Contains" || menu.Items[i].Text == "EqualTo")
+        //        {
+        //            i++;
+        //        }
+        //        else
+        //        {
+        //            menu.Items.RemoveAt(i);
+        //        }
+        //    }
+        //}
 
         protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
