@@ -196,7 +196,7 @@ namespace WealthERP.CustomerPortfolio
                 //generalInsuranceVo.SumAssured = SumAssured;
                 if (hdnSumAssured.Value!="")
                 generalInsuranceVo.SumAssured = double.Parse(hdnSumAssured.Value);
-                else
+                if (txtSumAssured1.Text!="")
                     generalInsuranceVo.SumAssured = double.Parse(txtSumAssured1.Text);
                 generalInsuranceVo.TPAName = txtTPA.Text;
                 long.TryParse(txtTPAContactNumber.Text, out TPAContactNumber);
@@ -1244,7 +1244,12 @@ namespace WealthERP.CustomerPortfolio
                     BindAssetParticular(ddlPolicyIssuer.SelectedValue);
                 }
             }
+            radwindowPopup.VisibleOnPageLoad = false;
+        }
 
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            radwindowPopup.VisibleOnPageLoad = false;
         }
 
         public void ddlPolicyIssuer_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -1313,6 +1318,13 @@ namespace WealthERP.CustomerPortfolio
             } 
         }
 
+        protected void btnAddScheme_OnClick(object sender, EventArgs e)
+        {
+            radwindowPopup.Left = 100;
+            radwindowPopup.Top = 100;
+            radwindowPopup.VisibleOnPageLoad = true;
+        }
+
         private DateTime CalcEndDate(int period, DateTime startDate)
         {
             DateTime endDate = new DateTime();
@@ -1332,11 +1344,11 @@ namespace WealthERP.CustomerPortfolio
             return endDate;
         }
 
-        protected override void OnUnload(EventArgs e)
-        {
-            //base.OnUnload(e);
-            //Session["action"] = null;
-            //Session["insuranceId"] = null;
-        }
+        //protected override void OnUnload(EventArgs e)
+        //{
+        //    //base.OnUnload(e);
+        //    //Session["action"] = null;
+        //    //Session["insuranceId"] = null;
+        //}
     }
 }
