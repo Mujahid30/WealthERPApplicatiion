@@ -120,10 +120,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <table width="100%">
                 <tr>
                     <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblIssuer" runat="server" Text="Insurance Issuer: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblIssuerCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
                 <tr>

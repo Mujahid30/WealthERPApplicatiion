@@ -2784,7 +2784,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void ddlInsuranceIssuerCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblIssuarCode.Text = ddlInsuranceIssuerCode.SelectedItem.Text;
+            lblIssuerCode.Text = ddlInsuranceIssuerCode.SelectedItem.Text;
             BindAssetParticular(ddlInsuranceIssuerCode.SelectedValue);
         }
 

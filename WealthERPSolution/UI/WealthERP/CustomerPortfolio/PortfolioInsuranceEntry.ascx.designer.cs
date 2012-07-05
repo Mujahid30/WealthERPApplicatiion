@@ -32,22 +32,22 @@ namespace WealthERP.CustomerPortfolio {
         protected global::Telerik.Web.UI.RadWindow radwindowPopup;
         
         /// <summary>
-        /// lblIssuar control.
+        /// lblIssuer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIssuar;
+        protected global::System.Web.UI.WebControls.Label lblIssuer;
         
         /// <summary>
-        /// lblIssuarCode control.
+        /// lblIssuerCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIssuarCode;
+        protected global::System.Web.UI.WebControls.Label lblIssuerCode;
         
         /// <summary>
         /// lblAsset control.
