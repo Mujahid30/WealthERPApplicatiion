@@ -84,7 +84,7 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGrpOrInd;
-        
+        protected global::System.Web.UI.WebControls.Panel trPanel1;
         /// <summary>
         /// ddlSelectCustomer control.
         /// </summary>

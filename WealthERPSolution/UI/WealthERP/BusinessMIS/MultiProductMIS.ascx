@@ -182,7 +182,7 @@
     </tr>
 </table>
 
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
+<asp:Panel ID="trPanel1" runat="server" class="Landscape" Width="99%" ScrollBars="Horizontal">
 <table class="TableBackground" width="100%">
  <tr id="trExportFilteredData" runat="server">
             <td>
@@ -322,7 +322,7 @@
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer" 
                         DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Left"/>
+                            <ItemStyle HorizontalAlign="Left"  />
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderText="Instrument Category" 
