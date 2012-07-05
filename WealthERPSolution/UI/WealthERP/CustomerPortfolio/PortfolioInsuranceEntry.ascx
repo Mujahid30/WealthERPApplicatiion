@@ -92,12 +92,6 @@
     }
 </script>
 
-<script type="text/javascript">
-    function DownloadScript() {
-        var btn = document.getElementById('<%= btnInsertNewScheme.ClientID %>');
-        btn.click();
-    }
-</script>
 
 <script type="text/javascript">
     function CalculateMaturityDate() {
@@ -118,7 +112,46 @@
         document.getElementById("<%= txtPolicyMaturity.ClientID %>").value = newMaturityDate;
     }
 </script>   
-    
+ 
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="Insert New Scheme">
+<ContentTemplate>
+    <div style="padding: 20px">
+        <table width="100%">
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtAsset" ErrorMessage="Enter the Scheme Name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                        <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton"
+                        OnClick="btnOk_OnClick" ValidationGroup="vgOK" />
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" OnClick="btnCancel_OnClick"/>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</ContentTemplate>
+</telerik:RadWindow>
+   
 <table style="width: 100%;">
     <tr>
         <td colspan="6">
@@ -220,20 +253,7 @@
             OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGMediumButton" Text="Add Scheme"
-                CausesValidation="false" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddScheme"
-                PopupControlID="Panel2" BackgroundCssClass="modalBackground" OnOkScript="DownloadScript()" y="150"
-                DropShadow="true" OkControlID="btnOk" CancelControlID="btnCancel" PopupDragHandleControlID="Panel2">
-            </cc1:ModalPopupExtender>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            &nbsp;
+                CausesValidation="false" OnClick="btnAddScheme_OnClick"/>
         </td>
     </tr>
     <tr>
@@ -1196,56 +1216,6 @@
             <hr />
         </td>
     </tr>
-    <%--<tr id="trULIPSchemeBasket" runat="server">
-        <td class="leftField" colspan="2">
-            <asp:Label ID="Label33" runat="server" CssClass="FieldName" Text="Scheme Basket:"></asp:Label>
-        </td>
-        <td colspan="4">
-            <asp:DropDownList ID="ddlUlipPlans" runat="server" CssClass="cmbField" AutoPostBack="True"
-                OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="Span33" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="ddlUlipPlans"
-                ValidationGroup="vgSubmit" ErrorMessage="Please select Scheme Basket" Operator="NotEqual"
-                ValueToCompare="Select a ULIP Plan" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
-            <asp:Button ID="btnAddPlanToULIP" runat="server" CssClass="PCGMediumButton" Text="Add ULIP Plan"
-                CausesValidation="false" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="6">
-            <cc1:ModalPopupExtender ID="MPforULIP" runat="server" TargetControlID="btnAddPlanToULIP"
-                PopupControlID="pnlforULIP" BackgroundCssClass="modalBackground" OnOkScript="btnInsertNewSchemeULIPClick()"
-                DropShadow="true" OkControlID="btnOkULIP" CancelControlID="btnCancelULIP" PopupDragHandleControlID="pnlforULIP">
-            </cc1:ModalPopupExtender>
-        </td>
-    </tr>--%>
-    <%--<tr id="trULIPAllocation" runat="server">
-        <td align="left" style="width: 12%;">
-            <asp:Label ID="lblULIPSubPlan" runat="server" CssClass="FieldName" Text="Sub-Plan Code"></asp:Label>
-        </td>
-        <td align="left" style="width: 12;">
-            <asp:Label ID="lblInvestedCost" runat="server" CssClass="FieldName" Text="Invested Cost"></asp:Label>
-        </td>
-        <td align="left" style="width: 12;">
-            <asp:Label ID="lblULIPUnits" runat="server" CssClass="FieldName" Text="Current Units"></asp:Label>
-        </td>
-        <td align="left" style="width: 12%;">
-            <asp:Label ID="lblULIPPurchasePrice" runat="server" CssClass="FieldName" Text="Purchase Price"></asp:Label>
-        </td>
-        <td align="left" style="width: 12%;">
-            <asp:Label ID="lblULIPPurchaseDate" runat="server" CssClass="FieldName" Text="Purchase Date"></asp:Label>
-        </td>
-        <td align="left" style="width: 12%;">
-            <asp:Label ID="lblCurrentValue" runat="server" CssClass="FieldName" Text="Current Value"></asp:Label>
-        </td>
-        <td align="left" style="width: 12%;">
-            <asp:Label ID="lblAbsoluteReturn" runat="server" CssClass="FieldName" Text="Absolute Return"></asp:Label>
-        </td>
-        <td align="left" style="width: 16%;">
-            <asp:Label ID="lblULIPAllocation" runat="server" CssClass="FieldName" Text="Allocation Percentage"></asp:Label>
-        </td>
-    </tr>--%>
     <asp:Panel ID="pnlGridView" runat="server">
         <tr id="trULIPAllocation" runat="server">
             <td align="left" colspan="6">
@@ -1744,86 +1714,3 @@
         </td>
     </tr>
 </table>
-
-<asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="100%">
-    <asp:UpdatePanel ID="udpSchemeName" runat="Server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <table width="100%">
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtAsset" ErrorMessage="Please enter the Scheme Name"
-                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
-                        </asp:RequiredFieldValidator>
-                        <br />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" CausesValidation="false"
-                            ValidationGroup="vgOK" />
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                    </td>
-                </tr>
-            </table>
-            <asp:Button ID="btnInsertNewScheme" runat="server" Text="Scheme" Style="display: none"
-                OnClick="btnInsertNewScheme_Click" CausesValidation="false" />
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnOk" EventName="Click" />
-        </Triggers>
-    </asp:UpdatePanel>
-</asp:Panel>
-
-<%--<asp:Panel ID="pnlforULIP" runat="server" CssClass="ExortPanelpopup" Width="100%"
-    Height="85%">
-    <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <table width="100%">
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblNewSchemeBasket" runat="server" CssClass="FieldName" Text="Issuar Name:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:Label ID="lblNewPlanName" runat="server" CssClass="FieldName" Text=""></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
-                        <asp:Label ID="lblSchemeName" runat="server" CssClass="FieldName" Text="Plan Name:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtULIPSchemeName" runat="server" CssClass="txtField"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnOkULIP" runat="server" Text="Submit" CssClass="PCGButton" CausesValidation="false"
-                            ValidationGroup="vgOkULIP" />
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Button ID="btnCancelULIP" runat="server" Text="Cancel" CssClass="PCGButton" />
-                    </td>
-                </tr>
-                <asp:Button ID="btnInsertNewPlanULIP" runat="server" Text="Scheme" Style="display: none"
-                    CausesValidation="false" OnClick="btnInsertNewPlanULIP_Click" />
-            </table>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnOkULIP" EventName="Click" />
-        </Triggers>
-    </asp:UpdatePanel>
-</asp:Panel>--%>

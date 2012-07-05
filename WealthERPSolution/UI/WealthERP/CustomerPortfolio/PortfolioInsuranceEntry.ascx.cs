@@ -3001,7 +3001,7 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-        protected void btnInsertNewScheme_Click(object sender, EventArgs e)
+        protected void btnOk_OnClick(object sender, EventArgs e)
         {
             OrderBo orderbo = new OrderBo();
             string assetCategory = customerAccountVo.AssetCategory.Trim();
@@ -3011,8 +3011,19 @@ namespace WealthERP.CustomerPortfolio
                     orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlInsuranceIssuerCode.SelectedValue, assetCategory);
             }
             BindAssetParticular(ddlInsuranceIssuerCode.SelectedValue);
+            radwindowPopup.VisibleOnPageLoad = false;
         }
 
+        protected void btnCancel_OnClick(object sender, EventArgs e)
+        {
+            radwindowPopup.VisibleOnPageLoad = false;
+        }
+
+        protected void btnAddScheme_OnClick(object sender, EventArgs e)
+        {
+            radwindowPopup.VisibleOnPageLoad = true;
+        }
+        
         public void BindAssetParticular(string issuerCode)
         {
             ddlAssetPerticular.Items.Clear();
