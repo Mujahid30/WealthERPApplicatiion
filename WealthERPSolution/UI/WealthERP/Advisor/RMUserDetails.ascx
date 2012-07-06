@@ -85,7 +85,7 @@
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="RM User Details"></asp:Label>
+            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Staff user Management:"></asp:Label>
             <hr />
         </td>
     </tr>
