@@ -100,7 +100,7 @@ namespace WealthERP.CustomerPortfolio
                             trUpdate.Visible = false;
                             trSubmit.Visible = false;
                             trEdit.Visible = true;
-                            trBack.Visible = true;
+                            //trBack.Visible = true;
                             //btnCoborrowers.Visible = false;
                             ViewLiability();
                         }
@@ -109,7 +109,7 @@ namespace WealthERP.CustomerPortfolio
                             trUpdate.Visible = true;
                             trSubmit.Visible = false;
                             trEdit.Visible = false;
-                            trBack.Visible = true;
+                            //trBack.Visible = true;
                             //btnCoborrowers.Visible = true;
                             EditLiability();
                         }
