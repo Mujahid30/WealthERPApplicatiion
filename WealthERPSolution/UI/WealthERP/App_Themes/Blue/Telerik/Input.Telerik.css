@@ -13,11 +13,13 @@
 html body .RadInput_Telerik .riTextBox,
 html body .RadInputMgr_Telerik
 {
-	border-color:#adb0b2 #dce2e6 #e6ecf0 #e6e9eb;
-	background:#ffffff;
-	color:#000000;
-	font:12px "segoe ui",arial,sans-serif;
+        width: 145px;
+    font-size: x-small;
+    color: #16518A;
+    font-weight: normal;
+    font-family: Verdana,Tahoma;
 }
+
 
 html body .RadInput_Telerik .riEmpty,
 html body .RadInput_Empty_Telerik
