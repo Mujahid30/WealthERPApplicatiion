@@ -712,7 +712,7 @@ namespace WealthERP.Uploads
                                                         inputRejectCount = uploadsCommonBo.GetInputRejectForCAMSProfile(processlogVo.ProcessId);
                                                         if (inputRejectCount != 0)
                                                         {
-                                                            txtInputRejectedRecords.Text =inputRejectCount.ToString();
+                                                            txtInputRejectedRecords.Text = inputRejectCount.ToString();
                                                             txtInputRejectedRecords.Visible = true;
                                                             lblTotalInputRecordsRejected.Visible = true;
                                                         }
@@ -2155,7 +2155,7 @@ namespace WealthERP.Uploads
 
 
 
-                                    //****************Systematic Uploads**************\\
+                                //****************Systematic Uploads**************\\
                                 //********************Shantanu**********************\\
 
                                 #region MF CAMS Systematic Upload
@@ -3127,7 +3127,7 @@ namespace WealthERP.Uploads
                                                     packagePath = Server.MapPath("\\UploadPackages\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\EQTransactionUploadPackage\\UploadChecksOnEQStdTranStaging.dtsx");
 
                                                     if (ddlListCompany.SelectedValue != Contants.UploadExternalTypeODIN)
-                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId,"WP");
+                                                        werpEQFirstStagingCheckResult = werpEQUploadsBo.WERPEQProcessDataInSecondStagingTransForODINUploads(UploadProcessId, packagePath, configPath, adviserVo.advisorId, "WP");
                                                     else if (ddlListCompany.SelectedValue == Contants.UploadExternalTypeODIN)
                                                     {
                                                         if (ddlAction.SelectedValue == "NSE")
@@ -3245,7 +3245,7 @@ namespace WealthERP.Uploads
                                     else
                                         txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
 
-                                    if (inputRejects!=0)
+                                    if (inputRejects != 0)
                                     {
                                         txtInputRejectedRecords.Text = inputRejects.ToString();
                                         txtInputRejectedRecords.Visible = true;
@@ -4546,7 +4546,7 @@ namespace WealthERP.Uploads
                 #region Trail Commision for Templeton
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Templeton")
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\TempletonTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4592,7 +4592,7 @@ namespace WealthERP.Uploads
                 #region Trail Commision for Cams
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "CAMS")
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5490,7 +5490,7 @@ namespace WealthERP.Uploads
                                             dr1["CET_TradeNum"] = 0;
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
-                                           
+
 
                                             ifl++;
                                             dtIIFL.Rows.Add(dr1);
@@ -5517,7 +5517,7 @@ namespace WealthERP.Uploads
                                             dr1["CET_TradeNum"] = 0;
                                             dr1["CET_OrderNum"] = 0;
                                             dr1["CET_IsSpeculative"] = 0;
-                                          
+
 
                                             ifl++;
                                             dtIIFL.Rows.Add(dr1);
@@ -5667,7 +5667,7 @@ namespace WealthERP.Uploads
                                 dtOdin.Columns.Add("CET_OrderNum");
                                 dtOdin.Columns.Add("CET_IsSpeculative");
                                 dtOdin.Columns.Add("column25");
-                                
+
                                 //foreach (DataRow dr in dtOdin.Rows)
                                 //{
                                 //    dt.Columns.Add(dr[""].ToString());
@@ -5703,7 +5703,7 @@ namespace WealthERP.Uploads
                                         dr1["CET_TradeNum"] = dr["Col22"].ToString();
                                         dr1["CET_OrderNum"] = dr["Col1"].ToString();
                                         dr1["CET_IsSpeculative"] = 0;
-                                        dr1["column25"] = dr["Col25"].ToString(); 
+                                        dr1["column25"] = dr["Col25"].ToString();
 
                                         i++;
                                         dtOdin.Rows.Add(dr1);
@@ -5734,7 +5734,7 @@ namespace WealthERP.Uploads
                                         dr1["CET_TradeTotal"] = 0;
                                         dr1["CET_TradeNum"] = dr["Col3"].ToString();
                                         dr1["CET_OrderNum"] = dr["Col13"].ToString();
-                                        dr1["CET_IsSpeculative"] = 0;                                        
+                                        dr1["CET_IsSpeculative"] = 0;
                                         i++;
                                         dtOdin.Rows.Add(dr1);
 
@@ -6466,8 +6466,8 @@ namespace WealthERP.Uploads
 
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            string ddlCompanyType="ODIN";
-            string ddlUploadType="EQT";
+            string ddlCompanyType = "ODIN";
+            string ddlUploadType = "EQT";
             message = Show_Message(ddlUploadType, ddlCompanyType);
             lblFileType.Visible = true;
             lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
