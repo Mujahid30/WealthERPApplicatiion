@@ -1784,8 +1784,8 @@ namespace WealthERP.CustomerPortfolio
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "PortfolioFixedIncomeEntry.ascx.cs:btnSaveChanges_Click()");
                 object[] objects = new object[3];
-                objects[0] = fixedincomeVo;
-                objects[1] = newFixedIncomeVo;
+                objects[0] = newFixedIncomeVo;
+                objects[1] = fixedincomeVo;                
                 objects[2] = customerAccountVo;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1868,7 +1868,7 @@ namespace WealthERP.CustomerPortfolio
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
 
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountsVo.AssetCategory.ToString().Trim() == "FICG")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FITB" || customerAccountVo.AssetCategory.ToString().Trim() == "FIIB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICB" || customerAccountVo.AssetCategory.ToString().Trim() == "FICG")
                 {
                     newFixedIncomeVo.CustomerId = customerVo.CustomerId;
                     newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
@@ -2022,7 +2022,7 @@ namespace WealthERP.CustomerPortfolio
 
                     fixedincomeBo.UpdateFixedIncomePortfolio(newFixedIncomeVo, userVo.UserId);
                 }
-                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountsVo.AssetCategory.ToString().Trim() == "FITF")
+                if (customerAccountVo.AssetCategory.ToString().Trim() == "FIPS" || customerAccountVo.AssetCategory.ToString().Trim() == "FICE" || customerAccountVo.AssetCategory.ToString().Trim() == "FITF")
                 {
                     newFixedIncomeVo.CustomerId = customerVo.CustomerId;
                     newFixedIncomeVo.AccountId = customerAccountVo.AccountId;
