@@ -44,6 +44,7 @@ namespace WealthERP.Advisor
         int bmIdOrHeadID;
         int branchId;
         int all;
+        string rm = "";
 
         private const string ASCENDING = " ASC";
         private const string DESCENDING = " DESC";
@@ -155,18 +156,53 @@ namespace WealthERP.Advisor
 
         #endregion
 
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            SessionBo.CheckSession();
+            rmVo = (RMVo)Session["rmVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            userVo = (UserVo)Session["UserVo"];
+            string rm = "";
+            try
+            {
+                if (!IsPostBack)
+                {
+
+                    //mypager.CurrentPage = 1;
+                    this.BindGrid();
+                }
+                //if (Session["RM"] != null)
+                //{
+                //    ShowRM();
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewRM.ascx.cs:Page_Load()");
+                object[] objects = new object[1];
+                objects[0] = rmVo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            //gvRMList_Init(sender, e);
+        }
+
         protected void BindGrid()
         {
             try
             {
-
-                advisorVo = (AdvisorVo)Session["advisorVo"];
-                userVo = (UserVo)Session["UserVo"];
-                if (hdnCurrentPage.Value.ToString() != "")
-                {
-                    //mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                    hdnCurrentPage.Value = "";
-                }
+                           
+                
                 if (Session["RM"] != null)
                 {
 
@@ -198,46 +234,11 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            
-            string rm = "";
-            try
-            {
-                if (!IsPostBack)
-                {
-                    
-                    //mypager.CurrentPage = 1;
-                    this.BindGrid();
-                }
-                //if (Session["RM"] != null)
-                //{
-                //    ShowRM();
-                //}
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewRM.ascx.cs:Page_Load()");
-                object[] objects = new object[1];
-                objects[0] = rmVo;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            //gvRMList_Init(sender, e);
-        }
+   
 
         private void ShowRM()
         {
-            string rm = "";
+            
             DataTable dtAdvisorStaff = new DataTable();
             DataRow drAdvisorStaff;
             DataTable dt = new DataTable();
@@ -246,9 +247,9 @@ namespace WealthERP.Advisor
 
             try
             {
-                rm = Session["RM"].ToString();
-                if (rm.ToLower().Trim() == "find rm" || rm.ToLower().Trim() == "")
-                    rm = "";
+                rm = Session["RM"].ToString().Trim();
+                if (rm.ToLower().Trim() == "find staff" || rm.ToLower().Trim() == string.Empty)
+                    rm = string.Empty;
 
                 ds = advisorStaffBo.FindRM(rm, advisorVo.advisorId, hdnSort.Value.ToString(), out count);
 
@@ -295,6 +296,20 @@ namespace WealthERP.Advisor
 
                     gvRMList.DataSource = dtAdvisorStaff;
                     gvRMList.DataBind();
+
+                    //gvRMList.MasterTableView.FilterExpression = "([Name] LIKE \'%" + rm + "%\')";
+
+                    if (Cache["RMList" + advisorVo.advisorId.ToString()] == null)
+                    {
+                        Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
+                    }
+                    else
+                    {
+                        Cache.Remove("RMList" + advisorVo.advisorId.ToString());
+                        Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
+                    }
+
+                    
                     //this.GetPageCount();
                 }
                 else
@@ -393,7 +408,20 @@ namespace WealthERP.Advisor
                         gvRMList.Columns[5].Visible = false;
                         gvRMList.Columns[4].Visible = false;
                         gvRMList.DataBind();
+
+
+                        if (Cache["RMList" + advisorVo.advisorId.ToString()] == null)
+                        {
+                            Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
+                        }
+                        else
+                        {
+                            Cache.Remove("RMList" + advisorVo.advisorId.ToString());
+                            Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
+                        }
+
                         
+                       
 
                         //this.GetPageCount();
                     }
@@ -460,18 +488,19 @@ namespace WealthERP.Advisor
                         gvRMList.DataBind();
 
 
-
-                        if (Cache["RMList"] == null)
+                        if (Cache["RMList" + advisorVo.advisorId.ToString()] == null)
                         {
-                            Cache.Insert("RMList", dtAdvisorStaff);
+                            Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
                         }
                         else
                         {
-                            Cache.Remove("RMList");
-                            Cache.Insert("RMList", dtAdvisorStaff);
+                            Cache.Remove("RMList" + advisorVo.advisorId.ToString());
+                            Cache.Insert("RMList" + advisorVo.advisorId.ToString(), dtAdvisorStaff);
                         }
 
                         
+
+
                         //this.GetPageCount();
                     }
                     else
@@ -735,8 +764,20 @@ namespace WealthERP.Advisor
         {
             trMessage.Visible = false;
             DataTable dtMIS = new DataTable();
-            dtMIS = (DataTable)Cache["RMList"];
+            dtMIS = (DataTable)Cache["RMList" + advisorVo.advisorId.ToString()];
             gvRMList.DataSource = dtMIS;
+        }
+
+        protected void gvRMList_PreRender(object sender, System.EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
+                gvRMList.MasterTableView.FilterExpression = "([RMName] LIKE \'%" + rm.Trim() + "%\') ";
+                GridColumn column = gvRMList.MasterTableView.GetColumnSafe("RMName");
+                column.CurrentFilterFunction = GridKnownFunction.Contains;
+                column.CurrentFilterValue = rm;
+                gvRMList.MasterTableView.Rebind();
+            }
         }
 
         protected void ddlNameFilter_OnSelectedIndexChanged(object sender, EventArgs e)

@@ -140,7 +140,7 @@
                 <telerik:RadGrid ID="gvRMList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource">
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvRMList_OnNeedDataSource" OnPreRender="gvRMList_PreRender">
                     <ExportSettings FileName="Staff Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
@@ -179,7 +179,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridTemplateColumn> --%>
                             <telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText="Name"
-                                UniqueName="Name">
+                                UniqueName="RMName">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="WealthERP Id" AllowFiltering="true" HeaderText="Id"
