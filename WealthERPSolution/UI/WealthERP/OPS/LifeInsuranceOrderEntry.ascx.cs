@@ -540,7 +540,7 @@ namespace WealthERP.OPS
             //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
             if (txtAsset.Text.Trim() != "")
                 if (ddlPolicyIssuer.SelectedIndex != 0)
-                    orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
+                    //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
 
             BindAssetParticular();
         }
@@ -549,7 +549,7 @@ namespace WealthERP.OPS
         {
             if (txtAsset.Text.Trim() != "")
                 if (ddlPolicyIssuer.SelectedIndex != 0)
-                    orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
+                    //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
 
             BindAssetParticular();
         }
