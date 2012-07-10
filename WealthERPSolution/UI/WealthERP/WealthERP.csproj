@@ -2343,6 +2343,13 @@
     <Compile Include="OPS\ManualOrderMapping.aspx.designer.cs">
       <DependentUpon>ManualOrderMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OPS\MFOrderEntry.ascx.cs">
+      <DependentUpon>MFOrderEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\MFOrderEntry.ascx.designer.cs">
+      <DependentUpon>MFOrderEntry.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\OrderEntry.ascx.cs">
       <DependentUpon>OrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5795,6 +5802,7 @@
     <Content Include="OPS\CustomerOrderList.ascx" />
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
+    <Content Include="OPS\MFOrderEntry.ascx" />
     <Content Include="OPS\OrderEntry.ascx" />
     <Content Include="OPS\OrderList.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />

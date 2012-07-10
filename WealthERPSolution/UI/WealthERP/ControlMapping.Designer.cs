@@ -1681,6 +1681,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//MFOrderEntry.ascx.
+        /// </summary>
+        internal static string MFOrderEntry {
+            get {
+                return ResourceManager.GetString("MFOrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reports//MFReports.ascx.
         /// </summary>
         internal static string MFReports {

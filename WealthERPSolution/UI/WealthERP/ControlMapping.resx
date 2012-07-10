@@ -1389,4 +1389,8 @@
     <value>Uploads//ViewEQTransactionInputrejects.ascx</value>
     <comment>Uploads//ViewEQTransactionInputrejects.ascx</comment>
   </data>
+  <data name="MFOrderEntry" xml:space="preserve">
+    <value>OPS//MFOrderEntry.ascx</value>
+    <comment>OPS//MFOrderEntry.ascx</comment>
+  </data>
 </root>
