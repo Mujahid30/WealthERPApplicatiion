@@ -1005,17 +1005,18 @@ p.tip
 }
 
 .divSectionHeading
-{
+{    
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;   
-    background-color:#FFECA3;
+    border-radius: 4px;   
+    background-color:#FCD654;
     color:#4B4726;
     font-weight:bold;
+    font-size:small;
     height:20px;
     vertical-align:middle;  
     padding-left:15px;
-    border:0px;    
+    border:0px;   
 }
 
 .trHeader
