@@ -975,12 +975,13 @@ p.tip
 
 .divSectionHeading
 {
-    -moz-border-radius: 10px;
+     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    border-radius: 10px;   
-    background-color:#A8BFCF;
-    color:#144E78;
+    border-radius: 4px;   
+    background-color:#C7B5FA;
+    color:#351D78;
     font-weight:bold;
+    font-size:small;
     height:20px;
     vertical-align:middle;  
     padding-left:15px;
