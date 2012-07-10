@@ -131,17 +131,16 @@ namespace WealthERP.CustomerPortfolio
         protected void Page_Load(object sender, EventArgs e)
         {
             trExportFilteredData.Visible = false;
-           SessionBo.CheckSession();
-            
-            if (!IsPostBack)
-            {
+            SessionBo.CheckSession();
+
+            //if (!IsPostBack)
+            //{
                 this.Page.Culture = "en-GB";
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.LoadGridView();
                 BindPortfolioDropDown();
 
-            }
-            
+            //}
 
         }
         private void BindPortfolioDropDown()
