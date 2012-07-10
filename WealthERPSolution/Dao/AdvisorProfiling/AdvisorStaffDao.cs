@@ -329,7 +329,7 @@ namespace DaoAdvisorProfiling
                 ds = db.ExecuteDataSet(findRMCmd);
 
 
-                count = Int32.Parse(ds.Tables[1].Rows[0][0].ToString());
+                count = 0;
             }
             catch (BaseApplicationException Ex)
             {
