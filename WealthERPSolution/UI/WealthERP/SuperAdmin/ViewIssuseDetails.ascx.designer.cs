@@ -65,7 +65,7 @@ namespace WealthERP.SuperAdmin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
+        protected global::System.Web.UI.WebControls.Button btnExportFilteredData;
         
         /// <summary>
         /// gvCSIssueTracker control.

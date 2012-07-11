@@ -1,16 +1,15 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewIssuseDetails.ascx.cs" Inherits="WealthERP.SuperAdmin.ViewIssuseDetails" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewIssuseDetails.ascx.cs"
+    Inherits="WealthERP.SuperAdmin.ViewIssuseDetails" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
-    
-<telerik:RadScriptManager ID="RadScriptManager1" runat="server">  
+<telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
-
-
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
@@ -18,72 +17,70 @@
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <style type="text/css">
-/*CollapsiblePanel*/
-.ContainerPanel
-{    
-	width:200px;
-	border:2px;
-	border-color:#FFFFFF;	
-	border-style:double double double double;
-}
-.collapsePanelHeader
-{
-	width:200px;
-	height:20px;
-	background-image: url(images/bg-menu-main.png);
-	background-repeat:repeat-x;
-	color:#FFF;
-	font-weight:bold;
-}
-
-
-
-.HeaderContent
-{ 
-    float:left;
-	padding-left:5px;
-    font-family: Verdana,Tahoma;
-    font-weight: bold;
-    font-size: small;
-    color: #FFFFFF;	
-}
-.Content
-{
-	
-}
-.ArrowExpand
-{
-    vertical-align:middle;
-	background-image: url(images/expand_blue.jpg);
-	width:13px;
-	height:13px;
-	float:right;
-	margin-top:3px;
-	margin-right:5px;
-}
-.ArrowExpand:hover
-{
-	cursor:hand;
-}
-.ArrowClose
-{
-    vertical-align:middle;
-	background-image: url(images/collapse_blue.jpg);
-	width:13px;
-	height:13px;
-	float:right;
-	margin-top:3px;
-	margin-right:5px;
-}
-.ArrowClose:hover
-{
-	cursor:hand;
-}
+    /*CollapsiblePanel*/
+    .ContainerPanel
+    {
+        width: 200px;
+        border: 2px;
+        border-color: #FFFFFF;
+        border-style: double double double double;
+    }
+    .collapsePanelHeader
+    {
+        width: 200px;
+        height: 20px;
+        background-image: url(images/bg-menu-main.png);
+        background-repeat: repeat-x;
+        color: #FFF;
+        font-weight: bold;
+    }
+    .HeaderContent
+    {
+        float: left;
+        padding-left: 5px;
+        font-family: Verdana,Tahoma;
+        font-weight: bold;
+        font-size: small;
+        color: #FFFFFF;
+    }
+    .Content
+    {
+    }
+    .ArrowExpand
+    {
+        vertical-align: middle;
+        background-image: url(images/expand_blue.jpg);
+        width: 13px;
+        height: 13px;
+        float: right;
+        margin-top: 3px;
+        margin-right: 5px;
+    }
+    .ArrowExpand:hover
+    {
+        cursor: hand;
+    }
+    .ArrowClose
+    {
+        vertical-align: middle;
+        background-image: url(images/collapse_blue.jpg);
+        width: 13px;
+        height: 13px;
+        float: right;
+        margin-top: 3px;
+        margin-right: 5px;
+    }
+    .ArrowClose:hover
+    {
+        cursor: hand;
+    }
 </style>
-          <script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
-        <script type="text/javascript" language="javascript">
-            $(document).ready(function() {
-                $("DIV.ContainerPanel > DIV.collapsePanelHeader > DIV.ArrowExpand").toggle(
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        $("DIV.ContainerPanel > DIV.collapsePanelHeader > DIV.ArrowExpand").toggle(
                 function() {
                     $(this).parent().next("div.Content").show("slow");
                     $(this).attr("class", "ArrowClose");
@@ -94,8 +91,8 @@
                 });
 
 
-            });            
-        </script>
+    });            
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -107,19 +104,17 @@
 
 <table width="1012px">
     <tr>
-    <td class="HeaderCell">
-        <asp:Label ID="lblPriceMonitoring" CssClass="HeaderTextBig" runat="server" Text="CSIssue Tracker"></asp:Label>
-    </td>
+        <td class="HeaderCell">
+            <asp:Label ID="lblPriceMonitoring" CssClass="HeaderTextBig" runat="server" Text="CSIssue Tracker"></asp:Label>
+        </td>
     </tr>
     <tr>
-    <td>
-    <hr />
-    </td>
+        <td>
+            <hr />
+        </td>
     </tr>
-    </table>
-        
-   
-   <%--<div> 
+</table>
+<%--<div> 
         <div id="ContainerPanel" class="ContainerPanel">
         <div id="header" class="collapsePanelHeader"> 
             <div id="dvHeaderText" class="HeaderContent">More Export Options</div>
@@ -161,111 +156,106 @@
     </div>          
     
     </div>--%>
-   
-    
- <table class="TableBackground" width="100%">
- <tr align="center">
-     <td>
-        <table>
-            <tr>
-                 <td>
-                    <asp:TextBox runat="server" ID="txtSearch"  CssClass="txtField"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="PCGButton" 
-                        onclick="btnSearch_Click"></asp:Button>
-                </td>
-            </tr>
-        </table>
-    </td>
- </tr>
- <tr>
-    <td>
-       <%-- <asp:Button  runat="server" Text="Export filtered data to Excel" CssClass="PCGLongLongButton" OnClick="btnExportFilteredData_OnClick" ID="btnExportFilteredData" />
---%>    
-          <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" ></asp:ImageButton>
-    </td>
- </tr>
+<table class="TableBackground" width="100%">
+    <tr align="center">
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <asp:TextBox runat="server" ID="txtSearch" CssClass="txtField"></asp:TextBox>
+                    </td>
+                    <td>
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="PCGButton" OnClick="btnSearch_Click">
+                        </asp:Button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <tr>
-        <td>   
-                   <telerik:RadGrid ID="gvCSIssueTracker" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" 
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
-                    <ExportSettings FileName="CSLIST" HideStructureColumns="true" ExportOnlyData="true"></ExportSettings>
-                    <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"  CommandItemDisplay="None">
-                     <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                    ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false"/>
-                      <Columns>                         
+        <td>
+            <asp:Button runat="server" Text="Export filtered data to Excel" CssClass="PCGLongLongButton"
+                OnClick="btnExportFilteredData_OnClick" ID="btnExportFilteredData"></asp:Button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <telerik:RadGrid ID="gvCSIssueTracker" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                
+                <MasterTableView DataKeyNames="CSI_id,XMLCSS_Name,XMLCSL_Name" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
                         <telerik:GridTemplateColumn HeaderText="Issue Code" AllowFiltering="false">
                             <ItemStyle />
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lnkCSIssue" runat="server" CssClass="cmbField" Text='<%# Eval("CSI_Code") %>' OnClick="lnkCSIssue_Click">
-                                        </asp:LinkButton>
-                                </ItemTemplate>                         
-                         </telerik:GridTemplateColumn>
-                         
-                        <telerik:GridBoundColumn DataField="XMLCSL_Name" AllowFiltering="false"  HeaderText="Active Level" UniqueName="ActiveLevel" >
-                            <ItemStyle  Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />                            
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkCSIssue" runat="server" CssClass="cmbField" Text='<%# Eval("CSI_Code") %>'
+                                    OnClick="lnkCSIssue_Click">
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn DataField="XMLCSL_Name" AllowFiltering="false" HeaderText="Active Level"
+                            UniqueName="ActiveLevel">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                         
-                         <telerik:GridBoundColumn  DataField="A_OrgName" AllowFiltering="false" HeaderText="Org Name" UniqueName="OrgName">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn DataField="A_OrgName" AllowFiltering="false" HeaderText="Org Name"
+                            UniqueName="OrgName">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                         
-                         <telerik:GridBoundColumn  DataField="CSI_CustomerDescription"  AllowFiltering="false" HeaderText="Description" UniqueName="Description">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="true" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                         
-                         
-                         
-                        <telerik:GridDateTimeColumn  DataField="CSI_ReportedDate" SortExpression="CSI_ReportedDate" AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="true" HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn DataField="CSI_CustomerDescription" AllowFiltering="false"
+                            HeaderText="Description" UniqueName="Description">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridDateTimeColumn DataField="CSI_ReportedDate" SortExpression="CSI_ReportedDate"
+                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="true"
+                            HeaderText="Reported Date" UniqueName="ReportedDate" DataFormatString="{0:d}">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             <FilterTemplate>
-                                <telerik:RadDatePicker ID="calFilter" runat="server"></telerik:RadDatePicker>
+                                <telerik:RadDatePicker ID="calFilter" runat="server">
+                                </telerik:RadDatePicker>
                             </FilterTemplate>
-                        </telerik:GridDateTimeColumn> 
-                        
-                        <telerik:GridBoundColumn  DataField="UR_RoleName" AllowFiltering="false"  HeaderText="Role Name" UniqueName="RoleName">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                        
-                        <telerik:GridBoundColumn  DataField="WTN_TreeNodeText" AllowFiltering="false" HeaderText="TreeNodeText" UniqueName="TreeNodeText">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                         
-                        <telerik:GridBoundColumn  DataField="XMLCSP_Name" AllowFiltering="false" HeaderText="Priority" UniqueName="Priority">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridDateTimeColumn>
+                        <telerik:GridBoundColumn DataField="UR_RoleName" AllowFiltering="false" HeaderText="Role Name"
+                            UniqueName="RoleName">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        
-                        <telerik:GridBoundColumn  DataField="XMLCST_Name" HeaderText="Issue Type" UniqueName="IssueType">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                        
-                        <telerik:GridBoundColumn AllowFiltering="false" DataField="CSILA_Version" HeaderText="Release no" UniqueName="ReleaseVersion">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                        
-                        <telerik:GridDateTimeColumn  HeaderText="Closed Date" DataField="CSI_ResolvedDate" UniqueName="ResolvedDate" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn DataField="WTN_TreeNodeText" AllowFiltering="false" HeaderText="TreeNodeText"
+                            UniqueName="TreeNodeText">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="XMLCSP_Name" AllowFiltering="false" HeaderText="Priority"
+                            UniqueName="Priority">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="XMLCST_Name" HeaderText="Issue Type" UniqueName="IssueType">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn AllowFiltering="false" DataField="CSILA_Version" HeaderText="Release no"
+                            UniqueName="ReleaseVersion">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridDateTimeColumn HeaderText="Closed Date" DataField="CSI_ResolvedDate"
+                            UniqueName="ResolvedDate" DataFormatString="{0:d}">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             <FilterTemplate>
-                                <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server"></telerik:RadDatePicker>
+                                <telerik:RadDatePicker ID="resolveDateFilter" AutoPostBack="true" runat="server">
+                                </telerik:RadDatePicker>
                             </FilterTemplate>
-                        </telerik:GridDateTimeColumn> 
-                        
-                        <telerik:GridBoundColumn  HeaderText="status" SortExpression="XMLCSS_Name" CurrentFilterFunction="Contains" AutoPostBackOnFilter="false" AllowFiltering="true" DataField="XMLCSS_Name" UniqueName="status">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn> 
-                        
+                        </telerik:GridDateTimeColumn>
+                        <telerik:GridBoundColumn HeaderText="status" SortExpression="XMLCSS_Name" CurrentFilterFunction="Contains"
+                            AutoPostBackOnFilter="false" AllowFiltering="true" DataField="XMLCSS_Name" UniqueName="status">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                     </Columns>
-                    </MasterTableView>
-                    <ClientSettings>                       
-                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
-                    </telerik:RadGrid>
-              
-    </td>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
     </tr>
- </table>
+</table>

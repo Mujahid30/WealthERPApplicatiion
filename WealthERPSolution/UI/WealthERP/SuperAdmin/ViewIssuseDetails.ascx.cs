@@ -45,16 +45,16 @@ namespace WealthERP.SuperAdmin
             }           
         }
 
-        //public void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        //{
-        //    gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
-        //    gvCSIssueTracker.ExportSettings.IgnorePaging = true;
-        //    foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
-        //    {
-        //        filter.Visible = false;
-        //    }
-        //    gvCSIssueTracker.MasterTableView.ExportToCSV();
-        //} 
+        public void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
+            gvCSIssueTracker.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCSIssueTracker.MasterTableView.ExportToCSV();
+        } 
 
         public void csIssueGridViewBind()
         { 
@@ -169,15 +169,17 @@ namespace WealthERP.SuperAdmin
 
         }
 
-        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
-        {
-            gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
-            gvCSIssueTracker.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvCSIssueTracker.MasterTableView.ExportToExcel();
-        }
+        //protected void btnExportFilteredData1_OnClick(object sender, ImageClickEventArgs e)
+        //{
+        //    //gvCSIssueTracker.ExportSettings.OpenInNewWindow = true;
+        //    //gvCSIssueTracker.ExportSettings.IgnorePaging = true;
+        //    //foreach (GridFilteringItem filter in gvCSIssueTracker.MasterTableView.GetItems(GridItemType.FilteringItem))
+        //    //{
+        //    //    filter.Visible = false;
+        //    //}
+        //    //gvCSIssueTracker.MasterTableView.ExportToCSV();
+
+          
+        //}
     }
 }
