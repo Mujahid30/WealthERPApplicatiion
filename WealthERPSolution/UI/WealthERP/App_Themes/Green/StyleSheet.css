@@ -989,6 +989,27 @@ p.tip
     border:0px;
     
 }
+
+.divPageHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;
+    border: solid 1px;   
+    border-color:#7CA644;    
+    color:#7CA644;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:25px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+   
+    z-index: 2; 
+    
+    
+}
+
 .trHeader
 {
     background-color: #16721A;
