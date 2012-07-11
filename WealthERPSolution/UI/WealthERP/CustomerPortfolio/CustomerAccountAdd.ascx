@@ -26,7 +26,7 @@
         <table style="width: 100%;">
             <tr>
                 <td>
-                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Life Insurance Account Entry"></asp:Label>
+                    <asp:Label ID="lblCustAccountHeader" class="HeaderTextBig" runat="server" Text="Fixed Income Account Entry"></asp:Label>
                 </td>
             </tr>
             <tr>
