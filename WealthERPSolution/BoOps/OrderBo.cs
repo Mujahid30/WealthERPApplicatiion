@@ -637,5 +637,35 @@ namespace BoOps
             }
             return bResult;
         }
+
+        public DataTable GetCustomerOrderStepStatus(string orderstepCode)
+        {
+            DataTable dtOrderStatus = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderStatus = orderDao.GetCustomerOrderStepStatus(orderstepCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtOrderStatus;
+        }
+
+        public DataTable GetCustomerOrderStepStatusRejectReason(string orderstepCode)
+        {
+            DataTable dtOrderStatus = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderStatus = orderDao.GetCustomerOrderStepStatusRejectReason(orderstepCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtOrderStatus;
+        }
     }
 }

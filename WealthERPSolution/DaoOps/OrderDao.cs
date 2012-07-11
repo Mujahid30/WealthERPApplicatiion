@@ -208,10 +208,10 @@ namespace DaoOps
                 db.AddInParameter(LifeInsuranceOrderCmd, "@CustBankAccId", DbType.String, lifeInsuranceOrdervo.CustBankAccId);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@SumAssured", DbType.Double, lifeInsuranceOrdervo.SumAssured);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@FrequencyCode", DbType.String, lifeInsuranceOrdervo.FrequencyCode);
-                if (lifeInsuranceOrdervo.HoldingMode == null || lifeInsuranceOrdervo.HoldingMode == "" || lifeInsuranceOrdervo.HoldingMode == "Select")
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
-                else
+                if (lifeInsuranceOrdervo.HoldingMode != null && lifeInsuranceOrdervo.HoldingMode != "" && lifeInsuranceOrdervo.HoldingMode != "Select")
                     db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, lifeInsuranceOrdervo.HoldingMode);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId); 
                 db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
@@ -1054,6 +1054,48 @@ namespace DaoOps
                 throw exBase;
             }
             return bResult;
+        }
+
+        public DataTable GetCustomerOrderStepStatus(string orderstepCode)
+        {
+            DataSet ds = null;
+            DataTable dt;
+            Database db;
+            DbCommand dbCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCmd = db.GetStoredProcCommand("SP_GetCustomerOrderStepStatus");
+                db.AddInParameter(dbCmd, "@WOS_OrderStepCode", DbType.String, orderstepCode);
+                ds = db.ExecuteDataSet(dbCmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable GetCustomerOrderStepStatusRejectReason(string orderstepCode)
+        {
+            DataSet ds = null;
+            DataTable dt;
+            Database db;
+            DbCommand dbCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCmd = db.GetStoredProcCommand("SP_GetCustomerOrderStepStatusRejectReason");
+                db.AddInParameter(dbCmd, "@WOS_OrderStepCode", DbType.String, orderstepCode);
+                ds = db.ExecuteDataSet(dbCmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return dt;
         }
     }
 }
