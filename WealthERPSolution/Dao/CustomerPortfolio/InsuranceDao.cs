@@ -938,12 +938,21 @@ namespace DaoCustomerPortfolio
                         insuranceUlipVo.CIUP_Unit = float.Parse(dr["CINPUD_Unit"].ToString());
                         insuranceUlipVo.WUP_ULIPSubPlaCode = dr["ISF_SchemeFundId"].ToString();
 
-                        insuranceUlipVo.CIUP_CurrentValue = float.Parse(dr["CINPUD_CurrentValue"].ToString());
-                        insuranceUlipVo.CIUP_InvestedCost = float.Parse(dr["CINPUD_InvestedCost"].ToString());
-                        insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(dr["CINPUD_AbsoluteReturn"].ToString());
+                        if (dr["CINPUD_CurrentValue"].ToString() != null && dr["CINPUD_CurrentValue"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_CurrentValue = float.Parse(dr["CINPUD_CurrentValue"].ToString());
+                        else
+                            insuranceUlipVo.CIUP_CurrentValue = 0;
+
+                        if (dr["CINPUD_InvestedCost"].ToString() != null && dr["CINPUD_InvestedCost"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_InvestedCost = float.Parse(dr["CINPUD_InvestedCost"].ToString());
+                        else
+                            insuranceUlipVo.CIUP_InvestedCost = 0;
+                        if (dr["CINPUD_AbsoluteReturn"].ToString() != null && dr["CINPUD_AbsoluteReturn"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(dr["CINPUD_AbsoluteReturn"].ToString());
+                        else
+                            insuranceUlipVo.CIUP_AbsoluteReturn = 0;
 
                         insuranceUlipList.Add(insuranceUlipVo);
-
                     }
                 }
             }
