@@ -79,17 +79,8 @@ namespace WealthERP.OPS
                 btnUpdate.Visible = false;
                 lnkBtnEdit.Visible = false;
                 lnlBack.Visible = false;
-
-                if (!string.IsNullOrEmpty(Request.QueryString["strCustomerId"]))
-                {
-                    customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
-                    customerVo = customerBo.GetCustomer(customerId);
-                    hdnCustomerId.Value = customerVo.CustomerId.ToString();
-                    txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
-                    lblGetBranch.Text = customerVo.BranchName;
-                    lblGetRM.Text = customerVo.RMName;
-                    lblgetPan.Text = customerVo.PANNum;
-                }
+                SetControls(true);
+                ddlModeOfHolding.Enabled = false;
 
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
@@ -102,6 +93,14 @@ namespace WealthERP.OPS
                     customerId = Convert.ToInt32(Request.QueryString["strCustomerId"]);
                     orderId = Convert.ToInt32(Request.QueryString["strOrderId"]);
                     lifeInsuranceOrdervo = orderbo.GetLifeInsuranceOrderDetails(orderId);
+
+                    customerVo = customerBo.GetCustomer(customerId);
+                    hdnCustomerId.Value = customerVo.CustomerId.ToString();
+                    txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
+                    lblGetBranch.Text = customerVo.BranchName;
+                    lblGetRM.Text = customerVo.RMName;
+                    lblgetPan.Text = customerVo.PANNum;
+
                     SetControls(false);
                     lnkBtnEdit.Visible = true;
                     lnlBack.Visible = true;
@@ -144,7 +143,8 @@ namespace WealthERP.OPS
             lblGetBranch.Text = customerVo.BranchName;
             lblGetRM.Text = customerVo.RMName;
             lblgetPan.Text = customerVo.PANNum;
-            //hdnCustomerId.Value = txtCustomerId.Value;
+            if (txtCustomerId.Value != null && txtCustomerId.Value != "")
+                hdnCustomerId.Value = txtCustomerId.Value;
             txtCustomerName.Text = customerVo.FirstName+customerVo.MiddleName+customerVo.LastName;
             //customerId = int.Parse(txtCustomerId.Value);
             BindBankAccountDetails();
@@ -326,7 +326,8 @@ namespace WealthERP.OPS
 
             lifeInsuranceOrdervo = new LifeInsuranceOrderVo();
 
-            lifeInsuranceOrdervo.CustomerId = int.Parse(hdnCustomerId.Value);
+            if (hdnCustomerId.Value != null && hdnCustomerId.Value != "")
+                lifeInsuranceOrdervo.CustomerId = int.Parse(hdnCustomerId.Value);
             lifeInsuranceOrdervo.ApplicationNumber = txtApplicationNo.Text;
             if (txtApplicationDate.SelectedDate != null)
                 lifeInsuranceOrdervo.ApplicationReceivedDate = txtApplicationDate.SelectedDate.Value;
@@ -354,7 +355,8 @@ namespace WealthERP.OPS
             lifeInsuranceOrdervo.OrderStepCode = "AL";
             lifeInsuranceOrdervo.OrderStatusCode = ddlOrderStatus.SelectedValue;
             lifeInsuranceOrdervo.ReasonCode = ddlReason.SelectedValue;
-            lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);
+            if (hdnCustomerId.Value != null && hdnCustomerId.Value != "")
+                lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);
             //lifeInsuranceOrdervo.AssociationId = 0;
             //lifeInsuranceOrdervo.AssociationType = "Joint Holder";
             if (txtMaturityDate.SelectedDate != null)
@@ -423,7 +425,7 @@ namespace WealthERP.OPS
             ddlInstrumentCategory.Enabled = bentry;
             ddlPolicyIssuer.Enabled = bentry;
             ddlAssetPerticular.Enabled = bentry;
-            btnAddNew.Enabled = bentry;
+            btnOpenPopup.Enabled = bentry;
             pnlHolding.Enabled = bentry;
             rbtnYes.Enabled = bentry;
             rbtnNo.Enabled = bentry;
@@ -445,7 +447,7 @@ namespace WealthERP.OPS
             ddlEPPremiumFrequencyCode.Enabled = bentry;
             ddlOrderStatus.Enabled = bentry;
             ddlReason.Enabled = bentry;
-            chkCA.Enabled = bentry;
+            //chkCA.Enabled = bentry;
         }
 
         public void SetEditableControls(bool editable)
@@ -464,7 +466,7 @@ namespace WealthERP.OPS
             ddlEPPremiumFrequencyCode.Enabled = editable;
             ddlOrderStatus.Enabled = editable;
             ddlReason.Enabled = editable;
-            chkCA.Enabled = editable;
+            //chkCA.Enabled = editable;
         }
 
         public void SetValuesToControls(LifeInsuranceOrderVo lifeInsuranceOrdervo)
@@ -536,42 +538,39 @@ namespace WealthERP.OPS
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            //if(txtAsset.Text.Trim() != "")
-            //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
-            if (txtAsset.Text.Trim() != "")
-                if (ddlPolicyIssuer.SelectedIndex != 0)
-                    //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
-
-            BindAssetParticular();
-        }
-
-        protected void btnInsertAsset_Click(object sender, EventArgs e)
-        {
-            if (txtAsset.Text.Trim() != "")
-                if (ddlPolicyIssuer.SelectedIndex != 0)
-                    //orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue);
-
-            BindAssetParticular();
+            if (txtAsset.Text.Trim() != "" && ddlPolicyIssuer.SelectedIndex != 0 && ddlInstrumentCategory.SelectedIndex != 0)
+            {                
+                orderbo.InsertAssetParticularScheme(txtAsset.Text.Trim(), ddlPolicyIssuer.SelectedValue, ddlInstrumentCategory.SelectedValue);
+                BindAssetParticular();
+            }
+            radwindowPopup.VisibleOnPageLoad = false;
         }
 
         protected void RadioButton_CheckChanged(object sender, EventArgs e)
         {
             if (rbtnYes.Checked)
             {
-                ddlModeOfHolding.SelectedIndex = 0;
-                if (gvPickNominee.Rows.Count >= 1)
+                if (txtCustomerName.Text.Trim() != "")
                 {
-                    lblPickJointHolder.Visible = true;
-                    gvPickJointHolder.Visible = true;
-                    gvPickNominee.Visible = true;
-                    lblPickNominee.Visible = true;
+                    if (gvPickNominee.Rows.Count >= 1)
+                    {
+                        ddlModeOfHolding.SelectedIndex = 0;
+                        lblPickJointHolder.Visible = true;
+                        gvPickJointHolder.Visible = true;
+                        gvPickNominee.Visible = true;
+                        lblPickNominee.Visible = true;
+                        ddlModeOfHolding.Enabled = true;
+                    }
+                    else
+                    {
+                        gvPickNominee.Visible = false;
+                        lblPickNominee.Visible = false;
+                    }
                 }
                 else
                 {
-                    gvPickNominee.Visible = false;
-                    lblPickNominee.Visible = false;
+                    //lblError.Text = "Enter the customer name";
                 }
-                ddlModeOfHolding.Enabled = true;
             }
             else if (rbtnNo.Checked)
             {
@@ -584,13 +583,13 @@ namespace WealthERP.OPS
                 gvPickJointHolder.Visible = true;
             }
         }
-        protected void rbtnNo_Load(object sender, EventArgs e)
-        {
-            if (rbtnNo.Checked)
-            {
-                ddlModeOfHolding.Enabled = false;
-            }
-        }
+        //protected void rbtnNo_Load(object sender, EventArgs e)
+        //{
+        //    if (rbtnNo.Checked)
+        //    {
+        //        ddlModeOfHolding.Enabled = false;
+        //    }
+        //}
 
         public void BindAssetParticular()
         {
@@ -608,8 +607,7 @@ namespace WealthERP.OPS
 
         protected void ddlPolicyIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblIssuarCode.Text = ddlPolicyIssuer.SelectedItem.Text;
-
+            lblIssuerCode.Text = ddlPolicyIssuer.SelectedItem.Text;
             BindAssetParticular();
         }
 
@@ -649,19 +647,18 @@ namespace WealthERP.OPS
             }
         }
 
-        protected void chkCA_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkCA.Checked == true)
-                ddlOrderStatus.Enabled = true;
-            else
-            {
-                ddlOrderStatus.Enabled = false;
-                ddlOrderStatus.SelectedValue = "OMIP";
-                //ddlOrderPendingReason.Visible = false;
-                //lblOrderPendingReason.Visible = false;
-
-            }
-        }
+        //protected void chkCA_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (chkCA.Checked == true)
+        //        ddlOrderStatus.Enabled = true;
+        //    else
+        //    {
+        //        ddlOrderStatus.Enabled = false;
+        //        ddlOrderStatus.SelectedValue = "OMIP";
+        //        ddlOrderPendingReason.Visible = false;
+        //        lblOrderPendingReason.Visible = false;
+        //    }
+        //}
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -772,7 +769,7 @@ namespace WealthERP.OPS
         {
             DataSet dsOrderSteps = new DataSet();
             DataTable dtOrderDetails;
-            SetControls(false);
+            //SetControls(false);
             dsOrderSteps = orderbo.GetOrderStepsDetails(orderId);
             dtOrderDetails = dsOrderSteps.Tables[0];
             if (dtOrderDetails.Rows.Count == 0)
@@ -792,11 +789,20 @@ namespace WealthERP.OPS
         {
             if (e.Item is GridEditableItem && e.Item.IsInEditMode)
             {
-                //DataTable dt = (DataTable)Session["OrderDetails"];
-                //RadComboBox rcStatus = (RadComboBox)e.Item.FindControl("rcbStatus");
-                //RadComboBox rcPendingReason = (RadComboBox)e.Item.FindControl("rcbPendingReason");
-                //rcStatus.AutoPostBack = true;
-                //rcStatus.SelectedIndexChanged += new RadComboBoxSelectedIndexChangedEventHandler(this.rcStatus_SelectedIndexChanged);                
+                DataTable dt = (DataTable)Session["OrderDetails"];
+
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                RadComboBox comboOrderStatus = (RadComboBox)editItem.FindControl("ddlCustomerOrderStatus");
+                RadComboBox comboOrderStatusReason = (RadComboBox)editItem.FindControl("ddlCustomerOrderStatusReason");
+                string orderstepCode = dt.Rows[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString().Trim();
+
+                comboOrderStatus.DataSource = orderbo.GetCustomerOrderStepStatus(orderstepCode);
+                comboOrderStatus.DataTextField = "XS_Status";
+                comboOrderStatus.DataValueField = "XS_StatusCode";
+
+                comboOrderStatusReason.DataSource = orderbo.GetCustomerOrderStepStatusRejectReason(orderstepCode);
+                comboOrderStatusReason.DataTextField = "XSR_StatusReason";
+                comboOrderStatusReason.DataValueField = "XSR_StatusReasonCode";
             }
         }
 
@@ -816,79 +822,61 @@ namespace WealthERP.OPS
         protected void rgvOrderSteps_ItemDataBound(object sender, GridItemEventArgs e)
         {
             DataTable dt = (DataTable)Session["OrderDetails"];
-            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
+            if (e.Item is GridDataItem)
             {
-                GridEditableItem edititem = (GridEditableItem)e.Item;
-                RadComboBox rcStatus = (RadComboBox)edititem.FindControl("rcbStatus");
-                RadComboBox rcPendingReason = (RadComboBox)edititem.FindControl("rcbPendingReason");
-                string orderStepCode = dt.Rows[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString().Trim();
-                int orderid = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["CO_OrderId"].ToString().Trim());
-                BindRadComboBoxStatus(rcStatus, orderStepCode, orderid);
-                rcPendingReason.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("Select Reason", "0"));
-                //orderStatusCode = rcStatus.SelectedValue;                
-            }
+                GridDataItem dataItem = e.Item as GridDataItem;
+                //((Literal)dataItem["DropDownColumnStatus"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
+                //((Literal)dataItem["DropDownColumnStatusReason"].Controls[0]).Text = dataItem.GetDataKeyValue("WOS_OrderStepCode").ToString();
 
-            //if ((e.Item is GridEditableItem) && (e.Item.IsInEditMode))
-            //{
-            //    GridEditableItem edititem = (GridEditableItem)e.Item;
-            //    RadComboBox rcStatus = (RadComboBox)edititem.FindControl("rcbStatus");
-            //    RadComboBox rcPendingReason = (RadComboBox)edititem.FindControl("rcbPendingReason");
-            //    string orderStepCode = dt.Rows[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString().Trim();
-            //    int orderid = Convert.ToInt32(dt.Rows[e.Item.ItemIndex]["CO_OrderId"].ToString().Trim());
-            //    BindRadComboBoxStatus(rcStatus, orderStepCode, orderid);
-            //    rcPendingReason.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("Select Reason", "0"));
-            //    //orderStatusCode = rcStatus.SelectedValue;                
-            //}
+                LinkButton editButton = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
+                string editColumn = dataItem["COS_IsEditable"].Text;
+                if (editColumn == "1")
+                {
+                    editButton.Enabled = true;
+                }
+                else
+                {
+                    editButton.Enabled = false;
+                }
+            }
         }
 
         protected void rgvOrderSteps_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            this.rgvOrderSteps.DataSource = Session["OrderDetails"];            
+            this.rgvOrderSteps.DataSource = (DataTable)Session["OrderDetails"];            
         }
 
         protected void rgvOrderSteps_ItemCommand(object source, GridCommandEventArgs e)
         {
-            bool bResult = false;
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem dataItem = e.Item as GridDataItem;
-                //string schemeName = dataItem["PASP_SchemePlanName"].Text;
-
-                LinkButton button = dataItem["EditCommandColumn"].Controls[0] as LinkButton;
-            }
-            else if (e.CommandName == "Update")
+            bool bResult = false; 
+            if (e.CommandName == "Update")
             {
                 GridEditableItem edititem = e.Item as GridEditableItem;
                 GridEditFormItem editform = (GridEditFormItem)e.Item;
-                RadComboBox rcStatus = (RadComboBox)editform.FindControl("rcbStatus");
-                RadComboBox rcPendingReason = (RadComboBox)editform.FindControl("rcbPendingReason");
+
+                RadComboBox rcStatus = edititem.FindControl("ddlCustomerOrderStatus") as RadComboBox;
+                RadComboBox rcPendingReason = edititem.FindControl("ddlCustomerOrderStatusReason") as RadComboBox;
 
                 DataTable dt = new DataTable();
                 dt = (DataTable)Session["OrderDetails"];
 
                 string orderStepCode = dt.Rows[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString().Trim();
-                int orderId = int.Parse(dt.Rows[e.Item.ItemIndex]["CO_OrderId"].ToString().Trim());
+                orderId = int.Parse(dt.Rows[e.Item.ItemIndex]["CO_OrderId"].ToString().Trim());
                 string updatedStatus = rcStatus.SelectedValue;
                 string updatedReason = rcPendingReason.SelectedValue;
 
                 bResult = orderbo.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
                 if (bResult == true)
                 {
-                    rgvOrderSteps.Controls.Add(new LiteralControl("<strong>Successfully Updated</strong>"));
+                    rgvOrderSteps.Controls.Add(new LiteralControl("<strong>Successfully Updated</strong>"));                    
                 }
                 else
                 {
                     rgvOrderSteps.Controls.Add(new LiteralControl("<strong>Unable to update value</strong>"));
                     e.Canceled = true;
                 }
+                BindOrderStepsGrid();
             }
-            //else
-            //{
-            //    GridEditCommandColumn editColumn = (GridEditCommandColumn)rgvOrderSteps.MasterTableView.GetColumn("EditCommandColumn");
-            //    if (!editColumn.Visible)
-            //        editColumn.Visible = true;
-            //    BindOrderStepsGrid();
-            //}
         }
 
         protected void rcStatus_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
@@ -923,6 +911,16 @@ namespace WealthERP.OPS
             RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
             string statusOrderCode = rcStatus.SelectedValue;
             BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
+        }
+
+        protected void btnOpenPopup_Click(object sender, EventArgs e)
+        {
+            radwindowPopup.VisibleOnPageLoad = true;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            radwindowPopup.VisibleOnPageLoad = false;
         }
     }
 }

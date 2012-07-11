@@ -20,12 +20,7 @@
     function GetCustomerId(source, eventArgs) {
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
         return false;
-    }
-
-    function DownloadScript() {
-        var btn = document.getElementById('<%= btnInsertAsset.ClientID %>');
-        btn.click();
-    }
+    }    
 </script>
 
 <script>
@@ -40,6 +35,44 @@
     }
 </script>
 
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%" 
+Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="Add New Scheme">
+<ContentTemplate>
+    <div style="padding: 20px">
+        <table width="100%">
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblIssuer" runat="server" Text="Insurance Issuer: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Label ID="lblIssuerCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtAsset" ErrorMessage="Enter the Scheme Name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" OnClick="btnOk_Click" ValidationGroup="vgOK"/>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false" OnClick="btnCancel_Click"/>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</ContentTemplate>
+</telerik:RadWindow>
+
+ 
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -174,18 +207,12 @@
             <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <%--<asp:TextBox ID="txtAssetPerticular" runat="server" CssClass="txtField"></asp:TextBox>--%>
-            <asp:Button ID="btnAddNew" runat="server" Text="Add New" CssClass="PCGButton" />
+            <%--<asp:Button ID="btnAddNew" runat="server" Text="Add New" CssClass="PCGButton" />   --%>          
+            <asp:Button ID="btnOpenPopup" runat="server" Text="Add New" CssClass="PCGButton" CausesValidation="false" OnClick="btnOpenPopup_Click"/>
+            
         </td>
     </tr>
-    <tr>
-        <td colspan="2">
-            <cc1:ModalPopupExtender ID="MPEAssetParticular" runat="server" TargetControlID="btnAddNew"
-                PopupControlID="Panel2" BackgroundCssClass="modalBackground" DropShadow="true"
-                OkControlID="btnOk" OnOkScript="DownloadScript()" CancelControlID="btnCancel"
-                PopupDragHandleControlID="Panel2">
-            </cc1:ModalPopupExtender>
-        </td>
-    </tr>
+    
     <asp:UpdatePanel ID="UPNomineeJointHoldingGrid" runat="server">
         <ContentTemplate>
             <tr>
@@ -197,8 +224,9 @@
                         <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
                             CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
                         <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
-                            AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" OnLoad="rbtnNo_Load"
+                            AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged"
                             Checked="True" />
+                             <%--OnLoad="rbtnNo_Load"--%>
                     </asp:Panel>
                 </td>
                 <td class="leftField" style="width: 10%">
@@ -444,14 +472,14 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+<%--<tr>
         <td class="leftField" style="width: 10%">
             <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="chkCA_CheckedChanged" />
         </td>
         <td>
             <asp:Label ID="lblCustomerApproval" runat="server" CssClass="FieldName" Text=": Customer Approval"></asp:Label>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="rightField" style="width: 25%">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
@@ -461,125 +489,67 @@
         </td>
     </tr>
 </table>
-<%--<asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="80%">
-    
-</asp:Panel>--%>
-<asp:Panel ID="Panel2" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="85%">
-    <asp:UpdatePanel ID="udpInnerUpdatePanel" runat="Server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <table width="100%">
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox><br />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" OnClick="btnOk_Click" />
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" />
-                        <asp:Button ID="btnInsertAsset" runat="server" Style="display: none" OnClick="btnInsertAsset_Click" />
-                    </td>
-                </tr>
-            </table>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnOk" EventName="Click" />
-        </Triggers>
-    </asp:UpdatePanel>
-</asp:Panel>
-<asp:Panel ID="pnlOrderSteps" runat="server" CssClass="ExortPanelpopup" Width="100%" Height="80%">
+
+<div class="divSectionHeading" style="vertical-align: text-bottom">
+    Order Steps
+</div>
+        
+<asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%">
     <table width="100%">
         <tr>
             <td>
-                <asp:Label ID="lblSteps" runat="server" Text="Order Steps" CssClass="FieldName"></asp:Label>
                 <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" 
-                    GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="False"
+                    GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="false" AutoGenerateColumns="False" OnItemCreated="rgvOrderSteps_ItemCreated"
                     ShowStatusBar="true" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
-                    OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand">
-                    <mastertableview commanditemdisplay="none" editmode="PopUp" EnableViewState="false">
-                    <%--OnUpdateCommand="rgULIPSubPlanSchedule_UpdateCommand"--%>
+                    OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand" OnNeedDataSource="rgvOrderSteps_NeedDataSource">
+                    <mastertableview commanditemdisplay="none" editmode="PopUp" EnableViewState="false">                    
                         <Columns>
-                         <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="OrderId" UniqueName="CO_OrderId">
+                         <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="OrderId" UniqueName="CO_OrderId" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Summary" UniqueName="WOS_OrderStep">
+                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Summary" UniqueName="WOS_OrderStep" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataField="XS_Status"  HeaderText="Status" UniqueName="XS_Status">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataField="XSR_StatusReason"  HeaderText="Pending Reason" UniqueName="XSR_StatusReason">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataField="CMFOS_Date"  HeaderText="Date" UniqueName="CMFOS_Date">
-                            <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>                        
+                        
+                       <%-- <telerik:GridDropDownColumn UniqueName="DropDownColumnStatus" HeaderText="Status" 
+                        ListTextField="XS_Status" ListValueField="XS_StatusCode" DataField="XS_StatusCode"></telerik:GridDropDownColumn>
+                        
+                        <telerik:GridDropDownColumn UniqueName="DropDownColumnStatusReason" HeaderText="Pending Reason"
+                        ListTextField="XSR_StatusReason" ListValueField="XSR_StatusReasonCode" DataField="XSR_StatusReasonCode"></telerik:GridDropDownColumn>--%>
+                        
+                        
+                        <telerik:GridTemplateColumn DataField="XS_StatusCode" HeaderText="Status" 
+                         UniqueName="DropDownColumnStatus">  
+                            <EditItemTemplate> 
+                                <telerik:RadComboBox ID="ddlCustomerOrderStatus" SelectedValue='<%#Bind("XS_StatusCode") %>' runat="server">  
+                                </telerik:RadComboBox> 
+                            </EditItemTemplate> 
+                            <ItemTemplate>
+                               <%#DataBinder.Eval(Container.DataItem, "XS_Status")%>  
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        
+                        <telerik:GridTemplateColumn DataField="XSR_StatusReasonCode" HeaderText="Pending Reason" 
+                         UniqueName="DropDownColumnStatusReason">  
+                            <EditItemTemplate> 
+                                <telerik:RadComboBox ID="ddlCustomerOrderStatusReason" SelectedValue='<%#Bind("XSR_StatusReasonCode") %>' runat="server">  
+                                </telerik:RadComboBox> 
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                               <%#DataBinder.Eval(Container.DataItem, "XSR_StatusReason")%>  
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>                         
+                        
+                        <telerik:GridDateTimeColumn DataField="CMFOS_Date" HeaderText="Date" DataFormatString="{0:d}" HtmlEncode="false" DataType="System.DateTime"
+                        UniqueName="CMFOS_Date" ReadOnly="true"/>
+                        
                         <telerik:GridEditCommandColumn UpdateText="Update" EditText="Edit" UniqueName="EditCommandColumn" CancelText="Cancel">                
                             <HeaderStyle Width="85px"></HeaderStyle>
-                        </telerik:GridEditCommandColumn>
+                        </telerik:GridEditCommandColumn>                        
+                        <telerik:GridBoundColumn DataField="COS_IsEditable" DataType="System.Boolean" UniqueName="COS_IsEditable" Display="false" ReadOnly="True">
+                        </telerik:GridBoundColumn>
+
                     </Columns>
-                <EditFormSettings FormTableStyle-HorizontalAlign="Center"
-                    PopUpSettings-Modal="true" PopUpSettings-ZIndex="80" CaptionFormatString="Archive Scheme:"
-                    CaptionDataField="CO_OrderId" EditFormType="Template">
-                <FormTemplate>
-                    <table cellspacing="1" cellpadding="1" width="100%" border="0">
-                        <tr>
-                            <td class="leftField">
-                            <asp:Label ID="lblPickAMC" runat="server" CssClass="FieldName" Text="Status:"></asp:Label>
-                            </td>
-                            <td class="rightField">
-                                <telerik:RadComboBox ID="rcbStatus" runat="server" CssClass="GridViewCmbField" AutoPostBack="true"
-                                OnSelectedIndexChanged="rcStatus_SelectedIndexChanged"> 
-                                </telerik:RadComboBox> 
-                                
-                                <%--OnSelectedIndexChanged="rcStatus_SelectedIndexChanged"--%>
-                                <%--<asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="true" CssClass="GridViewCmbField" >                                
-                                </asp:DropDownList>--%>
-                                <span id="Span3" class="spnRequiredField">*</span> 
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Text="Please Select Status" InitialValue="Select AMC Code" 
-                                    ControlToValidate="rcbStatus" Display="Dynamic" runat="server"
-                                    CssClass="rfvPCG" ValidationGroup="Button1">
-                                </asp:RequiredFieldValidator>
-                            </td> 
-                        </tr>
-                        <tr>
-                            <td class="leftField">
-                                <asp:Label ID="lblAMC" runat="server" CssClass="FieldName" Text="Reason:"></asp:Label>
-                            </td>
-                            <td class="rightField">
-                                <telerik:RadComboBox ID="rcbPendingReason" runat="server" CssClass="GridViewCmbField"
-                                EnableLoadOnDemand= "True" OnItemsRequested= "rcbPendingReason_ItemsRequested"> 
-                                </telerik:RadComboBox>                                 
-                               <%-- <asp:DropDownList ID="ddlPendingReason" runat="server" CssClass="GridViewCmbField">
-                                </asp:DropDownList>--%>
-                            </td>
-                        </tr> 
-                        <tr>
-                            <td class="leftField"></td>
-                            <td class="rightField">
-                                <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CssClass="PCGButton"
-                                  runat="server" ValidationGroup="Button1" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
-                                </asp:Button>&nbsp;
-                                <asp:Button ID="Button2" Text="Cancel" CssClass="PCGButton" runat="server" CausesValidation="False" CommandName="Cancel">
-                                </asp:Button>
-                            </td>
-                        </tr>               
-                    </table>
-                </FormTemplate>
-            </EditFormSettings>
         </mastertableview>
     </telerik:RadGrid>
 </td>
