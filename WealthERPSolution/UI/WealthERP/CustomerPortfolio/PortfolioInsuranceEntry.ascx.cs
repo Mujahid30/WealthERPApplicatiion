@@ -3195,7 +3195,12 @@ namespace WealthERP.CustomerPortfolio
             
             double investedCost = double.Parse((editedItem["CINPUD_InvestedCost"].Controls[0] as TextBox).Text.Trim());
             double currentValue = double.Parse((editedItem["CINPUD_CurrentValue"].Controls[0] as TextBox).Text.Trim());
-            double absoluteReturn = ((currentValue - investedCost) / investedCost)*100;
+            double absoluteReturn;
+            if (investedCost != 0)
+                absoluteReturn = ((currentValue - investedCost) / investedCost) * 100;
+            else
+                absoluteReturn = 0;
+
             double allocationPer = Convert.ToDouble((editedItem["CINPUD_AllocationPer"].Controls[0] as TextBox).Text.Trim());
             double unit = Convert.ToDouble((editedItem["CINPUD_Unit"].Controls[0] as TextBox).Text.Trim());
 
@@ -3262,7 +3267,7 @@ namespace WealthERP.CustomerPortfolio
                 RequiredFieldValidator validatorInvestedCost = new RequiredFieldValidator();
                 editorInvestedCost.TextBoxControl.ID = "rfInvestedCost";
                 validatorInvestedCost.ControlToValidate = editorInvestedCost.TextBoxControl.ID;
-                validatorInvestedCost.ErrorMessage = "Select invested cost";
+                validatorInvestedCost.ErrorMessage = "Select funds allocated";
                 cellInvestedCost.Controls.Add(validatorInvestedCost);
 
                 RequiredFieldValidator validatorUnit = new RequiredFieldValidator();
