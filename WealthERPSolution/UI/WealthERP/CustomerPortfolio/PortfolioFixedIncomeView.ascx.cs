@@ -133,14 +133,14 @@ namespace WealthERP.CustomerPortfolio
             trExportFilteredData.Visible = false;
             SessionBo.CheckSession();
 
-            //if (!IsPostBack)
-            //{
+            if (!IsPostBack)
+            {
                 this.Page.Culture = "en-GB";
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                 this.LoadGridView();
                 BindPortfolioDropDown();
 
-            //}
+            }
 
         }
         private void BindPortfolioDropDown()
