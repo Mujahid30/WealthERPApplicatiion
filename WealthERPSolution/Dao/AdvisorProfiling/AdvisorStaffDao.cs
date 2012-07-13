@@ -325,7 +325,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(findRMCmd, "@AR_FirstName", DbType.String, rmName);
                 db.AddInParameter(findRMCmd, "@A_AdviserId", DbType.Int16, advisorId);
                 //db.AddInParameter(findRMCmd, "@CurrentPage", DbType.Int16, currentpage);
-                db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
+               // db.AddInParameter(findRMCmd, "@SortOrder", DbType.String, sortorder);
                 ds = db.ExecuteDataSet(findRMCmd);
 
 
