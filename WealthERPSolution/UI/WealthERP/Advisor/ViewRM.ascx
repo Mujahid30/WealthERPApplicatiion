@@ -5,91 +5,92 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
-  <script language="javascript" type="text/javascript">
+<script language="javascript" type="text/javascript">
 
 
-      var column = null;
-      var columnName = null;
+    var column = null;
+    var columnName = null;
 
 
-      function MenuShowing(sender, args) {
+    function MenuShowing(sender, args) {
 
-          if (column == null) return;
-          if (columnName == null) return;
-
-
-          var menu = sender; var items = menu.get_items();
+        if (column == null) return;
+        if (columnName == null) return;
 
 
-          if (columnName == "WealthERP Id") {
+        var menu = sender; var items = menu.get_items();
 
 
-              var i = 0;
+        if (columnName == "WealthERP Id") {
 
 
-              while (i < items.get_count()) {
+            var i = 0;
 
 
-                  if (!(items.getItem(i).get_value() in { 'NoFilter': '', 'Contains': '', 'EqualTo': '', 'GreaterThan': '', 'LessThan': '' })) {
-                      var item = items.getItem(i);
-                      if (item != null)
-                          item.set_visible(false);
-                  }
-                  else {
-                      var item = items.getItem(i);
-                      if (item != null)
-                          item.set_visible(true);
-                  } i++;
+            while (i < items.get_count()) {
 
 
-              }
+                if (!(items.getItem(i).get_value() in { 'NoFilter': '', 'Contains': '', 'EqualTo': '', 'GreaterThan': '', 'LessThan': '' })) {
+                    var item = items.getItem(i);
+                    if (item != null)
+                        item.set_visible(false);
+                }
+                else {
+                    var item = items.getItem(i);
+                    if (item != null)
+                        item.set_visible(true);
+                } i++;
 
 
-          }
-          else if (DataType = "System.String" || columnName == "RMName" || columnName == "StaffType" || columnName == "StaffRole" || columnName == "BranchList") {
-
-              {
-                  var j = 0;
+            }
 
 
+        }
+        else if (DataType = "System.String" || columnName == "RMName" || columnName == "StaffType" || columnName == "StaffRole" || columnName == "BranchList") {
 
-                  while (j < items.get_count()) {
-
-                      //                        alert(items.getItem(j).get_value());
-                      if (!(items.getItem(j).get_value() in { 'NoFilter': '', 'Contains': '', 'DoesNotContain': '', 'StartsWith': '', 'EndsWith': '' })) {
-                          var item = items.getItem(j);
-                          if (item != null)
-                              item.set_visible(false);
-                      }
-                      else {
-                          var item = items.getItem(j);
-                          if (item != null)
-                              item.set_visible(true);
-                      } j++;
+            {
+                var j = 0;
 
 
-                  }
+
+                while (j < items.get_count()) {
+
+                    //                        alert(items.getItem(j).get_value());
+                    if (!(items.getItem(j).get_value() in { 'NoFilter': '', 'Contains': '', 'DoesNotContain': '', 'StartsWith': '', 'EndsWith': '' })) {
+                        var item = items.getItem(j);
+                        if (item != null)
+                            item.set_visible(false);
+                    }
+                    else {
+                        var item = items.getItem(j);
+                        if (item != null)
+                            item.set_visible(true);
+                    } j++;
 
 
-              }
-
-          }
+                }
 
 
-          column = null;
-          columnName = null;
+            }
+
+        }
 
 
-      }
+        column = null;
+        columnName = null;
 
 
-      function filterMenuShowing(sender, eventArgs) {
-          column = eventArgs.get_column();
-          columnName = eventArgs.get_column().get_uniqueName();
-      }
+    }
 
 
-    </script>
+    function filterMenuShowing(sender, eventArgs) {
+        column = eventArgs.get_column();
+        columnName = eventArgs.get_column().get_uniqueName();
+    }
+
+
+</script>
+
 <table class="TableBackground" width="100%">
     <tr id="trMessage" runat="server" visible="false">
         <td>
@@ -178,12 +179,14 @@
                                 </ItemTemplate>
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridTemplateColumn> --%>
-                            <telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText="Name"
-                                UniqueName="RMName">
+                            <telerik:GridBoundColumn DataField="RMName" SortExpression="RMName" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Name" UniqueName="RMName">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="WealthERP Id" AllowFiltering="true" HeaderText="Id"
-                                UniqueName="WealthERP Id">
+                            <telerik:GridBoundColumn DataField="WealthERP Id" SortExpression="WealthERP Id" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Id" UniqueName="WealthERP Id">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
@@ -197,16 +200,19 @@
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="StaffType" AllowFiltering="true" HeaderText="Type"
-                                UniqueName="Type">
+                            <telerik:GridBoundColumn DataField="StaffType" SortExpression="StaffType" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Type" UniqueName="Type">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="StaffRole" AllowFiltering="true" HeaderText="Role"
-                                UniqueName="Role">
+                            <telerik:GridBoundColumn DataField="StaffRole" SortExpression="StaffRole" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Role" UniqueName="Role">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="BranchList" AllowFiltering="true" HeaderText="Branch"
-                                UniqueName="Branch">
+                            <telerik:GridBoundColumn DataField="BranchList" SortExpression="BranchList" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Branch" UniqueName="Branch">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Email" AllowFiltering="false" HeaderText="Email"
@@ -217,12 +223,11 @@
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                         <ClientEvents OnFilterMenuShowing="filterMenuShowing" />
+                        <ClientEvents OnFilterMenuShowing="filterMenuShowing" />
                     </ClientSettings>
                     <FilterMenu OnClientShown="MenuShowing" />
                 </telerik:RadGrid>

@@ -283,12 +283,13 @@ namespace WealthERP.Advisor
                         drAdvisorStaff[0] = dr["u_userId"].ToString();
                         drAdvisorStaff[1] = dr["ar_rmid"].ToString();
                         drAdvisorStaff[2] = dr["ar_firstname"].ToString() + " " + dr["ar_middlename"].ToString() + " " + dr["ar_lastname"].ToString();
+                        drAdvisorStaff[3] = dr["AR_StaffCode"].ToString();
                         if (dr["AR_IsExternalStaff"].ToString() == "1")
-                            drAdvisorStaff[3] = "External";
+                            drAdvisorStaff[4] = "External";
                         else
-                            drAdvisorStaff[3] = "Internal";
-                        drAdvisorStaff[4] = dr["AR_JobFunction"].ToString();
-                        drAdvisorStaff[5] = dr["AR_Email"].ToString();
+                            drAdvisorStaff[4] = "Internal";
+                        drAdvisorStaff[5] = dr["AR_JobFunction"].ToString();
+                        drAdvisorStaff[6] = dr["AR_Email"].ToString();
                         drAdvisorStaff[7] = dr["AR_Mobile"].ToString();
                         drAdvisorStaff[8] = dr["BranchList"].ToString();
                         dtAdvisorStaff.Rows.Add(drAdvisorStaff);
