@@ -248,6 +248,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackHoldings;
         
         /// <summary>
+        /// ImageButton1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+        
+        /// <summary>
         /// rgHoldings control.
         /// </summary>
         /// <remarks>
@@ -356,6 +365,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnkGoBackAll;
         
         /// <summary>
+        /// ImageButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+        
+        /// <summary>
         /// rgAll control.
         /// </summary>
         /// <remarks>
@@ -453,6 +471,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkGoBackRealized;
+        
+        /// <summary>
+        /// ImageButton3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
         
         /// <summary>
         /// rgRealized control.
@@ -617,6 +644,15 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackTaxHoldings;
         
         /// <summary>
+        /// ImageButton4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+        
+        /// <summary>
         /// rgTaxHoldings control.
         /// </summary>
         /// <remarks>
@@ -678,6 +714,15 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnlGoBackTaxRealized;
+        
+        /// <summary>
+        /// ImageButton5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
         
         /// <summary>
         /// rgTaxRealized control.

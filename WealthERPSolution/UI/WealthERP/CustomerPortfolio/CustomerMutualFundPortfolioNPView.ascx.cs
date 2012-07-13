@@ -248,11 +248,11 @@ namespace WealthERP.CustomerPortfolio
             double totalHoldingPL = 0;
             double totalHoldingAbsoluteReturn = 0;
             double totalRealizedPl = 0;
-            double totalRealizedAbsReturn= 0;
+            double totalRealizedAbsReturn = 0;
             double totalALLInvestedCost = 0;
             double totalRealizedInvestedCost = 0;
             double totalHoldingInvestedCost = 0;
-          
+
             SetTaxGridsNull();
             if (intPortfolioListCount == 0)
             {
@@ -314,7 +314,7 @@ namespace WealthERP.CustomerPortfolio
                 // Bind the datatabke to grid
                 //DataRow[] drCategory;
                 //drCategory = dtReturnsHoldings.Select(expresson);
-                if(hdnReturnsHoldingsCategory.Value == "")
+                if (hdnReturnsHoldingsCategory.Value == "")
                     expressonHoldings = "OpenUnits > 0";
                 else
                     expressonHoldings = "OpenUnits > 0 AND Category LIKE '%" + hdnReturnsHoldingsCategory.Value + "%'";
@@ -341,7 +341,7 @@ namespace WealthERP.CustomerPortfolio
 
                 //DataRow[] drTaxRealized = 
 
-                DataTable dtMFReturnsholding  = new DataTable();
+                DataTable dtMFReturnsholding = new DataTable();
                 dtMFReturnsholding = dvReturnsHoldings.ToTable();
 
 
@@ -352,12 +352,12 @@ namespace WealthERP.CustomerPortfolio
                 double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
 
                 if (totalHoldingInvestedCost != 0)
-                    totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost)*100;
+                    totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
 
-                lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn,2).ToString();
+                lblHoldingAbsoluteReturnValue.Text = Math.Round(totalHoldingAbsoluteReturn, 2).ToString();
                 lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
-                  
+
 
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
@@ -373,11 +373,11 @@ namespace WealthERP.CustomerPortfolio
                 sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
                 double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
 
-                if(totalALLInvestedCost != 0)
-                totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost)*100;
+                if (totalALLInvestedCost != 0)
+                    totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost) * 100;
 
-                lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn,2).ToString();
-                lblALLTotalPLValue.Text = Math.Round(totalALLPL,2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn, 2).ToString();
+                lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
@@ -394,9 +394,9 @@ namespace WealthERP.CustomerPortfolio
                 double.TryParse(Convert.ToString(sumObject), out totalRealizedInvestedCost);
 
                 if (totalRealizedInvestedCost != 0)
-                    totalRealizedAbsReturn = (totalRealizedPl / totalRealizedInvestedCost)*100;
+                    totalRealizedAbsReturn = (totalRealizedPl / totalRealizedInvestedCost) * 100;
 
-                lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn,2).ToString();
+                lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn, 2).ToString();
                 lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 rgRealized.DataSource = dtMFReturnsRealized;
                 rgRealized.DataBind();
@@ -524,7 +524,8 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drMFPortfolioRealized[16] = "N/A";
             else
-                drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
+                //drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToShortDateString();
 
         }
 
@@ -617,7 +618,8 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drMFPortfolioAll[23] = "N/A";
             else
-                drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
 
         }
 
@@ -687,7 +689,8 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drMFPortfolioHoldings[18] = "N/A";
             else
-                drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToShortDateString();
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -739,7 +742,8 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drTaxHoldings[15] = "N/A";
             else
-                drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
 
         }
 
@@ -787,7 +791,8 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.FolioStartDate == DateTime.MinValue)
                 drTaxRealized[14] = "N/A";
             else
-                drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
+                //drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
+                drTaxRealized[14] = mfVo.FolioStartDate.ToShortDateString();
 
         }
 
@@ -842,7 +847,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("AMCCode");
             dtReturnsHoldings.Columns.Add("SchemeCode");
             dtReturnsHoldings.Columns.Add("SubCategoryName");
-            dtReturnsHoldings.Columns.Add("FolioStartDate");                                  
+            dtReturnsHoldings.Columns.Add("FolioStartDate");
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -921,7 +926,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("Category");
             dtTaxRealized.Columns.Add("Scheme");
             dtTaxRealized.Columns.Add("FolioNum");
-            dtTaxRealized.Columns.Add("AcquisitionCost",typeof(double));
+            dtTaxRealized.Columns.Add("AcquisitionCost", typeof(double));
             dtTaxRealized.Columns.Add("RedeemedAmount", typeof(double));
             dtTaxRealized.Columns.Add("TotalPL", typeof(double));
             dtTaxRealized.Columns.Add("STCG", typeof(double));
@@ -1534,7 +1539,7 @@ namespace WealthERP.CustomerPortfolio
         //}
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {    
+        {
             GridHeaderItem headerItem = rgHoldings.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             DropDownList ddl = headerItem.FindControl("ddlCategory") as DropDownList;
             if (ddl != null)
@@ -1577,7 +1582,7 @@ namespace WealthERP.CustomerPortfolio
             BindTaxGrid();
         }
 
-        protected void ddlTaxRealizedCategory_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTaxRealizedCategory_SelectedIndexChanged(object sender, ImageClickEventArgs e)
         {
             GridHeaderItem headerItem = rgTaxRealized.MasterTableView.GetItems(GridItemType.Header)[0] as GridHeaderItem;
             DropDownList ddl = headerItem.FindControl("ddlTaxRealizedCategory") as DropDownList;
@@ -1587,5 +1592,66 @@ namespace WealthERP.CustomerPortfolio
             }
             BindTaxGrid();
         }
+
+        public void btnExportrgTaxHoldingsFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rgTaxHoldings.ExportSettings.OpenInNewWindow = true;
+            rgTaxHoldings.ExportSettings.IgnorePaging = true;
+            rgTaxHoldings.ExportSettings.HideStructureColumns = true;
+            rgTaxHoldings.ExportSettings.ExportOnlyData = true;
+            rgTaxHoldings.ExportSettings.FileName = "Tax Holdings Detail";
+            rgTaxHoldings.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgTaxHoldings.MasterTableView.ExportToExcel();
+        }
+
+        public void btnExportrgAllFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rgAll.ExportSettings.OpenInNewWindow = true;
+            rgAll.ExportSettings.IgnorePaging = true;
+            rgAll.ExportSettings.HideStructureColumns = true;
+            rgAll.ExportSettings.ExportOnlyData = true;
+            rgAll.ExportSettings.FileName = "Return ALL Detail";
+            rgAll.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgAll.MasterTableView.ExportToExcel();
+        }
+
+        public void btnExportrgRealizedFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rgRealized.ExportSettings.OpenInNewWindow = true;
+            rgRealized.ExportSettings.IgnorePaging = true;
+            rgRealized.ExportSettings.HideStructureColumns = true;
+            rgRealized.ExportSettings.ExportOnlyData = true;
+            rgRealized.ExportSettings.FileName = "Return Realized Detail";
+            rgRealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgRealized.MasterTableView.ExportToExcel();
+        }
+
+
+        public void btnExportrgHoldingsFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rgHoldings.ExportSettings.OpenInNewWindow = true;
+            rgHoldings.ExportSettings.IgnorePaging = true;
+            rgHoldings.ExportSettings.HideStructureColumns = true;
+            rgHoldings.ExportSettings.ExportOnlyData = true;
+            rgHoldings.ExportSettings.FileName = "Returns Holdings Detail";
+            rgHoldings.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+           
+            rgHoldings.MasterTableView.ExportToExcel();
+        }
+
+        public void btnExportrgTaxRealizedFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            rgTaxRealized.ExportSettings.OpenInNewWindow = true;
+            rgTaxRealized.ExportSettings.IgnorePaging = true;
+            rgTaxRealized.ExportSettings.HideStructureColumns = true;
+            rgTaxRealized.ExportSettings.ExportOnlyData = true;
+            rgTaxRealized.ExportSettings.FileName = "Tax Realized Details";
+            rgTaxRealized.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgTaxRealized.MasterTableView.ExportToExcel();
+        }
+
+
+
+
     }
 }
