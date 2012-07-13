@@ -177,8 +177,10 @@ namespace WealthERP.CustomerPortfolio
                 //eqTransactionVo.ServiceTax = (float)temp;
                 if (txtSTT.Text != string.Empty)
                     eqTransactionVo.STT = float.Parse(txtSTT.Text);
-
-                eqTransactionVo.TradeDate = Convert.ToDateTime(txtTransactionDate.Text);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
+                if (!string.IsNullOrEmpty(txtTransactionDate.Text.ToString().Trim()))
+                    eqTransactionVo.TradeDate = Convert.ToDateTime(txtTransactionDate.Text);// DateTime.Parse(txtTradeDate.Text);//ddlDay.SelectedItem.Text.ToString() + "/" + ddlMonth.SelectedItem.Value.ToString() + "/" + ddlYear.SelectedItem.Value.ToString()
+                else
+                    eqTransactionVo.TradeDate = Convert.ToDateTime(DateTime.Today.ToShortDateString());
                 //eqTransactionVo.TradeTotal = float.Parse(txtTotal.Text);
                 if (ddlTradeAccountNos.SelectedValue != "-1")
                     eqTransactionVo.AccountId = int.Parse(ddlTradeAccountNos.SelectedValue);
