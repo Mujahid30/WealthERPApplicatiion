@@ -647,6 +647,38 @@ namespace DaoCustomerPortfolio
             }
             return getUlipSubPalnDs;
         }
+
+        public DataSet GetULIPInsuranceFunds(int schemeId)
+        {
+            DataSet getUlipSubPalnDs = null;
+            Database db;
+            DbCommand getUlipSubPlanCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUlipSubPlanCmd = db.GetStoredProcCommand("SP_GetULIPInsuranceFunds");
+                db.AddInParameter(getUlipSubPlanCmd, "@IS_SchemeId", DbType.String, schemeId);
+                getUlipSubPalnDs = db.ExecuteDataSet(getUlipSubPlanCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "Asset.cs:GetULIPInsuranceFunds()");
+                object[] objects = new object[1];
+                objects[0] = schemeId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getUlipSubPalnDs;
+        }
+
         public DataSet GetULIPPlans(string issuerCode)
         {
             DataSet getUlipPlanDs=null;

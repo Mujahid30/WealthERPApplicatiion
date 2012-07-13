@@ -1737,6 +1737,7 @@ namespace WealthERP.CustomerPortfolio
                                         //string purchaseDate = drSchedule["CINPUD_PurchaseDate"].ToString();
                                         string absoluteReturn = drSchedule["CINPUD_AbsoluteReturn"].ToString();
                                         string fundName = drSchedule["IF_FundName"].ToString();
+                                        string flag = drSchedule["Flag"].ToString();
 
                                         insuranceUlipVo.IssuerCode = ddlInsuranceIssuerCode.SelectedValue;
                                         insuranceUlipVo.WUP_ULIPSubPlaCode = drSchedule["ISF_SchemeFundId"].ToString();
@@ -1762,8 +1763,6 @@ namespace WealthERP.CustomerPortfolio
                                                 insuranceUlipVo.WUP_ULIPSubPlaName = fundName.Trim().ToString();
                                             if (unit != string.Empty)
                                                 insuranceUlipVo.CIUP_Unit = float.Parse(unit.ToString());
-                                            //if (purchaseDate != string.Empty)
-                                            //    insuranceUlipVo.CIUP_PurchaseDate = DateTime.Parse(purchaseDate.ToString());
 
                                             if (investedCost != string.Empty)
                                                 insuranceUlipVo.CIUP_InvestedCost = float.Parse(investedCost.ToString());
@@ -1771,6 +1770,8 @@ namespace WealthERP.CustomerPortfolio
                                                 insuranceUlipVo.CIUP_CurrentValue = float.Parse(currentValue.ToString());
                                             if (absoluteReturn != string.Empty)
                                                 insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(absoluteReturn.ToString());
+                                            if (flag != string.Empty)
+                                                insuranceUlipVo.Flag = flag;
                                         }
                                         insuranceUlipList.Add(insuranceUlipVo);
                                     }
@@ -1963,11 +1964,13 @@ namespace WealthERP.CustomerPortfolio
                     insuranceVo = (InsuranceVo)Session["insuranceVo"];
                     // Start Update Process
                     //insuranceVo.Name = txtName.Text;
-                    //insuranceVo.Name = ddlAssetPerticular.SelectedItem.ToString();
+                   
                     insuranceVo.InsuranceIssuerCode = ddlInsuranceIssuerCode.SelectedValue.ToString();
-                    if (ddlAssetPerticular.SelectedValue != "Select")                    
+                    if (ddlAssetPerticular.SelectedValue != "Select")
+                    {
                         insuranceVo.SchemeId = int.Parse(ddlAssetPerticular.SelectedValue);
-
+                        insuranceVo.Name = ddlAssetPerticular.SelectedItem.ToString();
+                    }
                     insuranceVo.PolicyNumber = customerAccountVo.PolicyNum;                    
                     insuranceVo.StartDate = DateTime.Parse(txtPolicyCommencementDate.Text.Trim());
                     insuranceVo.EndDate = DateTime.Parse(txtPolicyMaturity.Text.Trim());
@@ -2179,6 +2182,7 @@ namespace WealthERP.CustomerPortfolio
                                     string absoluteReturn = drSchedule["CINPUD_AbsoluteReturn"].ToString();
                                     string fundName = drSchedule["IF_FundName"].ToString();
                                     string ulipPlanId = drSchedule["ISF_SchemeFundId"].ToString();
+                                    string flag = drSchedule["Flag"].ToString();
 
                                     if (allocPer == null)
                                     {
@@ -2214,6 +2218,8 @@ namespace WealthERP.CustomerPortfolio
                                             insuranceUlipVo.CIUP_CurrentValue = float.Parse(currentValue.ToString());
                                         if (absoluteReturn != string.Empty)
                                             insuranceUlipVo.CIUP_AbsoluteReturn = float.Parse(absoluteReturn.ToString());
+                                        if (flag != string.Empty)
+                                            insuranceUlipVo.Flag = flag;
                                     }
                                     insuranceUlipListUpdate.Add(insuranceUlipVo);
                                 }
@@ -2793,7 +2799,56 @@ namespace WealthERP.CustomerPortfolio
             if (customerAccountVo.AssetCategory.Trim() == "INUP")
             {
                 Session.Remove("ULIPSubPlanSchedule");
-                BindRadGridULIPSubPlanSchedule(ddlAssetPerticular.SelectedValue.ToString().Trim());
+                BindRadGridULIPSubPlanScheduleFunds(ddlAssetPerticular.SelectedValue.ToString().Trim());
+            }
+        }
+
+        public void BindRadGridULIPSubPlanScheduleFunds(string schemeId)
+        {
+            trULIPAllocation.Visible = true;
+            rgULIPSubPlanSchedule.Visible = true;
+            pnlGridView.Visible = true;
+            DataTable dtULIPFunds = new DataTable();
+
+            dtULIPSubPlanSchedule.Columns.Add("ISF_SchemeFundId");
+            dtULIPSubPlanSchedule.Columns.Add("IF_FundName");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_InvestedCost");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_Unit");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_CurrentValue");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_AbsoluteReturn");
+            dtULIPSubPlanSchedule.Columns.Add("CINPUD_AllocationPer");
+            dtULIPSubPlanSchedule.Columns.Add("Flag");
+            if (ddlAssetPerticular.SelectedValue != "0" && ddlAssetPerticular.SelectedValue != "")
+            {
+                DataSet ds = assetBo.GetULIPInsuranceFunds(int.Parse(schemeId));
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow drULIPFunds;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        drULIPFunds = dtULIPSubPlanSchedule.NewRow();
+                        drULIPFunds["ISF_SchemeFundId"] = dr["ISF_SchemeFundId"];
+                        drULIPFunds["IF_FundName"] = dr["IF_FundName"];
+                        drULIPFunds["CINPUD_InvestedCost"] = "0";
+                        drULIPFunds["CINPUD_Unit"] = "0";
+                        drULIPFunds["CINPUD_CurrentValue"] = "0";
+                        drULIPFunds["CINPUD_AbsoluteReturn"] = "0";
+                        drULIPFunds["CINPUD_AllocationPer"] = "0";
+                        drULIPFunds["Flag"] = "D";
+                        dtULIPSubPlanSchedule.Rows.Add(drULIPFunds);
+                    }
+                    Session["ULIPSubPlanSchedule"] = dtULIPSubPlanSchedule;
+                    rgULIPSubPlanSchedule.DataSource = dtULIPSubPlanSchedule;
+                    rgULIPSubPlanSchedule.DataSourceID = String.Empty;
+                    rgULIPSubPlanSchedule.DataBind();
+                }
+                else
+                {
+                    rgULIPSubPlanSchedule.DataSource = dtULIPSubPlanSchedule;
+                    Session["ULIPSubPlanSchedule"] = dtULIPSubPlanSchedule;
+                    rgULIPSubPlanSchedule.DataSourceID = String.Empty;
+                    rgULIPSubPlanSchedule.DataBind();
+                }
             }
         }
 
@@ -3204,20 +3259,20 @@ namespace WealthERP.CustomerPortfolio
             double allocationPer = Convert.ToDouble((editedItem["CINPUD_AllocationPer"].Controls[0] as TextBox).Text.Trim());
             double unit = Convert.ToDouble((editedItem["CINPUD_Unit"].Controls[0] as TextBox).Text.Trim());
 
-            //insuranceULIPvo.CIUP_InvestedCost = investedCost;
+           //insuranceULIPvo.CIUP_InvestedCost = investedCost;
             //insuranceULIPvo.CIUP_CurrentValue = currentValue;
             //insuranceULIPvo.CIUP_AbsoluteReturn = absoluteReturn;
             //insuranceULIPvo.CIUP_AllocationPer = float.Parse((editedItem["CINPUD_AllocationPer"].Controls[0] as TextBox).Text.Trim());
             //insuranceULIPvo.CIUP_Unit = float.Parse((editedItem["CINPUD_Unit"].Controls[0] as TextBox).Text.Trim());
 
-            DataTable dtUpdate = (DataTable)Session["ULIPSubPlanSchedule"];
+            DataTable dtUpdate = (DataTable)Session["ULIPSubPlanSchedule"];                  
             DataRow drUpdate = dtUpdate.Rows[e.Item.ItemIndex];
             drUpdate["CINPUD_InvestedCost"] = investedCost;
             drUpdate["CINPUD_Unit"] = unit;
             drUpdate["CINPUD_CurrentValue"] = currentValue;
             drUpdate["CINPUD_AbsoluteReturn"] = absoluteReturn;
             drUpdate["CINPUD_AllocationPer"] = allocationPer;
-            drUpdate["Flag"] = "UI";
+            drUpdate["Flag"] = dtUpdate.Rows[e.Item.ItemIndex]["Flag"].ToString();
             dtUpdate.AcceptChanges();
 
             Session["ULIPSubPlanSchedule"] = dtUpdate;

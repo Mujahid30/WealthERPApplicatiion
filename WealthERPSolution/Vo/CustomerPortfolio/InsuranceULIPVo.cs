@@ -23,7 +23,9 @@ namespace VoCustomerPortfolio
         private double m_CIUP_CurrentValue;
         private double m_CIUP_AbsoluteReturn;
         private string m_IssuerCode;
+        private string m_SchemeFundId;
 
+        private string m_Flag;
         #endregion Fields
 
         #region Properties
@@ -82,6 +84,12 @@ namespace VoCustomerPortfolio
             set { m_CIUP_ModifiedBy = value; }
         }
 
+        public string SchemeFundId
+        {
+            get { return m_SchemeFundId; }
+            set { m_SchemeFundId = value; }
+        }
+        
         public string WUP_ULIPSubPlaName
         {
             get { return m_WUP_ULIPSubPlaName; }
@@ -112,6 +120,12 @@ namespace VoCustomerPortfolio
             set { m_IssuerCode = value; }
         }
 
+        public string Flag
+        {
+            get { return m_Flag; }
+            set { m_Flag = value; }
+        }
+        
         #endregion Properties
 
 

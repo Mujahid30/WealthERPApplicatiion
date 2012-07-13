@@ -600,6 +600,34 @@ namespace BoCustomerPortfolio
             }
             return getUlipSubPlanDs;
         }
+
+        public DataSet GetULIPInsuranceFunds(int schemeId)
+        {
+            AssetDao assetDao = new AssetDao();
+            DataSet getUlipSubPlanDs;
+            try
+            {
+                getUlipSubPlanDs = assetDao.GetULIPInsuranceFunds(schemeId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssetBo.cs:GetULIPInsuranceFunds()");
+                object[] objects = new object[1];
+                objects[0] = schemeId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getUlipSubPlanDs;
+        }
+        
         public DataTable GetInsuranceIssuerCode(string path)
         {
             AssetDao assetDao = new AssetDao();
