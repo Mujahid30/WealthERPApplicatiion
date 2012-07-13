@@ -321,39 +321,39 @@
                     ShowExportToCsvButton="false" ShowAddNewRecordButton="false"/>
                     <Columns>
                         <telerik:GridBoundColumn UniqueName="Customer_Name" HeaderText="Customer" 
-                        DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Left"  />
+                        DataField="Customer_Name" HtmlEncode="false" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right" FooterStyle-Wrap="false">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderText="Instrument Category" 
-                        DataField="PAIC_AssetInstrumentCategoryName" HtmlEncode="false">
-                            <ItemStyle HorizontalAlign="Left" />
+                        DataField="PAIC_AssetInstrumentCategoryName" HtmlEncode="false" HeaderStyle-Wrap="false">
+                            <ItemStyle HorizontalAlign="Left" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_Name" HeaderText="Asset Particulars" DataField="CFINP_Name"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_Name" HeaderText="Asset Particulars" DataField="CFINP_Name"
                              HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Left" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_PurchaseDate" HeaderText="Purchase Date" DataField="CFINP_PurchaseDate"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PurchaseDate" HeaderText="Purchase Date" DataField="CFINP_PurchaseDate"
                              HtmlEncode="false" DataFormatString="{0:d}" DataType="System.DateTime">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_MaturityDate" HeaderText="Maturity Date" DataFormatString="{0:d}"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_MaturityDate" HeaderText="Maturity Date" DataFormatString="{0:d}"
                             DataField="CFINP_MaturityDate"  HtmlEncode="false" DataType="System.DateTime">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
                          DataField="CFINP_PrincipalAmount" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_InterestRate" HeaderText="Interest Rate"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_InterestRate" HeaderText="Interest Rate"
                             DataField="CFINP_InterestRate" DataFormatString="{0:n2}" HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_CurrentValue" HeaderText="Current Value" Aggregate="Sum"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_CurrentValue" HeaderText="Current Value" Aggregate="Sum"
                             DataField="CFINP_CurrentValue" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CFINP_MaturityValue" HeaderText="Maturity Value" Aggregate="Sum" DataField="CFINP_MaturityValue"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_MaturityValue" HeaderText="Maturity Value" Aggregate="Sum" DataField="CFINP_MaturityValue"
                             DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
