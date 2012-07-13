@@ -226,7 +226,7 @@
                             <ItemStyle Wrap="False" />
                            
                         </asp:TemplateField>
-                         <asp:BoundField DataField="BranchName" HeaderText="Branch" />
+                         <asp:BoundField DataField="BranchName"  ItemStyle-Wrap="false" HeaderText="Branch" />
                           <asp:TemplateField HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderTemplate>
                                 <asp:Label ID="lblAssignedRM" runat="server" Text="RM"></asp:Label>
