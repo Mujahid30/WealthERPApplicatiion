@@ -668,13 +668,13 @@ namespace DaoCustomerPortfolio
                 createInsuranceULIPPlanCmd = db.GetStoredProcCommand("SP_CreateInsuranceULIPPlan");
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CINP_InsuranceNPId", DbType.Int32, insuranceUlipVo.CIP_CustInsInvId);
                 //db.AddInParameter(createInsuranceULIPPlanCmd, "@ISF_SchemeFundId", DbType.Int32, insuranceUlipVo.WUP_ULIPSubPlaCode);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AllocationPer", DbType.Double, insuranceUlipVo.CIUP_AllocationPer);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_Unit", DbType.Double, insuranceUlipVo.CIUP_Unit);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AllocationPer", DbType.Decimal, insuranceUlipVo.CIUP_AllocationPer);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_Unit", DbType.Decimal, insuranceUlipVo.CIUP_Unit);
                 //db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_PurchasePrice", DbType.Double, insuranceUlipVo.CIUP_PurchasePrice);
 
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_InvestedCost", DbType.Double, insuranceUlipVo.CIUP_InvestedCost);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_CurrentValue", DbType.Double, insuranceUlipVo.CIUP_CurrentValue);
-                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Double, insuranceUlipVo.CIUP_AbsoluteReturn);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_InvestedCost", DbType.Decimal, insuranceUlipVo.CIUP_InvestedCost);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_CurrentValue", DbType.Decimal, insuranceUlipVo.CIUP_CurrentValue);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Decimal, insuranceUlipVo.CIUP_AbsoluteReturn);
 
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@UlipSchemeFundName", DbType.String, insuranceUlipVo.WUP_ULIPSubPlaName);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@IssuerCode", DbType.String, insuranceUlipVo.IssuerCode);
@@ -686,6 +686,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_PurchaseDate", DbType.DateTime, DBNull.Value);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_CreatedBy", DbType.Int32, insuranceUlipVo.CIUP_CreatedBy);
                 db.AddInParameter(createInsuranceULIPPlanCmd, "@CINPUD_ModifiedBy", DbType.Int32, insuranceUlipVo.CIUP_ModifiedBy);
+                db.AddInParameter(createInsuranceULIPPlanCmd, "@Flag", DbType.String, insuranceUlipVo.Flag);
                 if (db.ExecuteNonQuery(createInsuranceULIPPlanCmd) != 0)
                     bResult = true;
 
@@ -735,7 +736,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@UlipSchemeFundName", DbType.String, insuranceUlipVo.WUP_ULIPSubPlaName);
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@IssuerCode", DbType.String, insuranceUlipVo.IssuerCode);
                 db.AddInParameter(updateInsuranceULIPPlanCmd, "@SchemeId", DbType.Int32, schemeId);
-                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Decimal, insuranceUlipVo.CIUP_AbsoluteReturn);                
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@CINPUD_AbsoluteReturn", DbType.Decimal, insuranceUlipVo.CIUP_AbsoluteReturn);
+                db.AddInParameter(updateInsuranceULIPPlanCmd, "@Flag", DbType.String, insuranceUlipVo.Flag);
                 if (db.ExecuteNonQuery(updateInsuranceULIPPlanCmd) != 0)
                     bResult = true;
             }
@@ -924,7 +926,10 @@ namespace DaoCustomerPortfolio
                         insuranceUlipVo = new InsuranceULIPVo();
                         insuranceUlipVo.CIUP_ULIPPlanId = int.Parse(dr["CINPUD_ULIPPlanId"].ToString());
                         insuranceUlipVo.CIUP_AllocationPer = float.Parse(dr["CINPUD_AllocationPer"].ToString());
-                        insuranceUlipVo.CIUP_CreatedBy = int.Parse(dr["CINPUD_CreatedBy"].ToString());
+                        if (dr["CINPUD_CreatedBy"].ToString() != null && dr["CINPUD_CreatedBy"].ToString() != string.Empty)
+                            insuranceUlipVo.CIUP_CreatedBy = int.Parse(dr["CINPUD_CreatedBy"].ToString());
+                        else
+                            insuranceUlipVo.CIUP_CreatedBy = 0;
 
                         if (dr["CINPUD_ModifiedBy"].ToString() != null && dr["CINPUD_ModifiedBy"].ToString() != string.Empty)
                             insuranceUlipVo.CIUP_ModifiedBy = int.Parse(dr["CINPUD_ModifiedBy"].ToString());
