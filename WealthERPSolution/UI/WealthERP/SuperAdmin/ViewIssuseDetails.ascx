@@ -183,7 +183,7 @@
             <telerik:RadGrid ID="gvCSIssueTracker" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource">
+                AllowAutomaticInserts="false" OnNeedDataSource="gvCSIssueTracker_OnNeedDataSource" ExportSettings-FileName="CS ISSUE DETAILS">
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>
                 
