@@ -362,6 +362,7 @@ namespace WealthERP.CustomerPortfolio
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
                 ViewState["HoldingReturns"] = dtMFReturnsholding;
+                imgBtnrgHoldings.Visible = true;
 
                 DataTable dtMFReturnsAll = new DataTable();
                 dtMFReturnsAll = dvReturnsAll.ToTable();
@@ -382,6 +383,7 @@ namespace WealthERP.CustomerPortfolio
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
                 ViewState["AllReturns"] = dtMFReturnsAll;
+                imgBtnrgAll.Visible = true;
 
                 DataTable dtMFReturnsRealized = new DataTable();
                 dtMFReturnsRealized = dvReturnsRealized.ToTable();
@@ -401,6 +403,7 @@ namespace WealthERP.CustomerPortfolio
                 rgRealized.DataSource = dtMFReturnsRealized;
                 rgRealized.DataBind();
                 ViewState["RealizedReturns"] = dtMFReturnsRealized;
+                imgBtnrgRealized.Visible = true;
             }
         }
 
@@ -463,10 +466,12 @@ namespace WealthERP.CustomerPortfolio
                 rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
                 rgTaxHoldings.DataBind();
                 ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
+                imgBtnrgTaxHoldings.Visible = true;
 
                 rgTaxRealized.DataSource = dvTaxRealized.ToTable();
                 rgTaxRealized.DataBind();
                 ViewState["TaxRealized"] = dvTaxRealized.ToTable();
+                imgBtnrgTaxRealized.Visible = true;
             }
         }
 
@@ -1382,6 +1387,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 dt = (DataTable)ViewState["HoldingReturns"];
                 rgHoldings.DataSource = dt;
+                
             }
             BindPerformaceChart();
         }
@@ -1415,6 +1421,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 dt = (DataTable)ViewState["TaxHoldings"];
                 rgTaxHoldings.DataSource = dt;
+                
             }
         }
 

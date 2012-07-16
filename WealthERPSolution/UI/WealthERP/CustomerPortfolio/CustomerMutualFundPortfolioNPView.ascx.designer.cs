@@ -254,7 +254,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton1;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
         
         /// <summary>
         /// rgHoldings control.
@@ -371,7 +371,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton2;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgAll;
         
         /// <summary>
         /// rgAll control.
@@ -479,7 +479,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton3;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgRealized;
         
         /// <summary>
         /// rgRealized control.
@@ -650,7 +650,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton4;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgTaxHoldings;
         
         /// <summary>
         /// rgTaxHoldings control.
@@ -722,7 +722,7 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton5;
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnrgTaxRealized;
         
         /// <summary>
         /// rgTaxRealized control.

@@ -92,7 +92,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackHoldings" runat="server" OnClick="lnlGoBackHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton ID="ImageButton1" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton Visible="false" ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgHoldingsFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgHoldings" runat="server" Width="100%" PageSize="10" AllowAutomaticDeletes="false"
@@ -241,7 +241,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
                                                 CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton ID="ImageButton2" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton  Visible="false" ID="imgBtnrgAll" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgAllFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgAll" runat="server" Width="100%" PageSize="10" AllowPaging="True"
@@ -416,7 +416,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackRealized" runat="server" OnClick="lnkGoBackRealized_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton ID="ImageButton3" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton Visible="false" ID="imgBtnrgRealized" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgRealizedFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgRealized" runat="server" Width="100%" PageSize="10" AllowPaging="True"
@@ -588,7 +588,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxHoldings" runat="server" OnClick="lnlGoBackTaxHoldings_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton ID="ImageButton4" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton Visible="false" ID="imgBtnrgTaxHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgTaxHoldingsFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="100%" PageSize="10" AllowPaging="true"
@@ -707,7 +707,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnlGoBackTaxRealized" runat="server" OnClick="lnlGoBackTaxRealized_Click"
                                                 Visible="false" CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton ID="ImageButton5" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton Visible="false" ID="imgBtnrgTaxRealized" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgTaxRealizedFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="100%" PageSize="10" AllowPaging="true"
