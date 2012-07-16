@@ -362,7 +362,10 @@ namespace WealthERP.CustomerPortfolio
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
                 ViewState["HoldingReturns"] = dtMFReturnsholding;
-                imgBtnrgHoldings.Visible = true;
+                if (dtMFReturnsholding.Rows.Count != 0)
+                    imgBtnrgHoldings.Visible = true;
+                else
+                    imgBtnrgHoldings.Visible = false;
 
                 DataTable dtMFReturnsAll = new DataTable();
                 dtMFReturnsAll = dvReturnsAll.ToTable();
@@ -383,7 +386,10 @@ namespace WealthERP.CustomerPortfolio
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
                 ViewState["AllReturns"] = dtMFReturnsAll;
-                imgBtnrgAll.Visible = true;
+                if (dtMFReturnsAll.Rows.Count != 0)
+                    imgBtnrgAll.Visible = true;
+                else
+                    imgBtnrgAll.Visible = false;
 
                 DataTable dtMFReturnsRealized = new DataTable();
                 dtMFReturnsRealized = dvReturnsRealized.ToTable();
@@ -401,9 +407,13 @@ namespace WealthERP.CustomerPortfolio
                 lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn, 2).ToString();
                 lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                 rgRealized.DataSource = dtMFReturnsRealized;
+                if (dtMFReturnsRealized.Rows.Count != 0)
+                    imgBtnrgRealized.Visible = true;
+                else
+                    imgBtnrgRealized.Visible = false;
                 rgRealized.DataBind();
                 ViewState["RealizedReturns"] = dtMFReturnsRealized;
-                imgBtnrgRealized.Visible = true;
+
             }
         }
 
@@ -466,12 +476,18 @@ namespace WealthERP.CustomerPortfolio
                 rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
                 rgTaxHoldings.DataBind();
                 ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
-                imgBtnrgTaxHoldings.Visible = true;
+                if (dtTaxHoldings.Rows.Count != 0)
+                    imgBtnrgTaxHoldings.Visible = true;
+                else
+                    imgBtnrgTaxHoldings.Visible = false;
 
                 rgTaxRealized.DataSource = dvTaxRealized.ToTable();
                 rgTaxRealized.DataBind();
                 ViewState["TaxRealized"] = dvTaxRealized.ToTable();
-                imgBtnrgTaxRealized.Visible = true;
+                if (dtTaxRealized.Rows.Count != 0)
+                    imgBtnrgTaxRealized.Visible = true;
+                else
+                    imgBtnrgTaxRealized.Visible = false;
             }
         }
 
@@ -1387,7 +1403,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 dt = (DataTable)ViewState["HoldingReturns"];
                 rgHoldings.DataSource = dt;
-                
+
             }
             BindPerformaceChart();
         }
@@ -1421,7 +1437,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 dt = (DataTable)ViewState["TaxHoldings"];
                 rgTaxHoldings.DataSource = dt;
-                
+
             }
         }
 
@@ -1642,7 +1658,7 @@ namespace WealthERP.CustomerPortfolio
             rgHoldings.ExportSettings.ExportOnlyData = true;
             rgHoldings.ExportSettings.FileName = "Returns Holdings Detail";
             rgHoldings.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-           
+
             rgHoldings.MasterTableView.ExportToExcel();
         }
 

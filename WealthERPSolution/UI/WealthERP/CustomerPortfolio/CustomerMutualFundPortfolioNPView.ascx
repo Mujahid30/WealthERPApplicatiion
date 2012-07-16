@@ -154,11 +154,9 @@
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn  
-                                                            UniqueName="FolioStartDate" AllowFiltering="True" HeaderText="FolioStartDate"
-                                                            DataField="FolioStartDate" DataFormatString="{0:d}"  AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
-                                                            SortExpression="FolioStartDate" >
-                                                           
+                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" AllowFiltering="false" HeaderText="FolioStartDate"
+                                                            DataField="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False" AutoPostBackOnFilter="false"
+                                                            CurrentFilterFunction="Contains" SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
@@ -241,7 +239,7 @@
                                                 CssClass="Field"></asp:Label>
                                             <asp:LinkButton ID="lnkGoBackAll" runat="server" OnClick="lnkGoBackAll_Click" Visible="false"
                                                 CssClass="FieldName">Go Back</asp:LinkButton>
-                                            <asp:ImageButton  Visible="false" ID="imgBtnrgAll" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                            <asp:ImageButton Visible="false" ID="imgBtnrgAll" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgAllFilteredData_OnClick"
                                                 OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                             <telerik:RadGrid ID="rgAll" runat="server" Width="100%" PageSize="10" AllowPaging="True"
@@ -304,13 +302,22 @@
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" 
+                                                        <%-- <telerik:GridDateTimeColumn UniqueName="FolioStartDate" 
                                                               AllowFiltering="True" HeaderText="FolioStartDate"
                                                             DataField="FolioStartDate" DataFormatString="{0:d}"  AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                                             SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker  ID="resolveDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>--%>
+                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="FolioStartDate" UniqueName="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
                                                             </FilterTemplate>
                                                         </telerik:GridDateTimeColumn>
@@ -476,11 +483,20 @@
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn  AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
+                                                        <%--  <telerik:GridDateTimeColumn  AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                                             SortExpression="FolioStartDate" UniqueName="FolioStartDate" AllowFiltering="True" HeaderText="FolioStartDate"
                                                             DataField="FolioStartDate"  
                                                             DataFormatString="{0:d}"  >
                                                             <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>--%>
+                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="FolioStartDate" UniqueName="FolioStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
@@ -648,12 +664,21 @@
                                                             ShowFilterIcon="false" UniqueName="FolioNum" HeaderText="Folio" DataField="FolioNum">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn
-                                                            UniqueName="FolioStartDate" HeaderText="FolioStartDate"
+                                                        <%-- <telerik:GridDateTimeColumn
+                                                            UniqueName="FolioStartDate" HeaderText=""
                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
-                                                            SortExpression="FolioStartDate"
-                                                             AllowFiltering="True" DataField="FolioStartDate" DataFormatString="{0:d}"  >
+                                                            SortExpression=""
+                                                             AllowFiltering="True" DataField="" DataFormatString="{0:d}"  >
                                                             <ItemStyle HorizontalAlign="Right" />
+                                                            <FilterTemplate>
+                                                                <telerik:RadDatePicker ID="" runat="server">
+                                                                </telerik:RadDatePicker>
+                                                            </FilterTemplate>
+                                                        </telerik:GridDateTimeColumn>--%>
+                                                        <telerik:GridDateTimeColumn DataField="FolioStartDate" SortExpression="FolioStartDate"
+                                                            AutoPostBackOnFilter="false" CurrentFilterFunction="Contains" AllowFiltering="false"
+                                                            HeaderText="FolioStartDate" UniqueName="FolioStartDate" DataFormatString="{0:d}">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
                                                                 </telerik:RadDatePicker>
@@ -768,11 +793,9 @@
                                                             AllowFiltering="true">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridDateTimeColumn  
-                                                             UniqueName="FolioStartDate" HeaderText="FolioStartDate"
-                                                            AllowFiltering="True" DataField="FolioStartDate" DataFormatString="{0:d}"  
-                                                             AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
-                                                            SortExpression="FolioStartDate">
+                                                        <telerik:GridDateTimeColumn UniqueName="FolioStartDate" HeaderText="FolioStartDate"
+                                                            AllowFiltering="false" DataField="FolioStartDate" DataFormatString="{0:d}" HtmlEncode="False" AutoPostBackOnFilter="false"
+                                                            CurrentFilterFunction="Contains" SortExpression="FolioStartDate">
                                                             <ItemStyle HorizontalAlign="Right" />
                                                             <FilterTemplate>
                                                                 <telerik:RadDatePicker ID="resolveDateFilter" runat="server">
