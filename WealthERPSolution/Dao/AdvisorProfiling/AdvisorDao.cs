@@ -1699,6 +1699,40 @@ namespace DaoAdvisorProfiling
             return dsAdviserTreeNodes;
         }
 
+
+        public DataSet GetTreeNodesBasedOnUserRoles(string treeType, int adviserId)
+        {
+            Database db;
+            DbCommand GetAdviserTreeNodes;
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserTreeNodes = db.GetStoredProcCommand("SPROC_GetTreeNodesBasedOnUserRoles");
+                db.AddInParameter(GetAdviserTreeNodes, "@treetype", DbType.String, treeType);
+                db.AddInParameter(GetAdviserTreeNodes, "@adviserId", DbType.Int32, adviserId);
+                dsAdviserTreeNodes = db.ExecuteDataSet(GetAdviserTreeNodes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetTreeNodesBasedOnUserRoles(string treeType)");
+                object[] objects = new object[1];
+                objects[0] = treeType;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+        }
         /// <summary>
         /// Function to retrieve the tree nodes based on the plans subscribed
         /// </summary>

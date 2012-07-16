@@ -329,7 +329,7 @@ namespace BoAdvisorProfiling
                 {
                     bResult = AddToAdviserSMSLog(smsVoList[i], adviserId, smsType);
                 }
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -719,7 +719,7 @@ namespace BoAdvisorProfiling
         {
             List<CustomerVo> CustomerList = new List<CustomerVo>();
             AdvisorDao advisorDao = new AdvisorDao();
-            
+
             genDictParent = new Dictionary<string, string>();
             genDictRM = new Dictionary<string, string>();
             genDictReassignRM = new Dictionary<string, string>();
@@ -911,14 +911,14 @@ namespace BoAdvisorProfiling
         /// </summary>
         /// <param name="adviserId"></param>
         /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnUserRoles(string userRole,string treeType,int adviserId)
+        public DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType, int adviserId)
         {
             AdvisorDao advisorDao = new AdvisorDao();
             DataSet dsAdviserTreeNodes;
 
             try
             {
-                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(userRole,treeType,adviserId);
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(userRole, treeType, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -942,19 +942,50 @@ namespace BoAdvisorProfiling
 
         }
 
-        /// <summary>
-        /// Function to retrieve the tree nodes based on the plans subscribed
-        /// </summary>
-        /// <param name="adviserId"></param>
-        /// <returns></returns>
-        public DataSet GetTreeNodesBasedOnPlans(int adviserId,string userRole,string treeType)
+        public DataSet GetTreeNodesBasedOnUserRoles(string treeType, int adviserId)
         {
             AdvisorDao advisorDao = new AdvisorDao();
             DataSet dsAdviserTreeNodes;
 
             try
             {
-                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnPlans(adviserId, userRole,treeType);
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnUserRoles(treeType, adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetTreeNodesBasedOnUserRoles(string treeType)");
+                object[] objects = new object[1];
+                objects[0] = treeType;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTreeNodes;
+
+        }
+
+        /// <summary>
+        /// Function to retrieve the tree nodes based on the plans subscribed
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <returns></returns>
+        public DataSet GetTreeNodesBasedOnPlans(int adviserId, string userRole, string treeType)
+        {
+            AdvisorDao advisorDao = new AdvisorDao();
+            DataSet dsAdviserTreeNodes;
+
+            try
+            {
+                dsAdviserTreeNodes = advisorDao.GetTreeNodesBasedOnPlans(adviserId, userRole, treeType);
 
             }
             catch (BaseApplicationException Ex)
@@ -1135,7 +1166,7 @@ namespace BoAdvisorProfiling
         /// <param name="adviserIPvo"></param>
         /// <param name="createdBy"></param>
         /// <returns>adviserIPPoolstatus</returns>
-        
+
         public bool CreateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy)
         {
 
@@ -1173,7 +1204,7 @@ namespace BoAdvisorProfiling
         /// </summary>
         /// <param name="AdviserId"></param>
         /// <returns></returns>
-        
+
         public DataSet GetAdviserIPPoolsInformation(int AdviserId)
         {
             DataSet dsGetAdviserIP = new DataSet();
@@ -1258,7 +1289,7 @@ namespace BoAdvisorProfiling
             AdvisorDao adviserDao = new AdvisorDao();
             try
             {
-                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, adviserId , isSingleIP, Flag);
+                bResult = adviserDao.DeleteAdviserIPPools(adviserIPPoolId, adviserId, isSingleIP, Flag);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1320,7 +1351,7 @@ namespace BoAdvisorProfiling
         /// <param name="adviserIPvo"></param>
         /// <param name="createdBy"></param>
         /// <returns></returns>
-        public bool UpdateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy,string Flag)
+        public bool UpdateAdviserIPPools(AdviserIPVo adviserIPvo, int createdBy, string Flag)
         {
             bool bResult = false;
             AdvisorDao adviserDao = new AdvisorDao();
@@ -1356,7 +1387,7 @@ namespace BoAdvisorProfiling
         /// <param name="AdviserId"></param>
         /// <param name="UserRole"></param>
         /// <returns></returns>
-        
+
         public DataSet GetAllOpsStaffsForAdviser(int AdviserId, string UserRole)
         {
             DataSet dsAllOpsStaffsForAdviser = new DataSet();
@@ -1396,7 +1427,7 @@ namespace BoAdvisorProfiling
         /// <param name="RMId"></param>
         /// <param name="RMLoginStatus"></param>
         /// <returns></returns>
-        
+
         public bool UpdateOpsStaffLoginStatus(int RMId, int RMLoginStatus)
         {
             bool bResult = false;
@@ -1478,7 +1509,7 @@ namespace BoAdvisorProfiling
             try
             {
                 advisorLoginWidgetDetails = adviserDao.GetAdviserLogInWidgetDetails(adviserId);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1502,13 +1533,13 @@ namespace BoAdvisorProfiling
         }
 
         public bool UpdateAdviserFPBatch(string customerIds, int adviserId)
-        {            
+        {
             AdvisorDao adviserDao = new AdvisorDao();
             bool result = true;
             try
             {
-                result = adviserDao.UpdateAdviserFPBatch(customerIds,adviserId);
-                
+                result = adviserDao.UpdateAdviserFPBatch(customerIds, adviserId);
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1530,7 +1561,7 @@ namespace BoAdvisorProfiling
             return result;
 
         }
-        
+
         public bool UpdateAdviserStorageBalance(int intAdviserId, float fStorageBal)
         {
             AdvisorDao adviserDao = new AdvisorDao();

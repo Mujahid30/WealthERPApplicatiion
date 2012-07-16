@@ -35,23 +35,38 @@ namespace WealthERP.Advisor
         string sourcePath = "";
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+         {
             SessionBo.CheckSession();
             Session["BranchAdd"] = "forRM";
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (Session[SessionContents.BranchLogoPath] != null)
                 sourcePath = Session[SessionContents.BranchLogoPath].ToString();
-            dsSubscriptionDetails = adviserSubscriptionBo.GetAdviserSubscriptionPlanDetails(advisorVo.advisorId);
+            
             if (!IsPostBack)
             {
                 if (Session["customerVo"] != null)
                     Session.Remove("customerVo");
 
+                if (Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()] == null)
+                {
+                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Admin");
+                    Cache.Insert("AdminLeftTreeNode" + advisorVo.advisorId.ToString(), dsTreeNodes, null, DateTime.Now.AddMinutes(4 * 60), TimeSpan.Zero);
+                }
+                else
+                {
+                    dsTreeNodes = (DataSet)Cache["AdminLeftTreeNode" + advisorVo.advisorId.ToString()];
+
+                }
+                DataSet dsFilteredData = new DataSet();
+                string userRole = "";
                 //Code to display and hide the searches based on the roles
                 if (userVo.RoleList.Contains("Admin"))
                 {
-                    if (advisorVo.IsOpsEnable != 1)
+                    userRole = "Admin";                  
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "Admin");
+                   if (advisorVo.IsOpsEnable != 1)
                     {
                         txtFindRMCustomer.Visible = false;
                         btnSearchRMCustomer.Visible = false;
@@ -63,16 +78,19 @@ namespace WealthERP.Advisor
                     }
                 }
                 else if (userVo.RoleList.Contains("RM"))
-                {
+                {                   
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     txtFindBranch.Visible = false;
                     btnSearchBranch.Visible = false;
                     txtFindAdviserCustomer.Visible = false;
                     btnSearchAdviserCustomer.Visible = false;
+                    userRole = "RM";                  
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "RM");    
                 }
                 else if (userVo.RoleList.Contains("BM"))
-                {
+                {                  
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     txtFindBranch.Visible = false;
@@ -81,6 +99,9 @@ namespace WealthERP.Advisor
                     btnSearchAdviserCustomer.Visible = false;
                     txtFindRMCustomer.Visible = false;
                     btnSearchRMCustomer.Visible = false;
+                    userRole = "BM";
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "BM");   
                 }
                 else if (userVo.RoleList.Contains("Ops"))
                 {
@@ -89,7 +110,10 @@ namespace WealthERP.Advisor
                     txtFindRM.Visible = false;
                     btnSearchRM.Visible = false;
                     btnSearchBranch.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;                   
+                    userRole = "Ops";
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "Ops"); 
                 }
                 else if (userVo.RoleList.Contains("Research"))
                 {
@@ -100,52 +124,14 @@ namespace WealthERP.Advisor
                     txtFindAdviserCustomer.Visible = false;
                     btnSearchAdviserCustomer.Visible = false;
                     txtFindRMCustomer.Visible = false;
-                    btnSearchRMCustomer.Visible = false;
+                    btnSearchRMCustomer.Visible = false;                   
+                    userRole = "Research";
+                    dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                    SetAdminTreeNodesForRoles(dsFilteredData, "Research");
                 }
-
-
-                //Code to display the left tree based on the Roles
-                if (!userVo.RoleList.Contains("Admin"))
-                    RadPanelBar1.Visible = false;
-                if (!userVo.RoleList.Contains("RM"))
-                    RadPanelBar2.Visible = false;
-                if (!userVo.RoleList.Contains("BM"))
-                    RadPanelBar3.Visible = false;
-                if (!userVo.RoleList.Contains("Ops"))
-                    RadPanelBar4.Visible = false;
-                if (!userVo.RoleList.Contains("Research"))
-                    RadPanelBar5.Visible = false;
-
-                //Code to unhide the tree nodes based on User Roles
-                if (userVo.RoleList.Contains("Admin"))
-                {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Admin", "Admin");
-                    SetAdminTreeNodesForRoles(dsTreeNodes, "Admin");
-                }
-                if (userVo.RoleList.Contains("RM"))
-                {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("RM", "Admin");
-                    SetAdminTreeNodesForRoles(dsTreeNodes, "RM");
-                }
-                if (userVo.RoleList.Contains("BM"))
-                {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("BM", "Admin");
-                    SetAdminTreeNodesForRoles(dsTreeNodes, "BM");
-                }
-                if (userVo.RoleList.Contains("Ops"))
-                {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Ops", "Admin");
-                    SetAdminTreeNodesForRoles(dsTreeNodes, "Ops");
-                }
-                if (userVo.RoleList.Contains("Research"))
-                {
-                    dsTreeNodes = GetTreeNodesBasedOnUserRoles("Research", "Admin");
-                    SetAdminTreeNodesForRoles(dsTreeNodes, "Research");
-                }
-
-
-                //Code to unhide the tree nodes based on Plans
-                dsTreeNodes = GetTreeNodesBasedOnPlans(advisorVo.advisorId, "Admin", "Admin");
+                dsSubscriptionDetails = FilterUserTreeNodeSubscription(dsTreeNodes);             
+              
+                dsTreeNodes = FilterUserTreeNodePlan(dsTreeNodes);
                 SetAdminTreeNodesForPlans(dsTreeNodes);
 
                 if (advisorVo.MultiBranch != 1)
@@ -163,6 +149,17 @@ namespace WealthERP.Advisor
                     }
                 }
 
+                if (!userVo.RoleList.Contains("Admin"))
+                    RadPanelBar1.Visible = false;
+                if (!userVo.RoleList.Contains("RM"))
+                    RadPanelBar2.Visible = false;
+                if (!userVo.RoleList.Contains("BM"))
+                    RadPanelBar3.Visible = false;
+                if (!userVo.RoleList.Contains("Ops"))
+                    RadPanelBar4.Visible = false;
+                if (!userVo.RoleList.Contains("Research"))
+                    RadPanelBar5.Visible = false;
+
                 //Code to expand the home node based on the User Roles
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
@@ -179,8 +176,7 @@ namespace WealthERP.Advisor
                         RadPanelBar4.FindItemByValue("Ops").Expanded = true;
                         RadPanelBar4.FindItemByValue("Customer").Selected = true;
                     }
-
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -250,9 +246,80 @@ namespace WealthERP.Advisor
                 //    /* None visible for customer as of now */
                 //}
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
 
             }
+        }
+
+        protected DataSet FilterUserTreeNode(string userRole, DataSet dsTreeNode)
+        {
+            DataSet dsTreeFilterNode = new DataSet();
+            DataTable dtTreeNode = new DataTable();
+            DataTable dtTreeSubNode = new DataTable();
+            DataTable dtTreeSubSubNode = new DataTable();
+
+            if (dsTreeNode.Tables[0].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[0].DefaultView.RowFilter = "UR_RoleName='" + userRole+"'";
+                dtTreeNode = dsTreeNodes.Tables[0].DefaultView.ToTable();
+            }
+
+            if (dsTreeNode.Tables[1].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[1].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
+                dtTreeSubNode = dsTreeNodes.Tables[1].DefaultView.ToTable();
+            }
+
+            if (dsTreeNode.Tables[2].Rows.Count > 0)
+            {
+                dsTreeNode.Tables[2].DefaultView.RowFilter = "UR_RoleName='" + userRole + "'";
+                dtTreeSubSubNode = dsTreeNodes.Tables[2].DefaultView.ToTable();
+            }
+            dsTreeFilterNode.Tables.Add(dtTreeNode);
+            dsTreeFilterNode.Tables.Add(dtTreeSubNode);
+            dsTreeFilterNode.Tables.Add(dtTreeSubSubNode);
+
+            return dsTreeFilterNode;
+        }
+        protected DataSet FilterUserTreeNodePlan(DataSet dsTreeNode)
+        {
+            DataSet dsTreeFilterNodePlan = new DataSet();
+            //DataTable dtTreeNodePlan = new DataTable();
+            //DataTable dtTreeSubNodePlan = new DataTable();
+            //DataTable dtTreeSubSubNodePlan = new DataTable();
+
+            if (dsTreeNode.Tables[3].Rows.Count > 0)
+            {
+                dsTreeFilterNodePlan.Tables.Add(dsTreeNode.Tables[3].Copy()); ;
+            }
+
+            if (dsTreeNode.Tables[4].Rows.Count > 0)
+            {
+                dsTreeFilterNodePlan.Tables.Add(dsTreeNode.Tables[4].Copy()); ;
+            }
+
+            if (dsTreeNode.Tables[5].Rows.Count > 0)
+            {
+                dsTreeFilterNodePlan.Tables.Add(dsTreeNode.Tables[5].Copy()); ;
+            }           
+         
+            return dsTreeFilterNodePlan;
+        }
+
+        protected DataSet FilterUserTreeNodeSubscription(DataSet dsTreeNode)
+        {
+            DataSet dsTreeFilterNodeSubscription = new DataSet();
+
+            if (dsTreeNode.Tables[6].Rows.Count > 0)
+            {
+                dsTreeFilterNodeSubscription.Tables.Add(dsTreeNode.Tables[6].Copy()); ;
+            }
+
+            if (dsTreeNode.Tables[7].Rows.Count > 0)
+            {
+                dsTreeFilterNodeSubscription.Tables.Add(dsTreeNode.Tables[7].Copy()); ;
+            }
+            return dsTreeFilterNodeSubscription;
         }
 
         //protected void Page_PreRender(object sender, EventArgs e)
@@ -268,332 +335,7 @@ namespace WealthERP.Advisor
 
         }
 
-        //public void SetNode()
-        //{
-        //    string strNodeValue = null;
-        //    if (TreeView1.SelectedNode.Value == "Switch Roles")
-        //    {
-        //        logoPath = Session[SessionContents.LogoPath].ToString();
-        //        Session[SessionContents.CurrentUserRole] = null;
-        //        roleList = userBo.GetUserRoles(userVo.UserId);
-        //        count = roleList.Count;
-        //        if (count == 3)
-        //        {
-        //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMBMDashBoard','login','" + userVo.FirstName + userVo.LastName + "','" + logoPath + "');", true);
-        //            //ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loginloadcontrol('IFAAdminDashboard','login','" + UserName + "','" + sourcePath + "');", true);
-        //        }
-        //        else if (count == 2)
-        //        {
-        //            if (roleList.Contains("RM") && roleList.Contains("Admin"))
-        //            {
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorRMDashBoard','login','" + userVo.FirstName + userVo.LastName + "','" + logoPath + "');", true);
-        //            }
-        //            else if (roleList.Contains("BM") && roleList.Contains("Admin"))
-        //            {
-        //                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loginloadcontrol('AdvisorBMDashBoard','login','" + userVo.FirstName + userVo.LastName + "','" + logoPath + "');", true);
-
-        //            }
-        //        }
-        //        // ScriptManager.RegisterClientScriptBlock(this.Page,this.GetType(), "pageloadscript", "loadcontrol('AdvisorRMBMDashBoard','none');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Advisor Home")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Profile")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorProfile','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Edit Profile")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EditAdvisorProfile','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Edit User Details")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EditUserDetails','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Branch")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "Add Branch")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranch','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value == "LOB")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewLOB','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Add LOB")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddLOB','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Staff")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Valuation")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('DailyValuation','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Add Staff")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Add Branch Association")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMBranchAssociation','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "RM Details")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMUserDetails','login');", true);
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Customer Details")
-        //    {
-        //        //Session["Customer"] = "Customer";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Customer")
-        //    {
-        //        Session["Customer"] = "Customer";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Customer Accounts")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Association")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "View Branch Association")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranchAssociation','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Uploads")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerUpload','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Process Log")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Rejected Records")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedMFTransactionStaging','login');", true);
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Reject Folios")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedFoliosUploads','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Rejected Transactions")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedTransactions','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "LoanMIS")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanMIS','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "SetupAssociateCategory")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
-
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
-
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "AdviserLoanCommsnStrucWithLoanPartner")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserLoanCommsnStrucWithLoanPartner','login');", true);
-
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "AdviserStaffSMTP")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
-
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Schemes")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanSchemeView','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Add Schemes")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanScheme','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "Set Theme")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "LeadManagement")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LeadManagement','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "LeadManagementAdd")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LeadManagementAdd','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MFReports")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login');", true);
-
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "EquityReports")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EquityReports','none');", true);
-        //    }
-
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "CustomerSMSAlerts")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','none');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "SendSMS")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerManualSMS','none');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "CustomerMFSystematicTransactionReport")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerMFSystematicTransactionReport','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MFReversal")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ReverseTransactionExceptionHandling','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MFMIS")
-        //    {
-        //        Session["UserType"] = "rm";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "EView Transactions")
-        //    {
-        //        Session["UserType"] = "rm";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "CommissionMIS")
-        //    {
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorMISCommission','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "EAdd Transactions")
-        //    {
-        //        Session["UserType"] = "rm";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
-        //        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdviserMFMIS','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "EMIS")
-        //    {
-        //        Session["UserType"] = "rm";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MView Transactions")
-        //    {
-
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MMIS")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAMCwiseMIS','login');", true);
-        //    }
-        //    else if (TreeView1.SelectedNode.Value.ToString() == "MAddTransactions")
-        //    {
-        //        Session["UserType"] = "adviser";
-        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UnderConstruction','login');", true);
-        //    }
-        //    if (TreeView1.SelectedNode.Parent == null)
-        //    {
-        //        foreach (TreeNode node in TreeView1.Nodes)
-        //        {
-        //            if (node.Value != TreeView1.SelectedNode.Value)
-        //                node.Collapse();
-        //            else
-        //                node.Expand();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (TreeView1.SelectedNode.Parent.Parent != null)
-        //        {
-        //            string parentNode = TreeView1.SelectedNode.Parent.Parent.Value;
-        //            foreach (TreeNode node in TreeView1.Nodes)
-        //            {
-        //                if (node.Value != parentNode)
-        //                    node.Collapse();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (TreeView1.SelectedNode.Parent == null)
-        //            {
-        //                foreach (TreeNode node in TreeView1.Nodes)
-        //                {
-        //                    if (node.Value != TreeView1.SelectedNode.Value)
-        //                        node.Collapse();
-        //                    else
-        //                        node.Expand();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                strNodeValue = TreeView1.SelectedNode.Parent.Value;
-        //                string val = TreeView1.SelectedNode.Value;
-        //                foreach (TreeNode node in TreeView1.Nodes)
-        //                {
-
-        //                    if (node.Value != strNodeValue)
-        //                        node.Collapse();
-        //                    else
-        //                    {
-        //                        foreach (TreeNode child in node.ChildNodes)
-        //                        {
-        //                            if (child.Value != val)
-        //                                child.Collapse();
-        //                            else
-        //                                child.Expand();
-        //                        }
-        //                    }
-
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //protected void TreeView1_SelectedNodeChanged(object sender, EventArgs e)
-        //{
-
-        //    //if (TreeView1.SelectedNode.Parent == null)
-        //    //{
-        //    //    foreach (TreeNode node in TreeView1.Nodes)
-        //    //    {
-        //    //        if (node.Value != TreeView1.SelectedNode.Value)
-        //    //            node.Collapse();
-        //    //        else
-        //    //            node.Expand();
-        //    //    }
-        //    //}
-        //    //else
-        //    //{
-        //    //    string strNodeValue = TreeView1.SelectedNode.Parent.Value;
-
-        //    //    foreach (TreeNode node in TreeView1.Nodes)
-        //    //    {
-        //    //        if (node.Value != strNodeValue)
-        //    //            node.Collapse();
-        //    //    }
-
-        //    //}
-        //}
+  
 
         protected void RadPanelBar1_ItemClick(object sender, RadPanelBarEventArgs e)
         {
@@ -1365,21 +1107,16 @@ namespace WealthERP.Advisor
             }
         }
        
-        private DataSet GetTreeNodesBasedOnUserRoles(string userRole, string treeType)
-        {
-            AdvisorBo advisorBo = new AdvisorBo();
-            DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(userRole, treeType, advisorVo.advisorId);
-            return dsTreeNodes;
-        }
+       
 
-        private DataSet GetTreeNodesBasedOnPlans(int adviserId, string userRole, string treeType)
+        private DataSet GetTreeNodesBasedOnUserRoles(string treeType)
         {
             AdvisorBo advisorBo = new AdvisorBo();
             DataSet dsTreeNodes;
-            dsTreeNodes = advisorBo.GetTreeNodesBasedOnPlans(adviserId, userRole, treeType);
+            dsTreeNodes = advisorBo.GetTreeNodesBasedOnUserRoles(treeType, advisorVo.advisorId);
             return dsTreeNodes;
         }
+       
 
         private void SetAdminTreeNodesForRoles(DataSet dsAdminTreeNodes, string userRole)
         {
