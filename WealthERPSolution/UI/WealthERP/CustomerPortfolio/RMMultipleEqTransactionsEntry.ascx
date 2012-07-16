@@ -241,19 +241,17 @@
                 WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
             <span class="spnRequiredField">*</span>
-            <br />
+            <%--<br />--%>
             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="vgBtnSubmitTemp"
                 runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
                 ControlToValidate="txtTransactionDate" InitialValue=""></asp:RequiredFieldValidator>--%>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtTransactionDate"
-                        CssClass="rfvPCG" ValidationGroup="vgBtnSubmitTemp" ErrorMessage="<br />Enter A Date"
-                        Display="Dynamic"  InitialValue="">
+                        CssClass="rfvPCG" ValidationGroup="vgBtnTSubmit" ErrorMessage="<br />Enter A Date"
+                        Display="Dynamic">
                     </asp:RequiredFieldValidator>
            <asp:CompareValidator ID="CvtxtTransDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtTransactionDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="vgBtnTSubmit"></asp:CompareValidator>
-                <CompareValidator ID="id" runat="server" ontrolToValidate="txtTransactionDate" ErrorMessage="Invalid Date"
-                 Format="dd/mm/yyyy"     Type="Date" ValidationGroup="vgBtnSubmitTemp"></CompareValidator>
         </td>
         <td align="right">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="STT charges:"></asp:Label>

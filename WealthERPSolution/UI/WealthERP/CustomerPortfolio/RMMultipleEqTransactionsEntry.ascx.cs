@@ -55,7 +55,7 @@ namespace WealthERP.CustomerPortfolio
 
             if (!IsPostBack && Session["EqTransactionHT"] == null) //Session["EqTransactionHT"] -> returning from trade account add.
             {
-                BindLastTradeDate();
+               BindLastTradeDate();
             }
             RestorePreviousState();
         }
