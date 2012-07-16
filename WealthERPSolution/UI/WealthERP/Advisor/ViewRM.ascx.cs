@@ -366,7 +366,7 @@ namespace WealthERP.Advisor
                         bmIdOrHeadID = rmVo.RMId;
                         BindBMDropDown(bmIdOrHeadID);
                     }
-                    rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all, out Count);
+                    rmList = advisorStaffBo.GetBMRMList(branchId, bmIdOrHeadID, all);
                     if (rmList!=null && rmList.Count != 0)
                     {
 
@@ -399,15 +399,13 @@ namespace WealthERP.Advisor
                                 drAdvisorStaff[3] = rmVo.StaffCode;
                             else
                                 drAdvisorStaff[3] = "";
-                            drAdvisorStaff[5] = string.Empty;
+                            drAdvisorStaff[5] =  rmVo.RMRole;
                             drAdvisorStaff[6] = rmVo.Email.ToString();
                             drAdvisorStaff[8] = rmVo.Mobile.ToString();
-                            drAdvisorStaff[7] = string.Empty;
+                            drAdvisorStaff[7] =  rmVo.BranchList;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
-                        gvRMList.DataSource = dtAdvisorStaff;
-                        gvRMList.Columns[5].Visible = false;
-                        gvRMList.Columns[4].Visible = false;
+                        gvRMList.DataSource = dtAdvisorStaff;                      
                         gvRMList.DataBind();
 
 

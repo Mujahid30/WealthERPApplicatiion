@@ -1989,7 +1989,7 @@ namespace DaoAdvisorProfiling
 
         /* Function For Branch Manager */
 
-        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, out int Count)
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all)
         {
             List<RMVo> rmList = new List<RMVo>();
             int rmId;
@@ -1997,7 +1997,7 @@ namespace DaoAdvisorProfiling
             Database db;
             DbCommand getRMListCmd;
             DataSet getRMListDs;
-            Count = 0;
+           
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -2023,15 +2023,14 @@ namespace DaoAdvisorProfiling
                         rmVo.Mobile = Convert.ToInt64(dr["AR_Mobile"].ToString());
                         rmVo.Email = dr["AR_Email"].ToString();
                         rmVo.IsExternal = Int16.Parse(dr["AR_IsExternalStaff"].ToString());
+                        rmVo.BranchList = dr["BranchList"].ToString();
+                        rmVo.RMRole = dr["AR_JobFunction"].ToString();
                         rmList.Add(rmVo);
                     }
                 }
                 else
                     rmList = null;
-                if (getRMListDs.Tables[1].Rows.Count > 0)
-                {
-                    Count = int.Parse(getRMListDs.Tables[1].Rows[0][0].ToString());
-                }
+               
             }
             catch (Exception e)
             {

@@ -1147,14 +1147,14 @@ namespace BoAdvisorProfiling
 
         /* For Getting Staffs according to Branch selection */
 
-        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all, out int Count)
+        public List<RMVo> GetBMRMList(int branchId, int branchHeadId, int all)
         {
             List<RMVo> rmList = new List<RMVo>();
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
-            Count = 0;
+           
             try
             {
-                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all, out Count);
+                rmList = advisorStaffDao.GetBMRMList(branchId, branchHeadId, all);
             }
             catch (Exception e)
             {
