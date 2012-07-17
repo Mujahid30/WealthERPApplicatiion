@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using WealthERP.Base;
 using VoHostConfig;
 using BoHostConfig;
+using System.Configuration;
 
 namespace WealthERP
 {
@@ -16,8 +17,9 @@ namespace WealthERP
         {
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
-
-            generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(0);
+            string xmlPath = "";
+            xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+            generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath);
             Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
             if (Session[SessionContents.SAC_HostGeneralDetails] != null)
             {
@@ -32,7 +34,7 @@ namespace WealthERP
                     Page.Theme = Session["Theme"].ToString();
                 }
             }
-        }        
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
