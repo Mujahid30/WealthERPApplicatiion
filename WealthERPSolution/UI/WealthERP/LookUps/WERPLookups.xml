@@ -149,7 +149,7 @@
     <CustomerSubType CustomerSubTypeCode="TRST" CustomerTypeCode="NIND" CustomerTypeName="Trust" Deleted="False" />
     <CustomerSubType CustomerSubTypeCode="NOTH" CustomerTypeCode="NIND" CustomerTypeName="Other" Deleted="False" />
     <CustomerSubType CustomerSubTypeCode="TBC" CustomerTypeCode="TBC" CustomerTypeName="To Be Categorized" Deleted="False" />
-    
+
   </CustomerSubTypes>
 
   <CustomerTypes>
@@ -164,7 +164,7 @@
     <Currency CurrencyCode ="3" CurrencyName="USD" CurrencySymbol="USD" Deleted="False" />
     <Currency CurrencyCode ="4" CurrencyName="EUR" CurrencySymbol="EUR" Deleted="False" />
   </Currencies>
- 
+
   <BrokerC>
     <Broker BrokerCode="NULL" Broker="To be updated" Deleted="False" />
     <Broker BrokerCode="1000" Broker="A B N Amro Asia Equities (India) Ltd." Deleted="False"/>
@@ -2236,7 +2236,7 @@
     <Relationship RelationshipCode="CH" Type="IND" Relationship="Child" Deleted="False" />
     <Relationship RelationshipCode="CLT" Type="NIND" Relationship="Client" Deleted="False" />
     <Relationship RelationshipCode="DAO" Type="IND" Relationship="Daughter" Deleted="False" />
-    <Relationship RelationshipCode="FA" Type="IND" Relationship="Father" Deleted="False" />   
+    <Relationship RelationshipCode="FA" Type="IND" Relationship="Father" Deleted="False" />
     <Relationship RelationshipCode="MEM" Type="NIND" Relationship="Member" Deleted="False" />
     <Relationship RelationshipCode="MO" Type="IND" Relationship="Mother" Deleted="False" />
     <Relationship RelationshipCode="IOTH" Type="IND" Relationship="Other" Deleted="False" />
@@ -2244,8 +2244,8 @@
     <Relationship RelationshipCode="PRT" Type="NIND" Relationship="Partner" Deleted="False" />
     <Relationship RelationshipCode="SO" Type="IND" Relationship="Son" Deleted="False" />
     <Relationship RelationshipCode="SP" Type="IND" Relationship="Spouse" Deleted="False" />
-    <Relationship RelationshipCode="SI" Type="IND" Relationship="Sister" Deleted="False" />   
-   </CustomerRelationship>
+    <Relationship RelationshipCode="SI" Type="IND" Relationship="Sister" Deleted="False" />
+  </CustomerRelationship>
 
   <States>
     <State StateCode="ANI" StateName="Andaman and Nicobar Islands" Deleted="False" />
@@ -2536,7 +2536,7 @@
     <AdviserBranchType XABRT_BranchTypeCode="1" XABRT_BranchType="Internal" Deleted="False"/>
     <AdviserBranchType XABRT_BranchTypeCode="2" XABRT_BranchType="Associate" Deleted="False"/>
   </WERPAdviserBranchType>
-  
+
   <WERPLoanType>
     <LoanType XLT_LoanTypeCode="1" XLT_LoanType="Home Loan" Deleted="False"></LoanType>
     <LoanType XLT_LoanTypeCode="2" XLT_LoanType="Auto Loan" Deleted="False"></LoanType>
@@ -2695,17 +2695,17 @@
   </TempletonTransactionInputValidation>
 
   <IIFLTransactionInputValidation>
-   
+
     <IIFLValidationColumn ColumnName ="Buy Value" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Sell Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Buy Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Avg Buy Rate" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
-   
+
     <IIFLValidationColumn ColumnName ="Sell Value" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Avg Sell Rate" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Net Qty" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <IIFLValidationColumn ColumnName ="Exchange" CheckValue="1"  />
-    
+
 
 
   </IIFLTransactionInputValidation>
@@ -2724,7 +2724,7 @@
     <StandardValidationColumn ColumnName ="CET_TradeTotal" CheckNull="1" CheckNumeric="1" CheckDate="0" CheckLengthVal="18" />
     <StandardValidationColumn ColumnName ="TRXN_DATE" CheckNull="1" CheckNumeric="0" CheckDate="1" CheckLengthVal="0" />
     <StandardValidationColumn ColumnName ="XE_ExchangeCode" CheckValue="1"  />
-   
+
     <StandardValidationColumn ColumnName ="WETT_TransactionCode" CheckValue="3"  />
 
 
@@ -2758,7 +2758,7 @@
     <TreeNode	TreeNodeCode="1005" TreeNodeText="Ops" Deleted="False"	/>
     <TreeNode	TreeNodeCode="1006" TreeNodeText="Issue Tracker" Deleted="False"	/>
   </SuperAdminTreeNode>
-  
+
   <SuperAdminTreeSubNode>
     <TreeSubNode	TreeNodeCode="1001" TreeSubNodeCode="1001" TreeSubNodeText="Add" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1001" TreeSubNodeCode="1002" TreeSubNodeText="User Management" Deleted="False"	/>
@@ -2767,13 +2767,27 @@
     <TreeSubNode	TreeNodeCode="1005" TreeSubNodeCode="1005" TreeSubNodeText="Gold Price Maintainence" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1005" TreeSubNodeCode="1006" TreeSubNodeText="Sync For SIP Goal Funding" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1006" TreeSubNodeCode="1007" TreeSubNodeText="View Issue Tracker" Deleted="False"	/>
-    <TreeSubNode	TreeNodeCode="1006" TreeSubNodeCode="1008" TreeSubNodeText="Add New Issue" Deleted="False"	/>   
+    <TreeSubNode	TreeNodeCode="1006" TreeSubNodeCode="1008" TreeSubNodeText="Add New Issue" Deleted="False"	/>
   </SuperAdminTreeSubNode>
 
   <SuperAdminTreeSubSubNode>
     <TreeSubSubNode	TreeSubNodeCode="1004" TreeSubSubNodeCode="1001" TreeSubSubNodeText="Manual Valuation" Deleted="False"	/>
   </SuperAdminTreeSubSubNode>
 
-  </WERPLookUpTables>
+  <HostConfiguration>
+    <WERPHostConfiguration HAC_HostLogoPlacement="NoLogo"
+                           HAC_HostLogo="wealth_erp_logo.jpg"
+                           HAC_AdviserLogoPlacement="TopLeftCorner"
+                           HAC_DefaultTheme ="Maroon"
+                           HAC_ContactPersonName="Pramoda Sahoo"
+                           HAC_TelephoneNumber="8050567008"
+                           HAC_LoginPageContent="WERP is an on-demand wealth management cum financial services platform for wealth advisors and financial planners and distributors. The platform covers multiple asset classes and allows advisors to plan, manage and analyze investments across assets and have a 360 Degree view of their client’s investment portfolio. WERP’s key differentiators are integrated investment management with a process driven ERP approach which comes loaded with knowledge based investment tools and financial planning models."
+                           HAC_ApplicationName="Wealtherp"
+                           HAC_Email="psahoo@ampsys.in"
+                           Deleted="False"	/>
+  </HostConfiguration>
+
+
+</WERPLookUpTables>
 
 
