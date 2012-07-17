@@ -8,7 +8,7 @@ using VoUser;
 using VoCustomerProfiling;
 using BoAdvisorProfiling;
 using System.Web.UI.HtmlControls;
-
+using System.Configuration;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using WealthERP.Base;
@@ -23,6 +23,7 @@ namespace WealthERP
         string logoPath = "";
         string branchLogoPath = "";
         UserVo userVo = new UserVo();
+        string xmlPath = "";
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -30,7 +31,8 @@ namespace WealthERP
             GeneralConfigurationBo generalvonfigurationbo = new GeneralConfigurationBo();
             if (!IsPostBack)
             {
-                generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(0);
+                xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+                generalconfigurationvo = generalvonfigurationbo.GetHostGeneralConfiguration(xmlPath);
                 Session[SessionContents.SAC_HostGeneralDetails] = generalconfigurationvo;
                 if (Session[SessionContents.SAC_HostGeneralDetails] != null)
                 {
@@ -69,11 +71,6 @@ namespace WealthERP
             try
             {
                 lblDate.Text = DateTime.Now.ToLongDateString();
-
-
-
-
-
                 imgLeftPlaceHolder.Style.Add("display", "none");
                 imgCenterPlaceholder.Style.Add("display", "none");
                 imgRightPlaceholder.Style.Add("display", "none");
@@ -318,7 +315,7 @@ namespace WealthERP
                 //    e.Item.NavigateUrl = "javascript:loadfrommenu('ResearchDashboard','login')";
                 //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadlinks('AdvisorLeftPane','login');", true);
                 //}
-                    
+
                 else
                 {
                     e.Item.NavigateUrl = "javascript:loadfrommenu('AdvisorRMCustIndiDashboard','login')";
@@ -341,6 +338,7 @@ namespace WealthERP
 
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetLinksSession(string key, string value)
+        
         {
             try
             {
