@@ -8,6 +8,7 @@ using BoHostConfig;
 using VoHostConfig;
 using VoUser;
 using System.IO;
+using System.Configuration;
 
 namespace WealthERP.SuperAdmin
 {
@@ -20,11 +21,13 @@ namespace WealthERP.SuperAdmin
             //uplLogoUpload.TargetPhysicalFolder = Server.MapPath(@"~/Images/");
             if (!IsPostBack)
             {
-                
+
                 GeneralConfigurationBo generalconfigurationbo = new GeneralConfigurationBo();
                 GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();
                 UserVo uservo = (UserVo)Session["UserVo"];
-                generalconfigurationvo = generalconfigurationbo.GetHostGeneralConfiguration(uservo.UserId);
+                string xmlPath = "";
+                xmlPath = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"]).ToString();
+                generalconfigurationvo = generalconfigurationbo.GetHostGeneralConfiguration(xmlPath);
                 if (!String.IsNullOrEmpty(generalconfigurationvo.DefaultTheme))
                 {
                     ddlApplyTheme.SelectedValue = generalconfigurationvo.DefaultTheme;
@@ -45,7 +48,7 @@ namespace WealthERP.SuperAdmin
                 {
                     txtContactPerson.Text = generalconfigurationvo.ContactPersonName;
                 }
-                if (generalconfigurationvo.ContactPersonTelephoneNumber !=0)
+                if (generalconfigurationvo.ContactPersonTelephoneNumber != 0)
                 {
                     txtTelephoneNo.Text = generalconfigurationvo.ContactPersonTelephoneNumber.ToString();
                 }
@@ -135,6 +138,6 @@ namespace WealthERP.SuperAdmin
             //    Thumbnail.DataValue = imageData;
             //}
         }
-        
+
     }
 }
