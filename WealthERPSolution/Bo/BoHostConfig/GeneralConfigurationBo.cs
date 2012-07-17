@@ -19,7 +19,7 @@ namespace BoHostConfig
         public bool AddHostGeneralConfiguration(int userId, GeneralConfigurationVo generalconfigurationvo)
         {
             GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();
-            bool recordStatus=true;
+            bool recordStatus = true;
             try
             {
                 recordStatus = generalConfigurationDao.AddHostGeneralConfiguration(userId, generalconfigurationvo);
@@ -36,30 +36,30 @@ namespace BoHostConfig
         ///  </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public GeneralConfigurationVo GetHostGeneralConfiguration(int userId)
+        public GeneralConfigurationVo GetHostGeneralConfiguration(string xmlPath)
         {
             GeneralConfigurationVo generalConfigurationVo = new GeneralConfigurationVo();
-            GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();           
+            GeneralConfigurationDao generalConfigurationDao = new GeneralConfigurationDao();
             DataSet dsGeneralConfiguration = new DataSet();
             try
             {
-                dsGeneralConfiguration = generalConfigurationDao.GetHostGeneralConfiguration(userId);
-                if (dsGeneralConfiguration != null && dsGeneralConfiguration.Tables[0].Rows.Count==1)                
+                dsGeneralConfiguration = generalConfigurationDao.GetHostGeneralConfiguration(xmlPath);
+                if (dsGeneralConfiguration != null && dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows.Count == 1)
                 {
-                    generalConfigurationVo.HostLogoPlacement = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_HostLogoPlacement"].ToString();
-                    generalConfigurationVo.HostLogo = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_HostLogo"].ToString();
-                    generalConfigurationVo.AdviserLogoPlacement = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_AdviserLogoPlacement"].ToString();
-                    generalConfigurationVo.DefaultTheme = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_DefaultTheme"].ToString();
-                    generalConfigurationVo.ContactPersonName = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_ContactPersonName"].ToString();
-                    generalConfigurationVo.ContactPersonTelephoneNumber = Int64.Parse(dsGeneralConfiguration.Tables[0].Rows[0]["HAC_TelephoneNumber"].ToString());
-                    generalConfigurationVo.LoginPageContent = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_LoginPageContent"].ToString();
-                    generalConfigurationVo.ApplicationName = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_ApplicationName"].ToString();
-                    generalConfigurationVo.Email = dsGeneralConfiguration.Tables[0].Rows[0]["HAC_Email"].ToString(); 
+                    generalConfigurationVo.HostLogoPlacement = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_HostLogoPlacement"].ToString();
+                    generalConfigurationVo.HostLogo = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_HostLogo"].ToString();
+                    generalConfigurationVo.AdviserLogoPlacement = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_AdviserLogoPlacement"].ToString();
+                    generalConfigurationVo.DefaultTheme = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_DefaultTheme"].ToString();
+                    generalConfigurationVo.ContactPersonName = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_ContactPersonName"].ToString();
+                    generalConfigurationVo.ContactPersonTelephoneNumber = Int64.Parse(dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_TelephoneNumber"].ToString());
+                    generalConfigurationVo.LoginPageContent = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_LoginPageContent"].ToString();
+                    generalConfigurationVo.ApplicationName = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_ApplicationName"].ToString();
+                    generalConfigurationVo.Email = dsGeneralConfiguration.Tables["WERPHostConfiguration"].Rows[0]["HAC_Email"].ToString();
                 }
-                
+
             }
             catch (Exception ex)
-            {                
+            {
             }
             return generalConfigurationVo;
 

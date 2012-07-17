@@ -18,7 +18,7 @@ namespace DaoHostConfig
         /// <param name="userId"></param>
         /// <param name="generalconfigurationvo"></param>
         /// <returns></returns>
-        public bool AddHostGeneralConfiguration(int userId,GeneralConfigurationVo generalconfigurationvo)
+        public bool AddHostGeneralConfiguration(int userId, GeneralConfigurationVo generalconfigurationvo)
         {
             Database db;
             DbCommand cmdAddHostGeneralConfiguration;
@@ -43,14 +43,14 @@ namespace DaoHostConfig
             }
             catch (BaseApplicationException Ex)
             {
-                bRecordStatus=false;
+                bRecordStatus = false;
             }
             catch (Exception Ex)
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "GeneralConfigurationDao.cs:AddHostGeneralConfiguration(int customerId, int userId, CustomerProspectVo customerprospectvo)");
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 objects[0] = userId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -67,17 +67,17 @@ namespace DaoHostConfig
         ///  </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public DataSet GetHostGeneralConfiguration(int userId)
+        public DataSet GetHostGeneralConfiguration(string xmlPath)
         {
-            Database db;
-            DbCommand cmdGetHostGeneralConfiguration;
-            DataSet dsGetHostGeneralConfiguration = null;
+            //Database db;
+            //DbCommand cmdGetHostGeneralConfiguration;
+            DataSet dsGetHostGeneralConfiguration = new DataSet();
             try
             {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetHostGeneralConfiguration = db.GetStoredProcCommand("SP_GetHostGeneralConfiguration");
-                db.AddInParameter(cmdGetHostGeneralConfiguration, "@U_UserId", DbType.Int32, userId);
-                dsGetHostGeneralConfiguration = db.ExecuteDataSet(cmdGetHostGeneralConfiguration);
+                //db = DatabaseFactory.CreateDatabase("wealtherp");
+                //cmdGetHostGeneralConfiguration = db.GetStoredProcCommand("SP_GetHostGeneralConfiguration");
+                //db.AddInParameter(cmdGetHostGeneralConfiguration, "@U_UserId", DbType.Int32, userId);
+                dsGetHostGeneralConfiguration.ReadXml(xmlPath);
 
             }
             catch (BaseApplicationException Ex)
@@ -88,9 +88,9 @@ namespace DaoHostConfig
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "GeneralConfigurationDao.cs:GetHostGeneralConfiguration(int userId)");
+                FunctionInfo.Add("Method", "GeneralConfigurationDao.cs:GetHostGeneralConfiguration(string xmlPath)");
                 object[] objects = new object[1];
-                objects[0] = userId;
+                objects[0] = xmlPath;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
