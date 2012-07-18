@@ -329,7 +329,7 @@
                         DataField="PAIC_AssetInstrumentCategoryName" HtmlEncode="false" HeaderStyle-Wrap="false">
                             <ItemStyle HorizontalAlign="Left" Wrap="false" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_Name" HeaderText="Asset Particulars" DataField="CFINP_Name"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_Name" HeaderText="scheme" DataField="CFINP_Name"
                              HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Left" />
                         </telerik:GridBoundColumn>
