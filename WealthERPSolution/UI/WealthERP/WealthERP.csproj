@@ -638,6 +638,13 @@
     <Compile Include="Advisor\AdviserIPPool.ascx.designer.cs">
       <DependentUpon>AdviserIPPool.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AdviserLandingPage.ascx.cs">
+      <DependentUpon>AdviserLandingPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserLandingPage.ascx.designer.cs">
+      <DependentUpon>AdviserLandingPage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx.cs">
       <DependentUpon>AdviserLoanCommsnStrucWithLoanPartner.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1189,6 +1196,13 @@
     <Compile Include="bin\FusionCharts.cs" />
     <Compile Include="BreadcrumbLinks.Designer.cs" />
     <Compile Include="BreadCrumbScripts.Designer.cs" />
+    <Compile Include="BusinessMIS\BusinessDashBoard.ascx.cs">
+      <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\BusinessDashBoard.ascx.designer.cs">
+      <DependentUpon>BusinessDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\MultiProductMIS.ascx.cs">
       <DependentUpon>MultiProductMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3524,6 +3538,7 @@
     <Content Include="Advisor\AdviserEnvironmentSettings.ascx" />
     <Content Include="Advisor\AdviserEQMIS.ascx" />
     <Content Include="Advisor\AdviserIPPool.ascx" />
+    <Content Include="Advisor\AdviserLandingPage.ascx" />
     <Content Include="Advisor\AdviserLoanCommsnStrucWithLoanPartner.ascx" />
     <Content Include="Advisor\AdviserLoanMIS.ascx" />
     <Content Include="Advisor\AdviserMFMIS.ascx" />
@@ -5493,6 +5508,7 @@
     <Content Include="bin\VoValuation.pdb" />
     <Content Include="bin\WatiN.Core.dll" />
     <Content Include="bin\WatiN.Core.XML" />
+    <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\MultiProductMIS.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanScheme.ascx" />
     <Content Include="CustomerPortfolio\AdviserLoanSchemeView.ascx" />

@@ -367,7 +367,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advisor//AdvisorDashBoard.ascx.
+        ///   Looks up a localized string similar to Advisor//AdviserLandingPage.ascx.
         /// </summary>
         internal static string AdvisorDashBoard {
             get {
@@ -381,6 +381,15 @@ namespace WealthERP {
         internal static string AdvisorDashboardLeftMenu {
             get {
                 return ResourceManager.GetString("AdvisorDashboardLeftMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advisor//AdvisorDashBoard.ascx.
+        /// </summary>
+        internal static string AdvisorDashBoardOld {
+            get {
+                return ResourceManager.GetString("AdvisorDashBoardOld", resourceCulture);
             }
         }
         
@@ -597,6 +606,15 @@ namespace WealthERP {
         internal static string BranchDetails {
             get {
                 return ResourceManager.GetString("BranchDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//BusinessDashBoard.ascx.
+        /// </summary>
+        internal static string BusinessDashBoard {
+            get {
+                return ResourceManager.GetString("BusinessDashBoard", resourceCulture);
             }
         }
         
