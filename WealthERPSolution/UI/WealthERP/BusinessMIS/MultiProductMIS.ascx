@@ -513,14 +513,20 @@
     <tr>
         <td></td>
     </tr>
-    <tr>
+   
+</table>
+</asp:Panel>
+<table  class="TableBackground" width="100%">
+<tr></tr>
+<br />
+<br />
+ <tr align="center">
         <td align="center">
             <asp:Label ID="lblErrorMsg" runat="server" CssClass="failure-msg" Visible="false">
             </asp:Label>
         </td>
     </tr>
 </table>
-</asp:Panel>
 <asp:HiddenField ID="hdnCustomerId" runat="server" 
     onvaluechanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />

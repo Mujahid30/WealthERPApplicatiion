@@ -80,6 +80,7 @@ namespace WealthERP.BusinessMIS
 
             if (!IsPostBack)
             {
+                lblErrorMsg.Visible = false;
                 ddlCustomerType.Visible = false;
                 lblSelectTypeOfCustomer.Visible = false;
                 trCustomerSearch.Visible = false;
@@ -1152,8 +1153,9 @@ namespace WealthERP.BusinessMIS
                     {
                         trPanel1.Visible = false;
                         trGeneralInsuranceMis.Visible = false;
-                        lblErrorMsg.Text = "No records found for General Insurance MIS";
                         lblErrorMsg.Visible = true;
+                        lblErrorMsg.Text = "No records found for General Insurance MIS";
+                        
                         trGeneralInsurance.Visible = false;
                         lblMISType.Visible = false;
                         //rgvGeneralInsurance.Visible = false;
