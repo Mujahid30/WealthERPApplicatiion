@@ -3,23 +3,33 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%--This is for Progress bar. Those reference pointing to Yahoo User Interface--%>
 <%--Script manager is needed in order to have ajax based Page loading event triggerer that is bounded to that progress  bar--%>
-<asp:ScriptManager ID="scptMgr" runat="server">
-</asp:ScriptManager>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>  
+<%--<asp:ScriptManager ID="" runat="server">
+</asp:ScriptManager>--%>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
+<telerik:RadScriptManager ID="scptMgr" runat="server">
+</telerik:RadScriptManager>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
 <link href="/YUI/build/container/assets/container.css" rel="stylesheet" type="text/css" />
 <link href="/YUI/build/menu/assets/skins/sam/menu.css" rel="stylesheet" type="text/css" />
 
 <script src="/YUI/build/utilities/utilities.js" type="text/javascript"></script>
 
 <script src="/YUI/build/container/container-min.js" type="text/javascript"></script>
+
 <%--This scripts includes the JQuery coding about the screen info--%>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
+
 <%--End--%>
 <%--This script is used to add Progress bar--%>
+
 <script type="text/javascript">
     function pageLoad() {
         InitDialogs();
@@ -52,22 +62,25 @@
 </script>
 
 <table width="100%" class="TableBackground">
-<tr>
-         <td class="HeaderCell">
-            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;" class="flip" />
-           <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
+    <tr>
+        <td class="HeaderCell">
+            <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Upload History"></asp:Label>
             <hr />
         </td>
     </tr>
     <tr>
-       <td colspan="4">
-          <div class="panel">
-             <p>View all the details for the uploads done such as number of records created, number of records rejected etc. You can also manage you rejected transactions, rollback or reprocess your uploads.</p>
-          </div>
-       </td>
+        <td colspan="4">
+            <div class="panel">
+                <p>
+                    View all the details for the uploads done such as number of records created, number
+                    of records rejected etc. You can also manage you rejected transactions, rollback
+                    or reprocess your uploads.</p>
+            </div>
+        </td>
     </tr>
 </table>
-
 <table width="100%">
     <tr>
         <td align="center">
@@ -101,26 +114,129 @@
 <table width="100%">
     <tr>
         <td align="center">
-            <div id="msgStatus" runat="server" class="information-msg" align="center"
-                visible="false">
+            <div id="msgStatus" runat="server" class="information-msg" align="center" visible="false">
                 <asp:Label ID="lblError" runat="server"></asp:Label>
             </div>
         </td>
     </tr>
 </table>
-<table style="width: 100%;" class="TableBackground">
+<%--<table style="width: 100%;" class="TableBackground">
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>
-    </table>
-    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+</table>--%>
+<asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="0">
-    <tr>
-        <td>
-            <asp:GridView ID="gvProcessLog" runat="server" AutoGenerateColumns="False" CellPadding="4"
+        <tr>
+            <td>
+                <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
+                <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
+                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                            <telerik:GridTemplateColumn AllowFiltering="false">
+                                <ItemStyle />
+                                <ItemTemplate>
+                                    <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                        <Items>
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
+                                                Selected="true"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem Text="Reprocess" Value="Reprocess" ImageUrl="~/Images/DetailedView.png"
+                                                runat="server"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Manage Rejects"
+                                                Value="Manage Rejects" runat="server"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn HeaderText="Status" DataField="Status" UniqueName="Status" SortExpression="Status"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
+                                SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
+                                SortExpression="ADUL_FileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="WUXFT_XMLFileName" HeaderText="File Type" UniqueName="WUXFT_XMLFileName"
+                                SortExpression="WUXFT_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="XUET_ExtractType" HeaderText="Extract Type" UniqueName="XUET_ExtractType"
+                                SortExpression="XUET_ExtractType" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_XMLFileName" HeaderText="XML FileName" UniqueName="ADUL_XMLFileName"
+                                SortExpression="ADUL_XMLFileName" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_StartTime" HeaderText="Start Time" SortExpression="ADUL_StartTime"
+                                AllowFiltering="false" ItemStyle-Wrap="false" UniqueName="ADUL_StartTime">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_EndTime" HeaderText="End Time" ItemStyle-Wrap="false"
+                                AllowFiltering="false" UniqueName="ADUL_EndTime">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_TotalNoOfRecords" HeaderText="Total No. of Records"
+                                AllowFiltering="false" UniqueName="ADUL_TotalNoOfRecords">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfCustomersCreated" HeaderText="No. of Customers Created"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfCustomersCreated">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfAccountsCreated" HeaderText="No. of Accounts Created"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfAccountsCreated">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfTransactionsCreated" HeaderText="No. of Transactions Created"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfTransactionsCreated">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfCustomerDuplicates" HeaderText="No. of Duplicate Customers"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfCustomerDuplicates">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfAccountDuplicate" HeaderText="No. of Duplicate Accounts"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfAccountDuplicate">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfTransactionDuplicate">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ADUL_NoOfRejectRecords" HeaderText="No. of Rejected Records"
+                                AllowFiltering="false" UniqueName="ADUL_NoOfRejectRecords">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="ADUL_NoOfRecordsInserted"
+                                HeaderText="No. of Records Inserted" UniqueName="ADUL_NoOfRecordsInserted">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+                <%--  <asp:GridView ID="gvProcessLog" runat="server" AutoGenerateColumns="False" CellPadding="4"
                 CssClass="GridViewStyle" DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode" AllowSorting="true"
                 OnSorting="gvProcessLog_Sort" ShowFooter="true" OnRowDataBound="gvProcessLog_RowDataBound">
                 <FooterStyle CssClass="FieldName" />
@@ -158,20 +274,20 @@
                     <asp:BoundField DataField="ADUL_NoOfTransactionDuplicate" HeaderText="No. of Duplicate Transactions" />
                     <asp:BoundField DataField="ADUL_NoOfRejectRecords" HeaderText="No. of Rejected Records" />
                     <asp:BoundField DataField="ADUL_NoOfRecordsInserted" HeaderText="No. of Records Inserted" />
-                    <%--<asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
+                    <asp:BoundField DataField="ADUL_NoOfInputRejects" HeaderText="No of Input Rejects" />
                     <asp:BoundField DataField="ADUL_IsXMLConvesionComplete" HeaderText="XML Conversion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToInputComplete" HeaderText="Input Insertion Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToFirstStagingComplete" HeaderText="First Staging Status" />
                     <asp:BoundField DataField="ADUL_IsInsertionToSecondStagingComplete" HeaderText="Second Staging Status" />
-                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />--%>
-                    <%--<asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />--%>
+                    <asp:BoundField DataField="ADUL_IsInsertionToWerpComplete" HeaderText="WERP Insertion Status" />
+                    <asp:BoundField DataField="ADUL_IsInsertionToXtrnlComplete" HeaderText="External Insertion Status" />
                 </Columns>
-            </asp:GridView>
-        </td>
-    </tr>
-</table>
-    </asp:Panel>
-    <table width="100%">
+            </asp:GridView>--%>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
+<table width="100%">
     <tr id="trTransactionMessage" runat="server" visible="false">
         <td class="Message">
             <label id="lblEmptyTranEmptyMsg" class="FieldName">
@@ -179,8 +295,8 @@
             </label>
         </td>
     </tr>
-    </table>
-<div id="DivPager" runat="server" style="display: none">
+</table>
+<%--<div id="DivPager" runat="server" style="display: none">
     <table style="width: 100%">
         <tr align="center">
             <td>
@@ -188,7 +304,7 @@
             </td>
         </tr>
     </table>
-</div>
+</div>--%>
 <table style="width: 100%" id="tblReprocess" runat="server">
     <tr>
         <td colspan="4">

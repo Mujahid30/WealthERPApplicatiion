@@ -14,6 +14,7 @@ using BoUploads;
 using WealthERP.Base;
 using System.Configuration;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Uploads
 {
@@ -52,48 +53,48 @@ namespace WealthERP.Uploads
         string xmlFileName = string.Empty;
         string configPath;
 
-        protected override void OnInit(EventArgs e)
-        {
-            ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-            mypager.EnableViewState = true;
-            base.OnInit(e);
-            
-        }
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //    mypager.EnableViewState = true;
+        //    base.OnInit(e);
 
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            GetPageCount();
-            this.BindProcessHistoryGrid();
-        }
+        //}
 
-        private void GetPageCount()
-        {
-            string upperlimit;
-            string lowerlimit;
-            int rowCount = 0;
-            if (hdnRecordCount.Value != "")
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-            if (rowCount > 0)
-            {
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    GetPageCount();
+        //    this.BindProcessHistoryGrid();
+        //}
 
-                int ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
+        //private void GetPageCount()
+        //{
+        //    string upperlimit;
+        //    string lowerlimit;
+        //    int rowCount = 0;
+        //    if (hdnRecordCount.Value != "")
+        //        rowCount = Convert.ToInt32(hdnRecordCount.Value);
+        //    if (rowCount > 0)
+        //    {
 
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-        }
+        //        int ratio = rowCount / 10;
+        //        mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+        //        mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+        //        lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+        //        upperlimit = (mypager.CurrentPage * 10).ToString();
+        //        if (mypager.CurrentPage == mypager.PageCount)
+        //            upperlimit = hdnRecordCount.Value;
+        //        string PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+        //        lblCurrentPage.Text = PageRecords;
+
+        //        hdnCurrentPage.Value = mypager.CurrentPage.ToString();
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-            
+
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -116,24 +117,26 @@ namespace WealthERP.Uploads
             {
                 tblReprocess.Visible = false;
                 BindProcessHistoryGrid();
-            }      
-            
+            }
+
         }
 
         private void BindProcessHistoryGrid()
         {
-            if (hdnCurrentPage.Value.ToString() != "")
-            {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
-            }
+            //if (hdnCurrentPage.Value.ToString() != "")
+            //{
+            //    //mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+            //    hdnCurrentPage.Value = "";
+            //}
 
-            int Count;
+            //int Count;
+            DataTable dtForInsertedOrNotInserted = new DataTable();
             UploadCommonBo uploadProcessLogBo = new UploadCommonBo();
+            GridColumn gcStatus;
 
             try
             {
-                getProcessLogDs = uploadProcessLogBo.GetUploadProcessLogAdmin(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value);
+                getProcessLogDs = uploadProcessLogBo.GetUploadProcessLogAdmin(adviserVo.advisorId, hdnSort.Value);
             }
             catch (Exception Ex)
             {
@@ -150,54 +153,82 @@ namespace WealthERP.Uploads
                 throw exBase;
             }
 
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-            if (Count > 0)
-                DivPager.Style.Add("display", "visible");
-
             if (getProcessLogDs.Tables[0].Rows.Count > 0)
             {
-                trTransactionMessage.Visible = false;                
-                gvProcessLog.DataSource = getProcessLogDs.Tables[0];                
-                gvProcessLog.DataBind();
-                for (int i = 0; i < getProcessLogDs.Tables[0].Rows.Count; i++)
+                trTransactionMessage.Visible = false;
+                
+                getProcessLogDs.Tables[0].Columns.Add("Status");
+
+                
+                foreach(DataRow dr in getProcessLogDs.Tables[0].Rows)
                 {
-                    if (getProcessLogDs.Tables[0].Rows[i]["ADUL_IsXMLConvesionComplete"].ToString() == "Y" &&
-                        getProcessLogDs.Tables[0].Rows[i]["ADUL_IsInsertionToInputComplete"].ToString() == "Y" &&
-                        getProcessLogDs.Tables[0].Rows[i]["ADUL_IsInsertionToFirstStagingComplete"].ToString() == "Y" &&
-                        getProcessLogDs.Tables[0].Rows[i]["ADUL_IsInsertionToSecondStagingComplete"].ToString() == "Y" &&
-                        getProcessLogDs.Tables[0].Rows[i]["ADUL_IsInsertionToWerpComplete"].ToString() == "Y" &&
-                        getProcessLogDs.Tables[0].Rows[i]["ADUL_IsInsertionToXtrnlComplete"].ToString() == "Y")
+                    if (dr["ADUL_IsXMLConvesionComplete"].ToString() == "Y" &&
+                        dr["ADUL_IsInsertionToInputComplete"].ToString() == "Y" &&
+                        dr["ADUL_IsInsertionToFirstStagingComplete"].ToString() == "Y" &&
+                        dr["ADUL_IsInsertionToSecondStagingComplete"].ToString() == "Y" &&
+                        dr["ADUL_IsInsertionToWerpComplete"].ToString() == "Y" &&
+                        dr["ADUL_IsInsertionToXtrnlComplete"].ToString() == "Y")
                     {
-                        gvProcessLog.Rows[i].Cells[1].Text = "Inserted";
+                        //gvProcessLog.Rows[i].Cells[1].Text = "Inserted";//gobinda
+                      
+                        dr["Status"]= "Inserted";
+
+                        
                     }
                     else
                     {
-                        gvProcessLog.Rows[i].Cells[1].Text = "Not Inserted";
+                        dr["Status"] = "Not Inserted";
                     }
                 }
+                gvProcessLog.DataSource = getProcessLogDs.Tables[0];
+                gvProcessLog.DataBind();
+
+
+                if (Cache["ProcessLogDetails" + adviserVo.advisorId.ToString()] == null)
+                {
+                    Cache.Insert("ProcessLogDetails" + adviserVo.advisorId.ToString(), getProcessLogDs);
+                }
+                else
+                {
+                    Cache.Remove("ProcessLogDetails" + adviserVo.advisorId.ToString());
+                    Cache.Insert("ProcessLogDetails" + adviserVo.advisorId.ToString(), getProcessLogDs);
+                }
+
             }
             else
             {
                 trTransactionMessage.Visible = true;
                 gvProcessLog.DataSource = null;
                 gvProcessLog.DataBind();
+
+                if (Cache["RMList" + adviserVo.advisorId.ToString()] == null)
+                {
+                    Cache.Insert("RMList" + adviserVo.advisorId.ToString(), getProcessLogDs);
+                }
+                else
+                {
+                    Cache.Remove("RMList" + adviserVo.advisorId.ToString());
+                    Cache.Insert("RMList" + adviserVo.advisorId.ToString(), getProcessLogDs);
+                }
+
             }
 
-            this.GetPageCount();
+            // this.GetPageCount();
         }
 
         protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
         {
             try
-            {                
-                DropDownList ddlAction = (DropDownList)sender;
+            {
+
+                RadComboBox ddlAction = (RadComboBox)sender;
                 uploadsCommonBo = new UploadCommonBo();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
-                GridViewRow gvr = (GridViewRow)ddlAction.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                processID = int.Parse(gvProcessLog.DataKeys[selectedRow].Values["ADUL_ProcessId"].ToString());
-                filetypeId = Int32.Parse(gvProcessLog.DataKeys[selectedRow].Values["WUXFT_XMLFileTypeId"].ToString());
-                string extracttype = gvProcessLog.DataKeys[selectedRow].Values["XUET_ExtractTypeCode"].ToString();
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                processID = int.Parse(gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["ADUL_ProcessId"].ToString());
+                filetypeId = Int32.Parse(gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["WUXFT_XMLFileTypeId"].ToString());
+                string extracttype = gvProcessLog.MasterTableView.DataKeyValues[selectedRow - 1]["XUET_ExtractTypeCode"].ToString();
                 //XMLConversionStatus = gvProcessLog.Rows[selectedRow].Cells[18].Text.Trim();
                 //InputInsertionStatus = gvProcessLog.Rows[selectedRow].Cells[19].Text.Trim();
                 //FirstStagingStatus = gvProcessLog.Rows[selectedRow].Cells[20].Text.Trim();
@@ -230,7 +261,7 @@ namespace WealthERP.Uploads
                     //}
                     //else
                     //{
-                        Reprocess(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
+                    Reprocess(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
                     //}
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.RollBack)
@@ -241,7 +272,7 @@ namespace WealthERP.Uploads
                     //}
                     //else
                     //{
-                        RollBack(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
+                    RollBack(processID, filetypeId, InputInsertionStatus, FirstStagingStatus, SecondStagingStatus, WERPInsertionStatus);
                     //}
                 }
                 else if (ddlAction.SelectedItem.Value.ToString() == Contants.ManageRejects)
@@ -252,11 +283,11 @@ namespace WealthERP.Uploads
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
-                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId==21)
+                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile || filetypeId == 21)
                         && (extracttype == "PO" || extracttype == "PAF"))
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
-                    }                    
+                    }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSProfile || filetypeId == (int)Contants.UploadTypes.KarvyProfile || filetypeId == (int)Contants.UploadTypes.TempletonProfile ||
                        filetypeId == (int)Contants.UploadTypes.DeutscheProfile || filetypeId == (int)Contants.UploadTypes.StandardProfile)
@@ -266,7 +297,7 @@ namespace WealthERP.Uploads
                     }
 
                     else if ((filetypeId == (int)Contants.UploadTypes.CAMSTransaction || filetypeId == (int)Contants.UploadTypes.KarvyTransaction || filetypeId == (int)Contants.UploadTypes.TempletonTransaction ||
-                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId==25||filetypeId==6)
+                       filetypeId == (int)Contants.UploadTypes.DeutscheTransaction || filetypeId == 25 || filetypeId == 6)
                        && extracttype == "MFT")
                     {
                         Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
@@ -293,7 +324,7 @@ namespace WealthERP.Uploads
 
                     else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID  + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID + "');", true);
                     }
 
                 }
@@ -549,7 +580,7 @@ namespace WealthERP.Uploads
                                     {
                                         processlogVo.IsInsertionToWERPComplete = 1;
                                         processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
-                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID,"SU");
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "SU");
                                         processlogVo.EndTime = DateTime.Now;
                                         blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                     }
@@ -938,7 +969,7 @@ namespace WealthERP.Uploads
                         }
                         #endregion
 
-                            //****gobinda's MF STANDARD TRNX AND FOLIO****\\
+                        //****gobinda's MF STANDARD TRNX AND FOLIO****\\
 
                         #region Standard Transaction + Folio Insertion
                         else if (filetypeId == 6)
@@ -948,7 +979,7 @@ namespace WealthERP.Uploads
                             standardProfileUploadBo = new StandardProfileUploadBo();
                             string stdPackagePath = Server.MapPath("\\UploadPackages\\StandardFolioUploadPackageNew\\StandardFolioUploadPackageNew\\UploadsStandardMFTrxnStagingChk.dtsx");
                             CommonStdTransChecks = standardProfileUploadBo.StdCommonProfileChecks(processID, adviserVo.advisorId, stdPackagePath, configPath);
-                
+
                             if (CommonStdTransChecks)
                             {
                                 processlogVo.IsInsertionToWERPComplete = 1;
@@ -957,13 +988,13 @@ namespace WealthERP.Uploads
 
                                 processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, Contants.UploadExternalTypeStandard);
 
-                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);                               
-                            }           
+                                blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                            }
                         }
-                       
+
                         #endregion
 
-                            //-----------gobinda's SYSTEMATIC STANDARD-------------\\
+                        //-----------gobinda's SYSTEMATIC STANDARD-------------\\
 
                         #region STANDARD SYSTEMATIC
                         else if (filetypeId == 26)
@@ -992,7 +1023,7 @@ namespace WealthERP.Uploads
 
                         #endregion
 
-                        
+
 
                         #region CAMS SYSTEMATIC
                         //CAMS SYSTEMATIC 
@@ -1088,7 +1119,7 @@ namespace WealthERP.Uploads
                                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "TN");
                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                 }
-                            }                            
+                            }
 
                         }
 
@@ -1235,7 +1266,7 @@ namespace WealthERP.Uploads
                                     processlogVo.IsInsertionToWERPComplete = 1;
                                     processlogVo.EndTime = DateTime.Now;
                                     processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(processID, "KA");
-                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);                                    
+                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                 }
                             }
@@ -1320,7 +1351,7 @@ namespace WealthERP.Uploads
 
                         }
                         #endregion
-                        
+
 
 
                         #region Standard Equity Trade Account Common Staging Insertion
@@ -3195,7 +3226,7 @@ namespace WealthERP.Uploads
 
                 #region Sundaram MF TRansaction Input Insertion
 
-                else if (filetypeId ==25)
+                else if (filetypeId == 25)
                 {
                     CamsUploadsBo camsUploadBo = new CamsUploadsBo();
 
@@ -3241,7 +3272,7 @@ namespace WealthERP.Uploads
                                                 {
                                                     processlogVo.IsInsertionToWERPComplete = 1;
                                                     processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(processID, "WPMF");
-                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID,"");
+                                                    processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(processID, "");
                                                     processlogVo.EndTime = DateTime.Now;
                                                     blResult = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
                                                 }
@@ -3950,7 +3981,7 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Display Success Message
-                msgReprocessComplete.Visible=true;
+                msgReprocessComplete.Visible = true;
 
                 if (extracttype == "PO" || extracttype == "PAF")
                 {   // Check if Profile Upload
@@ -4125,7 +4156,7 @@ namespace WealthERP.Uploads
             if (blResult)
             {
                 // Display Success Message
-                msgRollbackSuccessfull.Visible=true;
+                msgRollbackSuccessfull.Visible = true;
                 BindProcessHistoryGrid();
             }
             else
@@ -4225,9 +4256,26 @@ namespace WealthERP.Uploads
                 DropDownList ddl = (DropDownList)e.Row.FindControl("ddlAction");
                 ddl.Attributes.Add("onChange", "Loading(true);setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             }
-    //        btn_Upload.Attributes.Add("onclick",
-    //"setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
+            //        btn_Upload.Attributes.Add("onclick",
+            //"setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
         }
 
+        protected void gvProcessLog_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataSet dtProcessLogDetails = new DataSet();
+            dtProcessLogDetails = (DataSet)Cache["ProcessLogDetails" + adviserVo.advisorId.ToString()];
+            gvProcessLog.DataSource = dtProcessLogDetails;
+        }
+
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvProcessLog.ExportSettings.OpenInNewWindow = true;
+            gvProcessLog.ExportSettings.IgnorePaging = true;
+            gvProcessLog.ExportSettings.HideStructureColumns = true;
+            gvProcessLog.ExportSettings.ExportOnlyData = true;
+            gvProcessLog.ExportSettings.FileName = "Upload History Details";
+            gvProcessLog.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvProcessLog.MasterTableView.ExportToExcel();
+        }
     }
 }
