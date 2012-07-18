@@ -236,13 +236,13 @@ namespace BoUploads
             return updatedflag;
         }
 
-        public DataSet GetUploadProcessLogAdmin(int adviserId, int CurrentPage, out int Count, string SortExpression)
+        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression)
         {
             DataSet getProcessLogDs;
             UploadsCommonDao uploadDAO = new UploadsCommonDao();
             try
             {
-                getProcessLogDs = uploadDAO.GetUploadProcessLogAdmin(adviserId, CurrentPage, out Count, SortExpression);
+                getProcessLogDs = uploadDAO.GetUploadProcessLogAdmin(adviserId, SortExpression);
             }
             catch (Exception Ex)
             {

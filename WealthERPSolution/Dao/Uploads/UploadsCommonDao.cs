@@ -410,7 +410,7 @@ namespace DaoUploads
             return blResult;
         }
 
-        public DataSet GetUploadProcessLogAdmin(int adviserId, int CurrentPage, out int Count, string SortExpression)
+        public DataSet GetUploadProcessLogAdmin(int adviserId, string SortExpression)
         {
             Database db;
             DbCommand getProcessLogCmd;
@@ -421,7 +421,7 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getProcessLogCmd = db.GetStoredProcCommand("SP_GetAdvDailyUploadLog");
                 db.AddInParameter(getProcessLogCmd,"@A_AdviserId",DbType.Int32,adviserId);
-                db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
+                //db.AddInParameter(getProcessLogCmd, "@currentPage", DbType.Int32, CurrentPage);
                 db.AddInParameter(getProcessLogCmd, "@processIdSort", DbType.String, SortExpression);
                 getProcessLogDs = db.ExecuteDataSet(getProcessLogCmd);
             }
@@ -438,7 +438,7 @@ namespace DaoUploads
 
                 object[] objects = new object[2];
                 objects[0] = adviserId;
-                objects[1] = CurrentPage;
+                //objects[1] = CurrentPage;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -446,7 +446,7 @@ namespace DaoUploads
                 throw exBase;
             }
 
-            Count = Int32.Parse(getProcessLogDs.Tables[1].Rows[0]["CNT"].ToString());
+            //Count = Int32.Parse(getProcessLogDs.Tables[1].Rows[0]["CNT"].ToString());
 
             return getProcessLogDs;
         }
