@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdvisorDashBoardOld" xml:space="preserve">
+  <data name="AdvisorDashBoard" xml:space="preserve">
     <value>Advisor//AdvisorDashBoard.ascx</value>
     <comment>Advisor//AdvisorDashBoard.ascx</comment>
   </data>
@@ -637,7 +637,7 @@
     <value>Uploads//CustomerUpload.ascx</value>
     <comment>Uploads//CustomerUpload.ascx</comment>
   </data>
-  <data name="IFAAdminMainDashboard" xml:space="preserve">
+  <data name="IFAAdminMainDashboardOld" xml:space="preserve">
     <value>Advisor//IFAAdminMainDashboard.ascx</value>
     <comment>Advisor//IFAAdminMainDashboard.ascx</comment>
   </data>
@@ -1393,12 +1393,12 @@
     <value>OPS//MFOrderEntry.ascx</value>
     <comment>OPS//MFOrderEntry.ascx</comment>
   </data>
-  <data name="AdvisorDashBoard" xml:space="preserve">
-    <value>Advisor//AdviserLandingPage.ascx</value>
-    <comment>Advisor//AdviserLandingPage.ascx</comment>
-  </data>
   <data name="BusinessDashBoard" xml:space="preserve">
     <value>BusinessMIS//BusinessDashBoard.ascx</value>
     <comment>BusinessMIS//BusinessDashBoard.ascx</comment>
+  </data>
+  <data name="IFAAdminMainDashboard" xml:space="preserve">
+    <value>Advisor//AdviserLandingPage.ascx</value>
+    <comment>Advisor//AdviserLandingPage.ascx</comment>
   </data>
 </root>
