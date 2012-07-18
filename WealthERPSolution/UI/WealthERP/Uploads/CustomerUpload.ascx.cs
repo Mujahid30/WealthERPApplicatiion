@@ -1959,6 +1959,7 @@ namespace WealthERP.Uploads
                                                     //processlogVo.EndTime = DateTime.Now;
                                                     //processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "TN");
                                                     //updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    KARVYTrailCommonStagingToWERP = true;
                                                 }
                                                 //}
                                             }
@@ -1993,7 +1994,7 @@ namespace WealthERP.Uploads
                                         else
                                             SecondStagingInsertionProgress = "Failure";
 
-                                        if (KARVYTrailCommonStagingChk && KARVYTrailCommonStagingToWERP)
+                                        if (KARVYTrailCommonStagingChk)
                                         {
                                             WERPInsertionProgress = "Done";
 
@@ -3864,8 +3865,8 @@ namespace WealthERP.Uploads
                 ddlListCompany.Items.Add("CAMS");
                 ddlListCompany.Items.Add("KARVY");
                 ddlListCompany.Items.Add("Templeton");
-                ddlListCompany.Items.Add("Deutsche");
-                ddlListCompany.Items.Add("Sundaram");
+                //ddlListCompany.Items.Add("Deutsche");
+                //ddlListCompany.Items.Add("Sundaram");
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
             }
             //List Added For ODIN 
@@ -4546,7 +4547,34 @@ namespace WealthERP.Uploads
                 #region Trail Commision for Templeton
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Templeton")
                 {
-                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
+                    if (extension == "dbf")
+                    {
+                        string filename = "TNTrail.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            //for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            //{
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
+
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
+                            //}
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\TempletonTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4584,6 +4612,33 @@ namespace WealthERP.Uploads
                     {
                         //ValidationProgress = "Failure";
                     }
+                    if (filereadflag == true)
+                    {
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+
+                            //for getting line number of error data in the file when validating
+                            skiprowsval = Convert.ToInt16(txtNoOfRows.Text) + 1;
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(28);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(28);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "TN", "TrailCommission");
+
+                        //Reject upload if there are any data error validations
+                        if (dsXML.Tables.Count > 0)
+                            ValidateInputfile("TN", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
+
+                    }
                 }
                 #endregion
 
@@ -4592,7 +4647,34 @@ namespace WealthERP.Uploads
                 #region Trail Commision for Cams
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "CAMS")
                 {
-                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CATrail.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            //for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            //{
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
+
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
+                            //}
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4624,12 +4706,40 @@ namespace WealthERP.Uploads
 
 
                         //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", "TrailCommission");
+
                     }
                     else
                     {
                         //ValidationProgress = "Failure";
                     }
+                    if (filereadflag == true)
+                    {
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+
+                            //for getting line number of error data in the file when validating
+                            skiprowsval = Convert.ToInt16(txtNoOfRows.Text) + 1;
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(29);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(29);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", "TrailCommission");
+
+                        //Reject upload if there are any data error validations
+                        if (dsXML.Tables.Count > 0)
+                            ValidateInputfile("CA", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
+
+                    }
+                    filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "CA", "TrailCommission");
                 }
                 #endregion
 
@@ -4638,7 +4748,34 @@ namespace WealthERP.Uploads
                 #region Trail Commision for KARVY
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "KARVY")
                 {
-                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
+                    if (extension == "dbf")
+                    {
+                        string filename = "KATrail.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            //for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            //{
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
+
+                            //    if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                            //        ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
+                            //}
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\KARVYTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4670,12 +4807,40 @@ namespace WealthERP.Uploads
 
 
                         //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", "TrailCommission");
+
                     }
                     else
                     {
                         //ValidationProgress = "Failure";
                     }
+                    if (filereadflag == true)
+                    {
+                        if (rbSkipRowsYes.Checked)
+                        {
+                            ds = SkipRows(ds);
+
+                            //for getting line number of error data in the file when validating
+                            skiprowsval = Convert.ToInt16(txtNoOfRows.Text) + 1;
+                        }
+
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames(30);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames(30);
+
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", "TrailCommission");
+
+                        //Reject upload if there are any data error validations
+                        if (dsXML.Tables.Count > 0)
+                            ValidateInputfile("KA", Contants.ExtractTypeMFTransaction, pathxml, skiprowsval);
+
+                    }
+                    filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "KA", "TrailCommission");
                 }
                 #endregion
 
@@ -4684,7 +4849,7 @@ namespace WealthERP.Uploads
                 #region Trail Commision for Deutsche
                 else if (ddlUploadType.SelectedValue == "TRAIL" && ddlListCompany.SelectedValue == "Deutsche")
                 {
-                    if (extension == "xls" || extension == "xlsx" || extension == "dbf")
+                    if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\DeutscheTrailCommission.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4716,12 +4881,14 @@ namespace WealthERP.Uploads
 
 
                         //Get filetypeid from XML
-                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "DT", "TrailCommission");
+
                     }
                     else
                     {
                         //ValidationProgress = "Failure";
                     }
+
+                    filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "DT", "TrailCommission");
                 }
                 #endregion
 
