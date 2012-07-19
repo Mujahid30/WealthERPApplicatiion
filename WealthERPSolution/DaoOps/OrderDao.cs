@@ -152,7 +152,7 @@ namespace DaoOps
             return dtAssetParticular;
         }
 
-        public void InsertIntoProductGIInsuranceScheme(string assetText, string InsuranceIssuerCode,string schemePlanName)
+        public void InsertIntoProductGIInsuranceScheme(string assetText, string InsuranceIssuerCode, string schemePlanName)
         {
             Database db;
             DbCommand cmdInsertAssetParticular;
@@ -162,7 +162,7 @@ namespace DaoOps
                 cmdInsertAssetParticular = db.GetStoredProcCommand("SP_InsertIntoProductGISchemePLan");
                 db.AddInParameter(cmdInsertAssetParticular, "@XGII_GIIssuerCode ", DbType.String, assetText);
                 db.AddInParameter(cmdInsertAssetParticular, "@PGISP_SchemePlanName", DbType.String, schemePlanName);
-                db.AddInParameter(cmdInsertAssetParticular, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, InsuranceIssuerCode);                
+                db.AddInParameter(cmdInsertAssetParticular, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, InsuranceIssuerCode);
                 db.ExecuteNonQuery(cmdInsertAssetParticular);
             }
             catch (BaseApplicationException Ex)
@@ -190,7 +190,7 @@ namespace DaoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds,string jointHoldingAssociationIds)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
         {
             Database db;
             DbCommand LifeInsuranceOrderCmd;
@@ -213,7 +213,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
-                db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId); 
+                db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
 
                 db.AddInParameter(LifeInsuranceOrderCmd, "@SourceCode", DbType.String, lifeInsuranceOrdervo.SourceCode);
@@ -233,15 +233,15 @@ namespace DaoOps
                 else
                     db.AddInParameter(LifeInsuranceOrderCmd, "@XGII_GIIssuerCode", DbType.String, DBNull.Value);
 
-                if (lifeInsuranceOrdervo.OrderStatusCode != "")
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@XS_StatusCode", DbType.String, lifeInsuranceOrdervo.OrderStatusCode);
-                else
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@XS_StatusCode", DbType.String, DBNull.Value);
+                //if (lifeInsuranceOrdervo.OrderStatusCode != "")
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XS_StatusCode", DbType.String, lifeInsuranceOrdervo.OrderStatusCode);
+                //else
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XS_StatusCode", DbType.String, DBNull.Value);
 
-                if (lifeInsuranceOrdervo.ReasonCode != "")
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@XSR_StatusReasonCode", DbType.String, lifeInsuranceOrdervo.ReasonCode);
-                else
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@XSR_StatusReasonCode", DbType.String, DBNull.Value);
+                //if (lifeInsuranceOrdervo.ReasonCode != "")
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XSR_StatusReasonCode", DbType.String, lifeInsuranceOrdervo.ReasonCode);
+                //else
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@XSR_StatusReasonCode", DbType.String, DBNull.Value);
 
                 if (lifeInsuranceOrdervo.ApprovedBy != null)
                     db.AddInParameter(LifeInsuranceOrderCmd, "@ApprovedByID", DbType.Int32, lifeInsuranceOrdervo.ApprovedBy);
@@ -279,8 +279,7 @@ namespace DaoOps
                     db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
 
                 db.AddInParameter(LifeInsuranceOrderCmd, "@IsCustomerApprovalApplicable", DbType.Int32, lifeInsuranceOrdervo.IsCustomerApprovalApplicable);
-                //db.AddOutParameter(LifeInsuranceOrderCmd, "@CO_OrderId", DbType.Int32, lifeInsuranceOrdervo.OrderId);
-
+                
                 if (db.ExecuteNonQuery(LifeInsuranceOrderCmd) != 0)
                     bResult = true;
             }
@@ -293,7 +292,7 @@ namespace DaoOps
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OrderDao.cs:CreateInsurancePortfolio()");
+                FunctionInfo.Add("Method", "OrderDao.cs:AddLifeInsuranceOrder()");
                 object[] objects = new object[1];
                 objects[0] = lifeInsuranceOrdervo;
                 //objects[1] = userId;
@@ -316,18 +315,19 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 LifeInsuranceOrderCmd = db.GetStoredProcCommand("SP_UpdateLifeInsuranceOrder");
-                
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationNumber", DbType.String, lifeInsuranceOrdervo.ApplicationNumber);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@CustomerId", DbType.Int32, lifeInsuranceOrdervo.CustomerId);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentMode", DbType.String, lifeInsuranceOrdervo.PaymentMode);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@ChequeNumber", DbType.String, lifeInsuranceOrdervo.ChequeNumber);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@CustBankAccId", DbType.String, lifeInsuranceOrdervo.CustBankAccId);
-                //db.AddInParameter(LifeInsuranceOrderCmd, "@SumAssured", DbType.Double, lifeInsuranceOrdervo.SumAssured);
-                ////db.AddInParameter(LifeInsuranceOrderCmd, "@FrequencyCode", DbType.String, lifeInsuranceOrdervo.FrequencyCode);
-                //if (lifeInsuranceOrdervo.HoldingMode == null || lifeInsuranceOrdervo.HoldingMode == "" || lifeInsuranceOrdervo.HoldingMode == "Select")
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
-                //else
+
+                db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderId", DbType.Int32, lifeInsuranceOrdervo.OrderId);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationNumber", DbType.String, lifeInsuranceOrdervo.ApplicationNumber);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@CustomerId", DbType.Int32, lifeInsuranceOrdervo.CustomerId);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentMode", DbType.String, lifeInsuranceOrdervo.PaymentMode);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@ChequeNumber", DbType.String, lifeInsuranceOrdervo.ChequeNumber);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@CustBankAccId", DbType.String, lifeInsuranceOrdervo.CustBankAccId);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@SumAssured", DbType.Double, lifeInsuranceOrdervo.SumAssured);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@FrequencyCode", DbType.String, lifeInsuranceOrdervo.FrequencyCode);
+                //if (lifeInsuranceOrdervo.HoldingMode != null && lifeInsuranceOrdervo.HoldingMode != "" && lifeInsuranceOrdervo.HoldingMode != "Select")
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, lifeInsuranceOrdervo.HoldingMode);
+                //else
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ModeOfHolding", DbType.String, DBNull.Value);
                 //db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
                 //db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId);
                 //db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
@@ -359,43 +359,41 @@ namespace DaoOps
                 //else
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@XSR_StatusReasonCode", DbType.String, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.ApprovedBy != null)
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ApprovedByID", DbType.Int32, lifeInsuranceOrdervo.ApprovedBy);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ApprovedByID", DbType.String, DBNull.Value);
+                if (lifeInsuranceOrdervo.ApprovedBy != null)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ApprovedByID", DbType.Int32, lifeInsuranceOrdervo.ApprovedBy);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ApprovedByID", DbType.String, DBNull.Value);
 
-                //if (nomineeAssociationIds != "")
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@nomineeAssociationIds", DbType.String, nomineeAssociationIds);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@nomineeAssociationIds", DbType.String, DBNull.Value);
+                if (nomineeAssociationIds != "")
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@nomineeAssociationIds", DbType.String, nomineeAssociationIds);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@nomineeAssociationIds", DbType.String, DBNull.Value);
 
                 //if (jointHoldingAssociationIds != "")
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, jointHoldingAssociationIds);
                 //else
                 //    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.OrderDate != DateTime.MinValue)
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderDate", DbType.DateTime, lifeInsuranceOrdervo.OrderDate);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
+                if (lifeInsuranceOrdervo.OrderDate != DateTime.MinValue)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderDate", DbType.DateTime, lifeInsuranceOrdervo.OrderDate);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderDate", DbType.DateTime, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.ApplicationReceivedDate != DateTime.MinValue)
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationReceivedDate", DbType.DateTime, lifeInsuranceOrdervo.ApplicationReceivedDate);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
+                if (lifeInsuranceOrdervo.ApplicationReceivedDate != DateTime.MinValue)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationReceivedDate", DbType.DateTime, lifeInsuranceOrdervo.ApplicationReceivedDate);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.PaymentDate != DateTime.MinValue)
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentDate", DbType.DateTime, lifeInsuranceOrdervo.PaymentDate);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentDate", DbType.DateTime, DBNull.Value);
+                if (lifeInsuranceOrdervo.PaymentDate != DateTime.MinValue)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentDate", DbType.DateTime, lifeInsuranceOrdervo.PaymentDate);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@PaymentDate", DbType.DateTime, DBNull.Value);
 
-                //if (lifeInsuranceOrdervo.MaturityDate != DateTime.MinValue)
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, lifeInsuranceOrdervo.MaturityDate);
-                //else
-                //    db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
+                if (lifeInsuranceOrdervo.MaturityDate != DateTime.MinValue)
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, lifeInsuranceOrdervo.MaturityDate);
+                else
+                    db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
 
-                db.AddInParameter(LifeInsuranceOrderCmd, "@IsCustomerApprovalApplicable", DbType.Int32, lifeInsuranceOrdervo.IsCustomerApprovalApplicable);
-                
                 if (db.ExecuteNonQuery(LifeInsuranceOrderCmd) != 0)
                     bResult = true;
             }
@@ -490,17 +488,19 @@ namespace DaoOps
                     lifeInsuranceOrderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
                     lifeInsuranceOrderVo.ApplicationReceivedDate = Convert.ToDateTime(dr["CO_ApplicationReceivedDate"].ToString());
                     //lifeInsuranceOrderVo.ApprovedBy = Convert.ToInt32(dr["CO_ApplicationNumber"].ToString());
-                    lifeInsuranceOrderVo.AssetCategory = dr["PAG_AssetGroupCode"].ToString();                    
+                    lifeInsuranceOrderVo.AssetGroup = dr["PAG_AssetGroupCode"].ToString();
+                    lifeInsuranceOrderVo.AssetCategory = dr["CIOD_AssetCategory"].ToString();
 
                     lifeInsuranceOrderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
                     lifeInsuranceOrderVo.CustBankAccId = Convert.ToInt32(dr["CB_CustBankAccId"].ToString());
+                    lifeInsuranceOrderVo.BankBranchName = dr["CB_BranchName"].ToString();
                     lifeInsuranceOrderVo.CustomerId = Convert.ToInt32(dr["C_CustomerId"].ToString());
                     lifeInsuranceOrderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
                     lifeInsuranceOrderVo.GIIssuerCode = dr["XGII_GIIssuerCode"].ToString();
                     lifeInsuranceOrderVo.HoldingMode = dr["CIOD_ModeOfHolding"].ToString();
                     lifeInsuranceOrderVo.InsuranceIssuerCode = dr["XII_InsuranceIssuerCode"].ToString();
                     lifeInsuranceOrderVo.InsuranceSchemeId = Convert.ToInt32(dr["IS_SchemeId"].ToString());
-                    lifeInsuranceOrderVo.IsCustomerApprovalApplicable = Convert.ToInt32(dr["CO_IsCustomerApprovalNeeded"].ToString());
+                    //lifeInsuranceOrderVo.IsCustomerApprovalApplicable = Convert.ToInt32(dr["CO_IsCustomerApprovalNeeded"].ToString());
                     lifeInsuranceOrderVo.IsJointlyHeld = Convert.ToInt16(dr["CIOD_IsJointlyHeld"].ToString());
                     lifeInsuranceOrderVo.MaturityDate = Convert.ToDateTime(dr["CIOD_PolicyMaturityDate"].ToString());
                     lifeInsuranceOrderVo.OrderDate = Convert.ToDateTime(dr["CO_OrderDate"].ToString());
@@ -510,7 +510,7 @@ namespace DaoOps
                     lifeInsuranceOrderVo.PaymentDate = Convert.ToDateTime(dr["CO_PaymentDate"].ToString());
                     lifeInsuranceOrderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
                     lifeInsuranceOrderVo.SumAssured = Convert.ToDouble(dr["CIOD_SumAssured"].ToString());
-                    lifeInsuranceOrderVo.SourceCode = dr["WOSR_SourceCode"].ToString();                       
+                    lifeInsuranceOrderVo.SourceCode = dr["WOSR_SourceCode"].ToString();
                 }
                 if (dtOrderStep.Rows.Count > 0)
                 {
@@ -702,7 +702,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertAssetParticular = db.GetStoredProcCommand("SP_InsertBondIssuerName");
-                db.AddInParameter(cmdInsertAssetParticular, "@bondIssuerName", DbType.String, bondIssuerName);               
+                db.AddInParameter(cmdInsertAssetParticular, "@bondIssuerName", DbType.String, bondIssuerName);
                 db.ExecuteNonQuery(cmdInsertAssetParticular);
             }
             catch (BaseApplicationException Ex)
@@ -776,15 +776,15 @@ namespace DaoOps
                 db.AddInParameter(bondOrderVoCmd, "@IsJointlyHeld", DbType.Int16, bondOrderVo.IsJointlyHeld);
                 db.AddInParameter(bondOrderVoCmd, "@IsBuyBackFacility", DbType.Int16, bondOrderVo.IsBuyBackFacility);
                 db.AddInParameter(bondOrderVoCmd, "@IsFormOfHoldingPhysical", DbType.Int16, bondOrderVo.IsFormOfHoldingPhysical);
-                
-                db.AddInParameter(bondOrderVoCmd, "@AssetCategory", DbType.String, bondOrderVo.AssetCategory);
+
+                db.AddInParameter(bondOrderVoCmd, "@AssetGroup", DbType.String, bondOrderVo.AssetGroup);
                 db.AddInParameter(bondOrderVoCmd, "@CustomerId", DbType.Int32, bondOrderVo.CustomerId);
                 db.AddInParameter(bondOrderVoCmd, "@SourceCode", DbType.String, bondOrderVo.SourceCode);
                 db.AddInParameter(bondOrderVoCmd, "@ApplicationNumber", DbType.String, bondOrderVo.ApplicationNumber);
                 db.AddInParameter(bondOrderVoCmd, "@PaymentMode", DbType.String, bondOrderVo.PaymentMode);
                 db.AddInParameter(bondOrderVoCmd, "@ChequeNumber", DbType.String, bondOrderVo.ChequeNumber);
                 db.AddInParameter(bondOrderVoCmd, "@CustBankAccId", DbType.String, bondOrderVo.CustBankAccId);
-                
+
                 db.AddInParameter(bondOrderVoCmd, "@XS_StatusCode", DbType.String, bondOrderVo.OrderStatusCode);
                 db.AddInParameter(bondOrderVoCmd, "@ApprovedByID", DbType.Int32, bondOrderVo.ApprovedBy);
 
@@ -797,7 +797,7 @@ namespace DaoOps
                 db.AddInParameter(bondOrderVoCmd, "@BondSchemeId", DbType.Int32, bondOrderVo.BondSchemeId);
                 db.AddInParameter(bondOrderVoCmd, "@BondIssuerid", DbType.Int32, bondOrderVo.BondIssuerid);
                 db.AddInParameter(bondOrderVoCmd, "@CA_AssociationId", DbType.Int64, bondOrderVo.AssociationId);
-               
+
                 db.AddInParameter(bondOrderVoCmd, "@BuyBackAmount", DbType.Int32, bondOrderVo.BuyBackAmount);
                 db.AddInParameter(bondOrderVoCmd, "@Amount", DbType.Int32, bondOrderVo.Amount);
                 db.AddInParameter(bondOrderVoCmd, "@CustDemateAccId", DbType.String, bondOrderVo.AccountId);
@@ -904,7 +904,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, Int16 isClose)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -915,6 +915,11 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbOrder = db.GetStoredProcCommand("SP_GetOrderList");
                 db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
+                db.AddInParameter(dbOrder, "@RmId", DbType.String, rmId);
+                db.AddInParameter(dbOrder, "@BranchId", DbType.String, branchId);
+                db.AddInParameter(dbOrder, "@Fromdate", DbType.DateTime, fromDate);
+                db.AddInParameter(dbOrder, "@Todate", DbType.DateTime, toDate);
+                db.AddInParameter(dbOrder, "@IsClose", DbType.Int16, isClose);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
             }
@@ -1088,6 +1093,27 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCmd = db.GetStoredProcCommand("SP_GetCustomerOrderStepStatusRejectReason");
                 db.AddInParameter(dbCmd, "@WOS_OrderStepCode", DbType.String, orderstepCode);
+                ds = db.ExecuteDataSet(dbCmd);
+                dt = ds.Tables[0];
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        public DataTable GetCustomerOrderAssociates(int orderId)
+        {
+            DataSet ds = null;
+            DataTable dt;
+            Database db;
+            DbCommand dbCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCmd = db.GetStoredProcCommand("SP_GetCustomerOrderAssociates");
+                db.AddInParameter(dbCmd, "@CO_OrderId", DbType.String, orderId);
                 ds = db.ExecuteDataSet(dbCmd);
                 dt = ds.Tables[0];
             }

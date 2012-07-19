@@ -25,7 +25,7 @@ namespace BoOps
         public DataTable GetBankAccountDetails(int customerId)
         {
             DataTable customerBankAccountlist = null;
-            OrderDao orderDao = new OrderDao();            
+            OrderDao orderDao = new OrderDao();
             try
             {
                 customerBankAccountlist = orderDao.GetBankAccountDetails(customerId);
@@ -162,7 +162,7 @@ namespace BoOps
             }
         }
 
-        public void InsertIntoProductGIInsuranceScheme(string asset, string InsuranceIssuerCode,string schemePlanName)
+        public void InsertIntoProductGIInsuranceScheme(string asset, string InsuranceIssuerCode, string schemePlanName)
         {
             OrderDao orderDao = new OrderDao();
             try
@@ -239,7 +239,7 @@ namespace BoOps
 
         public LifeInsuranceOrderVo GetLifeInsuranceOrderDetails(int orderId)
         {
-            LifeInsuranceOrderVo lifeInsuranceOrderVo = new LifeInsuranceOrderVo();            
+            LifeInsuranceOrderVo lifeInsuranceOrderVo = new LifeInsuranceOrderVo();
             OrderDao orderDao = new OrderDao();
             try
             {
@@ -364,7 +364,7 @@ namespace BoOps
             return dsStepsDetails;
         }
         /*************************************Code starts Here for Bond Order ****************************************************************************************/
-               
+
         public DataTable GetAssetParticularForBonds(int bondIssuerId)
         {
             DataTable dtAssetParticular = null;
@@ -441,7 +441,7 @@ namespace BoOps
 
                 FunctionInfo.Add("Method", "OrderBo.cs:GetBondsIssuer()");
 
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -513,13 +513,13 @@ namespace BoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId)
-        {
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, Int16 isClose)
+        { 
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetOrderList(advisorId);
+                dtOrder = orderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, isClose);
             }
             catch (BaseApplicationException Ex)
             {
@@ -594,7 +594,7 @@ namespace BoOps
                 FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStatusPendingReason()");
 
                 object[] objects = new object[1];
-                objects[0] = orderStatusCode;                
+                objects[0] = orderStatusCode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -666,6 +666,21 @@ namespace BoOps
                 throw Ex;
             }
             return dtOrderStatus;
+        }
+
+        public DataTable GetCustomerOrderAssociates(int orderId)
+        {
+            DataTable dtOrderAccociates = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrderAccociates = orderDao.GetCustomerOrderAssociates(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtOrderAccociates;
         }
     }
 }
