@@ -17,7 +17,8 @@ namespace VoOps
         private int m_IsJointlyHeld;
         private int m_InsuranceSchemeId;
         private string m_InsuranceIssuerCode;
-      
+        private string m_AssetCategory;
+
         #endregion
 
         #region Properties
@@ -68,7 +69,11 @@ namespace VoOps
             get { return m_InsuranceIssuerCode; }
             set { m_InsuranceIssuerCode = value; }
         }
-
+        public string AssetCategory
+        {
+            get { return m_AssetCategory; }
+            set { m_AssetCategory = value; }
+        }
         #endregion
     }
 }

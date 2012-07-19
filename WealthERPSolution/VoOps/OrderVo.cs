@@ -10,7 +10,7 @@ namespace VoOps
         #region Fields
 
         private int m_OrderId;
-        private string m_AssetCategory;
+        private string m_AssetGroup;
         private DateTime m_OrderDate;
         private int m_OrderNumber;
         private int m_CustomerId;
@@ -21,6 +21,7 @@ namespace VoOps
         private string m_ChequeNumber;
         private DateTime m_PaymentDate;
         private int m_CustBankAccId;
+        private string m_BankBranchName;
 
         private string m_OrderStepCode;
         private string m_OrderStatusCode;
@@ -39,10 +40,10 @@ namespace VoOps
             get { return m_OrderId; }
             set { m_OrderId = value; }
         }
-        public string AssetCategory
+        public string AssetGroup
         {
-            get { return m_AssetCategory; }
-            set { m_AssetCategory = value; }
+            get { return m_AssetGroup; }
+            set { m_AssetGroup = value; }
         }
         public DateTime OrderDate
         {
@@ -93,6 +94,12 @@ namespace VoOps
         {
             get { return m_CustBankAccId; }
             set { m_CustBankAccId = value; }
+        }
+
+        public string BankBranchName
+        {
+            get { return m_BankBranchName; }
+            set { m_BankBranchName = value; }
         }
 
         public string OrderStepCode
