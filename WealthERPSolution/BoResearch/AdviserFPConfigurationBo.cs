@@ -138,7 +138,7 @@ namespace BoResearch
         /// <param name="AdviserMaintainableOrNot"></param>
         /// <param name="InsertAdviserQuestionOROptions"></param>
         /// <returns></returns>
-        
+
         public int CreateAdvisorDynamicRiskQuestions(AdviserDynamicRiskQuestionsVo adviserDynamicRiskQuestionsVo)
         {
             int qustionID = 0;
@@ -179,7 +179,7 @@ namespace BoResearch
         /// <param name="AdviserMaintainableOrNot"></param>
         /// <param name="InsertAdviserQuestionOROptions"></param>
         /// <returns></returns>
-        
+
         public int CreateAdvisorDynamicRiskQuestionsOptions(AdviserDynamicRiskQuestionsVo adviserDynamicRiskQuestionsVo)
         {
             int qustionID = 0;
@@ -256,7 +256,7 @@ namespace BoResearch
         /// <param name="AdviserMaintainableOrNot"></param>
         /// <param name="InsertAdviserQuestionOROptions"></param>
         /// <returns></returns>
-        
+
         public bool UpdateAdvisorDynamicRiskQuestionsOptions(AdviserDynamicRiskQuestionsVo adviserDynamicRiskQuestionsVo)
         {
             bool bResult = false;
@@ -408,36 +408,36 @@ namespace BoResearch
             return bResult;
         }
 
-        public DataTable GetMaxMinAge(int adviserId, string riskClass)
+        public DataTable GetMaxMinAge(int adviserId, string riskClass, string ddlModelType)
         {
             DataTable dtGetMaxMinAge;
             AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
             try
             {
-                dtGetMaxMinAge = adviserFPConfigurationDao.GetMaxMinAge(adviserId, riskClass);
+                dtGetMaxMinAge = adviserFPConfigurationDao.GetMaxMinAge(adviserId, riskClass, ddlModelType);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-             return dtGetMaxMinAge;
+            return dtGetMaxMinAge;
         }
 
-        public DataTable GetMaxMinAgeModelPortFolio(int adviserId, string riskClass, int modelPortfolioCode)
+        public DataTable GetMaxMinAgeModelPortFolio(int adviserId, string riskClass, int modelPortfolioCode, string ddlModelType)
         {
             DataTable dtGetMaxMinAge;
             AdviserFPConfigurationDao adviserFPConfigurationDao = new AdviserFPConfigurationDao();
             try
             {
-                dtGetMaxMinAge = adviserFPConfigurationDao.GetMaxMinAgeModelPortFolio(adviserId, riskClass, modelPortfolioCode);
+                dtGetMaxMinAge = adviserFPConfigurationDao.GetMaxMinAgeModelPortFolio(adviserId, riskClass, modelPortfolioCode, ddlModelType);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-             return dtGetMaxMinAge;
+            return dtGetMaxMinAge;
         }
-         
+
     }
 }
 
