@@ -485,7 +485,7 @@ namespace WealthERP.OPS
             if (rbtnYes.Checked)
                 bondOrderVo.IsJointlyHeld = 1;
 
-            bondOrderVo.AssetCategory = "FI";
+            bondOrderVo.AssetGroup = "FI";
             bondOrderVo.OrderDate = txtOrderDate.SelectedDate.Value;
             bondOrderVo.CustomerId = int.Parse(hdnCustomerId.Value);
             
