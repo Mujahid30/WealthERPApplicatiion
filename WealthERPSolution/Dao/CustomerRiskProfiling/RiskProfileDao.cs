@@ -709,7 +709,7 @@ namespace DaoCustomerRiskProfiling
 
         //}
 
-        public DataSet GetModelPortFolio(int customerId, string riskCode)
+        public DataSet GetModelPortFolio(int customerId, string riskCode, int isRiskModel)
         {
             Database db;
             DbCommand dbGetModelPortFolio = null;
@@ -720,6 +720,8 @@ namespace DaoCustomerRiskProfiling
                 dbGetModelPortFolio = db.GetStoredProcCommand("SP_GetModelPortFolio");
                 db.AddInParameter(dbGetModelPortFolio, "@CustomerId", DbType.Int32, customerId);
                 db.AddInParameter(dbGetModelPortFolio, "@riskCode", DbType.String, riskCode);
+                db.AddInParameter(dbGetModelPortFolio, "@XAMP_IsRiskModel", DbType.Int16, isRiskModel);
+                
                 dsGetModelPortFolio = db.ExecuteDataSet(dbGetModelPortFolio);
             }
             catch (BaseApplicationException ex)

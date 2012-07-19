@@ -33,7 +33,7 @@ namespace VoResearch
         private int m_ModelPortfolioCode;
         private int m_AMPBU_Id;
         private string m_RiskClassCode;
-
+        private string m_IsRiskClass;
         private int m_SchemeCode;
         private decimal m_Weightage;
         private int m_ArchiveReason;
@@ -52,7 +52,11 @@ namespace VoResearch
             get { return m_PortfolioName; }
             set { m_PortfolioName = value; }
         }
-
+        public string IsRiskClass
+        {
+            get { return m_IsRiskClass; }
+            set { m_IsRiskClass = value; }
+        }
         public double MinAUM
         {
             get { return m_MinAUM; }
@@ -120,7 +124,7 @@ namespace VoResearch
         {
             get { return m_ROR; }
             set { m_ROR = value; }
-        } 
+        }
 
         public string VariantDescription
         {

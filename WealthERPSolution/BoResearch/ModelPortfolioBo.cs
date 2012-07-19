@@ -11,11 +11,11 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 namespace BoResearch
 {
     public class ModelPortfolioBo
-    {        
+    {
         public DataTable GetAMCList()
         {
             DataTable dtGetMutualFund = new DataTable();
-            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();            
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
                 dtGetMutualFund = modelPortfolioDao.GetAMCList();
@@ -490,7 +490,7 @@ namespace BoResearch
                 throw exBase;
             }
         }
-        
+
         public DataTable GetRiskGoalClassData(int adviserId, int isRiskClass)
         {
             DataTable dt = new DataTable();
@@ -615,7 +615,7 @@ namespace BoResearch
         public bool CreateVariantAssetPortfolio(ModelPortfolioVo modelPortfolioVo, int adviserId, int userId)
         {
             bool bResult = false;
-            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();           
+            ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
                 bResult = modelPortfolioDao.CreateVariantAssetPortfolio(modelPortfolioVo, adviserId, userId);
@@ -674,7 +674,7 @@ namespace BoResearch
                 throw exBase;
             }
             return bResult;
-        }        
+        }
 
         public DataSet GetVariantAssetPortfolioDetails(int advisorId)
         {
@@ -735,7 +735,7 @@ namespace BoResearch
         }
         //********************************************** Code for Asset Allocation Ends***********************************************************
 
-        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId,int adviserId,int goalId)
+        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId, int adviserId, int goalId)
         {
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             DataSet dsModelPortFolioSchemeDetails = new DataSet();
@@ -748,7 +748,7 @@ namespace BoResearch
                 throw Ex;
             }
             return dsModelPortFolioSchemeDetails;
-           
+
         }
 
         //public DataTable GetRiskClassText(string riskClassCode)
@@ -773,7 +773,7 @@ namespace BoResearch
             ModelPortfolioDao modelPortfolioDao = new ModelPortfolioDao();
             try
             {
-               result=modelPortfolioDao.ResetAdviserRiskScore(adviserId);
+                result = modelPortfolioDao.ResetAdviserRiskScore(adviserId);
             }
             catch (BaseApplicationException Ex)
             {

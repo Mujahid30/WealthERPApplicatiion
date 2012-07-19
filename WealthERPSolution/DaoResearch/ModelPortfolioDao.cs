@@ -166,7 +166,7 @@ namespace DaoResearch
 
                 FunctionInfo.Add("Method", "ModelPortfolioDao.cs:GetScoreRange()");
                 object[] objects = new object[1];
-                objects[0] = advisorId;                
+                objects[0] = advisorId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -350,13 +350,13 @@ namespace DaoResearch
                 db.AddInParameter(EditRecordsCmd, "@portfolioName", DbType.String, modelPortfolioVo.PortfolioName);
                 db.AddInParameter(EditRecordsCmd, "@description", DbType.String, modelPortfolioVo.Description);
                 db.AddInParameter(EditRecordsCmd, "@lowerScore", DbType.Int32, modelPortfolioVo.LowerScore);
-                db.AddInParameter(EditRecordsCmd, "@upperScore", DbType.Int32, modelPortfolioVo.UpperScore);                
-                db.AddOutParameter(EditRecordsCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);                
+                db.AddInParameter(EditRecordsCmd, "@upperScore", DbType.Int32, modelPortfolioVo.UpperScore);
+                db.AddOutParameter(EditRecordsCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioVo.ModelPortfolioCode);
                 if (modelPortfolioVo.RiskClassCode != null)
                     db.AddInParameter(EditRecordsCmd, "@riskClassCode", DbType.String, modelPortfolioVo.RiskClassCode);
                 else
                     db.AddInParameter(EditRecordsCmd, "@riskClassCode", DbType.String, DBNull.Value);
-                db.ExecuteNonQuery(EditRecordsCmd);                
+                db.ExecuteNonQuery(EditRecordsCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -690,7 +690,7 @@ namespace DaoResearch
                 db.AddInParameter(RiskClassCmd, "@adviserId", DbType.Int32, advisorId);
                 db.AddInParameter(RiskClassCmd, "@description", DbType.String, Text);
                 db.AddInParameter(RiskClassCmd, "@classCode", DbType.String, value);
-                
+
                 dsRiskClass = db.ExecuteDataSet(RiskClassCmd);
                 dtRiskClass = dsRiskClass.Tables[0];
             }
@@ -730,7 +730,7 @@ namespace DaoResearch
                 db.AddOutParameter(deleteRecordsCmd, "@Count", DbType.Int16, 0);
 
                 if (db.ExecuteNonQuery(deleteRecordsCmd) != 0)
-                    affectedRecords = int.Parse(db.GetParameterValue(deleteRecordsCmd, "@Count").ToString());               
+                    affectedRecords = int.Parse(db.GetParameterValue(deleteRecordsCmd, "@Count").ToString());
             }
             catch (BaseApplicationException Ex)
             {
@@ -745,7 +745,7 @@ namespace DaoResearch
                 object[] objects = new object[1];
                 objects[0] = riskCode;
                 objects[0] = advisorId;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -768,7 +768,7 @@ namespace DaoResearch
                 getAdviserRiskClassesCmd = db.GetStoredProcCommand("SP_GetAdviserRiskClass");
                 db.AddInParameter(getAdviserRiskClassesCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getAdviserRiskClassesCmd, "@isRiskClass", DbType.Int32, isRiskClass);
-                dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);                
+                dsAdviserRiskClasses = db.ExecuteDataSet(getAdviserRiskClassesCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -788,7 +788,7 @@ namespace DaoResearch
             }
             return dsAdviserRiskClasses;
         }
-//********************************************** Code for Asset Allocation Starts***********************************************************
+        //********************************************** Code for Asset Allocation Starts***********************************************************
 
 
         public bool CreateVariantAssetPortfolio(ModelPortfolioVo modelPortfolioVo, int adviserId, int userId)
@@ -807,8 +807,8 @@ namespace DaoResearch
                 db.AddInParameter(AttachedVariantCmd, "@MaxAge", DbType.Int32, modelPortfolioVo.MaxAge);
                 db.AddInParameter(AttachedVariantCmd, "@MinTimeHorizon", DbType.Int32, modelPortfolioVo.MinTimeHorizon);
                 db.AddInParameter(AttachedVariantCmd, "@MaxTimeHorizon", DbType.Int32, modelPortfolioVo.MaxTimeHorizon);
-                db.AddInParameter(AttachedVariantCmd, "@MinAUM", DbType.Double, modelPortfolioVo.MinAUM);                
-                db.AddInParameter(AttachedVariantCmd, "@MaxAUM", DbType.Double, modelPortfolioVo.MaxAUM);                
+                db.AddInParameter(AttachedVariantCmd, "@MinAUM", DbType.Double, modelPortfolioVo.MinAUM);
+                db.AddInParameter(AttachedVariantCmd, "@MaxAUM", DbType.Double, modelPortfolioVo.MaxAUM);
                 db.AddInParameter(AttachedVariantCmd, "@VariantDescription", DbType.String, modelPortfolioVo.VariantDescription);
                 db.AddInParameter(AttachedVariantCmd, "@RiskClassCode", DbType.String, modelPortfolioVo.RiskClassCode);
 
@@ -820,8 +820,9 @@ namespace DaoResearch
 
                 db.AddInParameter(AttachedVariantCmd, "@ROR", DbType.Decimal, modelPortfolioVo.ROR);
                 db.AddInParameter(AttachedVariantCmd, "@RiskPercentage", DbType.Decimal, modelPortfolioVo.RiskPercentage);
+                db.AddInParameter(AttachedVariantCmd, "@IsRiskClass", DbType.String, modelPortfolioVo.IsRiskClass);
 
-                db.AddInParameter(AttachedVariantCmd, "@userId", DbType.Int32, userId);                
+                db.AddInParameter(AttachedVariantCmd, "@userId", DbType.Int32, userId);
                 if (db.ExecuteNonQuery(AttachedVariantCmd) != 0)
                     bResult = true;
             }
@@ -899,7 +900,7 @@ namespace DaoResearch
         }
 
         public DataSet GetVariantAssetPortfolioDetails(int advisorId)
-        {            
+        {
             DataSet ds;
             Database db;
             DbCommand AttachedVariantCmd;
@@ -909,7 +910,7 @@ namespace DaoResearch
                 AttachedVariantCmd = db.GetStoredProcCommand("SP_GetVariantAssetPortfolioDetails");
                 //db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(AttachedVariantCmd, "@adviserId", DbType.Int32, advisorId);
-                ds = db.ExecuteDataSet(AttachedVariantCmd);                
+                ds = db.ExecuteDataSet(AttachedVariantCmd);
             }
             catch (BaseApplicationException Ex)
             {
@@ -930,7 +931,7 @@ namespace DaoResearch
             }
             return ds;
         }
-       
+
         public void DeleteVariantAssetPortfolio(int modelPortfolioCode)
         {
             Database db;
@@ -939,7 +940,7 @@ namespace DaoResearch
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 deleteRecordsCmd = db.GetStoredProcCommand("SP_DeleteVariantAssetPortfolio");
-                db.AddInParameter(deleteRecordsCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);                
+                db.AddInParameter(deleteRecordsCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
                 db.ExecuteDataSet(deleteRecordsCmd);
             }
             catch (BaseApplicationException Ex)
@@ -954,7 +955,7 @@ namespace DaoResearch
 
                 object[] objects = new object[1];
                 objects[0] = modelPortfolioCode;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -962,9 +963,9 @@ namespace DaoResearch
             }
         }
 
-//********************************************** Code for Asset Allocation Ends***********************************************************
+        //********************************************** Code for Asset Allocation Ends***********************************************************
 
-        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId,int adviserId,int goalId)
+        public DataSet GetGoalModelPortFolioAttachedSchemes(int customerId, int adviserId, int goalId)
         {
             Database db;
             DbCommand getGoalModelPortFolioAttachedSchemesCmd;
@@ -978,7 +979,7 @@ namespace DaoResearch
                 db.AddInParameter(getGoalModelPortFolioAttachedSchemesCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getGoalModelPortFolioAttachedSchemesCmd, "@goalId", DbType.Int32, goalId);
                 dsModelPortFolioSchemeDetails = db.ExecuteDataSet(getGoalModelPortFolioAttachedSchemesCmd);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1033,7 +1034,7 @@ namespace DaoResearch
                 db.AddInParameter(resetRecordsCmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddOutParameter(resetRecordsCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(resetRecordsCmd) != 0)
-                    affectedRecords = int.Parse(db.GetParameterValue(resetRecordsCmd, "@IsSuccess").ToString());         
+                    affectedRecords = int.Parse(db.GetParameterValue(resetRecordsCmd, "@IsSuccess").ToString());
             }
             catch (BaseApplicationException Ex)
             {

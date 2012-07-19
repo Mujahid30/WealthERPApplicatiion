@@ -22,14 +22,15 @@
         var cash = 0;
         var alternate = 0;
         var sum = 0;
-        if (btnText == "Edit") {        
+
+        if (btnText == "Edit") {           
             equity = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtEquity').value;
             cash = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtCash').value;
             alternate = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtAlternate').value;
             debt = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl05_txtDebt').value;
-
             sum = parseFloat(equity) + parseFloat(cash) + parseFloat(alternate) + parseFloat(debt);
-        }        
+        }
+       
         if (btnText == "Insert") {
             equity = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtEquity').value;
             cash = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtCash').value;
@@ -37,7 +38,8 @@
             debt = document.getElementById('ctrl_ModelPortfolioSetup_RadGrid1_ctl00_ctl02_ctl03_txtDebt').value;
 
             sum = parseFloat(equity) + parseFloat(cash) + parseFloat(alternate) + parseFloat(debt);
-        }  
+        }
+     
         if (sum == 100) {
             return true;
         }
@@ -111,7 +113,8 @@
                 
                 <telerik:GridBoundColumn UniqueName="XRC_RiskClass" HeaderText="Risk Class" DataField="XRC_RiskClass">
                 </telerik:GridBoundColumn>
-                
+                 <telerik:GridBoundColumn UniqueName="XAMP_IsRiskModel" HeaderText="Model Type" DataField="XAMP_IsRiskModel">
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="XAMP_MinAUM" HeaderText="Min Investment" DataField="XAMP_MinAUM">
                 </telerik:GridBoundColumn>
                 
@@ -180,7 +183,7 @@
                             <asp:Label ID="lblPickClass" runat="server" Text="Risk class :" CssClass="FieldName"></asp:Label>
                         </td>
                         <td class="rightField">
-                           <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" >                                                         
+                           <asp:DropDownList ID="ddlPickRiskClass" runat="server" CssClass="cmbField" >                                                                             
                            </asp:DropDownList><span id="Span1" class="spnRequiredField">*</span>
                         </td>
                         <td>
@@ -196,6 +199,33 @@
                         </td>
                         <td class="rightField">
                            <asp:TextBox ID="txtPickRiskClass" CssClass="txtField" Text='<%# Bind( "XRC_RiskClass") %>' Enabled="false" runat="server">
+                           </asp:TextBox>
+                        </td>
+                      </tr>
+                      <tr id="trIsRiskClass" runat="server">
+                        <td class="leftField">
+                            <asp:Label ID="lblIsRiskClass" runat="server" Text="Select Model Type:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                           <asp:DropDownList ID="ddlModelType" runat="server" AutoPostBack="true" CssClass="cmbField" onselectedindexchanged="ddlModelType_SelectedIndexChanged">      
+                          <asp:ListItem Text="Goal Profile" Value="GC"></asp:ListItem> 
+                            <asp:ListItem Text="Risk Profile" Value="RC"></asp:ListItem>   
+                                                                           
+                           </asp:DropDownList><span id="Span9" class="spnRequiredField">*</span>
+                        </td>
+                        <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Text="Please Select Model Type" InitialValue="Select Model Type" 
+                            ControlToValidate="ddlModelType" Display="Dynamic" runat="server"
+                            CssClass="rfvPCG" ValidationGroup="Button1">
+                            </asp:RequiredFieldValidator>
+                        </td>
+                      </tr>
+                       <tr id="trIsRiskClassText" runat="server">
+                        <td class="leftField">
+                            <asp:Label ID="lblIsRiskClassText" runat="server" Text="Model Type:" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td class="rightField">
+                           <asp:TextBox ID="txtIsRiskClass" CssClass="txtField" Text='<%# Bind( "XAMP_IsRiskModel") %>' Enabled="false" runat="server">
                            </asp:TextBox>
                         </td>
                       </tr>
@@ -305,16 +335,16 @@
                             <asp:Label ID="lblMax" runat="server" Text="Maximum" CssClass="FieldName"></asp:Label>
                         </td>    
                       </tr>
-                      <tr>
+                      <tr id="trInvestmentAmount" runat="server">
                         <td class="leftField" style="width:130px">
                             <asp:Label ID="lblInvestmentAmount" runat="server" Text="Investment Amount:" CssClass="FieldName"></asp:Label>
                         </td>
                         <td>
-                            <asp:TextBox ID="txtMinAUM" runat="server" Text='<%# Bind( "XAMP_MinAUM") %>' CssClass="txtField">
+                            <asp:TextBox ID="txtMinAUM" runat="server" Text='<%# Bind("MinAUM") %>' CssClass="txtField">
                             </asp:TextBox>                            
                         </td>
                         <td>
-                            <asp:TextBox ID="txtMaxAUM" runat="server" Text='<%# Bind( "XAMP_MaxAUM") %>' CssClass="txtField">
+                            <asp:TextBox ID="txtMaxAUM" runat="server" Text='<%# Bind("MaxAUM") %>' CssClass="txtField">
                             </asp:TextBox>                           
                         </td>
                       </tr>
@@ -323,26 +353,22 @@
                         <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMinAUM" controltovalidate="txtMinAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid min amount" />
-                            <asp:CompareValidator ID="cvMinAUM" runat="server" ErrorMessage="<br />Min investment amount should be greater than max investment amount" 
-                            Type="Integer" ControlToValidate="txtMinAUM" ControlToCompare="txtMaxAUM" Operator="LessThanEqual"
-                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>
                         </td>
                         <td>
                             <asp:RegularExpressionValidator runat="server" id="rexMaxAUM" controltovalidate="txtMaxAUM" validationexpression="^([0-9]*|\d*\.\d{1}?\d*)$" 
                             Display="Dynamic" CssClass="cvPCG" ValidationGroup="Button1" errormessage="Invalid max amount" />
-                            
-                            <%--<asp:CompareValidator ID="cvMaxAUM" runat="server" ErrorMessage="<br />Max investment amount should be greater than min investment amount" 
-                            Type="Integer" ControlToValidate="txtMaxAUM" ControlToCompare="txtMinAUM" Operator="GreaterThanEqual"
-                            CssClass="cvPCG" Display="Dynamic" ValidationGroup="Button1"></asp:CompareValidator>--%>
                         </td>
                       </tr>
                       <tr>
                         <td class="leftField">
-                            <asp:Label ID="lblAge" runat="server" Text="Age (years) :" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblAge" runat="server" Text="Age (Years) :" CssClass="FieldName"></asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="txtMinAge" runat="server" Text='<%# Bind( "XAMP_MinAge") %>' CssClass="txtField">
                             </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
+                            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server"
+                                TargetControlID="txtMinAge" WatermarkText="Years">
+                            </cc1:TextBoxWatermarkExtender> 
                             <asp:RequiredFieldValidator ID="rfvMinAge" ControlToValidate="txtMinAge"
                             ErrorMessage="<br />Please enter the Minimum age" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator> 
@@ -354,6 +380,9 @@
                         <td>
                             <asp:TextBox ID="txtMaxAge" runat="server" Text='<%# Bind( "XAMP_MaxAge") %>' CssClass="txtField">
                             </asp:TextBox><span id="Span8" class="spnRequiredField">*</span>
+                             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server"
+                                TargetControlID="txtMaxAge" WatermarkText="Years">
+                            </cc1:TextBoxWatermarkExtender> 
                             <asp:RequiredFieldValidator ID="rfvMaxAge" ControlToValidate="txtMaxAge"
                             ErrorMessage="<br />Please enter the maximum age" Display="Dynamic" runat="server"
                             CssClass="rfvPCG" ValidationGroup="Button1"></asp:RequiredFieldValidator>
@@ -408,23 +437,23 @@
                             </cc1:TextBoxWatermarkExtender>
                         </td>
                       </tr>--%>
-                      <tr>
+                      <tr id="trTimeHorizon" runat="server">
                         <td class="leftField">
-                            <asp:Label ID="Label1" runat="server" Text="Time Horizon:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="Label1" runat="server" Text="Time Horizon(Months):" CssClass="FieldName"></asp:Label>
                         </td>
                         
                         <td>
                             <asp:TextBox ID="txtMinTimeHorizonMonth" runat="server" Text='<%# Bind( "MinMonth") %>' CssClass="txtField">
                             </asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtMinTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
-                                TargetControlID="txtMinTimeHorizonMonth" WatermarkText="month">
+                                TargetControlID="txtMinTimeHorizonMonth" WatermarkText="Months">
                             </cc1:TextBoxWatermarkExtender>                            
                         </td>
                         <td>
                             <asp:TextBox ID="txtMaxTimeHorizonMonth" runat="server" Text='<%# Bind( "MaxMonth") %>' CssClass="txtField">
                             </asp:TextBox>
                             <cc1:TextBoxWatermarkExtender ID="txtMaxTimeHorizonMonth_TextBoxWatermarkExtender" runat="server"
-                                TargetControlID="txtMaxTimeHorizonMonth" WatermarkText="Month">
+                                TargetControlID="txtMaxTimeHorizonMonth" WatermarkText="Months">
                             </cc1:TextBoxWatermarkExtender>                            
                         </td>
                       </tr>
