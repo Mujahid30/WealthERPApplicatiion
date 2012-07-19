@@ -13,6 +13,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoCommon;
 using BoCalculator;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -24,9 +25,10 @@ namespace WealthERP.CustomerPortfolio
         Calculator calculator = new Calculator();
         protected void Page_Load(object sender, EventArgs e)
         {
+            trExportFilteredData.Visible = false;
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
-
+            
             if (!IsPostBack)
             {
                 BindGridview();
@@ -40,19 +42,21 @@ namespace WealthERP.CustomerPortfolio
             liabilitiesListVo = liabilitiesBo.GetLiabilities(customerVo.CustomerId);
             DataTable dt = new DataTable();
             DataRow dr;
-            Double loanOutStanding=0;
-            DateTime nextInsDate=new DateTime();
+            Double loanOutStanding = 0;
+            DateTime nextInsDate = new DateTime();
+
             if (liabilitiesListVo != null)
             {
-                lblMsg.Visible = false;
+                trExportFilteredData.Visible = true;
+                trErrorMessage.Visible = false;
                 dt.Columns.Add("LiabilityId");
                 dt.Columns.Add("Loan Type");
                 dt.Columns.Add("Lender");
-                dt.Columns.Add("Amount");
+                dt.Columns.Add("Amount", typeof(double));
                 dt.Columns.Add("Rate of Interest");
                 dt.Columns.Add("PaymentType");
-                dt.Columns.Add("LumpsusmInstallment");
-                dt.Columns.Add("LoanOutstanding");
+                dt.Columns.Add("LumpsusmInstallment",typeof(double));
+                dt.Columns.Add("LoanOutstanding", typeof(double));
                 dt.Columns.Add("NextInstallmentDate");
                 dt.Columns.Add("Frequency");
                 for (int i = 0; i < liabilitiesListVo.Count; i++)
@@ -62,7 +66,7 @@ namespace WealthERP.CustomerPortfolio
                     dr[0] = liabilityVo.LiabilitiesId;
                     dr[1] = liabilityVo.LoanType.ToString();
                     dr[2] = liabilityVo.LoanPartner.ToString();
-                    dr[3] = decimal.Parse(liabilityVo.LoanAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")); 
+                    dr[3] = decimal.Parse(liabilityVo.LoanAmount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                     dr[4] = liabilityVo.RateOfInterest.ToString();
                     if (liabilityVo.PaymentOptionCode == 1)
                     {
@@ -85,7 +89,7 @@ namespace WealthERP.CustomerPortfolio
                         dr[7] = liabilityVo.OutstandingAmount;
                         nextInsDate = calculator.GetNextPremiumDate(liabilityVo.InstallmentStartDate, liabilityVo.InstallmentEndDate, liabilityVo.FrequencyCodeEMI);
                         if (nextInsDate != DateTime.MinValue)
-                            dr[8] = nextInsDate.ToLongDateString();
+                            dr[8] = nextInsDate.ToShortDateString();
                         else
                             dr[8] = "-";
                         switch (liabilityVo.FrequencyCodeEMI)
@@ -121,16 +125,23 @@ namespace WealthERP.CustomerPortfolio
                 }
                 gvLiabilities.DataSource = dt;
                 gvLiabilities.DataBind();
+
+                if (Cache["dtLiabilities + '"+customerVo.CustomerId+"'"] == null)
+                {
+                    Cache.Insert("dtLiabilities + '" + customerVo.CustomerId + "'", dt);
+                }
+                else
+                {
+                    Cache.Remove("dtLiabilities + '" + customerVo.CustomerId + "'");
+                    Cache.Insert("dtLiabilities + '" + customerVo.CustomerId + "'", dt);
+                }
+
             }
 
             else
             {
-                lblMsg.Visible = true;
+                trErrorMessage.Visible = true;
             }
-
-
-
-
         }
 
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,15 +151,15 @@ namespace WealthERP.CustomerPortfolio
             LiabilitiesVo liabilityVo = new LiabilitiesVo();
             try
             {
-                DropDownList MyDropDownList = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)MyDropDownList.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                liabilityId = int.Parse(gvLiabilities.DataKeys[selectedRow].Value.ToString());
+                RadComboBox MyDropDownList = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)MyDropDownList.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                liabilityId = int.Parse(gvLiabilities.MasterTableView.DataKeyValues[selectedRow - 1]["LiabilityId"].ToString());
                 liabilityVo = liabilitiesBo.GetLiabilityDetails(liabilityId);
 
                 hdndeleteId.Value = liabilityId.ToString();
                 menu = MyDropDownList.SelectedItem.Value.ToString();
-              
+
                 if (menu == "View")
                 {
                     Session["menu"] = "View";
@@ -157,8 +168,8 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (menu == "Edit")
                 {
-                     Session["menu"]="Edit";
-                     Session["liabilityVo"] = liabilityVo;
+                    Session["menu"] = "Edit";
+                    Session["liabilityVo"] = liabilityVo;
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LiabilitiesMaintenanceForm','none');", true);
                 }
                 if (menu == "Delete")
@@ -170,27 +181,14 @@ namespace WealthERP.CustomerPortfolio
             {
                 throw Ex;
             }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "LiabilityView.ascx:ddlMenu_SelectedIndexChanged()");
-                object[] objects = new object[2];
-                objects[1] = liabilityVo;
-                objects[2] = liabilityId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
 
-            }
         }
 
-        protected void gvLiabilities_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvLiabilities.PageIndex = e.NewPageIndex;
-            BindGridview();
-        }
+        //protected void gvLiabilities_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvLiabilities.PageIndex = e.NewPageIndex;
+        //    BindGridview();
+        //}
 
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
@@ -201,6 +199,27 @@ namespace WealthERP.CustomerPortfolio
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LiabilityView','login');", true);
                 msgRecordStatus.Visible = true;
             }
+        }
+        protected void gvLiabilities_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            gvLiabilities.Visible = true;
+            DataTable dt = new DataTable();
+
+            trExportFilteredData.Visible = true;
+            dt = (DataTable)Cache["dtLiabilities + '" + customerVo.CustomerId + "'"];
+            gvLiabilities.DataSource = dt;
+        }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            gvLiabilities.ExportSettings.OpenInNewWindow = true;
+            gvLiabilities.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvLiabilities.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvLiabilities.MasterTableView.ExportToExcel();
+
         }
     }
 }

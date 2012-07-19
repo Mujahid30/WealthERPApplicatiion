@@ -47,8 +47,8 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLiabilities;
-        
+        //protected global::System.Web.UI.WebControls.GridView gvLiabilities;
+        protected global::Telerik.Web.UI.RadGrid gvLiabilities;
         /// <summary>
         /// hdnMsgValue control.
         /// </summary>
@@ -57,7 +57,8 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExportFilteredData;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trErrorMessage;
         /// <summary>
         /// hdndeleteId control.
         /// </summary>
