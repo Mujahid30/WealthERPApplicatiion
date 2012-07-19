@@ -820,7 +820,7 @@ namespace WealthERP.OPS
         {
             bool editable = true;
             SetEditableControls(editable);
-            BindNomineeGrid();
+            //BindNomineeGrid();
             btnUpdate.Visible = true;
             btnUpdate.Enabled = true;
             btnSubmit.Visible = false;
