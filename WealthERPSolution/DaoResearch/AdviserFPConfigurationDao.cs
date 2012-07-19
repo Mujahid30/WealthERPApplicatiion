@@ -215,7 +215,7 @@ namespace DaoResearch
         /// </summary>
         /// <param name="adviserDynamicRiskQuestionsVo"></param>
         /// <returns></returns>
-        
+
         public int CreateAdvisorDynamicRiskQuestionsOptions(AdviserDynamicRiskQuestionsVo adviserDynamicRiskQuestionsVo)
         {
             int qustionID = 0;
@@ -270,7 +270,7 @@ namespace DaoResearch
         /// </summary>
         /// <param name="adviserDynamicRiskQuestionsVo"></param>
         /// <returns></returns>
-        
+
         public bool UpdateAdvisorDynamicRiskQuestions(AdviserDynamicRiskQuestionsVo adviserDynamicRiskQuestionsVo)
         {
             bool bResult = false;
@@ -279,7 +279,7 @@ namespace DaoResearch
 
             try
             {
- 
+
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateAdvisorStaffCmd = db.GetStoredProcCommand("SP_UpdateAdvisorDynamicRiskProfileQuestions");
 
@@ -411,7 +411,7 @@ namespace DaoResearch
         /// <param name="OptionId"></param>
         /// <param name="QuestionOrOptionFlag"></param>
         /// <returns></returns>
-        
+
         public bool DeleteAdviserQuestionOptions(int adviserId, int QuestionId, int OptionId, int QuestionOrOptionFlag)
         {
             bool bResult = false;
@@ -539,7 +539,7 @@ namespace DaoResearch
         }
 
 
-        public DataTable GetMaxMinAge(int adviserId, string riskClass)
+        public DataTable GetMaxMinAge(int adviserId, string riskClass, string ddlModelType)
         {
             DataSet dsGetMaxMinAge;
             DataTable dtGetMaxMinAge;
@@ -551,6 +551,7 @@ namespace DaoResearch
                 getMaxMinAgeCmd = db.GetStoredProcCommand("SP_GetMaxMinAge");
                 db.AddInParameter(getMaxMinAgeCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getMaxMinAgeCmd, "@riskClass", DbType.String, riskClass);
+                db.AddInParameter(getMaxMinAgeCmd, "@ddlModelType", DbType.String, ddlModelType);
                 dsGetMaxMinAge = db.ExecuteDataSet(getMaxMinAgeCmd);
                 dtGetMaxMinAge = dsGetMaxMinAge.Tables[0];
             }
@@ -560,7 +561,7 @@ namespace DaoResearch
             }
             return dtGetMaxMinAge;
         }
-        public DataTable GetMaxMinAgeModelPortFolio(int adviserId, string riskClass, int modelPortfolioCode)
+        public DataTable GetMaxMinAgeModelPortFolio(int adviserId, string riskClass, int modelPortfolioCode, string ddlModelType)
         {
             DataSet dsGetMaxMinAge;
             DataTable dtGetMaxMinAge;
@@ -573,6 +574,7 @@ namespace DaoResearch
                 db.AddInParameter(getMaxMinAgeCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getMaxMinAgeCmd, "@riskClass", DbType.String, riskClass);
                 db.AddInParameter(getMaxMinAgeCmd, "@modelPortfolioCode", DbType.Int32, modelPortfolioCode);
+                db.AddInParameter(getMaxMinAgeCmd, "@ddlModelType", DbType.String, ddlModelType);
                 dsGetMaxMinAge = db.ExecuteDataSet(getMaxMinAgeCmd);
                 dtGetMaxMinAge = dsGetMaxMinAge.Tables[0];
             }
@@ -582,7 +584,7 @@ namespace DaoResearch
             }
             return dtGetMaxMinAge;
         }
-        
+
     }
 }
 
