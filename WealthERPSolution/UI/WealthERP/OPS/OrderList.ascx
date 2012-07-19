@@ -46,7 +46,7 @@
         </td>
         <td>
             <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField">
-            </asp:TextBox>
+            </asp:TextBox><span id="spnFromDate" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFrom"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -66,6 +66,7 @@
         </td>
         <td colspan="3">
             <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="spnToDate" class="spnRequiredField">*</span>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
@@ -107,8 +108,8 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Open" Value="1"></asp:ListItem>
+                <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
