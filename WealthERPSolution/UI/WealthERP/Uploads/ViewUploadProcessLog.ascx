@@ -138,7 +138,8 @@
                 <telerik:RadGrid ID="gvProcessLog" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
+                    AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
+                    OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
@@ -157,12 +158,15 @@
                                                 runat="server"></telerik:RadComboBoxItem>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Manage Rejects"
                                                 Value="Manage Rejects" runat="server"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="RollBack" Value="RollBack"
+                                                runat="server"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn HeaderText="Status" DataField="Status" UniqueName="Status" SortExpression="Status"
-                                AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                            <telerik:GridBoundColumn HeaderText="Status" DataField="Status" UniqueName="Status"
+                                SortExpression="Status" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
