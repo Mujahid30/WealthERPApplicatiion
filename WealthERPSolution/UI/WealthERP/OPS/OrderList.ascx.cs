@@ -12,6 +12,8 @@ using BoCommon;
 using BoUploads;
 using WealthERP.Base;
 using BoAdvisorProfiling;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 namespace WealthERP.OPS
 {
@@ -97,7 +99,8 @@ namespace WealthERP.OPS
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
-        {            
+        {
+            Cache.Remove("OrderList" + advisorVo.advisorId);
             SetParameters();
             BindGvOrderList();
         }
@@ -123,12 +126,17 @@ namespace WealthERP.OPS
                 hdnTodate.Value = DateTime.Parse(txtTo.Text).ToString();
             else
                 hdnTodate.Value = DateTime.MinValue.ToString();
+
+            if (ddlOrderStatus.SelectedIndex == 0)
+                hdnOrderStatus.Value = "0";
+            else
+                hdnOrderStatus.Value = "1";
         }
 
         protected void BindGvOrderList()
         {
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId);
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value,Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value),Convert.ToInt16(hdnOrderStatus.Value));
 
             if (dtOrder.Rows.Count > 0)
             {
@@ -136,14 +144,14 @@ namespace WealthERP.OPS
                 gvOrderList.DataBind();
                 gvOrderList.Visible = true;
 
-                if (Cache["OrderList"] == null)
+                if (Cache["OrderList" + advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("OrderList", dtOrder);
+                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrder);
                 }
                 else
                 {
-                    Cache.Remove("OrderList");
-                    Cache.Insert("OrderList", dtOrder);
+                    Cache.Remove("OrderList" + advisorVo.advisorId);
+                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrder);
                 }
 
                 ErrorMessage.Visible = false;
@@ -161,8 +169,9 @@ namespace WealthERP.OPS
         protected void gvOrderList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGIDetails = new DataTable();
-            dtGIDetails = (DataTable)Cache["OrderList"];
-            gvOrderList.DataSource = dtGIDetails;
+            dtGIDetails = (DataTable)Cache["OrderList" + advisorVo.advisorId];
+            gvOrderList.Visible = true;
+            this.gvOrderList.DataSource = dtGIDetails;
         }
 
         protected void gvOrderList_ItemCommand(object source, GridCommandEventArgs e)
@@ -173,6 +182,74 @@ namespace WealthERP.OPS
                 string orderId = item.GetDataKeyValue("CO_OrderId").ToString();
                 string customerId = item.GetDataKeyValue("C_CustomerId").ToString();
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
+            }
+        }
+
+        protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                RadComboBox ddlAction = (RadComboBox)sender;
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+
+                string action = "";
+                string orderId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
+                string customerId = gvOrderList.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + " ');", true);
+
+                // Set the VO into the Session
+                //insuranceVo = insuranceBo.GetInsuranceAssetLI(insuranceId, out dtAssociationId);
+                //Session["dtAssociationId"] = dtAssociationId;
+                //Session["insuranceVo"] = insuranceVo;
+                //Session["customerAccountVo"] = customerAccountsBo.GetCustomerInsuranceAccount(insuranceVo.AccountId);
+
+                if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+                {
+                    action = "Edit";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=edit');", true);
+                }
+                if (ddlAction.SelectedItem.Value.ToString() == "View")
+                {
+                    action = "View";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioInsuranceEntry','action=view');", true);
+                }
+                if (ddlAction.SelectedItem.Value.ToString() == "Delete")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewInsuranceDetails.ascx:ddlMenu_SelectedIndexChanged()");
+                object[] objects = new object[1];
+                //objects[0] = insuranceVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, null);/*, objects*/
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                bool DeleteAccount;
+                //CustomerAccountsVo customeraccountvo = (CustomerAccountsVo)Session["customerAccountVo"];
+                //int Account = customeraccountvo.AccountId;
+                //DeleteAccount = customerAccountsBo.DeleteInsuranceAccount(Account);
+                //orderbo.DeleteOrder(advisorVo.advisorId);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
             }
         }
     }
