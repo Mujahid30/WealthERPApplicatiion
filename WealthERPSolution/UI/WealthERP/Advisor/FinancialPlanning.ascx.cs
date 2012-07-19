@@ -1699,7 +1699,7 @@ namespace WealthERP.Advisor
         protected void HideModelPortFolioTab()
         {
             DataSet dsModelPortFolio = new DataSet();
-            dsModelPortFolio = riskprofilebo.GetModelPortFolio(customerId,riskCode);
+            dsModelPortFolio = riskprofilebo.GetModelPortFolio(customerId,riskCode,1);
             if (dsModelPortFolio.Tables[0].Rows.Count > 0)
             {
                 int modelportfolioCode = int.Parse(dsModelPortFolio.Tables[0].Rows[0]["WFPCB_CalculationBasisId"].ToString());
