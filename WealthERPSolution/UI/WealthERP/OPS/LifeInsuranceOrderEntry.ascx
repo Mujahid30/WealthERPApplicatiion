@@ -7,13 +7,9 @@
 </asp:ScriptManager>
 
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
 <script type="text/javascript" language="javascript">
@@ -76,15 +72,19 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
 <table width="100%">
     <tr>
         <td colspan="5">
-            <asp:Label ID="lblOrderEntry" runat="server" CssClass="HeaderTextBig" Text="Order Entry-Life Insurance"></asp:Label>
-            <hr />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4">
-            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
-                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
-            <asp:LinkButton ID="lnlBack" runat="server" CssClass="LinkButtons" Text="Back" OnClick="lnlBack_Click"></asp:LinkButton>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">Order Entry-Life Insurance</td>
+                    <td align="right">
+                        <asp:LinkButton ID="lnkBack" runat="server" CssClass="LinkButtons" Text="Back" OnClick="lnkBack_Click"></asp:LinkButton>
+                        &nbsp; &nbsp; 
+                        <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
+                        OnClick="lnkBtnEdit_Click"></asp:LinkButton>&nbsp;  &nbsp;
+                    </td>
+                </tr>
+                </table>
+            </div>
         </td>
     </tr>
     <tr>
@@ -95,17 +95,21 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="lblCustomer" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 30%">
+        <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
                 AutoPostBack="True">
             </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
-            <asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
+            <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','M');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','M');"
-                OnClientClick="return openpopupAddCustomer()" />
+                OnClientClick="return openpopupAddCustomer()" />--%>
+            <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
+                Height="15px" Width="15px" ></asp:ImageButton>
+                  
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -123,39 +127,41 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
+            <%--<asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>--%>
+        </td>
+        <td class="rightField" style="width: 25%">
+            <%--<asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>--%>
+        </td>
+        <td style="width: 20%">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 15%">
+            <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 25%">
             <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
-        <td style="width: 25%">
-            &nbsp;
-        </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblBranch" runat="server" Text="Branch: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 30%">
-            <asp:Label ID="lblGetBranch" runat="server" Text="" CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblPan" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 30%">
+        <td class="rightField" style="width: 20%">
             <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblEmail" runat="server" Text="Email: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField">
+        <td class="rightField" style="width: 25%">
             <asp:Label ID="lblGetEmail" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
@@ -167,15 +173,15 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblCategory" runat="server" CssClass="FieldName" Text="Instrument Category:"></asp:Label>
         </td>
-        <td class="rightField" style="width: 30%">
+        <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlInstrumentCategory" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvInstrumentCategory" runat="server" ControlToValidate="ddlInstrumentCategory"
-                ErrorMessage="Please select category" Operator="NotEqual" ValueToCompare="Select"
+                ErrorMessage="Select category" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic"
                 CssClass="cvPCG" ValidationGroup="Submit">
             </asp:CompareValidator>
         </td>
@@ -187,16 +193,16 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 30%">
+        <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlPolicyIssuer" runat="server" CssClass="cmbField" AutoPostBack="True"
                 OnSelectedIndexChanged="ddlPolicyIssuer_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvPolicyIssuer" runat="server" ControlToValidate="ddlPolicyIssuer"
-                ErrorMessage="Please select a Policy Issuer" Operator="NotEqual" ValueToCompare="Select"
+                ErrorMessage="Select Issuer" Operator="NotEqual" ValueToCompare="Select" Display="Dynamic"
                 CssClass="cvPCG" ValidationGroup="Submit">
             </asp:CompareValidator>
         </td>
@@ -205,28 +211,51 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
         <td class="rightField" style="width: 25%">
             <asp:DropDownList ID="ddlAssetPerticular" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-            <%--<asp:TextBox ID="txtAssetPerticular" runat="server" CssClass="txtField"></asp:TextBox>--%>
-            <%--<asp:Button ID="btnAddNew" runat="server" Text="Add New" CssClass="PCGButton" />   --%>          
-            <asp:Button ID="btnOpenPopup" runat="server" Text="Add New" CssClass="PCGButton" CausesValidation="false" OnClick="btnOpenPopup_Click"/>
-            
+            </asp:DropDownList>            
+            <asp:ImageButton ID="imgBtnOpenPopup" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                runat="server" ToolTip="Click here to Add Scheme" OnClick="btnOpenPopup_Click" CausesValidation="false" 
+                Height="15px" Width="15px" ></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" valign="top">
+            <asp:Label ID="lblPickNominee" runat="server" Text="Pick Nominee:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="leftField" colspan="3" style="margin-left:5px">
+            <asp:GridView ID="gvPickNominee" runat="server" DataKeyNames="CA_AssociationId" AutoGenerateColumns="False"
+                Width="85%" CssClass="GridViewStyle">
+                <RowStyle CssClass="RowStyle" />
+                <Columns>
+                    <asp:TemplateField HeaderText="Select">
+                        <ItemTemplate>
+                            <asp:CheckBox ID="PNCheckBox" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderText="Name" DataField="AssociateName" />
+                    <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
+                </Columns>
+                <FooterStyle CssClass="FooterStyle" />
+                <SelectedRowStyle CssClass="SelectedRowStyle" />
+                <HeaderStyle CssClass="HeaderStyle" />
+                <EditRowStyle CssClass="EditRowStyle" />
+                <AlternatingRowStyle CssClass="AltRowStyle" />
+            </asp:GridView>
         </td>
     </tr>
     
-    <asp:UpdatePanel ID="UPNomineeJointHoldingGrid" runat="server">
+    <%--<asp:UpdatePanel ID="UPNomineeJointHoldingGrid" runat="server">
         <ContentTemplate>
             <tr>
-                <td class="leftField" style="width: 10%">
+                <td class="leftField" style="width: 15%">
                     <asp:Label ID="lblIsHeldJointly" runat="server" Text="Joint Holding" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightField" style="width: 30%">
+                <td class="rightField" style="width: 20%">
                     <asp:Panel ID="pnlHolding" runat="server" Width="127%">
                         <asp:RadioButton ID="rbtnYes" runat="server" Text="Yes" GroupName="IsHeldJointly"
                             CssClass="txtField" AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged" />
                         <asp:RadioButton ID="rbtnNo" runat="server" Text="No" GroupName="IsHeldJointly" CssClass="txtField"
                             AutoPostBack="True" OnCheckedChanged="RadioButton_CheckChanged"
                             Checked="True" />
-                             <%--OnLoad="rbtnNo_Load"--%>
                     </asp:Panel>
                 </td>
                 <td class="leftField" style="width: 10%">
@@ -238,43 +267,18 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    <asp:Label ID="lblPickNominee" runat="server" Text="Pick Nominee" CssClass="FieldName"></asp:Label>
-                    <asp:GridView ID="gvPickNominee" runat="server" DataKeyNames="CA_AssociationId" AutoGenerateColumns="False"
-                        Width="70%" CssClass="GridViewStyle">
-                        <RowStyle CssClass="RowStyle" />
-                        <Columns>
-                            <asp:TemplateField HeaderText="Select">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="PNCheckBox" runat="server" />
-                                </ItemTemplate>
-                                <%--<EditItemTemplate>
-                                    <asp:CheckBox ID="PNCheckBox" runat="server" />
-                                </EditItemTemplate>--%>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="Name" DataField="AssociateName" />
-                            <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
-                        </Columns>
-                        <FooterStyle CssClass="FooterStyle" />
-                        <SelectedRowStyle CssClass="SelectedRowStyle" />
-                        <HeaderStyle CssClass="HeaderStyle" />
-                        <EditRowStyle CssClass="EditRowStyle" />
-                        <AlternatingRowStyle CssClass="AltRowStyle" />
-                    </asp:GridView>
-                </td>
-                <td colspan="2">
+                
+                <td colspan="2" style="margin-left:5px">
                     <asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder" CssClass="FieldName"></asp:Label>
                     <asp:GridView ID="gvPickJointHolder" runat="server" DataKeyNames="CA_AssociationId"
-                        AutoGenerateColumns="False" CssClass="GridViewStyle" Width="70%">
+                        AutoGenerateColumns="False" CssClass="GridViewStyle" Width="80%">
                         <RowStyle CssClass="RowStyle" />
                         <Columns>
                             <asp:TemplateField HeaderText="Select">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="PJHCheckBox" runat="server" />
                                 </ItemTemplate>
-                                <%--<EditItemTemplate>
-                                    <asp:CheckBox ID="PJHCheckBox" runat="server" />
-                                </EditItemTemplate>--%>
+                                
                             </asp:TemplateField>
                             <asp:BoundField HeaderText="Name" DataField="AssociateName" />
                             <asp:BoundField HeaderText="Relationship" DataField="XR_Relationship" />
@@ -288,83 +292,19 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 </td>
             </tr>
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:UpdatePanel>--%>
     <tr id="trSectionTwo8" runat="server">
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             &nbsp;
         </td>
-        <td>
+        <td style="width: 20%">
         </td>
         <td class="leftField" style="width: 10%">
         </td>
-        <td>
+        <td style="width: 25%">
         </td>
     </tr>
-    <tr>
-        <td colspan="5">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Payment Details
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="Label2" CssClass="FieldName" Text="Mode Of Payment:" runat="server"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 30%">
-            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
-            </asp:DropDownList>
-        </td>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblPaymentInstruDate" CssClass="FieldName" Text="Instrument Date:"
-                runat="server"></asp:Label>
-        </td>
-        <td>
-            <telerik:RadDatePicker ID="txtPaymentInstruDate" CssClass="txtField" runat="server"
-                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
-                    skin="Telerik" enableembeddedskins="false">
-                </calendar>
-                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                </dateinput>
-            </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate"
-                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 30%">
-            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
-            </asp:DropDownList>
-            <asp:Button ID="btnAddBank" runat="server" Text="Add Bank" CssClass="PCGButton" OnClientClick="return openpopupAddBank()" />
-        </td>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 25%">
-            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftField" style="width: 10%">
-            <asp:Label ID="Label6" CssClass="FieldName" runat="server" Text="Branch Name:"></asp:Label>
-        </td>
-        <td>
-            <%--<asp:TextBox ID="TextBox3" CssClass="txtField" runat="server"></asp:TextBox>--%>
-            <asp:Label ID="lblBranchName" CssClass="FieldName" runat="server" Text=""></asp:Label>
-        </td>
-        <td class="leftField" style="width: 10%">
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
+     <tr>
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Policy Details
@@ -403,7 +343,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblMaturityDate" runat="server" Text="Policy Maturity Date: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
@@ -437,7 +377,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 10%">
+        <td class="leftField" style="width: 15%">
             <asp:Label ID="lblSumAssured" runat="server" Text="Sum Assured: " CssClass="FieldName"></asp:Label>
         </td>
         <td valign="middle">
@@ -455,7 +395,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+<%--    <tr>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
@@ -471,7 +411,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:DropDownList ID="ddlReason" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlReason_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-    </tr>
+    </tr>--%>
 <%--<tr>
         <td class="leftField" style="width: 10%">
             <asp:CheckBox ID="chkCA" runat="server" CssClass="cmbField" AutoPostBack="true" OnCheckedChanged="chkCA_CheckedChanged" />
@@ -480,25 +420,100 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblCustomerApproval" runat="server" CssClass="FieldName" Text=": Customer Approval"></asp:Label>
         </td>
     </tr>--%>
+    
     <tr>
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Payment Details
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 15%">
+            <asp:Label ID="Label2" CssClass="FieldName" Text="Mode Of Payment:" runat="server"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>
+        <td class="leftField" style="width: 10%">
+            <asp:Label ID="lblPaymentInstruDate" CssClass="FieldName" Text="Instrument Date:"
+                runat="server"></asp:Label>
+        </td>
+        <td style="width: 25%">
+            <telerik:RadDatePicker ID="txtPaymentInstruDate" CssClass="txtField" runat="server"
+                Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator runat="server" ID="rfvPaymentInstruDate" ControlToValidate="txtPaymentInstruDate"
+                CssClass="rfvPCG" ErrorMessage="Enter a date!"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 15%">
+            <asp:Label ID="Label5" CssClass="FieldName" runat="server" Text="Bank Name:"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
+            </asp:DropDownList>
+            <%--<asp:Button ID="btnAddBank" runat="server" Text="Add Bank" CssClass="PCGButton" OnClientClick="return openpopupAddBank()" />--%>
+            <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
+                Height="15px" Width="15px" ></asp:ImageButton>
+        </td>
+        <td class="leftField" style="width: 10%">
+            <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
+        </td>
         <td class="rightField" style="width: 25%">
+            <asp:TextBox ID="txtPaymentInstrNo" CssClass="txtField" runat="server"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 15%">
+            <asp:Label ID="Label6" CssClass="FieldName" runat="server" Text="Branch Name:"></asp:Label>
+        </td>
+        <td style="width: 20%">
+            <%--<asp:TextBox ID="TextBox3" CssClass="txtField" runat="server"></asp:TextBox>--%>
+            <asp:Label ID="lblBranchName" CssClass="FieldName" runat="server" Text=""></asp:Label>
+        </td>
+        <td class="leftField" style="width: 10%">
+        </td>
+        <td style="width: 25%">
+        </td>
+    </tr>
+   
+   
+    <tr>
+        <td class="rightField" style="width: 15%">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click"
                 ValidationGroup="Submit" />
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="Submit"
                 OnClick="btnUpdate_Click" />
         </td>
-    </tr>
+    </tr>    
 </table>
 
-<div class="divSectionHeading" style="vertical-align: text-bottom">
-    Order Steps
-</div>
-        
+
+    
 <asp:Panel ID="pnlOrderSteps" runat="server" Width="100%" Height="80%">
     <table width="100%">
+    <tr >
+     <td>
+       <div class="divSectionHeading" style="vertical-align: text-bottom">
+        Order Steps
+       </div>      
+     </td>    
+    </tr> 
         <tr>
-            <td>
-                <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" 
+            <td>  
+                 <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" width="80%"
                     GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="false" AutoGenerateColumns="False" OnItemCreated="rgvOrderSteps_ItemCreated"
                     ShowStatusBar="true" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
                     OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand" OnNeedDataSource="rgvOrderSteps_NeedDataSource">
@@ -552,9 +567,9 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                     </Columns>
         </mastertableview>
     </telerik:RadGrid>
-</td>
-</tr>
-</table>
+            </td>
+        </tr>
+    </table>
 </asp:Panel>
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
