@@ -284,13 +284,13 @@ namespace BoCustomerRiskProfiling
         //}
 
 
-        public DataSet GetModelPortFolio(int customerId,string riskCode)
+        public DataSet GetModelPortFolio(int customerId,string riskCode, int isRiskModel)
         {
 
             DataSet ds = new DataSet();
             try
             {
-                ds = riskprofiledao.GetModelPortFolio(customerId,riskCode);
+                ds = riskprofiledao.GetModelPortFolio(customerId,riskCode,isRiskModel);
             }
             catch (BaseApplicationException Ex)
             {
