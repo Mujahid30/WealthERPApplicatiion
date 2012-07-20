@@ -371,6 +371,26 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                     </telerik:RadPanelItem>
+                                    
+                                    <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Query/MIS"
+                                                        Value="OrderMIS">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Entry"
+                                                        Value="OrderEntry">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="LI Order" 
+                                                        Value="LI_Order">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order List" 
+                                                        Value="Order_List">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Recon"
+                                                        Value="OrderRecon" Visible="false">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                     </telerik:RadPanelItem>   
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">
@@ -391,6 +411,7 @@
                                             </telerik:RadPanelItem>--%>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    
                                     <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">

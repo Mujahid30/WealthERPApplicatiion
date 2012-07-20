@@ -531,10 +531,12 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
+                    Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "Order_List")
                 {
+                    Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
                 }
                 else if (e.Item.Value == "OrderMIS")
@@ -820,6 +822,28 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "BMCustomer", "loadcontrol('BMCustomer','login');", true);
+                }
+                else if (e.Item.Value == "OrderEntry")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "LI_Order")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "Order_List")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                }
+                else if (e.Item.Value == "OrderMIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','login');", true);
+                }
+                else if (e.Item.Value == "OrderRecon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
                 }
                 else if (e.Item.Value == "MF MIS")
                 {
