@@ -5642,7 +5642,7 @@ namespace WealthERP.Uploads
                                             //dt.Rows[i]["Trade_Account_Number"] = dr["Client Code"].ToString();
                                             dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
                                             dr1["WETT_TransactionCode"] = 1;
-                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                                             dr1["CET_Rate"] = float.Parse(dr["Avg Buy Rate"].ToString()).ToString();
                                             dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
                                             dr1["CET_BuySell"] = "B";
@@ -5669,7 +5669,7 @@ namespace WealthERP.Uploads
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
                                             dr1["PESM_Identifier"] = dr["Scrip Name"].ToString();
                                             dr1["WETT_TransactionCode"] = 2;
-                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                                             dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
                                             dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
                                             dr1["CET_BuySell"] = "S";
@@ -5700,7 +5700,7 @@ namespace WealthERP.Uploads
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
                                             dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
                                             dr1["WETT_TransactionCode"] = 1;
-                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                                             dr1["CET_Rate"] = dr["Avg Buy Rate"].ToString();
                                             dr1["CET_Quantity"] = dr["Buy Qty"].ToString();
                                             dr1["CET_BuySell"] = "B";
@@ -5726,7 +5726,7 @@ namespace WealthERP.Uploads
                                             dr1["Trade_Account_Number"] = dr["Client Code"].ToString();
                                             dr1["PESM_Identifier"] = dr["Scrip Code"].ToString();
                                             dr1["WETT_TransactionCode"] = 2;
-                                            dr1["CET_TradeDate"] = txtUploadDate.Text.ToString();
+                                            dr1["CET_TradeDate"] = DateTime.ParseExact(txtUploadDate.Text, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
                                             dr1["CET_Rate"] = dr["Avg Sell Rate"].ToString();
                                             dr1["CET_Quantity"] = dr["Sell Qty"].ToString();
                                             dr1["CET_BuySell"] = "S";
