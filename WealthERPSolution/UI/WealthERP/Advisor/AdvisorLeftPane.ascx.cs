@@ -532,7 +532,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderEntry','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -830,7 +830,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderEntry','login');", true);
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -844,6 +845,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderMIS")
                 {
+                    Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','login');", true);
                 }
                 else if (e.Item.Value == "OrderRecon")

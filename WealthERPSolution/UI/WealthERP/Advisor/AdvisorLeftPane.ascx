@@ -134,8 +134,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Order List" 
                                                         Value="Order_List">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Order Recon"
-                                                        Value="OrderRecon" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="Order Recon" Visible="false"
+                                                        Value="OrderRecon" >
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                      </telerik:RadPanelItem>                                        
