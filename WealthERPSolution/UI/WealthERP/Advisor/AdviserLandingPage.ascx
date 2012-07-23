@@ -10,27 +10,65 @@
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-    $(".panel").show();
 
-        $(".flip").click(function() { $(".panel").slideToggle(); });
-     });
-</script>
+
 
 <script type="text/javascript">
-    $(document).ready(function() {
-    $('#imgBaby').width(200);
-    $('#imgBaby').mouseover(function() {
-            $(this).css("cursor", "pointer");
-            $(this).animate({ width: "500px" }, 'slow');
-        });
+//    $(function() {
+//    $(".divDashBoardQuickLinks").mouseover(function() {
+//            $(this).animate({ "borderLeftWidth": "5px",
+//                "borderRightWidth": "5px",
+//                "borderTopWidth": "5px",
+//                "borderBottomWidth": "5px",
 
-        $('#imgBaby').mouseout(function() {
-            $(this).animate({ width: "200px" }, 'slow');
+//                "marginLeft": "-5px",
+//                "marginTop": "-5px",
+//                "marginRight": "-5px",
+//                "marginBottom": "-5px"
+//            }, 1000);
+//        }).mouseout(function() {
+//            $(this).animate({ "borderLeftWidth": "1px",
+//                "borderRightWidth": "1px",
+//                "borderTopWidth": "1px",
+//                "borderBottomWidth": "1px",
+
+//                "marginLeft": "1px",
+//                "marginTop": "1px",
+//                "marginRight": "1px",
+//                "marginBottom": "1px"
+//            }, 1000);
+//        });
+//    });
+
+  
+    $('#divDashBoardQuickLinks').click(function() {
+        $('#imgBaby').animate({
+                opacity: 0.25,
+                left: '+=50',
+                height: 'toggle'
+            }, 5000, function() {
+                // Animation complete.
+            });
         });
-    });
+    
+
+  
+
+
+//    $(function() {
+//    jQuery("#confirm_selection, #abc").mouseenter(function() {
+//            jQuery(this).css("outlineStyle", "solid").animate({
+//                'outlineWidth': '5px'
+//            }, 500);
+//        }).mouseout(function() {
+//            jQuery(this).animate({
+//                'outlineWidth': '0px'
+//            }, 500).css("outlineStyle", "solid");
+//        });
+//    });
+
 </script>
+
 
 <table width="100%">
 <tr>
@@ -49,17 +87,16 @@
     <td style="width : 70%;">
     <table width="100%">
     <tr>
-    <td style="width : 30%;" align="center">
-    <div style="vertical-align: text-bottom">
-   <%-- <img src="../Images/baby2.jpg" alt="smile" id="imgBaby" />--%>
-    <asp:ImageButton id="imgClientsClick" ImageUrl="~/Images/customers-icon.gif" runat="server" ToolTip="Navigate to Customer Grid"
+    <td style="width : 30%;" align="center"> 
+    <div class="divDashBoardQuickLinks" id="confirm_selection">
+  <asp:ImageButton id="imgClientsClick" ImageUrl="~/Images/customers-icon.gif" runat="server" ToolTip="Navigate to Customer Grid"
             OnClick="imgClientsClick_OnClick" Width="70px"  />
             <br />           
             <asp:LinkButton ID="lnkbtnClientLink" runat="server" CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"   ToolTip="Navigate to Customer Grid"  Text = "Clients"></asp:LinkButton>
              </div>
              </td>
              <td style="width : 30%;" align="center">
-             <div style="vertical-align: text-bottom">
+             <div class="divDashBoardQuickLinks">
     <asp:ImageButton id="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server" ToolTip="Navigate to Uploads"
             OnClick="imgUploads_OnClick" Width="70px"  />
             <br />            
@@ -67,7 +104,7 @@
              </div>
              </td>
              <td style="width : 30%;" align="center">
-             <div style="vertical-align: text-bottom">
+             <div class="divDashBoardQuickLinks">
     <asp:ImageButton id="imgOrderentry" ImageUrl="~/Images/orderentry.jpg" runat="server" ToolTip="Navigate to Order Entry"
             OnClick="imgOrderentry_OnClick" Width="70px"  />
             <br />
@@ -89,7 +126,7 @@
     <table width="100%">
     <tr>
     <td style="width : 30%;" align="center">
-    <div style="vertical-align: text-bottom">
+    <div class="divDashBoardQuickLinks" id="abc">
     <asp:ImageButton id="imgBusinessMIS" ImageUrl="~/Images/MIS.png" runat="server" ToolTip="Navigate to Business MIS"
             OnClick="imgBusinessMIS_OnClick" Width="70px"  />
             <br />
@@ -99,7 +136,7 @@
              </td>
     
              <td style="width : 30%;" align="center">
-             <div style="vertical-align: text-bottom">
+             <div class="divDashBoardQuickLinks">
     <asp:ImageButton id="imgInbox" runat="server" ToolTip="Navigate to Inbox"
             OnClick="imgInbox_OnClick" Width="70px"  />
             <br />          
@@ -140,5 +177,4 @@
             </div>
         </td>
     </tr>
-</table>
-        
+</table>      
