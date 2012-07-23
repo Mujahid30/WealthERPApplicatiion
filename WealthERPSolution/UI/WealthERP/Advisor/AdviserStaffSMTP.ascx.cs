@@ -48,6 +48,7 @@ namespace WealthERP.Advisor
                     txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
                 txtSMTPHost.Text = adviserstaffsmtpvo.HostServer;
                 txtSMTPPort.Text = adviserstaffsmtpvo.Port;
+                txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
                 chkAthenticationRequired.Checked = Convert.ToBoolean(adviserstaffsmtpvo.IsAuthenticationRequired);
             }
 
@@ -72,7 +73,10 @@ namespace WealthERP.Advisor
             //if (!String.IsNullOrEmpty(txtPassword.Text))
             adviserstaffsmtpvo.Password =Encryption.Encrypt(txtPassword.Text.Trim());
             adviserstaffsmtpvo.Port = txtSMTPPort.Text.Trim();
+            adviserstaffsmtpvo.SenderEmailAlias = txtSenderEmailAlias.Text;
             txtPassword.Attributes.Add("value", txtPassword.Text.Trim());
+
+
 
             AdviserStaffSMTPBo advstaffsmtpbo = new AdviserStaffSMTPBo();
             try
@@ -113,7 +117,7 @@ namespace WealthERP.Advisor
             {
                 email.To.Add(mailId);
             }
-
+            
             emailer.smtpServer = txtSMTPHost.Text.Trim();
             emailer.isDefaultCredentials = !chkAthenticationRequired.Checked;
             if (txtSMTPPort.Text != string.Empty)
