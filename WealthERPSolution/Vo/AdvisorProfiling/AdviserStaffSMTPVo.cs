@@ -77,6 +77,13 @@ namespace VoAdvisorProfiling
             get { return m_Port; }
             set { m_Port = value; }
         }
+        private string m_SenderEmailAlias;
+        public string SenderEmailAlias
+        {
+            get { return m_SenderEmailAlias; }
+            set { m_SenderEmailAlias = value; }
+        
+        }
 
     }
 }
