@@ -35,7 +35,7 @@ namespace DaoAdvisorProfiling
                 //db.AddInParameter(cmdInsert, "@ASS_ModifiedOn", DbType.DateTime, adviserStaffSMTPvo.ModifiedOn);
                 db.AddInParameter(cmdInsert, "@ASS_Password", DbType.String, adviserStaffSMTPvo.Password);
                 db.AddInParameter(cmdInsert, "@ASS_Port", DbType.String, adviserStaffSMTPvo.Port);
-
+                db.AddInParameter(cmdInsert, "@ASS_SenderEmailAlias", DbType.String, adviserStaffSMTPvo.SenderEmailAlias);
                 db.ExecuteNonQuery(cmdInsert);
 
                 result = true;
