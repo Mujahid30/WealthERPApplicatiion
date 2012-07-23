@@ -31,12 +31,12 @@
         </td>
     </tr>
 </table>
-<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="90%" EnableHistory="True"
+<telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="98%" EnableHistory="True"
     HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
 <telerik:RadGrid ID="gvCustomerProspectlist" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="True" AllowPaging="True" 
         ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="95%" 
         AllowFilteringByColumn="True" 
         AllowAutomaticInserts="false">
         <MasterTableView AllowMultiColumnSorting="True" Width="100%" AutoGenerateColumns="false"
@@ -45,7 +45,8 @@
             <Columns>
                
                 <telerik:GridTemplateColumn DataField="Name" AllowFiltering="true" UniqueName="Name" HeaderText="Name" >
-                <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                <HeaderStyle Width="200Px"></HeaderStyle>
+                <ItemStyle HorizontalAlign="Left" VerticalAlign="Top" Width="200Px"/>
                     <HeaderTemplate>
                        <asp:Label ID="lblNAme" runat="server" Text="Name"></asp:Label>
                     </HeaderTemplate>
@@ -60,28 +61,33 @@
                     <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>--%>
                 
-                <telerik:GridBoundColumn DataField="IsProspect" HeaderText="Is Prospect" SortExpression="IsProspect" 
+                <telerik:GridBoundColumn DataField="IsProspect" HeaderText="Is Prospect" SortExpression="IsProspect"
                     UniqueName="IsProspect">
-                    <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
+                    <HeaderStyle Width="150Px"></HeaderStyle>
+                    <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
               
                 <telerik:GridBoundColumn DataField="C_Email" HeaderText="Email" SortExpression="C_Email"
                      UniqueName="C_Email">
-                 <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
+                 <HeaderStyle Width="150Px"></HeaderStyle>
+                 <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn DataField="C_Mobile1" HeaderText="Mobile" SortExpression="C_Mobile1"
                     UniqueName="C_Mobile1">
-                     <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
+                     <HeaderStyle Width="150Px"></HeaderStyle>
+                     <ItemStyle Width="150Px" HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                                 
                  <telerik:GridBoundColumn DataField="Address" HeaderText="Address" SortExpression="Address"
                     UniqueName="Address"  >
-                    <ItemStyle Width="" HorizontalAlign="left" VerticalAlign="Top" />
+                    <HeaderStyle Width="150Px"></HeaderStyle>
+                    <ItemStyle Width="150Px" HorizontalAlign="left" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                 <telerik:GridTemplateColumn UniqueName="Asset" AllowFiltering="true" DataField="Asset" HeaderText="Asset" >
-                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" />
+                <HeaderStyle Width="150Px"></HeaderStyle>
+                <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="150Px"/>
                     <ItemTemplate>
                         <asp:Label ID="lblAsset" runat="server" CssClass="CmbField" Text='<%# Eval("Asset").ToString() %>'></asp:Label>
                     </ItemTemplate>
@@ -93,12 +99,14 @@
                 
                  <telerik:GridBoundColumn DataField="Liabilities" HeaderText="Liabilities" SortExpression="Liabilities"
                     UniqueName="Liabilities">
-                     <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
+                     <HeaderStyle Width="150Px"></HeaderStyle>
+                     <ItemStyle Width="150Px" HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                  <telerik:GridBoundColumn DataField="Networth" HeaderText="Networth" SortExpression="Networth"
                     UniqueName="Networth">
-                     <ItemStyle Width="" HorizontalAlign="Right" VerticalAlign="Top" />
+                     <HeaderStyle Width="150Px"></HeaderStyle>
+                     <ItemStyle Width="150Px" HorizontalAlign="Right" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
                 
@@ -107,9 +115,10 @@
         </MasterTableView>
         
         <ClientSettings>
-            <Scrolling AllowScroll="True" UseStaticHeaders="True" SaveScrollPosition="true" FrozenColumnsCount="1">
+            <Scrolling AllowScroll="true" UseStaticHeaders="true" SaveScrollPosition="true" FrozenColumnsCount="1">
             </Scrolling>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+            <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
+            <ClientEvents  /> 
         </ClientSettings>
     </telerik:RadGrid>
     </telerik:RadAjaxPanel>
