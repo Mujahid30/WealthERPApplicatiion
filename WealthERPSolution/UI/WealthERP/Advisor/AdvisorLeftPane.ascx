@@ -142,6 +142,8 @@
                                     
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                        <telerik:RadPanelItem runat="server" Text="Business MIS Dashboard" Value="Business_MIS_Dashboard">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Multi Product MIS" Value="Multi_Product_MIS">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF MIS" Value="MF MIS">

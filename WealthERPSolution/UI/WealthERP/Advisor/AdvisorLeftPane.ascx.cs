@@ -470,6 +470,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MultiProductMIS','login');", true);
                 }
+                else if (e.Item.Value == "Business_MIS_Dashboard")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+                }
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "adviser";
