@@ -108,14 +108,29 @@
 </script>
 
 <table style="width: 100%;">
-    <tr>
+<tr>
+     <td colspan="5">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">MFOrder Recon</td>
+                    <td align="right">
+                       <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
+                class="flip" />
+                    </td>
+                </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+<%--    <tr>
         <td class="HeaderTextBig" colspan="2">
             <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
             <asp:Label ID="lblOrderMIS" runat="server" CssClass="HeaderTextBig" Text="Order MIS"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="3">
             <div class="panel">
@@ -327,22 +342,18 @@
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISOrderStatus_SelectedIndexChanged">
-                <%--<asp:ListItem Text="Pending" Value="Pending" Selected="true"></asp:ListItem>
-        <asp:ListItem Text="Executed" Value="Executed"></asp:ListItem>
-        <asp:ListItem Text="Cancelled" Value="Cancelled"></asp:ListItem>
-        <asp:ListItem Text="Rejected" Value="Reject"></asp:ListItem>--%>
+        <asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISOrderStatus_SelectedIndexChanged">
+                <asp:ListItem Text="Open" Value="0" Selected="true"></asp:ListItem>
+                <asp:ListItem Text="Closed" Value="1"></asp:ListItem>
             </asp:DropDownList>
-            <%--<asp:CompareValidator ID="CompareValidator2" runat="server" 
-                        ControlToValidate="ddlMISOrderStatus" CssClass="cvPCG" Display="Dynamic" 
-                        ErrorMessage="<br />Please select order status" Operator="NotEqual" 
-                        ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>
+            <%--<asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISOrderStatus_SelectedIndexChanged">
+            </asp:DropDownList>--%>
         </td>
         <td align="right">
             <asp:Label ID="lblOrderType" runat="server" Text="Order Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" >
                 <asp:ListItem Text="Immediate" Value="1" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Future" Value="0"></asp:ListItem>
             </asp:DropDownList>
@@ -448,7 +459,7 @@
     <table width="100%">
         <tr>
             <td>
-                <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CMOT_MFOrderId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMOT_Amount,CMOT_OrderDate,PASP_SchemePlanSwitch"
+                <asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch"
                     runat="server" AutoGenerateColumns="False" ShowFooter="True" OnRowDataBound="gvMIS_RowDataBound"
                     OnRowCommand="gvMIS_RowCommand">
                     <RowStyle CssClass="RowStyle" />
@@ -462,37 +473,24 @@
                             <ItemTemplate>
                                 <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                             </ItemTemplate>
-                            <%-- <HeaderTemplate>
-                                                <input id="cbRecons" type="Select" />
-                                            </HeaderTemplate>--%>
                         </asp:TemplateField>
-                        <%--   <asp:TemplateField HeaderText="Number" HeaderStyle-HorizontalAlign="Right">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="lnkOrderId" runat="server" CssClass="cmbField" Text='<%# Eval("CMOT_OrderNumber").ToString() %>' OnClick="lnkOrderId_Click">
-                                            </asp:LinkButton>
-                                        </ItemTemplate>                                      
-                                     </asp:TemplateField>--%>
-                        <%--  
-                                     <asp:BoundField DataField="CMOT_OrderNumber" HeaderText="Number" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  DataFormatString="{0:d}" >
-                                                <HeaderStyle HorizontalAlign="Center" />
-                                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                                            </asp:BoundField>--%>
-                        <asp:ButtonField DataTextField="CMOT_OrderNumber" CommandName="ViewOrder" ButtonType="Link"
+
+                        <asp:ButtonField DataTextField="CMFOD_OrderNumber" CommandName="ViewOrder" ButtonType="Link"
                             HeaderText="Number" HeaderStyle-Wrap="false" ItemStyle-Wrap="false" />
-                        <asp:BoundField DataField="CMOT_OrderDate" HeaderText="Order date" HeaderStyle-Wrap="false"
+                        <asp:BoundField DataField="CO_OrderDate" HeaderText="Order date" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" DataFormatString="{0:d}">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="XS_Status" HeaderText="Status" ItemStyle-Wrap="false">
+                       <%-- <asp:BoundField DataField="XS_Status" HeaderText="Status" ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="left"></ItemStyle>
-                        </asp:BoundField>
+                        </asp:BoundField>--%>
                         <asp:BoundField DataField="Customer_Name" HeaderText="Customer" ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Left"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="WMTT_TransactionClassificationCode" HeaderText="Trans Type"
+                        <asp:BoundField DataField="WMTT_TransactionClassificationName" HeaderText="Trans Type"
                             HeaderStyle-Wrap="false" ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="left"></ItemStyle>
@@ -503,7 +501,7 @@
                                 <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type"></asp:Label>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblOrderType" runat="server" Text='<%#Eval("CMOT_IsImmediate").ToString() %>'> </asp:Label>
+                                <asp:Label ID="lblOrderType" runat="server" Text='<%#Eval("CMFOD_IsImmediate").ToString() %>'> </asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Wrap="False" />
                             <ItemStyle Wrap="False" />
@@ -531,29 +529,29 @@
                                                 <HeaderStyle HorizontalAlign="Right" />
                                                 <ItemStyle HorizontalAlign="Right"></ItemStyle>
                                             </asp:BoundField>--%>
-                        <asp:BoundField DataField="CMOT_ApplicationReceivedDate" HeaderText="App rcv Date"
+                        <asp:BoundField DataField="CO_ApplicationReceivedDate" HeaderText="App rcv Date"
                             HeaderStyle-Wrap="false" ItemStyle-Wrap="false" DataFormatString="{0:d}">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Center"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="CMOT_ApplicationNumber" HeaderText="App Nbr" HeaderStyle-Wrap="false"
+                        <asp:BoundField DataField="CO_ApplicationNumber" HeaderText="App Nbr" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="left"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="CMOT_Amount" HeaderText="Amount" ItemStyle-Wrap="false"
+                        <asp:BoundField DataField="CMFOD_Amount" HeaderText="Amount" ItemStyle-Wrap="false"
                             DataFormatString="{0:n}">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="CMOT_Units" HeaderText="Unit" ItemStyle-Wrap="false" DataFormatString="{0:n}">
+                        <asp:BoundField DataField="CMFOD_Units" HeaderText="Unit" ItemStyle-Wrap="false" DataFormatString="{0:n}">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="XSR_StatusReason" HeaderText="Pending/Reject reason" ItemStyle-Wrap="false">
+                        <%--<asp:BoundField DataField="XSR_StatusReason" HeaderText="Pending/Reject reason" ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="left"></ItemStyle>
-                        </asp:BoundField>
+                        </asp:BoundField>--%>
                         <asp:BoundField DataField="AB_BranchName" HeaderText="Branch" ItemStyle-Wrap="false">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Left"></ItemStyle>
@@ -595,7 +593,7 @@
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
                         </asp:BoundField>
-                        <asp:BoundField DataField="CMFT_Units" HeaderText="Trans Units" HeaderStyle-Wrap="false"
+                        <asp:BoundField DataField="CMFOD_Units" HeaderText="Trans Units" HeaderStyle-Wrap="false"
                             ItemStyle-Wrap="false" DataFormatString="{0:n}">
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle HorizontalAlign="Right"></ItemStyle>
@@ -611,7 +609,7 @@
                                 <asp:Label ID="lblApprovedHeader" runat="server" Text="Is Approved"></asp:Label>
                             </HeaderTemplate>
                             <ItemTemplate>
-                                <asp:Label ID="lblIsApproved" runat="server" Text='<%#Eval("CMOT_IsApprovedByCustomer").ToString() %>'> </asp:Label>
+                                <asp:Label ID="lblIsApproved" runat="server" Text='<%#Eval("CO_IsClose").ToString() %>'> </asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Wrap="False" />
                             <ItemStyle Wrap="False" />

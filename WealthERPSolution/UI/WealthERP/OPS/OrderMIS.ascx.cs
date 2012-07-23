@@ -34,11 +34,16 @@ namespace WealthERP.OPS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         OperationBo operationBo = new OperationBo();
         OperationVo operationVo = new OperationVo();
+        MFOrderBo mforderBo = new MFOrderBo();
+        MFOrderVo mforderVo = new MFOrderVo();
+        OrderVo orderVo = new OrderVo();
         int portfolioId=0;
         int schemePlanCode;
         int customerId;
         bool GridViewCultureFlag = true;
         int count;
+        String userType;
+        int bmID = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -151,10 +156,19 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            int bmID = rmVo.RMId;
+            int RMId = rmVo.RMId;
+            bmID = rmVo.RMId;
             gvMIS.Visible = false;
-            //btnSubmit.Visible = false;
+            btnMannualMatch.Visible = false;
+            btnSync.Visible = false;
             if (Request.QueryString["result"] != null)
             {
                 gvMIS.Visible = true;
@@ -163,28 +177,62 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
 
-                //if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                //{
-                //    txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                //    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-
-                //}
-                BindBranchDropDown();
-                BindRMDropDown();
+                if (userType == "advisor")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                }
+                if (userType == "bm")
+                {
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID);
+                }
                 BindAMC();
                 //BindPortfolioDropdown();
                 //BindFolionumberDropdown(portfolioId);
                 //BindTransactionType();
-                BindOrderStatus();
+                //BindOrderStatus();
                 //BindAssetType();
             }
-            btnSync.Visible = false;
-            btnMannualMatch.Visible = false;
+            //btnSync.Visible = false;
+            //btnMannualMatch.Visible = false;
             txtFrom.Text = DateTime.Now.ToShortDateString();
             txtTo.Text = DateTime.Now.ToShortDateString();
 
         }
+        private void BindBranchForBMDropDown()
+        {
+            try
+            {
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds.Tables[1]; ;
+                    ddlBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private void BindAMC()
         {
             DataSet dsProductAmc;
@@ -306,7 +354,8 @@ namespace WealthERP.OPS
             //DataTable dtBindGridView = new DataTable();
             DataSet dsOrderMIS;
             DataTable dtOrderMIS;
-            dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
+            //dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
+            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value),hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value);
             dtOrderMIS = dsOrderMIS.Tables[0];
             if (dtOrderMIS.Rows.Count > 0)
             {
@@ -315,7 +364,7 @@ namespace WealthERP.OPS
                 gvMIS.DataBind();
                 gvMIS.Visible = true;
                 this.GetPageCount();
-                if (ddlMISOrderStatus.SelectedValue == "OMIP")
+                if (ddlMISOrderStatus.SelectedValue == "0")
                 {
                     btnSync.Visible = true;
                     btnMannualMatch.Visible = true;
@@ -451,7 +500,7 @@ namespace WealthERP.OPS
             if (ddlMISOrderStatus.SelectedIndex != 0)
                 hdnOrdStatus.Value = ddlMISOrderStatus.SelectedValue;
             else
-                hdnOrdStatus.Value = "";
+                hdnOrdStatus.Value = "0";
 
              
             if (ddlOrderType.SelectedIndex != -1)
@@ -561,26 +610,26 @@ namespace WealthERP.OPS
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lblordertype = e.Row.FindControl("lblOrderType") as Label;
-                CheckBox chkApprove = e.Row.FindControl("cbRecons") as CheckBox;
+                //CheckBox chkApprove = e.Row.FindControl("cbRecons") as CheckBox;
                 string ordertype = null;
                 ordertype = lblordertype.Text;
                 if (ordertype == "1")
                     lblordertype.Text = "Immediate";
                 else
                     lblordertype.Text = "Future";
-                Label lblisApproved = e.Row.FindControl("lblIsApproved") as Label;
-                string status = null;
-                status = lblisApproved.Text;
-                if (status == "1")
-                {
-                    lblisApproved.Text = "Yes";
-                }
-                else
-                {
-                    lblisApproved.Text = "No";
-                    chkApprove.Enabled = false;
-                    chkApprove.Checked = false;
-                }
+                //Label lblisApproved = e.Row.FindControl("lblIsApproved") as Label;
+                //string status = null;
+                //status = lblisApproved.Text;
+                //if (status == "1")
+                //{
+                //    lblisApproved.Text = "Yes";
+                //}
+                //else
+                //{
+                //    lblisApproved.Text = "No";
+                //    chkApprove.Enabled = false;
+                //    chkApprove.Checked = false;
+                //}
 
             }
         }
@@ -618,7 +667,7 @@ namespace WealthERP.OPS
                 {
                     if (((CheckBox)gvRow.FindControl("cbRecons")).Checked == true)
                     {
-                        gvOrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_MFOrderId"].ToString());
+                        gvOrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CMFOD_OrderDetailsId"].ToString());
                         //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
                         gvPortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["CP_portfolioId"].ToString());
                         gvSchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["PASP_SchemePlanCode"].ToString());
@@ -627,8 +676,8 @@ namespace WealthERP.OPS
                         else
                             gvaccountId = 0;
                         gvTrxType = gvMIS.DataKeys[gvRow.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-                        gvAmount = Convert.ToDouble(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_Amount"].ToString());
-                        gvOrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow.RowIndex].Values["CMOT_OrderDate"].ToString());
+                        gvAmount = Convert.ToDouble(gvMIS.DataKeys[gvRow.RowIndex].Values["CMFOD_Amount"].ToString());
+                        gvOrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow.RowIndex].Values["CO_OrderDate"].ToString());
                         result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
                         if (result == true)
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
@@ -848,27 +897,6 @@ namespace WealthERP.OPS
         protected void btnMannualMatch_Click(object sender, EventArgs e)
         {
             int i = 0;
-            //foreach (GridViewRow gvRow in gvMIS.Rows)
-            //{
-
-            //    CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
-            //    if (chk.Checked)
-            //    {
-            //        i++;
-            //    }
-
-            //}
-            //if (i == 0)
-            //{
-            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-            //    BindMISGridView();
-            //}
-            //else
-            //{
-            //    string ids = GetSelectedIdString();
-            //    Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + ids + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
-            //}
-
             foreach (GridViewRow gvRow in gvMIS.Rows)
             {
                 CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
@@ -900,7 +928,7 @@ namespace WealthERP.OPS
                 {
                     if (((CheckBox)gvRow1.FindControl("cbRecons")).Checked == true)
                     {
-                        OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_MFOrderId"].ToString());
+                        OrderId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFOD_OrderDetailsId"].ToString());
                         CustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["C_CustomerId"].ToString());
                         //PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
                         SchemeCode = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanCode"].ToString());
@@ -909,8 +937,8 @@ namespace WealthERP.OPS
                         else
                             accountId = 0;
                         TrxType = gvMIS.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
-                        Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_Amount"].ToString());
-                        OrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMOT_OrderDate"].ToString());
+                        Amount = Convert.ToDouble(gvMIS.DataKeys[gvRow1.RowIndex].Values["CMFOD_Amount"].ToString());
+                        OrderDate = Convert.ToDateTime(gvMIS.DataKeys[gvRow1.RowIndex].Values["CO_OrderDate"].ToString());
                         if (!string.IsNullOrEmpty(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanSwitch"].ToString()))
                             schemeCodeSwitch = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["PASP_SchemePlanSwitch"].ToString());
                         else
@@ -931,7 +959,7 @@ namespace WealthERP.OPS
 
         protected void ddlMISOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ddlMISOrderStatus.SelectedValue=="OMIP")
+            if(ddlMISOrderStatus.SelectedValue=="0")
             {
                 btnMannualMatch.Visible=true;
                 btnSync.Visible=true;
@@ -941,6 +969,7 @@ namespace WealthERP.OPS
         protected void gvMIS_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int index = 0;
+            DataSet dsGetMFOrderDetails;
             if (e.CommandName == "ViewOrder")
             {
                 try
@@ -948,10 +977,133 @@ namespace WealthERP.OPS
                     index = Convert.ToInt32(e.CommandArgument);
                     //GridViewRow gvRow = ((GridViewRow)(((LinkButton)sender).Parent.Parent));
                     int orderId = Convert.ToInt32(gvMIS.DataKeys[index].Value.ToString());
+                    dsGetMFOrderDetails = mforderBo.GetCustomerMFOrderDetails(orderId);
+                    if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
+                        {
+                            orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
+                            orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                            mforderVo.CustomerName = dr["Customer_Name"].ToString();
+                            mforderVo.RMName = dr["RM_Name"].ToString();
+                            mforderVo.BMName = dr["AB_BranchName"].ToString();
+                            mforderVo.PanNo = dr["C_PANNum"].ToString();
+                            if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
+                                mforderVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
+                            else
+                                mforderVo.Amccode = 0;
+                            if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
+                                mforderVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                            if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
+                                mforderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                            mforderVo.OrderNumber = int.Parse(dr["CMFOD_OrderNumber"].ToString());
+                            if (!string.IsNullOrEmpty(dr["CMFOD_Amount"].ToString().Trim()))
+                                mforderVo.Amount = double.Parse(dr["CMFOD_Amount"].ToString());
+                            else
+                                mforderVo.Amount = 0;
 
-                    operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
-                    Session["operationVo"] = operationVo;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderEntry", "loadcontrol('OrderEntry','action=View');", true);
+                            if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
+                                mforderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
+                            else
+                                mforderVo.accountid = 0;
+                            mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                            orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
+                            mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
+                            orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
+                            orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                            mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
+                            orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
+                            if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
+                                orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
+                            else
+                                orderVo.ChequeNumber = "";
+                            if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
+                                orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
+                            else
+                                orderVo.PaymentDate = DateTime.MinValue;
+                            if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
+                                mforderVo.FutureTriggerCondition = dr["CMFOD_FutureTriggerCondition"].ToString();
+                            else
+                                mforderVo.FutureTriggerCondition = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_FutureExecutionDate"].ToString()))
+                                mforderVo.FutureExecutionDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
+                            else
+                                mforderVo.FutureExecutionDate = DateTime.MinValue;
+                            if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
+                                mforderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
+                            else
+                                mforderVo.SchemePlanSwitch = 0;
+                            if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
+                                orderVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                            else
+                                orderVo.CustBankAccId = 0;
+                            if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
+                                mforderVo.BankName = dr["CMFOD_BankName"].ToString();
+                            else
+                                mforderVo.BankName = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
+                                mforderVo.BranchName = dr["CMFOD_BranchName"].ToString();
+                            else
+                                mforderVo.BranchName = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine1"].ToString()))
+                                mforderVo.AddrLine1 = dr["CMFOD_AddrLine1"].ToString();
+                            else
+                                mforderVo.AddrLine1 = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
+                                mforderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
+                            else
+                                mforderVo.AddrLine2 = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine3"].ToString()))
+                                mforderVo.AddrLine3 = dr["CMFOD_AddrLine3"].ToString();
+                            else
+                                mforderVo.AddrLine3 = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_City"].ToString()))
+                                mforderVo.City = dr["CMFOD_City"].ToString();
+                            else
+                                mforderVo.City = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_State"].ToString()))
+                                mforderVo.State = dr["CMFOD_State"].ToString();
+                            else
+                                mforderVo.State = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_Country"].ToString()))
+                                mforderVo.Country = dr["CMFOD_Country"].ToString();
+                            else
+                                mforderVo.Country = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
+                                mforderVo.Pincode = dr["CMFOD_PinCode"].ToString();
+                            else
+                                mforderVo.Pincode = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_LivingScince"].ToString()))
+                                mforderVo.LivingSince = DateTime.Parse(dr["CMFOD_LivingScince"].ToString());
+                            else
+                                mforderVo.LivingSince = DateTime.MinValue;
+
+                            if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
+                                mforderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
+                            else
+                                mforderVo.FrequencyCode = "";
+                            if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
+                                mforderVo.StartDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
+                            else
+                                mforderVo.StartDate = DateTime.MinValue;
+                            if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
+                                mforderVo.EndDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
+                            else
+                                mforderVo.EndDate = DateTime.MinValue;
+
+                            if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
+                                mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
+                            else
+                                mforderVo.Units = 0;
+                            
+                        }
+                        Session["orderVo"] = orderVo;
+                        Session["mforderVo"]=mforderVo;
+                    }
+                    //****************Old Vo,Bo****************************************
+                    //operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
+                    //Session["operationVo"] = operationVo;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=View');", true);
 
                 }
                 catch (BaseApplicationException Ex)
