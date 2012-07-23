@@ -19,6 +19,23 @@
     }    
 </script>
 
+<script language="javascript" type="text/javascript">
+
+    function showmessage() {
+
+        var bool = window.confirm('Are you sure you want to delete this Order?');
+        if (bool) {
+            document.getElementById("ctrl_LifeInsuranceOrderEntry_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_LifeInsuranceOrderEntry_hiddenassociation").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_LifeInsuranceOrderEntry_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_LifeInsuranceOrderEntry_hiddenassociation").click();
+            return true;
+        }
+    }
+</script>
 <script>
     function openpopupAddBank() {
         window.open('PopUp.aspx?PageId=AddBankDetails', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
@@ -81,6 +98,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                         &nbsp; &nbsp; 
                         <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
                         OnClick="lnkBtnEdit_Click"></asp:LinkButton>&nbsp;  &nbsp;
+                        
+                        <asp:LinkButton runat="server" ID="lnkbtnDelete" CssClass="LinkButtons" Text="Delete"
+                        OnClick="lnkBtnDelete_Click"></asp:LinkButton>                        
+                        &nbsp;  &nbsp;
                     </td>
                 </tr>
                 </table>
@@ -519,10 +540,10 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                     OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand" OnNeedDataSource="rgvOrderSteps_NeedDataSource">
                     <mastertableview commanditemdisplay="none" editmode="PopUp" EnableViewState="false">                    
                         <Columns>
-                         <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="OrderId" UniqueName="CO_OrderId" ReadOnly="True">
+                         <telerik:GridBoundColumn  DataField="CO_OrderId"  HeaderText="Serial No." UniqueName="CO_OrderId" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Summary" UniqueName="WOS_OrderStep" ReadOnly="True">
+                        <telerik:GridBoundColumn  DataField="WOS_OrderStep"  HeaderText="Stages" UniqueName="WOS_OrderStep" ReadOnly="True">
                             <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>                        
                         
@@ -575,3 +596,6 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnSchemeCode" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />
+<asp:HiddenField ID="hdnMsgValue" runat="server" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
+    BorderStyle="None" BackColor="Transparent" />

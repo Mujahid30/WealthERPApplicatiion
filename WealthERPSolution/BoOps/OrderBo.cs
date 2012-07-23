@@ -175,13 +175,13 @@ namespace BoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
         {
             bool bResult = false;
             OrderDao orderDao = new OrderDao();
             try
             {
-                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
+                bResult = orderDao.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
 
             }
             catch (BaseApplicationException Ex)
@@ -206,13 +206,13 @@ namespace BoOps
             return bResult;
         }
 
-        public bool UpdateLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        public bool UpdateLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
         {
             bool bResult = false;
             OrderDao orderDao = new OrderDao();
             try
             {
-                bResult = orderDao.UpdateLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
+                bResult = orderDao.UpdateLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
 
             }
             catch (BaseApplicationException Ex)
@@ -228,6 +228,34 @@ namespace BoOps
 
                 object[] objects = new object[1];
                 objects[0] = lifeInsuranceOrdervo;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public bool DeleteLifeInsuranceOrder(int orderId)
+        {
+            bool bResult = false;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                bResult = orderDao.DeleteLifeInsuranceOrder(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceBo.cs:DeleteLifeInsuranceOrder()");
+                object[] objects = new object[1];
+                objects[0] = orderId;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

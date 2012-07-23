@@ -190,7 +190,7 @@ namespace DaoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
         {
             Database db;
             DbCommand LifeInsuranceOrderCmd;
@@ -253,10 +253,10 @@ namespace DaoOps
                 else
                     db.AddInParameter(LifeInsuranceOrderCmd, "@nomineeAssociationIds", DbType.String, DBNull.Value);
 
-                if (jointHoldingAssociationIds != "")
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, jointHoldingAssociationIds);
-                else
-                    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, DBNull.Value);
+                //if (jointHoldingAssociationIds != "")
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, jointHoldingAssociationIds);
+                //else
+                //    db.AddInParameter(LifeInsuranceOrderCmd, "@jointHoldingAssociationIds", DbType.String, DBNull.Value);
 
                 if (lifeInsuranceOrdervo.OrderDate != DateTime.MinValue)
                     db.AddInParameter(LifeInsuranceOrderCmd, "@CO_OrderDate", DbType.DateTime, lifeInsuranceOrdervo.OrderDate);
@@ -278,7 +278,7 @@ namespace DaoOps
                 else
                     db.AddInParameter(LifeInsuranceOrderCmd, "@MaturityDate", DbType.DateTime, DBNull.Value);
 
-                db.AddInParameter(LifeInsuranceOrderCmd, "@IsCustomerApprovalApplicable", DbType.Int32, lifeInsuranceOrdervo.IsCustomerApprovalApplicable);
+                //db.AddInParameter(LifeInsuranceOrderCmd, "@IsCustomerApprovalApplicable", DbType.Int32, lifeInsuranceOrdervo.IsCustomerApprovalApplicable);
                 
                 if (db.ExecuteNonQuery(LifeInsuranceOrderCmd) != 0)
                     bResult = true;
@@ -306,7 +306,7 @@ namespace DaoOps
             return bResult;
         }
 
-        public bool UpdateLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, string jointHoldingAssociationIds)
+        public bool UpdateLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds)
         {
             Database db;
             DbCommand LifeInsuranceOrderCmd;
@@ -417,6 +417,40 @@ namespace DaoOps
 
             }
             //   return bResult;
+            return bResult;
+        }
+
+        public bool DeleteLifeInsuranceOrder(int orderId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand deleteInsurancePortfolioCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                deleteInsurancePortfolioCmd = db.GetStoredProcCommand("SP_DeleteLifeInsuranceOrder");
+                db.AddInParameter(deleteInsurancePortfolioCmd, "@CO_OrderId", DbType.Int32, orderId);
+
+                if (db.ExecuteNonQuery(deleteInsurancePortfolioCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "InsuranceDao.cs:DeleteLifeInsuranceOrder()");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
             return bResult;
         }
 
@@ -803,7 +837,7 @@ namespace DaoOps
                 db.AddInParameter(bondOrderVoCmd, "@CustDemateAccId", DbType.String, bondOrderVo.AccountId);
 
                 db.AddInParameter(bondOrderVoCmd, "@WOS_OrderStepCode", DbType.String, bondOrderVo.OrderStepCode);
-                db.AddInParameter(bondOrderVoCmd, "@IsCustomerApprovalApplicable", DbType.Int16, bondOrderVo.IsCustomerApprovalApplicable);
+                //db.AddInParameter(bondOrderVoCmd, "@IsCustomerApprovalApplicable", DbType.Int16, bondOrderVo.IsCustomerApprovalApplicable);
 
                 if (bondOrderVo.ReasonCode == "")
                     db.AddInParameter(bondOrderVoCmd, "@XSR_StatusReasonCode", DbType.String, DBNull.Value);

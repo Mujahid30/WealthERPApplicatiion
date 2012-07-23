@@ -73,19 +73,27 @@ namespace WealthERP.OPS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             int bmID = rmVo.RMId;
 
+            if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+                rmVo = (RMVo)Session[SessionContents.RmVo];
+
             if (!IsPostBack)
             {
                 pnlOrderSteps.Visible = false;
                 btnUpdate.Visible = false;
                 lnkBtnEdit.Visible = false;
                 lnkBack.Visible = false;
+                lnkbtnDelete.Visible = false;
                 SetControls(true);
-                //ddlModeOfHolding.Enabled = false;
 
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                {
+                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
                 }
 
                 if (!string.IsNullOrEmpty(Request.QueryString["strOrderId"]))
@@ -110,12 +118,14 @@ namespace WealthERP.OPS
                         btnUpdate.Visible = true;
                         btnSubmit.Visible = false;
                         lnkBtnEdit.Visible = false;
+                        lnkbtnDelete.Visible = true;
                     }
                     else if (action == "View")
                     {
                         SetControls(false);
                         lnkBtnEdit.Visible = true;
                         lnkBack.Visible = true;
+                        lnkbtnDelete.Visible = true;
                         btnUpdate.Enabled = false;
                         btnSubmit.Visible = false;
                     }
@@ -123,16 +133,7 @@ namespace WealthERP.OPS
                     SetValuesToControls(lifeInsuranceOrdervo);
                 }
 
-                //if (rbtnNo.Checked == true)
-                //{
-                //    ddlModeOfHolding.SelectedIndex = 8;
-                //    gvPickNominee.Visible = true;
-                //    //lblPickJointHolder.Visible = false;
-                //    lblPickNominee.Visible = true;
-                //}
-
                 LoadCategory();
-                //bindModeOfHolding();
                 LoadInsuranceIssuerCode();
                 BindAssetParticular();
                 BindFrequencyDropdown();
@@ -147,9 +148,6 @@ namespace WealthERP.OPS
             {
                 customerId = int.Parse(txtCustomerId.Value);
                 LoadCustomerDetails(customerId);
-                //rbtnNo.Checked = true;
-                //rbtnYes.Checked = false;
-                //ddlModeOfHolding.SelectedIndex = 9;
             }
         }
 
@@ -171,9 +169,6 @@ namespace WealthERP.OPS
 
             lblPickNominee.Visible = true;
             gvPickNominee.Visible = true;
-
-            //lblPickJointHolder.Visible = false;
-            //gvPickJointHolder.Visible = false;
         }
 
         public void LoadCategory()
@@ -206,18 +201,6 @@ namespace WealthERP.OPS
 
             }
         }
-
-        //public void bindModeOfHolding()
-        //{
-        //    DataSet dsModeOfHolding = new DataSet();
-
-        //    dsModeOfHolding = bodemataccount.GetXmlModeOfHolding();
-        //    ddlModeOfHolding.DataSource = dsModeOfHolding;
-        //    ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
-        //    ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
-        //    ddlModeOfHolding.DataBind();
-        //    ddlModeOfHolding.Items.Insert(0, new ListItem("Select", "Select"));
-        //}
 
         public void LoadInsuranceIssuerCode()
         {
@@ -264,23 +247,7 @@ namespace WealthERP.OPS
             DataTable dt = orderbo.GetBankBranch(int.Parse(ddlBankName.SelectedValue.ToString()));
             lblBranchName.Text = dt.Rows[0][1].ToString();
         }
-
-        //private void BindOrderStatus()
-        //{
-        //    DataSet dsOrderStaus;
-        //    DataTable dtOrderStatus;
-        //    dsOrderStaus = operationBo.GetOrderStatus();
-        //    dtOrderStatus = dsOrderStaus.Tables[0];
-        //    if (dtOrderStatus.Rows.Count > 0)
-        //    {
-        //        ddlOrderStatus.DataSource = dtOrderStatus;
-        //        ddlOrderStatus.DataValueField = dtOrderStatus.Columns["XS_StatusCode"].ToString();
-        //        ddlOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
-        //        ddlOrderStatus.DataBind();
-        //    }
-        //    //ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
-        //}
-
+        
         private void BindFrequencyDropdown()
         {
             DataTable dt = XMLBo.GetFrequency(path);
@@ -321,25 +288,12 @@ namespace WealthERP.OPS
                 gvPickNominee.DataSource = dsCustomerAssociation.Tables[0];
                 gvPickNominee.DataBind();
             }
-
-            //Populating  Joint Holder nominee
-            //if (dsCustomerAssociation.Tables[0].Rows.Count == 0)
-            //{
-            //    lblPickJointHolder.Text = "You have no associates";
-            //}
-            //else
-            //{
-            //    lblPickJointHolder.Text = "Pick Joint Holder";
-            //    gvPickJointHolder.DataSource = dsCustomerAssociation;
-            //    gvPickJointHolder.DataBind();
-            //}
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             bool bresult = false;
             string nomineeAssociationIds = "";
-            string jointHoldingAssociationIds = "";
 
             lifeInsuranceOrdervo = new LifeInsuranceOrderVo();
 
@@ -357,36 +311,22 @@ namespace WealthERP.OPS
             lifeInsuranceOrdervo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
             lifeInsuranceOrdervo.FrequencyCode = ddlEPPremiumFrequencyCode.SelectedValue;
             lifeInsuranceOrdervo.GIIssuerCode = "0";            
-            //if (rbtnYes.Checked)
-            //{
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 1;
-            //    if (ddlModeOfHolding.SelectedValue != "Select")
-            //        lifeInsuranceOrdervo.HoldingMode = ddlModeOfHolding.SelectedValue;
-            //}
-            //else if (rbtnNo.Checked)
-            //{
-            //    lifeInsuranceOrdervo.HoldingMode = "Singly";
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 0;
-            //}
-
+            
             lifeInsuranceOrdervo.IsJointlyHeld = 0;
             lifeInsuranceOrdervo.InsuranceIssuerCode = ddlPolicyIssuer.SelectedValue;
             if (ddlAssetPerticular.SelectedValue != null && ddlAssetPerticular.SelectedValue != string.Empty)
                 lifeInsuranceOrdervo.InsuranceSchemeId = Convert.ToInt32(ddlAssetPerticular.SelectedValue);
             lifeInsuranceOrdervo.SourceCode = "AL";
             lifeInsuranceOrdervo.OrderStepCode = "AL";
-            //lifeInsuranceOrdervo.OrderStatusCode = ddlOrderStatus.SelectedValue;
-            //lifeInsuranceOrdervo.ReasonCode = ddlReason.SelectedValue;
+
             if (hdnCustomerId.Value != null && hdnCustomerId.Value != "")
                 lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);
-            //lifeInsuranceOrdervo.AssociationId = 0;
-            //lifeInsuranceOrdervo.AssociationType = "Joint Holder";
+            
             if (txtMaturityDate.SelectedDate != null)
                 lifeInsuranceOrdervo.MaturityDate = txtMaturityDate.SelectedDate.Value;
             if (txtOrderDate.SelectedDate != null)
                 lifeInsuranceOrdervo.OrderDate = txtOrderDate.SelectedDate.Value;
-            //lifeInsuranceOrdervo.OrderId = ;
-            //lifeInsuranceOrdervo.OrderNumber = int.Parse(txtPaymentInstrNo.Text);
+            
             if (txtPaymentInstruDate.SelectedDate != null)
                 lifeInsuranceOrdervo.PaymentDate = txtPaymentInstruDate.SelectedDate.Value;
             lifeInsuranceOrdervo.PaymentMode = ddlPaymentMode.SelectedValue;
@@ -404,17 +344,8 @@ namespace WealthERP.OPS
                     }
                 }
             }
-            //if (this.gvPickJointHolder.Rows.Count > 0)
-            //{
-            //    foreach (GridViewRow gvr in this.gvPickJointHolder.Rows)
-            //    {
-            //        if (((CheckBox)gvr.FindControl("PJHCheckBox")).Checked == true)
-            //        {
-            //            jointHoldingAssociationIds = gvPickJointHolder.DataKeys[gvr.RowIndex].Value + "~";
-            //        }
-            //    }
-            //}
-            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
+
+            bresult = orderbo.AddLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
             if (bresult == true)
             {
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "GoalFundPage", "loadcontrol('OrderMIS','?result=" + result + "');", true);
@@ -444,18 +375,12 @@ namespace WealthERP.OPS
         public void SetControls(bool bentry)
         {
             txtCustomerName.Enabled = bentry;
-            //btnAddCustomer.Enabled = bentry;
             btnImgAddCustomer.Enabled = bentry;
             ddlInstrumentCategory.Enabled = bentry;
             ddlPolicyIssuer.Enabled = bentry;
             ddlAssetPerticular.Enabled = bentry;
-            imgBtnOpenPopup.Enabled = bentry;
-            //pnlHolding.Enabled = bentry;
-            //rbtnYes.Enabled = bentry;
-            //rbtnNo.Enabled = bentry;
-            //ddlModeOfHolding.Enabled = bentry;
+            imgBtnOpenPopup.Enabled = bentry;  
             gvPickNominee.Enabled = bentry;
-            //gvPickJointHolder.Enabled = bentry;
 
             ddlPaymentMode.Enabled = bentry;
             txtPaymentInstruDate.Enabled = bentry;
@@ -469,9 +394,6 @@ namespace WealthERP.OPS
             txtOrderDate.Enabled = bentry;
             txtSumAssured.Enabled = bentry;
             ddlEPPremiumFrequencyCode.Enabled = bentry;
-            //ddlOrderStatus.Enabled = bentry;
-            //ddlReason.Enabled = bentry;
-            //chkCA.Enabled = bentry;
         }
 
         public void SetEditableControls(bool editable)
@@ -488,9 +410,6 @@ namespace WealthERP.OPS
             txtOrderDate.Enabled = editable;
             txtSumAssured.Enabled = editable;
             ddlEPPremiumFrequencyCode.Enabled = editable;
-            //ddlOrderStatus.Enabled = editable;
-            //ddlReason.Enabled = editable;
-            //chkCA.Enabled = editable;
         }
 
         public void bindNomineeGridInViewMode()
@@ -517,7 +436,6 @@ namespace WealthERP.OPS
             LoadCustomerDetails(int.Parse(hdnCustomerId.Value));
             txtApplicationNo.Text = lifeInsuranceOrdervo.ApplicationNumber;
             txtApplicationDate.SelectedDate = lifeInsuranceOrdervo.ApplicationReceivedDate;
-            //lifeInsuranceOrdervo.AssetGroup = "IN";
 
             if (lifeInsuranceOrdervo.AssetCategory != null && lifeInsuranceOrdervo.AssetCategory != string.Empty)
                 ddlInstrumentCategory.SelectedValue = lifeInsuranceOrdervo.AssetCategory;
@@ -527,74 +445,20 @@ namespace WealthERP.OPS
             lblBranchName.Text = lifeInsuranceOrdervo.BankBranchName;
             ddlEPPremiumFrequencyCode.SelectedValue = lifeInsuranceOrdervo.FrequencyCode;
 
-            //lifeInsuranceOrdervo.GIIssuerCode = "0";
             bindNomineeGridInViewMode();
-
-            //DataTable dtPickNominee = (DataTable)Session["dtAssociationId"];
-            //if (dtPickNominee.Rows.Count > 0)
-            //{
-            //    foreach (DataRow dr in dtPickNominee.Rows)
-            //    {
-            //        for (int i = 0; i < gvPickNominee.Rows.Count; i++)
-            //        {
-            //            if (dr["C_AssociateCustomerId"].ToString() == gvPickNominee.Rows[i].Cells[3].Text)
-            //            {
-            //                CheckBox cb = (CheckBox)gvPickNominee.Rows[i].Cells[0].FindControl("PNCheckBox");
-            //                cb.Checked = true;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //if (rbtnYes.Checked)
-            //{
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 1;
-            //    ddlModeOfHolding.SelectedValue = lifeInsuranceOrdervo.HoldingMode;               
-            //}
-            //else if (rbtnNo.Checked)
-            //{
-            //    lifeInsuranceOrdervo.HoldingMode = "Singly";
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 0;
-            //}
 
             ddlPolicyIssuer.SelectedValue = lifeInsuranceOrdervo.InsuranceIssuerCode;
             if (lifeInsuranceOrdervo.InsuranceSchemeId != null)
                 ddlAssetPerticular.SelectedValue = lifeInsuranceOrdervo.InsuranceSchemeId.ToString();
             lifeInsuranceOrdervo.SourceCode = "AL";
             lifeInsuranceOrdervo.OrderStepCode = "AL";
-            //ddlOrderStatus.SelectedValue = lifeInsuranceOrdervo.OrderStatusCode;
-            //ddlReason.SelectedValue = lifeInsuranceOrdervo.ReasonCode;
-            //lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);
 
             txtMaturityDate.SelectedDate = lifeInsuranceOrdervo.MaturityDate;
-            txtOrderDate.SelectedDate = lifeInsuranceOrdervo.OrderDate;
-            //lifeInsuranceOrdervo.OrderId = ;
-            //lifeInsuranceOrdervo.OrderNumber = int.Parse(txtPaymentInstrNo.Text);
+            txtOrderDate.SelectedDate = lifeInsuranceOrdervo.OrderDate;            
             txtPaymentInstruDate.SelectedDate = lifeInsuranceOrdervo.PaymentDate;
             ddlPaymentMode.SelectedValue = lifeInsuranceOrdervo.PaymentMode;
             lifeInsuranceOrdervo.SourceCode = "ME";
-            txtSumAssured.Text = lifeInsuranceOrdervo.SumAssured.ToString();
-
-            //if (this.gvPickNominee.Rows.Count > 0)
-            //{
-            //    foreach (GridViewRow gvr in this.gvPickNominee.Rows)
-            //    {
-            //        if (((CheckBox)gvr.FindControl("PNCheckBox")).Checked == true)
-            //        {
-            //            nomineeAssociationIds += gvPickNominee.DataKeys[gvr.RowIndex].Value + "~";            //            
-            //        }
-            //    }
-            //}
-            //if (this.gvPickJointHolder.Rows.Count > 0)
-            //{
-            //    foreach (GridViewRow gvr in this.gvPickJointHolder.Rows)
-            //    {
-            //        if (((CheckBox)gvr.FindControl("PJHCheckBox")).Checked == true)
-            //        {
-            //            jointHoldingAssociationIds = gvPickJointHolder.DataKeys[gvr.RowIndex].Value + "~";
-            //        }
-            //    }
-            //}
+            txtSumAssured.Text = lifeInsuranceOrdervo.SumAssured.ToString();            
         }
 
         protected void btnOk_Click(object sender, EventArgs e)
@@ -606,52 +470,6 @@ namespace WealthERP.OPS
             }
             radwindowPopup.VisibleOnPageLoad = false;
         }
-
-        //protected void RadioButton_CheckChanged(object sender, EventArgs e)
-        //{
-        //    if (rbtnYes.Checked)
-        //    {
-        //        if (txtCustomerName.Text.Trim() != "")
-        //        {
-        //            if (gvPickNominee.Rows.Count >= 1)
-        //            {
-        //                ddlModeOfHolding.SelectedIndex = 0;
-        //                //lblPickJointHolder.Visible = true;
-        //                //gvPickJointHolder.Visible = true;
-        //                gvPickNominee.Visible = true;
-        //                lblPickNominee.Visible = true;
-        //                ddlModeOfHolding.Enabled = true;
-        //            }
-        //            else
-        //            {
-        //                gvPickNominee.Visible = false;
-        //                lblPickNominee.Visible = false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            //lblError.Text = "Enter the customer name";
-        //        }
-        //    }
-        //    else if (rbtnNo.Checked)
-        //    {
-        //        ddlModeOfHolding.SelectedIndex = 9;
-        //        ddlModeOfHolding.Enabled = false;
-        //        gvPickNominee.Visible = true;
-        //        lblPickNominee.Visible = true;
-
-        //        //lblPickJointHolder.Visible = false;
-        //        //gvPickJointHolder.Visible = false;
-        //    }
-        //}
-
-        //protected void rbtnNo_Load(object sender, EventArgs e)
-        //{
-        //    if (rbtnNo.Checked)
-        //    {
-        //        ddlModeOfHolding.Enabled = false;
-        //    }
-        //}
 
         public void BindAssetParticular()
         {
@@ -672,65 +490,16 @@ namespace WealthERP.OPS
             lblIssuerCode.Text = ddlPolicyIssuer.SelectedItem.Text;
             BindAssetParticular();
         }
-
-        //protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    BindOrderStatusReason();
-        //}
-
-        //private void BindOrderStatusReason()
-        //{
-        //    DataSet dsStausReason;
-        //    DataTable dtStatusReason;
-        //    dsStausReason = operationBo.GetRejectStatus(ddlOrderStatus.SelectedValue);
-        //    dtStatusReason = dsStausReason.Tables[0];
-        //    if (dtStatusReason.Rows.Count > 0)
-        //    {
-        //        ddlReason.DataSource = dtStatusReason;
-        //        ddlReason.DataValueField = dtStatusReason.Columns["XSR_StatusReasonCode"].ToString();
-        //        ddlReason.DataTextField = dtStatusReason.Columns["XSR_StatusReason"].ToString();
-        //        ddlReason.DataBind();
-        //    }
-        //    //ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
-        //}
-
-        //protected void ddlReason_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    DataSet dsReason;
-        //    DataTable dtReason;
-        //    dsReason = operationBo.GetRejectStatus(ddlOrderStatus.SelectedValue);
-        //    dtReason = dsReason.Tables[0];
-        //    if (dtReason.Rows.Count > 0)
-        //    {
-        //        ddlOrderStatus.DataSource = dtReason;
-        //        ddlOrderStatus.DataValueField = dtReason.Columns["XSR_StatusReasonCode"].ToString();
-        //        ddlOrderStatus.DataTextField = dtReason.Columns["XSR_StatusReason"].ToString();
-        //        ddlOrderStatus.DataBind();
-        //    }
-        //}
-
-        //protected void chkCA_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (chkCA.Checked == true)
-        //        ddlOrderStatus.Enabled = true;
-        //    else
-        //    {
-        //        ddlOrderStatus.Enabled = false;
-        //        ddlOrderStatus.SelectedValue = "OMIP";
-        //        ddlOrderPendingReason.Visible = false;
-        //        lblOrderPendingReason.Visible = false;
-        //    }
-        //}
-
+                
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             bool bresult = false;
             string nomineeAssociationIds = "";
-            string jointHoldingAssociationIds = "";
 
             lifeInsuranceOrdervo = new LifeInsuranceOrderVo();
             //if (!string.IsNullOrEmpty(hdnCustomerId.Value))
-            lifeInsuranceOrdervo.OrderId = orderId;
+            if (!string.IsNullOrEmpty(Request.QueryString["strOrderId"]))           
+                lifeInsuranceOrdervo.OrderId = Convert.ToInt32(Request.QueryString["strOrderId"]);            
             lifeInsuranceOrdervo.CustomerId = int.Parse(hdnCustomerId.Value);
             lifeInsuranceOrdervo.ApplicationNumber = txtApplicationNo.Text;
             if (txtApplicationDate.SelectedDate != null)
@@ -743,47 +512,25 @@ namespace WealthERP.OPS
             lifeInsuranceOrdervo.ChequeNumber = txtPaymentInstrNo.Text;
             lifeInsuranceOrdervo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
             lifeInsuranceOrdervo.FrequencyCode = ddlEPPremiumFrequencyCode.SelectedValue;
-            lifeInsuranceOrdervo.GIIssuerCode = "0";
-            //if (rbtnYes.Checked)
-            //{
-            //    if (ddlModeOfHolding.SelectedValue != "Select")
-            //        lifeInsuranceOrdervo.HoldingMode = ddlModeOfHolding.SelectedValue;
-            //}
-            //else if (rbtnNo.Checked)
-            //{
-            //    lifeInsuranceOrdervo.HoldingMode = "Singly";
-            //}
+            lifeInsuranceOrdervo.GIIssuerCode = "0";            
 
             lifeInsuranceOrdervo.InsuranceIssuerCode = ddlPolicyIssuer.SelectedValue;
             if (ddlAssetPerticular.SelectedValue != null && ddlAssetPerticular.SelectedValue != string.Empty)
                 lifeInsuranceOrdervo.InsuranceSchemeId = Convert.ToInt32(ddlAssetPerticular.SelectedValue);
             lifeInsuranceOrdervo.SourceCode = "AL";
             lifeInsuranceOrdervo.OrderStepCode = "AL";
-            //lifeInsuranceOrdervo.OrderStatusCode = ddlOrderStatus.SelectedValue;
-            //lifeInsuranceOrdervo.ReasonCode = ddlReason.SelectedValue;
-            lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);
-            //lifeInsuranceOrdervo.AssociationId = 0;
-            //lifeInsuranceOrdervo.AssociationType = "Joint Holder";
+            
+            lifeInsuranceOrdervo.ApprovedBy = int.Parse(hdnCustomerId.Value);           
             if (txtMaturityDate.SelectedDate != null)
                 lifeInsuranceOrdervo.MaturityDate = txtMaturityDate.SelectedDate.Value;
             if (txtOrderDate.SelectedDate != null)
                 lifeInsuranceOrdervo.OrderDate = txtOrderDate.SelectedDate.Value;
-            //lifeInsuranceOrdervo.OrderId = ;
-            //lifeInsuranceOrdervo.OrderNumber = int.Parse(txtPaymentInstrNo.Text);
             if (txtPaymentInstruDate.SelectedDate != null)
                 lifeInsuranceOrdervo.PaymentDate = txtPaymentInstruDate.SelectedDate.Value;
             lifeInsuranceOrdervo.PaymentMode = ddlPaymentMode.SelectedValue;
             lifeInsuranceOrdervo.SourceCode = "ME";
             lifeInsuranceOrdervo.SumAssured = double.Parse(txtSumAssured.Text);
-
-            //if (rbtnNo.Checked)
-            //{
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 0;
-            //}
-            //if (rbtnYes.Checked)
-            //{
-            //    lifeInsuranceOrdervo.IsJointlyHeld = 1;
-            //}
+                        
             if (this.gvPickNominee.Rows.Count > 0)
             {
                 foreach (GridViewRow gvr in this.gvPickNominee.Rows)
@@ -794,17 +541,8 @@ namespace WealthERP.OPS
                     }
                 }
             }
-            //if (this.gvPickJointHolder.Rows.Count > 0)
-            //{
-            //    foreach (GridViewRow gvr in this.gvPickJointHolder.Rows)
-            //    {
-            //        if (((CheckBox)gvr.FindControl("PJHCheckBox")).Checked == true)
-            //        {
-            //            jointHoldingAssociationIds = gvPickJointHolder.DataKeys[gvr.RowIndex].Value + "~";
-            //        }
-            //    }
-            //}
-            bresult = orderbo.UpdateLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds, jointHoldingAssociationIds);
+
+            bresult = orderbo.UpdateLifeInsuranceOrder(lifeInsuranceOrdervo, nomineeAssociationIds);
             if (bresult == true)
             {
                 pnlOrderSteps.Visible = true;
@@ -832,6 +570,22 @@ namespace WealthERP.OPS
             if (Request.QueryString["strOrderId"] != null)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
+            }
+        }
+        protected void lnkBtnDelete_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+        }
+
+        protected void hiddenassociation_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                bool bresult = false;
+                bresult = orderbo.DeleteLifeInsuranceOrder(orderId);
+                if(bresult == true)
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('LifeInsuranceOrderEntry','none');", true);
             }
         }
 
@@ -982,11 +736,6 @@ namespace WealthERP.OPS
             string statusOrderCode = rcStatus.SelectedValue;
             BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
         }
-
-        //protected void btnOpenPopup_Click(object sender, EventArgs e)
-        //{
-        //    radwindowPopup.VisibleOnPageLoad = true;
-        //}
 
         protected void btnOpenPopup_Click(object sender, ImageClickEventArgs e)
         {
