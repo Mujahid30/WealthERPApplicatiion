@@ -23,20 +23,28 @@ namespace WealthERP.OPS
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AdvisorVo advisorVo;
+        string userType;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
-            if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
-                advisorVo = (AdvisorVo)Session["advisorVo"];
+            SessionBo.CheckSession();            
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            userType = Session["UserType"].ToString().ToLower();
 
-            //rmVo = (RMVo)Session[SessionContents.RmVo];
-            //int bmID = rmVo.RMId;
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            int bmID = rmVo.RMId;
+          
             gvOrderList.Visible = false;
 
             if (!IsPostBack)
             {
                 BindBranchDropDown();
                 BindRMDropDown();
+                if (userType == "bm")
+                {
+                    ddlBranch.SelectedValue = bmID.ToString();
+                    ddlBranch.Enabled = false;
+                }
             }
         }
 
