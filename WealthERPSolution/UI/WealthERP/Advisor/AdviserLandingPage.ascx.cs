@@ -35,51 +35,81 @@ namespace WealthERP.Advisor
 
         public void imgClientsClick_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "AdviserCustomer";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
 
         }
         public void lnkbtnClientLink_OnClick(object sender, EventArgs e)
         {
+
+            Session["NodeType"] = "AdviserCustomer";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
 
         }
         public void lnkbtnUploads_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
 
+            Session["NodeType"] = "CustomerUpload";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+           
         }
         public void imgUploads_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
 
+            Session["NodeType"] = "CustomerUpload";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
         }
         public void imgOrderentry_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MFOrderEntry','login');", true);
 
         }
         public void lnkbtnOrderEntry_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "MFOrderEntry";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MFOrderEntry','login');", true);
 
         }
         public void imgBusinessMIS_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "IFAAdminMainDashboardOld";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
 
         }
         public void lnkbtnBusinessMIS_OnClick(object sender, EventArgs e)
         {
+
+            Session["NodeType"] = "IFAAdminMainDashboardOld";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
 
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "MessageInbox";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
 
         }
         public void imgInbox_OnClick(object sender, EventArgs e)
         {
+            Session["NodeType"] = "MessageInbox";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
 
         }
@@ -87,11 +117,19 @@ namespace WealthERP.Advisor
 
         public void imgbtnFPClients_OnClick(object sender, EventArgs e)
         {
+
+            Session["NodeType"] = "AddProspectList";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
 
         }
         public void lnkbtnFPClients_OnClick(object sender, EventArgs e)
         {
+
+            Session["NodeType"] = "AddProspectList";
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
 
         }

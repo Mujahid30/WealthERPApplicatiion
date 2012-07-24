@@ -95,7 +95,7 @@
     <tr>
     <td style="width : 30%;" align="center"> 
     <div class="divDashBoardQuickLinks" id="confirm_selection">
-  <asp:ImageButton id="imgClientsClick" ImageUrl="~/Images/customers-icon.gif" runat="server" ToolTip="Navigate to Customer Grid"
+  <asp:ImageButton id="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server" ToolTip="Navigate to Customer Grid"
             OnClick="imgClientsClick_OnClick" Width="70px"  />
             <br />           
             <asp:LinkButton ID="lnkbtnClientLink" runat="server" CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"   ToolTip="Navigate to Customer Grid"  Text = "Clients"></asp:LinkButton>
@@ -111,7 +111,7 @@
              </td>
              <td style="width : 30%;" align="center">
              <div class="divDashBoardQuickLinks">
-    <asp:ImageButton id="imgOrderentry" ImageUrl="~/Images/orderentry.jpg" runat="server" ToolTip="Navigate to Order Entry"
+    <asp:ImageButton id="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server" ToolTip="Navigate to Order Entry"
             OnClick="imgOrderentry_OnClick" Width="70px"  />
             <br />
             <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"   ToolTip="Navigate to Order Entry"  Text = "Order Entry"></asp:LinkButton>
@@ -133,7 +133,7 @@
     <tr>
     <td style="width : 30%;" align="center">
     <div class="divDashBoardQuickLinks" id="abc">
-    <asp:ImageButton id="imgBusinessMIS" ImageUrl="~/Images/MIS.png" runat="server" ToolTip="Navigate to Business MIS"
+    <asp:ImageButton id="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png" runat="server" ToolTip="Navigate to Business MIS"
             OnClick="imgBusinessMIS_OnClick" Width="70px"  />
             <br />
           
@@ -151,7 +151,7 @@
              </td>
              <td style="width : 30%;" align="center"> 
     <div class="divDashBoardQuickLinks" id="Div1">
-  <asp:ImageButton id="imgbtnFPClients" ImageUrl="~/Images/customers-icon.gif" runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick" Width="70px"  />
+  <asp:ImageButton id="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png" runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick" Width="70px"  />
             <br />           
             <asp:LinkButton ID="lnkbtnFPClients" runat="server" CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"   ToolTip="Navigate to Add FP Customers"  Text = "FP Clients"></asp:LinkButton>
              </div>

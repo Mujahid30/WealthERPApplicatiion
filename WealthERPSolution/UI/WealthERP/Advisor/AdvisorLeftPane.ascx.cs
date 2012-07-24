@@ -247,7 +247,57 @@ namespace WealthERP.Advisor
                 //}
 
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
+            if (Session["NodeType"] == "CustomerUpload")
+            {
+                RadPanelBar1.FindItemByValue("Operations").Expanded = true;
+                RadPanelBar1.FindItemByValue("Upload").Expanded = true;
+                RadPanelBar1.FindItemByValue("Upload").Selected = true;                
+            }
+            else if (Session["NodeType"] == "AdviserCustomer")
+            {
+                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+              
+                RadPanelBar1.FindItemByValue("Customer").Selected = true; 
+                
+            }
+            else if (Session["NodeType"] == "MFOrderEntry")
+            {
+                RadPanelBar1.FindItemByValue("Order_Management").Expanded = true;
+                RadPanelBar1.FindItemByValue("OrderEntry").Expanded = true;              
+                RadPanelBar1.FindItemByValue("OrderEntry").Selected = true;             
+                                  
 
+            }
+            else if (Session["NodeType"] == "IFAAdminMainDashboardOld")
+            {               
+                RadPanelBar1.FindItemByValue("Business MIS").Expanded = true;
+                RadPanelBar1.FindItemByValue("Business_MIS_Dashboard").Expanded = true;              
+                RadPanelBar1.FindItemByValue("Business_MIS_Dashboard").Selected = true;               
+              
+            }
+
+            else if (Session["NodeType"] == "MessageInbox")
+            {
+                  RadPanelBar1.FindItemByValue("Message").Expanded = true;
+                RadPanelBar1.FindItemByValue("Inbox").Expanded = true;              
+                RadPanelBar1.FindItemByValue("Inbox").Selected = true;               
+              
+              
+                    
+            }
+
+            else if (Session["NodeType"] == "AddProspectList")
+            {
+                RadPanelBar1.FindItemByValue("Admin").Expanded = false;
+                RadPanelBar2.FindItemByValue("RM").Expanded = true;
+                RadPanelBar2.FindItemByValue("Customer").Expanded = true;                             
+                    
+                RadPanelBar2.FindItemByValue("Add FP Prospect").Expanded = true;
+                RadPanelBar2.FindItemByValue("Add FP Prospect").Selected = true;               
+              
+              
+            }
+                
             }
         }
 
