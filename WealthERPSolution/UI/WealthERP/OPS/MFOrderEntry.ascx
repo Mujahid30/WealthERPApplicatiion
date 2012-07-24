@@ -23,6 +23,33 @@
     }
 </script>
 
+<script type="text/javascript">
+    function CustomerValidate(type) {
+        if (type == 'pdf') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
+        } else if (type == 'doc') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=4";
+        }
+        else if (type == 'View') {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
+        }
+        else {
+            window.document.forms[0].target = '_blank';
+            window.document.forms[0].action = "/Reports/Display.aspx?mail=3";
+        }
+
+        setTimeout(function() {
+            window.document.forms[0].target = '';
+            window.document.forms[0].action = "ControlHost.aspx?pageid=OrderEntry";
+        }, 500);
+        return true;
+
+    }
+</script>
+
 <table width="100%">
 <tr>
         <td colspan="5">
@@ -39,8 +66,28 @@
                         <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" 
                             Text="Delete" onclick="lnkDelete_Click" 
                             OnClientClick="javascript: return confirm('Are you sure you want to Delete the Order?')"></asp:LinkButton>&nbsp;  &nbsp;
-                    </td>
-                </tr>
+                        <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0"
+                            CssClass="CrystalButton" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
+                            <div id="div1" style="display: none;">
+                                <p class="tip">
+                                    Click here to view order details.
+                                </p>
+                            </div>
+                        <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
+                               PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                                <div id="div2" style="display: none;">
+                                <p class="tip">
+                                     Click here to view order details in pdf format.
+                                </p>
+                                </div>
+                        <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
+                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
+                                <div id="div3" style="display: none;">
+                                <p class="tip">
+                                    Click here to view order details in word doc.</p>
+                                </div>
+                         </td>
+                    </tr>
                 </table>
             </div>
         </td>
@@ -792,7 +839,7 @@
     <table width="100%">
         <tr>
             <td>
-                <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" 
+                <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid" width="80%"
                     GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="false" AutoGenerateColumns="False" OnItemCreated="rgvOrderSteps_ItemCreated"
                     ShowStatusBar="true" AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
                     OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand" OnNeedDataSource="rgvOrderSteps_NeedDataSource">
@@ -815,7 +862,7 @@
                         <telerik:GridTemplateColumn DataField="XS_StatusCode" HeaderText="Status" 
                          UniqueName="DropDownColumnStatus">  
                             <EditItemTemplate> 
-                                <telerik:RadComboBox ID="ddlCustomerOrderStatus" SelectedValue='<%#Bind("XS_StatusCode") %>' runat="server">  
+                                <telerik:RadComboBox ID="ddlCustomerOrderStatus" SelectedValue='<%#Bind("XS_StatusCode") %>'  runat="server">  
                                 </telerik:RadComboBox> 
                             </EditItemTemplate> 
                             <ItemTemplate>

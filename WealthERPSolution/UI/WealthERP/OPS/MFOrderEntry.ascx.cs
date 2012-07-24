@@ -421,6 +421,9 @@ namespace WealthERP.OPS
                     rgvOrderSteps.Visible = true;
                     rgvOrderSteps.Enabled = true;
                     BindOrderStepsGrid();
+                    btnViewReport.Visible = true;
+                    btnViewInPDF.Visible = true;
+                    btnViewInDOC.Visible = true;
                 }
             }
 
@@ -433,7 +436,7 @@ namespace WealthERP.OPS
                     txtCustomerName.Enabled = false;
                     txtCustomerName.Text = mforderVo.CustomerName;
                     if (orderVo.CustomerId != 0)
-                        hdnCustomerId.Value = mforderVo.CustomerId.ToString();
+                        hdnCustomerId.Value = orderVo.CustomerId.ToString();
                     BindPortfolioDropdown(orderVo.CustomerId);
                     customerVo = customerBo.GetCustomer(orderVo.CustomerId);
                     lblGetBranch.Text = mforderVo.BMName;
@@ -667,9 +670,12 @@ namespace WealthERP.OPS
                         lnlBack.Visible = true;
                     }
                     rgvOrderSteps.Visible = true;
-                    rgvOrderSteps.Enabled = false;
+                    rgvOrderSteps.Enabled = true;
                     BindOrderStepsGrid();
                     lnkDelete.Visible = false;
+                    btnViewReport.Visible = true;
+                    btnViewInPDF.Visible = true;
+                    btnViewInDOC.Visible = true;
 
                 }
             }
@@ -752,6 +758,9 @@ namespace WealthERP.OPS
                 lnlBack.Visible = false;
                 btnUpdate.Visible = false;
                 lnkDelete.Visible = false;
+                btnViewReport.Visible = false;
+                btnViewInPDF.Visible = false;
+                btnViewInDOC.Visible = false;
                 //ShowTransactionType(0);
             }
             else if (flag == 1)
@@ -769,6 +778,9 @@ namespace WealthERP.OPS
                 lnlBack.Visible = false;
                 btnUpdate.Visible = false;
                 lnkDelete.Visible = false;
+                btnViewReport.Visible = false;
+                btnViewInPDF.Visible = false;
+                btnViewInDOC.Visible = false;
             }
         }
 
@@ -1293,10 +1305,20 @@ namespace WealthERP.OPS
                 comboOrderStatus.DataTextField = "XS_Status";
                 comboOrderStatus.DataValueField = "XS_StatusCode";
 
+                comboOrderStatus.SelectedIndexChanged += new RadComboBoxSelectedIndexChangedEventHandler(comboOrderStatus_SelectedIndexChanged);
                 comboOrderStatusReason.DataSource = orderbo.GetCustomerOrderStepStatusRejectReason(orderstepCode);
                 comboOrderStatusReason.DataTextField = "XSR_StatusReason";
                 comboOrderStatusReason.DataValueField = "XSR_StatusReasonCode";
             }
+        }
+
+        protected void comboOrderStatus_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox rcStatus = (RadComboBox)o;
+            GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
+            RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
+            string statusOrderCode = rcStatus.SelectedValue;
+            //BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
         }
 
         protected void rgvOrderSteps_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1488,6 +1510,9 @@ namespace WealthERP.OPS
             SetEditViewMode(true);
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
+            btnViewReport.Visible = true;
+            btnViewInPDF.Visible = true;
+            btnViewInDOC.Visible = true;
         }
 
         private void SaveOrderDetails()
@@ -1655,6 +1680,7 @@ namespace WealthERP.OPS
             SaveOrderDetails();
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo);
             rgvOrderSteps.Visible = false;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             
             ClearAllFields();
 
