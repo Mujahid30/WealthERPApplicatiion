@@ -75,6 +75,7 @@ namespace WealthERP.CustomerPortfolio
                     ClearFields();
                     LoadNominees();
                     BindDropDowns(path, customerAccountVo.AssetCategory.ToString().Trim());
+                    AddAttributesToDropdown(customerAccountVo.AssetCategory.ToString().Trim());
                     LoadInsuranceIssuerCode(path);
                     if (Session["insuranceVo"] != null)
                     BindAssetParticular(insuranceVo.InsuranceIssuerCode);
@@ -294,6 +295,22 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
+        }
+
+        private void AddAttributesToDropdown(string CategoryCode)
+        {
+            if (CategoryCode == "INEP")
+                ddlEPPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentEPSelection();");
+            else if (CategoryCode == "INMP")
+                ddlMPPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentMPSelection();");
+            else if (CategoryCode == "INTP")
+                ddlTPPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentTPSelection();");
+            else if (CategoryCode == "INUP")
+                ddlULIPPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentUPSelection();");
+            else if (CategoryCode == "INWP")
+                ddlWLPPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentWPSelection();");
+            else if(CategoryCode == "INOT")
+                ddlOTPremiumFrequencyCode.Attributes.Add("onChange", "javascript:SinglePaymentOTSelection();");
         }
 
         public void LoadInsuranceIssuerCode(string path)

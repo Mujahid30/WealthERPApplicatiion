@@ -4,6 +4,109 @@
 <%--Javascript Calendar Controls - Required Files--%>
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
+
+<script type="text/javascript">
+    function SinglePaymentEPSelection() {       
+        var DropdownList = document.getElementById('<%=ddlEPPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value; 
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtEPPremiumDuration.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtEPGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else {
+            document.getElementById('<%=txtFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtEPPremiumDuration.ClientID%>').disabled = false;
+            document.getElementById('<%=txtEPGracePeriod.ClientID%>').disabled = false;
+        }     
+    }
+        
+    function SinglePaymentMPSelection() {
+        var DropdownList = document.getElementById('<%=ddlMPPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value;
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtMPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtMPLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtMPPremiumDuration.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtMPGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else {
+            document.getElementById('<%=txtMPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtMPLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtMPPremiumDuration.ClientID%>').disabled = false;
+            document.getElementById('<%=txtMPGracePeriod.ClientID%>').disabled = false;
+        }
+    }
+    
+    function SinglePaymentTPSelection() {
+        var DropdownList = document.getElementById('<%=ddlTPPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value;
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtTPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtTPLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtTPPremiumDuration.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtTPGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else {
+            document.getElementById('<%=txtTPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtTPLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtTPPremiumDuration.ClientID%>').disabled = false;
+            document.getElementById('<%=txtTPGracePeriod.ClientID%>').disabled = false;
+        }
+    }
+    function SinglePaymentWPSelection() {
+        var DropdownList = document.getElementById('<%=ddlWLPPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value;
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtWLPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtWLPLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtWLPPremiumDuration.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtWLPGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else {
+            document.getElementById('<%=txtWLPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtWLPLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtWLPPremiumDuration.ClientID%>').disabled = false;
+            document.getElementById('<%=txtWLPGracePeriod.ClientID%>').disabled = false;
+        }
+    }
+    function SinglePaymentUPSelection() {
+        var DropdownList = document.getElementById('<%=ddlULIPPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value;
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtULIPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtULIPLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtUlipPremiuimPeriod.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtULIPGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else {
+            document.getElementById('<%=txtULIPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtULIPLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtUlipPremiuimPeriod.ClientID%>').disabled = false;
+            document.getElementById('<%=txtULIPGracePeriod.ClientID%>').disabled = false;
+        }
+    }
+    
+    function SinglePaymentOTSelection() {
+        var DropdownList = document.getElementById('<%=ddlOTPremiumFrequencyCode.ClientID %>');
+        var SelectedValue = DropdownList.value;
+        if (SelectedValue == "SP") {
+            document.getElementById('<%=txtOTFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtOTLastPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = 'true';
+            document.getElementById('<%=txtOTGracePeriod.ClientID%>').disabled = 'true';
+        }
+        else{
+            document.getElementById('<%=txtOTFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtOTLastPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = false;
+            document.getElementById('<%=txtOTGracePeriod.ClientID%>').disabled = false;
+        }
+    }
+</script>
+
 <script language="javascript" type="text/javascript">
     function CheckMaturityDate(sender, args) {
 
@@ -448,7 +551,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblEPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlEPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlEPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentEPSelection();">
             </asp:DropDownList>
             <span id="Span9" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlEPPremiumFrequencyCode"
@@ -568,7 +671,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblOTPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOTPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlOTPremiumFrequencyCode" runat="server" CssClass="cmbField"  onchange="SinglePaymentOTSelection();">
             </asp:DropDownList>
             <span id="Span6" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator49" runat="server" ControlToValidate="ddlOTPremiumFrequencyCode"
@@ -689,7 +792,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblWLPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlWLPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlWLPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentWPSelection();">
             </asp:DropDownList>
             <span id="Span14" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlWLPPremiumFrequencyCode"
@@ -803,7 +906,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblMPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlMPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlMPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentMPSelection();">
             </asp:DropDownList>
             <span id="Span19" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlMPPremiumFrequencyCode"
@@ -921,7 +1024,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblULIPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlULIPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentUPSelection();">
             </asp:DropDownList>
             <span id="Span23" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="ddlULIPPremiumFrequencyCode"
@@ -1035,7 +1138,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <asp:Label ID="lblTPPremiumCycle" runat="server" CssClass="FieldName" Text="Premium Cycle:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlTPPremiumFrequencyCode" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlTPPremiumFrequencyCode" runat="server" CssClass="cmbField" onchange="SinglePaymentTPSelection();">
             </asp:DropDownList>
             <span id="Span27" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ControlToValidate="ddlTPPremiumFrequencyCode"
