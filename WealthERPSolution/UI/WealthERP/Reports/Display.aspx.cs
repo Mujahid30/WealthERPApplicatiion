@@ -113,7 +113,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.FPOfflineForm;
                     }
-                    if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewInDOC"] != null)
+                    if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null)
                     {
                         return ReportType.OrderTransactionSlip;
                     }
@@ -189,11 +189,11 @@ namespace WealthERP.Reports
                 CurrentReportType = ReportType.FPOfflineForm;
                 ctrlPrefix = "ctrl_OfflineForm$";
             }
-            if (Request.Form["ctrl_OrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_OrderEntry$btnViewReport"] != null || Request.Form["ctrl_OrderEntry$btnViewInDOC"] != null)
+            if (Request.Form["ctrl_MFOrderEntry$btnViewInPDF"] != null || Request.Form["ctrl_MFOrderEntry$btnViewReport"] != null || Request.Form["ctrl_MFOrderEntry$btnViewInDOC"] != null)
             {
                 btnSendMail.Visible = true;
                 CurrentReportType = ReportType.OrderTransactionSlip;
-                ctrlPrefix = "ctrl_OrderEntry$";
+                ctrlPrefix = "ctrl_MFOrderEntry$";
             }
 
             if (PreviousPage != null)
@@ -405,26 +405,7 @@ namespace WealthERP.Reports
 
         private void DisplayReport(OrderTransactionSlipVo report)
         {
-                //string folio=string.Empty;
-                //string amcName = string.Empty;
-                //string schemeName = string.Empty;
-                //string panNo = string.Empty;
-                //string CustomerName = string.Empty;
-                //string ChequeNo = string.Empty;
-                //DateTime chequeDate = DateTime.MinValue;
-                //double amount = 0.0;
-                //double unit = 0.0;
-                //DateTime startDate = DateTime.MinValue;
-                //DateTime endDate = DateTime.MinValue;
-                //string bankName = string.Empty;
-                //string branchName = string.Empty;
-                //string address = string.Empty;
-                //string city = string.Empty;
-                //string state = string.Empty;
-                //string country = string.Empty;
-                //string schemeSwitchName = string.Empty;
-                //long pinNo = 0;
-                //OperationBo operationBo = new OperationBo();
+                
                 MFReportsBo mfReportBo = new MFReportsBo();
                 report = (OrderTransactionSlipVo)Session["reportParams"];
                 DataSet dstransactionSlip = new DataSet();
@@ -447,18 +428,18 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SchemeName"].ToString() : string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(drOrderTransactionForm[0]["C_PANNum"].ToString().Trim()) ? drOrderTransactionForm[0]["C_PANNum"].ToString() : string.Empty);
                     crmain.SetParameterValue("Customer", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Customer_Name"].ToString().Trim()) ? drOrderTransactionForm[0]["Customer_Name"].ToString() : string.Empty);
-                    crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_ChequeNumber"].ToString() : string.Empty);
-                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMOT_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Amount"].ToString() : string.Empty);
-                    crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMOT_StartDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMOT_EndDate"].ToString()).ToShortDateString() : string.Empty);
-                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_BankName"].ToString() : string.Empty);
-                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_BranchName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_ChequeNumber"].ToString().Trim()) ? drOrderTransactionForm[0]["CO_ChequeNumber"].ToString() : string.Empty);
+                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CO_PaymentDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CO_PaymentDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Amount"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Amount"].ToString() : string.Empty);
+                    crmain.SetParameterValue("StartDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_StartDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("EndDate", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString().Trim()) ? DateTime.Parse(drOrderTransactionForm[0]["CMFOD_EndDate"].ToString()).ToShortDateString() : string.Empty);
+                    crmain.SetParameterValue("BankName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CB_BankName"].ToString().Trim()) ? drOrderTransactionForm[0]["CB_BankName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("BranchName", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_BranchName"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_BranchName"].ToString() : string.Empty);
                     crmain.SetParameterValue("Address", !string.IsNullOrEmpty(drOrderTransactionForm[0]["Address"].ToString().Trim()) ? drOrderTransactionForm[0]["Address"].ToString() : string.Empty);
-                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_City"].ToString() : string.Empty);
-                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_State"].ToString() : string.Empty);
-                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Country"].ToString() : string.Empty);
-                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMOT_Pincode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMOT_Pincode"].ToString() : string.Empty);
+                    crmain.SetParameterValue("City", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_City"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_City"].ToString() : string.Empty);
+                    crmain.SetParameterValue("State", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_State"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_State"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
+                    crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
                     crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
 
                     ShowTransactionShowHide(report.Type);
@@ -3578,14 +3559,15 @@ namespace WealthERP.Reports
             else  if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
-                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnCustomerId"]))
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]))
                 {
-                    orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_OrderEntry$hdnCustomerId"]);
+                    //orderTransaction.CustomerId = int.Parse(Request.Form["ctrl_MFOrderEntry$hdnCustomerId"]);
+                    orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "hdnCustomerId"]);
                 }
-                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnSchemeCode"]))
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeCode"]))
                     orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"]);
-                if (!String.IsNullOrEmpty(Request.Form["ctrl_OrderEntry$hdnType"]))
-                    orderTransaction.Type = Request.Form["ctrl_OrderEntry$hdnType"];
+                if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
+                    orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
                 
                 Session["reportParams"] = orderTransaction;
             }
