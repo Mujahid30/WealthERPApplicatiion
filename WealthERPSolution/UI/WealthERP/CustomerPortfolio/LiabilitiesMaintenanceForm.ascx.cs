@@ -1717,6 +1717,7 @@ namespace WealthERP.CustomerPortfolio
             //trLAPError.Visible = false;
             Session["menu"] = "Edit";
             EditLiability();
+            lnkEdit.Visible = false;
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)

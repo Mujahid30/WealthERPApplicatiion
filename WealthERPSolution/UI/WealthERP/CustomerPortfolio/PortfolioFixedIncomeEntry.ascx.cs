@@ -2121,6 +2121,7 @@ namespace WealthERP.CustomerPortfolio
         protected void lnkEdit_Click(object sender, EventArgs e)
         {
             LoadEditableFields();
+            lnkEdit.Visible = false;
         }
 
         protected void ddlPayableFrequencyCode_SelectedIndexChanged(object sender, EventArgs e)
