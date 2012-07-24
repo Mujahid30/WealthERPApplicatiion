@@ -374,7 +374,7 @@ namespace BoValuation
                                 drTransactionDetails["CMFTB_Age"] = span.TotalDays;
 
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()); ;
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] =Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())),4) ;
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -407,7 +407,7 @@ namespace BoValuation
 
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
                                 dvrUnits = double.Parse(dr["CMFT_Units"].ToString());
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round((double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString())),4);
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -476,11 +476,11 @@ namespace BoValuation
                                                     dvrUnitsContribution = dvrUnits * unitBalanceReturnOldSum;
                                                     avgCostReturn = totalCostBalanceReturn / (dvrUnitsContribution + double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()));
 
-                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = unitBalanceReturnOldSum;
+                                                    dr3["CMFTB_DVRUnitsAllocation_Share"] = Math.Round(unitBalanceReturnOldSum,4);
                                                     
-                                                    dr3["CMFTB_DVRUnits_Contributed"] = dvrUnitsContribution;
-                                                    dr3["CMFTB_AvgCostBalRETURN"] = avgCostReturn;
-                                                    dr3["CMFTB_TotalCostBalRETURN"] = avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString());
+                                                    dr3["CMFTB_DVRUnits_Contributed"] =Math.Round(dvrUnitsContribution,4);
+                                                    dr3["CMFTB_AvgCostBalRETURN"] =Math.Round(avgCostReturn,4);
+                                                    dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()),4);
                                                 }
                                                 else
                                                 {
@@ -493,9 +493,9 @@ namespace BoValuation
                                                         totalCostBalance = totalCostBalance + double.Parse(dr4["CMFTB_TotalCostBalRETURN"].ToString());
                                                     }
                                                     avlCostDVR = totalCost - totalCostBalance;
-                                                    dr3["CMFTB_TotalCostBalRETURN"] = avlCostDVR;
+                                                    dr3["CMFTB_TotalCostBalRETURN"] =Math.Round( avlCostDVR,4);
                                                     if (dvrUnits != 0)
-                                                        dr3["CMFTB_AvgCostBalRETURN"] = avlCostDVR / dvrUnits;
+                                                        dr3["CMFTB_AvgCostBalRETURN"] = Math.Round( (avlCostDVR / dvrUnits),4);
                                                     else
                                                         dr3["CMFTB_AvgCostBalRETURN"] = 0;
                                                     dr3["CMFTB_DVRUnitsAllocation_Share"] = 0;
@@ -573,7 +573,7 @@ namespace BoValuation
                                 span = DateTime.Today - DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                                 drTransactionDetails["CMFTB_Age"] = span.TotalDays;
                                 drTransactionDetails["CMFTB_UnitBalanceTAX"] = dr["CMFT_Units"].ToString();
-                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString());
+                                drTransactionDetails["CMFTB_TotalCostBalanceTAX"] = Math.Round(double.Parse(drTransactionDetails["CMFTB_UnitBalanceTAX"].ToString()) * double.Parse(dr["CMFT_Price"].ToString()),4);
                                 drTransactionDetails["CMFTB_UnitBalanceRETURN"] = dr["CMFT_Units"].ToString();
                                 drTransactionDetails["CMFTB_DivPayout"] = 0;
                                 drTransactionDetails["CMFTB_AvgCostBalRETURN"] = dr["CMFT_Price"].ToString();
@@ -612,7 +612,7 @@ namespace BoValuation
                                                 dr1["CMFTB_InsertUpdate_Flag"] = 2;
                                             }
                                             if (dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR" || dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY")
-                                                dr1["CMFTB_DivPayout"] = double.Parse(dr1["CMFTB_DivPayout"].ToString())+(double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount;
+                                                dr1["CMFTB_DivPayout"] = Math.Round((double.Parse(dr1["CMFTB_DivPayout"].ToString())+(double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * amount),4);
                                             //costReturn = costReturn + (double.Parse(dr2["CMFTB_UnitBalanceRETURN"].ToString()) * avgValue);
 
 
@@ -789,11 +789,11 @@ namespace BoValuation
             {
                 if (age > 365)
                 {
-                    drSellPaired["CMFT_LTG"] = gainLossValue;
+                    drSellPaired["CMFT_LTG"] = Math.Round(gainLossValue , 4);
                 }
                 else
                 {
-                    drSellPaired["CMFT_STG"] = gainLossValue;
+                    drSellPaired["CMFT_STG"] = Math.Round(gainLossValue, 4);
                 }
             }
 
@@ -815,13 +815,13 @@ namespace BoValuation
                 foreach (DataRow dr1 in dt.Rows)
                 {
                     double unitBalancereturnOld = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
-                    dr1["CMFTB_UnitBalanceRETURN"] = double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units;
+                    dr1["CMFTB_UnitBalanceRETURN"] =Math.Round( (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) - (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / sum) * units),4);
 
 
                     if (dr1["WMTT_TransactionClassificationCode"].ToString() == "BUY" || dr1["WMTT_TransactionClassificationCode"].ToString() == "DVR")
                     {
-                        dr1["CMFTB_DivPayout"] = (double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / unitBalancereturnOld) * double.Parse(dr1["CMFTB_DivPayout"].ToString());
-                        dr1["CMFTB_TotalCostBalRETURN"] = double.Parse(dr1["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString());
+                        dr1["CMFTB_DivPayout"] = Math.Round( ((double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString()) / unitBalancereturnOld) * double.Parse(dr1["CMFTB_DivPayout"].ToString())),4);
+                        dr1["CMFTB_TotalCostBalRETURN"] = Math.Round( (double.Parse(dr1["CMFTB_AvgCostBalRETURN"].ToString()) * double.Parse(dr1["CMFTB_UnitBalanceRETURN"].ToString())),4);
 
                     }
                     else
