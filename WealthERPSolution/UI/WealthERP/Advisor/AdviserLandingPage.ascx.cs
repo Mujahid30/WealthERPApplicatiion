@@ -55,22 +55,22 @@ namespace WealthERP.Advisor
         }
         public void imgOrderentry_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('OrderEntry','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MFOrderEntry','login');", true);
 
         }
         public void lnkbtnOrderEntry_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('OrderEntry','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('MFOrderEntry','login');", true);
 
         }
         public void imgBusinessMIS_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('MultiProductMIS','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
 
         }
         public void lnkbtnBusinessMIS_OnClick(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('MultiProductMIS','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
 
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
@@ -81,6 +81,18 @@ namespace WealthERP.Advisor
         public void imgInbox_OnClick(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+
+        }
+
+
+        public void imgbtnFPClients_OnClick(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
+
+        }
+        public void lnkbtnFPClients_OnClick(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('AddProspectList','login');", true);
 
         }
 

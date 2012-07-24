@@ -762,7 +762,7 @@ namespace WealthERP.SuperAdmin
                 if (menu == "View Dashboard")
                 {
                     Session["advisorVo"] = advisorBo.GetAdvisorUser(userId);
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboard','none');", true);
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolonly('IFAAdminMainDashboardOld','none');", true);
                     //AdvisorDashboardValidation(userId);                    
                 }
                 if (menu == "Edit profile")

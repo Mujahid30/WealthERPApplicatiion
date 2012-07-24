@@ -1079,4 +1079,52 @@ p.tip
     vertical-align: top;
 }
 
+.divDashBoardQuickLinks
+{
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 10px;
+    border: solid 4px;   
+    border-color:#7CA644;    
+    color:#7CA644;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:100px;
+    width : 100px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+   vertical-align : text-bottom;
+    z-index: 2; 
+    padding-left:2px;
+    padding-right:2px;
+    padding-bottom:2px;
+    padding-top:8px;
+    
+    
+}
+
+
+.zoom { 
+    width:293px; 
+    height:170px; 
+    display:block; 
+    position:relative; 
+    overflow:hidden; 
+    border:1px solid #ddd; 
+    background:#fff url(../images/loader.gif) no-repeat center;
+}
+
+    .zoom img { display:none }
+
+        .zoomOverlay {
+            position:absolute;
+            top:0; left:0;
+            bottom:0; right:0;
+            display:none;
+            background-image:url(../images/zoom.png);
+            background-repeat:no-repeat;
+            background-position:center;
+        }
+
 /* End */

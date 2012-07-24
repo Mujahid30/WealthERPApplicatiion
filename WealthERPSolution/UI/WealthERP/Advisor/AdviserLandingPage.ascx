@@ -10,10 +10,16 @@
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
 
-
-
-
 <script type="text/javascript">
+    $(document).ready(function() {
+        $(".panel").show();
+
+        $(".flip").click(function() { $(".panel").slideToggle(); });
+    });
+</script>
+
+
+<%--<script type="text/javascript">
 //    $(function() {
 //    $(".divDashBoardQuickLinks").mouseover(function() {
 //            $(this).animate({ "borderLeftWidth": "5px",
@@ -69,7 +75,7 @@
 
 </script>
 
-
+--%>
 <table width="100%">
 <tr>
         <td colspan="3">
@@ -143,9 +149,11 @@
             <asp:LinkButton ID="lnkbtnInbox" runat="server" CssClass="FieldName" OnClick="lnkbtnInbox_OnClick" ToolTip="Navigate to Inbox"  Text = ""></asp:LinkButton>
              </div>
              </td>
-             <td style="width : 30%;">
-             <div style="vertical-align: text-bottom">
-   
+             <td style="width : 30%;" align="center"> 
+    <div class="divDashBoardQuickLinks" id="Div1">
+  <asp:ImageButton id="imgbtnFPClients" ImageUrl="~/Images/customers-icon.gif" runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick" Width="70px"  />
+            <br />           
+            <asp:LinkButton ID="lnkbtnFPClients" runat="server" CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"   ToolTip="Navigate to Add FP Customers"  Text = "FP Clients"></asp:LinkButton>
              </div>
              </td>
              </tr>

@@ -6,22 +6,6 @@
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
-<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
-<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
-<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
-
-<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-    $(".panel").show();
-
-        $(".flip").click(function() { $(".panel").slideToggle(); });
-     });
-</script>
-
 <table style="width: 100%;" padding-top="1px" class="TableBackground" cellspacing="0"
     cellpadding="0">
     <tr>
@@ -30,10 +14,7 @@
             </asp:Label>
         </td>
         <td>
-            <%--<asp:Label ID="lblNewMessages" runat="server" CssClass="HeaderTextSmall" Visible="false">
-            </asp:Label>--%>
-            <asp:LinkButton ID="lnkBtnNewMessages" CssClass="LinkButtonsWithoutUnderLine" Visible="false"
-            runat="server" onclick="lnkBtnNewMessages_Click"></asp:LinkButton>
+           
         </td>
         <td align="right">
             <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
@@ -47,47 +28,8 @@
     </tr>
 </table>
 <table style="width: 100%;" padding-top="0" class="TableBackground">
-    <%--<tr>
-        <td class="HeaderCell" colspan="3">
-            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextBig" Text="Advisor Dashboard"></asp:Label>
-        </td>
-    </tr>--%>
-    <%--  <tr>
-        <td class="leftField">
-            <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
-            <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
-        </td>
-    </tr>--%>
     <tr>
         <td align="left" colspan="2" style="padding-left: 2px; padding-right: 2px">
-            <%--<asp:GridView ID="gvrAdminBranchPerform" runat="server" AllowSorting="True" AutoGenerateColumns="False"
-                CellPadding="4" DataKeyNames="Branch Id" EnableViewState="false" AllowPaging="True" ShowFooter="true"
-                CssClass="GridViewStyle" OnRowDataBound="gvrAdminBranchPerform_RowDataBound">
-                <FooterStyle CssClass="FooterStyle" />
-                <RowStyle CssClass="RowStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle" />
-                <Columns>
-                    <asp:BoundField DataField="Branch Name" HeaderText="Branch Name"  />
-                    <asp:BoundField DataField="Branch Code" HeaderText="Branch Code"  />
-                    <asp:BoundField DataField="Equity" HeaderText="Equity (Rs)" 
-                        DataFormatString="{0:b}" HtmlEncode="false" ApplyFormatInEditMode="True" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="MF" HeaderText="MF (Rs)"  HtmlEncode="false"
-                        DataFormatString="{0:c}" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="Insurance" HeaderText="Insurance (Rs)"
-                        DataFormatString="{0:c}" HtmlEncode="false" ItemStyle-HorizontalAlign="Right">
-                        <ItemStyle HorizontalAlign="Right"></ItemStyle>
-                    </asp:BoundField>
-                    <asp:BoundField DataField="NoOfCustomers" HeaderText="No. of Customers" HtmlEncode="false" ItemStyle-HorizontalAlign="Right" />
-                </Columns>
-            </asp:GridView>--%>
             <telerik:RadGrid ID="gvrAdminBranchPerform" runat="server" AllowAutomaticInserts="false"
                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" EnableEmbeddedSkins="false"
                 GridLines="None" PageSize="10" ShowFooter="true" ShowStatusBar="True" Skin="Telerik"
@@ -146,50 +88,9 @@
     <tr>
     <td colspan="2"></td>
     </tr>
-    <tr>
-        <td colspan="2">
-  <table width="100%" class="TableBackground">
-    <tr>
-        <td class="HeaderCell">
-            <img src="../Images/Telerik/mailNewIcon.png" height="25px" width="25px" style="float: right; cursor:hand;"
-                class="flip" />
-            <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Service Provider's Message"></asp:Label>
-            <hr />
-        </td>
-    </tr>
+    
 </table>      
-        
- <table width="100%">
-    <tr>
-        <td colspan="3">
-              <div class="panel">
-                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
-            </div>
-        </td>
-    </tr>
-</table>
-        
-<%--<table width="100%">
-    <tr>
-        <td align="center">
-            <div class="information-msg" id="MessageReceived" runat="server" visible="false"
-                align="center">
-               <br />
-                <asp:Label ID="lblSuperAdmnMessage" runat="server"></asp:Label>
-                <br />
-            </div>
-        </td>
-    </tr>
-</table>--%>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            &nbsp;
-            <asp:HiddenField ID="hdnRecordCount" runat="server" />
-        </td>
-    </tr>
-</table>
+      
 <table style="width: 100%;" cellpadding="0" cellspacing="0">
     <tr>
         <td align="left">
