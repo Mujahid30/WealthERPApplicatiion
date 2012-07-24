@@ -7,7 +7,7 @@
             &nbsp;
         </td>
         <td align="left" class="HeaderTextBig">
-            Equity Transactions Valuation View
+            Equity Transactions Valuation Details
         </td>
         <td>
             &nbsp;
