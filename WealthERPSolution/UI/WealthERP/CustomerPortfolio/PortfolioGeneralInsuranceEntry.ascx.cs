@@ -70,8 +70,8 @@ namespace WealthERP.CustomerPortfolio
                 txtPolicyNumber.Text = ViewState["policyNumber"].ToString();
 
                 trAssetGroup.Visible = false;
-                lnkBtnBack.Visible = false;
-                lnkBtnEdit.Visible = false;
+                trlnkBtnBack.Visible = false;
+                trlnkBtnEdit.Visible = false;
                 LoadNominees();
                 DisplayAssetCategory();
 
@@ -90,7 +90,7 @@ namespace WealthERP.CustomerPortfolio
 
                 int.TryParse(Request.QueryString["InsuranceId"].ToString(), out insuranceId);
                 ViewState["insuranceId"] = insuranceId;
-               // ddlPeriodSelection.Visible = false;
+                // ddlPeriodSelection.Visible = false;
                 //txtPolicyTerm.Visible = false;
             }
             //MPEAssetParticular.Hide();
@@ -100,9 +100,14 @@ namespace WealthERP.CustomerPortfolio
                 BindFrequencyDropDown();
                 BindPolicyTypeDropDown();
                 pnlPickAssetPersonal.Visible = false;
+                trPersonal.Visible = false;
                 pnlPickAssetGold.Visible = false;
+                trGold.Visible = false;
                 pnlPickAssetCollectibles.Visible = false;
+                trCollectibles.Visible = false;
                 pnlPickAssetProperty.Visible = false;
+                trProperty.Visible = false;
+
                 if (Request.QueryString["FromPage"] == "ViewGeneralInsuranceDetails")
                 {
                     action = Request.QueryString["action"].ToString();
@@ -115,13 +120,14 @@ namespace WealthERP.CustomerPortfolio
                     insuranceId = int.Parse(Session["insuranceId"].ToString());
                     action = Session["action"].ToString();
                 }
+                txtPolicyParticular.Items.Insert(0, new ListItem("Select", "Select"));
             }
 
             if (action == "View")
             {
                 // 
                 btnAddScheme.Enabled = false;
-             //   hideControlsForViewAndEdit();
+                //   hideControlsForViewAndEdit();
                 Session["insuranceId"] = insuranceId;
                 if (Session["insuranceId"] != null)
                 {
@@ -136,14 +142,14 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (action == "Edit")
             {
-               // Session["action"] = null;
-               // Session["insuranceId"] = null;
+                // Session["action"] = null;
+                // Session["insuranceId"] = null;
 
                 btnAddScheme.Enabled = true;
-             // hideControlsForViewAndEdit();
+                // hideControlsForViewAndEdit();
                 btnSubmit.Text = "Update";
                 btnAssetShow.Visible = true;
-                lnkBtnEdit.Visible = false;
+                trlnkBtnEdit.Visible = false;
                 //ddlPeriodSelection.Visible = true;
                 SetControls();
             }
@@ -154,7 +160,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 hideHealthInsuranceFields();
-          
+
 
         }
 
@@ -194,9 +200,9 @@ namespace WealthERP.CustomerPortfolio
                 generalInsuranceVo.PolicyType = ddlTypeOfPolicy.SelectedItem.Text;
                 //double.TryParse(hdnSumAssured.Value, out SumAssured);
                 //generalInsuranceVo.SumAssured = SumAssured;
-                if (hdnSumAssured.Value!="")
-                generalInsuranceVo.SumAssured = double.Parse(hdnSumAssured.Value);
-                if (txtSumAssured1.Text!="")
+                if (hdnSumAssured.Value != "")
+                    generalInsuranceVo.SumAssured = double.Parse(hdnSumAssured.Value);
+                if (txtSumAssured1.Text != "")
                     generalInsuranceVo.SumAssured = double.Parse(txtSumAssured1.Text);
                 generalInsuranceVo.TPAName = txtTPA.Text;
                 long.TryParse(txtTPAContactNumber.Text, out TPAContactNumber);
@@ -560,6 +566,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phProperty.Controls.Add(tb);
                         pnlPickAssetProperty.Visible = true;
+                        trProperty.Visible = true;
                     }
                 }
                 if (chkCollectibles.Checked)
@@ -601,6 +608,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phCollectibles.Controls.Add(tb);
                         pnlPickAssetCollectibles.Visible = true;
+                        trCollectibles.Visible = true;
                     }
                 }
                 if (chkGold.Checked)
@@ -642,6 +650,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phGold.Controls.Add(tb);
                         pnlPickAssetGold.Visible = true;
+                        trGold.Visible = true;
                     }
                 }
                 if (chkPersonal.Checked)
@@ -686,6 +695,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phPersonal.Controls.Add(tb);
                         pnlPickAssetPersonal.Visible = true;
+                        trPersonal.Visible = true;
                     }
                 }
             }
@@ -715,7 +725,7 @@ namespace WealthERP.CustomerPortfolio
             generalInsuranceVo = new GeneralInsuranceVo();
             generalInsuranceVo = insuranceBo.GetGINetPositionDetails(insuranceId);
             BindAssetParticular(generalInsuranceVo.InsIssuerCode);
-            txtPolicyParticular.SelectedValue =generalInsuranceVo.PolicyParticular;
+            txtPolicyParticular.SelectedValue = generalInsuranceVo.PolicyParticular;
             assCatCode = generalInsuranceVo.AssetInstrumentCategoryCode;
             ViewState["assCatCode"] = assCatCode;
             assSubCatCode = generalInsuranceVo.AssetInstrumentSubCategoryCode;
@@ -823,7 +833,7 @@ namespace WealthERP.CustomerPortfolio
             txtPolicyCommencementDate.Enabled = trueOrFalse;
             txtPolicyNumber.Enabled = trueOrFalse;
             txtPolicyParticular.Enabled = trueOrFalse;
-           // txtMaturityDate.Enabled = trueOrFalse;
+            // txtMaturityDate.Enabled = trueOrFalse;
             //txtPolicyValidityEndDate.Enabled = trueOrFalse;
             //txtPolicyValidityStartDate.Enabled = trueOrFalse;
             txtPremiumAmount.Enabled = trueOrFalse;
@@ -846,8 +856,8 @@ namespace WealthERP.CustomerPortfolio
             ddlPolicyIssuer.Enabled = trueOrFalse;
             ddlPremiumCycle.Enabled = trueOrFalse;
             ddlTypeOfPolicy.Enabled = trueOrFalse;
-           
-            
+
+
         }
 
         private void DisplayAssetCategory()
@@ -932,6 +942,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phProperty.Controls.Add(tb);
                         pnlPickAssetProperty.Visible = true;
+                        trProperty.Visible = true;
                     }
                 }
                 if (chkCollectibles.Checked)
@@ -980,6 +991,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phCollectibles.Controls.Add(tb);
                         pnlPickAssetCollectibles.Visible = true;
+                        trCollectibles.Visible = true;
                     }
                 }
                 if (chkGold.Checked)
@@ -1028,6 +1040,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phGold.Controls.Add(tb);
                         pnlPickAssetGold.Visible = true;
+                        trGold.Visible = true;
                     }
                 }
                 if (chkPersonal.Checked)
@@ -1079,6 +1092,7 @@ namespace WealthERP.CustomerPortfolio
                         tb.Rows.Add(tr);
                         phPersonal.Controls.Add(tb);
                         pnlPickAssetPersonal.Visible = true;
+                        trPersonal.Visible = true;
                     }
                 }
             }
@@ -1202,7 +1216,7 @@ namespace WealthERP.CustomerPortfolio
             btnSubmit.Text = "Update";
             btnSubmit.Visible = true;
             btnAssetShow.Visible = true;
-            lnkBtnEdit.Visible = false;
+            trlnkBtnEdit.Visible = false;
             txtAssetCategory.Enabled = false;
             txtAssetSubCategory.Enabled = false;
             txtPolicyNumber.Enabled = false;
@@ -1254,36 +1268,40 @@ namespace WealthERP.CustomerPortfolio
 
         public void ddlPolicyIssuer_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
             lblIssuarCode.Text = ddlPolicyIssuer.SelectedItem.Text;
             BindAssetParticular(ddlPolicyIssuer.SelectedValue);
         }
 
         public void showHealthInsuranceFields()
         {
-            lblWthHealthCheckUp.Visible = true;
-            rdoHealthNo.Visible = true;
-            rdoHealthYes.Visible = true;
-            lblCheckUpDate.Visible = true;
-            txtCheckUpDate.Visible = true;
-            lblProposalDate.Visible = true;
-            txtProposalDate.Visible = true;
-            lblProposalNumber.Visible = true;
-            txtProposalNumber.Visible = true;
+            //lblWthHealthCheckUp.Visible = true;
+            //rdoHealthNo.Visible = true;
+            //rdoHealthYes.Visible = true;
+            //lblCheckUpDate.Visible = true;
+            //txtCheckUpDate.Visible = true;
+            //lblProposalDate.Visible = true;
+            //txtProposalDate.Visible = true;
+            //lblProposalNumber.Visible = true;
+            //txtProposalNumber.Visible = true;
+            trHealthSection1.Visible = true;
+            trHealthSection2.Visible = true;
         }
 
         public void hideHealthInsuranceFields()
         {
-            lblWthHealthCheckUp.Visible = false;
-            rdoHealthNo.Visible = false;
-            rdoHealthYes.Visible = false;
-            lblCheckUpDate.Visible = false;
-            txtCheckUpDate.Visible = false;
-            lblProposalDate.Visible = false;
-            txtProposalDate.Visible = false;
-            lblProposalNumber.Visible = false;
-            txtProposalNumber.Visible = false;
+            //lblWthHealthCheckUp.Visible = false;
+            //rdoHealthNo.Visible = false;
+            //rdoHealthYes.Visible = false;
+            //lblCheckUpDate.Visible = false;
+            //txtCheckUpDate.Visible = false;
+            //lblProposalDate.Visible = false;
+            //txtProposalDate.Visible = false;
+            //lblProposalNumber.Visible = false;
+            //txtProposalNumber.Visible = false;
             //lblterm.Visible = false;
+            trHealthSection1.Visible = false;
+            trHealthSection2.Visible = false;
         }
 
         public DateTime calculateMaturityDate(int period, DateTime startDate)
@@ -1310,12 +1328,12 @@ namespace WealthERP.CustomerPortfolio
         {
             if (txtPolicyTerm.Text == "")
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid term');", true);
-            else if(txtPolicyCommencementDate.SelectedDate==null)
+            else if (txtPolicyCommencementDate.SelectedDate == null)
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a start date');", true);
             else
             {
                 txtMaturityDate.SelectedDate = CalcEndDate(int.Parse(txtPolicyTerm.Text), DateTime.Parse(txtPolicyCommencementDate.SelectedDate.ToString()));
-            } 
+            }
         }
 
         protected void btnAddScheme_OnClick(object sender, EventArgs e)
@@ -1323,6 +1341,7 @@ namespace WealthERP.CustomerPortfolio
             radwindowPopup.Left = 100;
             radwindowPopup.Top = 100;
             radwindowPopup.VisibleOnPageLoad = true;
+
         }
 
         private DateTime CalcEndDate(int period, DateTime startDate)
@@ -1350,5 +1369,7 @@ namespace WealthERP.CustomerPortfolio
         //    //Session["action"] = null;
         //    //Session["insuranceId"] = null;
         //}
+        
+
     }
 }
