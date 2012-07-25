@@ -1055,21 +1055,6 @@ p.tip
     }
 
 /* End */
-.divSectionHeading
-{
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 4px;   
-    background-color:#F3BABA;
-    color:#8A0307;
-    font-weight:bold;
-    font-size:small;
-    height:20px;
-    vertical-align:middle;  
-    padding-left:15px;
-    border:0px;
-    
-}
 
 .trHeader
 {
@@ -1177,3 +1162,35 @@ p.tip
             background-repeat:no-repeat;
             background-position:center;
         }
+.divSectionHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;   
+    background-color:#FCD1D1;
+    color:#8A0408;
+    font-weight:bold;
+    font-size:small;
+    height:20px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    
+}
+
+.divPageHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;
+    border: solid 1px;   
+    border-color:#8A0408;    
+    color:#8A0408;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:25px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+    z-index: 2; 
+}

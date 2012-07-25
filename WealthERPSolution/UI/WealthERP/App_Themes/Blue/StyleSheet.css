@@ -973,22 +973,6 @@ p.tip
     box-shadow: #B3A6AF 4px 4px 4px;
 }
 
-.divSectionHeading
-{
-     -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 4px;   
-    background-color:#427DA3;
-    color:#F1F9FC;
-    font-weight:bold;
-    font-size:small;
-    height:20px;
-    vertical-align:middle;  
-    padding-left:15px;
-    border:0px;
-    
-}
-
 .trHeader
 {
     background-color: #16518A;
@@ -1098,4 +1082,37 @@ p.tip
             background-repeat:no-repeat;
             background-position:center;
         }
+        
+.divSectionHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;   
+    background-color:#C5D8E5;
+    color:#16518A;
+    font-weight:bold;
+    font-size:small;
+    height:20px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    
+}
+
+.divPageHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;
+    border: solid 1px;   
+    border-color:#16518A;    
+    color:#16518A;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:25px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+    z-index: 2; 
+}
 /* End */
