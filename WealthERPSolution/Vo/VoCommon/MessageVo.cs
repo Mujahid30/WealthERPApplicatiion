@@ -11,5 +11,6 @@ namespace VoCommon
         public string Subject { get; set; }
         public string Message { get; set; }
         public string strXMLRecipientIds { get; set; }
+        public int AdviserId { get; set; }
     }
 }
