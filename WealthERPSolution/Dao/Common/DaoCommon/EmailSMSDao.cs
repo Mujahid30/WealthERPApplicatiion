@@ -25,7 +25,7 @@ namespace DaoCommon
                 db.AddInParameter(addToSMSQueueCmd, "@number", DbType.String, smsVo.Mobile.ToString());
                 db.AddInParameter(addToSMSQueueCmd, "@message", DbType.String, smsVo.Message);
                 db.AddInParameter(addToSMSQueueCmd, "@sent", DbType.Int16, smsVo.IsSent);
-
+                db.AddInParameter(addToSMSQueueCmd, "@AdviserId", DbType.Int16, smsVo.AdviserId);
                 db.AddOutParameter(addToSMSQueueCmd, "@Id", DbType.Int32, 10000);
                 if (db.ExecuteNonQuery(addToSMSQueueCmd) != 0)
                 {
