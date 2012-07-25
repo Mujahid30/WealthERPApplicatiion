@@ -74,6 +74,7 @@ namespace DaoCommon
                 db.AddInParameter(cmdAddMessage, "@messageSubject", DbType.String, messageVo.Subject);
                 db.AddInParameter(cmdAddMessage, "@messageBody", DbType.String, messageVo.Message);
                 db.AddInParameter(cmdAddMessage, "@userId", DbType.Int32, messageVo.UserId);
+                db.AddInParameter(cmdAddMessage, "@adviserId", DbType.Int32, messageVo.AdviserId);
                 db.AddInParameter(cmdAddMessage, "@xmlUserIds", DbType.Xml, messageVo.strXMLRecipientIds);
                 db.ExecuteNonQuery(cmdAddMessage);
                 blResult = true;
