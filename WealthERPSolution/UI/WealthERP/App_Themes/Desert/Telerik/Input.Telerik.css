@@ -6,6 +6,8 @@
 .RadInputMgr_Telerik
 {
 	font:12px "segoe ui",arial,sans-serif;
+	border:solid 1px;
+	border-color:#b32d34;
 }
 
 /*textbox states*/
@@ -31,7 +33,7 @@ html body .RadInput_Hover_Telerik,
 html body .RadInput_Telerik .riFocused,
 html body .RadInput_Focused_Telerik
 {
-	border-color:#5794bf #b7d5ea #c7e2f1 #c5daed;
+	border-color:#b32d34 #b32d35 #b32d36 #b32d37;
 }
 
 html body .RadInput_Telerik .riRead,
