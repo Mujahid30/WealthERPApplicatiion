@@ -83,6 +83,7 @@ namespace WealthERP.Advisor
             AdvisorBo adviserBo = new AdvisorBo();
             DataSet dsAdviserSubscriptionDetails;
             int smsLicense = 0;
+
             //int adviserId = 0;
             //if (Session["advisorVo"] != null)
             //    adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
@@ -94,10 +95,14 @@ namespace WealthERP.Advisor
                     DataRow drAdviserSubscriptionDetails = dsAdviserSubscriptionDetails.Tables[0].Rows[0];
                     smsLicense = int.Parse(drAdviserSubscriptionDetails["AS_SMSLicences"].ToString());
                 }
+                else
+                {
+                    lblLincenceValue.Text = "You have not register with any SMS provider!!";
+                }
             }
             if (smsLicense == 0)
             {
-                lblLincenceValue.Text = "No SMS Licence Left!!";
+                lblLincenceValue.Text = "No SMS Credit Left!!";
             }
             else
             {
@@ -232,7 +237,7 @@ namespace WealthERP.Advisor
             int adviserId = 0;
             if (Session["advisorVo"] != null)
                 adviserId = ((AdvisorVo)Session["advisorVo"]).advisorId;
-            if (lblLincenceValue.Text != "No SMS Licence Left!!")
+            if (lblLincenceValue.Text != "No SMS Credit Left!!")
                 smsLicence = int.Parse(lblLincenceValue.Text.ToString());
 
             foreach (GridViewRow gvRow in gvCustomerSMSAlerts.Rows)
@@ -249,6 +254,7 @@ namespace WealthERP.Advisor
                         smsVo.Message = txtMessage.Text.ToString();
                         smsVo.CustomerId = int.Parse(gvCustomerSMSAlerts.DataKeys[gvRow.RowIndex].Values["CustomerId"].ToString());
                         smsVo.IsSent = 0;
+                        smsVo.AdviserId = adviserId;
                         smsVoList.Add(smsVo);
                         
                         smsCount++;
@@ -260,8 +266,8 @@ namespace WealthERP.Advisor
             {
                 smsVoList = emailSMSBo.AddToSMSQueue(smsVoList);
 
-                smsLicence = smsLicence - smsCount;
-                advisorBo.UpdateAdviserSMSLicence(adviserId, smsLicence);
+                //smsLicence = smsLicence - smsCount;
+                //advisorBo.UpdateAdviserSMSLicence(adviserId, smsCount);
                 advisorBo.AddToAdviserSMSLog(smsVoList, adviserId, "Manual Message");
 
                 if (smsLicence == 0)
