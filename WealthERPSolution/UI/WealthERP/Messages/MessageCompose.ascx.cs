@@ -26,12 +26,15 @@ namespace WealthERP.Messages
         string strUserRoleResearch = "Research";
         string strUserRoleOps = "Ops";
         int userId;
+        AdvisorVo advisorVo = new AdvisorVo();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             userId = userVo.UserId;
+
             if (!IsPostBack)
             {
                 RoleCheckboxAccessibility();
@@ -302,6 +305,7 @@ namespace WealthERP.Messages
                     msgVo.Subject = txtSubject.Text.Trim();
                     msgVo.Message = strResult;
                     msgVo.strXMLRecipientIds = dsUsers.GetXml().ToString();
+                    msgVo.AdviserId = advisorVo.advisorId;
 
                     if (msgBo.InsertComposedMessage(msgVo))
                         blResult = true;
