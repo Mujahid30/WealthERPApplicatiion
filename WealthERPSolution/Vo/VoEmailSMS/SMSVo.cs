@@ -49,5 +49,13 @@ namespace VoEmailSMS
             get { return m_AlertId; }
             set { m_AlertId = value; }
         }
+
+        private int A_AdviserId;
+
+        public int AdviserId
+        {
+            get { return A_AdviserId; }
+            set { A_AdviserId = value; }
+        }
     }
 }
