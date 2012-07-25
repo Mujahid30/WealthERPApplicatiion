@@ -6,6 +6,8 @@
 .RadInputMgr_Telerik
 {
 	font:12px "segoe ui",arial,sans-serif;
+	border:solid 1px;
+	border-color:#6399bf;
 }
 
 /*textbox states*/
@@ -13,7 +15,7 @@
 html body .RadInput_Telerik .riTextBox,
 html body .RadInputMgr_Telerik
 {
-        width: 145px;
+     width: 145px;
     font-size: x-small;
     color: #16518A;
     font-weight: normal;
@@ -32,7 +34,7 @@ html body .RadInput_Hover_Telerik,
 html body .RadInput_Telerik .riFocused,
 html body .RadInput_Focused_Telerik
 {
-	border-color:#6399bf #bed8eb #cee3f2 #cadeed;
+	border-color:#6399bf #6399CF #6399EF #6399FF;
 }
 
 html body .RadInput_Telerik .riRead,
@@ -52,9 +54,9 @@ html body .RadInput_Disabled_Telerik
 html body .RadInput_Telerik .riError,
 html body .RadInput_Error_Telerik
 {
-	border-color:#3b81b2 #51a2db #54aceb #50a7e6;
+	border-color:red;
 	background:#ffffff 100% -298px no-repeat url('Input/sprite.gif');
-	color:#3b81b2;
+	color:red;
 }
 
 .RadForm.rfdTextbox .RadInput_Telerik .riError[type="text"],
