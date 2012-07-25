@@ -74,28 +74,6 @@ namespace WealthERP.Advisor
 
         }
 
-        private void ShowUnreadMessageAlert()
-        {
-            msgBo = new MessageBo();
-
-            // Get unread messages from the DB
-            int intCount = 0;
-            int flavourId = 0;
-            intCount = msgBo.GetUnreadMessageCount(userVo.UserId, out flavourId);
-
-            // Store the messages in a label control           
-            if (intCount > 0)
-            {
-                if (Session[SessionContents.UserTopRole] == "Admin" & flavourId == 10)
-                {
-                    lnkBtnNewMessages.Visible = true;
-                    lnkBtnNewMessages.Text = "<u>You have " + intCount + " unread messages</u>";
-                }
-                else
-                    lnkBtnNewMessages.Visible = false;
-            }
-        }
-
         /// <summary>
         /// Modified this function to add a new column(No. of customers) to the Branch AUM grid 
         /// </summary>
@@ -284,11 +262,7 @@ namespace WealthERP.Advisor
                 legend.Enabled = true;
 
                 //ds = assetBo.GetAdvisorRM_All_AssetAgr(advisorVo.advisorId);
-                if (Cache[advisorVo.advisorId.ToString()] == null)
-                {
-                    LoadAdminDashBoardDataInCaching();
-                }
-
+               
                 if (ds.Tables[2].Rows.Count > 0)
                 {
                     string[] XValues = new string[ds.Tables[2].Rows.Count];
@@ -440,24 +414,12 @@ namespace WealthERP.Advisor
         {
             double totalEquity = 0;
             double totalMF = 0;
-            //Cache.Remove(advisorVo.advisorId.ToString());
-            if (Cache[advisorVo.advisorId.ToString()] == null)
-            {
                 ds = assetBo.GetAdviserBranchMF_EQ_In_AggregateCurrentValues(advisorVo.advisorId);
 
                 totalEquity = double.Parse(ds.Tables[0].Compute("SUM(EquityAggr)", String.Empty).ToString());
 
                 totalMF = double.Parse(ds.Tables[0].Compute("SUM(MFAggr)", String.Empty).ToString());
-                if ((totalEquity != 0 && totalMF == 0) || (totalEquity == 0 && totalMF != 0) || (totalEquity != 0 && totalMF != 0))
-                    Cache.Insert(advisorVo.advisorId.ToString(), ds, null, DateTime.Now.AddMinutes(10 * 60), TimeSpan.Zero);
-            }
-            else
-            {
-                ds = (DataSet)Cache[advisorVo.advisorId.ToString()];
-
-            }
-
-
+                          
         }
 
         public DataTable CreateBranchPerformanceTable()
@@ -522,16 +484,7 @@ namespace WealthERP.Advisor
 
         }
 
-        protected void imgRefresh_Click(object sender, ImageClickEventArgs e)
-        {
-            if (Cache[advisorVo.advisorId.ToString()] != null)
-                Cache.Remove(advisorVo.advisorId.ToString());
-
-            LoadAdminDashBoardDataInCaching();
-            LoadAdminBranchPerformance();
-            LoadBranchPerfomanceChart();
-            LoadRMPerformanceChart();
-        }
+       
 
         protected void gvrAdminBranchPerform_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {

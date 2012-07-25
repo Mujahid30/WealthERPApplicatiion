@@ -1089,6 +1089,65 @@ p.tip
     
 }
 
+.divDashBoardMouseOutLinks
+{   
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 10px;
+    border: solid 3px;
+    border-color:#FCD654;    
+    color:#FCD654;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:100px;
+    width : 100px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+    vertical-align : text-bottom;
+    z-index: 2; 
+    padding-left:2px;
+    padding-right:2px;
+    padding-bottom:2px;
+    padding-top:8px;
+      -moz-box-shadow:    inset 0 0 18px #FCD654;
+   -webkit-box-shadow: inset 0 0 18px #FCD654;
+   box-shadow:         inset 0 0 18px #FCD654;
+   
+      	        
+   	
+}
+
+
+
+.divDashBoardMouseInLinks 
+{
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 10px;
+    border: solid 3px;
+    border-color:#FCD654 #888888 #888888 #FCD654;    
+    color:#FCD654;    
+    background-color:inherit;
+    font-weight:bold;
+    font-size:medium;
+    height:100px;
+    width : 100px;
+    vertical-align:middle!Important;  
+    padding-left:3px;
+   vertical-align : text-bottom;
+    z-index: 2; 
+    padding-left:2px;
+    padding-right:2px;
+    padding-bottom:2px;
+    padding-top:8px; 
+    
+-moz-box-shadow:    10px 10px 5px #888888;
+   -webkit-box-shadow: 10px 10px 5px #888888;
+    box-shadow:         10px 10px 5px #888888; 
+
+}
+
 
 .zoom { 
     width:293px; 

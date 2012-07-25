@@ -17,9 +17,7 @@
            
         </td>
         <td align="right">
-            <asp:ImageButton ID="imgRefresh" runat="server" ImageUrl="../Images/refresh-Dashboard.png"
-                OnClick="imgRefresh_Click" ToolTip="If you finding the data is not in sync,click here to get updated data" />
-        </td>
+            </td>
     </tr>
     <tr style="height: 2px">
         <td colspan="3" style="height: 2px">
@@ -76,9 +74,7 @@
     </tr>
     <tr>
         <td align="left">
-            <asp:Label ID="lblNote" Text="Note:If you are finding the data is not in sync please click on Refresh"
-                runat="server" CssClass="FieldName">
-            </asp:Label>
+           
         </td>
         <td align="right">
             <asp:Label ID="lblGTT" runat="server" CssClass="FieldName" Text="Grand Total (Rs):"></asp:Label>

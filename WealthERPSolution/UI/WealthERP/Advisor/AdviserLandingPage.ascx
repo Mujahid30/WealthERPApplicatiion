@@ -1,9 +1,12 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserLandingPage.ascx.cs" Inherits="WealthERP.Advisor.AdviserLandingPage" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdviserLandingPage.ascx.cs"
+    Inherits="WealthERP.Advisor.AdviserLandingPage" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
 </telerik:RadScriptManager>
 
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
@@ -17,7 +20,6 @@
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
-
 
 <%--<script type="text/javascript">
 //    $(function() {
@@ -77,112 +79,124 @@
 
 --%>
 <table width="100%">
-<tr>
+    <tr>
         <td colspan="3">
             <div class="divPageHeading" style="vertical-align: text-bottom">
-                Quick Links            </div>
+                Quick Links
+            </div>
         </td>
     </tr>
     <tr>
-     <td colspan="3">
-     </td>
+        <td colspan="3">
+        </td>
     </tr>
     <tr>
-    <td style="width : 15%;">     
-    </td>
-    <td style="width : 70%;">
-    <table width="100%">
-    <tr>
-    <td style="width : 30%;" align="center"> 
-    <div class="divDashBoardQuickLinks" id="confirm_selection">
-  <asp:ImageButton id="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server" ToolTip="Navigate to Customer Grid"
-            OnClick="imgClientsClick_OnClick" Width="70px"  />
-            <br />           
-            <asp:LinkButton ID="lnkbtnClientLink" runat="server" CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"   ToolTip="Navigate to Customer Grid"  Text = "Clients"></asp:LinkButton>
-             </div>
-             </td>
-             <td style="width : 30%;" align="center">
-             <div class="divDashBoardQuickLinks">
-    <asp:ImageButton id="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server" ToolTip="Navigate to Uploads"
-            OnClick="imgUploads_OnClick" Width="70px"  />
-            <br />            
-            <asp:LinkButton ID="lnkbtnUploads" runat="server" CssClass="FieldName"  ToolTip="Navigate to Uploads" OnClick="lnkbtnUploads_OnClick" Text = "Uploads"></asp:LinkButton>
-             </div>
-             </td>
-             <td style="width : 30%;" align="center">
-             <div class="divDashBoardQuickLinks">
-    <asp:ImageButton id="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server" ToolTip="Navigate to Order Entry"
-            OnClick="imgOrderentry_OnClick" Width="70px"  />
-            <br />
-            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"   ToolTip="Navigate to Order Entry"  Text = "Order Entry"></asp:LinkButton>
-             </div>
-             </td>
-             </tr>
-             </table>
-    </td>
-    <td style="width : 15%;">
+        <td style="width: 15%;">
+        </td>
+        <td style="width: 70%;">
+            <table width="100%">
+                <tr>
+                    <td style="width: 30%;" align="center">
+                        <div class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgClientsClick" ImageUrl="~/Images/Dashboard-Clients.png" runat="server"
+                                ToolTip="Navigate to Customer Grid" OnClick="imgClientsClick_OnClick" Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnClientLink" runat="server" CssClass="FieldName" OnClick="lnkbtnClientLink_OnClick"
+                                ToolTip="Navigate to Customer Grid" Text="Clients"></asp:LinkButton>
+                        </div>
+                    </td>
+                    <td style="width: 30%;" align="center">
+                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgUploads" ImageUrl="~/Images/Upload-icon.png" runat="server"
+                                ToolTip="Navigate to Uploads" OnClick="imgUploads_OnClick" Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnUploads" runat="server" CssClass="FieldName" ToolTip="Navigate to Uploads"
+                                OnClick="lnkbtnUploads_OnClick" Text="Uploads"></asp:LinkButton>
+                        </div>
+                    </td>
+                    <td style="width: 30%;" align="center">
+                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
+                                ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnOrderEntry" runat="server" CssClass="FieldName" OnClick="lnkbtnOrderEntry_OnClick"
+                                ToolTip="Navigate to Order Entry" Text="Order Entry"></asp:LinkButton>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 15%;">
+        </td>
+    </tr>
     
+    <tr>
+    <td colspan="3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
+    <br />
     </td>
     </tr>
-      <tr>
-    <td style="width : 15%;">
-     
-    </td>
-    <td style="width : 70%;">
-    <table width="100%">
+    
     <tr>
-    <td style="width : 30%;" align="center">
-    <div class="divDashBoardQuickLinks" id="abc">
-    <asp:ImageButton id="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png" runat="server" ToolTip="Navigate to Business MIS"
-            OnClick="imgBusinessMIS_OnClick" Width="70px"  />
-            <br />
-          
-            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server" CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"  ToolTip="Navigate to Business MIS"  Text = "Business MIS"></asp:LinkButton>
-             </div>
-             </td>
-    
-             <td style="width : 30%;" align="center">
-             <div class="divDashBoardQuickLinks">
-    <asp:ImageButton id="imgInbox" runat="server" ToolTip="Navigate to Inbox"
-            OnClick="imgInbox_OnClick" Width="70px"  />
-            <br />          
-            <asp:LinkButton ID="lnkbtnInbox" runat="server" CssClass="FieldName" OnClick="lnkbtnInbox_OnClick" ToolTip="Navigate to Inbox"  Text = ""></asp:LinkButton>
-             </div>
-             </td>
-             <td style="width : 30%;" align="center"> 
-    <div class="divDashBoardQuickLinks" id="Div1">
-  <asp:ImageButton id="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png" runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick" Width="70px"  />
-            <br />           
-            <asp:LinkButton ID="lnkbtnFPClients" runat="server" CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"   ToolTip="Navigate to Add FP Customers"  Text = "FP Clients"></asp:LinkButton>
-             </div>
-             </td>
-             </tr>
-             </table>
-    </td>
-    <td style="width : 15%;">
-    
-    </td>
+        <td style="width: 15%;">
+        </td>
+        <td style="width: 70%;">
+            <table width="100%">
+                <tr>
+                    <td style="width: 30%;" align="center">
+                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png"
+                                runat="server" ToolTip="Navigate to Business MIS" OnClick="imgBusinessMIS_OnClick"
+                                Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server" CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"
+                                ToolTip="Navigate to Business MIS" Text="Business MIS"></asp:LinkButton>
+                        </div>
+                    </td>
+                    <td style="width: 30%;" align="center">
+                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgInbox" runat="server" ToolTip="Navigate to Inbox" OnClick="imgInbox_OnClick"
+                                Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnInbox" runat="server" CssClass="FieldName" OnClick="lnkbtnInbox_OnClick"
+                                ToolTip="Navigate to Inbox" Text=""></asp:LinkButton>
+                        </div>
+                    </td>
+                    <td style="width: 30%;" align="center">
+                        <div  class="divDashBoardMouseOutLinks" onmouseover="this.className='divDashBoardMouseInLinks'" onmouseout="this.className='divDashBoardMouseOutLinks'">
+                            <asp:ImageButton ID="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png"
+                                runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"
+                                Width="70px" />
+                            <br />
+                            <asp:LinkButton ID="lnkbtnFPClients" runat="server" CssClass="FieldName" OnClick="lnkbtnFPClients_OnClick"
+                                ToolTip="Navigate to Add FP Customers" Text="FP Clients"></asp:LinkButton>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 15%;">
+        </td>
     </tr>
-    </table>
-     <br />
-        
-    <table width="100%" class="TableBackground">
+</table>
+<br />
+<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
-            <img src="../Images/Telerik/mailNewIcon.png" height="25px" width="25px" style="float: right; cursor:hand;"
-                class="flip" />
+            <img src="../Images/Telerik/mailNewIcon.png" height="25px" width="25px" style="float: right;
+                cursor: hand;" class="flip" />
             <asp:Label ID="Label2" runat="server" CssClass="HeaderTextSmall" Text="Service Provider's Message"></asp:Label>
             <hr />
         </td>
     </tr>
-</table>      
-       
- <table width="100%">
+</table>
+<table width="100%">
     <tr>
         <td colspan="3">
-              <div class="panel">
+            <div class="panel">
                 <asp:Label ID="lblSuperAdmnMessage" CssClass="HeaderTextSmall" runat="server"></asp:Label>
             </div>
         </td>
     </tr>
-</table>      
+</table>
