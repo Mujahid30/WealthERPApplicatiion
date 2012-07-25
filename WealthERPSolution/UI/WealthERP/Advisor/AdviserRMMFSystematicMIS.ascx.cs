@@ -936,7 +936,6 @@ namespace WealthERP.Advisor
 
         }
 
-
         private void BindgvSystematicMIS()
         {
             try
@@ -956,10 +955,10 @@ namespace WealthERP.Advisor
                 dtSystematicDetails.Columns.Add("AMCname");
                 dtSystematicDetails.Columns.Add("SchemePlaneName");
                 dtSystematicDetails.Columns.Add("FolioNumber");
-                dtSystematicDetails.Columns.Add("StartDate");
-                dtSystematicDetails.Columns.Add("EndDate");
+                dtSystematicDetails.Columns.Add("StartDate", typeof(DateTime));
+                dtSystematicDetails.Columns.Add("EndDate", typeof(DateTime));
                 dtSystematicDetails.Columns.Add("Frequency");
-                dtSystematicDetails.Columns.Add("NextSystematicDate");
+                dtSystematicDetails.Columns.Add("NextSystematicDate", typeof(DateTime));
                 dtSystematicDetails.Columns.Add("Amount", typeof(Decimal));
 
                 DataRow drSystematicDetails;
@@ -1033,6 +1032,7 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+
         private void BindRMforBranchDropdown(int branchId, int branchHeadId)
         {
 
@@ -1068,10 +1068,6 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
-
-
-
-
 
         private String GetMonth(int monthCode)
         {
@@ -1329,7 +1325,7 @@ namespace WealthERP.Advisor
 
                         drCalenderSummary["Year"] = startYear;
                         drCalenderSummary["Month"] = month;
-                        drCalenderSummary["FinalMonth"] = GetMonth(month);
+                        drCalenderSummary["FinalMonth"] = GetMonth(month);                           
 
                         foreach (DataRow dr in dtSIPDetails.Rows)
                         {
@@ -1542,7 +1538,6 @@ namespace WealthERP.Advisor
 
         }
 
-
         public static int GetDaysInMonth(int month, int year)
         {
             if (month < 1 || month > 12)
@@ -1592,6 +1587,28 @@ namespace WealthERP.Advisor
                 }
             }
             reptCalenderSummaryView.Rebind();
+        }
+
+        protected void btnExportSummary_OnClick(object sender, ImageClickEventArgs e)
+        {
+            reptCalenderSummaryView.ExportSettings.OpenInNewWindow = true;
+            reptCalenderSummaryView.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in reptCalenderSummaryView.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            reptCalenderSummaryView.MasterTableView.ExportToExcel();
+        }
+
+        protected void btnExportSystematicMIS_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvSystematicMIS.ExportSettings.OpenInNewWindow = true;
+            gvSystematicMIS.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvSystematicMIS.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvSystematicMIS.MasterTableView.ExportToExcel();
         }
     }
 }

@@ -254,18 +254,27 @@
 <telerik:RadMultiPage ID="SystameticMISMultiPage" EnableViewState="true" runat="server" SelectedIndex="0" Width="100%">
     
     <telerik:RadPageView ID="RadPageView1" runat="server" style="margin-top: 20px">
-        <asp:Panel ID="pnlSystameticSetupView" runat="server"  Width="100%">        
+        <asp:Panel ID="pnlSystameticSetupView" runat="server"  Width="100%"> 
+        
+                        <asp:ImageButton ID="btnExportSystematicMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSystematicMIS_OnClick"
+                        Height="25px" Width="25px"></asp:ImageButton>
+                             
                    <telerik:RadAjaxPanel ID="RadAjaxPanel1" runat="server" Width="100%" EnableHistory="True"
                         HorizontalAlign="NotSet" LoadingPanelID="PorspectListLoading">
+                                                
                        <telerik:RadGrid ID="gvSystematicMIS" AllowSorting="true"  runat="server" 
                            AllowAutomaticInserts="false" AllowFilteringByColumn="false" AllowPaging="True" 
                             AutoGenerateColumns="False" EnableEmbeddedSkins="false" 
                            GridLines="None" PageSize="15" ShowFooter="true" ShowStatusBar="True" 
                            Skin="Telerik">
+                           <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                           <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" 
+                           FileName="SystematicMIS Details" Excel-Format="ExcelML"></ExportSettings>
                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false">
                                <Columns>
                                    <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" 
-                                       UniqueName="CustomerName">
+                                       UniqueName="CustomerName" FooterText="Grand Total:" FooterStyle-HorizontalAlign="Right">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="SystematicTransactionType" 
@@ -284,13 +293,12 @@
                                        UniqueName="FolioNumber">
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn SortExpression="yyyy-MM-dd" DataField="StartDate" 
-                                       DataFormatString="{0:dd-MM-yyyy}" HeaderText="Start Date" 
-                                       UniqueName="StartDate">
+                                   <telerik:GridBoundColumn SortExpression="StartDate" DataField="StartDate" 
+                                       DataFormatString="{0:dd-MM-yyyy}" HeaderText="Start Date" UniqueName="StartDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="EndDate" DataFormatString="{0:dd-MM-yyyy}" 
-                                       HeaderText="End Date" UniqueName="EndDate">
+                                       HeaderText="End Date" UniqueName="EndDate" SortExpression="EndDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn DataField="Frequency" HeaderText="Frequency" 
@@ -299,12 +307,12 @@
                                    </telerik:GridBoundColumn>
                                    
                                    <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Date" 
-                    UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
-                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                                   DataFormatString="{0:dd-MM-yyyy}" UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
+                                         <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                    </telerik:GridBoundColumn>
                                    
-                                   <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" ItemStyle-HorizontalAlign="right"
-                                       DataType="System.Decimal" HeaderText="Amount" FooterText="Grand Total: " FooterStyle-HorizontalAlign="Right"
+                                   <telerik:GridBoundColumn Aggregate="Sum" DataField="Amount" DataType="System.Decimal" 
+                                   HeaderText="Amount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
                                        UniqueName="Amount">
                                        <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -330,22 +338,26 @@
 <asp:Label ID="lblNote" runat="server" Text="Note: The view displays the expected monthly order flow for the individual schemes displayed on the systematic set up tab." Font-Size="Small" CssClass="cmbField"></asp:Label>
 </td>
 </tr>
-</table>       
+</table>     
+
+        <asp:ImageButton ID="btnExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportSummary_OnClick"
+        Height="25px" Width="25px"></asp:ImageButton>
+                      
          <telerik:RadGrid  ID="reptCalenderSummaryView" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="false" AllowPaging="True" 
-        ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" 
-        AllowFilteringByColumn="false" AllowAutomaticInserts="false" 
-                   onitemdatabound="reptCalenderSummaryView_ItemDataBound" 
-                onprerender="reptCalenderSummaryView_PreRender">
-            <PagerStyle Mode="NumericPages"></PagerStyle>
+        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false" 
+        onitemdatabound="reptCalenderSummaryView_ItemDataBound" onprerender="reptCalenderSummaryView_PreRender">
+            <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" 
+            FileName="CalenderSummary Details" Excel-Format="ExcelML"></ExportSettings>
             <MasterTableView Width="100%" ExpandCollapseColumn-ButtonType="ImageButton"   >
             <Columns>
             <telerik:GridBoundColumn  DataField="Year"  HeaderText="Year" 
                     UniqueName="Year" FooterText="Grand Total: ">
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                   <telerik:GridBoundColumn  DataField="FinalMonth"  HeaderText="Month" 
+                   <telerik:GridBoundColumn  DataField="FinalMonth"  HeaderText="Month"
                     UniqueName="FinalMonth" >
                     <ItemStyle Width="" HorizontalAlign="left"  Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
@@ -360,11 +372,11 @@
                 </telerik:GridTemplateColumn>--%>
                 
                   <telerik:GridBoundColumn Aggregate="sum" DataField="SIPAmount" DataType="System.Decimal" HeaderText="SIP Amount" 
-                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                   <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                   </telerik:GridBoundColumn>        
                 
-                <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderText="No. of SIPs" ItemStyle-HorizontalAlign="right" 
+                <telerik:GridBoundColumn Aggregate="Sum" DataField="NoOfSIP" HeaderText="No. of SIPs" DataFormatString="{0:N0}"
                 UniqueName="SIPAmount"  DataType="System.Int16" FooterText="" FooterStyle-HorizontalAlign="Right">
                  <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                 </telerik:GridBoundColumn>
@@ -379,7 +391,7 @@
                 </telerik:GridTemplateColumn>--%>
                 
                 <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSIP" DataType="System.Int16" HeaderText="No. of Fresh SIPs" 
-                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                   UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                   <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                   </telerik:GridBoundColumn>
                 
@@ -393,7 +405,7 @@
                 </telerik:GridTemplateColumn>--%>
                 
                 <telerik:GridBoundColumn Aggregate="sum" DataField="SWPAmount" DataType="System.Decimal" HeaderText="SWP Amount"
-                  ItemStyle-HorizontalAlign="Right" UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  UniqueName="SIPAmount" FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                   <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                   </telerik:GridBoundColumn>
                                 
@@ -407,7 +419,7 @@
                 </telerik:GridTemplateColumn>--%>
                 
                 <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfSWP" DataType="System.Int16" HeaderText="No. of SWPs"
-                  ItemStyle-HorizontalAlign="Right" UniqueName="NoOfSWP" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  UniqueName="NoOfSWP" FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                   <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                   </telerik:GridBoundColumn>
                                
@@ -421,7 +433,7 @@
                 </telerik:GridTemplateColumn>--%>
                 
                 <telerik:GridBoundColumn Aggregate="sum" DataField="NoOfFreshSWP" DataType="System.Decimal" HeaderText="No. of fresh SWPs"
-                  ItemStyle-HorizontalAlign="Right" UniqueName="NoOfFreshSWP" FooterText="" FooterStyle-HorizontalAlign="Right">
+                  UniqueName="NoOfFreshSWP" FooterText="" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                   <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Width="" Wrap="false" />
                   </telerik:GridBoundColumn>
                  
