@@ -145,6 +145,10 @@
                                     </Items>
                                 </telerik:RadComboBox>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <asp:Label ID="lblFooterTotal" runat="server" Text="Grand Total:"></asp:Label>
+                            </FooterTemplate>
+                            <FooterStyle HorizontalAlign="Right"/>
                         </telerik:GridTemplateColumn>
                         <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Instrument Category"
                             UniqueName="ActiveLevel">
@@ -162,20 +166,20 @@
                             UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn  DataFormatString="{0:N2}" DataField="Deposit Amount" AllowFiltering="false" HeaderText="Deposit Amount/ purchase Cost (Rs)"
-                            UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N2}" DataField="Deposit Amount" AllowFiltering="false" 
+                        HeaderText="Deposit Amount/ purchase Cost (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Interest Rate" DataFormatString="{0:dd/MM/yyyy}"
                             AllowFiltering="false" HeaderText="Interest Rate (%)" UniqueName="ActiveLevel">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Current Value" DataFormatString="{0:N2}"
-                            AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Current Value" DataFormatString="{0:N2}"
+                            AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Maturity Value" DataFormatString="{0:N2}"
-                            AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel">
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Maturity Value" DataFormatString="{0:N2}"
+                            AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                     </Columns>

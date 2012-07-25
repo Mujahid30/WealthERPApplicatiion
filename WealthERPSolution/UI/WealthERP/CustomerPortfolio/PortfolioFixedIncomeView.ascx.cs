@@ -198,10 +198,10 @@ namespace WealthERP.CustomerPortfolio
                     dtFixedIncomePortfolio.Columns.Add("Category");
                     dtFixedIncomePortfolio.Columns.Add("Purchase Date");
                     dtFixedIncomePortfolio.Columns.Add("Maturity Date");
-                    dtFixedIncomePortfolio.Columns.Add("Deposit Amount");
+                    dtFixedIncomePortfolio.Columns.Add("Deposit Amount", typeof(decimal));
                     dtFixedIncomePortfolio.Columns.Add("Interest Rate");
-                    dtFixedIncomePortfolio.Columns.Add("Current Value");
-                    dtFixedIncomePortfolio.Columns.Add("Maturity Value");
+                    dtFixedIncomePortfolio.Columns.Add("Current Value", typeof(decimal));
+                    dtFixedIncomePortfolio.Columns.Add("Maturity Value", typeof(decimal));
                     dtFixedIncomePortfolio.Columns.Add("Purchase Value");
 
                     DataRow drFixedIncomePortfolio;
