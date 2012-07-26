@@ -856,7 +856,9 @@ namespace WealthERP.Reports
                         customerPortfolioBo = new CustomerPortfolioBo();
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
-                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
+                        
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[5];
+                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
