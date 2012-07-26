@@ -36,7 +36,9 @@ namespace WealthERP.Reports
     {
         Dictionary<string, string> MFReportEmailStatus = new Dictionary<string, string>();
         ReportDocument crmain;
-
+        double totalHoldingPL;
+        double totalHoldingInvestedCost;
+        double totalHoldingAbsoluteReturn;
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
