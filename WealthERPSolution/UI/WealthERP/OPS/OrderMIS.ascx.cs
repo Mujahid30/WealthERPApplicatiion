@@ -169,6 +169,7 @@ namespace WealthERP.OPS
             gvMIS.Visible = false;
             btnMannualMatch.Visible = false;
             btnSync.Visible = false;
+            btnExportExcel.Visible = false;
             if (Request.QueryString["result"] != null)
             {
                 gvMIS.Visible = true;
@@ -382,6 +383,7 @@ namespace WealthERP.OPS
                 trPager.Visible = true;
                 lblCurrentPage.Visible = true;
                 lblTotalRows.Visible = true;
+                btnExportExcel.Visible = true;
             }
             else
             {
@@ -394,6 +396,7 @@ namespace WealthERP.OPS
                 btnMannualMatch.Visible = false;
                 tblPager.Visible = false;
                 trPager.Visible = false;
+                btnExportExcel.Visible = false;
             }
             
 

@@ -142,7 +142,7 @@
         </td>
     </tr>
     <tr>
-        <td class="style12" align="right">
+        <td class="style12" align="left">
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
                 AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
                 OnClientClick="setFormat('excel')" CausesValidation="false" />
