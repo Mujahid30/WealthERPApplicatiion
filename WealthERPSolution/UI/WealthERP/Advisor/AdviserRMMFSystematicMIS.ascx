@@ -294,10 +294,10 @@
                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
                                    <telerik:GridBoundColumn SortExpression="StartDate" DataField="StartDate" 
-                                       DataFormatString="{0:dd-MM-yyyy}" HeaderText="Start Date" UniqueName="StartDate">
+                                       DataFormatString="{0:dd/MM/yyyy}" HeaderText="Start Date" UniqueName="StartDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
-                                   <telerik:GridBoundColumn DataField="EndDate" DataFormatString="{0:dd-MM-yyyy}" 
+                                   <telerik:GridBoundColumn DataField="EndDate" DataFormatString="{0:dd/MM/yyyy}" 
                                        HeaderText="End Date" UniqueName="EndDate" SortExpression="EndDate">
                                        <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="" Wrap="false" />
                                    </telerik:GridBoundColumn>
@@ -307,7 +307,7 @@
                                    </telerik:GridBoundColumn>
                                    
                                    <telerik:GridBoundColumn  DataField="NextSystematicDate" HeaderText="Next Date" 
-                                   DataFormatString="{0:dd-MM-yyyy}" UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
+                                   DataFormatString="{0:dd/MM/yyyy}" UniqueName="NextSystematicDate" SortExpression="NextSystematicDate">
                                          <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                    
