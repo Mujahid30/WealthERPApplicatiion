@@ -132,7 +132,7 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_OrderEntry_btnAddCustomer','S');"
                 OnClientClick="return openpopupAddCustomer()" 
                 onclick="btnAddCustomer_Click" />--%>
-            <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/Images\Customer_add.png" AlternateText="Add"
+            <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                 runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
                 Height="15px" Width="15px" ></asp:ImageButton>
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
@@ -152,7 +152,7 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblRM" runat="server" Text="RM: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 25%">
+        <td class="rightField" style="width: 20%">
             <asp:Label ID="lblGetRM" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
         <td style="width: 25%">

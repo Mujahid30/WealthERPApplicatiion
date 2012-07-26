@@ -1305,21 +1305,21 @@ namespace WealthERP.OPS
                 comboOrderStatus.DataTextField = "XS_Status";
                 comboOrderStatus.DataValueField = "XS_StatusCode";
 
-                comboOrderStatus.SelectedIndexChanged += new RadComboBoxSelectedIndexChangedEventHandler(comboOrderStatus_SelectedIndexChanged);
+                //comboOrderStatus.SelectedIndexChanged += new RadComboBoxSelectedIndexChangedEventHandler(comboOrderStatus_SelectedIndexChanged);
                 comboOrderStatusReason.DataSource = orderbo.GetCustomerOrderStepStatusRejectReason(orderstepCode);
                 comboOrderStatusReason.DataTextField = "XSR_StatusReason";
                 comboOrderStatusReason.DataValueField = "XSR_StatusReasonCode";
             }
         }
 
-        protected void comboOrderStatus_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
-        {
-            RadComboBox rcStatus = (RadComboBox)o;
-            GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
-            RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
-            string statusOrderCode = rcStatus.SelectedValue;
-            //BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
-        }
+        //protected void comboOrderStatus_SelectedIndexChanged(object o, RadComboBoxSelectedIndexChangedEventArgs e)
+        //{
+        //    RadComboBox rcStatus = (RadComboBox)o;
+        //    GridEditableItem editedItem = rcStatus.NamingContainer as GridEditableItem;
+        //    RadComboBox rcPendingReason = editedItem.FindControl("rcbPendingReason") as RadComboBox;
+        //    string statusOrderCode = rcStatus.SelectedValue;
+        //    //BindRadComboBoxPendingReason(rcPendingReason, statusOrderCode);
+        //}
 
         protected void rgvOrderSteps_ItemDataBound(object sender, GridItemEventArgs e)
         {
@@ -1366,6 +1366,22 @@ namespace WealthERP.OPS
                 orderId = int.Parse(dt.Rows[e.Item.ItemIndex]["CO_OrderId"].ToString().Trim());
                 string updatedStatus = rcStatus.SelectedValue;
                 string updatedReason = rcPendingReason.SelectedValue;
+
+                if (updatedStatus == "OMEX" || updatedStatus == "OMCN")
+                {
+                    bool result=false;
+                    result=mfOrderBo.MFOrderAutoMatch(orderVo.OrderId, mforderVo.SchemePlanCode, mforderVo.accountid, mforderVo.TransactionCode, orderVo.CustomerId, mforderVo.Amount, orderVo.OrderDate);
+                    if (result == true)
+                    {
+                        updatedStatus = "OMEX";
+                        updatedReason = "OMEXCN";
+                    }
+                    else
+                    {
+                        updatedStatus = "OMCN";
+                        updatedReason = "OMCNO";
+                    }
+                }
 
                 bResult = orderbo.UpdateOrderStep(updatedStatus, updatedReason, orderId, orderStepCode);
                 if (bResult == true)
@@ -1592,7 +1608,10 @@ namespace WealthERP.OPS
             else
                 orderVo.PaymentDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
-                orderVo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
+            {
+                if (ddlBankName.SelectedValue != "Select")
+                    orderVo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
+            }
             else
                 orderVo.CustBankAccId = 0;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
