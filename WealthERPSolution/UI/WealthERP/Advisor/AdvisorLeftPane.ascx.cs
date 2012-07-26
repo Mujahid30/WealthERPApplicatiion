@@ -255,10 +255,17 @@ namespace WealthERP.Advisor
             }
             else if (Session["NodeType"] == "AdviserCustomer")
             {
-                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
-              
-                RadPanelBar1.FindItemByValue("Customer").Selected = true; 
-                
+                if (advisorVo.IsOpsEnable == 1)
+                {
+                    RadPanelBar1.FindItemByValue("Admin").Expanded = false;
+                    RadPanelBar2.FindItemByValue("RM").Expanded = true;
+                    RadPanelBar2.FindItemByValue("Customer").Expanded = true;
+                    RadPanelBar2.FindItemByValue("Customer").Selected = true;
+                }
+                {
+                    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                    RadPanelBar1.FindItemByValue("Customer").Selected = true;
+                }
             }
             else if (Session["NodeType"] == "MFOrderEntry")
             {

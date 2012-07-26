@@ -31,38 +31,62 @@ namespace WealthERP.Advisor
                 ShowMessageBroadcast();
             }
         }
-    
+
 
         public void imgClientsClick_OnClick(object sender, EventArgs e)
         {
             Session["NodeType"] = "AdviserCustomer";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
-
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('RMCustomer','login');", true);
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
+            }
         }
         public void lnkbtnClientLink_OnClick(object sender, EventArgs e)
         {
 
             Session["NodeType"] = "AdviserCustomer";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
 
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('RMCustomer','login');", true);
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
+            }
         }
         public void lnkbtnUploads_OnClick(object sender, EventArgs e)
         {
-
-            Session["NodeType"] = "CustomerUpload";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
-           
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            }
+            else
+            {
+                Session["NodeType"] = "CustomerUpload";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+            }
         }
         public void imgUploads_OnClick(object sender, EventArgs e)
         {
-
-            Session["NodeType"] = "CustomerUpload";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            }
+            else
+            {
+                Session["NodeType"] = "CustomerUpload";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+            }
         }
         public void imgOrderentry_OnClick(object sender, EventArgs e)
         {
@@ -82,20 +106,31 @@ namespace WealthERP.Advisor
         }
         public void imgBusinessMIS_OnClick(object sender, EventArgs e)
         {
-            Session["NodeType"] = "IFAAdminMainDashboardOld";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            }
+            else
+            {
+                Session["NodeType"] = "IFAAdminMainDashboardOld";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
-
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+            }
         }
         public void lnkbtnBusinessMIS_OnClick(object sender, EventArgs e)
         {
+            if (advisorVo.IsOpsEnable == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            }
+            else
+            {
+                Session["NodeType"] = "IFAAdminMainDashboardOld";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Session["NodeType"] = "IFAAdminMainDashboardOld";
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
-
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+            }
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
         {
