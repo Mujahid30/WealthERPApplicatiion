@@ -70,7 +70,6 @@
              }
          }
          
-
          //No of customer restriction for Bulk Mail.
          if (type == 'mail') {             
              var selectedCustomer = document.getElementById("<%=LBSelectCustomer.ClientID%>");
