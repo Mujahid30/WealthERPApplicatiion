@@ -827,6 +827,8 @@ namespace WealthERP.Reports
                         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
+
                         if (dtReturnsPortfolio.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtReturnsPortfolio);
@@ -852,6 +854,7 @@ namespace WealthERP.Reports
                         customerPortfolioBo = new CustomerPortfolioBo();
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
                             crmain.SetDataSource(dsReturnsPortfolio.Tables[0]);
@@ -968,6 +971,30 @@ namespace WealthERP.Reports
             catch (Exception ex)
             {
                 throw (ex);
+            }
+        }
+        private DataTable GetAbsolutereturnToXIRRDt(DataTable dtPortfolioXIRR, DataTable dtReturnsPortfolio)
+        {
+            try
+            {
+                dtPortfolioXIRR.Columns.Add("AbsoluteReturn");
+                int portfolioId = 0;
+                DataRow[] drAbsolutereturn;
+                foreach (DataRow dr in dtPortfolioXIRR.Rows)
+                {
+                    portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
+                    drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
+
+                    foreach (DataRow drAbs in drAbsolutereturn)
+                    {
+                        dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
+                    }
+                }
+                return dtPortfolioXIRR;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
