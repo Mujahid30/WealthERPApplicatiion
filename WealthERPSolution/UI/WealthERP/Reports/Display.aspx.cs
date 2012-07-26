@@ -445,6 +445,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Country", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Country"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Country"].ToString() : string.Empty);
                     crmain.SetParameterValue("PinNo", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_PinCode"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_PinCode"].ToString() : string.Empty);
                     crmain.SetParameterValue("SchemeSwitch", !string.IsNullOrEmpty(drOrderTransactionForm[0]["SwitchSchemeName"].ToString().Trim()) ? drOrderTransactionForm[0]["SwitchSchemeName"].ToString() : string.Empty);
+                    crmain.SetParameterValue("Units", !string.IsNullOrEmpty(drOrderTransactionForm[0]["CMFOD_Units"].ToString().Trim()) ? drOrderTransactionForm[0]["CMFOD_Units"].ToString() : string.Empty);
 
                     ShowTransactionShowHide(report.Type);
 
