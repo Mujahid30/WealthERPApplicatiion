@@ -134,5 +134,19 @@ namespace BoOps
             }
             return bResult;
         }
+
+        public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate)
+        {
+            bool result = false;
+            try
+            {
+                result = mfOrderDao.MFOrderAutoMatch(OrderId, SchemeCode, AccountId, TransType, CustomerId, Amount, OrderDate, out result);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return result;
+        }
     }
 }

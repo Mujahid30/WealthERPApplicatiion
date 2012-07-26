@@ -423,5 +423,35 @@ namespace DaoOps
             }
             return bResult;
         }
+
+        public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate, out bool status)
+        {
+            Database db;
+            DbCommand MFOrderAutoMatchCmd;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFOrderAutoMatchCmd = db.GetStoredProcCommand("SP_OrderAutoMatchForOrderSteps");
+                db.AddInParameter(MFOrderAutoMatchCmd, "@orderId", DbType.Int32, OrderId);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@schemeCode", DbType.Int32, SchemeCode);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@accountId", DbType.Int32, AccountId);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@trxType", DbType.String, TransType);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@customerId", DbType.Int32, CustomerId);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@amount", DbType.Double, Amount);
+                db.AddInParameter(MFOrderAutoMatchCmd, "@orderDate", DbType.DateTime, OrderDate);
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(MFOrderAutoMatchCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
     }
 }
