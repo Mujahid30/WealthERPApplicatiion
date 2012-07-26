@@ -45,7 +45,7 @@ namespace WealthERP.Reports
     public partial class Display : System.Web.UI.Page
     {
         ReportDocument crmain;
-
+      
         DateBo dtBo = new DateBo();
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
@@ -54,6 +54,10 @@ namespace WealthERP.Reports
         bool CustomerLogIn = false;
         string PDFViewPath = "";
         string DOCViewPath = "";
+        double totalHoldingPL;
+        double totalHoldingInvestedCost;
+        double totalHoldingAbsoluteReturn;
+
 
         RiskProfileBo riskprofilebo = new RiskProfileBo();
         RMVo customerRMVo = new RMVo();
@@ -2431,6 +2435,28 @@ namespace WealthERP.Reports
         /// <summary>
         /// Display Portfolio Reports.
         /// </summary>
+        //private DataTable portfolioXirr(DataSet dsabc, DataTable dtxyz)
+        //{
+        //    try
+        //    {
+        //        DataTable dtabc = dsabc.Tables[0];
+        //        object sumObject;
+        //        sumObject = dtabc.Compute("Sum(TotalPL)", string.Empty);
+        //        double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
+
+        //        sumObject = dtxyz.Compute("Sum(InvestedCost)", string.Empty);
+        //        double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
+
+        //        if (totalHoldingInvestedCost != 0)
+        //            totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
+            
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw (ex);
+        //    }
+        //}
+
         private void DisplayReport(PortfolioReportVo report)
         {
             try
@@ -3156,8 +3182,12 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        
+                        dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
+                        
+                        
                         if (dtReturnsPortfolio.Rows.Count > 0)
-                        {
+                            {
                             crmain.SetDataSource(dtReturnsPortfolio);
                             setLogo();
                             crmain.Subreports["PortfolioXIRR"].Database.Tables["PortfolioXIRR"].SetDataSource(dtPortfolioXIRR);
@@ -3189,6 +3219,11 @@ namespace WealthERP.Reports
                         
                         DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
+                        dtReturnsPortfolio = dsReturnsPortfolio.Tables[5];
+                        
+                        dtPortfolioXIRRComp=GetAbsolutereturnToXIRRDt(dtPortfolioXIRRComp, dtReturnsPortfolio);
+
+                       //  portfolioXirr(dsReturnsPortfolio,dtPortfolioXIRRComp);
                         //DataTable dtMFSchemePerformance = dsReturnsPortfolio.Tables["SchemeComprehensive"];
                         if (dsReturnsPortfolio.Tables[0].Rows.Count > 0)
                         {
@@ -3365,6 +3400,8 @@ namespace WealthERP.Reports
         /// <summary>
         /// Assign common parameter field values to reports. Also set Crystal Report Viewer properties.
         /// </summary>
+
+       
         private void AssignReportViewerProperties()
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
@@ -3400,15 +3437,43 @@ namespace WealthERP.Reports
                 //crmain.SetParameterValue("OrgTelephone", "Phone: " + "+91-" + advisorVo.Phone1Std + "-" + advisorVo.Phone1Number);
                 crmain.SetParameterValue("RMContactDetails", "E-mail: " + advisorVo.Email);
                 crmain.SetParameterValue("MobileNo", "Phone: " + "+" + advisorVo.MobileNumber.ToString());
+                string[] array = new string[5];
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                    array[0] = customerVo.Adr1Line1.Trim();
+                if (!string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()))
+                    array[1] = customerVo.Adr1Line2.Trim();
+                if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                    array[2] = customerVo.Adr1City.Trim();
+                string formatstring = string.Join(",", array);
+                formatstring = formatstring.TrimEnd(',');
+                crmain.SetParameterValue("CustomerAddress", formatstring);
 
-                if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " + customerVo.Adr1City.Trim());
-                else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
-                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim());
-                else if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
-                    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1City.Trim());
-                else
-                    crmain.SetParameterValue("CustomerAddress", "");
+                //var list = new List<string>();
+                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                //    list.Add(customerVo.Adr1Line1.Trim());
+                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                //    list.Add(customerVo.Adr1Line2.Trim());
+                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                //    list.Add(customerVo.Adr1City.Trim());
+                //StringBuilder formatstring= new StringBuilder();
+              
+                //crmain.SetParameterValue("CustomerAddress", formatstring);
+               //string formatstring = new string( string)
+               // {
+               //StringBuilder strabc=new StringBuilder(list);
+
+               // foreach(string str in list)
+               // {
+               //  strabc.Append(str+",");
+               // }
+                //if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1Line2.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1Line3.Trim()) && !string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim() + " " +customerVo.Adr1Line2.Trim()+" "+customerVo.Adr1Line3.Trim()+" "+customerVo.Adr1City.Trim());
+                //else if (!string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()) && string.IsNullOrEmpty(customerVo.Adr1City.Trim()))
+                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1Line1.Trim());
+                //else if (!string.IsNullOrEmpty(customerVo.Adr1City.Trim()) && string.IsNullOrEmpty(customerVo.Adr1Line1.Trim()))
+                //    crmain.SetParameterValue("CustomerAddress", customerVo.Adr1City.Trim());
+                //else
+                //    crmain.SetParameterValue("CustomerAddress", "");
 
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
                 crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
@@ -3436,6 +3501,31 @@ namespace WealthERP.Reports
         /// <summary>
         /// Get Report Parameters and store it in to session.
         /// </summary>
+        private DataTable GetAbsolutereturnToXIRRDt(DataTable dtPortfolioXIRR, DataTable dtReturnsPortfolio)
+       {
+           try
+           {
+               dtPortfolioXIRR.Columns.Add("AbsoluteReturn");
+               int portfolioId = 0;
+               DataRow[] drAbsolutereturn;
+               foreach (DataRow dr in dtPortfolioXIRR.Rows)
+               {
+                   portfolioId = Convert.ToInt32(dr["PortfolioId"].ToString());
+                   drAbsolutereturn = dtReturnsPortfolio.Select("CP_PortfolioId=" + portfolioId.ToString());
+
+                   foreach (DataRow drAbs in drAbsolutereturn)
+                   {
+                       dr["AbsoluteReturn"] = drAbs["absoluteReturn"];
+                   }
+               }
+               return dtPortfolioXIRR;
+           }
+           catch (Exception ex)
+           {
+               throw ex;
+           }
+       }
+
         private void GetReportParameters()
         {
             CalculateDateRange(out dtFrom, out dtTo);
