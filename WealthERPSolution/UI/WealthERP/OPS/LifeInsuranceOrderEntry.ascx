@@ -129,7 +129,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 OnClientClick="return openpopupAddCustomer()" />--%>
             <asp:ImageButton ID="btnImgAddCustomer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Customer" OnClientClick="return openpopupAddCustomer()"
-                Height="15px" Width="15px" ></asp:ImageButton>
+                Height="6%" Width="6%" ></asp:ImageButton>
                   
             <cc1:TextBoxWatermarkExtender ID="txtCustomer_water" TargetControlID="txtCustomerName"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
@@ -235,7 +235,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             </asp:DropDownList>            
             <asp:ImageButton ID="imgBtnOpenPopup" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Scheme" OnClick="btnOpenPopup_Click" CausesValidation="false" 
-                Height="15px" Width="15px" ></asp:ImageButton>
+                Height="5%" Width="5%" ></asp:ImageButton>
         </td>
     </tr>
     <tr>
@@ -487,7 +487,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
             <%--<asp:Button ID="btnAddBank" runat="server" Text="Add Bank" CssClass="PCGButton" OnClientClick="return openpopupAddBank()" />--%>
             <asp:ImageButton ID="imgBtnAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
-                Height="15px" Width="15px" ></asp:ImageButton>
+                Height="6%" Width="6%" ></asp:ImageButton>
         </td>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPaymentInstrNo" CssClass="FieldName" Text="Instrument No:" runat="server"></asp:Label>
