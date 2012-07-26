@@ -225,7 +225,8 @@
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridTemplateColumn UniqueName="Mutual_Fund" HeaderText="Mutual Fund" Groupable="False"
-                            ItemStyle-Wrap="false" AllowFiltering="true" DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
+                            ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="Mutual_Fund" 
+                            DataField="Mutual_Fund" FooterStyle-HorizontalAlign="Right">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkMF" runat="server" Text='<%# Eval("Mutual_Fund").ToString() %>'
                                     CommandName="Redirect"></asp:LinkButton>
@@ -335,11 +336,11 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PurchaseDate" HeaderText="Purchase Date" DataField="CFINP_PurchaseDate"
                              HtmlEncode="false" DataFormatString="{0:d}" DataType="System.DateTime">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_MaturityDate" HeaderText="Maturity Date" DataFormatString="{0:d}"
                             DataField="CFINP_MaturityDate"  HtmlEncode="false" DataType="System.DateTime">
-                            <ItemStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
                          DataField="CFINP_PrincipalAmount" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
@@ -396,7 +397,7 @@
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Particulars" AllowFiltering="false" HeaderText="Scheme">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="InsuranceType" AllowFiltering="false" HeaderText="Insurance Type">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -412,14 +413,15 @@
                         <telerik:GridBoundColumn DataField="PremiumFrequency" AllowFiltering="false" HeaderText="Premium Frequency">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Commencement Date">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                        <telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" 
+                         DataFormatString="{0:d}" HeaderText="Commencement Date">
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="maturity value">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
                         <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Maturity Date" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Next Premium due date"
                             DataFormatString="{0:n2}">
@@ -481,12 +483,12 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Commencement Date" 
                         DataType="System.DateTime" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn  DataField="NextPremiumDate" HeaderText="Next Due Date" AllowFiltering="false"
                         UniqueName="NextPremiumDate" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
                         <telerik:GridBoundColumn Aggregate="Sum" DataField="MaturityValue" AllowFiltering="false" HeaderText="Maturity Value"
@@ -495,7 +497,7 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Maturity Date"
                         DataType="System.DateTime" DataFormatString="{0:d}">
-                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                       <%--  <telerik:GridBoundColumn AllowFiltering="false" HeaderText="Next Premium due date"
                             DataFormatString="{0:n2}">

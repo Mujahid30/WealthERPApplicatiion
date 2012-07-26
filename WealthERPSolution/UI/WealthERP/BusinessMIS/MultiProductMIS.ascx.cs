@@ -1177,9 +1177,9 @@ namespace WealthERP.BusinessMIS
                         dtGenInsDetails.Columns.Add("SumAssured", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumAmount", typeof(double));
                         dtGenInsDetails.Columns.Add("PremiumFrequency");
-                        dtGenInsDetails.Columns.Add("CommencementDate");
+                        dtGenInsDetails.Columns.Add("CommencementDate", typeof(DateTime));
                         //dtGenInsDetails.Columns.Add("MaturityValue");
-                        dtGenInsDetails.Columns.Add("MaturityDate");
+                        dtGenInsDetails.Columns.Add("MaturityDate", typeof(DateTime));
                         dtGenInsDetails.Columns.Add("CustomerId");
                         dtGenInsDetails.Columns.Add("GenInsuranceNPId");
 
@@ -1195,15 +1195,17 @@ namespace WealthERP.BusinessMIS
                             drGeneralInsurance["SumAssured"] = String.Format("{0:n2}", decimal.Parse(dr["SumAssured"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance["PremiumAmount"] = String.Format("{0:n2}", decimal.Parse(dr["PremiumAmount"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                             drGeneralInsurance["PremiumFrequency"] = dr["PremiumFrequency"].ToString();
-                            if (dr["CommencementDate"].ToString() == "" || dr["CommencementDate"].ToString() == DateTime.MinValue.ToString())
-                                drGeneralInsurance["CommencementDate"] = "N/A";
-                            else
-                                drGeneralInsurance["CommencementDate"] = Convert.ToDateTime(dr["CommencementDate"].ToString()).ToShortDateString().ToString();
+                            //if (dr["CommencementDate"].ToString() == "" || dr["CommencementDate"].ToString() == DateTime.MinValue.ToString())
+                            //    drGeneralInsurance["CommencementDate"] = "N/A";
+                            //else
+                            if (dr["CommencementDate"].ToString() != "" && dr["CommencementDate"].ToString() != DateTime.MinValue.ToString())
+                                drGeneralInsurance["CommencementDate"] = Convert.ToDateTime(dr["CommencementDate"].ToString()).ToShortDateString();
 
-                            if (dr["MaturityDate"].ToString() == "" || dr["MaturityDate"].ToString() == DateTime.MinValue.ToString())
-                                drGeneralInsurance["CommencementDate"] = "N/A";
-                            else
-                                drGeneralInsurance["MaturityDate"] = DateTime.Parse(dr["MaturityDate"].ToString()).ToShortDateString();
+                            //if (dr["MaturityDate"].ToString() == "" || dr["MaturityDate"].ToString() == DateTime.MinValue.ToString())
+                            //    drGeneralInsurance["CommencementDate"] = "N/A";
+                            //else
+                            if (dr["MaturityDate"].ToString() != "" && dr["MaturityDate"].ToString() != DateTime.MinValue.ToString())
+                                drGeneralInsurance["MaturityDate"] = Convert.ToDateTime(dr["MaturityDate"].ToString()).ToShortDateString();
                             drGeneralInsurance["CustomerId"] = dr["CustomerId"].ToString();
                             drGeneralInsurance["GenInsuranceNPId"] = dr["GenInsuranceNPId"].ToString();
 
