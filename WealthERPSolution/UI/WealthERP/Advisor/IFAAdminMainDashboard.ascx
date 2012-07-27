@@ -9,21 +9,21 @@
 <table style="width: 100%;" padding-top="1px" class="TableBackground" cellspacing="0"
     cellpadding="0">
     <tr>
-        <td align="left">
-            <asp:Label ID="Label1" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall">
-            </asp:Label>
+        <td colspan="3" style="padding-top:2px">
+            <div class="divPageHeading" style="vertical-align: text-bottom" >
+                Branch AUM
+            </div>
         </td>
-        <td>
-           
-        </td>
-        <td align="right">
-            </td>
+        
     </tr>
-    <tr style="height: 2px">
-        <td colspan="3" style="height: 2px">
-            <hr style="height: 1px; line-height: 1px;" />
-        </td>
-    </tr>
+   <tr>
+   <td colspan="3">
+   
+    <hr style="height: 1px; line-height: 1px;" />
+   </td>
+   </tr>
+            
+        
 </table>
 <table style="width: 100%;" padding-top="0" class="TableBackground">
     <tr>
@@ -89,13 +89,17 @@
       
 <table style="width: 100%;" cellpadding="0" cellspacing="0">
     <tr>
-        <td align="left">
+        <td align="left" style="width : 50%">
+         <div class="divPageHeading" style="vertical-align: text-bottom">
             <asp:Label ID="lblRMPerformChart" runat="server" Text="RM AUM" CssClass="HeaderTextSmall"></asp:Label>
-            <hr />
+           
+            </div>
         </td>
-        <td>
+        <td style="width : 50%">
+        <div class="divPageHeading" style="vertical-align: text-bottom">
             <asp:Label ID="lblBranchPerformChart" runat="server" Text="Branch AUM" CssClass="HeaderTextSmall"></asp:Label>
-            <hr />
+          
+            </div>
         </td>
     </tr>
     <tr>
@@ -111,7 +115,7 @@
                     </asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
-        </td>
+            </td>
         <td style="float: right;" style="padding-left: 2px; padding-right: 2px">
             <asp:Chart ID="ChartBranchPerformance" runat="server" BackColor="#F1EDED" Height="300px"
                 Width="450px">
@@ -124,6 +128,7 @@
                     </asp:ChartArea>
                 </ChartAreas>
             </asp:Chart>
+            
         </td>
     </tr>
     <tr>

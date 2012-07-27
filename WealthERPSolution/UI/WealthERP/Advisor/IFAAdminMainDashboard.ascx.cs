@@ -213,14 +213,14 @@ namespace WealthERP.Advisor
                     {
                         ChartBranchPerformance.DataSource = null;
                         ChartBranchPerformance.Visible = false;
-                        lblBranchPerformChart.Visible = false;
+                       // lblBranchPerformChart.Visible = false;
                         //GetPageCount();
                     }
                 }
                 else
                 {
                     ChartBranchPerformance.Visible = false;
-                    lblBranchPerformChart.Visible = false;
+                   // lblBranchPerformChart.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -351,7 +351,8 @@ namespace WealthERP.Advisor
                     {
                         ChartRMPerformance.DataSource = null;
                         ChartRMPerformance.Visible = false;
-                        lblRMPerformChart.Visible = false;
+                       // lblRMPerformChart.Visible = false;
+                       
 
                     }
                 }
@@ -359,7 +360,8 @@ namespace WealthERP.Advisor
                 {
                     ChartRMPerformance.DataSource = null;
                     ChartRMPerformance.Visible = false;
-                    lblRMPerformChart.Visible = false;
+                   // lblRMPerformChart.Visible = false;
+                    
                 }
             }
             catch (BaseApplicationException Ex)
