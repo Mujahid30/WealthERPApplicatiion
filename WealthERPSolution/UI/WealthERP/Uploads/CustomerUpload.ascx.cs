@@ -4464,7 +4464,26 @@ namespace WealthERP.Uploads
                 //Read File for Mf CAMS Systematic XLS Upload
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                          
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4500,7 +4519,26 @@ namespace WealthERP.Uploads
                 #region Systematic Standard
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == "WPT")
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else  if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4898,7 +4936,26 @@ namespace WealthERP.Uploads
                 #region Systematic KARVY
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == "KA")
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                           
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4948,7 +5005,33 @@ namespace WealthERP.Uploads
                 #region CAMS Systematic
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeMFSystematic && ddlListCompany.SelectedValue == Contants.UploadExternalTypeCAMS)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            {
+                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
+                                    ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
+
+                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
+                                    ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
+                            }
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5177,14 +5260,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                            for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
-                            {
-                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS")
-                                    ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS";
-
-                                if (ds.Tables[0].Columns[i].ColumnName == "CTD#dbf.TAX_STATUS1")
-                                    ds.Tables[0].Columns[i].ColumnName = "TAX_STATUS1";
-                            }
+                           
 
                         }
                         else
@@ -5453,7 +5529,24 @@ namespace WealthERP.Uploads
                 // Standard Equity Trade Account
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTradeAccount && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPEqProf.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5488,7 +5581,26 @@ namespace WealthERP.Uploads
                 // Standard Equity Trade Account
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                            
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPEqProf.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5535,7 +5647,26 @@ namespace WealthERP.Uploads
                 // Standard Equity Transaction
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeEQTransaction && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                           
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPEqTrans.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5579,7 +5710,26 @@ namespace WealthERP.Uploads
                     DataTable dtIIFL = new DataTable();
                     int ifl = 0;
 
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                           
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else  if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\IIFLEqTrans.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5942,7 +6092,26 @@ namespace WealthERP.Uploads
                 //Standard Profile
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfile && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                           
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\StdProf.xls";
                         FileUpload.SaveAs(Filepath);
@@ -5979,7 +6148,26 @@ namespace WealthERP.Uploads
                 //WERP MF WERP Transaction
                 else if (ddlUploadType.SelectedValue == Contants.ExtractTypeProfileFolio && ddlListCompany.SelectedValue == Contants.UploadExternalTypeStandard)
                 {
-                    if (extension == "xls" || extension == "xlsx")
+                    if (extension == "dbf")
+                    {
+                        string filename = "CTD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                        if (strFileReadError == "")
+                        {
+                           
+
+                        }
+                        else
+                        {
+                            filereadflag = false;
+                            rejectUpload_Flag = true;
+                            reject_reason = strFileReadError;
+                        }
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\WERPMFTans.xls";
                         FileUpload.SaveAs(Filepath);
