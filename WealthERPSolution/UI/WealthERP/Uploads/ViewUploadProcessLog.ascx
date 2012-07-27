@@ -139,14 +139,13 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                     AllowAutomaticInserts="false" ExportSettings-FileName="UPLOAD HISTORY DETAILS"
-                    OnNeedDataSource="gvProcessLog_OnNeedDataSource">
+                    OnItemDataBound="gvProcessLog_ItemDataBound" OnNeedDataSource="gvProcessLog_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="ADUL_ProcessId,WUXFT_XMLFileTypeId,XUET_ExtractTypeCode"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridTemplateColumn AllowFiltering="false">
-                                <ItemStyle />
+                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -169,9 +168,12 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                           <%-- <telerik:GridNumericColumn DataField="ADUL_ProcessId" HeaderText="Process Id" SortExpression="ADUL_ProcessId"
+                                UniqueName="ADUL_ProcessId" FilterControlWidth="40px" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
+                               ShowFilterIcon="false">
+                            </telerik:GridNumericColumn>--%>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="Process Id" UniqueName="ADUL_ProcessId"
-                                SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false">
+                              AllowFiltering="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_FileName" HeaderText="Actual FileName" UniqueName="ADUL_FileName"
@@ -234,6 +236,11 @@
                                 HeaderText="No. of Records Inserted" UniqueName="ADUL_NoOfRecordsInserted">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn Visible="false" UniqueName="lblFiletypeId" DataField="WUXFT_XMLFileTypeId">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFiletypeId" runat="server" Text='<%#Eval("WUXFT_XMLFileTypeId")%>'></asp:Label>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

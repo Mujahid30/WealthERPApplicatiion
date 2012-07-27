@@ -52,6 +52,8 @@ namespace WealthERP.Uploads
         string xmlPath;
         string xmlFileName = string.Empty;
         string configPath;
+      
+
 
         //protected override void OnInit(EventArgs e)
         //{
@@ -117,6 +119,9 @@ namespace WealthERP.Uploads
             {
                 tblReprocess.Visible = false;
                 BindProcessHistoryGrid();
+
+
+
             }
 
         }
@@ -156,29 +161,31 @@ namespace WealthERP.Uploads
             if (getProcessLogDs.Tables[0].Rows.Count > 0)
             {
                 trTransactionMessage.Visible = false;
-                
+
                 getProcessLogDs.Tables[0].Columns.Add("Status");
 
-                
-                foreach(DataRow dr in getProcessLogDs.Tables[0].Rows)
+
+                foreach (DataRow dr in getProcessLogDs.Tables[0].Rows)
                 {
                     if (dr["ADUL_IsXMLConvesionComplete"].ToString() == "Y" &&
                         dr["ADUL_IsInsertionToInputComplete"].ToString() == "Y" &&
                         dr["ADUL_IsInsertionToFirstStagingComplete"].ToString() == "Y" &&
                         dr["ADUL_IsInsertionToSecondStagingComplete"].ToString() == "Y" &&
                         dr["ADUL_IsInsertionToWerpComplete"].ToString() == "Y" &&
-                        dr["ADUL_IsInsertionToXtrnlComplete"].ToString() == "Y")
+                        dr["ADUL_IsInsertionToXtrnlComplete"].ToString() == "Y"
+                        )
                     {
                         //gvProcessLog.Rows[i].Cells[1].Text = "Inserted";//gobinda
-                      
-                        dr["Status"]= "Inserted";
 
-                        
+                        dr["Status"] = "Inserted";
+
+
                     }
                     else
                     {
                         dr["Status"] = "Not Inserted";
                     }
+
                 }
                 gvProcessLog.DataSource = getProcessLogDs.Tables[0];
                 gvProcessLog.DataBind();
@@ -212,6 +219,7 @@ namespace WealthERP.Uploads
                 }
 
             }
+
 
             // this.GetPageCount();
         }
@@ -4276,6 +4284,26 @@ namespace WealthERP.Uploads
             gvProcessLog.ExportSettings.FileName = "Upload History Details";
             gvProcessLog.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvProcessLog.MasterTableView.ExportToExcel();
+        }
+
+        public void gvProcessLog_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = (e.Item as GridDataItem);
+                RadComboBox rcb = new RadComboBox();
+                TemplateColumn tm = new TemplateColumn();
+                Label lbl = new Label();
+                lbl = (Label)e.Item.FindControl("lblFiletypeId");
+                if (lbl.Text == "8" || lbl.Text == "19" || lbl.Text == "10" || lbl.Text == "11")
+                {
+                    rcb = (RadComboBox)e.Item.FindControl("ddlAction");
+                    rcb.Items.FindItemByValue("Manage Rejects").Remove();
+                }
+
+
+            }
+
         }
     }
 }

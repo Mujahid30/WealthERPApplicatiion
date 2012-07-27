@@ -284,5 +284,7 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.HiddenField hdnSort;
 
         protected global::Telerik.Web.UI.RadGrid gvProcessLog;
+
+        protected global::Telerik.Web.UI.RadComboBox ddlAction;
     }
 }
