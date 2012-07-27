@@ -215,6 +215,7 @@ namespace DaoOps
                 db.AddInParameter(LifeInsuranceOrderCmd, "@IsJointlyHeld", DbType.String, lifeInsuranceOrdervo.IsJointlyHeld);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@InsuranceSchemeid", DbType.Int32, lifeInsuranceOrdervo.InsuranceSchemeId);
                 db.AddInParameter(LifeInsuranceOrderCmd, "@AssetCategory", DbType.String, lifeInsuranceOrdervo.AssetCategory);
+                db.AddInParameter(LifeInsuranceOrderCmd, "@AssetGroup", DbType.String, lifeInsuranceOrdervo.AssetGroup);
 
                 db.AddInParameter(LifeInsuranceOrderCmd, "@SourceCode", DbType.String, lifeInsuranceOrdervo.SourceCode);
 
