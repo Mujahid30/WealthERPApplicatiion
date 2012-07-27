@@ -141,6 +141,8 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 trErrorMessage.Visible = true;
+                gvLiabilities.Visible = false;
+                trExportFilteredData.Visible = false;
             }
         }
 

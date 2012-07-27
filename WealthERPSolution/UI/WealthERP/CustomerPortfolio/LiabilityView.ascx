@@ -32,12 +32,25 @@
     </tr>
 </table>
 <table width="100%">
-    <tr>
+ <tr>
+        <td colspan="5">
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Liabilities
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <%--<tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Liabilities"></asp:Label>
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr id="trErrorMessage" align="center" style="width: 100%" runat="server">
         <td align="center" style="width: 100%">
             <div class="failure-msg" style="text-align: center" align="center">
@@ -105,7 +118,7 @@
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="LumpsusmInstallment" DataFormatString="{0:N0}"
-                            AllowFiltering="false" HeaderText="Lumpsum Installment" UniqueName="LumpsusmInstallment"
+                            AllowFiltering="false" HeaderText="Lumpsum/ Installment" UniqueName="LumpsusmInstallment"
                             FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                             <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
