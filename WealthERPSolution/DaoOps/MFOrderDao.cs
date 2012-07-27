@@ -226,10 +226,13 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateMFOrderTrackingCmd = db.GetStoredProcCommand("SP_UpdateCustomerMFOrderDetails");
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, orderVo.OrderId);
-                db.AddInParameter(UpdateMFOrderTrackingCmd, "@customerId", DbType.Int32, orderVo.CustomerId);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@C_CustomerId", DbType.Int32, orderVo.CustomerId);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, mforderVo.SchemePlanCode);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_OrderNumber", DbType.Int32, mforderVo.OrderNumber);
-                db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, mforderVo.CustBankAccId);
+                if (orderVo.CustBankAccId !=0)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, orderVo.CustBankAccId);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, 0);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@AssetGroupCode", DbType.String, orderVo.AssetGroup);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Amount ", DbType.Double, mforderVo.Amount);
               

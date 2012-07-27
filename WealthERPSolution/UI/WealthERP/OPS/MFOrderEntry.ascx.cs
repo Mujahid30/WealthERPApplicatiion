@@ -304,6 +304,8 @@ namespace WealthERP.OPS
                     {
                         ShowTransactionType(2);
                         trScheme.Visible = false;
+                        trFrequencySTP.Visible = false;
+                        trSTPStart.Visible = false;
                     }
                     else if (ddltransType.SelectedValue == "SWP")
                     {
@@ -399,6 +401,7 @@ namespace WealthERP.OPS
                         ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
                     else
                         ddlBankName.SelectedValue = "Select";
+
                     txtBranchName.Text = mforderVo.BranchName;
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
                     txtCorrAdrLine2.Text = mforderVo.AddrLine2;
@@ -499,6 +502,8 @@ namespace WealthERP.OPS
                     {
                         ShowTransactionType(2);
                         trScheme.Visible = false;
+                        trFrequencySTP.Visible = false;
+                        trSTPStart.Visible = false;
                     }
                     else if (ddltransType.SelectedValue == "SWP")
                     {
@@ -1524,6 +1529,7 @@ namespace WealthERP.OPS
             rgvOrderSteps.Enabled = false;
             BindOrderStepsGrid();
             SetEditViewMode(true);
+            btnSubmit.Visible = false;
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
             btnViewReport.Visible = true;
@@ -1611,11 +1617,18 @@ namespace WealthERP.OPS
             {
                 if (ddlBankName.SelectedValue != "Select")
                     orderVo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
+                else
+                    orderVo.CustBankAccId = 0;
             }
             else
                 orderVo.CustBankAccId = 0;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
-                mforderVo.BankName = ddlBankName.SelectedItem.Text;
+            {
+                if (ddlBankName.SelectedValue != "Select")
+                    mforderVo.BankName = ddlBankName.SelectedItem.Text;
+                else
+                    mforderVo.BankName = ""; 
+            }
             else
                 mforderVo.BankName = "";
             if (!string.IsNullOrEmpty(txtBranchName.Text.ToString().Trim()))
@@ -1874,13 +1887,14 @@ namespace WealthERP.OPS
             List<int> OrderIds = new List<int>();
             UpdateMFOrderDetails();
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo);
+            SetEditViewMode(true);
+            btnUpdate.Visible = false;
         }
 
         private void UpdateMFOrderDetails()
         {
             
             //operationVo.CustomerId = int.Parse(txtCustomerId.Value);
-            orderVo.OrderId =(int)Session["CO_OrderId"];
             mforderVo.CustomerName = txtCustomerName.Text;
             if (orderVo.CustomerId != 0)
                 hdnCustomerId.Value = orderVo.CustomerId.ToString();
@@ -1985,11 +1999,21 @@ namespace WealthERP.OPS
             else
                 orderVo.PaymentDate = DateTime.MinValue;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
-                orderVo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
+            {
+                if (ddlBankName.SelectedValue != "Select")
+                    orderVo.CustBankAccId = int.Parse(ddlBankName.SelectedValue);
+                else
+                    orderVo.CustBankAccId = 0;
+            }
             else
                 orderVo.CustBankAccId = 0;
             if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
-                mforderVo.BankName = ddlBankName.SelectedItem.Text;
+            {
+                if (ddlBankName.SelectedValue != "Select")
+                    mforderVo.BankName = ddlBankName.SelectedItem.Text;
+                else
+                    mforderVo.BankName = ""; 
+            }
             else
                 mforderVo.BankName = "";
             if (!string.IsNullOrEmpty(txtBranchName.Text.ToString().Trim()))
@@ -2058,8 +2082,7 @@ namespace WealthERP.OPS
                     mfOrderBo.DeleteMFOrder(orderId);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order has been deleted.');", true);
                     ClearAllFields();
-                    txtCustomerName.Enabled = true;
-                    txtCustomerName.Text = "";
+                    
                     lblGetRM.Text = "";
                     lblGetBranch.Text = "";
                     lblgetPan.Text = "";
@@ -2073,6 +2096,11 @@ namespace WealthERP.OPS
                     btnSubmit.Visible = true;
                     btnAddMore.Visible = true;
                     rgvOrderSteps.Visible = false;
+                    SetEditViewMode(false);
+                    btnImgAddCustomer.Enabled= true;
+                    btnImgAddCustomer.Visible = true;
+                    txtCustomerName.Enabled = true;
+                    txtCustomerName.Text = "";
                     
                 }
 

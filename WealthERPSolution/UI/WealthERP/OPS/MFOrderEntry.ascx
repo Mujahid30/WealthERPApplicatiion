@@ -487,7 +487,7 @@
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 onselectedindexchanged="ddlBankName_SelectedIndexChanged">
             </asp:DropDownList><span id="Span4" class="spnRequiredField">*</span>
-            <asp:ImageButton ID="imgAddBank" ImageUrl="~/Images\Customer_add.png" AlternateText="Add"
+            <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" AlternateText="Add"
                 runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px" ></asp:ImageButton>
         <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
