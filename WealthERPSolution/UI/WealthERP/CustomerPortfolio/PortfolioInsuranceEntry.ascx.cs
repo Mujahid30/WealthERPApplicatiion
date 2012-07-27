@@ -2925,6 +2925,19 @@ namespace WealthERP.CustomerPortfolio
                 txtEPPremiumDuration.Text = NoOfMonths.ToString("f0");
                 // txtOTPremiumDuration.Text = NoOfMonths.ToString("f2");
             }
+            if (txtFirstPremiumDate.Text != "dd/mm/yyyy" && txtFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlEPPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtLastPremiumDate.Text = txtFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtFirstPremiumDate.Text);
+                    ddlEPPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlEPPrPayDate.Enabled = false;
+                    txtLastPremiumDate.Enabled = false;
+                    txtEPPremiumDuration.Enabled = false;
+                    txtEPGracePeriod.Enabled = false;
+                }
+            }
         }
         protected void txtOTLastPremiumDate_TextChanged(object sender, EventArgs e)
         {
@@ -2937,6 +2950,19 @@ namespace WealthERP.CustomerPortfolio
                 double NoOfMonths = (dtTo - dtFrom).TotalDays;
                     //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtOTPremiumDuration.Text = NoOfMonths.ToString("f0");
+            }
+            if (txtOTFirstPremiumDate.Text != "dd/mm/yyyy" && txtOTFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlOTPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtOTLastPremiumDate.Text = txtOTFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtOTFirstPremiumDate.Text);
+                    ddlOTPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlOTPrPayDate.Enabled = false;
+                    txtOTLastPremiumDate.Enabled = false;
+                    txtOTPremiumDuration.Enabled = false;
+                    txtOTGracePeriod.Enabled = false;
+                }
             }
         }
 
@@ -2952,6 +2978,19 @@ namespace WealthERP.CustomerPortfolio
                     //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtWLPPremiumDuration.Text = NoOfMonths.ToString("f0");
             }
+            if (txtWLPFirstPremiumDate.Text != "dd/mm/yyyy" && txtWLPFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlWLPPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtWLPLastPremiumDate.Text = txtWLPFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtWLPFirstPremiumDate.Text);
+                    ddlWLPPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlWLPPrPayDate.Enabled = false;
+                    txtWLPLastPremiumDate.Enabled = false;
+                    txtWLPPremiumDuration.Enabled = false;
+                    txtWLPGracePeriod.Enabled = false;
+                }
+            }
         }
 
         protected void txtMPLastPremiumDate_TextChanged(object sender, EventArgs e)
@@ -2965,6 +3004,19 @@ namespace WealthERP.CustomerPortfolio
                 double NoOfMonths = (dtTo - dtFrom).TotalDays;
                     //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtMPPremiumDuration.Text = NoOfMonths.ToString("f0");
+            }
+            if (txtMPFirstPremiumDate.Text != "dd/mm/yyyy" && txtMPFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlMPPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtMPLastPremiumDate.Text = txtMPFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtMPFirstPremiumDate.Text);
+                    ddlMPPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlMPPrPayDate.Enabled = false;
+                    txtMPLastPremiumDate.Enabled = false;
+                    txtMPPremiumDuration.Enabled = false;
+                    txtMPGracePeriod.Enabled = false;
+                }
             }
         }
 
@@ -2980,6 +3032,19 @@ namespace WealthERP.CustomerPortfolio
                     //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtUlipPremiuimPeriod.Text = NoOfMonths.ToString("f0");
             }
+            if (txtULIPFirstPremiumDate.Text != "dd/mm/yyyy" && txtULIPFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlULIPPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtULIPLastPremiumDate.Text = txtULIPFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtULIPFirstPremiumDate.Text);
+                    ddlULIPPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlULIPPrPayDate.Enabled = false;
+                    txtULIPLastPremiumDate.Enabled = false;
+                    txtUlipPremiuimPeriod.Enabled = false;
+                    txtULIPGracePeriod.Enabled = false;
+                }
+            }
         }
 
         protected void txtTPLastPremiumDate_TextChanged(object sender, EventArgs e)
@@ -2993,6 +3058,19 @@ namespace WealthERP.CustomerPortfolio
                 double NoOfMonths = (dtTo - dtFrom).TotalDays;
                     //dtBo.GetDateRangeNumMonths(dtFrom, dtTo);
                 txtTPPremiumDuration.Text = NoOfMonths.ToString("f0");
+            }
+            if (txtTPFirstPremiumDate.Text != "dd/mm/yyyy" && txtTPFirstPremiumDate.Text != string.Empty)
+            {
+                if (ddlTPPremiumFrequencyCode.SelectedValue == "SP")
+                {
+                    txtTPLastPremiumDate.Text = txtTPFirstPremiumDate.Text;
+                    DateTime dt = DateTime.Parse(txtTPFirstPremiumDate.Text);
+                    ddlTPPrPayDate.SelectedValue = dt.Day.ToString();
+                    ddlTPPrPayDate.Enabled = false;
+                    txtTPLastPremiumDate.Enabled = false;
+                    txtTPPremiumDuration.Enabled = false;
+                    txtTPGracePeriod.Enabled = false;
+                }
             }
         }
 

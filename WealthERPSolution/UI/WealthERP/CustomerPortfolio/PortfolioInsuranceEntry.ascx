@@ -10,13 +10,13 @@
         var DropdownList = document.getElementById('<%=ddlEPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value; 
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlEPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtEPPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtEPGracePeriod.ClientID%>').disabled = 'true';
         }
         else {
-            document.getElementById('<%=txtFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlEPPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtEPPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtEPGracePeriod.ClientID%>').disabled = false;
@@ -27,13 +27,13 @@
         var DropdownList = document.getElementById('<%=ddlMPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtMPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlMPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtMPLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtMPPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtMPGracePeriod.ClientID%>').disabled = 'true';
         }
         else {
-            document.getElementById('<%=txtMPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlMPPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtMPLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtMPPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtMPGracePeriod.ClientID%>').disabled = false;
@@ -44,13 +44,13 @@
         var DropdownList = document.getElementById('<%=ddlTPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtTPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlTPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtTPLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtTPPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtTPGracePeriod.ClientID%>').disabled = 'true';
         }
         else {
-            document.getElementById('<%=txtTPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlTPPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtTPLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtTPPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtTPGracePeriod.ClientID%>').disabled = false;
@@ -60,13 +60,13 @@
         var DropdownList = document.getElementById('<%=ddlWLPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtWLPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlWLPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtWLPLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtWLPPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtWLPGracePeriod.ClientID%>').disabled = 'true';
         }
         else {
-            document.getElementById('<%=txtWLPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlWLPPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtWLPLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtWLPPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtWLPGracePeriod.ClientID%>').disabled = false;
@@ -76,13 +76,13 @@
         var DropdownList = document.getElementById('<%=ddlULIPPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtULIPFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlULIPPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtULIPLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtUlipPremiuimPeriod.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtULIPGracePeriod.ClientID%>').disabled = 'true';
         }
         else {
-            document.getElementById('<%=txtULIPFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlULIPPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtULIPLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtUlipPremiuimPeriod.ClientID%>').disabled = false;
             document.getElementById('<%=txtULIPGracePeriod.ClientID%>').disabled = false;
@@ -93,13 +93,13 @@
         var DropdownList = document.getElementById('<%=ddlOTPremiumFrequencyCode.ClientID %>');
         var SelectedValue = DropdownList.value;
         if (SelectedValue == "SP") {
-            document.getElementById('<%=txtOTFirstPremiumDate.ClientID%>').disabled = 'true';
+            document.getElementById('<%=ddlOTPrPayDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtOTLastPremiumDate.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = 'true';
             document.getElementById('<%=txtOTGracePeriod.ClientID%>').disabled = 'true';
         }
         else{
-            document.getElementById('<%=txtOTFirstPremiumDate.ClientID%>').disabled = false;
+            document.getElementById('<%=ddlOTPrPayDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtOTLastPremiumDate.ClientID%>').disabled = false;
             document.getElementById('<%=txtOTPremiumDuration.ClientID%>').disabled = false;
             document.getElementById('<%=txtOTGracePeriod.ClientID%>').disabled = false;
