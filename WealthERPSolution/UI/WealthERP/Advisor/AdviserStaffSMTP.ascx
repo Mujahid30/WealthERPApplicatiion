@@ -165,7 +165,7 @@
            
         </td>
     </tr>
-      <tr>
+      <%--<tr>
         <td class="leftField">
             <asp:Label ID="Label3" runat="server" Text="Sender Email Alias:" CssClass="FieldName"></asp:Label>
         </td>
@@ -177,9 +177,9 @@
           <%--<asp:RequiredFieldValidator ID="reqtxtSMTPHost" ValidationGroup="btnSave" ControlToValidate="txtSMTPHost"
                 ErrorMessage="Please enter the SMTP Host" Display="Dynamic" runat="server"
                 CssClass="rfvPCG">
-            </asp:RequiredFieldValidator>--%>
+            </asp:RequiredFieldValidator>
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td class="leftField">
             <asp:Label ID="Label5" runat="server" Text="SMTP Authentication Required:" CssClass="FieldName"></asp:Label>

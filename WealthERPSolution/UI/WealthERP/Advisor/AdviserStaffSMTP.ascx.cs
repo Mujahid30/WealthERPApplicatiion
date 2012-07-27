@@ -48,7 +48,7 @@ namespace WealthERP.Advisor
                     txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
                 txtSMTPHost.Text = adviserstaffsmtpvo.HostServer;
                 txtSMTPPort.Text = adviserstaffsmtpvo.Port;
-                txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
+                //txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
                 chkAthenticationRequired.Checked = Convert.ToBoolean(adviserstaffsmtpvo.IsAuthenticationRequired);
             }
 
