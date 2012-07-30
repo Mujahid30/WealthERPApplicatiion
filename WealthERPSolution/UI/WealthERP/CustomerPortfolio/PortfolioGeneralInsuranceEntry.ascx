@@ -249,39 +249,29 @@
     }
 
 </script>
-
-<table style="width: 100%;">
+<table width="100%">
     <tr>
-        <td colspan="6">
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr>
-                        <td align="left">
-                            General Insurance Add Screen
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <td>
+        <div class="divPageHeading">
+            <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">
+                        General Insurance Add Screen
+                    </td>
+                    <td align="right">
+                        <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                            OnClick="lnkBtnBack_Click"></asp:LinkButton> &nbsp;&nbsp;
+                        <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
+                            OnClick="lnkBtnEdit_Click"></asp:LinkButton> &nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
         </td>
     </tr>
-    <%--<tr>
-        <td colspan="6" class="tdRequiredText">
-            <label id="lbl" class="lblRequiredText">
-                Note: Fields marked with ' * ' are compulsory</label>
-        </td>
-    </tr>--%>
-    <tr id="trlnkBtnBack" runat="server">
-        <td colspan="6" class="style4">
-            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
-                OnClick="lnkBtnBack_Click"></asp:LinkButton>
-        </td>
-    </tr>
-    <tr id="trlnkBtnEdit" runat="server">
-        <td colspan="6" class="style5">
-            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
-                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
-        </td>
-    </tr>
+</table>
+
+<table style="width: 100%;">    
     <tr>
         <td align="right" style="width: 22%">
             <asp:Label ID="lblAssetCategory" runat="server" Text="Asset Category:" CssClass="FieldName"></asp:Label>
@@ -320,94 +310,86 @@
             </div>
         </td>
     </tr>
-    <asp:UpdatePanel runat="server" ID="uxUpdatePanel" UpdateMode="Conditional" ChildrenAsTriggers="true">
-      <%--  <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="ddlPolicyIssuer" EventName="SelectedIndexChanged" />
-        </Triggers>--%>
-        <ContentTemplate>
-            <fieldset>
-            <%--    <legend>UpdatePanel</legend>--%>
-                <tr>
-                    <td align="right" style="width: 22%">
-                        <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 22%">
-                        <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" CssClass="cmbField"
-                            OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
-                            <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                        </asp:DropDownList>
-                        <span id="span1" class="spnRequiredField">*</span>
-                        <asp:CompareValidator ID="cv_ddlPolicyIssuer" runat="server" ErrorMessage="<br />Please select an Insurance Issuer"
-                            ControlToValidate="ddlPolicyIssuer" Operator="NotEqual" ValueToCompare="Select"
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
-                        <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
-                            ControlToValidate="ddlPolicyIssuer" Operator="NotEqual" ValueToCompare="Select"
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnAddScheme"></asp:CompareValidator>
-                    </td>
-                    <td colspan="4" style="width: 56%">
-                        &nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" style="width: 22%">
-                        <asp:Label ID="lblPolicyParticular" runat="server" Text="Scheme Name:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td align="left" align="right" style="width: 22%">
-                        <asp:DropDownList ID="txtPolicyParticular" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
-                        <span id="span5" class="spnRequiredField">*</span>
-                        <%--  <asp:Button ID="btnAddScheme" runat="server" Text="++" OnClick="btnAddScheme_OnClick"
-                ValidationGroup="btnAddScheme"  />--%>
-                        <asp:ImageButton ID="btnAddScheme" ImageUrl="../Images/Export_Pdf.gif" runat="server"
-                            OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme" />
-                        <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
-                            ControlToValidate="txtPolicyParticular" Operator="NotEqual" ValueToCompare="Select"
-                            Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
-                    </td>
-                    <td colspan="3" style="width: 56%">
-                        <telerik:RadWindow ID="radwindowPopup" runat="server" Height="30%" Width="500px"
-                            Modal="true" BackColor="#DADADA" VisibleOnPageLoad="false" Top="10px" Left="20px"
-                            VisibleStatusbar="false" Behaviors="None" Title="Insert New Scheme">
-                            <ContentTemplate>
-                                <div style="padding: 20px">
-                                    <table width="100%">
-                                        <tr>
-                                            <td class="leftField" style="width: 10%">
-                                                <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
-                                            </td>
-                                            <td class="rightField" style="width: 25%">
-                                                <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="leftField" style="width: 10%">
-                                                <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
-                                            </td>
-                                            <td class="rightField" style="width: 25%">
-                                                <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox><br />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="leftField" style="width: 10%">
-                                                <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" CausesValidation="false"
-                                                    OnClick="btnInsertNewScheme_Click" />
-                                                <%--<asp:Button ID="Button3" runat="server" Text="Ok" CssClass="PCGButton" CausesValidation="false" OnClick="btnInsertAsset_Click" />--%>
-                                            </td>
-                                            <td class="rightField" style="width: 25%">
-                                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
-                                                    OnClick="btnCancel_Click" />
-                                                <%--<asp:Button ID="Button4" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false" OnClick="btnCancel4_Click" />--%>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </ContentTemplate>
-                        </telerik:RadWindow>
-                    </td>
-                </tr>
-            </fieldset>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+
+    <tr>
+        <td align="right" style="width: 22%">
+            <asp:Label ID="lblPolicyIssuer" runat="server" Text="Policy Issuer:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 22%" colspan="2">
+            <asp:DropDownList ID="ddlPolicyIssuer" CausesValidation="true" runat="server" CssClass="cmbField" Width="80%"
+                OnSelectedIndexChanged="ddlPolicyIssuer_OnSelectedIndexChanged" AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+            </asp:DropDownList>
+            <span id="span1" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="cv_ddlPolicyIssuer" runat="server" ErrorMessage="<br />Please select an Insurance Issuer"
+                ControlToValidate="ddlPolicyIssuer" Operator="NotEqual" ValueToCompare="Select"
+                Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
+                ControlToValidate="ddlPolicyIssuer" Operator="NotEqual" ValueToCompare="Select"
+                Display="Dynamic" CssClass="cvPCG" ValidationGroup="btnAddScheme"></asp:CompareValidator>
+        </td>
+        <td colspan="3" style="width: 56%">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td align="right" style="width: 22%">
+            <asp:Label ID="lblPolicyParticular" runat="server" Text="Scheme Name:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" align="right" style="width: 22%" colspan="2">
+            <asp:DropDownList ID="txtPolicyParticular" runat="server" CssClass="cmbField" Width="80%">
+            </asp:DropDownList>
+            <span id="span5" class="spnRequiredField">*</span>
+            <%--  <asp:Button ID="btnAddScheme" runat="server" Text="++" OnClick="btnAddScheme_OnClick"
+    ValidationGroup="btnAddScheme"  />--%>
+            <asp:ImageButton ID="btnAddScheme" ImageUrl="~/App_Themes/Maroon/Images/user_add.png" runat="server"
+                OnClick="btnAddScheme_OnClick" ValidationGroup="btnAddScheme" Height="3.2%" Width="3.2%"/>
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="<br />Please select a Scheme Name:"
+                ControlToValidate="txtPolicyParticular" Operator="NotEqual" ValueToCompare="Select"
+                Display="Dynamic" CssClass="cvPCG" ValidationGroup="buttonSubmit"></asp:CompareValidator>
+        </td>
+        <td colspan="2" style="width: 56%">
+            <telerik:RadWindow ID="radwindowPopup" runat="server" Height="30%" Width="500px"
+                Modal="true" BackColor="#DADADA" VisibleOnPageLoad="false" Top="10px" Left="20px"
+                VisibleStatusbar="false" Behaviors="None" Title="Insert New Scheme">
+                <ContentTemplate>
+                    <div style="padding: 20px">
+                        <table width="100%">
+                            <tr>
+                                <td class="leftField" style="width: 10%">
+                                    <asp:Label ID="lblIssuar" runat="server" Text="Insurance Issuar: " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField" style="width: 25%">
+                                    <asp:Label ID="lblIssuarCode" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField" style="width: 10%">
+                                    <asp:Label ID="lblAsset" runat="server" Text="Asset Particulars: " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td class="rightField" style="width: 25%">
+                                    <asp:TextBox ID="txtAsset" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="leftField" style="width: 10%">
+                                    <asp:Button ID="btnOk" runat="server" Text="OK" CssClass="PCGButton" CausesValidation="false"
+                                        OnClick="btnInsertNewScheme_Click" />
+                                    <%--<asp:Button ID="Button3" runat="server" Text="Ok" CssClass="PCGButton" CausesValidation="false" OnClick="btnInsertAsset_Click" />--%>
+                                </td>
+                                <td class="rightField" style="width: 25%">
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
+                                        OnClick="btnCancel_Click" />
+                                    <%--<asp:Button ID="Button4" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false" OnClick="btnCancel4_Click" />--%>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </ContentTemplate>
+            </telerik:RadWindow>
+        </td>
+    </tr>
+            
     <tr>
         <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
             <div class="divSectionHeading" style="vertical-align: text-bottom">

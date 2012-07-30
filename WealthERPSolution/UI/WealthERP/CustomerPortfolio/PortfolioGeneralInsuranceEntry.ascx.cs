@@ -70,8 +70,8 @@ namespace WealthERP.CustomerPortfolio
                 txtPolicyNumber.Text = ViewState["policyNumber"].ToString();
 
                 trAssetGroup.Visible = false;
-                trlnkBtnBack.Visible = false;
-                trlnkBtnEdit.Visible = false;
+                lnkBtnBack.Visible = false;
+                lnkBtnEdit.Visible = false;                
                 LoadNominees();
                 DisplayAssetCategory();
 
@@ -120,7 +120,7 @@ namespace WealthERP.CustomerPortfolio
                     insuranceId = int.Parse(Session["insuranceId"].ToString());
                     action = Session["action"].ToString();
                 }
-                txtPolicyParticular.Items.Insert(0, new ListItem("Select", "Select"));
+                txtPolicyParticular.Items.Insert(0, new ListItem("Select", "Select"));               
             }
 
             if (action == "View")
@@ -149,7 +149,7 @@ namespace WealthERP.CustomerPortfolio
                 // hideControlsForViewAndEdit();
                 btnSubmit.Text = "Update";
                 btnAssetShow.Visible = true;
-                trlnkBtnEdit.Visible = false;
+                lnkBtnEdit.Visible = false;
                 //ddlPeriodSelection.Visible = true;
                 SetControls();
             }
@@ -160,8 +160,6 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 hideHealthInsuranceFields();
-
-
         }
 
         protected void hideControlsForViewAndEdit()
@@ -1216,7 +1214,7 @@ namespace WealthERP.CustomerPortfolio
             btnSubmit.Text = "Update";
             btnSubmit.Visible = true;
             btnAssetShow.Visible = true;
-            trlnkBtnEdit.Visible = false;
+            lnkBtnEdit.Visible = false;
             txtAssetCategory.Enabled = false;
             txtAssetSubCategory.Enabled = false;
             txtPolicyNumber.Enabled = false;
@@ -1369,7 +1367,25 @@ namespace WealthERP.CustomerPortfolio
         //    //Session["action"] = null;
         //    //Session["insuranceId"] = null;
         //}
-        
 
+        protected void rdoGroupPolicyNo_Load(object sender, EventArgs e)
+        {
+            if (rdoGroupPolicyNo.Checked)
+            {
+                gvNominees.Visible = false;
+            }
+        }
+
+        protected void RadioButton_CheckChanged(object sender, EventArgs e)
+        {
+            if (rdoGroupPolicyYes.Checked)
+            {                
+                gvNominees.Visible = true;
+            }
+            else if (rdoGroupPolicyNo.Checked)
+            {
+                gvNominees.Visible = false;
+            }
+        }
     }
 }
