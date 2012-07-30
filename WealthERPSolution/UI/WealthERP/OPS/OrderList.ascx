@@ -31,16 +31,21 @@
     }
 </script>
 
-
-<div class="divPageHeading">
-<table cellspacing="0" cellpadding="3" width="100%">
+<table width="100%">
     <tr>
-        <td align="left">
-            <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Order List"></asp:Label>
+        <td>
+            <div class="divPageHeading">
+            <table cellspacing="0" cellpadding="3" width="100%">
+                <tr>
+                    <td align="left">
+                        <asp:Label ID="lblOrderList" runat="server" CssClass="HeaderTextBig" Text="Order List"></asp:Label>
+                    </td>
+                </tr>
+            </table>
+            </div>
         </td>
     </tr>
 </table>
-</div>
         
 <table width="80%" onkeypress="return keyPress(this, event)">
     <tr>
