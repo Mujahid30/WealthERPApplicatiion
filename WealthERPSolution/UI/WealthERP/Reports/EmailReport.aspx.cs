@@ -828,6 +828,7 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
                         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
                         DataTable dtReturnsPortfolio = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        dtReturnsPortfolio.Columns.Add("FolioStartDate");
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         dtPortfolioXIRR = GetAbsolutereturnToXIRRDt(dtPortfolioXIRR, dtReturnsPortfolio);
 
