@@ -780,6 +780,8 @@ namespace WealthERP.General
                 if (userVo != null && userVo.UserType == "SuperAdmin")
                 {
                     advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                    Session["advisorVo"] = advisorVo;
+                    Session["UserId"] = userVo.UserId;
                     Session["role"] = "SUPER_ADMIN";
                     Session["UserVo"] = userVo;
                     Session["SuperAdminRetain"] = userVo;
