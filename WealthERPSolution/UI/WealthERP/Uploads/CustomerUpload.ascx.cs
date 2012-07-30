@@ -24,7 +24,8 @@ using BoCommon;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Globalization;
-
+using System.Text;
+using System.Security.Cryptography;
 
 
 namespace WealthERP.Uploads
@@ -4473,7 +4474,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                          
+
 
                         }
                         else
@@ -4528,7 +4529,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                            
+
 
                         }
                         else
@@ -4538,7 +4539,7 @@ namespace WealthERP.Uploads
                             reject_reason = strFileReadError;
                         }
                     }
-                    else  if (extension == "xls" || extension == "xlsx")
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\CAMSSystamaticXls.xls";
                         FileUpload.SaveAs(Filepath);
@@ -4945,7 +4946,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -5260,7 +5261,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -5590,7 +5591,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                            
+
 
                         }
                         else
@@ -5656,7 +5657,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -5719,7 +5720,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -5729,7 +5730,7 @@ namespace WealthERP.Uploads
                             reject_reason = strFileReadError;
                         }
                     }
-                    else  if (extension == "xls" || extension == "xlsx")
+                    else if (extension == "xls" || extension == "xlsx")
                     {
                         string Filepath = Server.MapPath("UploadFiles") + "\\IIFLEqTrans.xls";
                         FileUpload.SaveAs(Filepath);
@@ -6101,7 +6102,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -6157,7 +6158,7 @@ namespace WealthERP.Uploads
                         ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
                         if (strFileReadError == "")
                         {
-                           
+
 
                         }
                         else
@@ -6827,6 +6828,23 @@ namespace WealthERP.Uploads
             lblFileType.Visible = true;
             lblFileType.Text = "Please use the &nbsp;" + message + "&nbsp; File provided by the R&T to Upload.";
         }
+
+        #region GUID CREATION
+
+        protected void btnGenerateGuid_OnClick(object sender, EventArgs e)
+        {
+            GenerateGUID();
+        }
+
+
+        public void GenerateGUID()
+        {
+            string strGUID = string.Empty;
+            strGUID= System.Guid.NewGuid().ToString();
+            lblGUID.Text = strGUID;
+        }
+
+        #endregion
 
     }
 }
